@@ -1,0 +1,626 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:02.666
+So, it's time to
+
+2
+00:00:02.666 --> 00:00:08.000
+start talking about Unreels Player Controller! In this video, we'll talk
+
+3
+00:00:08.000 --> 00:00:12.000
+about the fact that we've used... Well, I'm talking about it now! [Laughs] ... the fact that we've used GetOwner() to
+
+4
+00:00:12.000 --> 00:00:16.000
+search bottom-up. Basically, we've gone from a component to the door.
+
+5
+00:00:16.000 --> 00:00:20.000
+For example, the open door has gone up and look above it and said, well I'm part of a door.
+
+6
+00:00:20.000 --> 00:00:24.000
+Now, let's use GetWorld() to search top-down. Let's start at the game world and go
+
+7
+00:00:24.000 --> 00:00:28.000
+down to what we need. We're going to see that it's Game Mode
+
+8
+00:00:28.000 --> 00:00:32.000
+specifics the Default Pawn Class. Why does this thing called Default Pawn even appear,
+
+9
+00:00:32.000 --> 00:00:36.000
+when we start? That's specified in the Game Mode. We're not going to play with that particularly.
+
+10
+00:00:36.000 --> 00:00:40.000
+But you do need to know that the Default Pawn is your body, basically. We're using a Default Pawn as the body,
+
+11
+00:00:40.000 --> 00:00:44.000
+and it's transient, the body might disappear while the game is playing. But does a Player
+
+12
+00:00:44.000 --> 00:00:48.000
+Controller, when you start playing the game another one of these temporary actors.... And that's your mind
+
+13
+00:00:48.000 --> 00:00:52.000
+and that will persist even if your body disappears. This all sounds very metaphysical
+
+14
+00:00:52.000 --> 00:00:56.000
+right now. And the Player Controller class has a method called Get Pawn, so the
+
+15
+00:00:56.000 --> 00:01:00.000
+way that we're going to get to the pawn we're looking for is, we're going to GetWorld(), we're going to find the Player Controller,
+
+16
+00:01:00.000 --> 00:01:04.000
+then, we're going to GetPawn() on that. By the end of it, you'll be able to just walk over that pressure pad and open
+
+17
+00:01:04.000 --> 00:01:08.000
+the doors, without having to Stop and Eject yourself and all that rubbish that we did, in order to
+
+18
+00:01:08.000 --> 00:01:12.000
+see the nuts and bolts. So, I'll see you in there! OK, so how are we
+
+19
+00:01:12.000 --> 00:01:16.000
+going to make this happen? We've got our pressure plate area here, and the challenge we have, of
+
+20
+00:01:16.000 --> 00:01:20.000
+course, is that the player, well the Default Pawn here,
+
+21
+00:01:20.000 --> 00:01:24.000
+is only instantiated when we start playing the game. If we Eject, then we're kind of taking
+
+22
+00:01:24.000 --> 00:01:28.000
+the mind out of the body, if you like. The Pawn here is the body, and now our mind is
+
+23
+00:01:28.000 --> 00:01:32.000
+drifting around, observing ourselves from the outside, which is kind of fun!
+
+24
+00:01:32.000 --> 00:01:36.000
+The challenge is, of course, we need the code to be able to find this thing in the scene. How do we do
+
+25
+00:01:36.000 --> 00:01:40.000
+that? So, let's break it down! The first thing is, if you go to Settings
+
+26
+00:01:40.000 --> 00:01:44.000
+and Project Settings, you'll find under Maps & Modes that
+
+27
+00:01:44.000 --> 00:01:48.000
+we have something here called the Default Game Mode. It's set itself to BuildingEscapeGame,
+
+28
+00:01:48.000 --> 00:01:52.000
+just game mode, because that's what we called our project Building Escape.
+
+29
+00:01:52.000 --> 00:01:56.000
+And it's got things here, Default Pawn class, etc. They're not directly editable.
+
+30
+00:01:56.000 --> 00:02:00.000
+We won't worry about editing them right now, but the reason that the thing
+
+31
+00:02:00.000 --> 00:02:04.000
+that instantiates, when we play the game, is called Default Pawn, the body that appears for us
+
+32
+00:02:04.000 --> 00:02:08.000
+is because that's what we've got set as the Pawn Class. So, we play, the game
+
+33
+00:02:08.000 --> 00:02:12.000
+goes OK let's make ourselves a Default Pawn! There's also a Default
+
+34
+00:02:12.000 --> 00:02:16.000
+Player Controller going on in here. Now, it's not listed
+
+35
+00:02:16.000 --> 00:02:20.000
+as a... Well it is actually! Here it is, PlayerController3!
+
+36
+00:02:20.000 --> 00:02:24.000
+Alright, so the PlayerController is the mind and the
+
+37
+00:02:24.000 --> 00:02:28.000
+Pawn is the body, but it's the body that we want to interact with this
+
+38
+00:02:28.000 --> 00:02:32.000
+volume, so we need to go find the body. How do we do that? How do we find the Pawn at runtime?
+
+39
+00:02:32.000 --> 00:02:36.000
+Alirght, so up to now we have been finding things by
+
+40
+00:02:36.000 --> 00:02:40.000
+going upwards, by bottom-up search. By that I mean, if we click on the
+
+41
+00:02:40.000 --> 00:02:44.800
+door and then we look at the component that we put on the OpenDoor component. We have been
+
+42
+00:02:44.800 --> 00:02:48.000
+searching upwards saying what's my owner, what's the door by saying Get
+
+43
+00:02:48.000 --> 00:02:52.000
+Owner(). Well, now we're going to search down. From the world as a whole, we're going to find
+
+44
+00:02:52.000 --> 00:02:56.000
+from the world the Player Controller, which only comes into
+
+45
+00:02:56.000 --> 00:03:00.000
+action, once the game is playing. We have the PlayerController, and from the Player
+
+46
+00:03:00.000 --> 00:03:04.000
+Controller we can say, what is the pawn that I am
+
+47
+00:03:04.000 --> 00:03:08.000
+controlling? Remember that as we Eject, think of the pawn as the body
+
+48
+00:03:08.000 --> 00:03:12.000
+and the PlayerController as the mind. So let's go look at how we do that
+
+49
+00:03:12.000 --> 00:03:16.000
+over in the codes. I'm going to open up our code here.
+
+50
+00:03:16.000 --> 00:03:20.000
+And it's a relatively simple job we've got here. The difficulty is knowing
+
+51
+00:03:20.000 --> 00:03:24.000
+what you would type. How would you know what to do? So, let's recap what OpenDoor()
+
+52
+00:03:24.000 --> 00:03:28.000
+is doing. At the moment, we are in BeginPlay() not doing
+
+53
+00:03:28.000 --> 00:03:32.000
+anything anymore, and we have exposed, of course, the Actor that
+
+54
+00:03:32.000 --> 00:03:36.000
+opens as an editable property over in the blueprints. Well, I'm actually going to take off
+
+55
+00:03:36.000 --> 00:03:40.000
+the UPROPERTY now, so that it is no longer in the Inspector. I'm not going to compile
+
+56
+00:03:40.000 --> 00:03:44.000
+but if I had compiled, this Actor that opens would disappear. We're taking that
+
+57
+00:03:44.000 --> 00:03:48.000
+functionality away, for the moment. We can always add it back if we want
+
+58
+00:03:48.000 --> 00:03:52.000
+to later. Just so that we're very clear on how ActorThatOpens
+
+59
+00:03:52.000 --> 00:03:56.000
+is getting set. Go to the C++ file. What we need to do in
+
+60
+00:03:56.000 --> 00:04:00.000
+BeginPlay()... So play has actually begun, so the PlayerController exists. Is we need to
+
+61
+00:04:00.000 --> 00:04:04.000
+start finding the PlayerController, this is how we do it. We go GetWorld(),
+
+62
+00:04:04.000 --> 00:04:08.000
+it's a method, and we need the arrow operator. You'll see why in a second.
+
+63
+00:04:08.000 --> 00:04:12.000
+So, let's just let the Visual Studio catch up with itself here.
+
+64
+00:04:12.000 --> 00:04:16.000
+If we go GetWorld() and if we hover over
+
+65
+00:04:16.000 --> 00:04:20.000
+GetWorld(), of course, what does it return us? Well, it's going to turn us a pointer to a world.
+
+66
+00:04:20.000 --> 00:04:24.000
+Because it's a pointer, World * there. In the pop-up, we know that we need an arrow
+
+67
+00:04:24.000 --> 00:04:28.000
+operator. What do you get from there? Well, you could start
+
+68
+00:04:28.000 --> 00:04:32.000
+looking for pawn or you could start looking for getpawn, for example.
+
+69
+00:04:32.000 --> 00:04:36.000
+You won't find it. OK, you're going to get the number of Pawns and some
+
+70
+00:04:36.000 --> 00:04:40.000
+Pawn iterator, but what you can get directly from the world, is you can
+
+71
+00:04:40.000 --> 00:04:44.000
+get the PlayerController, specifically the first PlayerController.
+
+72
+00:04:44.000 --> 00:04:48.000
+Look what it returns, it returns a PlayerController or pointer to one. It returns
+
+73
+00:04:48.000 --> 00:04:52.000
+the first PlayerController or null if there isn't one. Well, there will be a PlayerController, that automatically
+
+74
+00:04:52.000 --> 00:04:56.000
+comes into your game. The PlayerController is the link between the
+
+75
+00:04:56.000 --> 00:05:00.000
+Pawn and the intentions of the person, of the gamer, using the machine if you like.
+
+76
+00:05:00.000 --> 00:05:04.000
+So we are going to get the first PlayerController that
+
+77
+00:05:04.000 --> 00:05:08.000
+exists, in this case the only PlayerController, and from there, we can directly get the...
+
+78
+00:05:08.000 --> 00:05:12.000
+Oops... We can directly get the Pawn in question.
+
+79
+00:05:12.000 --> 00:05:16.000
+Now, what does that return? It returns a pointer to a Pawn. Is that
+
+80
+00:05:16.000 --> 00:05:20.000
+OK? Is it OK to try to install a pointer to a Pawn, in
+
+81
+00:05:20.000 --> 00:05:24.000
+ActorThatOpens, which is
+
+82
+00:05:24.000 --> 00:05:28.000
+a pointer to an AActor*? Well it is because Pawn inherits
+
+83
+00:05:28.000 --> 00:05:32.000
+from Actor. A Pawn is a. Remember we talked about "is a" and "has a"
+
+84
+00:05:32.000 --> 00:05:36.000
+relationships? A Pawn "is a" Actor. We go over to Unreal,
+
+85
+00:05:36.000 --> 00:05:40.000
+we have a look at Window, Developer Tools, Class
+
+86
+00:05:40.000 --> 00:05:44.000
+Viewer, and we remind ourselves that we go from Actor down into
+
+87
+00:05:44.000 --> 00:05:48.000
+Pawn. So, a Pawn "is a" Actor! Because a Pawn is
+
+88
+00:05:48.000 --> 00:05:52.000
+a Actor, it's perfectly valid here to send a Pawn, which is the result
+
+89
+00:05:52.000 --> 00:05:56.000
+of this long statement here, into an Actor. OK,
+
+90
+00:05:56.000 --> 00:06:00.000
+so that should find the ActorThatOpens first. Let's try it! Let's
+
+91
+00:06:00.000 --> 00:06:04.000
+build the game and see how we do. What do we do while it compiles?
+
+92
+00:06:04.000 --> 00:06:08.000
+[Sings] We go skippity beepy dee, skippity beepy do, or something. What I
+
+93
+00:06:08.000 --> 00:06:13.233
+tend to do is look down on the bottom-right here and just see how the output is going and just kind of cross my fingers, that nothing is going to fail.
+
+94
+00:06:13.233 --> 00:06:17.233
+So, just before you hit play, I want to make you aware of something. If you've, at some
+
+95
+00:06:17.233 --> 00:06:21.233
+point, selected that Simulated Button you can see there. You see to the right of Play there's a little
+
+96
+00:06:21.233 --> 00:06:25.233
+drop-down arrow, and then you've got a few different modes of play. We want to be in
+
+97
+00:06:25.233 --> 00:06:29.233
+Selected Viewport Mode, not in Simulate Mode. If you're in
+
+98
+00:06:29.233 --> 00:06:33.233
+Simulate Mode, you won't actually possess the Default Pawn and therefore
+
+99
+00:06:33.233 --> 00:06:37.233
+what we're about to do won't work properly. So, just be aware of which Play Mode you're in. If you've got
+
+100
+00:06:37.233 --> 00:06:41.233
+a cog behind your Play Button, you need to just click the arrow to the right of it, and then,
+
+101
+00:06:41.233 --> 00:06:44.633
+select there what I've got in yellow, Selected Viewport.
+
+102
+00:06:44.633 --> 00:06:48.633
+OK, so here we go! Let' play! Now, before I even test it, I'm going to Eject immediately, take the
+
+103
+00:06:48.633 --> 00:06:52.633
+mind out of the body. Let's have a look at the Pawn, it's called DefaultPawn5.
+
+104
+00:06:52.633 --> 00:06:56.633
+Now, I'm going to look over at a door, I'm going to look at the OpenDoor,
+
+105
+00:06:56.633 --> 00:07:00.633
+and of course, I can no longer inspect it because I made the thing
+
+106
+00:07:00.633 --> 00:07:04.633
+not visible. So, let's just test and then I might actually put a read
+
+107
+00:07:04.633 --> 00:07:08.633
+only inspectability back. Oh, it's opened that door! That's cool, so it is working!
+
+108
+00:07:08.633 --> 00:07:12.633
+So, I don't even need to actually make it a read only property, that Pawn, because we
+
+109
+00:07:12.633 --> 00:07:16.633
+know that it's worked. We can see that it's worked there, but the other door doesn't work
+
+110
+00:07:16.633 --> 00:07:20.633
+and that's simply because it's not moveable. If I make the door moveable, it will
+
+111
+00:07:20.633 --> 00:07:24.633
+work. Cool, so that's pretty good stuff
+
+112
+00:07:24.633 --> 00:07:28.633
+right! So, what I want you to do now is to finish your pressure plates. You've got a whole process of
+
+113
+00:07:28.633 --> 00:07:32.633
+pressure plates now. When you do adjust the size and position of your trigger volumes, link to
+
+114
+00:07:32.633 --> 00:07:36.633
+the appropriate doors, ensure all doors are moveable, and
+
+115
+00:07:36.633 --> 00:07:40.633
+briefly test the gameplay. So go ahead, pause the video, and make use of this ability to use
+
+116
+00:07:40.633 --> 00:07:44.633
+pressure plates, right now.
+
+117
+00:07:44.633 --> 00:07:48.633
+Welcome back! So thinking about the gameplay of my little bit of game here, I'm
+
+118
+00:07:48.633 --> 00:07:52.633
+just going to let this evolve organically as we go. And I think I'm going to stick with
+
+119
+00:07:52.633 --> 00:07:56.633
+what I've got here actually, which is that I go over this pressure plate, the doors open, but when I try and
+
+120
+00:07:56.633 --> 00:08:00.633
+get to them, they need to close. So, one thing we're going to need to
+
+121
+00:08:00.633 --> 00:08:04.633
+have is a delay. OK, so it's all very well that they open. Escaping the room
+
+122
+00:08:04.633 --> 00:08:08.633
+is rather too easy right now. So, I think what we're going to deal with next is the ability to delay
+
+123
+00:08:08.633 --> 00:08:12.633
+the closure of those doors and expose that delay to a designer,
+
+124
+00:08:12.633 --> 00:08:16.633
+so that the designer can say, you stand on the pressure plate, the doors open, but
+
+125
+00:08:16.633 --> 00:08:20.633
+how quickly do they close. So we can end up with a really frustrating situation where they open, we think
+
+126
+00:08:20.633 --> 00:08:24.633
+we're home free, but they close in our face. That can lead
+
+127
+00:08:24.633 --> 00:08:28.633
+to various other things like, maybe later we move the chair over the pressure plate or something.
+
+128
+00:08:28.633 --> 00:08:32.633
+OK, so lots to be done, which is pretty cool. Let's just quickly
+
+129
+00:08:32.633 --> 00:08:36.633
+recap how we've done this. We've said that in order to find the
+
+130
+00:08:36.633 --> 00:08:40.633
+Default Pawn we've gone to the world, we've gone top-down. We've looked for the PlayerController
+
+131
+00:08:40.633 --> 00:08:44.633
+that we know is there, every time you play the game, and then, we've gone and got the Pawn
+
+132
+00:08:44.633 --> 00:08:48.633
+from the first PlayerController that we find. Why would we ever have more than one? Well, it could be a multi-
+
+133
+00:08:48.633 --> 00:08:52.633
+player game. You may have a multi-player game, basically.
+
+134
+00:08:52.633 --> 00:08:56.633
+So that's all pretty cool! I'm just going to go over to my Source Control now and make a commit
+
+135
+00:08:56.633 --> 00:09:00.633
+and maybe talk to you, very briefly, about an extra Source Control thing that we may not have covered.
+
+136
+00:09:00.633 --> 00:09:04.633
+So, I'm going to close both Unreal itself and
+
+137
+00:09:04.633 --> 00:09:08.633
+Visual Studio, making sure I save everything as I go.
+
+138
+00:09:08.633 --> 00:09:12.633
+Look at my untitled changes. Now look, this .suo file is still here,
+
+139
+00:09:12.633 --> 00:09:16.633
+and it's kind of getting in the way and annoying me. Why is it here, when I
+
+140
+00:09:16.633 --> 00:09:20.633
+have already ignored it? You see it's in my ignore.suo. The reason
+
+141
+00:09:20.633 --> 00:09:24.633
+is, once something is being tracked by Source Control it will not go unless you
+
+142
+00:09:24.633 --> 00:09:28.633
+move it. OK, so we need to stop tracking that. Very easy to do here
+
+143
+00:09:28.633 --> 00:09:32.633
+in Source Tree, right-click and Stop Tracking will do the job. There is a way
+
+144
+00:09:32.633 --> 00:09:36.633
+in the Terminal for those Terminal people as well. You could get rm
+
+145
+00:09:36.633 --> 00:09:40.633
+*.suo which is saying, remove anything
+
+146
+00:09:40.633 --> 00:09:44.633
+with the extension .suo. It'll go through, find the .suo, but tell me I need
+
+147
+00:09:44.633 --> 00:09:48.633
+to use a force, so I could go Up Arrow to get that command back and go
+
+148
+00:09:48.633 --> 00:09:52.633
+-f. And after all that, if we come back here and let it update, this
+
+149
+00:09:52.633 --> 00:09:56.633
+.suo is now being removed from Source Control as part of this commit, and these
+
+150
+00:09:56.633 --> 00:10:00.633
+other files are being modified. So red means removed, this one, yellow,
+
+151
+00:10:00.633 --> 00:10:04.633
+means modified, and then, the green would mean a new file. So, we haven't actually added anything.
+
+152
+00:10:04.633 --> 00:10:08.633
+What we have done is make a couple of adjustments to the map, that is probably where we made those doors moveable,
+
+153
+00:10:08.633 --> 00:10:12.633
+and then, we've added just the line that we talked about. And
+
+154
+00:10:12.633 --> 00:10:16.633
+we've removed the ability to edit this thing in the
+
+155
+00:10:16.633 --> 00:10:20.633
+Details panel, because we don't want to be confusing about who's in
+
+156
+00:10:20.633 --> 00:10:27.366
+control of what Actor can open the door. So that's it! Congratulations getting this far, we'll see you soon!
+

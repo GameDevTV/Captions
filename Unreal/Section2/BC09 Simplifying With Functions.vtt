@@ -1,0 +1,670 @@
+WEBVTT
+
+1
+00:00:02.933 --> 00:00:06.933
+So, welcome to Simplifying with Functions!
+
+2
+00:00:06.933 --> 00:00:10.933
+In this video, we are going to talk about
+
+3
+00:00:10.933 --> 00:00:14.933
+the fact that programming is all about managing complexity, and we want
+
+4
+00:00:14.933 --> 00:00:18.933
+to think about as few things at a time as possible. We'll talk about the idea of
+
+5
+00:00:18.933 --> 00:00:22.933
+abstraction and encapsulation. We'll discuss how
+
+6
+00:00:22.933 --> 00:00:26.933
+functions help us simplify things. You'll write and call your own functions.
+
+7
+00:00:26.933 --> 00:00:30.933
+We'll have a warning about the side-effects of functions, as they are called,
+
+8
+00:00:30.933 --> 00:00:34.933
+and why we always use return at the end
+
+9
+00:00:34.933 --> 00:00:38.933
+of your functions. I'm going to let you make a mistake in the first challenge. Oh, now I've told you!
+
+10
+00:00:38.933 --> 00:00:42.933
+I've given the game away and you may not make the mistake. [Laughs] OK, let's dive in and take a look at
+
+11
+00:00:42.933 --> 00:00:43.466
+this!
+
+12
+00:00:43.466 --> 00:00:47.466
+So looking at my code right now, I'm not
+
+13
+00:00:47.466 --> 00:00:51.466
+entirely happy, because I'm starting to, what I call, lose the wood for the trees. There's just too
+
+14
+00:00:51.466 --> 00:00:55.466
+much stuff on the screen to look at, so we want to
+
+15
+00:00:55.466 --> 00:00:59.466
+start managing this complexity, so a word on that firstly.
+
+16
+00:00:59.466 --> 00:01:03.466
+Abstraction and encapsulation! Big words, and you'll see them
+
+17
+00:01:03.466 --> 00:01:07.466
+on smart answers on Stack Overflow. So, let me just give you my take on this!
+
+18
+00:01:07.466 --> 00:01:11.466
+Firstly, I'd say that a major goal on writing software is to manage
+
+19
+00:01:11.466 --> 00:01:15.466
+complexity, right. A big piece of software is very complex, and we can
+
+20
+00:01:15.466 --> 00:01:19.466
+only keep a certain number of things in our brains, at once, so we want to manage that complexity down.
+
+21
+00:01:19.466 --> 00:01:23.466
+We don't want to be too cleaver actually. We want to make sure that a future version
+
+22
+00:01:23.466 --> 00:01:27.466
+of ourselves or somebody else coming on and seeing our code can easily see what's going
+
+23
+00:01:27.466 --> 00:01:31.466
+on, and that's hard, making things that clear and simple. So,
+
+24
+00:01:31.466 --> 00:01:35.466
+abstraction is a technique for managing complexity, by considering things at a higher level.
+
+25
+00:01:35.466 --> 00:01:39.466
+For example, the lines of code that print the introduction,
+
+26
+00:01:39.466 --> 00:01:43.466
+as a whole, could be called print introduction.
+
+27
+00:01:43.466 --> 00:01:47.466
+We've kind of got it in the introduce game comment, but we actually want the comments to
+
+28
+00:01:47.466 --> 00:01:51.466
+almost disappear into the code, self documenting code. So, we'll see how that works in a minute.
+
+29
+00:01:51.466 --> 00:01:55.466
+So then, encapsulation is a way of making sure your abstractions are adhered to.
+
+30
+00:01:55.466 --> 00:01:59.466
+So, concretely once we've decided that this is the way we introduce the
+
+31
+00:01:59.466 --> 00:02:03.466
+game, we can wrap that functionality off into a function, and call that
+
+32
+00:02:03.466 --> 00:02:07.466
+function, that will introduce the game for us. Then, there's only one way to introduce
+
+33
+00:02:07.466 --> 00:02:09.866
+the game. We get very consistent behavior.
+
+34
+00:02:09.866 --> 00:02:13.866
+So just to help you get your eye in, I'm going to be using curly braces in a couple of different ways,
+
+35
+00:02:13.866 --> 00:02:17.866
+in this video. You're going to see different formats out there on the web in sample code,
+
+36
+00:02:17.866 --> 00:02:21.866
+in boiler plate code in Unreal, etc. So, I want you to be able to
+
+37
+00:02:21.866 --> 00:02:25.866
+tell the difference. I want you to read code like the compiler reads code, which is it
+
+38
+00:02:25.866 --> 00:02:29.866
+doesn't care whether I put my curly brace at the end of the function definition or
+
+39
+00:02:29.866 --> 00:02:33.866
+on a new line after it. So, it'll be a little bit interchangeable in this video, and then,
+
+40
+00:02:33.866 --> 00:02:37.866
+I will be regularly going through and changing things to adhere to the
+
+41
+00:02:37.866 --> 00:02:41.866
+standard that I'm aiming for, which is where they are on a separate line.
+
+42
+00:02:42.500 --> 00:02:46.500
+So, enough talking, let's do it! We've already got the right code highlighted. I cut
+
+43
+00:02:46.500 --> 00:02:50.500
+that code with Control, X, and then, I'm going to go and paste it in
+
+44
+00:02:50.500 --> 00:02:54.500
+this new method that we talked about. Now, don't keep things in your copy buffer for
+
+45
+00:02:54.500 --> 00:02:58.500
+too long. So, I'll probably paste it straight away and then wrap the code around it, because
+
+46
+00:02:58.500 --> 00:03:02.500
+you could lose it, couldn't you? You can always use Control, Z, and stuff. You're not amateurs. Anyway,
+
+47
+00:03:02.500 --> 00:03:06.500
+what are we going to call this method? We're introducing the game, so
+
+48
+00:03:06.500 --> 00:03:10.500
+PrintIntro() will do fine!
+
+49
+00:03:10.500 --> 00:03:14.500
+OK fantastic! PrintIntro()!
+
+50
+00:03:14.500 --> 00:03:18.500
+So now, curly braces! We need to put one curly brace at the bottom, and then,
+
+51
+00:03:18.500 --> 00:03:22.500
+when you do so it's helpfully indented. But if it hasn't indented for any reason, this is how you want to end
+
+52
+00:03:22.500 --> 00:03:26.500
+up. Alright, so that's a function that takes in no parameters
+
+53
+00:03:26.500 --> 00:03:30.500
+and passes nothing back, but even though we're passing nothing back, I
+
+54
+00:03:30.500 --> 00:03:34.500
+still want you to be in the habit, at the bottom, of saying return. We're not returning
+
+55
+00:03:34.500 --> 00:03:38.500
+anything, because it's void, which means we're returning nothing. But it's a very important habit,
+
+56
+00:03:38.500 --> 00:03:42.500
+otherwise you can start to forget to return things. So, what's the point of this PrintIntro()?
+
+57
+00:03:42.500 --> 00:03:46.500
+It's to introduce the game, and it's got it's
+
+58
+00:03:46.500 --> 00:03:50.500
+WORLD_LENGTH with it. If you click on that, it shows you where the other instances are. By the way, let's just have a
+
+59
+00:03:50.500 --> 00:03:54.500
+quick check and make sure we haven't used WORLD_LENGTH anywhere else, because WORLD
+
+60
+00:03:54.500 --> 00:03:58.500
+_Length is only going to be available now inside PrintIntro(). That's actually a good thing!
+
+61
+00:03:58.500 --> 00:04:02.500
+It means the scope, the width of our
+
+62
+00:04:02.500 --> 00:04:06.500
+code within which we can actually use it, is limited to just
+
+63
+00:04:06.500 --> 00:04:10.500
+what we're seeing there. In fact, right inside here. So, we create WORLD_LENGTH
+
+64
+00:04:10.500 --> 00:04:14.500
+there, we use it very very soon after, and then, as soon as we leave this function,
+
+65
+00:04:14.500 --> 00:04:18.500
+it goes, what we call, out of scope and it's not available to anything else. In fact, if you're coming to
+
+66
+00:04:18.500 --> 00:04:22.500
+main() here and start trying to type WORLD_LENGTH, it doesn't come in the autocomplete.
+
+67
+00:04:22.500 --> 00:04:26.500
+Alright, and that's called scope and it's a good thing. It has to do with encapsulation.
+
+68
+00:04:26.500 --> 00:04:30.500
+It's making sure we can't get hold of this, where we don't need it! Now later, we will need to
+
+69
+00:04:30.500 --> 00:04:34.500
+move it to a different scope, but for now, this is fine! So, PrintIntro()
+
+70
+00:04:34.500 --> 00:04:38.500
+and then in main()what we do is, we just go PrintIntro().
+
+71
+00:04:38.500 --> 00:04:42.500
+Great! Let's make sure that works! So, we've tidied up the beginning
+
+72
+00:04:42.500 --> 00:04:46.500
+by saying PrintIntro(). Look how much tidier main() is now.
+
+73
+00:04:46.500 --> 00:04:50.500
+And it works, it prints the intro! Now, there is something else I want to tell you before we move on!
+
+74
+00:04:50.500 --> 00:04:54.500
+The second part of this is, I want to see main()... In fact, what is main()? Let's comment and say what
+
+75
+00:04:54.500 --> 00:04:58.500
+main() is. This is "the entry point
+
+76
+00:04:58.500 --> 00:05:02.500
+for our application" or something.
+
+77
+00:05:02.500 --> 00:05:06.500
+If you ever feel you need to describe something, do so. I want PrintIntro to be up
+
+78
+00:05:06.500 --> 00:05:10.500
+underneath this, so let's cut it and put it underneath. But we get a problem!
+
+79
+00:05:10.500 --> 00:05:14.500
+Let't try compiling! Control, F 5. It doesn't work! "Identifier
+
+80
+00:05:14.500 --> 00:05:18.500
+not found" on line 11.
+
+81
+00:05:18.500 --> 00:05:22.500
+So, line 11 tries to use PrintIntro(). It doesn't understand it. What we need to do
+
+82
+00:05:22.500 --> 00:05:26.500
+here is, take this part of void PrintIntro
+
+83
+00:05:26.500 --> 00:05:30.500
+and put it at the top like that, with a semicolon. Why a semicolon?
+
+84
+00:05:30.500 --> 00:05:34.500
+Because if we try and put a pair of curly braces, which by the way
+
+85
+00:05:34.500 --> 00:05:38.500
+act as another way of completing the statement, look at main() for example. It doesn't
+
+86
+00:05:38.500 --> 00:05:42.500
+have a semicolon on the end and neither does PrintIntro. Yeah, but if we
+
+87
+00:05:42.500 --> 00:05:46.500
+try and just leave curly braces or even curly braces and a semicolon or something,
+
+88
+00:05:46.500 --> 00:05:50.500
+it's going to say no, it already has a body. So,
+
+89
+00:05:50.500 --> 00:05:54.500
+the curly braces are the implementation of this, and we don't want to define the implimentation
+
+90
+00:05:54.500 --> 00:05:58.500
+in two places. Really important! So, we say void PrintIntro()
+
+91
+00:05:58.500 --> 00:06:02.500
+rather with a semicolon on the end, and if we click on it, you can see that it also
+
+92
+00:06:02.500 --> 00:06:06.500
+exists there and that the implementation is at the bottom. OK, we want to keep our main()
+
+93
+00:06:06.500 --> 00:06:10.500
+function at the top, because when you first come into this you want say well, what's it doing? Well, this is the entry point for our
+
+94
+00:06:10.500 --> 00:06:14.500
+application, OK. And what else is happening? And then, we Print an
+
+95
+00:06:14.500 --> 00:06:18.500
+Intro. Well, how does PrintIntro() work? You look down here, it does this stuff. You see how it simplifies.
+
+96
+00:06:18.500 --> 00:06:22.500
+OK, so let's check it runs! It does! Good!
+
+97
+00:06:22.500 --> 00:06:26.500
+Good! OK! Now next thing, we want to put this
+
+98
+00:06:26.500 --> 00:06:30.500
+stuff here into a method of its own. And guess what? That's going to be a challenge for you.
+
+99
+00:06:30.500 --> 00:06:34.500
+I want you to write string GetGuess() as a
+
+100
+00:06:34.500 --> 00:06:38.500
+function. Save your code so you can go back, in case you mess things up. Write a
+
+101
+00:06:38.500 --> 00:06:42.500
+function to get the guess, return it as a string at the bottom
+
+102
+00:06:42.500 --> 00:06:46.500
+of the function, and restore your code to its former working glory. Have a go!
+
+103
+00:06:46.500 --> 00:06:50.500
+Let yourself struggle with it a bit but not too much! If it takes you more than 15 minutes, 20 minutes, something
+
+104
+00:06:50.500 --> 00:06:54.500
+like that, then watch my solution and don't feel bad. Otherwise, have a
+
+105
+00:06:54.500 --> 00:06:58.500
+good go! Have a look at see if you can do it by pattern matching and just by shear determination
+
+106
+00:06:58.500 --> 00:07:02.500
+and by checking on the web if you need to. Whatever you need, see if you can get it done! It's a
+
+107
+00:07:02.500 --> 00:07:06.500
+useful problem to be able to solve, and it's using things that you're already learned.
+
+108
+00:07:06.500 --> 00:07:10.500
+OK welcome back! So, I'm going to take all this code here
+
+109
+00:07:10.500 --> 00:07:14.500
+and I'm just going to put it in a method called
+
+110
+00:07:14.500 --> 00:07:18.500
+string GetGuess(), and it takes in no
+
+111
+00:07:18.500 --> 00:07:22.500
+parameters and that's the code. Alright, so it's going to get a guess
+
+112
+00:07:22.500 --> 00:07:26.500
+from the player. In fact, I'm going to move that comment up above like that, because it describes what the
+
+113
+00:07:26.500 --> 00:07:30.500
+whole function does. And I guess, for consistency, I could do the same
+
+114
+00:07:30.500 --> 00:07:34.500
+with PrintIntro(). OK so, PrintIntro()
+
+115
+00:07:34.500 --> 00:07:38.500
+very simply does that. GetGuess() from player does that.
+
+116
+00:07:38.500 --> 00:07:42.500
+Great! cout &lt;&lt; "Enter your guess: "; it defines it just as late as it needs
+
+117
+00:07:42.500 --> 00:07:46.500
+to and repeats the guess back to them. Now, warning sign! This doesn't just get
+
+118
+00:07:46.500 --> 00:07:50.500
+the guess at the moment. This more than gets the guess, it gets the guess and
+
+119
+00:07:50.500 --> 00:07:54.500
+it prints the guess back to them. I'm going to rename that print
+
+120
+00:07:54.500 --> 00:07:58.500
+the guess back... Hmmm? Not very good!
+
+121
+00:07:58.500 --> 00:08:02.500
+This is what you call a side effect! If you were up here now. Let's see it
+
+122
+00:08:02.500 --> 00:08:06.500
+in action. And I just put GetGuess()! That's my function
+
+123
+00:08:06.500 --> 00:08:10.500
+call. So, we GetGuess()! I don't need this
+
+124
+00:08:10.500 --> 00:08:14.500
+second load of code here. Look how simple our main() method is. Now, we print an intro and
+
+125
+00:08:14.500 --> 00:08:18.500
+get a guess. Let's make sure it works, and I'll talk about this side effect.
+
+126
+00:08:18.500 --> 00:08:22.500
+OK, GetGuess() not found. That's because I need to put a
+
+127
+00:08:22.500 --> 00:08:26.500
+prototype of GetGuess() at the top. Now, this stuff at the top
+
+128
+00:08:26.500 --> 00:08:30.500
+is starting to become the kind of contract, an overview, of what we're going to be doing.
+
+129
+00:08:30.500 --> 00:08:34.500
+And later, this will be in something called a header file, but anyway, for now, we need just need to make it
+
+130
+00:08:34.500 --> 00:08:38.500
+available like that. Let's run it and see if it works!
+
+131
+00:08:38.500 --> 00:08:42.500
+OK, " 'GetGuess' must return a value"! I've made the mistake I told you not to make!
+
+132
+00:08:42.500 --> 00:08:46.500
+return Guess; So now, we're
+
+133
+00:08:46.500 --> 00:08:50.500
+returning a string. Enter your guess, define yourself
+
+134
+00:08:50.500 --> 00:08:54.500
+a variable called Guess, use this getLine() method,
+
+135
+00:08:54.500 --> 00:08:58.500
+and then, let's have a space and say that we print the guess back. OK, let's check it works, and then,
+
+136
+00:08:58.500 --> 00:09:02.500
+we will talk about side effects. "test"! "Your guess was: test"! Fantastic!
+
+137
+00:09:02.500 --> 00:09:06.500
+Look the win here is the simplicity of main(), but
+
+138
+00:09:06.500 --> 00:09:10.500
+reading main() it prints the intro and then it gets the guess. Hmm?
+
+139
+00:09:10.500 --> 00:09:14.500
+OK, and you look at that and you look at this, and you say well, there's a guess coming
+
+140
+00:09:14.500 --> 00:09:18.500
+back as a string but I don't see anything. The real problem, the side effect, is
+
+141
+00:09:18.500 --> 00:09:22.500
+that it's printing. It shouldn't be printing when it's just called GetGuess().
+
+142
+00:09:22.500 --> 00:09:24.300
+That's a bit nasty!
+
+143
+00:09:24.300 --> 00:09:28.300
+So, we're going to own up to our mistake by renaming the method, to say exactly what it does do.
+
+144
+00:09:29.100 --> 00:09:33.100
+Now, you can do that by renaming it in all three places it exists or clicking on it
+
+145
+00:09:33.100 --> 00:09:37.100
+and going Control, R, once! And it's going to show, waiting for a second
+
+146
+00:09:37.100 --> 00:09:41.100
+call. Control, R, again! You could say GetGuess
+
+147
+00:09:41.100 --> 00:09:45.100
+AndPrintBack.
+
+148
+00:09:45.100 --> 00:09:49.100
+In fact, that's what we'll do for now! And when you hit Return, it'll say where do you want to
+
+149
+00:09:49.100 --> 00:09:53.100
+place this? You can pretty much trust it, if you had it selected right in the first place, and it will rename it
+
+150
+00:09:53.100 --> 00:09:57.100
+there and where you call it and in the prototype at the top there. Now, this is
+
+151
+00:09:57.100 --> 00:10:01.100
+what it does! This is a horrible method name. Method is another word for
+
+152
+00:10:01.100 --> 00:10:05.100
+function, is another word for routine, and they all have slight subtleties as to
+
+153
+00:10:05.100 --> 00:10:09.100
+what they actually are, but for now, let's get used to all of the different ways of calling it.
+
+154
+00:10:09.100 --> 00:10:13.100
+GetGuessAndPrintBack() does a lot! And that's a bad thing that it does so
+
+155
+00:10:13.100 --> 00:10:17.100
+much, but at least we're honest about what it does. We have declared the side effect, and we're
+
+156
+00:10:17.100 --> 00:10:21.100
+going to leave it like this for this video. So, all I want to do now is
+
+157
+00:10:21.100 --> 00:10:25.100
+do it twice. Now, the structure of main() is it prints the
+
+158
+00:10:25.100 --> 00:10:29.100
+intro, GetGuessAndPrintBack(); GetGuessAndPringBack(); and then,
+
+159
+00:10:29.100 --> 00:10:33.100
+it leaves a space and exits. Let's have a look at this work!
+
+160
+00:10:33.100 --> 00:10:37.100
+"donkey" or "doinke" spoot! That'll do! And that worked and
+
+161
+00:10:37.100 --> 00:10:41.100
+second guess, "hello"! Now, we might want an extra space, but look, let's
+
+162
+00:10:41.100 --> 00:10:45.100
+leave the formatting, it works! And the big big win is that
+
+163
+00:10:45.100 --> 00:10:49.100
+main() is easy to understand and reads in English now!
+
+164
+00:10:49.100 --> 00:10:53.100
+So, in the next video we'll start looking at how we can do things multiple times,
+
+165
+00:10:53.100 --> 00:10:57.100
+automatically using loops. And we'll also look, in future videos, at how we can
+
+166
+00:10:57.100 --> 00:11:01.100
+make this method more single purpose. GetGuessAndPrintBack(); is not a
+
+167
+00:11:01.100 --> 00:11:04.733
+nice method, because it's doing two things. OK fantastic! We'll see you soon!
+

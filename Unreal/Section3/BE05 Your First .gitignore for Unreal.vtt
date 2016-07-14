@@ -1,0 +1,618 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Welcome to your
+
+2
+00:00:04.000 --> 00:00:08.000
+first .gitignore file for Unreal! It's more fun than it sounds. So, in this
+
+3
+00:00:08.000 --> 00:00:12.000
+video, we'll understand that Unreal creates Visual Studio even
+
+4
+00:00:12.000 --> 00:00:16.000
+projects for us. We'll learn how to re-generate Visual Studio project files,
+
+5
+00:00:16.000 --> 00:00:20.000
+we'll be writing our first .tidignore file, and committing our project, for the first time,
+
+6
+00:00:20.000 --> 00:00:24.000
+so that we have a safe basis to start exploring Unreal and ability
+
+7
+00:00:24.000 --> 00:00:28.000
+to always dive back and get to a previous state of work. So, see you in there!
+
+8
+00:00:28.000 --> 00:00:28.600
+
+
+9
+00:00:28.600 --> 00:00:32.600
+So welcome back! I just want to show you something about Visual Studio, as
+
+10
+00:00:32.600 --> 00:00:36.600
+Visual Studio is what we're most familiar with, at the moment. I want you to understand that Unreal is going to be
+
+11
+00:00:36.600 --> 00:00:40.600
+responsible for building our Visual Studio solution
+
+12
+00:00:40.600 --> 00:00:44.600
+files and the other ancillary files that are needed. Let me show you something,
+
+13
+00:00:44.600 --> 00:00:48.600
+we've stripped out all of the files that I said you can delete. Intermediate,
+
+14
+00:00:48.600 --> 00:00:52.600
+Build, Binaries, Intermediate, and also the Visual Studio database
+
+15
+00:00:52.600 --> 00:00:56.600
+file can go. If you've done that, because you've deleted
+
+16
+00:00:56.600 --> 00:01:00.600
+the Intermediate directory, look what happens when you try and open your Visual Studio solution. You get
+
+17
+00:01:00.600 --> 00:01:04.600
+a Load Failed! So, if you start ever seeing this happen with your Visual Studio
+
+18
+00:01:04.600 --> 00:01:08.600
+Solution, then the solution to the solution is to right-
+
+19
+00:01:08.600 --> 00:01:12.600
+click on here on the actual .uproject file,
+
+20
+00:01:12.600 --> 00:01:16.600
+BuildingEscape.uproject in this case, and select Generate Visual Studio Project
+
+21
+00:01:16.600 --> 00:01:20.600
+Files. Now, what that's going to do, if we watch, is it immediately makes this intermediate directory.
+
+22
+00:01:20.600 --> 00:01:24.600
+Unreal will also make an intermediate directory, when you open the project,
+
+23
+00:01:24.600 --> 00:01:28.600
+but the files we're interested in are the ones that are going
+
+24
+00:01:28.600 --> 00:01:32.600
+to allow Visual Studio to load, i.e. these project files here.
+
+25
+00:01:32.600 --> 00:02:20.266
+
+
+26
+00:02:20.266 --> 00:02:24.266
+OK, so once that's done and all of that is finished running, now we can actually open our
+
+27
+00:02:24.266 --> 00:02:28.266
+Visual Studio Solution, which consists of two projects. One of these projects is the
+
+28
+00:02:28.266 --> 00:02:32.266
+UE4 Engine, we don't worry about that, but the other is our Games, and in this case, one game Building
+
+29
+00:02:32.266 --> 00:02:36.266
+Escape. And then, you can go down and you can look mainly at source,
+
+30
+00:02:36.266 --> 00:02:40.266
+and of course, there's really not much source in here. There's some general top level
+
+31
+00:02:40.266 --> 00:02:44.266
+files, which we'll deal with in a little bit. Alright, so that's a useful and important tip.
+
+32
+00:02:44.266 --> 00:02:48.266
+I'm going to save the Solution as I go out. Now, Visual Studio opens, and of course, we're not open in
+
+33
+00:02:48.266 --> 00:02:52.266
+Unreal. It will say things are missing, because you deleted a load of caches and you'll
+
+34
+00:02:52.266 --> 00:02:56.266
+start to notice it building up other things, as I said before. So, that's specificly
+
+35
+00:02:56.266 --> 00:03:00.266
+if you have Visual Studio program problems, right-click, Generate Visual Studio project files,
+
+36
+00:03:00.266 --> 00:03:04.266
+and it will add some stuff into Intermediate and make it all work for you. Cool!
+
+37
+00:03:04.266 --> 00:03:08.266
+So, let's get our repository setup now! Unreal is
+
+38
+00:03:08.266 --> 00:03:12.266
+loading in the background. That's fine, that doesn't prohibit us from going along into SourceTree.
+
+39
+00:03:12.266 --> 00:03:16.266
+Here's my previous repository for the previous game. What I want is a new
+
+40
+00:03:16.266 --> 00:03:20.266
+repository. You can get that from File, and Clone or New. Now, what we are
+
+41
+00:03:20.266 --> 00:03:24.266
+actually doing is creating a repository of git type, not Mercurial, we're going to use Git,
+
+42
+00:03:24.266 --> 00:03:28.266
+and then, just select the folder. So, repos and I'm going to
+
+43
+00:03:28.266 --> 00:03:32.266
+select my top-level folder, not the 03_BuildingEscape subfolder. I'm going to keep everything
+
+44
+00:03:32.266 --> 00:03:36.266
+tracked, in this Source Control System. You'll understand what all that
+
+45
+00:03:36.266 --> 00:03:40.266
+means, by the way, in a little bit. That was my Editor popping up! But what I want to do now is just turn
+
+46
+00:03:40.266 --> 00:03:44.266
+this whole BuildingEscape folder into a database that can track my changes. So, you select the folder,
+
+47
+00:03:44.266 --> 00:03:48.266
+and it's going to bookmark it on the left as 03_BuildingEscape, so it'll appear on
+
+48
+00:03:48.266 --> 00:03:52.266
+the left-hand side, like that, and I'm just going to say Create!
+
+49
+00:03:52.266 --> 00:03:56.266
+And pretty much nothing is going to happen, by the way, but let's go back to the
+
+50
+00:03:56.266 --> 00:04:00.266
+folder, when it's finished, and take a look and see what's actually changed. Upper level
+
+51
+00:04:00.266 --> 00:04:04.266
+.git. If you're not showing hidden files, of course you go, View, Hidden
+
+52
+00:04:04.266 --> 00:04:08.266
+Items. Now, if you're on a Mac, then you just need to do Google for "show hidden files
+
+53
+00:04:08.266 --> 00:04:12.266
+mac", and the instructions that come up
+
+54
+00:04:12.266 --> 00:04:16.266
+here about typing or pasting this into Terminal will work, but you've also got to read about
+
+55
+00:04:16.266 --> 00:04:20.266
+Launch Finder. Alright, so the .git folder is your indication
+
+56
+00:04:20.266 --> 00:04:24.266
+that the repository is ready to go. That is a folder that has a load of stuff
+
+57
+00:04:24.266 --> 00:04:29.200
+in it. At the moment it's tiny, but it will grow quite rapidly as we start to track all our changes.
+
+58
+00:04:29.200 --> 00:04:33.200
+So, this is it! Now, right now that this is saying... By the way,
+
+59
+00:04:33.200 --> 00:04:37.200
+I've got my settings as a Tree View, you can have a Flat List, it doesn't really matter.
+
+60
+00:04:37.200 --> 00:04:41.200
+Flat List splits view staging, something like that is going to give you a view
+
+61
+00:04:41.200 --> 00:04:45.200
+something like this! And this is saying, these are all the files that I can see, i.e. everything has changed
+
+62
+00:04:45.200 --> 00:04:49.200
+since last commit, because we haven't committed, we haven't saved anything, we haven't got a starting
+
+63
+00:04:49.200 --> 00:04:53.200
+point. The problem with this right now is, it's including all the Intermediate folders
+
+64
+00:04:53.200 --> 00:04:57.200
+or Saved folders, and
+
+65
+00:04:57.200 --> 00:05:01.200
+a load of other stuff that we don't want. Alright, so we need to exclude all that
+
+66
+00:05:01.200 --> 00:05:04.866
+stuff we talked about excluding, in the previous lecture.
+
+67
+00:05:04.866 --> 00:05:08.866
+As a recap, these are the folders that we need to exclude. We're not seeing derived data
+
+68
+00:05:08.866 --> 00:05:12.233
+cache yet but we'll put it in because it will come up eventually.
+
+69
+00:05:12.233 --> 00:05:16.233
+So, we want to ignore these big folders. How are we going to do it? Well, let me show you an
+
+70
+00:05:16.233 --> 00:05:20.233
+easy way using SourcTree. Select just one of the folders you want,
+
+71
+00:05:20.233 --> 00:05:24.233
+like this BuildingEscape/Intermediate. You can go to Actions and Ignore.
+
+72
+00:05:24.233 --> 00:05:28.233
+This will be available if it's the first time you've done it, and you can say Ignore
+
+73
+00:05:28.233 --> 00:05:32.233
+Everything Beneath BuildingEscape/Intermediate
+
+74
+00:05:32.233 --> 00:05:36.233
+OK, and then just click OK. Now, what that'll do is, it'll make this guy here,
+
+75
+00:05:36.233 --> 00:05:40.233
+called a .gitignore file. Now, you can either continue
+
+76
+00:05:40.233 --> 00:05:45.100
+to add to that the other files, by clicking into it in say Notepad or Text Edit on a Mac
+
+77
+00:05:45.100 --> 00:05:49.100
+and then editing it. Look what we want to do is make it, rather than being
+
+78
+00:05:49.100 --> 00:05:53.100
+specific to Building Escape, why don't we make it like this. Intermediate,
+
+79
+00:05:53.100 --> 00:05:57.100
+forward-slash Intermediate. That's fine! If we put a
+
+80
+00:05:57.100 --> 00:06:01.100
+star on, that says ignore all directories called Intermediate, so let's
+
+81
+00:06:01.100 --> 00:06:05.100
+do that. I'll do that in alphabetical order.
+
+82
+00:06:05.100 --> 00:06:09.100
+*/Build */
+
+83
+00:06:09.100 --> 00:06:13.100
+Binaries */Intermediate. Now, if you're not sure,
+
+84
+00:06:13.100 --> 00:06:17.100
+go back to your slides. */DeriveDataCache I'm doing it
+
+85
+00:06:17.100 --> 00:06:21.100
+in alphabetical order, just for simplicity.
+
+86
+00:06:21.100 --> 00:06:25.100
+*/Intermediate and */Saved.
+
+87
+00:06:25.100 --> 00:06:28.500
+
+
+88
+00:06:28.500 --> 00:06:32.500
+For this purpose of a .gitignore, this is what you need. Once you've saved a file,
+
+89
+00:06:32.500 --> 00:06:36.466
+back into your source control. When you add this file or stage the file,
+
+90
+00:06:36.466 --> 00:06:40.500
+like that with a tick, have a look through your list of things, and you'll find that
+
+91
+00:06:40.500 --> 00:06:44.500
+there's a lot of start content but there's not more Intermediate. In fact, there's none of those things we don't want.
+
+92
+00:06:44.500 --> 00:06:48.500
+OK, the final thing we want to get rid of is the StarterContent
+
+93
+00:06:48.500 --> 00:06:52.500
+Pack again. You can use the Ignore, actions ignore if you like.
+
+94
+00:06:52.500 --> 00:06:56.500
+Ignore Everything Beneath BuildingEscape/Content/
+
+95
+00:06:56.500 --> 00:07:00.500
+StarterContent, and that'll add that line to the .gitignore. You can see it in
+
+96
+00:07:00.500 --> 00:07:04.500
+here, back in your Text Edit. Now, I will leave the fully qualified path here, because it's
+
+97
+00:07:04.500 --> 00:07:08.500
+only for this project, this time, that I want to choose to ignore the starter content, because
+
+98
+00:07:08.500 --> 00:07:12.500
+it's large. So, whereas we may be tempted to
+
+99
+00:07:12.500 --> 00:07:16.500
+reuse all this Unreal generated stuff at the top, and by the way, you can just annotate
+
+100
+00:07:16.500 --> 00:07:20.500
+that as Unreal generated files,
+
+101
+00:07:20.500 --> 00:07:24.500
+like this. Now, if you think that that's not
+
+102
+00:07:24.500 --> 00:07:28.500
+clear enough, you can just get some more hashes or something, it's entirely up to you
+
+103
+00:07:28.500 --> 00:07:32.500
+how you stylize this. You know, something like this.
+
+104
+00:07:32.500 --> 00:07:36.500
+Alright, # Unreal Generated Files#. Hashes
+
+105
+00:07:36.500 --> 00:07:40.500
+work as comments in these ignore files, and then, we're going to want one more type of
+
+106
+00:07:40.500 --> 00:07:44.500
+file, of course, which is if we look in here carefully we'll find that we have this
+
+107
+00:07:44.500 --> 00:07:48.500
+VC.db file. Now, remember that that VC.db file, which resides
+
+108
+00:07:48.500 --> 00:07:52.500
+in here, is 58 Megabytes and is reproducible and we don't want it.
+
+109
+00:07:52.500 --> 00:07:56.500
+OK. So again, you can do this lots of ways. One way is to use the Actions,
+
+110
+00:07:56.500 --> 00:08:00.500
+Ignore, but make sure though that your .gitignore files is
+
+111
+00:08:00.500 --> 00:08:04.500
+closed in your Text Editor, because you don't want to start having
+
+112
+00:08:04.500 --> 00:08:08.500
+two different things editing it. So, what do we want to ignore?
+
+113
+00:08:08.500 --> 00:08:12.500
+Things with this file extension, OK. So, you do that and then if you
+
+114
+00:08:12.500 --> 00:08:16.500
+look through, you'll find that that VC.db files is no longer there, and that your
+
+115
+00:08:16.500 --> 00:08:20.500
+.gitignore contains, if you re-add it, it
+
+116
+00:08:20.500 --> 00:08:24.500
+contains *.db. So, this is kind of doing things for you. If you want to
+
+117
+00:08:24.500 --> 00:08:28.500
+annotate this as a Visual Studio database file, you might want to.
+
+118
+00:08:28.500 --> 00:08:32.500
+In fact, *.db is dangerous, that's saying ignore anything
+
+119
+00:08:32.500 --> 00:08:36.500
+with a .db on the end. Well, that's too onerous, we specifically want
+
+120
+00:08:36.500 --> 00:08:40.500
+VC.db. So, I am going to finally go back into here, I'm going to copy
+
+121
+00:08:40.500 --> 00:08:44.500
+my comment at the top, I'm going to say Visual Studio
+
+122
+00:08:44.500 --> 00:08:48.500
+Generated Files here. Now, you can always add more things to ignore later,
+
+123
+00:08:48.500 --> 00:08:52.500
+so we don't
+
+124
+00:08:52.500 --> 00:08:56.500
+need to go nuts. We can save that file back into the source control,
+
+125
+00:08:56.500 --> 00:09:00.500
+make sure that any changes to this .gitignore have been noticed
+
+126
+00:09:00.500 --> 00:09:04.500
+by it, so you may need to un-stage it and re-stage it. There you go!
+
+127
+00:09:04.500 --> 00:09:08.500
+And now, it will not have, specifically, the VC.db
+
+128
+00:09:08.500 --> 00:09:12.500
+file, so we're only left with the stuff that we actually
+
+129
+00:09:12.500 --> 00:09:16.500
+care about and that is it. Finally we stage all
+
+130
+00:09:16.500 --> 00:09:20.500
+this stuff, which is like saying, I want to put you in a .zip. We're going to call it Initial
+
+131
+00:09:20.500 --> 00:09:27.366
+Commit and you'd click Commit. Now, in my case I'm not going to do that right now, but that's what I want you to do.
+
+132
+00:09:27.366 --> 00:09:31.366
+OK, so I want you to make your first commit. Catch up with
+
+133
+00:09:31.366 --> 00:09:35.366
+what I did in this video. Get your .gitignore file working. Mine is attached
+
+134
+00:09:35.366 --> 00:09:39.366
+to the first lecture of the section. Add and stage all your files or just
+
+135
+00:09:39.366 --> 00:09:43.366
+click the little checkbox that stages all your files, and then, celebrate entering this new
+
+136
+00:09:43.366 --> 00:09:47.366
+world of version control. You're not supposed to fully understand what is going on here, what I'm wanting
+
+137
+00:09:47.366 --> 00:09:51.366
+is for that to happen in context, so go ahead and do that now and I'll show you what
+
+138
+00:09:51.366 --> 00:09:55.366
+I do when you come back. So, welcome back! Here we are,
+
+139
+00:09:55.366 --> 00:09:59.366
+everything's ticked and staged. I'm actually not going to call mine Initial Commit. I'm going to call mine
+
+140
+00:09:59.366 --> 00:10:03.366
+a slightly more boring name, which is BE05 for Building Escape
+
+141
+00:10:03.366 --> 00:10:07.366
+video number 5, Your First .gitignore for Unreal.
+
+142
+00:10:07.366 --> 00:10:11.366
+I'm just naming it sequentially, according to the videos, but you might want to call
+
+143
+00:10:11.366 --> 00:10:15.366
+yours Initial Commit, or you can start naming yours after the videos like this, it's up to you. Click
+
+144
+00:10:15.366 --> 00:10:19.366
+Commit. Now, the only difference you're going to see is that you're only going to have one commit. I've
+
+145
+00:10:19.366 --> 00:10:23.366
+got a few more because I've been doing things. Before this, I've been
+
+146
+00:10:23.366 --> 00:10:27.366
+keeping track of all the other videos that I've made, so as time goes on,
+
+147
+00:10:27.366 --> 00:10:31.366
+you'll see things like Initial Committ 1, 2, 3, 4 OK, so these are just snapshots, and you
+
+148
+00:10:31.366 --> 00:10:35.366
+might want to name them after the videos. So that's it, you've made a
+
+149
+00:10:35.366 --> 00:10:39.366
+snapshot, and what this means is, you can go back here in future point in
+
+150
+00:10:39.366 --> 00:10:43.366
+time and recover your work as it was. So, that's it for now!
+
+151
+00:10:43.366 --> 00:10:47.366
+We have our project setup, we're only storing what we need to store, and you are under version
+
+152
+00:10:47.366 --> 00:10:51.366
+control, so we can finally open Unreal and start safely doing things, knowing we can get back to
+
+153
+00:10:51.366 --> 00:10:55.366
+this vanilla starting state!
+
+154
+00:10:55.366 --> 00:10:55.799
+
+

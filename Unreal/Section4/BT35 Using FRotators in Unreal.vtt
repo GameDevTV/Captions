@@ -1,0 +1,662 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Welcome to using
+
+2
+00:00:04.000 --> 00:00:08.000
+FRotators in Unreal! A new type for you. By the end of the video
+
+3
+00:00:08.000 --> 00:00:12.000
+we will understand FRotators better, and we'll actually have a desired
+
+4
+00:00:12.000 --> 00:00:16.000
+roll, pitch, and yaw for the barrel, coming out of here, rather than
+
+5
+00:00:16.000 --> 00:00:20.000
+just some arbitrary world space coordinates. So let's see how that's done!
+
+6
+00:00:20.000 --> 00:00:20.733
+
+
+7
+00:00:20.733 --> 00:00:24.733
+So, we've got our unit vectors being printed out. We know what direction
+
+8
+00:00:24.733 --> 00:00:28.733
+we want the barrel to head to. We better start getting some code that can actually move the barrel
+
+9
+00:00:28.733 --> 00:00:32.733
+now. So firstly, let's just go back to our AimAt method. Do a little bit
+
+10
+00:00:32.733 --> 00:00:36.733
+of a tidy up. So, thank you to Daniel who pointed out that the parameters after
+
+11
+00:00:36.733 --> 00:00:40.733
+LaunchSpeed, if you look here, HighArc is false,
+
+12
+00:00:40.733 --> 00:00:44.733
+CollisionRadius is 0, OverrideGravity is 0 are the defaults, so for those
+
+13
+00:00:44.733 --> 00:00:48.733
+three we actually don't need to put those parameters in. So,
+
+14
+00:00:48.733 --> 00:00:52.733
+I'm going to remove those three parameters from the TankAimingComponent's AimAt method,
+
+15
+00:00:52.733 --> 00:00:56.733
+just to make the code shorter. Less lines is always good. The other
+
+16
+00:00:56.733 --> 00:01:00.733
+thing we can do to make the code a little bit more readable and make it bit more explicit, what's going on here
+
+17
+00:01:00.733 --> 00:01:04.733
+is we can just move this into a bool. We can say bool
+
+18
+00:01:04.733 --> 00:01:08.733
+bHave
+
+19
+00:01:08.733 --> 00:01:12.733
+AimSolution because that's what we're talking about and that's what
+
+20
+00:01:12.733 --> 00:01:16.733
+we're actually doing. And all of this code here is about getting an
+
+21
+00:01:16.733 --> 00:01:20.733
+AimSolution, like so. So, bHaveAimSolution
+
+22
+00:01:20.733 --> 00:01:24.733
+is that. Then, we can bring all of this
+
+23
+00:01:24.733 --> 00:01:28.733
+in by one level of indentation, which makes life simpler again,
+
+24
+00:01:28.733 --> 00:01:32.733
+and then, that is the definition of our boolean. And then, we can just say if
+
+25
+00:01:32.733 --> 00:01:36.733
+(bHave AimSolution)... Oops, if I could
+
+26
+00:01:36.733 --> 00:01:40.733
+type straight, like so.
+
+27
+00:01:40.733 --> 00:01:44.733
+Then we go ahead and do this stuff. So apart from the fact I've got an extra closing bracket,
+
+28
+00:01:44.733 --> 00:01:48.733
+hopefully that makes more sense to you. So,
+
+29
+00:01:48.733 --> 00:01:52.733
+if we don't have a barrel we'll get out, we have an out parameter, we have a StartLocation,
+
+30
+00:01:52.733 --> 00:01:56.733
+so the StartLocation is used there. The out
+
+31
+00:01:56.733 --> 00:02:00.733
+parameter is used there. Then, the whole
+
+32
+00:02:00.733 --> 00:02:04.733
+result of that thing is, do we have a solution to the game? If yes, then let's
+
+33
+00:02:04.733 --> 00:02:08.733
+carry on. So how do we carry on? Well, what we're going to want to do here, rather than just logging out, is
+
+34
+00:02:08.733 --> 00:02:12.733
+we're going to want to MoveBarrel(). Ultimately that's going to both
+
+35
+00:02:12.733 --> 00:02:16.733
+elevate the barrel and rotate the turret, but for now, it's just going to move the barrel.
+
+36
+00:02:16.733 --> 00:02:20.733
+So, I'm going to suggest that you pseudocode
+
+37
+00:02:20.733 --> 00:02:24.733
+what this MoveBarrel method is going to do as your challenge. I want you to abstract at a
+
+38
+00:02:24.733 --> 00:02:28.733
+higher level than the actual code. That means that when you pseudocode, don't put one line
+
+39
+00:02:28.733 --> 00:02:32.733
+of comment for every line of code, you want to think a little bit higher than that. A line of
+
+40
+00:02:32.733 --> 00:02:36.733
+comment could lead to several lines of code. Use plain English
+
+41
+00:02:36.733 --> 00:02:40.733
+and have fun! It's just an exercise, there's no right or wrong. I want you to think through what the algorithm
+
+42
+00:02:40.733 --> 00:02:44.733
+of moving the barrel may be, just so you've thought ahead before I show you how I do it.
+
+43
+00:02:44.733 --> 00:02:48.733
+So go ahead, pause the video, and pseudocode MoveBarrel() right now.
+
+44
+00:02:48.733 --> 00:02:52.733
+
+
+45
+00:02:52.733 --> 00:02:56.733
+So welcome back guys! Well, what I'm going to do is
+
+46
+00:02:56.733 --> 00:03:00.733
+actually write the MoveBarrle() signature, firstly, and then, I can pseudocode inside the
+
+47
+00:03:00.733 --> 00:03:04.733
+actual method. So, we're going to have something that's void, it's going to be move barrel. It's
+
+48
+00:03:04.733 --> 00:03:08.733
+part of the TankAimingComponent class, so let's prefix that there.
+
+49
+00:03:08.733 --> 00:03:12.733
+And then, we also need to declare that, of course,
+
+50
+00:03:12.733 --> 00:03:16.733
+in the header file. A bit of C++ noise, so let's go ahead and
+
+51
+00:03:16.733 --> 00:03:20.733
+do that right now. Now, it may be that this takes a parameter, but for now, let's
+
+52
+00:03:20.733 --> 00:03:24.733
+think about it without the parameter and then we can always add a
+
+53
+00:03:24.733 --> 00:03:28.733
+parameter in if we need to, so void MoveBarrel(); like that. It's private, a method from the outside
+
+54
+00:03:28.733 --> 00:03:32.733
+of the TankAimingComponent doesn't need authority to move the barrel at this
+
+55
+00:03:32.733 --> 00:03:36.733
+stage, although that may change later. So,
+
+56
+00:03:36.733 --> 00:03:40.733
+the main point is, here we want to know what we're going to do when we are asked to
+
+57
+00:03:40.733 --> 00:03:44.733
+move the barrel. Well actually I think we do need a parameter, for a start, because I think we need to take an AimDirection
+
+58
+00:03:44.733 --> 00:03:48.733
+in. So, we're going to move the barrel towards,
+
+59
+00:03:48.733 --> 00:03:52.733
+and that actually may be a better name, (FVector AimDirection).
+
+60
+00:03:52.733 --> 00:03:56.733
+So MoveBarrel towards, I'm going to rename too, just because I think that's going to be a
+
+61
+00:03:56.733 --> 00:04:00.733
+better name. I'm waiting for IntelliSense to finish its work.
+
+62
+00:04:00.733 --> 00:04:04.733
+
+
+63
+00:04:04.733 --> 00:04:08.733
+OK so here we go, MoveBarrelTowards like so. Great!
+
+64
+00:04:08.733 --> 00:04:12.733
+So we're going to move the barrel towards a particular AimDirection. Let's just
+
+65
+00:04:12.733 --> 00:04:16.733
+pass that in here. And it missed the IntelliSense
+
+66
+00:04:16.733 --> 00:04:20.733
+for all its joy, missed this instance here. So, let's just check it also got the
+
+67
+00:04:20.733 --> 00:04:24.733
+header file. No, it's being completely useless,
+
+68
+00:04:24.733 --> 00:04:28.733
+so we shall do it manually. MoveBarrelTowards (FVector
+
+69
+00:04:28.733 --> 00:04:32.733
+AimDirection). Alright, so we have a method
+
+70
+00:04:32.733 --> 00:04:36.733
+that's going to move the barrel towards an AimDirection. What is that going to need to do? Well, it's going to need to " // Work-
+
+71
+00:04:36.733 --> 00:04:40.733
+out difference
+
+72
+00:04:40.733 --> 00:04:44.733
+between current
+
+73
+00:04:44.733 --> 00:04:48.733
+barrel rotation,
+
+74
+00:04:48.733 --> 00:04:52.733
+and AimDirectoin. And
+
+75
+00:04:52.733 --> 00:04:56.733
+then, it's going to need to "// Move the barrel
+
+76
+00:04:56.733 --> 00:05:00.733
+the right amount this frame"
+
+77
+00:05:00.733 --> 00:05:04.733
+"// Given a max elevation speed,
+
+78
+00:05:04.733 --> 00:05:08.733
+and the frame time". Because we want to be
+
+79
+00:05:08.733 --> 00:05:12.733
+frame rate independent. Alright, so that ultimately is what we're going to do. We're just going to
+
+80
+00:05:12.733 --> 00:05:16.733
+work out where the barrel's pointing, compared to where we're asking to point it, and then, just
+
+81
+00:05:16.733 --> 00:05:20.733
+decide how much we're going to move the barrel this frame. Now, we'll just do elevation for the moment, because we don't have a
+
+82
+00:05:20.733 --> 00:05:24.733
+reference to the turret yet, so we're just going to deal with the barrel for this one. While we're here,
+
+83
+00:05:24.733 --> 00:05:28.733
+let's get rid of BeginPlay() and Tick, just to lean this code down a little bit. Do the same in the header
+
+84
+00:05:28.733 --> 00:05:32.733
+file. The AimingComponent doesn't need BeginPlay() or Tick, so that will
+
+85
+00:05:32.733 --> 00:05:36.733
+make life simpler. As I say, the less we can have on the screen the easier this is to reason
+
+86
+00:05:36.733 --> 00:05:40.733
+about. While we're here let's talk about a TODO, which is " add
+
+87
+00:05:40.733 --> 00:05:44.733
+SetTurretReference
+
+88
+00:05:44.733 --> 00:05:48.733
+because we know we're going to need to do that later. As I say, for now, we're just going to move the barrel
+
+89
+00:05:48.733 --> 00:05:52.733
+towards a particular place.
+
+90
+00:05:52.733 --> 00:05:56.733
+OK, I'm just going to compile, because we've got a bit of a... Oops!
+
+91
+00:05:56.733 --> 00:06:00.733
+...a bit of a compilation error there, or a bit of an IntelliSense
+
+92
+00:06:00.733 --> 00:06:04.733
+complaint here. Well we did but actually it's gone already. But I'm going to compile anyway just
+
+93
+00:06:04.733 --> 00:06:08.733
+for safety, just to make sure that what we've got as a template is good to go before I
+
+94
+00:06:08.733 --> 00:06:12.733
+start writing code in it, and I'm pretty sure that this will compile
+
+95
+00:06:12.733 --> 00:06:16.733
+just fine. There it goes! OK, so now we're actually read to do the coding.
+
+96
+00:06:16.733 --> 00:06:20.733
+So, how do we work out the difference between the current barrel rotation and the
+
+97
+00:06:20.733 --> 00:06:24.733
+AimDirection. So, let's start by getting the barrel rotation. Now, if
+
+98
+00:06:24.733 --> 00:06:28.733
+any of you know about Quaternions, hold your horses, we'll talk about that in a future video. Let's show you the
+
+99
+00:06:28.733 --> 00:06:32.733
+problem with not using Quaternions first. So we're going to get the barrel's rotation like
+
+100
+00:06:32.733 --> 00:06:36.733
+this. We're going to get the GetForwardVector on the barrel, which is just a...
+
+101
+00:06:36.733 --> 00:06:40.733
+Well, let's take a look at the barrel really quickly and show you precisely what that is.
+
+102
+00:06:40.733 --> 00:06:44.733
+It is just he X direction vector, it is the direction that the barrel faces in.
+
+103
+00:06:44.733 --> 00:06:48.733
+That's the forward vector we're getting, straight down the barrel. And then from
+
+104
+00:06:48.733 --> 00:06:52.733
+that, we can turn that into a rotation so
+
+105
+00:06:52.733 --> 00:06:56.733
+that we can to .Rotation. Oops! Now, what is a rotation?
+
+106
+00:06:56.733 --> 00:07:00.733
+It is just a roll, pitch, and yaw in a single struct.
+
+107
+00:07:00.733 --> 00:07:04.733
+Let's just take a look at that, an FRotator.
+
+108
+00:07:04.733 --> 00:07:08.733
+With these types of things, if you've never seen the type before, type it into Google, take a
+
+109
+00:07:08.733 --> 00:07:12.733
+quick look. It'll tell you what it is in the documentation. Here it is!
+
+110
+00:07:12.733 --> 00:07:16.733
+It's a struct which contains roll, pitch, and yaw OK. So, this tells us
+
+111
+00:07:16.733 --> 00:07:20.733
+the roll, pitch, and yaw of the barrel, at the moment, which is going to
+
+112
+00:07:20.733 --> 00:07:24.733
+be pretty static, there's no point in us logging that out. Now, let's look at the
+
+113
+00:07:24.733 --> 00:07:28.733
+AimAs a Rotator.
+
+114
+00:07:28.733 --> 00:07:32.733
+While we're here let's be consistent, BarrelRotator. Aim
+
+115
+00:07:32.733 --> 00:07:36.733
+AsRotator. OK, so AimAsRotator is going to be the aim
+
+116
+00:07:36.733 --> 00:07:40.733
+direction, and you guessed it, we need to convert it into a rotation, so dot
+
+117
+00:07:40.733 --> 00:07:44.733
+Rotation(). Now we're welcome to have a quick look at that, the
+
+118
+00:07:44.733 --> 00:07:48.733
+AimAsRotator. Why don't we do that? Why don't we just make sure it's getting
+
+119
+00:07:48.733 --> 00:07:52.733
+through, that every frame once we've got a solution we send an AimDirection and we see what this rotator
+
+120
+00:07:52.733 --> 00:07:56.733
+looks like. So, UE_LOG out this thing.
+
+121
+00:07:56.733 --> 00:08:00.733
+Now, Warning, TEXT and then I'm going to come
+
+122
+00:08:00.733 --> 00:08:04.733
+and say ("AimAsRotator")).
+
+123
+00:08:04.733 --> 00:08:08.733
+And what is this thing?
+
+124
+00:08:08.733 --> 00:08:12.733
+It's a rotator, it's probably able to be converted to a string.
+
+125
+00:08:12.733 --> 00:08:16.733
+So we're going to go star, anticipating we're going to need that. AimAsRotator
+
+126
+00:08:16.733 --> 00:08:20.733
+.ToString()) method.
+
+127
+00:08:20.733 --> 00:08:24.733
+Getting everything in the right place. Let's try this and have a look and see what the
+
+128
+00:08:24.733 --> 00:08:28.733
+AimAsRotator actually comes out as. Of course, I need to compile for that to work!
+
+129
+00:08:28.733 --> 00:08:32.733
+
+
+130
+00:08:32.733 --> 00:08:36.733
+
+
+131
+00:08:36.733 --> 00:08:40.733
+Alright, so if we play... Here you go, you've got a roll, a pitch, and a yaw. Now, if it can't
+
+132
+00:08:40.733 --> 00:08:44.733
+find an aim solution it stops printing, but if it can find an aim solution,
+
+133
+00:08:44.733 --> 00:08:48.733
+then you can see here that it wants me to pitch. To hit that tank, for instance,
+
+134
+00:08:48.733 --> 00:08:52.733
+it wants me to pitch 8 degrees off the horizon. Your 5 degrees away
+
+135
+00:08:52.733 --> 00:08:56.733
+from straight forwards and not roll at all. It never wants us to roll. Now,
+
+136
+00:08:56.733 --> 00:09:00.733
+for this guy, it wants to pitch up quite high, or it depends how far I want to
+
+137
+00:09:00.733 --> 00:09:04.733
+go. If I go just over his head, you see it's pitching 65 degrees, but if I'm going to the tank it's 7 degree.
+
+138
+00:09:04.733 --> 00:09:08.733
+These look like feasible values, so that's good news! We've got a roll, pitch, and yaw
+
+139
+00:09:08.733 --> 00:09:12.733
+of the barrel that we're looking to get. So, what next? Well, we said
+
+140
+00:09:12.733 --> 00:09:16.733
+that we needed to work out the difference, I think that we just have to do one more line for that.
+
+141
+00:09:16.733 --> 00:09:20.733
+It's an auto DeltaRotator, which is the difference
+
+142
+00:09:20.733 --> 00:09:24.733
+in rotation, which is AimAsRotator minus
+
+143
+00:09:24.733 --> 00:09:28.733
+BarrelRotator;
+
+144
+00:09:28.733 --> 00:09:32.733
+There you go! And we could log that DeltaRotator, as well, if we wanted to,
+
+145
+00:09:32.733 --> 00:09:36.733
+and that would just tell us the difference. But that's a bit boring, I'm not going to go ahead and waste your time doing that.
+
+146
+00:09:36.733 --> 00:09:40.733
+So we've done that, we've worked out the difference between the current barrel rotation and the AimDirection. That's cool!
+
+147
+00:09:40.733 --> 00:09:44.733
+So, now what we need to do is to move the barrel the right amount this frame,
+
+148
+00:09:44.733 --> 00:09:48.733
+give it a max elevation speed and the frame
+
+149
+00:09:48.733 --> 00:09:52.733
+time. OK, well we don't have a max elevation speed right
+
+150
+00:09:52.733 --> 00:09:56.733
+now, so I think what we need to do is to think about
+
+151
+00:09:56.733 --> 00:10:00.733
+having a barrel class, so that we can put that information
+
+152
+00:10:00.733 --> 00:10:04.733
+on the barrel. We have an fbx, which is a static mesh, but I think we should make a static mesh based
+
+153
+00:10:04.733 --> 00:10:08.733
+C++ class that allows us to specify the parameters
+
+154
+00:10:08.733 --> 00:10:12.733
+of the barrel, so that we can then put things like maximum elevation speed
+
+155
+00:10:12.733 --> 00:10:16.733
+and possibly other things like the clamping of the elevation.
+
+156
+00:10:16.733 --> 00:10:20.733
+If you think about it, this tank's barrel can't move up and down as much as it likes. There's a limit
+
+157
+00:10:20.733 --> 00:10:24.733
+to how far down it can go, before it hits the tank, especially when it's facing backwards,
+
+158
+00:10:24.733 --> 00:10:28.733
+and there's a limit to how far up it can go without it looking stupid. So,
+
+159
+00:10:28.733 --> 00:10:32.733
+we need a few parameters inside the barrel, and I'd
+
+160
+00:10:32.733 --> 00:10:36.733
+rather put those at the barrel rather than levering them into this
+
+161
+00:10:36.733 --> 00:10:40.733
+class here, right now. So, we actually can't do this little bit yet,
+
+162
+00:10:40.733 --> 00:10:44.733
+because we need a max elevation speed that we don't
+
+163
+00:10:44.733 --> 00:10:48.733
+have. So, what I'll do in the next video is go ahead and create a barrel C++ class with you,
+
+164
+00:10:48.733 --> 00:10:52.733
+and we'll use that to put in barrel related properties, to keep all things
+
+165
+00:10:52.733 --> 00:10:56.333
+in the right place. So, see you there!
+

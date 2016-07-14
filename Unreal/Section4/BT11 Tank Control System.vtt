@@ -1,0 +1,454 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So, let's talk
+
+2
+00:00:04.000 --> 00:00:08.000
+about the Tank Control System! In this video, we're going to have a bit of an overview of what's
+
+3
+00:00:08.000 --> 00:00:12.000
+going on. We're going to talk about how we're going to support keyboard, mouse, and the gamepad
+
+4
+00:00:12.000 --> 00:00:16.000
+controller. We'll be talking about mapping player intentions, to control
+
+5
+00:00:16.000 --> 00:00:20.000
+inputs. Mapping control inputs to actor actuators. Actuators
+
+6
+00:00:20.000 --> 00:00:24.000
+is a bold sounding thing. Really we're just rotating actors or moving actors.
+
+7
+00:00:24.000 --> 00:00:28.000
+And we'll be introducing the content of "fly by wire", so let's just start talking
+
+8
+00:00:28.000 --> 00:00:32.000
+through it. Basically, as part of this iterative cycle, we've had a go on the World, there's a huge amount
+
+9
+00:00:32.000 --> 00:00:36.000
+more we could do a landscape, but we're done enough for now. So next, we're going to do,
+
+10
+00:00:36.000 --> 00:00:40.000
+look at these three steps kind of all in one, the Tank, the Controls, and Player 2.
+
+11
+00:00:40.000 --> 00:00:44.000
+We need to come up with a control paradigm that obviously
+
+12
+00:00:44.000 --> 00:00:48.000
+moves the tank, and we need to think about the different components of the tank. We then
+
+13
+00:00:48.000 --> 00:00:52.000
+need to come up with some controls that make sense, and then, we need to,
+
+14
+00:00:52.000 --> 00:00:56.000
+at the same time, think about how Player 2 whether that Player 2 is a human
+
+15
+00:00:56.000 --> 00:01:00.000
+or an AI would actually control the tank. So, that's what we're going to look at now. Later, we'll
+
+16
+00:01:00.000 --> 00:01:04.000
+go back through User Interface and then back round to the World. This cycle is not a particularly
+
+17
+00:01:04.000 --> 00:01:08.000
+set in stone cycle, it's just something that we're just following for this particular section.
+
+18
+00:01:08.000 --> 00:01:12.000
+So, control inputs! Keyboard and mouse, as I said, and Xbox controller is what we're going
+
+19
+00:01:12.000 --> 00:01:16.000
+to be using for this section. You don't need to have one. If you've got one, great! An Xbox 360
+
+20
+00:01:16.000 --> 00:01:20.000
+controller should plug directly into the USB port of your PC and work without any troubles.
+
+21
+00:01:20.000 --> 00:01:24.000
+You can also use other types of controllers, if you wish. We are
+
+22
+00:01:24.000 --> 00:01:28.000
+going to be assuming, for this section, that we have a couple of analog triggers on the controller,
+
+23
+00:01:28.000 --> 00:01:32.000
+but as I said, it's not essential, you can still use and test this game without it. So, let's
+
+24
+00:01:32.000 --> 00:01:36.000
+look at the major tank components. There are three major components to consider in a tank, and
+
+25
+00:01:36.000 --> 00:01:40.000
+they all can move somewhat independently. You've got the white base, which is the tank body. Of course,
+
+26
+00:01:40.000 --> 00:01:44.000
+there's two tracks on that, it can move forward and backwards and rotate. Of course, it
+
+27
+00:01:44.000 --> 00:01:48.000
+can't strafe. Then, we've got the blue. The blue is the turret
+
+28
+00:01:48.000 --> 00:01:52.000
+and that is going to contain people's head and
+
+29
+00:01:52.000 --> 00:01:56.000
+hold onto the barrel, and then, of course the barrel there in red, which can elevate up and
+
+30
+00:01:56.000 --> 00:02:00.000
+down. So the turret, the blue can rotate, the tank can translate and rotate, but it
+
+31
+00:02:00.000 --> 00:02:04.000
+can't strafe sideways, and then the turret's up and down. So, pretty obvious stuff,
+
+32
+00:02:04.000 --> 00:02:08.000
+but just want to be clear on there, they're the major components we're dealing with. So, what I want to
+
+33
+00:02:08.000 --> 00:02:12.000
+do is start talking about the control system. Now, I'm sorry that I can't animate this table how
+
+34
+00:02:12.000 --> 00:02:16.000
+I would like to, on Google Slides, but I'm just going to take it from the top-left onwards.
+
+35
+00:02:16.000 --> 00:02:20.000
+Firstly, let's get the layout of the table. We're talking about the control intentions, the intention
+
+36
+00:02:20.000 --> 00:02:24.000
+of the Player or the AI or the 2nd Player. Then, we're going to talk about what
+
+37
+00:02:24.000 --> 00:02:28.000
+would happen in a Manual Control Paradigm, then fly by wire.
+
+38
+00:02:28.000 --> 00:02:32.000
+Now, fly by wire, what that means will kind of come clear at the bottom of the table. In
+
+39
+00:02:32.000 --> 00:02:36.000
+simple terms, its Manual Control is where you directly actuate something,
+
+40
+00:02:36.000 --> 00:02:40.000
+like you move a track forward or back, where fly by wire is you set an intention like
+
+41
+00:02:40.000 --> 00:02:44.000
+I want to rotate the tank, and then, maybe one track goes forward and the other goes back or whatever.
+
+42
+00:02:44.000 --> 00:02:48.000
+So, that's basically what fly by wire means. And then, we'll also be clear on what
+
+43
+00:02:48.000 --> 00:02:52.000
+the actuators are, the things that are actually going to be moved. So, starting with the first
+
+44
+00:02:52.000 --> 00:02:56.000
+movement forward. If we want to go forward, we're symmetric on the triggers. I'm assuming that the two triggers
+
+45
+00:02:56.000 --> 00:03:00.000
+of your controller here are... And by triggers, by the way, I mean back
+
+46
+00:03:00.000 --> 00:03:04.000
+here, the two little things sticking out of the top of that diagram, the actual left and
+
+47
+00:03:04.000 --> 00:03:08.000
+right trigger and they're analog. So, if we were symmetric with our triggers,
+
+48
+00:03:08.000 --> 00:03:12.000
+then we would be sending both tracks forward at the same speed. I'm assuming that the left
+
+49
+00:03:12.000 --> 00:03:16.000
+trigger drives the left track and the right trigger drives the right track, and the degree to which
+
+50
+00:03:16.000 --> 00:03:20.000
+you pull the trigger determines how fast the tracks move, because I think this is going to be quite a fun
+
+51
+00:03:20.000 --> 00:03:24.000
+direct control system for the tank. So, one option would be, you pull the triggers in symmetrically and
+
+52
+00:03:24.000 --> 00:03:28.000
+then you go straight forward. If one triggers in more than the other, of course, you'll be turning to one side.
+
+53
+00:03:28.000 --> 00:03:32.000
+But the fly by wire control could be the left stick
+
+54
+00:03:32.000 --> 00:03:36.000
+going forward, to indicate I just want to move forward, or you could use the
+
+55
+00:03:36.000 --> 00:03:40.000
+W key on the keyboard and then you would move forward at a constant speed. In the case of the left
+
+56
+00:03:40.000 --> 00:03:44.000
+stick, of course, it would be an analog stick so it's an analog speed.
+
+57
+00:03:44.000 --> 00:03:48.000
+So, let's think about backwards! Backwards again, we could use the bumpers, and what are the bumpers? Well, on the controller
+
+58
+00:03:48.000 --> 00:03:52.000
+they are these things just above. So the triggers are the little guys sticking out here, the bumpers are the ones
+
+59
+00:03:52.000 --> 00:03:56.000
+slightly closer to us in the foreground. They're actually digital, they are on or off. So,
+
+60
+00:03:56.000 --> 00:04:00.000
+what we could do with the bumpers is we could say that the bumpers put the breaks on if we're moving forward,
+
+61
+00:04:00.000 --> 00:04:04.000
+and then, immediately send us into a fixed speed reverse once we've stopped. That would be good
+
+62
+00:04:04.000 --> 00:04:08.000
+enough. So, symmetric bumpers would make us break or go backwards,
+
+63
+00:04:08.000 --> 00:04:12.000
+and also, we could use the left stick or the S key, so I'm going for a standard W, S, A,
+
+64
+00:04:12.000 --> 00:04:16.000
+D, as indicated on this picture of the keyboard over here.
+
+65
+00:04:16.000 --> 00:04:20.000
+OK, so that's an indication of the sort of controls. What I would like
+
+66
+00:04:20.000 --> 00:04:24.000
+you to do, as a challenge, is to really think through these controls, because it's a very valuable exercise
+
+67
+00:04:24.000 --> 00:04:28.000
+before we go diving in and actually making this happen, we want to know what control
+
+68
+00:04:28.000 --> 00:04:32.000
+paradigm we're ending up with. So I want you to complete the control
+
+69
+00:04:32.000 --> 00:04:36.000
+table. I'll flip back to the slide in a minute, but let me just brief you on it. I want you to finish
+
+70
+00:04:36.000 --> 00:04:40.000
+the control intention table. There is no wrong way or right way of doing this, the purpose is for you to think
+
+71
+00:04:40.000 --> 00:04:44.000
+through this. We want fly by wire controls
+
+72
+00:04:44.000 --> 00:04:48.033
+only on the keyboard and mouse, so think about how we could use the keyboard
+
+73
+00:04:48.033 --> 00:04:52.800
+and mouse in a less direct way, because we really don't have enough analog axes on the keyboard and mouse.
+
+74
+00:04:52.800 --> 00:04:56.633
+So, maybe play a tank game, World of Tanks or War Thunder or something like that,
+
+75
+00:04:56.633 --> 00:05:00.633
+and maybe follow the control system in those. And then, with
+
+76
+00:05:00.633 --> 00:05:04.633
+the controller, we want manual control and potentially fly by
+
+77
+00:05:04.633 --> 00:05:08.633
+wire, so we just want more of a manual control element as an option on the control,
+
+78
+00:05:08.633 --> 00:05:12.633
+as I started to show you. So look, really there's no right answer here, as I
+
+79
+00:05:12.633 --> 00:05:16.633
+said, I want you to sit down and think about how control inputs would relate
+
+80
+00:05:16.633 --> 00:05:20.633
+to outputs. So, we go back to this table, and I want you to just finish it
+
+81
+00:05:20.633 --> 00:05:24.633
+off. Add another three, four, five rows to this table, as many as you see fit,
+
+82
+00:05:24.633 --> 00:05:28.633
+and spend about 15 to 20 minutes researching another tank game and really just get into the
+
+83
+00:05:28.633 --> 00:05:32.633
+mindset of thinking about how controls might work and the consistency of it
+
+84
+00:05:32.633 --> 00:05:36.633
+and how it all kind of fits together. So go ahead, pause the video, and do that now.
+
+85
+00:05:36.633 --> 00:05:40.633
+
+
+86
+00:05:40.633 --> 00:05:44.633
+So welcome back! Here's the challenge slide! Now, there's going to be a face full of new lines in this table
+
+87
+00:05:44.633 --> 00:05:48.633
+here, so we're going to work through it one at a time, and I'll use my mouse cursor to try and help you see
+
+88
+00:05:48.633 --> 00:05:52.633
+through this. So, boom loads of stuff! Let's go down to Strafe,
+
+89
+00:05:52.633 --> 00:05:56.633
+Strafe is the next thing. Well that's moving sideways, it's just not applicable to a tank. I don't know if you've
+
+90
+00:05:56.633 --> 00:06:00.633
+seen the new A Team Film with B. A. Baracus, when he says "You can't fly a tank fool!"?
+
+91
+00:06:00.633 --> 00:06:04.633
+[Laughs] Well, you can't strafe a tank fool either, so it's not going to happen. We're not going
+
+92
+00:06:04.633 --> 00:06:08.633
+sideways in a tank, so we can forget that. But rotating the body, how would you do that? Well, you'd use
+
+93
+00:06:08.633 --> 00:06:12.633
+asymmetric triggers or bumpers on the manual controller, or you'd simply use the left stick
+
+94
+00:06:12.633 --> 00:06:16.633
+left or right, if we're going for fly by wire control on the controller or the A
+
+95
+00:06:16.633 --> 00:06:20.633
+or D keys would be another way of doing that, and that would rotate
+
+96
+00:06:20.633 --> 00:06:24.633
+tracks, different speeds. So, that's the actuator! What we're saying here is
+
+97
+00:06:24.633 --> 00:06:28.633
+that the actuator is the tracks, and in order to cause a rotation, they just need to move at
+
+98
+00:06:28.633 --> 00:06:32.633
+different speeds. Any different speeds and it will rotate, how different the speed is determines how fast it rotates.
+
+99
+00:06:32.633 --> 00:06:36.633
+So let's move down to rotating the turret! Well, I'm thinking
+
+100
+00:06:36.633 --> 00:06:40.633
+we'll deal with these two together, rotating the turret and elevating the barrel, so
+
+101
+00:06:40.633 --> 00:06:44.600
+aiming is a shortcut for those two. I'm thinking we don't bother giving manual control
+
+102
+00:06:44.600 --> 00:06:50.066
+in the controller for that. It's too much hassle really, while you're trying to think about driving a tank as well. So we'll go for pure fly by wire
+
+103
+00:06:50.066 --> 00:06:52.633
+just like the controls in War Thunder, but what you do
+
+104
+00:06:52.633 --> 00:06:56.633
+is you look into a particular direction, the camera goes immediately
+
+105
+00:06:56.633 --> 00:07:00.633
+to the direction with right stick or the mouse, and then shortly afterwards the barrel
+
+106
+00:07:00.633 --> 00:07:04.633
+follows to that position, so both the elevation and the rotation
+
+107
+00:07:04.633 --> 00:07:08.633
+move to that position after some time, they're limited in their speed. And
+
+108
+00:07:08.633 --> 00:07:12.633
+the things you're actuating are the Turret Rotator and the Barrel Elevator, so it's
+
+109
+00:07:12.633 --> 00:07:16.633
+pretty simple. So hopefully that gives you an overview of what we're trying to achieve with the tank
+
+110
+00:07:16.633 --> 00:07:20.633
+controls here, it's pretty much as simple as that. What we're going to do next is dive in and start actually
+
+111
+00:07:20.633 --> 00:07:24.633
+putting a very basic block-work tank together, and then, we'll start thinking about
+
+112
+00:07:24.633 --> 00:07:28.633
+how we control this thing both in C++ and with a little bit of Blueprint where it makes
+
+113
+00:07:28.633 --> 00:07:32.233
+our life easier. So, see you there!
+

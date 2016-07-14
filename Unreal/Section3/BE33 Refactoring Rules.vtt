@@ -1,0 +1,754 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So, welcome to
+
+2
+00:00:04.000 --> 00:00:08.000
+Refactoring Rules! Now, you can take that to mean the rules of refactoring, or you can take
+
+3
+00:00:08.000 --> 00:00:12.000
+it to mean that refactoring is pretty cool! Either way, I think both apply!
+
+4
+00:00:12.000 --> 00:00:16.000
+In this video, firstly, in an instance like
+
+5
+00:00:16.000 --> 00:00:20.000
+when we want to get the start and the end point of this line trace that we're doing,
+
+6
+00:00:20.000 --> 00:00:24.000
+you could return a struct with two vectors in it, you
+
+7
+00:00:24.000 --> 00:00:28.000
+could use out parameters, or you could use multiple
+
+8
+00:00:28.000 --> 00:00:32.000
+getters to get the two different vector, and we're going to be doing that in this refactor.
+
+9
+00:00:32.000 --> 00:00:36.000
+So, in general about refactoring rules, less lines of
+
+10
+00:00:36.000 --> 00:00:40.000
+clear code is better than more. So, we had 143
+
+11
+00:00:40.000 --> 00:00:44.000
+at the start, in my code, and by the end of this video we'll have 122
+
+12
+00:00:44.000 --> 00:00:48.000
+lines. So that's about a 15% reduction in the number of
+
+13
+00:00:48.000 --> 00:00:52.000
+lines of code, and it still works and I think that's a good thing.
+
+14
+00:00:52.000 --> 00:00:56.000
+I want to reiterate that naming is really important. Take the time to think about the names
+
+15
+00:00:56.000 --> 00:01:00.000
+of things, it's worth changing them.
+
+16
+00:01:00.000 --> 00:01:04.000
+Now commenting! It's good to comment why you're doing things. Don't assume it's
+
+17
+00:01:04.000 --> 00:01:08.000
+obvious why you're doing something, but the watch
+
+18
+00:01:08.000 --> 00:01:12.000
+should be obvious. If the what's not obvious, then
+
+19
+00:01:12.000 --> 00:01:16.000
+maybe you want to add some further comments
+
+20
+00:01:16.000 --> 00:01:20.000
+for clarification. OK, so we want the code as self documenting as possible
+
+21
+00:01:20.000 --> 00:01:23.966
+but adding further comments for clarification is just fine.
+
+22
+00:01:23.966 --> 00:01:24.000
+
+
+23
+00:01:24.000 --> 00:01:28.000
+So, let's recap this Red, Green, Refactor! Remember we start off,
+
+24
+00:01:28.000 --> 00:01:32.000
+when we start a new thing, with something not working, so our physics handle wasn't working.
+
+25
+00:01:32.000 --> 00:01:36.000
+We then just got it working and we made a commit over
+
+26
+00:01:36.000 --> 00:01:40.000
+here. It was this one, Using Physics Handles, so that was our green commit,
+
+27
+00:01:40.000 --> 00:01:44.000
+and now we're going to refactor, so the whole purpose of what we're going to do next is refactor
+
+28
+00:01:44.000 --> 00:01:48.000
+and make it pretty. So, you can say that, by the way, you can write your commit message. I quite
+
+29
+00:01:48.000 --> 00:01:52.000
+like to do this before we even start coding,
+
+30
+00:01:52.000 --> 00:01:56.000
+then that reminds you what your little micro sprint is. What are you doing
+
+31
+00:01:56.000 --> 00:02:00.000
+in the next section. So,
+
+32
+00:02:00.000 --> 00:02:04.000
+my video is called Refactoring Rules, but you may want to make a commit
+
+33
+00:02:04.000 --> 00:02:08.000
+that is something like Refactoring
+
+34
+00:02:08.000 --> 00:02:12.000
+Physics Handle Code,
+
+35
+00:02:12.000 --> 00:02:16.000
+and then, that would get committed next. Alright, so that can be a really useful thing to
+
+36
+00:02:16.000 --> 00:02:20.000
+do, is so that you know... And your message will stay, by the way. If you go back to Commit
+
+37
+00:02:20.000 --> 00:02:24.000
+it'll stay here. You can always refer to that and say, what am I doing right now? What am I doing?
+
+38
+00:02:24.000 --> 00:02:28.000
+Well I'm refactoring, I'm in the blue stage OK.
+
+39
+00:02:28.000 --> 00:02:32.000
+So, this Accessors & Memory Layout, that was getting something working.
+
+40
+00:02:32.000 --> 00:02:36.000
+This Reducing Code was a refactor commit, and you might want to standardize to the first
+
+41
+00:02:36.000 --> 00:02:40.000
+word being refactor. And then, this was getting something working and now
+
+42
+00:02:40.000 --> 00:02:44.000
+this is another refactor. A couple of other things on Source Control, while we're here. I
+
+43
+00:02:44.000 --> 00:02:48.000
+don't really like this .opendb file being tracked by Source Control.
+
+44
+00:02:48.000 --> 00:02:52.000
+It's a lock file and it's there whenever Visual Studio is open.
+
+45
+00:02:52.000 --> 00:02:56.000
+What it kind of forces you to do is close Visual Studio, before you commit. But the
+
+46
+00:02:56.000 --> 00:03:00.000
+problem with that, if you get in the habit of just closing, if you don't say yes when it
+
+47
+00:03:00.000 --> 00:03:04.000
+asks you if you want to save everything, you could lose your work. It's better to positively save your work
+
+48
+00:03:04.000 --> 00:03:08.000
+and not worry about whether this .opendb file is there.
+
+49
+00:03:08.000 --> 00:03:12.000
+So, I'm going to ignore the .opendb file. I'll go and get it's name
+
+50
+00:03:12.000 --> 00:03:16.000
+from here, from the file system. There's another file I'm going to
+
+51
+00:03:16.000 --> 00:03:20.000
+ignore, which is the .solution file, and the reason for that is, if we look back at Using Physics Handle,
+
+52
+00:03:20.000 --> 00:03:24.000
+the changes in it aren't helpful to us. It's a generated file anyway, so I'm going to get rid
+
+53
+00:03:24.000 --> 00:03:28.000
+of those two. Just as a recap, you go find the .gitignore,
+
+54
+00:03:28.000 --> 00:03:32.000
+you add the things you want *.VC.opendb and
+
+55
+00:03:32.000 --> 00:03:36.000
+*.sln, pop those into the file, save the .gitignore.
+
+56
+00:03:36.000 --> 00:03:40.000
+Back over in your Source Control, you may need to do a refresh.
+
+57
+00:03:40.000 --> 00:03:44.000
+It will then notice, in the Uncommitted Changes, that there's a change in the .gitignore.
+
+58
+00:03:44.000 --> 00:03:48.000
+Well, you just add that, and that's all we need to do for right now! So, we're ready to go! We know
+
+59
+00:03:48.000 --> 00:03:52.000
+what we're doing, we're going to be refactoring the physics handle code, and we've
+
+60
+00:03:52.000 --> 00:03:54.700
+ignored what we need to. Let's go get on with the refactor!
+
+61
+00:03:54.700 --> 00:03:58.700
+Not so easy, of course, I want you to do it.
+
+62
+00:03:58.700 --> 00:04:02.700
+Refactor your code, yes again. Yes it's soon, but as I've said, clarity is
+
+63
+00:04:02.700 --> 00:04:06.700
+worth fighting for, we want to get into that discipline. Commit your work once it's done
+
+64
+00:04:06.700 --> 00:04:10.700
+and it runs well and make sure it's so clear you'll remember it
+
+65
+00:04:10.700 --> 00:04:14.700
+in a year. So go ahead, pause the video, and have a go at your own refactoring
+
+66
+00:04:14.700 --> 00:04:18.133
+now, before watching my solution!
+
+67
+00:04:18.133 --> 00:04:22.133
+So, let's just start at the top of Grabber.cpp, go through make sure it's clear, again! Yes,
+
+68
+00:04:22.133 --> 00:04:26.133
+we're refactoring again! As I said, that's fine! So, less lines is better. Let's
+
+69
+00:04:26.133 --> 00:04:30.133
+get rid of spaces we don't need. I want to see what's happening in BeginPlay().
+
+70
+00:04:30.133 --> 00:04:34.133
+I'm going to change this one around. Rather than if PhysicsHandle,
+
+71
+00:04:34.133 --> 00:04:38.133
+I'm going to say if (PhysicsHandle == remember null
+
+72
+00:04:38.133 --> 00:04:42.133
+ptr, i.e. if there's no PhysicsHandle attached
+
+73
+00:04:42.133 --> 00:04:46.133
+then we're going to log the error. Yes, we could use an assert, but we'll introduce
+
+74
+00:04:46.133 --> 00:04:50.133
+that later in the course. So that's less lines of code, so that's better!
+
+75
+00:04:50.133 --> 00:04:54.133
+Remember we started off at 143 lines or something like that.
+
+76
+00:04:54.133 --> 00:04:58.133
+Let's see what we can get it down to, while still being super clear! I'm going to collapse that down, that doesn't
+
+77
+00:04:58.133 --> 00:05:02.133
+change the number of lines, but it makes it clearer. Setup the input component. I don't think we need to
+
+78
+00:05:02.133 --> 00:05:06.133
+say that it's found or that we're binding the axis anymore, cause the code
+
+79
+00:05:06.133 --> 00:05:10.133
+says that. So, that's fine if InputComponent
+
+80
+00:05:10.133 --> 00:05:14.133
+exists, otherwise log an error. Good that's clear! Close that
+
+81
+00:05:14.133 --> 00:05:18.133
+down, drop the gap, "// Called every frame". Now, this bit is horrible
+
+82
+00:05:18.133 --> 00:05:22.133
+here. This bit here about getting the player view point this tick, that is
+
+83
+00:05:22.133 --> 00:05:26.133
+a separate method, so let's refactor that out. I'm going to take that out,
+
+84
+00:05:26.133 --> 00:05:30.133
+I'm going to make a method called GetPlayer...
+
+85
+00:05:30.133 --> 00:05:34.133
+Or actually, what am I getting here?
+
+86
+00:05:34.133 --> 00:05:38.133
+Getting reach line end is what
+
+87
+00:05:38.133 --> 00:05:42.133
+I'm really doing in this method, isn't it? I'm getting the reach line end. So, let's just
+
+88
+00:05:42.133 --> 00:05:46.133
+make a method, a helper method. So, I'm going to put it at the bottom called GetReachLine
+
+89
+00:05:46.133 --> 00:05:50.133
+End(), pop all of this in it,
+
+90
+00:05:50.133 --> 00:05:54.133
+and let's go.
+
+91
+00:05:54.133 --> 00:05:58.133
+Not void, FVector. It's going to return an FVector, Get
+
+92
+00:05:58.133 --> 00:06:02.133
+ReachLineEnd(). Now, by the way,
+
+93
+00:06:02.133 --> 00:06:06.133
+in terms of your refactoring either watch what I'm doing or refactor yourself at the end,
+
+94
+00:06:06.133 --> 00:06:10.133
+and I'm going to challenge you, at the end, to refactor this, so it's entirely up to you how
+
+95
+00:06:10.133 --> 00:06:14.133
+you do your refactor. If you're a beginner, you may want to copy me. If you're an expert, you may want to
+
+96
+00:06:14.133 --> 00:06:18.133
+do things your way. I'm just trying to teach you the thought behind how I'm refactoring.
+
+97
+00:06:18.133 --> 00:06:22.133
+So GetReachLineEnd and let's pop in some braces.
+
+98
+00:06:22.133 --> 00:06:26.133
+
+
+99
+00:06:26.133 --> 00:06:30.133
+Now what, of course, we can do at the bottom is, rather than making this intermediate variable, we can just return
+
+100
+00:06:30.133 --> 00:06:34.133
+that result. Return the PlayerViewPointLocation plus the Rotation.Vector
+
+101
+00:06:34.133 --> 00:06:38.133
+times the reach and that's it! Do we need to say "/// Get player view point
+
+102
+00:06:38.133 --> 00:06:42.133
+this tick"? Not really! It's not necessarily this tick anymore anyway, it's when
+
+103
+00:06:42.133 --> 00:06:46.133
+we call GetReachLineEnd(). OK, so one more thing we need to do,
+
+104
+00:06:46.133 --> 00:06:50.133
+of course, is put UGrabber. Fully qualify the class name. The
+
+105
+00:06:50.133 --> 00:06:54.133
+colon colon, remember, because it's known at compile time, and then let's go and
+
+106
+00:06:54.133 --> 00:06:58.133
+declare this thing, or right-click, Quick Actions, Create Declaration,
+
+107
+00:06:58.133 --> 00:07:02.133
+and with a little bit of time it will do that.
+
+108
+00:07:02.133 --> 00:07:06.133
+Let's go check that it's in a sensible place in Grabber.h.
+
+109
+00:07:06.133 --> 00:07:10.133
+It is, apart from it's bound there, so I'm going to do this
+
+110
+00:07:10.133 --> 00:07:14.133
+and say "// Returns current end of
+
+111
+00:07:14.133 --> 00:07:18.133
+reach line". And this, of course, would allow us to have a reach line that changes
+
+112
+00:07:18.133 --> 00:07:22.133
+during the game play. If we're going to get the end of the reach line, I'll be we're going to be getting
+
+113
+00:07:22.133 --> 00:07:26.133
+the start of the reach line as well.
+
+114
+00:07:26.133 --> 00:07:30.133
+OK, and then let's go and define
+
+115
+00:07:30.133 --> 00:07:34.133
+another method, which is for the GetReachLineStart().
+
+116
+00:07:34.133 --> 00:07:38.133
+I prefer start to come before end. I'm copying and pasting code because it's so
+
+117
+00:07:38.133 --> 00:07:42.133
+similar. And what we do here is we allow ourselves
+
+118
+00:07:42.133 --> 00:07:46.133
+to duplicate this first little bit of code, these lines I've just highlighted,
+
+119
+00:07:46.133 --> 00:07:50.133
+and then, up to twice I don't mind duplicating
+
+120
+00:07:50.133 --> 00:07:54.133
+code like that. And then, we just return something a lot simpler, in this case, which is just the Player
+
+121
+00:07:54.133 --> 00:07:58.133
+ViewPointLocation. So we have GetReachLineStart() and Get
+
+122
+00:07:58.133 --> 00:08:02.133
+ReachLineEnd(). They are nice and simple. Now, let's go
+
+123
+00:08:02.133 --> 00:08:06.133
+use those. Let's go use this GetReachLineStart() and GetReachLineEnd().
+
+124
+00:08:06.133 --> 00:08:10.133
+Where is the first place we need it?
+
+125
+00:08:10.133 --> 00:08:14.133
+So, we do the super tick in the
+
+126
+00:08:14.133 --> 00:08:18.133
+tick. We find out if the PhysicsHandle is attached.
+
+127
+00:08:18.133 --> 00:08:22.133
+Then, we move the object we're holding to what?
+
+128
+00:08:22.133 --> 00:08:26.133
+To (GetReachLineEnd()). That's a bit clearer isn't it?!
+
+129
+00:08:26.133 --> 00:08:30.133
+And then, that's called once per frame, once per frame, that we're
+
+130
+00:08:30.133 --> 00:08:34.133
+holding something. So that's OK! Then, how does the Grab() work? Well,
+
+131
+00:08:34.133 --> 00:08:38.133
+("Grab pressed"), don't know if we need the log anymore, as it works.
+
+132
+00:08:38.133 --> 00:08:42.133
+Line trace to see if we are reaching an any
+
+133
+00:08:42.133 --> 00:08:46.133
+actors. Yeah, that's fine! That comment does clarify things, so that's one of the things you're checking
+
+134
+00:08:46.133 --> 00:08:50.133
+for. If we hit something, then attach a Physics Handle. That's fine!
+
+135
+00:08:50.133 --> 00:08:54.133
+I don't think we need to say that we're attaching a Physics Handle here.
+
+136
+00:08:54.133 --> 00:08:58.133
+Where are we grabbing?
+
+137
+00:08:58.133 --> 00:09:02.133
+Yeah that's right, we can't use the reach line, but we're grabbing at the location of the Actors,
+
+138
+00:09:02.133 --> 00:09:06.133
+so that's all fine. "// no bones needed".
+
+139
+00:09:06.133 --> 00:09:10.133
+This component that
+
+140
+00:09:10.133 --> 00:09:14.133
+we're grabbing turns out to be the mesh, but I'm not going to
+
+141
+00:09:14.133 --> 00:09:18.133
+comment that. Let's leave that.
+
+142
+00:09:18.133 --> 00:09:22.133
+Release(), ("Grab released"). I don't think we need a comment anymore.
+
+143
+00:09:22.133 --> 00:09:26.133
+GetFirstPhysicsBodyInReach(). Now,
+
+144
+00:09:26.133 --> 00:09:30.133
+that's got a load of this stuff! You see all that stuff? We've separated it out, haven't we, so that we can
+
+145
+00:09:30.133 --> 00:09:34.133
+delete all those lines of code. We can bring all our query
+
+146
+00:09:34.133 --> 00:09:38.133
+parameters together.
+
+147
+00:09:38.133 --> 00:09:42.133
+And then, where it says, we're ray casting from PlayerView
+
+148
+00:09:42.133 --> 00:09:46.133
+PointLocation, we're playing from GetReachLineStart()
+
+149
+00:09:46.133 --> 00:09:50.133
+like so, to GetReachLineEnd(). It
+
+150
+00:09:50.133 --> 00:09:54.133
+reads a lot more nicely.
+
+151
+00:09:54.133 --> 00:09:58.133
+There you go nice! See what we hit? We don't need to do that here anymore!
+
+152
+00:09:58.133 --> 00:10:02.133
+And just return Hit. I don't like Hit I like Hit result,
+
+153
+00:10:02.133 --> 00:10:06.133
+so let's rename. Control R, Control R, in Visual Studio.
+
+154
+00:10:06.133 --> 00:10:10.133
+HitResult. Ah,
+
+155
+00:10:10.133 --> 00:10:14.133
+looking a bit better! GetReachLineEnd(), what's wrong with that? GetReachLineEnd(), let's
+
+156
+00:10:14.133 --> 00:10:18.133
+check the header file. GetReachLineEnd(). I don't think there's anything wrong
+
+157
+00:10:18.133 --> 00:10:22.133
+with it. I think it hasn't caught up. I know, I can't spell!
+
+158
+00:10:22.133 --> 00:10:26.133
+Cool! I think that looks and feels a lot better!
+
+159
+00:10:26.133 --> 00:10:30.133
+A final thing I like to do is, just have a look through it all and make sure that
+
+160
+00:10:30.133 --> 00:10:34.133
+we are happy that what's commented needs to be commented, that
+
+161
+00:10:34.133 --> 00:10:38.133
+comments talk about why, or if they talk about what for the sake
+
+162
+00:10:38.133 --> 00:10:42.133
+of adding clarification, and that
+
+163
+00:10:42.133 --> 00:10:46.133
+all of our code will make sense to us in a year. So, here's something to remember. Will
+
+164
+00:10:46.133 --> 00:10:50.133
+it be clear in a year? So, you come back to this in a whole year, would you still understand
+
+165
+00:10:50.133 --> 00:10:54.133
+what on earth you are doing?
+
+166
+00:10:54.133 --> 00:10:58.133
+I'm going to say, what we get here. Component to Grab "// Gets the mesh in
+
+167
+00:10:58.133 --> 00:11:02.133
+our case". If you log out this component to Grab(), you'll find that, when you get
+
+168
+00:11:02.133 --> 00:11:06.133
+the HitResult back and you get the component, it's the mesh component that it
+
+169
+00:11:06.133 --> 00:11:10.133
+happens to be. So, it's the mesh that we are moving down here.
+
+170
+00:11:10.133 --> 00:11:14.133
+Release() just releases, it couldn't be simpler.
+
+171
+00:11:14.133 --> 00:11:18.133
+GetFirstPhysicsBodyInReach(). Line trace is after the
+
+172
+00:11:18.133 --> 00:11:22.133
+distance and returns what it hits, provided that it's a PhysicsBody, which
+
+173
+00:11:22.133 --> 00:11:26.133
+is why that's in the name. That's good! You could of course make this PhysicsBody a parameter, so
+
+174
+00:11:26.133 --> 00:11:30.133
+you could get first object channel in reach or something, but this is fine.
+
+175
+00:11:30.133 --> 00:11:34.133
+Don't make it more general than it needs to be, earlier than you need to make it general.
+
+176
+00:11:34.133 --> 00:11:38.133
+Anything that's slightly grating is that you've got two bits of code duplicated here, but the only other
+
+177
+00:11:38.133 --> 00:11:42.133
+option is to either return a struct, which is a bit over the top from here,
+
+178
+00:11:42.133 --> 00:11:46.133
+or to use out parameters which I'm not a great fan of. So that's it! Of
+
+179
+00:11:46.133 --> 00:11:50.133
+course, the most important thing now is to check that our refactor works. Now, if you're
+
+180
+00:11:50.133 --> 00:11:54.133
+less confident in refactoring than that, you need to just do it in smaller lumps. Change
+
+181
+00:11:54.133 --> 00:11:58.133
+something, compile, check. Change something, compile, check. The important thing is it keeps
+
+182
+00:11:58.133 --> 00:12:02.133
+working and that you've got this safety net of the Using Physics Handles
+
+183
+00:12:02.133 --> 00:12:06.133
+commit, which you know will work because you checked it,
+
+184
+00:12:06.133 --> 00:12:10.133
+before you save it. So, we can pick, we can drop, we can pick,
+
+185
+00:12:10.133 --> 00:12:14.133
+and we can drop. Wonderful! Look at that! Great!
+
+186
+00:12:14.133 --> 00:12:18.133
+So, we now have nice looking code that still works. So just finally
+
+187
+00:12:18.133 --> 00:12:22.133
+commit your work, as a refactor. We already have the commit message remember?
+
+188
+00:12:22.133 --> 00:12:25.599
+And we are good to go!
+

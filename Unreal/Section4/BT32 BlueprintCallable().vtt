@@ -1,0 +1,790 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So, welcome to
+
+2
+00:00:04.000 --> 00:00:08.000
+BlueprintCallable()! It's a lot more fun than it sounds! By the end of the video,
+
+3
+00:00:08.000 --> 00:00:12.000
+we will actually be logging out, not only the start location of our projectile, but
+
+4
+00:00:12.000 --> 00:00:16.000
+also the end location to the console here, so that we can see
+
+5
+00:00:16.000 --> 00:00:20.000
+not only where the projectile is starting from but where it's going to. Let me just get that working. There
+
+6
+00:00:20.000 --> 00:00:24.000
+you go! So, it's going to be finding both the world space location, which we've already done,
+
+7
+00:00:24.000 --> 00:00:28.000
+and the barrel's location for all of the tanks. So
+
+8
+00:00:28.000 --> 00:00:29.466
+I will see you in there!
+
+9
+00:00:29.466 --> 00:00:33.466
+So, this video on the surface seems simple. We already have
+
+10
+00:00:33.466 --> 00:00:37.466
+the HitPoint, the end of our projectile flight. What we're looking for is to find
+
+11
+00:00:37.466 --> 00:00:41.466
+the position of the start of our projectile flight, the barrel's position, because, of course, the projectile goes
+
+12
+00:00:41.466 --> 00:00:45.466
+from the barrel to the thing it hits. Pretty simple right!  So, in the
+
+13
+00:00:45.466 --> 00:00:49.466
+TankAimingComponent, that we have just been playing with, we're going to want
+
+14
+00:00:49.466 --> 00:00:53.466
+a reference to a barrel, which seems simple
+
+15
+00:00:53.466 --> 00:00:57.466
+enough. So, let's think about how we're going to get this reference to the barrel here. Well
+
+16
+00:00:57.466 --> 00:01:01.466
+firstly, let's make a member variable so we even have something to store the barrel in: private:
+
+17
+00:01:01.466 --> 00:01:05.466
+Now, what type is this thing going to be? Well,
+
+18
+00:01:05.466 --> 00:01:09.466
+let's go look at the blueprint for the tank and see what we've got! It's
+
+19
+00:01:09.466 --> 00:01:13.466
+a (Static Mesh Component), the Barrel. OK, so for now it's going to
+
+20
+00:01:13.466 --> 00:01:17.466
+be, just use that, it's a Static Mesh Component. We don't have a C++ class for the Barrel yet.
+
+21
+00:01:17.466 --> 00:01:21.466
+What we may do later, if it has some properties we want to add to it like how far up
+
+22
+00:01:21.466 --> 00:01:25.466
+and down it can move or stuff like that, but for the moment we
+
+23
+00:01:25.466 --> 00:01:29.466
+don't have that, so we're going to deal directly with a Static Mesh Component. So, let's
+
+24
+00:01:29.466 --> 00:01:33.466
+just take a quick look at where this is in the Class Viewer. So remember, I'm afraid on a Mac
+
+25
+00:01:33.466 --> 00:01:37.466
+you can't show anything but Actors, but there is a way on the web, I'll show you in a moment.
+
+26
+00:01:37.466 --> 00:01:41.466
+But for the PC guys, let's un-tick Actors Only and type in static mesh
+
+27
+00:01:41.466 --> 00:01:45.466
+component, there it is. And you can see that inherits from MeshComponent
+
+28
+00:01:45.466 --> 00:01:49.466
+and so on, up until you get to ActorComponent. So,
+
+29
+00:01:49.466 --> 00:01:53.466
+if we just collapse everything you see these top-level classes
+
+30
+00:01:53.466 --> 00:01:57.466
+here, of which you only get Actor when you have the Actors Only filter on. What
+
+31
+00:01:57.466 --> 00:02:01.466
+are these? Well, let's just doc this on the right and pop to the web. Let's have a search for
+
+32
+00:02:01.466 --> 00:02:05.466
+"ustaticemeshcomponent"... ...ue4, that'll do!
+
+33
+00:02:05.466 --> 00:02:09.466
+And if we can find the right doc, which is the actual API
+
+34
+00:02:09.466 --> 00:02:13.466
+reference. Let's see, I think it's this one. That's the one! And then you get this Inheritance
+
+35
+00:02:13.466 --> 00:02:17.466
+Hierarchy, which shows you what we just saw that UStaticMeshComponent ultimately
+
+36
+00:02:17.466 --> 00:02:21.466
+comes off UActorComponent. You see how that relates to
+
+37
+00:02:21.466 --> 00:02:25.466
+mesh... Let's just expand that out here, ActorComponent.
+
+38
+00:02:25.466 --> 00:02:29.466
+The question is, very briefly, what is above ActorComponents, because we need to know
+
+39
+00:02:29.466 --> 00:02:33.466
+how to find the StaticMeshComponent. Is it UStaticMesh or
+
+40
+00:02:33.466 --> 00:02:37.466
+AStaticMesh? Remember the Unreal coding standard says that
+
+41
+00:02:37.466 --> 00:02:41.466
+"Classes that inherit from UObject are prefixed by U." And "Classes that
+
+42
+00:02:41.466 --> 00:02:45.466
+inherit from AActor are prefixed by A." Well, is it an Actor a UObject or what?
+
+43
+00:02:45.466 --> 00:02:49.466
+Well, you probably know that it's a UObject, but let's just see exactly why.
+
+44
+00:02:49.466 --> 00:02:53.466
+If you go to the UObject, inside the documentation, and then, we
+
+45
+00:02:53.466 --> 00:02:57.466
+were to click the 2,000 or derived classes and dock that on the left, what you
+
+46
+00:02:57.466 --> 00:03:01.466
+realize is that the collapsed view in the Class Hierarchy is a subset
+
+47
+00:03:01.466 --> 00:03:05.466
+of these 2,000 classes. Actor corresponds to Actor. Then, you get ActorComponent. Skipping
+
+48
+00:03:05.466 --> 00:03:09.466
+a couple, ActorFactory here and so on. Alright, they're all prefixed.
+
+49
+00:03:09.466 --> 00:03:13.466
+U if they are ultimately inheriting from UObject,
+
+50
+00:03:13.466 --> 00:03:17.466
+and then Actor, which in turn inherits from UObject, starts the A convention, and then, it all goes
+
+51
+00:03:17.466 --> 00:03:21.466
+A's under the Actor. OK, so we ultimately
+
+52
+00:03:21.466 --> 00:03:25.466
+are dealing here with a StaticMeshComponent, and it's a
+
+53
+00:03:25.466 --> 00:03:29.466
+UStaticMeshComponent, because if you follow it up the tree it inherits from UObject,
+
+54
+00:03:29.466 --> 00:03:33.466
+not from under AActor, one of these guys out here. Alright
+
+55
+00:03:33.466 --> 00:03:37.466
+fine! So, there's a little bit more about the Class Hierarchy, it just helps you get some context.
+
+56
+00:03:37.466 --> 00:03:41.466
+Now the reason I've told you all that is because when we decide what we're going to put here,
+
+57
+00:03:41.466 --> 00:03:45.466
+I want to just not take it for granted that the type is UStaticMeshComponent
+
+58
+00:03:45.466 --> 00:03:49.466
+because you may not know that you need to start with a U. You could just
+
+59
+00:03:49.466 --> 00:03:53.466
+mash the keyboard with the words staticmesh
+
+60
+00:03:53.466 --> 00:03:57.466
+component and it'll tell you it's a U, but that doesn't teach you anything. Now you know why
+
+61
+00:03:57.466 --> 00:04:01.466
+it's U. So, we're going to have a UStaticMeshComponent pointer.
+
+62
+00:04:01.466 --> 00:04:05.466
+Cool! Barrel and we're going to be good and set it to the null pointer
+
+63
+00:04:05.466 --> 00:04:09.466
+as a starting point. So there it is, we have something to set.
+
+64
+00:04:09.466 --> 00:04:13.466
+Now, we're going to make ourselves a setter method. It's going to be a public setter method, I'm going to put
+
+65
+00:04:13.466 --> 00:04:17.466
+it below the constructor, and I'm just going to say void Set
+
+66
+00:04:17.466 --> 00:04:21.466
+BarrelReference(), taking in the same
+
+67
+00:04:21.466 --> 00:04:25.466
+thing, a UStaticMeshComponentPointer,
+
+68
+00:04:25.466 --> 00:04:29.466
+and it's going to be called BarrelToSet(). You'll see why I'm calling it that,
+
+69
+00:04:29.466 --> 00:04:33.466
+like that, in a moment. OK, so let's go ahead and implement
+
+70
+00:04:33.466 --> 00:04:37.466
+this setter for the BarrelReference. The idea here is that we have a way
+
+71
+00:04:37.466 --> 00:04:41.466
+of setting the barrel. If this TankAimingComponent is going to have a barrel member
+
+72
+00:04:41.466 --> 00:04:45.466
+variable down here, then we shouldn't expose that publicly it's generally bad practice.
+
+73
+00:04:45.466 --> 00:04:49.466
+So we want a setter method, so there's our setting method, and now we're going to implement it. It's
+
+74
+00:04:49.466 --> 00:04:53.466
+relatively simple. It's a lot of messing around, but once it's done it's done.
+
+75
+00:04:53.466 --> 00:04:57.466
+So, let's do this maybe under the constructor here. We, of course, need to
+
+76
+00:04:57.466 --> 00:05:01.466
+prefix this with the fact that the class is this, and
+
+77
+00:05:01.466 --> 00:05:05.466
+then, just put some code in. So now, we have a
+
+78
+00:05:05.466 --> 00:05:09.466
+barrel right? It's called Barrel, so we're going to say Barrel = Barrel
+
+79
+00:05:09.466 --> 00:05:13.466
+ToSet. And that is why I named this variable BarrelToSet,
+
+80
+00:05:13.466 --> 00:05:17.466
+otherwise it would shadow the name of this variable and it wouldn't be entirely clear what's
+
+81
+00:05:17.466 --> 00:05:21.466
+going on. We don't want to be saying Barrel = Barrel. We could say this->Barrel
+
+82
+00:05:21.466 --> 00:05:25.466
+= Barrel...and call this Barrel, I don't like
+
+83
+00:05:25.466 --> 00:05:29.466
+that. Let's just be explicit about it, BarrelToSet, that's what we're actually doing here.
+
+84
+00:05:29.466 --> 00:05:33.466
+Cool! So, let's make sure this compiles. It's not going to do anything right now because nothing's calling this method,
+
+85
+00:05:33.466 --> 00:05:37.466
+but at least we have a way, at least we'd have what I'd call a snowball's chance in hell
+
+86
+00:05:37.466 --> 00:05:41.466
+of setting the barrel reference inside the AimingComponent, now that we've got a setter
+
+87
+00:05:41.466 --> 00:05:45.466
+or well setup really. And, of course, you've guessed it, we're actually
+
+88
+00:05:45.466 --> 00:05:49.466
+going to set this barrel reference on the tank. Ultimately we want to be doing this on the tank's Event
+
+89
+00:05:49.466 --> 00:05:53.466
+Graph, and we're going to delegate it down to the AimingComponent. So,
+
+90
+00:05:53.466 --> 00:05:57.466
+we have the setter here now and it all compiles, and that's good! So now, let's
+
+91
+00:05:57.466 --> 00:06:01.466
+move our attention over to the tank, and think about what the setter would look like on the
+
+92
+00:06:01.466 --> 00:06:05.466
+tank. So it's also public, so we're going to go void
+
+93
+00:06:05.466 --> 00:06:09.466
+and we're going to call it SetBarrelReference().
+
+94
+00:06:09.466 --> 00:06:13.466
+And we're going to do the same thing again, it's going to be a new static mesh component.
+
+95
+00:06:13.466 --> 00:06:17.466
+And this is one of the dark sides of building things up through composition, rather than
+
+96
+00:06:17.466 --> 00:06:21.466
+inheritance is we have to rewrite some code, but I think it's worth it.
+
+97
+00:06:21.466 --> 00:06:25.466
+BarrelToSet OK. So there you go, that's the declaration
+
+98
+00:06:25.466 --> 00:06:29.466
+of that, up at the tank. Now, at the tank, it's not just going to be a
+
+99
+00:06:29.466 --> 00:06:33.466
+method that C++ is going to call, it's going to be a UFUNCTION. Why function?
+
+100
+00:06:33.466 --> 00:06:37.466
+Because it's a method. U properties for properties, functions for functions or
+
+101
+00:06:37.466 --> 00:06:41.466
+methods. Alright, so it's going to be a UFUNCTION(). Actually the semicolon doesn't work on the end
+
+102
+00:06:41.466 --> 00:06:45.466
+here, strangely. You need to be careful with these macros, sometimes it doesn't work, it does break UFUNCTIONs
+
+103
+00:06:45.466 --> 00:06:49.466
+putting semicolons on the end. So it's a UFUNCTION and what's it going to be? It's going to be something
+
+104
+00:06:49.466 --> 00:06:53.466
+called (BlueprintCallable), and we may as well
+
+105
+00:06:53.466 --> 00:06:57.466
+give it a Category. I think it's a setup really, because we're setting up the tank.
+
+106
+00:06:57.466 --> 00:07:01.466
+So this is going to make a method that we can actually call from Blueprint,
+
+107
+00:07:01.466 --> 00:07:05.466
+called SetBarrelReference. What we're going to do over in the tank blueprint
+
+108
+00:07:05.466 --> 00:07:09.466
+is, in its Event Graph, on BeginPlay, we're going to make ourselves
+
+109
+00:07:09.466 --> 00:07:13.466
+a method that says SetBarrelReference. We'll take the Barrel reference from
+
+110
+00:07:13.466 --> 00:07:17.466
+our component list, either from the Component tab or the My Blueprint Component list
+
+111
+00:07:17.466 --> 00:07:21.466
+under Variables, and we'll be feeding both the Event Play execution
+
+112
+00:07:21.466 --> 00:07:25.466
+pin and the Barrel reference into this method that we're about to make. Alright,
+
+113
+00:07:25.466 --> 00:07:29.466
+so that's the purpose of what we're doing. I'm just going to save everything here before we leave. Unreal has
+
+114
+00:07:29.466 --> 00:07:33.466
+crashed on me a couple of times recently, I'm a bit nervous. So that's what BlueprintCallable
+
+115
+00:07:33.466 --> 00:07:37.466
+does! It means it's a method we can actually call from Blueprint, which is
+
+116
+00:07:37.466 --> 00:07:41.466
+cool! So, we're going to call this setter from Blueprint. Alright, so having done that,
+
+117
+00:07:41.466 --> 00:07:45.466
+we now need to just implement that setter and actually just delegate it straight out
+
+118
+00:07:45.466 --> 00:07:49.466
+from the tank. Why don't you do that? You've heard me talking long enough, it's very easy for you to
+
+119
+00:07:49.466 --> 00:07:53.466
+go into zombie mode now and just copy what I'm doing. Why don't you pause the video
+
+120
+00:07:53.466 --> 00:07:57.466
+and implement the SetBarrel
+
+121
+00:07:57.466 --> 00:08:01.466
+Reference method inside the Tank.cpp for me? I won't put a challenge slide up for this one.
+
+122
+00:08:01.466 --> 00:08:05.466
+I just want you to do that, it's pretty simple.
+
+123
+00:08:05.466 --> 00:08:09.466
+I'm not going to carry on until you've had a go at it, and I can tell that you had
+
+124
+00:08:09.466 --> 00:08:13.466
+a go at it. By the way, it's technology you wouldn't even believe; I see through your screen right now.
+
+125
+00:08:13.466 --> 00:08:17.466
+OK, I'm going to trust that you've had a go at it. I can't really tell that you've had a go at it. You don't need to be
+
+126
+00:08:17.466 --> 00:08:21.466
+covering your web-cams with sticky tape, although that might be a good idea from the other
+
+127
+00:08:21.466 --> 00:08:25.466
+authorities point of view. OK, there we go!
+
+128
+00:08:25.466 --> 00:08:29.466
+So there it is! And all we're going to do is, we already have
+
+129
+00:08:29.466 --> 00:08:33.466
+a TankAimingComponent, and that TankAimingComponent now has a method
+
+130
+00:08:33.466 --> 00:08:37.466
+on it called SetBarrelReference(). And
+
+131
+00:08:37.466 --> 00:08:41.466
+we're just going to pass through the BarrelToSet. How boring alright but we've delegated
+
+132
+00:08:41.466 --> 00:08:45.466
+out the (BarrelToSet) to the TankAiming
+
+133
+00:08:45.466 --> 00:08:49.466
+Component. Cool! Alright, let's compile this up, and then, the Blueprint should have
+
+134
+00:08:49.466 --> 00:08:53.466
+this function available to it. And then, we can just do a quick log to make sure we've actually
+
+135
+00:08:53.466 --> 00:08:57.466
+got the barrel's location and we've actually achieved what we set out to achieve, which is getting the
+
+136
+00:08:57.466 --> 00:09:01.466
+start location of our projectiles flight. And at the same time, of course, we're setting up
+
+137
+00:09:01.466 --> 00:09:05.466
+a nice soft referenced asset architecture. Cool!
+
+138
+00:09:05.466 --> 00:09:09.466
+So, on BeginPlay in the tank blueprint, do we now have a SetBarrel
+
+139
+00:09:09.466 --> 00:09:13.466
+Reference? We do! Yeah, that's the BlueprintCallable method that we made. There
+
+140
+00:09:13.466 --> 00:09:17.466
+it is! Awesome! And we've got this pi?n here saying Barrel to Set, and it wants a
+
+141
+00:09:17.466 --> 00:09:21.466
+StaticMeshComponent reference. Well there you go! That's the Barrel and that's
+
+142
+00:09:21.466 --> 00:09:25.466
+soft coded in Blueprint. Aren't we happy! So let's compile this.
+
+143
+00:09:25.466 --> 00:09:29.466
+I'm going to save it, and I'm going to save everything, actually,
+
+144
+00:09:29.466 --> 00:09:33.466
+and then just play. Now nothing should happen, because all we've done is hopefully
+
+145
+00:09:33.466 --> 00:09:37.466
+got that Barrel reference through to the Tank
+
+146
+00:09:37.466 --> 00:09:41.466
+AimingComponent. But what I want to do now is, go to the TankAimingComponent, and I want you
+
+147
+00:09:41.466 --> 00:09:45.466
+to change this log, so that it tells us that it's got a
+
+148
+00:09:45.466 --> 00:09:49.466
+Barrel and ideally tells us the location of that barrel.
+
+149
+00:09:49.466 --> 00:09:53.466
+So, let's just change this log to say something more useful like the
+
+150
+00:09:53.466 --> 00:09:57.466
+tank name, aiming at this position from,
+
+151
+00:09:57.466 --> 00:10:01.466
+and then, some other position.
+
+152
+00:10:01.466 --> 00:10:05.466
+And that other position should be BarrelLocation. I'm not going to do it all for you, I'm just going to get it going
+
+153
+00:10:05.466 --> 00:10:09.466
+like so. And then, what I want you to do here
+
+154
+00:10:09.466 --> 00:10:13.466
+is write an auto BarrelLocation, which
+
+155
+00:10:13.466 --> 00:10:17.466
+now uses what we've done to get the location of the barrel. Go ahead, pause the video,
+
+156
+00:10:17.466 --> 00:10:21.466
+see if you can find that BarrelLocation, and log it out now.
+
+157
+00:10:21.466 --> 00:10:25.466
+You are pausing the video right, even without the challenge slide up?
+
+158
+00:10:25.466 --> 00:10:29.466
+Just making sure you're listening, it's not always about seeing those challenge slides.
+
+159
+00:10:29.466 --> 00:10:33.466
+OK, so can we get this BarrelLocation this way? Well, we have a Barrel local
+
+160
+00:10:33.466 --> 00:10:37.466
+member variable don't we, I hope? Let's just double check. There it is!
+
+161
+00:10:37.466 --> 00:10:41.466
+OK, so we've got a barrel there! Now, how do we get
+
+162
+00:10:41.466 --> 00:10:45.466
+the component location? That was your challenge really, could you manage to find that? Let's see
+
+163
+00:10:45.466 --> 00:10:49.466
+what this does! If you looked for GetLocation, then
+
+164
+00:10:49.466 --> 00:10:53.466
+depending on the quality of your autocomplete, you
+
+165
+00:10:53.466 --> 00:10:57.466
+may have been lucky enough to find this GetComponentLocation. You don't
+
+166
+00:10:57.466 --> 00:11:01.466
+want the one prefix with execK2, but this one down here, GetComponentLocation.
+
+167
+00:11:01.466 --> 00:11:05.466
+Alright, and then now let's see what type that returns,
+
+168
+00:11:05.466 --> 00:11:09.466
+before we try and log out a string that may not be. Auto will tell us it's a
+
+169
+00:11:09.466 --> 00:11:13.466
+FVector. So, to log that out, we're going to need to do a .ToString();
+
+170
+00:11:13.466 --> 00:11:17.466
+And then, if you did all that, congratulations because that should
+
+171
+00:11:17.466 --> 00:11:21.466
+now log the starting and the ending position, for all of the tanks. Let's go try
+
+172
+00:11:21.466 --> 00:11:25.466
+it, and then, we can congratulate ourselves that we have all that we need to calculate
+
+173
+00:11:25.466 --> 00:11:29.466
+the full arc of the projectile's flight and
+
+174
+00:11:29.466 --> 00:11:33.466
+a relatively cool architecture. Umm, C
+
+175
+00:11:33.466 --> 00:11:37.466
+note reference 45... OK, I'm not going to read all of that initially, I'm just going to
+
+176
+00:11:37.466 --> 00:11:41.466
+look at line 45 and see what I've stuffed. What have I stuffed?
+
+177
+00:11:41.466 --> 00:11:45.466
+OK, I need to dereference.. Well, effectively do the contents at
+
+178
+00:11:45.466 --> 00:11:49.466
+operator on the BarrelLocation(), because of the querks
+
+179
+00:11:49.466 --> 00:11:53.466
+of the macro. So well done if you spotted that the first time, and well
+
+180
+00:11:53.466 --> 00:11:57.466
+done not pawing over that error message too long the first time, right! It's just not worth
+
+181
+00:11:57.466 --> 00:12:01.466
+it, you can start to use your experience to not bother. Just take a look at the line of code, see what's obviously
+
+182
+00:12:01.466 --> 00:12:05.466
+wrong, because that error message will keep you awake at night. OK,
+
+183
+00:12:05.466 --> 00:12:09.466
+ooh look at this! Now, this is pretty cool, so
+
+184
+00:12:09.466 --> 00:12:13.466
+that looks like it's feasible. Let's pause it for a moment, look at some of these
+
+185
+00:12:13.466 --> 00:12:17.466
+values, and then, just take a look at the locations of these tanks and this will tell you
+
+186
+00:12:17.466 --> 00:12:21.466
+whether they're in roughly the right place. So this tank here, one of these AI tanks is
+
+187
+00:12:21.466 --> 00:12:25.466
+at 4440 by -2300
+
+188
+00:12:25.466 --> 00:12:29.466
+by 100.
+
+189
+00:12:29.466 --> 00:12:33.466
+So yeah, that's this guy here isn't it? The barrel's not in exactly the same location.
+
+190
+00:12:33.466 --> 00:12:37.466
+It's a bit higher and it's a bit different in X. It should just take one tank to check the feasibility,
+
+191
+00:12:37.466 --> 00:12:41.466
+maybe this guy on the right. So this one, we can even look
+
+192
+00:12:41.466 --> 00:12:45.466
+at the World Outliner. This is Tank_
+
+193
+00:12:45.466 --> 00:12:49.466
+BP_569. So, if we look at 569's log, it's
+
+194
+00:12:49.466 --> 00:12:53.466
+position is 5894. Yeah, it's close enough that you can see that that's
+
+195
+00:12:53.466 --> 00:12:57.466
+working. Awesome! We now have the start position available to us in our Tank
+
+196
+00:12:57.466 --> 00:13:01.466
+AimingComponent, and we've got a chance now of actually doing the ballistic calculations. So congratulations,
+
+197
+00:13:01.466 --> 00:13:04.899
+pat yourself on the back, and I'll see you soon!
+

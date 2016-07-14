@@ -1,0 +1,694 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.000
+Oh, I'm very excited for you, because we're going to be moving objects with C++,
+
+2
+00:00:08.000 --> 00:00:12.000
+really using Unreal with C++ for the first time. In this video, we'll
+
+3
+00:00:12.000 --> 00:00:16.000
+talk a little more about the editor and temporary actors, show you how to eject yourself
+
+4
+00:00:16.000 --> 00:00:20.000
+from the possessed pawn. You'll see what that means. Snapping objects to the floor.
+
+5
+00:00:20.000 --> 00:00:24.000
+The end key does that. We'll be using FRotator struct
+
+6
+00:00:24.000 --> 00:00:28.000
+to represent rotation and using SetActorRotation() to rotate
+
+7
+00:00:28.000 --> 00:00:32.000
+objects. So, over in Unreal, by the end of it, I will have taken my nasty
+
+8
+00:00:32.000 --> 00:00:36.000
+rock away, put a door and a door frame in, and when you click play you're going to find the door
+
+9
+00:00:36.000 --> 00:00:41.100
+opens based on the code we've written, which is cool! OK, see you soon!
+
+10
+00:00:41.100 --> 00:00:45.100
+So welcome back! You might we wondering what this funny blue ball is! It's
+
+11
+00:00:45.100 --> 00:00:49.100
+actually just the back of that blue vector arrow there, so I thought
+
+12
+00:00:49.100 --> 00:00:53.100
+I'd let you know that. The other thing to know is that when you go into Play Mode, if you're quick
+
+13
+00:00:53.100 --> 00:00:57.100
+and you don't click into the actual Viewport here, you can
+
+14
+00:00:57.100 --> 00:01:01.100
+click Eject, and what that'll do is it'll actually let you move around the scene
+
+15
+00:01:01.100 --> 00:01:05.100
+independent of your player. You're no longer possessing
+
+16
+00:01:05.100 --> 00:01:09.100
+the player start here OK. The other thing to note
+
+17
+00:01:09.100 --> 00:01:13.100
+is that, when you're in Stop Mode, there's only certain objects in the game
+
+18
+00:01:13.100 --> 00:01:17.100
+in the World Outliner here. When you click play, you see a bunch of temporary actors coming.
+
+19
+00:01:17.100 --> 00:01:21.100
+You can actually make them visible or not here, with the View Options at the bottom
+
+20
+00:01:21.100 --> 00:01:25.100
+of World Outliner, and then, hide Temporary Actors but it's worth leaving them
+
+21
+00:01:25.100 --> 00:01:29.100
+there. So a bunch of stuff comes in when you actually start playing, and you might ask yourself,
+
+22
+00:01:29.100 --> 00:01:33.100
+we know, what am I in the world? Well, Play, don't click into the
+
+23
+00:01:33.100 --> 00:01:37.100
+Viewport but just click Eject, come out, click on the thing that you're wondering which is
+
+24
+00:01:37.100 --> 00:01:41.100
+you, and you can see that you're the DefaultPawn. It's got an iterator 7 on it,
+
+25
+00:01:41.100 --> 00:01:45.100
+but you're DefaultPawn number 7. So, that's one thing I wanted to tell you. The other thing,
+
+26
+00:01:45.100 --> 00:01:49.100
+you might see "LIGHTING NEEDS TO BE REBUILT", so you can do that from the Build menu here, with the drop-
+
+27
+00:01:49.100 --> 00:01:53.100
+down, Build Lighting Only and it'll take a while. Cool! So, what we want to
+
+28
+00:01:53.100 --> 00:01:57.100
+do now is be able to actually get our code to move something in the world.
+
+29
+00:01:57.100 --> 00:02:01.100
+We've worked out that we can have the code read the state of things in the world
+
+30
+00:02:01.100 --> 00:02:05.100
+and report the position of the chair and the rock. If we're going to make this a
+
+31
+00:02:05.100 --> 00:02:09.100
+Building Escape game, we'd better be able to do something simple like open a door right. So, how do we do that?
+
+32
+00:02:09.100 --> 00:02:13.100
+Let's delete the rock. I don't need a rock in my room. And what I'm going to do is, I'm going  to
+
+33
+00:02:13.100 --> 00:02:17.100
+dive into the Starter Pack Content and see what I can find. So,
+
+34
+00:02:17.100 --> 00:02:21.100
+go to the Content Browser Tab, dive into Starter Content,
+
+35
+00:02:21.100 --> 00:02:25.100
+have a look there under say Props. There's a few different things you can use.
+
+36
+00:02:25.100 --> 00:02:29.100
+So props will give you a variety of things, window frames,
+
+37
+00:02:29.100 --> 00:02:33.100
+door frames, etc. So, we could bring a door frame in. In fact, to be honest,
+
+38
+00:02:33.100 --> 00:02:37.100
+a door frame is all we need for now, we don't even need a wall
+
+39
+00:02:37.100 --> 00:02:41.100
+in it. So, drop a door frame in, notice that it ends up on the floor. So, if you want to get it to the
+
+40
+00:02:41.100 --> 00:02:45.100
+floor, if it's not on the floor, there's a few different ways. One is that you can push
+
+41
+00:02:45.100 --> 00:02:49.100
+the End Key on your keyboard. The End Key will snap it back to the floor.
+
+42
+00:02:49.100 --> 00:02:53.100
+And another way is, you can explore through right-clicking on it, scrolling
+
+43
+00:02:53.100 --> 00:02:57.100
+down, Transform, Snap/Align, and eventually you should get Snap
+
+44
+00:02:57.100 --> 00:03:01.100
+to Floor. OK, so that's how you get things on the floor, but by default they come in on the floor,
+
+45
+00:03:01.100 --> 00:03:05.100
+which is pretty cool! So, let's see if we can get a door. What have we got? SM_Door!
+
+46
+00:03:05.100 --> 00:03:09.100
+That's fine! Now, how do I align that door? Well, you can just move around in 3D, is one
+
+47
+00:03:09.100 --> 00:03:13.100
+simple way, and actually it's done a very good job of snapping into the frame there. But you
+
+48
+00:03:13.100 --> 00:03:17.100
+just get yourself a door in a frame. If you need to get it lined up a bit more perfectly,
+
+49
+00:03:17.100 --> 00:03:21.100
+if you're a bit OCD like me about this gap, then you can try just moving it. And if
+
+50
+00:03:21.100 --> 00:03:25.100
+the snap distance is too big, then this is your first opportunity to come up
+
+51
+00:03:25.100 --> 00:03:29.100
+here, hover over until you can see the Position
+
+52
+00:03:29.100 --> 00:03:33.100
+Grid Snap Value, and try a different value like maybe 5 centimeters.
+
+53
+00:03:33.100 --> 00:03:37.100
+And then, have a good look nice and close, and the door fits snuggly in
+
+54
+00:03:37.100 --> 00:03:41.100
+the frame. Perfect! Also notice, if you go into the Rotate Tool, that's with the E
+
+55
+00:03:41.100 --> 00:03:45.100
+Key, that the door's pivot is at the bottom left, which is pretty handy because
+
+56
+00:03:45.100 --> 00:03:49.100
+that means it opens and closes. So, what we want to do is do this in code!
+
+57
+00:03:49.100 --> 00:03:53.100
+How are we going to do that? Well, let's stick to the paradigm of clicking on the actor in question.
+
+58
+00:03:53.100 --> 00:03:57.100
+Let's go to the World Outliner. There it is, SM_Door, OK! Go
+
+59
+00:03:57.100 --> 00:04:01.100
+to the Details Tab and let's add ourselves a new component,
+
+60
+00:04:01.100 --> 00:04:05.100
+and we're going to add a new C++ component, of course!
+
+61
+00:04:05.100 --> 00:04:09.100
+And it's an Actor Component! That's right because it's
+
+62
+00:04:09.100 --> 00:04:13.100
+the Component on an Actor. We're going to call it OpenDoor,
+
+63
+00:04:13.100 --> 00:04:17.100
+because that's what it's going to do, and let's create the class!
+
+64
+00:04:17.100 --> 00:04:21.100
+
+
+65
+00:04:21.100 --> 00:04:25.100
+And once that's happened and the code has been generated and Visual Studio opened, we're going to get
+
+66
+00:04:25.100 --> 00:04:29.100
+an opportunity to actually see if we can work out how to move the door. So,
+
+67
+00:04:29.100 --> 00:04:33.100
+I can't do anything in the Unreal Interface, while this happens. By the way, I hope you were able to
+
+68
+00:04:33.100 --> 00:04:37.100
+commit in your last couple of videos. So, remember to come in and do that. Mine are slighlty
+
+69
+00:04:37.100 --> 00:04:41.100
+out of order because I just put an update to a video there, but make sure you're committing at the end of all of your
+
+70
+00:04:41.100 --> 00:04:45.100
+videos. Here we go, we're in Unreal now and
+
+71
+00:04:45.100 --> 00:04:49.100
+Visual Studio has just popped up. So, before we do that, what are we even trying to access? Click on the door,
+
+72
+00:04:49.100 --> 00:04:53.100
+rotate the door, and look and see what changes. You can
+
+73
+00:04:53.100 --> 00:04:57.100
+see it's here, this thing here under Transform,
+
+74
+00:04:57.100 --> 00:05:01.100
+Rotation, on the Details Tab, you'll see that the Z rotation of the
+
+75
+00:05:01.100 --> 00:05:05.100
+door is the thing that changes. See that? So you set it
+
+76
+00:05:05.100 --> 00:05:09.100
+back to 0 and it's there! You may have your door in a different side of the
+
+77
+00:05:09.100 --> 00:05:13.100
+level, then you're values will be shifted by some multiple of 90 degrees.
+
+78
+00:05:13.100 --> 00:05:17.100
+Cool! So there it is, that's what we're trying to do! So, how are we going to do that? Well,
+
+79
+00:05:17.100 --> 00:05:21.100
+I want you to go into the script and to go ahead and find the
+
+80
+00:05:21.100 --> 00:05:25.100
+owner of this door in the BeginPlay().
+
+81
+00:05:25.100 --> 00:05:31.500
+I want you to go ahead and "// Find the owning Actor",
+
+82
+00:05:31.500 --> 00:05:35.500
+so ultimately we can access the rotation. So, find the
+
+83
+00:05:35.500 --> 00:05:39.500
+owning object, as we did before. Store it in a variable called Owner.
+
+84
+00:05:39.500 --> 00:05:43.500
+Get the type right or use auto if you're that sophisticated.
+
+85
+00:05:43.500 --> 00:05:47.500
+Try and access the Owner's rotation,
+
+86
+00:05:47.500 --> 00:05:51.500
+and hint, there are at least a couple of ways you can access the Owner's rotation.
+
+87
+00:05:51.500 --> 00:05:55.500
+You don't need to set it yet, I'll do that with you. Just see if you can get as far as accessing the rotation
+
+88
+00:05:55.500 --> 00:05:59.500
+If you can set it and make the door open great, but I'm only expecting, at the moment,
+
+89
+00:05:59.500 --> 00:06:03.500
+just to be able to access the rotation. Very similar to the last thing we did,
+
+90
+00:06:03.500 --> 00:06:07.500
+but we're using a set rather than a get here, by the way, so it's going to
+
+91
+00:06:07.500 --> 00:06:11.500
+be something about setting a rotation. Go ahead pause the video, see if you can do that!
+
+92
+00:06:11.500 --> 00:06:15.500
+Welcome back! So, let's remember our
+
+93
+00:06:15.500 --> 00:06:19.500
+pseudocode programming! We're going to find the owning actor, we're going to create
+
+94
+00:06:19.500 --> 00:06:23.500
+a rotator, although you wouldn't know at this stage that that's what you're going to
+
+95
+00:06:23.500 --> 00:06:27.500
+need to do, and we're going to set the door rotation.
+
+96
+00:06:27.500 --> 00:06:31.500
+That gives me an outline. So, finding the owning actor. Well, I said we should call it
+
+97
+00:06:31.500 --> 00:06:35.500
+AActor, say owner rather. So, AActor*
+
+98
+00:06:35.500 --> 00:06:39.500
+Owner. Alright, so we are declaring a
+
+99
+00:06:39.500 --> 00:06:43.500
+pointer to an Actor called Owner. =
+
+100
+00:06:43.500 --> 00:06:47.500
+GetOwner(); hover over GetOwner() it shows
+
+101
+00:06:47.500 --> 00:06:51.500
+you that it returns a AActor*. OK, they put the star
+
+102
+00:06:51.500 --> 00:06:55.500
+after the space, in this case, or at least Visual Studio does.
+
+103
+00:06:55.500 --> 00:06:59.500
+OK, so we've got the owner there. Now, how are we going to set the door
+
+104
+00:06:59.500 --> 00:07:03.500
+rotation? Well, let's explore that first! We're going to do something like
+
+105
+00:07:03.500 --> 00:07:07.500
+this. Owner, now is it dot or is it
+
+106
+00:07:07.500 --> 00:07:11.500
+arrow operator? Now, I don't know, at this moment, what we're looking for... So
+
+107
+00:07:11.500 --> 00:07:15.500
+well, I do but I'm trying to tell you how you'd work it out. Come back to Unreal, look at the Transform.
+
+108
+00:07:15.500 --> 00:07:19.500
+It's something to do with the Transform and it's something to do with Rotation probably.
+
+109
+00:07:19.500 --> 00:07:23.500
+So what I would do here is bring up the intelli-sense again
+
+110
+00:07:23.500 --> 00:07:27.500
+and type the word rotation. What have we got? Get
+
+111
+00:07:27.500 --> 00:07:31.500
+ActorRotation... Ooh, SetActorRotation! OK, that's
+
+112
+00:07:31.500 --> 00:07:35.500
+pretty cool! So, why don't we just set the actor rotation directly.
+
+113
+00:07:35.500 --> 00:07:39.500
+When we do that and we open the braces, look we've got two different
+
+114
+00:07:39.500 --> 00:07:43.500
+signatures here. It's looking for this thing here, a constant FQuat
+
+115
+00:07:43.500 --> 00:07:47.500
+which is a Quaternion. Reference to a new rotation. How scary is that?!
+
+116
+00:07:47.500 --> 00:07:51.500
+Or we could simply use a FRotator and NewRotation.
+
+117
+00:07:51.500 --> 00:07:55.500
+OK, well that's cool! Why don't we imagine we have a variable called NewRotation
+
+118
+00:07:55.500 --> 00:07:59.500
+in like that? And then, we need to go and create that rotator.
+
+119
+00:07:59.500 --> 00:08:03.500
+What is a rotator? Well, it gave us the hint, we need an FRotator.
+
+120
+00:08:03.500 --> 00:08:07.500
+Now, you can go do a Google search and find out what an FRotator is.
+
+121
+00:08:07.500 --> 00:08:11.500
+Here it'll tell you something: "Implements a container for rotation information. All rotation values
+
+122
+00:08:11.500 --> 00:08:15.500
+are stored in degrees." OK, so it's a struct. That's pretty cool!
+
+123
+00:08:15.500 --> 00:08:19.500
+So, FRotation NewRotation
+
+124
+00:08:19.500 --> 00:08:23.500
+So, we've declared that variable now. =
+
+125
+00:08:23.500 --> 00:08:27.500
+now how are we going to create this thing in the first place? Well, we go
+
+126
+00:08:27.500 --> 00:08:31.500
+FRotator() again, and we call its constructor. Now,
+
+127
+00:08:31.500 --> 00:08:35.500
+its constructor has seven different signatures. We can give it just a single float,
+
+128
+00:08:35.500 --> 00:08:39.500
+we can give it no initialization, we can give it Pitch,
+
+129
+00:08:39.500 --> 00:08:43.500
+Yaw, and Roll, which is probably what we're going to use. You can give it a weird Quaternion references.
+
+130
+00:08:43.500 --> 00:08:47.500
+Ooh, we don't want to do that today. Nasty nasty scary!
+
+131
+00:08:47.500 --> 00:08:51.500
+OK, so let's go with this one! We're going to give it Pitch, Yaw, and Roll.
+
+132
+00:08:51.500 --> 00:08:55.500
+So, I'm going to make a deliberate mistake here, because it's funny and it'll show you the difference
+
+133
+00:08:55.500 --> 00:08:59.500
+between Pitch, Yaw, and Roll. Imagine you didn't read the Pitch, Yaw, and Roll, for a moment, and that you just
+
+134
+00:08:59.500 --> 00:09:03.500
+assume that it was X, Y, and Z. So, you can go 0.0f
+
+135
+00:09:03.500 --> 00:09:07.500
+for float. You need to tell it that it's a float. 0.0f and
+
+136
+00:09:07.500 --> 00:09:11.500
+then 90.0f. Then, you would think
+
+137
+00:09:11.500 --> 00:09:15.500
+that maybe this is X, Y, Z. Let's try it, see if everything else works.
+
+138
+00:09:15.500 --> 00:09:19.500
+See what happens if we'd assume that's X, Y, Z. We come
+
+139
+00:09:19.500 --> 00:09:23.500
+over and the door will flop on its side. [Laughs] That's a bit funny!
+
+140
+00:09:23.500 --> 00:09:27.500
+OK, what's happened there? That's because the rotator, the clue, was in
+
+141
+00:09:27.500 --> 00:09:31.500
+the way that it defined it. It's about Pitch, Yaw, and roll, so for this door
+
+142
+00:09:31.500 --> 00:09:35.500
+let me show you what they are. These are aircraft terms, so I'm very familiar with them but you may not be.
+
+143
+00:09:35.500 --> 00:09:39.500
+This here is Yawing, it's in an aircraft when you use the rudder pedals,
+
+144
+00:09:39.500 --> 00:09:43.500
+and it's Yawing like that. It's basically if you put your hand flat and rotate your wrist
+
+145
+00:09:43.500 --> 00:09:47.500
+like that, then that is Yawing OK. The next
+
+146
+00:09:47.500 --> 00:09:51.500
+motion is Rolling, that's more familiar. In an airplane this is called Rolling left
+
+147
+00:09:51.500 --> 00:09:55.500
+and right like that. And then, Pitching is kind of easy to understand, it's Pitching up
+
+148
+00:09:55.500 --> 00:09:59.500
+and down. OK, so you just have to understand what Pitch, Yaw, and Roll is. What we've
+
+149
+00:09:59.500 --> 00:10:03.500
+asked the door to do there, if we hover over it, is we've asked it to roll through
+
+150
+00:10:03.500 --> 00:10:07.500
+90 degrees. So go back to Unreal, grab this one, roll it till it
+
+151
+00:10:07.500 --> 00:10:11.500
+says 90, and that's exactly what we've done. So, what do we want to do? Is it
+
+152
+00:10:11.500 --> 00:10:15.500
+Pitch, Yaw,
+
+153
+00:10:15.500 --> 00:10:19.500
+or Roll? I won't insult you any further, I think you know that it's
+
+154
+00:10:19.500 --> 00:10:23.500
+Yaw. And which way do you want the door to open? It's up to you! I'm going to open it 60 degrees
+
+155
+00:10:23.500 --> 00:10:27.500
+outwards. So, put it back to neutral, to make sure it's our code doing the opening,
+
+156
+00:10:27.500 --> 00:10:31.500
+hover to see which order. Pitch, Yaw, Roll. So, I'm going to put
+
+157
+00:10:31.500 --> 00:10:35.500
+60. Now, by the way you don't need the 0's
+
+158
+00:10:35.500 --> 00:10:39.500
+after these points here. You can say 0 point... You don't need the 0, but
+
+159
+00:10:39.500 --> 00:10:43.500
+you do need a decimal place, which just forces it to understand
+
+160
+00:10:43.500 --> 00:10:47.500
+that this is a floating point number. So, that's the minimum that you can comfortably write there.
+
+161
+00:10:47.500 --> 00:10:51.500
+Let's try running or building!
+
+162
+00:10:51.500 --> 00:10:55.500
+All done, back to Unreal, hot reload
+
+163
+00:10:55.500 --> 00:10:59.500
+complete, Play, boom the door has opened! It has opened the wrong way, because
+
+164
+00:10:59.500 --> 00:11:03.500
+I should have gone -60, and you can verify that.
+
+165
+00:11:03.500 --> 00:11:07.500
+From here you can just see that it says -60. So, if I
+
+166
+00:11:07.500 --> 00:11:11.500
+did want it to open the other way, I'd go -60, which I will because I want it to do what
+
+167
+00:11:11.500 --> 00:11:15.500
+I asked it to do, not leave it to fate. OK, so
+
+168
+00:11:15.500 --> 00:11:19.500
+that's it! We have now managed to actually control a game
+
+169
+00:11:19.500 --> 00:11:23.500
+object in C++. So that's it, we're Unreal masters, and we don't need to study anymore!
+
+170
+00:11:23.500 --> 00:11:27.500
+I wish it was that simple, it's quite a complex piece, but it does mean that we can both
+
+171
+00:11:27.500 --> 00:11:31.500
+read from game objects in C++ and control their states. So, give
+
+172
+00:11:31.500 --> 00:11:35.500
+yourself a big pat on the back, and I shall see you soon!
+
+173
+00:11:35.500 --> 00:11:35.566
+
+

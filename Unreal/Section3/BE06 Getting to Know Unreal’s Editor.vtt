@@ -1,0 +1,506 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Welcome to Getting
+
+2
+00:00:04.000 --> 00:00:08.000
+to Know Unreal Editor! In this video, we're going to look at why changes to the
+
+3
+00:00:08.000 --> 00:00:12.000
+start scene aren't tracked in our source control, be arranging
+
+4
+00:00:12.000 --> 00:00:16.000
+a simple set of windows to work with, we'll be moving around in a 3D Viewport,
+
+5
+00:00:16.000 --> 00:00:20.000
+setting up our start map, and committing our work, so that we feel
+
+6
+00:00:20.000 --> 00:00:26.400
+comfortable, using simple 3D manipulations and saving our work. So, see you in there!
+
+7
+00:00:26.400 --> 00:00:30.400
+So now, we've got our first opportunity to actually play around inside the Unreal
+
+8
+00:00:30.400 --> 00:00:34.400
+Editor. Bear in mind, we're in something called the minimal default level here,
+
+9
+00:00:34.400 --> 00:00:38.400
+Minimal Default OK. And remember that you can go to Settings and then
+
+10
+00:00:38.400 --> 00:00:42.400
+Project Settings and Maps & Modes, and it will show you that that minimum default
+
+11
+00:00:42.400 --> 00:00:46.400
+is in the startup content. Now, remember we ignored starter content, because it's a
+
+12
+00:00:46.400 --> 00:00:50.400
+large amount of data. So any changes we make in here, for instance I click on the chair
+
+13
+00:00:50.400 --> 00:00:54.400
+and get the Translate Tool, which you can access with the W key, if it doesn't come up for you
+
+14
+00:00:54.400 --> 00:00:58.400
+and move it up. If I now Save All,
+
+15
+00:00:58.400 --> 00:01:02.400
+from File, Save All, and go and have a look at my Source Control, I'll actually see that
+
+16
+00:01:02.400 --> 00:01:06.400
+nothing has changed. And the reason that nothing has changed is because we're not tracking changes
+
+17
+00:01:06.400 --> 00:01:10.400
+in this scene. So, the first thing we're going to need to do is make ourselves a new scene or
+
+18
+00:01:10.400 --> 00:01:14.400
+level. I'm going to use those words interchangeably, I'm afraid, but you'll see them used interchangeably. It says
+
+19
+00:01:14.400 --> 00:01:18.400
+Level here, but you'll also get the
+
+20
+00:01:18.400 --> 00:01:22.400
+concept of the word scene. So, ignore any SourceTree updates for me for the moment!
+
+21
+00:01:22.400 --> 00:01:26.400
+So, let's do that! Let's go ahead and make a new level! There it is!
+
+22
+00:01:26.400 --> 00:01:30.400
+I'm going to go for default. I want this sky map and that piece of
+
+23
+00:01:30.400 --> 00:01:34.400
+ground texture. I'm going to not bother saving any changes to the minimum default, and I'm going to be
+
+24
+00:01:34.400 --> 00:01:38.400
+here. And then, as we've done before, I'm going to save
+
+25
+00:01:38.400 --> 00:01:42.400
+this, Save As. Now, this is where I get to give it a name, so My Map.
+
+26
+00:01:42.400 --> 00:01:46.400
+We could call it MyMap, that's fine, or NewMap. NewMap will be fine!
+
+27
+00:01:46.400 --> 00:01:50.400
+So, NewMap is a reasonable name! That's the name of the level. There
+
+28
+00:01:50.400 --> 00:01:54.400
+it is, NewMap, when I hover over it! And now that that's been saved,
+
+29
+00:01:54.400 --> 00:01:58.400
+of course, you need to go to your Project Settings, Maps & Modes, and make
+
+30
+00:01:58.400 --> 00:02:02.400
+sure that this NewMap is the one that both the game would start with
+
+31
+00:02:02.400 --> 00:02:06.400
+and the Editor would start with. So, make those changes Project Settings, Maps & Modes,
+
+32
+00:02:06.400 --> 00:02:10.400
+and then, next time you load this, we'll be back here which is cool! Now, if
+
+33
+00:02:10.400 --> 00:02:14.400
+I just exit Unreal, to be sure of the changes, and then, look in SourceTree; if I wait a minute, we've got some
+
+34
+00:02:14.400 --> 00:02:18.400
+Uncommitted Changes. And it's found that
+
+35
+00:02:18.400 --> 00:02:22.400
+the DefaultEngine.ini file, a couple of changes in it. Look it's detected them for us, it's changed the
+
+36
+00:02:22.400 --> 00:02:26.400
+Editor and game default map, which is what we did in the interface, but also, we've got this
+
+37
+00:02:26.400 --> 00:02:30.400
+binary file that we can't see the details of, called NewMap.umap, so
+
+38
+00:02:30.400 --> 00:02:33.766
+that's what starts to happen when we make changes, which is pretty cool!
+
+39
+00:02:33.766 --> 00:02:37.766
+So, let's dive back into our project
+
+40
+00:02:37.766 --> 00:02:41.766
+and just give you a quick tour of the Editor, and then I'm going to leave you to
+
+41
+00:02:41.766 --> 00:02:45.766
+play around. Now, before I start the tour of the editor, look here inside the
+
+42
+00:02:45.766 --> 00:02:49.766
+Viewport you've got a little question mark. Click on it, it's going to give you a
+
+43
+00:02:49.766 --> 00:02:53.766
+crib sheet. So, it'll tell you that the Left Mouse Button plus drag up
+
+44
+00:02:53.766 --> 00:02:57.766
+and down, It will actually trolly around. It's a bit weird, it's like pushing a supermarket trolly but it'll
+
+45
+00:02:57.766 --> 00:03:01.766
+tell you that. It'll tell you that you can rotate left and right, like
+
+46
+00:03:01.766 --> 00:03:05.766
+this with the Left Mouse Button, etc. So, just go through those, try using the
+
+47
+00:03:05.766 --> 00:03:09.766
+Right Mouse Button, the Left Mouse Button, and various things. OK, the Mouse
+
+48
+00:03:09.766 --> 00:03:13.766
+Wheel will roll you in and out. Also, you can hold down the Right Mouse Button and use W,
+
+49
+00:03:13.766 --> 00:03:17.766
+S, A, D, also Q and E first person controls. When you're
+
+50
+00:03:17.766 --> 00:03:21.766
+holding down the Right Mouse Button, you can change the speed. If I roll my Mouse Wheel down, I'm
+
+51
+00:03:21.766 --> 00:03:25.766
+doing that now, then I've set the speed to very low, and as I roll the Mouse Wheel up,
+
+52
+00:03:25.766 --> 00:03:29.766
+the speed increases OK. So, bear in mind what current speed you've got
+
+53
+00:03:29.766 --> 00:03:33.766
+set, and I want you to get really comfortable with just moving around. And the other
+
+54
+00:03:33.766 --> 00:03:37.766
+thing is, just pop a prop from the Content Browser.
+
+55
+00:03:37.766 --> 00:03:41.766
+So, find your Content Browser, go to StarterContent, if you're
+
+56
+00:03:41.766 --> 00:03:45.766
+right at the beginning of the ContentBrowser, you might need to get a second pane up in
+
+57
+00:03:45.766 --> 00:03:49.766
+here. Content, StarterContent, Props.
+
+58
+00:03:49.766 --> 00:03:53.766
+Eventually you'll find the chair, for example. Let's put the chair in the scene, you'll notice it just sticks
+
+59
+00:03:53.766 --> 00:03:57.766
+to the floor. Let me show you one more movement mode. So, we can yes,
+
+60
+00:03:57.766 --> 00:04:01.766
+sure we can move around the chair, with all of these controls I've just shown you, at various different speeds, but
+
+61
+00:04:01.766 --> 00:04:05.766
+this is a Meyer style control. Now, if you click on it, click F
+
+62
+00:04:05.766 --> 00:04:09.766
+to focus that, and then, if you hold down the Alt Key, the left Alt Key is what I'm
+
+63
+00:04:09.766 --> 00:04:13.766
+holding down now, as I move the Left Mouse Button look, I'm rotating around this object.
+
+64
+00:04:13.766 --> 00:04:17.766
+And I can go in and out, either by holding down the Right Mouse Button, that's the smoothest
+
+65
+00:04:17.766 --> 00:04:21.766
+way, or by using the Mouse Wheel, which can be jerky and also has a kind of minimum distance.
+
+66
+00:04:21.766 --> 00:04:25.766
+So, Right Mouse Button hold down, forward and back, left Mouse
+
+67
+00:04:25.766 --> 00:04:29.766
+Button around. Now, all of this time, I'm holding down the Alt Key, that's the key here!
+
+68
+00:04:29.766 --> 00:04:33.766
+You could do the same on the floor. You could hit the F key, to focus on the floor, after you've selected it,
+
+69
+00:04:33.766 --> 00:04:37.766
+hold down the Alt Key, holding down Alt now... The Left Mouse Button rotates
+
+70
+00:04:37.766 --> 00:04:41.766
+around, the Right Mouse Button moves in and out. That's a fantastic way of
+
+71
+00:04:41.766 --> 00:04:45.766
+focusing on a given object and then rotating around and seeing it from all angles.
+
+72
+00:04:45.766 --> 00:04:49.766
+OK, so there's your crib sheet again, in the Viewport there. What I want you to do
+
+73
+00:04:49.766 --> 00:04:53.766
+now is, go and have a good play with the Viewport and get comfortable just
+
+74
+00:04:53.766 --> 00:04:57.766
+placing a few objects on this single ground tile, and just maybe build up a
+
+75
+00:04:57.766 --> 00:05:01.766
+really simple little scene here, with a chair and a bench and whatever. And
+
+76
+00:05:01.766 --> 00:05:05.766
+I'll see you when you come back!
+
+77
+00:05:05.766 --> 00:05:09.766
+Cool, welcome back! So, to bring things into the scene, just show you a few
+
+78
+00:05:09.766 --> 00:05:13.766
+more tricks. You could say, drag a rock in here. The blue arrow constrains
+
+79
+00:05:13.766 --> 00:05:17.766
+in this plane, the green arrow constrains in that plane. One more thing is that you can
+
+80
+00:05:17.766 --> 00:05:21.766
+constrain in two planes at a time by clicking, it's very tricky, but
+
+81
+00:05:21.766 --> 00:05:25.766
+right in here, if I click there in the little intersection of the two, then I'm
+
+82
+00:05:25.766 --> 00:05:29.766
+now moving it in this ground plane, which is handy. There are also some other
+
+83
+00:05:29.766 --> 00:05:33.766
+things to tell you, which is that, up here, you've got snapping tools. For instance, here this
+
+84
+00:05:33.766 --> 00:05:37.766
+is the position, even snap value. It's set to
+
+85
+00:05:37.766 --> 00:05:41.766
+10 at the moment, which is 10 units which in Unreal, by default, is 10
+
+86
+00:05:41.766 --> 00:05:45.766
+centimeters, so every time I move the chair it snaps to 10 centimeters. If I was to increase that to
+
+87
+00:05:45.766 --> 00:05:49.766
+100, it would jump up a meter. So, be aware of that snap value
+
+88
+00:05:49.766 --> 00:05:53.766
+for both the Position, the Rotation, but also the Scale. You can
+
+89
+00:05:53.766 --> 00:05:57.766
+have a Snap Value for Scale. Now, you can switch between these tools with W, E, and R keys,
+
+90
+00:05:57.766 --> 00:06:01.766
+so it's worth keeping your left hand in that position. When you're scaling, you can scale on all
+
+91
+00:06:01.766 --> 00:06:05.766
+axis by dragging the middle cube, and then, you can scale on a
+
+92
+00:06:05.766 --> 00:06:09.766
+given axis, making a very strange looking chair, by using any of these
+
+93
+00:06:09.766 --> 00:06:13.766
+boxes there. OK, so it's pretty consistent and
+
+94
+00:06:13.766 --> 00:06:17.766
+simple to use actually. I quite like it! That's the way that you move things
+
+95
+00:06:17.766 --> 00:06:21.766
+around in the Editor. You have X, Y, and Z. X and Y are in the
+
+96
+00:06:21.766 --> 00:06:25.766
+ground planes, Z is up and down. You have a whole bunch of other options you should be
+
+97
+00:06:25.766 --> 00:06:29.766
+aware that are there. You can click here to see things like the frames per second and various other
+
+98
+00:06:29.766 --> 00:06:33.766
+things, that little down arrow at the top-left of the Viewport. You can choose Perspective or
+
+99
+00:06:33.766 --> 00:06:37.766
+Top, Bottom, Left, Right, etc. so you can get these kind of wireframe views.
+
+100
+00:06:37.766 --> 00:06:41.766
+At the top-right you have something that shows you a four way Viewport, which lets you see
+
+101
+00:06:41.766 --> 00:06:45.766
+simultaneously four different viewpoints. So, I'm seeing the chair and the rock from above
+
+102
+00:06:45.766 --> 00:06:49.766
+here, and then, I'm seeing from the left on one side and above in the front.
+
+103
+00:06:49.766 --> 00:06:53.766
+You see, pretty cool! And this can be really hand, when say, positioning things!
+
+104
+00:06:53.766 --> 00:06:57.766
+And then, you can get back out by just maximizing any of the viewports, say the 3D
+
+105
+00:06:57.766 --> 00:07:01.766
+Viewport. So, there's that, your snap options... You've got
+
+106
+00:07:01.766 --> 00:07:05.766
+here, notice the shortcuts Alt 2, 3, 4, etc. let
+
+107
+00:07:05.766 --> 00:07:09.766
+you change into like Wireframe and other views, that we'll be using a lot more through the course. Lighting
+
+108
+00:07:09.766 --> 00:07:13.766
+complexity, pretty cool stuff! You generally want to leave it in Lit, unless we have any particular reason
+
+109
+00:07:13.766 --> 00:07:17.766
+not to. And then, the Show menu lets you turn off various things, which are all
+
+110
+00:07:17.766 --> 00:07:21.766
+very complex and it's going to be fantastic fun unveiling how all this works!
+
+111
+00:07:21.766 --> 00:07:25.766
+But look, that's the essence of creating yourself a new level and putting some
+
+112
+00:07:25.766 --> 00:07:29.766
+of the basic things in it and moving around in it and focusing on things and moving them.
+
+113
+00:07:29.766 --> 00:07:33.766
+So, you have the very basics, so congratulations with that! It just remains to close
+
+114
+00:07:33.766 --> 00:07:37.766
+this, saving the map as we go.
+
+115
+00:07:37.766 --> 00:07:41.766
+I'm going to go and grab hold of the name of this video.
+
+116
+00:07:41.766 --> 00:07:45.766
+We'll just make it up as I go, so here we go! Uncommitted
+
+117
+00:07:45.766 --> 00:07:49.766
+changes, we have the map, it's what we've worked on, and the engine file. I'm going to stage
+
+118
+00:07:49.766 --> 00:07:53.766
+those like this. It's BE06 is the name of my
+
+119
+00:07:53.766 --> 00:07:57.766
+video or BuildingEscape_06.
+
+120
+00:07:57.766 --> 00:08:01.766
+BE06 Getting to
+
+121
+00:08:01.766 --> 00:08:05.766
+Know Unreal's Editor. OK!
+
+122
+00:08:05.766 --> 00:08:09.766
+Don't worry about pushing things to the Internet, at the moment, unless you know what you're doing, and just commit that!
+
+123
+00:08:09.766 --> 00:08:13.766
+Great! So, we've not got a snapshot and if I wanted to,
+
+124
+00:08:13.766 --> 00:08:17.766
+I could go back to where we were before, but let's not do any of that, for now, because we haven't really
+
+125
+00:08:17.766 --> 00:08:21.766
+made much progress. Let's crack with the next video and start actually building a level!
+
+126
+00:08:21.766 --> 00:08:23.366
+
+

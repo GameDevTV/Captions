@@ -1,0 +1,346 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+
+
+2
+00:00:04.000 --> 00:00:08.000
+So, welcome to A Pointer's Primer! In this video, you're about to meet
+
+3
+00:00:08.000 --> 00:00:12.000
+pointers for he first time, in the next video. So, I want to prepare
+
+4
+00:00:12.000 --> 00:00:16.000
+you for that, because they're a little different and we didn't cover them in the previous section
+
+5
+00:00:16.000 --> 00:00:20.000
+because we didn't need them. The clue that you're using a
+
+6
+00:00:20.000 --> 00:00:24.000
+pointer is basically, when you see a star next to a type. Obviously,
+
+7
+00:00:24.000 --> 00:00:28.000
+not a star as in a multiplication but when it's next to type or a variable.
+
+8
+00:00:28.000 --> 00:00:32.000
+You'll see an example in a minute. Pointers are simply memory addresses,
+
+9
+00:00:32.000 --> 00:00:36.000
+your pointer tells the system to go somewhere else to find what it's looking for.
+
+10
+00:00:36.000 --> 00:00:40.000
+So, you have to follow the pointer to the object in question or the
+
+11
+00:00:40.000 --> 00:00:44.000
+function in question, in order to actually do anything with it.
+
+12
+00:00:44.000 --> 00:00:48.000
+So why, why would you even bother using pointers? Well, the benefit is it
+
+13
+00:00:48.000 --> 00:00:52.000
+saves you from moving things around in memory. Say you've got a huge object, a
+
+14
+00:00:52.000 --> 00:00:56.000
+building a large part of a piece of terrain, any complex game object,
+
+15
+00:00:56.000 --> 00:01:00.000
+you don't want to be moving that thing around and copying it from one place
+
+16
+00:01:00.000 --> 00:01:04.000
+in memory to another. So, it saves you from doing that, you refer to things by reference
+
+17
+00:01:04.000 --> 00:01:08.000
+rather than by value. There is a disadvantage, it's that you can lose
+
+18
+00:01:08.000 --> 00:01:12.000
+control of the data. The moment I've issued a pointer to something, how about if there's
+
+19
+00:01:12.000 --> 00:01:16.000
+another pointer to that same thing somewhere else? Who's in control of that data?
+
+20
+00:01:16.000 --> 00:01:20.000
+You could lose track of the data. You could lose track of the object.
+
+21
+00:01:20.000 --> 00:01:24.000
+Maybe both the pointers disappear and now you no longer know how to get to the thing? Maybe
+
+22
+00:01:24.000 --> 00:01:28.000
+two things try and change it, at the same time? So there are potential disadvantages, but plenty of ways of managing
+
+23
+00:01:28.000 --> 00:01:32.000
+it. So, let's look at the syntax of these things then!
+
+24
+00:01:32.000 --> 00:01:36.000
+Here's a piece of code! FActorComponentTickFunction*! So, F is just that
+
+25
+00:01:36.000 --> 00:01:40.000
+prefix that Unreal likes to use. ActorComponentTickFunction*
+
+26
+00:01:40.000 --> 00:01:44.000
+ThisTickFunction. What's that all about? Well, here we have a
+
+27
+00:01:44.000 --> 00:01:48.000
+pointer called ThisTickFunction, and it's a pointer to something of type
+
+28
+00:01:48.000 --> 00:01:52.000
+FActorComponentTickFunction*. And why
+
+29
+00:01:52.000 --> 00:01:56.000
+do you need a type with a pointer, if a pointer is just a memory address? It's basically for checking so that the
+
+30
+00:01:56.000 --> 00:02:00.000
+compiler can make sure that you're being consistent, and that when you get
+
+31
+00:02:00.000 --> 00:02:04.000
+to that address, it's expecting to find something of the type on the left.
+
+32
+00:02:04.000 --> 00:02:08.000
+Now, that's equivalent to putting a space before the star, like that. And it's also
+
+33
+00:02:08.000 --> 00:02:12.000
+equivalent to putting the start tightly up against the actual variable on the right-
+
+34
+00:02:12.000 --> 00:02:16.000
+hand side there. OK, now we're going to go with the first syntax, because that's Unreal
+
+35
+00:02:16.000 --> 00:02:20.000
+standard, but you will see all three used. So, you have to get used to ignoring where the white
+
+36
+00:02:20.000 --> 00:02:24.000
+space is there and understand that when those two things are together, with a star between them,
+
+37
+00:02:24.000 --> 00:02:28.000
+then the thing on the right is a pointer of type the thing on the
+
+38
+00:02:28.000 --> 00:02:32.000
+left. So, all three statements are equivalent, we use the first. In all cases,
+
+39
+00:02:32.000 --> 00:02:36.000
+ThisTickFunction is a pointer, and in all three cases the type of the object pointed to is
+
+40
+00:02:36.000 --> 00:02:39.666
+the thing on the left, OK. Cool!
+
+41
+00:02:39.666 --> 00:02:43.666
+So, let's talk about the arrow Accessor Operator!
+
+42
+00:02:43.666 --> 00:02:47.666
+So, imagine we have something called SomeActor; which is a pointer to an actor.
+
+43
+00:02:47.666 --> 00:02:51.666
+So, AActor* tells us there's a pointer to an actor, and the thing
+
+44
+00:02:51.666 --> 00:02:55.666
+is called SomeActor; the pointer is called some actor. So, the AActor*
+
+45
+00:02:55.666 --> 00:02:59.666
+class has a method called GetName(). So,
+
+46
+00:02:59.666 --> 00:03:03.666
+that syntax there * SomeActor; when you put the star on the left
+
+47
+00:03:03.666 --> 00:03:07.666
+of SomeActor; on its own, "de-references" is the pointer. That means it goes
+
+48
+00:03:07.666 --> 00:03:11.666
+to the memory address pointed to by SomeActor;. And then,
+
+49
+00:03:11.666 --> 00:03:15.666
+as a whole, * SomeActor; acts as if it was just the actor,
+
+50
+00:03:15.666 --> 00:03:19.666
+so it "de-references" it, it follows the pointer. So, you could
+
+51
+00:03:19.666 --> 00:03:23.666
+write (*SomeActor) in brackets just to help the compiler treat that as one,
+
+52
+00:03:23.666 --> 00:03:27.666
+dot GetName();. And that would be the same as following the pointer
+
+53
+00:03:27.666 --> 00:03:31.666
+over to the memory address, where some actor lives, and then calling the GetName(); method
+
+54
+00:03:31.666 --> 00:03:35.666
+on it. But that's some more cumbersome, so there's an operator
+
+55
+00:03:35.666 --> 00:03:39.666
+called the arrow operator, shown there, which allows you to follow and access it
+
+56
+00:03:39.666 --> 00:03:43.666
+all in one. So, we can access the method by
+
+57
+00:03:43.666 --> 00:03:47.666
+saying, SomeActor - right chevron
+
+58
+00:03:47.666 --> 00:03:51.666
+GetName(). So remember, when you're dealing with pointers, and you'll
+
+59
+00:03:51.666 --> 00:03:55.666
+be able to see that in Visual Studio by hovering, and the intellisense will pop up and show that the result
+
+60
+00:03:55.666 --> 00:03:59.666
+of the function is a pointer. We'll see that shortly. If you're using pointers, you use
+
+61
+00:03:59.666 --> 00:04:03.666
+the arrow operator. If you're using the objects directly, then you use the dot operator.
+
+62
+00:04:03.666 --> 00:04:04.200
+
+
+63
+00:04:04.200 --> 00:04:08.200
+So, what I want you to do as a challenge, as a result of this video, is just to
+
+64
+00:04:08.200 --> 00:04:12.200
+simply go and do some more reading about pointers. You don't need to understand them in full
+
+65
+00:04:12.200 --> 00:04:16.200
+depth right now. We're going to do what I call a spiral syllabus, which means that we're going to
+
+66
+00:04:16.200 --> 00:04:20.200
+have a quick look, like we just did at them. Then, we're going to go use them a few times, so
+
+67
+00:04:20.200 --> 00:04:24.200
+you're seeing them in context, and then, we're going to loop back and loop back, as we need to, to build your knowledge
+
+68
+00:04:24.200 --> 00:04:28.200
+of pointers as necessary. Bear in mind, every time you turn a light switch on, you may not know exactly
+
+69
+00:04:28.200 --> 00:04:32.200
+how that lighting system works and all the details about how electrons
+
+70
+00:04:32.200 --> 00:04:36.200
+and photons are produces in the light filament, but you can still use a light!
+
+71
+00:04:36.200 --> 00:04:40.200
+So, you can still use pointers, without knowing exactly how they work, but as you start to use them in a
+
+72
+00:04:40.200 --> 00:04:44.200
+more nuanced way and start to do more custom things with them, you're going to need to understand them better
+
+73
+00:04:44.200 --> 00:04:48.200
+and better. So let yourself not fully understand them this time around,o.k.
+
+74
+00:04:48.200 --> 00:04:52.200
+Where can you go? Well, here's one good place, www.cplusplus.com/ that lot!
+
+75
+00:04:52.200 --> 00:04:56.200
+And that will take you to a brief tutorial on pointers. I'd like you to share
+
+76
+00:04:56.200 --> 00:05:00.200
+your understanding of pointers in the discussions. Now, there's lots of different levels of people on this course.
+
+77
+00:05:00.200 --> 00:05:04.200
+Some of you are super advanced and you know this inside out, and some of you are just
+
+78
+00:05:04.200 --> 00:05:08.200
+programming for the first time, so I'd just like you to be brave enough to share what you've understood of pointers and what stil
+
+79
+00:05:08.200 --> 00:05:12.200
+confuses you. It also helps me, of course, insert content as necessary.
+
+80
+00:05:12.200 --> 00:05:16.200
+And in the next video, I want you to keep an eye out for
+
+81
+00:05:16.200 --> 00:05:20.200
+pointer in PositionReport.cpp. It's going to be a file we're going to make,
+
+82
+00:05:20.200 --> 00:05:24.200
+the class we're going to make in the next video. And you'll find a pointer in there somewhere. Have a little
+
+83
+00:05:24.200 --> 00:05:28.200
+look, see if you can find where that is, and maybe then come back and say, hey
+
+84
+00:05:28.200 --> 00:05:32.200
+I found it, it's this thing, and sneaky sneaky little thing in there! OK cool!
+
+85
+00:05:32.200 --> 00:05:36.200
+So, I'm going to see you in the next video, and I will look forward to
+
+86
+00:05:36.200 --> 00:05:40.066
+introducing you further to pointers!
+

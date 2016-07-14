@@ -1,0 +1,466 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Hey, welcome
+
+2
+00:00:04.000 --> 00:00:08.000
+to play-testing time! This is exciting, we're getting pretty close to shipping
+
+3
+00:00:08.000 --> 00:00:12.000
+our game! We're not really shipping it anywhere with this one, but still, it's a
+
+4
+00:00:12.000 --> 00:00:16.000
+fantastic run through! In this video, we're going to talk about how having someone else play-test
+
+5
+00:00:16.000 --> 00:00:20.000
+your game is vital. It's got to be a third party. Silently take notes, if you can
+
+6
+00:00:20.000 --> 00:00:24.000
+or even record the screen if possible. Immediately go away and fix
+
+7
+00:00:24.000 --> 00:00:28.000
+obvious bugs, things that really should work that don't. But for improvements,
+
+8
+00:00:28.000 --> 00:00:32.000
+do consider a second or third option, because one person's suggestion of an improvement
+
+9
+00:00:32.000 --> 00:00:36.000
+may be the next person's worst nightmare. Repeat until the bug
+
+10
+00:00:36.000 --> 00:00:40.000
+stroke issue rate plateaus. That means, keep trying it on different people
+
+11
+00:00:40.000 --> 00:00:44.000
+until the bug or issue rate plateaus. Now, realistically, with this simple game you really only
+
+12
+00:00:44.000 --> 00:00:50.233
+need to test it on one or two other people, but let's dive in and see how that's going to work.
+
+13
+00:00:50.233 --> 00:00:54.233
+So, I want you to play-test the game. Find somebody else,
+
+14
+00:00:54.233 --> 00:00:58.233
+Skype them if needed, do whatever it takes to find another person to
+
+15
+00:00:58.233 --> 00:01:02.233
+play your game. You really need the perspective of a third party here, if at all
+
+16
+00:01:02.233 --> 00:01:06.233
+possible. Worst case, zip up your project, your source code, and share it in the discussions, and ask
+
+17
+00:01:06.233 --> 00:01:10.233
+other students to play-test for you. And if you see another student asking for
+
+18
+00:01:10.233 --> 00:01:14.233
+a play-test, please help them out by doing it. Share the bugs
+
+19
+00:01:14.233 --> 00:01:18.233
+and improvements you find in the play-test, in the discussions. Make it
+
+20
+00:01:18.233 --> 00:01:22.233
+clear which version you're commenting on. Is it your game, is it somebody else's game, or is it my
+
+21
+00:01:22.233 --> 00:01:26.233
+game? And if you want to play-test my game, it would really help me.
+
+22
+00:01:26.233 --> 00:01:30.233
+Download it from there, github etc.
+
+23
+00:01:30.233 --> 00:01:34.233
+Now, you can get hold of all of the lecture states from there, by the way, by
+
+24
+00:01:34.233 --> 00:01:38.233
+going to Commits, but if you just click that link, that will take you directly
+
+25
+00:01:38.233 --> 00:01:42.233
+to the download for the project in its latest state. So, go ahead, pause the video, and do some
+
+26
+00:01:42.233 --> 00:01:46.233
+play-testing! Have fun!
+
+27
+00:01:46.233 --> 00:01:50.233
+OK, welcome back! So, this is what I found from my
+
+28
+00:01:50.233 --> 00:01:54.233
+play-testing actions, thanks to Lizzie my wife! We need to remove the new line,
+
+29
+00:01:54.233 --> 00:01:58.233
+before the the BullCowCount, so that things are grouped together a little bit better. Let me
+
+30
+00:01:58.233 --> 00:02:02.233
+show you that! So, when we type a word in, she's trying to guess
+
+31
+00:02:02.233 --> 00:02:06.233
+what the word is. Say it's smart or something like that. It says "Please
+
+32
+00:02:06.233 --> 00:02:10.233
+enter a 6 letter word." So, we say mall... I don't know,
+
+33
+00:02:10.233 --> 00:02:14.233
+plant, planes, or something. Now, and then we put another word in,
+
+34
+00:02:14.233 --> 00:02:18.233
+planet. I'm being very unimaginative. Look you see
+
+35
+00:02:18.233 --> 00:02:22.233
+it's not. It becomes quickly not that obvious which
+
+36
+00:02:22.233 --> 00:02:26.233
+result the BullCowCount relates to, so I'm going to
+
+37
+00:02:26.233 --> 00:02:30.233
+move this space between the BullCowCount and your guess, so at a glance, you can see what's
+
+38
+00:02:30.233 --> 00:02:34.233
+related to what. So, that's what that feedback means.
+
+39
+00:02:34.233 --> 00:02:38.233
+What else have we got? Tell the user how many guesses they have.
+
+40
+00:02:38.233 --> 00:02:42.233
+We don't know how many guesses we've got left there, so we need to do that!
+
+41
+00:02:42.233 --> 00:02:46.233
+Our feedback was, it's all a bit "left brain", or whatever that means! [Laughs] We need some ASCII
+
+42
+00:02:46.233 --> 00:02:50.233
+art or something like that in there. That's a good idea! And there's a spelling error! "Better luck next
+
+43
+00:02:50.233 --> 00:02:54.233
+time!" at the bottom. So, let's dive in and get all those changes
+
+44
+00:02:54.233 --> 00:02:58.233
+made. So firstly, this new line before the BullCowCount, where
+
+45
+00:02:58.233 --> 00:03:02.233
+is that? Well, I think it's in here,
+
+46
+00:03:02.233 --> 00:03:06.233
+in GetValidGuess. We put a new line
+
+47
+00:03:06.233 --> 00:03:10.233
+in, just before the end of the while loop. I'm going to get rid of that new line, so
+
+48
+00:03:10.233 --> 00:03:14.233
+it's not there every time, and then, I'm going to put a new line in
+
+49
+00:03:14.233 --> 00:03:18.233
+after each specific error message, like this. A double new
+
+50
+00:03:18.233 --> 00:03:22.233
+line, because that's really what's happening, we're doing new line twice. That's a bit more
+
+51
+00:03:22.233 --> 00:03:26.233
+semantic or meaningful. Let's check this works! So,
+
+52
+00:03:26.233 --> 00:03:30.233
+hold on, I should be in Control, F5, not Debug Mode.
+
+53
+00:03:30.233 --> 00:03:34.233
+"planets", "Please enter a 6 letter word." "planes",
+
+54
+00:03:34.233 --> 00:03:38.233
+Bulls, Cows, 5. OK, that's all good! Let's
+
+55
+00:03:38.233 --> 00:03:42.233
+try another word, "planee". Please enter another word without repeating letters.
+
+56
+00:03:42.233 --> 00:03:46.233
+Good! So, I think we've got the BullCowCount
+
+57
+00:03:46.233 --> 00:03:50.233
+sitting next to the word very nicely. That's
+
+58
+00:03:50.233 --> 00:03:54.233
+good! Alright, what was the next thing on the list? Tell the user how many guesses
+
+59
+00:03:54.233 --> 00:03:58.233
+they have left! Hmm, yes so let's search for the word
+
+60
+00:03:58.233 --> 00:04:02.233
+try, do a Control, F, try,
+
+61
+00:04:02.233 --> 00:04:06.233
+and see if we can find where it says try. There you go!
+
+62
+00:04:06.233 --> 00:04:10.233
+So, here we are inside GetValidGuess again,
+
+63
+00:04:10.233 --> 00:04:14.233
+and we tell the user to try the CurrentTry.
+
+64
+00:04:14.233 --> 00:04:18.233
+But what we want to do is we want to say try and then
+
+65
+00:04:18.233 --> 00:04:22.233
+CurrentTry, and then something like this. " of "
+
+66
+00:04:22.233 --> 00:04:26.233
+and then
+
+67
+00:04:26.233 --> 00:04:30.233
+<< BCGame
+
+68
+00:04:30.233 --> 00:04:34.233
+.GetMaxTries();
+
+69
+00:04:34.233 --> 00:04:38.233
+and it's a method. And then, I'm going to use another line.
+
+70
+00:04:38.233 --> 00:04:42.233
+" . Enter your
+
+71
+00:04:42.233 --> 00:04:46.233
+guess:  "; Does that work? Try space something of something,
+
+72
+00:04:46.233 --> 00:04:50.233
+full stop, ". Enter your guess: "; I think that should work! Let's try it!
+
+73
+00:04:50.233 --> 00:04:54.233
+"Try 1 of 3" boom! We're still on 1 of
+
+74
+00:04:54.233 --> 00:04:58.233
+3. Good! "planes". "Try 2 of 3" planes.
+
+75
+00:04:58.233 --> 00:05:02.233
+"planet", OK cool! Obviously, I'm not
+
+76
+00:05:02.233 --> 00:05:06.233
+playing this game properly for speed, in these videos. Great! So, the third thing was it's all a bit
+
+77
+00:05:06.233 --> 00:05:10.233
+left a brain. We need some ASCII art, and there's a spelling error!
+
+78
+00:05:10.233 --> 00:05:14.233
+Let me fix the spelling error, first. That's easy! "Better luck next time!" at the bottom. So, that's
+
+79
+00:05:14.233 --> 00:05:18.233
+done, I don't even need to check that. Now, some ASCII art here, in the welcome.
+
+80
+00:05:18.233 --> 00:05:22.233
+Well, rather than going through and doing the ASCII art, I'm going to Cut
+
+81
+00:05:22.233 --> 00:05:26.233
+and Paste the ASCII art in, and then, I'm just going to talk you through a few gotchas
+
+82
+00:05:26.233 --> 00:05:30.233
+with doing ASCII art. So, I'm going to go get the ASCII art, from a previous
+
+83
+00:05:30.233 --> 00:05:34.233
+Commit that I made over here, in my Version Control System. And I played
+
+84
+00:05:34.233 --> 00:05:38.233
+around with this for some time, and that is all the
+
+85
+00:05:38.233 --> 00:05:42.233
+text I came up with. So, let me come back to
+
+86
+00:05:42.233 --> 00:05:46.233
+the project, and I think
+
+87
+00:05:46.233 --> 00:05:50.233
+I need to replace all of that, if I've done it right.
+
+88
+00:05:50.233 --> 00:05:54.233
+I think I over-replaced one line or two lines. Here we go, boom!
+
+89
+00:05:54.233 --> 00:05:58.233
+OK fantastic! So, what we're doing now is we're entering
+
+90
+00:05:58.233 --> 00:06:02.233
+this as the ASCII art. Now, the things to think about with the ASCII
+
+91
+00:06:02.233 --> 00:06:06.233
+art, I'm using new lines at the start, some of the time, to space things out.
+
+92
+00:06:06.233 --> 00:06:10.233
+You need to double... Where you want to backslash in your
+
+93
+00:06:10.233 --> 00:06:14.233
+string, you need two backslashes, so that one escapes the other. You see where there are two backslashes
+
+94
+00:06:14.233 --> 00:06:18.233
+here? There will only be one in my final result. Let's have a look! Here you go!
+
+95
+00:06:18.233 --> 00:06:22.233
+"Welcome to Bulls and Cows, a fun word game." Well, clearly there are two of those, so I
+
+96
+00:06:22.233 --> 00:06:26.233
+need to just remove that one. I pasted too much in. Let's try again!
+
+97
+00:06:26.233 --> 00:06:30.233
+OK, "Welcome to Bulls and Cows, a fun word game." And look, here we go our bull!
+
+98
+00:06:30.233 --> 00:06:34.233
+With all sorts of bull like features we want to not look to carefully and some horns,
+
+99
+00:06:34.233 --> 00:06:38.233
+and then a cow with less bull like features.
+
+100
+00:06:38.233 --> 00:06:42.233
+"Can you guess the 6 letter" word, and then, we can just go, I don't know,
+
+101
+00:06:42.233 --> 00:06:46.233
+"planes". Let's just fail the game three times, play again,
+
+102
+00:06:46.233 --> 00:06:50.233
+and then, it comes back. So, it's a really clear division between the games, and look it's got a
+
+103
+00:06:50.233 --> 00:06:54.233
+little bit of spirit now, the game, a little bit of art to it. So,
+
+104
+00:06:54.233 --> 00:06:58.233
+that's cool! In fact, that's it! That is all of the
+
+105
+00:06:58.233 --> 00:07:02.233
+suggestions. So, I really want you to do your own ASCII art now,
+
+106
+00:07:02.233 --> 00:07:06.233
+like this. I want to see your ASCII art! Remember, if you want to use a backslash, you've got to use to
+
+107
+00:07:06.233 --> 00:07:10.233
+backslashes to get one. Use spaces, don't use tabs in here because
+
+108
+00:07:10.233 --> 00:07:14.233
+tabs will not necessarily space out the same in the Console.
+
+109
+00:07:14.233 --> 00:07:18.233
+That's really probably all I've got to tell you about it! So, go ahead, do that, please take
+
+110
+00:07:18.233 --> 00:07:22.233
+a screenshot of your ASCII art, and share it! We want to share this graphically.
+
+111
+00:07:22.233 --> 00:07:26.233
+If you don't know how to take a screenshot, by the way, then a very simple cheap program in Jing,
+
+112
+00:07:26.233 --> 00:07:30.233
+TechSmith's Jing. And if you want a trade-up from Jing, you go as far as
+
+113
+00:07:30.233 --> 00:07:34.233
+Snagit, which I use all the time. So, congratulations on getting this far!
+
+114
+00:07:34.233 --> 00:07:38.233
+We're pretty much done! I'd love to hear your play-testing feedback
+
+115
+00:07:38.233 --> 00:07:42.233
+in the discussions, as I said, and we'll see you for the final polishing
+
+116
+00:07:42.233 --> 00:07:45.166
+and packaging video!
+

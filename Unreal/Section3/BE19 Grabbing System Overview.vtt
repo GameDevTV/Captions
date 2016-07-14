@@ -1,0 +1,338 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Welcome to Grabbing System Overviews!
+
+2
+00:00:04.000 --> 00:00:08.000
+So, in this video we're going to do a quick look at the end result of the
+
+3
+00:00:08.000 --> 00:00:12.000
+next few videos, because it's going to be a mini series about how to create a
+
+4
+00:00:12.000 --> 00:00:16.000
+grabbing system, so we can actually pick up the chair and put it on a pressure plate. A very useful
+
+5
+00:00:16.000 --> 00:00:20.000
+general tool, right, in a a game, to be able to pick something up and move it.
+
+6
+00:00:20.000 --> 00:00:24.000
+So, you can try and think about how it may be done, as a part of this video,
+
+7
+00:00:24.000 --> 00:00:28.000
+and I'll be outlining how we'll be doing it, So, you can think about it, work out what
+
+8
+00:00:28.000 --> 00:00:32.000
+you're questions and concerns are, and then, I will show you my solution and
+
+9
+00:00:32.000 --> 00:00:36.000
+outline the end result. So, we won't actually be doing any changing or any coding, we'll just be
+
+10
+00:00:36.000 --> 00:00:40.000
+getting a mental model of how it all fits together. So, let's dive in and do
+
+11
+00:00:40.000 --> 00:00:44.000
+that and just watch this video. Nothing to actually do in Unreal, until the next video.
+
+12
+00:00:44.000 --> 00:00:44.566
+
+
+13
+00:00:44.566 --> 00:00:48.566
+So, let's take a look at roughly how this may end up! We're going to play the game!
+
+14
+00:00:48.566 --> 00:00:52.566
+The idea is that, as we move around we're constantly sending
+
+15
+00:00:52.566 --> 00:00:56.566
+out a beam that decides what we're going to collide with. When we get close enough to the chair, we suddenly grab
+
+16
+00:00:56.566 --> 00:01:00.566
+hold of it and that means that we can then move and manipulate it around the scene.
+
+17
+00:01:00.566 --> 00:01:04.566
+OK, so how may this work? Well,
+
+18
+00:01:04.566 --> 00:01:08.566
+the first thing I want you to do is, just write down your ideas, using your knowledge to date, as to how
+
+19
+00:01:08.566 --> 00:01:12.566
+it might work. Use the knowledge you have already. Would you use a
+
+20
+00:01:12.566 --> 00:01:16.566
+component to do this, or would you use inheritance?
+
+21
+00:01:16.566 --> 00:01:20.566
+Hint: either could work. I just want to hear you reasoning to yourself at this
+
+22
+00:01:20.566 --> 00:01:24.566
+stage, so do it in the discussions with the other students.
+
+23
+00:01:24.566 --> 00:01:28.566
+How might you know what to grab? How
+
+24
+00:01:28.566 --> 00:01:32.566
+might you ask the game what to grab? You see, you don't know the answers to these questions, but what I
+
+25
+00:01:32.566 --> 00:01:36.566
+want to know is what your questions are. It would be interesting to see what you're thinking
+
+26
+00:01:36.566 --> 00:01:40.566
+at this stage and what open questions you have and what ideas you have. And what game
+
+27
+00:01:40.566 --> 00:01:44.566
+object would you be working with? So, we want to know, you know, what game object are we going
+
+28
+00:01:44.566 --> 00:01:48.566
+to be working with? Are we going to make a specialization of it? Is it, is a
+
+29
+00:01:48.566 --> 00:01:52.566
+or is it a has a? Do we put a component on? And then, perhaps maybe how it's going to
+
+30
+00:01:52.566 --> 00:01:56.566
+work. So, I just want you to get in the habit of thinking about a chunk of work like this, like a grabbing
+
+31
+00:01:56.566 --> 00:02:00.566
+system. That's going to take several lectures worth of teaching to get it out.
+
+32
+00:02:00.566 --> 00:02:04.566
+And think about what the issues could be and be brave enough just to share them. You
+
+33
+00:02:04.566 --> 00:02:08.566
+don't have to have all the answers. Some of you will have great answers, some of you will just be full of questions,
+
+34
+00:02:08.566 --> 00:02:12.566
+but that's part of the process, so have a go!
+
+35
+00:02:12.566 --> 00:02:16.566
+Welcome back! So, let's take an overview of how I
+
+36
+00:02:16.566 --> 00:02:20.566
+plan to do the grabbing system. We want to be able to life the chair next, as I said. So,
+
+37
+00:02:20.566 --> 00:02:24.566
+we'll add a Grabber.cpp component to the player. Now, remember that the
+
+38
+00:02:24.566 --> 00:02:28.566
+player, in this case, is a default pawn, and it's a Default Pawn that we don't
+
+39
+00:02:28.566 --> 00:02:32.566
+have access to until the game runs, which will introduce some interesting
+
+40
+00:02:32.566 --> 00:02:36.566
+challenges. So, the player is a temporary actor and
+
+41
+00:02:36.566 --> 00:02:40.566
+it appears on play. The player is a Default Pawn, a pawn is an actor,
+
+42
+00:02:40.566 --> 00:02:44.566
+so the player, the temporary actor, the Default Pawn, they're all the same thing, and they
+
+43
+00:02:44.566 --> 00:02:48.566
+don't appear until the game starts playing. It's the Game Mode, which sets
+
+44
+00:02:48.566 --> 00:02:52.566
+which Default Pawn to use, so
+
+45
+00:02:52.566 --> 00:02:56.566
+we need to be making a modification to the Game Mode. So, we're going to create a Default
+
+46
+00:02:56.566 --> 00:03:00.566
+Pawn and a Game Mode Blueprint. We're going to do both of those in Blueprint, because it's just
+
+47
+00:03:00.566 --> 00:03:04.566
+easier, and you'll see why later on. It avoids something called hard coding of
+
+48
+00:03:04.566 --> 00:03:08.566
+assets. What that means is, we don't end up typing the exact name of
+
+49
+00:03:08.566 --> 00:03:12.566
+our modified Default Pawn into code, because
+
+50
+00:03:12.566 --> 00:03:16.566
+if we do that and we change the name in the editor, then it won't be tracked.
+
+51
+00:03:16.566 --> 00:03:20.566
+So, we'll see why Blueprint is very useful for binding assets to our code.
+
+52
+00:03:20.566 --> 00:03:24.566
+And once we have changed the Game Mode
+
+53
+00:03:24.566 --> 00:03:28.566
+and made ourselves a new Default Pawn, we will specify
+
+54
+00:03:28.566 --> 00:03:32.566
+our modified Default Pawn to the Game Mode. So, all sounds a bit
+
+55
+00:03:32.566 --> 00:03:36.566
+confusing doesn't it? Let's work from the top and just think about it once more. Let me show you
+
+56
+00:03:36.566 --> 00:03:40.566
+it in action. Bear in mind, your project won't look like this right now, because I have it setup.
+
+57
+00:03:40.566 --> 00:03:44.566
+This is the end result of the next few lectures, alright. So, what I'm saying is that under
+
+58
+00:03:44.566 --> 00:03:48.566
+Project Settings and Maps and Mode, what
+
+59
+00:03:48.566 --> 00:03:52.566
+we're going to end up with is a different Game Mode. We're going to make a Blueprinted version of our Game Mode.
+
+60
+00:03:52.566 --> 00:03:56.566
+Previously we had this set, and that doesn't let you choose the Default Pawn
+
+61
+00:03:56.566 --> 00:04:00.566
+class here, in the Editor. You could do it in code, but we want to be able to do it in the editor. So, we
+
+62
+00:04:00.566 --> 00:04:04.566
+change to a Blueprint version, after having made it. We will then make a
+
+63
+00:04:04.566 --> 00:04:08.566
+new Default Pawn Blueprint. I'll show you that in a minute and specify it here.
+
+64
+00:04:08.566 --> 00:04:12.566
+The Default Mode Pawn Blueprint thingy will be here,
+
+65
+00:04:12.566 --> 00:04:16.566
+and it will be something that we could create in the world, like this, if I've modified the shape into a
+
+66
+00:04:16.566 --> 00:04:20.566
+rugby ball, to prove that it's a different version. And that thing there can be
+
+67
+00:04:20.566 --> 00:04:24.566
+edited. We can change the Default Pawn and we can change its
+
+68
+00:04:24.566 --> 00:04:28.566
+size and it's shape, and crucially we can change the fact that it has a grabber on it!
+
+69
+00:04:28.566 --> 00:04:32.566
+So, we'll make this different, slightly odd shaped Default Pawn. We'll probably
+
+70
+00:04:32.566 --> 00:04:36.566
+put the shape back afterwards, just to prove that we're making changes
+
+71
+00:04:36.566 --> 00:04:40.566
+and that the Grabber component will be added. So, once we've done that and we've
+
+72
+00:04:40.566 --> 00:04:44.566
+made this Default Pawn thing, that's based on Pawn, we will then be able to pass that
+
+73
+00:04:44.566 --> 00:04:48.566
+back to the Game Mode and say, here Game Mode, this is the thing that you need to be
+
+74
+00:04:48.566 --> 00:04:52.566
+instantiating when the game starts. This new Default Pawn, I'll
+
+75
+00:04:52.566 --> 00:04:56.566
+just call BP for Blueprint. Alright, so that's an overview of how we're going to
+
+76
+00:04:56.566 --> 00:05:00.566
+do all this. What remains next to just get on and make that happen!
+
+77
+00:05:00.566 --> 00:05:04.566
+But before we do, I just want to tell you a tiny bit about Game Mode, so that you can go off and read about
+
+78
+00:05:04.566 --> 00:05:08.566
+it. So, Unreal describes the Game Mode as "Anything from what inventory
+
+79
+00:05:08.566 --> 00:05:12.566
+items a player starts with or how many lives are available to time limits
+
+80
+00:05:12.566 --> 00:05:16.566
+and the score needed to end the game belongs to GameMode."
+
+81
+00:05:16.566 --> 00:05:20.566
+So the parameters, the rules of the game in general. You can go ahead
+
+82
+00:05:20.566 --> 00:05:24.566
+and click that link there, from the digital version of the slides, or just Google
+
+83
+00:05:24.566 --> 00:05:28.566
+for it and read a little bit more about Unreal's GameMode now. And I'll see you in the next video,
+
+84
+00:05:28.566 --> 00:05:31.999
+and we'll start putting it all together!
+

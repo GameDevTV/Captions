@@ -1,0 +1,402 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Welcome back!
+
+2
+00:00:04.000 --> 00:00:08.000
+So, one of the first things we're going to need, when programming, is access to some sort of
+
+3
+00:00:08.000 --> 00:00:12.000
+console or log or some sort of feedback about our program working,
+
+4
+00:00:12.000 --> 00:00:16.000
+in the most simple possible way. So, in this video we're going to be talking about runtime messages
+
+5
+00:00:16.000 --> 00:00:20.000
+for feedback. So, we're using
+
+6
+00:00:20.000 --> 00:00:24.000
+UE_LOG, a macro, to print to the Output Console. Now, I'm going
+
+7
+00:00:24.000 --> 00:00:28.000
+to be using the word Macro and Unreal Header
+
+8
+00:00:28.000 --> 00:00:32.000
+Tool Directive, pretty interchangeably in this course. There are two
+
+9
+00:00:32.000 --> 00:00:36.000
+types of things we're going to see in our code, that start all capital and that are all capitals,
+
+10
+00:00:36.000 --> 00:00:40.000
+and they're either going to be macros, which are something that the
+
+11
+00:00:40.000 --> 00:00:44.000
+compiler, Visual Studio runs, just before compilation in order to actually
+
+12
+00:00:44.000 --> 00:00:48.000
+insert or change code, or there's something that the Unreal Header Tool
+
+13
+00:00:48.000 --> 00:00:52.000
+is using to do a very similar thing. The point it, they both happen just
+
+14
+00:00:52.000 --> 00:00:56.000
+before the compilation happens, and we don't really have a
+
+15
+00:00:56.000 --> 00:01:00.000
+lot of say or choice in exactly what happens, apart
+
+16
+00:01:00.000 --> 00:01:04.000
+from just writing the macro, it's kind of a black box. So, I'm just going to use the word macro in general,
+
+17
+00:01:04.000 --> 00:01:08.000
+so excuse me if you find that sloppy, but basically, they do the same thing and we'll see
+
+18
+00:01:08.000 --> 00:01:12.000
+how that pans out later on! So, we're going to be printing to the game screen as
+
+19
+00:01:12.000 --> 00:01:16.000
+well. And for information, you want to start reading this. So, let's just take a look at that,
+
+20
+00:01:16.000 --> 00:01:20.000
+it's on your slides. It's a document here from Unreal,
+
+21
+00:01:20.000 --> 00:01:24.000
+that gives you some ideas. So, let's start at the top! Quick Usage, UE_LOG like that!
+
+22
+00:01:24.000 --> 00:01:28.000
+Let's just copy that code! This is something you may typically do! Go over to
+
+23
+00:01:28.000 --> 00:01:32.000
+the Editor, and the, we're going to go to our smart chair and our Position
+
+24
+00:01:32.000 --> 00:01:36.000
+Report method over here. Now, how are you going to get to this class, by the
+
+25
+00:01:36.000 --> 00:01:40.000
+way? You can't double-click it to edit it. You can't even right-click it to
+
+26
+00:01:40.000 --> 00:01:44.000
+edit it, but you can right-click it and say Find Class in Content
+
+27
+00:01:44.000 --> 00:01:48.000
+Browser. That will take you to Position Report script there, at which point you can double-click it
+
+28
+00:01:48.000 --> 00:01:52.000
+and it will open Visual Studio. Of course, another way is to browse through Games,
+
+29
+00:01:52.000 --> 00:01:56.000
+BuildingEscape, Source, and then down here. Cool! So,
+
+30
+00:01:56.000 --> 00:02:00.000
+this is implementation, so I'm going to order things Header then Implementation. And what I'm going to do
+
+31
+00:02:00.000 --> 00:02:04.000
+here is, I'm simply at BeginPlay() in the implementation
+
+32
+00:02:04.000 --> 00:02:08.000
+of BeginPlay() here, I'm going to say
+
+33
+00:02:08.000 --> 00:02:12.000
+Paste. And instead of saying ("Your message") I'm going to say
+
+34
+00:02:12.000 --> 00:02:16.000
+("Position report
+
+35
+00:02:16.000 --> 00:02:20.000
+reporting for duty")
+
+36
+00:02:20.000 --> 00:02:24.000
+exclamation mark, and I may put a backslash n on the end or I may not.
+
+37
+00:02:24.000 --> 00:02:28.000
+Let's do it without. So, let's have a quick look at how this guy works then!
+
+38
+00:02:28.000 --> 00:02:32.000
+So, it's a macro! Just call it a macro, it's the general term! OK, regardless
+
+39
+00:02:32.000 --> 00:02:36.000
+of whether it's actually a compiler macro or an Unreal Header Tool.
+
+40
+00:02:36.000 --> 00:02:40.000
+LogTemp is the log it's going to. We can organize log categories later.
+
+41
+00:02:40.000 --> 00:02:44.000
+Warning is going to make it come out in a particular color. You can see that over here,
+
+42
+00:02:44.000 --> 00:02:48.000
+it'll talk about colors. Gray if
+
+43
+00:02:48.000 --> 00:02:52.000
+you call things a log, yellow if you call things a warning, and red
+
+44
+00:02:52.000 --> 00:02:56.000
+if you call things an error, so expect ours to come out in yellow.
+
+45
+00:02:56.000 --> 00:03:00.000
+Then, you say comma TEXT, another macro, which takes in a string.
+
+46
+00:03:00.000 --> 00:03:04.000
+OK, so let's just try it! We'd expect this to happen
+
+47
+00:03:04.000 --> 00:03:08.000
+on the construction of this position report. You can
+
+48
+00:03:08.000 --> 00:03:12.000
+either put it there, or let's put it for simplicity, actually down here in
+
+49
+00:03:12.000 --> 00:03:16.000
+BeginPlay(). It doesn't make a lot of odds which way you put it, but for simplicity,
+
+50
+00:03:16.000 --> 00:03:20.000
+let's just put it down here in BeginPlay(), because it's obvious what's happening here, when the game
+
+51
+00:03:20.000 --> 00:03:24.000
+begins to play it's going to print something. Let's try it! Now,
+
+52
+00:03:24.000 --> 00:03:28.000
+you do need to save your Visual Studio file, and you can either build by right-clicking here
+
+53
+00:03:28.000 --> 00:03:32.000
+in build, which we'll do this time, or you'll find that as long as you've saved your file,
+
+54
+00:03:32.000 --> 00:03:36.000
+you could also come over to Unreal and click Compile. So, we want
+
+55
+00:03:36.000 --> 00:03:40.000
+to make sure that that does actually compile. Look here, it's running the Unreal Header Tool,
+
+56
+00:03:40.000 --> 00:03:44.000
+something it does along here OK. And that's doing some
+
+57
+00:03:44.000 --> 00:03:48.000
+magical work for us, all very powerful and cool, but a little confusing
+
+58
+00:03:48.000 --> 00:03:52.000
+in the early days. And then, in a minute it says the builder succeeded, so we can
+
+59
+00:03:52.000 --> 00:03:56.000
+go to Unreal and we can click play. And of course, we're going to need access to
+
+60
+00:03:56.000 --> 00:04:00.000
+the Window, Developer Tools, and then, Output Log. "Position report
+
+61
+00:04:00.000 --> 00:04:04.000
+reporting for duty!" Fantastic! We have, in our log
+
+62
+00:04:04.000 --> 00:04:08.000
+temp category, a warning saying that so we can see it! Great!
+
+63
+00:04:08.000 --> 00:04:12.000
+You could go ahead in to the code and change all sorts of things
+
+64
+00:04:12.000 --> 00:04:16.000
+about it, if you want to. You could change it to a different type, an error, or just a log.
+
+65
+00:04:16.000 --> 00:04:20.000
+I suggest a warning on error for now, because they're going to show up amongst all these other gray
+
+66
+00:04:20.000 --> 00:04:24.000
+entries, quite nicely. Later, we'll start using these as, you know,
+
+67
+00:04:24.000 --> 00:04:28.000
+categorized properly if you like. So, the Position report is reporting
+
+68
+00:04:28.000 --> 00:04:32.000
+for duty. That is great news! What I want you to do
+
+69
+00:04:32.000 --> 00:04:36.000
+is to make this... Well, I'll do this first bit, then I'll
+
+70
+00:04:36.000 --> 00:04:40.000
+give you a challenge. It's going to be a little tiny bit easier for you. So,
+
+71
+00:04:40.000 --> 00:04:44.000
+("Position report reporting for duty!") I'm going to say
+
+72
+00:04:44.000 --> 00:04:48.000
+on Chair!")) In this case, I'm going to hard
+
+73
+00:04:48.000 --> 00:04:52.000
+code that it's on the chair, OK. I'm going to save, so there's no
+
+74
+00:04:52.000 --> 00:04:56.000
+star up here. I'm going to go back to Unreal and compile from inside Unreal.
+
+75
+00:04:56.000 --> 00:05:00.000
+It does the same thing, it calls upon your IDE,
+
+76
+00:05:00.000 --> 00:05:04.000
+Visual Studio, Xcode, etc. to compile the code.
+
+77
+00:05:04.000 --> 00:05:08.000
+When that's finished, which can
+
+78
+00:05:08.000 --> 00:05:12.000
+take a little while, something we'll have to get used to with Unreal. There are things we can do, by the way, to improve
+
+79
+00:05:12.000 --> 00:05:16.000
+the compilation speed later, inlining and various other things.
+
+80
+00:05:16.000 --> 00:05:21.766
+Now, if we play, it's going to say "on Chair". OK, pretty simple! So, I have a challenge for you!
+
+81
+00:05:21.766 --> 00:05:25.766
+I would just like to show you one quick thing, before we dive into it. Click on Details, make sure you
+
+82
+00:05:25.766 --> 00:05:29.766
+have the chair selected. Click on Details, and I want you to
+
+83
+00:05:29.766 --> 00:05:33.766
+see here, on the top-left of Details, when you Add Component you can actually
+
+84
+00:05:33.766 --> 00:05:37.766
+search for components, and you can find, in this list, if you look
+
+85
+00:05:37.766 --> 00:05:41.766
+through under Custom our Position Report. OK, so you're going to need that for the challenge, otherwise
+
+86
+00:05:41.766 --> 00:05:45.766
+I think you can do it, so here it is. So, I want you to add the component to a second
+
+87
+00:05:45.766 --> 00:05:49.766
+object in your scene. Add on your component to a second game object, of the same
+
+88
+00:05:49.766 --> 00:05:53.766
+type of a static mesh actor type. If it works, you'll get a
+
+89
+00:05:53.766 --> 00:05:57.766
+second log and we'll see next how to read the actual object named,
+
+90
+00:05:57.766 --> 00:06:01.766
+to customize that log entry. So, go ahead, pause the video, and just see if you can
+
+91
+00:06:01.766 --> 00:06:05.766
+get a second log entry appearing now!
+
+92
+00:06:05.766 --> 00:06:09.766
+OK welcome back! Let's take a look at this!
+
+93
+00:06:09.766 --> 00:06:13.766
+Go to Add Component, scroll down to
+
+94
+00:06:13.766 --> 00:06:17.766
+Position Report, and when you click it, you'll get Position Report added like
+
+95
+00:06:17.766 --> 00:06:21.766
+this. Now, when we play, we get two reports. Now, they're
+
+96
+00:06:21.766 --> 00:06:25.766
+both saying "on Chair!" at the moment, which is a problem, and we will see in the next video
+
+97
+00:06:25.766 --> 00:06:29.766
+how we can actually access the name of the object that's making this log entry,
+
+98
+00:06:29.766 --> 00:06:33.766
+so that we can be sure what's coming from where and make some progress
+
+99
+00:06:33.766 --> 00:06:37.766
+into reading from Unreal's class system. So, well done getting this far, and I
+
+100
+00:06:37.766 --> 00:06:41.132
+will see you soon!
+

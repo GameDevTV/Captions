@@ -1,0 +1,530 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+
+
+2
+00:00:04.000 --> 00:00:08.000
+So, welcome to Including Our Own Header Files. In this video, we'll be explaining why
+
+3
+00:00:08.000 --> 00:00:12.000
+you never use a namespace or use the keyword
+
+4
+00:00:12.000 --> 00:00:16.000
+using namespace in a dot header file. We'll actually stop using it
+
+5
+00:00:16.000 --> 00:00:20.000
+altogether. So over here in main(), where we used to
+
+6
+00:00:20.000 --> 00:00:24.000
+have using namespace standard, we're going to get rid of that and show you the alternative.
+
+7
+00:00:24.000 --> 00:00:28.000
+We are going to create our first .cpp file that actually is
+
+8
+00:00:28.000 --> 00:00:32.000
+associated with a header file, so we'll have a FBCowGame.h. we should have already got,
+
+9
+00:00:32.000 --> 00:00:36.000
+but we'll also have the .cpp file with empty methods. And
+
+10
+00:00:36.000 --> 00:00:42.266
+we'll talk about change of includes, a little bit about #include and how they work together. So, let's get on with it!
+
+11
+00:00:42.266 --> 00:00:46.266
+So here we are, back at our merry code! And the first priority
+
+12
+00:00:46.266 --> 00:00:50.266
+is to get rid of this error. The error is caused because it doesn't understand (string).
+
+13
+00:00:50.266 --> 00:00:54.266
+So, what we need to do is #include something. Do you know what we need to #include?
+
+14
+00:00:54.266 --> 00:00:58.266
+Well, I'll forgive you if you said <iostream>, but actually
+
+15
+00:00:58.266 --> 00:01:02.266
+in this case, we may as well be more specific and #include <string> itself,
+
+16
+00:01:02.266 --> 00:01:06.266
+because that's directly what we're trying to do. Now, how do I
+
+17
+00:01:06.266 --> 00:01:10.266
+get (string) to work, once I've done that? I go (std::string);
+
+18
+00:01:10.266 --> 00:01:14.266
+instead, and all is right with the world again.
+
+19
+00:01:14.266 --> 00:01:18.266
+Let's just compile our code now and run it and make sure that it works. Good!
+
+20
+00:01:18.266 --> 00:01:22.266
+So we're now in a state where it runs, which is where we want to be most of the time.
+
+21
+00:01:22.266 --> 00:01:26.266
+Now, what you do not do
+
+22
+00:01:26.266 --> 00:01:30.266
+is using namespace inside a header file.
+
+23
+00:01:30.266 --> 00:01:34.266
+If you do that and you include that header file somewhere else, you're going to completely loose track
+
+24
+00:01:34.266 --> 00:01:38.266
+of what namespaces you have access to, and you have open and that's a nightmare. In fact,
+
+25
+00:01:38.266 --> 00:01:42.266
+it's such a nightmare that a lot of people advocate not using
+
+26
+00:01:42.266 --> 00:01:46.266
+namespace at all, and I'm going to suggest we stop using it. I used it the first
+
+27
+00:01:46.266 --> 00:01:50.266
+time around, to make your syntax look simpler and also to introduce you
+
+28
+00:01:50.266 --> 00:01:54.266
+to it, because you're going to see it on the web. You're going to see it in all sorts of places, when you do some
+
+29
+00:01:54.266 --> 00:01:58.266
+searching. But we're going to get rid of it, because it's too dangerous. You're going
+
+30
+00:01:58.266 --> 00:02:02.266
+to end up putting it in a header file, one day. You're better off just being completely
+
+31
+00:02:02.266 --> 00:02:06.266
+explicit like this, and also by the way, this is much easier to search for. This is a very specific
+
+32
+00:02:06.266 --> 00:02:10.266
+searchable thing inside your code. So, what I want you to do is
+
+33
+00:02:10.266 --> 00:02:14.266
+remove all references to using
+
+34
+00:02:14.266 --> 00:02:18.266
+namespace, which is only in your main.cpp file. So, go ahead and delete using namespace.
+
+35
+00:02:18.266 --> 00:02:22.266
+When you do that, you're code is going to break. Try and do Control, F,
+
+36
+00:02:22.266 --> 00:02:26.266
+5, now. You're going to get all sorts of errors, starting with this string,
+
+37
+00:02:26.266 --> 00:02:30.266
+at the top. So, let me show you how to start sorting it out. Then, I'm going to challenge you to go and
+
+38
+00:02:30.266 --> 00:02:34.266
+finish sorting it out. What you want to do is go to string, go to Edit,
+
+39
+00:02:34.266 --> 00:02:38.266
+Find and Replace, Quick Replace. That's one of the easiest ways.
+
+40
+00:02:38.266 --> 00:02:42.266
+Control, H remember that! And then, what we're going to do is, where we see string we're going to
+
+41
+00:02:42.266 --> 00:02:46.266
+replace it with std::string. OK, I'm going to
+
+42
+00:02:46.266 --> 00:02:50.266
+skip over that first one. If you look through, you can use this button I'm clicking on
+
+43
+00:02:50.266 --> 00:02:54.266
+here, to go through the searches,
+
+44
+00:02:54.266 --> 00:02:58.266
+right. And then, when it gets to the top, it says it's finished starting. I'm
+
+45
+00:02:58.266 --> 00:03:02.266
+not going to show that in the future. So, I can comfortably click through the whole lot now.
+
+46
+00:03:02.266 --> 00:03:06.266
+So, you can see the one that's highlighted in gray there. So, I'm currently at this
+
+47
+00:03:06.266 --> 00:03:10.266
+guy, and then, I'm going to use this button here to replace. And it's saying it
+
+48
+00:03:10.266 --> 00:03:14.266
+can't find anymore occurrences, so you go Next. You just have a quick preview
+
+49
+00:03:14.266 --> 00:03:18.266
+of them all, and then, you say Replace All OK.
+
+50
+00:03:18.266 --> 00:03:22.266
+Now of course, it may have done this one here, which just is the only one that doesn't make sense.
+
+51
+00:03:22.266 --> 00:03:26.266
+Alright, just checking that you haven't got double replacements, because if you replace
+
+52
+00:03:26.266 --> 00:03:30.266
+all, that's basically how you do it. Let me do it slightly more competently the second time.
+
+53
+00:03:30.266 --> 00:03:34.266
+Let's look down our file. Look for the red dots over here, see where it first complains again.
+
+54
+00:03:34.266 --> 00:03:38.266
+It complains at cout. I'm going to use Control and H for quick replace.
+
+55
+00:03:38.266 --> 00:03:42.266
+I'm going to replace cout with std::cout, like that,
+
+56
+00:03:42.266 --> 00:03:46.266
+and I'm going to boldly hit Replace All. Boom, "8 occurrences
+
+57
+00:03:46.266 --> 00:03:50.266
+replaced." I'm going to have a look through and see if it's caused me any complete nightmares.
+
+58
+00:03:50.266 --> 00:03:54.266
+It hasn't and there you go! We're
+
+59
+00:03:54.266 --> 00:03:58.266
+just going to finish that off, look for the other things that don't work, replace them.
+
+60
+00:03:58.266 --> 00:04:02.266
+Pause the video, do that now, there's no challenge slide up, and I'll come back to you in two
+
+61
+00:04:02.266 --> 00:04:06.266
+seconds. Cool! Alright, so I'm just going to finish this off with
+
+62
+00:04:06.266 --> 00:04:10.266
+a few more Control H's, endl endl.
+
+63
+00:04:10.266 --> 00:04:14.266
+Replace All OK. So now,
+
+64
+00:04:14.266 --> 00:04:18.266
+it's found our endl's. What else has it got a concern about? It's done a double replace there or
+
+65
+00:04:18.266 --> 00:04:22.266
+I have because I've been a fool. What else have we got? OK, getline!
+
+66
+00:04:22.266 --> 00:04:26.266
+Let's do these ones manually. Standard getline also cin itself.
+
+67
+00:04:26.266 --> 00:04:30.266
+Alright and here we go! Standard
+
+68
+00:04:30.266 --> 00:04:34.266
+getline standard cin. Great!
+
+69
+00:04:34.266 --> 00:04:38.266
+Alright, let's recompile our code! Control, F, 5. It all works now!
+
+70
+00:04:38.266 --> 00:04:42.266
+It came up! I put it away a bit quickly but it all works! That's great news! Now,
+
+71
+00:04:42.266 --> 00:04:46.266
+a little bit later on, I'm actually going to make a type substitution of this to something else
+
+72
+00:04:46.266 --> 00:04:50.266
+that we're going to see inside Unreal, called
+
+73
+00:04:50.266 --> 00:04:54.266
+fstring or ftext, so we start to get even more used to Unreal
+
+74
+00:04:54.266 --> 00:04:58.266
+syntax. Actually, the situation will get better gain, but for now, let's
+
+75
+00:04:58.266 --> 00:05:02.266
+go from having our eye in to the simple clean stuff, that without
+
+76
+00:05:02.266 --> 00:05:06.266
+actually being able to train ourselves to read this as well. I want you to be as multi-
+
+77
+00:05:06.266 --> 00:05:10.266
+talented as possible when it comes to reading C++, so that when you need to go and dive
+
+78
+00:05:10.266 --> 00:05:14.266
+online and say how do I do this in C++ when you're making your own game, you can read lots of
+
+79
+00:05:14.266 --> 00:05:18.266
+different peoples' code. That's really important OK! It's not all sterile code out there. This is
+
+80
+00:05:18.266 --> 00:05:22.266
+actually much more strict, much more correct in many ways. It's just a little bit more
+
+81
+00:05:22.266 --> 00:05:26.266
+noisy, which is absolutely fine! Great, so what we need to do next is
+
+82
+00:05:26.266 --> 00:05:30.266
+we need to actually make ourselves a .cpp file and
+
+83
+00:05:30.266 --> 00:05:34.266
+include this stuff, so that we can start implementing some of these things that
+
+84
+00:05:34.266 --> 00:05:38.266
+we have here. These greens are saying it can't find a definition
+
+85
+00:05:38.266 --> 00:05:42.266
+for these things, alright. So, one simple way to do that, by the way, would
+
+86
+00:05:42.266 --> 00:05:46.266
+be to right-click here and go to Quick Actions. I showed you before how to enable that
+
+87
+00:05:46.266 --> 00:05:50.266
+in the Tools and Options Menu, if you need to. Create
+
+88
+00:05:50.266 --> 00:05:54.266
+definition of it, and look what happens! It has already made you an
+
+89
+00:05:54.266 --> 00:05:58.266
+FBullCowGame.cpp file. OK, it's showing you a peak into
+
+90
+00:05:58.266 --> 00:06:02.266
+that file, and then, you could open the file here by double-clicking in Source.
+
+91
+00:06:02.266 --> 00:06:06.266
+I like to have things ordered like this. Main, because main is well
+
+92
+00:06:06.266 --> 00:06:10.266
+it's arguable where you put main, so FBullCowGame.h
+
+93
+00:06:10.266 --> 00:06:14.266
+first, for sure, because that thing gets pulled in here, which main
+
+94
+00:06:14.266 --> 00:06:18.266
+uses as well. Alright, so what we've got now, what it's done
+
+95
+00:06:18.266 --> 00:06:22.266
+for us is this. It's #include "FBullCowGame.h"
+
+96
+00:06:22.266 --> 00:06:26.266
+but in quotes you see, because I said that if you're looking for something on a standard
+
+97
+00:06:26.266 --> 00:06:30.266
+library, use chevrons, but if you're looking for something of your own you go quotes
+
+98
+00:06:30.266 --> 00:06:34.266
+and it will help us autocomplete. And then, it's fleshed out FBullCowGame::
+
+99
+00:06:34.266 --> 00:06:38.266
+Reset() method, and it has no actual
+
+100
+00:06:38.266 --> 00:06:42.266
+implementation right now. But if we go back to the header file, close this little
+
+101
+00:06:42.266 --> 00:06:46.266
+preview window, you can see over here that Reset() is no longer
+
+102
+00:06:46.266 --> 00:06:50.266
+complaining, so I simply want you to finish writing blank definitions.
+
+103
+00:06:50.266 --> 00:06:54.266
+Write blank definitions to all of the definitions and ensure there are not warnings left in the .h file.
+
+104
+00:06:54.266 --> 00:06:58.266
+Welcome back! This is a simple job,
+
+105
+00:06:58.266 --> 00:07:02.266
+thanks to these tools! In fact, I'm going to use Control and dot for the quick action. Create a
+
+106
+00:07:02.266 --> 00:07:06.266
+definition, and then, I'm just going to close it and trust it. I'm going to come down here,
+
+107
+00:07:06.266 --> 00:07:10.266
+Control and dot, create definition, close it and trust it.
+
+108
+00:07:10.266 --> 00:07:14.266
+Down here, Control, dot, create definition, close it and trust it.
+
+109
+00:07:14.266 --> 00:07:18.266
+Now, we can go and look over here. Look it's done loads of work for us, it's even returned the right
+
+110
+00:07:18.266 --> 00:07:22.266
+things. The only thing it hasn't done is put a return at the end of Reset(), and I want
+
+111
+00:07:22.266 --> 00:07:26.266
+to return there. I said we should always think about what we're going to be returning, even
+
+112
+00:07:26.266 --> 00:07:30.266
+if it's nothing. Alright, so that's that! Now, one question would be where is...
+
+113
+00:07:30.266 --> 00:07:34.266
+Oh, GetMaxTries() is OK! Sorry! Here's game 1. 1, 2,
+
+114
+00:07:34.266 --> 00:07:38.266
+3, 4, 5. Five methods! How many have we got in here? 1, 2,
+
+115
+00:07:38.266 --> 00:07:42.266
+3, 4, so we're missing 1. Is it the IsGameWon(),
+
+116
+00:07:42.266 --> 00:07:46.266
+GetMaxTries(), Reset(), GetMaxTries(), GetCurrentTry()?
+
+117
+00:07:46.266 --> 00:07:50.266
+It's GetCurrentTry()! I don't know, to be honest, why it isn't complaining about...
+
+118
+00:07:50.266 --> 00:07:54.266
+Yes I do! Ah hah hah! Look GetCurrentTry(), it's
+
+119
+00:07:54.266 --> 00:07:58.266
+not complaining here because it's not a method! I should have added brackets after it!
+
+120
+00:07:58.266 --> 00:08:02.266
+OK, so that's the problem! And this, what I've done here,
+
+121
+00:08:02.266 --> 00:08:06.266
+is I've defined a variable and you can't implement a variable, so brackets.
+
+122
+00:08:06.266 --> 00:08:10.266
+Easy enough mistake to make. So right here, create definition,
+
+123
+00:08:10.266 --> 00:08:14.266
+and we're good to go! It doesn't matter if the order is the same in here,
+
+124
+00:08:14.266 --> 00:08:18.266
+that's not important, but it has actually put it in order. So great, we've done a
+
+125
+00:08:18.266 --> 00:08:22.266
+load of work there! We now have a file that is effectively, once it's finished doing
+
+126
+00:08:22.266 --> 00:08:26.266
+this #include, it's very much what we're doing in main(). We're defining
+
+127
+00:08:26.266 --> 00:08:30.266
+these methods just like we did here in main(), where we put prototypes at the top
+
+128
+00:08:30.266 --> 00:08:34.266
+here. The difference being here, we've wrapped it in some sort of class and
+
+129
+00:08:34.266 --> 00:08:38.266
+said that these are public. Now, we'll understand a lot more about what that means later, but well done in
+
+130
+00:08:38.266 --> 00:08:42.266
+adding more skeleton to your code and we're doing really nicely
+
+131
+00:08:42.266 --> 00:08:46.266
+here. So, pat yourself on the back, and I'll see you in the next video!
+
+132
+00:08:46.266 --> 00:08:46.666
+
+

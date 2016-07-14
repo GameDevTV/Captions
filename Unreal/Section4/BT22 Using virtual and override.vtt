@@ -1,0 +1,854 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So, welcome to
+
+2
+00:00:04.000 --> 00:00:08.000
+Using Virtual and Override, some meaty C++ terms!
+
+3
+00:00:08.000 --> 00:00:12.000
+We're basically going to be focusing on this part of our
+
+4
+00:00:12.000 --> 00:00:16.000
+architecture, the Tank Player Controller talking to the Tank, making sure that we've got
+
+5
+00:00:16.000 --> 00:00:20.000
+that reference. And by the end of it, not too much will be happening, but we'll be understanding
+
+6
+00:00:20.000 --> 00:00:24.000
+more about the hierarchy of
+
+7
+00:00:24.000 --> 00:00:28.000
+inheritance, how our PlayerController inherits from our controller, etc.
+
+8
+00:00:28.000 --> 00:00:32.000
+and then how we extend the functionality of the engine. So, I'll see you in there!
+
+9
+00:00:32.000 --> 00:00:32.866
+
+
+10
+00:00:32.866 --> 00:00:36.866
+So, in the previous video, we wrote this GetControlledTank() method.
+
+11
+00:00:36.866 --> 00:00:40.866
+Now, I would be nervous about writing a method, pretty much immediately testing to make
+
+12
+00:00:40.866 --> 00:00:44.866
+sure it works right. We don't really know if GetPawn() is the right method, or is it Get
+
+13
+00:00:44.866 --> 00:00:48.866
+ControlledPawn? We're not 100% sure this Cast is working, we especially want to test it,
+
+14
+00:00:48.866 --> 00:00:52.866
+and to test it we want to be doing so
+
+15
+00:00:52.866 --> 00:00:56.866
+either in BeginPlay or Tick. We want to be able to log out to the Console
+
+16
+00:00:56.866 --> 00:01:00.866
+and be able to see that we actually have got a tank and which tank we're
+
+17
+00:01:00.866 --> 00:01:04.866
+possessing. So, if we play the game and then hit F8 to
+
+18
+00:01:04.866 --> 00:01:08.866
+de-possess from the tank, we can then get our mouse back, and we can go to the Content Browser.
+
+19
+00:01:08.866 --> 00:01:12.866
+Sorry, the World Outliner. And we could have a look and see that the
+
+20
+00:01:12.866 --> 00:01:16.866
+TankPlayerController... Where is it?
+
+21
+00:01:16.866 --> 00:01:20.866
+Here yep, this instance of the TankPlayerController blueprint here is the Player
+
+22
+00:01:20.866 --> 00:01:24.866
+Controller, and it'll be possessing this tank here, Tank_BP10. And we
+
+23
+00:01:24.866 --> 00:01:28.866
+can tell that, because if we move outside of it and then repossess we go back to it, and
+
+24
+00:01:28.866 --> 00:01:32.866
+also, our control works for this tank. So, we are possessing the tank, that's great!
+
+25
+00:01:32.866 --> 00:01:36.866
+So, we should be able to get that ControlledTank. So, let's firstly look at how we would do
+
+26
+00:01:36.866 --> 00:01:40.866
+that in Blueprint. So, let's follow the whole story through,
+
+27
+00:01:40.866 --> 00:01:44.866
+as to what's going on here. Firstly, let's start in the GameMode
+
+28
+00:01:44.866 --> 00:01:48.866
+blueprint. In the GameMode blueprint, there's a couple of things we've got set.
+
+29
+00:01:48.866 --> 00:01:52.866
+The Default Pawn, the thing that we are spawning at the Player
+
+30
+00:01:52.866 --> 00:01:56.866
+Start that we've put in the world, is the Tank blueprint. That's good! And the PlayerController class
+
+31
+00:01:56.866 --> 00:02:00.866
+is the TankPlayerController blueprint. Good! You want to make sure yours are
+
+32
+00:02:00.866 --> 00:02:04.866
+set appropriately. So, this is what puts the Pawn in the world, the Tank in the world, and
+
+33
+00:02:04.866 --> 00:02:08.866
+possesses it with the PlayerController. Now, let's take a look at the
+
+34
+00:02:08.866 --> 00:02:12.866
+TankPlayerControllerClass. The next question here... Sorry, not the class but the
+
+35
+00:02:12.866 --> 00:02:16.866
+blueprint. The next question is here is, is this appropriately
+
+36
+00:02:16.866 --> 00:02:20.866
+parented? Well, it isn't actually. I don't know if I didn't do that in the last
+
+37
+00:02:20.866 --> 00:02:24.866
+video or if it lost my changes, but you do need to make sure your TankPlayerController blueprint,
+
+38
+00:02:24.866 --> 00:02:28.866
+under the Class Settings, is parented appropriately
+
+39
+00:02:28.866 --> 00:02:32.866
+to your TankPlayerController C++ class.
+
+40
+00:02:32.866 --> 00:02:36.866
+That's really important! OK, so here we are in the TankPlayerController. Let's just
+
+41
+00:02:36.866 --> 00:02:40.866
+do this test in blueprint first. If we look for "tick",
+
+42
+00:02:40.866 --> 00:02:44.866
+pop ourselves an Event Tick node. You don't need to do this, by the way, if you don't want. You can just
+
+43
+00:02:44.866 --> 00:02:48.866
+watch this, I'm just doing something diagnostic, and Get
+
+44
+00:02:48.866 --> 00:02:52.866
+Player Pawn. There you go! So, Get Player
+
+45
+00:02:52.866 --> 00:02:56.866
+Pawn is a method that will Get the Player Pawn, i.e. the tank that we've put in the scene.
+
+46
+00:02:56.866 --> 00:03:00.866
+If we then take its return value and turn it into a string,
+
+47
+00:03:00.866 --> 00:03:04.866
+and then we do a Print. I don't think you've seen this Print node before,
+
+48
+00:03:04.866 --> 00:03:08.866
+but this Print String node is quite handy. So, we change the type
+
+49
+00:03:08.866 --> 00:03:12.866
+that comes out of here, into a string, and we print it. Now, where do we want to print it?
+
+50
+00:03:12.866 --> 00:03:16.866
+Well, let's print it both to the Screen and the Log, this time just for fun! Let's see what this does!
+
+51
+00:03:16.866 --> 00:03:20.866
+Print, play! OK, I'm just going to de-possess to have a look. All over the
+
+52
+00:03:20.866 --> 00:03:24.866
+screen and all over the log is the fact that we are possessing Tank_BP_C_11,
+
+53
+00:03:24.866 --> 00:03:28.866
+which if you look at the World Outliner is this one here.
+
+54
+00:03:28.866 --> 00:03:32.866
+It has an extra C in it, but if you hover over it, you'll see it's ID Name is
+
+55
+00:03:32.866 --> 00:03:36.866
+matching what's on the screen in the log. So, indeed we are possessing the tank and the
+
+56
+00:03:36.866 --> 00:03:40.866
+blueprint proves that, and we're using the method GetPlayerPawn() in here
+
+57
+00:03:40.866 --> 00:03:44.866
+and that works absolutely fine! So, I'm going to delete that diagnostic there!
+
+58
+00:03:44.866 --> 00:03:48.866
+That kind of test, it works from that standpoint, but what we need is a BeginPlay method inside
+
+59
+00:03:48.866 --> 00:03:52.866
+of our C++ class so we can do a similar test in there.
+
+60
+00:03:52.866 --> 00:03:56.866
+It's just that there isn't one, so we need to understand a little bit more about inheritance
+
+61
+00:03:56.866 --> 00:04:00.866
+for this. And Overriding, so what is Overriding? Well, right
+
+62
+00:04:00.866 --> 00:04:04.866
+up the Inheritance Tree... Let me show you the Inheritance Tree.
+
+63
+00:04:04.866 --> 00:04:08.866
+If we do "playercontroller unreal", for example,
+
+64
+00:04:08.866 --> 00:04:12.866
+then if you look at the actual API docs, which is this URL
+
+65
+00:04:12.866 --> 00:04:16.866
+here, you'll see that the APlayerController inherits from the AController
+
+66
+00:04:16.866 --> 00:04:20.866
+and the AController inherits from the AActor. OK, and if you were to look in the AController,
+
+67
+00:04:20.866 --> 00:04:24.866
+you would actually find there is no BeginPlay, if you did a search for that.
+
+68
+00:04:24.866 --> 00:04:28.866
+It's only AActor that has a BeginPlay, so the
+
+69
+00:04:28.866 --> 00:04:32.866
+last time, in the hierarchy, that BeginPlay was defined would have been in
+
+70
+00:04:32.866 --> 00:04:36.866
+AActor. We know that Actors have a Begin Play. So, what happens
+
+71
+00:04:36.866 --> 00:04:40.866
+with this inheritance business? Children inherit their parents'
+
+72
+00:04:40.866 --> 00:04:44.866
+methods. So, the controller has inherited BeginPlay from the Actor, and then the
+
+73
+00:04:44.866 --> 00:04:48.866
+PlayerController has inherited from there and then our
+
+74
+00:04:48.866 --> 00:04:52.866
+TankPlayerController has inherited in turn, so there's a whole string of inheritance.
+
+75
+00:04:52.866 --> 00:04:56.866
+If we want to use BeginPlay in our method, that is over here
+
+76
+00:04:56.866 --> 00:05:00.866
+in TankPlayerController, if we want to write
+
+77
+00:05:00.866 --> 00:05:04.866
+simply void BeginPlay() we can,
+
+78
+00:05:04.866 --> 00:05:08.866
+but we want to be sure we're overriding and adding to the functionality
+
+79
+00:05:08.866 --> 00:05:12.866
+that's further up the inheritance tree, because we want to make sure that all that other stuff that Unreal has
+
+80
+00:05:12.866 --> 00:05:16.866
+written is also happening. So, that way that you do that is,
+
+81
+00:05:16.866 --> 00:05:20.866
+using the keyword override. So we say, void BeginPlay(), but we type override.
+
+82
+00:05:20.866 --> 00:05:24.866
+And this says, please make sure there is something else up the Inheritance Tree,
+
+83
+00:05:24.866 --> 00:05:28.866
+with exactly this signature. Not BeginPlay
+
+84
+00:05:28.866 --> 00:05:32.866
+(int When), but precisely BeginPlay() with no parameters.
+
+85
+00:05:32.866 --> 00:05:36.866
+That's what the override does, it checks that it can find this upward in the hierarchy,
+
+86
+00:05:36.866 --> 00:05:40.866
+and it will literally go through all of this until it gets to Actor, and at
+
+87
+00:05:40.866 --> 00:05:44.866
+Actor it'll find BeginPlay(), which is here,
+
+88
+00:05:44.866 --> 00:05:48.866
+and then, you can see the signature is virtual void BeginPlay(). So, that brings us
+
+89
+00:05:48.866 --> 00:05:52.866
+onto what does this virtual word mean? Well, when BeginPlay() was first declared,
+
+90
+00:05:52.866 --> 00:05:56.866
+up at the Actor... Sorry, excuse me, tabbing. ...They will use
+
+91
+00:05:56.866 --> 00:06:00.866
+the keyword virtual, and that says that my children are allowed to override
+
+92
+00:06:00.866 --> 00:06:04.866
+or extend the functionality of this method. That's what the virtual bit does.
+
+93
+00:06:04.866 --> 00:06:08.866
+So, if the method was declared virtual, in the first place, which this was in the case of Begin
+
+94
+00:06:08.866 --> 00:06:12.866
+Play(), it can be overridden by any ancestor in the future.
+
+95
+00:06:12.866 --> 00:06:16.866
+Further more, specifying virtual on an already virtual method has no extra
+
+96
+00:06:16.866 --> 00:06:20.866
+effect. So, the general recipe for
+
+97
+00:06:20.866 --> 00:06:24.866
+doing this is you go find the original signature, virtual void BeginPlay(), and you use that.
+
+98
+00:06:24.866 --> 00:06:28.866
+So, what I'm saying is putting virtual here does nothing. Your
+
+99
+00:06:28.866 --> 00:06:32.866
+kind of saying, my children could also override my functionality if we
+
+100
+00:06:32.866 --> 00:06:36.866
+based something else on TankPlayerController, but actually, it doesn't matter if it's there or not.
+
+101
+00:06:36.866 --> 00:06:40.866
+So, here's the general recipe for getting your
+
+102
+00:06:40.866 --> 00:06:44.866
+BeginPlay or your Tick back. Let's show you the general recipe, and then, I'll try and bring it
+
+103
+00:06:44.866 --> 00:06:48.866
+together for you. It's a bit of a complex topic. How to override a virtual method.
+
+104
+00:06:48.866 --> 00:06:52.866
+Find the signature in the API reference. OK, well that's what we did, we
+
+105
+00:06:52.866 --> 00:06:56.866
+went to the API reference, we found the signature for BeginPlay eventually, and
+
+106
+00:06:56.866 --> 00:07:00.866
+there it is. OK, good! So, you copy it and
+
+107
+00:07:00.866 --> 00:07:04.866
+postfix override in the header file. OK, so these are in your slides, by the way, in this
+
+108
+00:07:04.866 --> 00:07:08.866
+recipe for doing this. So, you come in here, you do that, you paste the signature,
+
+109
+00:07:08.866 --> 00:07:12.866
+and you postfix with override, which is exactly what we just wrote.
+
+110
+00:07:12.866 --> 00:07:16.866
+And that says, please make sure I'm overriding, check me, keep an eye on me.
+
+111
+00:07:16.866 --> 00:07:20.866
+Define it in the C++ without virtual or override. OK, so when we define
+
+112
+00:07:20.866 --> 00:07:24.866
+this method, we just want void BeginPlay(). So, we come up here,
+
+113
+00:07:24.866 --> 00:07:28.866
+we go void, of course we need the class name as always in C++,
+
+114
+00:07:28.866 --> 00:07:32.866
+BeginPlay() matching the
+
+115
+00:07:32.866 --> 00:07:36.866
+signature and then some curly braces. Oops!
+
+116
+00:07:36.866 --> 00:07:40.866
+OK, that's cool! So,
+
+117
+00:07:40.866 --> 00:07:44.866
+with my insert on or my fingers. [Laughs] My microphone's
+
+118
+00:07:44.866 --> 00:07:48.866
+right between my face the the keyboard right now so. Alright,
+
+119
+00:07:48.866 --> 00:07:52.866
+what's the next step in the recipe? Here, usually called Super:: in the first
+
+120
+00:07:52.866 --> 00:07:56.866
+line of code. Alright, so let's try and bring this together for you. What's happened here
+
+121
+00:07:56.866 --> 00:08:00.866
+is, we're said I want to override and extend the functionality
+
+122
+00:08:00.866 --> 00:08:04.866
+of the BeginPlay() method, wherever that is in my parent classes.
+
+123
+00:08:04.866 --> 00:08:08.866
+Here we declare this, define rather the BeginPlay(), but
+
+124
+00:08:08.866 --> 00:08:12.866
+we want to start always by going Super::
+
+125
+00:08:12.866 --> 00:08:16.866
+BeginPlay() like that. Now, what that does is, it makes sure
+
+126
+00:08:16.866 --> 00:08:20.866
+that the BeginPlay() on the Super:: classes is being called. Let's have a look at the Tank.cpp. You'll see
+
+127
+00:08:20.866 --> 00:08:24.866
+that this isn't that unfamiliar. Look the boiler plate code already did exactly
+
+128
+00:08:24.866 --> 00:08:28.866
+this, didn't it? If we look at the Tank.h, let's start there. It
+
+129
+00:08:28.866 --> 00:08:32.866
+says virtual void BeginPlay() override; You see it's already
+
+130
+00:08:32.866 --> 00:08:36.866
+doing that, because somewhere higher than a tank, up in the APawn and maybe even higher
+
+131
+00:08:36.866 --> 00:08:40.866
+than that is the BeginPlay() definition in the first
+
+132
+00:08:40.866 --> 00:08:44.866
+place. Now, if you look in the Tank.cpp, we go
+
+133
+00:08:44.866 --> 00:08:48.866
+void BeginPlay(), no virtual no override
+
+134
+00:08:48.866 --> 00:08:52.866
+with a class name, and then, we go Super:: which says call the
+
+135
+00:08:52.866 --> 00:08:56.866
+default behavior, before we do anything else. That's why they've laid their boiler plate code out like this,
+
+136
+00:08:56.866 --> 00:09:00.866
+and that's why we are going to do exactly the same thing here.
+
+137
+00:09:00.866 --> 00:09:04.866
+Great! So, we have now got to the point where we
+
+138
+00:09:04.866 --> 00:09:08.866
+can log out to say, hey I'm here, I'm in BeginPlay() inside
+
+139
+00:09:08.866 --> 00:09:12.866
+the TankPlayerController. Let's just do that now, before we
+
+140
+00:09:12.866 --> 00:09:16.866
+go any further. Let's just UE_LOG
+
+141
+00:09:16.866 --> 00:09:20.866
+(LogTemp, Warning,
+
+142
+00:09:20.866 --> 00:09:24.866
+"PlayerController
+
+143
+00:09:24.866 --> 00:09:28.866
+Begin Play"); I put a semicolon on because it doesn't make any
+
+144
+00:09:28.866 --> 00:09:32.866
+difference. Of course, all this stuff needs to be wrapped in text, because of the nuances of these
+
+145
+00:09:32.866 --> 00:09:36.866
+macros, and let's just make sure this BeginPlay() actually gets called.
+
+146
+00:09:36.866 --> 00:09:40.866
+Compile our code.
+
+147
+00:09:40.866 --> 00:09:44.866
+This stuff on the screen should disappear, because we've taken it away on the blueprint now. That was
+
+148
+00:09:44.866 --> 00:09:48.866
+just a test, just to kind of tell the story of what's going on here.
+
+149
+00:09:48.866 --> 00:09:52.866
+If we play, we get "PlayerController Begin Play" called. You see it in the
+
+150
+00:09:52.866 --> 00:09:56.866
+LogTemp: there? Great! So that is working, we have intercepted Begin
+
+151
+00:09:56.866 --> 00:10:00.866
+Play. The final thing we need to do is just log out whether GetControlledTank
+
+152
+00:10:00.866 --> 00:10:04.866
+is actually working or not.
+
+153
+00:10:04.866 --> 00:10:08.866
+So, I want you to log out that possessed tank as an exercise just in logging and
+
+154
+00:10:08.866 --> 00:10:12.866
+in protecting pointers. There's a hint for you. But also, don't be disappointed
+
+155
+00:10:12.866 --> 00:10:16.866
+if for some reason it does not show you you're possessing a tank, we'll talk about why briefly in the
+
+156
+00:10:16.866 --> 00:10:20.866
+solution. Just get as far as it logging. Ideally, write two if statements. Remember
+
+157
+00:10:20.866 --> 00:10:24.866
+your UE_LOG macro, I've just started to use it. Consider an intermediate variable to make things
+
+158
+00:10:24.866 --> 00:10:28.866
+easier to write. Remember you're going to need to use the (contents at) operator with strings
+
+159
+00:10:28.866 --> 00:10:32.866
+inside a text macro, and the other thing I would say is, you'd probably want to
+
+160
+00:10:32.866 --> 00:10:36.866
+write an if condition so that you check and see if you've actually
+
+161
+00:10:36.866 --> 00:10:40.866
+got a possessed tank. If you haven't, say you haven't to the log, and if you have, say that you have and
+
+162
+00:10:40.866 --> 00:10:44.866
+report what it is. But as I say, if you keep seeing logs to say that you haven't
+
+163
+00:10:44.866 --> 00:10:48.866
+got it that's fine, we'll talk about why afterwards, as a subtlety here. OK, so
+
+164
+00:10:48.866 --> 00:10:52.866
+anyway, just try and get some logging that tells you whether you have or haven't currently
+
+165
+00:10:52.866 --> 00:10:56.866
+got a possessed tank, as far as the code is concerned.
+
+166
+00:10:56.866 --> 00:11:00.866
+Alright, so writing this sort of logging
+
+167
+00:11:00.866 --> 00:11:04.866
+is really useful for you, so you can tell what's going on. So, what we want to
+
+168
+00:11:04.866 --> 00:11:08.866
+do is, something like an intermediate variable auto PossessedTank
+
+169
+00:11:08.866 --> 00:11:12.866
+=... Wait a second, ControlledTank just to be
+
+170
+00:11:12.866 --> 00:11:16.866
+consistent. = GetControlled
+
+171
+00:11:16.866 --> 00:11:20.866
+Tank(); All of this is still just so that we can test to see if GetControlledTank() is working.
+
+172
+00:11:20.866 --> 00:11:24.866
+Right, now we've done that! This thing here is going to be returning
+
+173
+00:11:24.866 --> 00:11:28.866
+a Pointer to a tank, you see ATank *ControlledTank. So, the first thing
+
+174
+00:11:28.866 --> 00:11:32.866
+you should be doing here, as a reflex, is if not (!ControlledTank), protect that
+
+175
+00:11:32.866 --> 00:11:36.866
+pointer. You'll want to be coming in here and doing some sort of logging,
+
+176
+00:11:36.866 --> 00:11:40.866
+saying...
+
+177
+00:11:40.866 --> 00:11:44.866
+If I can copy correctly. Here we go! ("PlayerController..
+
+178
+00:11:44.866 --> 00:11:48.866
+Or Controlled, "PlayerController... Yeah, say it where it's
+
+179
+00:11:48.866 --> 00:11:52.866
+coming from, not possessing
+
+180
+00:11:52.866 --> 00:11:56.866
+a tank")); Otherwise,
+
+181
+00:11:56.866 --> 00:12:00.866
+you're going to want to log the tank that you are possessing,
+
+182
+00:12:00.866 --> 00:12:04.866
+which is something like this.
+
+183
+00:12:04.866 --> 00:12:08.866
+("PlayerController possessing
+
+184
+00:12:08.866 --> 00:12:12.866
+%s something like that, maybe with a
+
+185
+00:12:12.866 --> 00:12:16.866
+colon, so we can see we're expecting something on the end. And then, I'm
+
+186
+00:12:16.866 --> 00:12:20.866
+going to use a comma, and I am going to take the ControledlTank
+
+187
+00:12:20.866 --> 00:12:24.866
+but I'm going to get it's name.
+
+188
+00:12:24.866 --> 00:12:28.866
+like so.
+
+189
+00:12:28.866 --> 00:12:32.866
+And then, on all of this we need to put a start to turn
+
+190
+00:12:32.866 --> 00:12:36.866
+this string that would come out of that, or should I say out of all of that
+
+191
+00:12:36.866 --> 00:12:40.866
+lot. This lot here would be a string, so the star turns it
+
+192
+00:12:40.866 --> 00:12:44.866
+back into a TCHAR, start, etc. a quirk of this text macro. And
+
+193
+00:12:44.866 --> 00:12:48.866
+this will tell us whether or not we've got a ControlledTank. Let's hvae a look!
+
+194
+00:12:48.866 --> 00:12:52.866
+It's basically a very similar thing to what we did in blueprint, over here in the C++ now,
+
+195
+00:12:52.866 --> 00:12:56.866
+and we can leave some of that code in, actually. So, what's wrong with that?
+
+196
+00:12:56.866 --> 00:13:00.866
+ControlledTank, undeclared identifier. I think I've just
+
+197
+00:13:00.866 --> 00:13:04.866
+miss-spelled it with a single L. Yep!
+
+198
+00:13:04.866 --> 00:13:08.866
+Simple spelling error.
+
+199
+00:13:08.866 --> 00:13:12.866
+"PlayerController not possessing a
+
+200
+00:13:12.866 --> 00:13:16.733
+tank" interesting! OK, but the log is working.
+
+201
+00:13:16.733 --> 00:13:20.733
+So, interesting error and I suspect it's because my machine
+
+202
+00:13:20.733 --> 00:13:24.733
+crashed, just a couple of videos back, just after I had gone to my
+
+203
+00:13:24.733 --> 00:13:28.733
+Tank blueprint and reparented it onto... Yeah, that's correct!
+
+204
+00:13:28.733 --> 00:13:32.733
+...onto the Tank C++. So, if you're getting a similar error message, it's because you need to make
+
+205
+00:13:32.733 --> 00:13:36.733
+sure that your tank is actually parented onto the tank.
+
+206
+00:13:36.733 --> 00:13:40.733
+And the reason, for those of you who are curious, that was failing is
+
+207
+00:13:40.733 --> 00:13:44.733
+because it wouldn't have been able to cast the Pawn it finds to a tank here,
+
+208
+00:13:44.733 --> 00:13:48.733
+if the parenting isn't done properly. So, let's try that now! Just recompile
+
+209
+00:13:48.733 --> 00:13:52.733
+that blueprint and play. Great! Yep, "PlayerController
+
+210
+00:13:52.733 --> 00:13:56.733
+possessing: Tank_BP_C_40". If I just check that in the
+
+211
+00:13:56.733 --> 00:14:00.733
+World Outliner, that is indeed the tank we're possessing, you can see the yellow outline.
+
+212
+00:14:00.733 --> 00:14:04.733
+Oh good! Fantastic! So, let's move on!
+
+213
+00:14:04.733 --> 00:14:04.766
+
+

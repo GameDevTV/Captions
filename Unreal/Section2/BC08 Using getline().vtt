@@ -1,0 +1,310 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Welcome to this here video on
+
+2
+00:00:04.000 --> 00:00:08.000
+using getline(). So, in this video we're going to recap the problem we're facing. Then, we'll talk
+
+3
+00:00:08.000 --> 00:00:12.000
+about why getline() is a useful method here. Then, we'll talk about
+
+4
+00:00:12.000 --> 00:00:16.000
+where to find documentation and where to lookup solutions to problems,
+
+5
+00:00:16.000 --> 00:00:18.100
+and then, we'll solve it!
+
+6
+00:00:18.100 --> 00:00:22.100
+OK, so here's a recap! The problem we've got is that if we put in a
+
+7
+00:00:22.100 --> 00:00:26.100
+multi-word guess, that it is
+
+8
+00:00:26.100 --> 00:00:30.100
+wrongly consuming the text, OK. So, what are we going to do about it?
+
+9
+00:00:30.100 --> 00:00:32.666
+Well, there's a method called getine().
+
+10
+00:00:32.666 --> 00:00:36.666
+So, a word on my getline() is useful here. It will read through any spaces by default,
+
+11
+00:00:36.666 --> 00:00:40.666
+which is useful for us. It will discard the input stream once it reaches
+
+12
+00:00:40.666 --> 00:00:44.666
+the new-line character, which is just what we want. When we hit Return, we want it
+
+13
+00:00:44.666 --> 00:00:48.666
+to consume all the way up to the Enter, the new-line, the Return, whatever you want to call
+
+14
+00:00:48.666 --> 00:00:52.666
+it, and then discard everything else. And you can read about it by searching for getline()
+
+15
+00:00:52.666 --> 00:00:54.966
+at www.cplusplus.com!
+
+16
+00:00:54.966 --> 00:00:58.966
+How firstly would you even find out about something like that
+
+17
+00:00:58.966 --> 00:01:02.966
+for yourself? Before I just present you with a solution, how would you do it?
+
+18
+00:01:02.966 --> 00:01:06.966
+Well, you'd do some Google searches right? It would be the best starting point, but this
+
+19
+00:01:06.966 --> 00:01:10.966
+actually is a none obvious solution. If you search for, well what would you
+
+20
+00:01:10.966 --> 00:01:14.966
+search for? It's always about asking the right question. So, I don't know? You
+
+21
+00:01:14.966 --> 00:01:18.966
+could try something like "cin
+
+22
+00:01:18.966 --> 00:01:22.966
+not working right c++". It might be
+
+23
+00:01:22.966 --> 00:01:26.966
+the type of query you might make, at this stage, and you see
+
+24
+00:01:26.966 --> 00:01:30.966
+a couple of things. That one there! Maybe open the second one! Stack Overflow
+
+25
+00:01:30.966 --> 00:01:34.966
+is a good resource in general, especially highly
+
+26
+00:01:34.966 --> 00:01:38.966
+rooted answers that are voted on by people with good reputations.
+
+27
+00:01:38.966 --> 00:01:42.966
+So, that's one good place to get it from, but sometimes it's just a slightly
+
+28
+00:01:42.966 --> 00:01:46.966
+non-obvious solution, and you need to just take a course like this or read a book. OK,
+
+29
+00:01:46.966 --> 00:01:50.966
+so that's a note on how you do it. getline(), what is this getline() thing?
+
+30
+00:01:50.966 --> 00:01:54.966
+Well, for simplicity I'm going to delete this duplicate code, because I just can't see the wood for the trees
+
+31
+00:01:54.966 --> 00:01:58.966
+like this. This by the way is why we don't repeat code, it's really confusing.
+
+32
+00:01:58.966 --> 00:02:02.966
+So, I'm going to get rid of the repeat, for the moment. We'll put it back to test, in a minute. And it's this
+
+33
+00:02:02.966 --> 00:02:06.966
+cin line that needs to change. I'm going to get rid of it, it doesn't work. getline()
+
+34
+00:02:06.966 --> 00:02:10.966
+is the method. As soon as I open the brackets, then I start to get some
+
+35
+00:02:10.966 --> 00:02:14.966
+basic information about how it might work, but this is really hard to read in here.
+
+36
+00:02:14.966 --> 00:02:18.966
+There's lot of different, what we call, signatures. Lots of different options for what
+
+37
+00:02:18.966 --> 00:02:22.966
+parameters we pass in, but it's not very easy to read this. So, there's
+
+38
+00:02:22.966 --> 00:02:26.966
+a better way of getting the documentation, and that better way is to type "getline c ++".
+
+39
+00:02:26.966 --> 00:02:30.966
+Ooh! There it is! And you go to www.cplusplus.com.
+
+40
+00:02:30.966 --> 00:02:34.966
+Make sure you're on C++ 11! This stuff here, you'll get your eye in
+
+41
+00:02:34.966 --> 00:02:38.966
+for this later, but for right now, your best bet is probably to look at the example code and see
+
+42
+00:02:38.966 --> 00:02:42.966
+if that makes sense. So, given this line of example code I've highlighted, you've
+
+43
+00:02:42.966 --> 00:02:46.966
+guessed it! Here's my challenge! I want you to fix the input problem. Replace both
+
+44
+00:02:46.966 --> 00:02:50.966
+cin lines, or in this case we're going to put one back in using
+
+45
+00:02:50.966 --> 00:02:54.966
+this new getline() method and then we're going to duplicate our code
+
+46
+00:02:54.966 --> 00:02:58.966
+again. And then, test that donkey kong is accepted as a guess, and then you can
+
+47
+00:02:58.966 --> 00:03:02.966
+put a second guess afterwards. So pass the video, see if you can work out how to use cin using
+
+48
+00:03:02.966 --> 00:03:06.966
+that piece of example code, and I will see you when you've had a good go at it!
+
+49
+00:03:06.966 --> 00:03:10.966
+OK welcome back! So, if you look at this example
+
+50
+00:03:10.966 --> 00:03:14.966
+it's saying, std::getline, but we don't need the std so we can
+
+51
+00:03:14.966 --> 00:03:18.966
+just go getline, and then it says cin effectively, if we ignore
+
+52
+00:03:18.966 --> 00:03:22.966
+the std bit because we're using name space std. Comma name and name is the
+
+53
+00:03:22.966 --> 00:03:26.966
+name of a string variable, so we just need to modify that a bit for our code!
+
+54
+00:03:26.966 --> 00:03:30.966
+So, this is how we do it! getline(cin,
+
+55
+00:03:30.966 --> 00:03:34.966
+is where we're getting it from. Guess) is where we're putting it to.
+
+56
+00:03:34.966 --> 00:03:38.966
+OK, so before we duplicate anything, let's just check that, that line works there.
+
+57
+00:03:38.966 --> 00:03:42.966
+So, I'm going to run the code and
+
+58
+00:03:42.966 --> 00:03:46.966
+just put in say "donkey kong". Now, we're not going to know right now, right, because we haven't
+
+59
+00:03:46.966 --> 00:03:50.966
+asked a second time. So now, let's go ahead and duplicate our code again!
+
+60
+00:03:50.966 --> 00:03:54.966
+Now, let me show you this error with
+
+61
+00:03:54.966 --> 00:03:58.966
+string, by the way. If you try and compile now, leaving your redeclaration of string here, let's
+
+62
+00:03:58.966 --> 00:04:02.966
+see what happens. It says, would you like to run the last
+
+63
+00:04:02.966 --> 00:04:06.966
+successful build? Well no, because I want to know what's wrong now. What's wrong?
+
+64
+00:04:06.966 --> 00:04:10.966
+Well look! If we look at the error stream, it's not particularly obvious
+
+65
+00:04:10.966 --> 00:04:14.966
+what's going on. "Illegal for class" access. At least here you get
+
+66
+00:04:14.966 --> 00:04:18.966
+" 'Guess': redifinition; multiple initialization", so it does tell you a useful error.
+
+67
+00:04:18.966 --> 00:04:22.966
+So, we remove that line, run our code donkey
+
+68
+00:04:22.966 --> 00:04:26.966
+kong. I'm missing an n aren't I?
+
+69
+00:04:26.966 --> 00:04:30.966
+Oh, your guess was donkey kong! Cool!
+
+70
+00:04:30.966 --> 00:04:34.966
+Works! Brilliant! So, we've achieved what we wanted to achieve
+
+71
+00:04:34.966 --> 00:04:38.966
+in this video! I'm going to leave two sets of input
+
+72
+00:04:38.966 --> 00:04:42.966
+in here like this. I think I'm just going to remove some spaces,
+
+73
+00:04:42.966 --> 00:04:46.966
+because visually this is horrible right now! "repeat the guess
+
+74
+00:04:46.966 --> 00:04:50.966
+back to the". No. You see, I'm trying the group the things by spacing, so let's do that!
+
+75
+00:04:50.966 --> 00:04:54.966
+Of course, we're going to sort all of this out with functions and stuff in a moment. OK,
+
+76
+00:04:54.966 --> 00:04:58.966
+that's how I'm going to leave my code, because it's somewhat clearer what's going on!
+
+77
+00:04:58.966 --> 00:05:02.966
+And fantastic, I'll see you in the next video!
+

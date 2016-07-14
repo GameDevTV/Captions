@@ -1,0 +1,406 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Hi, so
+
+2
+00:00:04.000 --> 00:00:08.000
+let's have an overview of Source Control. I'm going to explain the
+
+3
+00:00:08.000 --> 00:00:12.000
+what and the way of Version Control Systems. We're going to be
+
+4
+00:00:12.000 --> 00:00:16.000
+choosing a Version Control System, VCS from now on.
+
+5
+00:00:16.000 --> 00:00:20.000
+We'll talk a little bit about what files to include
+
+6
+00:00:20.000 --> 00:00:24.000
+or exclude from your version control. You'll see,
+
+7
+00:00:24.000 --> 00:00:28.000
+over the coming lectures, how committing is saving a local snapshot of your work,
+
+8
+00:00:28.000 --> 00:00:32.000
+at this point in time and how resetting is rolling back to a previous
+
+9
+00:00:32.000 --> 00:00:36.000
+state, that you had before, basically getting you out of trouble.
+
+10
+00:00:36.000 --> 00:00:40.000
+And we'll leave things like branching and pushing and large file support and other technical terms
+
+11
+00:00:40.000 --> 00:00:44.000
+of Source Control, till much later in the course, if at all, if needed.
+
+12
+00:00:44.000 --> 00:00:48.000
+So firstly, what are Version Control Systems? They're
+
+13
+00:00:48.000 --> 00:00:52.000
+get out of jail cards, if you like! These things are going to allow you to keep very detailed
+
+14
+00:00:52.000 --> 00:00:56.000
+histories of your work, and make sure that you can go back to your work in
+
+15
+00:00:56.000 --> 00:01:00.000
+a state that was working and all hanging together properly, at any point in time,
+
+16
+00:01:00.000 --> 00:01:04.000
+which is going to be extremely useful. It's also useful for when you're working with other people.
+
+17
+00:01:04.000 --> 00:01:08.000
+There's a load of different systems out there. Git is one of the most popular and becoming
+
+18
+00:01:08.000 --> 00:01:12.000
+more popular very fast. Mercurial is another, Perforce,
+
+19
+00:01:12.000 --> 00:01:16.000
+Subversion SVN for short or TortoiseSVN,
+
+20
+00:01:16.000 --> 00:01:20.000
+or Alienbrain. This is great for art, and it's
+
+21
+00:01:20.000 --> 00:01:24.000
+very good for things like seeing the difference between two different images files, etc., but it's of
+
+22
+00:01:24.000 --> 00:01:28.000
+the order of $10,000. It's out of most people's budget, but it is worth
+
+23
+00:01:28.000 --> 00:01:32.000
+considering, if you're primarily wanting to control the versions of your
+
+24
+00:01:32.000 --> 00:01:36.000
+art files. Have a look on Wikipedia there, for
+
+25
+00:01:36.000 --> 00:01:40.000
+a complete comparison of all Version Control software that... Well,
+
+26
+00:01:40.000 --> 00:01:44.000
+at least all of it's on Wikipedia. So, we're going to use something called
+
+27
+00:01:44.000 --> 00:01:48.000
+SourceTree. So, SourceTree is free software by a company called Atlassian.
+
+28
+00:01:48.000 --> 00:01:52.000
+Why do they give it away for free? Probably because it's very easy to use with their Bit
+
+29
+00:01:52.000 --> 00:01:56.000
+Bucket service, which does have a paid tier which is the online portion.
+
+30
+00:01:56.000 --> 00:02:00.000
+We're just focusing on local source control, for now; just on keeping your computer
+
+31
+00:02:00.000 --> 00:02:04.000
+local versions of your files. Of course, you need to be backing
+
+32
+00:02:04.000 --> 00:02:08.000
+up your whole computer and your files anyway, and whatever strategy you're using for backup, whether it's
+
+33
+00:02:08.000 --> 00:02:12.000
+Crash Plan or Back Blaze or hard drives or all of the
+
+34
+00:02:12.000 --> 00:02:16.000
+above, hopefully, if you're belt and braces. Then, you're Source Control
+
+35
+00:02:16.000 --> 00:02:20.000
+System will be backed up with that, but we're just talking about local source control.
+
+36
+00:02:20.000 --> 00:02:24.000
+SourceTree is a visual front end for Git or Mercurial.
+
+37
+00:02:24.000 --> 00:02:28.000
+So, Git and Mercurial are two Version Control Systems. They work slightly differently behind the
+
+38
+00:02:28.000 --> 00:02:32.000
+scenes. Both are pretty applicable to what we're doing here,
+
+39
+00:02:32.000 --> 00:02:36.000
+but we're going to be using Git and we're going to be using SourceTree as a front end to Git. It just
+
+40
+00:02:36.000 --> 00:02:40.000
+makes it a lot easier, when you're learning and when you're using it, to visualize what's going on.
+
+41
+00:02:40.000 --> 00:02:44.000
+There's Mac and PC versions of SourceTree, but the Mac version is a little ahead,
+
+42
+00:02:44.000 --> 00:02:48.000
+so the PC version tends to be lacking a few features. Not quite a pretty looking,
+
+43
+00:02:48.000 --> 00:02:52.000
+etc. And as I said, it's really good when you're learning. It's really
+
+44
+00:02:52.000 --> 00:02:56.000
+easy to visualize using SourceTree, so that's why we're going to be showing you SourceTree.
+
+45
+00:02:56.000 --> 00:03:00.000
+So, it's challenge time! I want you to install your Version Control
+
+46
+00:03:00.000 --> 00:03:04.000
+System. Pick a Version Control System for yourself. If you're already using one,
+
+47
+00:03:04.000 --> 00:03:07.400
+don't change at this stage just for us, please just carry on, but if you're not,
+
+48
+00:03:07.400 --> 00:03:11.400
+we'll be using Git with SourceTree as the front-end.
+
+49
+00:03:11.400 --> 00:03:15.400
+So, Git is the underlying Version Control System, and SourceTree is just a pretty front-end
+
+50
+00:03:15.400 --> 00:03:20.933
+system we're going to be using, to make it much easier to interact with than having to remember all  the command line commands.
+
+51
+00:03:20.933 --> 00:03:24.933
+Install and register it. You will need to register it, at least within the first 30 days.
+
+52
+00:03:24.933 --> 00:03:28.933
+And have a quick play stroke experiment. You really can't do any harm, so  just
+
+53
+00:03:28.933 --> 00:03:32.933
+make a folder, have a quick play, and as soon as you feel like you're not getting anywhere, then
+
+54
+00:03:32.933 --> 00:03:36.933
+carry on watching the videos, and I will show you around SourceTree, that I already have
+
+55
+00:03:36.933 --> 00:03:40.933
+installed on my machine. So go ahead, pause the video, and get yourself
+
+56
+00:03:40.933 --> 00:03:44.933
+your Version Control System installed now!
+
+57
+00:03:44.933 --> 00:03:48.933
+Hey welcome back! So, this
+
+58
+00:03:48.933 --> 00:03:52.933
+is where you go to get Source Tree. If you do a search for Source Tree, I just want to show you
+
+59
+00:03:52.933 --> 00:03:56.933
+their official page, in case you end up somewhere funny on the web. It's a strange place, the Internet!
+
+60
+00:03:56.933 --> 00:04:00.933
+www.sourcetreeapp.com There you go! SourceTree, and it'll detect your
+
+61
+00:04:00.933 --> 00:04:04.933
+operating system and let you download. It's going to look something like this when it's installed. Now, I'm not going to
+
+62
+00:04:04.933 --> 00:04:08.933
+go through the install and setup. It is just a piece of software,
+
+63
+00:04:08.933 --> 00:04:12.933
+and the hardest bit, maybe, is you just need to register with them, and you don't even need to do that until 30 days
+
+64
+00:04:12.933 --> 00:04:16.933
+is in, I don't think. So, once you've installed SourceTree, it'll open up something
+
+65
+00:04:16.933 --> 00:04:20.933
+like this! So, this is a project I've been working on recently, for the Unreal course.
+
+66
+00:04:20.933 --> 00:04:24.933
+It's a piece of code from the Bull Cow Game, and this is the
+
+67
+00:04:24.933 --> 00:04:28.933
+interface. It's prettier on Mac, so if you're taking this course on Mac, you'll be lamenting the
+
+68
+00:04:28.933 --> 00:04:32.933
+fact that it's prettier. It's also prettier than this on a PC with a higher resolution
+
+69
+00:04:32.933 --> 00:04:36.933
+screen. I'm running at 720 p hi DPI, so it all looks a bit funny but it's here!
+
+70
+00:04:36.933 --> 00:04:40.933
+Now, the things that you need to focus on, really, is we're going to have one or more
+
+71
+00:04:40.933 --> 00:04:44.933
+repositories. Now, what are they? Basically, it's a folder, containing all of your work for
+
+72
+00:04:44.933 --> 00:04:48.933
+this section. So, in a particular section of the course, all your work is going to go in one folder
+
+73
+00:04:48.933 --> 00:04:52.933
+and that will map to this repo on the left here, so each section will have one.
+
+74
+00:04:52.933 --> 00:04:56.933
+And then, all of these things are actually the videos! This is the last section that I produced,
+
+75
+00:04:56.933 --> 00:05:00.933
+over in the Unreal course, and each of these stages is
+
+76
+00:05:00.933 --> 00:05:04.933
+exactly what I did in that video. Now, the great thing with code is, you can see
+
+77
+00:05:04.933 --> 00:05:08.933
+precisely what changed. I can see exactly what I added to this file, in this
+
+78
+00:05:08.933 --> 00:05:12.933
+particular revision in video 10. If you're using binary assets, Blender
+
+79
+00:05:12.933 --> 00:05:16.933
+files, image files, etc. You're not going to be able to see the details using SourceTree,
+
+80
+00:05:16.933 --> 00:05:20.933
+of what's changed, but it's still going to keep a perfect history for
+
+81
+00:05:20.933 --> 00:05:24.933
+you, of exactly how things were at particular stages in time. So, I'm not
+
+82
+00:05:24.933 --> 00:05:28.933
+going to tell you how to use this now, that's going to be in the upcoming videos. I just want you to quickly get your eye
+
+83
+00:05:28.933 --> 00:05:32.933
+in. What it's going to be doing for you, once you've set it up, is this big panel
+
+84
+00:05:32.933 --> 00:05:36.933
+here is going to show you what's changed since the last time. You'll be able to see
+
+85
+00:05:36.933 --> 00:05:40.933
+things called un-staged files, and you'll get to choose to stage these files
+
+86
+00:05:40.933 --> 00:05:44.933
+and then to commit them, which committing is a bit like
+
+87
+00:05:44.933 --> 00:05:48.933
+bundling them up into a .zip file and sticking them off to one side, saying yeah, I've got to that
+
+88
+00:05:48.933 --> 00:05:52.933
+stage, it's done, I want to record that as a stand point in history!
+
+89
+00:05:52.933 --> 00:05:56.933
+So, that's what a commit is! And then, you're also going to be able to see later how you
+
+90
+00:05:56.933 --> 00:06:00.933
+can actually go back to a previous point in time, a couple of different ways,
+
+91
+00:06:00.933 --> 00:06:04.933
+and we'll be showing you Checkout and reset and the difference between those! But for now,
+
+92
+00:06:04.933 --> 00:06:08.933
+all you need to know is, this is a way of storing a very powerful history, with a detail of at least what files
+
+93
+00:06:08.933 --> 00:06:12.933
+have changed, and if you've got text in your files, then you're going to be able to even
+
+94
+00:06:12.933 --> 00:06:16.933
+see precisely what's changed. And this means, that if you always commit
+
+95
+00:06:16.933 --> 00:06:20.933
+or save your work, in a working state, if everything goes wrong and suddenly
+
+96
+00:06:20.933 --> 00:06:24.933
+your whole project doesn't hang together properly, you can go back to a previous point in time
+
+97
+00:06:24.933 --> 00:06:28.933
+and you are back out of trouble and able to carry on working!
+
+98
+00:06:28.933 --> 00:06:32.900
+So, that's an overview of source control! Over the coming videos, you're going to see exactly how we
+
+99
+00:06:32.900 --> 00:06:36.933
+use it, and it's going to be a whole new way of thinking for you. You'll hate it at first, if
+
+100
+00:06:36.933 --> 00:06:40.933
+you need to, and then you'll love it soon after! See you soon!
+
+101
+00:06:40.933 --> 00:06:42.799
+
+

@@ -1,0 +1,534 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So, welcome to Managing
+
+2
+00:00:04.000 --> 00:00:08.000
+Texture Tiling! In this video, you may want to
+
+3
+00:00:08.000 --> 00:00:12.000
+resize objects, for example, wall panels, ceiling panels, etc., and doing
+
+4
+00:00:12.000 --> 00:00:16.000
+so will stretch the texture and it may look odd, so you may have even avoided
+
+5
+00:00:16.000 --> 00:00:20.000
+certain textures because of that. Well, we want to fix this issue. You can rescale a texture in
+
+6
+00:00:20.000 --> 00:00:24.000
+a few ways but one way is in the material blueprint. I think it's the most natural
+
+7
+00:00:24.000 --> 00:00:28.000
+way, because that's where we adjust the material. And I want to say straight
+
+8
+00:00:28.000 --> 00:00:32.000
+away that one of the things we're going to be looking at is something called UV Mapping, and you might wonder why
+
+9
+00:00:32.000 --> 00:00:36.000
+they're the letters U and V. It's basically because we ran out of letters, but I'll explain that
+
+10
+00:00:36.000 --> 00:00:40.000
+when we're in there. Now, at the end of the video, I will have made a small adjustment to my
+
+11
+00:00:40.000 --> 00:00:44.000
+world where I have this ceiling, which would have started off looking really strange
+
+12
+00:00:44.000 --> 00:00:48.000
+and stretched, and I've showed you how to reposition it, resize it, and actually
+
+13
+00:00:48.000 --> 00:00:51.500
+adjust the texture. So, let's dive in and see how it works!
+
+14
+00:00:51.500 --> 00:00:55.500
+OK, so let's look at this issue of texturing! I'm going to use my
+
+15
+00:00:55.500 --> 00:00:59.500
+ceiling or my roof, my glass ceiling, as an example. You guys might want to
+
+16
+00:00:59.500 --> 00:01:03.500
+use something else, like maybe you've got some walls that you've tried stretching and the textures
+
+17
+00:01:03.500 --> 00:01:07.500
+have gone a little bit wrong. So, let's take a look! Firstly,
+
+18
+00:01:07.500 --> 00:01:11.500
+I'm going to get my ceiling the right size before I start. It's good to get the things
+
+19
+00:01:11.500 --> 00:01:15.500
+the right physical size, before we worry about adjusting the texture to
+
+20
+00:01:15.500 --> 00:01:19.500
+them. So, where it is! I'm going to use the Scale Tool, which I can get to with the R Key,
+
+21
+00:01:19.500 --> 00:01:23.500
+and I'm just going to scale down this roof panel and move it so I'm switching
+
+22
+00:01:23.500 --> 00:01:27.500
+between hitting R and W, until I get it how I want. Now,
+
+23
+00:01:27.500 --> 00:01:31.500
+remember that you've got a top view, and feel free to go to the top view with
+
+24
+00:01:31.500 --> 00:01:35.500
+this minimize button and then maximize the top view.
+
+25
+00:01:35.500 --> 00:01:39.500
+And then, in the top view, I can see both the position of
+
+26
+00:01:39.500 --> 00:01:43.500
+the roof and of all the walls below it. So then,
+
+27
+00:01:43.500 --> 00:01:47.500
+when I come to rescale, etc. I can do it much quicker if I'm in
+
+28
+00:01:47.500 --> 00:01:51.500
+this view. So, here we go, I can pull it down,
+
+29
+00:01:51.500 --> 00:01:55.500
+and then, remember also your snapping options up here. You can choose to snap at a different
+
+30
+00:01:55.500 --> 00:01:59.500
+rate if you need to. OK, so that's going to
+
+31
+00:01:59.500 --> 00:02:03.500
+help you to get the roof exactly the right size, so that it just fits over.
+
+32
+00:02:03.500 --> 00:02:07.500
+So, this may apply to your walls or whatever. Now, I'm not going to make it absolutely precise,
+
+33
+00:02:07.500 --> 00:02:11.500
+it's not worth me spending the time, but you get the idea of moving it around
+
+34
+00:02:11.500 --> 00:02:15.500
+and getting it pretty much right. Now, the question is, I want to change the
+
+35
+00:02:15.500 --> 00:02:19.500
+texture on it, so how do I do that? With the SM_GlassWindow
+
+36
+00:02:19.500 --> 00:02:23.500
+selected, you need the Details Panel, which I've closed by mistake.
+
+37
+00:02:23.500 --> 00:02:27.500
+So, what we have here is a glass window, at the moment. I'm going to stick with a glass window,
+
+38
+00:02:27.500 --> 00:02:31.500
+in my case, and I'm just going to change the material on it. So, let's go to the
+
+39
+00:02:31.500 --> 00:02:35.500
+Material Editor there, and I'm going to go to the View Options and make the thumb
+
+40
+00:02:35.500 --> 00:02:39.500
+nails a lot larger. So, we are, just to
+
+41
+00:02:39.500 --> 00:02:43.500
+recap, Material is against the Materials section. I've gone to the
+
+42
+00:02:43.500 --> 00:02:47.966
+drop-down arrow to get this pane up, and I've gone to View Options
+
+43
+00:02:47.966 --> 00:02:51.500
+to make the thumbnails larger, then, I can see the materials options. Now, one of our students
+
+44
+00:02:51.500 --> 00:02:55.500
+used, I think, this hex tile or was it the one below?
+
+45
+00:02:55.500 --> 00:02:59.500
+It was Tile_Pulse I think? Yeah, Tile_Pulse!
+
+46
+00:02:59.500 --> 00:03:03.500
+There it was! So, I'm using Tile_Pulse in this case. Now, what's wrong with it? Well,
+
+47
+00:03:03.500 --> 00:03:07.500
+what's wrong with it is the texture is not scaled properly. We look at the object
+
+48
+00:03:07.500 --> 00:03:11.500
+itself, the roof object. We can see that it has a scale of 10.25.
+
+49
+00:03:11.500 --> 00:03:15.500
+Let's make that a nice round 10 by 5.
+
+50
+00:03:15.500 --> 00:03:19.500
+Make that a nice round 5, just recenter.
+
+51
+00:03:19.500 --> 00:03:23.500
+So, I'm going to make it precisely a scale of
+
+52
+00:03:23.500 --> 00:03:27.500
+1 in the X, 10, and then 5.
+
+53
+00:03:27.500 --> 00:03:31.500
+OK, and it won't quite do that and that's because of the way it's
+
+54
+00:03:31.500 --> 00:03:35.500
+locking the uniformity of the scaling. It's saying that this thing
+
+55
+00:03:35.500 --> 00:03:39.500
+previously had a none-integer scale, so you can turn off the lock
+
+56
+00:03:39.500 --> 00:03:43.500
+to make that give you all the flexibility you want alright.
+
+57
+00:03:43.500 --> 00:03:47.500
+Then remember that you can drag in the X Y plane, by carefully selecting
+
+58
+00:03:47.500 --> 00:03:51.500
+here. And now, that roof does actually fit quite well, and it's scaled
+
+59
+00:03:51.500 --> 00:03:55.500
+to actual round numbers. Now, that's going to be important in a minute!
+
+60
+00:03:55.500 --> 00:03:59.500
+Let's go and look at this texture in the Texture Editor! What I'm going to do
+
+61
+00:03:59.500 --> 00:04:03.500
+is make the Unreal Editor only half of the screen like that. Then,
+
+62
+00:04:03.500 --> 00:04:07.500
+I'm going to go to the texture. Now, one way to get to it is to just click on the magnifying
+
+63
+00:04:07.500 --> 00:04:11.500
+glass. Now, before you edit this texture you've got a choice.
+
+64
+00:04:11.500 --> 00:04:15.500
+Do you want to use the actual texture and edit that, or do you want to make a copy
+
+65
+00:04:15.500 --> 00:04:19.500
+of it? Well, I think we're going to make a copy of this. I'm going to Duplicate
+
+66
+00:04:19.500 --> 00:04:23.500
+it, I'm going to call it My_
+
+67
+00:04:23.500 --> 00:04:27.500
+Pulse, and I'm going to put that, actually,
+
+68
+00:04:27.500 --> 00:04:31.500
+straight in Content, not in the Starter Pack alright.
+
+69
+00:04:31.500 --> 00:04:35.500
+Now, where has it gone? If you lose something
+
+70
+00:04:35.500 --> 00:04:39.500
+you can search and then you can look and see it's still in Starter Content,
+
+71
+00:04:39.500 --> 00:04:43.500
+Materials. So, let me try and move it again, My_Pulse.
+
+72
+00:04:43.500 --> 00:04:47.500
+Move or copy My_Pulse, and then I miss this dialog, Move Here.
+
+73
+00:04:47.500 --> 00:04:51.500
+So I've just moved it back to Content, and that means that
+
+74
+00:04:51.500 --> 00:04:55.500
+I can find it easily and it's not confused with any StarterContent.
+
+75
+00:04:55.500 --> 00:04:59.500
+So the roof, I'm going to change its material instance to My_Pulse.
+
+76
+00:04:59.500 --> 00:05:03.500
+I can search and therefore I'm not changing
+
+77
+00:05:03.500 --> 00:05:07.500
+the one that's in the StarterPack. It also means that if you .getignore that your changes will get
+
+78
+00:05:07.500 --> 00:05:11.500
+saved. OK, so it's My_Pulse that we're going to change! Great! Let's go
+
+79
+00:05:11.500 --> 00:05:15.500
+into it, into the Material Editor. I'm going to put this on the right-hand side so we can see, on the left
+
+80
+00:05:15.500 --> 00:05:19.500
+here, the actual roof in question and how it's looking
+
+81
+00:05:19.500 --> 00:05:23.500
+OK, and then, on the right-hand side we've got the Node Editor for the materials. Now, we briefly
+
+82
+00:05:23.500 --> 00:05:27.500
+popped in here before, but the bit that we need to worry about is
+
+83
+00:05:27.500 --> 00:05:31.500
+if the material is setup properly. Then, you would hope that somewhere on the
+
+84
+00:05:31.500 --> 00:05:35.500
+left-hand side, probably, you'll have a Text Coord node, Texture
+
+85
+00:05:35.500 --> 00:05:39.500
+Coordinate node, OK. If you click on that, you can see
+
+86
+00:05:39.500 --> 00:05:43.500
+here we have UTiling, VTiling. Now, what's U and
+
+87
+00:05:43.500 --> 00:05:47.500
+V about? Well, at some point we've got to map the coordinates, the
+
+88
+00:05:47.500 --> 00:05:51.500
+X Y coordinates, if you like, or the row column coordinates of the
+
+89
+00:05:51.500 --> 00:05:55.500
+texture to the actual object, but we're using X, Y, Z in the world
+
+90
+00:05:55.500 --> 00:05:59.500
+here and we've run out of letters, so we use U and V like X and
+
+91
+00:05:59.500 --> 00:06:03.500
+Y. Alright, so these are the X and Y coordinates of the texture!
+
+92
+00:06:03.500 --> 00:06:07.500
+So, just grab your UTiling and then try changing it. Now, you're going to have to
+
+93
+00:06:07.500 --> 00:06:11.500
+click Apply for it to actually apply back to the world.
+
+94
+00:06:11.500 --> 00:06:15.500
+And if we say 10 for the UTiling, let's try that!
+
+95
+00:06:15.500 --> 00:06:19.500
+And this entirely depends on how much density you want. Let's try
+
+96
+00:06:19.500 --> 00:06:23.500
+10 for the VTiling, Apply.
+
+97
+00:06:23.500 --> 00:06:27.500
+OK, that kind of looks
+
+98
+00:06:27.500 --> 00:06:31.500
+OK. I probably want to have the VTiling the other way
+
+99
+00:06:31.500 --> 00:06:35.500
+a little bit more or less, I think. I think it's more
+
+100
+00:06:35.500 --> 00:06:39.500
+because what I'm trying to aim to achieve is that, the way this roof is stretched,
+
+101
+00:06:39.500 --> 00:06:43.500
+I want it to look fairly uniform. It doesn't have to be perfectly square.
+
+102
+00:06:43.500 --> 00:06:47.500
+So, that was the wrong way, so I go 5. So, sure you can be
+
+103
+00:06:47.500 --> 00:06:51.500
+more methodical and work out what you should be putting in these places, but obviously a quick
+
+104
+00:06:51.500 --> 00:06:55.500
+doubling and harving, a binary search again, this can be a good way! Look
+
+105
+00:06:55.500 --> 00:06:59.500
+that looks pretty even! So, let's go inside the room, back in the game.
+
+106
+00:06:59.500 --> 00:07:03.500
+In fact, I'm going to give myself a luxury of a full screen view with F11, and
+
+107
+00:07:03.500 --> 00:07:07.500
+it's much darker in here now, so we'll sort that out with the light in a minute. But I've got a roof that
+
+108
+00:07:07.500 --> 00:07:11.500
+has a texture on it that isn't tiled too strangely, so that's pretty cool!
+
+109
+00:07:11.500 --> 00:07:15.500
+Alright, so all I'm going to do now is fill the room in with a little bit of light.
+
+110
+00:07:15.500 --> 00:07:19.500
+Let's go and have a look! F11 we're going to find some Starter
+
+111
+00:07:19.500 --> 00:07:23.500
+Content. Let's go find some props
+
+112
+00:07:23.500 --> 00:07:27.500
+and ceiling lights or wall lights. I think we could probably
+
+113
+00:07:27.500 --> 00:07:31.500
+just use wall lights here. What else have I got?
+
+114
+00:07:31.500 --> 00:07:35.500
+Hmm? I could turn the brightness of this
+
+115
+00:07:35.500 --> 00:07:39.500
+guy up a lot, that should bounce around. Let's do that for a start!
+
+116
+00:07:39.500 --> 00:07:43.500
+How are we looking? I
+
+117
+00:07:43.500 --> 00:07:47.500
+actually don't mind it being pretty dark in the corner here, because it kind of gives some affordance.
+
+118
+00:07:47.500 --> 00:07:51.500
+I think, actually, I've overdone that light. Let's bring it back down. I don't mind it being
+
+119
+00:07:51.500 --> 00:07:55.500
+dark in this room. You're welcome to add as many lights as you want, but this kind of
+
+120
+00:07:55.500 --> 00:07:59.500
+indicates where we want to go, it's into this dark corner. So, I'm happy
+
+121
+00:07:59.500 --> 00:08:03.500
+with that! Alright, so that's it! That's how you adjust your
+
+122
+00:08:03.500 --> 00:08:07.500
+texture tiling! So, what I want you to do now is to adjust your textures. Experiment with
+
+123
+00:08:07.500 --> 00:08:11.500
+new textures. So, now you can be bold. You may have avoided textures
+
+124
+00:08:11.500 --> 00:08:15.500
+earlier in the section, because they didn't tile properly. Adjust the tiling, as I've just showed you.
+
+125
+00:08:15.500 --> 00:08:19.500
+Share the results in the course. Please take some screenshots, share them around, show off your work.
+
+126
+00:08:19.500 --> 00:08:23.500
+I've seen some amazing results! Don't be put off by other peoples' work, if it's better than you think
+
+127
+00:08:23.500 --> 00:08:27.500
+you can achieve, just share what you've got and it's all good just doing and
+
+128
+00:08:27.500 --> 00:08:31.500
+sharing is all good. So, see you in a moment!
+
+129
+00:08:31.500 --> 00:08:35.500
+OK, welcome back! I'm only coming back because I normally
+
+130
+00:08:35.500 --> 00:08:39.500
+come back from challenges, and it may be confusing for you if I don't. So, I'm back but
+
+131
+00:08:39.500 --> 00:08:43.500
+nothing to do right! I hope you've gone to the discussion and you shared your awesome
+
+132
+00:08:43.500 --> 00:08:47.500
+graphical results, and yeah, I shall see you in the next video!
+
+133
+00:08:47.500 --> 00:08:49.233
+
+

@@ -1,0 +1,814 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+In this video we're going to be
+
+2
+00:00:04.000 --> 00:00:08.000
+making up actors from multiple meshes. You'll basically import the
+
+3
+00:00:08.000 --> 00:00:12.000
+tank in 4 static mesh parts, assemble the parts using sockets,
+
+4
+00:00:12.000 --> 00:00:16.000
+and then, we'll create a tank blueprint and test. By the end of it, you'll have
+
+5
+00:00:16.000 --> 00:00:20.000
+something looking something like this. An untextured, but otherwise pretty cool
+
+6
+00:00:20.000 --> 00:00:25.666
+tank, and a corresponding blueprint and all of the parts assembled properly. So, let's go and make that happen!
+
+7
+00:00:25.666 --> 00:00:29.666
+So, let's finally put this tank together! In the resources
+
+8
+00:00:29.666 --> 00:00:33.666
+attached to this lecture, you should find the Battle Tank, well the
+
+9
+00:00:33.666 --> 00:00:37.666
+TankParts.zip file. If you open that up you'll have a bunch of
+
+10
+00:00:37.666 --> 00:00:41.666
+.fbx's. So, let's get those into Unreal. There's a few ways to do this. You can
+
+11
+00:00:41.666 --> 00:00:45.666
+either be in Unreal, and in your Content Browser you can right-click...
+
+12
+00:00:45.666 --> 00:00:49.666
+In fact, let's make a folder for the tank. Make a folder for the tank,
+
+13
+00:00:49.666 --> 00:00:53.666
+and then, in that folder, we can right-click and say Import to/ Game/
+
+14
+00:00:53.666 --> 00:00:57.666
+Tank folder. We can do that! Point it at the Downloads,
+
+15
+00:00:57.666 --> 00:01:01.666
+TankParts, and then, we could select them all. That's one way or we could have dragged them in, but I'm
+
+16
+00:01:01.666 --> 00:01:05.666
+going to do it the way of just selecting. So, I'm importing into the
+
+17
+00:01:05.666 --> 00:01:09.666
+new Tank folder. I'm going to use the default import settings.
+
+18
+00:01:09.666 --> 00:01:13.666
+Ideally, if you're working with a model, that will set things up so you don't have to mess around here.
+
+19
+00:01:13.666 --> 00:01:17.666
+And then, we're going to get 4
+
+20
+00:01:17.666 --> 00:01:21.666
+static meshes, that don't have bones and things, in here. There they
+
+21
+00:01:21.666 --> 00:01:25.666
+go! There's actually some materials with them; we could delete those materials because we're going
+
+22
+00:01:25.666 --> 00:01:29.666
+to recreate our own materials later. So, ditch the materials, and you can even
+
+23
+00:01:29.666 --> 00:01:33.666
+force delete them, it doesn't matter. And now, let's take a look at these meshes one at a
+
+24
+00:01:33.666 --> 00:01:37.666
+time. So, we've got a barrel. You can dock this barrel to the top. There it is,
+
+25
+00:01:37.666 --> 00:01:41.666
+nice sitting there perfectly OK.
+
+26
+00:01:41.666 --> 00:01:45.666
+What else do we have? We have a body, and there it is sitting on the origin.
+
+27
+00:01:45.666 --> 00:01:49.666
+The 00 point's about the middle of the bottom of the tank there.
+
+28
+00:01:49.666 --> 00:01:53.666
+We'll see why that matters in a little bit. Let's take a look at the rest, we've got some tracks,
+
+29
+00:01:53.666 --> 00:01:57.666
+again sitting on the origin there, and a turret sitting
+
+30
+00:01:57.666 --> 00:02:01.666
+on the ground. And that's all good stuff!
+
+31
+00:02:01.666 --> 00:02:05.666
+And the barrel is also sitting on the ground. Good! So, I'm just
+
+32
+00:02:05.666 --> 00:02:09.666
+checking that all of these models are sitting, so that the position that we want
+
+33
+00:02:09.666 --> 00:02:13.666
+to attach them to something else is at 00, is at the origin. And that's how
+
+34
+00:02:13.666 --> 00:02:17.666
+your models need to be specified from your designer for Unreal. Certainly
+
+35
+00:02:17.666 --> 00:02:21.666
+if you're using Blender, there's no way to bring in the pivot points,
+
+36
+00:02:21.666 --> 00:02:25.666
+so we want our models to be done like this. The tank sits so it
+
+37
+00:02:25.666 --> 00:02:29.666
+centers in the middle there. The track, the center of the track is in the middle.
+
+38
+00:02:29.666 --> 00:02:33.666
+The position that the turret here is going to connect to the
+
+39
+00:02:33.666 --> 00:02:37.666
+tank is sitting on the origin, so that's important, but we've done all that for you. So, basically
+
+40
+00:02:37.666 --> 00:02:41.666
+import those meshes and we're good to go. Alright, so now we're going to make, in this
+
+41
+00:02:41.666 --> 00:02:45.666
+same Tank folder, we're going to make ourself a new basic
+
+42
+00:02:45.666 --> 00:02:49.666
+Blueprint Class. OK, so create a basic asset Blueprint Class in the Tank
+
+43
+00:02:49.666 --> 00:02:53.666
+folder. Now, what's it going to be based on? Let's have a think about this. Is it an actor? Well,
+
+44
+00:02:53.666 --> 00:02:57.666
+an actor doesn't have enough coming with it, because
+
+45
+00:02:57.666 --> 00:03:01.666
+it doesn't allow for possession and receiving from input for a controller. So, if we base
+
+46
+00:03:01.666 --> 00:03:05.666
+it on an Actor we would have to do a load of stuff that is already done for us, in the
+
+47
+00:03:05.666 --> 00:03:09.666
+Pawn, remembering that the Pawn inherits from the Actor and the Character
+
+48
+00:03:09.666 --> 00:03:13.666
+inherits from the Pawn. It's like a family tree, remember, so
+
+49
+00:03:13.666 --> 00:03:17.666
+as we go down from Actor to Pawn to Character, we're getting more and more. But a Character
+
+50
+00:03:17.666 --> 00:03:21.666
+gives us too much. It's all about AI, which yeah we're going to use some AI,
+
+51
+00:03:21.666 --> 00:03:25.666
+but we're going to use very simplified AI. But if you look at this description, we're not going
+
+52
+00:03:25.666 --> 00:03:29.666
+to be using, you know it's not a vertically oriented player that can walk, jump,
+
+53
+00:03:29.666 --> 00:03:33.666
+fly, and swim yeah. It's just too much for a tank, so Pawn is the
+
+54
+00:03:33.666 --> 00:03:37.666
+appropriate class to base it on. So, there you go! Now, let's call it Tank
+
+55
+00:03:37.666 --> 00:03:41.666
+_BP. Oops, it doesn't matter if you missed, just rename...
+
+56
+00:03:41.666 --> 00:03:45.666
+F2, by the way, will also rename for you. So, there's
+
+57
+00:03:45.666 --> 00:03:49.666
+the Tank_BP. Great! Now, let's open it up and make sure
+
+58
+00:03:49.666 --> 00:03:53.666
+it's docked. It is, i.e. along the top here. Now later,
+
+59
+00:03:53.666 --> 00:03:57.666
+we can reparent this class. Now remember, of course, if you don't like the way that toolbar looks,
+
+60
+00:03:57.666 --> 00:04:01.666
+remember you can right-click up or left-click here rather, and you then get the
+
+61
+00:04:01.666 --> 00:04:05.666
+handle and then you can drag that handle along the top if you need to. So,
+
+62
+00:04:05.666 --> 00:04:09.666
+like so, alright and then you can hide that again.
+
+63
+00:04:09.666 --> 00:04:13.666
+Now remember, later in the class settings, we're going to be able to change the parent class from a Pawn,
+
+64
+00:04:13.666 --> 00:04:17.666
+there it is, to something that we create ourselves called a Tank.h but not yet.
+
+65
+00:04:17.666 --> 00:04:21.666
+Let's just build the tank for now. Alright, so in the spirit of building the
+
+66
+00:04:21.666 --> 00:04:25.666
+tank, let's go ahead and get on with it. Let's show you how to do it, and then, you can come in and finish
+
+67
+00:04:25.666 --> 00:04:29.666
+it off. So, we're going to add a static mesh to the tank, I'm going to call it Tank.
+
+68
+00:04:29.666 --> 00:04:33.666
+There you go! I'm going to go and choose the tank body
+
+69
+00:04:33.666 --> 00:04:37.666
+static mesh, like so. So there it is! This is the beginnings
+
+70
+00:04:37.666 --> 00:04:41.666
+of our tank. Now, in order to put the turret on the tank, in the middle
+
+71
+00:04:41.666 --> 00:04:45.666
+of this, we're going to use something called a socket for positioning. So, I'm going to add a socket.
+
+72
+00:04:45.666 --> 00:04:49.666
+Now, there are bugs with sockets, I warn you, so watch carefully.
+
+73
+00:04:49.666 --> 00:04:53.666
+The way you add the socket is, you add the socket to the tank body
+
+74
+00:04:53.666 --> 00:04:57.666
+mesh. So, we can find the mesh with the little icon here,
+
+75
+00:04:57.666 --> 00:05:01.666
+or we could, so that by the icon here I'm saying in the Details Tab under
+
+76
+00:05:01.666 --> 00:05:05.666
+Static Mesh. Right there you've got Browse To; that takes you to it
+
+77
+00:05:05.666 --> 00:05:09.666
+in the Content Browser. OK, so if we open up the mesh here...
+
+78
+00:05:09.666 --> 00:05:13.666
+Remember the purple thing is the collision mesh, it's generated as quite a sensible
+
+79
+00:05:13.666 --> 00:05:17.666
+one, so we'll leave that for now. We create a socket. Now be careful, don't rename it now.
+
+80
+00:05:17.666 --> 00:05:21.666
+If you rename it now, the bug that's in this version of Unreal will stop it from working.
+
+81
+00:05:21.666 --> 00:05:25.666
+So, just create it, call it Socket. Then, we're going to go and choose ourselves a
+
+82
+00:05:25.666 --> 00:05:29.666
+preview mesh, this allows us to position the socket. So, it's the turret
+
+83
+00:05:29.666 --> 00:05:33.666
+that we are positioning, so choose the turret as the preview mesh there.
+
+84
+00:05:33.666 --> 00:05:37.666
+Then, if you drag the socket up, you see the turret comes with it. How cool is that?
+
+85
+00:05:37.666 --> 00:05:41.666
+So, this is your opportunity now to get the socket in the right place, so with
+
+86
+00:05:41.666 --> 00:05:45.666
+the socket selected, you just get it to where it should be. I think it's about 150
+
+87
+00:05:45.666 --> 00:05:49.666
+in Z. There you go, it looks pretty good! Now,
+
+88
+00:05:49.666 --> 00:05:53.666
+if you want to be able to rename the socket, don't do it yet. You need to
+
+89
+00:05:53.666 --> 00:05:57.666
+Clear the preview, like so,
+
+90
+00:05:57.666 --> 00:06:01.666
+from the dropdown to Clear. Now, you can rename the
+
+91
+00:06:01.666 --> 00:06:05.666
+socket to Turret. I know I know, it's terrible isn't it! Now make
+
+92
+00:06:05.666 --> 00:06:09.666
+sure you save your blueprint. You can see it's not saved because there's a star there,
+
+93
+00:06:09.666 --> 00:06:13.666
+and then, we have done the first thing we need to do. Cool!
+
+94
+00:06:13.666 --> 00:06:17.666
+Nice! OK, let me show you that again for reinforcement, then, I think I'll get
+
+95
+00:06:17.666 --> 00:06:21.666
+you to do that tracks. So now, we're going to add another static mesh. Note
+
+96
+00:06:21.666 --> 00:06:25.666
+curiously that if you try and add one, it's going to try and add one using the same
+
+97
+00:06:25.666 --> 00:06:29.666
+tank_fbx static mesh, and that's because it's selected here in
+
+98
+00:06:29.666 --> 00:06:33.666
+the Content Browser. If you deselect it and go back to the tank blueprint,
+
+99
+00:06:33.666 --> 00:06:37.666
+you can now just add an empty static mesh, which probably makes more sense.
+
+100
+00:06:37.666 --> 00:06:41.666
+Call it the Turret. Now importantly, we child the Turret by dragging under
+
+101
+00:06:41.666 --> 00:06:45.666
+the tank like this. Now, go and find the Turret
+
+102
+00:06:45.666 --> 00:06:49.666
+and we're nearly there, but the Turret is hidden, especially if we go to
+
+103
+00:06:49.666 --> 00:06:53.666
+Wireframe mode, you'll be able to see this. There that Turret is
+
+104
+00:06:53.666 --> 00:06:57.666
+hidden inside the tank. OK that's OK, that's what we expect at this point. What we want
+
+105
+00:06:57.666 --> 00:07:01.666
+to do is to then say to the Turret, your parent
+
+106
+00:07:01.666 --> 00:07:05.666
+socket here is the turret socket that we put on the tank body,
+
+107
+00:07:05.666 --> 00:07:09.666
+and boom, it snaps to it! You get the idea. Pretty cool hey!
+
+108
+00:07:09.666 --> 00:07:13.666
+Alright, so that is the turret done. Now, what I want you to
+
+109
+00:07:13.666 --> 00:07:17.666
+do is to go ahead and do the same magic for the barrel. So,
+
+110
+00:07:17.666 --> 00:07:21.666
+your challenge is as follows. Import the barrel, basically.
+
+111
+00:07:21.666 --> 00:07:25.666
+Import the .fbx file, it's already done for you. Create a socket on the turret.
+
+112
+00:07:25.666 --> 00:07:29.666
+You can eyeball its position and also use the preview mesh, but remember
+
+113
+00:07:29.666 --> 00:07:33.666
+the tricks. Remember that you don't rename the socket until you've added the
+
+114
+00:07:33.666 --> 00:07:37.666
+preview mesh, positioned it, then you remove the preview mesh, then you can rename your socket. I'm
+
+115
+00:07:37.666 --> 00:07:41.666
+sorry, on Unreal's part, that that's the case. Create the child
+
+116
+00:07:41.666 --> 00:07:45.666
+and link it and set the socket and just check it all looks and
+
+117
+00:07:45.666 --> 00:07:49.666
+rotates OK. So go ahead, pause the video, and see if you can get the barrel setup now.
+
+118
+00:07:49.666 --> 00:07:53.666
+
+
+119
+00:07:53.666 --> 00:07:57.666
+OK welcome back! So, let's do this barrel thing! Remember with nothing
+
+120
+00:07:57.666 --> 00:08:01.666
+selected over here, or if you like, with the barrel selected over here in the Content
+
+121
+00:08:01.666 --> 00:08:05.666
+Browser, you can add yourself a static mesh it will have a reference to the barrel
+
+122
+00:08:05.666 --> 00:08:09.666
+then. I'm going to just call it Barrel. Drag
+
+123
+00:08:09.666 --> 00:08:13.666
+it under the Turret. Now, that's on it's way!
+
+124
+00:08:13.666 --> 00:08:17.666
+Now, does the Turret currently have a socket? It doesn't does it? So, we're going to add a
+
+125
+00:08:17.666 --> 00:08:21.666
+socket to the Turret. I'm going to use the barrel as the
+
+126
+00:08:21.666 --> 00:08:25.666
+preview mesh, then move the socket to where we want it to
+
+127
+00:08:25.666 --> 00:08:29.666
+be. Now, you may want to be rotating this to check that it
+
+128
+00:08:29.666 --> 00:08:33.666
+works. Yeah, that looks pretty good about there. So, my position for your
+
+129
+00:08:33.666 --> 00:08:37.666
+reference is at X is 100, and let's call it 110, nice round
+
+130
+00:08:37.666 --> 00:08:41.666
+numbers and that the Z is at say 13, something like that.
+
+131
+00:08:41.666 --> 00:08:45.666
+Just going to have a slightly closer look, make sure it looks reasonably good here.
+
+132
+00:08:45.666 --> 00:08:49.666
+The designer will kill us if we put it in the wrong place. I think it's too low personally, so
+
+133
+00:08:49.666 --> 00:08:53.666
+I'm going to move that socket up to say 15
+
+134
+00:08:53.666 --> 00:08:57.666
+and 20 and 22. [Laughs]
+
+135
+00:08:57.666 --> 00:09:01.666
+OK, at about 22 it's looking about right again. Check it rotates.
+
+136
+00:09:01.666 --> 00:09:05.666
+That bit that sticks out of the bottom is going to go inside of the model, so we don't mind,
+
+137
+00:09:05.666 --> 00:09:09.666
+and it can go low enough. Good! OK! So, I'm going to leave that there like
+
+138
+00:09:09.666 --> 00:09:13.666
+that. Now, that socket, we can remove
+
+139
+00:09:13.666 --> 00:09:17.666
+the preview mesh. Clear the preview mesh, like so,
+
+140
+00:09:17.666 --> 00:09:21.666
+and then, we can now rename it to barrel.
+
+141
+00:09:21.666 --> 00:09:25.666
+Horrible I know but it's what it is. Save it, make sure you save it. Back to the tank.
+
+142
+00:09:25.666 --> 00:09:29.666
+Now, we go to the Barrel and say, what's your parent socket? Well,
+
+143
+00:09:29.666 --> 00:09:33.666
+now you can say here it's the Barrel.
+
+144
+00:09:33.666 --> 00:09:37.666
+Now, if your Barrel ends up on the floor like this, that's because at some point Unreal
+
+145
+00:09:37.666 --> 00:09:41.666
+has changed the default location of the Barrel. The location of
+
+146
+00:09:41.666 --> 00:09:45.666
+the Turret should be 0 0 0, and the Barrel should be
+
+147
+00:09:45.666 --> 00:09:49.666
+0 0 0, relative to the socket. So, I've clicked Reset
+
+148
+00:09:49.666 --> 00:09:53.666
+so we're at 0 0 0, and now we have things positioned as we wanted them. Let's check it all
+
+149
+00:09:53.666 --> 00:09:57.666
+works. If, for example, I rotate here the
+
+150
+00:09:57.666 --> 00:10:01.666
+Turret the Barrel is going with it. That's cool! And of course, I can rotate the Barrel as we did in the
+
+151
+00:10:01.666 --> 00:10:05.666
+preview. Great, we have a tank pretty much
+
+152
+00:10:05.666 --> 00:10:09.666
+together! I'm just going to pout the tracks on now. That's a relatively simple job. Now, the tracks,
+
+153
+00:10:09.666 --> 00:10:13.666
+of course, are connected directly to the tank. So, let's go to the
+
+154
+00:10:13.666 --> 00:10:17.666
+Track, back to the Tank blueprint, add ourself
+
+155
+00:10:17.666 --> 00:10:21.666
+a track, call it Left
+
+156
+00:10:21.666 --> 00:10:25.666
+Track. Then, it's a
+
+157
+00:10:25.666 --> 00:10:29.666
+job of positioning it. So, I'm going to select Left Track, go into the View
+
+158
+00:10:29.666 --> 00:10:33.666
+Port, get my W key shortcut.
+
+159
+00:10:33.666 --> 00:10:37.666
+Now, we need a Left Track socket. Don't try
+
+160
+00:10:37.666 --> 00:10:41.666
+and position it yet. Remember, we want a Left Track socket on the
+
+161
+00:10:41.666 --> 00:10:45.666
+tank itself, right, so we go to the tank body.
+
+162
+00:10:45.666 --> 00:10:49.666
+We create a socket called left track or right track, I'm going left track, so
+
+163
+00:10:49.666 --> 00:10:53.666
+Left Track. I'm going to select a preview mesh
+
+164
+00:10:53.666 --> 00:10:57.666
+which is the track, which will allow me to position this track, so
+
+165
+00:10:57.666 --> 00:11:01.666
+here we go. Now, I made the mistake
+
+166
+00:11:01.666 --> 00:11:05.666
+didn't I? I renamed the socket before I
+
+167
+00:11:05.666 --> 00:11:09.666
+moved it, and because of this nasty bug it doesn't work. So, if it happens to you, delete it,
+
+168
+00:11:09.666 --> 00:11:13.666
+create a new socket, leave it named as it was, as I told you to, and then, I
+
+169
+00:11:13.666 --> 00:11:17.666
+ignored my own advice. Add the track in, position
+
+170
+00:11:17.666 --> 00:11:21.666
+it, so we need to look a bit more carefully to do that. It's still called Socket.
+
+171
+00:11:21.666 --> 00:11:25.666
+And I might position this more finely, at a future
+
+172
+00:11:25.666 --> 00:11:29.666
+point, but I think that roughly right is good enough here.
+
+173
+00:11:29.666 --> 00:11:33.666
+But I'll get you some figures that you can use, if you just want to use my figures.
+
+174
+00:11:33.666 --> 00:11:37.666
+Again, you might be using your own tank model, so my figures
+
+175
+00:11:37.666 --> 00:11:41.666
+are here for you, if you care. There you go! So, let's say about
+
+176
+00:11:41.666 --> 00:11:45.666
+30 -160 for round numbers
+
+177
+00:11:45.666 --> 00:11:49.666
+and about -6 in the Z. OK, that's
+
+178
+00:11:49.666 --> 00:11:53.666
+where I think the socket, the left socket should be. Now, remember you need to clear
+
+179
+00:11:53.666 --> 00:11:57.666
+the preview mesh, before then renaming it Left Track.
+
+180
+00:11:57.666 --> 00:12:01.666
+How do I know it's left? Because the front of the tank or the back
+
+181
+00:12:01.666 --> 00:12:05.666
+of the tank has these barrels on it, here these things. OK,
+
+182
+00:12:05.666 --> 00:12:09.666
+so that's the Left Track. For the Right Track, I want to do something very similar. I'm going to try just
+
+183
+00:12:09.666 --> 00:12:13.666
+duplicating it, and that should work actually, because
+
+184
+00:12:13.666 --> 00:12:17.666
+I don't need the preview mesh for this, because all I'm doing is looking at the
+
+185
+00:12:17.666 --> 00:12:21.666
+Y coordinate and just setting that to the opposite,
+
+186
+00:12:21.666 --> 00:12:25.666
+so the only things that change are the Y minus some tiny floating point error there.
+
+187
+00:12:25.666 --> 00:12:29.666
+Good OK, rename Right Track. Good, so we've got
+
+188
+00:12:29.666 --> 00:12:33.666
+a Left Track and a Right Track socket on the tank. Let's save that! Back to the Tank
+
+189
+00:12:33.666 --> 00:12:37.666
+blueprint. Now, the Left Track should be very simply attached to
+
+190
+00:12:37.666 --> 00:12:41.666
+the Left Track socket.
+
+191
+00:12:41.666 --> 00:12:45.666
+Now, the reason it's not showing up is because it can't find a Left Track socket here,
+
+192
+00:12:45.666 --> 00:12:49.666
+because we haven't yet childed the track to the tank. Once it's a child of the tank,
+
+193
+00:12:49.666 --> 00:12:53.666
+the Left Track socket will be available, and we want to
+
+194
+00:12:53.666 --> 00:12:57.666
+Dupliate this guy, call it Right Track, and just the
+
+195
+00:12:57.666 --> 00:13:01.666
+only thing that changes is it's socket, it should be the Right Track. Look at that, we have a tank.
+
+196
+00:13:01.666 --> 00:13:05.666
+It's a miracle! OK, I'm just going to compile this
+
+197
+00:13:05.666 --> 00:13:09.666
+blueprint, Save All, and as a final pièce de résistance, if
+
+198
+00:13:09.666 --> 00:13:13.666
+you like, I'm going to find the Tank blueprint and drag it into the world and look at that,
+
+199
+00:13:13.666 --> 00:13:17.666
+a tank in the world. We can look at it, we can move
+
+200
+00:13:17.666 --> 00:13:21.666
+it around, we can do what we like. We can't rotate its barrel from here because it's a single piece actor
+
+201
+00:13:21.666 --> 00:13:25.666
+once it's in the world. I think I've got a track in the wrong place? No I haven't,
+
+202
+00:13:25.666 --> 00:13:29.666
+we're good! So, there you go, we have a tank! Awesome!
+
+203
+00:13:29.666 --> 00:13:31.299
+
+

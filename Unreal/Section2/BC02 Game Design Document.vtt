@@ -1,0 +1,414 @@
+WEBVTT
+
+1
+00:00:03.966 --> 00:00:07.966
+Hey guys and girls! So, I want to talk to you a little bit about Game
+
+2
+00:00:07.966 --> 00:00:11.966
+Désigné Documents and start to introduce a process for
+
+3
+00:00:11.966 --> 00:00:15.966
+planning your games. Now, it's going to be very brief, because we don't have a lot of experience at this stage,
+
+4
+00:00:15.966 --> 00:00:19.966
+and there's a lot of planning that we can't do. So, in this video we're going
+
+5
+00:00:19.966 --> 00:00:23.966
+to talk about how much planning we should do. That's not very much for
+
+6
+00:00:23.966 --> 00:00:27.966
+this first game. I suggest you spend an hour or two on the planning.
+
+7
+00:00:27.966 --> 00:00:31.966
+Define the emotional problem the game solves, and I'll
+
+8
+00:00:31.966 --> 00:00:35.966
+explain where I got that idea from later, but basically, in all
+
+9
+00:00:35.966 --> 00:00:39.966
+marketing and all software we're always solving a problem, so we've got to think about
+
+10
+00:00:39.966 --> 00:00:43.966
+the problem for the player that we're solving, that's an interesting angle. Choose the concept,
+
+11
+00:00:43.966 --> 00:00:47.966
+rules, and requirements. That's another very basic skeleton for
+
+12
+00:00:47.966 --> 00:00:51.966
+our Game Design Document, and start to think about the architecture
+
+13
+00:00:51.966 --> 00:00:55.966
+of the game. That's the thing you can't do yet, because with this current level of experience,
+
+14
+00:00:55.966 --> 00:00:59.966
+I'm assuming you don't know much about games or programming or game design, you can't really think
+
+15
+00:00:59.966 --> 00:01:03.966
+about the software architecture, because you don't know enough about it, so we're going to kind of skip that. And
+
+16
+00:01:03.966 --> 00:01:07.966
+then, we're going to copy as much as possible of this, into the code. We're actually going to do that
+
+17
+00:01:07.966 --> 00:01:11.966
+in a future lecture. But I just want to mention, we want this stuff to end up not
+
+18
+00:01:11.966 --> 00:01:15.966
+just some dead dry document but we want our eyes on this stuff regularly.
+
+19
+00:01:15.966 --> 00:01:19.966
+It's going to be a moving plan. We also want to document now what may change
+
+20
+00:01:19.966 --> 00:01:23.966
+later. So, future ideas for the game, we need a Not Going to Do Now List. It's really important
+
+21
+00:01:23.966 --> 00:01:27.966
+we restrict the scope. If you don't take anything away from this
+
+22
+00:01:27.966 --> 00:01:31.966
+slide, apart from this, the most important thing we do here, in this design, is
+
+23
+00:01:31.966 --> 00:01:35.966
+work out what our initial requirements are for assets for code, etc.
+
+24
+00:01:35.966 --> 00:01:39.966
+and we stick to them until we've got that working. We have a nice
+
+25
+00:01:39.966 --> 00:01:43.966
+Don't Do List. OK, a good book for you is "Code Complete" by
+
+26
+00:01:43.966 --> 00:01:47.966
+Steve McConnell Microsoft Press, 2004. Chapter 3.3 talks about
+
+27
+00:01:47.966 --> 00:01:51.966
+the requirements and the problem that the game solves. So, let's dive straight in and talk about
+
+28
+00:01:51.966 --> 00:01:55.966
+the problem, and then, in a minute I'm going to challenge you to write down the requirements.
+
+29
+00:01:55.966 --> 00:01:59.966
+So, an example of the problem this word game solves is, I want a mental challenge. That could be a problem,
+
+30
+00:01:59.966 --> 00:02:03.966
+I'm sitting down on the sofa, and I'm thinking ooh, I want a mental challenge! Maybe
+
+31
+00:02:03.966 --> 00:02:07.966
+we reach for the bull cow game. I want to feel smart or prove myself. Perhaps you're
+
+32
+00:02:07.966 --> 00:02:11.966
+just feeling a little thick or something, and you need to prove yourself? So,
+
+33
+00:02:11.966 --> 00:02:15.966
+maybe you just miss word puzzles? Maybe it's a nostalgia thing? Maybe you
+
+34
+00:02:15.966 --> 00:02:19.966
+want to prove yourself again? Maybe you want to challenge
+
+35
+00:02:19.966 --> 00:02:23.966
+or feel superior to, if we're honest, somebody else. So, maybe you want
+
+36
+00:02:23.966 --> 00:02:27.966
+to kind of shove the game in front of somebody else's
+
+37
+00:02:27.966 --> 00:02:31.966
+face. Anyway, there's lots of reasons, but it's important to get clear on the problem that the
+
+38
+00:02:31.966 --> 00:02:35.966
+game solves. I know it's a strange thing to think about, but games still do scratch
+
+39
+00:02:35.966 --> 00:02:39.966
+emotional itches, so what itch are they scratching?
+
+40
+00:02:39.966 --> 00:02:43.966
+So, what's the concept and the rules of the game? So you need to just write that down. It's
+
+41
+00:02:43.966 --> 00:02:47.966
+a "guess the isogram" game. An isogram is a word with no
+
+42
+00:02:47.966 --> 00:02:51.966
+repeating letters. The user has a limited number of guesses, that's
+
+43
+00:02:51.966 --> 00:02:55.966
+one of the things that makes it fun, and after each guess, the computer outputs
+
+44
+00:02:55.966 --> 00:02:59.966
+a bull, which is the right letter in the right place.
+
+45
+00:02:59.966 --> 00:03:03.966
+So, think of bullseye if you want to remember it,
+
+46
+00:03:03.966 --> 00:03:07.966
+or cow, which is the right letter in the wrong place. So, Bulls and Cows that's where it
+
+47
+00:03:07.966 --> 00:03:11.966
+gets its name. And you win by guessing the word within a maximum number of tries. Cool!
+
+48
+00:03:11.966 --> 00:03:15.966
+So, that is the concept and the rules all in one actually. That simple, look we've only got
+
+49
+00:03:15.966 --> 00:03:19.966
+five bullet points! OK, seven if you count the sub-bullets, but
+
+50
+00:03:19.966 --> 00:03:23.966
+we've got the concept and the rules of the game written down. That's pretty powerful and that's
+
+51
+00:03:23.966 --> 00:03:27.966
+the sort of thing I want you to do with your game. OK, so what I want you to do now is
+
+52
+00:03:27.966 --> 00:03:31.966
+write up the requirements. So, knowing what the game needs to do, I want you to think
+
+53
+00:03:31.966 --> 00:03:35.966
+about what the inputs will be and in what format. Remember, this is a Console game, so
+
+54
+00:03:35.966 --> 00:03:39.966
+let me give you a hint here. The input is just text, just plain text on the Console.
+
+55
+00:03:39.966 --> 00:03:43.966
+What will the outputs be? What
+
+56
+00:03:43.966 --> 00:03:47.966
+takes will the user be asked to do? Do we have any
+
+57
+00:03:47.966 --> 00:03:51.966
+performance limitations for think about, in this simple game. And what assets are going to need to be
+
+58
+00:03:51.966 --> 00:03:55.966
+created? Art, story, sound, etc. So, have a think
+
+59
+00:03:55.966 --> 00:03:59.966
+and pause the video for a moment, grab a sheet of paper or document and start
+
+60
+00:03:59.966 --> 00:04:03.966
+writing down some bullets, some really simple ideas of requirements. Try and get
+
+61
+00:04:03.966 --> 00:04:07.966
+to at least five requirements. OK, so pause the video.
+
+62
+00:04:07.966 --> 00:04:11.966
+I know you don't necessarily know what you're doing here and this is a little fuzzy, but look, there's enough prompts
+
+63
+00:04:11.966 --> 00:04:15.966
+on the screen, and I want you to get used to thinking about, what are the requirements? What is this
+
+64
+00:04:15.966 --> 00:04:19.966
+game going to need? Have a go!
+
+65
+00:04:19.966 --> 00:04:23.966
+Cool! So, welcome back! Hopefully you did pause the video there and you're doing the challenge.
+
+66
+00:04:23.966 --> 00:04:27.966
+Here are some ideas of requirements. Plain text instructions for all interactions. That's something we're
+
+67
+00:04:27.966 --> 00:04:31.966
+going to need. Things like introducing the game and helping the user to make valid guesses and
+
+68
+00:04:31.966 --> 00:04:35.966
+stuff. Code to deal, or I should say
+
+69
+00:04:35.966 --> 00:04:39.966
+deal with, but code to help the player make a valid guess, i.e.
+
+70
+00:04:39.966 --> 00:04:43.966
+all lower case. You know, is it an isogram? Is the word that they're
+
+71
+00:04:43.966 --> 00:04:47.966
+putting in the right length? So, we're going to need code to help them make a guess correctly.
+
+72
+00:04:47.966 --> 00:04:51.966
+Code to check the number of bulls and cows in the guess, compared to the hidden word. That's
+
+73
+00:04:51.966 --> 00:04:55.966
+kind of the core of the game. And code to keep track of the number
+
+74
+00:04:55.966 --> 00:04:59.966
+of valid guesses, or course, and other things that we've forgotten, but I just want to give you
+
+75
+00:04:59.966 --> 00:05:03.966
+an idea of some of the things that you'd want to put into this. And of course,
+
+76
+00:05:03.966 --> 00:05:07.966
+these will actually translate into routines and lines of code,
+
+77
+00:05:07.966 --> 00:05:11.966
+I'm quite sure. So, possible future ideals! Another way of looking
+
+78
+00:05:11.966 --> 00:05:15.966
+at this is the no list, these are things we're not going to do OK, and it's important to have this
+
+79
+00:05:15.966 --> 00:05:19.966
+list. It really is important to have a list of things you've specifically chosen not to
+
+80
+00:05:19.966 --> 00:05:23.966
+put in this version of the game. OK, so we want to give feedback on
+
+81
+00:05:23.966 --> 00:05:27.966
+every key press, perhaps, in the future. We can't actually do that in a Console, because a Console
+
+82
+00:05:27.966 --> 00:05:31.966
+submits an entire string in a game. But in the 3D version of the game we might want feedback
+
+83
+00:05:31.966 --> 00:05:35.966
+on every key press. So, let me revisit that. What I mean is if you
+
+84
+00:05:35.966 --> 00:05:39.966
+start to type a non-isogram, say I start typing the word every,
+
+85
+00:05:39.966 --> 00:05:43.966
+then I might type E V, and then, when I hit the next E it may kind of go [Funny Sound] or
+
+86
+00:05:43.966 --> 00:05:47.966
+shake or do something to say, no you can't put another E in, because you've already had an E, and if you did it would
+
+87
+00:05:47.966 --> 00:05:51.966
+not be an isogram, so key level checking. Have a large dictionary of hidden words, so that
+
+88
+00:05:51.966 --> 00:05:55.966
+game we play is with more than just one word. Have a user selectable word length,
+
+89
+00:05:55.966 --> 00:05:59.966
+so the user chooses a word length and then, maybe a difficulty level as well. So, if you have a long
+
+90
+00:05:59.966 --> 00:06:03.966
+word, you get lots of tries, but if it's on hard, you get less tries. You know, that type of thing.
+
+91
+00:06:03.966 --> 00:06:07.966
+Checking the user's guess is a dictionary isogram, so every time they put a guess in
+
+92
+00:06:07.966 --> 00:06:11.966
+maybe it goes into a standard dictionary and says, well is this a word in the dictionary and is it an isogram?
+
+93
+00:06:11.966 --> 00:06:15.966
+Maybe we provide a time limit for the guess, put the pressure on a little. Maybe
+
+94
+00:06:15.966 --> 00:06:19.966
+we have a hint system, maybe you could spend one of your turns in return for a hint. I don't know?
+
+95
+00:06:19.966 --> 00:06:23.966
+But these are possible future ideas, and importantly these are things we're not going to do,
+
+96
+00:06:23.966 --> 00:06:27.966
+in this version of the game. So, that's it, we've covered an
+
+97
+00:06:27.966 --> 00:06:31.966
+overview of how you would do a design. Hopefully you've at least written down the requirements,
+
+98
+00:06:31.966 --> 00:06:35.966
+which is the bits that we need to move on to the next stage. We're going to skip over the software architecture,
+
+99
+00:06:35.966 --> 00:06:39.966
+this time around, because we're going to build this code from the inside out, starting
+
+100
+00:06:39.966 --> 00:06:43.966
+with the coding and then wrapping things up into what we call routines, and then, kind of
+
+101
+00:06:43.966 --> 00:06:47.966
+building outwards like that. So, in future sections and future games
+
+102
+00:06:47.966 --> 00:06:51.966
+we'll get a little bit more detailed on our planning, but this is enough for now! Let's crack on in
+
+103
+00:06:51.966 --> 00:06:55.966
+the next video and get our environment setup.
+

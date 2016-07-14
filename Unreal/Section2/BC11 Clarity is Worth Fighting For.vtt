@@ -1,0 +1,630 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So clarity,
+
+2
+00:00:04.000 --> 00:00:08.000
+it's worth fighting for, and that's what this video is all about. It's about making that
+
+3
+00:00:08.000 --> 00:00:12.000
+extra effort to reel this code in, as in reeling in a
+
+4
+00:00:12.000 --> 00:00:16.000
+fish on a fishing line, and bringing it back so that it looks almost too
+
+5
+00:00:16.000 --> 00:00:20.000
+simple, so we're ready to add more complexity in the next step.
+
+6
+00:00:20.000 --> 00:00:24.000
+I just want to explain something to you. Firstly, we're going to end up with a main() method that looks as simple as
+
+7
+00:00:24.000 --> 00:00:28.000
+this, and there'll be some improvements further down, which I won't spoil your challenges by showing you.
+
+8
+00:00:28.000 --> 00:00:32.000
+I also want to tell you that, if you want to do your own code thing and you're concerned that
+
+9
+00:00:32.000 --> 00:00:36.000
+you know, you do the challenge you do your own code, and then I come along and show you a solution.
+
+10
+00:00:36.000 --> 00:00:40.000
+If you feel like you have to change your code to match my solution, it's up to you whether you
+
+11
+00:00:40.000 --> 00:00:44.000
+do or don't. If you diverge from my solution and somehow your code stops working,
+
+12
+00:00:44.000 --> 00:00:48.000
+then you can always do the following. You can go to www.github.com/
+
+13
+00:00:48.000 --> 00:00:52.000
+UnrealCourse. OK, even if you're not logged in, in fact, I'm not
+
+14
+00:00:52.000 --> 00:00:56.000
+logged in here, and then, you can look for the section. This is section 2 BullCowGame,
+
+15
+00:00:56.000 --> 00:01:00.000
+and then, what you can do is you can make sure you're on the master branch. It should be
+
+16
+00:01:00.000 --> 00:01:04.000
+the only branch there. And look for this word here, 9 commits, and that means, at the
+
+17
+00:01:04.000 --> 00:01:08.000
+time of recording there are 9 lectures and there are the lectures in the commit list.
+
+18
+00:01:08.000 --> 00:01:12.000
+OK, so as a recap we're at github.com/UnrealCourse, then the section
+
+19
+00:01:12.000 --> 00:01:16.000
+name, commits, master. And then, if you go to a particular video, say this one
+
+20
+00:01:16.000 --> 00:01:20.000
+here, you can click, browse the repository at that point. Now, there's two things you can do. You're going to
+
+21
+00:01:20.000 --> 00:01:24.000
+either just kind of click in and look at the code at that stage, and you can even copy and paste it,
+
+22
+00:01:24.000 --> 00:01:28.000
+or when you're at this level here and you've found
+
+23
+00:01:28.000 --> 00:01:32.000
+the commit that you want, so let's go back another one to here.
+
+24
+00:01:32.000 --> 00:01:36.000
+Then, you can download .zip, if you want, and replace your whole project.
+
+25
+00:01:36.000 --> 00:01:40.000
+So, I just want to explain that, that's a possibility for you, if you want to do your own code, but if you're
+
+26
+00:01:40.000 --> 00:01:44.000
+concerned rather, you diverge and you can't keep track, well, you can always come in
+
+27
+00:01:44.000 --> 00:01:48.000
+and compare against my code or even just download it and pick up from where I left off.
+
+28
+00:01:48.000 --> 00:01:48.833
+
+
+29
+00:01:48.833 --> 00:01:52.833
+So, at this stage if you're a beginner, we learned just enough to be dangerous! We've
+
+30
+00:01:52.833 --> 00:01:56.833
+just learned about enough things to create a real mess
+
+31
+00:01:56.833 --> 00:02:00.833
+and a mess we have. Here in the main() loop, this is what
+
+32
+00:02:00.833 --> 00:02:04.833
+I call a mess. Now, why is it a mess? It looks simple enough, but the problem with it is it's not a
+
+33
+00:02:04.833 --> 00:02:08.833
+consistant level or abstraction. PrintInfo() is higher
+
+34
+00:02:08.833 --> 00:02:12.833
+level than what's below. PrintInfo() is asking you to
+
+35
+00:02:12.833 --> 00:02:16.833
+do several things in one go, this stuff here which is simple and self contained
+
+36
+00:02:16.833 --> 00:02:20.833
+and well explained and has no nasty side effects. It does what it says and nothing else.
+
+37
+00:02:20.833 --> 00:02:24.833
+And we can sit here and look at PrintInfo(), and we can go yep, I'm happy with that. I don't need to look
+
+38
+00:02:24.833 --> 00:02:28.833
+at the details I know what it does. That's what we want! Then, you come down here and we've
+
+39
+00:02:28.833 --> 00:02:32.833
+got an implementation that's right down at the detail level. Look we've got
+
+40
+00:02:32.833 --> 00:02:36.833
+the things in here, ones and you know iterators, and stuff
+
+41
+00:02:36.833 --> 00:02:40.833
+right. And that's all fine and that needs to be somewhere, but we don't want it here, when
+
+42
+00:02:40.833 --> 00:02:44.833
+one minute we're thinking about printing a whole introduction section and then, we're talking about the details of the
+
+43
+00:02:44.833 --> 00:02:48.833
+loop. It's inconsistent abstraction. So, what I want to do, firstly,
+
+44
+00:02:48.833 --> 00:02:52.833
+is tidy this loop up so that it goes PrintIntro(),
+
+45
+00:02:52.833 --> 00:02:56.833
+play the game, and well that's it for the moment!
+
+46
+00:02:56.833 --> 00:03:00.833
+So, this bit here basically represents play game, doesn't it? It plays a single game.
+
+47
+00:03:00.833 --> 00:03:04.833
+So, how would we abstract this function. Well, we've done this before, but I want to show you Visual
+
+48
+00:03:04.833 --> 00:03:08.833
+Basic's tool, and then, I want to show you a nasty side effect and hence why
+
+49
+00:03:08.833 --> 00:03:12.833
+we won't use its tool for now and then later on we'll start using the tool again, because I think
+
+50
+00:03:12.833 --> 00:03:16.833
+that some of you are going to be experimenting and using the tool, so I may as well show you what happens when you to do that,
+
+51
+00:03:16.833 --> 00:03:20.833
+and we'll start learning about header files and we'll get our first view of them. OK, so highlight your
+
+52
+00:03:20.833 --> 00:03:24.833
+code, in here, the stuff that actually is responsible for playing the game. You can right click
+
+53
+00:03:24.833 --> 00:03:28.866
+or do Control and +, and you've got a quick action here.
+
+54
+00:03:28.866 --> 00:03:31.366
+Inside there you've got Extract Function,
+
+55
+00:03:31.366 --> 00:03:35.366
+so if for any reason you don't see that option go to Tools and Options, bringing up this
+
+56
+00:03:35.366 --> 00:03:39.366
+dialog box and down to Text Editor, C++,
+
+57
+00:03:39.366 --> 00:03:43.366
+Experimental, and then, you want to look under Refactoring for Enable
+
+58
+00:03:43.366 --> 00:03:46.433
+Extract Function. Set that to True and say OK.
+
+59
+00:03:46.433 --> 00:03:50.433
+It's quite powerful, it does various checks and things for you. it's done some checks, it thinks it's
+
+60
+00:03:50.433 --> 00:03:54.433
+possible to extract that, and now, let's give it a name: PlayGame,
+
+61
+00:03:54.433 --> 00:03:58.433
+and then just hit return. OK, now the main method has
+
+62
+00:03:58.433 --> 00:04:02.433
+got a lot simpler. Look, PrintIntro(); PlayGame();
+
+63
+00:04:02.433 --> 00:04:06.433
+return 0; so, i.e. "// exit the application". We can put that in!
+
+64
+00:04:06.433 --> 00:04:10.433
+OK, let's try!
+
+65
+00:04:10.433 --> 00:04:14.433
+[Sings] La di da di da di da! And then it exits. Great it works!
+
+66
+00:04:14.433 --> 00:04:18.433
+Now fantastic! It's done a lot for you! Where has it put PlayGame()? It's put
+
+67
+00:04:18.433 --> 00:04:22.433
+the details of PlayGame() down here. It's literally cut and pasted our code and written the method name
+
+68
+00:04:22.433 --> 00:04:26.433
+for us and indented it for us, done a lot of work for us. It's not used quite our
+
+69
+00:04:26.433 --> 00:04:30.433
+formatting, and eventually we'll go into Visual Studio's Tool
+
+70
+00:04:30.433 --> 00:04:34.433
+Options and change the way that it does hanging braces. But look what else
+
+71
+00:04:34.433 --> 00:04:38.433
+it's done! It has not put a prototype! How come PlayGame() is working,
+
+72
+00:04:38.433 --> 00:04:42.433
+when it doesn't have a prototype? I said you have to have prototypes. Remember, PrintInfo() didn't work unless
+
+73
+00:04:42.433 --> 00:04:46.433
+we declared it above hmm but PlayGame() does. How come?
+
+74
+00:04:46.433 --> 00:04:50.433
+Well, it's sneakily created us a main.h header file
+
+75
+00:04:50.433 --> 00:04:54.433
+over here, if you look in your Solution Explorer. If you don't see that, go to View, Solution Explorer,
+
+76
+00:04:54.433 --> 00:04:58.433
+and it's simply put in there void PlayGame();. Don't worry about #pragma once, it basically
+
+77
+00:04:58.433 --> 00:05:02.433
+says only include this header file once. But void PlayGame(); has been
+
+78
+00:05:02.433 --> 00:05:06.433
+put in there, and then, remember what I said #include does? It just does a copy and paste.
+
+79
+00:05:06.433 --> 00:05:10.433
+Well, it's put a #include in, as well, naughty thing. It's put a #include "main.h",
+
+80
+00:05:10.433 --> 00:05:14.433
+and it's made in the "main.h" and then it's put void PlayGame() in there. OK, that's
+
+81
+00:05:14.433 --> 00:05:18.433
+all fun and cool, and we will be doing that in general, including in this section, using header
+
+82
+00:05:18.433 --> 00:05:22.433
+files. It's an integral part of C++. Yes, it's a bit more work, but it does have some
+
+83
+00:05:22.433 --> 00:05:26.433
+benefits, which we'll see later. But for now, we don't want it to do that, so if you do
+
+84
+00:05:26.433 --> 00:05:30.433
+use it's extract method like that I'm just going to, for simplicity, remove the
+
+85
+00:05:30.433 --> 00:05:34.433
+reference to the header file. I'll show you now that it doesn't work. You see it says it says " 'PlayGame': identifier
+
+86
+00:05:34.433 --> 00:05:38.433
+not found". Let's move this function prototype
+
+87
+00:05:38.433 --> 00:05:42.433
+up here, into... I'm going to put it
+
+88
+00:05:42.433 --> 00:05:46.433
+here. I'm going to put the methods or the functions in the order that we use them. PrintIntro(), PlayGame(), Get
+
+89
+00:05:46.433 --> 00:05:50.433
+GuessAndPrintBack(). So, the logical structure here is, we include the libraries we want,
+
+90
+00:05:50.433 --> 00:05:54.433
+we tell it what namespaces to use, and then, we go ahead and write all our function
+
+91
+00:05:54.433 --> 00:05:58.433
+prototypes, although later these will all be in a header file. And then, we get into our main() method.
+
+92
+00:05:58.433 --> 00:06:02.433
+OK, so I'm actually going to delete main.h, so I don't care whether I save
+
+93
+00:06:02.433 --> 00:06:06.433
+changes to it, because I'm going to right-click over in the Solution Explorer, remove it, and
+
+94
+00:06:06.433 --> 00:06:10.433
+delete it. OK, we just don't need it. Take control of the program, get
+
+95
+00:06:10.433 --> 00:06:14.433
+it to do what you want it to do! And I'm going to remove some spaces here and put some
+
+96
+00:06:14.433 --> 00:06:18.433
+extra spaces between my method, so this is really clear now.
+
+97
+00:06:18.433 --> 00:06:22.433
+We find the entry point for the application, we print an intro, play the game, and leave.
+
+98
+00:06:22.433 --> 00:06:26.433
+OK, that is pretty cool! [Sing] La di da di da! OK
+
+99
+00:06:26.433 --> 00:06:30.433
+good! So, there's one more thing we need to do here which is, we've had this side effect
+
+100
+00:06:30.433 --> 00:06:34.433
+hanging over us for a while. In fact, we've had it hanging over us, too long! Alright, so
+
+101
+00:06:34.433 --> 00:06:38.433
+you should be a little bit uncomfortable now that I said that
+
+102
+00:06:38.433 --> 00:06:42.433
+GetGuessAndPrintBack() has a side effect, and the side effect is that it prints here.
+
+103
+00:06:42.433 --> 00:06:46.433
+We declared that it has a side effect, immediately that we realized, which is good,
+
+104
+00:06:46.433 --> 00:06:50.433
+but better than that let's remove the side effect! We don't want a method like this or function doing
+
+105
+00:06:50.433 --> 00:06:54.433
+two different things. So of course, that's going to be a challenge for you!
+
+106
+00:06:54.433 --> 00:06:58.433
+I want you to remove the side effect, rename the GetGuessAndPrintBack() method, move the
+
+107
+00:06:58.433 --> 00:07:02.433
+offending code, test it all still works, and ask yourself when you
+
+108
+00:07:02.433 --> 00:07:06.433
+look at your code, are you happy or very happy even with how your code reads?
+
+109
+00:07:06.433 --> 00:07:10.433
+And why not share it in the discussions, if you're pleased with a section of your code.
+
+110
+00:07:10.433 --> 00:07:14.433
+OK, see you soon!
+
+111
+00:07:14.433 --> 00:07:18.433
+Alright, so GetGuessAndPrintBack! What's the problem with it? It's that it prints back,
+
+112
+00:07:18.433 --> 00:07:22.433
+so let's do Control, R. Control, R, again! That's not letting me rename
+
+113
+00:07:22.433 --> 00:07:26.433
+it there, so I'll go to another instance of it here. Control, R,
+
+114
+00:07:26.433 --> 00:07:30.433
+Control, R. There you go! I don't know why it was being silly! I just did Control, R
+
+115
+00:07:30.433 --> 00:07:34.433
+several times, until it allowed me to do a rename. I'm going to change it back to
+
+116
+00:07:34.433 --> 00:07:38.433
+GetGuess(). Great! So, inside
+
+117
+00:07:38.433 --> 00:07:42.433
+PlayGame() we go and get the guess. GetGuess(), I would rather GetGuess() was right
+
+118
+00:07:42.433 --> 00:07:46.433
+next to where PlayGame() is, so I'm actually going to move PlayGame() down
+
+119
+00:07:46.433 --> 00:07:50.433
+as a method. Here come down to
+
+120
+00:07:50.433 --> 00:07:54.433
+here, so that when I'm in PlayGame() I can see GetGuess(). it's just easier
+
+121
+00:07:54.433 --> 00:07:58.433
+for me. Now, we don't want to print the guess back there, so we take it out of GetGuess(). Now, look
+
+122
+00:07:58.433 --> 00:08:02.433
+suddenly GetGuess() is good! It's clear, returns a string,
+
+123
+00:08:02.433 --> 00:08:06.433
+tells you what it does, enter your guess, and it
+
+124
+00:08:06.433 --> 00:08:10.433
+uses the GetLine method and returns it. Perfect! So, inside PlayGame() what does this do? Where it loops
+
+125
+00:08:10.433 --> 00:08:14.433
+for the number of turns, asking for guesses, there's the number of turns.
+
+126
+00:08:14.433 --> 00:08:18.433
+OK good! So we get the guess and then we need to print it back. Now, the only
+
+127
+00:08:18.433 --> 00:08:22.433
+problem here is, it's only going to print back if we have a variable. So, you could go
+
+128
+00:08:22.433 --> 00:08:26.433
+string Guess =
+
+129
+00:08:26.433 --> 00:08:30.433
+" " blank. string, remember always when you declare something
+
+130
+00:08:30.433 --> 00:08:34.433
+you always then initialize it like this, give it a value. And then, we could say that
+
+131
+00:08:34.433 --> 00:08:38.433
+Guess = GetGuess(). Now, what's that about? That is taking
+
+132
+00:08:38.433 --> 00:08:42.433
+the return value from GetGuess() and putting it into =.
+
+133
+00:08:42.433 --> 00:08:46.433
+OK, so we can do it this way, or we can simply short circuit this Guess = nothing " "
+
+134
+00:08:46.433 --> 00:08:50.433
+Guess = that, because if we're immediately setting it to the value of
+
+135
+00:08:50.433 --> 00:08:54.433
+GetGuess(), why not just cut to the chase and just do
+
+136
+00:08:54.433 --> 00:08:58.433
+that. string Guess = GetGuess();
+
+137
+00:08:58.433 --> 00:09:02.433
+OK, so we go get the guess and we print it back. I don't think we even need that
+
+138
+00:09:02.433 --> 00:09:06.433
+comment. It's pretty obvious what it's doing here.
+
+139
+00:09:06.433 --> 00:09:10.433
+So that's it! So, I want to make sure now that I'm very happy with the
+
+140
+00:09:10.433 --> 00:09:14.433
+code, top to bottom. I'm happy with the spacing, I'm happy with the main() method
+
+141
+00:09:14.433 --> 00:09:18.433
+particularly, because it's really clear what it's doing. I'm very happy with what the intro does.
+
+142
+00:09:18.433 --> 00:09:22.433
+I may put another space between functions here, make my
+
+143
+00:09:22.433 --> 00:09:26.433
+brackets style consistent all the way through the
+
+144
+00:09:26.433 --> 00:09:30.433
+program. So PlayGame(), it loops
+
+145
+00:09:30.433 --> 00:09:34.433
+around, it goes and gets the guess, it prints it out. OK, that's fine!
+
+146
+00:09:34.433 --> 00:09:38.433
+Now, is this a side effect? Not really, because part of playing the game is
+
+147
+00:09:38.433 --> 00:09:42.433
+asking for and giving feedback. Later, we won't just say what your guess was, of course, we'll be
+
+148
+00:09:42.433 --> 00:09:46.433
+counting bulls and cows, but I think that's OK. And I think that
+
+149
+00:09:46.433 --> 00:09:50.433
+all these methods now are clear. Let's just check it works! It's no good having
+
+150
+00:09:50.433 --> 00:09:54.433
+clear code if it doesn't work, by the way. So, one, two, three,
+
+151
+00:09:54.433 --> 00:09:58.433
+four, five. There you go!
+
+152
+00:09:58.433 --> 00:10:02.433
+Game works, code is good, and we are now good to move on
+
+153
+00:10:02.433 --> 00:10:06.433
+and think about the next level in our design. And it's now manageable again!
+
+154
+00:10:06.433 --> 00:10:10.433
+We've just got to keep reeling it in, every single time, bringing it back to manageable
+
+155
+00:10:10.433 --> 00:10:14.433
+and easy and simple. It should look almost too simple, that's what you
+
+156
+00:10:14.433 --> 00:10:18.433
+need, because in a minute we're going to come along and make it more complex again. OK, see you in a minute!
+
+157
+00:10:18.433 --> 00:10:19.766
+
+

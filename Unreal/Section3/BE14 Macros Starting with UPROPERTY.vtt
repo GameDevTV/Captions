@@ -1,0 +1,526 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Welcome to Macros
+
+2
+00:00:04.000 --> 00:00:08.000
+Starting with UPROPERTY. By that, I'm talking about we're
+
+3
+00:00:08.000 --> 00:00:12.000
+introducing you to macros, and the first one we're going to introduce you to is a UPROPERTY.
+
+4
+00:00:12.000 --> 00:00:16.000
+So, in this video we're going to explain that a macro is a programmed
+
+5
+00:00:16.000 --> 00:00:20.000
+cut-and-paste operation, that happens before compile time. Oh, I just did explain
+
+6
+00:00:20.000 --> 00:00:24.000
+it. [Laughs] This happens before the code is compiled. This can
+
+7
+00:00:24.000 --> 00:00:28.000
+unlock some pretty powerful functionality, but we don't get code completers
+
+8
+00:00:28.000 --> 00:00:32.000
+standard. Our IDE will not fill out the macro for us, so you have to be super careful
+
+9
+00:00:32.000 --> 00:00:36.000
+about what we type. It can also create some really weird build errors, so we need to watch
+
+10
+00:00:36.000 --> 00:00:40.000
+that. We can't avoid them though, we can't use Unreal C++ without getting into macros heavily.
+
+11
+00:00:40.000 --> 00:00:44.000
+And at the end we're going to do something called exposing a trigger volume pointer
+
+12
+00:00:44.000 --> 00:00:48.000
+to the Details Window. What does that mean? Well, it means that by the end of the video,
+
+13
+00:00:48.000 --> 00:00:52.000
+I'll have created another door like this, we'll have something called a trigger volume in the world
+
+14
+00:00:52.000 --> 00:00:56.000
+here, and that trigger volume will actually be associated to
+
+15
+00:00:56.000 --> 00:01:00.000
+the Open Door component of both of these doors, like this, so as a
+
+16
+00:01:00.000 --> 00:01:06.066
+pressure plate. So, what we're working towards is being able to stand on the pressure plate and open both of the doors. Pretty cool hey!
+
+17
+00:01:06.066 --> 00:01:10.066
+So, I'm going to start by giving you an example, which is allowing us to specify
+
+18
+00:01:10.066 --> 00:01:14.066
+the open angle of the door. I'm going to make it private
+
+19
+00:01:14.066 --> 00:01:18.066
+from the point of the code privacy, because firstly
+
+20
+00:01:18.066 --> 00:01:22.066
+it's a property. It's just going to be a float open angle
+
+21
+00:01:22.066 --> 00:01:26.066
+like that. And we better default it to something sensible in the code like
+
+22
+00:01:26.066 --> 00:01:30.066
+90 degrees, maybe if I can type straight. OK now, the thing
+
+23
+00:01:30.066 --> 00:01:34.066
+about that is it's private, which means that other methods can't just set it which is good, because we want to use
+
+24
+00:01:34.066 --> 00:01:38.066
+getters and setters, as discussed before. But here's something cool that we can actually do!
+
+25
+00:01:38.066 --> 00:01:42.066
+Watch this! We can use something called a UPROPERTY. Now, this is a macro, and
+
+26
+00:01:42.066 --> 00:01:46.066
+what this means is it's going to do some strange cut-and-paste on our code,
+
+27
+00:01:46.066 --> 00:01:50.066
+before... [Sighs] I'm talking and typing at the same time. ...before it actually compiles,
+
+28
+00:01:50.066 --> 00:01:54.066
+and you don't even put a semicolon on the end. If we say UPROPERTY() like that,
+
+29
+00:01:54.066 --> 00:01:58.066
+then you can read all about UPROPERTY over here.
+
+30
+00:01:58.066 --> 00:02:02.066
+"uproperty unreal" and then, here you go, the Unreal documentation
+
+31
+00:02:02.066 --> 00:02:06.066
+will tell you all about it in much more boring detail than I am going to. But
+
+32
+00:02:06.066 --> 00:02:10.066
+if we make this thing a UPROPERTY and we say
+
+33
+00:02:10.066 --> 00:02:14.066
+(VisibleAnywhere)... Now, bear in mind that these
+
+34
+00:02:14.066 --> 00:02:18.066
+things will not be in Autocomplete for you, because Visual Studio doesn't understand
+
+35
+00:02:18.066 --> 00:02:22.066
+what's going on. If you want to know what's possible in UPROPERTY, then you're going to need to
+
+36
+00:02:22.066 --> 00:02:26.066
+use a Google search. And if you
+
+37
+00:02:26.066 --> 00:02:30.066
+find the right one of these, then you're going to be able to find property specifiers
+
+38
+00:02:30.066 --> 00:02:34.066
+perhaps, and down here, VisibleInstanceOnly, VisibleAnywhere.
+
+39
+00:02:34.066 --> 00:02:38.066
+And you can see what that says, OK. So, I'm going to make this thing
+
+40
+00:02:38.066 --> 00:02:42.066
+VisibleAnywhere and see what it does, and then, we'll see what a UPROPERTY
+
+41
+00:02:42.066 --> 00:02:46.066
+does. VisibleAnywhere, I'm going to paste that in, because I want to make sure I've spelled it right, which I probably hadn't.
+
+42
+00:02:46.066 --> 00:02:50.066
+I think I put an a in here. Now, I'm going to build the project. Now, I warn you, if
+
+43
+00:02:50.066 --> 00:02:54.066
+you get anything wrong with one of these things, then you're going to get horrible weird indecipherable build
+
+44
+00:02:54.066 --> 00:02:58.066
+errors, because of when this happens in the compile time. You need to make sure that the UPROPERTY
+
+45
+00:02:58.066 --> 00:03:02.066
+like these... [Laughs] You need to make sure that the UPROPERTY does not have a
+
+46
+00:03:02.066 --> 00:03:06.066
+space after it, that it's immediately above the thing that you're trying to set as a UPROPERTY, and
+
+47
+00:03:06.066 --> 00:03:10.066
+that everything is spelled correctly. So, let's see what the problem is! It's good news if you get
+
+48
+00:03:10.066 --> 00:03:14.066
+problems in the actual file, the OpenDoor.h in this case, because they're likely
+
+49
+00:03:14.066 --> 00:03:18.066
+to be easy to understand. And the problem
+
+50
+00:03:18.066 --> 00:03:22.066
+here is that I need 90 points at least or point 0, and that's what it was
+
+51
+00:03:22.066 --> 00:03:26.066
+complaining about, alright. So, that's an easy one to solve because
+
+52
+00:03:26.066 --> 00:03:30.066
+it is giving us an error in the actual syntax of our code in this file.
+
+53
+00:03:30.066 --> 00:03:34.066
+If we make an error in the spelling of UPROPERTY or (VisibleAnywhere) or something, we'll get a weird error.
+
+54
+00:03:34.066 --> 00:03:38.066
+And it's very very likely if you've just added a macro that you haven't added it right.
+
+55
+00:03:38.066 --> 00:03:42.066
+Let's see what it does! It's compiled and over in Unreal we see that we
+
+56
+00:03:42.066 --> 00:03:46.066
+have a none editable open angle, that is defaulted to 90 degrees.
+
+57
+00:03:46.066 --> 00:03:50.066
+If you want to make this editable for later, well you'll see how to do that after the coming challenge.
+
+58
+00:03:50.066 --> 00:03:54.066
+So, that's pretty cool right! We can now see things from our code in the
+
+59
+00:03:54.066 --> 00:03:58.066
+Inspector, while keeping them private as far as other classes are concerned.
+
+60
+00:03:58.066 --> 00:04:02.066
+Then, our visible in the Properties Panel in the Details
+
+61
+00:04:02.066 --> 00:04:06.066
+Pane or what I will also call the Inspector. Cool, so I want you to write
+
+62
+00:04:06.066 --> 00:04:10.066
+your first UPROPERTY now! I want you to open your OpenDoor.h file. We already have it!
+
+63
+00:04:10.066 --> 00:04:14.066
+I want you to declare this, ATriggerVolume* pointer PressurePlate.
+
+64
+00:04:14.066 --> 00:04:18.066
+Now that can be private as well, and this is going to be a pointer
+
+65
+00:04:18.066 --> 00:04:22.066
+called PressurePlate to ATriggerVolume*, which we've already put in
+
+66
+00:04:22.066 --> 00:04:26.066
+the scene. I want you to use the UPROPERTY macro but this time use
+
+67
+00:04:26.066 --> 00:04:30.066
+EditAnywhere parameter, and the documentation is available there. You can
+
+68
+00:04:30.066 --> 00:04:34.066
+click on that in the section note .pdfs. So, basically almost exactly what we've just done.
+
+69
+00:04:34.066 --> 00:04:38.066
+I've nearly given it to you on a plate here, but by doing it yourself you're going to understand it
+
+70
+00:04:38.066 --> 00:04:42.066
+obviously a lot better. So, it doesn't need to be kind of
+
+71
+00:04:42.066 --> 00:04:46.066
+wired to the pressure plate, actually linked to the pressure plate yet, but it's going to give us the facility
+
+72
+00:04:46.066 --> 00:04:50.066
+And I'll show you that in the solution, so pause the video, go ahead and do that now
+
+73
+00:04:50.066 --> 00:04:54.066
+Welcome back guys! So, what I'm
+
+74
+00:04:54.066 --> 00:04:58.066
+wanting to do then is do something very similar to this. So, I'm actually going to copy
+
+75
+00:04:58.066 --> 00:05:02.066
+it. I'm going to make this, instead of (VisibleAnywhere), (Edit
+
+76
+00:05:02.066 --> 00:05:06.066
+Anywhere). I am not going to call it OpenAngle, it's going to be
+
+77
+00:05:06.066 --> 00:05:10.066
+ATrigger. Well, how do I know it's ATriggerVolume, by the way? Well,
+
+78
+00:05:10.066 --> 00:05:16.833
+over in Unreal the thing that we're going to want to connect to is this thing here, TriggerVolume TriggerVolume1 right.
+
+79
+00:05:16.833 --> 00:05:20.833
+Now, I slightly naughtily added the TriggerVolume, while you guys weren't watching.
+
+80
+00:05:20.833 --> 00:05:24.833
+So, you do that by going to Modes and then Volumes and then scroll all
+
+81
+00:05:24.833 --> 00:05:28.000
+the way to the bottom and drag a TriggerVolume into your scene,
+
+82
+00:05:28.000 --> 00:05:31.200
+and scale and position it roughly like I've done here.
+
+83
+00:05:31.200 --> 00:05:38.066
+And you can see the type TriggerVolume, and that's, you know, a proper type name. So, the way you can discover that for yourself, in the future, is
+
+84
+00:05:38.066 --> 00:05:42.066
+I've got this thing in the scene. It's a TriggerVolume, we found that out, maybe through a Google search
+
+85
+00:05:42.066 --> 00:05:46.066
+or just by browsing. You go back to your code, you come in here, and you just type
+
+86
+00:05:46.066 --> 00:05:50.066
+trigger. You make sure that this little whirligig at the bottom of Visual Studio, and there's
+
+87
+00:05:50.066 --> 00:05:54.066
+some similar indicators that Xcode has finished, because right now it's still going
+
+88
+00:05:54.066 --> 00:05:58.066
+through and parsing the file. Eventually, it'll come up and give you some help.
+
+89
+00:05:58.066 --> 00:06:02.066
+ATriggerVolume sounds like the puppy! Star because it's a pointer!
+
+90
+00:06:02.066 --> 00:06:06.066
+Remember, most of the things in Unreal we don't to be copying around by value. We want to leave it
+
+91
+00:06:06.066 --> 00:06:10.066
+where it is in memory rather, and then, I'm going to call it Pressure
+
+92
+00:06:10.066 --> 00:06:14.066
+Plate; like that OK. So, no other class
+
+93
+00:06:14.066 --> 00:06:18.066
+can set this from the outside. It's private which is great
+
+94
+00:06:18.066 --> 00:06:22.066
+but it is going to be (EditAnywhere). Let's try and see what that means!
+
+95
+00:06:22.066 --> 00:06:26.066
+What does being able to edit a
+
+96
+00:06:26.066 --> 00:06:30.066
+pressure plate mean? What am I talking about here? Well, it'll come clear right now. I'll show you the design
+
+97
+00:06:30.066 --> 00:06:34.066
+we're going for. In Unreal we now click on the
+
+98
+00:06:34.066 --> 00:06:38.066
+door. Go to the Details Tab, click the OpenDoor component,
+
+99
+00:06:38.066 --> 00:06:42.066
+and look, the Pressure Plate property here is
+
+100
+00:06:42.066 --> 00:06:46.066
+saying, show me a TriggerVolume. And very helpfully, it filters everything
+
+101
+00:06:46.066 --> 00:06:50.066
+in the World Outliner by TriggerVolume and I can just click it!
+
+102
+00:06:50.066 --> 00:06:54.066
+So, I've now associated this door with this TriggerVolume. That's
+
+103
+00:06:54.066 --> 00:06:58.066
+pretty cool! You see the power of that, from the designer's point of view, they can come in
+
+104
+00:06:58.066 --> 00:07:02.066
+and there could be another door. We could associate the other door with the TriggerVolume. In fact,
+
+105
+00:07:02.066 --> 00:07:06.066
+why don't we just for fun do that, just to show the generality of
+
+106
+00:07:06.066 --> 00:07:10.066
+what we're doing. I'm going to select the door, the door frame
+
+107
+00:07:10.066 --> 00:07:14.066
+doesn't matter. That'll do for now! If I'm missing something, I'll just duplicate that across. Now, I think I've got it
+
+108
+00:07:14.066 --> 00:07:18.066
+all! I know I missed the frame, so I'm going to grab the frame,
+
+109
+00:07:18.066 --> 00:07:22.066
+hold down Alt, drag a new frame over. So now,
+
+110
+00:07:22.066 --> 00:07:26.066
+we've got another door here and actually it's already associated with
+
+111
+00:07:26.066 --> 00:07:30.066
+the same TriggerVolume, because I duplicated it. So, both of these doors are associated with
+
+112
+00:07:30.066 --> 00:07:34.066
+this TriggerVolume, so this volume will open both doors at the same time.
+
+113
+00:07:34.066 --> 00:07:38.066
+Cool hey! So, I think that's enough for this video! I just want to recap
+
+114
+00:07:38.066 --> 00:07:42.066
+now what we've done, over in here, because there's a lot to think about.
+
+115
+00:07:42.066 --> 00:07:46.066
+We made a couple of simple private properties, they are pretty normal to us. We've made them
+
+116
+00:07:46.066 --> 00:07:50.066
+private because well basically we make all data like this all information
+
+117
+00:07:50.066 --> 00:07:54.100
+or member variables private, and we use getters and setters, so we're certainly not
+
+118
+00:07:54.100 --> 00:07:58.066
+making every other class be able to reach in and change these things. We want to keep the Open
+
+119
+00:07:58.066 --> 00:08:02.066
+Door class responsible for changing these things, but also importantly,
+
+120
+00:08:02.066 --> 00:08:06.066
+we have used something called a macro to make this one visible and this
+
+121
+00:08:06.066 --> 00:08:10.066
+one editable, in the Inspector or the Details
+
+122
+00:08:10.066 --> 00:08:14.066
+Tab here. When we look at the OpenDoor component, you can see the difference between a non-
+
+123
+00:08:14.066 --> 00:08:18.066
+editable Open Door Angle, which we can easily make editable,
+
+124
+00:08:18.066 --> 00:08:22.066
+and a Pressure Plate which is editable, and it lets us choose the TriggerVolume.
+
+125
+00:08:22.066 --> 00:08:26.066
+Both of these doors are now associated to that TriggerVolume. The only other thing
+
+126
+00:08:26.066 --> 00:08:30.066
+we might want to do is possibly consider how we organize our
+
+127
+00:08:30.066 --> 00:08:34.066
+hierarchy, but to be honest, right now, the hierarchy is simple enough. We've got a folder for Walls
+
+128
+00:08:34.066 --> 00:08:38.066
+and the rest of it is still fairly fairly conceivable, so
+
+129
+00:08:38.066 --> 00:08:42.066
+it's tidy enough. Alright, that's great! Let's commit what we've
+
+130
+00:08:42.066 --> 00:08:46.066
+done in our Source Control and crack on with the next video, where hopefully we'll be able to walk onto this pressure plate and
+
+131
+00:08:46.066 --> 00:08:49.332
+have both doors open!
+

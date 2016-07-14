@@ -1,0 +1,634 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+
+
+2
+00:00:04.000 --> 00:00:08.000
+So, welcome to Using Header Files as Contracts! We're going to focus
+
+3
+00:00:08.000 --> 00:00:12.000
+purely on the interface to our new class, and by the end of the video,
+
+4
+00:00:12.000 --> 00:00:16.000
+we will have a whole new file called FBullCowGame.h.
+
+5
+00:00:16.000 --> 00:00:20.000
+And in the case of you Xcode people, it will have created you a .cpp file, too,
+
+6
+00:00:20.000 --> 00:00:24.000
+and will have written class FBullCowGame like this and public.
+
+7
+00:00:24.000 --> 00:00:28.000
+And we will have written some methods that are blurred out here, because I don't want to ruin
+
+8
+00:00:28.000 --> 00:00:32.000
+in the challenge. And there's no right or wrong answer anyway, but these are going to define the
+
+9
+00:00:32.000 --> 00:00:36.000
+interface to the class, what we're allowed to do. It's a black box that we're building right now. There'll
+
+10
+00:00:36.000 --> 00:00:40.000
+also be a private section, which will be things that it will use in order to do its
+
+11
+00:00:40.000 --> 00:00:44.000
+work, but we shouldn't concern ourselves too much with that right now. We want to focus on
+
+12
+00:00:44.000 --> 00:00:48.000
+what work it's going to be doing, not how it's going to be doing the work. So,
+
+13
+00:00:48.000 --> 00:00:52.000
+let's dive in and explore the exciting world of classes!
+
+14
+00:00:52.000 --> 00:00:52.033
+
+
+15
+00:00:52.033 --> 00:00:56.033
+So, let's make our own class
+
+16
+00:00:56.033 --> 00:01:00.033
+for the very first time! The way to do that, the way to add a new file, is to click on the project
+
+17
+00:01:00.033 --> 00:01:04.033
+name here. So, we have the Solution and inside the Solution we have a single project. Right-click,
+
+18
+00:01:04.033 --> 00:01:08.033
+Add, and then, new item. OK, so that's what we're doing on the screen.
+
+19
+00:01:08.033 --> 00:01:12.033
+And then, in the case of Visual Studio here, I'm just going to add a header file to
+
+20
+00:01:12.033 --> 00:01:16.033
+start with. If you're in Xcode, by the way, you may as well add a C++ file, and there'll be a little
+
+21
+00:01:16.033 --> 00:01:20.033
+checkbox that says, "Do you want to add a header file, too?", so you'll get both. We're just going to start with a header
+
+22
+00:01:20.033 --> 00:01:24.033
+file here, in Visual Studio. We'll add a C++ file later, so that we can
+
+23
+00:01:24.033 --> 00:01:28.033
+focus on one thing at a time. We're going to call it FBullCow
+
+24
+00:01:28.033 --> 00:01:32.033
+Game. Why am I prefixing with F? Well, if you look in the Unreal Coding Standards,
+
+25
+00:01:32.033 --> 00:01:36.033
+I'll show you where to find that. We've seen it before. Then,
+
+26
+00:01:36.033 --> 00:01:40.033
+they suggest prefixing. If you go to the naming conventions,
+
+27
+00:01:40.033 --> 00:01:44.033
+you see "Most other classes are prefixed by F". So, I'm going to do that, so that things
+
+28
+00:01:44.033 --> 00:01:48.033
+start to feel familiar. So, there we go, FBullCowGame.h. Even though it's a bit weird,
+
+29
+00:01:48.033 --> 00:01:52.033
+at least it will be familiar later. So, there it is, sitting under Header Files! What is this
+
+30
+00:01:52.033 --> 00:01:56.033
+thing? It is, as I said before, something that will just be cut and
+
+31
+00:01:56.033 --> 00:02:00.033
+paste onto the top of whatever we include it in. OK,
+
+32
+00:02:00.033 --> 00:02:04.033
+and we're going to including it in main.cpp. It's one of the things we're going to include
+
+33
+00:02:04.033 --> 00:02:08.033
+it in, and the other thing we're going to include it in is our file, that we'll make in a little while, called F
+
+34
+00:02:08.033 --> 00:02:12.033
+BullCowGame.cpp. So, it let's us put the same text in
+
+35
+00:02:12.033 --> 00:02:16.033
+multiple places, literally a cut and paste. So, hash pragma once. What's that about?
+
+36
+00:02:16.033 --> 00:02:20.033
+Well, it's actually not completely standard. It's not in the standard C++ but it's very very
+
+37
+00:02:20.033 --> 00:02:24.033
+widely supported, and it's a way of making sure that anything that is
+
+38
+00:02:24.033 --> 00:02:28.033
+imported is only imported once. It's an optimization, we may as well leave it there!
+
+39
+00:02:28.033 --> 00:02:32.033
+So, do we need to import any namespaces? No, not at the moment! Let's just get on and write our class!
+
+40
+00:02:32.033 --> 00:02:36.033
+The way you do that is, you say class. You give it a name. So, what are we going to call the
+
+41
+00:02:36.033 --> 00:02:40.033
+class? Well, the same as the file, in this case. It doesn't have to be, by the way. One thing here
+
+42
+00:02:40.033 --> 00:02:44.033
+in C++ is that you can write as many
+
+43
+00:02:44.033 --> 00:02:48.033
+classes, in a single file as you want, but for simplicity, especially at the moment, let's just have
+
+44
+00:02:48.033 --> 00:02:52.033
+a file and one class per file, one file per class.
+
+45
+00:02:52.033 --> 00:02:56.033
+It's just going to be a lot easier. Then, you put your chevrons. So, that's your structure
+
+46
+00:02:56.033 --> 00:03:00.033
+class, alright. Now, what we want to focus on, here in this video is,
+
+47
+00:03:00.033 --> 00:03:04.033
+the public interface to this class. What a class is going to consist of is two things,
+
+48
+00:03:04.033 --> 00:03:08.033
+public colon and private colon. By the way, look at the way that it
+
+49
+00:03:08.033 --> 00:03:12.033
+indents that. It indents it across here. That's a bit weird, in my opinion,
+
+50
+00:03:12.033 --> 00:03:16.033
+because normally you'd expect everything that's inside braces like this to be indented,
+
+51
+00:03:16.033 --> 00:03:20.033
+but I allow the default here, because it's
+
+52
+00:03:20.033 --> 00:03:24.033
+pretty standard across the industry. And I just treat these things slightly differently
+
+53
+00:03:24.033 --> 00:03:28.033
+to normal keywords. These are just like bookmarks, to say which
+
+54
+00:03:28.033 --> 00:03:32.033
+part of the class definition you're in, so let's live with that. Anyway, what's this class
+
+55
+00:03:32.033 --> 00:03:36.033
+thing about? Well look, it's going to have, in general the pattern we're going to go for is this. We're going to have public
+
+56
+00:03:36.033 --> 00:03:40.033
+methods. Let me write the first public method. The first public method
+
+57
+00:03:40.033 --> 00:03:44.033
+could be Reset(), OK. So, let's just pretend it exists, and
+
+58
+00:03:44.033 --> 00:03:48.033
+we declare it here. Now, we need something to come back from Reset(). What would we have
+
+59
+00:03:48.033 --> 00:03:52.033
+come back from Reset()? For now nothing, but later on
+
+60
+00:03:52.033 --> 00:03:56.033
+we're going to want something richer to come back. So, I might put comment "// TODO
+
+61
+00:03:56.033 --> 00:04:00.033
+make a more rich return value."
+
+62
+00:04:00.033 --> 00:04:04.033
+What I mean by that is, something that tells us a bit of a status
+
+63
+00:04:04.033 --> 00:04:08.033
+about what actually came back, OK, but for now, we're just going to go void to flesh out
+
+64
+00:04:08.033 --> 00:04:12.033
+the idea. I'm going to write one more method, and then, you're challenge is going to be write all the others, once I've
+
+65
+00:04:12.033 --> 00:04:16.033
+given you the overview. So, once you've reset the game, another thing you might want to
+
+66
+00:04:16.033 --> 00:04:20.033
+be doing is saying, well let's
+
+67
+00:04:20.033 --> 00:04:24.033
+get the hidden... Oh, by the way, before we move on, resetting the game in future may
+
+68
+00:04:24.033 --> 00:04:28.033
+take in, for instance, an integer as to the size of the
+
+69
+00:04:28.033 --> 00:04:32.033
+WordLength. OK.
+
+70
+00:04:32.033 --> 00:04:36.033
+But for this whole section, we're just going to have a single word hard coded
+
+71
+00:04:36.033 --> 00:04:40.033
+in, so we can leave that out. Alright, so what else might we want to
+
+72
+00:04:40.033 --> 00:04:44.033
+do to a Bull Cow Game?  Well, for example, once we've reset the game,
+
+73
+00:04:44.033 --> 00:04:48.033
+we might want to get the number of tries, so we'd get an integer
+
+74
+00:04:48.033 --> 00:04:52.033
+back, and we could call this something like GetMaxTries(),
+
+75
+00:04:52.033 --> 00:04:56.033
+OK, and it would return us an integer. So, GetMaxTries() is
+
+76
+00:04:56.033 --> 00:05:00.033
+quite obvious what it does. I'm going to leave you to fill out the rest of these public methods,
+
+77
+00:05:00.033 --> 00:05:04.033
+in a moment, after a bit more priming. Now private, what would be in private? Basically,
+
+78
+00:05:04.033 --> 00:05:08.033
+we don't want to concern ourselves too much with this. We want to concern ourselves with the public
+
+79
+00:05:08.033 --> 00:05:12.033
+interface to this, but you are going to have private, both
+
+80
+00:05:12.033 --> 00:05:16.033
+private functions, which are helper functions which allow these things to happen
+
+81
+00:05:16.033 --> 00:05:20.033
+behind the scenes. But you're also going to have private variables, called
+
+82
+00:05:20.033 --> 00:05:24.033
+member variables, and these things would be things like,
+
+83
+00:05:24.033 --> 00:05:28.033
+I don't know, we may have an int MyCurrentTry(), would be an example.
+
+84
+00:05:28.033 --> 00:05:32.033
+And we may have an int MyMaxTries().
+
+85
+00:05:32.033 --> 00:05:36.033
+Now, I'll explain why I'm prefixing everything with My later on.
+
+86
+00:05:36.033 --> 00:05:40.033
+Well, what I'm trying to say is that there's a certain amount of stuff... Let me suggest another method, by the way.
+
+87
+00:05:40.033 --> 00:05:44.033
+It could be something like bool Is
+
+88
+00:05:44.033 --> 00:05:48.033
+Isogram(). Is
+
+89
+00:05:48.033 --> 00:05:52.033
+a particular string an isogram? That would be examples of
+
+90
+00:05:52.033 --> 00:05:56.033
+private methods we could imagine we want. Now, of course, string is not imported,
+
+91
+00:05:56.033 --> 00:06:00.033
+so I'll take this away for clarity. So, the general
+
+92
+00:06:00.033 --> 00:06:04.033
+pattern with Object Oriented Programming is that we don't expose any
+
+93
+00:06:04.033 --> 00:06:08.033
+variables publicly. We do all of the getting and setting of variables,
+
+94
+00:06:08.033 --> 00:06:12.033
+however simple it is, through methods. The variables stay
+
+95
+00:06:12.033 --> 00:06:16.033
+private like this. This is pure Object Oriented Programming, like that, and there's a lot to be said for
+
+96
+00:06:16.033 --> 00:06:20.033
+it, so certainly for now, this is how we're going to do things. Let's learn the rules before we break the rules.
+
+97
+00:06:20.033 --> 00:06:24.033
+So, I want you to kind of ignore the private members for now. In fact, I'm even going to put a comment
+
+98
+00:06:24.033 --> 00:06:28.033
+that says something like, "Please
+
+99
+00:06:28.033 --> 00:06:32.033
+try and ignore this
+
+100
+00:06:32.033 --> 00:06:36.033
+and focus on the interface
+
+101
+00:06:36.033 --> 00:06:40.033
+above" and spread it out.
+
+102
+00:06:40.033 --> 00:06:44.033
+You could even put some chevrons to say, look upwards, don't get concerned in the implementation
+
+103
+00:06:44.033 --> 00:06:48.033
+details. So, I leave a big space! Alright, let's focus right here on what Bull Cow
+
+104
+00:06:48.033 --> 00:06:52.033
+Game is going to do as an interface! What I want you to do now is, have a go on writing the rest of
+
+105
+00:06:52.033 --> 00:06:56.033
+the interface! It's going to change, but I just want you to think about how would you
+
+106
+00:06:56.033 --> 00:07:00.033
+talk to this Bull Cow Game thing, if you wanted to? This is top down
+
+107
+00:07:00.033 --> 00:07:04.033
+design now. We're thinking, we don't know how to make it work yet and then it doesn't do anything, but
+
+108
+00:07:04.033 --> 00:07:08.033
+how would we talk to it if we wanted to. So, here's your challenge! Write all the methods you can.
+
+109
+00:07:08.033 --> 00:07:12.033
+I want you to write as many simple signatures as you can. Don't
+
+110
+00:07:12.033 --> 00:07:16.033
+worry about getting it right. There's no right way anyway, the point is to think about it at this stage,
+
+111
+00:07:16.033 --> 00:07:20.033
+and enjoy working at a higher level of thinking and abstraction. Go and pause the video,
+
+112
+00:07:20.033 --> 00:07:24.033
+just write in a couple more helper methods, things that you think you might need in this game.
+
+113
+00:07:24.033 --> 00:07:28.033
+OK welcome back! Before you watch my solution, why not share
+
+114
+00:07:28.033 --> 00:07:32.033
+what you've got! Just share your public interface! Preferably take a
+
+115
+00:07:32.033 --> 00:07:36.033
+nice close in screenshot, just of class FBullCowGame() and just this
+
+116
+00:07:36.033 --> 00:07:40.033
+bit here. As a hint for you, by the way, for taking these screenshots, there's lots and lots of tools,
+
+117
+00:07:40.033 --> 00:07:44.033
+but one free one is called Jing ty Tech Smith. And also there's also
+
+118
+00:07:44.033 --> 00:07:48.033
+lots of others OK, but there's just a tip, Jing. J i n g!
+
+119
+00:07:48.033 --> 00:07:52.033
+Cool! So, let me just get you a couple of others, that I think that we may need! We may need to get back from
+
+120
+00:07:52.033 --> 00:07:56.033
+this game system the current try, so int Get
+
+121
+00:07:56.033 --> 00:08:00.033
+CurrentTry. And we may want to get from
+
+122
+00:08:00.033 --> 00:08:04.033
+this, what else? We may want to know if the game is won, so bool Is
+
+123
+00:08:04.033 --> 00:08:08.033
+GameWon(). Yeah, we don't let our main
+
+124
+00:08:08.033 --> 00:08:12.033
+code worry about this. Our view code, i.e. the stuff that we've got over here in main.cpp,
+
+125
+00:08:12.033 --> 00:08:16.033
+we let the game engine worry about that.
+
+126
+00:08:16.033 --> 00:08:20.033
+What else do we want? We may want to know whether a guess is valid.
+
+127
+00:08:20.033 --> 00:08:24.033
+For now, we'll have bool coming back and CheckGuess
+
+128
+00:08:24.033 --> 00:08:28.033
+Validity() and incoming
+
+129
+00:08:28.033 --> 00:08:32.033
+may be a (string). So, we send in a (string).
+
+130
+00:08:32.033 --> 00:08:36.033
+Again, let's make the richer return value for that later.
+
+131
+00:08:36.033 --> 00:08:40.033
+What else? We may want to actually submit
+
+132
+00:08:40.033 --> 00:08:44.033
+a guess. Now, what's going to come back from submitting a guess is complicated,
+
+133
+00:08:44.033 --> 00:08:48.033
+because we need bulls and cows together, and you can't put that in a single thing like an integer.
+
+134
+00:08:48.033 --> 00:08:48.400
+
+
+135
+00:08:48.400 --> 00:08:51.266
+So, we're going to have to create something called a struct, which we'll see shortly,
+
+136
+00:08:51.266 --> 00:08:55.266
+and that struct is beyond the scope of this video, it'll be in a very short future video.
+
+137
+00:08:55.266 --> 00:08:59.266
+So, I think we've got enough methods. If you've got something vaguely looking like
+
+138
+00:08:59.266 --> 00:09:03.266
+this, you've done very well! So, we've got a good few methods, you may have come up with some others.
+
+139
+00:09:03.266 --> 00:09:07.266
+It really doesn't matter what's in the private interface right now, that's just messy implementation
+
+140
+00:09:07.266 --> 00:09:11.266
+details. I'm not actually going to #include
+
+141
+00:09:11.266 --> 00:09:15.266
+string just yet, because I want to talk about a couple of consequences
+
+142
+00:09:15.266 --> 00:09:19.266
+here. What I certainly do not want you doing is using namespace
+
+143
+00:09:19.266 --> 00:09:22.066
+up at the top here. Using namespace is,
+
+144
+00:09:22.066 --> 00:09:27.266
+considered by some developers, a very naughty thing to do anywhere, but you never ever do it in a header
+
+145
+00:09:27.266 --> 00:09:31.266
+file. And that's because you can just completely lose track of what is going on,
+
+146
+00:09:31.266 --> 00:09:35.266
+if you start including header files that use namespaces. So, we do not use
+
+147
+00:09:35.266 --> 00:09:39.266
+using namespace, and I will, in the next video, start talking about
+
+148
+00:09:39.266 --> 00:09:43.266
+two things. One about how hash includes and hash including files that have hash
+
+149
+00:09:43.266 --> 00:09:46.966
+include that others works, and also, we'll talk a little bit about using namespace
+
+150
+00:09:46.966 --> 00:09:51.266
+and how we don't use it here and do various other things to tidy this header file up. But
+
+151
+00:09:51.266 --> 00:09:55.266
+hopefully you get the idea that this is basically just a contract. The most
+
+152
+00:09:55.266 --> 00:09:59.266
+important bit of it is here, and we are defining it at top level, what
+
+153
+00:09:59.266 --> 00:10:03.266
+we want this thing to do without how we're going to do it. Indeed somebody else could write the code potentially.
+
+154
+00:10:03.266 --> 00:10:07.266
+OK congratulations on this! I look forward to seeing your suggested
+
+155
+00:10:07.266 --> 00:10:11.266
+public interfaces to your class. I know some of this, if you're
+
+156
+00:10:11.266 --> 00:10:15.266
+a complete beginner, may all sound a little bit bamboozling but don't worry about it! Just trust in the
+
+157
+00:10:15.266 --> 00:10:19.266
+process that, it's OK to write these wishful methods that don't exist yet, and that we can
+
+158
+00:10:19.266 --> 00:10:22.166
+keep adding flesh to the bone as we go through!
+

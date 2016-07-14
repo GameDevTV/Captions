@@ -1,0 +1,654 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So
+
+2
+00:00:04.000 --> 00:00:08.000
+welcome to How to Report Bugs! In this video we're going to find a bug in one of the
+
+3
+00:00:08.000 --> 00:00:12.000
+methods, inside the engine. I'm going to show you how to fix that bug, so that
+
+4
+00:00:12.000 --> 00:00:16.000
+when you are running your game you get a aim solution every single frame, like
+
+5
+00:00:16.000 --> 00:00:20.000
+you can see on the logs at the bottom-left of the screen. And then, we're also going to go
+
+6
+00:00:20.000 --> 00:00:24.000
+ahead and move all of our code across to forward declarations like
+
+7
+00:00:24.000 --> 00:00:28.000
+this, so that we are doing what we
+
+8
+00:00:28.000 --> 00:00:31.466
+suggested a couple of videos ago. So I'll see you in there!
+
+9
+00:00:31.466 --> 00:00:35.466
+So, we've got this slightly strange problem. Let's clear the log, just recap what
+
+10
+00:00:35.466 --> 00:00:39.466
+it is really quickly. Taken a quick sample there, of a whole bunch of frames.
+
+11
+00:00:39.466 --> 00:00:43.466
+Just have a quick look at the log, a bit more space would be great! We can see that, for most
+
+12
+00:00:43.466 --> 00:00:47.466
+frames, there's no aim solution found for some reason. So, where's this
+
+13
+00:00:47.466 --> 00:00:51.466
+falling down? Well, I'll show you the general approach, then I want you to go through and
+
+14
+00:00:51.466 --> 00:00:55.466
+work out exactly what the problem is, because it's going to be a really good exercise. I could, of course,
+
+15
+00:00:55.466 --> 00:00:59.466
+have glossed over this problem and ignored it and just set the
+
+16
+00:00:59.466 --> 00:01:03.466
+code in a way that works, but that's not going to really help you. It's important that when you get something going,
+
+17
+00:01:03.466 --> 00:01:06.866
+and you're not sure what's happening like this, that you know how to debug it.
+
+18
+00:01:06.866 --> 00:01:10.866
+So, in case you're curious, firstly, how I discovered that this is where the aim
+
+19
+00:01:10.866 --> 00:01:14.866
+problem happens, what I did is I started right up at
+
+20
+00:01:14.866 --> 00:01:18.866
+the TankPlayerController, and I just made sure that this
+
+21
+00:01:18.866 --> 00:01:22.866
+AimTowardsCrosshair method is even being called. So, I did something like that,
+
+22
+00:01:22.866 --> 00:01:26.866
+and then, I just said aim called
+
+23
+00:01:26.866 --> 00:01:30.866
+or AimTowardsCrosshair
+
+24
+00:01:30.866 --> 00:01:34.866
+called"), etc. And then, I did that,
+
+25
+00:01:34.866 --> 00:01:38.866
+looked at the logs, saw that that was being called every frame,
+
+26
+00:01:38.866 --> 00:01:42.866
+took the logs away, went down to the Tank, made sure that
+
+27
+00:01:42.866 --> 00:01:46.866
+the AimAt was being called inside the Tank.cpp,
+
+28
+00:01:46.866 --> 00:01:50.866
+and so on, until I got down to the TankAimingComponent
+
+29
+00:01:50.866 --> 00:01:54.866
+and discovered that actually, the problem is that this HaveAim
+
+30
+00:01:54.866 --> 00:01:58.866
+Solution, this SuggestProjectileVelocity method is being inconsistent
+
+31
+00:01:58.866 --> 00:02:02.866
+in returning a result on it. Now look, I'd have to
+
+32
+00:02:02.866 --> 00:02:06.866
+own up to a mistake here, but it's not my mistake causing the problem actually. I have made a mistake
+
+33
+00:02:06.866 --> 00:02:10.866
+with these parameters. If you go after LaunchSpeed, you'll see that the next parameter expected
+
+34
+00:02:10.866 --> 00:02:14.866
+is a boolean for HighArch equaling false, and I've actually
+
+35
+00:02:14.866 --> 00:02:18.866
+put in the Trace option. I can't just skip the
+
+36
+00:02:18.866 --> 00:02:22.866
+collision radius and the override gravity. But what will actually be happening
+
+37
+00:02:22.866 --> 00:02:26.866
+here is that this enum will just effectively return false in this case, so
+
+38
+00:02:26.866 --> 00:02:30.866
+doing that would be the same thing.
+
+39
+00:02:30.866 --> 00:02:34.866
+But what's interesting with this method, and there's a problem with the method the way the method
+
+40
+00:02:34.866 --> 00:02:38.866
+runs, is that all of the parameters after Launch Speed are not only optional but they have
+
+41
+00:02:38.866 --> 00:02:42.866
+default values. The HighArc, the CollisionRadius, all of those things have default values.
+
+42
+00:02:42.866 --> 00:02:46.866
+So let's just try running this, without any more parameters after launch speed
+
+43
+00:02:46.866 --> 00:02:50.866
+and see what happens. Of course, I need to compile, and what I
+
+44
+00:02:50.866 --> 00:02:54.866
+think is going to happen is that, we're actually still going to have the problem. We're going to get this no aim
+
+45
+00:02:54.866 --> 00:02:58.866
+solution found. I'll clear the logs, while I wait for the compile. There you go! Most of
+
+46
+00:02:58.866 --> 00:03:02.866
+the time there's no aim solution. That's going to break everything, cause when we come to actually moving
+
+47
+00:03:02.866 --> 00:03:06.866
+the barrel, we need to be making sure that we are getting an aim instruction
+
+48
+00:03:06.866 --> 00:03:10.866
+every single frame, we need to be able to rely on that. We don't want execution flow to stop here,
+
+49
+00:03:10.866 --> 00:03:14.866
+unless, unless we happen to be pointing at the sky
+
+50
+00:03:14.866 --> 00:03:18.866
+or some other unsolvable solution, and then it's a place. And then,
+
+51
+00:03:18.866 --> 00:03:22.866
+it's fine for there to be no aim solution there, the barrel shouldn't try and move to hit the sky
+
+52
+00:03:22.866 --> 00:03:26.866
+because it can't. But there absolutely should be a solution, when I'm aiming at that point on the ground, not
+
+53
+00:03:26.866 --> 00:03:30.866
+just a solution every so ever many, however many frames but every single frame.
+
+54
+00:03:30.866 --> 00:03:34.866
+Alright, now it turns out that if here you come in and actually
+
+55
+00:03:34.866 --> 00:03:38.866
+put in false 0, 0,
+
+56
+00:03:38.866 --> 00:03:42.866
+and then crazily the
+
+57
+00:03:42.866 --> 00:03:46.866
+default value as I'm going to NotTrace. We don't need a
+
+58
+00:03:46.866 --> 00:03:50.866
+debug trace. Just giving it this default value makes all
+
+59
+00:03:50.866 --> 00:03:54.866
+the difference. Watch this, it's ridiculous! Because when you call a
+
+60
+00:03:54.866 --> 00:03:58.866
+function, it shouldn't matter if you miss out a parameter that has the default method.
+
+61
+00:03:58.866 --> 00:04:02.866
+Alright, the function should still work or complain that it's not going to work, but in this case,
+
+62
+00:04:02.866 --> 00:04:06.866
+it's actually changing it's behavior. Look! Now, every single frame we are getting
+
+63
+00:04:06.866 --> 00:04:10.866
+an aim solution, not a single one missed. So, that's what you need to be doing in your code. You
+
+64
+00:04:10.866 --> 00:04:14.866
+need to be saying false, LaunchSpeed, then false, 0, 0, and then the Do
+
+65
+00:04:14.866 --> 00:04:18.866
+NotTrace. It's that bottom line that makes the difference. If I comment that out
+
+66
+00:04:18.866 --> 00:04:22.866
+and recompile, it's that one that makes the difference. So,
+
+67
+00:04:22.866 --> 00:04:26.866
+let's just show that, and then, I think I'll bring the point home. Now, interestingly
+
+68
+00:04:26.866 --> 00:04:30.866
+I've also tried this... What have I done? I've probably left a trailing comma. Yep, there you go!
+
+69
+00:04:30.866 --> 00:04:34.866
+So let's recompile! I've also tried this in version 4.12.2
+
+70
+00:04:34.866 --> 00:04:38.866
+of Unreal, and it doesn't work there either, so please don't yet
+
+71
+00:04:38.866 --> 00:04:42.866
+upgrade to 12.4.2. In fact, we're going to keep this entire project in 4.11. It's very
+
+72
+00:04:42.866 --> 00:04:46.866
+easy to manage multiple versions. You click Add Versions and install whatever previous version you
+
+73
+00:04:46.866 --> 00:04:50.866
+want. Alright, I don't really care which subversion you're in particularly, but I want
+
+74
+00:04:50.866 --> 00:04:54.866
+us to keep Building Escape in 4.10, Battle Tank in 4.11, and then, the next section,
+
+75
+00:04:54.866 --> 00:04:58.866
+we'll go up to  4.12. So the problem doesn't go away in 4.12.
+
+76
+00:04:58.866 --> 00:05:02.866
+And I will report this bug, and I'll even show you how to report it, in just a second.
+
+77
+00:05:02.866 --> 00:05:06.866
+But let's just take a look. There you go, the problem's back!
+
+78
+00:05:06.866 --> 00:05:10.866
+OK, so I must specify this parameter, and what that does is,
+
+79
+00:05:10.866 --> 00:05:14.866
+it gives us a, a way of
+
+80
+00:05:14.866 --> 00:05:18.866
+giving EPIC a very easy reproducible bug.
+
+81
+00:05:18.866 --> 00:05:22.866
+What you can do for them is, you can say something like comment
+
+82
+00:05:22.866 --> 00:05:26.866
+or comment this parameter or even line. If you
+
+83
+00:05:26.866 --> 00:05:30.866
+really want to be funny, you could put the comma there and do that, so you can just
+
+84
+00:05:30.866 --> 00:05:34.866
+say "// comment this line to produce
+
+85
+00:05:34.866 --> 00:05:38.866
+bug". OK, and then if they were to come along and comment this line like
+
+86
+00:05:38.866 --> 00:05:42.866
+that, then the bug would occur. And the, what you can do is you can commit your
+
+87
+00:05:42.866 --> 00:05:46.866
+work, and then, you can push it up to the Internet.
+
+88
+00:05:46.866 --> 00:05:50.866
+And once it's on the web you can go to, let's just say, Github,
+
+89
+00:05:50.866 --> 00:05:54.866
+and let's just take a look, github.com/bentristem.
+
+90
+00:05:54.866 --> 00:05:58.866
+Click follow, [Laughs] just to keep the only child in me happy!
+
+91
+00:05:58.866 --> 00:06:02.866
+So, you go and find where you have committed it to the
+
+92
+00:06:02.866 --> 00:06:06.866
+web. Now, let's just imagine that it's this commit here. Now that's publicly available
+
+93
+00:06:06.866 --> 00:06:10.866
+right? So, you could copy the link address and say, hey EPIC, it would be a good
+
+94
+00:06:10.866 --> 00:06:14.866
+idea if you did this. I've got this bug. The way that you reproduce it is,
+
+95
+00:06:14.866 --> 00:06:18.866
+number 1, you go get this check-out from here, from this link address, and that will
+
+96
+00:06:18.866 --> 00:06:22.866
+be a link to the exact commit, so they can go get the code. You open it in version
+
+97
+00:06:22.866 --> 00:06:26.866
+4.11.2 or 4.12.2,
+
+98
+00:06:26.866 --> 00:06:30.866
+you then go into the TankAimingComponent.cpp,
+
+99
+00:06:30.866 --> 00:06:34.866
+and you comment outline 40.  And you will find, And then, you
+
+100
+00:06:34.866 --> 00:06:38.866
+what you do is, you run the game. Compile and run the game... We don't need to tell them to compile, right. You run the
+
+101
+00:06:38.866 --> 00:06:42.866
+game and notice that there's no aim solution every frame, only if we
+
+102
+00:06:42.866 --> 00:06:46.866
+specify what should be an optional parameter, and by doing that, you'd be giving them a
+
+103
+00:06:46.866 --> 00:06:50.866
+very specific bug reproduction
+
+104
+00:06:50.866 --> 00:06:54.866
+scenario. Because whenever you report a but, it's important you report it in a way that
+
+105
+00:06:54.866 --> 00:06:58.866
+the people who are receiving that bug report are able to do something about it.
+
+106
+00:06:58.866 --> 00:07:02.866
+So, I will go ahead and report this bug after the video. You probably
+
+107
+00:07:02.866 --> 00:07:06.866
+should report the same bug as well. I think what we need to do, just for the rest of the video
+
+108
+00:07:06.866 --> 00:07:10.866
+while we're in the spirit of getting our code working properly, is
+
+109
+00:07:10.866 --> 00:07:14.866
+I'm going to make a li, I'm going to "// TODO
+
+110
+00:07:14.866 --> 00:07:18.866
+report bug". And I'm also going
+
+111
+00:07:18.866 --> 00:07:22.866
+to make sure that this line is commented here,
+
+112
+00:07:22.866 --> 00:07:26.866
+that "// Parameter
+
+113
+00:07:26.866 --> 00:07:30.866
+must be present to prevent
+
+114
+00:07:30.866 --> 00:07:34.866
+bug". OK, to remind yourself not to
+
+115
+00:07:34.866 --> 00:07:38.866
+remove that parameter. It'll also put things back in a sensible line and just leave a
+
+116
+00:07:38.866 --> 00:07:42.866
+default to report the bug. OK, the other thing I want to do, and that's going to be your challenge,
+
+117
+00:07:42.866 --> 00:07:46.866
+is I want to move to forward declarations, just rolling you back two or three lectures
+
+118
+00:07:46.866 --> 00:07:50.866
+for all of these classes. Remember that in the header files we
+
+119
+00:07:50.866 --> 00:07:54.866
+shouldn't be importing other classes. So in the Tank.h,
+
+120
+00:07:54.866 --> 00:07:58.866
+unless we're inheriting from Pawn, like we are here, that's fine, but we shouldn't be
+
+121
+00:07:58.866 --> 00:08:02.866
+importing the TankAimingComponent.h. So here's
+
+122
+00:08:02.866 --> 00:08:06.866
+your challenge for this video! Move to Forward Declarations! Personally report that but to EPIC, if
+
+123
+00:08:06.866 --> 00:08:10.866
+you wish. Recap the Forward Declarations video if you need to, then move to Forward
+
+124
+00:08:10.866 --> 00:08:14.866
+Declarations in all the header files, making sure you really understood that content, and then,
+
+125
+00:08:14.866 --> 00:08:18.866
+test your game still runs. So go ahead, pause the video, and let's move to forward declarations and generally
+
+126
+00:08:18.866 --> 00:08:22.866
+have a look over our code right now.
+
+127
+00:08:22.866 --> 00:08:26.866
+So welcome back, let's do this pretty quickly!
+
+128
+00:08:26.866 --> 00:08:30.866
+So, the TankAimingComponent, we don't don't need that #include in the Tank.h,
+
+129
+00:08:30.866 --> 00:08:34.866
+but we are going to need it in the Tank.cpp.
+
+130
+00:08:34.866 --> 00:08:38.866
+Then, you ask yourself in the Tank.h, why did we put TankAimingComponent
+
+131
+00:08:38.866 --> 00:08:42.866
+in, in the first place? Well, that will be because it's used here, TankAimingComponent.
+
+132
+00:08:42.866 --> 00:08:46.866
+So, what we want to do is, simply say class
+
+133
+00:08:46.866 --> 00:08:50.866
+UTankAimingComponent; I might label this section as "// Forward declarations.
+
+134
+00:08:50.866 --> 00:08:54.866
+OK, now we're getting very explicit
+
+135
+00:08:54.866 --> 00:08:58.866
+about what's going on. Right, very cool! let's go through all of the header files!
+
+136
+00:08:58.866 --> 00:09:02.866
+This one is good because we need Pawn, because we're inheriting from Pawn, and we always have a generated.
+
+137
+00:09:02.866 --> 00:09:06.866
+OK, AI Controller! It's importing the Tank!
+
+138
+00:09:06.866 --> 00:09:10.866
+Naughty naughty! That should be in the TankAIController.cpp.
+
+139
+00:09:10.866 --> 00:09:14.866
+So we import Battle Tank, we import the Tank, and then,
+
+140
+00:09:14.866 --> 00:09:18.866
+we obviously include its own header file. Cool!
+
+141
+00:09:18.866 --> 00:09:22.866
+So, in the AIController header file we say, well why did we bother importing
+
+142
+00:09:22.866 --> 00:09:26.866
+the Tank in the first place? Because somewhere down here we have ATank,
+
+143
+00:09:26.866 --> 00:09:30.866
+which is where we then do a forward declaration
+
+144
+00:09:30.866 --> 00:09:34.866
+class ATank. Alright, keeps life simple. Tank
+
+145
+00:09:34.866 --> 00:09:38.866
+AimingComponent, that's fine! It is an Actor, so it must
+
+146
+00:09:38.866 --> 00:09:42.866
+import Actor, and the generated is normal. Let's move on! The Barrel, nothing
+
+147
+00:09:42.866 --> 00:09:46.866
+funny going on here. It is a StaticMesh and it imports a generated file. Cool!
+
+148
+00:09:46.866 --> 00:09:50.866
+PlayerController, any funny business? Yes, there's a Tank! So we move the Tank #include
+
+149
+00:09:50.866 --> 00:09:54.866
+from the TankPlayerController header file, over into the code
+
+150
+00:09:54.866 --> 00:09:58.866
+file, in here. You go back to the header file, ask a
+
+151
+00:09:58.866 --> 00:10:02.866
+question, do I really need it? You do, because we're using the type there, so then, we do a forward
+
+152
+00:10:02.866 --> 00:10:06.866
+declaration for the Tank. Ahh!
+
+153
+00:10:06.866 --> 00:10:10.866
+Fast, furious, but simple! Hopefully that was simple
+
+154
+00:10:10.866 --> 00:10:14.866
+for you. If you're not sure what I was doing there, then please go back to the video on
+
+155
+00:10:14.866 --> 00:10:18.866
+forward declarations and that will explain it. So, I'm just going to compile now, make sure that
+
+156
+00:10:18.866 --> 00:10:22.866
+this works. Make sure that we get not only the game running as it was,
+
+157
+00:10:22.866 --> 00:10:26.866
+with all those forward declarations, but also that we get the
+
+158
+00:10:26.866 --> 00:10:30.866
+aim solution every single frame, even if I let go of the mouse. Cool! So now we finally
+
+159
+00:10:30.866 --> 00:10:34.866
+are in a position where we can use this structure to
+
+160
+00:10:34.866 --> 00:10:38.866
+get the barrel elevating and then the turret rotating.
+
+161
+00:10:38.866 --> 00:10:42.866
+The forward declarations, by the way, are nothing to do with that, that was just they needed doing, so I was getting them done.
+
+162
+00:10:42.866 --> 00:10:46.866
+So that's it! See you in the next video!
+
+163
+00:10:46.866 --> 00:10:47.599
+
+

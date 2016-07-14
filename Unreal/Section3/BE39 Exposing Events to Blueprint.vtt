@@ -1,0 +1,702 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+I'm so excited about this one, I want to get
+
+2
+00:00:04.000 --> 00:00:08.000
+right into it real quick! So, sometimes blueprints
+
+3
+00:00:08.000 --> 00:00:12.000
+are just the better choice for getting things done. For example, defining our door
+
+4
+00:00:12.000 --> 00:00:16.000
+swing as a visual curve is the ideal way to do it, rather than messing around with
+
+5
+00:00:16.000 --> 00:00:20.000
+sign waves and things in code. So, we can create an
+
+6
+00:00:20.000 --> 00:00:24.000
+event called OnOpenRequest, and we can declare it as
+
+7
+00:00:24.000 --> 00:00:28.000
+(Blueprint Assignable)* UPROPERTY
+
+8
+00:00:28.000 --> 00:00:32.000
+according to these documentations, but only if we do some cool things. So, let's dive
+
+9
+00:00:32.000 --> 00:00:34.100
+in and see how it's done!
+
+10
+00:00:34.100 --> 00:00:38.100
+So, now with our nicely protected code in hand, it's time
+
+11
+00:00:38.100 --> 00:00:42.100
+to do something pretty cool! What I'd like to do is, rather than these
+
+12
+00:00:42.100 --> 00:00:46.100
+doors just opening perfectly to 90 degrees instantly like that, what I want
+
+13
+00:00:46.100 --> 00:00:50.100
+to do is use something called a Node Editor in Blueprint. So, the first thing we're going to need is
+
+14
+00:00:50.100 --> 00:00:54.100
+some blueprints to work on, and that's going to be a blueprint of the
+
+15
+00:00:54.100 --> 00:00:58.100
+doors themselves. So, if we look at these doors right now, then they're a compount
+
+16
+00:00:58.100 --> 00:01:02.100
+object with an OpenDoor component on them, and the
+
+17
+00:01:02.100 --> 00:01:06.100
+same door is being used in more than one place. So, this is an instance where we
+
+18
+00:01:06.100 --> 00:01:10.100
+want to be making a blueprint of the door. So, let's start by doing that! Click on either door,
+
+19
+00:01:10.100 --> 00:01:14.100
+go to the Blueprints menu, and carefully choose the Convert Selected
+
+20
+00:01:14.100 --> 00:01:18.100
+Actor to Blueprint Class.
+
+21
+00:01:18.100 --> 00:01:22.100
+Let's do that! I'm going to call it Openable
+
+22
+00:01:22.100 --> 00:01:26.100
+Door, maybe with an underscore because that was the pattern they were using,
+
+23
+00:01:26.100 --> 00:01:30.100
+and Create Blueprint. Cool! Now, just real quick, before we go
+
+24
+00:01:30.100 --> 00:01:34.100
+any further, I'm going to click on the door itself in the Viewport, check that the mesh still
+
+25
+00:01:34.100 --> 00:01:38.100
+has a collider on it. It does! That's cool! I've had a problem with that in the
+
+26
+00:01:38.100 --> 00:01:42.100
+past. OK, so this is it! We actually have a blueprint of the door now! This we
+
+27
+00:01:42.100 --> 00:01:46.100
+can be using to create other similar openable doors, and what we're going to
+
+28
+00:01:46.100 --> 00:01:50.100
+do shortly is, we're going to have some events
+
+29
+00:01:50.100 --> 00:01:54.100
+here in the Event Graph. I'm actually going to delete all of this stuff. You're welcome to do that now, if you like.
+
+30
+00:01:54.100 --> 00:01:58.100
+Highlight everything in the Event Graph and just hit your Delete Key.
+
+31
+00:01:58.100 --> 00:02:02.100
+So, we will have an event come in here that says, hey there's been a door opened,
+
+32
+00:02:02.100 --> 00:02:06.100
+it's going to come from C++, and then, we're going to use blueprint with
+
+33
+00:02:06.100 --> 00:02:10.100
+something called a Timeline.
+
+34
+00:02:10.100 --> 00:02:14.100
+Here you go, a Timeline at the bottom here,
+
+35
+00:02:14.100 --> 00:02:18.100
+and this Timeline is going to allow us to do something pretty cool. It's going to allow
+
+36
+00:02:18.100 --> 00:02:22.100
+us to actually define the movement of the door,
+
+37
+00:02:22.100 --> 00:02:26.100
+or don't bother doing any of this. I'm just going to show you, using things called
+
+38
+00:02:26.100 --> 00:02:30.100
+Bezier Curves. Look at this! How cool is this! And we're actually going to be able to define the movement like
+
+39
+00:02:30.100 --> 00:02:34.100
+this! This is why we're doing it here in Blueprint, this is a better way of doing things right?
+
+40
+00:02:34.100 --> 00:02:38.100
+Obviously a better way of doing things than trying to write code to follow those lines.
+
+41
+00:02:38.100 --> 00:02:42.100
+So, I'm going to leave an empty graph and I'm just going to
+
+42
+00:02:42.100 --> 00:02:46.100
+compile my blueprint. All we've done with the Openable_Door_BP, as a recap, is nothing.
+
+43
+00:02:46.100 --> 00:02:50.100
+We've just made a blueprint. I did just check in the Viewport
+
+44
+00:02:50.100 --> 00:02:54.100
+that my mesh has a collider, this purple thing around the outside of it,
+
+45
+00:02:54.100 --> 00:02:58.100
+this collision that's flashing on and off. But I've basically done nothing apart from making a
+
+46
+00:02:58.100 --> 00:03:02.100
+blueprint. OK, so the left-hand door, if we look in the World Outliner,
+
+47
+00:03:02.100 --> 00:03:06.100
+is a blueprinted door. The right-hand one is not, so I'm going to change my
+
+48
+00:03:06.100 --> 00:03:10.100
+other door for a blueprinted door. Kind of grab it from there,
+
+49
+00:03:10.100 --> 00:03:14.100
+put it in the hole, and of course, if it doesn't fit precisely, I may need to change my
+
+50
+00:03:14.100 --> 00:03:18.100
+Snap Value to just make it fit snuggly. OK, let's
+
+51
+00:03:18.100 --> 00:03:22.100
+try this! Play, now I get 2 errors, Open_Door_BP
+
+52
+00:03:22.100 --> 00:03:26.100
+and BP2_64. I can Eject with their fate.
+
+53
+00:03:26.100 --> 00:03:30.100
+I'm missing pressure plates, but we didn't crash because of the work we've just done! Awesome!
+
+54
+00:03:30.100 --> 00:03:34.100
+If I look in my World Outliner, I will find that these are the two doors in question.
+
+55
+00:03:34.100 --> 00:03:38.100
+If you hover over them, Door_BP, Door_BP2_64,
+
+56
+00:03:38.100 --> 00:03:42.100
+the two doors are both missing the pressure plate. That
+
+57
+00:03:42.100 --> 00:03:46.100
+was the problem with the blueprint. We can't, of course, refer to the pressure plate in
+
+58
+00:03:46.100 --> 00:03:50.100
+the blueprint, or we could but it's not a very reusable
+
+59
+00:03:50.100 --> 00:03:54.100
+asset then. So, we're probably better off just getting that error, going to the OpenDoor, and going
+
+60
+00:03:54.100 --> 00:03:58.100
+oh yeah, this door is opened by that plate and this door is also,
+
+61
+00:03:58.100 --> 00:04:02.100
+in this case. And then in your game it might be different, I hope you're doing something different. It's opened
+
+62
+00:04:02.100 --> 00:04:06.100
+by that one! Cool! So, we have a templated door that we can use
+
+63
+00:04:06.100 --> 00:04:10.100
+and it is stable. If we don't have a TriggerVolume and the
+
+64
+00:04:10.100 --> 00:04:14.100
+game doesn't crash, we can put it in, and now we're back kind of to where
+
+65
+00:04:14.100 --> 00:04:18.100
+we were, except that we now with these doors have a
+
+66
+00:04:18.100 --> 00:04:22.100
+blueprint we can edit. The question is, how do we know when
+
+67
+00:04:22.100 --> 00:04:26.100
+the doors are going to open. What we need to do is create an event that's
+
+68
+00:04:26.100 --> 00:04:30.100
+raised in the C++, that we can see in the blueprint. Now, it
+
+69
+00:04:30.100 --> 00:04:34.100
+turns out that's not completely trivial to do but it's doable. This is
+
+70
+00:04:34.100 --> 00:04:38.100
+the documentation you need, it's linked in the original slide. You need to
+
+71
+00:04:38.100 --> 00:04:42.100
+do this. We need to start, by making something
+
+72
+00:04:42.100 --> 00:04:46.100
+(Blueprint Assignable). We're going to make a variable (BlueprintAssignable) per here.
+
+73
+00:04:46.100 --> 00:04:50.100
+OK, so that's a template of it and this is the example. And to make
+
+74
+00:04:50.100 --> 00:04:54.100
+it (BlueprintAssignable), we need to do this at the top above
+
+75
+00:04:54.100 --> 00:04:58.100
+our class. We're actually going to make a class called, in our case,
+
+76
+00:04:58.100 --> 00:05:02.100
+FOnOpenRequest, and we're not going to have any other
+
+77
+00:05:02.100 --> 00:05:06.100
+parameters. So, we're going to make a new class using this strange
+
+78
+00:05:06.100 --> 00:05:10.100
+method here, this strange macro here,
+
+79
+00:05:10.100 --> 00:05:14.100
+and then, we're going to define something, an event handler
+
+80
+00:05:14.100 --> 00:05:18.100
+of type that class and then, we're going to actually get a hold of that
+
+81
+00:05:18.100 --> 00:05:22.100
+Blueprint. So, let's go and do it! This is one of these things I've just got to show you how to do, but
+
+82
+00:05:22.100 --> 00:05:26.100
+you're going to get a chance to fiddle with the blueprint in a minute. So, with this pattern in
+
+83
+00:05:26.100 --> 00:05:30.100
+mind, I think I'm just going to copy DECLARE_DYNAMIC-MULTICAST_DELIGATE, because that's the
+
+84
+00:05:30.100 --> 00:05:34.100
+thing I'm most likely to spell wrong. Let's go into the IDE and make
+
+85
+00:05:34.100 --> 00:05:38.100
+this happen! So, we're going to be in Open_Door,
+
+86
+00:05:38.100 --> 00:05:42.100
+which make sense right because it's the OpenDoor.h
+
+87
+00:05:42.100 --> 00:05:46.100
+that we're wanting to extend. Above the class,
+
+88
+00:05:46.100 --> 00:05:50.100
+in OpenDoor, I want you to put DECLARE_DYNAMIC_MULTICAST_DELIGATES(). Whew, that's
+
+89
+00:05:50.100 --> 00:05:54.100
+a mouthful isn't it? Why do we need this? Let's not go into too much
+
+90
+00:05:54.100 --> 00:05:58.100
+detail. Basically, if we want to make an event (Blueprint
+
+91
+00:05:58.100 --> 00:06:02.100
+Assignable), it basically needs to be one of these guys. It turns out an
+
+92
+00:06:02.100 --> 00:06:06.100
+event is a special part or a sub-set,
+
+93
+00:06:06.100 --> 00:06:10.100
+if you like, of a DYNAMIC_MULTICAST_DELIGATE, but look,
+
+94
+00:06:10.100 --> 00:06:14.100
+man that's a horrible sounding thing but we are declaring something.
+
+95
+00:06:14.100 --> 00:06:18.100
+It is DYNAMIC, which means it's serializable, which we turn out to need, which is MULTICAST
+
+96
+00:06:18.100 --> 00:06:22.100
+which means one to many. And it is a DELEGATE, which means that something else
+
+97
+00:06:22.100 --> 00:06:26.100
+is going to handle the operation and something else is going to be the blueprint. That's basically
+
+98
+00:06:26.100 --> 00:06:30.100
+what that means. So, DECLARE_DYNAMIC_MULTICAST_
+
+99
+00:06:30.100 --> 00:06:34.100
+DELEGATE(). And then, we're going to call it, starting with F, because the Unreal coding standards other
+
+100
+00:06:34.100 --> 00:06:38.100
+classes start with F (FOnOpenRequest).
+
+101
+00:06:38.100 --> 00:06:42.100
+Now, I'm going to end, start ending all macros with
+
+102
+00:06:42.100 --> 00:06:46.100
+a semicolon, unless otherwise stated, just to remove confusion.
+
+103
+00:06:46.100 --> 00:06:50.100
+So, let's just make sure this works first. The IDE doesn't like it,
+
+104
+00:06:50.100 --> 00:06:54.100
+Visual Studio doesn't like it. That's because it doesn't understand about these thing. What we need to do
+
+105
+00:06:54.100 --> 00:06:58.100
+is go and compile over here. I very much want you to get in the habit of compiling
+
+106
+00:06:58.100 --> 00:07:02.100
+in Unreal, because the errors you'll get will be much more useful over here,
+
+107
+00:07:02.100 --> 00:07:06.100
+and it should compile just fine. What we're just doing is proving that, that made
+
+108
+00:07:06.100 --> 00:07:10.100
+sense to the compiler, one step at a time. Now, we want to make
+
+109
+00:07:10.100 --> 00:07:14.100
+a public property, but importantly it's a UPROPERTY,
+
+110
+00:07:14.100 --> 00:07:18.100
+which we usually use to expose things to the Details Tab
+
+111
+00:07:18.100 --> 00:07:22.100
+and we're going to make it blueprint assignable.
+
+112
+00:07:22.100 --> 00:07:26.100
+OK, not this thing that's autofilling, but that does prove it's spelled right. You can choose that if you
+
+113
+00:07:26.100 --> 00:07:30.100
+like, and then, take the CPF off the front. So, it's a blueprint
+
+114
+00:07:30.100 --> 00:07:34.100
+assignable thing, and what is it going to be called? Well, the type is going to be this
+
+115
+00:07:34.100 --> 00:07:38.100
+(FOnOpenRequest). You see this has actually gone the right color now that
+
+116
+00:07:38.100 --> 00:07:42.100
+Unreal has had a chance to run. OK, so we've made a new class, that's
+
+117
+00:07:42.100 --> 00:07:46.100
+why it's above the class definition. This makes a whole new class called (FOnOpenRequest) a new
+
+118
+00:07:46.100 --> 00:07:50.100
+type. So, we're going to make an (FOnOpenRequest)
+
+119
+00:07:50.100 --> 00:07:54.100
+and what are we going to call it? What do we always call things when we're not sure? Just the thing without the
+
+120
+00:07:54.100 --> 00:07:58.100
+prefix OnOpenRequest;
+
+121
+00:07:58.100 --> 00:08:02.100
+OK, so this is our thing that is
+
+122
+00:08:02.100 --> 00:08:06.100
+actually going to allow us to handle the event, OnOpenRequest.
+
+123
+00:08:06.100 --> 00:08:10.100
+When is it going to be called and how do we call it? Well, you don't call an event, you
+
+124
+00:08:10.100 --> 00:08:14.100
+broadcast on an event. So, over here
+
+125
+00:08:14.100 --> 00:08:18.100
+in our OpenDoor(), let's look at OpenDoor. Let's stop rotating the actor, you
+
+126
+00:08:18.100 --> 00:08:22.100
+can comment it or delete it. I'll comment it for now and we're just going
+
+127
+00:08:22.100 --> 00:08:26.100
+to say OnOpenRequest
+
+128
+00:08:26.100 --> 00:08:30.100
+dot, and it's a Request because it's the blueprint that's actually going to do the
+
+129
+00:08:30.100 --> 00:08:34.100
+opening, so we're only requesting an opening, .Broadcast.
+
+130
+00:08:34.100 --> 00:08:38.100
+And I've gone off there. .Broadcast(); and that's a method.
+
+131
+00:08:38.100 --> 00:08:42.100
+OK, so what on earth have we done here? [Laughs] We
+
+132
+00:08:42.100 --> 00:08:46.100
+have made a class, we have said that we want it to be (Blueprint
+
+133
+00:08:46.100 --> 00:08:50.100
+Assignable), we've made this OnOpenRequest, and then, when we open
+
+134
+00:08:50.100 --> 00:08:54.100
+the door, instead of setting the rotation directly, we are broadcasting on that event. Now,
+
+135
+00:08:54.100 --> 00:08:58.100
+let's go and compile and see how, in Blueprint,
+
+136
+00:08:58.100 --> 00:09:02.100
+we actually get hold of this event. This is a triumph, by the way, in your
+
+137
+00:09:02.100 --> 00:09:06.100
+progress in Unreal, if we can dive and dance between Blueprint and
+
+138
+00:09:06.100 --> 00:09:10.100
+C++ as we need to, we're in a great place right where you
+
+139
+00:09:10.100 --> 00:09:14.100
+use the tool that's best for the job in hand. C++ has been best up to
+
+140
+00:09:14.100 --> 00:09:18.100
+now, defining the movement of that door is better in Blueprint. Let's go from C++
+
+141
+00:09:18.100 --> 00:09:22.100
+to Blueprint, and later I'll show you how to go the other way back. So, let's open the
+
+142
+00:09:22.100 --> 00:09:26.100
+door blueprint. Click on the OpenDoor component. If you're not on the OpenDoor component like
+
+143
+00:09:26.100 --> 00:09:30.100
+this and you right click inside the Event Graph, you're not going to get the references
+
+144
+00:09:30.100 --> 00:09:34.100
+you need. The way the Blueprint Editor works is, you have to be clicked on the thing you want to reference
+
+145
+00:09:34.100 --> 00:09:38.100
+to. Now, with OpenDoor click, which is where we just wrote our code,
+
+146
+00:09:38.100 --> 00:09:42.100
+right-click and you'll see you have Add Event for Open Door, Event Dispatchers,
+
+147
+00:09:42.100 --> 00:09:46.100
+Add On Open Request. Zoom in with the Mouse
+
+148
+00:09:46.100 --> 00:09:50.100
+Wheel and that is the event OK. Awesome!
+
+149
+00:09:50.100 --> 00:09:54.100
+You can drag the execution, the white execution line off the
+
+150
+00:09:54.100 --> 00:09:58.100
+event, Set Actor Rotation.
+
+151
+00:09:58.100 --> 00:10:02.100
+So, I want you to drag off the white line, and the thing that comes up,
+
+152
+00:10:02.100 --> 00:10:06.100
+I want you to search for Set Actor Rotation then choose it.
+
+153
+00:10:06.100 --> 00:10:10.100
+Now, your challenge comes. It's very simple but it gives you a chance to catch up, because this has come
+
+154
+00:10:10.100 --> 00:10:14.100
+hard and fast and to make the final bit, which will be very satisfying. I want you to
+
+155
+00:10:14.100 --> 00:10:18.100
+set a rotation and test that it works. Set a door rotation, here in the blueprint,
+
+156
+00:10:18.100 --> 00:10:22.100
+test the game still plays the same, and celebrate the fact you're now
+
+157
+00:10:22.100 --> 00:10:26.100
+using C++ events in Blueprint. You may say, how do I set that rotation?
+
+158
+00:10:26.100 --> 00:10:30.100
+Just take a look in the Blueprint there, there's three numbers for X, Y, and Z. Just
+
+159
+00:10:30.100 --> 00:10:34.100
+choose the correct axis, and put a number of degrees in it. You can do it!
+
+160
+00:10:34.100 --> 00:10:38.100
+
+
+161
+00:10:38.100 --> 00:10:42.100
+So, welcome back! Let's do this! I'm going to choose -60
+
+162
+00:10:42.100 --> 00:10:46.100
+in Z. OK, and I'm going to Compile
+
+163
+00:10:46.100 --> 00:10:50.100
+my blueprint, play the game. What happens? Nothing! We get on here... Ah,
+
+164
+00:10:50.100 --> 00:10:54.100
+it opens! Was that because of the blueprint or
+
+165
+00:10:54.100 --> 00:10:58.100
+is it an illusion? Let's test! Let's go and change that to, I don't know,
+
+166
+00:10:58.100 --> 00:11:02.100
+30 +30! It should come 30 degrees towards me now! Let's
+
+167
+00:11:02.100 --> 00:11:06.100
+see! Ah, you see I have control in
+
+168
+00:11:06.100 --> 00:11:10.100
+blueprint! That is seriously awesome! OK,
+
+169
+00:11:10.100 --> 00:11:14.100
+so congratulations, this is really big news! You can now
+
+170
+00:11:14.100 --> 00:11:18.100
+go from C++ to Blueprint, via asynchronous events! i.e.
+
+171
+00:11:18.100 --> 00:11:22.100
+events that happen at no particular time. I'm going to make it a -80
+
+172
+00:11:22.100 --> 00:11:26.100
+degree opening, and up next, we're going to talk about how to turn this into a smooth
+
+173
+00:11:26.100 --> 00:11:30.100
+fluid movement, based on a curve, that we define in graphical
+
+174
+00:11:30.100 --> 00:11:34.100
+interface. Exactly where we want to be for that job! Well done!
+
+175
+00:11:34.100 --> 00:11:36.833
+
+
