@@ -1,0 +1,443 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:03.840 --> 00:00:06.569
+Hey welcome back! We've got loads in store
+for you, in this video, so we're going to
+
+00:00:06.569 --> 00:00:11.070
+give a basic expl... Blah, I'm going to leave
+that in. [Laughs] I'm going to give a basic
+
+00:00:11.070 --> 00:00:16.330
+explanation of scope, I'm going to use variables
+in the appropriate scope, we're going to use
+
+00:00:16.330 --> 00:00:21.590
+instance variables for global access through
+the entire class, we're going to use MonoDevelop's
+
+00:00:21.590 --> 00:00:24.900
+Auto-Completion to help you code faster, and
+you're going to know the difference between
+
+00:00:24.900 --> 00:00:29.050
+declaring and initializing variables. So,
+let's dive in! Here's our Number Wizard game,
+
+00:00:29.050 --> 00:00:33.790
+so far it's not doing much, it's just responding
+to keys, but it's a triumph in its own right,
+
+00:00:33.790 --> 00:00:38.059
+at this point. What we need it to do next
+is start changing its guess, so let's just
+
+00:00:38.059 --> 00:00:42.120
+look at how it works at the moment. It goes
+pick a number or think of a number between
+
+00:00:42.120 --> 00:00:47.070
+1 and 1,000 and then, it asks whether it's
+higher or lower than 500, gives us some instructions,
+
+00:00:47.070 --> 00:00:50.850
+but then, it just tells us we've pressed keys.
+We kind of knew that, so what it needs to
+
+00:00:50.850 --> 00:00:55.559
+start doing is start changing its guess. So,
+that's what we're going to do now. Alright,
+
+00:00:55.559 --> 00:01:03.760
+let's go into the Up Arrow part of the if
+statement, in the Update function. So, when
+
+00:01:03.760 --> 00:01:08.689
+they push the Up Arrow, we'll continue to
+log, for the moment, "Up arrow pressed". But
+
+00:01:08.689 --> 00:01:14.170
+we need to think about how this min thing would
+change, this min variable.&nbsp;How would it change
+
+00:01:14.170 --> 00:01:21.850
+if they pushed the Up Arrow? Well, if the
+guess is higher than 500, if their number
+
+00:01:21.850 --> 00:01:26.200
+they're thinking of is higher than 500, as
+indicated by them pressing the Up Arrow, then
+
+00:01:26.200 --> 00:01:31.430
+we move our minimum up to that level, because
+we know it's an absolute minimum of 500. It's
+
+00:01:31.430 --> 00:01:37.180
+actually over 500. So, we do the following,
+we just try going min... oops, watch out for
+
+00:01:37.180 --> 00:01:43.630
+auto-completion gremlins... min, now don't
+let it Auto-Complete, sometimes it's awkward
+
+00:01:43.630 --> 00:01:50.540
+to stop Mono auto-completing. There you go,
+you can use Control Z. min = guess; Now, you
+
+00:01:50.540 --> 00:01:54.689
+are getting two pieces of red text, if you
+hover over it'll tell you why. "The name min
+
+00:01:54.689 --> 00:01:58.920
+does not exist in the current context." It'll
+say the same thing for guess. Why don't they
+
+00:01:58.920 --> 00:02:03.829
+exist? They're just up here above in the page,
+why can't it see min and why can't it see
+
+00:02:03.829 --> 00:02:10.479
+guess? Well, firstly it can't see min, because
+min is declared inside the Start function,
+
+00:02:10.479 --> 00:02:16.540
+so it cannot be accessed outside of this function,
+it's local to the Start function. The scope
+
+00:02:16.540 --> 00:02:21.200
+is constrained to the Start function. Alright,
+so the way that we're going to sort that out,
+
+00:02:21.200 --> 00:02:26.450
+for a start, is we're going to move this declaration
+and initialization, so the declaration is
+
+00:02:26.450 --> 00:02:31.050
+where we say int min semicolon, if we said
+that. And it turns into an initialization,
+
+00:02:31.050 --> 00:02:35.269
+when we say and = 1 on the end, when we actually
+give it a value. So, what I'm going to do
+
+00:02:35.269 --> 00:02:38.200
+is I'm going to move the int min, and actually
+while we're at it, you know that we're going
+
+00:02:38.200 --> 00:02:44.690
+to have to move the int max, so let's move
+them both to the top of the class here. Right
+
+00:02:44.690 --> 00:02:49.340
+there, at the same indentation level as the
+function definitions. Now, min is happy. So,
+
+00:02:49.340 --> 00:02:55.680
+only make things higher scope, wider scope,
+if you need to, and if it makes sense. OK,
+
+00:02:55.680 --> 00:03:00.260
+otherwise the fact that it's limited scope
+can be very helpful to you. Alright, so that's
+
+00:03:00.260 --> 00:03:06.599
+the first change. Now, the next thing we need
+to do is get guess to be available and to
+
+00:03:06.599 --> 00:03:12.970
+exist. So, I want you to define a instance
+variable, by an instance variable I mean a
+
+00:03:12.970 --> 00:03:17.489
+variable that is available to the entire instance,
+like this max and min. I want you to declare
+
+00:03:17.489 --> 00:03:24.040
+an instance variable of name guess and of
+type int, and I want you to declare it right
+
+00:03:24.040 --> 00:03:28.010
+at the top there, line 8 on my screen. So,
+go ahead and do that now, as a mini challenge.
+
+00:03:28.010 --> 00:03:34.390
+OK, welcome back! Not too difficult, int guess,
+and I'm going to.. If was was to just put
+
+00:03:34.390 --> 00:03:38.420
+a semicolon that would be a declaration, and
+it would actually fix our error down here,
+
+00:03:38.420 --> 00:03:42.720
+on line 25, because guess is now available,
+but I'm going to go farther than that and
+
+00:03:42.720 --> 00:03:48.330
+I'm going to initialize it to a value of 500.
+OK, that's cool! Now, second mini challenge
+
+00:03:48.330 --> 00:03:53.019
+for you. What I want you to do is instead
+of, where this print line has 500, what I
+
+00:03:53.019 --> 00:03:57.590
+would call hard coded in, I want it to use
+the new variable that we've just defined.
+
+00:03:57.590 --> 00:04:02.629
+So, I want you to change what's on my screen,
+on line 17, so that instead of having 500
+
+00:04:02.629 --> 00:04:05.739
+in the string, I want you to use that new
+variable. So, pause the video and go ahead
+
+00:04:05.739 --> 00:04:12.310
+and do that little challenge, right now. Cool!
+OK, welcome back! So, what I've done is deleted
+
+00:04:12.310 --> 00:04:18.040
+500, put a space in, and then, just said +
+guess. So, that's just fine. OK, I'm just
+
+00:04:18.040 --> 00:04:20.389
+going recap with the things we've covered
+and what we haven't in this video, because
+
+00:04:20.389 --> 00:04:24.910
+there's a lot to cover in this one. Okie Dokie!
+Fantastic! Alright, so what we need to do
+
+00:04:24.910 --> 00:04:31.699
+now then, is we need to think about how we
+adjust our guess, so we've made the minimum
+
+00:04:31.699 --> 00:04:37.720
+equal to the guess, when we press the Up Key.
+At some point we're going to have to adjust
+
+00:04:37.720 --> 00:04:41.940
+what the guess is too. So, have a look at
+the code and think about where we would adjust
+
+00:04:41.940 --> 00:04:50.729
+where the guess is and come back to me when
+you've had a think about it. OK, so the place
+
+00:04:50.729 --> 00:04:54.370
+we need to update our guess is immediately
+after we've taken the value of it and put
+
+00:04:54.370 --> 00:05:00.789
+it into min, so let's take the starting case.
+The computer thinks of 500, says is it high
+
+00:05:00.789 --> 00:05:05.650
+or low? The guy comes in and says, it's higher
+than 500. So, you say OK, I'm going to set
+
+00:05:05.650 --> 00:05:09.889
+the minimum range I'm going to search in now
+to 500, the guess, and then, I'm going to
+
+00:05:09.889 --> 00:05:17.509
+make the guess = to the maximum + the minimum
+divided by 2. Why? Because that's how the
+
+00:05:17.509 --> 00:05:22.960
+binary chop works. What it's saying is well,
+imagine the numbers. The minimum would now
+
+00:05:22.960 --> 00:05:28.240
+be what? Five hundred the maximum would be
+1,000, so the guess would end up being 750,
+
+00:05:28.240 --> 00:05:32.610
+which is exactly half way between the max
+and the min. That's what this line does, it
+
+00:05:32.610 --> 00:05:40.300
+sets the guess to be half way between the
+max and the min, quite literally. OK, so that's
+
+00:05:40.300 --> 00:05:44.530
+great news. And then, what it needs to do
+at this point is also make another guess,
+
+00:05:44.530 --> 00:05:52.199
+so let's go ahead and do that. print ("Higher
+or lower than"). Now, what's it going to say
+
+00:05:52.199 --> 00:05:58.090
+higher or lower than? What's the variable
+name? You guessed it, guess great! [Laughs]
+
+00:05:58.090 --> 00:06:02.449
+Fantastic! And the final thing I'm going to
+do here is, I don't want this "Up arrow pressed"
+
+00:06:02.449 --> 00:06:05.630
+line, so I'm going to comment it. What the
+hell is commenting? Well, you do a double
+
+00:06:05.630 --> 00:06:09.270
+forward slash, on the second forward slash
+the whole line goes gray, and that means the
+
+00:06:09.270 --> 00:06:13.100
+computer will ignore it, but you can still
+see it. You can comment it or, if you wish,
+
+00:06:13.100 --> 00:06:16.630
+you can completely delete it. I'm going to
+comment it for now. Let's just see how this
+
+00:06:16.630 --> 00:06:22.360
+behaves on the Up Arrow. Let's dive over into
+Unity and play it. So, if I push the Up Arrow,
+
+00:06:22.360 --> 00:06:27.770
+it says "Higher or lower than 750". Well,
+I go higher, 875, 937, brilliant! If I go
+
+00:06:27.770 --> 00:06:31.639
+lower, it's only saying "Down arrow pressed",
+for now, because we haven't coded it. I say
+
+00:06:31.639 --> 00:06:35.360
+we haven't coded it, because actually guess
+who's going to be coding it? [Laughs] Yeah
+
+00:06:35.360 --> 00:06:40.400
+you! OK! So, pretty simple, you just need
+to do exactly the same type of logic for when
+
+00:06:40.400 --> 00:06:44.100
+they push the Down Arrow, so try and make
+that work for yourself. You can completely
+
+00:06:44.100 --> 00:06:50.250
+remove this down arrow pressed line, if you
+like, and go ahead and go for it now! Alright,
+
+00:06:50.250 --> 00:06:54.160
+so the way I'm doing it is, I'm getting rid
+of the line I've commented out, I don't need
+
+00:06:54.160 --> 00:06:58.780
+it any more. I'm taking this code, slightly
+painfully I'm pasting exactly the same code
+
+00:06:58.780 --> 00:07:01.930
+in two places, but I don't mind doing that
+once; if I'm doing it lots of times with the
+
+00:07:01.930 --> 00:07:07.580
+same thing. I start to get a little bit scary.
+The only thing that's different is it's the
+
+00:07:07.580 --> 00:07:12.300
+maximum that becomes the guess. If you say
+lower, if you say no it's actually lower than
+
+00:07:12.300 --> 00:07:16.259
+my guess, my computer guesses 500, you're
+thinking lower you push lower, then you set
+
+00:07:16.259 --> 00:07:22.130
+the max to the guess, because you want to
+stop exploring anything above 500, otherwise
+
+00:07:22.130 --> 00:07:28.380
+exactly the same. Yeah, so let's just try
+it and see if it works. Alright, so here we
+
+00:07:28.380 --> 00:07:33.389
+go! I'm going to think of 123. So, higher
+or lower than 500? Lower 250! Lower 125! Lower!
+
+00:07:33.389 --> 00:07:40.720
+63 higher! 94 higher! 109 higher! 117 higher!
+121 higher! 123 ooh good! Now, I can keep
+
+00:07:40.720 --> 00:07:45.940
+pushing, and it'll actually eventually converge
+on 124, so what I should have done is pushed
+
+00:07:45.940 --> 00:07:50.810
+Return to say "I've won!", but it basically
+works. The functionality is basically there.
+
+00:07:50.810 --> 00:07:54.580
+So, I think the next thing I'm going to do
+is test the edge cases. Now, how about if
+
+00:07:54.580 --> 00:07:58.900
+I thought of 1, let's try that, or 0. No,
+1, I'm not allowed to think of 0, it says
+
+00:07:58.900 --> 00:08:01.680
+the lowest number you can pick is 1. So, let's
+think of 0 and keep pushing down, down, down,
+
+00:08:01.680 --> 00:08:06.569
+down, down, down, down. We get to 0 and it
+just stays. Sorry, we get to 1 and it just
+
+00:08:06.569 --> 00:08:12.039
+stays guessing 1. Perfect! So, that edge case,
+as we call it, works. The other extreme is
+
+00:08:12.039 --> 00:08:14.539
+they may have thought of 1,000. Let's see
+what happens when we try to get to that, up,
+
+00:08:14.539 --> 00:08:19.590
+up, up, up, up! And we get to 999, and it
+obstinately refuses to guess higher than 999.
+
+00:08:19.590 --> 00:08:24.830
+Why? The reason it obstinately refuses is
+because, when it does this max + min over
+
+00:08:24.830 --> 00:08:33.789
+2 it rounds down, so it gets to a situation
+where the max and the min are both 999, probably;
+
+00:08:33.789 --> 00:08:42.360
+then, divides that by 2 and ends up back at
+999. I think that's what's going on. The solution
+
+00:08:42.360 --> 00:08:47.399
+to it is to just fix the rounding down by
+adding 1 to your max, only once at the very
+
+00:08:47.399 --> 00:08:56.080
+beginning. Alright, so max = max + 1. Just
+do that once in the Start, and then, you'll
+
+00:08:56.080 --> 00:09:01.339
+find that the rounding problem will have gone
+away. So, we go up, up, up, up, up, up, up,
+
+00:09:01.339 --> 00:09:06.029
+and we get to 1,000 and we don't go above
+1,000, Perfectly! Perfectly! That's a new
+
+00:09:06.029 --> 00:09:10.680
+word. Well, it's not a new word, it's just
+the wrong word, but it's fun and it'll do.
+
+00:09:10.680 --> 00:09:15.620
+OK cool! So, it's basically, basically working
+now, with some things we need to tidy up,
+
+00:09:15.620 --> 00:09:19.440
+but I'm really pleased with the progress in
+this lesson. Pat yourself on the back and
+
+00:09:19.440 --> 00:09:20.170
+see you soon!
+

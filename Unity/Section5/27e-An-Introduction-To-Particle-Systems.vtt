@@ -1,0 +1,878 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hey welcome back! I want to
+
+2
+00:00:06.000 --> 00:00:09.000
+spice up our game, with a little bit of smoke, using Particle
+
+3
+00:00:09.000 --> 00:00:12.000
+Systems. When a brick is destroyed like that, I want to see
+
+4
+00:00:12.000 --> 00:00:15.000
+a smoke puff come out, and I'd like the smoke puff to
+
+5
+00:00:15.000 --> 00:00:18.000
+be the color of the brick that got destroyed.
+
+6
+00:00:18.000 --> 00:00:21.000
+So, let's look at how we're going to do that.
+
+7
+00:00:21.000 --> 00:00:24.000
+In this lecture we're going to cover the following: We're going to
+
+8
+00:00:24.000 --> 00:00:27.000
+create a simple Particle System, we're going to make a brick
+
+9
+00:00:27.000 --> 00:00:30.000
+look like it goes up in smoke, we're going to write the
+
+10
+00:00:30.000 --> 00:00:33.000
+code to trigger smoke puffs, and then, at the
+
+11
+00:00:33.000 --> 00:00:36.000
+end we will tweak the smoke prefab, while play testing
+
+12
+00:00:36.000 --> 00:00:39.000
+to get it looking right. So, what's a Particle System?
+
+13
+00:00:39.000 --> 00:00:42.000
+An extract from Unity's document say it's "for effects
+
+14
+00:00:42.000 --> 00:00:45.000
+like moving liquids, smoke, clouds, flames and magic spells...
+
+15
+00:00:45.000 --> 00:00:48.000
+Particle Systems can be used to capture the inherent
+
+16
+00:00:48.000 --> 00:00:51.000
+fluidity and energy." You can read more about it here.
+
+17
+00:00:51.000 --> 00:00:54.000
+So, let's start off by putting an empty Game
+
+18
+00:00:54.000 --> 00:00:57.000
+Object into our Play Space, and I'm going to call it smoke.
+
+19
+00:00:57.000 --> 00:01:00.000
+In the Scene View,
+
+20
+00:01:00.000 --> 00:01:03.000
+let's move it somewhere where we can see it, for a moment,
+
+21
+00:01:03.000 --> 00:01:06.000
+and add a component to it called Particle
+
+22
+00:01:06.000 --> 00:01:09.000
+System. Over in Inspector, Add Component, Particle System.
+
+23
+00:01:09.000 --> 00:01:12.000
+Now immediately, you'll get this default Particle System
+
+24
+00:01:12.000 --> 00:01:15.000
+here. Pretty fun hey! Let's take a look at some
+
+25
+00:01:15.000 --> 00:01:18.000
+of the settings. Duration 5 means that it's a
+
+26
+00:01:18.000 --> 00:01:21.000
+5 second loop, basically, that this
+
+27
+00:01:21.000 --> 00:01:24.000
+goes around in, and the Start Lifetime
+
+28
+00:01:24.000 --> 00:01:27.000
+is how long the particles last for. If the particles
+
+29
+00:01:27.000 --> 00:01:30.000
+say lasted for 1 second, let's see what happens.
+
+30
+00:01:30.000 --> 00:01:33.000
+Each one dies out, after 1 second,
+
+31
+00:01:33.000 --> 00:01:36.000
+but the effect has a lifetime of
+
+32
+00:01:36.000 --> 00:01:39.000
+5 but because we are looping you don't see that. So, if you take it off
+
+33
+00:01:39.000 --> 00:01:42.000
+loop now, now you will see that you get
+
+34
+00:01:42.000 --> 00:01:45.000
+5 seconds of emission, of particles that
+
+35
+00:01:45.000 --> 00:01:48.000
+last 1 second. I hope that makes
+
+36
+00:01:48.000 --> 00:01:51.000
+sense. The other option is we could turn that around the other way. We could
+
+37
+00:01:51.000 --> 00:01:54.000
+have 1 second of emission,
+
+38
+00:01:54.000 --> 00:01:57.000
+and it stops at particles that last 5 seconds.
+
+39
+00:01:57.000 --> 00:02:00.000
+Cool! So look, we're going to play with the details
+
+40
+00:02:00.000 --> 00:02:03.000
+of this later, so for now, I'm just going to set it to
+
+41
+00:02:03.000 --> 00:02:06.000
+1 second and 1 second, I think.
+
+42
+00:02:06.000 --> 00:02:09.000
+And then, I'm going to come
+
+43
+00:02:09.000 --> 00:02:12.000
+down and have a look at what other things I can change. Now,
+
+44
+00:02:12.000 --> 00:02:15.000
+one of the things I'm going to want to look at is the Emission Rate.
+
+45
+00:02:15.000 --> 00:02:18.000
+Are my particles coming out too fast or too
+
+46
+00:02:18.000 --> 00:02:21.000
+slow, and also the shape of the emission.
+
+47
+00:02:21.000 --> 00:02:24.000
+Well, I'm going to go for a box, in my case,
+
+48
+00:02:24.000 --> 00:02:27.000
+so let's have a look at that. Ah, that's kind of
+
+49
+00:02:27.000 --> 00:02:30.000
+more like it. So, imagine this
+
+50
+00:02:30.000 --> 00:02:33.000
+was where a brick was.
+
+51
+00:02:33.000 --> 00:02:36.000
+Yeah, that's kind of OK!
+
+52
+00:02:36.000 --> 00:02:39.000
+Yeah OK! So, let's use this
+
+53
+00:02:39.000 --> 00:02:42.000
+as a starting point. So, my settings are 1 second duration,
+
+54
+00:02:42.000 --> 00:02:45.000
+1 second lifetime. I haven't changed
+
+55
+00:02:45.000 --> 00:02:48.000
+the Emission criteria, but I've changed the shape to a box
+
+56
+00:02:48.000 --> 00:02:51.000
+and just left it at that for now. OK, so if we
+
+57
+00:02:51.000 --> 00:02:54.000
+were to just run the game, then that would just happen and go away.
+
+58
+00:02:54.000 --> 00:02:57.000
+So, that's all very well, but we're going to need this
+
+59
+00:02:57.000 --> 00:03:00.000
+to happen at run time, so because of that, we need to
+
+60
+00:03:00.000 --> 00:03:03.000
+prefab the smoke. So, let's go ahead and prefab the smoke now.
+
+61
+00:03:03.000 --> 00:03:06.000
+I'm going to do that, by dragging the smoke that I have
+
+62
+00:03:06.000 --> 00:03:09.000
+into my
+
+63
+00:03:09.000 --> 00:03:12.000
+Assets Folder, down here. I'm also going to
+
+64
+00:03:12.000 --> 00:03:15.000
+Reset the Transform on the prefab. And then, I
+
+65
+00:03:15.000 --> 00:03:18.000
+get rid of the smoke, from the scene. So now, if I
+
+66
+00:03:18.000 --> 00:03:21.000
+was to drop smoke back into the Hierarchy I would
+
+67
+00:03:21.000 --> 00:03:24.000
+end up with it down at the bottom left, which is what I'd expect. And it's
+
+68
+00:03:24.000 --> 00:03:27.000
+blue, so it's prefabbed. Awesome!
+
+69
+00:03:27.000 --> 00:03:30.000
+So now, what I want to do is I want to challenge you
+
+70
+00:03:30.000 --> 00:03:33.000
+to make the smoke get triggered, when
+
+71
+00:03:33.000 --> 00:03:36.000
+a brick gets destroyed. I'm going to get you started,
+
+72
+00:03:36.000 --> 00:03:39.000
+let's go into Brick.cs, and I'm going to tell you that we're
+
+73
+00:03:39.000 --> 00:03:42.000
+going to need to expose ourselves a GameObject,
+
+74
+00:03:42.000 --> 00:03:45.000
+and I'm going to call it smoke.
+
+75
+00:03:45.000 --> 00:03:48.000
+Alright, and then the moment we've exposed that
+
+76
+00:03:48.000 --> 00:03:51.000
+GameObject smoke, if you look at your brick prefabs on the
+
+77
+00:03:51.000 --> 00:03:54.000
+green, red, and yellow, all of those are going
+
+78
+00:03:54.000 --> 00:03:57.000
+to want the Smoke Prefab.
+
+79
+00:03:57.000 --> 00:04:00.000
+Alright, so I've made public GameObject smoke,
+
+80
+00:04:00.000 --> 00:04:03.000
+and then, I've come back to the Inspector and dragged the
+
+81
+00:04:03.000 --> 00:04:06.000
+Smoke Prefab into the green, red, and yellow. In
+
+82
+00:04:06.000 --> 00:04:09.000
+my case, all my breakable bricks now have a
+
+83
+00:04:09.000 --> 00:04:12.000
+smoke attached to them. We're using the same smoke, for all of them
+
+84
+00:04:12.000 --> 00:04:15.000
+at the moment. Your challenge is as
+
+85
+00:04:15.000 --> 00:04:18.000
+follows. I want you to instantiate smoke at
+
+86
+00:04:18.000 --> 00:04:21.000
+runtime. Here are some hints. Instantiate the Smoke
+
+87
+00:04:21.000 --> 00:04:24.000
+Prefab as a GameObject. It's position
+
+88
+00:04:24.000 --> 00:04:27.000
+should be the brick's position. When you check the
+
+89
+00:04:27.000 --> 00:04:30.000
+docs, you'll notice it needs a rotation. Just use Quaternion
+
+90
+00:04:30.000 --> 00:04:33.000
+.identity, and don't worry about what that means, for now, it just means it's
+
+91
+00:04:33.000 --> 00:04:36.000
+upright. And test that you get white
+
+92
+00:04:36.000 --> 00:04:39.000
+smoke puffs, when the bricks are destroyed. Don't yet try and make them the same
+
+93
+00:04:39.000 --> 00:04:42.000
+color as the bricks. One step at a time, let's just get white
+
+94
+00:04:42.000 --> 00:04:45.000
+smoke puffs, when bricks are destroyed. Here are Unity's docs
+
+95
+00:04:45.000 --> 00:04:48.000
+for Object.Instantiate, and
+
+96
+00:04:48.000 --> 00:04:51.000
+hopfully using those and a bit of willing, you can get that going.
+
+97
+00:04:51.000 --> 00:04:54.000
+So, pause the video and do that challenge now.
+
+98
+00:04:54.000 --> 00:04:57.000
+OK how
+
+99
+00:04:57.000 --> 00:05:00.000
+did you get on? This is how I've solved this problem.
+
+100
+00:05:00.000 --> 00:05:03.000
+I'm looking into my Brick.cs
+
+101
+00:05:03.000 --> 00:05:06.000
+script, firstly to see where I want to do this.
+
+102
+00:05:06.000 --> 00:05:09.000
+Well, I want to do it immediately before I destroy the GameObject,
+
+103
+00:05:09.000 --> 00:05:12.000
+so the method is Instantiate.
+
+104
+00:05:12.000 --> 00:05:15.000
+Then, we need the smoke,
+
+105
+00:05:15.000 --> 00:05:18.000
+which we defined up at the top and we publicly
+
+106
+00:05:18.000 --> 00:05:21.000
+inserted it. Now, what's the position... What's the
+
+107
+00:05:21.000 --> 00:05:24.000
+position of the brick? Well, it's gameObject, because we're on Brick.cs.
+
+108
+00:05:24.000 --> 00:05:27.000
+It's the instance of the current gameObject.transform
+
+109
+00:05:27.000 --> 00:05:30.000
+.position. And then, I said we're going to use Quaternion
+
+110
+00:05:30.000 --> 00:05:33.000
+.identity, for just a default
+
+111
+00:05:33.000 --> 00:05:36.000
+upright rotation. That's the line I'm adding.
+
+112
+00:05:36.000 --> 00:05:39.000
+Instantiate smoke, at the position
+
+113
+00:05:39.000 --> 00:05:42.000
+of the brick, with default rotation. Let's
+
+114
+00:05:42.000 --> 00:05:45.000
+have a look.
+
+115
+00:05:48.000 --> 00:05:51.000
+Oh yes, and that's exciting!
+
+116
+00:05:51.000 --> 00:05:54.000
+So, let's just make sure it works on other brick types, by firing
+
+117
+00:05:54.000 --> 00:05:57.000
+the ball up the side.
+
+118
+00:05:57.000 --> 00:06:00.000
+Of course, these guys take a few hits to go. There you go!
+
+119
+00:06:00.000 --> 00:06:03.000
+White puffs are being generated, so if you did
+
+120
+00:06:03.000 --> 00:06:06.000
+that all on your own, congratulations! Now, let's move onto the next
+
+121
+00:06:06.000 --> 00:06:09.000
+step, which is getting the puffs colored.
+
+122
+00:06:09.000 --> 00:06:12.000
+So, your challenge again is, store the smoke
+
+123
+00:06:12.000 --> 00:06:15.000
+puff, that you just generated, as a GameObject variable.
+
+124
+00:06:15.000 --> 00:06:18.000
+So, just add to the line we just created, so that you
+
+125
+00:06:18.000 --> 00:06:21.000
+store this thing. Then,
+
+126
+00:06:21.000 --> 00:06:24.000
+using the right dots, set the
+
+127
+00:06:24.000 --> 00:06:27.000
+smoke's start color to the same as the brick,
+
+128
+00:06:27.000 --> 00:06:30.000
+and test that different bricks make different smoke.
+
+129
+00:06:30.000 --> 00:06:33.000
+As a hint, the color that you want to set
+
+130
+00:06:33.000 --> 00:06:36.000
+comes from the brick's sprite renderer. So, pause
+
+131
+00:06:36.000 --> 00:06:39.000
+the video, and have a go at making colored smoke, right now!
+
+132
+00:06:39.000 --> 00:06:42.000
+[Temporary Silence]
+
+133
+00:06:42.000 --> 00:06:45.000
+OK welcome back! Let's take a look at how to do this thing!
+
+134
+00:06:45.000 --> 00:06:48.000
+Firstly, let's make this method...
+
+135
+00:06:48.000 --> 00:06:51.000
+Sorry, this Variable that captures the thing we
+
+136
+00:06:51.000 --> 00:06:54.000
+instantiated. So, it's a GameObject, and I'm going to call it
+
+137
+00:06:54.000 --> 00:06:57.000
+smokePuff
+
+138
+00:06:57.000 --> 00:07:00.000
+= that. So now, we have
+
+139
+00:07:00.000 --> 00:07:03.000
+smokePuff as a local variable, which is
+
+140
+00:07:03.000 --> 00:07:06.000
+the very smokePuff we just instantiated.
+
+141
+00:07:06.000 --> 00:07:09.000
+Now, we can start messing with it, smokePuff
+
+142
+00:07:09.000 --> 00:07:12.000
+dot. Now, smokePuff dot what?
+
+143
+00:07:12.000 --> 00:07:15.000
+Well, let's have a look in Unity, at a smoke puff.
+
+144
+00:07:15.000 --> 00:07:18.000
+Here's a smoke puff, so
+
+145
+00:07:18.000 --> 00:07:21.000
+it's a GameObject, and then, we need to look at it's particle system.
+
+146
+00:07:21.000 --> 00:07:24.000
+Dot particleSystem
+
+147
+00:07:24.000 --> 00:07:27.000
+dot. OK, let's keep going. Dot start
+
+148
+00:07:27.000 --> 00:07:30.000
+Color. Ah, that looks promising, smokePuff
+
+149
+00:07:30.000 --> 00:07:33.000
+.particleSystem.startColor =.
+
+150
+00:07:33.000 --> 00:07:36.000
+Now, the second half, where do we get
+
+151
+00:07:36.000 --> 00:07:39.000
+this color from. Well, we need to get it from the brick. And what about
+
+152
+00:07:39.000 --> 00:07:42.000
+the brick? Well, it's the brick's sprite renderer.
+
+153
+00:07:42.000 --> 00:07:45.000
+So, it's gameObject.
+
+154
+00:07:45.000 --> 00:07:48.000
+Now, you can't get to sprite
+
+155
+00:07:48.000 --> 00:07:51.000
+renderer, so we're going to have to GetComponent
+
+156
+00:07:54.000 --> 00:07:57.000
+<SpriteRenderer>
+
+157
+00:08:00.000 --> 00:08:03.000
+Like that and then dot.
+
+158
+00:08:03.000 --> 00:08:06.000
+What do we go for?
+
+159
+00:08:06.000 --> 00:08:09.000
+Color, OK hopefully
+
+160
+00:08:09.000 --> 00:08:12.000
+that makes sense to you. So, we're taking the current
+
+161
+00:08:12.000 --> 00:08:15.000
+brick, we're getting the SpriteRenderer component off it,
+
+162
+00:08:15.000 --> 00:08:18.000
+and then, we're getting the color, whether it's yellow, green,
+
+163
+00:08:18.000 --> 00:08:21.000
+or red, and then, we're setting that to the color of the particle
+
+164
+00:08:21.000 --> 00:08:24.000
+System. Let's have a go and see if it works!
+
+165
+00:08:24.000 --> 00:08:27.000
+OK!
+
+166
+00:08:27.000 --> 00:08:30.000
+So, the error is on line 45, and it says it
+
+167
+00:08:30.000 --> 00:08:33.000
+can't convert a Unity Engine object to a GameObject.
+
+168
+00:08:33.000 --> 00:08:36.000
+Are we missing a cast? So, it's hinting at a possible
+
+169
+00:08:36.000 --> 00:08:39.000
+solution. Let's have a look at the docs for Instantiate,
+
+170
+00:08:39.000 --> 00:08:42.000
+very briefly. In fact, they're sitting here.
+
+171
+00:08:42.000 --> 00:08:45.000
+They return an object not a GameObject.
+
+172
+00:08:45.000 --> 00:08:48.000
+So, this line here is not returning.
+
+173
+00:08:48.000 --> 00:08:51.000
+This Instantiate method does not return a GameObject, it returns
+
+174
+00:08:51.000 --> 00:08:54.000
+an object. So, we need to
+
+175
+00:08:54.000 --> 00:08:57.000
+say at the end, as GameObject;
+
+176
+00:08:57.000 --> 00:09:00.000
+now, that line has got a little bit long, but actually you can remove
+
+177
+00:09:00.000 --> 00:09:03.000
+gameObject from .tranform.position,
+
+178
+00:09:03.000 --> 00:09:06.000
+because it's going to assume we're talking about the current GameObject.
+
+179
+00:09:06.000 --> 00:09:09.000
+So, your line 45, in my case, can become this.
+
+180
+00:09:09.000 --> 00:09:12.000
+The GameObject, smokePuff
+
+181
+00:09:12.000 --> 00:09:15.000
+variable, that we're going to use to store, is the result
+
+182
+00:09:15.000 --> 00:09:18.000
+of Instantiating a new smokePuff at the position of
+
+183
+00:09:18.000 --> 00:09:21.000
+brick with default rotation, but when we
+
+184
+00:09:21.000 --> 00:09:24.000
+Instantiate, we want to cast it from being a general object to
+
+185
+00:09:24.000 --> 00:09:27.000
+being a more specific GameObject. Then, we can work
+
+186
+00:09:27.000 --> 00:09:30.000
+on the smokePuff GameObject properly. Let's try
+
+187
+00:09:30.000 --> 00:09:33.000
+now.
+
+188
+00:09:33.000 --> 00:09:36.000
+Awesome! Yellow puff, yellow
+
+189
+00:09:36.000 --> 00:09:39.000
+puff, and off we go! Let's just test
+
+190
+00:09:39.000 --> 00:09:42.000
+other colors, make sure that they work OK!
+
+191
+00:09:42.000 --> 00:09:45.000
+Then, red bricks take a little
+
+192
+00:09:45.000 --> 00:09:48.000
+while to go. Great!
+
+193
+00:09:48.000 --> 00:09:51.000
+Look at that and all the colors are mixing together. Fantastic!
+
+194
+00:09:51.000 --> 00:09:54.000
+So, now that you've done that, you can go into your Smoke Prefab,
+
+195
+00:09:54.000 --> 00:09:57.000
+and you can mess around all you like with the
+
+196
+00:09:57.000 --> 00:10:00.000
+factors down here. You could
+
+197
+00:10:00.000 --> 00:10:03.000
+click Random Direction on your shape, for instance,
+
+198
+00:10:03.000 --> 00:10:06.000
+and see that, that has a dramatic effect on it. I find
+
+199
+00:10:06.000 --> 00:10:09.000
+that very distracting, but the great thing is that because we're
+
+200
+00:10:09.000 --> 00:10:12.000
+using prefabs, any changes we make to the Particle System now
+
+201
+00:10:12.000 --> 00:10:15.000
+will apply everywhere. I'm going to leave mine like this,
+
+202
+00:10:15.000 --> 00:10:18.000
+and I'm also going to do a quick tidy up of my
+
+203
+00:10:18.000 --> 00:10:21.000
+code. I don't think this HandleHits () is very
+
+204
+00:10:21.000 --> 00:10:24.000
+easy to read anymore, so I'm going to make a new method
+
+205
+00:10:24.000 --> 00:10:27.000
+called PuffSmoke,
+
+206
+00:10:27.000 --> 00:10:30.000
+which is just going to move out the code from that Handle
+
+207
+00:10:30.000 --> 00:10:33.000
+Hits () method; all of the stuff that deals with
+
+208
+00:10:33.000 --> 00:10:36.000
+puffing smoke, which is really simple, it's
+
+209
+00:10:36.000 --> 00:10:39.000
+just two lines there. So, I'm just going to do that and I'm
+
+210
+00:10:39.000 --> 00:10:42.000
+just going to say PuffSmoke(); just because
+
+211
+00:10:42.000 --> 00:10:45.000
+I want to be able to see, in the HandleHits what happens,
+
+212
+00:10:45.000 --> 00:10:48.000
+a bit more clearly. Just to prove that works,
+
+213
+00:10:48.000 --> 00:10:51.000
+and there it goes.
+
+214
+00:10:51.000 --> 00:10:54.000
+So congratulations! Let's just take a recap of what we've learned in
+
+215
+00:10:54.000 --> 00:10:57.000
+this lesson. We have
+
+216
+00:10:57.000 --> 00:11:00.000
+created a simple Particle System, made a brick look
+
+217
+00:11:00.000 --> 00:11:03.000
+like it goes up in smoke, written code to trigger those
+
+218
+00:11:03.000 --> 00:11:06.000
+smoke puffs, and tweaked the Smoke Prefab while play testing,
+
+219
+00:11:06.000 --> 00:11:09.000
+at the end. Awesome job! Well done! See you soon!
+

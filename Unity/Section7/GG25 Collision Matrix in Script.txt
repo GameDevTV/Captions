@@ -1,0 +1,844 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.010 --> 00:00:10.440
+Hey guys welcome back, so our game is
+crying out for our enemies to be colliding
+
+00:00:10.440 --> 00:00:15.440
+with our defenders; stopping at our stone
+and chewing it and stopping at our gnome and
+
+00:00:15.440 --> 00:00:20.930
+chewing it, so in this video we're gonna
+cover the following: we're gonna use on
+
+00:00:20.930 --> 00:00:25.090
+trigger enter 2D, that's the full
+signature of the function there; you've used
+
+00:00:25.090 --> 00:00:29.410
+this in Block Breaker for the loose
+collider; you've used it in laser
+
+00:00:29.410 --> 00:00:34.550
+defender for missile strikes and the
+like, we're going to use it again here we're going
+
+00:00:34.550 --> 00:00:40.329
+to use triggers, not physics, for the
+entire game; we are going to use a
+
+00:00:40.329 --> 00:00:44.109
+collision matrix - not going to use the
+collision matrix, we are going to define
+
+00:00:44.109 --> 00:00:48.710
+what collides with what in script and
+I'm gonna get you to add appropriate
+
+00:00:48.710 --> 00:00:54.729
+colliders to everything. So why are we
+using triggers, not physics? Because this
+
+00:00:54.729 --> 00:00:58.350
+is not really a physics-based game we
+did actually create a different game
+
+00:00:58.350 --> 00:01:03.119
+earlier on in the course called Ghoul
+garden and we found that on some
+
+00:01:03.119 --> 00:01:06.760
+people's computers physics was causing
+problems so we're actually gonna work
+
+00:01:06.760 --> 00:01:11.410
+around the physics and just use triggers
+and then stop and start things moving
+
+00:01:11.410 --> 00:01:16.070
+through script so there is going to be no
+physics engine at all, no collisions just
+
+00:01:16.070 --> 00:01:21.340
+triggers. The reason we're not going to use
+the collision matrix is if we did use it
+
+00:01:21.340 --> 00:01:26.080
+it would look something like this, we would
+have attackers, defenders and projectiles
+
+00:01:26.080 --> 00:01:33.320
+but we would have to distinguish what is
+colliding with the attacker anyway so
+
+00:01:33.320 --> 00:01:39.120
+for example if the Fox is being hit by a
+projectile or is it hitting a stone or
+
+00:01:39.120 --> 00:01:39.830
+both
+
+00:01:39.830 --> 00:01:43.960
+so we would need to distinguish that
+anyway so we may as well keep all the
+
+00:01:43.960 --> 00:01:48.380
+decisions about what's colliding with
+what and how to deal with that behavior
+
+00:01:48.380 --> 00:01:52.770
+in one place and that places is in the
+script as far as I'm concerned, so we will
+
+00:01:52.770 --> 00:01:56.950
+not use the collision matrix this time.
+This also also gives you an alternative way of
+
+00:01:56.950 --> 00:02:01.330
+dealing with collisions without using
+the collision matrix. There's a final reason
+
+00:02:01.330 --> 00:02:04.460
+I don't want to use the collision matrix which
+is as we're not using physics-based
+
+00:02:04.460 --> 00:02:10.639
+collisions meaning that we will have no
+non-kinematic rigid bodies or put
+
+00:02:10.639 --> 00:02:12.490
+another way,  any
+
+00:02:12.490 --> 00:02:16.820
+rigid bodies we do choose to put on
+objects will be kinematic they will be
+
+00:02:16.820 --> 00:02:21.210
+moved by the script they will not be
+using the physics engine and because of
+
+00:02:21.210 --> 00:02:25.880
+that the whole game is not really
+physics-based, and the coalition matrix
+
+00:02:25.880 --> 00:02:29.860
+is down here under project settings
+/ physics 2d. Now that
+
+00:02:29.860 --> 00:02:34.070
+just doesn't make sense if it's not a
+physics-based game to go looking here
+
+00:02:34.070 --> 00:02:39.920
+you wouldn't think to go looking here so
+I'm not putting layers in for attackers,
+
+00:02:39.920 --> 00:02:40.970
+defenders etcetera;
+
+00:02:40.970 --> 00:02:44.930
+we may use tags later, but we're not going to
+be using layers so you will not see it
+
+00:02:44.930 --> 00:02:50.880
+as per slide. OK, cool so next thing I
+want to give you something to revise
+
+00:02:50.880 --> 00:02:51.990
+before we move on.
+
+00:02:51.990 --> 00:02:56.980
+Back in Block Breaker we gave you this
+mashup from the Unity docs which makes it
+
+00:02:56.980 --> 00:03:01.510
+pretty clear when you get a trigger and
+when you get a collision. So bearing in
+
+00:03:01.510 --> 00:03:07.780
+mind that your defenders are all
+stationary, your attackers are generally
+
+00:03:07.780 --> 00:03:12.600
+moving and your projectiles also have
+the ability to move what I want you to
+
+00:03:12.600 --> 00:03:18.070
+do now is, using this table for reference,
+add appropriate colliders to everything,
+
+00:03:18.070 --> 00:03:23.860
+meaning add 2d colliders to attackers,
+defenders, and projectiles and where
+
+00:03:23.860 --> 00:03:28.480
+necessary add rigid body 2D. Now you
+can do that either by adding it to each
+
+00:03:28.480 --> 00:03:33.810
+of the prefabs independently or you
+could use scripts, and test you're getting
+
+00:03:33.810 --> 00:03:35.910
+all the required
+
+00:03:35.910 --> 00:03:40.880
+interactions between colliders with
+debug dot log entries, but don't filter them
+
+00:03:40.880 --> 00:03:47.460
+yet, for example we do want to be logging
+that a projectile is hitting a stone for
+
+00:03:47.460 --> 00:03:51.940
+example, or that one projectile is hitting
+a defender standing in front of it.
+
+00:03:51.940 --> 00:03:55.160
+those things we're not going to filter out
+yet, we're gonna do that in a separate
+
+00:03:55.160 --> 00:03:58.060
+exercise, separate video
+
+00:03:58.060 --> 00:04:04.980
+Cool, so pause the video, get all your colliders set
+up properly using the table here and I
+
+00:04:04.980 --> 00:04:10.760
+shall see you soon.
+
+00:04:10.760 --> 00:04:19.380
+OK, welcome back so let's just take a
+look then. First thing we need to say is
+
+00:04:19.380 --> 00:04:23.030
+what are the attackers going to have on
+them? Well, they're moving so they're
+
+00:04:23.030 --> 00:04:28.600
+going to need to be rigid body
+kinematic rigid body colliders on
+
+00:04:28.600 --> 00:04:34.430
+the attackers which means that they have
+both a collider and a rigid body. Now, I'm going to add
+
+00:04:34.430 --> 00:04:39.330
+the colliders firstly manually, I'm gonna do
+this on the instances now so I can see
+
+00:04:39.330 --> 00:04:44.750
+what I'm doing and then I will
+apply those back to the pre-fab later. So
+
+00:04:44.750 --> 00:04:48.830
+it's a box collider 2D I'm gonna go for
+on this lizard and what I'm going to do
+
+00:04:48.830 --> 00:04:54.449
+is I'm gonna make it a Y height of .5
+like that and then I'm gonna make the
+
+00:04:54.449 --> 00:04:59.930
+X size about .5 as well, as I don't want
+to be any chance that he collides with
+
+00:04:59.930 --> 00:05:04.789
+something in a different lane and then
+the position of this actual collider, the
+
+00:05:04.789 --> 00:05:09.070
+center of the collider is going to
+depend on how the animation looks so I
+
+00:05:09.070 --> 00:05:11.919
+won't worry about it for now I'm gonna
+leave it central, but when he actually
+
+00:05:11.919 --> 00:05:16.050
+gets to the stone or the gnome and starts
+chomping on it I may want to move this
+
+00:05:16.050 --> 00:05:20.900
+box so that he gets further or closer.
+Alright so that's the box collider on the
+
+00:05:20.900 --> 00:05:26.960
+lizard, let's just do the same thing on
+the fox. Exactly the same thing, I'm actually
+
+00:05:26.960 --> 00:05:30.310
+gonna put exactly the same size point
+five by point five collider, we can always
+
+00:05:30.310 --> 00:05:34.900
+adjust them later. Now both of these
+colliders should be triggers so you can
+
+00:05:34.900 --> 00:05:39.650
+actually select them together and set
+them as triggers. There we go, that's fine,
+
+00:05:39.650 --> 00:05:45.099
+now one at a time I'm gonna re-prefab
+these things - apply to prefab you
+
+00:05:45.099 --> 00:05:49.470
+see all this stuff under box collider
+2D? When I click Apply it suddenly stops
+
+00:05:49.470 --> 00:05:53.800
+being bold, there we go. So that means the
+prefab now has those things on it and they're
+
+00:05:53.800 --> 00:05:59.400
+triggers. Now you could come in here and
+add component rigid body 2d, and you could
+
+00:05:59.400 --> 00:06:03.310
+go into that component and you could
+make it kinematic like that. I'm gonna
+
+00:06:03.310 --> 00:06:07.909
+do it in script though. Rather than doing
+the same thing twice, once for each body,
+
+00:06:07.909 --> 00:06:10.770
+I don't mind doing that for the colliders
+because the colliders may well have
+
+00:06:10.770 --> 00:06:15.310
+different properties, different centres
+for example possibly even different sizes,
+
+00:06:15.310 --> 00:06:20.300
+not too keen on doing it by hand for
+both of the attackers. So let's just show you
+
+00:06:20.300 --> 00:06:23.580
+another way of doing it. We go into the
+attacker script.
+
+00:06:23.580 --> 00:06:29.400
+On the Start would be a sensible place
+to do this, we can just do the following :
+
+00:06:29.400 --> 00:06:41.919
+Rigidbody 2d my rigid body that's
+just to capture what comes out of this...
+
+00:06:41.919 --> 00:06:48.189
+equals gameObject, the little g, the
+actual instance dot add component and
+
+00:06:48.189 --> 00:06:56.460
+then we bring its type in; rigidbody 2D I
+can type straight... type type get
+
+00:06:56.460 --> 00:07:02.110
+the joke... ok so we've got that, we've actually
+added the rigid body that by doing that.
+
+00:07:02.110 --> 00:07:06.969
+Now I can set it to be kinematic by
+just saying is kinematic equals true
+
+00:07:06.969 --> 00:07:13.400
+alright so those two lines should have
+added the rigid body, let's test it. Look at the lizard...
+
+00:07:13.400 --> 00:07:14.969
+here it comes
+
+00:07:14.969 --> 00:07:18.159
+there's the rigid body and it's kinematic.
+I can collapse that component down
+
+00:07:18.159 --> 00:07:21.279
+cause we don't need to look at the
+details of it anymore; that's great so
+
+00:07:21.279 --> 00:07:25.419
+even though in the inspector then either
+of them have a rigid body, when the
+
+00:07:25.419 --> 00:07:29.729
+game starts running they do. So is that a
+good thing from working with the
+
+00:07:29.729 --> 00:07:33.069
+designers point of view? Not
+necessarily, but it's an alternative
+
+00:07:33.069 --> 00:07:35.900
+option for you, it's all about
+communication between you and the
+
+00:07:35.900 --> 00:07:40.479
+designer even if you are the designer. OK I
+just wanna give you another way of doing
+
+00:07:40.479 --> 00:07:44.370
+things. Alright so the defenders what's
+going to be the deal with the defenders? Well they're
+
+00:07:44.370 --> 00:07:49.139
+all static, so they're all gonna be just
+static colliders so I'll just add a rigid
+
+00:07:49.139 --> 00:07:56.159
+body... sorry a collider box collider 2d to
+all of these guys, now we've got an issue
+
+00:07:56.159 --> 00:08:00.069
+with our sizes, look by default they all
+come out weird sizes, and I actually want
+
+00:08:00.069 --> 00:08:04.029
+them to be precisely the right size cos
+we're gonna use these colliders to prevent
+
+00:08:04.029 --> 00:08:09.479
+us in future from spawning defenders on top
+of each other. They're actually going to
+
+00:08:09.479 --> 00:08:13.990
+cover the square so that if I click on
+a square that's already got a defender the
+
+00:08:13.990 --> 00:08:19.009
+grass behind doesn't notice. We're gonna be
+doing that later so what we need to do
+
+00:08:19.009 --> 00:08:22.310
+is make a minor tweak to each of our
+things if you look at the cactus for
+
+00:08:22.310 --> 00:08:27.360
+example its transform scale, the main
+cactus has a transform scale of
+
+00:08:27.360 --> 00:08:31.039
+point eight four, point eight four. Well we
+don't want that, we want to have a scale of
+
+00:08:31.039 --> 00:08:32.430
+1, 1.
+
+00:08:32.430 --> 00:08:37.510
+one in the z doesn't really matter; or
+at least minus 1 so it's facing the right way.
+
+00:08:37.510 --> 00:08:42.289
+Now the sprite looks too big, fine
+doesn't matter. Just grab the body and the
+
+00:08:42.289 --> 00:08:47.010
+courgette together - highlight them together, go to
+the scale tool and just whap their size
+
+00:08:47.010 --> 00:08:49.480
+down a little bit, OK?
+
+00:08:49.480 --> 00:08:53.779
+The purpose of doing that is that we want to
+keep the top-level transforms perfect.
+
+00:08:53.779 --> 00:08:59.200
+It's perfectly at position 1, 2 with a
+scale of 1, or at least -1 in the X depending on whether
+
+00:08:59.200 --> 00:09:06.380
+they're facing left or right and then 1 and 1.
+So that way the collider when we put it
+
+00:09:06.380 --> 00:09:06.820
+on
+
+00:09:06.820 --> 00:09:11.589
+can be perfectly sized 1, 1 and exactly
+cover this grass square. OK let's go
+
+00:09:11.589 --> 00:09:14.760
+ahead and do the same thing for the
+gnome. The gnome is already ok, he already has
+
+00:09:14.760 --> 00:09:19.529
+perfectly round transform settings so
+move on to the gravestone. Right, now the
+
+00:09:19.529 --> 00:09:26.830
+gravestone has a similar problem so
+let's set the scale up, that's fine, we'll
+
+00:09:26.830 --> 00:09:30.060
+make sure all our colliders are trigger colliders
+the moment we see that problem, so
+
+00:09:30.060 --> 00:09:36.010
+just click is trigger, great OK back to
+the grave stone, let's finish this off. The
+
+00:09:36.010 --> 00:09:40.209
+gravestone's looking too big now so you
+highlight the body and you just drag its
+
+00:09:40.209 --> 00:09:45.100
+size down again. Holding down shift as I
+drag in that middle section with the
+
+00:09:45.100 --> 00:09:50.650
+scale tool selected. Cool, so the gravestone
+now has a perfect collider set up, how's
+
+00:09:50.650 --> 00:09:55.130
+the star trophy doing? Exactly the same
+deal, its master collider, its top-level
+
+00:09:55.130 --> 00:10:00.200
+parent collider is too big, so I'm making
+it smaller and then I'm grabbing all the
+
+00:10:00.200 --> 00:10:05.790
+things in its hierarchy and just gonna
+scale them up. So all that should work
+
+00:10:05.790 --> 00:10:11.390
+fine, let's just run the game and see; looks OK
+to me, the star trophy looks a little bit
+
+00:10:11.390 --> 00:10:16.230
+high now but we can just pull him down
+and the gravestone looks a little bit low
+
+00:10:16.230 --> 00:10:17.700
+so we can pull him up.
+
+00:10:17.700 --> 00:10:23.010
+Be careful what you move though, I've
+just moved the parent collider - the parent
+
+00:10:23.010 --> 00:10:26.360
+transform, don't want to do that. What I
+want to move is the body that was the
+
+00:10:26.360 --> 00:10:31.709
+whole point of separating that out. Again,
+same thing for the star trophy. Make sure
+
+00:10:31.709 --> 00:10:38.520
+that you move the internal pieces of the
+star trophy not its top. OK cool, so let's
+
+00:10:38.520 --> 00:10:42.290
+close them all down and just check.
+First that all of our transforms
+
+00:10:42.290 --> 00:10:47.060
+are round numbers, which they are, and
+secondly that all of our colliders are
+
+00:10:47.060 --> 00:10:51.370
+triggers which they are. Perfect, so let's
+apply these to the pre-fab one at a time
+
+00:10:51.370 --> 00:11:00.240
+then. Cactus, gnome, gravestone and star
+trophy. Awesome, so we're nearly there, we have static
+
+00:11:00.240 --> 00:11:07.170
+colliders on all of the defenders, we have
+kinematic rigid body colliders on all of
+
+00:11:07.170 --> 00:11:10.970
+the attackers and what do you think
+we're going to need on the projectiles?
+
+00:11:10.970 --> 00:11:16.449
+Well they're moving but again we're using no
+physics, so they're going to have to be
+
+00:11:16.449 --> 00:11:23.459
+kinematic rigidbody colliders. Awesome so on the gnome and the star trophy... sorry on the
+
+00:11:23.459 --> 00:11:30.790
+gnome and the courgette that's it so
+then on the cactus' courgette and
+
+00:11:30.790 --> 00:11:35.370
+the gnome's axe is what I'm trying to say,
+those two things need colliders so we go
+
+00:11:35.370 --> 00:11:40.060
+box collider 2d, they both look okay at
+the moment, the sizes also look ok, I
+
+00:11:40.060 --> 00:11:44.529
+might well make that gnome's axe a little
+bit smaller, let's do that now, but you'll
+
+00:11:44.529 --> 00:11:49.130
+find the collider will shrink down with it, they
+both need to be, both the axe and
+
+00:11:49.130 --> 00:11:52.880
+the courgette, or zucchini if you're
+American , need to be trigger colliders
+
+00:11:52.880 --> 00:11:58.389
+so let's set those right now, that's
+looking good so let's just apply, now there
+
+00:11:58.389 --> 00:12:04.319
+is one more thing that you may wish to
+set a collider on which is the star
+
+00:12:04.319 --> 00:12:08.540
+that comes out of the star trophy cos
+later we are going to want to click on
+
+00:12:08.540 --> 00:12:12.639
+that so if you want to do that now
+that's fine, let's do it, let's stick a box
+
+00:12:12.639 --> 00:12:17.660
+collide r on the star itself, it's a
+trigger collider. Now is it kinematic or
+
+00:12:17.660 --> 00:12:22.399
+non kinematic? Well it's moving so let's
+obey the same rule and this time manually
+
+00:12:22.399 --> 00:12:28.660
+stick a rigid body on but make it
+kinematic. OK, so various different ways of
+
+00:12:28.660 --> 00:12:32.089
+doing things there, the point is that
+once the game starts running we have all
+
+00:12:32.089 --> 00:12:37.269
+the right types of collider. You get a
+problem with the star in the very
+
+00:12:37.269 --> 00:12:41.000
+beginning when he's spawning, you'll see
+here because it's too small. It's to do with
+
+00:12:41.000 --> 00:12:44.089
+what the animator's doing with it, so
+let's not worry about the star for now, we'll
+
+00:12:44.089 --> 00:12:48.230
+worry about the star when we come to
+actually try to click on it later, well we
+
+00:12:48.230 --> 00:12:50.610
+don't have any major errors I just
+happened to spot this little thing
+
+00:12:50.610 --> 00:12:53.520
+coming up here before the star starts
+growing.
+
+00:12:53.520 --> 00:12:56.410
+What we do want to do is just make sure
+that all these guys are logging
+
+00:12:56.410 --> 00:13:04.380
+appropriately. So we need to go into our attacker
+script and we need to just say void on
+
+00:13:04.380 --> 00:13:15.310
+trigger enter 2d, the 2d is crucial, and
+then let's just say debug dot log and we
+
+00:13:15.310 --> 00:13:23.990
+can use the name of the object plus, put
+a space in, trigger enter. OK that's fine we'll
+
+00:13:23.990 --> 00:13:26.930
+just go for the trigger enters for now
+we'll do trigger exits later so I'm
+
+00:13:26.930 --> 00:13:31.280
+going to copy that, because we're also
+going to want it on the defenders, so do we
+
+00:13:31.280 --> 00:13:35.300
+have a defender script yet? We don't,
+we're bound to need a defender script aren't we?
+
+00:13:35.300 --> 00:13:37.100
+So let's just create one right now.
+
+00:13:37.100 --> 00:13:45.600
+There he is, defender script and the only
+behavior I'm gonna put in it at the
+
+00:13:45.600 --> 00:13:51.270
+moment is to log when it meets, when it
+gets triggers messages sent. OK, so that's that
+
+00:13:51.270 --> 00:13:55.820
+now of course we need to attach the
+defender script to all of the
+
+00:13:55.820 --> 00:13:59.240
+defenders, otherwise it's going to be a
+little bit useless, let's just do that,
+
+00:13:59.240 --> 00:14:04.470
+select them all and drop them in, there you go look - they're cool, actually I've put the wrong script on but
+
+00:14:04.470 --> 00:14:08.670
+that's not a problem, it's easy enough to
+remove the components from all of them
+
+00:14:08.670 --> 00:14:09.410
+as well
+
+00:14:09.410 --> 00:14:14.240
+and drop defender script on. Great, so
+they've all got defender script, this is all
+
+00:14:14.240 --> 00:14:17.230
+in black because it's different to the
+pre-fab, we need to go through and apply
+
+00:14:17.230 --> 00:14:20.320
+that to the prefab. You can always do
+this at the very end,  or you could work
+
+00:14:20.320 --> 00:14:23.680
+directly on the prefabs you could go
+straight to the pre-fab folder and
+
+00:14:23.680 --> 00:14:29.320
+work on the pre-fab, lots of ways of
+doing these things, ok so now let's have
+
+00:14:29.320 --> 00:14:34.350
+a look at the console star trophy
+trigger and where did that happen? What's
+
+00:14:34.350 --> 00:14:38.760
+triggering the star trophy? Well I think
+it's the star itself that's triggering the star
+
+00:14:38.760 --> 00:14:43.570
+trophy, the lizard trigger triggered when he
+hit that, the lizard triggered again, the
+
+00:14:43.570 --> 00:14:47.460
+fox has triggered, it looks like
+everything's triggering with everything
+
+00:14:47.460 --> 00:14:52.350
+let's just duplicate this gravestone
+here and get ourselves another one at the
+
+00:14:52.350 --> 00:15:00.040
+perfect transform of 7, 4 and one more
+below as well
+
+00:15:00.040 --> 00:15:05.649
+another one at 7, 2 and just make sure
+that these gravestones start triggering
+
+00:15:05.649 --> 00:15:12.509
+when projectiles hit them, and we're getting
+multiple logs of gravestones here. Sort
+
+00:15:12.509 --> 00:15:16.069
+of working but a little bug with the
+gravestones, a couple of things, first
+
+00:15:16.069 --> 00:15:20.910
+they're not appearing straight away in
+my case, but also look at the whole
+
+00:15:20.910 --> 00:15:26.230
+collider is shaking and we don't want that.
+I don't know if you could see that, here you go
+
+00:15:26.230 --> 00:15:32.089
+Let me just zoom into this; if you watch when it goes into  it into its being attacked state the whole
+
+00:15:32.089 --> 00:15:36.500
+collider is shaking, and that's because the
+animation is operating on the gravestone
+
+00:15:36.500 --> 00:15:38.250
+itself not the body of the
+
+00:15:38.250 --> 00:15:42.190
+gravestone, there it is, it's moving the
+thing left and right just a little bit
+
+00:15:42.190 --> 00:15:46.130
+but it's the whole thing so we don't
+want that we want to only work on the
+
+00:15:46.130 --> 00:15:51.430
+body so let's just get it to just work
+on the body. We're going to make the transform
+
+00:15:51.430 --> 00:15:57.850
+position of the body move over point one
+of a second; you can add a new keyframe in
+
+00:15:57.850 --> 00:16:03.959
+the middle here with this little button
+there and we're gonna record where I
+
+00:16:03.959 --> 00:16:08.790
+want that keyframe so I'm going to take the body
+and just displace it a  little bit in the
+
+00:16:08.790 --> 00:16:14.690
+middle of the frame and let's try running that. OK
+now if you check in the scene view and
+
+00:16:14.690 --> 00:16:18.990
+click on the gravestone, you see the
+sprite moves but the collider doesn't,
+
+00:16:18.990 --> 00:16:20.060
+that's much better.
+
+00:16:20.060 --> 00:16:26.250
+Alright, let's apply that back to the
+pre-fab and make sure that it works with
+
+00:16:26.250 --> 00:16:30.730
+all the gravestones now in the scene
+viewer let's just check that all of our
+
+00:16:30.730 --> 00:16:35.389
+gravestones now have their main collider
+not moving they do and let's see if the
+
+00:16:35.389 --> 00:16:39.209
+gravestones will appear from the
+beginning. They do, two birds killed with one
+
+00:16:39.209 --> 00:16:43.470
+stone and now we have all of the
+interactions that we were hoping for
+
+00:16:43.470 --> 00:16:48.889
+being logged out and we have all the
+foundations laid for continuing to
+
+00:16:48.889 --> 00:16:52.860
+script our behaviour and get my game
+working. Well done getting this far, I hope you
+
+00:16:52.860 --> 00:16:55.189
+passed the challenge and see you soon
+

@@ -1,0 +1,670 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hey welcome back! So, in
+
+2
+00:00:06.000 --> 00:00:09.000
+this video we're going to get our ball bouncing. Let's
+
+3
+00:00:09.000 --> 00:00:12.000
+see where we're starting from. So, we have
+
+4
+00:00:12.000 --> 00:00:15.000
+a Start Menu with some music, that
+
+5
+00:00:15.000 --> 00:00:18.000
+persists into the game. The ball falls out of the play space,
+
+6
+00:00:18.000 --> 00:00:21.000
+and we may have beaten the game, but personally,
+
+7
+00:00:21.000 --> 00:00:24.000
+it doesn't satisfy me very much. Not much of a challenge right?
+
+8
+00:00:24.000 --> 00:00:27.000
+So, we need to have a paddle in
+
+9
+00:00:27.000 --> 00:00:30.000
+place, at the bottom, to block the ball.
+
+10
+00:00:30.000 --> 00:00:33.000
+So, go into your level, focus on your background
+
+11
+00:00:33.000 --> 00:00:36.000
+framing, as Unity calls it.
+
+12
+00:00:36.000 --> 00:00:39.000
+And let's go and grab our sprite,
+
+13
+00:00:39.000 --> 00:00:42.000
+that is our full brick, and let's pop it into the scene.
+
+14
+00:00:42.000 --> 00:00:45.000
+Now, by dragging the sprite into
+
+15
+00:00:45.000 --> 00:00:48.000
+the scene and letting go, let's see what happens.
+
+16
+00:00:48.000 --> 00:00:51.000
+A few things have happened, it's created a GameObject
+
+17
+00:00:51.000 --> 00:00:54.000
+here, called full brick, the same name as the sprite.
+
+18
+00:00:54.000 --> 00:00:57.000
+It's positioned it, wherever we left
+
+19
+00:00:57.000 --> 00:01:00.000
+it, and I'm actually going to position mine 8 units in
+
+20
+00:01:00.000 --> 00:01:03.000
+and 0.5 world units up.
+
+21
+00:01:03.000 --> 00:01:06.000
+So, we're precisely under the ball here.
+
+22
+00:01:06.000 --> 00:01:09.000
+It has also got a Transform,
+
+23
+00:01:09.000 --> 00:01:12.000
+as all GameObjects do by default, and a Sprite Renderer
+
+24
+00:01:12.000 --> 00:01:15.000
+on it, so we can see it in the scene. And let's just look at it
+
+25
+00:01:15.000 --> 00:01:18.000
+in the game. It's all very well!
+
+26
+00:01:18.000 --> 00:01:21.000
+The ball passes straight through it, which is interesting,
+
+27
+00:01:21.000 --> 00:01:24.000
+but we'll deal with that in a moment. So, I'm going to rename
+
+28
+00:01:24.000 --> 00:01:27.000
+my full brick to simply Paddle.
+
+29
+00:01:27.000 --> 00:01:30.000
+And I would like to organize... Oh, you see the naming, you have to be
+
+30
+00:01:30.000 --> 00:01:33.000
+careful that you definitely hit Return, if you're
+
+31
+00:01:33.000 --> 00:01:36.000
+going to rename in the Inspector. There you go!
+
+32
+00:01:36.000 --> 00:01:39.000
+It's definitely changed. Now, I'm going to move it below Ball but above
+
+33
+00:01:39.000 --> 00:01:42.000
+the LooseCollider, so we have a logical sequence of Ball, Paddle,
+
+34
+00:01:42.000 --> 00:01:45.000
+Lose Collider. The ordering here, in the Hierarchy,
+
+35
+00:01:45.000 --> 00:01:48.000
+doesn't make any different to how the game operates, it's just for your
+
+36
+00:01:48.000 --> 00:01:51.000
+own sanity, keeping check.
+
+37
+00:01:51.000 --> 00:01:54.000
+So, we need to add a collider to our
+
+38
+00:01:54.000 --> 00:01:57.000
+paddle, to stop the ball from passing straight through it. The question is,
+
+39
+00:01:57.000 --> 00:02:00.000
+what sort of collider? Hmm, good
+
+40
+00:02:00.000 --> 00:02:03.000
+question? So, let's start by reminding ourselves what the Ball
+
+41
+00:02:03.000 --> 00:02:06.000
+is. The Ball has a Rigidbody
+
+42
+00:02:06.000 --> 00:02:09.000
+on it, which is not Kinematic,
+
+43
+00:02:09.000 --> 00:02:12.000
+and it has a Collider on it, that is not a Trigger.
+
+44
+00:02:12.000 --> 00:02:15.000
+So, what type of collider does the ball have? What do we call
+
+45
+00:02:15.000 --> 00:02:18.000
+it? Do you remember this table that we produced?
+
+46
+00:02:18.000 --> 00:02:21.000
+Well, the Ball,
+
+47
+00:02:21.000 --> 00:02:24.000
+as I've shown here vertically, is a Ribidbody
+
+48
+00:02:24.000 --> 00:02:27.000
+Collider, because it's not static
+
+49
+00:02:27.000 --> 00:02:30.000
+because it has a Rigidbody on it. It's not a Kinematic
+
+50
+00:02:30.000 --> 00:02:33.000
+Rigid body, because the Rigidbody is not Kinematic.
+
+51
+00:02:33.000 --> 00:02:36.000
+Kinematic Rigidbodies, basically, you have to more yourself.
+
+52
+00:02:36.000 --> 00:02:39.000
+The Physics Engine doesn't move them.
+
+53
+00:02:39.000 --> 00:02:42.000
+And it's not a Trigger. The Collider is not set to
+
+54
+00:02:42.000 --> 00:02:45.000
+a Trigger, so the column, the verticle we're dealing with
+
+55
+00:02:45.000 --> 00:02:48.000
+is a Rigidbody Collider, on the Ball. Now comes the
+
+56
+00:02:48.000 --> 00:02:51.000
+question, what type of collider should we put on the paddle?
+
+57
+00:02:51.000 --> 00:02:54.000
+Well, we're going to be moving the paddle right?
+
+58
+00:02:54.000 --> 00:02:57.000
+So, Static Colliders, at the top on the left, are
+
+59
+00:02:57.000 --> 00:03:00.000
+out, because we're not supposed to move State Colliders. They're
+
+60
+00:03:00.000 --> 00:03:03.000
+for things like walls. The walls of the game will be Static Colliders.
+
+61
+00:03:03.000 --> 00:03:06.000
+So, what's the next thing it could be? Could it be a
+
+62
+00:03:06.000 --> 00:03:09.000
+Rigid body Collider or a Kinematic Rigidbody Collider?
+
+63
+00:03:09.000 --> 00:03:12.000
+Well, you're going to experiment with that in a minute. It's definately
+
+64
+00:03:12.000 --> 00:03:15.000
+either a Kinematic Rigidbody or just a plain
+
+65
+00:03:15.000 --> 00:03:18.000
+Rigidbody, because we want a collision to come out of
+
+66
+00:03:18.000 --> 00:03:21.000
+this result, not just a Trigger. We actually want the Physics Engine to
+
+67
+00:03:21.000 --> 00:03:24.000
+work for us, in this game, because it's very much a physics based
+
+68
+00:03:24.000 --> 00:03:27.000
+game. So, next
+
+69
+00:03:27.000 --> 00:03:30.000
+thing you're going to need to know, of course, is what is a Rigidbody? What is
+
+70
+00:03:30.000 --> 00:03:33.000
+this Rigidgody thing, in a bit more detail? Well,
+
+71
+00:03:33.000 --> 00:03:36.000
+let's take a quick look! Let's see what Unity has to say about it!
+
+72
+00:03:36.000 --> 00:03:39.000
+"Rigid bodies enable your GameObjects
+
+73
+00:03:39.000 --> 00:03:42.000
+to act under the control of physics. The Rigidbody can receive
+
+74
+00:03:42.000 --> 00:03:45.000
+forces and torque to make your objects move in a realistic way..."
+
+75
+00:03:45.000 --> 00:03:48.000
+So, that's what's making our ball fall, at the moment. It's
+
+76
+00:03:48.000 --> 00:03:51.000
+the fact it's got a Rigidbody on it and some gravity. That's what's pulling
+
+77
+00:03:51.000 --> 00:03:54.000
+the ball downwards right now. You can read more
+
+78
+00:03:54.000 --> 00:03:57.000
+about Rigidbodies, in Unity's manual there, which I think
+
+79
+00:03:57.000 --> 00:04:00.000
+I have the page open over here for you. Yes I do!
+
+80
+00:04:00.000 --> 00:04:03.000
+It's probably worth a read. But the question
+
+81
+00:04:03.000 --> 00:04:06.000
+remains, what type of collider should we
+
+82
+00:04:06.000 --> 00:04:09.000
+be putting on our paddle?
+
+83
+00:04:09.000 --> 00:04:12.000
+I want you to think about that yourself.
+
+84
+00:04:12.000 --> 00:04:15.000
+And as a challenge for you, I want you
+
+85
+00:04:15.000 --> 00:04:18.000
+to find and add the appropriate 2D collider
+
+86
+00:04:18.000 --> 00:04:21.000
+to the paddle. It's not going to be a
+
+87
+00:04:21.000 --> 00:04:24.000
+Circle Collier, but it's pretty obvious what type it should be.
+
+88
+00:04:24.000 --> 00:04:27.000
+I then want you to find and
+
+89
+00:04:27.000 --> 00:04:30.000
+add the Rigidbody2D component to
+
+90
+00:04:30.000 --> 00:04:33.000
+the paddle, that we just created,
+
+91
+00:04:33.000 --> 00:04:36.000
+and then, play around and see
+
+92
+00:04:36.000 --> 00:04:39.000
+what happens, when you set the Rigidbody2D to Kinematic
+
+93
+00:04:39.000 --> 00:04:42.000
+vs. Non-Kinematic? And have a play with some of
+
+94
+00:04:42.000 --> 00:04:45.000
+those other settings. We can always reset the component, don't worry.
+
+95
+00:04:45.000 --> 00:04:48.000
+And then, come back to me after you've paused the video. See if you can get
+
+96
+00:04:48.000 --> 00:04:51.000
+to a point where the ball just stops dead, when it hits the
+
+97
+00:04:51.000 --> 00:04:54.000
+paddle. OK, pause the video and try that now.
+
+98
+00:04:57.000 --> 00:05:00.000
+So fantastic! Welcome back! I hope you paused the video. I hope you did your
+
+99
+00:05:00.000 --> 00:05:03.000
+challenge. Let's just start playing. Here's the Paddle.
+
+100
+00:05:03.000 --> 00:05:06.000
+We are going to firstly need to
+
+101
+00:05:06.000 --> 00:05:09.000
+add that collider, so Add Component, Physics 2D,
+
+102
+00:05:09.000 --> 00:05:12.000
+Box Collider, would clearly be the right one,
+
+103
+00:05:12.000 --> 00:05:15.000
+because it's a box. Now, let's just double click on the Paddle and
+
+104
+00:05:15.000 --> 00:05:18.000
+take a look! That collider is in green there. How do I know?
+
+105
+00:05:18.000 --> 00:05:21.000
+Well, I could disable and re-enable the Box
+
+106
+00:05:21.000 --> 00:05:24.000
+Collider, here in the Inspector, and you'll just see a green outline.
+
+107
+00:05:24.000 --> 00:05:27.000
+Another way is, I could increase the size of it to make it
+
+108
+00:05:27.000 --> 00:05:30.000
+bigger or smaller than the paddle, but I actually want it to be
+
+109
+00:05:30.000 --> 00:05:33.000
+default size, so I'm going to reset the collider,
+
+110
+00:05:33.000 --> 00:05:36.000
+because it did a good job of finding the outside of the paddle.
+
+111
+00:05:36.000 --> 00:05:39.000
+Good! So, we have a collider! Let's see what happens with just a collider!
+
+112
+00:05:39.000 --> 00:05:42.000
+Boom! It lands
+
+113
+00:05:42.000 --> 00:05:45.000
+and stops! That's good! So, what have we got
+
+114
+00:05:45.000 --> 00:05:48.000
+here, at this stage? What type of collider have we got
+
+115
+00:05:48.000 --> 00:05:51.000
+on the paddle?
+
+116
+00:05:51.000 --> 00:05:54.000
+Well, it's a Static Collider. It may seem like it's
+
+117
+00:05:54.000 --> 00:05:57.000
+doing the job, but it's not good, because it's a Static Collider.
+
+118
+00:05:57.000 --> 00:06:00.000
+This thing is not supposed to be moving. It's very inefficient
+
+119
+00:06:00.000 --> 00:06:03.000
+to use Static Colliders. So, we're going to go ahead and add
+
+120
+00:06:03.000 --> 00:06:06.000
+this Physics 2D, Rigidbody 2D
+
+121
+00:06:06.000 --> 00:06:09.000
+component. Let's leave all the settings
+
+122
+00:06:09.000 --> 00:06:12.000
+as default and see what happens.
+
+123
+00:06:12.000 --> 00:06:15.000
+Ooh, what happened there? We have to look really carefully. So, if you need
+
+124
+00:06:15.000 --> 00:06:18.000
+to look carefully, what you can do is you can hit pause
+
+125
+00:06:18.000 --> 00:06:21.000
+then play,
+
+126
+00:06:21.000 --> 00:06:24.000
+and then, you can step through, one frame at
+
+127
+00:06:24.000 --> 00:06:27.000
+a time and see what happens, using this button here.
+
+128
+00:06:27.000 --> 00:06:30.000
+See! The paddle was falling off the
+
+129
+00:06:30.000 --> 00:06:33.000
+screen as well. So, if we look at the Paddle,
+
+130
+00:06:33.000 --> 00:06:36.000
+it's because it has Mass
+
+131
+00:06:36.000 --> 00:06:39.000
+and a Gravity Scale.
+
+132
+00:06:39.000 --> 00:06:42.000
+So, you could set the Gravity Scale to 0. Let's see
+
+133
+00:06:42.000 --> 00:06:45.000
+what that does. How come is the ball...
+
+134
+00:06:45.000 --> 00:06:48.000
+Ah, so let's watch that again! Again, using
+
+135
+00:06:48.000 --> 00:06:51.000
+the slow motion, so pause then play.
+
+136
+00:06:51.000 --> 00:06:54.000
+Now, the paddle is not moving,
+
+137
+00:06:54.000 --> 00:06:57.000
+but when the ball excelerates down and hits the
+
+138
+00:06:57.000 --> 00:07:00.000
+paddle, the ball has mass the paddle has mass, so the ball knocks
+
+139
+00:07:00.000 --> 00:07:03.000
+the paddle out of the way. Not right either! OK,
+
+140
+00:07:03.000 --> 00:07:06.000
+so how about if we were to
+
+141
+00:07:06.000 --> 00:07:09.000
+have another look at the paddle and say, how about if it had no Mass?
+
+142
+00:07:09.000 --> 00:07:12.000
+Well then, it would just accelerate off really fast. How about if you had
+
+143
+00:07:12.000 --> 00:07:15.000
+massive Mass? Well, maybe it would stay in place
+
+144
+00:07:15.000 --> 00:07:18.000
+if it had a massive Mass, but that's a hack right. I don't like that.
+
+145
+00:07:18.000 --> 00:07:21.000
+So, don't do that. What we actually want to do is make
+
+146
+00:07:21.000 --> 00:07:24.000
+this paddle Kinematic. Now, you can read in the manual
+
+147
+00:07:24.000 --> 00:07:27.000
+what Kinematic means. I'll show you briefly.
+
+148
+00:07:27.000 --> 00:07:30.000
+Here! "If enabled the object will
+
+149
+00:07:30.000 --> 00:07:33.000
+not be driven by the physics engine, and can only be manipulated by its
+
+150
+00:07:33.000 --> 00:07:36.000
+Transform. This is useful for moving platforms or if you want
+
+151
+00:07:36.000 --> 00:07:39.000
+to animate a Rigidbody that has a Hingejoint". So, this is
+
+152
+00:07:39.000 --> 00:07:42.000
+basically a moving platform, this thing. So, if we
+
+153
+00:07:42.000 --> 00:07:45.000
+make it Kinematic, then
+
+154
+00:07:45.000 --> 00:07:48.000
+let's see what happens. Bump!
+
+155
+00:07:48.000 --> 00:07:51.000
+OK, so the paddle is ignoring the Physics
+
+156
+00:07:51.000 --> 00:07:54.000
+Engine, which is perfect. It's exactly what we want. We have
+
+157
+00:07:54.000 --> 00:07:57.000
+the ball, that has some mass, hitting this paddle that will not move
+
+158
+00:07:57.000 --> 00:08:00.000
+unless our script moves it. So, looking back into
+
+159
+00:08:00.000 --> 00:08:03.000
+the presentation, we have this
+
+160
+00:08:03.000 --> 00:08:06.000
+interaction here, between the Rigidbody Collider
+
+161
+00:08:06.000 --> 00:08:09.000
+and the Kinematic Rigidbody
+
+162
+00:08:09.000 --> 00:08:12.000
+Collider. So, the ball is a Rigidbody Collider
+
+163
+00:08:12.000 --> 00:08:15.000
+and the paddle becomes a Kinematic Rigidbody
+
+164
+00:08:15.000 --> 00:08:18.000
+Collider.
+
+165
+00:08:18.000 --> 00:08:21.000
+So congratulations if you got that far! Hopefully you understand more
+
+166
+00:08:21.000 --> 00:08:24.000
+about colliders and physics. And I shall
+
+167
+00:08:24.000 --> 00:08:25.566
+see you shortly!
+

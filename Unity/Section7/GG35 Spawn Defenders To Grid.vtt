@@ -1,0 +1,1738 @@
+WEBVTT
+
+1
+00:00:06.000 --> 00:00:09.000
+Hey guys, welcome back! So, in this video we're going to focus on
+
+2
+00:00:09.000 --> 00:00:12.000
+actually getting the world coordinates of
+
+3
+00:00:12.000 --> 00:00:15.000
+the mouse click. So, what's happening at the moment
+
+4
+00:00:15.000 --> 00:00:18.000
+is, we have these
+
+5
+00:00:18.000 --> 00:00:21.000
+things be able to be selected, when you click on them, but actually when we click
+
+6
+00:00:21.000 --> 00:00:24.000
+into the play-space nothing happens. There's no enemies
+
+7
+00:00:24.000 --> 00:00:27.000
+being spawned. So, we need to change that! I'm
+
+8
+00:00:27.000 --> 00:00:30.000
+going to start by confidently just deleting all the attackers in the scene,
+
+9
+00:00:30.000 --> 00:00:33.000
+defenders in the scene, because from now on we're
+
+10
+00:00:33.000 --> 00:00:36.000
+going to want to spawn defenders. Also, including that
+
+11
+00:00:36.000 --> 00:00:39.000
+rogue gnome that we had there. OK, fantastic!
+
+12
+00:00:39.000 --> 00:00:42.000
+So, in this video we're going to ensure
+
+13
+00:00:42.000 --> 00:00:45.000
+existing defender' colliders mask the square that they're over.
+
+14
+00:00:45.000 --> 00:00:48.000
+Calculate the world position of a click,
+
+15
+00:00:48.000 --> 00:00:51.000
+calculate to the nearest play-space grid center,
+
+16
+00:00:51.000 --> 00:00:54.000
+and then, spawn the currently selected defender, right there.
+
+17
+00:00:54.000 --> 00:00:57.000
+Right in the middle of the grid space or the closest
+
+18
+00:00:57.000 --> 00:01:00.000
+to the middle of the grid space, that we have clicked. So, let's
+
+19
+00:01:00.000 --> 00:01:03.000
+get on with that. Let's break the problem down into parts.
+
+20
+00:01:03.000 --> 00:01:06.000
+Where are we going to start? Well, we already have a
+
+21
+00:01:06.000 --> 00:01:09.000
+core game space unit, here in the UI. You can
+
+22
+00:01:09.000 --> 00:01:12.000
+see it there! It's under the Level Canvas, in your Hierarchy.
+
+23
+00:01:12.000 --> 00:01:15.000
+And if you click on it, you can see that it's 1,200
+
+24
+00:01:15.000 --> 00:01:18.000
+by 675 pixels wide.
+
+25
+00:01:18.000 --> 00:01:21.000
+So that's the object we are going to start by adding a script
+
+26
+00:01:21.000 --> 00:01:24.000
+to. So, there are some differences when
+
+27
+00:01:24.000 --> 00:01:27.000
+you start trying to add a script, of this type, to
+
+28
+00:01:27.000 --> 00:01:30.000
+a UI object, but let's do it! Let's be brave! Call it
+
+29
+00:01:30.000 --> 00:01:33.000
+DefenderSpawner, like that! So, a new script
+
+30
+00:01:33.000 --> 00:01:36.000
+attached to your Core Game area. And of course,
+
+31
+00:01:36.000 --> 00:01:39.000
+you need to tidy the script up as usual. There it goes!
+
+32
+00:01:39.000 --> 00:01:42.000
+OK fantastic! So, going into the script now. Let's
+
+33
+00:01:42.000 --> 00:01:45.000
+take a look and see what we need to do.
+
+34
+00:01:45.000 --> 00:01:48.000
+So, one of the first things we want to be able to
+
+35
+00:01:48.000 --> 00:01:51.000
+do is intercept a mouse click or a finger click. Remember, we're making
+
+36
+00:01:51.000 --> 00:01:54.000
+this game for mobile, so the method you need is On
+
+37
+00:01:54.000 --> 00:01:57.000
+MouseDown (). That also works for finger clicks, and it returns the
+
+38
+00:01:57.000 --> 00:02:00.000
+pixel coordinates of that press or that
+
+39
+00:02:00.000 --> 00:02:03.000
+click. So, why don't we just start by
+
+40
+00:02:03.000 --> 00:02:06.000
+making sure that method is being called, print ("clicked");
+
+41
+00:02:06.000 --> 00:02:09.000
+Now, if you're sharp and you've been looking at the docs, you'll notice
+
+42
+00:02:09.000 --> 00:02:12.000
+that we're missing something, but let's take a look at what happens if we
+
+43
+00:02:12.000 --> 00:02:15.000
+just try it. OK, so we print ("clicked") when the OnMouseDown
+
+44
+00:02:15.000 --> 00:02:18.000
+message gets called. Let's try and see what happens!
+
+45
+00:02:18.000 --> 00:02:21.000
+There it is, attached to the Core Game object! Hit play!
+
+46
+00:02:21.000 --> 00:02:24.000
+Click click click! Console! OK well, it's filling up
+
+47
+00:02:24.000 --> 00:02:27.000
+with nulls, which is fine, but even if we collapse the Console,
+
+48
+00:02:27.000 --> 00:02:30.000
+like that, there's no click going on right. I'm going to
+
+49
+00:02:30.000 --> 00:02:33.000
+remove the line that prints those nulls. I'm doing this just
+
+50
+00:02:33.000 --> 00:02:36.000
+by double clicking the null, that's coming up on the Console. That takes me
+
+51
+00:02:36.000 --> 00:02:39.000
+straight to the line of script that logs that thing out,
+
+52
+00:02:39.000 --> 00:02:42.000
+and I can get rid of it. So, we have a clear Console and we're
+
+53
+00:02:42.000 --> 00:02:45.000
+pretty confident nothing is getting called. Why?
+
+54
+00:02:45.000 --> 00:02:48.000
+Well, the reason is that you need a collider. The only
+
+55
+00:02:48.000 --> 00:02:51.000
+way that these clicks actually get interceptors is if you have
+
+56
+00:02:51.000 --> 00:02:54.000
+a collider. So, let's put a Box Collider 2D
+
+57
+00:02:54.000 --> 00:02:57.000
+on the course Game Space. There it goes!
+
+58
+00:02:57.000 --> 00:03:00.000
+Alright, you're getting an
+
+59
+00:03:00.000 --> 00:03:03.000
+error! Look inside the Box Collider Element. "The collider did not create any
+
+60
+00:03:03.000 --> 00:03:06.000
+collision shapes, as they failed verification." That's because on a UI
+
+61
+00:03:06.000 --> 00:03:09.000
+Element, the size isn't in world units it's in
+
+62
+00:03:09.000 --> 00:03:12.000
+pixels. So, we actually need to set the size of this Box
+
+63
+00:03:12.000 --> 00:03:15.000
+Collider to 1,200 pixels in the X direction,
+
+64
+00:03:15.000 --> 00:03:18.000
+like so.
+
+65
+00:03:18.000 --> 00:03:21.000
+To 675 pixels in the Y direction.
+
+66
+00:03:21.000 --> 00:03:24.000
+Now, this is different to how you normally do things, because they're
+
+67
+00:03:24.000 --> 00:03:27.000
+normally in world units, but this is a UI Element, so we're
+
+68
+00:03:27.000 --> 00:03:30.000
+showing you an alternative way here. Ah, now click is
+
+69
+00:03:30.000 --> 00:03:33.000
+being called! Great! That's fantastic! So,
+
+70
+00:03:33.000 --> 00:03:36.000
+remember you need that. Also, you might want to apply your prefab back to your
+
+71
+00:03:36.000 --> 00:03:39.000
+Core Game Element here, but generally we'll
+
+72
+00:03:39.000 --> 00:03:42.000
+update the prefabs later. So, we've done that bit, what next? How are we going to
+
+73
+00:03:42.000 --> 00:03:45.000
+calculate the world units of a click?
+
+74
+00:03:45.000 --> 00:03:48.000
+Well, our OnMouseDown method returns the pixel coordinates. We need
+
+75
+00:03:48.000 --> 00:03:51.000
+camera.ScreenToWorldPoint(). That's the method we're going to use!
+
+76
+00:03:51.000 --> 00:03:54.000
+So, let's take a look at how we're going to use that method to
+
+77
+00:03:54.000 --> 00:03:57.000
+make the translation, back
+
+78
+00:03:57.000 --> 00:04:00.000
+over in the Defender Spawner Script. Next,
+
+79
+00:04:00.000 --> 00:04:03.000
+thing we want to do is inquery this Input.mousePosition
+
+80
+00:04:03.000 --> 00:04:06.000
+thing. Let's find out what the mouse
+
+81
+00:04:06.000 --> 00:04:09.000
+position of where we're clicking or tapping
+
+82
+00:04:09.000 --> 00:04:12.000
+is. So, Input.mouse
+
+83
+00:04:12.000 --> 00:04:15.000
+Position returns the pixel coordinates
+
+84
+00:04:15.000 --> 00:04:18.000
+of where we've clicked. So, let's take a look at that, in practice.
+
+85
+00:04:18.000 --> 00:04:21.000
+instead of printing ("clicked"), let's just print
+
+86
+00:04:21.000 --> 00:04:24.000
+(Input.mousePosition)
+
+87
+00:04:24.000 --> 00:04:27.000
+I'm fighting a little bit here with
+
+88
+00:04:27.000 --> 00:04:30.000
+MonoDevelop's Autocomplete, but eventually I will prevail, and I
+
+89
+00:04:30.000 --> 00:04:33.000
+will type mousePosition! Fantastic! OK, so
+
+90
+00:04:33.000 --> 00:04:36.000
+print (Input.mousePosition); What do we get? Let's click around and take a look!
+
+91
+00:04:36.000 --> 00:04:39.000
+Cool! So, inside the square we're getting pixels numbers, that
+
+92
+00:04:39.000 --> 00:04:42.000
+seem feasible: 200 by something. 0 ,of course,
+
+93
+00:04:42.000 --> 00:04:45.000
+on the end. That's because there's no Z coordinate of the mouse. It doesn't make sense
+
+94
+00:04:45.000 --> 00:04:48.000
+to the 2D mouse. And if we click outside the box, we get
+
+95
+00:04:48.000 --> 00:04:51.000
+nothing, so that is all kind of checking out! The question
+
+96
+00:04:51.000 --> 00:04:54.000
+now becomes, how do we actually get the world units, that we need to
+
+97
+00:04:54.000 --> 00:04:57.000
+work in? You may ask, by the way, how about if we did all
+
+98
+00:04:57.000 --> 00:05:00.000
+of this on a World Space Object, like a quad or a
+
+99
+00:05:00.000 --> 00:05:03.000
+plane. Well, you'd still have the same issue, because Input.mousePosition
+
+100
+00:05:03.000 --> 00:05:06.000
+will still return you pixel coordinates. So, the fact
+
+101
+00:05:06.000 --> 00:05:09.000
+we've done this on a UI Element doesn't really make much difference. We just have to
+
+102
+00:05:09.000 --> 00:05:12.000
+set a collider, of the appropriate size. So, what we want to happen is,
+
+103
+00:05:12.000 --> 00:05:15.000
+when we click this cactus guy, for instance, we want him to spawn in the
+
+104
+00:05:15.000 --> 00:05:18.000
+center of the nearest square.
+
+105
+00:05:18.000 --> 00:05:21.000
+So, how are we going to do that? We're going to use
+
+106
+00:05:21.000 --> 00:05:24.000
+camera.ScreenToWorldPoint(). That's the method
+
+107
+00:05:24.000 --> 00:05:27.000
+that translates the coordinates from
+
+108
+00:05:27.000 --> 00:05:30.000
+pixels into world points, but we're using an
+
+109
+00:05:30.000 --> 00:05:33.000
+orthographic camera, so perspective doesn't matter.
+
+110
+00:05:33.000 --> 00:05:36.000
+There is no perspective, and the distance from the camera doesn't
+
+111
+00:05:36.000 --> 00:05:39.000
+matter either. So, let's take a look at that!
+
+112
+00:05:39.000 --> 00:05:42.000
+If we go into our scene
+
+113
+00:05:42.000 --> 00:05:45.000
+and pop it into 3D View for a moment,
+
+114
+00:05:45.000 --> 00:05:48.000
+you can actually see the camera.
+
+115
+00:05:48.000 --> 00:05:51.000
+I'm just going to move the scene around a little bit, so I can get to the point where we can get
+
+116
+00:05:51.000 --> 00:05:54.000
+a camera and see that it's orthographic. I know those lines look like they're
+
+117
+00:05:54.000 --> 00:05:57.000
+diverging or converging down onto a vanishing point,
+
+118
+00:05:57.000 --> 00:06:00.000
+but that's only because the space is 3D. They're actually parallel lines;
+
+119
+00:06:00.000 --> 00:06:03.000
+you can see that when we switch the camera to Perspective. Now,
+
+120
+00:06:03.000 --> 00:06:06.000
+you see what a Perspective Camera looks like. Very very divergent
+
+121
+00:06:06.000 --> 00:06:09.000
+lines right. So, it doesn't matter how far we
+
+122
+00:06:09.000 --> 00:06:12.000
+are from a 2D space. With an Orthographic
+
+123
+00:06:12.000 --> 00:06:15.000
+Camera, it doesn't matter how far away the camera is. Wherever we
+
+124
+00:06:15.000 --> 00:06:18.000
+click, there's a one to one correspondence between where we click
+
+125
+00:06:18.000 --> 00:06:21.000
+and the world unit under our mouse. Does that make
+
+126
+00:06:21.000 --> 00:06:24.000
+sense to you? So, you click right in the center, it's always going to be
+
+127
+00:06:24.000 --> 00:06:27.000
+in the center. So, we have to provide the camera, because the
+
+128
+00:06:27.000 --> 00:06:30.000
+method requires it, but it doesn't matter what the distance is.
+
+129
+00:06:30.000 --> 00:06:33.000
+That's what I mean by distance from camera unimportant. Only
+
+130
+00:06:33.000 --> 00:06:36.000
+because we're using a single camera, and we're using a
+
+131
+00:06:36.000 --> 00:06:39.000
+Orthographic Camera.
+
+132
+00:06:39.000 --> 00:06:42.000
+So, how are we going to do that? Well,
+
+133
+00:06:42.000 --> 00:06:45.000
+take a look back in your script for
+
+134
+00:06:45.000 --> 00:06:48.000
+a moment, and let's start fleshing this out.
+
+135
+00:06:48.000 --> 00:06:51.000
+We're going to need a method that returns a Vector2,
+
+136
+00:06:51.000 --> 00:06:54.000
+which is your
+
+137
+00:06:54.000 --> 00:06:57.000
+world coordinates. And what are we going to call this method? Well,
+
+138
+00:06:57.000 --> 00:07:00.000
+let's give it a nice long descriptive name. Something like Calculate
+
+139
+00:07:00.000 --> 00:07:03.000
+WorldPoint
+
+140
+00:07:03.000 --> 00:07:06.000
+OfMouseClick ()
+
+141
+00:07:06.000 --> 00:07:09.000
+Pretty long right! And it's going to be responsible for finding out where the mouse
+
+142
+00:07:09.000 --> 00:07:12.000
+clicked and returning a Vector2 of world position.
+
+143
+00:07:12.000 --> 00:07:15.000
+Fantastic! So, that's the vector 2 it's returning there.
+
+144
+00:07:15.000 --> 00:07:18.000
+So, when this is working properly,
+
+145
+00:07:18.000 --> 00:07:21.000
+if you were to print the result
+
+146
+00:07:21.000 --> 00:07:24.000
+of that method, CalculateWorldPointOfMouseClick (), immediately after your
+
+147
+00:07:24.000 --> 00:07:27.000
+mouse position, then what we would hope to
+
+148
+00:07:27.000 --> 00:07:30.000
+see is the world point. So, let's just get the structure
+
+149
+00:07:30.000 --> 00:07:33.000
+setup for you, before I put you into the challenge!
+
+150
+00:07:33.000 --> 00:07:36.000
+I'm just going to return a flat Vector2
+
+151
+00:07:36.000 --> 00:07:39.000
+(0, 0); for the moment, just to prove the point
+
+152
+00:07:39.000 --> 00:07:42.000
+and make sure you're clear on what you need to be doing. So,
+
+153
+00:07:42.000 --> 00:07:45.000
+if we look now in the log, when you click Console,
+
+154
+00:07:45.000 --> 00:07:48.000
+when you click around... OK, the Console is collapsed, so you need to
+
+155
+00:07:48.000 --> 00:07:51.000
+turn collapse off. When you click around you're seeing pixel coordinates,
+
+156
+00:07:51.000 --> 00:07:54.000
+and then, immediately afterwards you are seeing world
+
+157
+00:07:54.000 --> 00:07:57.000
+units, on the next line. That's what we want, but of course we want the
+
+158
+00:07:57.000 --> 00:08:00.000
+real world units to be showing, not these
+
+159
+00:08:00.000 --> 00:08:03.000
+funny (0,0) that I've created here.
+
+160
+00:08:03.000 --> 00:08:06.000
+OK. So, here's a challenge for you! What I want you to do is actually
+
+161
+00:08:06.000 --> 00:08:09.000
+make that method, that is going to make that translation
+
+162
+00:08:09.000 --> 00:08:12.000
+for you. I want you to flesh out the body of the translation,
+
+163
+00:08:12.000 --> 00:08:15.000
+so that, for example, if you were to click on the lizard
+
+164
+00:08:15.000 --> 00:08:18.000
+there, then you would get a result back of
+
+165
+00:08:18.000 --> 00:08:21.000
+whatever his world coordinates are, 9, 3
+
+166
+00:08:21.000 --> 00:08:24.000
+I believe. Alright, instead of 0, 0.
+
+167
+00:08:24.000 --> 00:08:27.000
+So, that's what I want you to do! Create the
+
+168
+00:08:27.000 --> 00:08:30.000
+body of that method. You've got the signature! You've got the code that's going to
+
+169
+00:08:30.000 --> 00:08:33.000
+call it, you just need to make it work.
+
+170
+00:08:39.000 --> 00:08:42.000
+Cool! So, how did you get on with that? I'm going to
+
+171
+00:08:42.000 --> 00:08:45.000
+show you my approach to it! So, we're going to build up this
+
+172
+00:08:45.000 --> 00:08:48.000
+world space world point Vector2, in
+
+173
+00:08:48.000 --> 00:08:51.000
+bits, because C# likes us to do it that way. You've
+
+174
+00:08:51.000 --> 00:08:54.000
+seen that a lot before, when we were constructing vectors. So, float
+
+175
+00:08:54.000 --> 00:08:57.000
+mouseX, the mouse position in X. It's just Input
+
+176
+00:08:57.000 --> 00:09:00.000
+.mousePosition.x;
+
+177
+00:09:00.000 --> 00:09:03.000
+OK, so then float mouseY. Can you guess
+
+178
+00:09:03.000 --> 00:09:06.000
+what I'm going to type? That's Input.mousePosition.
+
+179
+00:09:06.000 --> 00:09:09.000
+...million dollar question,
+
+180
+00:09:09.000 --> 00:09:12.000
+.y; Right! OK! So, now we've pulled off the X and the Y
+
+181
+00:09:12.000 --> 00:09:15.000
+value into independent floats
+
+182
+00:09:15.000 --> 00:09:18.000
+of the mouse. So, what do we need now? This funny
+
+183
+00:09:18.000 --> 00:09:21.000
+camera.ScreenToWorldPoint method needs
+
+184
+00:09:21.000 --> 00:09:24.000
+a distance from camera, so let's give it one. Let's keep it happy! distanceFrom
+
+185
+00:09:24.000 --> 00:09:27.000
+Camera. There, another float. I'm just going to say 10. It's a reasonable number,
+
+186
+00:09:27.000 --> 00:09:30.000
+compared to our play-space. As I said, and distance doesn't matter.
+
+187
+00:09:30.000 --> 00:09:33.000
+So now, we're going to construct ourselves a
+
+188
+00:09:33.000 --> 00:09:36.000
+Vector3, because this method needs a Vector3.
+
+189
+00:09:36.000 --> 00:09:39.000
+It's a weird Vector3, and that's why I'm calling it a weird
+
+190
+00:09:39.000 --> 00:09:42.000
+Triplet. It's a weirdTriplet
+
+191
+00:09:42.000 --> 00:09:45.000
+because the first part of the triplet is an X coordinate.
+
+192
+00:09:45.000 --> 00:09:48.000
+It's a new Vector3 with mouseX.
+
+193
+00:09:48.000 --> 00:09:51.000
+The second part os a Y coordinate, pretty standard right.
+
+194
+00:09:51.000 --> 00:09:54.000
+So, let's put that in.
+
+195
+00:09:54.000 --> 00:09:57.000
+mouseY,
+
+196
+00:09:57.000 --> 00:10:00.000
+there we go! And then, the third part is a distance
+
+197
+00:10:00.000 --> 00:10:03.000
+from camera. Now, in our case, it happens to be a Z
+
+198
+00:10:03.000 --> 00:10:06.000
+coordinate, because our play-space is laid out in X and Y,
+
+199
+00:10:06.000 --> 00:10:09.000
+but in general, we could have tilted
+
+200
+00:10:09.000 --> 00:10:12.000
+our play-space completely differently, in 3 dimensions. So, it's not always
+
+201
+00:10:12.000 --> 00:10:15.000
+an actual Z coordinate, it's a kind of weird triplet.
+
+202
+00:10:15.000 --> 00:10:18.000
+It's an X, Y, comma distance from camera.
+
+203
+00:10:18.000 --> 00:10:21.000
+So, I'm just going to call it weird triplet, just to kind of
+
+204
+00:10:21.000 --> 00:10:24.000
+ring alarm bells. OK, so we've formed this weird
+
+205
+00:10:24.000 --> 00:10:27.000
+Triplet, that the method needs. So, let's make our
+
+206
+00:10:27.000 --> 00:10:30.000
+world point Vector2, the thing we're actually going to spit
+
+207
+00:10:30.000 --> 00:10:33.000
+out act the end of this method. myCamera!
+
+208
+00:10:33.000 --> 00:10:36.000
+We don't have myCamera yet, I know so shoot me. This is kind of
+
+209
+00:10:36.000 --> 00:10:39.000
+wishful coding here. We wish we had a myCamera, we're going to sort that out
+
+210
+00:10:39.000 --> 00:10:42.000
+later. The disadvantage of not having it of course is that it's
+
+211
+00:10:42.000 --> 00:10:45.000
+that Autocomplete doesn't work at this point, but that's OK, we'll
+
+212
+00:10:45.000 --> 00:10:48.000
+confidently type .ScreenToWorldPoint, pass it it's (weird
+
+213
+00:10:48.000 --> 00:10:51.000
+Triplet). And then, before we go any farther,
+
+214
+00:10:51.000 --> 00:10:54.000
+let's look at the Unity docs, by clicking on it and
+
+215
+00:10:54.000 --> 00:10:57.000
+clicking Control or Command and apostrophe, and see what
+
+216
+00:10:57.000 --> 00:11:00.000
+we mean by weirdTriplet. It takes an X, Y, and then this
+
+217
+00:11:00.000 --> 00:11:03.000
+distance from camera. So that's the weird triplet, and you can read all
+
+218
+00:11:03.000 --> 00:11:06.000
+about it at camera.ScreenToWorldPoint, if you're having trouble getting to sleep.
+
+219
+00:11:06.000 --> 00:11:09.000
+So, we're going to need to, of course, get
+
+220
+00:11:09.000 --> 00:11:12.000
+hold of the camera in question. So, how are we going to do that? Let's publicly expose
+
+221
+00:11:12.000 --> 00:11:15.000
+ourselves a camera, and we're going to call it
+
+222
+00:11:15.000 --> 00:11:18.000
+myCamera;
+
+223
+00:11:18.000 --> 00:11:21.000
+And in doing so, the code down on the bottom will no longer be
+
+224
+00:11:21.000 --> 00:11:24.000
+red, or course, because it recognizes that, and finally, we
+
+225
+00:11:24.000 --> 00:11:27.000
+need to return this world position.
+
+226
+00:11:27.000 --> 00:11:30.000
+OK, let's try running! Oh, it's moaning! Why
+
+227
+00:11:30.000 --> 00:11:33.000
+is it moaning? Let's take a look! I'm getting an error
+
+228
+00:11:33.000 --> 00:11:36.000
+at the bottom there. It's nothing to do with my collider.
+
+229
+00:11:36.000 --> 00:11:39.000
+Oh, hang on! I'm saying new! I shouldn't be
+
+230
+00:11:39.000 --> 00:11:42.000
+returning a new worldPosition, we've already constructed the worldPosition.
+
+231
+00:11:42.000 --> 00:11:45.000
+We just need to return what we've already made. Perfect! Great!
+
+232
+00:11:45.000 --> 00:11:48.000
+So, no errors now! Now, let's click away and see
+
+233
+00:11:48.000 --> 00:11:51.000
+what actually happens, once we've associated the camera.
+
+234
+00:11:51.000 --> 00:11:54.000
+Don't forget to drag your Game Camera onto
+
+235
+00:11:54.000 --> 00:11:57.000
+your DefenderSpawner Script and apply back to the
+
+236
+00:11:57.000 --> 00:12:00.000
+prefab, if you want to make sure you keep it. Now, let's click! Wow, that was lucky!
+
+237
+00:12:00.000 --> 00:12:03.000
+I hit 9, 3 on the first click! But if you watch the Console carefully
+
+238
+00:12:03.000 --> 00:12:06.000
+you'll find, as you click around, you're actually getting correct
+
+239
+00:12:06.000 --> 00:12:09.000
+world units, being logged out translated
+
+240
+00:12:09.000 --> 00:12:12.000
+from your pixel units. As I say, I was very lucky in the beginning
+
+241
+00:12:12.000 --> 00:12:15.000
+to hit exactly the middle of that square, but in general this is
+
+242
+00:12:15.000 --> 00:12:18.000
+working. The only thing that we're not quite doing yet is rounding
+
+243
+00:12:18.000 --> 00:12:21.000
+this figure. So, to finish off, all we're going to
+
+244
+00:12:21.000 --> 00:12:24.000
+need to do now is write a method that rounds
+
+245
+00:12:24.000 --> 00:12:27.000
+the numbers, so that what we get out at the end is
+
+246
+00:12:27.000 --> 00:12:30.000
+precisely on grid.
+
+247
+00:12:30.000 --> 00:12:33.000
+So, back in our
+
+248
+00:12:33.000 --> 00:12:36.000
+code, let's set you up for the challenge. Let's go log
+
+249
+00:12:36.000 --> 00:12:39.000
+crazy, and let's have a wishful method here that's
+
+250
+00:12:39.000 --> 00:12:42.000
+called SnapToGrid. OK.
+
+251
+00:12:42.000 --> 00:12:45.000
+So, I'm going to ask you to write this method in a minute.
+
+252
+00:12:45.000 --> 00:12:48.000
+The signature is this: Vector2
+
+253
+00:12:48.000 --> 00:12:51.000
+SnapToGrid, and it takes in
+
+254
+00:12:51.000 --> 00:12:54.000
+what? Well, it takes in a Vector2 and I'm going to call it raw
+
+255
+00:12:54.000 --> 00:12:57.000
+Position or rawWorldPosition, to be
+
+256
+00:12:57.000 --> 00:13:00.000
+even more explicit. So, it takes in a rawWorldPosition,
+
+257
+00:13:00.000 --> 00:13:03.000
+and it's going to return you
+
+258
+00:13:03.000 --> 00:13:06.000
+a new Vector2.
+
+259
+00:13:06.000 --> 00:13:09.000
+I literally put the word new in there! See
+
+260
+00:13:09.000 --> 00:13:12.000
+that was crazy, I literally typed what I said! It's good that
+
+261
+00:13:12.000 --> 00:13:15.000
+code is that close to English, that it's almost what you say but hey.
+
+262
+00:13:15.000 --> 00:13:18.000
+return new Vector2
+
+263
+00:13:18.000 --> 00:13:21.000
+and then, it's going to be some new X coordinate,
+
+264
+00:13:21.000 --> 00:13:24.000
+which I'll just put in there for you. And new Y
+
+265
+00:13:24.000 --> 00:13:27.000
+coordinate. OK. The question is,
+
+266
+00:13:27.000 --> 00:13:30.000
+how do we calculate that? How do we do the rounding? It's relatively
+
+267
+00:13:30.000 --> 00:13:33.000
+simple, and then, one you actually call (SnapToGrid)
+
+268
+00:13:33.000 --> 00:13:36.000
+on the...
+
+269
+00:13:36.000 --> 00:13:39.000
+Well, let's just wrap it around this method. We're not scared of
+
+270
+00:13:39.000 --> 00:13:42.000
+nested functions. Let's do this! Let's do SnapToGrid
+
+271
+00:13:42.000 --> 00:13:45.000
+on CalculateWorldPointOf
+
+272
+00:13:45.000 --> 00:13:48.000
+MouseClick (). Hopefully that makes sense to you. You're going to, Calculate
+
+273
+00:13:48.000 --> 00:13:51.000
+WorldPointOfMouseClick, will spit out a raw world point
+
+274
+00:13:51.000 --> 00:13:54.000
+without rounding. Like with 3.2,
+
+275
+00:13:54.000 --> 00:13:57.000
+4.3 or whatever, and then when we put that into the Snap
+
+276
+00:13:57.000 --> 00:14:00.000
+ToGrid method, we'll get a rounded value out hopefully, if
+
+277
+00:14:00.000 --> 00:14:03.000
+you write your SnapToGrid method properly. Alright, so
+
+278
+00:14:03.000 --> 00:14:06.000
+I'm going to make no apologies for nesting two methods, like this. I
+
+279
+00:14:06.000 --> 00:14:09.000
+personally don't like to see it, it's a little bit weird, but
+
+280
+00:14:09.000 --> 00:14:12.000
+you are going to see nested functions, when you go on the web and you start looking
+
+281
+00:14:12.000 --> 00:14:15.000
+at documentation. So deal with it, basically. [Laughs]
+
+282
+00:14:15.000 --> 00:14:18.000
+So, I want you to write the rest of SnapToGrid. Here's the slide for
+
+283
+00:14:18.000 --> 00:14:21.000
+the challenge for you. Write the method with this
+
+284
+00:14:21.000 --> 00:14:24.000
+signature. Round to the nearest whole-number, and by the way,
+
+285
+00:14:24.000 --> 00:14:27.000
+there's a method called Mathf.RoundToInt (). Check it out!
+
+286
+00:14:30.000 --> 00:14:33.000
+Cool! Welcome back! Let's make this guy work! Well, it's not too
+
+287
+00:14:33.000 --> 00:14:36.000
+tricky, I've given you loads of hints. We've got float
+
+288
+00:14:36.000 --> 00:14:39.000
+and then newX = what? Well, it's
+
+289
+00:14:39.000 --> 00:14:42.000
+Mathf.
+
+290
+00:14:42.000 --> 00:14:45.000
+roundToInt. And what are we going to take in?
+
+291
+00:14:45.000 --> 00:14:48.000
+If I can type straight, we're going to take in
+
+292
+00:14:48.000 --> 00:14:51.000
+rawWorldPosition, that we've got in here,
+
+293
+00:14:51.000 --> 00:14:54.000
+dot the X coordinate right. So, we take in the X coordinate and round it.
+
+294
+00:14:54.000 --> 00:14:57.000
+What are we going to do for the Y? I think it's
+
+295
+00:14:57.000 --> 00:15:00.000
+pretty clear that we use the same line of code with Y's in it
+
+296
+00:15:00.000 --> 00:15:03.000
+right. Cool! And we just returned that!
+
+297
+00:15:03.000 --> 00:15:06.000
+So, we take in a world point, say 3.2.
+
+298
+00:15:06.000 --> 00:15:09.000
+RoundToInt goes 3.2, you mean 3
+
+299
+00:15:09.000 --> 00:15:12.000
+friend, and newX becomes 3 and then so on for the Y.
+
+300
+00:15:12.000 --> 00:15:15.000
+So, that should do it! Let's try it, even with this funny nested
+
+301
+00:15:15.000 --> 00:15:18.000
+method thing. Let's try and see what happens!
+
+302
+00:15:18.000 --> 00:15:21.000
+We click here and however we try,
+
+303
+00:15:21.000 --> 00:15:24.000
+we cannot now get a nasty set of coordinates out
+
+304
+00:15:24.000 --> 00:15:27.000
+right. So, I get 1.0, 1.0, 1.0, until I get to the boundary. Then, I get 2.0, 1.0. Then, I get
+
+305
+00:15:27.000 --> 00:15:30.000
+3.0, 1.0. Awesome! We are nearly
+
+306
+00:15:30.000 --> 00:15:33.000
+there! Let's finish this off strong! What we need to do is just
+
+307
+00:15:33.000 --> 00:15:36.000
+actually instantiate our dude, for want
+
+308
+00:15:36.000 --> 00:15:39.000
+of a better word at this point. So look, we're so close!
+
+309
+00:15:39.000 --> 00:15:42.000
+OnMouseDown we already have practically everything
+
+310
+00:15:42.000 --> 00:15:45.000
+we need. So, remember our helpful static over
+
+311
+00:15:45.000 --> 00:15:48.000
+on Button? We have Button.selectedDefender;
+
+312
+00:15:48.000 --> 00:15:51.000
+That's pretty handy right! Button.selectedDefender.
+
+313
+00:15:51.000 --> 00:15:54.000
+That's a GameObject! So, can't we just go
+
+314
+00:15:54.000 --> 00:15:57.000
+Instantiate (Button.
+
+315
+00:15:57.000 --> 00:16:00.000
+selectedDefender, but
+
+316
+00:16:00.000 --> 00:16:03.000
+where? Where are we going to instantiate it? Well,
+
+317
+00:16:03.000 --> 00:16:06.000
+we've got that haven't we? That was the
+
+318
+00:16:06.000 --> 00:16:09.000
+actual world point, that we want to instantiate.
+
+319
+00:16:09.000 --> 00:16:12.000
+Now, you can do it all in one line, if you want. You can go
+
+320
+00:16:12.000 --> 00:16:15.000
+SnapToGrid
+
+321
+00:16:15.000 --> 00:16:18.000
+and then you can pass into SnapToGrid,
+
+322
+00:16:18.000 --> 00:16:21.000
+etc., but I'm not going to do that. I'm going to break it down. So,
+
+323
+00:16:21.000 --> 00:16:24.000
+where do we want to instante this guy? We
+
+324
+00:16:24.000 --> 00:16:27.000
+want to instantie him at, just some
+
+325
+00:16:27.000 --> 00:16:30.000
+position right, or just call it pause if you want. But how do we
+
+326
+00:16:30.000 --> 00:16:33.000
+make pause up? Well, like this!
+
+327
+00:16:33.000 --> 00:16:36.000
+Vector2 is good enough for this!
+
+328
+00:16:36.000 --> 00:16:39.000
+pos =...
+
+329
+00:16:39.000 --> 00:16:42.000
+Well, why don't I say rawPos to start with? The
+
+330
+00:16:42.000 --> 00:16:45.000
+rawPos is the CalculateWorldPoint
+
+331
+00:16:45.000 --> 00:16:48.000
+OfMouseClick right. So, that's the raw position.
+
+332
+00:16:48.000 --> 00:16:51.000
+And then, we're going to have a new Vector2, rounded...
+
+333
+00:16:54.000 --> 00:16:57.000
+...pos, and that just simply = SnapToGrid
+
+334
+00:16:57.000 --> 00:17:00.000
+(rawPos); And then, we're going
+
+335
+00:17:00.000 --> 00:17:03.000
+to instantiate at roundedPos. Let's try it!
+
+336
+00:17:03.000 --> 00:17:06.000
+Yeah, le't see what happens!
+
+337
+00:17:06.000 --> 00:17:09.000
+Click play!
+
+338
+00:17:09.000 --> 00:17:12.000
+So, I've
+
+339
+00:17:12.000 --> 00:17:15.000
+obviously not looked at the docs for instantiate recently, so let's pop
+
+340
+00:17:15.000 --> 00:17:18.000
+into that and have a look and see what we get! If
+
+341
+00:17:18.000 --> 00:17:21.000
+you see it's two signatures, you either instantiate the object
+
+342
+00:17:21.000 --> 00:17:24.000
+and don't tell it the position, or if you're going to tell it the position, it wants
+
+343
+00:17:24.000 --> 00:17:27.000
+to know the roation as well. So, we're just going to use Quaternion
+
+344
+00:17:27.000 --> 00:17:30.000
+.Identity, which just means default rotation, no
+
+345
+00:17:30.000 --> 00:17:33.000
+rotation. So, it's just going to want that OK, so just bear that in
+
+346
+00:17:33.000 --> 00:17:36.000
+mind.
+
+347
+00:17:36.000 --> 00:17:39.000
+OK, let's try this!
+
+348
+00:17:39.000 --> 00:17:42.000
+We run here! Firstly,
+
+349
+00:17:42.000 --> 00:17:45.000
+if I click and I've not selected anything, the prefab you want to instantiate
+
+350
+00:17:45.000 --> 00:17:48.000
+is null and it's an error. It's OK, just about. We might want to handle
+
+351
+00:17:48.000 --> 00:17:51.000
+that better later. But look, cool! Let me see if I can
+
+352
+00:17:51.000 --> 00:17:54.000
+instantiate two on the same place. I can't! Why can't I?
+
+353
+00:17:54.000 --> 00:17:57.000
+Because these guys have got colliders
+
+354
+00:17:57.000 --> 00:18:00.000
+on them that are blocking the play-space below.
+
+355
+00:18:00.000 --> 00:18:03.000
+So, that is working a treat right.
+
+356
+00:18:03.000 --> 00:18:06.000
+Now, you may say, why are they blocking? How do you know they are blocking? What are the
+
+357
+00:18:06.000 --> 00:18:09.000
+Z depths doing? Well, if you're not sure and you want to be
+
+358
+00:18:09.000 --> 00:18:12.000
+sure, then go to the 3D View,
+
+359
+00:18:12.000 --> 00:18:15.000
+look at the Z depth of your Core
+
+360
+00:18:15.000 --> 00:18:18.000
+Game, it's just sitting there, and then, look at the Z depth
+
+361
+00:18:18.000 --> 00:18:21.000
+of the actual things that
+
+362
+00:18:21.000 --> 00:18:24.000
+you instantiate. So, you need to stick on a couple of
+
+363
+00:18:24.000 --> 00:18:27.000
+guys, pause the game, and then go and look at these
+
+364
+00:18:27.000 --> 00:18:30.000
+guys these gnomes. So, they should be
+
+365
+00:18:30.000 --> 00:18:33.000
+neatly here. And what is their Z depth?
+
+366
+00:18:33.000 --> 00:18:36.000
+Their Z depth is 0. What's the Z depth of
+
+367
+00:18:36.000 --> 00:18:39.000
+the Core Game canvas? Well, it actually also is
+
+368
+00:18:39.000 --> 00:18:42.000
+0, but the blocking is working fine. In
+
+369
+00:18:42.000 --> 00:18:45.000
+fact, if you look here, at the gnomes
+
+370
+00:18:45.000 --> 00:18:48.000
+they even though
+
+371
+00:18:48.000 --> 00:18:51.000
+they have a Z transform of 0, they are
+
+372
+00:18:51.000 --> 00:18:54.000
+still appearing in a different space to the Level
+
+373
+00:18:54.000 --> 00:18:57.000
+Canvas, because the Level Canvas' Master Transform
+
+374
+00:18:57.000 --> 00:19:00.000
+here is at Z = 1, in the
+
+375
+00:19:00.000 --> 00:19:03.000
+background. So, that's why they are actually sitting in front.
+
+376
+00:19:03.000 --> 00:19:06.000
+Just in case you're wondring. But that's it!
+
+377
+00:19:06.000 --> 00:19:09.000
+Here we go! We can click any of these guys and instantiate them.
+
+378
+00:19:09.000 --> 00:19:12.000
+We can't instantiate outside, they only land on the square. We can't double
+
+379
+00:19:12.000 --> 00:19:15.000
+instantiate. And look at that, we have made
+
+380
+00:19:15.000 --> 00:19:18.000
+what I would call significant progress, apart from
+
+381
+00:19:18.000 --> 00:19:21.000
+look at the mess we're making. You know I keep telling you about tyding
+
+382
+00:19:21.000 --> 00:19:24.000
+or keeping your Hierarchy tidy. Look at this disgusting mess! So,
+
+383
+00:19:24.000 --> 00:19:27.000
+what are we going to do about that? Well, you're going to do that,
+
+384
+00:19:27.000 --> 00:19:30.000
+exactly the same way as we did before. Exactly the same
+
+385
+00:19:30.000 --> 00:19:33.000
+pattern as we did here, over in shooter. We're just
+
+386
+00:19:33.000 --> 00:19:36.000
+going to call it defenderParent OK. So, I'm just going to
+
+387
+00:19:36.000 --> 00:19:39.000
+say that when we spawn defenders, let's take all
+
+388
+00:19:39.000 --> 00:19:42.000
+that code from the other guy. So, let's rename projectileParent
+
+389
+00:19:42.000 --> 00:19:45.000
+to defenderParent;
+
+390
+00:19:45.000 --> 00:19:48.000
+Or if we find ourselves doing this sort of thing,
+
+391
+00:19:48.000 --> 00:19:51.000
+why not just call it parent, at the end of the day.
+
+392
+00:19:51.000 --> 00:19:54.000
+The context will tell us everything else, but we do need
+
+393
+00:19:54.000 --> 00:19:57.000
+to name this ("Defenders"),
+
+394
+00:19:57.000 --> 00:20:00.000
+and we can't use the rename
+
+395
+00:20:00.000 --> 00:20:03.000
+tool here, because it's a string.
+
+396
+00:20:03.000 --> 00:20:06.000
+It doesn't know how these strings related OK. So,
+
+397
+00:20:06.000 --> 00:20:09.000
+now if you were to come into here and start instantiating things,
+
+398
+00:20:09.000 --> 00:20:12.000
+it should be childed into defender,
+
+399
+00:20:12.000 --> 00:20:15.000
+but of course, we haven't yet told it to be childed into defenders.
+
+400
+00:20:15.000 --> 00:20:18.000
+Where do we do that? Immediately after we instantiate, we need
+
+401
+00:20:18.000 --> 00:20:21.000
+to child it to something, so we need to capture the GameObject.
+
+402
+00:20:21.000 --> 00:20:24.000
+So, Button.selectedDefender. What type is that? It's a GamebObject.
+
+403
+00:20:24.000 --> 00:20:27.000
+So, I'm just going to say object
+
+404
+00:20:27.000 --> 00:20:30.000
+for now, or defender.
+
+405
+00:20:30.000 --> 00:20:33.000
+OK, so I'm just going to replace this with defender, just to make the line
+
+406
+00:20:33.000 --> 00:20:36.000
+shorter, and I'm also
+
+407
+00:20:36.000 --> 00:20:39.000
+going to change
+
+408
+00:20:39.000 --> 00:20:42.000
+this Quaternion.identity. What type is that? Well, it's actually a
+
+409
+00:20:42.000 --> 00:20:45.000
+Quaternion, it's a unit of rotation. So, Quaternion
+
+410
+00:20:45.000 --> 00:20:48.000
+= Quaternion.identity.
+
+411
+00:20:48.000 --> 00:20:51.000
+And let's give it a name! Let's call it zero
+
+412
+00:20:51.000 --> 00:20:54.000
+Rotation.
+
+413
+00:20:54.000 --> 00:20:57.000
+Rot, I want to keep it short. The whole purpose of this is to keep the line short
+
+414
+00:20:57.000 --> 00:21:00.000
+and to give you some reinforcement on what the types of
+
+415
+00:21:00.000 --> 00:21:03.000
+these things are. So, now that we've got the line down to
+
+416
+00:21:03.000 --> 00:21:06.000
+that length, we can capture what we're doing. GameObject
+
+417
+00:21:06.000 --> 00:21:09.000
+newDefender.
+
+418
+00:21:09.000 --> 00:21:12.000
+Call it newDef = that, and then, we have to
+
+419
+00:21:12.000 --> 00:21:15.000
+because GameObject, Instantiate is going to return rather an
+
+420
+00:21:15.000 --> 00:21:18.000
+object. We need to cast it as GameObject, like that!
+
+421
+00:21:18.000 --> 00:21:21.000
+Now finally, after all that messing around, we can say newDef
+
+422
+00:21:21.000 --> 00:21:24.000
+.transform.parent
+
+423
+00:21:24.000 --> 00:21:27.000
+= parent; OK,
+
+424
+00:21:27.000 --> 00:21:30.000
+so all that messing around was just to try and get that line to fit on my screen.
+
+425
+00:21:30.000 --> 00:21:33.000
+So, a bit crazy but a bit of fun for you! So,
+
+426
+00:21:33.000 --> 00:21:36.000
+here we go! Let's just make sure it works, that the spawning works!
+
+427
+00:21:36.000 --> 00:21:39.000
+And of course, the problem is we don't mean parent, we mean parents transform.
+
+428
+00:21:39.000 --> 00:21:42.000
+So try that!
+
+429
+00:21:42.000 --> 00:21:45.000
+And let's take a look! Put some guys
+
+430
+00:21:45.000 --> 00:21:48.000
+down. Look they're all going into a defender's object, and if we collapse that
+
+431
+00:21:48.000 --> 00:21:51.000
+defender's object down, then our Hierarchy stays completely
+
+432
+00:21:51.000 --> 00:21:54.000
+sane, as all the projectiles are spawned in here and the defenders are spawned
+
+433
+00:21:54.000 --> 00:21:57.000
+in there. Perfect congratulations! Great job
+
+434
+00:21:57.000 --> 00:21:59.666
+on getting this far, and see you soon!
+

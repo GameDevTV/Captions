@@ -1,0 +1,814 @@
+WEBVTT
+
+00:00:04.390 --> 00:00:07.460 align:middle line:90%
+Hey welcome back so how did you get on with
+that challenge? I hope you've got all your
+
+00:00:07.460 --> 00:00:12.410 align:middle line:90%
+menus set up, I'm going to show you how I
+do it in this video, we are going to be customising
+
+00:00:12.410 --> 00:00:17.449 align:middle line:90%
+the win and lose screens, adding a new options
+scene for the first time, it's going to be
+
+00:00:17.449 --> 00:00:21.439 align:middle line:90%
+blank for now but it's going to have two buttons
+on it just "back" and "defaults" so once your
+
+00:00:21.439 --> 00:00:26.640 align:middle line:90%
+in options you have the option, excuse the
+double use to go back to the start scene or
+
+00:00:26.640 --> 00:00:31.029 align:middle line:90%
+to click defaults which will in future load
+from defaults, for now it'll do nothing and
+
+00:00:31.029 --> 00:00:36.510 align:middle line:90%
+then we'll have a level 01 with a win and
+lose button on it. Temporary win and lose
+
+00:00:36.510 --> 00:00:39.469 align:middle line:90%
+conditions until the script can do it; and
+then test that all the navigation works properly.
+
+00:00:39.469 --> 00:00:43.350 align:middle line:90%
+Now if you've already got yours working let's
+just briefly talk about the level manager
+
+00:00:43.350 --> 00:00:49.969 align:middle line:90%
+before you skip through this video so we are
+continuing to use the level manager as we
+
+00:00:49.969 --> 00:00:54.710 align:middle line:90%
+have been as a prefab. Why? Well let me show
+you let me just do the level manager bit first,
+
+00:00:54.710 --> 00:01:02.250 align:middle line:90%
+let's go to the first scene, the splash scene.
+Let's take a look at our level manager, and
+
+00:01:02.250 --> 00:01:06.340 align:middle line:90%
+I'm going to just pop into its script briefly.
+Now one thing you may have noticed already
+
+00:01:06.340 --> 00:01:09.860 align:middle line:90%
+is that its always going to auto-load the
+next level and what we really want to be able
+
+00:01:09.860 --> 00:01:20.780 align:middle line:90%
+to do is disable that so its a simple if autoLoadNextLevelAfter
+equals 0 then, what are we going to do? Well
+
+00:01:20.780 --> 00:01:26.149 align:middle line:90%
+I think it would be nice just to log to say
+that that's happened, we can just say Debug,Log,
+
+00:01:26.149 --> 00:01:28.570 align:middle line:84%
+auto load disabled.
+
+00:01:28.570 --> 00:01:34.200 align:middle line:90%
+OK, that's fine else, we'll do what we were
+going to do anyway which is just invoke and
+
+00:01:34.200 --> 00:01:37.579 align:middle line:90%
+just hope your designer doesn't put a negative
+number in and cause some weird problems but
+
+00:01:37.579 --> 00:01:42.939 align:middle line:90%
+it'll just error out. OK, fantastic. So now
+that modification to the level manager just
+
+00:01:42.939 --> 00:01:47.049 align:middle line:90%
+means that if we put 0 into autoLoadNextLevel
+let's see what happens. OK so we get an error
+
+00:01:47.049 --> 00:01:53.200 align:middle line:90%
+on line 17 can't convert float to bool. So
+can you see what I've done on line 17 there?
+
+00:01:53.200 --> 00:01:57.170 align:middle line:90%
+I've said if autoLoadNextLevel equals zero
+that's an assignment, equals equals is the
+
+00:01:57.170 --> 00:02:02.009 align:middle line:90%
+comparison. OK, it was trying to set zero
+which it was treating as a bool into a float
+
+00:02:02.009 --> 00:02:09.200 align:middle line:90%
+which wasn't working. So, try equals equals,
+there you go, and it says on the log, autoload
+
+00:02:09.200 --> 00:02:15.480 align:middle line:90%
+disabled right? And then yet if we had set,
+say, I think we had 3 seconds, and play, now
+
+00:02:15.480 --> 00:02:18.769 align:middle line:84%
+the autoload will work, there you go, fine.
+
+00:02:18.769 --> 00:02:21.800 align:middle line:90%
+Now, another thing to say about the level
+manager. It's about prefabbing it and how
+
+00:02:21.800 --> 00:02:27.150 align:middle line:90%
+we use it. Let's take a look here, we have
+an instance of a level manager here on this
+
+00:02:27.150 --> 00:02:31.840 align:middle line:90%
+splash screen. Now ultimately I like to see
+most things in a scene being prefabs - at
+
+00:02:31.840 --> 00:02:35.530 align:middle line:90%
+least certainly things that are going to be
+used somewhere else. So let's go through them.
+
+00:02:35.530 --> 00:02:40.330 align:middle line:90%
+Persistent music, does that need to be a prefab?
+No, because we're only going to have one of
+
+00:02:40.330 --> 00:02:42.590 align:middle line:84%
+them in the entire game because it persists.
+
+00:02:42.590 --> 00:02:46.230 align:middle line:90%
+Ok, level manager, should that be a prefab?
+Yes, it makes lots of sense for the level
+
+00:02:46.230 --> 00:02:50.690 align:middle line:90%
+manager to be a prefab and now that it's set
+up how we want it, let's prefab it. How do
+
+00:02:50.690 --> 00:02:55.180 align:middle line:90%
+we do that? Well just drag it to your assets.
+That makes the blue prefab box, and I'm going
+
+00:02:55.180 --> 00:03:01.220 align:middle line:90%
+to put it in a folder called, imaginatively,
+can you guess the name? Yes, prefabs. Fantastic.
+
+00:03:01.220 --> 00:03:05.930 align:middle line:90%
+Alright, so we have a prefab level manager
+indicated two ways. Slightly blue, very hard
+
+00:03:05.930 --> 00:03:10.650 align:middle line:90%
+to see, secondly you get information about
+the prefab at the top of the inspector. Main
+
+00:03:10.650 --> 00:03:15.099 align:middle line:90%
+camera, do we need to make that prefab? Not
+really, there's nothing special about it.
+
+00:03:15.099 --> 00:03:18.349 align:middle line:90%
+Canvas is pretty unique to this scene, and
+the same with the event system and load sound.
+
+00:03:18.349 --> 00:03:22.000 align:middle line:90%
+So actually we're reasonable in only having
+the level manager prefabbed here. Over to
+
+00:03:22.000 --> 00:03:25.680 align:middle line:90%
+the start scene, you'll notice we have a level
+manager in the start scene but it's all wrong.
+
+00:03:25.680 --> 00:03:30.519 align:middle line:90%
+There's no script, and it hasn't got the right
+version. Let's just kill it, and this is where
+
+00:03:30.519 --> 00:03:35.939 align:middle line:90%
+we just take our prefab, and with some confidence
+drop it in. Now we have the right level manager
+
+00:03:35.939 --> 00:03:40.799 align:middle line:90%
+and we just take off the autoLoadNextLevel.
+Notice the autoLoadNextLevel goes bold the
+
+00:03:40.799 --> 00:03:46.709 align:middle line:90%
+moment you change its value from 3 to 0. That's
+saying "this is different to the prefab" which
+
+00:03:46.709 --> 00:03:51.540 align:middle line:90%
+is fine. You may not want your prefab to auto
+load next level after three seconds so you
+
+00:03:51.540 --> 00:03:54.959 align:middle line:90%
+can change it back at the prefab if you want.
+OK.
+
+00:03:54.959 --> 00:03:59.720 align:middle line:90%
+So they're the dependencies so teh prefab
+now won't auto load next levels by default
+
+00:03:59.720 --> 00:04:03.709 align:middle line:90%
+and this particular one also isn't. We could
+always revert to the prefab now and it won't
+
+00:04:03.709 --> 00:04:08.110 align:middle line:90%
+be bold now because its the same as the prefab.
+Bold means that this value is different to
+
+00:04:08.110 --> 00:04:09.500 align:middle line:84%
+the prefab.
+
+00:04:09.500 --> 00:04:14.269 align:middle line:90%
+Now you might quite rightly ask do we need
+a level manager in this scene at all? Well,
+
+00:04:14.269 --> 00:04:20.280 align:middle line:90%
+yes and no. Let's take a look at the buttons
+to answer that question. On the buttons we
+
+00:04:20.280 --> 00:04:26.580 align:middle line:90%
+need to pass in to the OnClick event either
+a level manager prefab or a level manager
+
+00:04:26.580 --> 00:04:32.190 align:middle line:90%
+instance and I would suggest that you always
+now in future pass a level manager prefab
+
+00:04:32.190 --> 00:04:37.530 align:middle line:90%
+in because it works fine, but we do need to
+have a level manager there so for instance
+
+00:04:37.530 --> 00:04:44.380 align:middle line:90%
+let's just do a test, let's load level string
+00 Splash from here and let's try taking the
+
+00:04:44.380 --> 00:04:48.850 align:middle line:90%
+level manager out of the level. You see the
+choice is, if you're not changing this auto-load
+
+00:04:48.850 --> 00:04:52.200 align:middle line:90%
+next level if you're sticking with the default
+value you can actually do away with the level
+
+00:04:52.200 --> 00:04:58.750 align:middle line:90%
+manager. Let's try it. In fact let's start
+from the start scene, the splash scene. Let's
+
+00:04:58.750 --> 00:04:59.840 align:middle line:84%
+see what we've got.
+
+00:04:59.840 --> 00:05:04.670 align:middle line:90%
+We come in after one second, no level manager
+in here, click the start button it goes back
+
+00:05:04.670 --> 00:05:08.930 align:middle line:90%
+to the start, splash screen. I want to show
+you something on that splash scene while we're
+
+00:05:08.930 --> 00:05:12.970 align:middle line:90%
+here, you should never go back to the splash
+screen. Why not? Because look, if we pause
+
+00:05:12.970 --> 00:05:17.230 align:middle line:90%
+here we've got two persistent music players.
+So that's the downside of having taken away
+
+00:05:17.230 --> 00:05:21.210 align:middle line:90%
+this singleton pattern and this check but
+we're never going to go back to this splash
+
+00:05:21.210 --> 00:05:25.390 align:middle line:90%
+screen, that's the whole point of injecting
+it at this point. Remember the diagram where
+
+00:05:25.390 --> 00:05:29.980 align:middle line:90%
+I showed you that we never actually go back
+to that splash screen on the left there.
+
+00:05:29.980 --> 00:05:35.280 align:middle line:90%
+Alright, so that's enough said about the music
+player. Hopefully, sorry the level manager.
+
+00:05:35.280 --> 00:05:40.030 align:middle line:90%
+Hopefully you understand that you only need
+to inject a level manager prefab into the
+
+00:05:40.030 --> 00:05:46.210 align:middle line:90%
+scene if you want to change the autoLoadNextLevel
+so that's going to save you some time so that's
+
+00:05:46.210 --> 00:05:49.260 align:middle line:90%
+fantastic. Alright, so now let's whip through
+and get all this done. So we're going to need
+
+00:05:49.260 --> 00:06:00.500 align:middle line:90%
+an options button in here so let me just clone
+a start button and call it options. I might
+
+00:06:00.500 --> 00:06:05.750 align:middle line:90%
+simplify start button; well options button
+actually, yeah let's be specific.
+
+00:06:05.750 --> 00:06:09.780 align:middle line:90%
+OK so we have an options button, where is
+it, well it's sitting right on top are these
+
+00:06:09.780 --> 00:06:15.310 align:middle line:90%
+two spaced out? Or too near together? Yes,
+far too near, let's just get in, space them
+
+00:06:15.310 --> 00:06:19.430 align:middle line:90%
+out. I'll do this quite quick, I'm sure you're
+all very aware of what I'm doing here. So
+
+00:06:19.430 --> 00:06:25.200 align:middle line:90%
+options goes there, the UI element isn't wide
+enough to cater for it, that's juts fine,
+
+00:06:25.200 --> 00:06:28.700 align:middle line:90%
+Start Options, Quit. so what does start do?
+Well, start is going to load a level, and
+
+00:06:28.700 --> 00:06:33.200 align:middle line:90%
+it's going to go to level 1. We don't have
+a level 1. How are we going to name our level
+
+00:06:33.200 --> 00:06:34.430 align:middle line:84%
+1?
+
+00:06:34.430 --> 00:06:38.700 align:middle line:90%
+Well I'm suggesting this slightly strange
+setup where we say 02 as a prefix so they
+
+00:06:38.700 --> 00:06:42.850 align:middle line:90%
+sort nicely and then level zero one. So I'm
+going to use that. I'm going to duplicate
+
+00:06:42.850 --> 00:06:50.240 align:middle line:90%
+the start scene because it already has all
+the UI set up as I want it. So, 02 level_01.
+
+00:06:50.240 --> 00:06:55.720 align:middle line:90%
+One of the benefits of this is that if we
+duplicate this we continue to get levels numbered
+
+00:06:55.720 --> 00:07:00.410 align:middle line:90%
+in order so look how quickly we can roll out
+levels. Quite nice, eh? Alright, so lets go
+
+00:07:00.410 --> 00:07:05.760 align:middle line:90%
+into level one and customise it. I'm going
+to take away the background for now, image
+
+00:07:05.760 --> 00:07:10.550 align:middle line:90%
+altogether, I'm going to take away the title
+and the subtitle and just end up with two
+
+00:07:10.550 --> 00:07:20.600 align:middle line:90%
+buttons which are going to be win and lose.
+Win condition and let's make the text the
+
+00:07:20.600 --> 00:07:28.950 align:middle line:90%
+same as the button, win condition like that,
+maybe move it to the bottom left, or the bottom
+
+00:07:28.950 --> 00:07:34.090 align:middle line:90%
+right. It's kind of making progress, it's
+forward so that's fine; and then let's have
+
+00:07:34.090 --> 00:07:40.000 align:middle line:90%
+a lose condition button. Hey I think I may
+have spelt lose right this time round, we
+
+00:07:40.000 --> 00:07:47.700 align:middle line:90%
+don't need to get hammered in the forums.
+If I'm lucky, I may not have done, who cares.
+
+00:07:47.700 --> 00:07:50.660 align:middle line:84%
+It's a word, you get what I mean.
+
+00:07:50.660 --> 00:07:54.300 align:middle line:90%
+Win condition, lose condition. So we have
+these buttons now, that's great. So what's
+
+00:07:54.300 --> 00:07:57.940 align:middle line:90%
+going to happen on the win condition - just
+wire this up really quickly, well we're going
+
+00:07:57.940 --> 00:08:01.080 align:middle line:90%
+to go to a Win screen which doesn't exist
+at the moment but what are we going to call
+
+00:08:01.080 --> 00:08:08.990 align:middle line:90%
+it? Well we have a plan, so let's use our
+plan. Here's our plan.
+
+00:08:08.990 --> 00:08:17.440 align:middle line:90%
+So 03-a win, 03-b lose. So let's just make
+those levels?Or just at least wire up those
+
+00:08:17.440 --> 00:08:33.300 align:middle line:90%
+buttons right now in a hopeful way. 03a win
+and 03b lose. OK, fantastic. So, let's make
+
+00:08:33.300 --> 00:08:40.060 align:middle line:90%
+those levels as well, now, if you've already
+done all this, you really are, I'm not going
+
+00:08:40.060 --> 00:08:44.210 align:middle line:90%
+to tell you anything exciting in the rest
+of this video. I specifically put the important
+
+00:08:44.210 --> 00:08:50.010 align:middle line:90%
+stuff at the front which is where we talk
+about the level manager, why we prefab it
+
+00:08:50.010 --> 00:08:53.250 align:middle line:90%
+and your options there. Now I'm literally
+just going to go through these and set these
+
+00:08:53.250 --> 00:08:57.280 align:middle line:90%
+levels up so you're absolutely welcome to
+keep on watching I want to put it in for completeness
+
+00:08:57.280 --> 00:09:00.330 align:middle line:84%
+but it is entirely up to you.
+
+00:09:00.330 --> 00:09:09.300 align:middle line:90%
+Look at the options. If you win you've got
+the option to start or quit, found a plus
+
+00:09:09.300 --> 00:09:14.370 align:middle line:90%
+and minus sign there that's a bit of fun,
+some sort of keyboard combination led to that;
+
+00:09:14.370 --> 00:09:29.680 align:middle line:90%
+and then we'll go for a lose screen, we can
+be more specific about this later. By the
+
+00:09:29.680 --> 00:09:34.200 align:middle line:90%
+way, if you have a font that auto-capitalises
+like I have, I tend to be careful that I still
+
+00:09:34.200 --> 00:09:38.750 align:middle line:90%
+write it correctly in terms of my title case
+over here because if we ever change the font
+
+00:09:38.750 --> 00:09:43.260 align:middle line:90%
+to a different one it mean that it will come
+out right so just a tip there.
+
+00:09:43.260 --> 00:09:48.000 align:middle line:90%
+Alright, lets just test this navigation; win
+and lose condition navigation, lose condition
+
+00:09:48.000 --> 00:09:52.570 align:middle line:90%
+- OK the old chestnut about build order, I'm
+actually going to finish off the levels before
+
+00:09:52.570 --> 00:09:55.300 align:middle line:90%
+I start adding things to the build order,
+I don't want to keep going in to build order,
+
+00:09:55.300 --> 00:10:01.200 align:middle line:90%
+so we have - we need a level two and that's
+about it actually. Oh, and options, the crucial
+
+00:10:01.200 --> 00:10:08.970 align:middle line:90%
+one. 01b options, let's do that now. See how
+this makes it quite clear? It kind of shows
+
+00:10:08.970 --> 00:10:12.450 align:middle line:90%
+the sequence in the scenes - we go from the
+zero scene that we never go back to to all
+
+00:10:12.450 --> 00:10:15.630 align:middle line:90%
+the one scenes i.e. the start and options
+to all the twos, let's have another couple
+
+00:10:15.630 --> 00:10:19.570 align:middle line:90%
+of levels, you see how easy that was with
+duplicate, and then the threes are about the
+
+00:10:19.570 --> 00:10:21.260 align:middle line:84%
+lose and the loop back.
+
+00:10:21.260 --> 00:10:32.630 align:middle line:90%
+OK so just the options screen now, I said
+we were going to have a back button
+
+00:10:32.630 --> 00:10:42.800 align:middle line:90%
+we were going to have a defaults button, so
+let's do that. Perfect. Defaults, back, we
+
+00:10:42.800 --> 00:10:52.430 align:middle line:90%
+can ditch the start on this one. Immediately
+start naming and changing your titles, choose
+
+00:10:52.430 --> 00:10:57.950 align:middle line:90%
+your weapon or something. OK defaults and
+back. OK we'll worry about the spacing of
+
+00:10:57.950 --> 00:11:00.850 align:middle line:90%
+all these things a little bit later, what
+I'm trying to do is quickly get to the correct
+
+00:11:00.850 --> 00:11:07.940 align:middle line:90%
+navigation order. How's level two looking?
+Fine, level three? Looking fine. Great. OK.
+
+00:11:07.940 --> 00:11:14.030 align:middle line:90%
+Now, let's add all this to the build order,
+grab all your scenes there, just drop them
+
+00:11:14.030 --> 00:11:19.660 align:middle line:90%
+in the build order, get rid of any duplicates,
+check that they load sensibly, splash start,
+
+00:11:19.660 --> 00:11:22.520 align:middle line:90%
+two three you see they automatically end up
+in the build order in the correct order as
+
+00:11:22.520 --> 00:11:26.700 align:middle line:90%
+well or a reasonable order which is great.
+Now let's try. Let's just start in the splash
+
+00:11:26.700 --> 00:11:31.810 align:middle line:90%
+screen. One second delay. Sure it's too short
+but that's fine. Options takes you to the
+
+00:11:31.810 --> 00:11:36.620 align:middle line:90%
+wrong place so, you just literally go through,
+wire up all these buttons properly. So, 01b
+
+00:11:36.620 --> 00:11:42.110 align:middle line:90%
+options, in fact while we're here let's check
+all the buttons, start button should take
+
+00:11:42.110 --> 00:11:50.150 align:middle line:90%
+you not to the splash screen any more but
+to 02 level 01. Fine, quit should do an application
+
+00:11:50.150 --> 00:11:54.610 align:middle line:90%
+dot quit, doesn't at the moment, so quit needs
+a handler what are we going to give it as
+
+00:11:54.610 --> 00:12:00.680 align:middle line:90%
+the handler? Yeah the level manager prefab
+that's the chestnut OK. So level manager quit
+
+00:12:00.680 --> 00:12:01.220 align:middle line:84%
+request.
+
+00:12:01.220 --> 00:12:04.980 align:middle line:90%
+So let's just cycle through the buttons. Start
+goes to level two, 01b options, that looks
+
+00:12:04.980 --> 00:12:09.500 align:middle line:90%
+good, so that scene is fine just work through
+your scenes now.
+
+00:12:09.500 --> 00:12:13.510 align:middle line:90%
+What is defaults going to do? Nothing, at
+the moment, that's absolutely fine. It's not
+
+00:12:13.510 --> 00:12:18.980 align:middle line:90%
+doing nothing, so let's make it do nothing.
+OK we don't want it doing unpredictable stuff,
+
+00:12:18.980 --> 00:12:23.550 align:middle line:90%
+back what's back going to do? It is going
+to do something. We give it the prefab and
+
+00:12:23.550 --> 00:12:36.910 align:middle line:90%
+it's going to take us back to the what's the
+name of the scene - 01a start. Fantastic,
+
+00:12:36.910 --> 00:12:43.860 align:middle line:90%
+so do they look right? Nothing and 01a start,
+cool, and then your levels should, in theory
+
+00:12:43.860 --> 00:12:49.470 align:middle line:90%
+have the buttons both ding the right thing
+because we copied the scene, yup, Win scene,
+
+00:12:49.470 --> 00:12:50.420 align:middle line:84%
+start button.
+
+00:12:50.420 --> 00:12:54.370 align:middle line:90%
+Now, the start button. Are you annoyed with
+the start button yet? I'm annoyed with the
+
+00:12:54.370 --> 00:12:57.880 align:middle line:90%
+start button, I'm annoyed by the fact that
+I'm redoing this start button a hundred times.
+
+00:12:57.880 --> 00:13:01.960 align:middle line:90%
+What are we going to do? How are we going
+to get around that? If we're redoing something
+
+00:13:01.960 --> 00:13:06.730 align:middle line:90%
+regularly, we prefab it. So let's just prefab
+the start button, why not? There it is, you
+
+00:13:06.730 --> 00:13:09.960 align:middle line:90%
+see this start button in this scene already
+does what we want it to do. If it's going
+
+00:13:09.960 --> 00:13:14.620 align:middle line:90%
+to take us to the start menu why not just
+have it as a prefab?So on the win scene I've
+
+00:13:14.620 --> 00:13:19.920 align:middle line:90%
+already got a start button here, I can take
+it out of the scene altogether now if I drag
+
+00:13:19.920 --> 00:13:23.910 align:middle line:90%
+the start button prefab straight into the
+hierarchy it will actually come in in the
+
+00:13:23.910 --> 00:13:27.980 align:middle line:90%
+place it was on the other scenes which I'm
+happy with and you can see it's blue now it's
+
+00:13:27.980 --> 00:13:31.940 align:middle line:90%
+a prefab. Quit button. Well again, the Quit
+button should be prefab. Let's go find it
+
+00:13:31.940 --> 00:13:42.430 align:middle line:90%
+in a scene that it works OK in, like here,
+prefab it, yeah and then we use the prefab
+
+00:13:42.430 --> 00:13:46.210 align:middle line:90%
+so now we don't need to keep wiring up these
+buttons the same, it's kind of crazy just
+
+00:13:46.210 --> 00:13:53.200 align:middle line:90%
+delete the button with confidence, drag the
+prefab across and it will come in with the
+
+00:13:53.200 --> 00:13:57.440 align:middle line:90%
+position it had in the other scenes for consistency
+and with exactly the same wiring.
+
+00:13:57.440 --> 00:14:02.279 align:middle line:90%
+Why do we call it wiring? There are no wires
+here, just lines of code. So this one I can
+
+00:14:02.279 --> 00:14:06.620 align:middle line:90%
+get even more time back I can delete my start
+button and my quit button. Go to the prefabs
+
+00:14:06.620 --> 00:14:10.560 align:middle line:90%
+and drop them in. See starting to speed up
+our development, which is what we want. OK
+
+00:14:10.560 --> 00:14:15.550 align:middle line:90%
+let's have a final test. Oh hang on, there's
+one thing I've forgotten. The music I want
+
+00:14:15.550 --> 00:14:20.420 align:middle line:90%
+to make sure that on level one I get some
+different music so go to your splash screen
+
+00:14:20.420 --> 00:14:25.400 align:middle line:90%
+and what we want to do, how big an array do
+we need here in the level music change array?
+
+00:14:25.400 --> 00:14:29.570 align:middle line:90%
+Well, look at your build settings, when do
+we want to change the music? We're going to
+
+00:14:29.570 --> 00:14:33.960 align:middle line:90%
+change it on level index three, so we need
+a four element array, and then we're going
+
+00:14:33.960 --> 00:14:38.390 align:middle line:90%
+to change it again for win and possibly lose,
+it's entirely up to you what you have; what
+
+00:14:38.390 --> 00:14:41.730 align:middle line:90%
+sort of sound you play on win and lose, but
+I think I'm going to make my array a full
+
+00:14:41.730 --> 00:14:45.960 align:middle line:90%
+eight element array now so I've got complete
+choice over what I put where so let's make
+
+00:14:45.960 --> 00:14:52.420 align:middle line:90%
+it an eight element array in your persistent
+music music manager array and then pick myself
+
+00:14:52.420 --> 00:14:59.600 align:middle line:90%
+a quick bit of music for the game, fr actually
+playing the game. So I'm going to go to glitchthegame,
+
+00:14:59.600 --> 00:15:04.060 align:middle line:90%
+find a piece of music for the actual playing
+that I like the sound of it's under downloads,
+
+00:15:04.060 --> 00:15:14.260 align:middle line:90%
+music, what shall we go with? That's a bit
+too noddy. That's a bit of fun, why not moon
+
+00:15:14.260 --> 00:15:18.690 align:middle line:90%
+music? So I'm going to have moon music on
+level one now of course you can have different
+
+00:15:18.690 --> 00:15:23.330 align:middle line:90%
+music on every level, but that's entirely
+up to you. Let's get it into the sounds, you
+
+00:15:23.330 --> 00:15:32.290 align:middle line:90%
+know how to do this, Import, new asset, moon
+musc. In it comes, may take a while turn off
+
+00:15:32.290 --> 00:15:35.810 align:middle line:84%
+3D sound and apply. Fine.
+
+00:15:35.810 --> 00:15:40.980 align:middle line:90%
+I don't know if it's long enough, it's going
+to be interesting to see what happens when
+
+00:15:40.980 --> 00:15:44.920 align:middle line:90%
+this loops, let's listen to that music a bit
+carefully OK so go to your persistent music
+
+00:15:44.920 --> 00:15:49.870 align:middle line:90%
+manager, bring in the moon music under which
+element. Again you're going to need to look
+
+00:15:49.870 --> 00:15:56.160 align:middle line:90%
+in your build settings, this does keep everything
+in one place which is nice, element 3, you
+
+00:15:56.160 --> 00:16:01.860 align:middle line:90%
+see how these correspond if I line them up
+like this, splash screen is element 0, Start
+
+00:16:01.860 --> 00:16:06.770 align:middle line:90%
+menu goes to Spooky Groddle, element three
+goes to... yeah? Very easy.
+
+00:16:06.770 --> 00:16:12.910 align:middle line:90%
+Moon music goes into level three, let's try
+it now. Test our system. Short delay on purpose,
+
+00:16:12.910 --> 00:16:18.180 align:middle line:90%
+so we can hurry up development. Background
+music plays, go into options it continues
+
+00:16:18.180 --> 00:16:24.120 align:middle line:90%
+to play unbroken, go back and the music restarts
+that's OK, it's kind of resetting you I'm
+
+00:16:24.120 --> 00:16:26.600 align:middle line:84%
+back at the start menu, yeah?
+
+00:16:26.600 --> 00:16:33.160 align:middle line:90%
+Fine, start. Then the game music starts. Cool,
+lose condition, no change, because we haven't
+
+00:16:33.160 --> 00:16:42.100 align:middle line:90%
+told it to change. Start, good, win condition,
+you win, start, hey - we have a set of music.
+
+00:16:42.100 --> 00:16:46.760 align:middle line:90%
+Now you might want different music on the
+completion - you know when you win or lose
+
+00:16:46.760 --> 00:16:51.399 align:middle line:90%
+but this video's getting rather long so I'm
+going to leave it at that for now and I might
+
+00:16:51.399 --> 00:16:55.440 align:middle line:90%
+drop in some other music in a future video
+just for the win and lose scenes; but you
+
+00:16:55.440 --> 00:16:59.570 align:middle line:90%
+get the idea, let's just revise the slide
+at the beginning of this section and make
+
+00:16:59.570 --> 00:17:03.380 align:middle line:90%
+sure that we've achieved everything that we
+wanted to.
+
+00:17:03.380 --> 00:17:07.309 align:middle line:90%
+Customising Win and Lose done; option scene
+blank for now done, back and default done,
+
+00:17:07.309 --> 00:17:10.809 align:middle line:90%
+level one done we actually went a step further
+and went to two and three and we tested it
+
+00:17:10.809 --> 00:17:14.309 align:middle line:90%
+all works properly. Awesome! Enjoy that, show
+it off to your friends, you can even share
+
+00:17:14.309 --> 00:17:17.679 align:middle line:90%
+this by the way if you like now you can just
+say guys, what do you think of my menu? When
+
+00:17:17.679 --> 00:17:21.270 align:middle line:90%
+you've got this far why not just upload this
+project to GameBucket and share it? Sure it
+
+00:17:21.270 --> 00:17:24.929 align:middle line:90%
+doesn't do anything, but at least people can
+comment on your graphics, on your choice of
+
+00:17:24.929 --> 00:17:27.270 align:middle line:84%
+music, and your delays and everything else.
+
+00:17:27.270 --> 00:17:32.270 align:middle line:84%
+Cool, congratulations and I'll see you soon.

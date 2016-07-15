@@ -1,0 +1,854 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:09.580
+So, hi, and welcome back! In this video,
+we're going to be animating the position
+
+00:00:09.580 --> 00:00:14.389
+of incoming enemies. Really, we've got a
+game, right now, and the enemies
+
+00:00:14.389 --> 00:00:19.340
+kind of just pop into existence, which is really not what we want. So, instead of that,
+
+00:00:19.340 --> 00:00:23.850
+we're going to be using the animation
+for the first time and getting our
+
+00:00:23.850 --> 00:00:29.470
+enemies to animate and to fly in
+menacingly and attack the players.
+
+00:00:29.470 --> 00:00:34.960
+So, how about we get started. Let's get
+going!
+
+00:00:34.969 --> 00:00:38.059
+Where would we start? We've never
+seen animation before, so this is the
+
+00:00:38.059 --> 00:00:41.690
+first time we've done animations. Where would we get started? Well, the first thing we
+
+00:00:41.690 --> 00:00:45.840
+need to do, we're going to animate the
+enemies, so we need an enemy. Right now,
+
+00:00:45.840 --> 00:00:50.940
+we have no enemy in our scene. Remember,  they're being generated at runtime, so the
+
+00:00:50.940 --> 00:00:57.149
+first thing we want to do, is grab an Enemy
+Prefab and drop him in our scene. So, let's
+
+00:00:57.149 --> 00:01:02.910
+zoom in and see this guy here, and right now, we can see in the Enemy Prefab, we've got
+
+00:01:02.910 --> 00:01:07.170
+the script for the behavior, we've got a
+Collider RigidBody, etc. What we don't
+
+00:01:07.170 --> 00:01:12.250
+have is anything to do with animation. And
+so, how am I going to create an animation
+
+00:01:12.250 --> 00:01:16.369
+on my enemy? Well, I'm going to open up a
+brand new pane, which was never seen
+
+00:01:16.369 --> 00:01:21.950
+before, so I'm right clicking on my pane. Here we go, add a tab, and I'm adding the animation
+
+00:01:21.950 --> 00:01:27.080
+tab. So, this is the tab we've not seen before. It looks a little bit complicated at first, but we
+
+00:01:27.080 --> 00:01:30.869
+don't have to worry, too, much about that.
+We select our enemy and you'll
+
+00:01:30.869 --> 00:01:34.930
+see immediately the tab changes, and when we've got nothing selected, whereas when we
+
+00:01:34.930 --> 00:01:39.680
+just selected our enemy the tab changes. Then, we go here, and we're going to create a new
+
+00:01:39.680 --> 00:01:45.820
+clip. What does that mean? It pops up with a save window. Well, we're creating an
+
+00:01:45.820 --> 00:01:49.000
+animation here; this is the Animation
+Tool that lets you create and build
+
+00:01:49.000 --> 00:01:54.320
+animations. So, right now, we're creating
+a new animation for the enemy, and because we're
+
+00:01:54.320 --> 00:01:57.250
+in the context of the enemy already,
+because what we've done with the
+
+00:01:57.250 --> 00:02:06.500
+folders, we're in the Enemy Folder already. And we're going to save this as Arrival Animation.
+
+00:02:06.500 --> 00:02:10.479
+This is the animation where the enemy
+swoops in, menacingly, against the player,
+
+00:02:10.479 --> 00:02:15.279
+and so, that's what we've got. Now, what actually has happened here?
+
+00:02:15.280 --> 00:02:19.600
+Let's take a little bit of a look
+around, and see what's going on. So, we've
+
+00:02:19.600 --> 00:02:23.250
+got this enemy selected. Let's take a
+look at the Inspector. We can see at the
+
+00:02:23.250 --> 00:02:27.040
+bottom of the Inspector, something new
+has been added here. We've got an animator
+
+00:02:27.040 --> 00:02:31.240
+being added, and we have a controller
+being added here, the Enemy Controller.
+
+00:02:31.240 --> 00:02:37.960
+So, if we take a look at the project, in the Enemy Folder, alongside the Arrival Animation,
+
+00:02:37.970 --> 00:02:44.970
+which we just created, we also have an
+Enemy Controller here. And if we select it, we
+
+00:02:44.970 --> 00:02:49.709
+now have this animation, Animator Window, pop up. This is a brand new
+
+00:02:49.709 --> 00:02:54.450
+window, we've not seen it before, so right now, we're not worried too much about that,
+
+00:02:54.450 --> 00:02:58.350
+but a bunch of stuff has been going on
+in the background, that Unity has put in
+
+00:02:58.350 --> 00:03:02.660
+place for us to do animations. So, really we're only going to concentrate on
+
+00:03:02.660 --> 00:03:07.300
+the one animation for now, and then, we'll try it. But really remember that Unity, when you've
+
+00:03:07.300 --> 00:03:11.220
+created animation on an enemy, has
+actually done a whole bunch of work in
+
+00:03:11.220 --> 00:03:15.630
+the background for you, specifically to
+create things like the Animator, the
+
+00:03:15.630 --> 00:03:19.450
+Animator Controller, as well as the
+animation itself. But we don't worry
+
+00:03:19.450 --> 00:03:24.720
+about that just for now, we'll return to
+it very soon. So, how about the animation?
+
+00:03:24.720 --> 00:03:27.870
+Let's get our enemy selected and let's
+take a look at the animation we've got.
+
+00:03:27.870 --> 00:03:34.030
+So, we selected the Arrival Animation, which we've just created, and
+
+00:03:34.030 --> 00:03:40.850
+here the animator has not been put on
+the prefab. Remember, our enemies are all
+
+00:03:40.850 --> 00:03:45.310
+built from prefab, and we haven't got
+this applied. And how can I tell? I can
+
+00:03:45.310 --> 00:03:49.540
+tell, because this is bold. Bold in the
+Inspector, means it hasn't been applied
+
+00:03:49.540 --> 00:03:53.450
+to the prefab. So, what am I going to do?
+Well, firstly, I'm going to reset this position
+
+00:03:53.450 --> 00:03:58.540
+to 000, right. Let me reset my position
+
+00:03:58.540 --> 00:04:07.500
+to 000, so that I don't have to change my prefab. And then, I'm going to apply to my prefab, and
+
+00:04:07.500 --> 00:04:11.269
+now, you can see this has stopped being bold. All the animator and the Animator
+
+00:04:11.269 --> 00:04:16.040
+Controller and all the animation stuff has stopped being bold, because it's now applied to the prefab.
+
+00:04:16.040 --> 00:04:21.140
+So, what do I do now? Well,  I'm going to grab my enemy unit, and I'm
+
+00:04:21.140 --> 00:04:25.190
+going to add him to one of the positions of
+the formation. That's because I want to
+
+00:04:25.190 --> 00:04:32.740
+animate relative to the actual... I want to
+animate relative to the final position,
+
+00:04:32.740 --> 00:04:37.640
+not just an arbitrary position, so it's 000.
+So, let's get started with the actual
+
+00:04:37.640 --> 00:04:42.280
+animation. So, I click on my animation
+pane, and what do I get? What does
+
+00:04:42.280 --> 00:04:47.790
+this all mean? Well, this is a dope sheet,
+and what this means is it's a timeline.
+
+00:04:47.790 --> 00:04:52.820
+Let's actually see what this means in context. Right, what we can do is say, I want to
+
+00:04:52.820 --> 00:04:55.780
+animate. Well, what do we want to animate? Let's think about this for a minute.
+
+00:04:55.780 --> 00:05:00.180
+I want this guy to swoop in from outside
+of the play space. What this means is,
+
+00:05:00.180 --> 00:05:07.300
+I want him to change the position, so I'm going to click Add Curve, go to Transform, and select position.
+
+00:05:07.300 --> 00:05:12.520
+Click the + button to add the position. So, now we've got some new things coming up
+
+00:05:12.530 --> 00:05:18.880
+inside the Animation Pane, and you'll
+notice if you're very careful, eagle-eyed,
+
+00:05:18.880 --> 00:05:24.830
+that you have... this button has just gone
+selected, this Record Button, as well as
+
+00:05:24.830 --> 00:05:29.820
+the Play, Pause, and Step Button have actually turned red.
+
+00:05:29.820 --> 00:05:34.020
+What this means is, we are now in
+Animation Record Mode. Whatever we do to
+
+00:05:34.020 --> 00:05:38.080
+the object in the scene now changes that
+object's position or
+
+00:05:38.080 --> 00:05:42.470
+rotational etc. the attributes of that object, for that particular animation
+
+00:05:42.470 --> 00:05:48.060
+position in the time series, in the time
+frame, right. This key frame here, a 0, is the
+
+00:05:48.060 --> 00:05:52.000
+position of the enemy, and after 1
+second, the enemy will be at this position
+
+00:05:52.000 --> 00:05:56.380
+here. So, now we have two different positions at two different
+
+00:05:56.380 --> 00:05:59.750
+points in time, and we'll change between
+the two. So, what does that look like?
+
+00:05:59.750 --> 00:06:05.920
+Well, if I press play absolutely nothing happens, because right now if I inspect this... Let me stop the
+
+00:06:05.930 --> 00:06:10.830
+play. And you'll notice that the red bar
+shows you at what point you're looking at
+
+00:06:10.830 --> 00:06:17.160
+the variable for, so if I look at the positions,
+it's all 000, right. And if I click on the
+
+00:06:17.160 --> 00:06:23.230
+Start, it's all 0. If I click on the end, it's all 0. Ok fine, Brice, that's not very helpful!
+
+00:06:23.230 --> 00:06:29.600
+How about I start at a different
+position, I start at X is 2. You can see that has
+
+00:06:29.600 --> 00:06:34.500
+just jumped in the frame itself, right. You can see that has just jumped in the scene. It has just jumped by
+
+00:06:34.500 --> 00:06:38.730
+2, in the X direction. What happens if I press play, now?
+
+00:06:38.730 --> 00:06:44.960
+Well, let's try it. You can see it. It's slowly
+moving into position, and so all the work
+
+00:06:44.960 --> 00:06:49.810
+of... and you'll notice also the
+position itself has turned red in the
+
+00:06:49.810 --> 00:06:53.990
+Inspector. That's to show us we're currently animating it, and it's being controlled by the
+
+00:06:53.990 --> 00:06:59.750
+animation, not by us. So, let's pause that,
+and we can see that in the middle...
+
+00:06:59.750 --> 00:07:05.400
+Let's pick an arbitrary point. You'll see that the X position is not 2 and it's not 0.
+
+00:07:05.400 --> 00:07:10.400
+That's because Unity has done all the
+hard work for us. We've given it two
+
+00:07:10.400 --> 00:07:15.420
+keyframes and we've said at time 0, the position is 2; at time 1, the position is 0,
+
+00:07:15.420 --> 00:07:20.380
+sort the rest out for me. But we can do more stuff with it, and this is just
+
+00:07:20.380 --> 00:07:24.320
+exactly what we're going to do. So, what
+do I mean by swooping in? Well, let's zoom out
+
+00:07:24.320 --> 00:07:29.950
+a little bit. Not quite like that. Let's zoom out a little bit. And I actually want to
+
+00:07:29.950 --> 00:07:37.360
+start here, and instead of changing the
+position in the Animation Pane itself, I'm actually going
+
+00:07:37.360 --> 00:07:44.560
+to change it in the scene view by hand. And you'll notice that,  because I'm in Animation Record Mode,
+
+00:07:44.570 --> 00:07:49.510
+when I change this, this will actually change the position in the animation. It will
+
+00:07:49.510 --> 00:07:53.230
+not change the position of the object,
+when I'm out of Animation Record. Let me
+
+00:07:53.230 --> 00:07:57.310
+show you what I mean. I stop the
+recording mode, my object immediately jumps back.
+
+00:07:57.320 --> 00:08:03.340
+I press recording mode, my object jumps to the beginning of the animation, so what do I actually want
+
+00:08:03.350 --> 00:08:08.460
+to show as an animation? Well, I want them to swoop in, from the top left-hand side,
+
+00:08:08.460 --> 00:08:13.940
+into their position. So, right now, if I press play, what does it look like? Well, it's just
+
+00:08:13.940 --> 00:08:18.550
+linearly coming in, that's not quite very
+satisfying. So, I'm actually going to change the
+
+00:08:18.550 --> 00:08:23.560
+position a little bit. I'm going to add a keyframe. So, I'm going to select a time, and I'm going to
+
+00:08:23.560 --> 00:08:30.940
+select a time, about three quarters of the way there. Then, I'm going to move my ship, below its actual
+
+00:08:30.940 --> 00:08:37.980
+accepted final destination position. So, what does the animation look like, now? Let's try it.
+
+00:08:37.980 --> 00:08:44.039
+I kind of like that swooping effect. So, it comes in... in front of its intended position. Then, it
+
+00:08:44.039 --> 00:08:48.490
+slows down and pops back, going backwards into its actual position in the formation.
+
+00:08:48.490 --> 00:08:52.300
+I really like that effect, but it's
+missing something. I don't quite like...
+
+00:08:52.300 --> 00:08:57.790
+Let's zoom in, and we can see it in the game scene. I think... yeah here we go. It's missing something.
+
+00:08:57.790 --> 00:09:00.829
+It doesn't feel quite alive, it feels like it's just moving
+
+00:09:00.829 --> 00:09:05.300
+arbitrarily. What I actually want is to
+add some rotation, so to do that, I'm
+
+00:09:05.300 --> 00:09:11.079
+going to stop my animation from playing. I'm going to select the beginning keyframe.
+
+00:09:11.079 --> 00:09:15.360
+The beginning keyframe is fine, I don't care, but this keyframe here, I'm going to rotate it
+
+00:09:15.360 --> 00:09:19.820
+a little bit. So, I'm going to grab the rotation tool; I'm going to rotate it a little bit.
+
+00:09:19.820 --> 00:09:24.500
+So now, it's actually coming forward. It'll have a rotation when it's coming down, and
+
+00:09:24.500 --> 00:09:30.259
+it'll change its rotation back, so that when
+you're towards the end, it should have a
+
+00:09:30.259 --> 00:09:35.100
+rotation of 0. Let's take a look at that, now. At this point here, it has a
+
+00:09:35.100 --> 00:09:41.660
+keyframe here and here. We're going to
+change the rotation and put 0 here.
+
+00:09:41.660 --> 00:09:46.079
+So, that's the final state. This is the intermediate state, about three-quarters of the way
+
+00:09:46.079 --> 00:09:49.350
+through the animation, and this is the
+beginning state, which is out of the
+
+00:09:49.350 --> 00:09:53.949
+scene view right now, up here. So, what happens if I press play, now?
+
+00:09:53.949 --> 00:09:59.459
+Let's take a look at it, in the game view.
+So, it's coming in and it's rotating
+
+00:09:59.459 --> 00:10:03.220
+nicely, and all the interpolation is done
+by Unity itself. We don't have to do any
+
+00:10:03.220 --> 00:10:05.860
+of the hard work. So now, it's your turn!
+
+00:10:05.860 --> 00:10:10.240
+Now, it's your turn to mess around with the
+
+00:10:10.240 --> 00:10:14.309
+the animation. I want you to create a little animation. It could be like mine, or you
+
+00:10:14.309 --> 00:10:18.959
+could have it sweeping from the side or
+coming from the top, up to you. Just animate
+
+00:10:18.959 --> 00:10:23.899
+the enemy in a way that looks good, that feels like the enemy is coming in for the fight,
+
+00:10:23.899 --> 00:10:29.369
+is getting prepared and ready to engage
+your player. And remember, play around
+
+00:10:29.369 --> 00:10:33.369
+with the Animation Tool. It's now your turn
+to really play around with this. Right
+
+00:10:33.369 --> 00:10:36.889
+now, I've only shown what you can
+do by animating the transform, but
+
+00:10:36.889 --> 00:10:40.490
+actually animations are a lot more
+sophisticated than that. You can actually do
+
+00:10:40.490 --> 00:10:44.579
+anything you can think of, really. Anything that can be changed in the Inspector,
+
+00:10:44.579 --> 00:10:49.540
+can also be changed in the Animator. The
+Animator can change any attribute within
+
+00:10:49.540 --> 00:10:54.309
+the inspector, including things to do
+with the Animator itself. So, what's
+
+00:10:54.309 --> 00:10:58.230
+really interesting is that you can have
+the animation animate values into your
+
+00:10:58.230 --> 00:11:01.429
+script, which is always really useful. You
+can do some really cool stuff with that,
+
+00:11:01.429 --> 00:11:07.189
+by saying the size of an object given
+its distance or anything else like that.
+
+00:11:07.189 --> 00:11:12.999
+So, play around with this. This is now your
+time to play around, and try out what you
+
+00:11:12.999 --> 00:11:17.629
+can do with the animation. As a little
+hint, as well as doing the rotation and
+
+00:11:17.629 --> 00:11:22.049
+position, why don't you try and animate
+the scale, so that it looks smaller when
+
+00:11:22.049 --> 00:11:26.009
+it's further away. And then, animate in so that it's swooping into position,
+
+00:11:26.009 --> 00:11:29.820
+coming closer to the player, so there's a really guttural feel. And don't forget,
+
+00:11:29.820 --> 00:11:34.140
+when you're done with your animation to press pause, to stop recording. And
+
+00:11:34.149 --> 00:11:38.029
+now, any changes you make will not
+affect the animation, but will actually
+
+00:11:38.029 --> 00:11:44.349
+affect the position of your object in
+the game. So, go ahead! Give it a shot!
+
+00:11:44.350 --> 00:11:52.510
+Play around with the animation! This is your time to go nuts and explore what the animation package can do.
+
+00:11:52.510 --> 00:11:57.340
+So, how did it go? Did you manage to get your animation looking interesting? Did you manage to get something cool
+
+00:11:57.340 --> 00:12:01.910
+going on? I'm going to go with the animation I originally had,
+
+00:12:01.910 --> 00:12:06.830
+you know, and I've got this animation here.
+And now, it's time to say when should we
+
+00:12:06.830 --> 00:12:13.590
+play the animation? So, what happens if I
+play the game, now? Something weird is going on here.
+
+00:12:13.590 --> 00:12:20.300
+They're definitely animating in, and they're
+animating in, relative to their position,
+
+00:12:20.300 --> 00:12:24.100
+but they keep looping. Not only are they
+keeping looping, but also only two of
+
+00:12:24.100 --> 00:12:28.240
+them are coming down. So, why only two of them. That's a really interesting question.
+
+00:12:28.240 --> 00:12:32.320
+So, let's first stop the looping, and then,
+we figure out why two of them only, are
+
+00:12:32.320 --> 00:12:38.450
+coming down. So, let's put a stop... And the
+looping... If we go and select our... Oh, I forgot
+
+00:12:38.450 --> 00:12:42.100
+to remove my enemy from the game,
+actually. If you've got this enemy here, it lets
+
+00:12:42.100 --> 00:12:44.460
+me remove him from the game. That's just
+the enemy I used to build the
+
+00:12:44.460 --> 00:12:50.990
+animation. I don't need him anymore, actually, I can remove him. So now, I said I want to select
+
+00:12:50.990 --> 00:12:56.970
+my enemy prefab, and the enemy prefab should still have all the animator, because we applied
+
+00:12:56.970 --> 00:13:00.160
+those to the prefab, remember? And if I click on the animator for the prefab, I
+
+00:13:00.160 --> 00:13:05.360
+can see this arrival state. This is the arrival
+animation. So Ok, the Arrival Animation is
+
+00:13:05.360 --> 00:13:11.240
+going on. So, let me pull this guy out. Let me start the game. Let me pause it and
+
+00:13:11.240 --> 00:13:18.320
+select one of the enemy objects. And you'll be able to see what the animation does,
+
+00:13:18.330 --> 00:13:24.970
+in the Animator Pane, so let me keep playing that game, right. Can you see how it's simply looping over
+
+00:13:24.970 --> 00:13:30.890
+the Arrival Animation? So, it's arriving once, and then, it keeps arriving and arriving and arriving and arriving. Not
+
+00:13:30.890 --> 00:13:36.140
+very useful, that really. So, what we want
+is to stop the game, come back into our
+
+00:13:36.140 --> 00:13:40.290
+Animator, and what we want to do is create another state. We've got this in an arrival
+
+00:13:40.290 --> 00:13:44.140
+state and we're going to create a second
+state. This is just going to be an
+
+00:13:44.140 --> 00:13:49.330
+empty state, and instead of calling him new state, I'm going to call him Idle. That
+
+00:13:49.330 --> 00:13:53.380
+just means the enemy is, instead of being
+animating in, the enemy is in the
+
+00:13:53.380 --> 00:13:57.690
+formation doing its stuff, it's not doing anything else. So right now, nothing else will happen,
+
+00:13:57.690 --> 00:14:02.200
+right, and you can tell Idle is different
+from Arrival. You can see how Arrival
+
+00:14:02.200 --> 00:14:05.600
+is orange and Idle is gray, that's because Arrival is a default animation.
+
+00:14:05.600 --> 00:14:09.279
+Because we only had one, that was a
+default animation, but you can change the
+
+00:14:09.279 --> 00:14:13.139
+default animation. Let me do that now, to
+change it to the Idle Animation and see
+
+00:14:13.139 --> 00:14:18.519
+what happens. So, I can right click on Idle and go Set as Default, and
+
+00:14:18.519 --> 00:14:23.970
+you can see that Idle now turns orange. If
+I press the game, what happens? They just
+
+00:14:23.970 --> 00:14:28.410
+pop in, and they're a bit dispersed. We'll
+see about that in just a second.
+
+00:14:28.410 --> 00:14:34.870
+But for now, let's go back to the Animator, and turn Arrival in as the default transition...
+
+00:14:34.870 --> 00:14:40.870
+the default state. That's the right one. So, Arrival is when we arrive.
+
+00:14:40.870 --> 00:14:47.380
+As soon as the enemy is created, it should
+start in the Arrival and then arrive, and then, it should go into idle.
+
+00:14:47.389 --> 00:14:52.600
+And to do that, to tell Unity to do that,
+we're going to right click on Arrival, and
+
+00:14:52.600 --> 00:14:57.009
+click Make Transition. And this gives
+us an arrow, and we're going to attach this
+
+00:14:57.009 --> 00:15:02.480
+arrow, by clicking on Idle. And now,
+when you press play, they arrive, and then, they
+
+00:15:02.480 --> 00:15:06.480
+go into formation. So now, we have two
+new issues, right. We have the issues of,
+
+00:15:06.480 --> 00:15:12.540
+were missing a lot of our enemies, and
+secondly, we are also in the wrong
+
+00:15:12.540 --> 00:15:17.689
+position. So, let's first fix the enemies
+and then fix the position. So, we go for the
+
+00:15:17.689 --> 00:15:19.560
+enemies. We'll have a look at the scene.
+
+00:15:19.560 --> 00:15:24.050
+What's causing only two enemies to come
+down? Well, if we think about what we're
+
+00:15:24.050 --> 00:15:29.630
+doing here, it'll be pretty obvious
+that when we play the game... And let me
+
+00:15:29.630 --> 00:15:36.100
+pause it and go into the Scene View. I'm going to select the top Shredder, and I'm
+
+00:15:36.100 --> 00:15:40.759
+going to carry on playing the game. Let's go
+back to the scene, and I have the feeling
+
+00:15:40.759 --> 00:15:45.130
+that they're being created just
+underneath the Shredder and then,
+
+00:15:45.130 --> 00:15:49.060
+shredded out of existence. So, I'm just
+going to stop the game and move my shredder
+
+00:15:49.060 --> 00:15:52.540
+upwards, because if they hit the shredder,
+they'll immediately be destroyed, won't they.
+
+00:15:52.540 --> 00:15:57.579
+So, let me click the shredder and move him
+out of the way. So, I'm moving the shredder up a
+
+00:15:57.579 --> 00:16:04.779
+little bit. Here we go, and if I press play,
+again, they are indeed all coming at once.
+
+00:16:04.779 --> 00:16:08.649
+So, why are they dispersed? We've solved the problems of them all disappearing. That
+
+00:16:08.649 --> 00:16:13.640
+was just because they hit the Shredder and
+got destroyed. Well, let's inspect the actual
+
+00:16:13.640 --> 00:16:18.670
+enemies to see why they are dispersed.
+Press pause, rather than
+
+00:16:18.670 --> 00:16:25.100
+stop, and let's take a look at our
+enemies. As you know, the enemy position is
+
+00:16:25.100 --> 00:16:31.050
+-2, -1, and 0, when they are in
+their Idle state. That's no good, that's
+
+00:16:31.050 --> 00:16:36.000
+really not what we want. Why are they in that state? That's not really what we want. And the
+
+00:16:36.000 --> 00:16:39.930
+reason for that is something is going
+wrong with how the animation perceives
+
+00:16:39.930 --> 00:16:42.670
+its position, and it's giving, if we have
+a look,
+
+00:16:42.670 --> 00:16:48.040
+0 0 is in the middle compared to the
+formation. And really it's putting them
+
+00:16:48.040 --> 00:16:55.890
+relative to the 0 0, and then, adding
+that on top of their position from their
+
+00:16:55.890 --> 00:17:03.590
+position object. So really, something is
+off here in our animation, and really the
+
+00:17:03.590 --> 00:17:06.880
+animation to blame isn't the Arrival
+Animation. At the end of Arrival, they are
+
+00:17:06.880 --> 00:17:13.699
+at the right place. So, which animation is to blame? Well, it's this. If we take a look at our Animator,
+
+00:17:13.699 --> 00:17:17.280
+in the Idle Animation we can see there's no
+animation whatsoever, there's no motion.
+
+00:17:17.280 --> 00:17:21.990
+There's no animation being played in Idle, so by default it'll have a relative position,
+
+00:17:21.990 --> 00:17:25.560
+rather it'll do the wrong thing with the relative positioning. So, what we
+
+00:17:25.560 --> 00:17:31.440
+need to do is actually create... so we stop
+the game. We drag in another enemy,
+
+00:17:31.440 --> 00:17:38.500
+not into our Animator, but rather into our scene. And I'm going to create a new animation, to this guy.
+
+00:17:38.500 --> 00:17:42.240
+So, I've got the Arrival, I'm going to create
+a new animation clip, I'm going to call this
+
+00:17:42.250 --> 00:17:51.070
+the Idle clip, and I'm going to add a curve for the transform position. And I'm going to
+
+00:17:51.070 --> 00:18:00.460
+start at the 0 point, for 0 0, and I'm going to delete the second animation, the keyframe. Delete key, so
+
+00:18:00.470 --> 00:18:04.070
+it's always 0 0, there's very little
+animation to do, whatsoever. So, I've got this
+
+00:18:04.070 --> 00:18:08.750
+saved. I can stop recording now, and if I
+jump back into my Animator for my...
+
+00:18:08.750 --> 00:18:15.010
+We've got the Idle 0 created automatically.
+So, let me remove the old one, Delete, and
+
+00:18:15.010 --> 00:18:16.990
+it'll prompt us for deletion.
+
+00:18:16.990 --> 00:18:22.720
+Idle 0 and then, I can redo what I did before, which was to make a transition between my Arrival and
+
+00:18:22.720 --> 00:18:29.020
+my Idle state. So, let's take a look, now. We've got the idle state with an Idle
+
+00:18:29.020 --> 00:18:35.910
+position and see what goes on. Brilliant! Now, this little dude in the middle, [Laughs]
+
+00:18:35.910 --> 00:18:42.100
+that's the dude that was there when I tried to do the animation, and I just forgot to
+
+00:18:42.100 --> 00:18:49.000
+delete him. Stop the game, grab the enemy, and delete the dude. And then, we play the game again, and
+
+00:18:49.000 --> 00:18:54.600
+all of the enemies now animate, as we want them to. They're quite a tough bunch.
+
+00:18:54.600 --> 00:18:59.460
+I've got to say, they're not easy to kill, and they're shooting a lot and they're not easy to kill.
+
+00:18:59.460 --> 00:19:03.620
+So, what I want to see is what happens
+when I delete, or rather when I destroy,
+
+00:19:03.630 --> 00:19:09.870
+all of them, and we should see that they are arriving one after the other. And
+
+00:19:09.870 --> 00:19:15.679
+the effect is quite good.  I quite like
+that effect of multiple enemies, coming in one after the other.
+
+00:19:15.679 --> 00:19:20.279
+Now, it's your turn, when this video stops, to have a look at the animation,
+
+00:19:20.280 --> 00:19:24.320
+and make it your own. Instead of having it coming in from the top left,
+
+00:19:24.330 --> 00:19:29.740
+make it come from the top right. Make it come from the side. Make it come from the top, directly.
+
+00:19:29.740 --> 00:19:34.210
+Have it, maybe twist around, play around
+with the scaling factor, as I mentioned
+
+00:19:34.210 --> 00:19:39.520
+earlier, and also see if you can try and
+get it to animate and change the sprite.
+
+00:19:39.520 --> 00:19:43.380
+Let's see some thruster on that sprite.
+I'll definitely be going through a lot more
+
+00:19:43.380 --> 00:19:47.559
+about animation in other videos, but for
+now, we've got our first introduction.
+
+00:19:47.559 --> 00:19:52.030
+Let's see where we can take it. I'll see
+you later, in another video! Bye for now.
+
+00:19:52.030 --> 00:19:53.309
+Have fun while you're at it!
+

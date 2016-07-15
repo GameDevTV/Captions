@@ -1,0 +1,427 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:04.640 --> 00:00:09.070
+Welcome back! So, in this video we're going
+to be talking about word wrapping, when we
+
+00:00:09.070 --> 00:00:14.850
+have a long string of like this Lorem Ipsum
+Text, we have here in this Text Box. It's
+
+00:00:14.850 --> 00:00:18.689
+all very well, when we try and set this directly
+in the User Interface, but I want to talk
+
+00:00:18.689 --> 00:00:22.679
+about what's going to happen when we try and
+set long strings in code and how we're going
+
+00:00:22.679 --> 00:00:26.999
+to deal with that, in our code. So, let's
+firstly stay here in the User Interface for
+
+00:00:26.999 --> 00:00:31.800
+a minute and just have a quick look at a setting.
+In your Inspector, when you're selected on
+
+00:00:31.800 --> 00:00:37.579
+your Text Field, you will see under the Text
+Box that you have an option, if you scroll
+
+00:00:37.579 --> 00:00:42.719
+down, that says Horizontal Overflow under
+Paragraph. And it's currently set to Wrap.
+
+00:00:42.719 --> 00:00:46.910
+If we were to set that to Overflow, look what
+happens to the text, if I zoom out, it's just
+
+00:00:46.910 --> 00:00:52.090
+one long line. It ignores the fact that it's
+escaping the right hand side of the Text Box.
+
+00:00:52.090 --> 00:00:57.230
+So, you're going to want that on wrap, if
+you want to see it all. Alright, so now let's
+
+00:00:57.230 --> 00:01:01.280
+imagine we want to set a slightly longer story
+scene, because we're trying to build a text
+
+00:01:01.280 --> 00:01:07.310
+adventure here, and we want to do that programmatically,
+so let's see where we are with our script.
+
+00:01:07.310 --> 00:01:13.090
+So far, when we hit the Space Key, in this
+condition, we are just saying "Space key pressed".
+
+00:01:13.090 --> 00:01:21.250
+Let's try pasting all of that Lorem Text in
+there, with a semicolon on the end. Now, let's
+
+00:01:21.250 --> 00:01:25.610
+just have a look, it's a horrible dirt to deal with,
+so text.text =. Now, I've got to scroll all
+
+00:01:25.610 --> 00:01:29.790
+the way across. I don't want to close brackets.
+I need to make sure I've got a semicolon on
+
+00:01:29.790 --> 00:01:33.680
+the end of the statement. Now, let's just
+see if that works; I think you'll find that
+
+00:01:33.680 --> 00:01:37.649
+it'll work OK, but let's just make sure. How
+are we going to know, by the way? Because
+
+00:01:37.649 --> 00:01:41.869
+it's going to start with the Lorem Text, and
+then, end up with the Lorem Text, when we
+
+00:01:41.869 --> 00:01:47.399
+hit Space, so I'm going to take it out in
+Unity. So, what we have now, in the starting
+
+00:01:47.399 --> 00:01:52.320
+state, is no text. And then, if we look over
+at our script, it's going to go to "Hello
+
+00:01:52.320 --> 00:01:55.680
+world" on Start, so we'll know that's working
+and then, it's going to go to this very long
+
+00:01:55.680 --> 00:02:00.399
+string, when we hit the Space Key. Let's see all
+this happening, click play, "Hello world!",
+
+00:02:00.399 --> 00:02:06.880
+as expected. Now, let's hit the Space Key.
+OK, now our Lorem Text comes in just fine,
+
+00:02:06.880 --> 00:02:10.649
+if we paste it into the script, so that's
+good, and the wrapping continues to work as
+
+00:02:10.649 --> 00:02:16.140
+we left it. The problem I have here is I don't
+really want any of my script to be more than
+
+00:02:16.140 --> 00:02:21.400
+a screen width, and having to scroll all the
+way across to see my text is just horribly
+
+00:02:21.400 --> 00:02:26.590
+unusable. Now, I'm afraid there's no really
+elegant solution to this, without doing something
+
+00:02:26.590 --> 00:02:32.010
+pretty esoteric, so I'm just going to show
+you how I suggest we layout text, in script.
+
+00:02:32.010 --> 00:02:35.230
+Alright, so what we're going to do is we're
+going to say well, where have we got about
+
+00:02:35.230 --> 00:02:41.819
+a screen full, over here somewhere, and we're
+going to close the string, put a + on the
+
+00:02:41.819 --> 00:02:47.129
+end of the line, and then, remembering that
+C# ignores white space, we can put a new line
+
+00:02:47.129 --> 00:02:52.110
+in. Now, we've got a style question as to
+where do we start typing the next line. Well,
+
+00:02:52.110 --> 00:02:58.260
+I'm going to indent it to the same level as
+the previous quote was on the line above,
+
+00:02:58.260 --> 00:03:02.870
+and I'm going to put some quotes in like that.
+Now, we need to be careful with our spaces,
+
+00:03:02.870 --> 00:03:08.010
+there's either a space on the end or the beginning,
+better to have the space to my eye on the
+
+00:03:08.010 --> 00:03:13.390
+end of the previous line. So, that's the pattern
+you want to continue in. Let's just make sure
+
+00:03:13.390 --> 00:03:19.620
+that this works for one concatenation or join
+of the strings, and then, we'll talk about
+
+00:03:19.620 --> 00:03:27.890
+what to do next. Let's check it. "Hello world!",
+yep, all fine, this transition is happening
+
+00:03:27.890 --> 00:03:32.319
+just fine. Great! So, hopefully you can see
+what's happening here. We have a statement
+
+00:03:32.319 --> 00:03:37.819
+here, we have a + on the end, C# is ignoring
+the white space, it would be exactly the same
+
+00:03:37.819 --> 00:03:44.150
+if we left it like that where we just have
+a close of quotes and reopening of the quotes.
+
+00:03:44.150 --> 00:03:47.260
+You'd say what's the point? You'd be quite
+right, what's the point if it's all on one
+
+00:03:47.260 --> 00:03:52.049
+line? But the point is that if we want to
+put it on two lines, then we need to do this.
+
+00:03:52.049 --> 00:03:56.680
+You may say why don't we just leave the quotes
+and the + out, like that and just put a new
+
+00:03:56.680 --> 00:04:03.290
+line. Let's see what happens, if we do that.
+It just won't compile, it says we've got a
+
+00:04:03.290 --> 00:04:10.689
+new line in constant. You can't put a new
+line in the definition of this Text Element.
+
+00:04:10.689 --> 00:04:14.019
+Alright, so you're going to have to close
+the quotes and concatenate. So, this is the
+
+00:04:14.019 --> 00:04:18.970
+best we've got for you in terms of how you
+build a long text string. So by this pattern,
+
+00:04:18.970 --> 00:04:21.920
+what I would like you to do, I'll do just
+the next one for you, is I would like you
+
+00:04:21.920 --> 00:04:26.600
+to repeat this for the rest of the string,
+alright, so that none of it runs off the end
+
+00:04:26.600 --> 00:04:30.670
+of the screen. A little mini challenge for
+you. Pause the video and continue to bring
+
+00:04:30.670 --> 00:04:37.350
+all of this string down into a single screen
+width. Now, while you're at it, why not start
+
+00:04:37.350 --> 00:04:42.350
+writing your story. Why use my horrible Lorem
+Text? Certainly don't sit and try and write
+
+00:04:42.350 --> 00:04:46.860
+that out. Start writing your own story into
+here. Now, I'm going to pause the video, write
+
+00:04:46.860 --> 00:04:51.050
+my own story into this paragraph, and then,
+I'll see you when we have both written our
+
+00:04:51.050 --> 00:04:56.260
+first screen of story. This is your starting
+screen on your story, in my case my prisoner
+
+00:04:56.260 --> 00:05:01.960
+in his cell.See you soon. So, welcome back! So, here's
+my little story. You're in a prison cell and
+
+00:05:01.960 --> 00:05:05.240
+you want to escape. There are some dirty sheets
+on the bed, a mirror on the wall, and the
+
+00:05:05.240 --> 00:05:09.880
+door is locked from the outside. You may have
+the question, how do I actually put a new
+
+00:05:09.880 --> 00:05:14.610
+line in now, if I want to, because you may
+want to go on to give the user some instructions
+
+00:05:14.610 --> 00:05:19.330
+about what they can do. So, here is how you
+put a new line in. You use a back slash like
+
+00:05:19.330 --> 00:05:23.320
+that, and then, an n and it should come up
+in red, like that. And you may end up needing
+
+00:05:23.320 --> 00:05:29.880
+two of them. So, if you do that, then you're
+going to want to just continue in this pattern
+
+00:05:29.880 --> 00:05:38.250
+now, something like this. So, press, I don't
+know, M or L to look at mirror. What we need
+
+00:05:38.250 --> 00:05:42.570
+to do here by the way, is look at our Game
+Design Document and see what we decided in
+
+00:05:42.570 --> 00:05:47.370
+our State Transition Diagram. So, we're in
+the cell and there are some sheets, so V for
+
+00:05:47.370 --> 00:05:54.870
+view R for return. so let's make that happen
+over in the text. "Press V to view sheets".
+
+00:05:54.870 --> 00:06:01.690
+Now, let's look at our State Diagram again.
+See we need to modify our State Diagram, take
+
+00:06:01.690 --> 00:06:06.910
+a look at this, and you realize and this stage
+it's all very well saying view you're sheets
+
+00:06:06.910 --> 00:06:09.970
+and return, view the mirror and return, but
+look, if we're using V for view, what are
+
+00:06:09.970 --> 00:06:14.750
+we viewing. OK, so we're going to need to
+us S for sheets, M for mirror, and L for lock.
+
+00:06:14.750 --> 00:06:18.970
+So, if you've got your own sketch diagram,
+go ahead and change that, otherwise I will
+
+00:06:18.970 --> 00:06:22.660
+change mine now. This is exactly the sort
+of thing you'll come across, you draw a diagram,
+
+00:06:22.660 --> 00:06:26.630
+it seems logical at the time, but when you
+come to implement it there is an issue that
+
+00:06:26.630 --> 00:06:30.480
+doesn't make sense, so just update your diagram.
+So, I'm going to go ahead and update the diagram
+
+00:06:30.480 --> 00:06:35.220
+now. OK, so I've made that improvement in
+my diagram. Take a look now. Let's start with
+
+00:06:35.220 --> 00:06:40.540
+the cell. Do we have a unique key press every
+transition we want to make? S for sheets,
+
+00:06:40.540 --> 00:06:45.160
+M for mirror, L for lock yeah, and if you
+were to look around the diagram, you'd find
+
+00:06:45.160 --> 00:06:49.490
+the same for mirror. For mirror, once we have
+the mirror, you know once we're looking at
+
+00:06:49.490 --> 00:06:54.300
+the mirror, we could T for take or R to return
+and so on. Cell mirror is where we're in the
+
+00:06:54.300 --> 00:06:58.740
+cell, holding the mirror, at which point we
+can S to look at the sheets, holding the mirror.
+
+00:06:58.740 --> 00:07:05.650
+We can M to, I'm sorry, L to go to the lock.
+OK, I'll change that to L for lock and you
+
+00:07:05.650 --> 00:07:10.400
+can see that you have a unique key press for
+every state, which is what we want. OK, fantastic!
+
+00:07:10.400 --> 00:07:15.370
+So, let's go back to our code, and now, we
+know what we're going to say. This is the
+
+00:07:15.370 --> 00:07:21.820
+value of planning, so V to view sheets, well
+it's S to view sheets right. "S to view Sheets,
+
+00:07:21.820 --> 00:07:30.200
+press M to view Mirror and L to view Lock."
+Now, before we carry on, check it back at
+
+00:07:30.200 --> 00:07:35.160
+our diagram. I'm just going to change this
+to lock for us, one second. The mirror becomes
+
+00:07:35.160 --> 00:07:39.800
+lock. Now, how do you draw your game design
+diagram documents is entirely up to you? You
+
+00:07:39.800 --> 00:07:43.620
+may want to use a piece of paper, a notebook,
+you may want to use Google Documents, you
+
+00:07:43.620 --> 00:07:50.120
+may want to use Word, whatever you like as
+long as it works for you. OK, so we have S,
+
+00:07:50.120 --> 00:07:59.100
+M, and L. Let's just check that that's right,
+S, M, and L. OK, and I'm putting the capital
+
+00:07:59.100 --> 00:08:04.590
+letter in front of Sheets, Mirror, and Lock,
+just to emphasize that the L goes with Lock,
+
+00:08:04.590 --> 00:08:09.110
+the M goes with Mirror, and the S goes with
+Sheets. Fantastic! Let's look at this in action
+
+00:08:09.110 --> 00:08:17.930
+now. Hit the Space Bar. You're in a prison,
+blah blah. OK fantastic! So, that's it really,
+
+00:08:17.930 --> 00:08:21.860
+we've done what we want to do here. We've
+understood a lot more about long strings,
+
+00:08:21.860 --> 00:08:28.220
+about how they fit in UI Text Elements, about
+Wrapping in terms of the Paragraph Horizontal
+
+00:08:28.220 --> 00:08:34.860
+Overflow, and then, over in code we found
+a way of dealing with paragraphs of text by
+
+00:08:34.860 --> 00:08:39.630
+concatenating in consecutive lines like this,
+being careful with our spaced, inside the
+
+00:08:39.630 --> 00:08:46.630
+quotes. And by using backslash n as the escaped
+new line character, in order to insert new
+
+00:08:46.630 --> 00:08:50.260
+lines. I've put two new lines in, because
+if you look in the game, there are actually
+
+00:08:50.260 --> 00:08:54.660
+two new lines. One brings you onto this next
+line, after the first paragraph. The next
+
+00:08:54.660 --> 00:09:00.030
+new line creates that nice separation between
+the description and the affordance, as to
+
+00:09:00.030 --> 00:09:04.880
+what you should be doing next. So, well done
+with that! You've learned a lot that lesson,
+
+00:09:04.880 --> 00:09:06.180
+and I'll see you shortly!
+

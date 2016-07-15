@@ -1,0 +1,182 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.000
+Hi guys! I want to dive into a quick bonus video for you
+
+2
+00:00:03.000 --> 00:00:06.000
+here! A common question on the course has been, how do I
+
+3
+00:00:06.000 --> 00:00:09.000
+show a loading progress bar, on Unity?
+
+4
+00:00:09.000 --> 00:00:12.000
+Most of our levels have been so small in data, that the loading
+
+5
+00:00:12.000 --> 00:00:15.000
+is almost instantaneous, but if you've got large music files
+
+6
+00:00:15.000 --> 00:00:18.000
+or large assets. Of course, as you know from playing your consoles
+
+7
+00:00:18.000 --> 00:00:21.000
+or playing your PC, levels can take quite a while
+
+8
+00:00:21.000 --> 00:00:24.000
+to load. So, rather than showing you the solution, I'm going
+
+9
+00:00:24.000 --> 00:00:27.000
+to show you how to find the solution for yourself. So, I would
+
+10
+00:00:27.000 --> 00:00:30.000
+Google for something like this. "Loading progress unity".
+
+11
+00:00:30.000 --> 00:00:33.000
+So, looking at the second answer here in Google, "Progress of
+
+12
+00:00:33.000 --> 00:00:36.000
+loading level." If I load that one up, just the same as the tab
+
+13
+00:00:36.000 --> 00:00:39.000
+I had open, you'll see the code here. Now,
+
+14
+00:00:39.000 --> 00:00:42.000
+you don't have to use exactly this code, and we also don't need to worry about
+
+15
+00:00:42.000 --> 00:00:45.000
+yield return. Now, what that means, the bit that I want to
+
+16
+00:00:45.000 --> 00:00:48.000
+tell you, is that you can poll for
+
+17
+00:00:48.000 --> 00:00:51.000
+the progress of the loading level, like this. What they're doing
+
+18
+00:00:51.000 --> 00:00:54.000
+is, they're saying "Application.LoadLevelAsync"
+
+19
+00:00:54.000 --> 00:00:57.000
+and then providing the Level Index there. They're
+
+20
+00:00:57.000 --> 00:01:00.000
+storing that result as a variable
+
+21
+00:01:00.000 --> 00:01:03.000
+in something called Async. Now, the variable is of type Async operation.
+
+22
+00:01:03.000 --> 00:01:06.000
+Let's look at that in the scripting manual. It has a few
+
+23
+00:01:06.000 --> 00:01:09.000
+different variables on that, and one of them is progress,
+
+24
+00:01:09.000 --> 00:01:12.000
+which is a read only float, between 0 and 1.
+
+25
+00:01:12.000 --> 00:01:15.000
+OK, so what you can do here, is you can say
+
+26
+00:01:15.000 --> 00:01:18.000
+you can make a call to this, and then,
+
+27
+00:01:18.000 --> 00:01:21.000
+they're going around a loop here saying, while it is not done,
+
+28
+00:01:21.000 --> 00:01:24.000
+notice the not there carefully, while async
+
+29
+00:01:24.000 --> 00:01:27.000
+status is not, is
+
+30
+00:01:27.000 --> 00:01:30.000
+Done. And that is done is a property of the
+
+31
+00:01:30.000 --> 00:01:33.000
+async opearation data structure, which is here.
+
+32
+00:01:33.000 --> 00:01:36.000
+Then, we go ahead and just query
+
+33
+00:01:36.000 --> 00:01:39.000
+async.progress, which is that float.
+
+34
+00:01:39.000 --> 00:01:42.000
+And then, we set the slider, the UI slider
+
+35
+00:01:42.000 --> 00:01:45.000
+to that value. So, through that sort of method you
+
+36
+00:01:45.000 --> 00:01:48.000
+can get yourself a level load. Of course, you could load levels in the
+
+37
+00:01:48.000 --> 00:01:51.000
+background with this, as well, but you need to be careful of the impact
+
+38
+00:01:51.000 --> 00:01:54.000
+that has on the performance of your game. So, it depends on what stage of the game,
+
+39
+00:01:54.000 --> 00:01:57.000
+as to whether you want to be loading levels in the background or whether you
+
+40
+00:01:57.000 --> 00:02:00.000
+simply want to give the user some feedback but it's certainly a good idea
+
+41
+00:02:00.000 --> 00:02:03.000
+to use something like a UI slider, to tell people
+
+42
+00:02:03.000 --> 00:02:06.000
+how much more loading they need to endure. So, I hope that's helpful!
+
+43
+00:02:06.000 --> 00:02:09.000
+That points you in the right direction. Go off and implement Loading Screens,
+
+44
+00:02:09.000 --> 00:02:12.000
+if your game takes more than a second or two to load. So,
+
+45
+00:02:12.000 --> 00:02:13.400
+see you soon!
+

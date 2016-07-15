@@ -1,0 +1,814 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+So, just before I start this video, I want to point out a couple of
+
+2
+00:00:06.000 --> 00:00:09.000
+things. Firstly, I want to say thank you to Rafael
+
+3
+00:00:09.000 --> 00:00:12.000
+who has posted a detailed post here, over in
+
+4
+00:00:12.000 --> 00:00:15.000
+the discussions against this lecture, explaining how
+
+5
+00:00:15.000 --> 00:00:18.000
+if you want to you don't need to install the entire Android
+
+6
+00:00:18.000 --> 00:00:21.000
+Studio; you can just install the Android SDK.
+
+7
+00:00:21.000 --> 00:00:24.000
+Now, just in case his discussion item gets removed,
+
+8
+00:00:24.000 --> 00:00:27.000
+for some reason in Udemy, I've also attached a screenshot
+
+9
+00:00:27.000 --> 00:00:30.000
+of this long discussion post against this lecture, in
+
+10
+00:00:30.000 --> 00:00:33.000
+the resources against the lecture where you do your downloads.
+
+11
+00:00:33.000 --> 00:00:36.000
+So if you want, you can follow those instructions,
+
+12
+00:00:36.000 --> 00:00:39.000
+and just download and install the SDK for simplicity,
+
+13
+00:00:39.000 --> 00:00:42.000
+if you're pushed for space, but if you're not sure about
+
+14
+00:00:42.000 --> 00:00:45.000
+any of that, just carry on, follow my instructions, and download the whole of Android
+
+15
+00:00:45.000 --> 00:00:48.000
+Studio. That will work for you just as well! The other thing I wanted
+
+16
+00:00:48.000 --> 00:00:51.000
+to say was that, my sound quality is going to change
+
+17
+00:00:51.000 --> 00:00:54.000
+sharply in just a second, because the rest of this video is recorded with
+
+18
+00:00:54.000 --> 00:00:57.000
+a different type of mic because I actually
+
+19
+00:00:57.000 --> 00:01:00.000
+hold a mobile phone and
+
+20
+00:01:00.000 --> 00:01:03.000
+show you that, so I have a different mic. OK, see you soon!
+
+21
+00:01:03.000 --> 00:01:06.000
+So, we're going to be setting up the Build Settings
+
+22
+00:01:06.000 --> 00:01:09.000
+for Android, actually deploying to an Android device,
+
+23
+00:01:09.000 --> 00:01:12.000
+which I'm really excited about, because it's so satisfying when you get
+
+24
+00:01:12.000 --> 00:01:15.000
+to feel a game on a device, even though you can imagine it,
+
+25
+00:01:15.000 --> 00:01:18.000
+it's just different. And then, we'll be doing a little bit of
+
+26
+00:01:18.000 --> 00:01:21.000
+play testing on the device. Now, you're going to need your Android
+
+27
+00:01:21.000 --> 00:01:24.000
+device connected to your computer, via
+
+28
+00:01:24.000 --> 00:01:27.000
+a USB cable. So,
+
+29
+00:01:27.000 --> 00:01:30.000
+let's get on with it!
+
+30
+00:01:30.000 --> 00:01:33.000
+OK, let's start by getting Developer Mode enabled
+
+31
+00:01:33.000 --> 00:01:36.000
+on your Android phone, because we're going to need that for it
+
+32
+00:01:36.000 --> 00:01:39.000
+to work properly. So, here we have my
+
+33
+00:01:39.000 --> 00:01:42.000
+Google Nexus 4 Android phone,
+
+34
+00:01:42.000 --> 00:01:45.000
+and what I'm going to do is show you, in case you haven't already
+
+35
+00:01:45.000 --> 00:01:48.000
+done it, how to get Developer Mode enabled. Well, go to Settings,
+
+36
+00:01:48.000 --> 00:01:51.000
+and this will look a little different if you're in a previous version of Android
+
+37
+00:01:51.000 --> 00:01:54.000
+but the same idea, you're typical Settings Menu.
+
+38
+00:01:54.000 --> 00:01:57.000
+And at the bottom of your Settings Menu, you're going to have
+
+39
+00:01:57.000 --> 00:02:00.000
+an About Phone option.
+
+40
+00:02:00.000 --> 00:02:03.000
+Click on that and go to the bottom, where it says Build number, and just keep
+
+41
+00:02:03.000 --> 00:02:06.000
+clicking and eventually it'll pop up. Now, for me it says "No need, you
+
+42
+00:02:06.000 --> 00:02:09.000
+are already a developer." But in your case, if you click enough times, I think
+
+43
+00:02:09.000 --> 00:02:12.000
+it's five, it should say Developer Mode Enabled. Awesome!
+
+44
+00:02:12.000 --> 00:02:15.000
+So then, you go back, and then you'll have this
+
+45
+00:02:15.000 --> 00:02:18.000
+Developer Options option. Go
+
+46
+00:02:18.000 --> 00:02:21.000
+into that, turn on the Developer Settings,
+
+47
+00:02:21.000 --> 00:02:24.000
+and then, you want USB
+
+48
+00:02:24.000 --> 00:02:27.000
+Debugging. That's the one you want there.
+
+49
+00:02:27.000 --> 00:02:30.000
+Allow USB debugging.
+
+50
+00:02:30.000 --> 00:02:33.000
+OK, so Developer Options on, USB Debugging
+
+51
+00:02:33.000 --> 00:02:36.000
+is on, and you'll get a notification similar to this. USB Debugging connected.
+
+52
+00:02:36.000 --> 00:02:39.000
+Perfect! If you're in that state,
+
+53
+00:02:39.000 --> 00:02:42.000
+your phone is ready to receive the game from Unity,
+
+54
+00:02:42.000 --> 00:02:45.000
+when we get there. So, let's go over to Unity
+
+55
+00:02:45.000 --> 00:02:48.000
+and take a look at what we need to do at that end.
+
+56
+00:02:48.000 --> 00:02:51.000
+So, here we are back in Unity! Go to
+
+57
+00:02:51.000 --> 00:02:54.000
+File and Build Settings. Click on
+
+58
+00:02:54.000 --> 00:02:57.000
+Android, and then Switch Platform here,
+
+59
+00:02:57.000 --> 00:03:00.000
+at the bottom left of the Build Settings.
+
+60
+00:03:00.000 --> 00:03:03.000
+Now, you'll get a certain amount of compilations and
+
+61
+00:03:03.000 --> 00:03:06.000
+asset re-importing going on. One of the things it's doing
+
+62
+00:03:06.000 --> 00:03:09.000
+here is making sure, for instance, all your music files are in an Android
+
+63
+00:03:09.000 --> 00:03:12.000
+compatible format. Android
+
+64
+00:03:12.000 --> 00:03:15.000
+is a little more compatible than iOS. When we get to iOS you need
+
+65
+00:03:15.000 --> 00:03:18.000
+to make sure that you have no .ogg files, in your sound.
+
+66
+00:03:18.000 --> 00:03:21.000
+OK cool! So that's done! All these settings on the right hand
+
+67
+00:03:21.000 --> 00:03:24.000
+side, we can leave. Player settings, however, we want to check.
+
+68
+00:03:24.000 --> 00:03:27.000
+A couple of things that do need to be changed,
+
+69
+00:03:27.000 --> 00:03:30.000
+I would change at least your Product Name,
+
+70
+00:03:30.000 --> 00:03:33.000
+because that's what's going
+
+71
+00:03:33.000 --> 00:03:36.000
+to be on your logo, on your actual app.
+
+72
+00:03:36.000 --> 00:03:39.000
+So, change your Product Name. Then, make sure that
+
+73
+00:03:39.000 --> 00:03:42.000
+the Android Button is depressed here, on the target platforms,
+
+74
+00:03:42.000 --> 00:03:45.000
+and let's just look up through. Resolution and Presentation
+
+75
+00:03:45.000 --> 00:03:48.000
+firstly. We don't want Portrait, so
+
+76
+00:03:48.000 --> 00:03:51.000
+uptick both of the Portrait options. This game is not designed
+
+77
+00:03:51.000 --> 00:03:54.000
+to be Portrait. Everything else can stay the same.
+
+78
+00:03:54.000 --> 00:03:57.000
+Icon, if you want you can put yourself an
+
+79
+00:03:57.000 --> 00:04:00.000
+Icon in. I'm not going to be doing that for this example.
+
+80
+00:04:00.000 --> 00:04:03.000
+Splash Image, we can't change the Splash Image on the
+
+81
+00:04:03.000 --> 00:04:06.000
+free version of Unity, anyway, but we have made a workaround, as we showed
+
+82
+00:04:06.000 --> 00:04:09.000
+you. Other settings, nothing to do
+
+83
+00:04:09.000 --> 00:04:12.000
+at the top under Rendering, but under other settings
+
+84
+00:04:12.000 --> 00:04:15.000
+Identification is critical, but you set your
+
+85
+00:04:15.000 --> 00:04:18.000
+Bundle Identifier. If you don't do that it won't work.
+
+86
+00:04:18.000 --> 00:04:21.000
+So, use something like your name. I'm going to use my company name,
+
+87
+00:04:21.000 --> 00:04:24.000
+or use your company name, if you have one.
+
+88
+00:04:24.000 --> 00:04:27.000
+And the, .GlitchGarden.
+
+89
+00:04:27.000 --> 00:04:30.000
+So, you can just put com.myname and you can even
+
+90
+00:04:30.000 --> 00:04:33.000
+say myname.GlitchGarden or
+
+91
+00:04:33.000 --> 00:04:36.000
+put your name in there or your company name. OK, that's the important
+
+92
+00:04:36.000 --> 00:04:39.000
+bit that the Bundle Identifier matches that pattern, put com
+
+93
+00:04:39.000 --> 00:04:42.000
+.name.GlitchGarden. Perfect!
+
+94
+00:04:42.000 --> 00:04:45.000
+Everything else on there you can leave the same, and again, with the
+
+95
+00:04:45.000 --> 00:04:48.000
+Publishing Settings, nothing needs changing. Let's just
+
+96
+00:04:48.000 --> 00:04:51.000
+click Build and Run and see what happens.
+
+97
+00:04:51.000 --> 00:04:54.000
+Save it somewhere sensible, on your computer,
+
+98
+00:04:54.000 --> 00:04:57.000
+in case you want to keep that Android Build,
+
+99
+00:04:57.000 --> 00:05:00.000
+and then, just let Unity
+
+100
+00:05:00.000 --> 00:05:03.000
+do its thing.
+
+101
+00:05:06.000 --> 00:05:09.000
+So, it's compiling your assets, it's building
+
+102
+00:05:09.000 --> 00:05:12.000
+a target package, etc., etc.
+
+103
+00:05:15.000 --> 00:05:18.000
+And then, pushing new content
+
+104
+00:05:18.000 --> 00:05:21.000
+to device, and it's found my Nexus 4.
+
+105
+00:05:21.000 --> 00:05:24.000
+And if you have any problems here, make sure your USB cable is
+
+106
+00:05:24.000 --> 00:05:27.000
+connected directly and that you're definitely in
+
+107
+00:05:27.000 --> 00:05:30.000
+this USB Debugging mode, on your machine.
+
+108
+00:05:30.000 --> 00:05:33.000
+Now, your Android may become unresponsive for a minute,
+
+109
+00:05:33.000 --> 00:05:36.000
+while it pushes the app onto it. That's happening to mine
+
+110
+00:05:36.000 --> 00:05:39.000
+right now. It's not responding to my presses, but
+
+111
+00:05:39.000 --> 00:05:42.000
+it'll actually just load the game.
+
+112
+00:05:42.000 --> 00:05:45.000
+Here we go! Get ready for it! It"s going to be exciting! I'm going to turn the
+
+113
+00:05:45.000 --> 00:05:48.000
+sound up a bit.
+
+114
+00:05:48.000 --> 00:05:51.000
+[Game Music Playing in Background] There we go! That
+
+115
+00:05:51.000 --> 00:05:54.000
+was the sound of Glitch Garden loading, and there it
+
+116
+00:05:54.000 --> 00:05:57.000
+is. Now, if we click the Quit Button, should it
+
+117
+00:05:57.000 --> 00:06:00.000
+find it actually quits, because we have that quit request actually doing
+
+118
+00:06:00.000 --> 00:06:03.000
+something. Now, we're on our platform!
+
+119
+00:06:03.000 --> 00:06:06.000
+Again, let's find where it is on the Android device.
+
+120
+00:06:06.000 --> 00:06:09.000
+If you go to your Apps Button, you'll find,
+
+121
+00:06:09.000 --> 00:06:12.000
+if you called it Glitch Garden, it's there under the G's with a default Unity
+
+122
+00:06:12.000 --> 00:06:15.000
+logo. If you changed the logo in the Build Settings,
+
+123
+00:06:15.000 --> 00:06:18.000
+then it'll give you the logo you changed it to. Click on it,
+
+124
+00:06:18.000 --> 00:06:21.000
+watch it rotate very brief
+
+125
+00:06:21.000 --> 00:06:24.000
+Unity Splash Screen, then our Splash Screen,
+
+126
+00:06:24.000 --> 00:06:27.000
+then the Options Screen, and then
+
+127
+00:06:27.000 --> 00:06:30.000
+we can turn the volume up. And let's just
+
+128
+00:06:30.000 --> 00:06:33.000
+test that turning that volume up to maximum actually persists.
+
+129
+00:06:33.000 --> 00:06:36.000
+So, let's quit the game.
+
+130
+00:06:36.000 --> 00:06:39.000
+Now remember, this initial sound is designed to
+
+131
+00:06:39.000 --> 00:06:42.000
+be the same, every time, so that we can get our System
+
+132
+00:06:42.000 --> 00:06:45.000
+Volume right. And then the Game Volume, let's see!
+
+133
+00:06:45.000 --> 00:06:48.000
+Yes, we've written to Player Prefs on the phone! It's
+
+134
+00:06:48.000 --> 00:06:51.000
+staying maximum. Awesome!
+
+135
+00:06:51.000 --> 00:06:54.000
+So, let's just have a go at the game, and see if there are any obvious things that need fixing.
+
+136
+00:06:54.000 --> 00:06:57.000
+[Game Music Playing in Background] Here it is,
+
+137
+00:06:57.000 --> 00:07:00.000
+Glitch Garden running on my Android! By the way, you don't need to be tethered
+
+138
+00:07:00.000 --> 00:07:03.000
+anymore, the app is now on your phone, and you can go running
+
+139
+00:07:03.000 --> 00:07:06.000
+around the country side, showing all your friends.
+
+140
+00:07:06.000 --> 00:07:09.000
+Look at this! I hope you feel proud of yourself,
+
+141
+00:07:09.000 --> 00:07:12.000
+that you've got your creation on an actual phone.
+
+142
+00:07:12.000 --> 00:07:15.000
+[Game Music Playing in Background]
+
+143
+00:07:15.000 --> 00:07:18.000
+Pretty cool! Now, one thing you will notice is, you can't
+
+144
+00:07:18.000 --> 00:07:21.000
+get out of this very easily. The Back Button doesn't do anything,
+
+145
+00:07:21.000 --> 00:07:24.000
+and if we go back to the Home Screen
+
+146
+00:07:24.000 --> 00:07:27.000
+and then back into Glitch Garden,
+
+147
+00:07:27.000 --> 00:07:30.000
+we're just going to end up where we stayed. So,
+
+148
+00:07:30.000 --> 00:07:33.000
+make yourself a note, right now, of Glitch Garden improvements.
+
+149
+00:07:33.000 --> 00:07:36.000
+One to me is that, we need to make sure that we create a Pause
+
+150
+00:07:36.000 --> 00:07:39.000
+Menu and a way of players getting out of it. The other thing to
+
+151
+00:07:39.000 --> 00:07:42.000
+check, if you do want to reset the game, click
+
+152
+00:07:42.000 --> 00:07:45.000
+your Multitasking Button and swipe away Glitch Garden
+
+153
+00:07:45.000 --> 00:07:48.000
+like this. So, this Multitasking Button here with
+
+154
+00:07:48.000 --> 00:07:51.000
+my little finger, then swipe away. Now,
+
+155
+00:07:51.000 --> 00:07:54.000
+you can reload. If you're wondering what that background
+
+156
+00:07:54.000 --> 00:07:57.000
+is, I have if this then that, if T T T,
+
+157
+00:07:57.000 --> 00:08:00.000
+changed to a NASA image that some dude in
+
+158
+00:08:00.000 --> 00:08:03.000
+a space station, which is pretty cool! So,
+
+159
+00:08:03.000 --> 00:08:06.000
+go back into it. Now look, does the Back Button cause a problem
+
+160
+00:08:06.000 --> 00:08:09.000
+at this stage? No. And does the Back Button cause
+
+161
+00:08:09.000 --> 00:08:12.000
+the problem at this stage? No, but thank you to
+
+162
+00:08:12.000 --> 00:08:15.000
+one of our students for asking that question. It's a very good question.
+
+163
+00:08:15.000 --> 00:08:18.000
+It's not causing us a problem. Alright, so the only improvement we
+
+164
+00:08:18.000 --> 00:08:21.000
+have to record is that, we need to
+
+165
+00:08:21.000 --> 00:08:24.000
+make sure that we create some sort of way of quitting the game.
+
+166
+00:08:24.000 --> 00:08:27.000
+So congratulations on actually
+
+167
+00:08:27.000 --> 00:08:30.000
+building your game to Android! That's a huge achievement! Hopefully it's really
+
+168
+00:08:30.000 --> 00:08:33.000
+satisfying. I want you now to make sure that you have
+
+169
+00:08:33.000 --> 00:08:36.000
+actually done this yourself, so get it running on your device!
+
+170
+00:08:36.000 --> 00:08:39.000
+Excitedly run away and show somebody, anybody
+
+171
+00:08:39.000 --> 00:08:42.000
+even on the street. Capture a screenshot! Remember on
+
+172
+00:08:42.000 --> 00:08:45.000
+Android how you capture a screenshot? If you're not sure let
+
+173
+00:08:45.000 --> 00:08:48.000
+me just very briefly show you. So, back into the game.
+
+174
+00:08:51.000 --> 00:08:54.000
+Depending on your device, I'm pretty sure all Android
+
+175
+00:08:54.000 --> 00:08:57.000
+devices, you hold down the Power Button, up here, and the Volume
+
+176
+00:08:57.000 --> 00:09:00.000
+Down Button down there. And if you just hold those down together,
+
+177
+00:09:00.000 --> 00:09:03.000
+Power and Volume Down, you get a flash and that screenshot
+
+178
+00:09:03.000 --> 00:09:06.000
+is now in your Gallery, on your Android device.
+
+179
+00:09:06.000 --> 00:09:09.000
+It should then be a simple matter to get that onto your
+
+180
+00:09:09.000 --> 00:09:12.000
+computer by e-mail or whatever, and then share it with
+
+181
+00:09:12.000 --> 00:09:15.000
+the discussions group. I want to see actual deployed
+
+182
+00:09:15.000 --> 00:09:18.000
+games OK, so share it in the discussions. Also, share
+
+183
+00:09:18.000 --> 00:09:21.000
+it on the Facebook group. We have a very friendly group, over here.
+
+184
+00:09:21.000 --> 00:09:24.000
+At Facebook.com/groups/
+
+185
+00:09:24.000 --> 00:09:27.000
+completeunitydeveloper. Submit your photo, if you want
+
+186
+00:09:27.000 --> 00:09:30.000
+to be part of this group, as well. I update the collage every week or so.
+
+187
+00:09:30.000 --> 00:09:33.000
+This group is being run by a couple
+
+188
+00:09:33.000 --> 00:09:36.000
+of our students, which is fantastic of them both, Joshua,
+
+189
+00:09:36.000 --> 00:09:39.000
+Josh Farrow is running it! Also, Robert
+
+190
+00:09:39.000 --> 00:09:42.000
+here, Robert Marcum is another Admin on the group.
+
+191
+00:09:42.000 --> 00:09:45.000
+He's helping to run the community. But do post your
+
+192
+00:09:45.000 --> 00:09:48.000
+game on here, as well, or your screenshot,
+
+193
+00:09:48.000 --> 00:09:51.000
+because the idea of this group is to share
+
+194
+00:09:51.000 --> 00:09:54.000
+not only with other students but with people, your general friends on
+
+195
+00:09:54.000 --> 00:09:57.000
+Facebook. Invite them into the group, share your ideas with them,
+
+196
+00:09:57.000 --> 00:10:00.000
+and that's the next step, after sharing with the discussions.
+
+197
+00:10:00.000 --> 00:10:03.000
+The next step is to go even more public by sharing
+
+198
+00:10:03.000 --> 00:10:06.000
+with everybody in this group. Bring your friends into this group,
+
+199
+00:10:06.000 --> 00:10:09.000
+get their feedback, and also, they may have ideas about what game
+
+200
+00:10:09.000 --> 00:10:12.000
+you should be creating. So well done!
+
+201
+00:10:12.000 --> 00:10:15.000
+There's your challenge,
+
+202
+00:10:15.000 --> 00:10:18.000
+I've shown you how to do it. I'll leave you to it.
+
+203
+00:10:18.000 --> 00:10:21.000
+See you soon!
+

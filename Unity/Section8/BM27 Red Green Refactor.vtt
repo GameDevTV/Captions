@@ -1,0 +1,1502 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Welcome back! So, the title of this video
+
+2
+00:00:06.000 --> 00:00:09.000
+is "Red > Green > Refactor". We're going to go through
+
+3
+00:00:09.000 --> 00:00:12.000
+a few more TDD loops. We're going to remind
+
+4
+00:00:12.000 --> 00:00:15.000
+you of the Red > Green > Refactor sequence.
+
+5
+00:00:15.000 --> 00:00:18.000
+Be strict with yourself, build the descipline
+
+6
+00:00:18.000 --> 00:00:21.000
+of doing things in that order, Red > Green  > Refactor.
+
+7
+00:00:21.000 --> 00:00:24.000
+Save a version, snapshot regularly, especially when
+
+8
+00:00:24.000 --> 00:00:27.000
+you either get a new... ...somewhere in the loop anyway, just
+
+9
+00:00:27.000 --> 00:00:30.000
+maybe after you've refactored is a good time to save a version
+
+10
+00:00:30.000 --> 00:00:33.000
+snapshot. Before you start again, save a version of your file,
+
+11
+00:00:33.000 --> 00:00:36.000
+use your code management, whatever you like, and remember to have fun.
+
+12
+00:00:36.000 --> 00:00:39.000
+This will be a brain ache, all of this. It's supposed to be, if
+
+13
+00:00:39.000 --> 00:00:42.000
+it's a brain ache it's good. It doesn't matter if this
+
+14
+00:00:42.000 --> 00:00:45.000
+part of this section takes you several days. That's absolutely
+
+15
+00:00:45.000 --> 00:00:48.000
+fine, it's going to worth all the effort in the end. It's a fantastic
+
+16
+00:00:48.000 --> 00:00:51.000
+new technique for you. So, I'm going to do a few loops
+
+17
+00:00:51.000 --> 00:00:54.000
+or at least a loop or two, and then, I will get you to do a
+
+18
+00:00:54.000 --> 00:00:57.000
+challenge of writing and passing your own test.
+
+19
+00:00:57.000 --> 00:01:00.000
+Cool! So, get your ActionMasterTest script and your
+
+20
+00:01:00.000 --> 00:01:03.000
+ActionMasterScript open, for me,
+
+21
+00:01:03.000 --> 00:01:06.000
+and then, let's start to talk about
+
+22
+00:01:06.000 --> 00:01:09.000
+what else we need to be testing
+
+23
+00:01:09.000 --> 00:01:12.000
+here. Yep, so what else do we need to be testing?
+
+24
+00:01:12.000 --> 00:01:15.000
+So, one strike returns
+
+25
+00:01:15.000 --> 00:01:18.000
+Enter and that's fine. What would be another valid test? Well,
+
+26
+00:01:18.000 --> 00:01:21.000
+we could just test that...
+
+27
+00:01:21.000 --> 00:01:24.000
+We could just test... Well, you know on that YouTube video, the first thing
+
+28
+00:01:24.000 --> 00:01:27.000
+bowls as an 8 I think, so
+
+29
+00:01:27.000 --> 00:01:30.000
+8Bowl8
+
+30
+00:01:30.000 --> 00:01:33.000
+Returns... Now, what should you return, if you
+
+31
+00:01:33.000 --> 00:01:36.000
+just bowl and 8? Well, this just a Tidy
+
+32
+00:01:36.000 --> 00:01:39.000
+right, because you need to have another bowl.
+
+33
+00:01:39.000 --> 00:01:42.000
+So, Bowl8ReturnsTidy (). Now, you could say why don't we test everything
+
+34
+00:01:42.000 --> 00:01:45.000
+from a 0 to 9? Well, you could
+
+35
+00:01:45.000 --> 00:01:48.000
+but really
+
+36
+00:01:48.000 --> 00:01:51.000
+we just want to go for a specific, to keep things
+
+37
+00:01:51.000 --> 00:01:54.000
+simple for now. Alright, so in this test the first thing we need to do
+
+38
+00:01:54.000 --> 00:01:57.000
+is ActionMaster. ActionMaster equals a new ActionMaster.
+
+39
+00:01:57.000 --> 00:02:00.000
+So, remember the rule about refactoring,
+
+40
+00:02:00.000 --> 00:02:03.000
+the first couple of times you do something just duplicate
+
+41
+00:02:03.000 --> 00:02:06.000
+the code. When it comes to doing it a third time, you need to refactor
+
+42
+00:02:06.000 --> 00:02:09.000
+out, so we'll do that in the next loop. OK, but for now let's just get
+
+43
+00:02:09.000 --> 00:02:12.000
+used to writing tests. Assert.
+
+44
+00:02:12.000 --> 00:02:15.000
+be careful with a certain asset. Assert.AreEqual ()
+
+45
+00:02:15.000 --> 00:02:18.000
+easy if you do your brackets first. so
+
+46
+00:02:18.000 --> 00:02:21.000
+What's the deal here? Well, we want a
+
+47
+00:02:21.000 --> 00:02:24.000
+Tidy to come back, when we bowl an 8, so it's very similar to this, but
+
+48
+00:02:24.000 --> 00:02:27.000
+we need a Tidy. So, let's just do exactly what we
+
+49
+00:02:27.000 --> 00:02:30.000
+did up here. I'll just write it out,
+
+50
+00:02:30.000 --> 00:02:33.000
+rather than copying and pasting: private ActionMaster.
+
+51
+00:02:33.000 --> 00:02:36.000
+Action tidy
+
+52
+00:02:36.000 --> 00:02:39.000
+= ActionMaster.Action.Tidy;
+
+53
+00:02:39.000 --> 00:02:42.000
+It's just a shortcut, it's just a variable, instance variable access
+
+54
+00:02:42.000 --> 00:02:45.000
+to everything. Cool! So, we want to say that Tidy
+
+55
+00:02:45.000 --> 00:02:48.000
+is equal to actionmaster,
+
+56
+00:02:48.000 --> 00:02:51.000
+the instance, .Bowl(8);
+
+57
+00:02:51.000 --> 00:02:54.000
+OK, save that code!
+
+58
+00:02:54.000 --> 00:02:57.000
+OK, you get the idea? We're just saying that an 8 leads to a Tidy.
+
+59
+00:02:57.000 --> 00:03:00.000
+Very clear. And we have a test name
+
+60
+00:03:00.000 --> 00:03:03.000
+that says what it does and it has a prefix. How many
+
+61
+00:03:03.000 --> 00:03:06.000
+zeros? Well, it depends on how many tests you plan on writing. I think 99 is going to be
+
+62
+00:03:06.000 --> 00:03:09.000
+enough. I think we'd all be bored if we do more
+
+63
+00:03:09.000 --> 00:03:12.000
+than that! [Laughs] So, wait for the whirligig to finish. Ah, it fails!
+
+64
+00:03:12.000 --> 00:03:15.000
+Now, it fails this time, not
+
+65
+00:03:15.000 --> 00:03:18.000
+with a Return type but with a not sure what action to,
+
+66
+00:03:18.000 --> 00:03:21.000
+and if you expand it out, return.
+
+67
+00:03:21.000 --> 00:03:24.000
+OK perfect! So, what's happened here then? This is good
+
+68
+00:03:24.000 --> 00:03:27.000
+we're in red. Let's keep track of where we are. Not green,
+
+69
+00:03:27.000 --> 00:03:30.000
+not refactor, but red. We're in red, that's what we want
+
+70
+00:03:30.000 --> 00:03:33.000
+to do. We want to force ourselves to improve our code, by making
+
+71
+00:03:33.000 --> 00:03:36.000
+a failing test. So, what's happening? We're passing 8 in here,
+
+72
+00:03:36.000 --> 00:03:39.000
+it's not less than 0 more than 10, so we pass through this
+
+73
+00:03:39.000 --> 00:03:42.000
+exception. It's not equal to 10,
+
+74
+00:03:42.000 --> 00:03:45.000
+so we pass through that, and then, you get straight to
+
+75
+00:03:45.000 --> 00:03:48.000
+the throw exception. So, the first question is, do
+
+76
+00:03:48.000 --> 00:03:51.000
+we want to put our code here or here?
+
+77
+00:03:51.000 --> 00:03:54.000
+Well, if you bowl a strike on the first
+
+78
+00:03:54.000 --> 00:03:57.000
+turn, you need to immediately return an Enter, so we need to
+
+79
+00:03:57.000 --> 00:04:00.000
+check for that first. So, I think it's down here we're going to
+
+80
+00:04:00.000 --> 00:04:03.000
+put our behavior, in the second block. And then,
+
+81
+00:04:03.000 --> 00:04:06.000
+we need to think about what happens. Why are we going
+
+82
+00:04:06.000 --> 00:04:09.000
+to return a Tidy here? Well,
+
+83
+00:04:09.000 --> 00:04:12.000
+we're always going to return a Tidy on the first
+
+84
+00:04:12.000 --> 00:04:15.000
+bowl of a frame, so you could say
+
+85
+00:04:15.000 --> 00:04:18.000
+in pseudo code, at least in a comment: "If
+
+86
+00:04:18.000 --> 00:04:21.000
+first bowl of frame".
+
+87
+00:04:21.000 --> 00:04:24.000
+That would be one simple way to put it, right?  If it's
+
+88
+00:04:24.000 --> 00:04:27.000
+the first bowl of the frame, then
+
+89
+00:04:27.000 --> 00:04:30.000
+we "return the Action
+
+90
+00:04:30.000 --> 00:04:33.000
+.Tidy;".
+
+91
+00:04:33.000 --> 00:04:36.000
+OK, so that's it in pseudo code! So,
+
+92
+00:04:36.000 --> 00:04:39.000
+how do you know that it's the first bowl of the frame? This is
+
+93
+00:04:39.000 --> 00:04:42.000
+the minimal code we can write here, we can't always return Action
+
+94
+00:04:42.000 --> 00:04:45.000
+.Tidy, because we know it's going to be wrong in a bunch of cases.
+
+95
+00:04:45.000 --> 00:04:48.000
+So, how are we going to know it's the first bowl of the
+
+96
+00:04:48.000 --> 00:04:51.000
+frame? Well, we're going to need something else, at the top
+
+97
+00:04:51.000 --> 00:04:54.000
+here. We're going to need to have access to
+
+98
+00:04:54.000 --> 00:04:57.000
+some idea of where we are in the frame now, at this
+
+99
+00:04:57.000 --> 00:05:00.000
+stage. So, what I'm going to do is I'm going to
+
+100
+00:05:00.000 --> 00:05:03.000
+set myself up a public int [] array,
+
+101
+00:05:03.000 --> 00:05:06.000
+array of integers. I'm just going to call it bowls. It's the
+
+102
+00:05:06.000 --> 00:05:09.000
+bowls, you know 0, 1, 1, 0, 10,
+
+103
+00:05:09.000 --> 00:05:12.000
+8, whatever. And it's a new
+
+104
+00:05:15.000 --> 00:05:18.000
+int array of [21] integers.
+
+105
+00:05:18.000 --> 00:05:21.000
+OK, that's fine! And I'm also
+
+106
+00:05:21.000 --> 00:05:24.000
+going to create myself, and this is all private. Sorry, they're both
+
+107
+00:05:24.000 --> 00:05:27.000
+private, because they don't need to be seen from
+
+108
+00:05:27.000 --> 00:05:30.000
+the outside, they're just for this class;
+
+109
+00:05:30.000 --> 00:05:33.000
+int bowl, which is the bowl number, and we're going to start with
+
+110
+00:05:33.000 --> 00:05:36.000
+that number at 1, because
+
+111
+00:05:36.000 --> 00:05:39.000
+it's just natural. We think of bowl = 1 as bowl 1
+
+112
+00:05:39.000 --> 00:05:42.000
+in normal human terms. Be aware though, of course, that any array
+
+113
+00:05:42.000 --> 00:05:45.000
+index starts at 0, so bowl is going to be used as an array
+
+114
+00:05:45.000 --> 00:05:48.000
+index. We're going to have bowls square bracket bowl,
+
+115
+00:05:48.000 --> 00:05:51.000
+but beware that arrays start at 1, OK
+
+116
+00:05:51.000 --> 00:05:54.000
+0 rather. So, just be aware of that, but I think this reads
+
+117
+00:05:54.000 --> 00:05:57.000
+nicer. So, now that we have an array
+
+118
+00:05:57.000 --> 00:06:00.000
+and a bowl number, we actually
+
+119
+00:06:00.000 --> 00:06:03.000
+don't even need the array. I tell you what, I've gone too far
+
+120
+00:06:03.000 --> 00:06:06.000
+here. The idea of Test Driven Development is that you
+
+121
+00:06:06.000 --> 00:06:09.000
+only write code you need to pass the test. We do not need this
+
+122
+00:06:09.000 --> 00:06:12.000
+array of bowls. I'm going to just comment it,
+
+123
+00:06:12.000 --> 00:06:15.000
+because it's code that I know I'm going to write later.
+
+124
+00:06:15.000 --> 00:06:18.000
+So, I'm going to comment that out temporarily, because I know I'm going to need it
+
+125
+00:06:18.000 --> 00:06:21.000
+soon, but I do need a bowl, because I need some
+
+126
+00:06:21.000 --> 00:06:24.000
+way of starting to track whether I'm at the beginning or the end of a frame.
+
+127
+00:06:24.000 --> 00:06:27.000
+So, if bowl = 1
+
+128
+00:06:27.000 --> 00:06:30.000
+then how could we keep
+
+129
+00:06:30.000 --> 00:06:33.000
+track of whether we're at the beginning of a frame
+
+130
+00:06:33.000 --> 00:06:36.000
+or in the middle of a frame?
+
+131
+00:06:36.000 --> 00:06:39.000
+Well, let's take a look at this. We could say
+
+132
+00:06:39.000 --> 00:06:42.000
+if (bowl %
+
+133
+00:06:42.000 --> 00:06:45.000
+2. What does that mean? Well, that's mod! Go
+
+134
+00:06:45.000 --> 00:06:48.000
+look up what mod or remainder means, OK.
+
+135
+00:06:48.000 --> 00:06:51.000
+bowl % 2 if that =
+
+136
+00:06:51.000 --> 00:06:54.000
+0, so if the remainder of dividing
+
+137
+00:06:54.000 --> 00:06:57.000
+the bowl number by 2 is 0,
+
+138
+00:06:57.000 --> 00:07:00.000
+then what do we have?
+
+139
+00:07:00.000 --> 00:07:03.000
+Well then, we are
+
+140
+00:07:03.000 --> 00:07:06.000
+at the end of a frame,
+
+141
+00:07:06.000 --> 00:07:09.000
+in that case. Have a think about it.
+
+142
+00:07:09.000 --> 00:07:12.000
+OK, so if bowl 1 is the first bowl,  bowl
+
+143
+00:07:12.000 --> 00:07:15.000
+2 is the second bowl. That's the end of a
+
+144
+00:07:15.000 --> 00:07:18.000
+frame. The remainder of divided 2 by 2 is 0; bowl
+
+145
+00:07:18.000 --> 00:07:21.000
+3 and then bowl 4 would be the end of the next frame.
+
+146
+00:07:21.000 --> 00:07:24.000
+Again, you divide it by 2, you get 0
+
+147
+00:07:24.000 --> 00:07:27.000
+remainder. So, if it's the end of the frame,
+
+148
+00:07:27.000 --> 00:07:30.000
+what do we do? Well, it doesn't matter for now,
+
+149
+00:07:30.000 --> 00:07:33.000
+because we are
+
+150
+00:07:33.000 --> 00:07:36.000
+trying to write code for if it's
+
+151
+00:07:36.000 --> 00:07:39.000
+not the end of the frame. So, what would the correlate to this
+
+152
+00:07:39.000 --> 00:07:42.000
+be? Well, that it's not equal to 0
+
+153
+00:07:42.000 --> 00:07:45.000
+or that it's equal to 1 either way, but I'm
+
+154
+00:07:45.000 --> 00:07:48.000
+just going to say that if it's that the bowl,
+
+155
+00:07:48.000 --> 00:07:51.000
+the mod of bowl, 2 is not 0,
+
+156
+00:07:51.000 --> 00:07:54.000
+then we are "Mid frame
+
+157
+00:07:54.000 --> 00:07:57.000
+(or something else...
+
+158
+00:07:57.000 --> 00:08:00.000
+caught above or last frame,
+
+159
+00:08:00.000 --> 00:08:03.000
+which we will catch above.
+
+160
+00:08:03.000 --> 00:08:06.000
+"Other behavior here, e.g. last frame."
+
+161
+00:08:06.000 --> 00:08:09.000
+So, let's just focus on this bit. If
+
+162
+00:08:09.000 --> 00:08:12.000
+the remainder of dividing the bowl number by 2 is not 0, if there's
+
+163
+00:08:12.000 --> 00:08:15.000
+something left over when you do that, then we must be mid
+
+164
+00:08:15.000 --> 00:08:18.000
+frame or possibly the last frame. We'll deal with that later.
+
+165
+00:08:18.000 --> 00:08:21.000
+So, we are trying to write code, just
+
+166
+00:08:21.000 --> 00:08:24.000
+to make this pass. We just want Tidy to come
+
+167
+00:08:24.000 --> 00:08:27.000
+back, when we bowl an 8, but we want to do it in a way that's
+
+168
+00:08:27.000 --> 00:08:30.000
+reasonably general, without writing more
+
+169
+00:08:30.000 --> 00:08:33.000
+code than we need. We need something to keep hold
+
+170
+00:08:33.000 --> 00:08:36.000
+of the bowl number. You could argue you don't
+
+171
+00:08:36.000 --> 00:08:39.000
+even need that for now. You could just say, if
+
+172
+00:08:39.000 --> 00:08:42.000
+pins equals 8 return Tidy,
+
+173
+00:08:42.000 --> 00:08:45.000
+but you know that that code is wrong, so
+
+174
+00:08:45.000 --> 00:08:48.000
+don't write it if you know it's wrong. This is about the
+
+175
+00:08:48.000 --> 00:08:51.000
+minimal structure I can think of writing, where we can detect that.
+
+176
+00:08:51.000 --> 00:08:54.000
+Actually, the reason it's Tidy is because it's the first
+
+177
+00:08:54.000 --> 00:08:57.000
+bowl of a frame. Now, we're pretty much there.
+
+178
+00:08:57.000 --> 00:09:00.000
+We return Action.Tidy;
+
+179
+00:09:00.000 --> 00:09:03.000
+and get rid of these comments.
+
+180
+00:09:03.000 --> 00:09:06.000
+OK, so this kind of
+
+181
+00:09:06.000 --> 00:09:09.000
+reads for itself doesn't it? We come in and we do it...
+
+182
+00:09:09.000 --> 00:09:12.000
+We come in, we do a check of validity.
+
+183
+00:09:12.000 --> 00:09:15.000
+We later will probably deal with things like the last frame or other
+
+184
+00:09:15.000 --> 00:09:18.000
+stuff. We say that if it's a strike,
+
+185
+00:09:18.000 --> 00:09:21.000
+you'll always return an EndTurn, and if
+
+186
+00:09:21.000 --> 00:09:24.000
+it is mid frame, then
+
+187
+00:09:24.000 --> 00:09:27.000
+you return the Tidy, but we're not incrementing our bowl number.
+
+188
+00:09:27.000 --> 00:09:30.000
+We need to increment our bowl number, if you
+
+189
+00:09:30.000 --> 00:09:33.000
+think about it. Alright, so if you get
+
+190
+00:09:33.000 --> 00:09:36.000
+a strike, then
+
+191
+00:09:36.000 --> 00:09:39.000
+how do you increment your bowl number? Well, you always go forward two.
+
+192
+00:09:42.000 --> 00:09:45.000
+We skip one, don't we, we go forward two.
+
+193
+00:09:45.000 --> 00:09:48.000
+And if you get a Tidy, then
+
+194
+00:09:48.000 --> 00:09:51.000
+we go forward one.
+
+195
+00:09:51.000 --> 00:09:54.000
+Now, we don't need to write anymore code for them,
+
+196
+00:09:54.000 --> 00:09:57.000
+for the moment. We don't even need to do the Strike one,
+
+197
+00:09:57.000 --> 00:10:00.000
+but while we're thinking about it, that make sense alright.
+
+198
+00:10:00.000 --> 00:10:03.000
+I would rather... Well, I need to increment your
+
+199
+00:10:03.000 --> 00:10:06.000
+bowl number, before you return, otherwise
+
+200
+00:10:06.000 --> 00:10:09.000
+you've left the method. So, that's an important thing, nothing gets executed
+
+201
+00:10:09.000 --> 00:10:12.000
+after the return. So, does that code make
+
+202
+00:10:12.000 --> 00:10:15.000
+sense to you now. Take a look at it!
+
+203
+00:10:15.000 --> 00:10:18.000
+Let's try it! Let's see if it works! So, we were red, we had a failing
+
+204
+00:10:18.000 --> 00:10:21.000
+test over here. Let's go back, wait for the whirligig.
+
+205
+00:10:21.000 --> 00:10:24.000
+Green! Cool!
+
+206
+00:10:24.000 --> 00:10:27.000
+Now, we could refactor if we needed to,
+
+207
+00:10:27.000 --> 00:10:30.000
+but I think we've written pretty cool code. So, in this
+
+208
+00:10:30.000 --> 00:10:33.000
+case, we don't need to. I slightly
+
+209
+00:10:33.000 --> 00:10:36.000
+jumped to a elegant solution there,
+
+210
+00:10:36.000 --> 00:10:39.000
+without struggling. I did struggle when I first wrote
+
+211
+00:10:39.000 --> 00:10:42.000
+this code. I want to show you nice ways of thinking,
+
+212
+00:10:42.000 --> 00:10:45.000
+but what we're going to do now is let you be messy and then let me be
+
+213
+00:10:45.000 --> 00:10:48.000
+messy. So, now is your challenge! Your challenge is
+
+214
+00:10:48.000 --> 00:10:51.000
+to write one test of your own, write a single test of your
+
+215
+00:10:51.000 --> 00:10:54.000
+own. Anything relating to correct return types.
+
+216
+00:10:54.000 --> 00:10:57.000
+Ensure it leads to the need to write new code.
+
+217
+00:10:57.000 --> 00:11:00.000
+Write the new code, until the test passes.
+
+218
+00:11:00.000 --> 00:11:03.000
+Refactor and recheck all the tests passed.
+
+219
+00:11:03.000 --> 00:11:06.000
+So go ahead, pause the video, and write your first
+
+220
+00:11:06.000 --> 00:11:09.000
+new test now, that makes you write new code, and then,
+
+221
+00:11:09.000 --> 00:11:12.000
+make it pass.
+
+222
+00:11:12.000 --> 00:11:15.000
+OK welcome back! So now, red! We need to create
+
+223
+00:11:15.000 --> 00:11:18.000
+a red. Get back in your test code. Let's create a new test
+
+224
+00:11:18.000 --> 00:11:21.000
+condition, that we are pretty sure is going to
+
+225
+00:11:21.000 --> 00:11:24.000
+fail, right. That's the idea of what we're doing now.
+
+226
+00:11:24.000 --> 00:11:27.000
+So, what test
+
+227
+00:11:27.000 --> 00:11:30.000
+should we write next, that we know is going to fail?
+
+228
+00:11:30.000 --> 00:11:33.000
+Well, what would happen, if for instance, we bowled two
+
+229
+00:11:33.000 --> 00:11:36.000
+strikes in a row? What would it do at the moment? We go
+
+230
+00:11:36.000 --> 00:11:39.000
+strike, strike, 10, 10. What should we do after
+
+231
+00:11:39.000 --> 00:11:42.000
+two strikes in a row? Well, it
+
+232
+00:11:42.000 --> 00:11:45.000
+should be
+
+233
+00:11:45.000 --> 00:11:48.000
+near the end of your turn, and that's what
+
+234
+00:11:48.000 --> 00:11:51.000
+would happen. So, there's no point in writing that test, because every
+
+235
+00:11:51.000 --> 00:11:54.000
+time we get a strike, it doesn't enter. So,
+
+236
+00:11:54.000 --> 00:11:57.000
+how about when we get a spare? Why don't we do something
+
+237
+00:11:57.000 --> 00:12:00.000
+to do with a spare, just to make sure that we
+
+238
+00:12:00.000 --> 00:12:03.000
+can understand how we handle spares, right.
+
+239
+00:12:03.000 --> 00:12:06.000
+So, why don't we just throw a spare, in the beginning
+
+240
+00:12:06.000 --> 00:12:09.000
+and make sure that the turn ends. So, maybe we bowl a
+
+241
+00:12:09.000 --> 00:12:12.000
+2 then an 8, and then what happens? Yeah, let's
+
+242
+00:12:12.000 --> 00:12:15.000
+do that! That's exactly, actually, as per the YouTube
+
+243
+00:12:15.000 --> 00:12:18.000
+example. So, let's go ahead!
+
+244
+00:12:18.000 --> 00:12:21.000
+Write a [Test], public
+
+245
+00:12:21.000 --> 00:12:24.000
+void test 03
+
+246
+00:12:24.000 --> 00:12:27.000
+Bowl28...
+
+247
+00:12:27.000 --> 00:12:30.000
+That's OK, because they're all single digits
+
+248
+00:12:30.000 --> 00:12:33.000
+in here. No we're not! Actually, 2
+
+249
+00:12:33.000 --> 00:12:36.000
+ah 28 will do, it's pretty explicit. Returns,
+
+250
+00:12:36.000 --> 00:12:39.000
+now what should 28 return?
+
+251
+00:12:39.000 --> 00:12:42.000
+It should return EndTurn, right? Because
+
+252
+00:12:42.000 --> 00:12:45.000
+28 is leading to a spare. This is a
+
+253
+00:12:45.000 --> 00:12:48.000
+spare.
+
+254
+00:12:48.000 --> 00:12:51.000
+Bowl28SpareReturnsEndTurn ().
+
+255
+00:12:51.000 --> 00:12:54.000
+OK now, now we're duplicating ActionMaster too much
+
+256
+00:12:54.000 --> 00:12:57.000
+OK. So, I'm going to show you a special way
+
+257
+00:12:57.000 --> 00:13:00.000
+of refactoring this out, in this test code.
+
+258
+00:13:00.000 --> 00:13:03.000
+Go to the top of your test code,
+
+259
+00:13:03.000 --> 00:13:06.000
+and you could access now a special annotation
+
+260
+00:13:06.000 --> 00:13:09.000
+called [SetUp]. if you start typing S you'll see it.
+
+261
+00:13:09.000 --> 00:13:12.000
+And that tells it that you want this to run, every single time a test runs.
+
+262
+00:13:12.000 --> 00:13:15.000
+OK, now you make yourself a method. You call it what you like, but I'm just going to
+
+263
+00:13:15.000 --> 00:13:18.000
+call it Setup (), because I like calling a kettle a kettle or
+
+264
+00:13:18.000 --> 00:13:21.000
+anything what it is. So, there's
+
+265
+00:13:21.000 --> 00:13:24.000
+your Setup () method. Now, what's your Setup going to do? It's simply going
+
+266
+00:13:24.000 --> 00:13:27.000
+to do this. ActionMaster
+
+267
+00:13:27.000 --> 00:13:30.000
+blah blah blah. So, take that out of both of both of your
+
+268
+00:13:30.000 --> 00:13:33.000
+methods. Out of test 10 in my case...
+
+269
+00:13:33.000 --> 00:13:36.000
+Sorry test 1 and test 2,
+
+270
+00:13:36.000 --> 00:13:39.000
+and put it in your Setup (). Now, the only difference is, no
+
+271
+00:13:39.000 --> 00:13:42.000
+good having a locally scoped variable here, is it. We can't
+
+272
+00:13:42.000 --> 00:13:45.000
+see ActionMaster, the variable, outside of this method.
+
+273
+00:13:45.000 --> 00:13:48.000
+So, instead of having it
+
+274
+00:13:48.000 --> 00:13:51.000
+locally scoped like that, we're going to declare it
+
+275
+00:13:51.000 --> 00:13:54.000
+up at the top level, as a private
+
+276
+00:13:54.000 --> 00:13:57.000
+member variable. OK.
+
+277
+00:13:57.000 --> 00:14:00.000
+So, let's just go private
+
+278
+00:14:00.000 --> 00:14:03.000
+ActionMaster actionMaster; and here we don't need to type,
+
+279
+00:14:03.000 --> 00:14:06.000
+you just set the actionMaster to a
+
+280
+00:14:06.000 --> 00:14:09.000
+new actionMaster, and then, all of the tests that run will have access
+
+281
+00:14:09.000 --> 00:14:12.000
+to actionMaster. So, go ahead and do that now. Add in
+
+282
+00:14:12.000 --> 00:14:15.000
+ActionMaster actionMaster; at the top, as a private instance variable.
+
+283
+00:14:15.000 --> 00:14:18.000
+Declare it here in your Setup ().
+
+284
+00:14:18.000 --> 00:14:21.000
+It's a bit like in your Start () method right, but this happens every time
+
+285
+00:14:21.000 --> 00:14:24.000
+a test runs, it's different to Start (). Then, you don't
+
+286
+00:14:24.000 --> 00:14:27.000
+need it in your tests! Your tests can be one liners! How cool is that!
+
+287
+00:14:27.000 --> 00:14:30.000
+OK, so now asserting that we
+
+288
+00:14:30.000 --> 00:14:33.000
+get an EndTurn coming out of here,
+
+289
+00:14:33.000 --> 00:14:36.000
+is relatively easy , we already have an endTurn variable.
+
+290
+00:14:36.000 --> 00:14:39.000
+So, be careful
+
+291
+00:14:39.000 --> 00:14:42.000
+asserting the bowling 2 is the endTurn,
+
+292
+00:14:42.000 --> 00:14:45.000
+is the second thing you need to do, but the first thing
+
+293
+00:14:45.000 --> 00:14:48.000
+we do is we take this actionMaster, that we've not got access to due to the
+
+294
+00:14:48.000 --> 00:14:51.000
+setup and we bowl a 2.
+
+295
+00:14:51.000 --> 00:14:54.000
+We bowl a 2 and we don't care what comes back in this instance,
+
+296
+00:14:54.000 --> 00:14:57.000
+we're already pretty confident that's going to be
+
+297
+00:14:57.000 --> 00:15:00.000
+right. It's just going to Tidy like an 8.
+
+298
+00:15:00.000 --> 00:15:03.000
+And then, we assert that on the return
+
+299
+00:15:03.000 --> 00:15:06.000
+that we get a Tidy back. Now, you
+
+300
+00:15:06.000 --> 00:15:09.000
+could put two assertions in one test, if you wanted
+
+301
+00:15:09.000 --> 00:15:12.000
+to. You could say Assert.AreEqual.
+
+302
+00:15:15.000 --> 00:15:18.000
+And you could say that we want a
+
+303
+00:15:18.000 --> 00:15:21.000
+Tidy to come back, the first time.
+
+304
+00:15:21.000 --> 00:15:24.000
+and an endTurn, sorry, to come back the second time. If you
+
+305
+00:15:24.000 --> 00:15:27.000
+want to do that, with an 8 being bowled there,
+
+306
+00:15:27.000 --> 00:15:30.000
+you're welcome to. It's not necessary to do
+
+307
+00:15:30.000 --> 00:15:33.000
+two assertations in the same test, but if you do,
+
+308
+00:15:33.000 --> 00:15:36.000
+and I'm going to leave it like this, the test system will tell you which
+
+309
+00:15:36.000 --> 00:15:39.000
+of them has failed, if either. So, let's see that in action!
+
+310
+00:15:39.000 --> 00:15:42.000
+Right, Assert, a Bowl (8), and then a Bowl
+
+311
+00:15:42.000 --> 00:15:45.000
+(2), and now, you're looking
+
+312
+00:15:45.000 --> 00:15:48.000
+to try and get to red. Let's go over here, let the test run.
+
+313
+00:15:48.000 --> 00:15:51.000
+Good it fails! Good
+
+314
+00:15:51.000 --> 00:15:54.000
+it fails! It's weird but that's the idea of Test Driven Development!
+
+315
+00:15:54.000 --> 00:15:57.000
+We want it to fail, we want to force ourselve to write new code.
+
+316
+00:15:57.000 --> 00:16:00.000
+OK, it's failed in that it said
+
+317
+00:16:00.000 --> 00:16:03.000
+I don't know what action to return.
+
+318
+00:16:03.000 --> 00:16:06.000
+OK, now the annoying thing about
+
+319
+00:16:06.000 --> 00:16:09.000
+that is that, we don't know which of these to assertions failed, which is
+
+320
+00:16:09.000 --> 00:16:12.000
+why I said we're probably better off stripping that out
+
+321
+00:16:12.000 --> 00:16:15.000
+and just having it
+
+322
+00:16:15.000 --> 00:16:18.000
+bowl an 8. And then, we Assert that the
+
+323
+00:16:18.000 --> 00:16:21.000
+second bowl returns and endTurn. So, do that! Just
+
+324
+00:16:21.000 --> 00:16:24.000
+strip it back to the code I'm showing you there, and go back and run the tests
+
+325
+00:16:24.000 --> 00:16:27.000
+again. Then, we can be sure that the error we get, yes is on the second
+
+326
+00:16:27.000 --> 00:16:30.000
+assertion. So, it is having a problem
+
+327
+00:16:30.000 --> 00:16:33.000
+with the endTurn. So why? That's fine, we're in
+
+328
+00:16:33.000 --> 00:16:36.000
+red. Now, let's go make it green. Well, in what
+
+329
+00:16:36.000 --> 00:16:39.000
+general circumstance do we want to endTurn?
+
+330
+00:16:39.000 --> 00:16:42.000
+Do we need to talk about a special case
+
+331
+00:16:42.000 --> 00:16:45.000
+of a strike, or is a strike just like any other frame
+
+332
+00:16:45.000 --> 00:16:48.000
+where two bowls happen? Well, we always want to end a bowl frame
+
+333
+00:16:48.000 --> 00:16:51.000
+after two bowls, right? Apart from the last frame, we'll
+
+334
+00:16:51.000 --> 00:16:54.000
+deal with the last frame, up here.
+
+335
+00:16:54.000 --> 00:16:57.000
+So, can you guess what code I'm going to put in here now?
+
+336
+00:16:57.000 --> 00:17:00.000
+Well, I'm just going to say that else if the
+
+337
+00:17:00.000 --> 00:17:03.000
+(bowl mod % divide
+
+338
+00:17:03.000 --> 00:17:06.000
+and see what the remainder, however you want to call it, does ==
+
+339
+00:17:06.000 --> 00:17:09.000
+0, then do something.
+
+340
+00:17:09.000 --> 00:17:12.000
+Now, what are we going to do in
+
+341
+00:17:12.000 --> 00:17:15.000
+that instance? Well, I'm going to put a comment
+
+342
+00:17:15.000 --> 00:17:18.000
+in, to say that it's the "End of frame", because it is
+
+343
+00:17:18.000 --> 00:17:21.000
+an even now frame number. It's like
+
+344
+00:17:21.000 --> 00:17:24.000
+bowl number 2 or bowl number 4 or bowl number 6.
+
+345
+00:17:24.000 --> 00:17:27.000
+You divide any of those number by 2 here
+
+346
+00:17:27.000 --> 00:17:30.000
+and look at the remainder and it'll always be 0.
+
+347
+00:17:30.000 --> 00:17:33.000
+What do we do in that case? Well firstly, let's get our increments right. Let's just
+
+348
+00:17:33.000 --> 00:17:36.000
+increment our bowl. It's that we're moving on to the next bowl
+
+349
+00:17:36.000 --> 00:17:39.000
+and we return Action.what?
+
+350
+00:17:39.000 --> 00:17:42.000
+EndTurn yep,
+
+351
+00:17:42.000 --> 00:17:45.000
+so the system knows to move to the next player. Does that make
+
+352
+00:17:45.000 --> 00:17:48.000
+sense? On odd frames we do that, and on uneven
+
+353
+00:17:48.000 --> 00:17:51.000
+frames we do that. Let's try it!
+
+354
+00:17:54.000 --> 00:17:57.000
+Woo hoo! [Laughs]
+
+355
+00:17:57.000 --> 00:18:00.000
+And the test passes! And that rediculously high pitch excited
+
+356
+00:18:00.000 --> 00:18:03.000
+noise is perfectly allowed, when you have a test pass! Red >
+
+357
+00:18:03.000 --> 00:18:06.000
+Green > Refactor! Look at your code. Does it need refactoring?
+
+358
+00:18:06.000 --> 00:18:09.000
+Well, my code looks quite nice,
+
+359
+00:18:09.000 --> 00:18:12.000
+I think it does anyway. You might want to comment, at this stage. You might want to
+
+360
+00:18:12.000 --> 00:18:15.000
+do something else, but it looks pretty good. Now
+
+361
+00:18:15.000 --> 00:18:18.000
+again, I'm going straight to pretty good code,
+
+362
+00:18:18.000 --> 00:18:21.000
+because I've thought about this a lot. I've rehearsed this a lot. I've even written the code
+
+363
+00:18:21.000 --> 00:18:24.000
+before. In your case, you're quite likely to
+
+364
+00:18:24.000 --> 00:18:27.000
+have it pretty minging, to use a technical code term rather,
+
+365
+00:18:27.000 --> 00:18:30.000
+code at this point. That's fine, if
+
+366
+00:18:30.000 --> 00:18:33.000
+it's minging. This is you're opportunity now, to refactor
+
+367
+00:18:33.000 --> 00:18:36.000
+and continually go back here and rerun the tests,
+
+368
+00:18:36.000 --> 00:18:39.000
+making sure that you take it from ugly and working
+
+369
+00:18:39.000 --> 00:18:42.000
+to pretty and working. That's worth writing down!
+
+370
+00:18:42.000 --> 00:18:45.000
+You want to go from ugly and working
+
+371
+00:18:45.000 --> 00:18:48.000
+to pretty
+
+372
+00:18:48.000 --> 00:18:51.000
+and working. OK, that's what your goal is! [Laughs]
+
+373
+00:18:51.000 --> 00:18:54.000
+So go ahead, refactor your code now, and
+
+374
+00:18:54.000 --> 00:18:57.000
+congratulations! You seem to be getting into the swing of Test
+
+375
+00:18:57.000 --> 00:19:00.000
+Driven Development, and I shall see you some more soon!
+

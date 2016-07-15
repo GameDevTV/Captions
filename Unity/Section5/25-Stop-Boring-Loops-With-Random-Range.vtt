@@ -1,0 +1,678 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hey guys and girls! So, this video
+
+2
+00:00:06.000 --> 00:00:09.000
+is about making sure our game never gets stuck in a
+
+3
+00:00:09.000 --> 00:00:12.000
+boring loop. So firstly, I'm going to reset my Editor Layout to
+
+4
+00:00:12.000 --> 00:00:15.000
+Default, just so it's a little more familiar. And then, I'm going
+
+5
+00:00:15.000 --> 00:00:18.000
+to play the game, for a moment and see if I can get
+
+6
+00:00:18.000 --> 00:00:21.000
+it in a boring loop.
+
+7
+00:00:21.000 --> 00:00:24.000
+It didn't work there, let's try
+
+8
+00:00:24.000 --> 00:00:27.000
+again. What can happen,
+
+9
+00:00:27.000 --> 00:00:30.000
+and you could take a lot of play testing to get to it,
+
+10
+00:00:30.000 --> 00:00:33.000
+is that the game just goes up and down in some boring
+
+11
+00:00:33.000 --> 00:00:36.000
+loop, because there's no randomness with which the
+
+12
+00:00:36.000 --> 00:00:39.000
+ball bounces. So, it could just end up
+
+13
+00:00:39.000 --> 00:00:42.000
+conceivabley going up and down. It doesn't happen very often
+
+14
+00:00:42.000 --> 00:00:45.000
+but I've seen it happen often enough.
+
+15
+00:00:45.000 --> 00:00:48.000
+Of course, Sod's Law says it's not happening right
+
+16
+00:00:48.000 --> 00:00:51.000
+now. I mean even this is a bit boring, it's a bit.. Ooh! That
+
+17
+00:00:51.000 --> 00:00:54.000
+was a nice interesting bounce, but the rest of the time
+
+18
+00:00:54.000 --> 00:00:57.000
+it's... Here you go, this is the sort of thing.
+
+19
+00:00:57.000 --> 00:01:00.000
+OK, gravity is helping a little bit. It's because
+
+20
+00:01:00.000 --> 00:01:03.000
+of gravity scale,
+
+21
+00:01:03.000 --> 00:01:06.000
+it's actually helping a little bit to prevent it from being boring, but I think
+
+22
+00:01:06.000 --> 00:01:09.000
+what we want to do is make sure we can't get in a boring
+
+23
+00:01:09.000 --> 00:01:12.000
+verticle loop. In fact, we're already pretty much in a boring loop.
+
+24
+00:01:12.000 --> 00:01:15.000
+Here! Here you go! There's a chance that this will never
+
+25
+00:01:15.000 --> 00:01:18.000
+exit this loop; in this case, it actually is but you get the
+
+26
+00:01:18.000 --> 00:01:21.000
+idea. So, what we want to do is we want to make it
+
+27
+00:01:21.000 --> 00:01:24.000
+impossible for the system to get into a loop
+
+28
+00:01:24.000 --> 00:01:27.000
+that's dull. So, the way that we
+
+29
+00:01:27.000 --> 00:01:30.000
+do that is that we modify the ball's bounce,
+
+30
+00:01:30.000 --> 00:01:33.000
+every time it hits something. So, what
+
+31
+00:01:33.000 --> 00:01:36.000
+you do is you go into the Brick and on the colission
+
+32
+00:01:36.000 --> 00:01:39.000
+of the brick, you want to be thinking about
+
+33
+00:01:39.000 --> 00:01:42.000
+tweaking its velocity just a little bit,
+
+34
+00:01:42.000 --> 00:01:45.000
+every time... Sorry! The ball! On the colission of the Ball,
+
+35
+00:01:45.000 --> 00:01:48.000
+you want to be thinking about tweaking its velocity
+
+36
+00:01:48.000 --> 00:01:51.000
+every time it hits something. So, what we're going to do is
+
+37
+00:01:51.000 --> 00:01:54.000
+define a Vector2, which is just a system that stores two
+
+38
+00:01:54.000 --> 00:01:57.000
+numbers, and I'm going to call it tweak. And it's a
+
+39
+00:01:57.000 --> 00:02:00.000
+new Vector2, we have to construct a new one, and
+
+40
+00:02:00.000 --> 00:02:03.000
+it takes X and Y coordinates. We're going to tweak the X and
+
+41
+00:02:03.000 --> 00:02:06.000
+Y velocity a little bit. The question is, how much are we going to tweak it?
+
+42
+00:02:06.000 --> 00:02:09.000
+Well, I've had a play around with this, and it works out that about
+
+43
+00:02:09.000 --> 00:02:12.000
+0.2 in
+
+44
+00:02:15.000 --> 00:02:18.000
+both the X and the Y direction, works pretty
+
+45
+00:02:18.000 --> 00:02:21.000
+well. So, how do you get a random number between 0 and
+
+46
+00:02:21.000 --> 00:02:24.000
+0.2. Well, Random.Range
+
+47
+00:02:24.000 --> 00:02:27.000
+And then, you give it the minimum value, which
+
+48
+00:02:27.000 --> 00:02:30.000
+is going to be 0 float and 0
+
+49
+00:02:30.000 --> 00:02:33.000
+point 2 float. OK, so that's
+
+50
+00:02:33.000 --> 00:02:36.000
+your X value, and then, you need another
+
+51
+00:02:36.000 --> 00:02:39.000
+Random.Range
+
+52
+00:02:39.000 --> 00:02:42.000
+for your Y value, between 0 and 0.2.
+
+53
+00:02:42.000 --> 00:02:45.000
+So, what we're doing is we're giving a little bit
+
+54
+00:02:45.000 --> 00:02:48.000
+of random X and Y velocity. Of course, we've
+
+55
+00:02:48.000 --> 00:02:51.000
+done nothing yet, apart from creating a vector. Why don't
+
+56
+00:02:51.000 --> 00:02:54.000
+we just print this guy out, just for a second,
+
+57
+00:02:54.000 --> 00:02:57.000
+just so you can see what it is. It's not going to change any of the
+
+58
+00:02:57.000 --> 00:03:00.000
+behavior at all, but at least on the Console, we're going to be able to see
+
+59
+00:03:00.000 --> 00:03:03.000
+what's going on. So, I've got a bit of an error. What's going wrong?
+
+60
+00:03:03.000 --> 00:03:06.000
+F I need my floats in here, I think is the
+
+61
+00:03:06.000 --> 00:03:09.000
+problem. F for float. Yeah, that's
+
+62
+00:03:09.000 --> 00:03:12.000
+happier. OK, let's play it and see what happens.
+
+63
+00:03:12.000 --> 00:03:15.000
+So, what we're going to do is, just watch the Console as
+
+64
+00:03:15.000 --> 00:03:18.000
+we go. You see these numbers, logging into the Console. This
+
+65
+00:03:18.000 --> 00:03:21.000
+is the amount of random velocity, it would be adding.
+
+66
+00:03:21.000 --> 00:03:24.000
+0.2 X, 0.1 Y. 0.1 X,
+
+67
+00:03:24.000 --> 00:03:27.000
+0.1 Y, etc. It's all rounded in the Console.
+
+68
+00:03:27.000 --> 00:03:30.000
+So, let's go in and use that
+
+69
+00:03:30.000 --> 00:03:33.000
+now, it looks like it's a reasonable thing. When do we use it?
+
+70
+00:03:33.000 --> 00:03:36.000
+Well, let's do it immediately after we've played the audio. Now, how
+
+71
+00:03:36.000 --> 00:03:39.000
+would you do it? How would we change the velocity
+
+72
+00:03:39.000 --> 00:03:42.000
+of this ball? What will
+
+73
+00:03:42.000 --> 00:03:45.000
+we start typing? Well, have a think
+
+74
+00:03:45.000 --> 00:03:48.000
+about it. What part of the ball is it? What are we dealing with here?
+
+75
+00:03:48.000 --> 00:03:51.000
+And if you think about it, when you go into Unity,
+
+76
+00:03:51.000 --> 00:03:54.000
+it's the Rigid Body that's concerned with all
+
+77
+00:03:54.000 --> 00:03:57.000
+the physics. So, and it's an instance of a ball, and
+
+78
+00:03:57.000 --> 00:04:00.000
+an instance of a Rigid Body, so it'a a small R.  So, we start with a
+
+79
+00:04:00.000 --> 00:04:03.000
+rigidbody.velocity,
+
+80
+00:04:03.000 --> 00:04:06.000
+and if you're not sure, again, hit Command or Control + Apostrophe.
+
+81
+00:04:06.000 --> 00:04:09.000
+Look at Rigidbody.velocity in the docs, like
+
+82
+00:04:09.000 --> 00:04:12.000
+that. OK. So,
+
+83
+00:04:12.000 --> 00:04:15.000
+what are we going to do with it? Well, we're going to add. So, +=
+
+84
+00:04:15.000 --> 00:04:18.000
+tweak; Just try that, rigid.
+
+85
+00:04:18.000 --> 00:04:21.000
+ahh! [fumbles words] rigidbody.velocity
+
+86
+00:04:21.000 --> 00:04:24.000
++= tweak; That's the same as saying
+
+87
+00:04:24.000 --> 00:04:27.000
+rigidbody.velocity = rigidbody.velocity + tweak; But
+
+88
+00:04:27.000 --> 00:04:30.000
+I don't want to write it twice. Cool! Let's go into
+
+89
+00:04:30.000 --> 00:04:33.000
+Unity and I'm just going to refocus on my
+
+90
+00:04:33.000 --> 00:04:36.000
+Play Space background, because
+
+91
+00:04:36.000 --> 00:04:39.000
+it's looking a little ugly right now. That's better! Now, let's
+
+92
+00:04:39.000 --> 00:04:42.000
+play. Now, what's the problem here? It's
+
+93
+00:04:42.000 --> 00:04:45.000
+complaining about something. Let's go back into
+
+94
+00:04:45.000 --> 00:04:48.000
+mono; I'm going to build in mono.
+
+95
+00:04:48.000 --> 00:04:51.000
+The call is ambiguous,
+
+96
+00:04:51.000 --> 00:04:54.000
+between the following method properties. Blah, blah, blah!
+
+97
+00:04:54.000 --> 00:04:57.000
+OK, so it doesn't, there's something here it
+
+98
+00:04:57.000 --> 00:05:00.000
+doesn't like. It doesn't like me adding this,
+
+99
+00:05:00.000 --> 00:05:03.000
+this tweak onto this
+
+100
+00:05:03.000 --> 00:05:06.000
+velocity here, and it's not entirely clear
+
+101
+00:05:06.000 --> 00:05:09.000
+why. It's probably because the
+
+102
+00:05:09.000 --> 00:05:12.000
+velocity is a 3D vector, on the
+
+103
+00:05:12.000 --> 00:05:15.000
+Rigid Body, even though we're in a 2D game, and we're trying to add a 2D
+
+104
+00:05:15.000 --> 00:05:18.000
+vector in here. So, it's saying it's ambiguous between the
+
+105
+00:05:18.000 --> 00:05:21.000
+following methods. So, what you can try here
+
+106
+00:05:21.000 --> 00:05:24.000
+is just changing Vector2 to Vector 3, and then, of
+
+107
+00:05:24.000 --> 00:05:27.000
+course when you do that you're going to have to say that, I don't want to change
+
+108
+00:05:27.000 --> 00:05:30.000
+the Z velocity. Let's try that.
+
+109
+00:05:30.000 --> 00:05:33.000
+And that has gotten rid of the ambiguities,
+
+110
+00:05:33.000 --> 00:05:36.000
+so start with the simplest Vector2. If the Compiler doesn't
+
+111
+00:05:36.000 --> 00:05:39.000
+like it, because it doesn't know how to add a Vector2 to a Vector3,
+
+112
+00:05:39.000 --> 00:05:42.000
+then just make it a 3 and add a 0 on the end. Let's try again!
+
+113
+00:05:45.000 --> 00:05:48.000
+[Game Sound Effects in Background]
+
+114
+00:05:48.000 --> 00:05:51.000
+Now, we're getting a lot
+
+115
+00:05:51.000 --> 00:05:54.000
+of errors here. There's not Rigid Body attached to the Ball Game
+
+116
+00:05:54.000 --> 00:05:57.000
+Object, but a script is trying to access it. Well, let's look at
+
+117
+00:05:57.000 --> 00:06:00.000
+the Ball Game Object. There is a Rigid Body, but the problem
+
+118
+00:06:00.000 --> 00:06:03.000
+here is that it's a Rigid Body 2D we
+
+119
+00:06:03.000 --> 00:06:06.000
+want to be using. OK, that's the problem! you need
+
+120
+00:06:06.000 --> 00:06:09.000
+to be very careful that you use the right type of Rigid Body.
+
+121
+00:06:09.000 --> 00:06:12.000
+In fact, given that we're using 2D now, we probably
+
+122
+00:06:12.000 --> 00:06:15.000
+can use a 2D Vector. So, a few deliberate
+
+123
+00:06:15.000 --> 00:06:18.000
+mistakes. I'm not going to cut them out, because sometimes it's good for you to see
+
+124
+00:06:18.000 --> 00:06:21.000
+me making mistakes live, they're the sort of things you'll do.
+
+125
+00:06:21.000 --> 00:06:24.000
+rigidbody2D.velocity OK now it should know it should know how
+
+126
+00:06:24.000 --> 00:06:27.000
+to add a 2D velocity to a 2D Rigid Body. Let's
+
+127
+00:06:27.000 --> 00:06:30.000
+try it. Let's clear the Console. I'm going to
+
+128
+00:06:30.000 --> 00:06:33.000
+just clear. OK.
+
+129
+00:06:33.000 --> 00:06:36.000
+Now, it's complaining here that we're giving this
+
+130
+00:06:36.000 --> 00:06:39.000
+Vector2 three arguments, so a Vector2
+
+131
+00:06:39.000 --> 00:06:42.000
+only takes two arguments. So, let's pop back to the editor,
+
+132
+00:06:42.000 --> 00:06:45.000
+and give it a try.
+
+133
+00:06:45.000 --> 00:06:48.000
+I'm going to just Maximize on Play for you, Game
+
+134
+00:06:48.000 --> 00:06:51.000
+Tab, Maximize on Play, and let's
+
+135
+00:06:51.000 --> 00:06:54.000
+see how much more interesting
+
+136
+00:06:54.000 --> 00:06:57.000
+the movement is. Now previously, this ball would just make its way left.
+
+137
+00:06:57.000 --> 00:07:00.000
+Ahh, you see it's already done something much more interesting, so
+
+138
+00:07:00.000 --> 00:07:03.000
+that's great! We can see that this velocity isn't
+
+139
+00:07:03.000 --> 00:07:06.000
+or at least isn't very often doing anything weird, but it
+
+140
+00:07:06.000 --> 00:07:09.000
+is making it move a little bit. Now, you might
+
+141
+00:07:09.000 --> 00:07:12.000
+ask, does this mean the ball is going to continually speed
+
+142
+00:07:12.000 --> 00:07:15.000
+up. Well yeah, quite possibly, we're adding
+
+143
+00:07:15.000 --> 00:07:18.000
+on average 0.1
+
+144
+00:07:18.000 --> 00:07:21.000
+World Units, World Units
+
+145
+00:07:21.000 --> 00:07:24.000
+per second, roughly meters per second of velocity, every
+
+146
+00:07:24.000 --> 00:07:27.000
+bounce then yes, the ball will be speeding up.
+
+147
+00:07:27.000 --> 00:07:30.000
+But as you can see, in a reasonable amount of time,
+
+148
+00:07:30.000 --> 00:07:33.000
+it's not speeding up an unreasonable amount, so
+
+149
+00:07:33.000 --> 00:07:36.000
+I think that's fine
+
+150
+00:07:36.000 --> 00:07:39.000
+and we're going to look at some automated play testing anyway, which will
+
+151
+00:07:39.000 --> 00:07:42.000
+test, kind of, the limits of that. So, well done getting that
+
+152
+00:07:42.000 --> 00:07:45.000
+far, and hopefully you understand that better. If you want to know
+
+153
+00:07:45.000 --> 00:07:48.000
+more about Random.Range, just go to Unity's docs
+
+154
+00:07:48.000 --> 00:07:51.000
+in the scripting API, just type in Random.Range,
+
+155
+00:07:51.000 --> 00:07:54.000
+as another way of finding answers. Have a look at the doc.
+
+156
+00:07:54.000 --> 00:07:57.000
+It's a static on random, it
+
+157
+00:07:57.000 --> 00:08:00.000
+returns a float. It takes in two floats, a minimum
+
+158
+00:08:00.000 --> 00:08:03.000
+and a maximum and gives you a pseudo random number, in between
+
+159
+00:08:03.000 --> 00:08:06.000
+them. You can also do it with integers here. You can say,
+
+160
+00:08:06.000 --> 00:08:09.000
+int, minimum, maximum. OK! So, it
+
+161
+00:08:09.000 --> 00:08:12.000
+has two signatures. These docs can be a bit hard to read,
+
+162
+00:08:12.000 --> 00:08:15.000
+there should be a big bold line above this static range here,
+
+163
+00:08:15.000 --> 00:08:18.000
+because it's a completely different almost documentation. You've got
+
+164
+00:08:18.000 --> 00:08:21.000
+one signature here, from static float down,
+
+165
+00:08:21.000 --> 00:08:24.000
+and then, one more from static int range,
+
+166
+00:08:24.000 --> 00:08:27.000
+down for the integer version. But that's Random.
+
+167
+00:08:27.000 --> 00:08:30.000
+Range, really useful for introducing more humanity,
+
+168
+00:08:30.000 --> 00:08:33.000
+if you like, into your games, and yeah, may the
+
+169
+00:08:33.000 --> 00:08:35.900
+boring loops be gone!
+

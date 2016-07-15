@@ -1,0 +1,533 @@
+WEBVTT
+
+00:00:04.549 --> 00:00:09.370 align:middle line:90%
+Hi and welcome back, so in this video we're
+going to create a 3D sphere of the right size,
+
+00:00:09.370 --> 00:00:15.580 align:middle line:90%
+apply a temporary texture so that we can see
+it rolling; add a sphere collider; add a rigidbody,
+
+00:00:15.580 --> 00:00:20.960 align:middle line:90%
+3D this time and set properties, and make
+the boll roll down the lane. So I'll start
+
+00:00:20.960 --> 00:00:24.310 align:middle line:90%
+you off on the first bit and then I'll challenge
+you to write a little script at the end to
+
+00:00:24.310 --> 00:00:29.320 align:middle line:90%
+get the rest working. So, first thing we need
+to do is make ourselves a ball and then focus
+
+00:00:29.320 --> 00:00:35.160 align:middle line:90%
+on it. So, GameObject / 3D object / sphere
+this time. So where is that and how big is
+
+00:00:35.160 --> 00:00:39.540 align:middle line:90%
+it? Well it has put itself just in front of
+the camera so we can see it and it has made
+
+00:00:39.540 --> 00:00:42.250 align:middle line:84%
+itself 1 by 1 by 1 centimetre.
+
+00:00:42.250 --> 00:00:47.360 align:middle line:90%
+A bit too small right? The size of a sugar
+cube. So if we look here at the Ball specification
+
+00:00:47.360 --> 00:00:55.930 align:middle line:90%
+we can see that it should be 21.59cm or between
+21.59 and 21.83 there's some flex in the rules
+
+00:00:55.930 --> 00:01:02.469 align:middle line:90%
+let's call it 21.7 OK. So firstly let's just
+check that that's right, 21.7 so at first
+
+00:01:02.469 --> 00:01:08.460 align:middle line:90%
+glance it doesn't kind of look right - if
+we make the x scale 21.7 is it filling the
+
+00:01:08.460 --> 00:01:13.260 align:middle line:90%
+width of the lane? Well it appears not to
+be, but if you click into isometric view and
+
+00:01:13.260 --> 00:01:18.030 align:middle line:90%
+check then you're going to be sure that the
+reason that it's not the right size is not
+
+00:01:18.030 --> 00:01:25.360 align:middle line:90%
+a perspective issue, so if we go 21.7 in all
+dimensions; cm that is, how are we looking
+
+00:01:25.360 --> 00:01:26.189 align:middle line:84%
+in this ball?
+
+00:01:26.189 --> 00:01:31.450 align:middle line:90%
+On this sphere? Well that is actually feasible
+that it is 21.7, it's about a fifth of the
+
+00:01:31.450 --> 00:01:35.490 align:middle line:90%
+lane and if you go to 105 which is the width
+of the lane then look, you'll see that it
+
+00:01:35.490 --> 00:01:40.540 align:middle line:90%
+completely fills the lane. Now, again, you
+have under this gizmo here an isometric and
+
+00:01:40.540 --> 00:01:46.110 align:middle line:90%
+a perspective toggle. In perspective and up
+close it looks like that ball is wider than
+
+00:01:46.110 --> 00:01:50.500 align:middle line:90%
+the lane but actually if you were to scroll
+down and zoom out you'd see that it was the
+
+00:01:50.500 --> 00:01:56.689 align:middle line:90%
+same size. Or you click isometric and you
+can also see that it's the same size, but
+
+00:01:56.689 --> 00:01:59.990 align:middle line:90%
+isometric is really weird, right? Because
+even those bowling pins at the end look the
+
+00:01:59.990 --> 00:02:01.009 align:middle line:84%
+same size.
+
+00:02:01.009 --> 00:02:06.649 align:middle line:90%
+Very handy for size comparison if you use
+isometric - for visual reality use perspective,
+
+00:02:06.649 --> 00:02:11.319 align:middle line:90%
+hopefully that makes sense. So I just need
+to choose the right mouse button as I drag
+
+00:02:11.319 --> 00:02:17.379 align:middle line:90%
+around, I'm using my left hand as I give my
+right arm a bit of a break. So, what's the
+
+00:02:17.379 --> 00:02:24.629 align:middle line:90%
+deal? The deal is that this ball needs to
+have 21.7 in all 3 dimensions; it needs to
+
+00:02:24.629 --> 00:02:28.790 align:middle line:90%
+be sitting off the deck by maybe 20 cm? Is
+that how high it leaves your hand? Just a
+
+00:02:28.790 --> 00:02:33.069 align:middle line:90%
+little bit off the deck? I think so and it
+needs to be at a z position of, I think it
+
+00:02:33.069 --> 00:02:37.160 align:middle line:90%
+leaves your hand what, 30cm ahead of the foul
+line?
+
+00:02:37.160 --> 00:02:41.269 align:middle line:90%
+Double click the sphere to focus on it if
+you've lost it in the scene, great. Now you
+
+00:02:41.269 --> 00:02:45.860 align:middle line:90%
+can angle the camera down a little bit and
+then go to your main camera, and again, game
+
+00:02:45.860 --> 00:02:51.750 align:middle line:90%
+object / align with view. So if you look at
+the game now, have you got a view down the
+
+00:02:51.750 --> 00:02:57.319 align:middle line:90%
+lane? Well we haven't, so what's going on?
+You've clicked on main camera here, it's facing
+
+00:02:57.319 --> 00:03:03.269 align:middle line:90%
+down the lane, and I've clicked main camera,
+clicked game object and said align with view,
+
+00:03:03.269 --> 00:03:07.360 align:middle line:90%
+and it's not working, so what's wrong? Well
+try changing the field of view of your camera,
+
+00:03:07.360 --> 00:03:11.090 align:middle line:90%
+that was the problem. The field of view was
+so narrow that it was never going to work.
+
+00:03:11.090 --> 00:03:15.200 align:middle line:90%
+Now in the game tab we've kind of got the
+scene that we want. It needs modification,
+
+00:03:15.200 --> 00:03:19.739 align:middle line:90%
+it needs improvement, but we are on the way.
+The basic problem we actually have with the
+
+00:03:19.739 --> 00:03:24.709 align:middle line:90%
+camera right now is that it is too high, so
+as you move the camera down by just moving
+
+00:03:24.709 --> 00:03:29.720 align:middle line:90%
+the y position of the camera you get a much
+more sensible perspective; and now over in
+
+00:03:29.720 --> 00:03:33.790 align:middle line:90%
+the game view you see; fantastic, so we have
+the ball, the other thing I said that we would
+
+00:03:33.790 --> 00:03:40.209 align:middle line:90%
+do is to texture that ball. So, I have provided
+you in the start pack under images an unwrapped
+
+00:03:40.209 --> 00:03:41.409 align:middle line:84%
+football texture.
+
+00:03:41.409 --> 00:03:47.290 align:middle line:90%
+If we actually look at that texture, there
+it is. I has been unwrapped off a 3D model
+
+00:03:47.290 --> 00:03:51.569 align:middle line:90%
+and put into a flat image like that. So that's
+the sort of thing you're looking for when
+
+00:03:51.569 --> 00:03:56.069 align:middle line:90%
+you go and look for a texture on google images.
+Of course in our Blender course that you're
+
+00:03:56.069 --> 00:03:59.870 align:middle line:90%
+starting to hear about we will be showing
+you exactly how to make things in 3D and then
+
+00:03:59.870 --> 00:04:04.220 align:middle line:90%
+export the textures; but for now for simplicity
+the simple way to get this football texture,
+
+00:04:04.220 --> 00:04:08.599 align:middle line:90%
+or whatever texture you choose and I do encourage
+you to either make or find your own texture
+
+00:04:08.599 --> 00:04:10.430 align:middle line:84%
+just drag it on to the sphere.
+
+00:04:10.430 --> 00:04:15.670 align:middle line:90%
+And Unity is smart enough to say well he must
+mean - or she must mean that they want to
+
+00:04:15.670 --> 00:04:22.910 align:middle line:90%
+apply that image as a texture to the material
+of the sphere. Now all these terms, material,
+
+00:04:22.910 --> 00:04:28.030 align:middle line:90%
+texture or whatever now I could go and formally
+define them for you or we could just do stuff
+
+00:04:28.030 --> 00:04:31.830 align:middle line:90%
+and learn it by absorption, and that's my
+preference. When you're looking at this sphere
+
+00:04:31.830 --> 00:04:35.910 align:middle line:90%
+you have two meshes. You have the blue mesh,
+which is its actual render mesh which you
+
+00:04:35.910 --> 00:04:40.919 align:middle line:90%
+can turn on and off, and now of course includes
+its texture, and you have its collider mesh
+
+00:04:40.919 --> 00:04:41.860 align:middle line:84%
+which is for the physics.
+
+00:04:41.860 --> 00:04:47.889 align:middle line:90%
+Great, so what happens if you click play now?
+The ball just sits there floating in mid-air,
+
+00:04:47.889 --> 00:04:51.190 align:middle line:90%
+you see that if we go into the scene view?
+Why is it floating in mid-air? Why is it not
+
+00:04:51.190 --> 00:04:56.020 align:middle line:90%
+falling? Well it's not falling because it
+doesn't have any physics component on it.
+
+00:04:56.020 --> 00:05:00.190 align:middle line:90%
+The way that we add physics is that we add
+a rigidbody but not a 2D rigidbody any more,
+
+00:05:00.190 --> 00:05:05.970 align:middle line:90%
+it must be this top one. So add component
+/ rigidbody and now we have a 3D rigid body.
+
+00:05:05.970 --> 00:05:11.460 align:middle line:90%
+One of the first questions is what's its mass?
+Well go over to your GDD and put in 7.3kg
+
+00:05:11.460 --> 00:05:14.820 align:middle line:84%
+from the top.
+
+00:05:14.820 --> 00:05:18.780 align:middle line:90%
+Let's leave everything else default for no,
+let's just check that the ball now falls under
+
+00:05:18.780 --> 00:05:24.580 align:middle line:90%
+gravity and hits the lane - perfect; and you're
+set up, you're ready for your challenge, and
+
+00:05:24.580 --> 00:05:27.250 align:middle line:90%
+your challenge is going to be that you're
+going to make your ball go flying down the
+
+00:05:27.250 --> 00:05:33.310 align:middle line:90%
+lane, so. Get the ball hitting the pins. Give
+an appropriate initial velocity from script,
+
+00:05:33.310 --> 00:05:39.620 align:middle line:90%
+I suggest you call the script ball.cs, point
+so that it passes through the pins, so fire
+
+00:05:39.620 --> 00:05:43.370 align:middle line:90%
+it down the lane so that it passes through
+the pins. It won't hit the pins yet, that's
+
+00:05:43.370 --> 00:05:47.570 align:middle line:90%
+going to be a couple of lectures ahead in
+terms of its proper interaction with the pins,
+
+00:05:47.570 --> 00:05:48.759 align:middle line:84%
+and play a rolling sound.
+
+00:05:48.759 --> 00:05:52.600 align:middle line:90%
+We've provided you with a rolling sound, or
+go and make your own, or get your microphone
+
+00:05:52.600 --> 00:06:05.039 align:middle line:90%
+out and go *brrrrrrrb*or some equally perfect
+rolling sound.
+
+00:06:05.039 --> 00:06:09.389 align:middle line:90%
+was to get this ball rolling down the lane
+so let's do it. I'm going to rename my sphere
+
+00:06:09.389 --> 00:06:15.940 align:middle line:90%
+to a ball, add a new component which is a
+script and I'm going to call it ball and then
+
+00:06:15.940 --> 00:06:22.560 align:middle line:90%
+I'm going to go into it. Let it load. OK.
+Now, slightly different in Unity 5, we actually
+
+00:06:22.560 --> 00:06:27.340 align:middle line:90%
+need to explicitly go and get the rigidbody
+component to access it, we can't just go .rigidbody.
+
+00:06:27.340 --> 00:06:32.880 align:middle line:90%
+So we have a private rigidbody, not 2D but
+rigidbody and just call it rigidbody.
+
+00:06:32.880 --> 00:06:40.569 align:middle line:90%
+Fantastic, on start we just need to go and
+find that rigidbody component. So, rigidbody
+
+00:06:40.569 --> 00:06:48.150 align:middle line:90%
+= and we are going to be doing a lot of this
+gameobject dot find. Sorry, not game object
+
+00:06:48.150 --> 00:06:51.400 align:middle line:90%
+dot find. Now why isn't it game object dot
+find? Let's think about this, just a really
+
+00:06:51.400 --> 00:06:55.180 align:middle line:90%
+quick recap for you. Why are we not using
+gameobject dot find? Why are we going to use
+
+00:06:55.180 --> 00:06:59.110 align:middle line:90%
+getcomponent? Take a look at what we are doing,
+we're on a ball, we're in the ball's script
+
+00:06:59.110 --> 00:07:03.919 align:middle line:90%
+component here, that's our context, what we're
+looking for is another component of the same
+
+00:07:03.919 --> 00:07:07.780 align:middle line:90%
+game object, i.e. the rigidbody. So it's a
+getcomponent that we are doing.
+
+00:07:07.780 --> 00:07:15.330 align:middle line:90%
+That's the most direct way to get there. GetComponent
+Of Type - rigidbody not 2D, and then it's
+
+00:07:15.330 --> 00:07:19.449 align:middle line:90%
+a method. So now we have the rigid body, we
+can go rigidbody.velocity equals now we have
+
+00:07:19.449 --> 00:07:25.389 align:middle line:90%
+to construct a new vector3, 0, we don't need
+the f, 0 again because we're sending it in
+
+00:07:25.389 --> 00:07:30.410 align:middle line:90%
+the z direction, and then let's give it a
+bit of speed in the z but what's the speed?
+
+00:07:30.410 --> 00:07:35.690 align:middle line:90%
+Well let's make it variable, that's what I'm
+going to do, I'm going to make it variable
+
+00:07:35.690 --> 00:07:41.530 align:middle line:90%
+there and then I'm going to make a public
+float, because you can't count it on your
+
+00:07:41.530 --> 00:07:48.699 align:middle line:90%
+hands, launchSpeed, that'll go in the inspector.
+OK? Let's try it, launch speed should stop
+
+00:07:48.699 --> 00:07:59.389 align:middle line:84%
+being red once I compile this code.
+
+00:07:59.389 --> 00:08:04.979 align:middle line:90%
+OK I'm missing an n in my spelling of the
+launch speed. Fantastic, it's gone the right
+
+00:08:04.979 --> 00:08:10.030 align:middle line:90%
+colour, now let's try. Go to the ball, set
+a launch speed before you go, let's go 200,
+
+00:08:10.030 --> 00:08:16.009 align:middle line:90%
+and click play. Cool, there it goes, down
+the lane, and when it hits the lane it starts
+
+00:08:16.009 --> 00:08:19.289 align:middle line:90%
+rolling. You can't really see what's going
+on at the other end, which is why we're not
+
+00:08:19.289 --> 00:08:22.160 align:middle line:90%
+going to deal with the physics yet, we'll
+deal with the physics once we've got our camera
+
+00:08:22.160 --> 00:08:26.229 align:middle line:90%
+working but we could see over in scene view
+if we focus over on the pins that the ball
+
+00:08:26.229 --> 00:08:30.160 align:middle line:90%
+hits the pins and then does some really weird
+stuff. We'll sort the really weird stuff out
+
+00:08:30.160 --> 00:08:32.649 align:middle line:84%
+later, but that part of the challenge is done.
+
+00:08:32.649 --> 00:08:36.430 align:middle line:90%
+Now the other part of the challenge was to
+make a sound, right. Now in the start pack
+
+00:08:36.430 --> 00:08:40.649 align:middle line:90%
+we've given you a ball rolling sound. Your
+most direct way of adding this to the ball
+
+00:08:40.649 --> 00:08:45.089 align:middle line:90%
+was to drag it to the ball. Look what good
+old Unity does for us, it number one adds
+
+00:08:45.089 --> 00:08:49.380 align:middle line:90%
+an audio source, it number two attaches the
+ball rolling clip to it. All we need to do
+
+00:08:49.380 --> 00:08:55.130 align:middle line:90%
+is not play on awake because we're going to
+want later control over the play time in script,
+
+00:08:55.130 --> 00:08:59.410 align:middle line:90%
+then go back to your ball script. You're going
+to have to do a very similar thing here, right?
+
+00:08:59.410 --> 00:09:07.269 align:middle line:90%
+We're going to need private access to an audio
+source and it's going to be called audioSource
+
+00:09:07.269 --> 00:09:07.480 align:middle line:84%
+for now.
+
+00:09:07.480 --> 00:09:11.640 align:middle line:90%
+You could call it ball sound if you wanted
+to. Why don't we do that? Just for fun. Either
+
+00:09:11.640 --> 00:09:16.160 align:middle line:90%
+call it exactly what it is, or maybe something
+specific but ball sound is just fine here.
+
+00:09:16.160 --> 00:09:29.519 align:middle line:90%
+Now we need to find it. Ball sound equals
+GetComponent audioSource. You see the problem
+
+00:09:29.519 --> 00:09:33.500 align:middle line:90%
+with using ballSound is that it doesn't read
+quite as well, because it doesn't tell us
+
+00:09:33.500 --> 00:09:36.350 align:middle line:90%
+anything about the type of this and immediately
+we're having to find the type so I am going
+
+00:09:36.350 --> 00:09:41.269 align:middle line:90%
+to stick with audioSource, with a small a
+of course because it's an instance. Alright?
+
+00:09:41.269 --> 00:09:46.180 align:middle line:90%
+Because then this line, audioSource = getComponent
+AudioSource looks almost exactly like that
+
+00:09:46.180 --> 00:09:52.060 align:middle line:90%
+line there which is rigidbody equals GetComponent
+rigidbody, so we could group those together
+
+00:09:52.060 --> 00:09:55.700 align:middle line:90%
+we find the things that we're looking for
+and then here immediately on start we could
+
+00:09:55.700 --> 00:09:58.480 align:middle line:84%
+go audiosource.play.
+
+00:09:58.480 --> 00:10:08.000 align:middle line:90%
+Oops not Broadcast message but play and it's
+a method. OK, and then of course those two
+
+00:10:08.000 --> 00:10:11.000 align:middle line:90%
+things together are launching the ball so
+let's use the refactor tool. Highlight it
+
+00:10:11.000 --> 00:10:16.269 align:middle line:90%
+all, right click, refactor, extract method.
+Go down with the cursor, and then you can
+
+00:10:16.269 --> 00:10:24.459 align:middle line:90%
+go launch. So Ball dot launch that sounds
+fine, and do we want something from the outside
+
+00:10:24.459 --> 00:10:28.390 align:middle line:90%
+to be able to launch the ball? Why not. Public,
+why not make it public? So now it's quite
+
+00:10:28.390 --> 00:10:32.420 align:middle line:90%
+clear what we're doing. On the start we're
+finding the components we need, and this business
+
+00:10:32.420 --> 00:10:36.329 align:middle line:90%
+about needing to find the rigid body is new
+to you with Unity 5 because of its API changes
+
+00:10:36.329 --> 00:10:39.720 align:middle line:90%
+which we told you about at the beginning of
+the course when we told you about the differences,
+
+00:10:39.720 --> 00:10:43.930 align:middle line:90%
+and also we've got a blog post if you go to
+the completeunitydeveloper.com there's a blog
+
+00:10:43.930 --> 00:10:47.390 align:middle line:90%
+post on the differences between Unity 5 and
+Unity 4.
+
+00:10:47.390 --> 00:10:55.380 align:middle line:90%
+Then we set the velocity and then we play
+that audio source. So let's try it. I can
+
+00:10:55.380 --> 00:10:58.610 align:middle line:90%
+hear that, and then it hits the ground and
+it starts rolling, and it eventually gets
+
+00:10:58.610 --> 00:11:04.130 align:middle line:90%
+to the pins. OK the sound runs out too early,
+but we'll tweak all that later. You have achieved
+
+00:11:04.130 --> 00:11:09.130 align:middle line:90%
+what you needed to achieve for this video,
+so congratulations and see you soon.

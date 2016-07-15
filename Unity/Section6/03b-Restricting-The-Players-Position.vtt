@@ -1,0 +1,654 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:08.220
+So hi, and welcome back! In this video we're going to be looking at how to restrict
+
+00:00:08.220 --> 00:00:11.730
+the position of a spaceship, and this is
+something you might have covered before.
+
+00:00:11.730 --> 00:00:16.320
+Don't worry too much. We'll do a little
+bit more this time in how to restrict it
+
+00:00:16.320 --> 00:00:20.930
+based on the size of the view-port of
+the actual camera size. So let's take
+
+00:00:20.930 --> 00:00:26.410
+a look at our game to see what the actual
+problem is. So now, I have a problem.
+
+00:00:26.410 --> 00:00:30.900
+Look at that, my ship is going outside of
+the play space. Well, we can't have that right, can we?
+
+00:00:30.900 --> 00:00:36.880
+So how do we know what the
+position to restrict is? Well, we can use
+
+00:00:36.899 --> 00:00:41.550
+Mathf.clamp() to stop the
+position from getting out of bound, but we
+
+00:00:41.550 --> 00:00:46.690
+also need to use Camera.ViewportToWorldPoint() to work out the boundaries of
+
+00:00:46.690 --> 00:00:51.170
+the play space. And that is a function and
+we'll talk a little bit more about it in
+
+00:00:51.170 --> 00:00:55.070
+context in the code. So if we jump back
+into our code, we can see that, for example,
+
+00:00:55.070 --> 00:01:01.180
+as we have right now, we have a little
+increment that we add to the position of speed,
+
+00:01:01.180 --> 00:01:07.159
+times Time.deltaTime.  It's  basically a frame rate independent speed added
+
+00:01:07.159 --> 00:01:11.680
+to the X component of the position. Let
+me show you a different way of doing
+
+00:01:11.680 --> 00:01:16.180
+that. We've got a nicer, cleaner, easier
+to read way of doing this, and I'm going
+
+00:01:16.180 --> 00:01:20.660
+to show you that right now. So what we
+can do, actually, is use transform.position
+
+00:01:20.660 --> 00:01:23.920
+as before. So we're going to add a little
+increment, just as we did
+
+00:01:23.920 --> 00:01:29.660
+before. So that's +=, which is add to, and set it to that new value.
+
+00:01:29.660 --> 00:01:33.720
+And then, we're going to use Vector3.left and Vector3.right.
+
+00:01:33.770 --> 00:01:40.280
+So Vector3.right and left. Here we go. Those are predefined vectors that point
+
+00:01:40.740 --> 00:01:44.860
+left, right, up, and down, so you've got left,
+right, up, and down, and they are unit vectors.
+
+00:01:44.860 --> 00:01:49.409
+They've got a length of one, and that is
+something that we can use to create a
+
+00:01:49.409 --> 00:01:53.270
+new vectored up points left. And so in
+our case we've got a left pointing vector,
+
+00:01:53.270 --> 00:01:57.770
+and we want to scale it by the speed.
+that's frame rate independent. We can do
+
+00:01:57.770 --> 00:02:06.240
+times speed times Time.deltaTime, and that will actually give us exactly the same
+
+00:02:06.240 --> 00:02:07.579
+thing as we had before.
+
+00:02:07.579 --> 00:02:11.819
+However, that's a little bit more readable. I
+don't know which version you prefer.
+
+00:02:11.819 --> 00:02:16.840
+Now, let me put the highlighting on both to
+show you, but that's the difference of
+
+00:02:16.840 --> 00:02:20.090
+the two and essentially they mean the
+same thing. So we've got this new vector,
+
+00:02:20.090 --> 00:02:22.770
+which we're constructing ourselves which
+we're adding as an increment,
+
+00:02:22.770 --> 00:02:27.749
+or we're using a predefined Vector3.left 
+vector and then multiplying it by the
+
+00:02:27.749 --> 00:02:31.450
+speed and the time to make it frame rate independent. Now, I'm going to use
+
+00:02:31.450 --> 00:02:35.209
+a new Vector3.left and Vector3.right, because what I think is more
+
+00:02:35.209 --> 00:02:39.950
+obvious when we use that is the way the vector is going
+
+00:02:39.950 --> 00:02:44.280
+and what direction its pointing in. So let's
+start with that. Make sure it's going to
+
+00:02:44.280 --> 00:02:48.959
+the right when you press the right arrow,
+as it should be doing and that it's going
+
+00:02:48.959 --> 00:02:54.000
+left when we press the left arrow, as we
+are doing now. So awesome, now we've got
+
+00:02:54.000 --> 00:02:57.689
+those two things going. Let's think about
+the key problem here, which is
+
+00:02:57.689 --> 00:03:04.650
+restricting the positions, the transform position, to a certain X value. So just
+
+00:03:04.650 --> 00:03:09.810
+to begin with, I'm going to put an X max X min value as floating points here. So I've got
+
+00:03:09.810 --> 00:03:15.719
+float xmin, and I'm going to say that's
+going to be, let's say, -5 or
+
+00:03:15.719 --> 00:03:24.000
+something. And then, float xmax is going
+to be 5. Now, I don't know whether
+
+00:03:24.000 --> 00:03:28.079
+these values are right. Basically, right
+now, I'm just adding some placeholder
+
+00:03:28.079 --> 00:03:33.930
+values, so we can give it code to run and
+compile. And then, I'll tune those values
+
+00:03:33.930 --> 00:03:38.489
+manually to see what looks about right.
+And once I've finished tuning manually,
+
+00:03:38.489 --> 00:03:43.739
+i'm going to use a function that talks to the camera to
+
+00:03:43.739 --> 00:03:48.389
+figure out what the values of the
+screen are itself, so I can make sure
+
+00:03:48.389 --> 00:03:50.459
+that my play controller
+
+00:03:50.459 --> 00:03:55.009
+always restricts according to the screen
+size and not according to values we have
+
+00:03:55.009 --> 00:03:59.909
+to type in ourselves. So let's get going. We have xmin and xmax, and we can
+
+00:03:59.909 --> 00:04:05.189
+use those in our code, and what we want to do is clamp the X position of this
+
+00:04:05.189 --> 00:04:07.829
+transform here. Now, we've  got a bunch of code here
+
+00:04:07.829 --> 00:04:10.300
+that changes the transform position, and
+
+00:04:10.310 --> 00:04:12.030
+once we are finish with that update,
+
+00:04:12.030 --> 00:04:13.070
+we want to double check that the
+
+00:04:13.070 --> 00:04:15.960
+X position is correct. So how we going to do that?
+
+00:04:15.960 --> 00:04:19.240
+Well let's take a look at what the right
+
+00:04:19.240 --> 00:04:22.440
+floater of the right transform position should be.
+
+00:04:22.440 --> 00:04:26.960
+So firstly, let's extract the transform position from the
+
+00:04:26.960 --> 00:04:29.080
+X value of the transform position, and let's
+
+00:04:29.080 --> 00:04:33.500
+clamp it and create a new X position.
+
+00:04:33.500 --> 00:04:35.920
+So let's do that like this. We've got a float,
+
+00:04:35.920 --> 00:04:42.000
+which is the new new X, and the new X is the
+
+00:04:42.000 --> 00:04:48.880
+clamp, so we are going to use Mathf.Clamp of the old position,
+
+00:04:49.240 --> 00:04:53.240
+which is transform.position. Let me
+
+00:04:53.240 --> 00:04:55.240
+check that I've got my arguments the right way around.
+
+00:04:55.240 --> 00:04:57.580
+What does clamp take? Yep!
+
+00:04:57.580 --> 00:05:04.240
+It's going to be transform dot, and it's going to be
+
+00:05:04.250 --> 00:05:12.890
+position dot X. And then what's the
+minimum? Well, that's going to be xmin, and the
+
+00:05:12.890 --> 00:05:18.680
+maximum is going to be xmax. No surprises there. And what it means is new X
+
+00:05:18.680 --> 00:05:24.190
+will be the transform position of the X
+value of the transom position, but it
+
+00:05:24.190 --> 00:05:27.470
+will be clamped to the minimum and
+maximum we define, so it'll never be
+
+00:05:27.470 --> 00:05:31.750
+below the minimum, and it'll never be
+above the maximum.
+
+00:05:31.750 --> 00:05:33.720
+So now we've got our clamped new X.
+
+00:05:33.730 --> 00:05:38.120
+Let's make sure that we reset the exposition of our transform, which we do like this
+
+00:05:38.130 --> 00:05:42.850
+We're going to reset the transform
+
+00:05:42.850 --> 00:05:44.960
+say transform.position
+
+00:05:44.970 --> 00:05:52.380
+= a new vector 3. I know this is a 2D game, but I'm using vector 3 math.
+
+00:05:52.380 --> 00:05:56.300
+That's basically just to show you what
+it would look like in three vectors.
+
+00:05:56.300 --> 00:06:02.060
+We could actually use the vector 2, but we're using vector 3,
+
+00:06:02.060 --> 00:06:07.310
+to show you that this kind of method of clamping also works in three dimensions.
+
+00:06:07.310 --> 00:06:12.240
+You would just have to worry about different clamping parameters, for say the depth, etc.
+
+00:06:12.240 --> 00:06:16.860
+So let's take a look. We've
+got a new vector 3, and this vector 3 is going to be
+
+00:06:16.860 --> 00:06:22.250
+constructed from new X , which is our float
+for the X value. And then, we want our old
+
+00:06:22.250 --> 00:06:29.500
+X and Y value, of rather Y and Z value, and we can use the Z value from the transform position itself.
+
+00:06:29.500 --> 00:06:34.660
+The Y and Z values we can do transform dot position dot x y,
+
+00:06:34.660 --> 00:06:43.740
+and then transform.position.z. Here we go,
+
+00:06:43.750 --> 00:06:50.680
+so now this new position at the end
+will be clamped in the X direction, by
+
+00:06:50.680 --> 00:06:56.260
+the xmin and xmax setting. So let's do here, let's put a comment
+
+00:06:56.260 --> 00:07:05.520
+restrict the player to the game space. Here
+we go. So let's save that, jump into our game,
+
+00:07:05.520 --> 00:07:10.479
+and see what it looks like. So if I press
+play right now, what does that look like?
+
+00:07:10.479 --> 00:07:16.310
+I can move, and then I'm stuck when I get
+5. If you take a look at the Inspector.
+
+00:07:16.310 --> 00:07:21.630
+I've got my player selected. You'll notice here I can go no further than 5, and
+
+00:07:21.630 --> 00:07:26.950
+no further than -5. So I'm
+moving around; I am clamped 5 and -5.
+
+00:07:26.950 --> 00:07:32.540
+Now, we don't want to clamped to 5 and -5. Those are basically arbitrary. So in the next step,
+
+00:07:32.550 --> 00:07:39.430
+we're going to look at how we use the camera to define the position of the maximum and minimum
+
+00:07:39.430 --> 00:07:45.200
+position of the player. So let's jump
+into our code. Let's pause the game.
+
+00:07:45.200 --> 00:07:51.039
+Grab our MonodDevelop. Let's tidy up a
+little bit. We don't want to have so much
+
+00:07:51.039 --> 00:07:57.359
+white space. That was just to show off  the lines we were working on. So now we've got this stuff.
+
+00:07:57.360 --> 00:08:01.960
+We'ere going to go back to our start function, which we deleted earlier, and we're going to go
+
+00:08:01.960 --> 00:08:09.070
+to void Start. And in the start function,
+we're going to be using the camera to bind
+
+00:08:09.070 --> 00:08:17.560
+the player to the right limits. So we're going to calculate xmin and xmax, from the camera itself. So let's get
+
+00:08:17.580 --> 00:08:22.220
+started. The first thing you need to do
+is to get hold of the camera, and we can
+
+00:08:22.220 --> 00:08:28.510
+do that by Camera.main. Camera.main is actually the main camera, and that will let us
+
+00:08:28.510 --> 00:08:31.750
+act on the main camera. And this game is
+quite simple, so we only have one main
+
+00:08:31.750 --> 00:08:35.800
+camera, which is the is the 2D camera view
+we have. In a more complex game you might
+
+00:08:35.800 --> 00:08:39.479
+have several cameras. We don't worry
+about it right now, because our game is
+
+00:08:39.479 --> 00:08:42.760
+too simple. This will just work with a single
+camera
+
+00:08:42.760 --> 00:08:46.770
+so now we've got Camera.main. Camera.main will have a bunch of functions on it,
+
+00:08:46.770 --> 00:08:48.620
+and if we can look at them we can
+
+00:08:48.620 --> 00:08:53.580
+scroll down to see all the functions all
+the attributes in the camera and the one
+
+00:08:53.580 --> 00:08:58.700
+we want is in particular Viewport to
+WorldPoint. Alright, so
+
+00:08:58.700 --> 00:09:06.980
+Viewport to World Point actually takes in a WorldPoint and returns a WorldPoint coordinate.
+
+00:09:06.980 --> 00:09:12.080
+So this method will actually take vector 3, so let's create a new vector 3.
+
+00:09:12.080 --> 00:09:16.940
+However, the vector 3 it contains is a bit of a weird one. So the
+
+00:09:16.940 --> 00:09:22.400
+the vector 3 contains... It's actually...
+We've got to... Let's set it up right here
+
+00:09:22.400 --> 00:09:28.870
+[Fumbles Words] So this is vector 3, and in there it's not X Y Z that we need to put in.
+
+00:09:28.870 --> 00:09:33.500
+What we actually want to put in is a
+vector where the first value
+
+00:09:33.500 --> 00:09:38.250
+that would usually be X  is actually between 0 and 1. What would usually
+
+00:09:38.250 --> 00:09:42.360
+be Y is between 0 and 1 as well, and
+those are the X and Y coordinates
+
+00:09:42.360 --> 00:09:46.690
+relative to the size of the screen. So let's see, my cursor is in the middle of the screen,
+
+00:09:46.690 --> 00:09:51.340
+that would be 0.5 0.5. If my cursor
+was at the bottom left of the screen,
+
+00:09:51.340 --> 00:09:55.610
+that would be 00, and if my cursor
+were at top right of the screen that
+
+00:09:55.610 --> 00:10:00.080
+would be 11. And finally the Z
+value is actually the distance between
+
+00:10:00.080 --> 00:10:05.100
+the camera and the object you want to
+find out. So basically, the camera will
+
+00:10:05.100 --> 00:10:08.820
+give you a world point, but because it's
+sometimes projected, sometimes you're
+
+00:10:08.820 --> 00:10:12.920
+projecting a perspective camera into the
+world, you need to know what object
+
+00:10:12.920 --> 00:10:16.740
+you're going to be protecting against.
+So the plane basically, you want to figure out
+
+00:10:16.740 --> 00:10:22.380
+which plane you're projecting your point
+on the screen to the point in the world space.
+
+00:10:22.380 --> 00:10:25.880
+So let's get that going right now. It
+doesn't matter so much in a 2D
+
+00:10:25.890 --> 00:10:30.590
+orthographic camera, but we'll still need to do it, and I want to show you the method to do it,
+
+00:10:30.590 --> 00:10:34.940
+so that you don't get confused and find
+something weird going on when you try to
+
+00:10:34.940 --> 00:10:39.630
+use the ViewportToWorldPoint in a 3d
+world. So the first thing you want to do
+
+00:10:39.630 --> 00:10:45.080
+is find out the Z distance, and
+that's going to be a float. So the float Z
+
+00:10:45.080 --> 00:10:55.640
+is going to be distance, and we can grab that by going transform.position.z
+
+00:10:55.640 --> 00:11:05.620
+- camera.position. We can use
+Camera.main to position.z, so
+
+00:11:05.620 --> 00:11:20.260
+Camera.main.transform.position.z
+So that's the distance. That's the distance
+
+00:11:20.260 --> 00:11:24.650
+between the camera and the object.
+We're talking about the player in this
+
+00:11:24.650 --> 00:11:29.400
+case, which is where we want to clamp...  [Fumbles Words] the Viewport
+
+00:11:29.400 --> 00:11:33.920
+coordinates to be mapped onto, so that
+will be the distance and that will be
+
+00:11:33.920 --> 00:11:42.930
+here. And we're going to put... what am I going to say? That's going to be distance, and we
+
+00:11:42.930 --> 00:11:48.780
+also want to figure out the leftmost
+side, so that's going to be 0 and we
+
+00:11:48.780 --> 00:11:52.080
+don't care about the Y, because we're not clamping on Y, so that's going to be 0 as well.
+
+00:11:52.080 --> 00:11:57.260
+So this entire thing here will actually be a vector 3
+
+00:11:57.260 --> 00:12:00.800
+position in the world. So let's create that 
+and that's going to be the left most
+
+00:12:00.800 --> 00:12:02.640
+position in the world. So we're going to
+call it
+
+00:12:02.640 --> 00:12:13.840
+Vector3 leftmost = this entire
+thing down here. And we can do exactly
+
+00:12:13.840 --> 00:12:18.840
+the same thing with the right-hand side, but
+this time we're going to call...
+
+00:12:18.840 --> 00:12:24.390
+going to call this rightmost, and in
+this case I want you to take a few seconds to
+
+00:12:24.390 --> 00:12:27.450
+figure out what those two values should be.
+So we said
+
+00:12:27.450 --> 00:12:31.970
+00 is the bottom-left corner. Let's see,
+what would be the bottom-right corner?
+
+00:12:31.970 --> 00:12:38.100
+What would be the bottom right corner,
+given the the values of X and Y are relative
+
+00:12:38.100 --> 00:12:44.270
+to the screen? So 0.5 is the
+middle.
+
+00:12:44.270 --> 00:12:49.910
+Have you figured it out? It would in fact be 10. So 10 is the bottom right-hand side,
+
+00:12:49.910 --> 00:12:54.280
+right-hand corner, and that would be the
+rightmost position. And now, what we can do is
+
+00:12:54.280 --> 00:12:58.880
+find out, using the Vector 3's
+leftmost and rightmost positions in the
+
+00:12:58.880 --> 00:13:06.620
+world point coordinates, we can just grab those for xmin and xmax. So we can say xmin is
+
+00:13:06.620 --> 00:13:25.770
+leftmost.x and xmax is rightmost.x
+And we no longer need to set these guys
+
+00:13:25.770 --> 00:13:32.260
+up. We no longer need to pre-calculate the version, because we're doing
+
+00:13:32.260 --> 00:13:36.700
+that in the start function, and then, the
+clamping should work as expected. So let
+
+00:13:36.700 --> 00:13:40.890
+me save that. Then, build it to make sure
+I've not made any compilation error, and
+
+00:13:40.890 --> 00:13:47.510
+jump straight back into my code and
+press play. So what happens here? I'm getting
+
+00:13:47.510 --> 00:13:51.670
+to the edge, and I'm stopping. I'm pressing
+and pressing and pressing, and you can
+
+00:13:51.670 --> 00:13:58.010
+see that the value of the transform X position is actually being calculated in my code by
+
+00:13:58.010 --> 00:14:03.270
+the camera, depending on what the size of
+my camera is. So now, if I go to my right,
+
+00:14:03.270 --> 00:14:07.910
+same thing happens. If I go to my left, same thing happens. Awesome! So that's totally working as
+
+00:14:07.910 --> 00:14:11.950
+we expect! However, I don't want my player
+character to be all the way to the
+
+00:14:11.950 --> 00:14:16.830
+edge. So what I'm going to do, is I'm going
+stop playing the game again, jump back
+
+00:14:16.830 --> 00:14:24.340
+into my code, and add a little padding.
+So I'm going to have a public float padding
+
+00:14:24.340 --> 00:14:31.440
+and that's going to be 1. I'm just going to put 1, only 1 for my padding. And then, I'm
+
+00:14:31.440 --> 00:14:35.700
+going to, from the left, I'm going to add
+some padding, so that's going to be +
+
+00:14:35.700 --> 00:14:40.370
+padding, and from the right, I'm going to
+take away some padding, so that's going to be
+
+00:14:40.370 --> 00:14:47.230
+- padding. So that way I've got a
+little bit on the edges, so that my player
+
+00:14:47.230 --> 00:14:51.230
+character... my player can at least
+always see his ship. Let's take a look.
+
+00:14:51.230 --> 00:14:54.730
+Press play again.
+
+00:14:54.730 --> 00:14:59.560
+And indeed, the ship stops just a
+little bit off the edge, so that it's still
+
+00:14:59.560 --> 00:15:07.940
+always visible to the player. Awesome! Now, let's not forget to save this, and let's
+
+00:15:07.940 --> 00:15:14.730
+review what we have done so far in this
+video. So we've used
+
+00:15:14.730 --> 00:15:20.500
+Mathf.clamp() to restrict the movement
+of our ship, and then, we used the
+
+00:15:20.500 --> 00:15:26.170
+Camera.ViewpointToWorldPoint() to work out the boundaries we needed to clamp our
+
+00:15:26.170 --> 00:15:31.699
+ship to. And that is it for now. I hope you've
+enjoyed the video, and I will see you very
+
+00:15:31.699 --> 00:15:33.240
+soon another one. Bye.
+

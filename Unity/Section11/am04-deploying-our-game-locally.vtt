@@ -1,0 +1,838 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hey hey! So now, we're going to be talking about deploying our game
+
+2
+00:00:06.000 --> 00:00:09.000
+locally, that is how to deploy the same version of the game
+
+3
+00:00:09.000 --> 00:00:12.000
+into two machines. Of course, you could use Version Control,
+
+4
+00:00:12.000 --> 00:00:15.000
+such as GIT or SVN. You could use a shared folder,
+
+5
+00:00:15.000 --> 00:00:18.000
+you could setup DropBox sync between two PC's.
+
+6
+00:00:18.000 --> 00:00:21.000
+That's what I'm going to be doing, I'm going to be using DropBox,
+
+7
+00:00:21.000 --> 00:00:24.000
+but the thing to remember is to be careful to just have
+
+8
+00:00:24.000 --> 00:00:27.000
+one master. We're going to make all our changes on one machine
+
+9
+00:00:27.000 --> 00:00:30.000
+or in just the Unity Editor, which will also be the Host
+
+10
+00:00:30.000 --> 00:00:33.000
+Machine, and then, we're going to push those changes either to
+
+11
+00:00:33.000 --> 00:00:36.000
+your Local Build or using one of the methods I just mentioned
+
+12
+00:00:36.000 --> 00:00:39.000
+over to the other machine. So, as a
+
+13
+00:00:39.000 --> 00:00:42.000
+quite summary of what I just said, this is what we're going to be doing in this video.
+
+14
+00:00:51.000 --> 00:00:54.000
+So, remembering this diagram from the
+
+15
+00:00:54.000 --> 00:00:57.000
+last section or the last video, we're going
+
+16
+00:00:57.000 --> 00:01:00.000
+to be using the right hand column, the two PC scenario,
+
+17
+00:01:00.000 --> 00:01:03.000
+but what we didn't talk about yet is how we're going to get the file
+
+18
+00:01:03.000 --> 00:01:06.000
+from the Host, the Mac, to
+
+19
+00:01:06.000 --> 00:01:09.000
+the PC, the Client in my case. You might be using a different
+
+20
+00:01:09.000 --> 00:01:12.000
+combination, of course, you might be using two Macs or two PC's or
+
+21
+00:01:12.000 --> 00:01:15.000
+whatever. But we're going to be developing on the Host Machine,
+
+22
+00:01:15.000 --> 00:01:18.000
+and then, we need to push a version of the game over to the
+
+23
+00:01:18.000 --> 00:01:21.000
+Client, that's exactly the same, so that all of the
+
+24
+00:01:21.000 --> 00:01:24.000
+resources and all of the assets, everything must match.
+
+25
+00:01:24.000 --> 00:01:27.000
+Just like when you're playing a multiplayer game with other people, you
+
+26
+00:01:27.000 --> 00:01:30.000
+need to make sure you have the same version of the game. So, I'm going to
+
+27
+00:01:30.000 --> 00:01:33.000
+talk about how we're going to do that! I'm opting
+
+28
+00:01:33.000 --> 00:01:36.000
+to use DropBox, but as I said
+
+29
+00:01:36.000 --> 00:01:39.000
+in the overview, there are other options. You could use Version
+
+30
+00:01:39.000 --> 00:01:42.000
+Control, such as GIT or SVN, etc., and then, check
+
+31
+00:01:42.000 --> 00:01:45.000
+in and check out on the other machine. You could use a shared
+
+32
+00:01:45.000 --> 00:01:48.000
+folder or a network drive, but the important thing is
+
+33
+00:01:48.000 --> 00:01:51.000
+that you make all your changes on your master, the machine you're coding on,
+
+34
+00:01:51.000 --> 00:01:54.000
+which will also be the Host and then that you are
+
+35
+00:01:54.000 --> 00:01:57.000
+aware of when those changes propagate over to the Client
+
+36
+00:01:57.000 --> 00:02:00.000
+Machine. So, I'm going to use DropBox for this, so let's see
+
+37
+00:02:00.000 --> 00:02:03.000
+how I do that. So, here in Unity I'm going to quit, make sure
+
+38
+00:02:03.000 --> 00:02:06.000
+Unity is fully closed, before I go and move it's project folder.
+
+39
+00:02:06.000 --> 00:02:09.000
+Then, I'm going to go and find it's Project Folder. Now, in my case, that's
+
+40
+00:02:09.000 --> 00:02:12.000
+in Repos, UnityCourse, 11 Ahoy Matey.
+
+41
+00:02:12.000 --> 00:02:15.000
+There it is! OK, and I'm going to move that project folder,
+
+42
+00:02:15.000 --> 00:02:18.000
+simply move it into DropBox. So, there it is!
+
+43
+00:02:18.000 --> 00:02:21.000
+Now, it is in DropBox now, Ahoy Matey,
+
+44
+00:02:21.000 --> 00:02:24.000
+and it is syncing. If we look at the DropBox Sync Client, it says downloading
+
+45
+00:02:24.000 --> 00:02:27.000
+the files list and various other things,
+
+46
+00:02:27.000 --> 00:02:30.000
+but you can see that there's a logo here that suggests it's still syncing.
+
+47
+00:02:30.000 --> 00:02:33.000
+So, before I go over to the PC, I want to
+
+48
+00:02:33.000 --> 00:02:36.000
+check a setting. I want you to go into Preferences of DropBox, if you're using DropBox,
+
+49
+00:02:36.000 --> 00:02:39.000
+and just make sure under Network that LAN Sync is on,
+
+50
+00:02:39.000 --> 00:02:42.000
+on both machines both PC's both Macs, both machines,
+
+51
+00:02:42.000 --> 00:02:45.000
+because that will allow the files to not only
+
+52
+00:02:45.000 --> 00:02:48.000
+be sent up to the web but to be synced over the network.
+
+53
+00:02:48.000 --> 00:02:51.000
+Now, I actually have this under Version Control, all this stuff,
+
+54
+00:02:51.000 --> 00:02:54.000
+there is a GIT repository here as well, and it's not the best
+
+55
+00:02:54.000 --> 00:02:57.000
+idea to have a GIT repository also in DropBox but I've done some testing and
+
+56
+00:02:57.000 --> 00:03:00.000
+it seems to work fine. So, we're just using DropBox to get this
+
+57
+00:03:00.000 --> 00:03:03.000
+file from the PC here, and the Mac rather, over to the PC.
+
+58
+00:03:03.000 --> 00:03:06.000
+So here I am, on the PC! Ooh! Hah! Two sets of
+
+59
+00:03:06.000 --> 00:03:09.000
+Start Menus, let's try and get the PC Start Menu.
+
+60
+00:03:09.000 --> 00:03:12.000
+It's going to be tricky, this is going to be fun! OK, so there we
+
+61
+00:03:12.000 --> 00:03:15.000
+go! Maybe I'll put the PC's Menu along the side of the screen, for
+
+62
+00:03:15.000 --> 00:03:18.000
+future videos. You can see on the PC that the DropBox is still
+
+63
+00:03:18.000 --> 00:03:21.000
+syncing. Remember on your PC to check
+
+64
+00:03:21.000 --> 00:03:24.000
+the DropBox settings, to make sure that you actually have your
+
+65
+00:03:24.000 --> 00:03:27.000
+LAN Sync enabled on the PC as well.
+
+66
+00:03:27.000 --> 00:03:30.000
+So, that would be over here on a PC, if you're using DropBox
+
+67
+00:03:30.000 --> 00:03:33.000
+Preferences, and I'm not sure
+
+68
+00:03:33.000 --> 00:03:36.000
+where. Probably Band Width and then Enable LAN
+
+69
+00:03:36.000 --> 00:03:39.000
+Sync. There you go, that's the PC! Perfect! So, once this
+
+70
+00:03:39.000 --> 00:03:42.000
+is finished, we can have the project
+
+71
+00:03:42.000 --> 00:03:45.000
+open on both machines. So, I'm going to go to the Mac and just open
+
+72
+00:03:45.000 --> 00:03:48.000
+it on the Mac first. I've got a Game.unity file.
+
+73
+00:03:48.000 --> 00:03:51.000
+So you, as a minimum, need to just have an empty scene with
+
+74
+00:03:51.000 --> 00:03:54.000
+the name and that's what I want you to sync across.
+
+75
+00:03:54.000 --> 00:03:57.000
+So, I've got this thing called Game here.
+
+76
+00:03:57.000 --> 00:04:00.000
+And what I'm going to do is wait over on the PC for the DropBox
+
+77
+00:04:00.000 --> 00:04:03.000
+sync to finish, it shouldn't be very long. Then, open the project.
+
+78
+00:04:03.000 --> 00:04:06.000
+There you go, it's finished! Assets, Game,
+
+79
+00:04:06.000 --> 00:04:09.000
+and here comes Unity, opening up obediently
+
+80
+00:04:09.000 --> 00:04:12.000
+for us, and we see the same thing! Great!
+
+81
+00:04:12.000 --> 00:04:15.000
+So, we have the same file
+
+82
+00:04:15.000 --> 00:04:18.000
+on both machines, the same Unity Project. Let's try just adding something.
+
+83
+00:04:18.000 --> 00:04:21.000
+You don't necessarily need to follow along with this right now,
+
+84
+00:04:21.000 --> 00:04:24.000
+by the way, you can just watch me. I'm going to give you a challenge to do
+
+85
+00:04:24.000 --> 00:04:27.000
+all this, in just a moment or to catch up. So,
+
+86
+00:04:27.000 --> 00:04:30.000
+I'm going to put a cube at the origin, quite simply, in my
+
+87
+00:04:30.000 --> 00:04:33.000
+project over on my Host my Mac. I'm going to save it to the disk,
+
+88
+00:04:33.000 --> 00:04:36.000
+the little dot has gone away. I'm going to go back
+
+89
+00:04:36.000 --> 00:04:39.000
+to the PC and see what happens.
+
+90
+00:04:39.000 --> 00:04:42.000
+So, Unity is quite good at detecting
+
+91
+00:04:42.000 --> 00:04:45.000
+changes in the File System and actually updating the project.
+
+92
+00:04:45.000 --> 00:04:48.000
+So, if we watch over here in DropBox,
+
+93
+00:04:48.000 --> 00:04:51.000
+we should find that this syncs through
+
+94
+00:04:51.000 --> 00:04:54.000
+and changes. Let's see how DropBox is doing. OK,
+
+95
+00:04:54.000 --> 00:04:57.000
+there you go! Unity says "The open scene has been modified"
+
+96
+00:04:57.000 --> 00:05:00.000
+reload. And that's fine, there's our cube! You see
+
+97
+00:05:00.000 --> 00:05:03.000
+what I've done there? I've just added a cube on the Mac., it is saved to the File
+
+98
+00:05:03.000 --> 00:05:06.000
+System, DropBox has synced it across, or you could use your shared
+
+99
+00:05:06.000 --> 00:05:09.000
+folder or you could make a commit, and here over on the
+
+100
+00:05:09.000 --> 00:05:12.000
+PC or my Client version, the cube has
+
+101
+00:05:12.000 --> 00:05:15.000
+appeared. So, what I want you to do now is, simply to make sure this is
+
+102
+00:05:15.000 --> 00:05:18.000
+all working for you, I want you to get your Client copy working. Setup your Client,
+
+103
+00:05:18.000 --> 00:05:21.000
+this can be a build or a different machine.
+
+104
+00:05:21.000 --> 00:05:24.000
+If you're going to do a build, then I'll show you that in the solution
+
+105
+00:05:24.000 --> 00:05:27.000
+briefly. And then, add a second cube to the scene and check that
+
+106
+00:05:27.000 --> 00:05:30.000
+this change propagates to the Client.
+
+107
+00:05:30.000 --> 00:05:33.000
+So go ahead, pause the video, and make sure you can propagate changes
+
+108
+00:05:33.000 --> 00:05:36.000
+to your Client version.
+
+109
+00:05:36.000 --> 00:05:39.000
+Cool! Welcome back! So, let's just check this. I'm very confident this
+
+110
+00:05:39.000 --> 00:05:42.000
+will work, so let's just add another cube. It can
+
+111
+00:05:42.000 --> 00:05:45.000
+be maybe at a position of, I don't know, maybe
+
+112
+00:05:45.000 --> 00:05:48.000
+two meters away three meters away? That'll do! As long
+
+113
+00:05:48.000 --> 00:05:51.000
+as I save to the disk and then go back to the PC and wait.
+
+114
+00:05:51.000 --> 00:05:54.000
+We're waiting firstly for the Host Machine, the
+
+115
+00:05:54.000 --> 00:05:57.000
+Mac in my case, to upload to DropBox. Now, it
+
+116
+00:05:57.000 --> 00:06:00.000
+doesn't have to get the file entirely to the web, because LAN
+
+117
+00:06:00.000 --> 00:06:03.000
+Sync is on. Hopefully it will come across the LAN quicker.
+
+118
+00:06:03.000 --> 00:06:06.000
+And then, in a moment, it'll arrive
+
+119
+00:06:06.000 --> 00:06:09.000
+on the PC, then Unity will go hey, something about this file
+
+120
+00:06:09.000 --> 00:06:12.000
+has changed. It's important that you don't change anything on the
+
+121
+00:06:12.000 --> 00:06:15.000
+Client version, we just do testing on the Client.
+
+122
+00:06:15.000 --> 00:06:18.000
+You do all you're coding over here, on the Host
+
+123
+00:06:18.000 --> 00:06:21.000
+Machine, that's really important! So there's a one way flow of
+
+124
+00:06:21.000 --> 00:06:24.000
+file information and game distribution, if you like, from the
+
+125
+00:06:24.000 --> 00:06:27.000
+Host to the Client. So,
+
+126
+00:06:27.000 --> 00:06:30.000
+is this going to notice the change? It should do it
+
+127
+00:06:30.000 --> 00:06:33.000
+in a moment.
+
+128
+00:06:33.000 --> 00:06:36.000
+Try playing, see if that knocks it
+
+129
+00:06:36.000 --> 00:06:39.000
+into noticing. No. So, if you're not sure, of course, you can check the
+
+130
+00:06:39.000 --> 00:06:42.000
+status of the DropBox sync here.
+
+131
+00:06:42.000 --> 00:06:45.000
+Here it is! I have ticks, I'm
+
+132
+00:06:45.000 --> 00:06:48.000
+not seeing any changes. So, this could... There you go!
+
+133
+00:06:48.000 --> 00:06:51.000
+So, I don't know whether looking at the file prompted it
+
+134
+00:06:51.000 --> 00:06:54.000
+to action or whether it was just time. I think it was just time!
+
+135
+00:06:54.000 --> 00:06:57.000
+Great! So, you may be better off using a shared folder, for example.
+
+136
+00:06:57.000 --> 00:07:00.000
+Well, that's another option for you. So, we're in sync,
+
+137
+00:07:00.000 --> 00:07:03.000
+that's fantastic! What's this business about working into a build?
+
+138
+00:07:03.000 --> 00:07:06.000
+Let's just try that! Let's make a build
+
+139
+00:07:06.000 --> 00:07:09.000
+and we'd add the current scene and it'd be a Mac PC Standalone,
+
+140
+00:07:09.000 --> 00:07:12.000
+for example. And I could make a folder
+
+141
+00:07:12.000 --> 00:07:15.000
+called Builds and I could call it Mac,
+
+142
+00:07:15.000 --> 00:07:18.000
+just Mac
+
+143
+00:07:18.000 --> 00:07:21.000
+or Ahoy Matey
+
+144
+00:07:21.000 --> 00:07:24.000
+Mac. There you go!
+
+145
+00:07:24.000 --> 00:07:27.000
+So, in this case, if you're going to be working to a
+
+146
+00:07:27.000 --> 00:07:30.000
+Local Build, then clearly
+
+147
+00:07:30.000 --> 00:07:33.000
+anything that you do when you do the build will
+
+148
+00:07:33.000 --> 00:07:36.000
+arrive in the build, right. So anything I've done to this
+
+149
+00:07:36.000 --> 00:07:39.000
+scene, after I've said build, will
+
+150
+00:07:39.000 --> 00:07:42.000
+go over to the Build Folder and work. So, if I now go and run this
+
+151
+00:07:42.000 --> 00:07:45.000
+Ahoy Matey Mac, at any resolution.
+
+152
+00:07:45.000 --> 00:07:48.000
+Then, I need to just get this on a different screen.
+
+153
+00:07:48.000 --> 00:07:51.000
+That'll be a second.
+
+154
+00:07:51.000 --> 00:07:54.000
+Let's try again! Ahoy Matey Mac,
+
+155
+00:07:54.000 --> 00:07:57.000
+Windowed,
+
+156
+00:07:57.000 --> 00:08:00.000
+and that allows me to bring this down, "made with Unity".
+
+157
+00:08:00.000 --> 00:08:03.000
+And of course, there is my scene,
+
+158
+00:08:03.000 --> 00:08:06.000
+only in Game View of course. So now, if you were to make
+
+159
+00:08:06.000 --> 00:08:09.000
+another change, over in your Host, like say delete this cube,
+
+160
+00:08:09.000 --> 00:08:12.000
+which I'm going to do anyways, so go ahead and delete your second
+
+161
+00:08:12.000 --> 00:08:15.000
+cube. Then, of course the way that
+
+162
+00:08:15.000 --> 00:08:18.000
+you get that to your Client, if you're using this way of working, is
+
+163
+00:08:18.000 --> 00:08:21.000
+simply Build & Run again, and then, you create
+
+164
+00:08:21.000 --> 00:08:24.000
+a new Client, without the cube.
+
+165
+00:08:24.000 --> 00:08:27.000
+Alright, which stands to reason. So then, your build goes away,
+
+166
+00:08:27.000 --> 00:08:30.000
+and when you rerun it
+
+167
+00:08:33.000 --> 00:08:36.000
+of course, the cube isn't there, which is
+
+168
+00:08:36.000 --> 00:08:39.000
+fairly obvious that if you rebuild the game without the cube. I just
+
+169
+00:08:39.000 --> 00:08:42.000
+want to make you realize that these two things are equivalent . I'm going
+
+170
+00:08:42.000 --> 00:08:45.000
+to be working Unity Editor to Unity Editor,
+
+171
+00:08:45.000 --> 00:08:48.000
+because that is much quicker and easier than constantly building, so I'll be
+
+172
+00:08:48.000 --> 00:08:51.000
+working from here, over to the PC. Talking about the PC is
+
+173
+00:08:51.000 --> 00:08:54.000
+the final thing, before I go away. I want to make sure that now that I've saved
+
+174
+00:08:54.000 --> 00:08:57.000
+this. Have I saved it? I have now! On the
+
+175
+00:08:57.000 --> 00:09:00.000
+Mac, I want to make sure that change propagates to the PC, without me
+
+176
+00:09:00.000 --> 00:09:03.000
+doing anything. I'm just going to take my hands off and let that happen.
+
+177
+00:09:03.000 --> 00:09:06.000
+In the mean while, get your environment all setup,
+
+178
+00:09:06.000 --> 00:09:09.000
+and make sure that you can effectively deploy your game. That's what we're doing
+
+179
+00:09:09.000 --> 00:09:12.000
+here, we're just manually deploying our game for testing purposes,
+
+180
+00:09:12.000 --> 00:09:15.000
+so that we have the same thing on the Mac and the PC or the Host
+
+181
+00:09:15.000 --> 00:09:18.000
+and the Client. You may wonder why it matters that we
+
+182
+00:09:18.000 --> 00:09:21.000
+have the same thing. The reason is that in a multiplayer
+
+183
+00:09:21.000 --> 00:09:24.000
+game, the assets aren't actually pushed over the Network,
+
+184
+00:09:24.000 --> 00:09:27.000
+so if you have some complicated animation or music
+
+185
+00:09:27.000 --> 00:09:30.000
+or anything like that, they're not pushed over the Network. They need to be
+
+186
+00:09:30.000 --> 00:09:33.000
+available in both copies of the game, which is why
+
+187
+00:09:33.000 --> 00:09:36.000
+two discs when you buy a PS4 game, for example, have
+
+188
+00:09:36.000 --> 00:09:39.000
+you know the same amount of stuff on them. It's not as if you host the
+
+189
+00:09:39.000 --> 00:09:42.000
+game and you send all the assets streaming down the network, it doesn't work like that.
+
+190
+00:09:42.000 --> 00:09:45.000
+What you do is you send Network ID's, which we'll
+
+191
+00:09:45.000 --> 00:09:48.000
+find out about later, streaming down the network,
+
+192
+00:09:48.000 --> 00:09:51.000
+and those Network ID's tell the Client,
+
+193
+00:09:51.000 --> 00:09:54.000
+this thing over here on the PC, what assets to load
+
+194
+00:09:54.000 --> 00:09:57.000
+into the game. So, that's why we need to have an
+
+195
+00:09:57.000 --> 00:10:00.000
+identical copy of the game on both machines. It
+
+196
+00:10:00.000 --> 00:10:03.000
+means that we can send just information about how things are changing, down the
+
+197
+00:10:03.000 --> 00:10:06.000
+network, not the whole lot. So, I've talked
+
+198
+00:10:06.000 --> 00:10:09.000
+about that for a while, and the Unity over on the PC
+
+199
+00:10:09.000 --> 00:10:12.000
+still hasn't updated, so something has
+
+200
+00:10:12.000 --> 00:10:15.000
+to kick this into action, by the looks of it. It seems that just
+
+201
+00:10:15.000 --> 00:10:18.000
+going to the folder on the PC and just having a look at it,
+
+202
+00:10:18.000 --> 00:10:21.000
+seems to kick DropBox or Unity into
+
+203
+00:10:21.000 --> 00:10:24.000
+action there. So, maybe you have that quirk as well,
+
+204
+00:10:24.000 --> 00:10:27.000
+that you just need to go and have a look at the folder. I don't know
+
+205
+00:10:27.000 --> 00:10:30.000
+perhaps that's what you need to do. So, that's it! Hopefully you're
+
+206
+00:10:30.000 --> 00:10:33.000
+up and running! Share in the comments to say, yep I've got it working,
+
+207
+00:10:33.000 --> 00:10:36.000
+and I can deploy a version between two machines. And then, we'll crack on
+
+208
+00:10:36.000 --> 00:10:39.000
+with actually making behavior work over the network! See you
+
+209
+00:10:39.000 --> 00:10:41.200
+soon!
+

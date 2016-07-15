@@ -1,0 +1,614 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hey so it's time for you to build and
+
+2
+00:00:06.000 --> 00:00:09.000
+share your levels now! We can't wait to see what you make, in
+
+3
+00:00:09.000 --> 00:00:12.000
+the discussions. See if you can be the first person to get
+
+4
+00:00:12.000 --> 00:00:15.000
+it there, or if there are already lots of games there, see if you can beat what's
+
+5
+00:00:15.000 --> 00:00:18.000
+already there. So, in this lecture we're going to revise
+
+6
+00:00:18.000 --> 00:00:21.000
+your game window. We're going to tell you how to tweak your
+
+7
+00:00:21.000 --> 00:00:24.000
+sound levels. We're going to do a little test web build.
+
+8
+00:00:24.000 --> 00:00:27.000
+We're going to revise building and sharing to the web, and the, we'll look
+
+9
+00:00:27.000 --> 00:00:30.000
+forward to seeing what you make. So firstly, how do we change
+
+10
+00:00:30.000 --> 00:00:33.000
+the relative sound levels? Well, here are your three places.
+
+11
+00:00:33.000 --> 00:00:36.000
+Number one, the Master Volume, you can change at: Edit &gt; Project Setting &gt;
+
+12
+00:00:36.000 --> 00:00:39.000
+Audio. Let's take a little sneak
+
+13
+00:00:39.000 --> 00:00:42.000
+peak at that, shall we! Edit, Project Settings, Audio.
+
+14
+00:00:42.000 --> 00:00:45.000
+There you go!
+
+15
+00:00:45.000 --> 00:00:48.000
+And here you have Volume. I've got mine set down to 0.25,
+
+16
+00:00:48.000 --> 00:00:51.000
+you might like yours at... You probably want to start at 1,
+
+17
+00:00:51.000 --> 00:00:54.000
+to be honest, so maybe you want that as 1, and then, only turn it down
+
+18
+00:00:54.000 --> 00:00:57.000
+if you have a specific reason to. So,
+
+19
+00:00:57.000 --> 00:01:00.000
+1 is fine, and then, you can see that, that just makes everything
+
+20
+00:01:00.000 --> 00:01:03.000
+loud or quiet. Cool! So, that's the first thing.
+
+21
+00:01:03.000 --> 00:01:06.000
+And then, so what's the next thing that we can
+
+22
+00:01:06.000 --> 00:01:09.000
+change? Well, the "Boing" sound needs
+
+23
+00:01:09.000 --> 00:01:12.000
+to be changed on the Ball Prefab, on the AudioSource.
+
+24
+00:01:12.000 --> 00:01:15.000
+Let's take a look at that! Ball Prefab, Audio
+
+25
+00:01:15.000 --> 00:01:18.000
+Source, and then,
+
+26
+00:01:18.000 --> 00:01:21.000
+here Volume. OK, so I'll leave my Boing as say
+
+27
+00:01:21.000 --> 00:01:24.000
+at 0.51. So, you've got a Master Volume,
+
+28
+00:01:24.000 --> 00:01:27.000
+no particular reason for you to turn that down, I don't think, unless you want to a
+
+29
+00:01:27.000 --> 00:01:30.000
+quiet game. You've got the volume of the Boing here.
+
+30
+00:01:30.000 --> 00:01:33.000
+You've also, and I haven't put it on the slide, but you've
+
+31
+00:01:33.000 --> 00:01:36.000
+also got the sound of the
+
+32
+00:01:36.000 --> 00:01:39.000
+Music Player, and that again, you go Music Player,
+
+33
+00:01:39.000 --> 00:01:42.000
+which is the instance here. And then, Volume and that's
+
+34
+00:01:42.000 --> 00:01:45.000
+at 0.25, that's the same technique,
+
+35
+00:01:45.000 --> 00:01:48.000
+and then, the final thing you're going to want to be able to change is possibly
+
+36
+00:01:48.000 --> 00:01:51.000
+the volume of the "Crack" sound.
+
+37
+00:01:51.000 --> 00:01:54.000
+Now, if you click on this reference to the AudioSource
+
+38
+00:01:54.000 --> 00:01:57.000
+PlayClipAtPoint source, you'll find that
+
+39
+00:01:57.000 --> 00:02:00.000
+we have another parameter we're not using, which is the Volume.
+
+40
+00:02:00.000 --> 00:02:03.000
+So, the way you would change the Crack is, you would come into Brick.cs
+
+41
+00:02:03.000 --> 00:02:06.000
+and here you would say play Crack, at this
+
+42
+00:02:06.000 --> 00:02:09.000
+position and say 0.8f);
+
+43
+00:02:09.000 --> 00:02:12.000
+float. And then, when you build, when you run the game,
+
+44
+00:02:12.000 --> 00:02:15.000
+you'll find that all those things, the Music
+
+45
+00:02:15.000 --> 00:02:18.000
+Volume, the Crack Volume,
+
+46
+00:02:18.000 --> 00:02:21.000
+and the Boing Volume, you can customize. So,
+
+47
+00:02:21.000 --> 00:02:24.000
+please consider making your own sounds. Just simply make
+
+48
+00:02:24.000 --> 00:02:27.000
+your own .mp3's or .ogg's or
+
+49
+00:02:27.000 --> 00:02:30.000
+whatever you like, and stick it in here and
+
+50
+00:02:30.000 --> 00:02:33.000
+replace these sounds. Make sure they're not 3D when you bring them
+
+51
+00:02:33.000 --> 00:02:36.000
+in, otherwise they may be very quiet and unpredictable.
+
+52
+00:02:36.000 --> 00:02:39.000
+And then, we really want your to make your own scenes now. Just
+
+53
+00:02:39.000 --> 00:02:42.000
+lots of scenes with lots of nice, different background images, and crucially,
+
+54
+00:02:42.000 --> 00:02:45.000
+lots of different block layouts. I suggest as the levels
+
+55
+00:02:45.000 --> 00:02:48.000
+go on, you make them harder and that you introduce
+
+56
+00:02:48.000 --> 00:02:51.000
+new block types. You may want Level 1 to just have yellow.
+
+57
+00:02:51.000 --> 00:02:54.000
+Level 2 maybe has two types, three,
+
+58
+00:02:54.000 --> 00:02:57.000
+you know three types, however you like!
+
+59
+00:02:57.000 --> 00:03:00.000
+I've done it slightly differently to that. Get creative!
+
+60
+00:03:00.000 --> 00:03:03.000
+Get making some cool stuff right now! You know, play with
+
+61
+00:03:03.000 --> 00:03:06.000
+how transparent the background image is. So, my background here
+
+62
+00:03:06.000 --> 00:03:09.000
+is probably too...
+
+63
+00:03:09.000 --> 00:03:12.000
+...probably too alpha, I can't really see it at all. So, I could bring it up,
+
+64
+00:03:12.000 --> 00:03:15.000
+make it a bit more pleasant. Just tweak, play,
+
+65
+00:03:15.000 --> 00:03:18.000
+enjoy! Alright, so the next thing I want to do is remind
+
+66
+00:03:18.000 --> 00:03:21.000
+you that when you're testing inside Unity,
+
+67
+00:03:21.000 --> 00:03:24.000
+this Game Window here, you want to set it to
+
+68
+00:03:24.000 --> 00:03:27.000
+800 by 600, if that's going to be our target build.
+
+69
+00:03:27.000 --> 00:03:30.000
+Now, when it says, using resolution that, that means that
+
+70
+00:03:30.000 --> 00:03:33.000
+currently this thing is too small for it to show the full resolution. So, you could
+
+71
+00:03:33.000 --> 00:03:36.000
+detach your Game Window, and it can be tricky to detach
+
+72
+00:03:36.000 --> 00:03:39.000
+it, you have to fiddle around until it snaps out. I'm having real trouble
+
+73
+00:03:39.000 --> 00:03:42.000
+now. Oh, there it is! OK, and then you could,
+
+74
+00:03:42.000 --> 00:03:45.000
+at that point, make it bigger than 800 by 600,
+
+75
+00:03:45.000 --> 00:03:48.000
+and so it stops moaning. There you go! And then, this is a great
+
+76
+00:03:48.000 --> 00:03:51.000
+place! By the way, there's a nice keyboard shortcut, Command or Control P,
+
+77
+00:03:51.000 --> 00:03:54.000
+to start playing. And this is a much better place to test
+
+78
+00:03:54.000 --> 00:03:57.000
+your game, so this will give you a very good idea about
+
+79
+00:03:57.000 --> 00:04:00.000
+the sounds and the look the your game and the playability.
+
+80
+00:04:00.000 --> 00:04:03.000
+Then, what you're going to want to do is actually
+
+81
+00:04:03.000 --> 00:04:06.000
+build this for the web, and do a test build to start with.
+
+82
+00:04:06.000 --> 00:04:09.000
+So, go to Build Settings.
+
+83
+00:04:09.000 --> 00:04:12.000
+You want to make sure all your scenes are in here, starting at Start
+
+84
+00:04:12.000 --> 00:04:15.000
+and going through the levels in order, then, Win then Lose.
+
+85
+00:04:15.000 --> 00:04:18.000
+Then, you want to go to Web Player Settings, and I'm going to
+
+86
+00:04:18.000 --> 00:04:21.000
+make 800 by 600 my target revolution. [Laughs]
+
+87
+00:04:21.000 --> 00:04:24.000
+Resolution, revolution. [Laughs at Fumbleing Words] I'm going to go for a black
+
+88
+00:04:24.000 --> 00:04:27.000
+background, I think and that's it! So,
+
+89
+00:04:27.000 --> 00:04:30.000
+800 by 600, black background. I'm
+
+90
+00:04:30.000 --> 00:04:33.000
+going for and I'm going to Build And Run now.
+
+91
+00:04:33.000 --> 00:04:36.000
+Now, it's going to say, where do you want me to put that? Downloads is OK.
+
+92
+00:04:36.000 --> 00:04:39.000
+It's going to compile the scripts
+
+93
+00:04:39.000 --> 00:04:42.000
+build. Hopefully you get no errors at this point. If you do get errors,
+
+94
+00:04:42.000 --> 00:04:45.000
+at this point, try and work out the error
+
+95
+00:04:45.000 --> 00:04:48.000
+yourself and then, if you're not sure ask in the discussions.
+
+96
+00:04:48.000 --> 00:04:51.000
+Then, you'll end up with a web build running in your browser, like this! You may have
+
+97
+00:04:51.000 --> 00:04:54.000
+to allow your plugin to run.
+
+98
+00:04:54.000 --> 00:04:57.000
+This is the real test of whether it's going to run in the browser properly.
+
+99
+00:04:57.000 --> 00:05:00.000
+[Music &amp; Sound Effects Playing in Background]
+
+100
+00:05:00.000 --> 00:05:03.000
+So, is it running properly? Well it is, but my
+
+101
+00:05:03.000 --> 00:05:06.000
+screen is too small, because I'm broadcasting
+
+102
+00:05:06.000 --> 00:05:09.000
+to you and 720 pixels. It's a little bit to small to be able to
+
+103
+00:05:09.000 --> 00:05:12.000
+see what's going on. So, if I was
+
+104
+00:05:12.000 --> 00:05:15.000
+to go full screen on this, then we should be OK.
+
+105
+00:05:15.000 --> 00:05:18.000
+View, Enter Full Screen.
+
+106
+00:05:18.000 --> 00:05:21.000
+It may just be OK. Actually, I'm not
+
+107
+00:05:21.000 --> 00:05:24.000
+sure. Yeah, I've just got 600 pixels left, with all these Menu Bars.
+
+108
+00:05:24.000 --> 00:05:27.000
+I think I could...
+
+109
+00:05:27.000 --> 00:05:30.000
+I could probably get rid of my bookmark bar
+
+110
+00:05:30.000 --> 00:05:33.000
+and that would help a little bit. There you go!
+
+111
+00:05:33.000 --> 00:05:36.000
+[Sound Effects Play] And the web build seems to be working.
+
+112
+00:05:36.000 --> 00:05:39.000
+So, once you're happy with your web build, like that, go back
+
+113
+00:05:39.000 --> 00:05:42.000
+into Unity,
+
+114
+00:05:42.000 --> 00:05:45.000
+and well, if the build you just did
+
+115
+00:05:45.000 --> 00:05:48.000
+to the File System was OK, you are good to go. Even
+
+116
+00:05:48.000 --> 00:05:51.000
+if it was called test. So, I would probably save everything in Unity,
+
+117
+00:05:51.000 --> 00:05:54.000
+so you can even quit Unity at this stage
+
+118
+00:05:54.000 --> 00:05:57.000
+and you can quite MonoDevelop. Everything will be saved,
+
+119
+00:05:57.000 --> 00:06:00.000
+and then, you need to go and find that thing, that Test
+
+120
+00:06:00.000 --> 00:06:03.000
+Folder, in my case. So, now is a good time to
+
+121
+00:06:03.000 --> 00:06:06.000
+rename your folder, because when you share with GameBuck.io
+
+122
+00:06:06.000 --> 00:06:09.000
+it'll be this folder name that it uses in the URL.
+
+123
+00:06:09.000 --> 00:06:12.000
+So, I'm going to call it Block Breaker. You can call yours
+
+124
+00:06:12.000 --> 00:06:15.000
+whatever you like. So, there you go! My folder is called Block
+
+125
+00:06:15.000 --> 00:06:18.000
+Breaker, and inside, it doesn't really matter what the files are inside.
+
+126
+00:06:18.000 --> 00:06:21.000
+In this case, they're test.html. And test.unity
+
+127
+00:06:21.000 --> 00:06:24.000
+because that's the name we give it, when we export it. That's all just fine!
+
+128
+00:06:24.000 --> 00:06:27.000
+So, what you do, as before very quickly, is we just compress
+
+129
+00:06:27.000 --> 00:06:30.000
+the whole folder. Go to www.gamebucket.io,
+
+130
+00:06:30.000 --> 00:06:33.000
+Upload the folder.
+
+131
+00:06:36.000 --> 00:06:39.000
+You'll see that the URL, when it comes back,
+
+132
+00:06:39.000 --> 00:06:42.000
+contains the name of the folder.
+
+133
+00:06:42.000 --> 00:06:45.000
+It's going to take a little while to upload, because it's a bigger
+
+134
+00:06:45.000 --> 00:06:48.000
+game. Here you go, the Block Breaker. The percent 20, as a
+
+135
+00:06:48.000 --> 00:06:51.000
+space, is there in the URL. Now as before, remember
+
+136
+00:06:51.000 --> 00:06:54.000
+test properly in incognito,
+
+137
+00:06:54.000 --> 00:06:57.000
+Private Window Mode. Here you go! Make sure
+
+138
+00:06:57.000 --> 00:07:00.000
+that it's nothing to do with you being logged into anything. Make
+
+139
+00:07:00.000 --> 00:07:03.000
+sure it works, make sure it fits. All the sound balances OK.
+
+140
+00:07:03.000 --> 00:07:06.000
+Then, you've got your URL, copy that URL.
+
+141
+00:07:06.000 --> 00:07:09.000
+I suggest you keep the browser open, because we don't want to lose it.
+
+142
+00:07:09.000 --> 00:07:12.000
+And as before, go into the discussions
+
+143
+00:07:12.000 --> 00:07:15.000
+in Udemy and
+
+144
+00:07:15.000 --> 00:07:18.000
+share your game, on the discussions and on
+
+145
+00:07:18.000 --> 00:07:21.000
+Facebook. So, in this video we've covered
+
+146
+00:07:21.000 --> 00:07:24.000
+revising setting your game window, so that you can preview
+
+147
+00:07:24.000 --> 00:07:27.000
+the effect of your resolution. We've tweaked the sound levels,
+
+148
+00:07:27.000 --> 00:07:30.000
+in various different places. We did a test web build
+
+149
+00:07:30.000 --> 00:07:33.000
+and played it locally. We revised building and sharing to
+
+150
+00:07:33.000 --> 00:07:36.000
+the web, using www.gamebucket.io and that's it!
+
+151
+00:07:36.000 --> 00:07:39.000
+We really really look forward to seeing your levels. Change the music,
+
+152
+00:07:39.000 --> 00:07:42.000
+change the sound, put some instructions on, build lots of new
+
+153
+00:07:42.000 --> 00:07:45.000
+levels, and share share share! See you soon!
+

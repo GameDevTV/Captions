@@ -1,0 +1,928 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:10.019
+Hey, welcome back. In this video we're gonna be making your
+first test pass. So we're going to set up
+
+00:00:10.019 --> 00:00:16.039
+ActionMaster.cs as a new class;
+write our first real test code; code the
+
+00:00:16.039 --> 00:00:21.150
+solution until the test passes and then
+we'll refactor. So let's dive into unity
+
+00:00:21.150 --> 00:00:26.599
+and recap where we are just briefly; so
+the game is fine, it's doing ok it's a kind of space
+
+00:00:26.599 --> 00:00:30.900
+bowling games a few issues like if the
+ball falls of the space it doesn't
+
+00:00:30.900 --> 00:00:34.590
+trigger anything yet we'll sort that out
+a little bit later but for now our main
+
+00:00:34.590 --> 00:00:39.520
+focus is just to get the class that
+can work out whether we should be
+
+00:00:39.520 --> 00:00:46.660
+resetting or tidying written and I'm
+gonna call that class ActionMaster
+
+00:00:46.660 --> 00:00:50.770
+because it's about the action that we do
+after a certain number of pins fall
+
+00:00:50.770 --> 00:00:56.379
+So we'll make a new class ActionMaster, a  new
+script called ActionMaster go ahead and
+
+00:00:56.379 --> 00:01:01.280
+do that now yourself and then open that
+up for me so that you've got your action
+
+00:01:01.280 --> 00:01:05.260
+master brand new empty script available
+to you
+
+00:01:05.260 --> 00:01:10.229
+fan tastic then the other thing we need
+to do is go over to our editor folder and
+
+00:01:10.229 --> 00:01:13.530
+where we had this thing called
+scoremaster test I want you to rename
+
+00:01:13.530 --> 00:01:18.729
+that instead of scoremaster test use
+the refactor tool, so click on the name of
+
+00:01:18.729 --> 00:01:22.659
+the class and do the refactor command or
+control + r and call it
+
+00:01:22.659 --> 00:01:28.610
+actionMaster test because I've had a
+bit of a change of name decision we're
+
+00:01:28.610 --> 00:01:34.400
+going to focus only on getting the right
+reset tidy end game next player whatever
+
+00:01:34.400 --> 00:01:39.090
+message back for now we're not going to
+worry about adding up the frame totals
+
+00:01:39.090 --> 00:01:43.020
+in the scoresheet so you'll see what I
+mean as we go along I like to have my
+
+00:01:43.020 --> 00:01:48.710
+test code first and then my actual
+production code to the right of it, it reminds
+
+00:01:48.710 --> 00:01:52.240
+me that it is test driven development we
+start by writing the test and then we move
+
+00:01:52.240 --> 00:01:58.020
+from left to right in the Western
+convention. Fantastic so we already have
+
+00:01:58.020 --> 00:02:02.540
+a very basic test setup it doesn't talk
+to anything else it just passes and you
+
+00:02:02.540 --> 00:02:07.310
+remember that over in Unity we have here
+this passing tests running remember also
+
+00:02:07.310 --> 00:02:11.180
+this little drop down at the top right
+over here and click Run on
+
+00:02:11.180 --> 00:02:15.959
+compile I find that that turns itself off
+sometimes so occasionally you wanna go check
+
+00:02:15.959 --> 00:02:20.099
+that still on it just saves you clicking
+the run all button every time you make a change
+
+00:02:20.099 --> 00:02:28.480
+to a script. OK fantastic so let's
+firstly as per our red green refactor
+
+00:02:28.480 --> 00:02:33.290
+loop let's start off we need to make
+something red we need to make a test
+
+00:02:33.290 --> 00:02:39.269
+fail so let's do that first let's make
+sure that the first thing is a a test
+
+00:02:39.269 --> 00:02:45.280
+failure. So let's write a test and let's
+call it public void now I'm gonna
+
+00:02:45.280 --> 00:02:52.000
+prefix these T01 for test one just because it
+will appear nicely in the list we could
+
+00:02:52.000 --> 00:02:56.719
+prefix passing test T 00 you'll
+see that they just sort in this list
+
+00:02:56.719 --> 00:03:00.139
+over in Unity then by alphabetical order
+quite nicely making them very easy
+
+00:03:00.139 --> 00:03:04.760
+reference back to the code so it doesn't
+really matter what we do as a first test
+
+00:03:04.760 --> 00:03:10.959
+but for example we know that if you
+bowled a strike in the first in the
+
+00:03:10.959 --> 00:03:16.620
+first instance then what you would want
+to receive back is an end turn message
+
+00:03:16.620 --> 00:03:19.959
+it's it's a new message if you think
+about it but we'll enumerate all
+
+00:03:19.959 --> 00:03:29.729
+the messages in a moment but let's just
+call this test first strike first one
+
+00:03:29.729 --> 00:03:39.920
+strike may be the simplest one strike
+returns end turn
+
+00:03:39.920 --> 00:03:45.830
+so if you bowl a strike in the first bowl
+then it's the end of your turn
+
+00:03:45.830 --> 00:03:51.550
+OK so that's what we are asserting is
+we're going to want to happen so
+
+00:03:51.550 --> 00:03:56.980
+first strike returns end turn so this is
+where we use assert dot
+
+00:03:56.980 --> 00:04:01.230
+are equal; we're going to use that a lot - put your
+brackets and your semicolon in right at
+
+00:04:01.230 --> 00:04:03.310
+the beginning now what
+
+00:04:03.310 --> 00:04:09.280
+well we're gonna want an enum; we're gonna want
+short code access to the enums here that
+
+00:04:09.280 --> 00:04:15.540
+come back from action master so we are
+going to need to set up these enums over
+
+00:04:15.540 --> 00:04:19.370
+in action master so even though it's test
+driven development the problem we're
+
+00:04:19.370 --> 00:04:23.600
+gonna have if we try and write a test
+here we're gonna have two issues we want to
+
+00:04:23.600 --> 00:04:28.610
+say something like end turn equals well it
+isn't even going to let me write end turn easily
+
+00:04:28.610 --> 00:04:31.620
+because it doesn't exist it doesn't
+recognize it but imagine I've written end
+
+00:04:31.620 --> 00:04:37.320
+turn and then I also call let's say
+action master AM for action master or I
+
+00:04:37.320 --> 00:04:41.750
+could just call it action master . again
+I'm going to struggle with the
+
+00:04:41.750 --> 00:04:43.120
+autocomplete here
+
+00:04:43.120 --> 00:04:49.060
+actionMaster . bowl ten. so that's the
+idea; I'm calling the bowl method on
+
+00:04:49.060 --> 00:04:52.390
+action Master but I'm getting a lot of red
+here and it's because it doesn't recognize end
+
+00:04:52.390 --> 00:04:57.830
+turn and it doesn't recognize action master
+dot bowl. So you do you can consider this
+
+00:04:57.830 --> 00:05:01.430
+your first bit of red if you like it's
+not a failing tests but the way this
+
+00:05:01.430 --> 00:05:04.950
+test system works you have to go to
+action master and at least make this
+
+00:05:04.950 --> 00:05:08.760
+statement make sense so how we gonna do
+that we're going to create a method over
+
+00:05:08.760 --> 00:05:19.039
+in action master called bowl so public
+bowl int pins now what does it return it
+
+00:05:19.039 --> 00:05:25.190
+returns an action so something of type
+action. Now be careful because action is
+
+00:05:25.190 --> 00:05:30.960
+already built in or words very similar
+to action are built-in terms inside your
+
+00:05:30.960 --> 00:05:35.479
+environment so we're OK with action but
+be aware that your auto complete has
+
+00:05:35.479 --> 00:05:40.850
+other things similar to action just be
+aware of that so what are we gonna use
+
+00:05:40.850 --> 00:05:43.580
+we need to define an enum so we can make
+it public so they can get to it from the
+
+00:05:43.580 --> 00:05:48.659
+outside it's in enum enumerated list
+it's called action and let's put in our
+
+00:05:48.659 --> 00:05:50.820
+curly braces straight away I like to put it
+
+00:05:50.820 --> 00:05:55.020
+all in one line in this case so that we know
+where we're putting them. So what are the
+
+00:05:55.020 --> 00:05:59.060
+possible return states? Regardless of what
+our design diagram said before let's
+
+00:05:59.060 --> 00:06:00.890
+think about it carefully now
+
+00:06:00.890 --> 00:06:07.500
+well one thing is a tidy; one thing
+is a reset so what's the difference between a
+
+00:06:07.500 --> 00:06:11.710
+tidy and a recent remember that the tidy
+lifts the pins up put's them down again, reset
+
+00:06:11.710 --> 00:06:14.140
+creates new pins altogether.
+
+00:06:14.140 --> 00:06:18.590
+We've also got end turn which means
+that my turn is over we need to switch
+
+00:06:18.590 --> 00:06:22.820
+to the other player so you will normally
+have end turns you'll only do reset in the
+
+00:06:22.820 --> 00:06:28.310
+13th in the final frame rather when you
+do for instance a striking and you get
+
+00:06:28.310 --> 00:06:32.030
+awarded an extra go then you'll
+get a reset on your turn
+
+00:06:32.030 --> 00:06:36.030
+normally it would be end turn which means
+do a reset but switch control to the other
+
+00:06:36.030 --> 00:06:41.660
+player and the other factor we can have
+his end game so you could enumerate
+
+00:06:41.660 --> 00:06:46.370
+these all yourself by thinking it through
+now or another approach would be just
+
+00:06:46.370 --> 00:06:49.840
+put in all you need for now and build
+this list as you go because I know where
+
+00:06:49.840 --> 00:06:53.970
+we're going with this I'm gonna put them
+all in but strictly to pass this test all
+
+00:06:53.970 --> 00:06:58.160
+you're going to need is the end turn. Now
+why are all of these in capitals and this little
+
+00:06:58.160 --> 00:07:03.050
+guy in lowercase? Well I'm gonna make a
+shortcut in this test fixture here to
+
+00:07:03.050 --> 00:07:08.030
+this end turn as a variable. So once I've
+defined it over here in the action
+
+00:07:08.030 --> 00:07:12.830
+master class I use capitals just as a
+convention for these enumerated states
+
+00:07:12.830 --> 00:07:17.070
+what I'm going to do over in action master is just make myself a shortcut to that
+
+00:07:17.070 --> 00:07:22.270
+and you can do that as a mini-challenge if you
+want. I want you to write a single line that gives you
+
+00:07:22.270 --> 00:07:27.630
+a private shortcut to something called
+end turn spelt like this
+
+00:07:27.630 --> 00:07:31.710
+by talk by looking into the action
+master and assigning it to a variable
+
+00:07:31.710 --> 00:07:35.140
+have a quick go at that have at least
+a think about what that would entail its
+
+00:07:35.140 --> 00:07:41.650
+a micro challenge; just pause the video and have a go
+
+00:07:41.650 --> 00:07:46.800
+So we're talking about a private action master we need to
+look into that class dot action so
+
+00:07:46.800 --> 00:07:53.180
+that's the type action master dot action
+is of type enum end turn and then it just
+
+00:07:53.180 --> 00:07:58.000
+equals action master dot action . and then
+it's listed so rather than having to
+
+00:07:58.000 --> 00:08:02.110
+write action master dot action dot end turn
+need to be careful to choose the right one
+
+00:08:02.110 --> 00:08:07.600
+every single time I want to access it in
+these test classes I can now just say
+
+00:08:07.600 --> 00:08:12.160
+end turn so now end turn isn't red. The
+other thing that's red is the bowl, why's the
+
+00:08:12.160 --> 00:08:19.430
+bowl red? I dunno actually why bowl's red,
+let's try building it's red because Bowl
+
+00:08:19.430 --> 00:08:23.650
+will not compile because not all code
+paths return a value. Well, here's a
+
+00:08:23.650 --> 00:08:28.060
+here's a simple cheat for us, to get this test
+to pass we just need this to return end turn
+
+00:08:28.060 --> 00:08:36.849
+so why not just return action dot end turn now
+
+00:08:36.849 --> 00:08:41.180
+style point here a a strategy point is
+it a good idea to write a test like this
+
+00:08:41.180 --> 00:08:46.320
+that is going to
+immediately pass because we're just
+
+00:08:46.320 --> 00:08:51.160
+returning blindly something like end turn?
+Well that's pure test driven development
+
+00:08:51.160 --> 00:08:54.930
+if you go too far down this route of
+being like obstinate about the code you
+
+00:08:54.930 --> 00:08:57.980
+write you're gonna cause yourself problems
+so it would be better if we really
+
+00:08:57.980 --> 00:09:02.930
+thought about the minimum behavior we
+can specify here but for the moment for
+
+00:09:02.930 --> 00:09:06.550
+the sake of showing you the process
+let's just do this but rather than end
+
+00:09:06.550 --> 00:09:11.830
+turn what's the problem with me doing end
+turn well remember red green refactor
+
+00:09:11.830 --> 00:09:15.680
+we're still trying to get to a red
+failing tests and end turn will pass so
+
+00:09:15.680 --> 00:09:19.890
+I'm gonna use tidy just to make sure the
+first test fails seem to be crazy but i
+
+00:09:19.890 --> 00:09:27.279
+wanna show you the loop. So, over here now
+let's have a look.
+
+00:09:27.279 --> 00:09:31.930
+Action Master does not exist in the current
+context so why does action master not
+
+00:09:31.930 --> 00:09:35.740
+exist because we haven't created it
+right we've gotta in the test harness
+
+00:09:35.740 --> 00:09:40.709
+we've got to instantiate an instance of
+the action master so later we'll refactor
+
+00:09:40.709 --> 00:09:45.029
+this out when we've got lots of tests but
+for now we just want a single action
+
+00:09:45.029 --> 00:09:57.779
+master action master equals new action
+master. OK, like that and we're going to
+
+00:09:57.779 --> 00:10:01.689
+need the brackets to access the
+default constructor of action master
+
+00:10:01.689 --> 00:10:06.319
+which is our class that we have created
+now what's the default constructor what
+
+00:10:06.319 --> 00:10:07.589
+am I talking about
+
+00:10:07.589 --> 00:10:11.269
+Well when you make a new instance of a
+class then certain things have to get
+
+00:10:11.269 --> 00:10:15.839
+set up but in Unity here we don't have
+access to that so let's see what happens
+
+00:10:15.839 --> 00:10:19.180
+when we try and do this, when we just try
+and say make a new action Master. This
+
+00:10:19.180 --> 00:10:23.089
+is just like making a new vector or
+anything else in Unity when we try and
+
+00:10:23.089 --> 00:10:29.059
+play the game now we should be getting an
+error he go we're trying to create or
+
+00:10:29.059 --> 00:10:33.230
+at least a warning. A monobehavior using
+the new keyword this is not allowed and
+
+00:10:33.230 --> 00:10:40.300
+then it goes on. So, go back to your script
+action master all of the scripts you've
+
+00:10:40.300 --> 00:10:44.500
+written so far have had a colon mono
+behavior they've inherited from mono
+
+00:10:44.500 --> 00:10:50.939
+behavior which is why when we from the
+outside here do something like action
+
+00:10:50.939 --> 00:10:53.290
+master the instance .
+
+00:10:53.290 --> 00:10:56.870
+look at all this stuff broadcast message
+cancel invoke, all this stuff that's
+
+00:10:56.870 --> 00:11:01.439
+because it's inheriting from monobehavior
+we don't need it to inherit from mono
+
+00:11:01.439 --> 00:11:06.519
+behaviour, this is a pure new class we're
+creating. So in your actionMaster.cs just take
+
+00:11:06.519 --> 00:11:08.459
+off the colon mono behaviorand we're
+
+00:11:08.459 --> 00:11:12.939
+defining a plain vanilla class with no
+inheritance now if you are over here
+
+00:11:12.939 --> 00:11:16.019
+and you looked at the action master
+instance in another script and you say
+
+00:11:16.019 --> 00:11:20.059
+dot look at that, it now only comes
+with bowl which is a method that we defined
+
+00:11:20.059 --> 00:11:24.149
+and just a few other generic methods
+equals get hash code etcetera
+
+00:11:24.149 --> 00:11:29.980
+alright pretty cool, so now you stripped it down
+to a really basic action master and then
+
+00:11:29.980 --> 00:11:35.089
+back in Unity when we play the game we
+don't get any complaints about trying to
+
+00:11:35.089 --> 00:11:38.240
+create new mono behaviours. Fantastic
+
+00:11:38.240 --> 00:11:45.779
+so let's run our tests. Test one
+fails well why because it is expecting
+
+00:11:45.779 --> 00:11:49.550
+an end tern and you're getting a tidy.
+Let's look at our code so we've done the
+
+00:11:49.550 --> 00:11:52.560
+red bit now we're trying to make it
+green
+
+00:11:52.560 --> 00:12:00.209
+well in this case green is quite simple.
+We bowled a 10, we've sent in a 10 here
+
+00:12:00.209 --> 00:12:05.230
+and what we want to be returning in that
+case when our first bowl is a
+
+00:12:05.230 --> 00:12:12.990
+10 is that we want to be returning a
+action . end turn but let's not just say
+
+00:12:12.990 --> 00:12:17.779
+return action dot turn cause that's kinda
+silly that's going to return in turn on
+
+00:12:17.779 --> 00:12:23.830
+every single bowl regardless of how
+many pins we drop 0, 1, 2, 3, 4 whatever that's
+
+00:12:23.830 --> 00:12:30.200
+a bit nuts right? That's not good coding
+so let's at least just code the
+
+00:12:30.200 --> 00:12:34.480
+special case right let's code the special
+case let's make it work and I'm gonna
+
+00:12:34.480 --> 00:12:39.630
+let you do that actually, as a challenge so I've
+got you this far this would pass but I
+
+00:12:39.630 --> 00:12:43.620
+don't like it, I want you to wrap this in
+an if statement that codes the
+
+00:12:43.620 --> 00:12:48.360
+special case of the pins equating 10. So
+that is your relatively simple challenge
+
+00:12:48.360 --> 00:12:54.680
+here write the simplest code that makes
+the test pass, no refactoring at this
+
+00:12:54.680 --> 00:13:00.020
+stage and just make something work in
+the actionMaster.cs. So go ahead
+
+00:13:00.020 --> 00:13:01.640
+and do that little bit of a challenge now.
+
+00:13:01.640 --> 00:13:07.790
+OK, so let's take a look at this. So
+obviously this is the simplest code that
+
+00:13:07.790 --> 00:13:12.200
+would make it pass but it's too generic
+it's it's just wrong it's obviously
+
+00:13:12.200 --> 00:13:15.660
+wrong we don't always return an
+end turn action regardless the number of
+
+00:13:15.660 --> 00:13:19.079
+pins, so in my mind that doesn't count
+that's gonna take you down an awkward
+
+00:13:19.079 --> 00:13:27.010
+path but if you said if pins equals 10
+then end turn that's enough to pass this
+
+00:13:27.010 --> 00:13:31.430
+test and I'm happy that that is
+enough to pass this test a little bit
+
+00:13:31.430 --> 00:13:35.399
+later we'll put some guard code at the top of
+this method above in here that make sure
+
+00:13:35.399 --> 00:13:39.300
+that the pins passed in is not less than
+zero or more than 10 but for now if
+
+00:13:39.300 --> 00:13:44.140
+pins equals 10 return en turn, let's try
+running that test if we come back over
+
+00:13:44.140 --> 00:13:48.980
+here, as long as your code will build which
+it won't why doesn't the code build
+
+00:13:48.980 --> 00:13:54.110
+because this method must return an
+action. Now the compiler is noticing
+
+00:13:54.110 --> 00:13:57.420
+well it will only return an action if pins equals
+10 but who said pins was going to
+
+00:13:57.420 --> 00:14:02.930
+equal ten? Yeah so what we gonna do in the
+cases in this case what're you
+
+00:14:02.930 --> 00:14:08.160
+gonna do to make sure the compiler's
+happy could you go return null for now
+
+00:14:08.160 --> 00:14:13.690
+well you're not going to be able to do
+that and here is why; try it cannot convert null
+
+00:14:13.690 --> 00:14:17.690
+because it's a value type you can't
+a null is a pointer and you can't
+
+00:14:17.690 --> 00:14:22.680
+return a null for a value type you could
+if it was a list for example if this
+
+00:14:22.680 --> 00:14:25.990
+return value is a list you could return
+null but you can't do it for a value type
+
+00:14:25.990 --> 00:14:29.649
+like this anyway that's not good
+practice, why are we returning null? Why don't
+
+00:14:29.649 --> 00:14:33.160
+we just deal with this case right now
+this code, this line I'm about to put in will
+
+00:14:33.160 --> 00:14:37.920
+move down to the bottom of the script as
+we add more special cases above but this
+
+00:14:37.920 --> 00:14:44.519
+is a good plan I would throw this going
+to throw a new unity exception. Why are we
+
+00:14:44.519 --> 00:14:48.320
+throwing exceptions rather debug logging
+because it's much more powerful and it
+
+00:14:48.320 --> 00:14:52.320
+will actually be satisfied that requires
+requirement the compiler that we are
+
+00:14:52.320 --> 00:14:55.720
+returning something even though it's not a
+return value it can see if we ever
+
+00:14:55.720 --> 00:14:59.600
+get here they gonna throw an exception
+in its gonna say something like not sure
+
+00:14:59.600 --> 00:15:05.670
+what action to return now when we finish
+writing this class I would hope we never
+
+00:15:05.670 --> 00:15:13.130
+get here right we're gonna put lots more
+specialist behavior; other behavior here and
+
+00:15:13.130 --> 00:15:18.949
+maybe we'll put other behavior above as well
+depending on the order of things but I
+
+00:15:18.949 --> 00:15:22.680
+would hope that we would never get to
+this at the end but for now we will get
+
+00:15:22.680 --> 00:15:25.779
+to this in some of our test and it
+convinces the compiler that we always
+
+00:15:25.779 --> 00:15:29.250
+return something or we always do
+something and this is fine this is a
+
+00:15:29.250 --> 00:15:33.319
+perfectly valid approach we already have
+the I don't know what to do exception so
+
+00:15:33.319 --> 00:15:36.810
+let's try now. Come back over here. Now
+watch the little whirligig down the
+
+00:15:36.810 --> 00:15:40.870
+bottom of your window when that finishes
+whirligigging it'll run the tests if
+
+00:15:40.870 --> 00:15:46.620
+you've got this checkbox checked if not
+click Run all and it passes. Awesome. So
+
+00:15:46.620 --> 00:15:51.519
+congratulations you have just gone red
+to green and now it's a question of do
+
+00:15:51.519 --> 00:15:56.399
+we need to refactor this code. Is there
+anything else we can do in this code to
+
+00:15:56.399 --> 00:15:58.870
+improve it or refactor it while we're here well,
+
+00:15:58.870 --> 00:16:03.770
+in the spirit of throwing an exception
+if we don't know what action to return
+
+00:16:03.770 --> 00:16:08.440
+why don't we throw, do one more guard
+condition and you can do this I want you
+
+00:16:08.440 --> 00:16:11.770
+to write a bit of code that says if
+the pins are less than zero or more than
+
+00:16:11.770 --> 00:16:16.720
+10 then throw another exception and this
+one is going to say invalid pin count or
+
+00:16:16.720 --> 00:16:21.350
+something so go ahead and make another
+exception at the top of this class right
+
+00:16:21.350 --> 00:16:27.490
+now for pins is less than 0 or more than 10
+I hope you'r not expecting a challenge slide
+
+00:16:27.490 --> 00:16:31.330
+this is just a silly in line microchallenge
+go ahead and do it... awesome
+
+00:16:31.330 --> 00:16:38.089
+ok, so we need an if statement clearly if pins is
+so if you close your brackets and all
+
+00:16:38.089 --> 00:16:45.130
+your whirligigs, then you'll be in
+good shape, yep so if pins, i'll get there
+
+00:16:45.130 --> 00:16:54.370
+in the end, is less than 10 or remember
+double standy-uppy-whatsits, pins, and I
+
+00:16:54.370 --> 00:16:59.510
+don't mean less than 10 do I, I mean less
+than zero if it's less than 0 or if it's
+
+00:16:59.510 --> 00:17:04.050
+excuse me more than 10 then what are we
+gonna do well I'm gonna put it in a single
+
+00:17:04.050 --> 00:17:08.530
+line here because I want it to be just a
+single check line and that's ok you can
+
+00:17:08.530 --> 00:17:12.390
+interrupt your if statement it's the
+same as doing this; throw new unity
+
+00:17:12.390 --> 00:17:20.839
+exception invalid pins like that and you
+can just delete back and make it a
+
+00:17:20.839 --> 00:17:25.059
+single line that's ok it's up to you you
+know this is C#, these curly
+
+00:17:25.059 --> 00:17:29.740
+braces and the semicolons; you know the curly
+braces represent a code block the
+
+00:17:29.740 --> 00:17:32.740
+semicolon tells it where the end of the
+statement is. You're OK to do it on a single
+
+00:17:32.740 --> 00:17:36.270
+line if you want to like this I like the
+look of that. We come in to the bowl; we
+
+00:17:36.270 --> 00:17:40.970
+check that we've got valid input parameters, guard
+code at the start there. We write some behavior, we
+
+00:17:40.970 --> 00:17:44.520
+write some more behavior we write some
+more behavior and then if we don't know
+
+00:17:44.520 --> 00:17:49.740
+what to do we throw an exception. Alright,
+so red green refactor remember? We went
+
+00:17:49.740 --> 00:17:56.360
+red, we wrote code, just this code basically
+and this cold here that was green that
+
+00:17:56.360 --> 00:18:00.720
+made us green we passed the test we're
+refactoring now you can only refactor
+
+00:18:00.720 --> 00:18:05.570
+code that has green passing tests; it's not
+refactoring if you have failing test it's
+
+00:18:05.570 --> 00:18:06.690
+coding
+
+00:18:06.690 --> 00:18:10.750
+We're refactoring now because we're trying to make
+this code have exactly; pass all the same tests
+
+00:18:10.750 --> 00:18:12.350
+basically and have the same behaviour as before. So
+
+00:18:12.350 --> 00:18:16.690
+let's see if it does, just switching to
+Unity interface should do this when the
+
+00:18:16.690 --> 00:18:21.030
+whirligig stops you get passing test the
+behaviour the same so that is a valid
+
+00:18:21.030 --> 00:18:29.260
+refactor we've just added this line which
+is a useful guard code. So a lot of words
+
+00:18:29.260 --> 00:18:34.750
+said there, deep breath. A lot of stuff
+learned you may be thinking well I wrote
+
+00:18:34.750 --> 00:18:40.799
+more test code than the actual code and
+that's fine and in this type of problem
+
+00:18:40.799 --> 00:18:45.140
+you will and honestly this type of
+problem is exactly the sort of problem
+
+00:18:45.140 --> 00:18:49.130
+you want to throw test driven development at and let's
+just let this unfold and see the beauty
+
+00:18:49.130 --> 00:18:52.520
+of it and I hope you fall in love with
+it as much as I do. So, see you soon.
+

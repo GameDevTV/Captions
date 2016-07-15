@@ -1,0 +1,486 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hello and welcome back!
+
+2
+00:00:06.000 --> 00:00:09.000
+In this video, we're going to be fixing the formation
+
+3
+00:00:09.000 --> 00:00:12.000
+movement, because in our game right now we have an
+
+4
+00:00:12.000 --> 00:00:15.000
+enemy formation, and it gets stuck, when it goes to
+
+5
+00:00:15.000 --> 00:00:18.000
+one of the edges of the play space. And
+
+6
+00:00:18.000 --> 00:00:21.000
+this is a problem because we really don't want that behavior in the
+
+7
+00:00:21.000 --> 00:00:24.000
+final game. So, we want to fix this issue before
+
+8
+00:00:24.000 --> 00:00:27.000
+we release it, because we need it for the game to be playable.
+
+9
+00:00:27.000 --> 00:00:30.000
+So, let's just take a look at the issue, in a little bit more detail
+
+10
+00:00:30.000 --> 00:00:33.000
+to see exactly what's going on. So, if we jump into
+
+11
+00:00:33.000 --> 00:00:36.000
+Unity, right now, and we have our game ready and setup.
+
+12
+00:00:36.000 --> 00:00:39.000
+We have this EnemyFormation object, which is right here in the
+
+13
+00:00:39.000 --> 00:00:42.000
+middle of our play space, and the play space is defined by the edges
+
+14
+00:00:42.000 --> 00:00:45.000
+of the camera. So now, if I press play, look at what happens.
+
+15
+00:00:45.000 --> 00:00:48.000
+This is pretty much standard behavior. We have
+
+16
+00:00:48.000 --> 00:00:51.000
+the EnemyFormation moving back and forth and bouncing off
+
+17
+00:00:51.000 --> 00:00:54.000
+the edges of the play space, which is exactly what we want.
+
+18
+00:00:54.000 --> 00:00:57.000
+However, let me pause the game and change the EnemyFormation
+
+19
+00:00:57.000 --> 00:01:00.000
+to have a higher speed, let's say 25, and
+
+20
+00:01:00.000 --> 00:01:03.000
+look at the behavior again.
+
+21
+00:01:03.000 --> 00:01:06.000
+Immediately, the enemy formation gets stuck on
+
+22
+00:01:06.000 --> 00:01:09.000
+one of the edges of the play space. This is definately
+
+23
+00:01:09.000 --> 00:01:12.000
+not behavior we want, when we release the final game.
+
+24
+00:01:12.000 --> 00:01:15.000
+And this occurs at 25 on my machine,
+
+25
+00:01:15.000 --> 00:01:18.000
+but it might occur at 5 for yours or 6 on somebody
+
+26
+00:01:18.000 --> 00:01:21.000
+else's or 7 on your player's. We don't know what that limit
+
+27
+00:01:21.000 --> 00:01:24.000
+is. There's a systematic issue with the way
+
+28
+00:01:24.000 --> 00:01:27.000
+that we move the formation, thus causing this, and we want to fix it
+
+29
+00:01:27.000 --> 00:01:30.000
+so that it doesn't matter what speed your computer is running at, this
+
+30
+00:01:30.000 --> 00:01:33.000
+still won't occur. So, let's take a look at the
+
+31
+00:01:33.000 --> 00:01:36.000
+code responsible for moving the EnemyFormation.
+
+32
+00:01:36.000 --> 00:01:39.000
+If we take a look at the Enemy Spawner's Update function,
+
+33
+00:01:39.000 --> 00:01:42.000
+we can see that we're making the decisions of that movement
+
+34
+00:01:42.000 --> 00:01:45.000
+in this function right here. In particular,
+
+35
+00:01:45.000 --> 00:01:48.000
+on line 41, 42, and 43, we have an if
+
+36
+00:01:48.000 --> 00:01:51.000
+statement, which is where we make the decision about which direction we
+
+37
+00:01:51.000 --> 00:01:54.000
+should be moving in. So, something is wrong with
+
+38
+00:01:54.000 --> 00:01:57.000
+this Update function. Something we're doing, in this Update
+
+39
+00:01:57.000 --> 00:02:00.000
+function, is causing the incorrect behavior,
+
+40
+00:02:00.000 --> 00:02:03.000
+and it's going to be your job
+
+41
+00:02:03.000 --> 00:02:06.000
+to find out why that is. So,
+
+42
+00:02:06.000 --> 00:02:09.000
+find the assumption that you're making, that's causing this behavior
+
+43
+00:02:09.000 --> 00:02:12.000
+and root it out, and I'll see you in just a few
+
+44
+00:02:12.000 --> 00:02:15.000
+seconds, when you've done that.
+
+45
+00:02:15.000 --> 00:02:18.000
+How did it go? Did you find out what's going wrong? Let's
+
+46
+00:02:18.000 --> 00:02:21.000
+take a look together! So, if I jump in
+
+47
+00:02:21.000 --> 00:02:24.000
+I can take a look at my formation, and my play
+
+48
+00:02:24.000 --> 00:02:27.000
+space. So, my play space is defined by the
+
+49
+00:02:27.000 --> 00:02:30.000
+Main Camera, and we can see here, the edges of
+
+50
+00:02:30.000 --> 00:02:33.000
+the play space
+
+51
+00:02:33.000 --> 00:02:36.000
+or rather the edges of the formation, which is the inner box,
+
+52
+00:02:36.000 --> 00:02:39.000
+the inside box are inside the Main
+
+53
+00:02:39.000 --> 00:02:42.000
+Camera. Now, if the inner box, the
+
+54
+00:02:42.000 --> 00:02:45.000
+formation, comes outside of the Main Camera,
+
+55
+00:02:45.000 --> 00:02:48.000
+what's going to happen? Well, our code currently, if we take a
+
+56
+00:02:48.000 --> 00:02:51.000
+look at it, the code currently simply
+
+57
+00:02:51.000 --> 00:02:54.000
+toggles the direction of travel. So, if we're traveling right,
+
+58
+00:02:54.000 --> 00:02:57.000
+in this case, it'll simply say well let's start moving
+
+59
+00:02:57.000 --> 00:03:00.000
+left. So, we start moving left and we
+
+60
+00:03:00.000 --> 00:03:03.000
+expect to go back inside of the play space, so that
+
+61
+00:03:03.000 --> 00:03:06.000
+the play space is now containing the
+
+62
+00:03:06.000 --> 00:03:09.000
+EnemyFormation, however that is not always the
+
+63
+00:03:09.000 --> 00:03:12.000
+case. That is our incorrect assumption.
+
+64
+00:03:12.000 --> 00:03:15.000
+We're assuming that every time we toggle the direction,
+
+65
+00:03:15.000 --> 00:03:18.000
+at the next Update, we will have completely returned
+
+66
+00:03:18.000 --> 00:03:21.000
+inside the play space, however that's not
+
+67
+00:03:21.000 --> 00:03:24.000
+always the case. Let's imagine I toggle my direction
+
+68
+00:03:24.000 --> 00:03:27.000
+here and I start moving back to the left,
+
+69
+00:03:27.000 --> 00:03:30.000
+and at the next Update I'm still outside of the
+
+70
+00:03:30.000 --> 00:03:33.000
+play space. What happens there? Well, what
+
+71
+00:03:33.000 --> 00:03:36.000
+happens is, I toggle my direction again, but this
+
+72
+00:03:36.000 --> 00:03:39.000
+time instead of toggling it from moving right to moving left, I
+
+73
+00:03:39.000 --> 00:03:42.000
+toggle it from moving left to moving right, which means I continue
+
+74
+00:03:42.000 --> 00:03:45.000
+to be outside of the play space. And this loop keeps happening,
+
+75
+00:03:45.000 --> 00:03:48.000
+and every Update, I change the direction of travel
+
+76
+00:03:48.000 --> 00:03:51.000
+and that's why we're getting stuck on the edges of the
+
+77
+00:03:51.000 --> 00:03:54.000
+play space. So, the issue in the code and the assumption
+
+78
+00:03:54.000 --> 00:03:57.000
+we're making is, we're assuming that every time we toggle the direction
+
+79
+00:03:57.000 --> 00:04:00.000
+we will return to be inside of the play space. That's not
+
+80
+00:04:00.000 --> 00:04:03.000
+the case! Let's jump into our code to fix that issue right now.
+
+81
+00:04:03.000 --> 00:04:06.000
+So right now, we're toggling the direction
+
+82
+00:04:06.000 --> 00:04:09.000
+on line 42, that I have highlighted right here.
+
+83
+00:04:09.000 --> 00:04:12.000
+What we want to do is, instead of toggling the direction, is set the direction
+
+84
+00:04:12.000 --> 00:04:15.000
+given the two different conditions. We've got
+
+85
+00:04:15.000 --> 00:04:18.000
+two conditions here. When we're outside of the left edge
+
+86
+00:04:18.000 --> 00:04:21.000
+and when we're outside of the right edge. And
+
+87
+00:04:21.000 --> 00:04:24.000
+what I want to do is separate those two conditions into two separate
+
+88
+00:04:24.000 --> 00:04:27.000
+if statements, so that we catch the right condition
+
+89
+00:04:27.000 --> 00:04:30.000
+and change the direction appropriately. So, let's do
+
+90
+00:04:30.000 --> 00:04:33.000
+that right now with an else if statement, by going
+
+91
+00:04:33.000 --> 00:04:36.000
+else if, and then, extracting
+
+92
+00:04:36.000 --> 00:04:39.000
+one of the conditions out to the second if
+
+93
+00:04:39.000 --> 00:04:42.000
+statement. So, I'm extracting this second
+
+94
+00:04:42.000 --> 00:04:45.000
+condition out to the else if statement,
+
+95
+00:04:45.000 --> 00:04:48.000
+and I'm going to put the appropriate value, set the value
+
+96
+00:04:48.000 --> 00:04:51.000
+instead of toggling the movement direction. So I'm going to say
+
+97
+00:04:51.000 --> 00:04:54.000
+movingRight. And what's
+
+98
+00:04:54.000 --> 00:04:57.000
+the direction of movement we're expecting in this
+
+99
+00:04:57.000 --> 00:05:00.000
+case? Well, if the right edge is beyond the maximum,
+
+100
+00:05:00.000 --> 00:05:03.000
+we're expecting to have to turn back to the left, so
+
+101
+00:05:03.000 --> 00:05:06.000
+to move left so moving right will be false.
+
+102
+00:05:06.000 --> 00:05:09.000
+And what happens when the left
+
+103
+00:05:09.000 --> 00:05:12.000
+edge of our formation is beyond the minimum, while we
+
+104
+00:05:12.000 --> 00:05:15.000
+want to start moving right to go back into our
+
+105
+00:05:15.000 --> 00:05:18.000
+play space. So, we remove this and
+
+106
+00:05:18.000 --> 00:05:21.000
+instead of toggling moving right, we'll set it to
+
+107
+00:05:21.000 --> 00:05:24.000
+true. Now, we can save
+
+108
+00:05:24.000 --> 00:05:27.000
+and jump back into our game and see whether
+
+109
+00:05:27.000 --> 00:05:30.000
+I've fixed the issue. So, let's press
+
+110
+00:05:30.000 --> 00:05:33.000
+play and see what happens! Now, we can see they're
+
+111
+00:05:33.000 --> 00:05:36.000
+moving very very quickly, but they're still not going outside of the
+
+112
+00:05:36.000 --> 00:05:39.000
+play space. And that's exactly the behavior we want, so that
+
+113
+00:05:39.000 --> 00:05:42.000
+no matter what the speed is, no matter what the ratio speed
+
+114
+00:05:42.000 --> 00:05:45.000
+to frame rate etc., no matter what those speeds are
+
+115
+00:05:45.000 --> 00:05:48.000
+it still remains inside the play space.
+
+116
+00:05:48.000 --> 00:05:51.000
+That's the behavior we want and that is how we fix the
+
+117
+00:05:51.000 --> 00:05:54.000
+getting stuck on the edge issue. Now, you should know
+
+118
+00:05:54.000 --> 00:05:57.000
+how to fix those kind of issues, when items
+
+119
+00:05:57.000 --> 00:06:00.000
+or GameObjects get stuck on the edge conditions
+
+120
+00:06:00.000 --> 00:06:03.000
+and how to solve them. I hope you've enjoyed this video, I'll see you
+
+121
+00:06:03.000 --> 00:06:05.400
+in the next one! Bye for now!
+

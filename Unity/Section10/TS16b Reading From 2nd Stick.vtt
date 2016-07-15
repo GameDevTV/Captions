@@ -1,0 +1,1350 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hey guys! So, you can't get rid of me that easily, I have
+
+2
+00:00:06.000 --> 00:00:09.000
+decided to do a little bit more in this section, because I want to teach you some
+
+3
+00:00:09.000 --> 00:00:12.000
+new things. So, somebody quite rightly pointed
+
+4
+00:00:12.000 --> 00:00:15.000
+out that there is no second stick in this game right now, so it's not really
+
+5
+00:00:15.000 --> 00:00:18.000
+a Twin Stick game. So, this is what we're going to do in this
+
+6
+00:00:18.000 --> 00:00:21.000
+video. We're going to end up in a situation where we can not only
+
+7
+00:00:21.000 --> 00:00:24.000
+control the ball like this, but we can also
+
+8
+00:00:24.000 --> 00:00:27.000
+pan the camera around like so, and also vertically.
+
+9
+00:00:27.000 --> 00:00:30.000
+Alright, so that's what we're going to be doing. The way that we're going to do that
+
+10
+00:00:30.000 --> 00:00:33.000
+is we are simply going to
+
+11
+00:00:33.000 --> 00:00:36.000
+read from the second and third... Sorry, the
+
+12
+00:00:36.000 --> 00:00:39.000
+third and the fourth joystick axis,
+
+13
+00:00:39.000 --> 00:00:42.000
+import and explore a Selfie Stick Prefab I've
+
+14
+00:00:42.000 --> 00:00:45.000
+made for you guys in Blender, write some code to make the camera track
+
+15
+00:00:45.000 --> 00:00:48.000
+the player, and then, write some code to make the right stick
+
+16
+00:00:48.000 --> 00:00:51.000
+orbit the camera around, actually do that movement.
+
+17
+00:00:51.000 --> 00:00:54.000
+And we'll make sure it all works, so let's dive in and
+
+18
+00:00:54.000 --> 00:00:57.000
+do that. So, let's get this done! I'm going to go through this quite
+
+19
+00:00:57.000 --> 00:01:00.000
+quickly, at least the bits that you've seen before. So, the Project Settings,
+
+20
+00:01:00.000 --> 00:01:03.000
+Input. At the moment, we don't have the
+
+21
+00:01:03.000 --> 00:01:06.000
+right stick setup, so you will be in a situation where
+
+22
+00:01:06.000 --> 00:01:09.000
+you have 18 elements in your Axes Array,
+
+23
+00:01:09.000 --> 00:01:12.000
+and we need to take this up to 20. So, if you change that to 20,
+
+24
+00:01:12.000 --> 00:01:15.000
+you get room for a couple more. In my case, they both
+
+25
+00:01:15.000 --> 00:01:18.000
+come out as Cancel, but we're going to call them something different.
+
+26
+00:01:18.000 --> 00:01:21.000
+So, I'm going to describe the first one as right,
+
+27
+00:01:21.000 --> 00:01:24.000
+as in right stick,
+
+28
+00:01:24.000 --> 00:01:27.000
+Horiz, so as in the Right Stick Horizontal
+
+29
+00:01:27.000 --> 00:01:30.000
+Axis. Now, I've got my game controller connected right now.
+
+30
+00:01:30.000 --> 00:01:33.000
+Remember that if it's not connected and paired by a Bluetooth, or
+
+31
+00:01:33.000 --> 00:01:36.000
+however you've got it connected when you start Unity, you won't be able to see it,
+
+32
+00:01:36.000 --> 00:01:39.000
+so just bear that in mind. Alright, so I don't need any buttons, so I'm going to hit
+
+33
+00:01:39.000 --> 00:01:42.000
+the buttons away, and for gravity and dead zones, I'm going to refer
+
+34
+00:01:42.000 --> 00:01:45.000
+back to see what the other sticks
+
+35
+00:01:45.000 --> 00:01:48.000
+have had. So, these horizontal and vertical axis
+
+36
+00:01:48.000 --> 00:01:51.000
+historically have had a Gravity of 3, a Dead
+
+37
+00:01:51.000 --> 00:01:54.000
+Zone of 0.01. Let's just make sure quickly that's working OK.
+
+38
+00:01:54.000 --> 00:01:57.000
+So, that feels OK, so I'm going
+
+39
+00:01:57.000 --> 00:02:00.000
+to go with that 3.001 and 3 for
+
+40
+00:02:00.000 --> 00:02:03.000
+Gravity, Dead Zone, and Sensitivity. So, let's just do
+
+41
+00:02:03.000 --> 00:02:06.000
+that down for this new axis.
+
+42
+00:02:06.000 --> 00:02:09.000
+Fantastic! Now, it's a keyboard or mouse, you may as well just change it
+
+43
+00:02:09.000 --> 00:02:12.000
+to Joystick, because it's going to be a Joystick Axis.
+
+44
+00:02:12.000 --> 00:02:15.000
+Now, which axis is it? Well, it's going to be the third axis,
+
+45
+00:02:15.000 --> 00:02:18.000
+probably for the righr horizontal. Now, if we're not sure, we're going to just test it
+
+46
+00:02:18.000 --> 00:02:21.000
+by writing to the log, so I'm going to assume it's the third
+
+47
+00:02:21.000 --> 00:02:24.000
+axis, for the moment. And I'm just going to now write a
+
+48
+00:02:24.000 --> 00:02:27.000
+scritp, that's going to try and verify this. So, I'm going to make a new folder
+
+49
+00:02:27.000 --> 00:02:30.000
+called Camera, because in this project, we're orgnizing
+
+50
+00:02:30.000 --> 00:02:33.000
+things by game entity. And I'm going to make a
+
+51
+00:02:33.000 --> 00:02:36.000
+script that is attached to
+
+52
+00:02:36.000 --> 00:02:39.000
+the camera for now, and I'm just going to call it
+
+53
+00:02:39.000 --> 00:02:42.000
+CameraPan.
+
+54
+00:02:42.000 --> 00:02:45.000
+OK, you can Create and Add that script. Now, what
+
+55
+00:02:45.000 --> 00:02:48.000
+I want to do, I just need any script in a folder and
+
+56
+00:02:48.000 --> 00:02:51.000
+attached to the GameObject, that I can use to log to the
+
+57
+00:02:51.000 --> 00:02:54.000
+Console. So, against the camera, we now have this
+
+58
+00:02:54.000 --> 00:02:57.000
+CameraPan Script. Let's take a look and see if we can work out which axis
+
+59
+00:02:57.000 --> 00:03:00.000
+we're talking about. So,
+
+60
+00:03:00.000 --> 00:03:03.000
+we're actually going to use a different method later, LateUpdate, but for now, I just want
+
+61
+00:03:03.000 --> 00:03:06.000
+to get printing and make sure that I've found the right axis.
+
+62
+00:03:06.000 --> 00:03:09.000
+So, print and I'm just going to say right horiz
+
+63
+00:03:09.000 --> 00:03:12.000
+to remind myself of what I'm printing. Input
+
+64
+00:03:12.000 --> 00:03:15.000
+dot oops GetAxis. Now, I'm going to challenge you in a moment,
+
+65
+00:03:15.000 --> 00:03:18.000
+to do this yourself, and I'm going to use the name
+
+66
+00:03:18.000 --> 00:03:21.000
+that I put in, which is RHoriz,
+
+67
+00:03:21.000 --> 00:03:24.000
+for Right Horizontal Stick. And let's just
+
+68
+00:03:24.000 --> 00:03:27.000
+see if that logs out properly, saving the scripts.
+
+69
+00:03:27.000 --> 00:03:30.000
+Let me close the Solution. Back into Unity,
+
+70
+00:03:30.000 --> 00:03:33.000
+let's play. Now first, before you just make sure the left
+
+71
+00:03:33.000 --> 00:03:36.000
+stick works, i.e. that you're connect to your thing, to your
+
+72
+00:03:36.000 --> 00:03:39.000
+gamepad, and then now, look at the Console. Right Horiz, now that's
+
+73
+00:03:39.000 --> 00:03:42.000
+-1, 0, +1. Good! So, our Horiz
+
+74
+00:03:42.000 --> 00:03:45.000
+works. That is fantastic news! That is progress!
+
+75
+00:03:45.000 --> 00:03:48.000
+So, here's a pretty simple challenge for you. I think you can guess what this one
+
+76
+00:03:48.000 --> 00:03:51.000
+is going to be. Just add the vertical axis now; get the vertical axis
+
+77
+00:03:51.000 --> 00:03:54.000
+logging to the Console. So, go ahead, pause the video, sort
+
+78
+00:03:54.000 --> 00:03:57.000
+the vertical axis out for yourself, to make sure you've understood what I've done.
+
+79
+00:03:57.000 --> 00:04:00.000
+Cool! Welcome back! So, I think that getting this vertical
+
+80
+00:04:00.000 --> 00:04:03.000
+axis working is pretty simple right. I'm going to do a cut and paste
+
+81
+00:04:03.000 --> 00:04:06.000
+of the horizontal axis. I'm going to call it
+
+82
+00:04:06.000 --> 00:04:09.000
+RVert.
+
+83
+00:04:09.000 --> 00:04:12.000
+And same here, and then, over
+
+84
+00:04:12.000 --> 00:04:15.000
+in the Input Manager of Unity,
+
+85
+00:04:15.000 --> 00:04:18.000
+Edit Project Settings, Input,
+
+86
+00:04:18.000 --> 00:04:21.000
+we're going to go down, and under our Horiz we're
+
+87
+00:04:21.000 --> 00:04:24.000
+just going to change the next one to RVert.
+
+88
+00:04:24.000 --> 00:04:27.000
+And then, go for the same settings 3 Gravity,
+
+89
+00:04:27.000 --> 00:04:30.000
+Dead Zone, and Sensitivity, same as the one above.
+
+90
+00:04:30.000 --> 00:04:33.000
+Just so that it's a Joystick Axis, we don't need a mouse
+
+91
+00:04:33.000 --> 00:04:36.000
+button or button in this case, and let's just test. So,
+
+92
+00:04:36.000 --> 00:04:39.000
+left and right gives RHoriz figures, and then, up and down
+
+93
+00:04:39.000 --> 00:04:42.000
+isn't giving any RVert figures.
+
+94
+00:04:42.000 --> 00:04:45.000
+So, if that's the case for you, a few things
+
+95
+00:04:45.000 --> 00:04:48.000
+to check. Check your script is saved,
+
+96
+00:04:48.000 --> 00:04:51.000
+which it does appear to be. Make sure that you've spelled it all right.
+
+97
+00:04:51.000 --> 00:04:54.000
+RVert, it's worth copying and pasting that
+
+98
+00:04:54.000 --> 00:04:57.000
+into here. Check the
+
+99
+00:04:57.000 --> 00:05:00.000
+settings against the Horizontal Axis and make sure they're basically
+
+100
+00:05:00.000 --> 00:05:03.000
+exactly the same, and this is the problem, it is the
+
+101
+00:05:03.000 --> 00:05:06.000
+axis. Instead of the X Axis, I want the Fourth Axis.
+
+102
+00:05:06.000 --> 00:05:09.000
+OK, so Third Axis for X, Fourth Axis for
+
+103
+00:05:09.000 --> 00:05:12.000
+Y. If we save that and try,
+
+104
+00:05:12.000 --> 00:05:15.000
+now we have Vertical, working fine
+
+105
+00:05:15.000 --> 00:05:18.000
+and Horizontal working fine. Good! Fantastic!
+
+106
+00:05:18.000 --> 00:05:21.000
+We can delete these log entries, because we don't need them anymore!
+
+107
+00:05:21.000 --> 00:05:24.000
+And that part of the challenge is sorted. That's great!
+
+108
+00:05:24.000 --> 00:05:27.000
+Now, next challenge I want you to do is, I want you to make the camera point
+
+109
+00:05:27.000 --> 00:05:30.000
+at the player. So, find the player by tag
+
+110
+00:05:30.000 --> 00:05:33.000
+in script. Make the camera look at the player, every frame,
+
+111
+00:05:33.000 --> 00:05:36.000
+we can do this in the same CameraPan Script for now.
+
+112
+00:05:36.000 --> 00:05:39.000
+And then, consider using the LateUpdate() method, rather than the Update
+
+113
+00:05:39.000 --> 00:05:42.000
+method. This does things a little bit later, so that if the player has moved
+
+114
+00:05:42.000 --> 00:05:45.000
+during the frame, then the camera doesn't point at it until the
+
+115
+00:05:45.000 --> 00:05:48.000
+end of the frame, you just get a smoother result. So, pause the video, see
+
+116
+00:05:48.000 --> 00:05:51.000
+if you can get the camera tracking the play now, for the first time.
+
+117
+00:05:51.000 --> 00:05:54.000
+OK!
+
+118
+00:05:54.000 --> 00:05:57.000
+Welcome back! So, this is what we're going to do to make the camera
+
+119
+00:05:57.000 --> 00:06:00.000
+tracking work. It's pretty simple, the camera
+
+120
+00:06:00.000 --> 00:06:03.000
+tracking, it doesn't take a huge amount of code to get
+
+121
+00:06:03.000 --> 00:06:06.000
+that working.
+
+122
+00:06:06.000 --> 00:06:09.000
+So what we're going to do is, we're just going to have ourselves a private
+
+123
+00:06:09.000 --> 00:06:12.000
+GameObject. We're going to find this in script, and I'm just going
+
+124
+00:06:12.000 --> 00:06:15.000
+to call it player. Then, at the Start, we're going to go find that
+
+125
+00:06:15.000 --> 00:06:18.000
+player by tag, so it's simply player =
+
+126
+00:06:18.000 --> 00:06:21.000
+GameObject.find object
+
+127
+00:06:21.000 --> 00:06:24.000
+with tag, object single object
+
+128
+00:06:24.000 --> 00:06:27.000
+with tag, and it's going to be my name ("Player");. Now, at this stage
+
+129
+00:06:27.000 --> 00:06:30.000
+I would want to be going to Unity, checking that my player
+
+130
+00:06:30.000 --> 00:06:33.000
+indeed is tagged with player, which we did earlier in the project. There it is
+
+131
+00:06:33.000 --> 00:06:36.000
+and then, coming back. Fantastic! Now,
+
+132
+00:06:36.000 --> 00:06:39.000
+I'm going to use LateUpdate, not Update. I'm going to
+
+133
+00:06:39.000 --> 00:06:42.000
+delete the comment, because it's no longer quite the same thing.
+
+134
+00:06:42.000 --> 00:06:45.000
+And I'm going to use transform.LookAt, a very useful
+
+135
+00:06:45.000 --> 00:06:48.000
+method, which we'll use again later. Now, you're welcome to look at Unity's
+
+136
+00:06:48.000 --> 00:06:51.000
+docs for that, and we're going to look at the player's transform.
+
+137
+00:06:51.000 --> 00:06:54.000
+OK, so
+
+138
+00:06:54.000 --> 00:06:57.000
+constantly look at the transform. Let's see what effect that has!
+
+139
+00:06:57.000 --> 00:07:00.000
+As I move the left stick now, you see the camera just
+
+140
+00:07:00.000 --> 00:07:03.000
+keeps the ball right in the middle. Let's just over the block! Wee!
+
+141
+00:07:03.000 --> 00:07:06.000
+That's pretty cool! So now, we've got the camera tracking.
+
+142
+00:07:06.000 --> 00:07:09.000
+The final thing we want it to do, is for the right hand stick
+
+143
+00:07:09.000 --> 00:07:12.000
+to pan up and down.
+
+144
+00:07:12.000 --> 00:07:15.000
+OK, so let's take a look at how we're going to do that. I've given you a Start Pack,
+
+145
+00:07:15.000 --> 00:07:18.000
+which you may or may have not unzipped by this stage.
+
+146
+00:07:18.000 --> 00:07:21.000
+So, in that Start Pack you have got
+
+147
+00:07:21.000 --> 00:07:24.000
+a couple of things. Let's go get the Start Pack and
+
+148
+00:07:24.000 --> 00:07:27.000
+download it and unzip it. So,
+
+149
+00:07:27.000 --> 00:07:30.000
+here we go, your Section Assets
+
+150
+00:07:30.000 --> 00:07:33.000
+Start Pack. And it's got a few things in it, let's just
+
+151
+00:07:33.000 --> 00:07:36.000
+put all of those into say the Camera Folder,
+
+152
+00:07:36.000 --> 00:07:39.000
+because they're all going to be related to the camera. Now, I've given you this selfie
+
+153
+00:07:39.000 --> 00:07:42.000
+stick thing, both as a .blend file and a .fbx. If you haven't
+
+154
+00:07:42.000 --> 00:07:45.000
+got Blender installed, you can use the .fbx. Let's take a look at what
+
+155
+00:07:45.000 --> 00:07:48.000
+it is. I'll use the Blender one. It's an arm, literally like
+
+156
+00:07:48.000 --> 00:07:51.000
+a selfie stick you use to take photos, and an
+
+157
+00:07:51.000 --> 00:07:54.000
+empty, just to make sure all the rotations and axes work properly.
+
+158
+00:07:54.000 --> 00:07:57.000
+Alright, so what we're going to do with this
+
+159
+00:07:57.000 --> 00:08:00.000
+guy is we're going to use, quite literally, a selefie
+
+160
+00:08:00.000 --> 00:08:03.000
+stick attached to the
+
+161
+00:08:03.000 --> 00:08:06.000
+ball. So, I'm going to drag the selfie stick into the scene,
+
+162
+00:08:06.000 --> 00:08:09.000
+like that. And you see, there it is just sitting attached, especially if I
+
+163
+00:08:09.000 --> 00:08:12.000
+look in Scene View, It's just kind of sitting over where the ball is. If we play
+
+164
+00:08:12.000 --> 00:08:15.000
+and go back to Scene View, it will just move.
+
+165
+00:08:15.000 --> 00:08:18.000
+The ball will move but the selfie stick won't.
+
+166
+00:08:18.000 --> 00:08:21.000
+It's just a thing, it's literally just a mesh
+
+167
+00:08:21.000 --> 00:08:24.000
+that's the shape of a cylinder, with some round ends on it, sitting in the world,
+
+168
+00:08:24.000 --> 00:08:27.000
+but crucially this thing has its axis at the
+
+169
+00:08:27.000 --> 00:08:30.000
+very bottom, which is why I made it in Blender, rather than just using a cylinder.
+
+170
+00:08:30.000 --> 00:08:33.000
+Now, look what happens when we rotate it. If we rotate in X, it rotates
+
+171
+00:08:33.000 --> 00:08:36.000
+around the bottom. If we rotate in Z, it rotates
+
+172
+00:08:36.000 --> 00:08:39.000
+around the bottom. You'll see why that's useful in a minute.
+
+173
+00:08:39.000 --> 00:08:42.000
+OK. So, the first thing I want you to do in code, with this selfie
+
+174
+00:08:42.000 --> 00:08:45.000
+stick, is just to get it to lock itself to the
+
+175
+00:08:45.000 --> 00:08:48.000
+ball's position. So, we need the selfie stick
+
+176
+00:08:48.000 --> 00:08:51.000
+literally locking to the ball's position, so
+
+177
+00:08:51.000 --> 00:08:54.000
+I'm going to create a script called Camera Arm,
+
+178
+00:08:54.000 --> 00:08:57.000
+for instance or SelfieStick, is easier.
+
+179
+00:08:57.000 --> 00:09:00.000
+SelfieStick, there we go! So, there's my SelfieStick
+
+180
+00:09:00.000 --> 00:09:03.000
+script. I'm going to go tidy it away into the Camera Folder,
+
+181
+00:09:03.000 --> 00:09:06.000
+because it's all related to the camera.
+
+182
+00:09:06.000 --> 00:09:09.000
+And what I want you to do is just, move the selfie stick,
+
+183
+00:09:09.000 --> 00:09:12.000
+every frame, to the position of the player.
+
+184
+00:09:12.000 --> 00:09:15.000
+Very similar to what we just did by the LookAt, so go ahead and make the selfie
+
+185
+00:09:15.000 --> 00:09:18.000
+stick move to the position of the player, every frame.
+
+186
+00:09:18.000 --> 00:09:21.000
+Your not even getting a challenge slide this time, you're just going to have to do it.
+
+187
+00:09:21.000 --> 00:09:24.000
+OK, so I'm going to go ahead and start making that work now.
+
+188
+00:09:24.000 --> 00:09:27.000
+So, I'm going to have myself a private GameObject
+
+189
+00:09:27.000 --> 00:09:30.000
+player; I'm going to
+
+190
+00:09:30.000 --> 00:09:33.000
+find it in script again, because this is something you don't want your designer doing, because if
+
+191
+00:09:33.000 --> 00:09:36.000
+it's not done, the whole code breaks right. So, this is something
+
+192
+00:09:36.000 --> 00:09:39.000
+that's not negotiable. We're going to go and find it in
+
+193
+00:09:39.000 --> 00:09:42.000
+code. Find object with tag player again, same as before.
+
+194
+00:09:42.000 --> 00:09:45.000
+OK that's fine!
+
+195
+00:09:45.000 --> 00:09:48.000
+We literally, in the LateUpdate again, because this is...
+
+196
+00:09:48.000 --> 00:09:51.000
+Well, actually here no, we're not rendering. I'm going to leave it in
+
+197
+00:09:51.000 --> 00:09:54.000
+Update. OK, we're moving something here, we're not rendering a
+
+198
+00:09:54.000 --> 00:09:57.000
+result of the movement, that's when you choose between Update and LateUpdate. When you're moving
+
+199
+00:09:57.000 --> 00:10:00.000
+things, use Update. When you're rendering the result of movement, use Late
+
+200
+00:10:00.000 --> 00:10:03.000
+Update. So then, we're just going to say the transform.position
+
+201
+00:10:03.000 --> 00:10:06.000
+of this very thing, of this selfie stick, is the player's
+
+202
+00:10:06.000 --> 00:10:09.000
+transform.position. Let's see
+
+203
+00:10:09.000 --> 00:10:12.000
+how that works, and if it does work, I'll show you
+
+204
+00:10:12.000 --> 00:10:15.000
+the code again, because I know I did that very fast. There you go, selfie
+
+205
+00:10:15.000 --> 00:10:18.000
+stick is stuck in the middle of the ball. Now, you might say, why
+
+206
+00:10:18.000 --> 00:10:21.000
+don't you just child the selfie stick to the ball? Good luck. Go ahead.
+
+207
+00:10:21.000 --> 00:10:24.000
+Have a go. You'll see what happens, if you do that is this, watch.
+
+208
+00:10:24.000 --> 00:10:27.000
+Of course, the ball rotates, so the selfie stick rotates.
+
+209
+00:10:27.000 --> 00:10:30.000
+Not good! Alright, that's why I've done it in script.
+
+210
+00:10:30.000 --> 00:10:33.000
+So, we are actually very
+
+211
+00:10:33.000 --> 00:10:36.000
+nearly there now aren't we. We've got nearly everything we want. What we
+
+212
+00:10:36.000 --> 00:10:39.000
+need to do now is make this orbit properly, so
+
+213
+00:10:39.000 --> 00:10:42.000
+I'm going to get you setup, for the mouse orbiting
+
+214
+00:10:42.000 --> 00:10:45.000
+on the right stick, and then, once I've got you set up, I'm going to get you to
+
+215
+00:10:45.000 --> 00:10:48.000
+do the final bit of this, alright. So, I'm going to have myself
+
+216
+00:10:48.000 --> 00:10:51.000
+a public float PanSpeed,
+
+217
+00:10:51.000 --> 00:10:54.000
+and that's going to be
+
+218
+00:10:54.000 --> 00:10:57.000
+= to 10, as a default. I don't know, that's just a guess as to
+
+219
+00:10:57.000 --> 00:11:00.000
+something that's the right speed.
+
+220
+00:11:00.000 --> 00:11:03.000
+OK, and another thing we're going to need is a private
+
+221
+00:11:03.000 --> 00:11:06.000
+Vector3, to represent the armRotation.
+
+222
+00:11:06.000 --> 00:11:09.000
+Now, let me must show you, in Unity, what I mean by that.
+
+223
+00:11:09.000 --> 00:11:12.000
+Here is the selfie stick, and we're literally talking about
+
+224
+00:11:12.000 --> 00:11:15.000
+this Vector3 here. We want to bring the arm down,
+
+225
+00:11:15.000 --> 00:11:18.000
+we want to bring the arm around, and then, we're going to put the camera
+
+226
+00:11:18.000 --> 00:11:21.000
+on the end of the arm. Yeah, that's the idea of this
+
+227
+00:11:21.000 --> 00:11:24.000
+whole scheme, is that we put the child, the camera, to the end of
+
+228
+00:11:24.000 --> 00:11:27.000
+this arm, literally like a selfie stick. So, we're going to need an
+
+229
+00:11:27.000 --> 00:11:30.000
+arm rotation vector, right. Now, we want the designer
+
+230
+00:11:30.000 --> 00:11:33.000
+to be able to set up what this arm rotation is, so in the Start
+
+231
+00:11:33.000 --> 00:11:36.000
+we go and find the arm rotation, from the transform
+
+232
+00:11:36.000 --> 00:11:39.000
+.rotation, of the thing we're on. What are
+
+233
+00:11:39.000 --> 00:11:42.000
+we on? We're on the selfie stick OK. But if
+
+234
+00:11:42.000 --> 00:11:45.000
+you just do that what are you going to get? What data type do you get out of transform
+
+235
+00:11:45.000 --> 00:11:48.000
+.rotation? Well, you get a Quaternion.
+
+236
+00:11:48.000 --> 00:11:51.000
+We want to be dealing with eulerAngles here, so luckily we have a method
+
+237
+00:11:51.000 --> 00:11:54.000
+.eulerAngles; that's actually a property, in this case,
+
+238
+00:11:54.000 --> 00:11:57.000
+because there are no brackets, so property of the rotation is eulerAngles.
+
+239
+00:11:57.000 --> 00:12:00.000
+So, this thing is simply this Vector3 here of the stick
+
+240
+00:12:00.000 --> 00:12:03.000
+OK. Fantastic! I'm
+
+241
+00:12:03.000 --> 00:12:06.000
+over using that word! I know, you can tell me off in the discussions. So,
+
+242
+00:12:06.000 --> 00:12:09.000
+let's get half of this done, and you're going to do the last bit.
+
+243
+00:12:09.000 --> 00:12:12.000
+What I'm going to do is build up a Vector3, that says armRotation.
+
+244
+00:12:12.000 --> 00:12:15.000
+Y. How do I know it's Y? Well,
+
+245
+00:12:15.000 --> 00:12:18.000
+let's play with it. Is it this guy here?
+
+246
+00:12:18.000 --> 00:12:21.000
+Probably, if the rotation is working? There you go!
+
+247
+00:12:21.000 --> 00:12:24.000
+That's your horizontal movement, around there. OK.
+
+248
+00:12:24.000 --> 00:12:27.000
+So, armRotaton.Y +=
+
+249
+00:12:27.000 --> 00:12:30.000
+so we're adding Input dot
+
+250
+00:12:30.000 --> 00:12:33.000
+get axis
+
+251
+00:12:33.000 --> 00:12:36.000
+("R... Now, what was it called, let's look over here.
+
+252
+00:12:36.000 --> 00:12:39.000
+And I've forgotten, so we need to go to the Input Manager.
+
+253
+00:12:39.000 --> 00:12:42.000
+I think it was RHoriz and RVert,
+
+254
+00:12:42.000 --> 00:12:45.000
+but we should check and copy and paste. RHoriz and RVert, there you
+
+255
+00:12:45.000 --> 00:12:48.000
+go in the Input Manager.
+
+256
+00:12:48.000 --> 00:12:51.000
+So, we're going to take,
+
+257
+00:12:51.000 --> 00:12:54.000
+not Input.GetKey but Input.GetAxis,
+
+258
+00:12:54.000 --> 00:12:57.000
+with this
+
+259
+00:12:57.000 --> 00:13:00.000
+string ("RHoriz") times
+
+260
+00:13:00.000 --> 00:13:03.000
+that panSpeed that we set up. Now, I don't know that's the right panSpeed,
+
+261
+00:13:03.000 --> 00:13:06.000
+but let's try now and find out. So, every frame we just
+
+262
+00:13:06.000 --> 00:13:09.000
+add whatever the right stick is to the rotation.
+
+263
+00:13:09.000 --> 00:13:12.000
+Let's try it. So it starts at a reasonable place.
+
+264
+00:13:12.000 --> 00:13:15.000
+Play! Now, the camera is not childed to it yet but we don't mind.
+
+265
+00:13:15.000 --> 00:13:18.000
+Go out to the Scene View, perhaps, and move the right stick and
+
+266
+00:13:18.000 --> 00:13:21.000
+see if we get what we want.
+
+267
+00:13:21.000 --> 00:13:24.000
+Get the ball moving, but the right stick isn't
+
+268
+00:13:24.000 --> 00:13:27.000
+doing what we want, so let's check the panSpeed.
+
+269
+00:13:27.000 --> 00:13:30.000
+The panSpeed is sensible, and let's go
+
+270
+00:13:30.000 --> 00:13:33.000
+back here and break this problem down. Why are we not getting
+
+271
+00:13:33.000 --> 00:13:36.000
+anything? Well, the simple reason we're not getting anything is because
+
+272
+00:13:36.000 --> 00:13:39.000
+we haven't told the transform.rotation
+
+273
+00:13:39.000 --> 00:13:42.000
+to change. Now, we need it to be
+
+274
+00:13:42.000 --> 00:13:45.000
+the arm rotation. We want the rotation
+
+275
+00:13:45.000 --> 00:13:48.000
+of the selfie stick to become the arm rotation,
+
+276
+00:13:48.000 --> 00:13:51.000
+but unfortunately, again we've got to give this a
+
+277
+00:13:51.000 --> 00:13:54.000
+Quaternion. So, there is a static method on Quaternion
+
+278
+00:13:54.000 --> 00:13:57.000
+called euler.
+
+279
+00:13:57.000 --> 00:14:00.000
+And you can give that a Vector3 and it'll spit back
+
+280
+00:14:00.000 --> 00:14:03.000
+a Quaternion. OK, so this is going to and from a Quaternion.
+
+281
+00:14:03.000 --> 00:14:06.000
+So, let's try this. We're going to look in
+
+282
+00:14:06.000 --> 00:14:09.000
+Scene View, so we can see what's happening.
+
+283
+00:14:09.000 --> 00:14:12.000
+Ah, see the right stick is doing that. Awesome!
+
+284
+00:14:12.000 --> 00:14:15.000
+Everything is awesome! So, we are nearly nearly
+
+285
+00:14:15.000 --> 00:14:18.000
+there. Guess what I'm going to challenge you to do now? Of course, it's
+
+286
+00:14:18.000 --> 00:14:21.000
+make the vertical pan work. Right stick vertical movement should
+
+287
+00:14:21.000 --> 00:14:24.000
+work. Camera will move up and down, at the same distance,
+
+288
+00:14:24.000 --> 00:14:27.000
+or at least the stick will move, we'll put the camera on the end,
+
+289
+00:14:27.000 --> 00:14:30.000
+at the very end. And see if you can do it in one line of code.
+
+290
+00:14:30.000 --> 00:14:33.000
+It's basically repeating what I've just done but for the vertical axis.
+
+291
+00:14:33.000 --> 00:14:36.000
+Go ahead! Have a go!
+
+292
+00:14:36.000 --> 00:14:39.000
+Cool! Welcome back! So, I'm going to try and do this in a simple cut and paste
+
+293
+00:14:39.000 --> 00:14:42.000
+operation. So, it's literally saying that the arm
+
+294
+00:14:42.000 --> 00:14:45.000
+rotation in... Now, we need to think about whether it's in X or Z.
+
+295
+00:14:45.000 --> 00:14:48.000
+Let's go over into Unity and see.
+
+296
+00:14:48.000 --> 00:14:51.000
+There, looks like X, so the
+
+297
+00:14:51.000 --> 00:14:54.000
+X component will track the RVert
+
+298
+00:14:54.000 --> 00:14:57.000
+axis. Confident in that? Maybe? Don't
+
+299
+00:14:57.000 --> 00:15:00.000
+know, try it! Don't worry about it too much just, go pop over,
+
+300
+00:15:00.000 --> 00:15:03.000
+give it a go! This is lean and simple. There you go!
+
+301
+00:15:03.000 --> 00:15:06.000
+I've got a little bit of drift going on, which means I haven't got enough
+
+302
+00:15:06.000 --> 00:15:09.000
+Dead Zone. So, if you're getting that drift, that means there's not enough
+
+303
+00:15:09.000 --> 00:15:12.000
+Dead Zone on the controller. So, you go to Input, and
+
+304
+00:15:12.000 --> 00:15:15.000
+for both I think, actually, I'm going to give a little bit more Dead Zone. I'm going to
+
+305
+00:15:15.000 --> 00:15:18.000
+move that down, to say 0.01. That's a
+
+306
+00:15:18.000 --> 00:15:21.000
+10 fold increase in the Dead Zone on the stick,
+
+307
+00:15:21.000 --> 00:15:24.000
+and you may
+
+308
+00:15:24.000 --> 00:15:27.000
+need to even further. I'm going to make a Dead
+
+309
+00:15:27.000 --> 00:15:30.000
+Zone of 1. I know it's a 100 times bigger Dead Zone, but
+
+310
+00:15:30.000 --> 00:15:33.000
+still I think that's going to be too much and it won't move at all. No, it's OK!
+
+311
+00:15:33.000 --> 00:15:36.000
+Feels about right on my stick. Obviously, you can see how much my stick
+
+312
+00:15:36.000 --> 00:15:39.000
+is moving but that's fine. All we need to do to make this work now guys
+
+313
+00:15:39.000 --> 00:15:42.000
+is to take the camera and stick it on the end of the selfie
+
+314
+00:15:42.000 --> 00:15:45.000
+stick. And you just need to make sure it is actually on the end
+
+315
+00:15:45.000 --> 00:15:48.000
+of the selfie stick. So, at 0, 0,
+
+316
+00:15:48.000 --> 00:15:51.000
+0 has almost done it, but the selfie stick is 10 units long. So,
+
+317
+00:15:51.000 --> 00:15:54.000
+there it is look! Let me maximize this, so you can see what's going on.
+
+318
+00:15:54.000 --> 00:15:57.000
+The camera is on the end of the selfie
+
+319
+00:15:57.000 --> 00:16:00.000
+stick, and then, when we rotate...
+
+320
+00:16:00.000 --> 00:16:03.000
+When we move the ball you see, there it goes. Now, of course, you
+
+321
+00:16:03.000 --> 00:16:06.000
+can delete the mesh of this selfie stick but I'm just going to leave it in.
+
+322
+00:16:06.000 --> 00:16:09.000
+If I jump it works, but if I use the right stick,
+
+323
+00:16:09.000 --> 00:16:12.000
+now horizontally I move around. You see the camera
+
+324
+00:16:12.000 --> 00:16:15.000
+preview down at the bottom there, and you see what's happening. It's too
+
+325
+00:16:15.000 --> 00:16:18.000
+fast, by the way, so if it's too fast you know what to do.
+
+326
+00:16:18.000 --> 00:16:21.000
+Let's un-maximize, come
+
+327
+00:16:21.000 --> 00:16:24.000
+down to the selfie stick's publicly exposed property, turn it down
+
+328
+00:16:24.000 --> 00:16:27.000
+to maybe 2, and let's have a look in the Game View.
+
+329
+00:16:27.000 --> 00:16:30.000
+There you go, you see that!
+
+330
+00:16:30.000 --> 00:16:33.000
+And the ball can be moving and we can move around. Now we have
+
+331
+00:16:33.000 --> 00:16:36.000
+proper twin stick control. All I'm going to do
+
+332
+00:16:36.000 --> 00:16:39.000
+to tidy this up is to go and find the Arms, Mesh Renderer,
+
+333
+00:16:39.000 --> 00:16:42.000
+and turn it off, so that the Arm is now invisible
+
+334
+00:16:42.000 --> 00:16:45.000
+and doesn't cast any weird shadows. Cool guys, congratulations!
+
+335
+00:16:45.000 --> 00:16:48.000
+That really is the end of this section! Now, you have a genuine Twin Stick game!
+
+336
+00:16:48.000 --> 00:16:51.000
+Go and include these mechanics in a game of your own, and I'll see you
+
+337
+00:16:51.000 --> 00:16:52.833
+on the other side!
+

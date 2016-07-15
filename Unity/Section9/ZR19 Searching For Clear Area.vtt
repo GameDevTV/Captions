@@ -1,0 +1,641 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:03.470 --> 00:00:06.980
+Hey hey welcome back! So, we're going to be talking about searching for a clear area.
+
+00:00:06.980 --> 00:00:11.540
+We're going to be helping the player look
+for a suitable landing place, just talk about
+
+00:00:11.540 --> 00:00:15.850
+which type of collider we need to detect a
+clear area, we'll create a simple system for
+
+00:00:15.850 --> 00:00:20.960
+it, and I'll talk a bit more about my growing
+vision for the game as a whole. So, I think
+
+00:00:20.960 --> 00:00:24.829
+what I'm going to end up doing in this game
+is, have the player in the first scene, just
+
+00:00:24.829 --> 00:00:30.949
+be falling from the air, probably looking
+up, so that it doesn't give away the size
+
+00:00:30.949 --> 00:00:35.160
+of the terrain, and possibly, at night, I'll
+decide that later, anyway the idea is, you
+
+00:00:35.160 --> 00:00:39.850
+kind of go splat, you hit the ground, it fades
+to black, and then, you wake up. And when
+
+00:00:39.850 --> 00:00:44.800
+you wake up, all your prompts are driven by
+my innerVoice. So, I'm going to land on the
+
+00:00:44.800 --> 00:00:51.280
+ground and say something like "Shit, the parachute must have not opened. Got to find a clear
+
+00:00:51.280 --> 00:00:56.360
+flat space the size of a tennis court, to
+call a HELO," or something a little more thought
+
+00:00:56.360 --> 00:01:00.810
+out. And then, you'll go around, running aroundlooking for a sufficiently large, clear space
+
+00:01:00.810 --> 00:01:05.970
+to land and helicopter. Now, how big a space
+is that? Well, I'm a helicopter pilot myself,
+
+00:01:05.970 --> 00:01:10.970
+and I think that a tennis court is good enough,
+for a small helicopter. So, something like
+
+00:01:10.970 --> 00:01:19.490
+18 by 30 meters, something like that should
+be enough. Call it 18 by 30 or 18 by 40, don't
+
+00:01:19.490 --> 00:01:23.970
+mind 20 by 40 meters. We like to have a bit
+of a run in, it's not very safe to be doing
+
+00:01:23.970 --> 00:01:27.790
+vertical landings, in case you have an engine
+failure, especially in a single engine helicopter.
+
+00:01:27.790 --> 00:01:32.140
+Anyway, I digress. So, what we want to do
+is have some way of the player being able
+
+00:01:32.140 --> 00:01:37.520
+to wonder around and find a clear area. So,
+you can explore the different types of ways
+
+00:01:37.520 --> 00:01:42.270
+of doing that. You can do ray casting, but
+that's more complicated than we need, and
+
+00:01:42.270 --> 00:01:48.080
+you haven't seen a ray cast yet, or you would
+normally just reach for a collider. Now, you
+
+00:01:48.080 --> 00:01:52.420
+may think you could use say a 2D Circle Collider,
+but you can't, because you cannot prevent
+
+00:01:52.420 --> 00:01:56.510
+a Circle Collider from being just purely in
+the X Y plane, and we need something in the
+
+00:01:56.510 --> 00:02:00.200
+X Z plane. And as you look through all the
+different types of colliders, you'll find
+
+00:02:00.200 --> 00:02:04.560
+that probably the only one that works sensibly
+is a Box Collider. And anyway, it's the right
+
+00:02:04.560 --> 00:02:10.220
+kind of shape, so I'm going to put a Box Collider
+on the player, or am I? Let me think about
+
+00:02:10.220 --> 00:02:14.650
+the architecture of this. Do I want to consider
+the player to have a collider and possibly
+
+00:02:14.650 --> 00:02:20.360
+cause a bit of confusion with the character
+controller's collider, or rather the... Where
+
+00:02:20.360 --> 00:02:27.420
+is it? Yeah, the Character Controller itself
+has this Capsule Collider on it. It's actually
+
+00:02:27.420 --> 00:02:31.410
+being controlled here, you see. Even though,
+if you turn it off, it doesn't stop displaying,
+
+00:02:31.410 --> 00:02:35.840
+the Character Controller comes bundled with
+a Capsule Collider. So, I could put the box
+
+00:02:35.840 --> 00:02:41.220
+collider on the player, that's find, or I
+could be more explicit and create a new sub-object
+
+00:02:41.220 --> 00:02:48.390
+of the player, called something like Clear
+Area, centered on the player. Now, that could
+
+00:02:48.390 --> 00:02:52.870
+have a Box Collider and just be a plain vanilla
+thing. OK, so there it is, there is a box.
+
+00:02:52.870 --> 00:02:58.319
+Now, I said 20 by 40 meters. I think it would
+be easier for the player, if the 20 meters
+
+00:02:58.319 --> 00:03:05.720
+extended out in front of them, so if we go
+40 rather in the Z and 20 let's say in the
+
+00:03:05.720 --> 00:03:09.470
+X. There you go. Now, depending on your terrain
+you may need to mess around with that size
+
+00:03:09.470 --> 00:03:13.970
+a bit, or mess around with you trees, but
+that's a sort of size for me, where it won't
+
+00:03:13.970 --> 00:03:18.930
+always fit. If I go and look from above, it's
+certainly not going to fit everywhere, right,
+
+00:03:18.930 --> 00:03:23.610
+but there will be places where he can find
+a clear space. So, that's pretty good for
+
+00:03:23.610 --> 00:03:29.140
+me. OK, so there we have, on the player, this
+clear area box. Now, you want its transform
+
+00:03:29.140 --> 00:03:34.790
+to be reset, it wants to be right at the root
+of the player. There it is. Now, the other
+
+00:03:34.790 --> 00:03:37.980
+thing we want to watch out for with it is
+the grass. It's because it needs to not be
+
+00:03:37.980 --> 00:03:42.330
+colliding with the grass. It should collide
+with the trees, because the trees have colliders
+
+00:03:42.330 --> 00:03:48.150
+on them, and the way to check that of course
+is to go to Terrain, Settings, and then, down
+
+00:03:48.150 --> 00:03:51.330
+here, you'll see Enable Tree Colliders. So,
+we'll see that in a minute, when we inspect
+
+00:03:51.330 --> 00:03:55.930
+the scripts. So, what we don't have is a way
+of keeping it above the grass, so why don't
+
+00:03:55.930 --> 00:04:01.440
+we put it at 1.5 meters off the ground. Something
+like that. So, there's a Box Collider, just
+
+00:04:01.440 --> 00:04:05.540
+floating, centered on the player, and of course
+remember if you go into Game and turn Gizmos
+
+00:04:05.540 --> 00:04:10.650
+on, at the top right here, you can actually,
+in the Game View, see this Box, temporarily.
+
+00:04:10.650 --> 00:04:15.280
+OK, now the player is not going to see this,
+but we want to... Well, he could I suppose,
+
+00:04:15.280 --> 00:04:19.570
+but we don't really need them to. We can use
+sound prompts to tell them what they need
+
+00:04:19.570 --> 00:04:25.750
+to be doing, but it's useful maybe for the
+moment. So, that's it there's the collider
+
+00:04:25.750 --> 00:04:29.780
+that you need. We can make it a trigger, and
+it should collide with the terrain, if the
+
+00:04:29.780 --> 00:04:33.960
+terrain comes up, which is good, because we
+want to be landing on a flat area of ground.
+
+00:04:33.960 --> 00:04:38.630
+Other things this box will collide with, include
+the zombie, here, and the trees, which is
+
+00:04:38.630 --> 00:04:43.040
+all fine. Now, we don't actually need a zombie
+at the moment. We're going to instantiate
+
+00:04:43.040 --> 00:04:47.490
+the zombie, after we've called the helicopter.
+It's tempting just to delete the zombie from
+
+00:04:47.490 --> 00:04:52.840
+here, but don't do that, because we spend
+a lot of work and time on this zombie. Various
+
+00:04:52.840 --> 00:04:58.290
+things like the Navmesh Agent Settings, we've
+spend time tweaking, if you remember, and
+
+00:04:58.290 --> 00:05:03.370
+various other things. Now, I know it's based
+on a prefab at the moment, but if you look
+
+00:05:03.370 --> 00:05:07.580
+at that prefab, it's here in the Standard
+Assets,, and I don't want it to be based on
+
+00:05:07.580 --> 00:05:11.600
+that prefab. I want it to be based on our
+own new prefab. Let me show you a couple of
+
+00:05:11.600 --> 00:05:15.880
+new things. I'm going to create a folder,
+again, and I'm going to call it Prefab, just
+
+00:05:15.880 --> 00:05:19.430
+for now, and then, in there I want to show
+you that you can actually create a prefab
+
+00:05:19.430 --> 00:05:24.530
+inside there. And I'm going to call it Zombie,
+and it's just a blank prefab placeholder.
+
+00:05:24.530 --> 00:05:30.220
+And then, you can drag your zombie from the
+Hierarchy onto that Zombie Prefab placeholder,
+
+00:05:30.220 --> 00:05:35.370
+and there he is and now you have a properly
+prefabbed zombie. So, now I test that by dropping
+
+00:05:35.370 --> 00:05:40.400
+a second zombie in the scene, and if you have
+a look around in Game View, we should find
+
+00:05:40.400 --> 00:05:44.699
+that Ethan is running over there from his
+normal direction but also that there is another
+
+00:05:44.699 --> 00:05:49.680
+zombie on the way. And their possibly stuck,
+I'm not sure where that second zombie is,
+
+00:05:49.680 --> 00:05:57.639
+so let's look in Scene View. He is stuck and
+that is because he probably doesn't have a
+
+00:05:57.639 --> 00:06:02.729
+target, but that's OK, we get the idea. He's
+there, he's working. We could make him target
+
+00:06:02.729 --> 00:06:07.960
+the player, and he should run off in our direction.
+There we go. So the purpose of that is just
+
+00:06:07.960 --> 00:06:12.550
+to make sure that, that prefab actually works
+properly, and from somewhere we'll probably
+
+00:06:12.550 --> 00:06:17.020
+see another zombie, running towards us. There
+he is. The reason he's got a green outline
+
+00:06:17.020 --> 00:06:21.449
+is, because we still have Gizmos turned on
+in Game View. There you go. Cool, and there
+
+00:06:21.449 --> 00:06:27.210
+he comes. OK! Fantastic! So, that prefab works,
+and now we can comfortably delete both zombies
+
+00:06:27.210 --> 00:06:31.449
+from the scene. Now, this is an edit of this
+video, and previously I deleted the zombie
+
+00:06:31.449 --> 00:06:35.490
+without thinking about that, so from now on,
+for the rest of this video you won't see the
+
+00:06:35.490 --> 00:06:40.100
+Prefabs Folder, and it'll come in, in the
+next video. So, don't worry about that, and
+
+00:06:40.100 --> 00:06:45.229
+now, I'm going to talk about my vision for
+the game. What I'm going to do is have the
+
+00:06:45.229 --> 00:06:50.389
+game that you land, you go: Ugh! It's night
+time, you're lighting everything with a flare.
+
+00:06:50.389 --> 00:06:54.380
+You look around for a suitable landing place,
+you call the helicopter by firing up a flare
+
+00:06:54.380 --> 00:07:01.990
+into the air, and then, all hell breaks loose.
+OK, so that's the kind of plan. So, there
+
+00:07:01.990 --> 00:07:06.069
+it is, there's the collider. What I want you
+to do now, is a little challenge. I want you
+
+00:07:06.069 --> 00:07:10.729
+to create a landing area detector. Use the
+3D Box Collider, that we just put on, wait
+
+00:07:10.729 --> 00:07:15.330
+for one clear second of no collisions. Well,
+their actually strictly triggers, because
+
+00:07:15.330 --> 00:07:19.819
+it's a Trigger Collider. And then, trigger
+a sound file of your own. And my sound file
+
+00:07:19.819 --> 00:07:28.180
+is going to go something like: This spot should
+do. Something like that. Call this spot should
+
+00:07:28.180 --> 00:07:32.650
+do. You know, I'll do my best Duke Nukem voice.
+Cool! So, pause the video, and just try and
+
+00:07:32.650 --> 00:07:40.470
+get that working now. OK, welcome back! So,
+how are we going to make this work. Well,
+
+00:07:40.470 --> 00:07:44.530
+we can put a script right here on the clear
+area thing, and we can just call it clear
+
+00:07:44.530 --> 00:07:51.870
+area, I guess. Clear Area Script, Create and
+Add. Fantastic! OK, so how is the Clear Area
+
+00:07:51.870 --> 00:08:00.150
+Script going to work? Well, it's going to
+need a private float, which is timeSinceLastTrigger;
+
+00:08:00.150 --> 00:08:05.680
+And it may as well start off as 0, as if it's
+colliding immediately. Now, what components
+
+00:08:05.680 --> 00:08:10.289
+is this guy going to need to look for? Not
+a lot, I don't think. I think it's a question
+
+00:08:10.289 --> 00:08:19.030
+of going like this: void OnTriggerEnter () And
+we actually don't care what it collides with,
+
+00:08:19.030 --> 00:08:23.430
+I don't think, at the moment, so we don't
+necessarily need to pass... Excuse me. [Coughs]
+
+00:08:23.430 --> 00:08:30.240
+We don't necessarily need to pass in any parameters
+over here. So, when a trigger happens we go
+
+00:08:30.240 --> 00:08:39.239
+timeSinceLastTrigger = 0) because we've just
+triggered. OK, and then, on every update,
+
+00:08:39.239 --> 00:08:47.439
+we can say timeSinceLastTrigger += the frame
+time Time.deltaTime; And then, again every
+
+00:08:47.439 --> 00:08:57.129
+Update, we can ask the question well, is it
+time to declare that we have a suitable landing
+
+00:08:57.129 --> 00:08:59.939
+area? So, before we go any farther, let's
+just make some things public and look how
+
+00:08:59.939 --> 00:09:04.889
+this works, at the moment, before we get too
+abstract. So, we simply have a float there.
+
+00:09:04.889 --> 00:09:09.040
+That should count up, until the triggers stop.
+Let's make sure that, that actually works.
+
+00:09:09.040 --> 00:09:14.879
+So, inspecting the clear area, it's been over
+a second, and as soon as that collider intersepts
+
+00:09:14.879 --> 00:09:19.350
+a tree there, well you see the first time
+it touches a tree, it resets, but it doesn't
+
+00:09:19.350 --> 00:09:24.059
+keep resetting. So, that's not the behavior
+we want, and it's because of instead of OnTriggerEnter,
+
+00:09:24.059 --> 00:09:32.329
+I want OnTriggerStay. Let's try again. So,
+we start here, and the time is over a second,
+
+00:09:32.329 --> 00:09:36.100
+because we're starting in a clear area, but
+now it's staying under a second until we return
+
+00:09:36.100 --> 00:09:40.369
+to a clear area. So, I'm just going to change
+the default start position of my player, to
+
+00:09:40.369 --> 00:09:46.139
+somewhere that is not a clear area, much more
+in the trees, like over here and see how that
+
+00:09:46.139 --> 00:09:52.800
+looks. Now, again watching the clear area
+component. Oh, I do seem to be in a clear
+
+00:09:52.800 --> 00:10:00.220
+area, that was unlucky. How did I manage that?
+Really! He's not in a clear area. These trees
+
+00:10:00.220 --> 00:10:05.209
+aren't triggering, for some reason. Let me
+move a little bit further out, make sure there's
+
+00:10:05.209 --> 00:10:11.179
+a tree in the box. OK, so the trees that are
+on me are triggering now. Oh, I have noticed,
+
+00:10:11.179 --> 00:10:15.470
+by the way, that my clear area has shifted.
+Be careful what you drag, when you drag this
+
+00:10:15.470 --> 00:10:19.920
+clear area around. Are you moving the player,
+as a whole, or are you just moving its clear
+
+00:10:19.920 --> 00:10:23.769
+area box? OK, be a little bit careful, you
+want the clear area to stay centered on the
+
+00:10:23.769 --> 00:10:31.399
+player. Cool! So, here we are in a clear area,
+and there, we're not. So, I'm actually going
+
+00:10:31.399 --> 00:10:35.360
+to make my box bigger. My clear area is clearly
+not big enough, so I'm going to make it 30
+
+00:10:35.360 --> 00:10:39.799
+meters wide by 40 meters long. It's obviously
+not enough of a challenge. Here you go. So,
+
+00:10:39.799 --> 00:10:44.540
+time since last trigger is staying below 1
+second, and if I wonder around, and later
+
+00:10:44.540 --> 00:10:48.569
+this will be under.. Ah, you go! You went
+under a second, somewhere around here. And
+
+00:10:48.569 --> 00:10:53.329
+the idea is that when you stay, in the clear
+like this, for more than a second then, he
+
+00:10:53.329 --> 00:11:04.290
+goes "This should do". So, let's make that
+bit work. if (timeSinceLastTrigger is greater
+
+00:11:04.290 --> 00:11:14.319
+than1 float then, what are we going to do?
+Well, let's put a log entry out. OK, we found
+
+00:11:14.319 --> 00:11:19.230
+a clear area. We can also play a sound clip,
+so let me make sure that finding the clear
+
+00:11:19.230 --> 00:11:24.059
+area works properly first. I'm looking at
+the Console, wondering around. I'm going to
+
+00:11:24.059 --> 00:11:28.149
+say something like "I need to find a clear
+flat area to land to land a HELO." I go here,
+
+00:11:28.149 --> 00:11:32.350
+and found clear area, and it keeps firing,
+but that's OK, I don't think we really care
+
+00:11:32.350 --> 00:11:36.799
+about that necessarily. We could put a boolean
+flag or some sort of toggle in here, but it
+
+00:11:36.799 --> 00:11:40.999
+depends what we do next. Now, we're just trying
+to play a sound file, and we're done. So,
+
+00:11:40.999 --> 00:11:45.509
+where is the sound file going to come off?
+Well, good question. Let's take a look, and
+
+00:11:45.509 --> 00:11:49.519
+see if we've already got a source. We have
+already got an AudioSource on the player,
+
+00:11:49.519 --> 00:11:55.600
+and the script is being driven by the Player
+Script. So, let's go just take a look at the
+
+00:11:55.600 --> 00:12:09.220
+Player Script. This doesn't currently find
+his AudioSource. The AudioSource on the player
+
+00:12:09.220 --> 00:12:14.829
+is currently being used only by the Character
+Controller for the footstep sounds. So, it's
+
+00:12:14.829 --> 00:12:18.079
+still going to be a voice in our head, so
+it's definitely going to come on the player.
+
+00:12:18.079 --> 00:12:23.220
+So, I think that we will use the player, and
+I think we need to think about the architecture.
+
+00:12:23.220 --> 00:12:26.569
+We need to think how are we going to tell
+the player to think something, if he is going
+
+00:12:26.569 --> 00:12:32.199
+to have a voice in his head regularly, how
+are we going to tell him to think stuff? An
+
+00:12:32.199 --> 00:12:36.739
+Enum may be a good idea here, but regardless
+of the solution we come up with, we've gotten
+
+00:12:36.739 --> 00:12:39.639
+to a point where we need to think a bit more
+carefully about the architecture. So, I'm
+
+00:12:39.639 --> 00:12:44.850
+not going to put the audio call in here, because
+we know how to do it, we know that this is
+
+00:12:44.850 --> 00:12:48.619
+being called, so we could easily put an audio
+clip player in here. We need to think a little
+
+00:12:48.619 --> 00:12:53.129
+bit carefully about where these audio clips
+are stored, how we keep track of all the different
+
+00:12:53.129 --> 00:12:57.609
+things the player could think and say to himself
+in his head, etc. So, that will be the subject
+
+00:12:57.609 --> 00:13:02.639
+of another video. Cool! Ah, at least we've
+got this far, and we have a way of finding
+
+00:13:02.639 --> 00:13:07.220
+clear areas, which is pretty cool. I like
+it, it's just a Box Collider around the player,
+
+00:13:07.220 --> 00:13:12.569
+with an OnTriggerStay, and it's high enough,
+1.5 meters in my case off the ground, to not
+
+00:13:12.569 --> 00:13:18.139
+get triggered by the grass and it gets triggered
+by trees and it'll also get triggered by terrain
+
+00:13:18.139 --> 00:13:23.389
+that's going up. Let's just show you that
+quickly. If we head off to an area that's
+
+00:13:23.389 --> 00:13:29.480
+clear of trees, but go down into a dip in
+the terrain, this still wouldn't be a very
+
+00:13:29.480 --> 00:13:33.019
+good helicopter landing area, right, and our
+system detects that. It's pretty cool! Look!
+
+00:13:33.019 --> 00:13:39.209
+That guy is not suitable, it keeps resetting
+the time since last trigger, because the collider
+
+00:13:39.209 --> 00:13:42.470
+is sitting in the terrain, even tough there
+are no trees around. So, pretty cool system!
+
+00:13:42.470 --> 00:13:45.939
+Congratulations, if you came up with it yourself!
+And if you've made some improvements. And
+
+00:13:45.939 --> 00:13:49.009
+And yeah, I look forward to seeing you in the
+next video.
+

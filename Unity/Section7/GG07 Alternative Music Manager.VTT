@@ -1,0 +1,558 @@
+WEBVTT
+
+00:00:04.089 --> 00:00:08.450 align:middle line:90%
+Hey guys and welcome back so we;re going to
+look at an alternative music manager architecture
+
+00:00:08.450 --> 00:00:13.510 align:middle line:90%
+now. We're going to customise our Win and
+Lose scenes and then test it and make sure
+
+00:00:13.510 --> 00:00:17.380 align:middle line:90%
+it all works fine. So here's that diagram
+that we saw before, slightly re-arranged,
+
+00:00:17.380 --> 00:00:22.900 align:middle line:90%
+I've taken away the arrows from Win and Lose
+back to start: Why? Because I want to just
+
+00:00:22.900 --> 00:00:27.100 align:middle line:90%
+show you how I'm going to prefix my level
+numbers 00 for Splash, we're never going to
+
+00:00:27.100 --> 00:00:32.230 align:middle line:90%
+go back there, 01a for Start, b for options
+they're all kind of at the same level if you
+
+00:00:32.230 --> 00:00:37.160 align:middle line:90%
+like and then 02 is for all the levels and
+then the 03 prefix is for the lose screen
+
+00:00:37.160 --> 00:00:41.620 align:middle line:90%
+and the win screen. Just for fun, just to
+give you another way of naming levels if you
+
+00:00:41.620 --> 00:00:42.579 align:middle line:84%
+want to.
+
+00:00:42.579 --> 00:00:46.840 align:middle line:90%
+So, what we need to do is create a whole new
+music manager architecture. Let's ditch this
+
+00:00:46.840 --> 00:00:52.760 align:middle line:90%
+singleton idea for now and give you another
+alternative. So on the splash screen, what
+
+00:00:52.760 --> 00:00:57.039 align:middle line:90%
+I want to do then is make a music manager,
+the music manager that is going to persist
+
+00:00:57.039 --> 00:01:04.430 align:middle line:90%
+through. So let's do it from scratch. Let's
+quickly make ourselves a music manager like
+
+00:01:04.430 --> 00:01:09.189 align:middle line:90%
+that, game object, reset its transform, I'm
+going to put it at the top, music manager
+
+00:01:09.189 --> 00:01:18.479 align:middle line:90%
+first. I'm going to make myself a new script,
+called music manager and tidy it up as usual
+
+00:01:18.479 --> 00:01:19.749 align:middle line:84%
+and go edit it.
+
+00:01:19.749 --> 00:01:24.079 align:middle line:90%
+OK, so this one's going to be altogether more
+simple. What we're going to do is we're going
+
+00:01:24.079 --> 00:01:30.340 align:middle line:90%
+to pass into it an array of level numbers
+and changes so we're going to have a public
+
+00:01:30.340 --> 00:01:41.819 align:middle line:90%
+AudioClip array and I'm going to call it levelMusicChangeArray
+now, what does that mean? Well, let's expose
+
+00:01:41.819 --> 00:01:47.090 align:middle line:90%
+it and have a look. Here's the music manager,
+and there we have an array now. If we go to
+
+00:01:47.090 --> 00:01:54.069 align:middle line:90%
+the build order, or the build settings, we
+currently have two levels. Splash and Start.
+
+00:01:54.069 --> 00:01:58.649 align:middle line:90%
+So what we would do here is if we wanted a
+different sound on start we would simply have
+
+00:01:58.649 --> 00:02:04.009 align:middle line:90%
+an array of size two, element zero we're always
+going to leave empty because we already have
+
+00:02:04.009 --> 00:02:08.259 align:middle line:90%
+a load sound on this level and then what we
+would do is drag an audio clip into element
+
+00:02:08.259 --> 00:02:16.579 align:middle line:90%
+one to say that when we get to level index
+one we want to change the sound, the music.
+
+00:02:16.579 --> 00:02:21.340 align:middle line:90%
+Level index one on the right hand side, nothing
+to do with how I'm naming the levels, so when
+
+00:02:21.340 --> 00:02:27.040 align:middle line:90%
+I get to index one as I've indicated there.
+OK, so let me go and get myself some music
+
+00:02:27.040 --> 00:02:33.129 align:middle line:90%
+that would be suitable so let's go to glitchthegame
+and find something that would be useful for
+
+00:02:33.129 --> 00:02:40.150 align:middle line:90%
+the menus... downloads, music and I can't
+remember which one I chose to use, give me
+
+00:02:40.150 --> 00:02:46.290 align:middle line:90%
+a moment let me just take a look. Basically
+have a look through that list, go with something
+
+00:02:46.290 --> 00:02:51.370 align:middle line:90%
+that you like the sound of which is most important
+really. Meanwhile I'm going to have a quick
+
+00:02:51.370 --> 00:02:55.849 align:middle line:90%
+look and I think I went for Spooky Groddle
+when I considered what I was going to do,
+
+00:02:55.849 --> 00:03:06.269 align:middle line:90%
+this one here.Yeah, sounds like a forest,
+it has a nice fade-in, I like it. So lets
+
+00:03:06.269 --> 00:03:12.739 align:middle line:90%
+just download that, you have to right-click,
+"Save Link As..."
+
+00:03:12.739 --> 00:03:18.849 align:middle line:90%
+Spooky Groddle, yeah I really like that. Awesome
+so 8 megabytes, now you see it's 8 megabytes
+
+00:03:18.849 --> 00:03:23.290 align:middle line:90%
+that's exactly why our splash screen is so
+helpful we don't want an eight megabyte sound
+
+00:03:23.290 --> 00:03:29.099 align:middle line:90%
+loading while Unity splash screen loads, do
+you get what I mean? So, import new asset.
+
+00:03:29.099 --> 00:03:35.620 align:middle line:90%
+Downloads, Spooky Groddle, import and it's
+going to take a minute. Now as a side note
+
+00:03:35.620 --> 00:03:40.829 align:middle line:90%
+here as we're talking about tbuilding to mobile
+it's good that it's an .mp3 file, .ogg files
+
+00:03:40.829 --> 00:03:46.510 align:middle line:90%
+work fine on Android but they do not work
+on iOSso in future if you're going to start
+
+00:03:46.510 --> 00:03:53.870 align:middle line:90%
+deploying to mobile start thinking about converting
+any .ogg files you have into .mp3. Don't worry,
+
+00:03:53.870 --> 00:03:58.659 align:middle line:90%
+the system will tell you about that but just
+while we sit here and watch this import an
+
+00:03:58.659 --> 00:04:01.760 align:middle line:90%
+asset I thought that I may as well tell you.
+As soon as it comes in we're going to want
+
+00:04:01.760 --> 00:04:07.709 align:middle line:90%
+to make it not a 3D sound because this is
+a 2D game. 3D sounds just end up being quiet
+
+00:04:07.709 --> 00:04:12.079 align:middle line:90%
+and confusing because it's to do with the
+distance from the camera. So not a 3D sound,
+
+00:04:12.079 --> 00:04:17.060 align:middle line:90%
+re-apply and we get another wonderful processing
+happening; your machine may be a lot faster
+
+00:04:17.060 --> 00:04:21.780 align:middle line:90%
+or a lot slower than this, probably slower.
+This is I don't know what this machine is
+
+00:04:21.780 --> 00:04:28.860 align:middle line:90%
+I think it's a 3ish gigahertz intel i7 macBook
+pro retina thingy, a pretty cool machine,
+
+00:04:28.860 --> 00:04:33.280 align:middle line:90%
+I'm pretty happy with it. What else to say
+while a progress bar goes flying off?
+
+00:04:33.280 --> 00:04:36.770 align:middle line:90%
+Alright, so once that's done what we're going
+to do is we're going to load this Spooky Groddle
+
+00:04:36.770 --> 00:04:41.919 align:middle line:90%
+sound into element one of that music change
+array and then we're going to write some code
+
+00:04:41.919 --> 00:04:48.560 align:middle line:90%
+that says just play the music that accords
+to the level in the index it's really quite
+
+00:04:48.560 --> 00:04:53.160 align:middle line:90%
+simple and I think it's quite an elegant solution.
+It does have some limitations but it's fine.
+
+00:04:53.160 --> 00:04:57.660 align:middle line:90%
+Music manager when we get to level index one
+I want to play that.
+
+00:04:57.660 --> 00:05:02.330 align:middle line:90%
+Cool! So how do we make the code do that?
+In fact here's a challenge for you, see if
+
+00:05:02.330 --> 00:05:09.970 align:middle line:90%
+you can stop the video now and actually write
+the code inside the music manager that plays
+
+00:05:09.970 --> 00:05:14.849 align:middle line:90%
+the right music based on the level. When the
+level index equals the musicChangeArray index
+
+00:05:14.849 --> 00:05:21.780 align:middle line:90%
+it plays the music. Go see if you can do it
+yourself, if you can't, just unpause and I'll
+
+00:05:21.780 --> 00:05:22.789 align:middle line:84%
+show you.
+
+00:05:22.789 --> 00:05:28.129 align:middle line:90%
+OK, cool, so what I'm going to do at the beginning
+of this is I'm going to go void Awake and
+
+00:05:28.129 --> 00:05:32.199 align:middle line:90%
+I'm going to on awake because we've had this
+problem before I'm going to say don't destroy
+
+00:05:32.199 --> 00:05:38.550 align:middle line:90%
+on load game object. Now to be clear, that's
+going to instruct this music manager to persist.
+
+00:05:38.550 --> 00:05:47.270 align:middle line:90%
+In fact, let's immediately rename it: Persistent
+- look, I'm going to look that up, because
+
+00:05:47.270 --> 00:05:51.740 align:middle line:90%
+if I spell that wrong I will never hear the
+end of it in the discussions persist-ent,
+
+00:05:51.740 --> 00:05:59.349 align:middle line:90%
+I'm sure that's right, OK guys so persistent
+music we're going to call it.
+
+00:05:59.349 --> 00:06:04.310 align:middle line:90%
+OK, persistent music. We're coding it right
+in there. OK so it's not going to destroy
+
+00:06:04.310 --> 00:06:10.280 align:middle line:90%
+this persistent music object on load. Great.
+And that's being set at awake, why don't we
+
+00:06:10.280 --> 00:06:17.590 align:middle line:90%
+just log that out so we know exactly what's
+going on. Debug.Log, what shall I say? Don't
+
+00:06:17.590 --> 00:06:26.280 align:middle line:90%
+destroy on load! and then I may as well just
+put use name, now name will return the name
+
+00:06:26.280 --> 00:06:31.030 align:middle line:90%
+of the game object. Let's just watch that
+working, it's real simple. Run, awake gets
+
+00:06:31.030 --> 00:06:36.009 align:middle line:90%
+called, console says "don't destroy on load
+persistent music." and we go into here. Awesome.
+
+00:06:36.009 --> 00:06:43.690 align:middle line:90%
+There's a start for us. Now, what to do next,
+so, take a look at this persistent music object.
+
+00:06:43.690 --> 00:06:51.129 align:middle line:90%
+You'll notice that it doesn't have an audiosource
+on it yet so let's add an AudioSource, there
+
+00:06:51.129 --> 00:06:55.580 align:middle line:90%
+it is, there's no clip; that's OK because
+we're going to program the clip programmatically
+
+00:06:55.580 --> 00:07:02.590 align:middle line:90%
+take off Play on Awake for that, OK, that's
+absolutely fine. Now, we need in the code
+
+00:07:02.590 --> 00:07:07.520 align:middle line:90%
+of course to have a private AudioSource that
+we can get access to so lets just do that
+
+00:07:07.520 --> 00:07:13.949 align:middle line:90%
+so private AudioSource, which is that thing
+that actually plays the music it's the source
+
+00:07:13.949 --> 00:07:19.289 align:middle line:90%
+of the sound and why don't I just call it
+audioSource, just for simplicity, no confusion
+
+00:07:19.289 --> 00:07:25.099 align:middle line:90%
+there then. So let's find that thing, how
+do we find that AudioSource well, it's relatively
+
+00:07:25.099 --> 00:07:33.210 align:middle line:90%
+simple. AudioSource equals GetComponent. Why
+GetComponent? Because if we look over here,
+
+00:07:33.210 --> 00:07:39.389 align:middle line:90%
+we are a script here looking for another component
+of the same gameObject persistent music so
+
+00:07:39.389 --> 00:07:46.939 align:middle line:90%
+its GetComponent we want of type AudioSource
+and its a method; so we need some of them
+
+00:07:46.939 --> 00:07:48.069 align:middle line:84%
+wiggly things.
+
+00:07:48.069 --> 00:07:53.120 align:middle line:90%
+OK cool so we've got the AudioSource now,
+that's it actually, we just need to find the
+
+00:07:53.120 --> 00:07:59.939 align:middle line:90%
+AudioSource. Now it's On Level Was Loaded
+that we want to do something. Not every single
+
+00:07:59.939 --> 00:08:06.139 align:middle line:90%
+update, so let's not bother with every single
+update let's go void OnLevelWasLoaded. Now
+
+00:08:06.139 --> 00:08:15.719 align:middle line:90%
+lt's look that up in the docs. MonoBehavious
+OnLevelWasLoaded and it passes in a level.
+
+00:08:15.719 --> 00:08:20.300 align:middle line:90%
+So this is a message that gets called when
+the level is loaded and gets passed to all
+
+00:08:20.300 --> 00:08:24.990 align:middle line:90%
+methods passing in something called level
+so lets just take int level, take the signature
+
+00:08:24.990 --> 00:08:27.849 align:middle line:84%
+straight off there; int:level.
+
+00:08:27.849 --> 00:08:34.599 align:middle line:90%
+OK so when the level's loaded we want to do
+something. Cool. Alright, well let's firstly
+
+00:08:34.599 --> 00:08:39.950 align:middle line:90%
+try and grab the right element out of the
+arrays, why don't we debug.Log to make sure
+
+00:08:39.950 --> 00:08:47.600 align:middle line:90%
+that we're grabbing the right thing from that
+list. Playing clip, or something like that,
+
+00:08:47.600 --> 00:09:00.540 align:middle line:90%
+and then + levelMusicChangeArray I'm just
+going to copy it from there and then the level
+
+00:09:00.540 --> 00:09:07.160 align:middle line:90%
+number so that's accessing the level - level,
+say 0 for the splash screen, 1 for the start
+
+00:09:07.160 --> 00:09:11.510 align:middle line:90%
+screen so we're taking that element off the
+level music change array. Hopefully that makes
+
+00:09:11.510 --> 00:09:20.110 align:middle line:90%
+sense. Let's try it, let's make sure it works.
+Play, and then when the scene loads boom.
+
+00:09:20.110 --> 00:09:26.060 align:middle line:90%
+Playing clip Spooky Groddle. Awesome, so it's
+found the Spooky Groddle clip in this array
+
+00:09:26.060 --> 00:09:31.690 align:middle line:90%
+and it's ready to play it. Let's go back to
+the code and make that actually happen, we're
+
+00:09:31.690 --> 00:09:43.290 align:middle line:90%
+nearly there. So let's say if levelMusicChangeArray[level]
+so we've used levelMusicChangeArray[level]
+
+00:09:43.290 --> 00:09:49.890 align:middle line:90%
+twice, I don't like that let's give something
+more descriptive. What is it firstly? What
+
+00:09:49.890 --> 00:09:54.910 align:middle line:84%
+type is levelMusicChangeArray brackets level?
+
+00:09:54.910 --> 00:10:01.650 align:middle line:90%
+Well it's an AudioClip isn't it? If you're
+not sure go to Unity, look at the here you
+
+00:10:01.650 --> 00:10:06.370 align:middle line:90%
+go playing clip here UnityEngine.AudioClip
+so it's an AudioClip, what are we going to
+
+00:10:06.370 --> 00:10:15.660 align:middle line:90%
+call it? Just call it thisLevelMusic, that's
+quite descriptive. That equals that yeah?
+
+00:10:15.660 --> 00:10:21.840 align:middle line:90%
+Clear. So AudioClip equals... there you go
+you see what I've done there? I've made it
+
+00:10:21.840 --> 00:10:25.510 align:middle line:90%
+clear what the hell this levelMusicChangeArray
+brackets level is that wasn't clear before.
+
+00:10:25.510 --> 00:10:31.220 align:middle line:90%
+Let's just check it works with that change,
+it will, but let's just check it. It will
+
+00:10:31.220 --> 00:10:36.600 align:middle line:90%
+if I get it right what am I doing wrong here?
+Full marks if you can see what I'm doing wrong
+
+00:10:36.600 --> 00:10:40.800 align:middle line:84%
+before I do.
+
+00:10:40.800 --> 00:10:50.650 align:middle line:90%
+OK, just a square bracket that had gone funny.
+OK so we wait for the level to load and we
+
+00:10:50.650 --> 00:10:58.380 align:middle line:90%
+get exactly the same message good. Now we
+can just plough ahead really quickly. If thisLevelMusic
+
+00:10:58.380 --> 00:11:05.620 align:middle line:90%
+so if something is returned, if there is some
+music right so if you're not sure what that's
+
+00:11:05.620 --> 00:11:12.980 align:middle line:90%
+going to mean later if there's some music
+attached, yeah? What do we mean by attached?
+
+00:11:12.980 --> 00:11:17.690 align:middle line:90%
+We mean look in the persistent music, does
+it have anything in the element? So for instance
+
+00:11:17.690 --> 00:11:22.620 align:middle line:90%
+if I made that four, what would happen if
+these guys were empty? Well, let's find out,
+
+00:11:22.620 --> 00:11:26.810 align:middle line:90%
+let's set no music in the other elements,
+this would allow for up to four different
+
+00:11:26.810 --> 00:11:27.270 align:middle line:84%
+scenes.
+
+00:11:27.270 --> 00:11:33.730 align:middle line:90%
+OK so if we have something then what are we
+going to do? Well we set the music clip. So,
+
+00:11:33.730 --> 00:11:42.250 align:middle line:90%
+what are we calling the music well we're calling
+audiosource.Clip equals this level music aha,
+
+00:11:42.250 --> 00:11:48.330 align:middle line:90%
+the variable name comes up again. Music.Loop.
+Oops, not music.Loop. audiosource.Loop. I'm
+
+00:11:48.330 --> 00:11:55.190 align:middle line:90%
+just going to copy audioSource as I'm using
+it lots here... dot loop euqals true as we
+
+00:11:55.190 --> 00:12:04.030 align:middle line:90%
+want it to loop here and music... no... audiosource
+dot play, capital P, it's a method. OK? So,
+
+00:12:04.030 --> 00:12:09.130 align:middle line:90%
+it just loads the music for this level, loops
+it and plays it. Let's try it, and see what
+
+00:12:09.130 --> 00:12:20.670 align:middle line:90%
+happens. You get your intro sound effect,
+now the music starts. Awesome. Sounds really
+
+00:12:20.670 --> 00:12:25.950 align:middle line:90%
+good. Later we'll get a fade in here, a visual
+fade in, but that's really good that's working.
+
+00:12:25.950 --> 00:12:27.080 align:middle line:84%
+Fantastic fine.
+
+00:12:27.080 --> 00:12:31.450 align:middle line:90%
+What I want you to do as a challenge then
+is as follows. I want you to go ahead and
+
+00:12:31.450 --> 00:12:39.410 align:middle line:90%
+set up the rest of your menu system and customise
+your scenes, your start, your win scene and
+
+00:12:39.410 --> 00:12:44.940 align:middle line:90%
+your lose scene; add a new options scene add
+a button on your start scene that goes back
+
+00:12:44.940 --> 00:12:48.930 align:middle line:90%
+to options and then we want two buttons on
+options, back and defaults. We're not going
+
+00:12:48.930 --> 00:12:54.210 align:middle line:90%
+to have anything you can change in options
+just yet, and then make level one with win
+
+00:12:54.210 --> 00:12:58.160 align:middle line:90%
+and lose buttons on it, so we can simulate
+the win and lose conditions and test the navigation
+
+00:12:58.160 --> 00:12:59.640 align:middle line:84%
+works properly.
+
+00:12:59.640 --> 00:13:03.330 align:middle line:90%
+So basically we want to be able to go from
+the splash screen to the start to the options
+
+00:13:03.330 --> 00:13:08.920 align:middle line:90%
+and back, or click default and nothing will
+happen at the moment and then we want to from
+
+00:13:08.920 --> 00:13:14.300 align:middle line:90%
+the start scene be able to say play the game,
+or start and then when we start the game we
+
+00:13:14.300 --> 00:13:18.720 align:middle line:90%
+will have a win button which will take us
+to the win scene and then that will give the
+
+00:13:18.720 --> 00:13:23.920 align:middle line:90%
+options of then quitting and playing again
+and a lose button which will take you to the
+
+00:13:23.920 --> 00:13:29.080 align:middle line:90%
+play again or quit again. Welcome back so
+this video is about long enough, I'll be showing
+
+00:13:29.080 --> 00:13:34.110 align:middle line:90%
+you the solution to that challenge in the
+next video. Congratulations if you've already
+
+00:13:34.110 --> 00:13:39.110 align:middle line:84%
+done it and I'll see you soon.

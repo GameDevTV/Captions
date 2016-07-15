@@ -1,0 +1,652 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.140 --> 00:00:09.550
+Hey, in this video I'm going to be completing
+my code, in accordance with my Game Design
+
+00:00:09.550 --> 00:00:15.850
+Document, using my story, but we do encourage
+you to create your own stories. So, just skim
+
+00:00:15.850 --> 00:00:20.939
+through this video and bear in mind there's
+some useful code folding tips at around 11
+
+00:00:20.939 --> 00:00:26.259
+minutes and 20 seconds. All I'm going to be
+doing is taking this GDD here, and then,
+
+00:00:26.259 --> 00:00:31.550
+hopping over the MonoDevelop and embellishing
+this code with a lot more states here, and
+
+00:00:31.550 --> 00:00:36.030
+a lot more methods, at the bottom. And then,
+I will be testing the code, just to make sure
+
+00:00:36.030 --> 00:00:41.410
+it works, showing it to somebody else, which
+I encourage you to do by the way. Show somebody
+
+00:00:41.410 --> 00:00:46.989
+else locally first, and then, when we go on
+to build and share on the Internet, of course,
+
+00:00:46.989 --> 00:00:51.510
+show a small group of people, so they can
+look for typos and things that are confusing.
+
+00:00:51.510 --> 00:00:54.750
+But that's about all I'm going to do in this
+video, so as I say, if you want to follow
+
+00:00:54.750 --> 00:00:59.249
+our story through, pick up a couple of tips
+along the way, feel free to watch it, but
+
+00:00:59.249 --> 00:01:06.270
+otherwise skip ahead and you know that you're
+succeeding when your game is running and working
+
+00:01:06.270 --> 00:01:13.189
+to your satisfaction. OK, so let's dive in
+and get this finished. So, the first thing
+
+00:01:13.189 --> 00:01:17.990
+we need to do is make sure that we have all
+of our states in our enumerated list. We already
+
+00:01:17.990 --> 00:01:23.170
+have shown you how to put the states onto
+two lines, so to save you watching me type
+
+00:01:23.170 --> 00:01:28.509
+it, I'm simply going to copy and paste across
+all of the states. They're just simply every
+
+00:01:28.509 --> 00:01:34.170
+state that we see in the Game Design Document,
+you need to make sure is in your enumerated
+
+00:01:34.170 --> 00:01:40.439
+state. Fantastic! So, that's the first thing
+that we need to do. Then, what? Well, our
+
+00:01:40.439 --> 00:01:44.719
+Start method is absolutely fine, it just sets
+the state and moves on. Then, we've got this
+
+00:01:44.719 --> 00:01:51.110
+list of ifs, so if you haven't already indented
+on the first if, the brackets, you're welcome
+
+00:01:51.110 --> 00:01:55.299
+to just to make things line up. So, what do
+we need here? Well, we just need to add a
+
+00:01:55.299 --> 00:02:01.729
+few more things in. We've got as far as corridor_0,
+what we need to do next is add all of the
+
+00:02:01.729 --> 00:02:06.189
+rest of the states that we just added to the
+list above. So, again to save you the pain
+
+00:02:06.189 --> 00:02:11.890
+of watching me type it all, there it goes,
+just pasted. So, when you type these you'll
+
+00:02:11.890 --> 00:02:20.120
+notice that they go red. They are red why?
+Why are these method calls red? Because the
+
+00:02:20.120 --> 00:02:26.340
+methods don't exist. So, a little tip for
+you, is it may be easier to add the method
+
+00:02:26.340 --> 00:02:31.080
+at the top here, immediately after the Update
+method, so that the second you've added one
+
+00:02:31.080 --> 00:02:38.040
+it disappears or the redness disappears. Let
+me show you that in action with the first
+
+00:02:38.040 --> 00:02:44.489
+in question, which is stairs underscore 0.
+So, again to save you watching, I'm going
+
+00:02:44.489 --> 00:02:49.540
+to put my story text in. Now, all of this
+final code is available for you to download,
+
+00:02:49.540 --> 00:02:54.069
+just like it was before. So, if you want to
+do that, that's available on the next lecture.
+
+00:02:54.069 --> 00:02:57.739
+You can just download the final code state,
+so you don't need to type all of my story
+
+00:02:57.739 --> 00:03:03.580
+out, if you do want to use my story, but I'm
+no creative genius, so please consider writing
+
+00:03:03.580 --> 00:03:09.440
+your own. So, here you go, the moment I put
+the stairs_0 method in, this one goes black.
+
+00:03:09.440 --> 00:03:14.319
+I think you get the idea. Alright, so now
+the thing is to just paste all of the rest
+
+00:03:14.319 --> 00:03:18.970
+of the methods in, checking a few things as
+you go, and this may be useful if you're still
+
+00:03:18.970 --> 00:03:22.680
+watching and you're doing your own story.
+The things to be careful of is does the text
+
+00:03:22.680 --> 00:03:28.629
+make sense? Firstly the first part of the
+text, the description, does it make sense?
+
+00:03:28.629 --> 00:03:33.810
+In context, when you look at what stage of
+this story you're at in the diagram, make
+
+00:03:33.810 --> 00:03:41.640
+sure your text fits. The next thing to say
+is, make sure that your command here matches
+
+00:03:41.640 --> 00:03:47.379
+up with your if statement, so when you've
+told people, after the new lines, what they
+
+00:03:47.379 --> 00:03:52.840
+can do then make sure that matches up with
+what you've actually got. So, for example,
+
+00:03:52.840 --> 00:03:58.980
+here we have three transitions S, M, and L.
+Make sure it matches up. And then, the third
+
+00:03:58.980 --> 00:04:03.720
+thing is make sure that the destination states
+are correct. So, if we look at cell, for example,
+
+00:04:03.720 --> 00:04:10.950
+and we look at our Game Design Doc, we should
+be going into sheets, mirror, and lock_0 respectively,
+
+00:04:10.950 --> 00:04:16.950
+which we are in this case. So, they are the
+main things to check and make sure look right.
+
+00:04:16.950 --> 00:04:25.240
+Alright, so that's the process of adding the
+new methods in. So, then what do we need next?
+
+00:04:25.240 --> 00:04:34.550
+Well, I'm going to add a stairs_1 in next.
+There it is and I'm just going to indent,
+
+00:04:34.550 --> 00:04:40.950
+so that it's all clear and consistent, and
+stairs_1 has gone. And then, I would be continually
+
+00:04:40.950 --> 00:04:46.330
+referring back to the Game Design Document
+to think about what I want to say, what I
+
+00:04:46.330 --> 00:04:52.200
+want to offer the player, etc. and what I
+don't. OK, so the next method in question
+
+00:04:52.200 --> 00:04:56.760
+is stairs_2. I'm just going down this list
+in the Update function and just adding them
+
+00:04:56.760 --> 00:05:02.830
+in one at a time. So, at stairs_2 is where
+we start talking about the paper clip and
+
+00:05:02.830 --> 00:05:11.050
+the options we have there, which at this stage
+is just to return. It says that we're armed
+
+00:05:11.050 --> 00:05:17.010
+with the paper clip, but we're still not willing
+to go up the stairs, we're not brave enough.
+
+00:05:17.010 --> 00:05:21.780
+OK, now it's out of order in terms of the
+story, but as it's the next in my list, I'm
+
+00:05:21.780 --> 00:05:25.410
+going to put courtyard in now. That doesn't
+matter which order you put these in, it's
+
+00:05:25.410 --> 00:05:28.060
+to say if you keep putting them at the top,
+at least you don't have to keep scrolling
+
+00:05:28.060 --> 00:05:34.330
+up and down, to see how far you're going,
+in terms of the other methods you've got to
+
+00:05:34.330 --> 00:05:39.960
+write, and then, floor comes in. Again, all
+of these, I'm liking the text to be indented
+
+00:05:39.960 --> 00:05:47.060
+consistently. OK, and then, corridor_1 and
+corridor_2. Now, it's difficult to, because
+
+00:05:47.060 --> 00:05:52.370
+it's a kind of nested loop with lots of, you
+know, lots of different ways you can go around.
+
+00:05:52.370 --> 00:05:57.060
+It's difficult to test it, until you finish
+this, so you might feel nervous writing this
+
+00:05:57.060 --> 00:06:03.740
+many lines of code without testing, and if
+you want to you can stop and test, but it's
+
+00:06:03.740 --> 00:06:08.160
+difficult because you need all of the methods
+to be there, in order to be able to do all
+
+00:06:08.160 --> 00:06:12.750
+of the state transitions. So, I would just
+carry on with confidence, if you can now,
+
+00:06:12.750 --> 00:06:16.870
+and just get all of these written in. And
+immediately, that you see that something needs
+
+00:06:16.870 --> 00:06:22.650
+changing, that's the time to change it. That's
+the spirit, as they say here in Britain. [Laughs]
+
+00:06:22.650 --> 00:06:30.060
+So, that's what you want to be doing. So,
+this is the graph, the hard graph, and hopefully
+
+00:06:30.060 --> 00:06:35.010
+you like writing and you like being creative.
+If you don't, then maybe one of your friends
+
+00:06:35.010 --> 00:06:40.130
+could do the actual story bit for you. If
+you're going to make games, a huge part of
+
+00:06:40.130 --> 00:06:46.380
+it these days is about creating the assets.
+It's particularly the case now that we have
+
+00:06:46.380 --> 00:06:51.100
+such powerful game engines; you tend to need
+much less development effort than you did
+
+00:06:51.100 --> 00:06:58.210
+before and much more artistic effort. So,
+this is the artistic effort, you know. There
+
+00:06:58.210 --> 00:07:04.910
+is a better way, of course, of creating this
+engine and of an artist entering this information,
+
+00:07:04.910 --> 00:07:09.570
+but it would use code structures that are
+a little bit beyond this stage of the course.
+
+00:07:09.570 --> 00:07:14.930
+This is a little bit cumbersome but it's not
+bad. It works and it's pretty flexible. It
+
+00:07:14.930 --> 00:07:19.870
+allows you to create an adventure game, with
+a pretty good branching story, you just need
+
+00:07:19.870 --> 00:07:25.830
+to be careful your Game Design Doc doesn't
+get too crazy and convoluted. So now, I have
+
+00:07:25.830 --> 00:07:30.570
+a method for every single state. Do I have
+if statements for everything that's in my
+
+00:07:30.570 --> 00:07:35.800
+enumerations? So, let's try building. It seems
+to work, let's go into Unity and try running.
+
+00:07:35.800 --> 00:07:41.300
+OK, so what I'm going to do is I'm going to
+go into and out of every state, so Sheets
+
+00:07:41.300 --> 00:07:49.880
+and back, Lock and back, Mirror and back,
+then Mirror and Take. OK. Then, Sheets and
+
+00:07:49.880 --> 00:07:59.390
+back and Lock and back and Lock and Open.
+"You're in a corridor. "Press P to Play again."
+
+00:07:59.390 --> 00:08:03.440
+So, we have a problem. Now, what state are
+we in? Look at the Console, it's logging out
+
+00:08:03.440 --> 00:08:07.680
+to corridor_0, so there's something wrong
+with our corridor_0 function, and I think
+
+00:08:07.680 --> 00:08:12.640
+that's just because I didn't update it. So,
+where's my corridor_0? You can use Control
+
+00:08:12.640 --> 00:08:20.550
+F to find remember, and I'm going to do that.
+Corridor_0 and just you can go up and down
+
+00:08:20.550 --> 00:08:25.650
+in the Up and Down Arrows, until you find
+the method. There you go, so corridor_0 is
+
+00:08:25.650 --> 00:08:32.580
+just incomplete, it doesn't make sense, it's
+a hangover from the freedom method that we
+
+00:08:32.580 --> 00:08:36.659
+had before, so corridor_0 needs to be a lot
+more exciting than that, so let's change it
+
+00:08:36.659 --> 00:08:44.620
+and embellish it. There you go. Now, we have
+these three different options and all the
+
+00:08:44.620 --> 00:08:50.570
+key states. Fantastic! So, now let's try playing
+again. Now, by the way, if you were still
+
+00:08:50.570 --> 00:08:54.900
+in Run State, actually which you are, look
+what happens. Even if you're leaving Unity
+
+00:08:54.900 --> 00:08:58.700
+running, if you save your script, actually
+it will update so you can just carry on from
+
+00:08:58.700 --> 00:09:04.070
+here. "C to view the Closet.", but you must
+be click into the game, for this to work.
+
+00:09:04.070 --> 00:09:09.680
+C to view the Closet, R to Return, F to inspect
+the Floor, R to Return, S to climb the Stairs,
+
+00:09:09.680 --> 00:09:16.470
+R to Return. Good! So, F and then H takes
+us forward. P to Pick the lock, or S to climb
+
+00:09:16.470 --> 00:09:25.990
+the Stairs and retreat, pick the lock, return
+revisit the closet, dress up, undress, seems
+
+00:09:25.990 --> 00:09:33.690
+to work. Dress up, stairs. Great! And we're
+free! Yipee! OK, so I did a very quick flick
+
+00:09:33.690 --> 00:09:37.250
+through there, making sure that the navigation
+worked. What you'd want to do, as well, is
+
+00:09:37.250 --> 00:09:41.900
+go through very carefully proofreading everything.
+Very very common errors here, there are going
+
+00:09:41.900 --> 00:09:46.180
+to be with spaces, a missing space, because
+when you look at your code it's very easy
+
+00:09:46.180 --> 00:09:52.840
+to miss this space on the end of a line here,
+right here, before you concatenate on. So,
+
+00:09:52.840 --> 00:09:57.780
+make sure you've got those spaces in, that's
+going to be your most common probably cause
+
+00:09:57.780 --> 00:10:02.430
+of error here. Your other cause of error is
+just not going to the right destination states.
+
+00:10:02.430 --> 00:10:07.270
+So, this would be a great time to scroll up
+and down your code and make sure the indentation
+
+00:10:07.270 --> 00:10:12.440
+levels are consistent, the text all looks
+good, I'm looking that this orange line here
+
+00:10:12.440 --> 00:10:17.040
+is aligned and that these brackets form a
+line, and I'm just generally making sure that
+
+00:10:17.040 --> 00:10:21.960
+I'm leaving this code. I could indent as if,
+if I wanted to, wherever there's two ifs together,
+
+00:10:21.960 --> 00:10:25.510
+I could choose to indent them, together if
+you see what I'm saying here, so that I can
+
+00:10:25.510 --> 00:10:30.230
+see the key codes right next to each other.
+This is just style, this is just choice, it's
+
+00:10:30.230 --> 00:10:35.100
+all just white space. But what I'd like to
+do, before I did anymore with my game, is
+
+00:10:35.100 --> 00:10:39.710
+make sure that the code is really consistent
+and clean, and it's this kind of attention
+
+00:10:39.710 --> 00:10:45.050
+to detail that tends to reduce errors. The
+other thing you need to do and suck up sometimes,
+
+00:10:45.050 --> 00:10:50.180
+like we did in a previous video, is sometimes
+you need to just make a bulk change to some
+
+00:10:50.180 --> 00:10:55.270
+naming that you settled on before, like state_
+for these methods and just realize that's
+
+00:10:55.270 --> 00:11:00.190
+a hassle. It's a hassle to copy and paste,
+it was just genrally a hassle, so we got rid
+
+00:11:00.190 --> 00:11:04.800
+of it. So, the moment you get an inkling,
+you'd be better off doing a renaming somewhere,
+
+00:11:04.800 --> 00:11:08.960
+just go ahead and do it, straight away, because
+it's almost certainly that you're right and
+
+00:11:08.960 --> 00:11:13.530
+it will save you a lot of trouble later. But
+I think that's looking pretty good now. It's
+
+00:11:13.530 --> 00:11:18.220
+all there, it's all indented nicely, it's
+all looking consistent, and just going up
+
+00:11:18.220 --> 00:11:23.580
+and down the code a few times just to check
+can really help you to see any patterns and
+
+00:11:23.580 --> 00:11:28.540
+spot any errors. So, now that we've got quite
+a lot of code, this is a great time to introduce
+
+00:11:28.540 --> 00:11:33.010
+a couple of suggestions made by students.
+Just to show you that we listen to students
+
+00:11:33.010 --> 00:11:38.880
+feedback, here is a suggestion firstly by
+Trevor Stocks. He's saying that we should
+
+00:11:38.880 --> 00:11:42.750
+show you how to collapse sections of code,
+so let me show you how to do that. If you
+
+00:11:42.750 --> 00:11:48.540
+go to MonoDevelop and Preferences and then
+down to Text Editor and General, you can see
+
+00:11:48.540 --> 00:11:55.200
+Enable Code Folding, this option here. MonoDevelop,
+Preferences, Text Editor, General, Enable
+
+00:11:55.200 --> 00:11:59.420
+Code Folding. Once you've done that, you'll
+get these little tree like icons, on the left,
+
+00:11:59.420 --> 00:12:05.420
+and it lets you collapse down your entire
+code, so the imports, the main class, and
+
+00:12:05.420 --> 00:12:10.840
+then the Update method, for example, and then
+each of these sub methods. So, that can be a really
+
+00:12:10.840 --> 00:12:15.029
+helpful way you of seeing what the state of your
+code is, so have a go with code collapsing.
+
+00:12:15.029 --> 00:12:21.200
+And then, I want to show you a second suggestion
+from another student here, which is Anthony
+
+00:12:21.200 --> 00:12:26.920
+Mckeever. Thank you, Anthony, he suggested
+using the Hash Region Syntax, so let me just
+
+00:12:26.920 --> 00:12:33.150
+show you how to do that, and that's particularly
+useful in this game. So, we have our definition
+
+00:12:33.150 --> 00:12:36.880
+of our enum, our Start method, our Update
+method, but then below that we have something
+
+00:12:36.880 --> 00:12:47.740
+that's basically a whole massive group of
+state handler methods. So, if I put #region
+
+00:12:47.740 --> 00:12:51.860
+then State handler methods, it'll come up
+in purple, and then, at the very bottom of
+
+00:12:51.860 --> 00:13:00.650
+the code I go... Probably here would make
+most sense, #endregion. Now, look what happens.
+
+00:13:00.650 --> 00:13:06.060
+If we scroll to the top we can go to our Update,
+but then, we can collapse down our state handler
+
+00:13:06.060 --> 00:13:13.020
+methods. You see that? So, now it reads really
+nicely, we have the main class, which if we
+
+00:13:13.020 --> 00:13:17.400
+collapse it down everything has gone away.
+And then, we have all of our methods, our
+
+00:13:17.400 --> 00:13:22.029
+Update, and then, all of our state handler
+methods can be expanded out. So, you can logically
+
+00:13:22.029 --> 00:13:27.380
+define this however you like, so try #region
+and #endregion. Thank you very much, to both
+
+00:13:27.380 --> 00:13:33.120
+Anthony McKeever and Trevor Stocks for these
+great suggestions. It all looks good go me,
+
+00:13:33.120 --> 00:13:38.980
+so that's fantastic! We have a much much more
+interesting much more nuanced story now, so
+
+00:13:38.980 --> 00:13:44.070
+I really hope that if you've followed it to
+this point, with my story, I hope that you'll
+
+00:13:44.070 --> 00:13:50.589
+stop and that you will make your own story
+now. Maybe make a new project together and
+
+00:13:50.589 --> 00:13:54.850
+write your own story in that, or just go ahead
+and get the code, so that you know the structure
+
+00:13:54.850 --> 00:13:59.900
+is right. You could have your own story, with
+the same structure. So, what that would mean
+
+00:13:59.900 --> 00:14:04.170
+is that you have exactly the same branching,
+you just change my wording a little bit or
+
+00:14:04.170 --> 00:14:08.080
+translate it maybe. If you're not English,
+how about you translate it to your native
+
+00:14:08.080 --> 00:14:12.320
+language, that would be a great thing to do.
+And what I really really want you to do is
+
+00:14:12.320 --> 00:14:17.370
+show you how to build and share this game,
+that you build it and that you share it and
+
+00:14:17.370 --> 00:14:21.080
+that you let other people see it and you share
+it on the course, and we'll talk about that
+
+00:14:21.080 --> 00:14:27.070
+in another video. So, get creative, get going.
+You now have an engine to build an arbitrarily
+
+00:14:27.070 --> 00:14:33.880
+complex or large text adventure. Just as you
+do so, make sure you put plenty of points
+
+00:14:33.880 --> 00:14:40.070
+in where the thinker is allowed to simplify,
+like the transition from the cell out. When
+
+00:14:40.070 --> 00:14:46.220
+we left the cell here, we decided not to allow
+people back to the cell. We also decided to
+
+00:14:46.220 --> 00:14:50.589
+ignore that we're carrying the mirror, etc.,
+otherwise the whole thing just goes crazy,
+
+00:14:50.589 --> 00:14:54.010
+very quickly. Cool! Thanks for following this
+far, and I'll see you soon!
+

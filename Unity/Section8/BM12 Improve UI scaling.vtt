@@ -1,0 +1,330 @@
+﻿WEBVTT
+
+00:00:00.000 --> 00:00:08.950 align:middle line:90%
+Welcome back, in this video we're going to
+be improving the scaling of our User Interface.
+
+00:00:08.950 --> 00:00:14.740 align:middle line:90%
+So we will add a new UI panel, ready for a
+swipe gesture. We will be launching our ball
+
+00:00:14.740 --> 00:00:20.720 align:middle line:90%
+either with a mouse or of your finger on a
+touch device. We will set the scaling and
+
+00:00:20.720 --> 00:00:26.650 align:middle line:90%
+anchors for our UI panels and then make sure
+that it all scales well. So over in our project
+
+00:00:26.650 --> 00:00:33.700 align:middle line:90%
+at the moment we have a UI like this where
+we have a screen space overlay User interface
+
+00:00:33.700 --> 00:00:38.710 align:middle line:90%
+here and now it specifically doesn't align
+with the world space because it is rendered
+
+00:00:38.710 --> 00:00:42.260 align:middle line:90%
+by the camera right over the top of everything
+like that;
+
+00:00:42.260 --> 00:00:47.180 align:middle line:90%
+but you'll notice that if you maximise on
+play and then you play your game ignore the
+
+00:00:47.180 --> 00:00:50.350 align:middle line:90%
+movement of the ball for a minute, what we're
+interested in is these panels. You see they're
+
+00:00:50.350 --> 00:00:56.070 align:middle line:90%
+kind of ugly and they move around pretty randomly
+and if I expand to the right this right panel
+
+00:00:56.070 --> 00:01:01.320 align:middle line:90%
+it's not sticking to the side of the screen;
+it's kind of a mess, right? So, let's get
+
+00:01:01.320 --> 00:01:04.170 align:middle line:90%
+this sorted. The first thing that we're going
+to do before we do anything else is add a
+
+00:01:04.170 --> 00:01:10.840 align:middle line:90%
+third panel to the system. So click on your
+UI canvas, go to your game object / UI menu
+
+00:01:10.840 --> 00:01:15.799 align:middle line:90%
+and then add a new panel; that's what you're
+looking for, game object / UI panel.
+
+00:01:15.799 --> 00:01:21.420 align:middle line:90%
+Perfect, so that adds another panel to the
+User interface. Now this is going to be called
+
+00:01:21.420 --> 00:01:27.759 align:middle line:90%
+the touch input panel like that and I'm going
+to put it to the top, just indicate to myself
+
+00:01:27.759 --> 00:01:32.750 align:middle line:90%
+that this wants to be top layer. Now it has
+an image and it needs to keep an image with
+
+00:01:32.750 --> 00:01:37.640 align:middle line:90%
+it otherwise the event system won't pick up
+our mouse movements in the subsequent lectures,
+
+00:01:37.640 --> 00:01:41.700 align:middle line:90%
+but what we want to do with this image is
+actually remove this image so we have an image
+
+00:01:41.700 --> 00:01:46.899 align:middle line:90%
+script but no image; OK? Then you can set
+your alpha to completely transparent, you
+
+00:01:46.899 --> 00:01:50.369 align:middle line:90%
+see the difference in the background there?
+If we have fully alpha'd then we have white;
+
+00:01:50.369 --> 00:01:53.979 align:middle line:90%
+then of course we're not going to be able
+to see through it, if we have 0 alpha then
+
+00:01:53.979 --> 00:01:58.820 align:middle line:90%
+we can see perfectly through that panel. So
+this touch input panel there is in the next
+
+00:01:58.820 --> 00:02:03.280 align:middle line:90%
+section, in the next video, is going to be
+used to detect the position of our mouse clicks
+
+00:02:03.280 --> 00:02:08.420 align:middle line:90%
+wherever we click on the screen and allow
+us to have the right type of interface. So
+
+00:02:08.420 --> 00:02:12.830 align:middle line:90%
+that's that bit. Now what we need to start
+doing is looking at the way that these panels
+
+00:02:12.830 --> 00:02:19.730 align:middle line:90%
+work. So let's start with the left panel.
+The left panel if you use your 't' key or
+
+00:02:19.730 --> 00:02:24.720 align:middle line:90%
+your user interface control tool, you can
+see that it's snapped to the left hand side
+
+00:02:24.720 --> 00:02:26.250 align:middle line:84%
+at the moment, of the game space;
+
+00:02:26.250 --> 00:02:31.670 align:middle line:90%
+but what it's not doing is scaling appropriately.
+So let's start to get it to do that. Drag
+
+00:02:31.670 --> 00:02:40.280 align:middle line:90%
+this user interface so that it's about a third
+of the width of the screen, being aware that
+
+00:02:40.280 --> 00:02:45.670 align:middle line:90%
+it depends on how your current screen is set
+up, it depends how big your game window is;
+
+00:02:45.670 --> 00:02:50.090 align:middle line:90%
+because your game window is floating with
+your scene window; but take about a third
+
+00:02:50.090 --> 00:02:55.480 align:middle line:90%
+of the screen, something like that. Make sure
+that it's snapping to the background appropriately,
+
+00:02:55.480 --> 00:03:02.659 align:middle line:90%
+you could set the left and top positions to
+zero. OK, perfect, now what we need to look
+
+00:03:02.659 --> 00:03:07.060 align:middle line:90%
+at is the anchors, so if you click on this
+little icon here, what we actually want you
+
+00:03:07.060 --> 00:03:08.620 align:middle line:84%
+to do is stretch like that.
+
+00:03:08.620 --> 00:03:14.959 align:middle line:90%
+We want it to stretch on the left hand side.
+Try that setting there, stretch attach to
+
+00:03:14.959 --> 00:03:20.780 align:middle line:90%
+the left. Go to the game window, leave maximise
+on play on, hit play and then try dragging.
+
+00:03:20.780 --> 00:03:25.610 align:middle line:90%
+You see how that left panel is now sticking
+to the left a lot better than it was before?
+
+00:03:25.610 --> 00:03:32.030 align:middle line:90%
+Perfect. OK so within the left panel we now
+have a top view, and again that top view we
+
+00:03:32.030 --> 00:03:35.400 align:middle line:90%
+need to give a similar treatment to. There
+it is inside the panel, it needs to be smaller
+
+00:03:35.400 --> 00:03:42.440 align:middle line:90%
+than it currently is, and we want it to stick,
+something like that, and we want it stuck
+
+00:03:42.440 --> 00:03:47.239 align:middle line:90%
+to what, to the left hand side? Well I don't
+know, try. Try anchoring it to the left, for
+
+00:03:47.239 --> 00:03:49.980 align:middle line:90%
+example with this setting here in your anchor
+presets;
+
+00:03:49.980 --> 00:03:58.049 align:middle line:90%
+then go into your game and have a play. It's
+OK, it disappears off the top if the thing's
+
+00:03:58.049 --> 00:04:02.180 align:middle line:90%
+too small, so this is what I want you to do
+now. I want you to play with those settings
+
+00:04:02.180 --> 00:04:09.090 align:middle line:90%
+for the left panel and for the right panel
+so that when you rescale the game window then
+
+00:04:09.090 --> 00:04:14.290 align:middle line:90%
+they work how you want them to for your game.
+OK? That's what I want you to do now. So pause
+
+00:04:14.290 --> 00:04:21.220 align:middle line:90%
+the video and play with your UI anchoring,
+and get to know what these buttons and controls
+
+00:04:21.220 --> 00:04:24.630 align:middle line:90%
+do. Don't worry about getting them perfect
+now, we need to do a lot of tweaking later
+
+00:04:24.630 --> 00:04:29.580 align:middle line:90%
+when we actually put some things in here but
+for now let's just get this roughly scaling
+
+00:04:29.580 --> 00:04:31.590 align:middle line:84%
+how we want it.
+
+00:04:31.590 --> 00:04:39.150 align:middle line:90%
+OK so go ahead and do that right now. OK,
+welcome back, so I just want to make sure
+
+00:04:39.150 --> 00:04:43.070 align:middle line:90%
+that the main elements like the touch input
+scales properly. Another way to do it is to
+
+00:04:43.070 --> 00:04:48.650 align:middle line:90%
+drag your inspector around because this will
+change the size of your game window. So the
+
+00:04:48.650 --> 00:04:54.740 align:middle line:90%
+touch input seems to work, the left panel
+as we rescale is working OK, it's not perfect
+
+00:04:54.740 --> 00:04:59.669 align:middle line:90%
+but we'll make it better later and the right
+panel is kind of OK as well, let's try it
+
+00:04:59.669 --> 00:05:05.690 align:middle line:90%
+the other way. Ah they're working much better,
+right and when we let go of the drag you see
+
+00:05:05.690 --> 00:05:08.770 align:middle line:84%
+how they’re re-scaling? Much better.
+
+00:05:08.770 --> 00:05:12.110 align:middle line:90%
+OK the only problem that I have is that my
+top down view isn't quite anchoring how I
+
+00:05:12.110 --> 00:05:16.930 align:middle line:90%
+want it so let's choose a different anchor
+maybe a top left anchor, let's see if that's
+
+00:05:16.930 --> 00:05:23.520 align:middle line:90%
+better for the top-down camera view. Yes,
+much better look at that. Oops, I didn't need
+
+00:05:23.520 --> 00:05:32.310 align:middle line:90%
+the console there... great, that's much better.
+Fantastic, so now we're ready to start getting
+
+00:05:32.310 --> 00:05:37.860 align:middle line:90%
+the game ready for touch input basically so
+I'm going to turn off my maximise on play
+
+00:05:37.860 --> 00:05:41.500 align:middle line:90%
+and we'll be able to play in here eventually,
+dragging in the middle but with the confidence
+
+00:05:41.500 --> 00:05:47.190 align:middle line:90%
+that if we rescale our screen that these panels
+will work, so as a recap for this lesson what
+
+00:05:47.190 --> 00:05:52.320 align:middle line:90%
+we've done is we've gone through each of our
+elements in the UI canvas and we've worked
+
+00:05:52.320 --> 00:05:58.270 align:middle line:90%
+on the anchors button, and it's a question
+of how things scale and what they stick to
+
+00:05:58.270 --> 00:06:00.630 align:middle line:90%
+so that's what I want you to explore and play
+with.
+
+00:06:00.630 --> 00:06:04.750 align:middle line:90%
+As I say get it sort of 80% right right now,
+don't aim for 100% because we're going to
+
+00:06:04.750 --> 00:06:09.630 align:middle line:90%
+revisiting this once these panels are actually
+fully populated with, there's going to be
+
+00:06:09.630 --> 00:06:13.650 align:middle line:90%
+a counter down here for how many pins are
+standing, there'll be some control buttons
+
+00:06:13.650 --> 00:06:18.190 align:middle line:90%
+here for restarting the game, and on the right
+hand side we'll have the score system basically
+
+00:06:18.190 --> 00:06:22.650 align:middle line:90%
+showing you which player is playing and what
+the current frame scores and total scores
+
+00:06:22.650 --> 00:06:27.360 align:middle line:90%
+are. So that's the general plan for the game
+and the whole screen will respond as a user
+
+00:06:27.360 --> 00:06:29.060 align:middle line:84%
+interface swipe input.
+
+00:06:29.060 --> 00:06:32.970 align:middle line:90%
+You could argue that this game might be better
+as a portrait game, most bowling games are
+
+00:06:32.970 --> 00:06:37.710 align:middle line:90%
+portrait on the iPhones just because of the
+nature and the shape of their lane but I'm
+
+00:06:37.710 --> 00:06:42.270 align:middle line:90%
+going to be a bit different here because I
+quite like having a portrait style centre
+
+00:06:42.270 --> 00:06:45.979 align:middle line:90%
+section for the game and then a user interface
+on the left and right; also it'll build better
+
+00:06:45.979 --> 00:06:48.120 align:middle line:84%
+for the web that way.
+
+00:06:48.120 --> 00:06:52.030 align:middle line:90%
+So congratulations on getting this far in
+this video and I look forward to seeing you
+
+00:06:52.030 --> 00:06:57.030 align:middle line:84%
+soon.

@@ -1,0 +1,1014 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hello hello, guys and girls!
+
+2
+00:00:06.000 --> 00:00:09.000
+So, in our game, we're doing really nicely.
+
+3
+00:00:09.000 --> 00:00:12.000
+There's something we could improve; there's not a lot of control
+
+4
+00:00:12.000 --> 00:00:15.000
+over the bounce of the ball, at the moment, because our
+
+5
+00:00:15.000 --> 00:00:18.000
+paddle is currently flat on the top surface.
+
+6
+00:00:18.000 --> 00:00:21.000
+So, what I want to talk to you about, in this lecture,
+
+7
+00:00:21.000 --> 00:00:24.000
+is what is a
+
+8
+00:00:24.000 --> 00:00:27.000
+Polygon Collider? How it could help us improve our game,
+
+9
+00:00:27.000 --> 00:00:30.000
+how to manipulate Polygon Colliders,
+
+10
+00:00:30.000 --> 00:00:33.000
+and then, I'm going to challenge you to chamfer your paddle. [Laughs]
+
+11
+00:00:33.000 --> 00:00:36.000
+Let me show you what I mean. So, if we
+
+12
+00:00:36.000 --> 00:00:39.000
+double click on Paddle, for example, in Level 1 in my case,
+
+13
+00:00:39.000 --> 00:00:42.000
+or click on it and push the F Key
+
+14
+00:00:42.000 --> 00:00:45.000
+for Frame. I sometimes say focus
+
+15
+00:00:45.000 --> 00:00:48.000
+but it's really Frame. You have to do this in Scene View.
+
+16
+00:00:48.000 --> 00:00:51.000
+Then, you will see the collider, very very faint
+
+17
+00:00:51.000 --> 00:00:54.000
+green outline. You can just see it if you
+
+18
+00:00:54.000 --> 00:00:57.000
+turn it on and off. Well, there's a Box Collider,
+
+19
+00:00:57.000 --> 00:01:00.000
+there's not a huge amount we can do when we edit it. We can make it
+
+20
+00:01:00.000 --> 00:01:03.000
+a little wider, taller, but we can't make it a different
+
+21
+00:01:03.000 --> 00:01:06.000
+shape. So, what I'm going to do and I'd like you to do is, go
+
+22
+00:01:06.000 --> 00:01:09.000
+into the Inspector for your paddle, but not in
+
+23
+00:01:09.000 --> 00:01:12.000
+a particular scene actually but as a prefab
+
+24
+00:01:12.000 --> 00:01:15.000
+of course, because you want to change your paddle everywhere. So, go
+
+25
+00:01:15.000 --> 00:01:18.000
+into your paddle, and what I want you to do
+
+26
+00:01:18.000 --> 00:01:21.000
+in your Paddle Prefab is, remove the Box
+
+27
+00:01:21.000 --> 00:01:24.000
+Collider all together. Scary!
+
+28
+00:01:24.000 --> 00:01:27.000
+And add yourself a new collider, so you can search for collider
+
+29
+00:01:27.000 --> 00:01:30.000
+and you'll find a Polygon Collider 2D.
+
+30
+00:01:30.000 --> 00:01:33.000
+That's what we want to add. OK.
+
+31
+00:01:33.000 --> 00:01:36.000
+Now, if we edit that Polygon Collider 2D,
+
+32
+00:01:36.000 --> 00:01:39.000
+let's have a look at see what we get.
+
+33
+00:01:39.000 --> 00:01:42.000
+Click back on the Paddle,
+
+34
+00:01:42.000 --> 00:01:45.000
+Just make sure you can see the green outline, it's very very
+
+35
+00:01:45.000 --> 00:01:48.000
+faint, it's almost invisible. And once you're sure you've
+
+36
+00:01:48.000 --> 00:01:51.000
+got the right thing, click Edit. Now,
+
+37
+00:01:51.000 --> 00:01:54.000
+it's still a box, but if you just
+
+38
+00:01:54.000 --> 00:01:57.000
+click the mouse and drag, you can now add
+
+39
+00:01:57.000 --> 00:02:00.000
+more lines to your polygon. Pretty cool hey! So
+
+40
+00:02:00.000 --> 00:02:03.000
+I can add a line out here, for example, and this is what I mean
+
+41
+00:02:03.000 --> 00:02:06.000
+by chamfering. Again, I can click on the other side and drag
+
+42
+00:02:06.000 --> 00:02:09.000
+out. So, I want us to modify our paddles
+
+43
+00:02:09.000 --> 00:02:12.000
+to look something like this. Now, if you make a mistake and you add
+
+44
+00:02:12.000 --> 00:02:15.000
+too many polygons, never fear, you can
+
+45
+00:02:15.000 --> 00:02:18.000
+always go back into the
+
+46
+00:02:18.000 --> 00:02:21.000
+Paddle, click back into Edit Collider,
+
+47
+00:02:21.000 --> 00:02:24.000
+and then, hold down the Control Key,
+
+48
+00:02:24.000 --> 00:02:27.000
+so that the segment goes red, and then, click and it will
+
+49
+00:02:27.000 --> 00:02:30.000
+remove that node.
+
+50
+00:02:30.000 --> 00:02:33.000
+Cool! So, I'm just going to quickly show you what would happen if we had these
+
+51
+00:02:33.000 --> 00:02:36.000
+invisible colliders now, like that.
+
+52
+00:02:36.000 --> 00:02:39.000
+It's difficult to see, but
+
+53
+00:02:39.000 --> 00:02:42.000
+you'll get to a situation where you can
+
+54
+00:02:42.000 --> 00:02:45.000
+bounce the ball differently, you've got more control over it. Let
+
+55
+00:02:45.000 --> 00:02:48.000
+me see if I can make it happen. Come on you.
+
+56
+00:02:48.000 --> 00:02:51.000
+I think it happened there! There you go and there!
+
+57
+00:02:51.000 --> 00:02:54.000
+But of course it's a little useless, because we can't see what we're doing.
+
+58
+00:02:54.000 --> 00:02:57.000
+So, here's your challenge then. What I want you to do
+
+59
+00:02:57.000 --> 00:03:00.000
+is create a new sprite, a new paddle
+
+60
+00:03:00.000 --> 00:03:03.000
+sprite. I would create an entirely separate
+
+61
+00:03:03.000 --> 00:03:06.000
+sprite sheet for that, with just a paddle in it,
+
+62
+00:03:06.000 --> 00:03:09.000
+with chamfered edges, so draw some chamfered edges somehow.
+
+63
+00:03:09.000 --> 00:03:12.000
+Adjust the collider, as I've just shown
+
+64
+00:03:12.000 --> 00:03:15.000
+you, to match that new sprite.
+
+65
+00:03:15.000 --> 00:03:18.000
+Then, I want you to ensure that the paddle is constrained properly
+
+66
+00:03:18.000 --> 00:03:21.000
+to the walls, because you're probably going to be making
+
+67
+00:03:21.000 --> 00:03:24.000
+your paddle wider, by doing this. I think it's a good idea to make it
+
+68
+00:03:24.000 --> 00:03:27.000
+wider, but we don't want it passing through the walls, so go
+
+69
+00:03:27.000 --> 00:03:30.000
+and find out where that constraint happens
+
+70
+00:03:30.000 --> 00:03:33.000
+and make the required change.
+
+71
+00:03:33.000 --> 00:03:36.000
+Then, check it all by play testing. So go
+
+72
+00:03:36.000 --> 00:03:39.000
+ahead, pause the video, and do that now.
+
+73
+00:03:39.000 --> 00:03:42.000
+Cool! Well, hopefully
+
+74
+00:03:42.000 --> 00:03:45.000
+you've got on well; I'm going to show you how I plan to do it.
+
+75
+00:03:45.000 --> 00:03:48.000
+So, looking at my sprites, I have a single
+
+76
+00:03:48.000 --> 00:03:51.000
+brick sprite sheet here, so I'm going to need to start with that,
+
+77
+00:03:51.000 --> 00:03:54.000
+I think. So, let me go and reveal that in my
+
+78
+00:03:54.000 --> 00:03:57.000
+Finder. I'm going to open it with my
+
+79
+00:03:57.000 --> 00:04:00.000
+program of choice, which is Picsend, at the moment.
+
+80
+00:04:00.000 --> 00:04:03.000
+Fine now, that's a starting
+
+81
+00:04:03.000 --> 00:04:06.000
+point. I think I'm going to immediately save this as
+
+82
+00:04:06.000 --> 00:04:09.000
+something else, before I start messing with it,
+
+83
+00:04:09.000 --> 00:04:12.000
+and I'm just going to call it paddle and it's a
+
+84
+00:04:12.000 --> 00:04:15.000
+.png, which is good it supports tnasparencey.
+
+85
+00:04:15.000 --> 00:04:18.000
+Great! Now, it's the wrong size and shape all together,
+
+86
+00:04:18.000 --> 00:04:21.000
+so let me make my window a little bigger and
+
+87
+00:04:21.000 --> 00:04:24.000
+start messing with this guy. So, first thing I'm going to do
+
+88
+00:04:24.000 --> 00:04:27.000
+is change the Canvas size.
+
+89
+00:04:27.000 --> 00:04:30.000
+It's 128 wide, I'm going to roll with 200.
+
+90
+00:04:30.000 --> 00:04:33.000
+It doesn't matter if it's wider than it needs to be, and remember that
+
+91
+00:04:33.000 --> 00:04:36.000
+our paddle is 41 pixels high and I"m going to keep the
+
+92
+00:04:36.000 --> 00:04:39.000
+top center of the image.
+
+93
+00:04:39.000 --> 00:04:42.000
+That looks about right. Actually, I want more width.
+
+94
+00:04:42.000 --> 00:04:45.000
+It's better to have more than you need, because when we cut it out in
+
+95
+00:04:45.000 --> 00:04:48.000
+Unity, it's going to ignore the transparent background. So, I'm
+
+96
+00:04:48.000 --> 00:04:51.000
+going to go right up to 300.
+
+97
+00:04:51.000 --> 00:04:54.000
+Fantastic! OK, so
+
+98
+00:04:54.000 --> 00:04:57.000
+we have a starting point for a chamfered paddle,
+
+99
+00:04:57.000 --> 00:05:00.000
+now what we need to do is change the shape. Excuse me.
+
+100
+00:05:03.000 --> 00:05:06.000
+Alright, so how are we going to do that? Well, it's entirely
+
+101
+00:05:06.000 --> 00:05:09.000
+up to you. You can use your artistic flair to draw some
+
+102
+00:05:09.000 --> 00:05:12.000
+lines and do whatever you like. I'm going to make a really ugly modification
+
+103
+00:05:12.000 --> 00:05:15.000
+mainly so that when you do your modification,
+
+104
+00:05:15.000 --> 00:05:18.000
+you can do better than us, and then, you can show off on the
+
+105
+00:05:18.000 --> 00:05:21.000
+discussion boards, by making something far prettier than I
+
+106
+00:05:21.000 --> 00:05:24.000
+have in this short video. So, let me see if
+
+107
+00:05:24.000 --> 00:05:27.000
+I can just make something, at least symmetrical,
+
+108
+00:05:27.000 --> 00:05:30.000
+which is nearly that.
+
+109
+00:05:30.000 --> 00:05:33.000
+You know what, I'm going to allow it to be rough
+
+110
+00:05:33.000 --> 00:05:36.000
+and ready and leave it at that. I'm just going to stick myself a
+
+111
+00:05:36.000 --> 00:05:39.000
+line along the bottom here, and I better get myself a
+
+112
+00:05:39.000 --> 00:05:42.000
+a Fill Tool and some gray color
+
+113
+00:05:42.000 --> 00:05:45.000
+perhaps and start filling it in.
+
+114
+00:05:45.000 --> 00:05:48.000
+Doesn't that look awful? That looks
+
+115
+00:05:48.000 --> 00:05:51.000
+perfectly awful! I think that's ideal.
+
+116
+00:05:51.000 --> 00:05:54.000
+I just want to demonstrate the point, and I think that having gray sides,
+
+117
+00:05:54.000 --> 00:05:57.000
+so that you can see the modification, is just fine.
+
+118
+00:05:57.000 --> 00:06:00.000
+So, I'm saving that .png file,
+
+119
+00:06:00.000 --> 00:06:03.000
+going back into Unity, and it's actually already here, paddle
+
+120
+00:06:03.000 --> 00:06:06.000
+.png. Now firstly, let's look at the World Units.
+
+121
+00:06:06.000 --> 00:06:09.000
+We want it to be consistant, so this bricks sprite
+
+122
+00:06:09.000 --> 00:06:12.000
+sheet used 1 to 8 pixels
+
+123
+00:06:12.000 --> 00:06:15.000
+per unit, so let's to the same with the new paddle.
+
+124
+00:06:15.000 --> 00:06:18.000
+Now, let's go straight into the Sprite Editor. It's a single
+
+125
+00:06:18.000 --> 00:06:21.000
+sprite in this case. That's fine and I'm going to
+
+126
+00:06:21.000 --> 00:06:24.000
+try, inside the Sprite Editor,
+
+127
+00:06:24.000 --> 00:06:27.000
+to make sure that the transparencies
+
+128
+00:06:27.000 --> 00:06:30.000
+are there. They are, we have checker boards; it all looks OK actually,
+
+129
+00:06:30.000 --> 00:06:33.000
+so there's nothing to do in the Sprite Editor. If I just
+
+130
+00:06:33.000 --> 00:06:36.000
+Apply that. Let's now try
+
+131
+00:06:36.000 --> 00:06:39.000
+going to my Brick Prefab,
+
+132
+00:06:39.000 --> 00:06:42.000
+and where it's asking for the sprite,
+
+133
+00:06:42.000 --> 00:06:45.000
+up here, instead of using the
+
+134
+00:06:45.000 --> 00:06:48.000
+0 hit sprite I'm now going to use the
+
+135
+00:06:48.000 --> 00:06:51.000
+Paddle Sprite. Great! So, we have a
+
+136
+00:06:51.000 --> 00:06:54.000
+new looking paddle, and it's very clear what's going on.
+
+137
+00:06:54.000 --> 00:06:57.000
+If you then go into the Paddle Prefab, remember we must do it
+
+138
+00:06:57.000 --> 00:07:00.000
+in the prefab, so it changes it across all the levels,
+
+139
+00:07:00.000 --> 00:07:03.000
+and we look at editing the Polygon Collider.
+
+140
+00:07:03.000 --> 00:07:06.000
+Let's see what we get now.
+
+141
+00:07:06.000 --> 00:07:09.000
+So, Paddle Prefab,
+
+142
+00:07:09.000 --> 00:07:12.000
+Polygon Collider, Edit.
+
+143
+00:07:12.000 --> 00:07:15.000
+Where are its current bounds? We need to be in the Scene View, which
+
+144
+00:07:15.000 --> 00:07:18.000
+we are.
+
+145
+00:07:18.000 --> 00:07:21.000
+And if you
+
+146
+00:07:21.000 --> 00:07:24.000
+click on it, there you go. Now, you can see that this isn't quite
+
+147
+00:07:24.000 --> 00:07:27.000
+right, at the moment, so with a bit of fiddling
+
+148
+00:07:27.000 --> 00:07:30.000
+around, you'll get to the point where you can edit it and you can zoom in.
+
+149
+00:07:30.000 --> 00:07:33.000
+And you can get your Polygon Collider
+
+150
+00:07:33.000 --> 00:07:36.000
+matching what you actually see in this
+
+151
+00:07:36.000 --> 00:07:39.000
+sprite, otherwise it's very strange when things bounce
+
+152
+00:07:39.000 --> 00:07:42.000
+off invisible objects. So
+
+153
+00:07:42.000 --> 00:07:45.000
+again, you can be more precise than me, if you wish.
+
+154
+00:07:45.000 --> 00:07:48.000
+I'm going for that, and it looks about right. You can see
+
+155
+00:07:48.000 --> 00:07:51.000
+that my Polygon Collider now is the same shape as my sprite.
+
+156
+00:07:51.000 --> 00:07:54.000
+I'm going to apply this change to
+
+157
+00:07:54.000 --> 00:07:57.000
+the prefab, like that.
+
+158
+00:07:57.000 --> 00:08:00.000
+Now, what would make sense would be to go into Level 1, for example, saving
+
+159
+00:08:00.000 --> 00:08:03.000
+as I go and have a look at my paddle. That
+
+160
+00:08:03.000 --> 00:08:06.000
+looks good! Now, look at Level 2 and look at your Paddle.
+
+161
+00:08:06.000 --> 00:08:09.000
+Again, they're all the same. Level 3 Paddle.
+
+162
+00:08:09.000 --> 00:08:12.000
+Good! So the Paddle has changed on every level, which means we
+
+163
+00:08:12.000 --> 00:08:15.000
+have updated the prefab appropriately. Now, let's just play for a moment.
+
+164
+00:08:15.000 --> 00:08:18.000
+Look the paddle
+
+165
+00:08:18.000 --> 00:08:21.000
+is going through the wall. You see the old extense of the
+
+166
+00:08:21.000 --> 00:08:24.000
+paddle are hitting the wall, so we'll deal with that in a minute. Let's just check the
+
+167
+00:08:24.000 --> 00:08:27.000
+bouncing for now. Actually, I'm going to do that
+
+168
+00:08:27.000 --> 00:08:30.000
+by bouncing off the bottom brick, so that I don't have to wait for it to
+
+169
+00:08:30.000 --> 00:08:33.000
+come back down again. Oh dear, there it
+
+170
+00:08:33.000 --> 00:08:36.000
+goes! So, this is the fun of play testing.
+
+171
+00:08:36.000 --> 00:08:39.000
+You've got to be accurate enough to... Ooh there it goes! Now, I've got a
+
+172
+00:08:39.000 --> 00:08:42.000
+lot more control over my bounce. You see that? That's pretty cool right!
+
+173
+00:08:42.000 --> 00:08:45.000
+I like it! I like it a lot! OK so
+
+174
+00:08:45.000 --> 00:08:48.000
+why is the paddle passing through the walls? That's
+
+175
+00:08:48.000 --> 00:08:51.000
+the question. Congratulations if you've already fixed it!
+
+176
+00:08:51.000 --> 00:08:54.000
+The reason is that, the position of the paddle is constrained in
+
+177
+00:08:54.000 --> 00:08:57.000
+code, and the paddle is now a different width
+
+178
+00:08:57.000 --> 00:09:00.000
+to what it was before. So previously,
+
+179
+00:09:00.000 --> 00:09:03.000
+when we moved the paddle to the left hand side of the Play
+
+180
+00:09:03.000 --> 00:09:06.000
+Space, it had a minimum transform position, if
+
+181
+00:09:06.000 --> 00:09:09.000
+you look here, of 0.5. Now,
+
+182
+00:09:09.000 --> 00:09:12.000
+when we move the paddle to the left hand side of the Play Space,
+
+183
+00:09:12.000 --> 00:09:15.000
+we have a minimum transform position of
+
+184
+00:09:15.000 --> 00:09:18.000
+about 1.18, by the looks of it
+
+185
+00:09:18.000 --> 00:09:21.000
+and a maximum transform position
+
+186
+00:09:21.000 --> 00:09:24.000
+of
+
+187
+00:09:24.000 --> 00:09:27.000
+in my case
+
+188
+00:09:27.000 --> 00:09:30.000
+about 14.8. So 1.18
+
+189
+00:09:30.000 --> 00:09:33.000
+and 14.8.
+
+190
+00:09:33.000 --> 00:09:36.000
+So, let's take a look. I'm just going to revert my
+
+191
+00:09:36.000 --> 00:09:39.000
+paddle back to the position that
+
+192
+00:09:39.000 --> 00:09:42.000
+it normally starts in, which is at precisely
+
+193
+00:09:42.000 --> 00:09:45.000
+8, in the middle, and then 0.5 in the
+
+194
+00:09:45.000 --> 00:09:48.000
+Y. Before I forget it,
+
+195
+00:09:48.000 --> 00:09:51.000
+I'm going to write down 1.18
+
+196
+00:09:51.000 --> 00:09:54.000
+and 4.8
+
+197
+00:09:54.000 --> 00:09:57.000
+believe that was right.
+
+198
+00:09:57.000 --> 00:10:00.000
+14.8...
+
+199
+00:10:00.000 --> 00:10:03.000
+OK, so they are my figures!
+
+200
+00:10:03.000 --> 00:10:06.000
+Now, where do you change that? Well, go to Scripts,
+
+201
+00:10:06.000 --> 00:10:09.000
+Paddle, and if you remember
+
+202
+00:10:09.000 --> 00:10:12.000
+the way that we constrained the Paddle was using Mathf.
+
+203
+00:10:12.000 --> 00:10:15.000
+Clamp. We couldn't use colliders, because actually the paddle never
+
+204
+00:10:15.000 --> 00:10:18.000
+moves, it never has any velocity during a frame. We
+
+205
+00:10:18.000 --> 00:10:21.000
+just move it frame by frame, using our script.
+
+206
+00:10:21.000 --> 00:10:24.000
+So, we use this Mathf.Clamp thing,
+
+207
+00:10:24.000 --> 00:10:27.000
+and our previous constraints were here.
+
+208
+00:10:27.000 --> 00:10:30.000
+And what we want to change them to is what I jotted down, 1.18 and
+
+209
+00:10:30.000 --> 00:10:33.000
+14.8.
+
+210
+00:10:33.000 --> 00:10:36.000
+In my case,
+
+211
+00:10:36.000 --> 00:10:39.000
+that's on line 26 of Paddle.cs,
+
+212
+00:10:39.000 --> 00:10:42.000
+in the Mathf.Clamp.
+
+213
+00:10:42.000 --> 00:10:45.000
+OK now, we need to do that both in AutoPlay and
+
+214
+00:10:45.000 --> 00:10:48.000
+in the MoveWithMouse () method.
+
+215
+00:10:48.000 --> 00:10:51.000
+Now, you could say is this a good
+
+216
+00:10:51.000 --> 00:10:54.000
+idea? Could we expose this in the Inspector?
+
+217
+00:10:54.000 --> 00:10:57.000
+Sure! Sure you can! In fact, this may be a
+
+218
+00:10:57.000 --> 00:11:00.000
+good idea! Why don't you do this as a mini challenge. Expose
+
+219
+00:11:00.000 --> 00:11:03.000
+these two float values, the min X and
+
+220
+00:11:03.000 --> 00:11:06.000
+max X, as instance variables
+
+221
+00:11:06.000 --> 00:11:09.000
+publicly in the Inspector right now, so that your artist
+
+222
+00:11:09.000 --> 00:11:12.000
+could make this change in the future. Go ahead, pause the video and do that
+
+223
+00:11:12.000 --> 00:11:15.000
+now. Cool! So I'm
+
+224
+00:11:15.000 --> 00:11:18.000
+doing it like this. I'm saying public float minX,
+
+225
+00:11:18.000 --> 00:11:21.000
+and maxX, I'm going to make
+
+226
+00:11:21.000 --> 00:11:24.000
+two variables at the same time.
+
+227
+00:11:24.000 --> 00:11:27.000
+And I'm not going to initialize them here, I'm going to leave them to the
+
+228
+00:11:27.000 --> 00:11:30.000
+Inspector. And then, I'm going
+
+229
+00:11:30.000 --> 00:11:33.000
+to remember that it's 1.18 and 14.8 and I'm going to say
+
+230
+00:11:33.000 --> 00:11:36.000
+minX down here.
+
+231
+00:11:36.000 --> 00:11:39.000
+maxX there, and then, the same
+
+232
+00:11:39.000 --> 00:11:42.000
+in the other method. So, whether we're doing it with AutoPlay
+
+233
+00:11:42.000 --> 00:11:45.000
+or with MoveWithMouse, then we still
+
+234
+00:11:45.000 --> 00:11:48.000
+use the same values. Now, of course you could
+
+235
+00:11:48.000 --> 00:11:51.000
+say let's refactor this line out to somewhere else but
+
+236
+00:11:51.000 --> 00:11:54.000
+we need to draw the line somewhere. This is going to get us what we want.
+
+237
+00:11:54.000 --> 00:11:57.000
+So now, in your Paddle Prefab, on the script,
+
+238
+00:11:57.000 --> 00:12:00.000
+with any
+
+239
+00:12:00.000 --> 00:12:03.000
+luck, we will see a minX
+
+240
+00:12:03.000 --> 00:12:06.000
+and a maxX.
+
+241
+00:12:06.000 --> 00:12:09.000
+Just check those against my
+
+242
+00:12:09.000 --> 00:12:12.000
+document. Perfect! They're also three significant figures, so that
+
+243
+00:12:12.000 --> 00:12:15.000
+feels right. Let's try it!
+
+244
+00:12:15.000 --> 00:12:18.000
+Ah hah! Ah hah! Perfect!
+
+245
+00:12:18.000 --> 00:12:21.000
+Awesome! Congratulations! So, we now have a paddle that is constrained
+
+246
+00:12:21.000 --> 00:12:24.000
+and even an artist could change those values. So as a
+
+247
+00:12:24.000 --> 00:12:27.000
+recap, what we have done here is we've learned what a Polygon Collider
+
+248
+00:12:27.000 --> 00:12:30.000
+is. We can see how it can help us improve our game.
+
+249
+00:12:30.000 --> 00:12:33.000
+We've learned how to manipulate Polygon Colliders, remember using
+
+250
+00:12:33.000 --> 00:12:36.000
+the Control Key to delete and just
+
+251
+00:12:36.000 --> 00:12:39.000
+by clicking to add new nodes. And hopefully you passed
+
+252
+00:12:39.000 --> 00:12:42.000
+the challenge and you chamfered your paddle yourself.
+
+253
+00:12:42.000 --> 00:12:45.000
+Cool! Enjoy the improved game play. See you soon!
+

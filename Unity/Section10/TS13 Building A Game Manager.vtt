@@ -1,0 +1,326 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:01.380 --> 00:00:05.020
+Welcome back guys! In this video, we're going
+to be building a GameManager. So, we'll make
+
+00:00:05.020 --> 00:00:10.110
+a simple GameManager, use it to keep track
+of whether we're in recording or playback
+
+00:00:10.110 --> 00:00:14.639
+state, wire it into the ReplaySystem that
+we just made, and then, test the playback.
+
+00:00:14.639 --> 00:00:18.730
+So, it's a series of challenges for you, really,
+to make up for the micro-challenge, in the
+
+00:00:18.730 --> 00:00:22.860
+last video. You've got two in this one. Firstly,
+I want you to create an empty GameObject called
+
+00:00:22.860 --> 00:00:27.920
+GameManager, attach the GameManager script
+to it, have it keep track of a Boolean called recording,
+
+00:00:27.920 --> 00:00:33.600
+and while holding down the "Fire1"
+button, as defined by the Cross Platform Input Manager,
+
+00:00:33.610 --> 00:00:39.000
+I want you to be in Playback Mode,
+i.e. recording is false, otherwise when we're
+
+00:00:39.000 --> 00:00:43.990
+not holding down any special keys, we just
+want the normal game play, so recording becomes
+
+00:00:43.990 --> 00:00:50.850
+true, in normal game play. Alright, so go
+ahead, pause the video, and have a go at
+
+00:00:50.850 --> 00:00:57.560
+that now! Welcome back! So, let's make ourselves
+a GameManager! It's fairly easy, you're going
+
+00:00:57.560 --> 00:01:04.790
+to create an empty object; I'm going to call
+it Game, if I can type, Manager. I'm actually
+
+00:01:04.790 --> 00:01:08.499
+going to move this up to 100 Y, I want it
+out of the way. You don't have to put these
+
+00:01:08.499 --> 00:01:12.920
+things at the Origin, if you don't want to
+see their transforms, when you click on them.
+
+00:01:12.920 --> 00:01:20.399
+Fantastic! Let's make a new script. GameManager,
+OK. Game Managers come with a slightly different
+
+00:01:20.399 --> 00:01:25.149
+icon, it comes with a little cog, because
+it's quite a common script name, is GameManager.
+
+00:01:25.149 --> 00:01:29.950
+Alright, so there it is. Let's go into our
+GameManager and take a look and see what we're
+
+00:01:29.950 --> 00:01:33.170
+going to do with it. Fantastic! So firstly,
+it needs a member variable. It's going to
+
+00:01:33.170 --> 00:01:37.159
+be a public, because we want to be able to
+see it from the outside, Boolean called recording,
+
+00:01:37.159 --> 00:01:42.490
+and in normal case it's true, i.e. we're just
+playing the game. We don't need a Start method,
+
+00:01:42.490 --> 00:01:47.350
+I don't think, but in the Update, we're just
+going to simply look at the, oops not
+
+00:01:47.350 --> 00:01:51.929
+the off mesh link. if (Cross platform input manager...
+Where has it gone? Well, of course you need
+
+00:01:51.929 --> 00:02:01.359
+to import this name space, using UnityStandardAssets.CrossPlatformInput;
+Ah Now, we've got a chance of it working,
+
+00:02:01.359 --> 00:02:07.749
+using (CrossPlatformInputManager.GetButton...
+Now, GetButtonDown, just when it goes down,
+
+00:02:07.749 --> 00:02:12.970
+or Button? Now, we want a persistent state,
+so you GetButton, call ("Fire1") whatever
+
+00:02:12.970 --> 00:02:19.940
+we've defined that to be, so when the ("Fire1")
+button is held down, recording = false;
+
+00:02:19.940 --> 00:02:24.620
+So, we're not recording, when we're holding the
+button down, we're playing back. You could
+
+00:02:24.630 --> 00:02:29.990
+have used playback, it doesn't matter, either
+way as a Boolean, but I'm using recording.
+
+00:02:29.990 --> 00:02:35.280
+Otherwise, recording = true; so by default
+recording is true. Fantastic! So now, that's
+
+00:02:35.280 --> 00:02:40.280
+pretty simple right. Shall we just check it
+works. There's the GameManager, should have
+
+00:02:40.280 --> 00:02:46.150
+a public recording Bool there, click play.
+Oh, Control is the button for ("Fire1")
+
+00:02:46.150 --> 00:02:50.280
+by default, in this Mac and PC, but when I hold
+down Control, this guy disappears. When I
+
+00:02:50.280 --> 00:02:54.710
+let go of Control, it comes back. Alright,
+so Control key on my keyboard is doing that.
+
+00:02:54.710 --> 00:03:00.430
+Fine! So now, the second challenge is, I want
+you to wire this into the Replay.. It's not
+
+00:03:00.430 --> 00:03:09.910
+Replay.cs actually is it, it's ReplaySystem.cs,
+so I want you to wire this into ReplaySystem.cs.
+
+00:03:09.910 --> 00:03:14.000
+Get your ReplaySystem.cs reading this state,
+we just defined, ensure "Fire1" goes into
+
+00:03:14.010 --> 00:03:19.820
+playback, and then, celebrate, if it all works!
+[Laughs] OK, go ahead and work on your ReplaySystem
+
+00:03:19.820 --> 00:03:28.080
+now, to reference that variable in the GameManager.
+Wicked! OK so, you should be fairly used to
+
+00:03:28.080 --> 00:03:32.440
+wiring scripts together, by now, so let's
+go into the ReplaySystem and see how we're going
+
+00:03:32.440 --> 00:03:35.830
+to do this. We're going to make a private
+GameManager. We want to start doing things
+
+00:03:35.830 --> 00:03:39.010
+without dragging them into the Inspector,
+unless it's specifically something that our
+
+00:03:39.010 --> 00:03:44.860
+designer can choose, without breaking the
+game, whether it works on object A or B, or
+
+00:03:44.860 --> 00:03:48.490
+whether he drags A or B in. If it's something
+the designer doesn't want to be making a choice
+
+00:03:48.490 --> 00:03:53.730
+about, don't drag it any more, let's just
+start using private. So, how are we going
+
+00:03:53.730 --> 00:03:59.240
+to find it? manager = GameObject.FindObjectOfType
+should do the job, and there should only
+
+00:03:59.240 --> 00:04:05.200
+be one GameManager. So, there we go we've got a GameManager stored in this manager reference
+
+00:04:05.200 --> 00:04:12.590
+here. So, all we need to do here really is
+just say, if (manager.recording By the way,
+
+00:04:12.590 --> 00:04:16.130
+you might be tempted to use a static or something horrible, why bother, why bother, why not just find
+
+00:04:16.130 --> 00:04:21.130
+the manager. Make the link between the manager
+and the ReplaySystem explicit. If you used
+
+00:04:21.130 --> 00:04:26.070
+a static, over in the GameManager, then you
+wouldn't know what was reading it. You'd have
+
+00:04:26.070 --> 00:04:30.160
+no check on what's reading it, whereas here,
+we know if we search through our code for
+
+00:04:30.160 --> 00:04:33.490
+the things that find GameManager, for example
+or just for the word GameManager, we would
+
+00:04:33.490 --> 00:04:38.620
+know there was a reference in here, this is
+much safer. OK and if we're not in recording,
+
+00:04:38.620 --> 00:04:42.840
+then, what are we doing? Well, we're playing
+back, so or else PlayBack (); Now, let's see
+
+00:04:42.850 --> 00:04:46.150
+if it works. It may just work if we've got
+our code down here right. We may need to tweak
+
+00:04:46.150 --> 00:04:50.100
+some stuff, let's see what happens. [Sings]
+Skippity beepy dee... So, move it around,
+
+00:04:50.100 --> 00:04:53.810
+hit the cube, hold down Control. Ah look!
+Awesome! And all the time I hold Control,
+
+00:04:53.810 --> 00:04:59.400
+it loops the PlayBack. That's pretty cool
+isn't it! Now, we can change the PlayBack
+
+00:04:59.400 --> 00:05:04.060
+time, by going into our ReplaySystem, because
+it's a property of the ReplaySystem, and
+
+00:05:04.060 --> 00:05:11.370
+I may go to 1,000 frames, and then, let's see
+what happens. [Sings] Skippity beepy dee skippity
+
+00:05:11.370 --> 00:05:17.120
+beepy do. Back and forth, Spacebar to jump,
+a bit of friction, boing! Here we go, hold down Control,
+
+00:05:17.120 --> 00:05:21.780
+and now, the reason I'm not
+seeing anything yet is, because it's such a
+
+00:05:21.780 --> 00:05:26.650
+long PlayBack term, that we haven't even finished
+a single right loop yet, so it's still reading.
+
+00:05:26.650 --> 00:05:29.860
+There you go! And then when it gets all the way
+around, OK. So, that's something we're going
+
+00:05:29.860 --> 00:05:34.060
+to need to sort out. We need to sort out the
+idea that, actually if it hasn't even done
+
+00:05:34.060 --> 00:05:39.100
+a complete right loop yet, how is it going
+to know to go back to the first frame?
+
+00:05:39.100 --> 00:05:44.700
+So, where's this problem? It's somewhere around
+here, about these key frame numbers here and here.
+
+00:05:44.700 --> 00:05:53.250
+So, we're going to somehow need to specify
+a starting frame, when we hit that button,
+
+00:05:53.250 --> 00:05:57.790
+when we hit Playback, we need to know, well
+where do I need to be going back to. So, rather
+
+00:05:57.790 --> 00:06:03.960
+than in Playback reading from Time.frameCount,
+it needs to read from some start frame, possibly
+
+00:06:03.960 --> 00:06:08.480
+some start frame that's been parsed in, or
+something like that. So, let's have a think
+
+00:06:08.480 --> 00:06:10.800
+about how you're going to do that. Pause the
+video for a second. Think about how you're
+
+00:06:10.800 --> 00:06:16.000
+going to fix this, so that even if we haven't
+recorded a full Playback loop, i.e. we haven't
+
+00:06:16.000 --> 00:06:19.620
+filled up 1,000 frames yet, that it works.
+Let me just show you that, that's the problem.
+
+00:06:19.620 --> 00:06:25.870
+If we go down to just a 10 frame loop, then
+of course, we go through 10 frames so quickly it's ridiculous.
+
+00:06:25.870 --> 00:06:29.699
+So, if I do Playback it's
+just tiny, right, just 10 frames, and we don't
+
+00:06:29.699 --> 00:06:37.139
+have a problem, but if we put it up to 1,000
+and start recording and watch the frame number
+
+00:06:37.139 --> 00:06:42.590
+at the bottom left in the Console, at frame
+100 and something I start playing back. Well, we're
+
+00:06:42.590 --> 00:06:47.050
+still waiting for this to go around
+the loop, but we need to go back to the start
+
+00:06:47.050 --> 00:06:50.960
+now alright, if that makes sense. So, how
+are we going to do that? Pause the video and
+
+00:06:50.960 --> 00:06:51.999
+have a think about how you're going to do
+that.
+

@@ -1,0 +1,1434 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hey guys! So, we're going to continue to prepare ourselves
+
+2
+00:00:06.000 --> 00:00:09.000
+for the journey of making Score Master work.
+
+3
+00:00:09.000 --> 00:00:12.000
+We need to get to our target architecture.. Remember,
+
+4
+00:00:12.000 --> 00:00:15.000
+this target architecture that we built up?
+
+5
+00:00:15.000 --> 00:00:18.000
+A couple of lectures ago, we talked about the PinCounter
+
+6
+00:00:18.000 --> 00:00:21.000
+on the Lane Box, which is different to where it is now,
+
+7
+00:00:21.000 --> 00:00:24.000
+sending a pin forward to a Game Manager that doesn't exist at the
+
+8
+00:00:24.000 --> 00:00:27.000
+moment, which holds a list of pin falls,
+
+9
+00:00:27.000 --> 00:00:30.000
+and sends it across as a list of pin falls, to the
+
+10
+00:00:30.000 --> 00:00:33.000
+ActionMaster, which sends back an
+
+11
+00:00:33.000 --> 00:00:36.000
+action and so on. And then, we built out the rest of the architecture. So, let's just
+
+12
+00:00:36.000 --> 00:00:39.000
+focus on this bit for now, where we
+
+13
+00:00:39.000 --> 00:00:42.000
+refactor our ActionMaster,
+
+14
+00:00:42.000 --> 00:00:45.000
+so that it fits the new API. And we'll also
+
+15
+00:00:45.000 --> 00:00:48.000
+move on to refactor our code in general,
+
+16
+00:00:48.000 --> 00:00:51.000
+to suit the Single Responsibility Principle, so that
+
+17
+00:00:51.000 --> 00:00:54.000
+things to what things should do and not what they shouldn't,
+
+18
+00:00:54.000 --> 00:00:57.000
+which is my technical definition. OK cool! So, let's
+
+19
+00:00:57.000 --> 00:01:00.000
+get on with that, really. So, over
+
+20
+00:01:00.000 --> 00:01:03.000
+in ActionMaster, we need to change the whole API of ActionMaster,
+
+21
+00:01:03.000 --> 00:01:06.000
+which will of course break the ActionMaster
+
+22
+00:01:06.000 --> 00:01:09.000
+tests, over here in our Editor Folder, as well.
+
+23
+00:01:09.000 --> 00:01:12.000
+So, I'm going to have open just a couple of scripts. I'll close the rest.
+
+24
+00:01:12.000 --> 00:01:15.000
+ActionMasterTest, when we call in
+
+25
+00:01:15.000 --> 00:01:18.000
+to Bowl, we're no longer going to be calling Bowl,
+
+26
+00:01:18.000 --> 00:01:21.000
+we're going to be sending an entire list in.
+
+27
+00:01:21.000 --> 00:01:24.000
+First, let's refactor the ActionMaster,
+
+28
+00:01:24.000 --> 00:01:27.000
+and then, we will need to fix the test, by refactoring
+
+29
+00:01:27.000 --> 00:01:30.000
+them, so that it all works with a new API.
+
+30
+00:01:30.000 --> 00:01:33.000
+And guess who's doing it? Is it me? Is it you?
+
+31
+00:01:33.000 --> 00:01:36.000
+It is going to be, once we've gone past the target,
+
+32
+00:01:36.000 --> 00:01:39.000
+you! [Laughs] OK, we
+
+33
+00:01:39.000 --> 00:01:42.000
+want you to refactor ActionMaster.cs, still returning
+
+34
+00:01:42.000 --> 00:01:45.000
+an Action enum. Create a new static method, as
+
+35
+00:01:45.000 --> 00:01:48.000
+signatures in yellow below. Call your existing
+
+36
+00:01:48.000 --> 00:01:51.000
+Bowl method, as it is in ActionMaster, for each pin fall, just
+
+37
+00:01:51.000 --> 00:01:54.000
+go in a loop, and you
+
+38
+00:01:54.000 --> 00:01:57.000
+can use it for each loop with a list. And then the new API
+
+39
+00:01:57.000 --> 00:02:00.000
+passes a list of pin falls, so the method I want you to
+
+40
+00:02:00.000 --> 00:02:03.000
+write is public static Action NextAction
+
+41
+00:02:03.000 --> 00:02:06.000
+(List of <int> pinFalls), and I want that to loop around your bowl
+
+42
+00:02:06.000 --> 00:02:09.000
+and just return. This is what you do next, given all the pin
+
+43
+00:02:09.000 --> 00:02:12.000
+falls you've just given me, the very next thing to do is X and it's stateless.
+
+44
+00:02:12.000 --> 00:02:15.000
+It doesn't need to remember, the ActionMaster will
+
+45
+00:02:15.000 --> 00:02:18.000
+no longer need to remember anything, it can be completely amnesiac.
+
+46
+00:02:18.000 --> 00:02:21.000
+Once you've passed that set of pin falls, then it can forget about it,
+
+47
+00:02:21.000 --> 00:02:24.000
+which is one of the reasons I'm making it static. Because from the
+
+48
+00:02:24.000 --> 00:02:27.000
+outside then, we'll never even need to instantiate an ActionMaster.
+
+49
+00:02:27.000 --> 00:02:30.000
+We'll be able to just go, ActionMaster.NextAction.
+
+50
+00:02:30.000 --> 00:02:33.000
+That's ActionMaster with a capital A,
+
+51
+00:02:33.000 --> 00:02:36.000
+.NextAction from anywhere.
+
+52
+00:02:36.000 --> 00:02:39.000
+Pass it a list of pin falls, it tells us what to do next. You see that's pretty elegant?
+
+53
+00:02:39.000 --> 00:02:42.000
+We're no longer confusing...
+
+54
+00:02:42.000 --> 00:02:45.000
+We're no longer confusing where our state
+
+55
+00:02:45.000 --> 00:02:48.000
+is being store. That's what I'm trying to say. OK fantastic!
+
+56
+00:02:48.000 --> 00:02:51.000
+So, pause the video and have a crack at doing that now!
+
+57
+00:02:54.000 --> 00:02:57.000
+OK welcome back! So, here we are! Let's do the heavy
+
+58
+00:02:57.000 --> 00:03:00.000
+lifting. Firstly, we're going to need to use the System
+
+59
+00:03:00.000 --> 00:03:03.000
+.Collections.Generic; as we talked about before,
+
+60
+00:03:03.000 --> 00:03:06.000
+otherwise, you won't have any access to your list.
+
+61
+00:03:06.000 --> 00:03:09.000
+Fine fine fine! So now, I'm
+
+62
+00:03:09.000 --> 00:03:12.000
+going to make a new method, exactly the method I described in the challenge slide
+
+63
+00:03:12.000 --> 00:03:15.000
+here: public because we want it from the outside,
+
+64
+00:03:15.000 --> 00:03:18.000
+static because we want it to be stateless, Action
+
+65
+00:03:18.000 --> 00:03:21.000
+because it's going to return an Action, next Action.
+
+66
+00:03:24.000 --> 00:03:27.000
+And then, we're going to take in a list of integers
+
+67
+00:03:27.000 --> 00:03:30.000
+called pin falls.
+
+68
+00:03:30.000 --> 00:03:33.000
+Boosh. OK, so there is the definition!
+
+69
+00:03:33.000 --> 00:03:36.000
+Actually, we're going to make the Bowl method here
+
+70
+00:03:36.000 --> 00:03:39.000
+private, eventually as well, because we don't
+
+71
+00:03:39.000 --> 00:03:42.000
+need to be calling Bowl from the outside. In fact, let's be bold and do that
+
+72
+00:03:42.000 --> 00:03:45.000
+now. That's going to break our tests of course, but
+
+73
+00:03:45.000 --> 00:03:48.000
+that's OK, one of the things we need to do is refactor our tests.
+
+74
+00:03:48.000 --> 00:03:51.000
+We don't want to call Bowl directly. We're not sending single pins in anymore,
+
+75
+00:03:51.000 --> 00:03:54.000
+because if we do that then this class needs
+
+76
+00:03:54.000 --> 00:03:57.000
+to keep state, and we don't want this class to have to keep this
+
+77
+00:03:57.000 --> 00:04:00.000
+state, any longer than while it's just,
+
+78
+00:04:00.000 --> 00:04:03.000
+while it's running. Then, we have no confusion over whether the game state is
+
+79
+00:04:03.000 --> 00:04:06.000
+stored, it's going to be stored in this new Game Manager thing, remember that we're going to
+
+80
+00:04:06.000 --> 00:04:09.000
+create. OK fantastic! So,
+
+81
+00:04:09.000 --> 00:04:12.000
+how are we going to do this? What's going to be the code
+
+82
+00:04:12.000 --> 00:04:15.000
+here? So, in order to do this, we're going to need to have an
+
+83
+00:04:15.000 --> 00:04:18.000
+ActionMaster.
+
+84
+00:04:18.000 --> 00:04:21.000
+Because it's a static method,
+
+85
+00:04:21.000 --> 00:04:24.000
+which has no instantiation, it's not instantiated, so
+
+86
+00:04:24.000 --> 00:04:27.000
+we need to create ourselves an ActionMaster temporarily
+
+87
+00:04:27.000 --> 00:04:30.000
+so that we've got access to the Bowl.
+
+88
+00:04:30.000 --> 00:04:33.000
+OK, so then the action, we want to store the current action,
+
+89
+00:04:33.000 --> 00:04:36.000
+is a new action.
+
+90
+00:04:36.000 --> 00:04:39.000
+We just have to construct something.
+
+91
+00:04:39.000 --> 00:04:42.000
+OK, so we have an action, and then here's the
+
+92
+00:04:42.000 --> 00:04:45.000
+loop foreach.
+
+93
+00:04:45.000 --> 00:04:48.000
+We'll reason through this a bit more in a second, but for each integer pinFall
+
+94
+00:04:48.000 --> 00:04:51.000
+in pinFalls, what are we
+
+95
+00:04:51.000 --> 00:04:54.000
+going to do? Well, we're going to simply say
+
+96
+00:04:54.000 --> 00:04:57.000
+that the currentAction =
+
+97
+00:04:57.000 --> 00:05:00.000
+action master, this new thing we created, .Bowl
+
+98
+00:05:00.000 --> 00:05:03.000
+the (pinFall). So, we're just calling our own
+
+99
+00:05:03.000 --> 00:05:06.000
+method, action master .Bowl.
+
+100
+00:05:06.000 --> 00:05:09.000
+We have to create an ActionMaster
+
+101
+00:05:09.000 --> 00:05:12.000
+to get to that. If we didn't create an ActionMaster, we wouldn't be able to reference it,
+
+102
+00:05:12.000 --> 00:05:15.000
+from inside this static method. You can try it yourself and get all the
+
+103
+00:05:15.000 --> 00:05:18.000
+errors. You keep doing it until you run out of pinFalls, and when you've run out of pin
+
+104
+00:05:18.000 --> 00:05:21.000
+Falls, the current action will
+
+105
+00:05:21.000 --> 00:05:24.000
+be... Well, actually we
+
+106
+00:05:24.000 --> 00:05:27.000
+just return it, because we have what we need.
+
+107
+00:05:27.000 --> 00:05:30.000
+We just return currentAction. So, we keep
+
+108
+00:05:30.000 --> 00:05:33.000
+overwriting this current action, action variable, every single time
+
+109
+00:05:33.000 --> 00:05:36.000
+we call Bowl. Bowl spits back the Action and then,
+
+110
+00:05:36.000 --> 00:05:39.000
+when you run out of pinFalls what's left in currentAction
+
+111
+00:05:39.000 --> 00:05:42.000
+is the right thing. So, hopefully that makes
+
+112
+00:05:42.000 --> 00:05:45.000
+sense. Let's have a look at compelling this, see if we
+
+113
+00:05:45.000 --> 00:05:48.000
+get any problems. Ah hah! OK now, this is good! This is interesting!
+
+114
+00:05:48.000 --> 00:05:51.000
+So, under PinsHaveSettled () it's saying
+
+115
+00:05:51.000 --> 00:05:54.000
+that actionMaster.Bowl is inaccessible due
+
+116
+00:05:54.000 --> 00:05:57.000
+to its protection level,
+
+117
+00:05:57.000 --> 00:06:00.000
+and that's because we've made Bowl a private
+
+118
+00:06:00.000 --> 00:06:03.000
+method, over here in ActionMaster. So, in the spirit of not breaking
+
+119
+00:06:03.000 --> 00:06:06.000
+everything at once, I'm going to put Bowl
+
+120
+00:06:06.000 --> 00:06:09.000
+back to public, for the moment. I'm going to put myself a
+
+121
+00:06:09.000 --> 00:06:12.000
+TODO, which is easy to forget so be careful with those.
+
+122
+00:06:12.000 --> 00:06:15.000
+"Make private" we're going to be making it private
+
+123
+00:06:15.000 --> 00:06:18.000
+later. Now, when I build,
+
+124
+00:06:18.000 --> 00:06:21.000
+when it builds all the other scripts, they should continue to work. So for now,
+
+125
+00:06:21.000 --> 00:06:24.000
+this won't have changed anything right, because we just added a method that nobody
+
+126
+00:06:24.000 --> 00:06:27.000
+is calling. Let's just test our game still works. The purpose
+
+127
+00:06:27.000 --> 00:06:30.000
+of this is, I don't want to break everything in one go. I want to break things one at a
+
+128
+00:06:30.000 --> 00:06:33.000
+time, if I'm going to break things or improve things. OK, the game
+
+129
+00:06:33.000 --> 00:06:36.000
+appears to work fine, and that's because we've just added a method but
+
+130
+00:06:36.000 --> 00:06:39.000
+nothing calls it, and I haven't changed yet the
+
+131
+00:06:39.000 --> 00:06:42.000
+privacy of our Bowl method. OK
+
+132
+00:06:42.000 --> 00:06:45.000
+fantastic! So, if you've got this far, then you have done the
+
+133
+00:06:45.000 --> 00:06:48.000
+refactor you need to do on ActionMaster, but we don't
+
+134
+00:06:48.000 --> 00:06:51.000
+know it works. How on earth would we know that that's going to work? I mean it looks
+
+135
+00:06:51.000 --> 00:06:54.000
+OK, but how do we know it works? Well we don't really, so the next
+
+136
+00:06:54.000 --> 00:06:57.000
+thing you need to do is to refactor all the ActionMaster
+
+137
+00:06:57.000 --> 00:07:00.000
+tests, so that they apply
+
+138
+00:07:00.000 --> 00:07:03.000
+so they work with this new API. So,
+
+139
+00:07:03.000 --> 00:07:06.000
+the question becomes, what's different about the ActionMaster
+
+140
+00:07:06.000 --> 00:07:09.000
+tests, now that I've done what I've done? Well,
+
+141
+00:07:09.000 --> 00:07:12.000
+let's go and have a look! Over in ActionMasterTest...
+
+142
+00:07:12.000 --> 00:07:15.000
+I'm going to do this for you, rather than leaving it as a
+
+143
+00:07:15.000 --> 00:07:18.000
+challenge for you I think, because it's all a little bit new.
+
+144
+00:07:18.000 --> 00:07:21.000
+We actually aren't going to need to instantiate an ActionMaster. We've
+
+145
+00:07:21.000 --> 00:07:24.000
+made the method static, so we don't need an instance of it, we can just
+
+146
+00:07:24.000 --> 00:07:27.000
+call the method. You'll see that in a minute, but what we are going to
+
+147
+00:07:27.000 --> 00:07:30.000
+need is a list of integers, right here in the
+
+148
+00:07:30.000 --> 00:07:33.000
+tests. I'm going to just call it bowls or
+
+149
+00:07:33.000 --> 00:07:36.000
+better pinFalls.
+
+150
+00:07:36.000 --> 00:07:39.000
+Be consistent. OK, so we're going to need a list of
+
+151
+00:07:39.000 --> 00:07:42.000
+pinFalls. In the Setup, we do not need, anymore,
+
+152
+00:07:42.000 --> 00:07:45.000
+to have a Setup that tells
+
+153
+00:07:45.000 --> 00:07:48.000
+that creates an ActionMaster,
+
+154
+00:07:48.000 --> 00:07:51.000
+because we don't need an ActionMaster instance,
+
+155
+00:07:51.000 --> 00:07:54.000
+it's a static method we're going to be calling. But what we do need, is we need
+
+156
+00:07:54.000 --> 00:07:57.000
+this pinFalls array or pinFalls list, should I say,
+
+157
+00:07:57.000 --> 00:08:00.000
+to just be a new list of ints.
+
+158
+00:08:00.000 --> 00:08:03.000
+Now, when you construct a new list, you need to put the curly braces afterwards to call
+
+159
+00:08:03.000 --> 00:08:06.000
+the constructor. So, we have an empty list here, OK.
+
+160
+00:08:06.000 --> 00:08:09.000
+So, I've taken away the instantiation,
+
+161
+00:08:09.000 --> 00:08:12.000
+actually we don't need it. It's going to make our test a lot simpler.
+
+162
+00:08:12.000 --> 00:08:15.000
+Alright, so now what we need to do is, fix the tests
+
+163
+00:08:15.000 --> 00:08:18.000
+one at a time. What I suggest you do is, comment out every single test,
+
+164
+00:08:18.000 --> 00:08:21.000
+apart from the top one, the passing test. They've all got problems
+
+165
+00:08:21.000 --> 00:08:24.000
+anyway. They won't even compile at the moment,
+
+166
+00:08:24.000 --> 00:08:27.000
+and it's giving us a load of warnings, that we're not using things
+
+167
+00:08:27.000 --> 00:08:30.000
+which is fine. So, let's just go back! Remember
+
+168
+00:08:30.000 --> 00:08:33.000
+the Red > Green > Refactor loop now. Check your game runs.
+
+169
+00:08:33.000 --> 00:08:36.000
+It does! Go to the unit test and let's
+
+170
+00:08:36.000 --> 00:08:39.000
+run them all. In fact, I'm going to make sure Run on Compile is on. Good! the Passing
+
+171
+00:08:39.000 --> 00:08:42.000
+Test passes! OK, now it's a question of going through each of
+
+172
+00:08:42.000 --> 00:08:45.000
+these tests, one at a time, and getting them working for the refactored
+
+173
+00:08:45.000 --> 00:08:48.000
+tests. So firstly, we can't call actionMaster.Bowl,
+
+174
+00:08:48.000 --> 00:08:51.000
+it just doesn't make sense to call that anymore.
+
+175
+00:08:51.000 --> 00:08:54.000
+Why? Because we haven't instantiated an action
+
+176
+00:08:54.000 --> 00:08:57.000
+Master in our test, in the Setup () we never make one, and this is rehearsal
+
+177
+00:08:57.000 --> 00:09:00.000
+for when we use it in the game. We're not going to be making an
+
+178
+00:09:00.000 --> 00:09:03.000
+actionMaster instance. OK, we don't want it. So, what
+
+179
+00:09:03.000 --> 00:09:06.000
+are we going to call now? Well, we're going to need a
+
+180
+00:09:06.000 --> 00:09:09.000
+list of bowls instead, so we're just going to say
+
+181
+00:09:09.000 --> 00:09:12.000
+bowls.add. Remember in the Setup (), or
+
+182
+00:09:12.000 --> 00:09:15.000
+pinfalls rather. In the
+
+183
+00:09:15.000 --> 00:09:18.000
+Setup () here, we've made a pinFalls List,
+
+184
+00:09:18.000 --> 00:09:21.000
+every time we do a test. So, we're just going to say
+
+185
+00:09:21.000 --> 00:09:24.000
+setup .Add (10), which is going to make the equivalent
+
+186
+00:09:24.000 --> 00:09:27.000
+test for this, if we call ActionMaster, with a capital A,
+
+187
+00:09:27.000 --> 00:09:30.000
+because it's the class we're calling into now.
+
+188
+00:09:30.000 --> 00:09:33.000
+OK, ActionMaster has a static
+
+189
+00:09:33.000 --> 00:09:36.000
+method on it, called NextAction. That's beautiful! Trust me
+
+190
+00:09:36.000 --> 00:09:39.000
+it's beautiful! Honestly, I know it doesn't look it but it is! It's
+
+191
+00:09:39.000 --> 00:09:42.000
+beautiful because we can just pass in this
+
+192
+00:09:42.000 --> 00:09:45.000
+list of pinFalls. Have I spelled
+
+193
+00:09:45.000 --> 00:09:48.000
+pinFalls wrong somewhere? Pin falls
+
+194
+00:09:48.000 --> 00:09:51.000
+I don't think so OK! That's OK, I just have some Autocomplete error.
+
+195
+00:09:51.000 --> 00:09:54.000
+We can pass in the list of pinFalls to NextAction,
+
+196
+00:09:54.000 --> 00:09:57.000
+and it will spit back what we should be doing next, which
+
+197
+00:09:57.000 --> 00:10:00.000
+in this case is endTurn, if we bowl a strike.
+
+198
+00:10:00.000 --> 00:10:03.000
+And ActionMaster, we've not instantiated
+
+199
+00:10:03.000 --> 00:10:06.000
+it, we're calling it on the class. It's like calling Mathf.Clamp or Mathf
+
+200
+00:10:06.000 --> 00:10:09.000
+.PI. So,
+
+201
+00:10:09.000 --> 00:10:12.000
+we're not changing the state of ActionMaster. Action
+
+202
+00:10:12.000 --> 00:10:15.000
+Master will only be in existence while it does this calculation, then it will disappear.
+
+203
+00:10:15.000 --> 00:10:18.000
+So, we're keeping state away from the ActionMaster.
+
+204
+00:10:18.000 --> 00:10:21.000
+I like it and you'll see the beauty of it as we move on. Alright
+
+205
+00:10:21.000 --> 00:10:24.000
+cool, let's run the test. It passes! Fantastic!
+
+206
+00:10:24.000 --> 00:10:27.000
+Alright, let me do a couple more, then I'm going to whip through,
+
+207
+00:10:27.000 --> 00:10:30.000
+because it's going to be completely formulaic. So, we undo the next
+
+208
+00:10:30.000 --> 00:10:33.000
+test, because we want to go to red. It won't
+
+209
+00:10:33.000 --> 00:10:36.000
+compile, so we've got to make the test compile. Well,
+
+210
+00:10:36.000 --> 00:10:39.000
+it's exactly the same thing. We may as well copy this, actually.
+
+211
+00:10:39.000 --> 00:10:42.000
+We're bowling an 8, and we don't have to change the
+
+212
+00:10:42.000 --> 00:10:45.000
+test too much. In fact, it's almost a Tidy copy and replace.
+
+213
+00:10:45.000 --> 00:10:48.000
+I'll show you. So, Bowl (8), let's just check that works. It
+
+214
+00:10:48.000 --> 00:10:51.000
+will work, by the way, because we've just made a very simple
+
+215
+00:10:51.000 --> 00:10:54.000
+refactor. So, you expected an Enter and you got a Tidy,
+
+216
+00:10:54.000 --> 00:10:57.000
+and that's because when I carelessly
+
+217
+00:10:57.000 --> 00:11:00.000
+copied and pasted, I changed the test. So,
+
+218
+00:11:00.000 --> 00:11:03.000
+what's the sane and safe way of going through and changing
+
+219
+00:11:03.000 --> 00:11:06.000
+all these tests. It's enough of a hassle having to change these
+
+220
+00:11:06.000 --> 00:11:09.000
+tests anyway. Is
+
+221
+00:11:09.000 --> 00:11:12.000
+there a sane way of doing this? Well, for these early tests probably
+
+222
+00:11:12.000 --> 00:11:15.000
+not. I think it's worth just reasoning through here
+
+223
+00:11:15.000 --> 00:11:18.000
+that, we need to bowl 8, and then carefully
+
+224
+00:11:18.000 --> 00:11:21.000
+change this bit. It's worth copying and pasting this bit. ActionMaster
+
+225
+00:11:21.000 --> 00:11:24.000
+.NextAction (pinFalls) is going to be the same for everyone.
+
+226
+00:11:24.000 --> 00:11:27.000
+So, we add an 8 to the list, send it into the next action
+
+227
+00:11:27.000 --> 00:11:30.000
+system, and in a moment when it's finished compiling,
+
+228
+00:11:30.000 --> 00:11:33.000
+it will pass. OK next one! Let's try
+
+229
+00:11:33.000 --> 00:11:36.000
+the next one. Again, we're bowling an 8,
+
+230
+00:11:36.000 --> 00:11:39.000
+but now, this is where the API changes and I think it's a
+
+231
+00:11:39.000 --> 00:11:42.000
+lot more explicit. Let me give you another way of
+
+232
+00:11:42.000 --> 00:11:45.000
+writing these tests. A slightly more sensible way
+
+233
+00:11:45.000 --> 00:11:48.000
+is when you get to the array ones, or the ones that are a
+
+234
+00:11:48.000 --> 00:11:51.000
+list of multiple bowls. Why don't we do it like this.
+
+235
+00:11:51.000 --> 00:11:54.000
+Create an int [] array. Why an array? Just because it's an easy way of specifying
+
+236
+00:11:54.000 --> 00:11:57.000
+it. Call it rolls for now
+
+237
+00:11:57.000 --> 00:12:00.000
+or something, and then because with
+
+238
+00:12:00.000 --> 00:12:03.000
+an array... Because it's a value type you can at
+
+239
+00:12:03.000 --> 00:12:06.000
+at this point in your code, before it is even
+
+240
+00:12:06.000 --> 00:12:09.000
+compiled, you can specify the values 8, 2,
+
+241
+00:12:09.000 --> 00:12:12.000
+which is what test 4 was about right. And now,
+
+242
+00:12:12.000 --> 00:12:15.000
+you just pass in the pinFalls...
+
+243
+00:12:18.000 --> 00:12:21.000
+...dot what? Now, I want to turn pinFalls into a
+
+244
+00:12:21.000 --> 00:12:24.000
+list. I can't just say ToList,
+
+245
+00:12:24.000 --> 00:12:27.000
+or can I? [Sings] Do do do.
+
+246
+00:12:27.000 --> 00:12:30.000
+So this is backup... Why am I doing this? Because I can't easily
+
+247
+00:12:30.000 --> 00:12:33.000
+populate a list, without going .Add .Add. You know
+
+248
+00:12:33.000 --> 00:12:36.000
+.Add (8) .Add (2). Well, you can do that, but I'd rather
+
+249
+00:12:36.000 --> 00:12:39.000
+write it on one line with commas. So, if I
+
+250
+00:12:39.000 --> 00:12:42.000
+created a value type, an array
+
+251
+00:12:42.000 --> 00:12:45.000
+an integer array, then I can write it nicely on one
+
+252
+00:12:45.000 --> 00:12:48.000
+line, but I wish I had something called ToList.
+
+253
+00:12:48.000 --> 00:12:51.000
+[Laughs] Well, maybe my wish is
+
+254
+00:12:51.000 --> 00:12:54.000
+grantable, because if
+
+255
+00:12:54.000 --> 00:12:57.000
+I get the semicolons right, ToList doesn't exist,
+
+256
+00:12:57.000 --> 00:13:00.000
+but let me show you something. You come up here,
+
+257
+00:13:00.000 --> 00:13:03.000
+there's something very very handy for you, which we want to add.
+
+258
+00:13:03.000 --> 00:13:06.000
+Using System.Linq, L i n q,
+
+259
+00:13:06.000 --> 00:13:09.000
+that is a very useful
+
+260
+00:13:09.000 --> 00:13:12.000
+namespace. It has a load of things in it, and one of them is things operate on
+
+261
+00:13:12.000 --> 00:13:15.000
+lists and one of those things is ToList(). So now, we're just
+
+262
+00:13:15.000 --> 00:13:18.000
+literally sending it in a list of 8,
+
+263
+00:13:18.000 --> 00:13:21.000
+2, which we should get an EndTurn back from. Let's see if it works.
+
+264
+00:13:21.000 --> 00:13:24.000
+That's the last thing I need to tell you, before
+
+265
+00:13:24.000 --> 00:13:27.000
+you are ready to do it all yourself. So, it's expecting
+
+266
+00:13:27.000 --> 00:13:30.000
+an EndTurn. It got a Tidy, what have
+
+267
+00:13:30.000 --> 00:13:33.000
+I done wrong? So, bowl 2
+
+268
+00:13:33.000 --> 00:13:36.000
+8 spare. I've done around the wrong way! ;
+
+269
+00:13:36.000 --> 00:13:39.000
+so be careful you don't break your tests as we go here.
+
+270
+00:13:39.000 --> 00:13:42.000
+That's why I'm doing them one at a time, carefully.
+
+271
+00:13:42.000 --> 00:13:45.000
+And I need to be careful, because it's
+
+272
+00:13:45.000 --> 00:13:48.000
+rolls.ToList. I created something called rolls,
+
+273
+00:13:48.000 --> 00:13:51.000
+so that it's got a different name, and then I turn it into a list, going
+
+274
+00:13:51.000 --> 00:13:54.000
+into next action. I hope you're following this. I'm just playing
+
+275
+00:13:54.000 --> 00:13:57.000
+around with syntax, it's just a way of us getting this guy
+
+276
+00:13:57.000 --> 00:14:00.000
+in. OK, let's look at this type of test, and the rest of the tests
+
+277
+00:14:00.000 --> 00:14:03.000
+actually are all in that format! OK.
+
+278
+00:14:03.000 --> 00:14:06.000
+So, when you've already got a test in this rolls
+
+279
+00:14:06.000 --> 00:14:09.000
+format, then the difference is we
+
+280
+00:14:09.000 --> 00:14:12.000
+don't need the foreach loop here anymore.
+
+281
+00:14:12.000 --> 00:14:15.000
+All we need to do is go...
+
+282
+00:14:15.000 --> 00:14:18.000
+Got to get the right number of brackets.
+
+283
+00:14:18.000 --> 00:14:21.000
+All we need to do now, actually, is this. Paste
+
+284
+00:14:21.000 --> 00:14:24.000
+that in there. You see, because you're already forming an
+
+285
+00:14:24.000 --> 00:14:27.000
+int ray of rolls, and we just turn it into a list.
+
+286
+00:14:27.000 --> 00:14:30.000
+So, as long as I get the right number of closing braces, which is
+
+287
+00:14:30.000 --> 00:14:33.000
+three, then my test should run. Let's have a look.
+
+288
+00:14:33.000 --> 00:14:36.000
+Not quite, it was expecting
+
+289
+00:14:36.000 --> 00:14:39.000
+a Reset, it got an EndTurn, and that is because
+
+290
+00:14:39.000 --> 00:14:42.000
+what you need to be careful of is, previously,
+
+291
+00:14:42.000 --> 00:14:45.000
+we were doing a lot of rolls and then on the final role
+
+292
+00:14:45.000 --> 00:14:48.000
+we were checking against the action. What you need to do is
+
+293
+00:14:48.000 --> 00:14:51.000
+add that to your list, which is much more explicit of course, because
+
+294
+00:14:51.000 --> 00:14:54.000
+these are the rolls we're testing. Now,
+
+295
+00:14:54.000 --> 00:14:57.000
+when you paste that in, with the right number of end
+
+296
+00:14:57.000 --> 00:15:00.000
+brackets, it'll work because you've got the
+
+297
+00:15:00.000 --> 00:15:03.000
+final role in there. You see, watch.
+
+298
+00:15:03.000 --> 00:15:06.000
+OK cool! Let's do a couple more
+
+299
+00:15:06.000 --> 00:15:09.000
+together, and then, I'm just literally going to fast forward through it real quick.
+
+300
+00:15:09.000 --> 00:15:12.000
+So this one here, what you do is you look that we're adding a 1
+
+301
+00:15:12.000 --> 00:15:15.000
+and a 9, so what I'm going to do is go 1, 1, 9
+
+302
+00:15:15.000 --> 00:15:18.000
+on the end there. So, I've captured the Bowls that we had.
+
+303
+00:15:18.000 --> 00:15:21.000
+Then, I can paste in my code,
+
+304
+00:15:21.000 --> 00:15:24.000
+making sure there are three closed brackets, and I can delete
+
+305
+00:15:24.000 --> 00:15:27.000
+all that stuff in the middle there, build my code,
+
+306
+00:15:27.000 --> 00:15:30.000
+and test.
+
+307
+00:15:30.000 --> 00:15:33.000
+Now, it really is formulaic, because the rest of these are the same.
+
+308
+00:15:33.000 --> 00:15:36.000
+There's no new information to tell you now. Do one more.
+
+309
+00:15:36.000 --> 00:15:39.000
+So, I look at this
+
+310
+00:15:39.000 --> 00:15:42.000
+and I say, well what's
+
+311
+00:15:42.000 --> 00:15:45.000
+the Bowl that's missing in this list? It's 9. You see how our Bowl
+
+312
+00:15:45.000 --> 00:15:48.000
+list is much more sane now.. it's all of the bowls rather than
+
+313
+00:15:48.000 --> 00:15:51.000
+being split around. This is much nicer, it's stateless, it's just
+
+314
+00:15:51.000 --> 00:15:54.000
+generally better.
+
+315
+00:15:54.000 --> 00:15:57.000
+OK cool! So now,
+
+316
+00:15:57.000 --> 00:16:00.000
+I'm just going to whip through, so I shall see you on the other
+
+317
+00:16:00.000 --> 00:16:03.000
+side, because the pattern here is exactly the same.
+
+318
+00:16:03.000 --> 00:16:06.000
+So, I'll speed up the video and whip through! You go ahead now
+
+319
+00:16:06.000 --> 00:16:09.000
+and refactor the rest of your
+
+320
+00:16:09.000 --> 00:16:12.000
+tests, at the same time. And if you need some help, you can see what
+
+321
+00:16:12.000 --> 00:16:15.000
+I'm doing but it's the same thing.
+
+322
+00:16:15.000 --> 00:16:18.000
+This part of the Video is Being Shown on Fast Mode, for your convenience.
+
+323
+00:16:18.000 --> 00:16:21.000
+You may pause it or use Udemy's Slow Play Option, if you wish.
+
+324
+00:16:39.000 --> 00:16:42.000
+So, just slowing down for this one,
+
+325
+00:16:42.000 --> 00:16:45.000
+and here we test three things, at the same time,
+
+326
+00:16:45.000 --> 00:16:48.000
+and actually, the only one we really need to test is the
+
+327
+00:16:48.000 --> 00:16:51.000
+last one. So, I'm going to ditch two tests, but before I ditch the
+
+328
+00:16:51.000 --> 00:16:54.000
+two we do need to make sure that all of
+
+329
+00:16:54.000 --> 00:16:57.000
+the Bowls are put in. 10, 10, 10, and now I
+
+330
+00:16:57.000 --> 00:17:00.000
+can just paste in my static call
+
+331
+00:17:00.000 --> 00:17:03.000
+there and off we go and then
+
+332
+00:17:03.000 --> 00:17:06.000
+finally on the last one. So,
+
+333
+00:17:06.000 --> 00:17:09.000
+we just need a list.
+
+334
+00:17:09.000 --> 00:17:12.000
+So, here I'm going to do it the old way, at the top, where you just
+
+335
+00:17:12.000 --> 00:17:15.000
+add a pinFalls.Add.
+
+336
+00:17:15.000 --> 00:17:18.000
+And then we can... Or not...
+
+337
+00:17:18.000 --> 00:17:21.000
+No let's not, let's keep it consistent.
+
+338
+00:17:21.000 --> 00:17:24.000
+So, here and then
+
+339
+00:17:24.000 --> 00:17:27.000
+there's just a single 0,
+
+340
+00:17:27.000 --> 00:17:30.000
+and it should be endTurn.
+
+341
+00:17:30.000 --> 00:17:33.000
+OK, let's just check that
+
+342
+00:17:33.000 --> 00:17:36.000
+So notice that every single time, I was checking
+
+343
+00:17:36.000 --> 00:17:39.000
+that all the tests pass.
+
+344
+00:17:42.000 --> 00:17:45.000
+And this should be {0,
+
+345
+00:17:45.000 --> 00:17:48.000
+1} gives enter, not 0. Perfect!
+
+346
+00:17:48.000 --> 00:17:51.000
+OK, let's just check
+
+347
+00:17:51.000 --> 00:17:54.000
+and after a bit of a marathon, we have
+
+348
+00:17:54.000 --> 00:17:57.000
+refactored our ActionMaster, and we have refactored
+
+349
+00:17:57.000 --> 00:18:00.000
+all the ActionMaster tests. A huge amount of work but
+
+350
+00:18:00.000 --> 00:18:03.000
+I believe it's worth it, because now we are on track towards
+
+351
+00:18:03.000 --> 00:18:06.000
+the target archetecture that we are looking
+
+352
+00:18:06.000 --> 00:18:09.000
+for. So, in the next couple of videos, we'll be continuing to build out this architecture,
+
+353
+00:18:09.000 --> 00:18:12.000
+moving our PinCounter, creating our Game Manager.
+
+354
+00:18:12.000 --> 00:18:15.000
+But we've done this bit, we have created an
+
+355
+00:18:15.000 --> 00:18:18.000
+API, where we can call ActionMaster, with a list of pinfalls
+
+356
+00:18:18.000 --> 00:18:21.000
+and it returns an action, and we have kept all of the tests
+
+357
+00:18:21.000 --> 00:18:24.000
+working. So congratulations on this bit of the refactoring,
+
+358
+00:18:24.000 --> 00:18:25.466
+and I'll see you soon!
+

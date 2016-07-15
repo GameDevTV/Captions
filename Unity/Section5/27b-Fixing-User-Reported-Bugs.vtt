@@ -1,0 +1,470 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hey welcome back! So,
+
+2
+00:00:06.000 --> 00:00:09.000
+hopefully you've built your game and shared it with the world!
+
+3
+00:00:09.000 --> 00:00:12.000
+We've got a great service, gamebuck.io, that
+
+4
+00:00:12.000 --> 00:00:15.000
+Brice just built. It makes it really easy to share your game.
+
+5
+00:00:15.000 --> 00:00:18.000
+Just follow the three steps, and you're game will be hosted like
+
+6
+00:00:18.000 --> 00:00:21.000
+this. Just remember to keep a note of this URL,
+
+7
+00:00:21.000 --> 00:00:24.000
+which will last for 30 days. So, here's one of the
+
+8
+00:00:24.000 --> 00:00:27.000
+games our students made, and we really want you guys to
+
+9
+00:00:27.000 --> 00:00:30.000
+do the same. So, once it's out there with the
+
+10
+00:00:30.000 --> 00:00:33.000
+wider world, you're going to end up with bugs
+
+11
+00:00:33.000 --> 00:00:36.000
+and bug reports coming in for your game. So, the topic
+
+12
+00:00:36.000 --> 00:00:39.000
+of this video is how to deal with bug reports.
+
+13
+00:00:39.000 --> 00:00:42.000
+We're going to firstly
+
+14
+00:00:42.000 --> 00:00:45.000
+stress that we need to know how to reproduce the problem,
+
+15
+00:00:45.000 --> 00:00:48.000
+so we need to know from our users, how do we reproduce the
+
+16
+00:00:48.000 --> 00:00:51.000
+problem. Then, we Debug it to find the root cause.
+
+17
+00:00:51.000 --> 00:00:54.000
+We make a fix and retest everything, and then, we
+
+18
+00:00:54.000 --> 00:00:57.000
+remove any special code we put in, for those Debugging
+
+19
+00:00:57.000 --> 00:01:00.000
+purposes. An example bug report could be
+
+20
+00:01:00.000 --> 00:01:03.000
+this: "I've notice an odd behaviour... it works up until I
+
+21
+00:01:03.000 --> 00:01:06.000
+start a new game then it duplicate itself like a loop."
+
+22
+00:01:06.000 --> 00:01:09.000
+And thanks to Daniel, Nathan, and Marko,
+
+23
+00:01:09.000 --> 00:01:12.000
+in the discussions, for helping us find what this is all about.
+
+24
+00:01:12.000 --> 00:01:15.000
+So, you may get a slightly cryptic bug report like that,
+
+25
+00:01:15.000 --> 00:01:18.000
+and what you need to do is go into your game and find
+
+26
+00:01:18.000 --> 00:01:21.000
+out what's going on. Well, it turns
+
+27
+00:01:21.000 --> 00:01:24.000
+out that if you start and then you
+
+28
+00:01:24.000 --> 00:01:27.000
+lose and you play again, that if
+
+29
+00:01:27.000 --> 00:01:30.000
+you were to clear all the bricks this second time
+
+30
+00:01:30.000 --> 00:01:33.000
+the game would not load the next level.
+
+31
+00:01:33.000 --> 00:01:36.000
+And the reason is to do with the Brick breakableCount.
+
+32
+00:01:36.000 --> 00:01:39.000
+So, what we need to do is
+
+33
+00:01:39.000 --> 00:01:42.000
+firstly, reproduce the problem,
+
+34
+00:01:42.000 --> 00:01:45.000
+which we could do by playing the whole level. Or if we suspect
+
+35
+00:01:45.000 --> 00:01:48.000
+it's the Brick breakableCount, why not go straight to
+
+36
+00:01:48.000 --> 00:01:51.000
+step 2, which is put some Debug code in.
+
+37
+00:01:51.000 --> 00:01:54.000
+So, if we go into our Brick,
+
+38
+00:01:54.000 --> 00:01:57.000
+open your Brick.cs Script in Mono
+
+39
+00:01:57.000 --> 00:02:00.000
+Develop. Once
+
+40
+00:02:00.000 --> 00:02:03.000
+that loads up, have a look. This is the LevelManager,
+
+41
+00:02:03.000 --> 00:02:06.000
+make sure you choose the right script. Brick, where we
+
+42
+00:02:06.000 --> 00:02:09.000
+decrement the Brick breakableCount here, immediately after
+
+43
+00:02:09.000 --> 00:02:12.000
+we've reduced the breakableCount I want you to use Debug.Log
+
+44
+00:02:12.000 --> 00:02:15.000
+or print. They both serve about the same function.
+
+45
+00:02:15.000 --> 00:02:18.000
+(breakableCount); so put that out to
+
+46
+00:02:18.000 --> 00:02:21.000
+the Console. Now, let's take a look at what's happening!
+
+47
+00:02:21.000 --> 00:02:24.000
+We start the game!
+
+48
+00:02:24.000 --> 00:02:27.000
+When the first brick is destroyed, watch the
+
+49
+00:02:27.000 --> 00:02:30.000
+Console carefully. 27, 26,
+
+50
+00:02:30.000 --> 00:02:33.000
+this is the breakableCount. Great OK. Now, let's let
+
+51
+00:02:33.000 --> 00:02:36.000
+the game lose itself. At the moment, it seems to be
+
+52
+00:02:36.000 --> 00:02:39.000
+doing a fantastic job of playing itself.
+
+53
+00:02:39.000 --> 00:02:42.000
+OK, we're going to lose.
+
+54
+00:02:42.000 --> 00:02:45.000
+So, we had 18 breakable bricks left on the level, when we lost.
+
+55
+00:02:45.000 --> 00:02:48.000
+Let's play again!
+
+56
+00:02:48.000 --> 00:02:51.000
+Start! Now, remember there are fourteen
+
+57
+00:02:51.000 --> 00:02:54.000
+bricks per layer, on the 1, 2, 3, 4, 5, 6,
+
+58
+00:02:54.000 --> 00:02:57.000
+7. Yeah, 7, 14, so there are
+
+59
+00:02:57.000 --> 00:03:00.000
+28 breakable bricks to start with. Let's see what happens!
+
+60
+00:03:00.000 --> 00:03:03.000
+Watch the Console after
+
+61
+00:03:03.000 --> 00:03:06.000
+the first brick breaks.
+
+62
+00:03:06.000 --> 00:03:09.000
+What do we get logging? You may need to scroll down
+
+63
+00:03:09.000 --> 00:03:12.000
+41, 42, 43, 44, 45,
+
+64
+00:03:12.000 --> 00:03:15.000
+working backwards. That's not right! There are not that many
+
+65
+00:03:15.000 --> 00:03:18.000
+breakable bricks, and that is because
+
+66
+00:03:18.000 --> 00:03:21.000
+if you look in the Brick.cs Script again,
+
+67
+00:03:21.000 --> 00:03:24.000
+for a moment, at the top here in the Start
+
+68
+00:03:24.000 --> 00:03:27.000
+method, when a brick comes into existence
+
+69
+00:03:27.000 --> 00:03:30.000
+it updates the static breakableCount.
+
+70
+00:03:30.000 --> 00:03:33.000
+This static breakableCount
+
+71
+00:03:33.000 --> 00:03:36.000
+for every breakable brick. So, we had a number
+
+72
+00:03:36.000 --> 00:03:39.000
+of breakable bricks left over in the static,
+
+73
+00:03:39.000 --> 00:03:42.000
+so it just added to them, which is wrong. So,
+
+74
+00:03:42.000 --> 00:03:45.000
+what I want you to do is fix this
+
+75
+00:03:45.000 --> 00:03:48.000
+problem. Now, you don't do it in Brick.cs, you do it in another script,
+
+76
+00:03:48.000 --> 00:03:51.000
+but I'm going to leave it to you to work out which one.
+
+77
+00:03:51.000 --> 00:03:54.000
+Your challenge is to fix the bug. "When it's fixed
+
+78
+00:03:54.000 --> 00:03:57.000
+Brick.breakableCount will correctly reset to the number
+
+79
+00:03:57.000 --> 00:04:00.000
+of breakable bricks, even after you have died and tried again."
+
+80
+00:04:00.000 --> 00:04:03.000
+You better test this by checking the Console or playing
+
+81
+00:04:03.000 --> 00:04:06.000
+the level. So, go ahead, pause the video, and have a go at fixing
+
+82
+00:04:06.000 --> 00:04:09.000
+the bug yourself.
+
+83
+00:04:09.000 --> 00:04:12.000
+Cool! Welcome back! So, how did you get on fixing that bug?
+
+84
+00:04:12.000 --> 00:04:15.000
+Well, this is how I'm going to be attacking it.
+
+85
+00:04:15.000 --> 00:04:18.000
+Relatively simple, actually, we go
+
+86
+00:04:18.000 --> 00:04:21.000
+into LevelManager, and it's when we load a level here
+
+87
+00:04:21.000 --> 00:04:24.000
+or here. Whenever we load a level, we want
+
+88
+00:04:24.000 --> 00:04:27.000
+to reset the breakableCount OK. So,
+
+89
+00:04:27.000 --> 00:04:30.000
+what we do is we go capital B for Brick,
+
+90
+00:04:30.000 --> 00:04:33.000
+because it's the class in this case because it's a static.
+
+91
+00:04:33.000 --> 00:04:36.000
+Dot breakableCount = 0;
+
+92
+00:04:36.000 --> 00:04:39.000
+We need to do that when we load a level, i.e., going
+
+93
+00:04:39.000 --> 00:04:42.000
+from the Start Menu to Level 1, but we also
+
+94
+00:04:42.000 --> 00:04:45.000
+need to do it just before we load the next level, which is called going
+
+95
+00:04:45.000 --> 00:04:48.000
+from Level 1 to 2, Level 2 to 3, etc.
+
+96
+00:04:48.000 --> 00:04:51.000
+Now, let's test,
+
+97
+00:04:51.000 --> 00:04:54.000
+watching the Console as we go.
+
+98
+00:04:54.000 --> 00:04:57.000
+Same drill!
+
+99
+00:04:57.000 --> 00:05:00.000
+We lose! There are 27 breakable bricks
+
+100
+00:05:00.000 --> 00:05:03.000
+at the end. We start again!
+
+101
+00:05:06.000 --> 00:05:09.000
+Ah 27! Good, we're back to where we should be! So fantastic!
+
+102
+00:05:09.000 --> 00:05:12.000
+Congratulations on fixing that problem!
+
+103
+00:05:12.000 --> 00:05:15.000
+You reset the static breakableCount to 0,
+
+104
+00:05:15.000 --> 00:05:18.000
+both in the LoadLevel Script
+
+105
+00:05:18.000 --> 00:05:21.000
+and in the LoadNextLevel Script.
+
+106
+00:05:21.000 --> 00:05:24.000
+And as a slide summary of what we've just done,
+
+107
+00:05:24.000 --> 00:05:27.000
+here it is! When you have
+
+108
+00:05:27.000 --> 00:05:30.000
+a bug, find out how to reproduce the problem, Debug it to
+
+109
+00:05:30.000 --> 00:05:33.000
+find the root cause, make the fix and re-test,
+
+110
+00:05:33.000 --> 00:05:36.000
+and then, finally, remove the Debug code.
+
+111
+00:05:36.000 --> 00:05:39.000
+Where was our Debug code? Well, it was back over
+
+112
+00:05:39.000 --> 00:05:42.000
+in the other script, which was the Brick.cs.
+
+113
+00:05:42.000 --> 00:05:45.000
+And it is down here
+
+114
+00:05:45.000 --> 00:05:48.000
+somewhere, towards the bottom, under
+
+115
+00:05:48.000 --> 00:05:51.000
+HandleHits. We can now remove the Debug.Log (breakableCount);
+
+116
+00:05:51.000 --> 00:05:54.000
+to tidy up our log. Fantastic! Congratulations
+
+117
+00:05:54.000 --> 00:05:57.000
+and I'll see you soon!
+

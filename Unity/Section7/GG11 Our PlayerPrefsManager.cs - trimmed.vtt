@@ -1,0 +1,590 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.700
+
+
+2
+00:00:03.700 --> 00:00:07.700
+So it's time to take a look at our options screen! The question is, where do you
+
+3
+00:00:07.700 --> 00:00:11.700
+save player preferences like my master volume level
+
+4
+00:00:11.700 --> 00:00:15.700
+or levels that have been unlocked or any other preferences
+
+5
+00:00:15.700 --> 00:00:19.700
+that you may want to put in there, difficulty for example. Well
+
+6
+00:00:19.700 --> 00:00:23.700
+it turns out that Unity has something called PlayerPrefs. So
+
+7
+00:00:23.700 --> 00:00:27.700
+we're going to talk about what is PlayerPrefs, and why is it useful? Then, immediately
+
+8
+00:00:27.700 --> 00:00:31.700
+what are its limitations? Why are we providing our own wrapper class?
+
+9
+00:00:31.700 --> 00:00:35.700
+And then, we will actually make the wrapper class, and you're going to help us do
+
+10
+00:00:35.700 --> 00:00:39.700
+that. So firstly, let's look up PlayerPrefs in the
+
+11
+00:00:39.700 --> 00:00:43.700
+docs. Here it is! "Stores and accesses player preferences between
+
+12
+00:00:43.700 --> 00:00:47.700
+game sessions." Sounds pretty handy, and they have different places automatically
+
+13
+00:00:47.700 --> 00:00:51.700
+on different platforms. Now, it's not a use
+
+14
+00:00:51.700 --> 00:00:55.700
+for everything thing this. We need to use it carefully, but used carefully it's going to be very
+
+15
+00:00:55.700 --> 00:00:59.700
+simple. It does have some limitations, which we'll talk about in a minute,
+
+16
+00:00:59.700 --> 00:01:03.700
+but basically, you can set and get floats, ints, and strings
+
+17
+00:01:03.700 --> 00:01:07.700
+and they come in in pairs. So if we're going to
+
+18
+00:01:07.700 --> 00:01:11.700
+set an integer, then we give it a string like ("Player Score" and
+
+19
+00:01:11.700 --> 00:01:15.700
+10). So that's how you use it in its raw form, PlayerPrefs.SetInt
+
+20
+00:01:15.700 --> 00:01:19.700
+would give it a key, "Player Score" as a string, and then a value, and the
+
+21
+00:01:19.700 --> 00:01:23.700
+same happens with floats, apart from you passing a float,
+
+22
+00:01:23.700 --> 00:01:27.700
+and with strings, apart from you passing two strings. OK.
+
+23
+00:01:27.700 --> 00:01:31.700
+So it could be used for a small basic scoreboard, it could be used for a variety
+
+24
+00:01:31.700 --> 00:01:35.700
+of things, but note, we have some serious limitations.
+
+25
+00:01:35.700 --> 00:01:39.700
+It can be pretty slow to read and write, this is certainly not something we're doing every frame.
+
+26
+00:01:39.700 --> 00:01:43.700
+By slow I mean sub one second but still relatively slow.
+
+27
+00:01:43.700 --> 00:01:47.700
+There's only 1 megabyte file size, don't go crazy with this. It only supports
+
+28
+00:01:47.700 --> 00:01:51.700
+floats, ints, and strings, not bools, etc.
+
+29
+00:01:51.700 --> 00:01:55.700
+That's a sting, funny! Good artist though! And
+
+30
+00:01:55.700 --> 00:01:59.700
+don't abuse it, don't go absolutely crazy on it. What we're going to do is, we're going to put a
+
+31
+00:01:59.700 --> 00:02:03.700
+wrapper class around this. We're going to centralize all of the Player Preference reading and
+
+32
+00:02:03.700 --> 00:02:07.700
+writing. We're going to make that class static so it's available from anywhere
+
+33
+00:02:07.700 --> 00:02:11.700
+and this is going to allow for checking and error handling and it's going to
+
+34
+00:02:11.700 --> 00:02:15.700
+be much safer and clearer. My concern with just using
+
+35
+00:02:15.700 --> 00:02:19.700
+PlayerPrefs from anywhere is, say I've set a string, a float,
+
+36
+00:02:19.700 --> 00:02:23.700
+an int, or a
+
+37
+00:02:23.700 --> 00:02:27.700
+float, any of these types here, how do I know what the key I've set is?
+
+38
+00:02:27.700 --> 00:02:31.700
+I can ask has key, I'm not going to go through every possible string.
+
+39
+00:02:31.700 --> 00:02:35.700
+I can delete everything and lose information and start again, it's just a hassle!
+
+40
+00:02:35.700 --> 00:02:39.700
+What I want is, I want to know for sure what keys I'm using and what I've
+
+41
+00:02:39.700 --> 00:02:43.700
+stored, and by making a wrapper class, we're going to have all our keys nicely
+
+42
+00:02:43.700 --> 00:02:47.700
+laid out at the top of a single script, and then, whenever we want
+
+43
+00:02:47.700 --> 00:02:51.700
+to talk to PlayerPrefs we're going to do it through a nice set of methods. Things
+
+44
+00:02:51.700 --> 00:02:55.700
+like PlayerPrefsManager.SetMasterVolume
+
+45
+00:02:55.700 --> 00:02:59.700
+0.6f, that type of thing.
+
+46
+00:02:59.700 --> 00:03:03.700
+OK, so let's get on and make this happen.
+
+47
+00:03:03.700 --> 00:03:07.700
+Into Unity, make ourselves a script. Now, this is going to be a static class so we don't need to
+
+48
+00:03:07.700 --> 00:03:11.700
+attach the script to anything. I'm going to call it Player
+
+49
+00:03:11.700 --> 00:03:15.700
+PrefsManager why? Because if we were in another
+
+50
+00:03:15.700 --> 00:03:19.700
+script, any other script and I start typing PlayerPrefs,
+
+51
+00:03:19.700 --> 00:03:23.700
+you see we've got Unity's PlayerPrefs static methods here, and then
+
+52
+00:03:23.700 --> 00:03:27.700
+we've got ours down here, PlayerPrefsManager. It's right next to it, it reminds us
+
+53
+00:03:27.700 --> 00:03:31.700
+to use our own. Of course, you're going to have to let anybody else on your team or the other
+
+54
+00:03:31.700 --> 00:03:35.700
+half of yourself know that we always use the PlayerPrefsManager. So,
+
+55
+00:03:35.700 --> 00:03:39.700
+here is the PlayerPrefsManager, great. So, one of the first things
+
+56
+00:03:39.700 --> 00:03:43.700
+we're going to want to think about is, what are these keys we're going to use? Remember over
+
+57
+00:03:43.700 --> 00:03:47.700
+in the docs it says you need to give it things like "Player Score" or whatever. We
+
+58
+00:03:47.700 --> 00:03:51.700
+have to decide on a string and it has to be precisely the same, when we try and retrieve.
+
+59
+00:03:51.700 --> 00:03:55.700
+So why don't we start, by making ourselves some constants? Now, by the way,
+
+60
+00:03:55.700 --> 00:03:59.700
+constants are also static in C#, so
+
+61
+00:03:59.700 --> 00:04:03.700
+a constant string for the MASTER_
+
+62
+00:04:03.700 --> 00:04:07.700
+VOLUME. So, I'm going to use all capitals because this thing is a
+
+63
+00:04:07.700 --> 00:04:11.700
+constant. MASTER_VOLUME_KEY =
+
+64
+00:04:11.700 --> 00:04:15.700
+and then, what are we going to call it? Well, "master_volume", I'm going to use that format.
+
+65
+00:04:15.700 --> 00:04:19.700
+Fine! How about if we wanted a
+
+66
+00:04:19.700 --> 00:04:23.700
+key that we're going to use for, let's say
+
+67
+00:04:23.700 --> 00:04:27.700
+difficulty. Constant
+
+68
+00:04:27.700 --> 00:04:31.700
+string
+
+69
+00:04:31.700 --> 00:04:35.700
+DIFFICULTY_KEY. You get the idea! And then,
+
+70
+00:04:35.700 --> 00:04:39.700
+we're just going to call that "difficulty". Alright
+
+71
+00:04:39.700 --> 00:04:43.700
+fantastic! So, we're really centralizing all of this stuff. What else are we going to have? "master_volume"
+
+72
+00:04:43.700 --> 00:04:47.700
+"difficulty". What else would you like to do on here? We
+
+73
+00:04:47.700 --> 00:04:51.700
+may have level unlocks, for example, so this one's a little
+
+74
+00:04:51.700 --> 00:04:55.700
+complex. const string
+
+75
+00:04:55.700 --> 00:04:59.700
+Level, just going to call it LEVEL_KEY
+
+76
+00:04:59.700 --> 00:05:03.700
+and this would say "level
+
+77
+00:05:03.700 --> 00:05:07.700
+_unlocked_... Although we're not going to use it in this game, this is just going to be a general
+
+78
+00:05:07.700 --> 00:05:11.700
+PlayerPrefsManager that we can roll forward. "level_unlocked_ and I'm going to leave
+
+79
+00:05:11.700 --> 00:05:15.700
+a trailing underscore, because the sort of thing we would want to write
+
+80
+00:05:15.700 --> 00:05:19.700
+is this. We would want to say
+
+81
+00:05:19.700 --> 00:05:23.700
+"// level_unlocked_
+
+82
+00:05:23.700 --> 00:05:27.700
+1 for level 1, or 0 or 2 or 3. OK, so I'm leaving the underscore because
+
+83
+00:05:27.700 --> 00:05:31.700
+that's what's actually going to appear in the PlayerPrefs. So, all of our keys
+
+84
+00:05:31.700 --> 00:05:35.700
+are at the top. We know what we're storing in the PlayerPrefs, from the word go. Let's get rid of the existing methods.
+
+85
+00:05:35.700 --> 00:05:39.700
+Let's make our first
+
+86
+00:05:39.700 --> 00:05:43.700
+set method, which is going to be a public,
+
+87
+00:05:43.700 --> 00:05:47.700
+because other methods need to access it. It's static, there's only
+
+88
+00:05:47.700 --> 00:05:51.700
+one instance of this, it's going to run on the class.
+
+89
+00:05:51.700 --> 00:05:55.700
+void doesn't need to return anything, SetMaster
+
+90
+00:05:55.700 --> 00:05:59.700
+Volume. Pass in a (float
+
+91
+00:05:59.700 --> 00:06:03.700
+call it volume). OK,
+
+92
+00:06:03.700 --> 00:06:07.700
+now how would we talk to PlayerPrefs? Well, we would say PlayerPrefs
+
+93
+00:06:07.700 --> 00:06:11.700
+.Set what? Well SetFloat.
+
+94
+00:06:11.700 --> 00:06:15.700
+And we would use our (Master_Volume
+
+95
+00:06:15.700 --> 00:06:19.700
+_Key, and then the volume. OK, so that's very
+
+96
+00:06:19.700 --> 00:06:23.700
+thin at the moment, it's very simple, but already, it means that from
+
+97
+00:06:23.700 --> 00:06:27.700
+the outside, if I was in another method like this in a completely different class, I can go PlayerPrefs
+
+98
+00:06:27.700 --> 00:06:31.700
+Manager. and once we go past all the default methods
+
+99
+00:06:31.700 --> 00:06:35.700
+it's inherited, SetMasterVolume. And you can even show you that it takes a float
+
+100
+00:06:35.700 --> 00:06:39.700
+alright. So, we're starting to get a nicer interface to PlayerPrefs, much more
+
+101
+00:06:39.700 --> 00:06:43.700
+simple to use. Now, what we're going to want to do, in general it'd be even
+
+102
+00:06:43.700 --> 00:06:47.700
+nicer, if it helped us out if we were stupid. So, if the volume,
+
+103
+00:06:47.700 --> 00:06:51.700
+we're going to use a volume scale of 0 to 1. So, if the volume scale is
+
+104
+00:06:51.700 --> 00:06:55.700
+greater than 0 float and volume
+
+105
+00:06:55.700 --> 00:06:59.700
+is less than one float, then
+
+106
+00:06:59.700 --> 00:07:03.700
+go ahead and do what we said, otherwise
+
+107
+00:07:03.700 --> 00:07:07.700
+we want to throw an error and we're going to use Debug.Log
+
+108
+00:07:07.700 --> 00:07:11.700
+Error here. And what that's going to do is, over in
+
+109
+00:07:11.700 --> 00:07:15.700
+Unity, it's going to throw the Debug statement onto the Console
+
+110
+00:07:15.700 --> 00:07:19.700
+as a red stop sign like this, and it'll be one of these
+
+111
+00:07:19.700 --> 00:07:23.700
+ones you can filter for and that's just a much stronger type of error.
+
+112
+00:07:23.700 --> 00:07:27.700
+LogError something like ("Master
+
+113
+00:07:27.700 --> 00:07:31.700
+volume out of range")
+
+114
+00:07:31.700 --> 00:07:35.700
+OK, and it'll tell us the script that's called that.
+
+115
+00:07:35.700 --> 00:07:39.700
+So that's fine! So now, we have a little bit of a checking condition. You can go mad on these
+
+116
+00:07:39.700 --> 00:07:43.700
+checking conditions, but this is fine for now, for setting the Master Volume. How would it get
+
+117
+00:07:43.700 --> 00:07:47.700
+that Master Volume back? Well, I'll show you for this time, it'd be public! Static, they're all
+
+118
+00:07:47.700 --> 00:07:51.700
+going to be public static. What's it going to pass back? A float!
+
+119
+00:07:51.700 --> 00:07:55.700
+GetMasterVolume ()
+
+120
+00:07:55.700 --> 00:07:59.700
+and it's going to take in nothing, and it's going to be relatively
+
+121
+00:07:59.700 --> 00:08:03.700
+simple, this one. It's going to be PlayerPrefs.Get
+
+122
+00:08:03.700 --> 00:08:07.700
+Float, and now this is where the constant comes in,
+
+123
+00:08:07.700 --> 00:08:11.700
+we just pass in that key with confidence. Lovely! So, now what I like to
+
+124
+00:08:11.700 --> 00:08:15.700
+do is do a couple of spaces, and um
+
+125
+00:08:15.700 --> 00:08:19.700
+just to separate out from the future stuff. So, now should we just test this
+
+126
+00:08:19.700 --> 00:08:23.700
+quickly? Let's test this from one of the scenes. Which scene would be sensible?
+
+127
+00:08:23.700 --> 00:08:27.700
+GetMasterVolume, "not all code paths
+
+128
+00:08:27.700 --> 00:08:31.700
+return a value". Well, that's because we're not returning this value,
+
+129
+00:08:31.700 --> 00:08:35.700
+we just need to return PlayerPrefs.GetFloat.
+
+130
+00:08:35.700 --> 00:08:39.700
+Great! OK, I'm going to pop into the Start Scene for now,
+
+131
+00:08:39.700 --> 00:08:43.700
+because that's one that's not going to kind of disappear on us, and I'm going to
+
+132
+00:08:43.700 --> 00:08:47.700
+temporarily put a test object in here.
+
+133
+00:08:47.700 --> 00:08:51.700
+I'm just going to call it TEST, which we'll get rid of later. Add a simple script, I'll
+
+134
+00:08:51.700 --> 00:08:55.700
+reset its transform, add a script called a script test.
+
+135
+00:08:55.700 --> 00:08:59.700
+That's fine! Let's just go into the TEST script and just try this. On
+
+136
+00:08:59.700 --> 00:09:03.700
+Start () let's go PlayerPrefsManager.
+
+137
+00:09:03.700 --> 00:09:07.700
+SetMasterVolume (0.
+
+138
+00:09:07.700 --> 00:09:11.700
+3f); Yeah, in fact, and then before it, let's
+
+139
+00:09:11.700 --> 00:09:15.700
+go PlayerPrefsManager.GetMasterVolume and see what it does.
+
+140
+00:09:15.700 --> 00:09:19.700
+And then after, let's do the same thing again!
+
+141
+00:09:19.700 --> 00:09:23.700
+Now of course, this is going to do nothing because we're not
+
+142
+00:09:23.700 --> 00:09:27.700
+printing it. I'm going to use print, rather than Debug.Log here.
+
+143
+00:09:27.700 --> 00:09:31.700
+So, if we print all of these things, let's see what we get by default,
+
+144
+00:09:31.700 --> 00:09:35.700
+I suspect 0, and then, let's see what we get once we've set it to
+
+145
+00:09:35.700 --> 00:09:39.700
+(0.3f) into the PlayerPrefs. And then, let's see
+
+146
+00:09:39.700 --> 00:09:43.700
+what we get after we retrieve, once we've set our values. Let's just make
+
+147
+00:09:43.700 --> 00:09:46.200
+sure this getting and setting is working!
+

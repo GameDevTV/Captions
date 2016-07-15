@@ -1,0 +1,694 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.566
+
+
+2
+00:00:03.566 --> 00:00:07.566
+So, in that last part of the video I was starting to make a real hash
+
+3
+00:00:07.566 --> 00:00:11.566
+of the coding, I think it was getting late in the day. So, I've split it into two now for you,
+
+4
+00:00:11.566 --> 00:00:15.566
+and I am just going to recap before we carry on, because that video is already 10 minutes long and
+
+5
+00:00:15.566 --> 00:00:19.566
+we've got plenty more to do. So, we're making a wrapper around the PlayerPrefs
+
+6
+00:00:19.566 --> 00:00:23.566
+so that we can centralize these keys, like the volume
+
+7
+00:00:23.566 --> 00:00:27.566
+keys, etc. so that we know what type of data we're putting into the PlayerPrefs. It also
+
+8
+00:00:27.566 --> 00:00:31.566
+allows us to check, when we set the Master Volume we can check that it's between 0 and 1 and make
+
+9
+00:00:31.566 --> 00:00:35.566
+sure that it doesn't go outside that range and that we can have a list of keys
+
+10
+00:00:35.566 --> 00:00:39.566
+inside the PlayerPrefsManager, that tell us exactly what we're actually storing
+
+11
+00:00:39.566 --> 00:00:43.566
+in Player Prefs, because there's no other way of knowing without trolling through your entire code base.
+
+12
+00:00:43.566 --> 00:00:47.566
+So it's centralizing the usage of PlayerPrefs. So that's pretty
+
+13
+00:00:47.566 --> 00:00:51.566
+cool! So, where we'd got to is, I had just written a setter to set the
+
+14
+00:00:51.566 --> 00:00:55.566
+Master Volume, and we were just writing a getter as well. So, in the next couple of minutes
+
+15
+00:00:55.566 --> 00:00:59.566
+I'll fumble through that code and then we will get it working and carry on.
+
+16
+00:00:59.566 --> 00:01:03.133
+So good luck, I hope you enjoy the rest of the video!
+
+17
+00:01:03.133 --> 00:01:07.133
+I'm doing something funny with my brackets here,
+
+18
+00:01:07.133 --> 00:01:11.133
+and what I'm doing is I'm putting my
+
+19
+00:01:11.133 --> 00:01:15.133
+semicolons in the wrong place. I'm sure you spotted that
+
+20
+00:01:15.133 --> 00:01:19.133
+before I did. Now, the issue I'm getting here
+
+21
+00:01:19.133 --> 00:01:23.133
+is it's saying I can't print the return value of SetMasterVolume,
+
+22
+00:01:23.133 --> 00:01:27.133
+because SetMasterVolume doesn't return anything. That's all fair enough.
+
+23
+00:01:27.133 --> 00:01:31.133
+Finally, we're there! We print the Master Volume, we set it, and
+
+24
+00:01:31.133 --> 00:01:35.133
+then, we print what we get again. Let's try it!
+
+25
+00:01:35.133 --> 00:01:39.133
+Look at the Console, we get 0, we set it to 0.3, and then, we read
+
+26
+00:01:39.133 --> 00:01:43.133
+0.3. Great! So, we're setting and retrieving the Master Volume just fine. I'll leave
+
+27
+00:01:43.133 --> 00:01:47.133
+that test object there for a moment. Let's move on. OK, so let's move
+
+28
+00:01:47.133 --> 00:01:51.133
+on to level unlocking. So, I will write the
+
+29
+00:01:51.133 --> 00:01:55.133
+setter and you get write the getter. So, public
+
+30
+00:01:55.133 --> 00:01:59.133
+static void
+
+31
+00:01:59.133 --> 00:02:03.133
+UnlockLevel (int
+
+32
+00:02:03.133 --> 00:02:07.133
+level) and it'll take an integer level index into
+
+33
+00:02:07.133 --> 00:02:11.133
+this method. Fine!
+
+34
+00:02:11.133 --> 00:02:15.133
+What are we going to do in there? Well, I want to check it makes sense first. I'm going to
+
+35
+00:02:15.133 --> 00:02:19.133
+say, if level that we've passed in
+
+36
+00:02:19.133 --> 00:02:23.133
+is less than or equal to Application
+
+37
+00:02:23.133 --> 00:02:27.133
+.levelCount -
+
+38
+00:02:27.133 --> 00:02:31.133
+1). Why -1? Well, just take a
+
+39
+00:02:31.133 --> 00:02:35.133
+look at the Build Settings for two seconds. We have
+
+40
+00:02:35.133 --> 00:02:39.133
+8 levels here, but of course, we start counting at 0, so what
+
+41
+00:02:39.133 --> 00:02:43.133
+I'm saying is, the highest I can ask about is the number of levels
+
+42
+00:02:43.133 --> 00:02:47.133
+8 - 1, which is 7. So provided it's 7 or less, we're good to go;
+
+43
+00:02:47.133 --> 00:02:51.133
+otherwise, I'm asking you to unlock a level that's not in the build order, which is strange.
+
+44
+00:02:51.133 --> 00:02:55.133
+Let's capture that straight away, else Debug
+
+45
+00:02:55.133 --> 00:02:59.133
+.LogError ("Trying to unlock
+
+46
+00:02:59.133 --> 00:03:03.133
+level not in build order")
+
+47
+00:03:03.133 --> 00:03:07.133
+or something like that. Alright, so that's
+
+48
+00:03:07.133 --> 00:03:11.133
+captured the error condition or one of the many infinite possible level
+
+49
+00:03:11.133 --> 00:03:15.133
+error conditions. Now, let's go ahead and do the PlayerPrefsManager bit.
+
+50
+00:03:15.133 --> 00:03:19.133
+PlayerPrefs.SetInt
+
+51
+00:03:19.133 --> 00:03:23.133
+Now, what do we set as the key? Well, it's just going to be
+
+52
+00:03:23.133 --> 00:03:27.133
+(LEVEL_KEY but this time we're going to concatenate
+
+53
+00:03:27.133 --> 00:03:31.133
+level.ToString() on the end, so that what we end up
+
+54
+00:03:31.133 --> 00:03:35.133
+with there is something like "level_unlocked_"
+
+55
+00:03:35.133 --> 00:03:39.133
+1 or 2 or 0. Alright, so that's
+
+56
+00:03:39.133 --> 00:03:43.133
+that bit! And then, what are we actually going to set? Well, we're going to use 1 here. We're
+
+57
+00:03:43.133 --> 00:03:47.133
+going to say that 1 "// Use 1
+
+58
+00:03:47.133 --> 00:03:51.133
+for true". OK, it's a bit nasty but as I said we don't have bool,
+
+59
+00:03:51.133 --> 00:03:55.133
+so we're writing this wrapper to do it for us.
+
+60
+00:03:55.133 --> 00:03:59.133
+OK fantastic! So, let's just see that that is working
+
+61
+00:03:59.133 --> 00:04:03.133
+properly very quickly, over in our test script. Let's just unlock level 2 or something
+
+62
+00:04:03.133 --> 00:04:07.133
+like that. PlayerPrefsManager
+
+63
+00:04:07.133 --> 00:04:11.133
+.UnlockLevel
+
+64
+00:04:11.133 --> 00:04:15.133
+and then just (2); and then,
+
+65
+00:04:15.133 --> 00:04:19.133
+we're going to print... Well, we can't get it back yet actually, but what we could do is we could read the
+
+66
+00:04:19.133 --> 00:04:23.133
+raw thing. We could say PlayerPrefs
+
+67
+00:04:23.133 --> 00:04:27.133
+.GetKey, but we don't want to start doing this OK,
+
+68
+00:04:27.133 --> 00:04:31.133
+because I always want you to talk to PlayerPrefs right through the PlayerPrefsManager.
+
+69
+00:04:31.133 --> 00:04:35.133
+That's the whole point of it being there, so let's not put that habit in. What  I want
+
+70
+00:04:35.133 --> 00:04:39.133
+you to do now, is to write the rest of this IsLevelUnlocked().
+
+71
+00:04:39.133 --> 00:04:43.133
+There's your signature. IsLevelUnlocked takes in an integer, returns true
+
+72
+00:04:43.133 --> 00:04:47.133
+if the value against the key is 1. It's not a float, sorry about the mistake
+
+73
+00:04:47.133 --> 00:04:51.133
+on the slide. Just 1, it returns false otherwise, and if the level
+
+74
+00:04:51.133 --> 00:04:55.133
+index is not in the build order, we log a helpful error and return false. Go
+
+75
+00:04:55.133 --> 00:04:59.133
+ahead and do that now please.
+
+76
+00:04:59.133 --> 00:05:03.133
+OK welcome back! So this
+
+77
+00:05:03.133 --> 00:05:07.133
+is how we're going to do it, public static. What's it going to return?
+
+78
+00:05:07.133 --> 00:05:11.133
+A bool actually. We're actually allowing the PlayerPrefs through this wrapper to
+
+79
+00:05:11.133 --> 00:05:15.133
+return a different data type, which we didn't have access to before, and the method is
+
+80
+00:05:15.133 --> 00:05:19.133
+going to be called IsLevelUnlocked, and we
+
+81
+00:05:19.133 --> 00:05:23.133
+pass in the level we're asking about. Fine! Same type of thing,
+
+82
+00:05:23.133 --> 00:05:27.133
+if the level that we're asking about is less than
+
+83
+00:05:27.133 --> 00:05:31.133
+the number of levels -1, less than or equal to the level minus
+
+84
+00:05:31.133 --> 00:05:35.133
+1 then we're all good. So, let's just say "// return
+
+85
+00:05:35.133 --> 00:05:39.133
+bool" for now. We don't quite know how to do that yet, so we just write a comment.
+
+86
+00:05:39.133 --> 00:05:43.133
+else then this is where we capture the error,
+
+87
+00:05:43.133 --> 00:05:47.133
+and it's basically the same error as before.
+
+88
+00:05:47.133 --> 00:05:51.133
+It's ("trying to query
+
+89
+00:05:51.133 --> 00:05:55.133
+level not in build order"); OK,
+
+90
+00:05:55.133 --> 00:05:59.133
+sort your brackets out; "not all
+
+91
+00:05:59.133 --> 00:06:03.133
+code paths return a value", because we haven't filled in the code here now. Now, to fill in the code here I
+
+92
+00:06:03.133 --> 00:06:07.133
+want to put a couple of intermediate variables in just to make this life easier. Firstly,
+
+93
+00:06:07.133 --> 00:06:11.133
+we have the levelValue. This is the thing on the right-
+
+94
+00:06:11.133 --> 00:06:15.133
+hand side, this 1 that we've set, this nasty integer we've had to set.
+
+95
+00:06:15.133 --> 00:06:19.133
+= PlayerPrefs, this is where we actually dive into the PlayerPrefs and get
+
+96
+00:06:19.133 --> 00:06:23.133
+the integer back for the (LEVEL_KEY
+
+97
+00:06:23.133 --> 00:06:27.133
++ concatenated with the
+
+98
+00:06:27.133 --> 00:06:31.133
+level name we're asking about, level.ToString());
+
+99
+00:06:31.133 --> 00:06:35.133
+like that. So that gets back either
+
+100
+00:06:35.133 --> 00:06:39.133
+0 or nothing or 1, but if it gets back a 1 then that's
+
+101
+00:06:39.133 --> 00:06:43.133
+when we want a bool isLevelUnlocked
+
+102
+00:06:43.133 --> 00:06:47.133
+= (); And it equals some expression. Now, what's the expression?
+
+103
+00:06:47.133 --> 00:06:51.133
+Where it's (levelValue == because it's a
+
+104
+00:06:51.133 --> 00:06:55.133
+comparison 1); OK,
+
+105
+00:06:55.133 --> 00:06:59.133
+fantastic! So what do we return? We simply
+
+106
+00:06:59.133 --> 00:07:03.133
+return isLevel
+
+107
+00:07:03.133 --> 00:07:07.133
+Unlocked; What did I say we'd return if
+
+108
+00:07:07.133 --> 00:07:11.133
+we have an error? Well, we're going to return false,
+
+109
+00:07:11.133 --> 00:07:15.133
+but we need to log the error as well. OK fantastic!
+
+110
+00:07:15.133 --> 00:07:19.133
+Now, let's try this over in test. We have UnlockedLevel (2), let's
+
+111
+00:07:19.133 --> 00:07:23.133
+do exactly the same thing as before. Let's print (PlayerPrefs
+
+112
+00:07:23.133 --> 00:07:27.133
+Manager, always use it, .IsLevelUnlocked (2);
+
+113
+00:07:27.133 --> 00:07:31.133
+OK, now we unlock
+
+114
+00:07:31.133 --> 00:07:35.133
+it and then we print again. Let's see what we get!
+
+115
+00:07:35.133 --> 00:07:39.133
+"False", it's not unlocked initially, and then it is unlocked. Perfect!
+
+116
+00:07:39.133 --> 00:07:43.133
+So, we're talking to the PlayerPrefs through a much much safer interface!
+
+117
+00:07:43.133 --> 00:07:47.133
+Final challenge for you in this video then. I want you to write
+
+118
+00:07:47.133 --> 00:07:51.133
+the entire difficulty wrapper. We've already used the constant string DIFF_KEY =
+
+119
+00:07:51.133 --> 00:07:55.133
+"difficulty" simple as that. I want you to write public static void difficulty Set
+
+120
+00:07:55.133 --> 00:07:59.133
+Difficulty. It takes in a float. You need to check that it's between 0
+
+121
+00:07:59.133 --> 00:08:03.133
+and 1, log if it's not, an error if it's not, and then just a getter as well,
+
+122
+00:08:03.133 --> 00:08:07.133
+and check it all in that same test function. Go ahead and do that now please.
+
+123
+00:08:07.133 --> 00:08:11.133
+OK
+
+124
+00:08:11.133 --> 00:08:15.133
+cool! So, let's get this guy finished off! So,
+
+125
+00:08:15.133 --> 00:08:19.133
+we're going to have a difficulty wrapper; public static
+
+126
+00:08:19.133 --> 00:08:23.133
+void
+
+127
+00:08:23.133 --> 00:08:27.133
+SetDifficulty takes in a (float
+
+128
+00:08:27.133 --> 00:08:31.133
+difficulty) OK,
+
+129
+00:08:31.133 --> 00:08:35.133
+now your next instinct should be a check. if (difficulty
+
+130
+00:08:35.133 --> 00:08:39.133
+is greater than or equal to
+
+131
+00:08:39.133 --> 00:08:43.133
+0 float and difficulty is less
+
+132
+00:08:43.133 --> 00:08:47.133
+than or equal to 1 float, then do what
+
+133
+00:08:47.133 --> 00:08:51.133
+we're going to do, else
+
+134
+00:08:51.133 --> 00:08:55.133
+we're going to log an error. Let's immediately think about helping people, helping our designer
+
+135
+00:08:55.133 --> 00:08:59.133
+to actually set these things properly.
+
+136
+00:08:59.133 --> 00:09:03.133
+So, what are we going to log?  Debug.Log
+
+137
+00:09:03.133 --> 00:09:07.133
+Error ("Difficulty
+
+138
+00:09:07.133 --> 00:09:11.133
+out of range"); simple as that. OK, now there's lots of other errors you could catch
+
+139
+00:09:11.133 --> 00:09:15.133
+and you could use exception handling, as I've said before, but this is just fine for now.
+
+140
+00:09:15.133 --> 00:09:19.133
+So, how are we going to actually do this? We go to PlayerPrefs
+
+141
+00:09:19.133 --> 00:09:23.133
+.SetFloat again. We're just going to use a float. We're going to have a percentage difficulty between
+
+142
+00:09:23.133 --> 00:09:27.133
+0 and 1. (DIFFICULT_KEY,
+
+143
+00:09:27.133 --> 00:09:31.133
+difficulty); OK fantastic!
+
+144
+00:09:31.133 --> 00:09:35.133
+And then, that's it actually. And then, how do we do the getter? Well, relatively
+
+145
+00:09:35.133 --> 00:09:39.133
+simple as well. It's public static but it's no longer void, it's float.
+
+146
+00:09:39.133 --> 00:09:43.133
+We're going to get our value out called float GetDifficulty ()
+
+147
+00:09:43.133 --> 00:09:47.133
+takes nothing in
+
+148
+00:09:47.133 --> 00:09:51.133
+and this literally just reads the PlayerPrefs, so we may as well just take it from here.
+
+149
+00:09:51.133 --> 00:09:55.133
+return so the return value
+
+150
+00:09:55.133 --> 00:09:59.133
+is PlayerPrefs.GetFloat and
+
+151
+00:09:59.133 --> 00:10:03.133
+we don't need to provide any value, because we're just saying tell me what's on the other end of that key.
+
+152
+00:10:03.133 --> 00:10:07.133
+GetDifficulty SetDifficulty. Let's test it!
+
+153
+00:10:07.133 --> 00:10:11.133
+I'm going to take this pattern actually here, so
+
+154
+00:10:11.133 --> 00:10:15.133
+we see what it does beforehand. (PlayerPrefsManager.Get
+
+155
+00:10:15.133 --> 00:10:19.133
+Difficulty); and it's just a kind of global difficulty value.
+
+156
+00:10:19.133 --> 00:10:23.133
+Fine. PlayerPrefsManager.Set
+
+157
+00:10:23.133 --> 00:10:27.133
+Difficulty, and let's set it to, I don't know,
+
+158
+00:10:27.133 --> 00:10:31.133
+0.2 float. Print has some invalid arguments,
+
+159
+00:10:31.133 --> 00:10:35.133
+that's because the difficulties are methods, and I'm not calling them as methods,
+
+160
+00:10:35.133 --> 00:10:39.133
+so I need to be putting on my brackets.
+
+161
+00:10:39.133 --> 00:10:43.133
+That build is fine, let's try it here. Great!
+
+162
+00:10:43.133 --> 00:10:47.133
+So initially the difficulty is 0, that seems to be the default, we can worry about defaults later.
+
+163
+00:10:47.133 --> 00:10:51.133
+Then, it's 0.2 after we've set it. The final thing to try is, let's try setting it out of range
+
+164
+00:10:51.133 --> 00:10:55.133
+1.2 or 12 or something.
+
+165
+00:10:55.133 --> 00:10:59.133
+"Difficulty out of range", and it stays as it was.
+
+166
+00:10:59.133 --> 00:11:03.133
+OK, it does not change it. Perfect, awesome job! I'm going to just
+
+167
+00:11:03.133 --> 00:11:07.133
+tidy up by getting rid of the TEST object. I'm going to get rid of the TEST script,
+
+168
+00:11:07.133 --> 00:11:11.133
+and I'm going to just leave you in awe of the beauty of our
+
+169
+00:11:11.133 --> 00:11:15.133
+PlayerPrefsManager on the screen there. Mainly the bit up at the top,
+
+170
+00:11:15.133 --> 00:11:19.133
+which is where we, through all of this architecture, keep complete central control over
+
+171
+00:11:19.133 --> 00:11:23.133
+all of our strings, provided no pesky toe rag goes off and tries to
+
+172
+00:11:23.133 --> 00:11:27.133
+access PlayerPrefs dot anything [Laughs]
+
+173
+00:11:27.133 --> 00:11:33.033
+like that, we're always going to go through our manager. Congratulations, this is an awesome topic, and we'll see you soon!
+

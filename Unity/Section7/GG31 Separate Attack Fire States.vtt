@@ -1,0 +1,478 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.010 --> 00:00:10.300
+So in this video let's take a look at why our gnome,
+or my gnome in my case is firing too fast
+
+00:00:10.320 --> 00:00:14.710
+Possible solutions to that type of issue:
+why are we choosing to create a separate firing
+
+00:00:14.710 --> 00:00:19.119
+state and then we'll fine tune
+everything get, it working nice. OK so
+
+00:00:19.119 --> 00:00:25.170
+let's take a quick look at the problem,
+the problem is that once in the
+
+00:00:25.170 --> 00:00:30.800
+attacking state, in fact it while we sort
+this I'm gonna set the gnome's default
+
+00:00:30.800 --> 00:00:36.179
+attacking state - default animation state
+to attacking alright, so I'm going to go
+
+00:00:36.179 --> 00:00:39.690
+into is attacking here rather than
+changing the default state I'm going to set
+
+00:00:39.690 --> 00:00:44.510
+the default parameter for both the gnome
+and the cactus to is attacking so we can
+
+00:00:44.510 --> 00:00:47.889
+immediately see them attacking rather
+that change the default states, so they're
+
+00:00:47.889 --> 00:00:51.399
+attacking all the time now, what's
+happening here?
+
+00:00:51.399 --> 00:00:56.670
+Well if you look at the cactus it has an
+animation that consists of quite a few
+
+00:00:56.670 --> 00:01:02.389
+frames well 30 frames a second; 2, 10 so
+must be about... I don't know seventy frames
+
+00:01:02.389 --> 00:01:07.770
+70 something frames, so we're firing once in
+seventy something frames when it comes
+
+00:01:07.770 --> 00:01:12.490
+to the cactus, so once every two and a bit
+
+00:01:12.490 --> 00:01:17.740
+seconds, and that's what we see over in
+the game; well we would if the cactus was
+
+00:01:17.740 --> 00:01:21.850
+still alive; and then how about when it
+comes to the gnome? Well look at the
+
+00:01:21.850 --> 00:01:29.300
+gnome's animation, he only has a few
+frames, literally a handful of frames, and
+
+00:01:29.300 --> 00:01:34.620
+how many frames? Exactly 11 frames, so
+his animation last less than a
+
+00:01:34.620 --> 00:01:39.420
+second you see, your second is over here, about a
+third of a second. So in comparison the
+
+00:01:39.420 --> 00:01:44.750
+gnome is firing three times every second,
+in fact dammit I'm going to put myself
+
+00:01:44.750 --> 00:01:49.340
+another gnome - I have an abundance
+mentality when it comes to gnomes; I can
+
+00:01:49.340 --> 00:01:50.370
+have another gnome. Oops...
+
+00:01:50.370 --> 00:01:56.970
+54.9, he's well high. OK and I'll have
+another cactus because I want them out of
+
+00:01:56.970 --> 00:02:01.310
+the attack line. OK fine, so watch this.
+
+00:02:01.310 --> 00:02:05.079
+The gnome is firing three times a second,
+
+00:02:05.079 --> 00:02:09.250
+crazy, what can we do about it? Well
+there's a hacky way of sorting it which
+
+00:02:09.250 --> 00:02:14.630
+is to go to the gnome and go well, why don't
+we put more frames of animation in? It's kind
+
+00:02:14.630 --> 00:02:19.550
+of ugly right, I don't really want the speed
+he fires at to depend on the number of
+
+00:02:19.550 --> 00:02:23.760
+frames in the animation, I'm certainly not going to copy frames and paste them in and stuff,
+
+00:02:23.760 --> 00:02:29.120
+rubbish. Why don't we use the animator to
+solve this? Why don't we create a new
+
+00:02:29.120 --> 00:02:33.989
+state called fire? It doesn't change
+anything else, everything else can just
+
+00:02:33.989 --> 00:02:38.000
+go in and out of attack but the animator
+itself go to attack to fire and back after a
+
+00:02:38.000 --> 00:02:41.630
+certain number of loops of attack ,and
+then it's fire that will actually do the
+
+00:02:41.630 --> 00:02:46.299
+firing. Does that make sense? Just one more
+state here over on the right? Of course it does,
+
+00:02:46.299 --> 00:02:50.340
+so that's going to be a simple solution
+we only need to in my case do it for the
+
+00:02:50.340 --> 00:02:54.080
+gnome, you could of course also do it on
+your cactus, whatever characters
+
+00:02:54.080 --> 00:02:57.069
+you've created you know. you may need
+to do a similar thing I just wanna show
+
+00:02:57.069 --> 00:02:59.709
+you this technique. Am I gonna show
+you how to do it?
+
+00:02:59.709 --> 00:03:04.190
+yes. Am I gonna show you how to do it before you try
+it yourself? No, we really want you
+
+00:03:04.190 --> 00:03:07.160
+doing the challenges. I hope you haven't
+slipped out of habit of doing the
+
+00:03:07.160 --> 00:03:10.750
+challenges, if you have this is a great
+time to turn over a new leaf because
+
+00:03:10.750 --> 00:03:15.079
+we're nearing the end of this 2D
+course and we are going to need to be
+
+00:03:15.079 --> 00:03:18.370
+leaving you to be able to do your own
+things and think for yourself. So create
+
+00:03:18.370 --> 00:03:21.600
+a new state called fire, transition into it
+after a certain number of loops of
+
+00:03:21.600 --> 00:03:29.100
+attack it's up to you; use attack motion
+in fire state for now, so what do I mean
+
+00:03:29.100 --> 00:03:32.709
+by that? What I'm saying is that what are
+you going to use as an animation clip
+
+00:03:32.709 --> 00:03:37.090
+when he's firing? Well in my game I'm
+going to use the same motion - the same
+
+00:03:37.090 --> 00:03:41.370
+attack motion and then move your fire
+event to the fire estate and test it all works. So
+
+00:03:41.370 --> 00:03:43.130
+go ahead and do that now.
+
+00:03:43.130 --> 00:03:50.620
+Welcome back, so let's make this happen.
+So we need a state firstly called fire,
+
+00:03:50.620 --> 00:03:56.930
+so that's simple enough. Now in this fire
+state we're going to use the same motion
+
+00:03:56.930 --> 00:04:01.220
+as the attack motion but can we use
+exactly the same motion? Well no because
+
+00:04:01.220 --> 00:04:06.890
+this motion here is... would end up
+being exactly the same for fire and
+
+00:04:06.890 --> 00:04:10.980
+attack, we need the same sprites but we
+need a different motion if that makes sense,
+
+00:04:10.980 --> 00:04:13.569
+because we're going to have -
+when we go to this line here:
+
+00:04:13.569 --> 00:04:18.900
+gnome firing, we want a different clip so
+actually a new way, a different way which
+
+00:04:18.900 --> 00:04:20.019
+you've seen before
+
+00:04:20.019 --> 00:04:25.290
+of creating a new state is to just say
+create new clip and you can call it well
+
+00:04:25.290 --> 00:04:29.290
+what let's go to our animations put it
+in the right place or a sensible place
+
+00:04:29.290 --> 00:04:42.560
+and what is it? It's the gnome firing; ok
+so gnome firing. Now we have a motion for
+
+00:04:42.560 --> 00:04:46.330
+gnome firing and we have a name, I'm just
+going to simplify the name of the state to
+
+00:04:46.330 --> 00:04:52.310
+firing and then the motion we just
+recreate actually so it's going to be
+
+00:04:52.310 --> 00:04:57.410
+simpler to just recreate it, and what - how
+do we create it? Well, just go and get your
+
+00:04:57.410 --> 00:05:06.090
+sprites right? It's his hopping motion that
+we want to put in here
+
+00:05:06.090 --> 00:05:12.220
+fine and the reason for that is now we
+have a different motion here that we can
+
+00:05:12.220 --> 00:05:17.240
+choose in the attacking state we're gonna
+remove that event and in the firing
+
+00:05:17.240 --> 00:05:24.000
+state which looks exactly the same we're
+going to add in a fire. Now let's watch
+
+00:05:24.000 --> 00:05:30.240
+him animate and see how he does. OK so fine
+but we haven't put any transitions in
+
+00:05:30.240 --> 00:05:34.360
+yet so let's put a transition in and
+let's say after five cycles of attack
+
+00:05:34.360 --> 00:05:38.890
+you go to firing and then after one
+cycle of firing which is the default you
+
+00:05:38.890 --> 00:05:50.450
+go back to attack. Is that working? Not
+really, so because 5 never got stored,
+
+00:05:50.450 --> 00:05:53.150
+OK, let's try that
+
+00:05:53.150 --> 00:06:00.960
+1, 2, 3, 4, 5 fire 1, 2, 3, 4, 5 fire - you get the idea? Now is
+he still animating when we go to the
+
+00:06:00.960 --> 00:06:05.160
+firing state? He appears not to be, he
+appears that when he's firing he's not
+
+00:06:05.160 --> 00:06:09.320
+doing anything. So what's that about?
+
+00:06:09.320 --> 00:06:14.160
+Gnome attacking changes the body sprite, gnome
+firing tries to change the gnome sprite and
+
+00:06:14.160 --> 00:06:19.400
+is no gnome sprite so we have again
+to be careful that it is the body's sprite
+
+00:06:19.400 --> 00:06:25.370
+renderers sprite that we are changing and we
+need to create this a bit carefully so we are
+
+00:06:25.370 --> 00:06:28.210
+making we are making it a little bit
+difficult for ourselves by having these
+
+00:06:28.210 --> 00:06:32.300
+these childed bodies here because the
+animator doesn't quite work how we
+
+00:06:32.300 --> 00:06:36.139
+want it to but it does really reinforce
+how it works and gives you a lot more
+
+00:06:36.139 --> 00:06:42.070
+flexibility so I'm going to stick with
+it, I'm quite happy. Here he goes, he fires and
+
+00:06:42.070 --> 00:06:45.780
+when he's firing he's still exhibiting
+exactly the same animation, in fact he's not
+
+00:06:45.780 --> 00:06:50.380
+pitching even so great alright? That's a
+lot more sensible and now you control
+
+00:06:50.380 --> 00:06:55.340
+your fire rate in here. So that bit's done,
+let's take a look back to our challenge
+
+00:06:55.340 --> 00:07:02.190
+and see what else we needed to do. Guess what,
+we've done it, so what we gonna
+
+00:07:02.190 --> 00:07:06.039
+do just to finish off is the bottom here,
+fine tune the projectile size and spawn
+
+00:07:06.039 --> 00:07:10.889
+position. So let's start off with the
+gnome, I'm going to apply his prefab back
+
+00:07:10.889 --> 00:07:17.470
+take a look at him and in slow motion, so
+push pause, go back to the scene view,
+
+00:07:17.470 --> 00:07:21.520
+and just frame-by-frame let's see what
+happen. Well actually we'd beter wait 'til
+
+00:07:21.520 --> 00:07:28.550
+he's in the attacking state, could be a
+while. OK here we go, so there is that axe ok? Just
+
+00:07:28.550 --> 00:07:33.160
+look at in real-time yeah it's ok it's a
+bit big and it's coming out a bit low so
+
+00:07:33.160 --> 00:07:39.110
+pretty easy to sort that out it's coming
+out low so you move the gun up a bit so
+
+00:07:39.110 --> 00:07:46.789
+like so, and then it's a bit big so you
+simply go to the pre-fab for it, for the
+
+00:07:46.789 --> 00:07:55.330
+axe, and you go to its not the axe
+itself but to its sprite and let's just
+
+00:07:55.330 --> 00:08:00.139
+make it eighty percent of the size let's
+say in X and Y. Now it'll be higher and
+
+00:08:00.139 --> 00:08:07.479
+smaller when it comes out of the gnome. OK it's
+smaller for sure, I'm not particularly sure
+
+00:08:07.479 --> 00:08:11.990
+that it's any higher so let's make sure
+that we apply that back to the pre-fab
+
+00:08:11.990 --> 00:08:18.409
+and possibly move it up a little bit more.
+OK so that's moving the gun moves the
+
+00:08:18.409 --> 00:08:22.820
+vertical position and horizontal,
+in fact it needs a horizontal
+
+00:08:22.820 --> 00:08:25.540
+position coming out because it's kinda
+coming out of his face right now.
+
+00:08:25.540 --> 00:08:29.470
+Anyway I don't need to obsessively tune
+this, I will leave it to you guys
+
+00:08:29.470 --> 00:08:33.950
+to make far better versions of this game
+than we have got the time to make but
+
+00:08:33.950 --> 00:08:37.930
+the point is you've got control over the
+size of this axe and the position it
+
+00:08:37.930 --> 00:08:43.390
+spawns at, OK, so that's great now
+again same thing quickly for the
+
+00:08:43.390 --> 00:08:50.200
+cactus, how's the spawning going?
+Well the courgette's far, far too big so
+
+00:08:50.200 --> 00:08:54.690
+let's just make the sprite of the
+courgette a bit smaller, let's find ourselves a
+
+00:08:54.690 --> 00:08:59.030
+courgette, put in the scene so we can
+see how big we want it and then on this
+
+00:08:59.030 --> 00:09:05.800
+instance of the courgette go to its body,
+the scale tool, scale it down and then apply
+
+00:09:05.800 --> 00:09:16.210
+that back to the courgette prefab and remove the instance. Alright, let's try it. Great so now the
+
+00:09:16.210 --> 00:09:20.450
+firing animations are sensible you might
+say how about if I want to change the
+
+00:09:20.450 --> 00:09:25.900
+fire rate in script well that's one of
+the tradeoffs we're making here, you could
+
+00:09:25.900 --> 00:09:28.870
+but you'd have to be accessing animator
+properties, it's a bit of a weird thing
+
+00:09:28.870 --> 00:09:32.210
+to do, so the purpose of this is that
+we're having a consistent fire rate but
+
+00:09:32.210 --> 00:09:36.800
+it's up to the animator to be able to choose
+when. By the way notice that these axes
+
+00:09:36.800 --> 00:09:41.280
+continue even after the gnome has died
+which is exactly the behavior that we
+
+00:09:41.280 --> 00:09:45.400
+want. So this stone is standing up
+well to the lizard's attack... in the next
+
+00:09:45.400 --> 00:09:49.910
+video we need to get the projectiles
+actually hitting the attackers and only
+
+00:09:49.910 --> 00:09:54.380
+the attackers, not other defenders and
+not... well that's it.
+
+00:09:54.380 --> 00:09:57.530
+Not other defenders basically, and 
+not other projectiles as well.
+
+00:09:57.530 --> 00:10:00.500
+OK so we'll look forward to doing that in a
+moment. See you soon.
+

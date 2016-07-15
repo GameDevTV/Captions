@@ -1,0 +1,673 @@
+WEBVTT
+
+00:00:00.329 --> 00:00:07.990 align:middle line:90%
+Hi, welcome back and I'm really looking forward
+to getting into this bowling game with you
+
+00:00:07.990 --> 00:00:12.730 align:middle line:90%
+guys. So we're going to get used to 3D controls,
+create a bowling lane floor according to the
+
+00:00:12.730 --> 00:00:17.730 align:middle line:90%
+Game Design Document, and set your main camera
+to look down the lane. So firstly go find
+
+00:00:17.730 --> 00:00:21.230 align:middle line:90%
+your game design document, it's actually at
+the start of your section notes; it's also
+
+00:00:21.230 --> 00:00:25.300 align:middle line:90%
+in a separate .pdf at the beginning of the
+section, and in there you'll find the bowling
+
+00:00:25.300 --> 00:00:31.279 align:middle line:90%
+lane specification. We're going to use centimetres
+as our unit of choice here because it just
+
+00:00:31.279 --> 00:00:34.290 align:middle line:90%
+fits really well with this game, it's a centimetre
+scale game.
+
+00:00:34.290 --> 00:00:41.080 align:middle line:90%
+Metres are simply too big, and millimetres
+are simply too small. So if we check the specs
+
+00:00:41.080 --> 00:00:46.860 align:middle line:90%
+from the Wikipedia article linked at the bottom
+we'll find that it's 18.29 metres or 1829
+
+00:00:46.860 --> 00:00:50.480 align:middle line:90%
+centimetres from the foul line, i.e. the line
+that you're not allowed to cross when bowling
+
+00:00:50.480 --> 00:00:56.440 align:middle line:90%
+to the front pin, the head pin. So we're going
+to make it 2 metres, which is 2000 centimetres
+
+00:00:56.440 --> 00:01:00.080 align:middle line:90%
+long, a hundred and five centimetres wide,
+I'm actually going to make it a cuboid and
+
+00:01:00.080 --> 00:01:03.860 align:middle line:90%
+give it some height, so we're representing
+a physical floor that of course must have
+
+00:01:03.860 --> 00:01:08.110 align:middle line:90%
+some depth, that's going to help with collisions,
+things like that.
+
+00:01:08.110 --> 00:01:14.510 align:middle line:90%
+OK so let's dive over into Unity 5 and take
+a look at this game. So here you've got a
+
+00:01:14.510 --> 00:01:18.310 align:middle line:90%
+brand new Unity project, all I've done is
+created myself a scene here called game, OK
+
+00:01:18.310 --> 00:01:21.690 align:middle line:90%
+so I've simply gone save scene /game I think
+that you get the idea by this stage in the
+
+00:01:21.690 --> 00:01:27.490 align:middle line:90%
+course. So create yourself a game object - game
+object / 3D object / Cube. Go ahead and do
+
+00:01:27.490 --> 00:01:31.280 align:middle line:90%
+that now, let's put a simple cube in the scene
+and if you want to focus on it double click
+
+00:01:31.280 --> 00:01:32.520 align:middle line:84%
+on it in the hierarchy.
+
+00:01:32.520 --> 00:01:36.560 align:middle line:90%
+Now talking about the hierarchy you'll notice
+that there's one other difference in Unity
+
+00:01:36.560 --> 00:01:39.840 align:middle line:90%
+5 and that's that you'll always get a directional
+light right off the cuff, that just comes
+
+00:01:39.840 --> 00:01:44.130 align:middle line:90%
+in there that's fine, and your main camera
+gizmo here's rather large, if you find that
+
+00:01:44.130 --> 00:01:48.620 align:middle line:90%
+annoying like I do click on gizmos in the
+scene view and then drag down on the top on
+
+00:01:48.620 --> 00:01:54.520 align:middle line:90%
+your 3D gizmos slider to make your camera
+gizmo much smaller. You can also click here
+
+00:01:54.520 --> 00:01:58.200 align:middle line:90%
+at the top of scene view if you can see where
+my mouse is and that will give you the option
+
+00:01:58.200 --> 00:02:00.260 align:middle line:84%
+to turn off that skybox in the background.
+
+00:02:00.260 --> 00:02:04.270 align:middle line:90%
+I think that I'm going to leave it on just
+so that we make it very clear at a glance
+
+00:02:04.270 --> 00:02:08.159 align:middle line:90%
+that we're in Unity 5 but that's called a
+Skybox and we'll be dealing with that later
+
+00:02:08.159 --> 00:02:12.260 align:middle line:90%
+when we change it to a nice starfield and
+make it a nice space bowling game. So there
+
+00:02:12.260 --> 00:02:16.590 align:middle line:90%
+we have a cube. Now you need to know how we
+navigate around in the 3D world. So how do
+
+00:02:16.590 --> 00:02:20.870 align:middle line:90%
+you do that? Well, I suggest using a 3 button
+mouse if you possibly can; if you haven't
+
+00:02:20.870 --> 00:02:25.200 align:middle line:90%
+got a 3 button mouse then just click here
+with a Q key or at the top left on the little
+
+00:02:25.200 --> 00:02:29.380 align:middle line:90%
+hand icon and you can also use a tracking
+pad. 2 fingers forward and back or zoom on
+
+00:02:29.380 --> 00:02:34.090 align:middle line:90%
+the trackpad does the same as a mouse wheel,
+goes in and out. The left mouse button translates
+
+00:02:34.090 --> 00:02:39.550 align:middle line:90%
+like this left and right, up and down, as
+does dragging on your track pad with three
+
+00:02:39.550 --> 00:02:44.709 align:middle line:90%
+fingers with a Mac or with a single finger
+click down if you really want to give yourself
+
+00:02:44.709 --> 00:02:46.459 align:middle line:84%
+RSI.
+
+00:02:46.459 --> 00:02:50.910 align:middle line:90%
+You've also got the option to right-click
+with a mouse which will tilt your view, or
+
+00:02:50.910 --> 00:02:56.349 align:middle line:90%
+on a trackpad that is two fingers held pushed
+down. So have a little practice of just saying
+
+00:02:56.349 --> 00:02:59.330 align:middle line:90%
+to yourself for instance I want to see the
+underside of the cube, how am I going to get
+
+00:02:59.330 --> 00:03:03.489 align:middle line:90%
+it? Well I'll zoom in a little bit, I can
+use the middle mouse button to translate and
+
+00:03:03.489 --> 00:03:07.840 align:middle line:90%
+the right mouse button to rotate so there's
+the underside. Or you might say you want to
+
+00:03:07.840 --> 00:03:12.160 align:middle line:90%
+see the top so you'd just come up to the top
+and there's the top surface lit brightly by
+
+00:03:12.160 --> 00:03:13.520 align:middle line:84%
+this directional light.
+
+00:03:13.520 --> 00:03:17.190 align:middle line:90%
+Now we'll cover more detail about what a directional
+light does later, but just so you don't get
+
+00:03:17.190 --> 00:03:20.800 align:middle line:90%
+confused right now I want to explain that
+a directional light doesn't matter where it
+
+00:03:20.800 --> 00:03:24.569 align:middle line:90%
+is in the scene, if we go to translate mode
+and we start moving this light around it will
+
+00:03:24.569 --> 00:03:29.590 align:middle line:90%
+have no effect whatsoever. It doesn't matter
+how far away from things, it doesn't matter
+
+00:03:29.590 --> 00:03:34.349 align:middle line:90%
+where it is in the scene, it only matters
+what direction it's pointing in. So one of
+
+00:03:34.349 --> 00:03:37.290 align:middle line:90%
+the other tools that we can use is a rotate
+tool at the top left here.
+
+00:03:37.290 --> 00:03:41.959 align:middle line:90%
+That's "e" on your keyboard; and you'll notice
+that if I grab the rotate tool and start moving
+
+00:03:41.959 --> 00:03:45.800 align:middle line:90%
+this directional light around, watch what
+happens to the cube illumination in the background
+
+00:03:45.800 --> 00:03:50.760 align:middle line:90%
+there I'll zoom in a little bit for you, you
+see it is being illuminated differently depending
+
+00:03:50.760 --> 00:03:54.670 align:middle line:90%
+purely on the direction of this light you
+see it's a light being cast across the whole
+
+00:03:54.670 --> 00:03:59.030 align:middle line:90%
+see depending on the direction in which it
+is pointing and it has parallel light rays,
+
+00:03:59.030 --> 00:04:02.690 align:middle line:90%
+as you can see. It's a bit of a weird light,
+there's not really any real light like this,
+
+00:04:02.690 --> 00:04:05.870 align:middle line:90%
+but it's a very simple light to get you off
+the ground.
+
+00:04:05.870 --> 00:04:10.530 align:middle line:90%
+Great so have a play, get used to a work flow
+that works for you, a combination of mouse
+
+00:04:10.530 --> 00:04:14.959 align:middle line:90%
+buttons, and possibly modifier keys down the
+bottom left of your keyboard, ctrl, function
+
+00:04:14.959 --> 00:04:19.379 align:middle line:90%
+shift etc. Have a play, keep your eye up at
+the top left see what effect your keys are
+
+00:04:19.379 --> 00:04:25.110 align:middle line:90%
+having on your view mode and just make sure
+that you know how to move around the scene;
+
+00:04:25.110 --> 00:04:30.969 align:middle line:90%
+that you know how to use this tool here which
+is the translation tool to move things independently
+
+00:04:30.969 --> 00:04:35.110 align:middle line:90%
+in x, y and z by grabbing the appropriate
+arrows, and also free-form by grabbing the
+
+00:04:35.110 --> 00:04:40.849 align:middle line:90%
+box in the middle; and then also you have
+a rotation tool again, you can free-form rotate
+
+00:04:40.849 --> 00:04:45.719 align:middle line:90%
+by clicking on the object or rotate around
+a particular axis by grabbing its' coloured
+
+00:04:45.719 --> 00:04:50.779 align:middle line:90%
+ring; and then you have a scaling tool which
+works in a very similar way. You can scale
+
+00:04:50.779 --> 00:04:55.710 align:middle line:90%
+the whole object by dragging the box in the
+middle, or you can scale in a particular axis.
+
+00:04:55.710 --> 00:05:01.099 align:middle line:90%
+OK? I'm now going to reset the transform of
+the cube and refocus on it by double clicking,
+
+00:05:01.099 --> 00:05:06.319 align:middle line:90%
+There it is, it's a one by one by one unit
+cube now we're calling units centimetres so
+
+00:05:06.319 --> 00:05:10.240 align:middle line:90%
+it's like the size of a sugar cube right now.
+Always keep it real, always think what this
+
+00:05:10.240 --> 00:05:14.650 align:middle line:90%
+means what this would be like in real life,
+try and relate it. OK now we're not going
+
+00:05:14.650 --> 00:05:18.279 align:middle line:90%
+to try to adjust this thing's size by dragging
+because that's a little bit crazy, what we're
+
+00:05:18.279 --> 00:05:24.080 align:middle line:90%
+going to do is use the inspector; but I want
+you to do this bit so let's go back to the
+
+00:05:24.080 --> 00:05:26.289 align:middle line:84%
+slides and look at your challenge.
+
+00:05:26.289 --> 00:05:32.379 align:middle line:90%
+So what we have for you is I want you to create
+a lane floor. Refer back to the GDD for the
+
+00:05:32.379 --> 00:05:37.939 align:middle line:90%
+dimensions, use x for the width, the 105;
+y for the height, the 1 cm and z for the length,
+
+00:05:37.939 --> 00:05:42.939 align:middle line:90%
+that twenty metres. Apply a texture as a bonus,
+if you can work out how to apply a texture
+
+00:05:42.939 --> 00:05:47.129 align:middle line:90%
+to it there's a texture in the course assets,
+there's a bowling floor wooden texture, or
+
+00:05:47.129 --> 00:05:52.580 align:middle line:90%
+get creative, go and make your own texture,
+go draw something and make sure that it looks
+
+00:05:52.580 --> 00:05:56.409 align:middle line:90%
+right from above when you look at the lane,
+that's a bonus for you if you know how to
+
+00:05:56.409 --> 00:06:03.599 align:middle line:90%
+do it and a hint it use a cube don't try to
+use a mesh or a quad; sorry a plane or a quad
+
+00:06:03.599 --> 00:06:11.059 align:middle line:90%
+so go ahead pause the video and get your bowling
+lane laid out in that orientation right now.
+
+00:06:11.059 --> 00:06:15.169 align:middle line:90%
+OK welcome back, so let's do it, let's make
+this bowling lane right. So we're going to
+
+00:06:15.169 --> 00:06:19.999 align:middle line:90%
+change the scale, the x scale so I need to
+refer back to my GDD for the dimensions that
+
+00:06:19.999 --> 00:06:28.259 align:middle line:90%
+I need, so where are they? Here they are,
+bowling lane specification, 1829 so 20 metres
+
+00:06:28.259 --> 00:06:37.529 align:middle line:90%
+by 105 by 1. OK so it's 105 in the x, fine,
+1 cm high that's fine a sort of wooden width
+
+00:06:37.529 --> 00:06:42.490 align:middle line:90%
+by 20 metres, or two thousand, so it's gone
+crazy it's gone absolutely crazy inside the
+
+00:06:42.490 --> 00:06:50.689 align:middle line:90%
+scene view, it's gone crazy inside the scene
+view because we're so close to it. So you
+
+00:06:50.689 --> 00:06:53.499 align:middle line:90%
+double click it and it will frame the whole
+object.
+
+00:06:53.499 --> 00:06:56.550 align:middle line:90%
+So there we are, we have a bowling lane. It's
+a bit white right now and that's because of
+
+00:06:56.550 --> 00:07:00.369 align:middle line:90%
+the material on it so the next thing that
+we need to show you how to do is how to apply
+
+00:07:00.369 --> 00:07:05.240 align:middle line:90%
+a sensible material to this guy. So if you
+look over in the inspector when selected on
+
+00:07:05.240 --> 00:07:11.219 align:middle line:90%
+cube you will see a materials arrow and you'll
+see it has a single element - a single material,
+
+00:07:11.219 --> 00:07:15.520 align:middle line:90%
+we're only going to be dealing with single
+material at the moment, but it's a default
+
+00:07:15.520 --> 00:07:20.369 align:middle line:90%
+material, and that's not a lot of use to us,
+we actually need to create a new material.
+
+00:07:20.369 --> 00:07:27.219 align:middle line:90%
+So if you go to your assets menu, create and
+material and you can just call it floor there
+
+00:07:27.219 --> 00:07:32.710 align:middle line:90%
+it is. So we now have a floor material which
+we can apply to the cube, and you can do that
+
+00:07:32.710 --> 00:07:36.309 align:middle line:90%
+by just dragging it to the cube if you want
+and if you check over in the cube then you
+
+00:07:36.309 --> 00:07:40.189 align:middle line:90%
+can see that it has actually put it in to
+the element 0 of the floor materials. You
+
+00:07:40.189 --> 00:07:42.449 align:middle line:90%
+can have multiple materials but we're not
+going to bother right now, we're going to
+
+00:07:42.449 --> 00:07:47.069 align:middle line:90%
+have a single material. So let's take a look
+at this material we've just created, click
+
+00:07:47.069 --> 00:07:51.349 align:middle line:90%
+on your floor material in your assets and
+over in the inspector we can start to take
+
+00:07:51.349 --> 00:07:52.669 align:middle line:84%
+a look at what it's all about.
+
+00:07:52.669 --> 00:07:56.860 align:middle line:90%
+So in Unity 5 we have a standard shader which
+is the one that I'm going to suggest that
+
+00:07:56.860 --> 00:08:01.439 align:middle line:90%
+we use for now and it's actually very powerful
+and very configurable. Now of course a bowling
+
+00:08:01.439 --> 00:08:05.629 align:middle line:90%
+floor would be slightly shiny and reflective
+but I'm going to leave out the issue of making
+
+00:08:05.629 --> 00:08:10.939 align:middle line:90%
+this reflective at least until the end of
+this section, possibly until much later in
+
+00:08:10.939 --> 00:08:14.379 align:middle line:90%
+the course because it's a little bit more
+detailed and I want to focus on just getting
+
+00:08:14.379 --> 00:08:18.330 align:middle line:90%
+you used to the 3D environment for now. If
+you want to as a side project try and make
+
+00:08:18.330 --> 00:08:22.689 align:middle line:90%
+the floor reflective then that's entirely
+up to you. so firstly it's the albedo is what
+
+00:08:22.689 --> 00:08:27.719 align:middle line:90%
+we're going to focus on today with this so
+if you click under main maps and then albedo,
+
+00:08:27.719 --> 00:08:32.240 align:middle line:90%
+you can see that you can give a colour cast
+to the entire floor, this is called its' diffuse
+
+00:08:32.240 --> 00:08:37.180 align:middle line:90%
+colour, its default colour so you can just
+drag around in your colour picker and make
+
+00:08:37.180 --> 00:08:40.690 align:middle line:84%
+your floor a flat colour of whatever you like.
+
+00:08:40.690 --> 00:08:44.750 align:middle line:90%
+So that is fine if you just want it to be
+a flat colour but how about if we want a texture
+
+00:08:44.750 --> 00:08:48.780 align:middle line:90%
+on there? If we want to put an image? So this
+is where you have your first opportunity for
+
+00:08:48.780 --> 00:08:54.280 align:middle line:90%
+creativity is to go and find your own image
+on google images or create your own and you're
+
+00:08:54.280 --> 00:08:58.620 align:middle line:90%
+going to need to tile that image down the
+floor or have a very long and thin image.
+
+00:08:58.620 --> 00:09:02.070 align:middle line:90%
+So to help you off the ground we've given
+you an asset package at the beginning of this
+
+00:09:02.070 --> 00:09:06.540 align:middle line:90%
+section if you go to import package / custom
+package we have our bowlmaster assets. Why
+
+00:09:06.540 --> 00:09:08.810 align:middle line:84%
+not just import them all.
+
+00:09:08.810 --> 00:09:11.990 align:middle line:90%
+Now this time for the first time in the course
+all these assets are going to import into
+
+00:09:11.990 --> 00:09:16.450 align:middle line:90%
+a subfolder called start pack. That makes
+it easier for us to export and somewhat easier
+
+00:09:16.450 --> 00:09:22.380 align:middle line:90%
+for you to choose. So, our floor, looking
+at our floor material again if you click the
+
+00:09:22.380 --> 00:09:27.400 align:middle line:90%
+little circle next to albedo there, then it
+will bring up a list of textures one of which
+
+00:09:27.400 --> 00:09:31.720 align:middle line:90%
+now should be the lane texture so choose the
+lane. A couple of things happen here firstly
+
+00:09:31.720 --> 00:09:36.750 align:middle line:90%
+it renders a very strangely stretched, very
+ugly piece of wood onto the floor, why does
+
+00:09:36.750 --> 00:09:40.960 align:middle line:90%
+it look like that? Well, if we look at the
+image we gave it it's just this lane image
+
+00:09:40.960 --> 00:09:47.410 align:middle line:90%
+here, and that has been applied once sideways
+and once in the z direction so it's very,
+
+00:09:47.410 --> 00:09:51.210 align:middle line:90%
+very very stretched, OK that's currently the
+problem.
+
+00:09:51.210 --> 00:09:53.650 align:middle line:90%
+So the other thing you should notice is that
+if you look at the material is that it gives
+
+00:09:53.650 --> 00:09:56.760 align:middle line:90%
+you a slight preview of the material right
+here in the inspector. It's giving you an
+
+00:09:56.760 --> 00:10:01.240 align:middle line:90%
+idea wrapped on a sphere what that material
+may look like. A material is simply something
+
+00:10:01.240 --> 00:10:06.130 align:middle line:90%
+that tells you how things are going to look.
+So the first thing that we need to is to tile
+
+00:10:06.130 --> 00:10:13.610 align:middle line:90%
+this material appropriately, so here under
+cube, and then inspector if you can't see
+
+00:10:13.610 --> 00:10:17.750 align:middle line:90%
+the details of the floor material by the way
+it's a bit strange but you expand out with
+
+00:10:17.750 --> 00:10:23.510 align:middle line:90%
+this little triangle or by clicking the grey
+bit where I'm clicking now and that will toggle
+
+00:10:23.510 --> 00:10:26.560 align:middle line:90%
+whether you're seeing details of the floor
+shader.
+
+00:10:26.560 --> 00:10:30.720 align:middle line:90%
+So you have this piece of wood in you can
+still adjust the albedo which just multiplies
+
+00:10:30.720 --> 00:10:34.880 align:middle line:90%
+basically each of the red, green and blue
+components by your colour, so you can offset
+
+00:10:34.880 --> 00:10:39.270 align:middle line:90%
+the colour if you want to. We're going to
+leave it as it is for now. The main problem
+
+00:10:39.270 --> 00:10:43.540 align:middle line:90%
+that we have is this tiling so looking at
+our floor image, how many times do we want
+
+00:10:43.540 --> 00:10:47.930 align:middle line:90%
+this to tile left and right? Well, one of
+the easiest ways is to click on the x and
+
+00:10:47.930 --> 00:10:52.390 align:middle line:90%
+just drag it until it looks about right. Well
+now you can't tell because it's tiling far
+
+00:10:52.390 --> 00:10:57.480 align:middle line:90%
+too infrequently in y so drag your y until
+it starts to look about right; and you can
+
+00:10:57.480 --> 00:11:02.850 align:middle line:90%
+just iterate here getting closer to the floor
+until you get a parquet floor effect - or
+
+00:11:02.850 --> 00:11:07.690 align:middle line:90%
+whatever texture you guys want to use - that
+looks something like what you're satisfied
+
+00:11:07.690 --> 00:11:08.000 align:middle line:84%
+with.
+
+00:11:08.000 --> 00:11:16.190 align:middle line:90%
+So maybe I tile this guy maybe 50 times in
+one direction, and, well, how many in the
+
+00:11:16.190 --> 00:11:21.420 align:middle line:90%
+other well we ought to use the same aspect
+ratio potentially so 50 by 2, 50 by 1, whatever
+
+00:11:21.420 --> 00:11:25.040 align:middle line:90%
+looks right at the end of the day you know,
+does that look right? Looks OK, looks a bit
+
+00:11:25.040 --> 00:11:30.620 align:middle line:90%
+weird, 50 by 12 obviously too much in the
+x direction. So look, it's up to you guys
+
+00:11:30.620 --> 00:11:33.820 align:middle line:90%
+to make this floor look beautiful, I'm just
+trying to show you; give you the tools of
+
+00:11:33.820 --> 00:11:39.030 align:middle line:90%
+how to do it. I have a floor that has a tiling
+- now it's not the tiling on the floor material;
+
+00:11:39.030 --> 00:11:40.310 align:middle line:84%
+it's the tiling on the cube.
+
+00:11:40.310 --> 00:11:44.800 align:middle line:90%
+The tiling on the cube is 2 by 50 which means
+that we're taking that image, that floor image;
+
+00:11:44.800 --> 00:11:48.910 align:middle line:90%
+we're repeating it twice in the x direction
+and 50 times in the y direction as we go down
+
+00:11:48.910 --> 00:11:53.770 align:middle line:90%
+the lane. Alright? So that gives us a somewhat
+convincing floor. Later, at some point in
+
+00:11:53.770 --> 00:11:58.040 align:middle line:90%
+the course we'll talk about how to make it
+reflective. Fantastic, so the final thing
+
+00:11:58.040 --> 00:12:01.360 align:middle line:90%
+I said that we were going to do here is to
+make the main camera face down the lane. We've
+
+00:12:01.360 --> 00:12:05.410 align:middle line:90%
+been moving around in the scene view, but
+if we click over to game, well, it happens
+
+00:12:05.410 --> 00:12:08.430 align:middle line:90%
+to be facing down the lane, but let's imagine
+that we want to put it somewhere different,
+
+00:12:08.430 --> 00:12:09.630 align:middle line:84%
+how do we do that?
+
+00:12:09.630 --> 00:12:14.330 align:middle line:90%
+Well one easy way to do that is to go to where
+you want the camera to be in the scene view
+
+00:12:14.330 --> 00:12:20.380 align:middle line:90%
+like say here, get it how you want it, select
+the main camera and then you've got a very
+
+00:12:20.380 --> 00:12:26.190 align:middle line:90%
+useful game object / align with view, so the
+game object in question is the camera and
+
+00:12:26.190 --> 00:12:31.030 align:middle line:90%
+we're aligning it with our current scene view
+by doing that we now move the camera so when
+
+00:12:31.030 --> 00:12:36.140 align:middle line:90%
+you click play and switch over to the game
+view we get exactly what we wanted. That's
+
+00:12:36.140 --> 00:12:39.870 align:middle line:90%
+everything we need to do in this lecture,
+congratulations on getting your first 3D object
+
+00:12:39.870 --> 00:12:44.870 align:middle line:84%
+created and I'll see you soon.

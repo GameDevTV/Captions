@@ -1,0 +1,853 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.040 --> 00:00:06.799
+Welcome back in this video we're gonna talk
+about what
+
+00:00:06.799 --> 00:00:10.559
+animation events are and why we want
+to use them, gonna tell you which metrics
+
+00:00:10.559 --> 00:00:13.940
+can and can't be called from animation
+events and then we're going to make some
+
+00:00:13.940 --> 00:00:18.150
+modifications to attacker dot cs so that
+the animator can control the speed of
+
+00:00:18.150 --> 00:00:22.040
+our characters, we're gonna get the
+animation transitions working for all the
+
+00:00:22.040 --> 00:00:27.480
+attackers and then add ourselves a
+wishful strike current target method, so
+
+00:00:27.480 --> 00:00:31.680
+that we can start to think about the
+animator also dealing the damage. So what
+
+00:00:31.680 --> 00:00:35.010
+are these funny animator event things?
+Well if you look at Unity's manual for it
+
+00:00:35.010 --> 00:00:41.360
+the crux of it is this: in the animation
+controller you can see here you have a
+
+00:00:41.360 --> 00:00:45.640
+little button you can press where you
+put these little flags in and they allow
+
+00:00:45.640 --> 00:00:51.010
+you to call certain functions and
+pass in parameters, so pretty handy, and we're
+
+00:00:51.010 --> 00:00:54.930
+going to use that for setting and un-
+setting speed and for dealing damage and
+
+00:00:54.930 --> 00:00:59.560
+possibly for some other things. So let's
+take a look at how that all pans out over in
+
+00:00:59.560 --> 00:01:03.770
+Unity; so here we are at the moment our
+lizard comes in and he does three
+
+00:01:03.770 --> 00:01:08.550
+cycles of animation whilst still moving left
+and then goes into his walk, so
+
+00:01:08.550 --> 00:01:13.610
+clearly he needs to not be moving when
+he appears. So how're we gonna orchestrate
+
+00:01:13.610 --> 00:01:18.860
+that? Well it turns out that animation events
+are super handy for this, so if we look at
+
+00:01:18.860 --> 00:01:24.130
+the lizard prefab - best to work on the
+prefabs here - and then go into his
+
+00:01:24.130 --> 00:01:29.369
+animation what we could do at the start
+of  lizard appearing is we could say
+
+00:01:29.369 --> 00:01:35.210
+that we want to put an animation event
+in. Now in order to actually operate on
+
+00:01:35.210 --> 00:01:39.049
+the animation you cannot do that
+unfortunately directly on the prefabs so
+
+00:01:39.049 --> 00:01:42.850
+you're gonna have to take the lizard itself
+the instance but we need to be very
+
+00:01:42.850 --> 00:01:47.229
+careful to apply any changes we make
+back to the prefab. So always try and
+
+00:01:47.229 --> 00:01:50.830
+work on your prefab if you can, but where
+you can't you're gonna need to work on
+
+00:01:50.830 --> 00:01:55.010
+the particular instance being very
+careful to apply back. So if we add this
+
+00:01:55.010 --> 00:01:59.060
+animation event in it's gonna give us a
+list of functions we can call and at the
+
+00:01:59.060 --> 00:02:03.780
+moment it's only on trigger enter 2D
+where's it got that from? Well it's got it
+
+00:02:03.780 --> 00:02:08.969
+from the attacker script here - this
+attacker script we have attached has an
+
+00:02:08.969 --> 00:02:10.729
+on trigger enter 2d.
+
+00:02:10.729 --> 00:02:14.340
+It's a bit weird that it can call that, you don't really
+want it to, but it is there because it's a
+
+00:02:14.340 --> 00:02:20.709
+method on the attacker. Now what
+scripts can you call?  Well you can call any
+
+00:02:20.709 --> 00:02:25.650
+functions that are attached to
+any scripts attached to the actual
+
+00:02:25.650 --> 00:02:29.900
+parent object but not to child objects
+so if on the body
+
+00:02:29.900 --> 00:02:35.440
+we had a script, let's just to create a
+script called foo for a minute, and then in
+
+00:02:35.440 --> 00:02:44.530
+foo let's just make ourselves a public method,
+just as a test public void test method
+
+00:02:44.530 --> 00:02:51.519
+ok and nothing in it... now if we go back
+to the animator and we try and use this
+
+00:02:51.519 --> 00:02:57.440
+event to call that test method it won't
+appear because foo is on the sub, on
+
+00:02:57.440 --> 00:03:01.700
+the lizard's body which is a child -
+you just can only do it on the top level
+
+00:03:01.700 --> 00:03:07.370
+object, so if we take this food script
+and remove it but stick it on the lizard
+
+00:03:07.370 --> 00:03:15.859
+itself, and then say to the event what do
+you want to call then you get test method
+
+00:03:15.859 --> 00:03:19.790
+and you can pass certain parameters and
+certain others you cannot pass; you can
+
+00:03:19.790 --> 00:03:23.819
+for example pass bools and floats, it will
+tell you somewhere in their docs what
+
+00:03:23.819 --> 00:03:29.910
+you can pass. Here you go, the parameter can be a
+float, a string, an int, an object reference
+
+00:03:29.910 --> 00:03:34.019
+or an animation event object; we're
+basically going to use floats for now
+
+00:03:34.019 --> 00:03:41.650
+alright cool so that is the idea of it
+it's a way of the animator calling a
+
+00:03:41.650 --> 00:03:45.400
+script which I really like - let me just get
+rid of the foo script because it was
+
+00:03:45.400 --> 00:03:48.670
+just there as an example.
+
+00:03:48.670 --> 00:03:53.040
+Alright, so to allow us to control the
+speed from script, this is what we can do.
+
+00:03:53.040 --> 00:03:59.440
+Go in to your attacker script and we had
+this publicly exposed walk speed and we gave
+
+00:03:59.440 --> 00:04:05.310
+it a range in the inspector, which is
+fine, it was a very fine way of tuning
+
+00:04:05.310 --> 00:04:11.770
+the walk speed of both the lizard and the fox,
+right and we came down to the idea that
+
+00:04:11.770 --> 00:04:17.609
+the lizard has a walk speed of one and
+the fox we gave a walk speed of point
+
+00:04:17.609 --> 00:04:22.079
+four which fitted in ok with their animations.
+Now what we want to do is start doing
+
+00:04:22.079 --> 00:04:25.550
+this from the animator, so we're gonna
+need a method, we can't just make the
+
+00:04:25.550 --> 00:04:30.700
+walk speed public, in fact it already is
+public and you'll see that this
+
+00:04:30.700 --> 00:04:37.370
+little event guy, against say the lizard
+appearing cannot talk to the members. It can
+
+00:04:37.370 --> 00:04:41.889
+only call methods. So in pure object
+oriented fashion we're gonna create ourselves
+
+00:04:41.889 --> 00:04:46.120
+a very thin method here that just sets the
+walk speed; before we do that let's
+
+00:04:46.120 --> 00:04:52.419
+rename walk speed to current speed, it's
+more meaningful now; so walk speed
+
+00:04:52.419 --> 00:04:58.600
+becomes current speed, then what we're gonna
+do is have a little method that uses public
+
+00:04:58.600 --> 00:05:14.430
+void set speed and it's going to take in a
+float for the speed. There it is, now it's simply
+
+00:05:14.430 --> 00:05:19.470
+just gonna say current speed =
+speed. It's as simple as that but the
+
+00:05:19.470 --> 00:05:23.919
+benefit of this is that at the start of
+the lizard appearing we can have an
+
+00:05:23.919 --> 00:05:27.510
+event that immediately says set speed 0
+
+00:05:27.510 --> 00:05:31.479
+let's take a look at that working, you
+see the lizard appearing with zero
+
+00:05:31.479 --> 00:05:36.150
+horizontal speed. Now I know he has
+movement from left to right, let's watch
+
+00:05:36.150 --> 00:05:40.300
+it frame by frame for a minute, I know he's
+moving but he's only moving because of
+
+00:05:40.300 --> 00:05:45.100
+the animation ok it's not his
+transform that's moving, if you watch the
+
+00:05:45.100 --> 00:05:50.410
+transform it stays where it is, alright so
+we're doing his center of gravity by what I
+
+00:05:50.410 --> 00:05:55.910
+by that I mean center of sprite sheet
+control from script in this case
+
+00:05:55.910 --> 00:06:01.620
+so there you go, that's fine, so he only
+wants to appear once of course, so go into
+
+00:06:01.620 --> 00:06:07.100
+the animator, look at your animator
+for your lizard and on your transition
+
+00:06:07.100 --> 00:06:13.160
+criteria we have three repeats here; well
+we only want one repeat, easy enough to sort
+
+00:06:13.160 --> 00:06:19.180
+out right? Exit time after one repeat but it
+is atomic we don't want to be able to interrupt the
+
+00:06:19.180 --> 00:06:24.310
+appearing animation, so there you go now
+if you've got nasty blends and things you can
+
+00:06:24.310 --> 00:06:28.140
+either sort them out by dragging around
+or just delete the transition, don't be
+
+00:06:28.140 --> 00:06:34.470
+afraid to just delete the transition and
+start afresh. You just fresh say atomic
+
+00:06:34.470 --> 00:06:40.690
+exit after one in fact that the default,
+let's see that work. The atomic only has
+
+00:06:40.690 --> 00:06:44.720
+an effect when you try and interrupt
+the animation, so now it does a single and it
+
+00:06:44.720 --> 00:06:48.650
+moves now the problem is that at the start
+of walking he has no walk speed, so I want
+
+00:06:48.650 --> 00:06:52.980
+you to do that. I want you to go to the
+lizard walking animation, add yourself an
+
+00:06:52.980 --> 00:07:04.210
+animation event, and set the speed to
+whatever we had the lizard speed as.
+
+00:07:04.210 --> 00:07:06.510
+So here on the lizard when
+he's walking we just add another
+
+00:07:06.510 --> 00:07:13.240
+animation event, we set the speed and let's try 1; I don't remember whether the lizard walked at 1 or 4, let's see
+
+00:07:13.240 --> 00:07:15.750
+how his walk looks. That's ok
+
+00:07:15.750 --> 00:07:20.210
+his feet aren't slipping... so there you go,
+
+00:07:20.210 --> 00:07:24.180
+great so what's the next speed look at
+the lizard attacking, well when he starts
+
+00:07:24.180 --> 00:07:32.640
+attacking we don't want him moving, you get the
+idea? OK now he doesn't have the opportunity to go
+
+00:07:32.640 --> 00:07:35.390
+into an attack state so let's look at
+the rest of these transitions he goes
+
+00:07:35.390 --> 00:07:39.950
+from appearing to walking just once and
+he does a single animation of appearing
+
+00:07:39.950 --> 00:07:44.230
+atomically without break and goes to
+walking - done. When does he go from
+
+00:07:44.230 --> 00:07:50.040
+walking to attacking well he does that -
+lets un-mute it - he does that when his
+
+00:07:50.040 --> 00:07:55.870
+attacking bool is set now we've got it as
+an attacking trigger at the moment -
+
+00:07:55.870 --> 00:08:00.680
+triggers only do one animation, that's
+great for the Fox jumping over the
+
+00:08:00.680 --> 00:08:03.920
+stone but we're actually for
+attacking it's continuous so we're actually going to
+
+00:08:03.920 --> 00:08:10.370
+use a bool, so Im going to add a new parameter to the
+lizard animator, and I'm gonna call it bool
+
+00:08:10.370 --> 00:08:16.680
+and I'm going to say is attacking, alright, and then the
+criteria for transiting from walking to
+
+00:08:16.680 --> 00:08:21.980
+attacking is exactly that bool. Let's
+remove any unnecessary transitions, it's never
+
+00:08:21.980 --> 00:08:27.680
+gonna go back to lizard appearing, so from
+walking to attacking the criteria is is
+
+00:08:27.680 --> 00:08:34.080
+attacking is true and from attacking to
+walking that happens when his attacking
+
+00:08:34.080 --> 00:08:38.020
+becomes false and by deleting the
+transitions we're getting rid of all that
+
+00:08:38.020 --> 00:08:43.979
+rubbish that we had that had to do with
+you making things that stay in existence
+
+00:08:43.979 --> 00:08:47.650
+for three seconds, so there he goes, he's
+walking walking walking if I click is
+
+00:08:47.650 --> 00:08:52.530
+attacking down here in the animator he goes
+into an attacking state and he will loop
+
+00:08:52.530 --> 00:08:56.510
+through that attacking state
+continuously until I und0 it, at which
+
+00:08:56.510 --> 00:09:02.900
+point he will immediately go back to
+walking. Cool, that is it for the lizard
+
+00:09:02.950 --> 00:09:09.010
+OK so let's take you into
+another challenge. What I want you to do
+
+00:09:09.010 --> 00:09:14.500
+is on the attacker dot cs I want you to
+add a wishful method called strike
+
+00:09:14.500 --> 00:09:16.760
+current target that takes in an amount of
+damage.
+
+00:09:16.760 --> 00:09:21.300
+Do nothing inside it apart from to log to
+the console that something is doing some
+
+00:09:21.300 --> 00:09:25.010
+damage, you may want to include what's
+doing the damage with the keyword name
+
+00:09:25.010 --> 00:09:32.410
+and then add at least one animation
+event per attacker in their attack state
+
+00:09:32.410 --> 00:09:36.250
+that deals some damage, so just put a little
+flag on, it can be at multiple points in the
+
+00:09:36.250 --> 00:09:41.290
+animation you may want to kind of do a
+jab and then a right hook for example, but put in at
+
+00:09:41.290 --> 00:09:44.740
+least one animation event to deal a
+certain amount of damage so if it was
+
+00:09:44.740 --> 00:09:48.250
+jab and right hook you may do 5 damage
+with the jab and 20 with the right hook or
+
+00:09:48.250 --> 00:09:52.300
+something. So go ahead and do that now,
+and just get it logging to the console when
+
+00:09:52.300 --> 00:09:58.870
+they're in the attack state. Cool so here
+we are then, let's just look at the
+
+00:09:58.870 --> 00:10:03.220
+attacker script and let's get
+ourselves a new method that we can get
+
+00:10:03.220 --> 00:10:11.100
+to from the animator. Strike current
+target, so later we'll work out what that
+
+00:10:11.100 --> 00:10:15.580
+target is and how we find that out but
+for now we're just gonna deal some damage
+
+00:10:15.580 --> 00:10:30.510
+and all we're gonna do is just debug dot log name
+plus damage caused damage and then I'll put
+
+00:10:30.510 --> 00:10:37.890
+the amount down. There you go, so there's a strike
+current target method, so what we can do
+
+00:10:37.890 --> 00:10:44.050
+back in the animator is for both the lizard
+in his attacking state, so where in his
+
+00:10:44.050 --> 00:10:47.210
+attacking state? Well it's up to us. Somewhere
+in his attacking state I'm just gonna
+
+00:10:47.210 --> 00:10:53.150
+stick it here he is going to go deal
+some damage, but it's not appearing in the
+
+00:10:53.150 --> 00:10:56.490
+list so why is it not appearing in the
+list and the reason it's not appearing
+
+00:10:56.490 --> 00:11:00.490
+in the list is, if you see, there's a
+compile error at the bottom... even though I'm in the habit
+
+00:11:00.490 --> 00:11:03.880
+of going control or command b for
+build I still missed this compile error, of course it's
+
+00:11:03.880 --> 00:11:10.820
+public void, it returns nothing. If I now
+build, back to unity, you have no errors
+
+00:11:10.820 --> 00:11:16.070
+at the bottom now; now this little event
+that we got, we can say strike current
+
+00:11:16.070 --> 00:11:20.260
+target and let's just in the middle of
+our animation deal 5 damage. Now we could
+
+00:11:20.260 --> 00:11:25.050
+add another damage somewhere else, here
+you can see there are two stacked on top
+
+00:11:25.050 --> 00:11:26.329
+of each other
+
+00:11:26.329 --> 00:11:32.829
+and I could strike some more damage, I
+could do another five later on. Alright so
+
+00:11:32.829 --> 00:11:38.389
+what that's going to do is when we are
+in the attacking state we're going to
+
+00:11:38.389 --> 00:11:44.709
+lizard caused damage, you're going to
+see some damage there. You also have an error
+
+00:11:44.709 --> 00:11:49.019
+that the lizard animation event has no
+function name specified, so let's just
+
+00:11:49.019 --> 00:11:54.579
+find out which one that is, set speed
+strike current target, no function selected
+
+00:11:54.579 --> 00:12:00.579
+so somehow we missed that; that's what
+that means if you see that error, now let's try
+
+00:12:00.579 --> 00:12:06.429
+running again, then twice per frame when
+the lizard is in the is attacking
+
+00:12:06.429 --> 00:12:11.220
+state we should go to the animator and you
+click the parameter on then you're going
+
+00:12:11.220 --> 00:12:19.869
+to see lizard caused damage 5 once twice
+every time that it goes round this
+
+00:12:19.869 --> 00:12:25.869
+animation it'll go one, two, at about one second and ten
+frames and then at two seconds and one
+
+00:12:25.869 --> 00:12:30.850
+frame in my case. Cool, so that's the lizard
+doing damage, let's just while we're here
+
+00:12:30.850 --> 00:12:36.759
+get the Fox doing some damage, so Fox
+attack state, just gonna stick in a
+
+00:12:36.759 --> 00:12:40.660
+single event somewhere in the middle
+here maybe, normally you'd synchronise this
+
+00:12:40.660 --> 00:12:44.290
+with your animation and we can fine tune
+that later but we're just going to
+
+00:12:44.290 --> 00:12:49.619
+strike something maybe with a damage
+of 10; so now when the fox is in his
+
+00:12:49.619 --> 00:12:54.169
+attacking state he will deal damage, but
+of course we can't get the fox into
+
+00:12:54.169 --> 00:13:00.119
+his attacking state yet because our animation
+states aren't right; so let's fix the fox. The
+
+00:13:00.119 --> 00:13:06.110
+default state is the orange walk, he goes from
+walk to jump when? Well, let's just remove
+
+00:13:06.110 --> 00:13:09.220
+all these transitions and start afresh
+to be honest because the problem with
+
+00:13:09.220 --> 00:13:12.699
+him is they're inheriting a whole bunch
+of blending information here on the
+
+00:13:12.699 --> 00:13:20.189
+right, and that's just confusing, so let's
+just get rid of all our animations... ok
+
+00:13:20.189 --> 00:13:24.860
+fantastic, so what's the first one? He
+goes from walk to jump when? Well this is
+
+00:13:24.860 --> 00:13:29.110
+where we do use a trigger and I'm gonna
+call it jump trigger; the difference
+
+00:13:29.110 --> 00:13:34.910
+between a trigger and a bool is that a
+trigger just gets called; you just set it
+
+00:13:34.910 --> 00:13:36.270
+once from script,
+
+00:13:36.270 --> 00:13:39.950
+it'll go into a single loop of jump and
+then go back to walk, so let's try
+
+00:13:39.950 --> 00:13:46.600
+it. You go from walk to jump on jump
+trigger and you go from jump back to
+
+00:13:46.600 --> 00:13:52.650
+walk with... you don't need any criteria
+for that, you just do a single jump
+
+00:13:52.650 --> 00:13:57.210
+animation and then you go back to walk
+so just putting a default transition
+
+00:13:57.210 --> 00:14:02.390
+should do the job and then when you go
+from walk to attack? Well, same thing, we
+
+00:14:02.390 --> 00:14:06.740
+need a new thing but this is a bool because
+attacking is a continuous thing; use a
+
+00:14:06.740 --> 00:14:11.230
+trigger when it's a one off like a jump
+and attack and that typically lasts a
+
+00:14:11.230 --> 00:14:14.920
+certain amount of time and a bool for
+when it's something that's continuous, so
+
+00:14:14.920 --> 00:14:19.750
+we're gonna have another is attacking,
+like so, and we're gonna say that he can go
+
+00:14:19.750 --> 00:14:26.950
+from walk to attack when is attacking is
+true, and guess what, to attack to walk when
+
+00:14:26.950 --> 00:14:28.820
+is attacking
+
+00:14:28.820 --> 00:14:33.990
+is false. OK, let's try him, let's have a go
+with our lizard here.
+
+00:14:33.990 --> 00:14:39.330
+Our fox rather, so our fox is walking, it's not moving
+as we haven't set a speed parameter yet but
+
+00:14:39.330 --> 00:14:43.260
+if I put jump trigger... boing he jumps
+once and goes back to walking, you see
+
+00:14:43.260 --> 00:14:48.700
+that in the state machine? Awesome, how about is attacking
+well it goes into attacking, now his
+
+00:14:48.700 --> 00:14:52.040
+attacking animation looks very similar
+to his walking animation to me, let's
+
+00:14:52.040 --> 00:14:56.700
+have a look. Suspiciously similar
+
+00:14:56.700 --> 00:15:00.630
+OK so I think there's a problem there,
+let's just take a look at the fox walk
+
+00:15:00.630 --> 00:15:07.250
+attack apart from having different frame rates
+they're the same, so let's try and be
+
+00:15:07.250 --> 00:15:10.590
+a bit more consistent with these frame rates,
+what's the lizard using? 30 frames a
+
+00:15:10.590 --> 00:15:14.500
+second, ok let's make the fox use 30
+frames a second for everything, jumping,
+
+00:15:14.500 --> 00:15:20.410
+walking and attacking, but we need to
+change out the sprites; we have just
+
+00:15:20.410 --> 00:15:24.280
+put - or I have just put the wrong sprites
+in, so if you've made the same mistake by
+
+00:15:24.280 --> 00:15:29.740
+following me blindly no problem, just go get
+your fox attack frames, stick them in
+
+00:15:29.740 --> 00:15:35.700
+remove the fox previous fox frames,
+because they're just his walking frames,
+
+00:15:35.700 --> 00:15:40.540
+move his attack frames over, and then at
+some point in the attack he needs to deal
+
+00:15:40.540 --> 00:15:44.889
+damage, and also while you're here why
+not set the speed?
+
+00:15:44.889 --> 00:15:49.970
+What speed is he going to jump at? Well I
+don't know, let's try three he needs to jump a
+
+00:15:49.970 --> 00:15:54.759
+bit faster, so at the start... Oh sorry, he
+attacks at zero speed. He
+
+00:15:54.759 --> 00:16:02.499
+attacks at zero speed, he walks at... well let's
+set it now. I think it was nought point four
+
+00:16:02.499 --> 00:16:10.230
+if I remember rightly, he walks at a
+speed of Nought point four and at the
+
+00:16:10.230 --> 00:16:17.029
+start of his jump, this is where we give
+him a speed of let's just try three, so
+
+00:16:17.029 --> 00:16:21.319
+you see what I'm doing here, I'm saying to the
+fox when you attack you start off with
+
+00:16:21.319 --> 00:16:26.389
+a speed of zero and you - in the
+middle of your animation you deal 10
+
+00:16:26.389 --> 00:16:31.449
+damage, when you start walking you start
+walking with a speed of four, and when you start
+
+00:16:31.449 --> 00:16:36.399
+jumping you set your speed to three; let's
+try him, if you're in the animator with the fox selected,
+
+00:16:36.399 --> 00:16:43.949
+If I jump - woah look at that, pretty cool... now watch something about the jump look what happens when he
+
+00:16:43.949 --> 00:16:48.730
+lands... you see he slides on the landing? Why is he sliding on the landing?
+
+00:16:48.730 --> 00:16:53.759
+Well what we can do is we... is because
+we do three times the speed at the start
+
+00:16:53.759 --> 00:16:58.249
+but he never stops so maybe he wants to
+come to a halt maybe wanna go set speed
+
+00:16:58.249 --> 00:17:07.439
+and just after he lands maybe set the speed to zero, so when he jumps, he jumps, stops and then
+
+00:17:07.439 --> 00:17:11.149
+starts walking, that looks better, but it's your
+choice where you put those things you
+
+00:17:11.149 --> 00:17:14.889
+see the flexibility of actually setting
+these things from the animator? Pretty
+
+00:17:14.889 --> 00:17:18.110
+awesome, hey? You can do a huge amount,
+let's just check that the fox now goes
+
+00:17:18.110 --> 00:17:23.970
+into a sensible animation state for
+attacking; let me zoom in, there he is. Hello lizard,
+
+00:17:23.970 --> 00:17:30.179
+walking by... so there's the fox attacking, there's him
+walking, and then there's him jumping.
+
+00:17:30.179 --> 00:17:34.220
+Cool, so just need to finish off the
+states for the lizard now just make sure
+
+00:17:34.220 --> 00:17:39.269
+he's got everything he needs - he walks
+and he attacks, what else do we need?
+
+00:17:39.269 --> 00:17:40.299
+That's about it
+
+00:17:40.299 --> 00:17:45.389
+alright so for this video we've done
+everything that we set out to do. At the
+
+00:17:45.389 --> 00:17:50.860
+start we said we were going to... tell you
+what and why animation events are, what methods
+
+00:17:50.860 --> 00:17:54.850
+can be called and what can't, basically
+only methods on the object itself, on
+
+00:17:54.850 --> 00:17:57.639
+scripts that are attached to the object
+itself, not its children.
+
+00:17:57.639 --> 00:18:02.089
+We modified attacker dot cs to accept
+speed event, we got animation
+
+00:18:02.089 --> 00:18:05.609
+transitions working for all the
+attackers, i.e. the fox and the lizard, and
+
+00:18:05.609 --> 00:18:09.139
+we added a wishful strike current target
+method which later will actually deal
+
+00:18:09.139 --> 00:18:11.129
+damage. Congratulations and I'll see you soon.
+

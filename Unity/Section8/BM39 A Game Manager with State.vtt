@@ -1,0 +1,1026 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:09.530
+Stop. Refactor time. So it's time to do a
+lot of refactoring, we're gonna create a
+
+00:00:09.530 --> 00:00:14.910
+game manager with some state so what are we
+gonna do? Correct a quick bug due to
+
+00:00:14.910 --> 00:00:18.990
+incorrect responsibilities to do with
+the pins you'll see that in a moment
+
+00:00:18.990 --> 00:00:23.109
+Create game manager dots cs...
+...anyway we're gonna create game
+
+00:00:23.109 --> 00:00:29.150
+manager dot cs and Pin Counter dot cs
+we'll weed our PinSetter.cs into
+
+00:00:29.150 --> 00:00:34.219
+these new classes we'll then called the
+static action master dot next action from
+
+00:00:34.219 --> 00:00:39.030
+our game manager and repeatedly as we do
+this test everything to make sure it
+
+00:00:39.030 --> 00:00:44.140
+still works. So remember our target
+architecture is something like that
+
+00:00:44.140 --> 00:00:47.629
+not quite enough detail on this slide
+necessarily for you to
+
+00:00:47.629 --> 00:00:51.739
+verbosely go ahead and do it but I think
+that it's worth a try, I think it's worth
+
+00:00:51.739 --> 00:00:56.760
+you trying to do this refactor, but save
+your work right now. Pause the video save
+
+00:00:56.760 --> 00:00:57.629
+your work.
+
+00:00:57.629 --> 00:01:02.410
+Take a proper backup of your unity
+project; now if you're using version control
+
+00:01:02.410 --> 00:01:05.119
+obviously just make a commit, if you
+don't know what the hell I just said
+
+00:01:05.119 --> 00:01:12.020
+just close Unity and take a zip
+of your unity project folder because I
+
+00:01:12.020 --> 00:01:16.000
+we're quite likely to break things before they get any
+better, but sometimes we need to take a
+
+00:01:16.000 --> 00:01:19.939
+step back in order to take two steps
+forward this is gonna be worth it
+
+00:01:19.939 --> 00:01:24.759
+because we have let the design drift and
+I've let that happen rather than doing
+
+00:01:24.759 --> 00:01:28.619
+it perfectly as I go along cuz it's
+gonna happen to you, and your PinSetter
+
+00:01:28.619 --> 00:01:31.460
+has got far too big for its own boots and
+it needs to be put back in its place
+
+00:01:31.460 --> 00:01:33.430
+over on the right there
+
+00:01:33.430 --> 00:01:37.549
+tied up to the animator doing nothing
+else but setting pins rather than trying
+
+00:01:37.549 --> 00:01:40.930
+to pretty much control the game like
+it does at the moment, so go ahead and have a
+
+00:01:40.930 --> 00:01:43.579
+go at this refactor, you're allowed to
+fail
+
+00:01:43.579 --> 00:01:46.649
+you're allowed to succeed, don't worry
+about actually updating any score
+
+00:01:46.649 --> 00:01:50.159
+displays and don't worry about writing
+scoremaster so both of those top boxes
+
+00:01:50.159 --> 00:01:53.360
+are just for illustration and just see if
+you can get the game working as it is
+
+00:01:53.360 --> 00:01:57.700
+now but talking through a game manager
+script and
+
+00:01:57.700 --> 00:02:05.090
+see how you get on. You doing it? Or just waiting
+for me? Hopefully you had a go and
+
+00:02:05.090 --> 00:02:08.509
+hopefully you've either done it or you
+have done some of it, or you got kind of
+
+00:02:08.509 --> 00:02:13.180
+stuck and... whatever but as long as you
+had to go then what I'm about to do will
+
+00:02:13.180 --> 00:02:19.190
+make life simpler so firstly let's
+squash a bug, so what I did a couple
+
+00:02:19.190 --> 00:02:23.560
+of videos ago for you is I suggested
+that we need to make sure that when we
+
+00:02:23.560 --> 00:02:30.110
+reset our pins that... at least when we lift our
+pins up during a tidy that
+
+00:02:30.110 --> 00:02:34.510
+we reset their rotation... remember that?
+Unfortunately that's causing a bit of a bug, I will
+
+00:02:34.510 --> 00:02:37.950
+probably be able to see it right here if I focus on
+the pins
+
+00:02:37.950 --> 00:02:42.480
+well we didn't see it in this instance but
+what happens is that even the pins that are
+
+00:02:42.480 --> 00:02:46.660
+left on the floor jump upright,
+which isn't very good. So the reason that
+
+00:02:46.660 --> 00:02:51.880
+happens is that we put our code for
+making the pin upright over here in the
+
+00:02:51.880 --> 00:02:56.030
+PinSetter, now it's not the PinSetter's
+responsibilities to do that the PinSetter
+
+00:02:56.030 --> 00:03:00.030
+just calls the pin and says raise oif
+standing. So I want you to take your line
+
+00:03:00.030 --> 00:03:04.230
+of code that says Pin dot transform
+dot rotation etc here from the PinSetter
+
+00:03:04.230 --> 00:03:11.299
+just cut it, and then go over to the Pin
+class and where it says raise if standing
+
+00:03:11.299 --> 00:03:16.340
+pop it in there... it's almost the same apart
+from we don't need pin dot because we're already
+
+00:03:16.340 --> 00:03:24.380
+in the context of pin, so you take the
+pin dot off, and build. So that's a
+
+00:03:24.380 --> 00:03:29.350
+splodge + B from my point of view. So,
+let's take a look. When we click Play Now
+
+00:03:29.350 --> 00:03:34.880
+apart from the instances where you scrutinize
+the pins as they reset
+
+00:03:34.880 --> 00:03:37.750
+I'm hoping that the game will operate in
+basically the same way so I switched to
+
+00:03:37.750 --> 00:03:43.840
+scene view, let's watch the pins fall
+over... hopefully not all of them... but at
+
+00:03:43.840 --> 00:03:48.040
+least look they don't jump vertical now
+they just tidy. OK, cool so that bug is
+
+00:03:48.040 --> 00:03:52.500
+squashed and thank you very much to the
+student who pointed that out. Right now
+
+00:03:52.500 --> 00:03:56.930
+second thing we're going to do
+everything. So, all we're going to do is to start
+
+00:03:56.930 --> 00:04:00.970
+weeding out this PinSetter and pulling
+out information that shouldn't be in
+
+00:04:00.970 --> 00:04:05.260
+PinSetter and putting it where it
+should be.
+
+00:04:05.260 --> 00:04:08.530
+So let's start at the top of PinSetter
+should PinSetter be dealing with the
+
+00:04:08.530 --> 00:04:14.130
+display of the number of standing pins?
+No, what should be dealing with the
+
+00:04:14.130 --> 00:04:16.700
+display of the number of standing pins?
+
+00:04:16.700 --> 00:04:20.400
+Well the pin counter should be dealing
+with the display of the number of standing
+
+00:04:20.400 --> 00:04:21.940
+pins, that makes sense doesn't it?
+
+00:04:21.940 --> 00:04:26.400
+it's the pin counter that's telling us how
+many pins are standing, so let's move that
+
+00:04:26.400 --> 00:04:30.600
+over to the pin counter if we have it, so
+cut it have a look see if we have a pin
+
+00:04:30.600 --> 00:04:34.430
+counter, we don't so let's make one I said
+to put it on the lane box so go to the
+
+00:04:34.430 --> 00:04:39.410
+lane box and add a new script now called
+Pin Counter and later we'll get rid of the
+
+00:04:39.410 --> 00:04:43.780
+lane box script and put it straight
+into this Pin Counter as well
+
+00:04:43.780 --> 00:04:58.980
+OK so tidy my scripts as usual, cool. I've moved
+my prefabs to the wrong level...
+
+00:04:58.980 --> 00:05:04.390
+OK, so the pin counter's gonna need access
+to the Standing text sorry, flipping all over the
+
+00:05:04.390 --> 00:05:08.220
+place. Here we go, now why is this text in
+red? Because we don't have unity engine
+
+00:05:08.220 --> 00:05:15.200
+dot UI, so let's pop that in. OK
+let's try building, it's fine, we're going
+
+00:05:15.200 --> 00:05:21.050
+to get errors down in PinSetter because
+now PinSetter is trying to update the
+
+00:05:21.050 --> 00:05:25.890
+display, so let's move all of this code
+from the update loop in PinSetter over
+
+00:05:25.890 --> 00:05:32.280
+to pin counter, that's fine, let's try
+building now what do we get? It doesn't
+
+00:05:32.280 --> 00:05:36.430
+have a count standing method well that's
+true and we want count standing in fact
+
+00:05:36.430 --> 00:05:40.110
+we want all of these bottom methods from
+PinSetter, count standing, pins have
+
+00:05:40.110 --> 00:05:46.030
+settled and update standing count and
+settle, all of those want to be not in
+
+00:05:46.030 --> 00:05:48.880
+the PinSetter, they're not about setting the
+pins, they're about counting the number of
+
+00:05:48.880 --> 00:05:52.480
+pins standing. Take all three of
+those bottom methods, pop them over in
+
+00:05:52.480 --> 00:06:04.480
+Pin counter and let's try building again.
+OK so I've got an extra bracket and
+
+00:06:04.480 --> 00:06:07.690
+that's because I took it from the
+PinSetter, so simple things as you go
+
+00:06:07.690 --> 00:06:11.220
+through. Just keeping your code going. Now
+what we want to do is do as little
+
+00:06:11.220 --> 00:06:15.580
+refactoring here as we can to get the game
+running again
+
+00:06:15.580 --> 00:06:18.700
+ok but the problem is that everything
+kind of depends on everything so this
+
+00:06:18.700 --> 00:06:23.390
+takes a certain amount of commitment to get
+this working, because now that we've pulled
+
+00:06:23.390 --> 00:06:27.810
+out all the pin counting stuff this is
+saying well I don't know; that
+
+00:06:27.810 --> 00:06:32.200
+the pin counter no longer knows whether
+the ball is out of play. So whose job is it?
+
+00:06:32.200 --> 00:06:37.140
+Whose responsibility is it to know about
+the ball being out of play? well I actually
+
+00:06:37.140 --> 00:06:40.960
+think that it is the responsibility of
+the PinSetter, in fact all of these four
+
+00:06:40.960 --> 00:06:45.860
+private variables here should be the
+responsibility of the pin counter rather
+
+00:06:45.860 --> 00:06:51.530
+not the PinSetter, theyre about counting
+the pins so let's put all those in pin counter. So as a quick
+
+00:06:51.530 --> 00:06:55.220
+recap, so far we've gone to pin setter
+and we pulled out anything that's
+
+00:06:55.220 --> 00:07:00.070
+clearly about counting the number of
+standing pins and we put it in pin counter
+
+00:07:00.070 --> 00:07:03.580
+Now I'm aware that we're a long way from
+compiling code at the moment so let's
+
+00:07:03.580 --> 00:07:08.520
+try and focus on getting this actually
+compiling now as quickly as possible.
+
+00:07:08.520 --> 00:07:13.610
+So we're not going to be calling
+action master dot bowl anymore at all
+
+00:07:13.610 --> 00:07:18.289
+it's gonna be a game manager thing so
+let's just get rid of that line for now.
+
+00:07:18.289 --> 00:07:23.180
+We can put it in a little bit later once
+we have a game manager in place
+
+00:07:23.180 --> 00:07:28.080
+ok so how about all this stuff? How about the actions?
+Well it's not the pin counter that
+
+00:07:28.080 --> 00:07:33.440
+should be doing the actions right? It is
+the pin setter. So let's take the code
+
+00:07:33.440 --> 00:07:37.430
+back from pin counter about all those
+actions here in pins have settled that
+
+00:07:37.430 --> 00:07:42.930
+stuff I just deleted... there... all the if
+statements and let's just cut them out
+
+00:07:42.930 --> 00:07:48.550
+and stick them back in the PinSetter, but
+we're going to need to create a new method and that
+
+00:07:48.550 --> 00:07:55.120
+new method is going to be called perform action.
+OK, so let's just create public void
+
+00:07:55.120 --> 00:08:00.860
+perform action and it's going to take in
+something of type action master dot
+
+00:08:00.860 --> 00:08:08.250
+action and we'll call that thing coming
+in action; because the purpose of this
+
+00:08:08.250 --> 00:08:13.710
+PinSetter is to augment the animator to do
+the things that the animator can't do
+
+00:08:13.710 --> 00:08:19.310
+for itself like lifting
+the pins for example because it
+
+00:08:19.310 --> 00:08:24.050
+doesn't know which ones to lift. So the
+PinSetter is the thing that we want to
+
+00:08:24.050 --> 00:08:27.569
+be calling saying OK go ahead PinSetter
+and perform an action now in
+
+00:08:27.569 --> 00:08:33.339
+collaboration with the animator get on
+with these tidies and these resets and all that thing. OK
+
+00:08:33.339 --> 00:08:37.930
+so it's all good but the last settled
+count is clearly something that
+
+00:08:37.930 --> 00:08:41.579
+shouldn't be here in the PinSetter
+right so let's create a slightly
+
+00:08:41.579 --> 00:08:45.430
+different API to the pin counter if the
+pin counter is responsible for counting
+
+00:08:45.430 --> 00:08:50.170
+pins it really in my mind ought to have a
+simple new public method and that's the
+
+00:08:50.170 --> 00:08:59.550
+reset so right here I'm gonna say public
+void reset taking in nothing and then
+
+00:08:59.550 --> 00:09:04.490
+that's simply going to; it's simply gonna
+do what we do every time in PinSetter
+
+00:09:04.490 --> 00:09:09.680
+set the last settled  count to 10; so
+instead of last second count being set
+
+00:09:09.680 --> 00:09:13.990
+up in PinSetter it's no longer a member of a
+class we just; that's it, very simple method
+
+00:09:13.990 --> 00:09:18.010
+right? It just resets the pin counter. Much
+nicer.
+
+00:09:18.010 --> 00:09:23.610
+So now where we see last settled count
+equals 10, no we're going to want Pin Counter
+
+00:09:23.610 --> 00:09:27.480
+whether or not we have an instance of it,
+we haven't so better go find a Pin Counter
+
+00:09:27.480 --> 00:09:41.010
+so we gonna need a private
+pin counter pin counter
+
+00:09:41.010 --> 00:09:47.480
+OK and then we're gonna need to find the
+pin counter on the start; we don't need the ball
+
+00:09:47.480 --> 00:09:51.870
+anywhere, not from the PinSetter's
+perspective. The ball is going to be
+
+00:09:51.870 --> 00:09:54.830
+handled by the game manager so let's
+take that out; anything that's going to be handled by the game manager
+
+00:09:54.830 --> 00:09:58.360
+let's just take it out we'll add it to
+the game manager separately. So we need an animator
+
+00:09:58.360 --> 00:10:14.410
+but we also need this pin counter thing so
+let's go find it...
+
+00:10:14.410 --> 00:10:17.690
+fairly standard stuff by now
+
+00:10:17.690 --> 00:10:21.579
+OK so we found the pin counter which means
+that down here I can now say pin counter
+
+00:10:21.579 --> 00:10:26.610
+instance . reset
+
+00:10:26.610 --> 00:10:30.959
+There does need to be an instance because the pin counter is stateful;
+
+00:10:30.959 --> 00:10:35.160
+pin counter is in a particular state
+at a particular time so we're not going
+
+00:10:35.160 --> 00:10:36.689
+to define statics, we use
+
+00:10:36.689 --> 00:10:41.230
+static when everything we're calling
+is state-less like Mathf dot pi, it doesn't
+
+00:10:41.230 --> 00:10:46.100
+affect Mathf, it doesn't affect pi asking
+Mathf what pi is for example, alright? So
+
+00:10:46.100 --> 00:10:50.399
+pin counter dot reset and we just call
+it and then we use that same line here
+
+00:10:50.399 --> 00:10:56.350
+in the last settled count. So much neater
+API now. So what else isn't working? We
+
+00:10:56.350 --> 00:11:02.519
+can't do a ball dot reset from pin counter...
+well, good really. It's not the pin
+
+00:11:02.519 --> 00:11:06.410
+counter's job to reset the ball is it?
+Let's look at the slide. It's the game
+
+00:11:06.410 --> 00:11:09.899
+manager's job to reset the ball because it
+may not want to, because the scoremaster
+
+00:11:09.899 --> 00:11:13.199
+may tell you that the game's over, or
+the action master might tell you that the game's
+
+00:11:13.199 --> 00:11:16.189
+over in which case the game manager is
+responsible for saying ok, don't reset the
+
+00:11:16.189 --> 00:11:22.720
+ball, so we don't want to be doing a ball reset here,
+let's just take it. I'm also going to ditch my log thing
+
+00:11:22.720 --> 00:11:30.009
+about the pin fall; ok will this build? Not
+quite because ball out of play
+
+00:11:30.009 --> 00:11:36.470
+equals false is still sitting here over
+in our PinSetter; well it just shouldn't be
+
+00:11:36.470 --> 00:11:40.519
+there, look at that code, it's horrible... set
+ball out of play? Nasty, get rid of it,
+
+00:11:40.519 --> 00:11:45.410
+get rid of the method, it's nothing to do with
+Pin Setting. OK what does that break? It
+
+00:11:45.410 --> 00:11:51.819
+breaks the lane box. Do we care? Not
+really, the code in lane box is to
+
+00:11:51.819 --> 00:11:58.089
+do with when you get an On Trigger
+Exit remember of the lane box of
+
+00:11:58.089 --> 00:12:02.380
+this thing here then we start counting
+pins so I'm just gonna take that on
+
+00:12:02.380 --> 00:12:09.230
+trigger exit method and I'm gonna pop it
+on the new... into the pin counter
+
+00:12:09.230 --> 00:12:16.019
+itself. Why not do this On Trigger Exit stuff
+in the Pin counter? It doesn't matter where you do it I
+
+00:12:16.019 --> 00:12:20.689
+think that messages should come quite
+near the top of the class, so something
+
+00:12:20.689 --> 00:12:22.769
+like this
+
+00:12:22.769 --> 00:12:28.279
+on trigger exit collider collider and
+then instead of saying PinSetter. ball
+
+00:12:28.279 --> 00:12:30.910
+out of play we're right in the right
+class and we don't have this horrible
+
+00:12:30.910 --> 00:12:37.709
+set ball out of play we just say ball out
+of play equals true. So to recap what
+
+00:12:37.709 --> 00:12:43.069
+we've done there, the pin counter itself,
+this thing that is attached to this
+
+00:12:43.069 --> 00:12:49.410
+object is going to be doing the pin
+counting and keeping state... keeping track
+
+00:12:49.410 --> 00:12:52.749
+of whether the ball has left that box that's all
+we're doing, so we no longer need the lane
+
+00:12:52.749 --> 00:12:58.089
+box script, remove it and delete the
+lane box script; we've merged lane box
+
+00:12:58.089 --> 00:13:03.249
+into Pin counter. So what's going on
+here the error's gone because we killed
+
+00:13:03.249 --> 00:13:08.360
+the lane box script. Now lots of changes
+right? Lots and lots of changes but the
+
+00:13:08.360 --> 00:13:12.459
+code compiles which is a start. Now the
+game won't run properly because we haven't got
+
+00:13:12.459 --> 00:13:18.350
+a game manager in place but some things
+will work let's see what works ok so we
+
+00:13:18.350 --> 00:13:22.579
+can bowl the counting is not working
+because the message is never getting passed
+
+00:13:22.579 --> 00:13:25.529
+We have an object reference not
+working
+
+00:13:25.529 --> 00:13:30.269
+that's the standing display text let's
+fix that so what needs the standing
+
+00:13:30.269 --> 00:13:34.360
+display? The pin counter, where is it on
+the lane box. There it is, it says I want
+
+00:13:34.360 --> 00:13:38.540
+standing display so go to the UI canvas
+in the left panel and you give it the text
+
+00:13:38.540 --> 00:13:44.869
+Text? That's a nasty name let's rename that
+while we're there. Standing count better
+
+00:13:44.869 --> 00:13:50.699
+Just check that that association stayed, there it
+did, perfect let's see how we do now. No
+
+00:13:50.699 --> 00:13:55.480
+more red errors, she's good boom, the
+standing display's updating the pins are
+
+00:13:55.480 --> 00:13:59.899
+wobbling, the reason we're not getting
+any resets or tidies is that we've kind of ripped the heart
+
+00:13:59.899 --> 00:14:06.529
+out of this code so far we have not yet
+put the heart back in which is the game
+
+00:14:06.529 --> 00:14:10.189
+manager which is gonna hold the state of
+the game and tie it all together. So without
+
+00:14:10.189 --> 00:14:15.399
+further ado who let's create a game
+manager. Here it is
+
+00:14:15.399 --> 00:14:19.999
+game manager now I'm also going to
+create a new empty GameObject up here
+
+00:14:19.999 --> 00:14:25.790
+gonna call it game manager game space
+manager just because... I don't know, it just
+
+00:14:25.790 --> 00:14:27.089
+reads better
+
+00:14:27.089 --> 00:14:31.379
+and let's put the game manager script on
+it now it has a slightly different icon
+
+00:14:31.379 --> 00:14:35.379
+there, just because game manager's a standard
+name but that's fine, and let's go into
+
+00:14:35.379 --> 00:14:41.499
+the game manager and make sure that we
+well, write it basically so here's the game manager
+
+00:14:41.499 --> 00:14:47.059
+let's take a look. So what's it going to need,
+this game manager?
+
+00:14:47.059 --> 00:14:49.999
+Well we said that it is going to be holding
+the state of the game and most of the
+
+00:14:49.999 --> 00:14:54.249
+state of the bowling game is in the the
+list now why didn't list come up? Because
+
+00:14:54.249 --> 00:15:00.680
+I haven't got the generic collection
+built in so there comes the namespace.
+
+00:15:00.680 --> 00:15:13.050
+Now when I try and write list bowls
+equals new list of int like that and
+
+00:15:13.050 --> 00:15:17.220
+remember your brackets for your constructor
+and let's make it private. Cool, so now
+
+00:15:17.220 --> 00:15:21.649
+we have a place to store state, isn't that wicked?
+What else might it need? Well go back to your
+
+00:15:21.649 --> 00:15:27.430
+diagram. I think it's going to be a PinSetter
+and a ball but let's just take a look. So
+
+00:15:27.430 --> 00:15:31.240
+it's at least for now gonna need access
+to yes the PinSetter and the ball in terms
+
+00:15:31.240 --> 00:15:35.290
+of game objects not - I'll go back to it - not
+the action master because it's a base
+
+00:15:35.290 --> 00:15:39.459
+class it's grey, we don't and it's not
+only that it's a base class more importantly
+
+00:15:39.459 --> 00:15:44.319
+it's a static. The methods in it are all
+statics we do not need to instantiate an
+
+00:15:44.319 --> 00:15:45.839
+action master we're just gonna call; we're
+
+00:15:45.839 --> 00:15:48.850
+gonna pass it a list of pin falls and it's going to
+give us an action and the same's gonna
+
+00:15:48.850 --> 00:15:52.809
+happen in score master which is really cool
+so we actually only need to create connect
+
+00:15:52.809 --> 00:15:57.149
+the game manager to 2 unity game objects;
+one is a private
+
+00:15:57.149 --> 00:16:02.199
+PinSetter pinSetter; now notice at this
+stage in the course we're tending to
+
+00:16:02.199 --> 00:16:06.050
+connect objects through script rather
+than messing around in the inspector.
+
+00:16:06.050 --> 00:16:12.350
+It's just more solid and
+also your designer or the designer
+
+00:16:12.350 --> 00:16:16.389
+part of you does not want to change
+these things, it would break your code so
+
+00:16:16.389 --> 00:16:20.189
+there's no reason to try and do it in the inspector. 
+Alright so we'd better go find these things quite quickly
+
+00:16:20.189 --> 00:16:27.370
+it's going to be pretty easy pin setter equals
+GameObject dot find... god I'm going to get bored
+
+00:16:27.370 --> 00:16:31.809
+of typing this type of
+thing; as you're probably aware I could use some
+
+00:16:31.809 --> 00:16:36.970
+shortcut keys but it wouldn't make your
+life any easier; let's go find the ball Now how are we gonna find the ball? How do you
+
+00:16:36.970 --> 00:16:40.120
+want to find the ball? There's lots of ways
+you could find the ball but let's do it of type again.
+
+00:16:40.120 --> 00:16:45.370
+Type's pretty strong, better
+than using names as if you change the
+
+00:16:45.370 --> 00:16:55.529
+type name then it'll follow. Cool so what's the
+problem here? Just use objects of
+
+00:16:55.529 --> 00:16:59.770
+type in both cases that's why it's
+saying it can't convert an array. OK so
+
+00:16:59.770 --> 00:17:04.470
+that's done. So we need a method in here
+called bowl. The method that we call into
+
+00:17:04.470 --> 00:17:10.040
+is bowl, I don't know if I put that on my
+diagram I said pinfall, you pass the
+
+00:17:10.040 --> 00:17:15.790
+pinfall but the way you pass the pinfall is you say
+public void bowl and then int pin fall
+
+00:17:15.790 --> 00:17:22.230
+Comme ca. Actually it's just reminded me, I'm sure I
+spelt pinfall wrong somewhere just have
+
+00:17:22.230 --> 00:17:29.360
+a quick look I can find it easily; maybe I
+didn't, I thought that i spelt
+
+00:17:29.360 --> 00:17:34.780
+Pinfall  funny earlier... if I find it I
+find it so we have this method that bowl
+
+00:17:34.780 --> 00:17:39.340
+and what we do is we just get this list
+that we just created we just bowls . add
+
+00:17:39.340 --> 00:17:45.740
+the number of pin falls that we just passed in,
+so the number. So we add to the list, we then
+
+00:17:45.740 --> 00:17:51.970
+need to call the action master . action
+it's not calling anything, sorry, what I'm
+
+00:17:51.970 --> 00:17:56.130
+doing is I'm just temporarily creating myself a variable
+called next action it's of type action
+
+00:17:56.130 --> 00:18:00.080
+master dot action which is an enum and here's
+where we make the call will make it to
+
+00:18:00.080 --> 00:18:05.830
+action master . and it's not one of
+these so it's action master dot next action
+
+00:18:05.830 --> 00:18:07.500
+what do I do next
+
+00:18:07.500 --> 00:18:16.500
+given this pin fall... no no no no not given
+the pinfall, given the list of bowls...OK?
+
+00:18:16.500 --> 00:18:22.870
+given the list of bowls. So you call
+it with all of the bowls and it gives
+
+00:18:22.870 --> 00:18:25.790
+you a next action back, we could have
+done this all in one line but this just
+
+00:18:25.790 --> 00:18:29.370
+makes it easier I can now go
+to the PinSetter instance because it's
+
+00:18:29.370 --> 00:18:32.530
+stateful in the game and I can say
+perform action it's all coming together,
+
+00:18:32.530 --> 00:18:38.990
+next action get it and now we say ball dot 
+reset which we've got a method for
+
+00:18:38.990 --> 00:18:42.650
+and that's it
+
+00:18:42.650 --> 00:18:50.050
+How cool is that? See what's going on there?
+So when when we call bowl to the game
+
+00:18:50.050 --> 00:18:56.490
+manager it adds to its internal state
+full list of polls it then says to the
+
+00:18:56.490 --> 00:19:00.580
+action master what do I do next? Given all
+of the bowls I've got my list, everything, what
+
+00:19:00.580 --> 00:19:04.270
+do I do next and the action master goes
+well at this stage in a game of
+
+00:19:04.270 --> 00:19:08.870
+bowling you would do next action so then
+you say cool, PinSetter go perform that
+
+00:19:08.870 --> 00:19:10.560
+thing and then you reset the ball. How's that?
+
+00:19:10.560 --> 00:19:16.550
+Let's take a butcher's hook. Of course it's
+not gonna do anything because it is not
+
+00:19:16.550 --> 00:19:17.060
+yet
+
+00:19:17.060 --> 00:19:21.000
+tied into the pin counter so we do need
+to quickly tie it in to the Pin Counter. How do we
+
+00:19:21.000 --> 00:19:25.340
+do that? Well, we need a game
+manager right so private game manager
+
+00:19:25.340 --> 00:19:31.240
+game manager we're gonna go find it on
+the start, that's why I left the start there; game
+
+00:19:31.240 --> 00:19:37.510
+manager equals GameObject getting
+bored of typing this stuff! Find object; not objects
+
+00:19:37.510 --> 00:19:43.970
+of type game manager... fine and then
+your squiggles; nearly there we just need
+
+00:19:43.970 --> 00:19:49.410
+to come down and we need to make the
+appropriate call in pins have settled
+
+00:19:49.410 --> 00:19:54.170
+and it is just what I said in pseudocode
+game manager dot bowl, let's compile... I
+
+00:19:54.170 --> 00:19:58.190
+think the only other thing I want to do
+over in PinSetter is remove the
+
+00:19:58.190 --> 00:20:03.500
+ball line from the top of PinSetter because
+we're no longer talking to the ball and I
+
+00:20:03.500 --> 00:20:05.950
+think I think that's it
+
+00:20:05.950 --> 00:20:09.730
+the final bold step we could make is we
+could go to action master and we could
+
+00:20:09.730 --> 00:20:20.060
+make this public method of action master
+private, see if that works, it should because we're only
+
+00:20:20.060 --> 00:20:24.780
+ever asking action master about a list
+of bowls now, not an individual bowl and that
+
+00:20:24.780 --> 00:20:27.890
+really will put the nail in the coffin if
+you can
+
+00:20:27.890 --> 00:20:32.580
+of your old API if you can make your bowl
+method private and the game still works
+
+00:20:32.580 --> 00:20:37.300
+like this it's done. Guys, rather than
+spending any more time in this video
+
+00:20:37.300 --> 00:20:41.690
+going through all of these scripts I'm
+gonna just... I'm just gonna attach the
+
+00:20:41.690 --> 00:20:46.260
+project to unity they're all here, and you
+can go and have a look
+
+00:20:46.260 --> 00:20:50.270
+go into Unity, go into resources, download
+the project and you can see exactly what
+
+00:20:50.270 --> 00:20:51.960
+I did if you couldn't follow the video
+
+00:20:51.960 --> 00:20:56.460
+The refactor's done, we have a clear path
+in front of us for a zen moment, we're
+
+00:20:56.460 --> 00:20:59.850
+going to create score master and it's
+going to be amazing!
+
+00:20:59.850 --> 00:21:00.360
+So I'll see you soon.
+

@@ -1,0 +1,374 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.000
+So, I've got a challenge for you guys!
+
+2
+00:00:03.000 --> 00:00:06.000
+If you've made it this far in the course, I think you're up for it!
+
+3
+00:00:06.000 --> 00:00:09.000
+So, I want you to try and make a Health Bar
+
+4
+00:00:09.000 --> 00:00:12.000
+Prefab, that is simple but good enough to
+
+5
+00:00:12.000 --> 00:00:15.000
+put on the Unity Assets Store. Now, I'm not going to show you how to do it.
+
+6
+00:00:15.000 --> 00:00:18.000
+The course is basically over. In fact, I'm having
+
+7
+00:00:18.000 --> 00:00:21.000
+a lot of trouble letting go. I really should be working on the next course, which is
+
+8
+00:00:21.000 --> 00:00:24.000
+Unreal Developer, now, but I realize this is an important
+
+9
+00:00:24.000 --> 00:00:27.000
+thing and thank you, Okiliy Dokily, for suggesting it.
+
+10
+00:00:27.000 --> 00:00:30.000
+Now, I've realized that the best way to get it done, is actually to had it
+
+11
+00:00:30.000 --> 00:00:33.000
+over to you guys. So, somebody
+
+12
+00:00:33.000 --> 00:00:36.000
+one of you out there, at least one of you, is going to make an Assets Store
+
+13
+00:00:36.000 --> 00:00:39.000
+asset, on the Unity Assets
+
+14
+00:00:39.000 --> 00:00:42.000
+Store, which means signing up for an account,
+
+15
+00:00:42.000 --> 00:00:45.000
+setting up everything you need to set up, including the graphics
+
+16
+00:00:45.000 --> 00:00:48.000
+and the description and the instructions, and to make a simple
+
+17
+00:00:48.000 --> 00:00:51.000
+Health Bar Prefab. Now, it's entirely of coarse up to you how you
+
+18
+00:00:51.000 --> 00:00:54.000
+do it, and you can even charge for hit and you may make some money from it,
+
+19
+00:00:54.000 --> 00:00:57.000
+which would be great. But the sort of thing I've got in mind is very simple.
+
+20
+00:00:57.000 --> 00:01:00.000
+It's a component that will sit on a game
+
+21
+00:01:00.000 --> 00:01:03.000
+object, and look for the game object's transform component,
+
+22
+00:01:03.000 --> 00:01:06.000
+and on your little component,
+
+23
+00:01:06.000 --> 00:01:09.000
+I imagine a couple of things. I imagine the ability to
+
+24
+00:01:09.000 --> 00:01:12.000
+offset this little health bar by
+
+25
+00:01:12.000 --> 00:01:15.000
+X and Y amount, from the transform of the object in
+
+26
+00:01:15.000 --> 00:01:18.000
+question. So, imagine we're now in Glitch Garden,
+
+27
+00:01:18.000 --> 00:01:21.000
+and you want to put little tiny health bars on all the guys. I would
+
+28
+00:01:21.000 --> 00:01:24.000
+suggest a really simple health bar, without even an outline.
+
+29
+00:01:24.000 --> 00:01:27.000
+Just a rectangle, that when it's not
+
+30
+00:01:27.000 --> 00:01:30.000
+full, just disappears, because if you put an outline
+
+31
+00:01:30.000 --> 00:01:33.000
+you're straight away into scaling issues. There's a big difference between how
+
+32
+00:01:33.000 --> 00:01:36.000
+it'll look, if it's just a few pixels by a few pixels verses
+
+33
+00:01:36.000 --> 00:01:39.000
+quite large. So, as a first approximation,
+
+34
+00:01:39.000 --> 00:01:42.000
+just grab yourself a rectangle, literally that just
+
+35
+00:01:42.000 --> 00:01:45.000
+disappears and depletes. And
+
+36
+00:01:45.000 --> 00:01:48.000
+I would probably simply have four settings X
+
+37
+00:01:48.000 --> 00:01:51.000
+offset, Y offset from the transform of the
+
+38
+00:01:51.000 --> 00:01:54.000
+object that it's attached to, and then X scale and Y
+
+39
+00:01:54.000 --> 00:01:57.000
+scale. And then, you need to figure out for yourself a very
+
+40
+00:01:57.000 --> 00:02:00.000
+easy way for the developer to wire it
+
+41
+00:02:00.000 --> 00:02:03.000
+in to a value of relevance. So, in Block
+
+42
+00:02:03.000 --> 00:02:06.000
+Breaker, that could be the times hit, and it may just drop down three
+
+43
+00:02:06.000 --> 00:02:09.000
+times, two times, one time, and destroyed. If it was
+
+44
+00:02:09.000 --> 00:02:12.000
+Laser Defender, then
+
+45
+00:02:12.000 --> 00:02:15.000
+you may be talking about some other floating
+
+46
+00:02:15.000 --> 00:02:18.000
+point that changing. If it's Glitch Garden, the same sort of
+
+47
+00:02:18.000 --> 00:02:21.000
+thing. OK, so you've got to provide some simple interface,
+
+48
+00:02:21.000 --> 00:02:24.000
+some instructions in your package, to say to people
+
+49
+00:02:24.000 --> 00:02:27.000
+this is the value that you need to talk to. So, you either need to make
+
+50
+00:02:27.000 --> 00:02:30.000
+changes to the existing code, you probably will have
+
+51
+00:02:30.000 --> 00:02:33.000
+to make changes to the existing code of the game, or the
+
+52
+00:02:33.000 --> 00:02:36.000
+user of this package will, because if you've made your health
+
+53
+00:02:36.000 --> 00:02:39.000
+private, for example, on the component
+
+54
+00:02:39.000 --> 00:02:42.000
+of the player or the brick or the zombie
+
+55
+00:02:42.000 --> 00:02:45.000
+or whatever it is, then you can't reference that from the
+
+56
+00:02:45.000 --> 00:02:48.000
+outside right. So, you are going to have to go in and probably make a call into
+
+57
+00:02:48.000 --> 00:02:51.000
+the Health Bar Prefab, and say just set the Health Bar
+
+58
+00:02:51.000 --> 00:02:54.000
+Prefab's value to X. So, I leave all of that for you to work
+
+59
+00:02:54.000 --> 00:02:57.000
+out. It's a pretty simple assignment, if you're going to make your
+
+60
+00:02:57.000 --> 00:03:00.000
+first Unity Asset Store asset, which is of course, one of
+
+61
+00:03:00.000 --> 00:03:03.000
+the wonderful things you can now do, given what you've learned
+
+62
+00:03:03.000 --> 00:03:06.000
+in this course. This would be a great and simple place to
+
+63
+00:03:06.000 --> 00:03:09.000
+start. A little bit of the problem is engineering. Please
+
+64
+00:03:09.000 --> 00:03:12.000
+please please keep it simple. And a large part of it will be,
+
+65
+00:03:12.000 --> 00:03:15.000
+how do you get that through Unity's approval and
+
+66
+00:03:15.000 --> 00:03:18.000
+provide all the relevant graphics, at the right sizes
+
+67
+00:03:18.000 --> 00:03:21.000
+and dimensions that they want and provide a description
+
+68
+00:03:21.000 --> 00:03:24.000
+and provide enough instructions that you
+
+69
+00:03:24.000 --> 00:03:27.000
+or me or one of the other students on the course, can
+
+70
+00:03:27.000 --> 00:03:30.000
+take the link the, which you're going to share, which will be the link to the actual Unity
+
+71
+00:03:30.000 --> 00:03:33.000
+Asset Store asset, and try it in at least Block
+
+72
+00:03:33.000 --> 00:03:36.000
+Breaker, Laser Defender, and Glitch Garden. In all
+
+73
+00:03:36.000 --> 00:03:39.000
+three of those games, I'd like to be able to drop your Health Bar Prefab
+
+74
+00:03:39.000 --> 00:03:42.000
+straight onto, or at least the
+
+75
+00:03:42.000 --> 00:03:45.000
+component, straight onto the bricks or the zombie
+
+76
+00:03:45.000 --> 00:03:48.000
+player and actually have it work, following some simple instructions.
+
+77
+00:03:48.000 --> 00:03:51.000
+So, there you go! There's the gauntlet to you guys! I think the
+
+78
+00:03:51.000 --> 00:03:54.000
+spec is pretty clear, left and right offset, up and down
+
+79
+00:03:54.000 --> 00:03:57.000
+offset, vertical and horizontal size, and then, be
+
+80
+00:03:57.000 --> 00:04:00.000
+able to take a floating point value, that determine how full this little
+
+81
+00:04:00.000 --> 00:04:03.000
+bar is. I'll leave it to you, how you draw the bar. A UI slider maybe?
+
+82
+00:04:03.000 --> 00:04:06.000
+Maybe you just draw some other and go for it!
+
+83
+00:04:06.000 --> 00:04:09.000
+See if you can make the Unity Asset Store asset, that is usable
+
+84
+00:04:09.000 --> 00:04:12.000
+for all of us, and the person that makes the
+
+85
+00:04:12.000 --> 00:04:15.000
+first one that's on the asset store, that I can put
+
+86
+00:04:15.000 --> 00:04:18.000
+my idiot cap on and simply install in those games, I will then
+
+87
+00:04:18.000 --> 00:04:21.000
+add to this lecture we're on now, and I'll add it as a
+
+88
+00:04:21.000 --> 00:04:24.000
+downloadable resource for everybody else to use. So, I'm handing it over to you guys,
+
+89
+00:04:24.000 --> 00:04:27.000
+to help me out getting that done, but most crucially to give you the
+
+90
+00:04:27.000 --> 00:04:30.000
+confidence of launching a Unity Asset Store asset.
+
+91
+00:04:30.000 --> 00:04:33.000
+So, good luck with that! I know one of you will do it, and you'll probably do it
+
+92
+00:04:33.000 --> 00:04:36.000
+surprisingly quickly and surprisingly well, knowing some of you guys!
+
+93
+00:04:36.000 --> 00:04:38.433
+And I'll see you soon!
+

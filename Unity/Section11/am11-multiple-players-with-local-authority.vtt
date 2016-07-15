@@ -1,0 +1,590 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Multiple players with local authority! So, in this video
+
+2
+00:00:06.000 --> 00:00:09.000
+we'll be adding a Network Transform to our player
+
+3
+00:00:09.000 --> 00:00:12.000
+and making sure that this type of movement works. So, this is going
+
+4
+00:00:12.000 --> 00:00:15.000
+to be the end result, is that I can
+
+5
+00:00:15.000 --> 00:00:18.000
+move this character from two places. So, in Game View,
+
+6
+00:00:18.000 --> 00:00:21.000
+for example, I have my hand on the keyboard of the Client, and the right
+
+7
+00:00:21.000 --> 00:00:24.000
+hand character is moving and on the Host the left hand. So, we
+
+8
+00:00:24.000 --> 00:00:27.000
+can actually kind of have a little fight, that looks more like a multiplayer game.
+
+9
+00:00:27.000 --> 00:00:30.000
+OK. [Laughs] So, that's what we're going to do in this video.
+
+10
+00:00:30.000 --> 00:00:33.000
+So, just before we solve this problem, let's see what the
+
+11
+00:00:33.000 --> 00:00:36.000
+problem really is. So, I'm going to play the game, launch a
+
+12
+00:00:36.000 --> 00:00:39.000
+Host, and get my Local Client ready, which I can merely
+
+13
+00:00:39.000 --> 00:00:42.000
+move around the screen, I'll move it to the left. Now, let's hop
+
+14
+00:00:42.000 --> 00:00:45.000
+over to the Client Machine, launch a Client
+
+15
+00:00:45.000 --> 00:00:48.000
+instance and get its Client ready, and move it to
+
+16
+00:00:48.000 --> 00:00:51.000
+the right. OK, so
+
+17
+00:00:51.000 --> 00:00:54.000
+what issue are we having. Well, if
+
+18
+00:00:54.000 --> 00:00:57.000
+I go back to the Host, and move my thing
+
+19
+00:00:57.000 --> 00:01:00.000
+even further to the left, you see the Client
+
+20
+00:01:00.000 --> 00:01:03.000
+hasn't noticed that that's happened.
+
+21
+00:01:03.000 --> 00:01:06.000
+We're missing a Network Transform, of course and the same the other way around.
+
+22
+00:01:06.000 --> 00:01:09.000
+If on the Client I move, the
+
+23
+00:01:09.000 --> 00:01:12.000
+Host doesn't see the move. OK, so it's simply
+
+24
+00:01:12.000 --> 00:01:15.000
+a question of using Network Transform. There is a subtlety to it
+
+25
+00:01:15.000 --> 00:01:18.000
+but for now I want you to just use the Network Transform
+
+26
+00:01:18.000 --> 00:01:21.000
+that we've talked about before, to get
+
+27
+00:01:21.000 --> 00:01:24.000
+the player movement syncing. Use the NetworkTransform component,
+
+28
+00:01:24.000 --> 00:01:27.000
+read about Local Player Authority,
+
+29
+00:01:27.000 --> 00:01:30.000
+and then, as a bonus, discover the effect of setting this setting.
+
+30
+00:01:30.000 --> 00:01:33.000
+You'll actually find that just the Network Transform will fix the problem,
+
+31
+00:01:33.000 --> 00:01:36.000
+but Local Player Authority still does something.
+
+32
+00:01:36.000 --> 00:01:39.000
+So, see if you can have a play around in Scene View, and
+
+33
+00:01:39.000 --> 00:01:42.000
+see if you can work out what Local Player Authority
+
+34
+00:01:42.000 --> 00:01:45.000
+does. And ideally post the result of what you find
+
+35
+00:01:45.000 --> 00:01:48.000
+in the discussions, before you finish the challenge, and then, you've really kind
+
+36
+00:01:48.000 --> 00:01:51.000
+kind of finished it and committed an answer. Even if it's wrong it doesn't
+
+37
+00:01:51.000 --> 00:01:54.000
+matter, the idea is that you've explored. So, go ahead, pause the video,
+
+38
+00:01:54.000 --> 00:01:57.000
+and see if you can get this Local Player Authority working!
+
+39
+00:01:57.000 --> 00:02:00.000
+Well, welcome back!
+
+40
+00:02:00.000 --> 00:02:03.000
+So, let's have a look! What do we need to do to make it work?
+
+41
+00:02:03.000 --> 00:02:06.000
+Well, it's simply go to the Player Prefab and add ourselves
+
+42
+00:02:06.000 --> 00:02:09.000
+a new component, which is the Network Transform Component, that we saw
+
+43
+00:02:09.000 --> 00:02:12.000
+before. I'm actually going to move this up, because I just want it to
+
+44
+00:02:12.000 --> 00:02:15.000
+be right next to identity. I want to look down this and go, what is this thing? It's
+
+45
+00:02:15.000 --> 00:02:18.000
+a transform, a cylinder, it's got a renderer. I don't really care about the
+
+46
+00:02:18.000 --> 00:02:21.000
+rendering, for the moment, but I do care that it's got a network identity,
+
+47
+00:02:21.000 --> 00:02:24.000
+with Local Player Authority or without. We'll see
+
+48
+00:02:24.000 --> 00:02:27.000
+the difference in a moment, and then, a Network Transform is the key. Let's just
+
+49
+00:02:27.000 --> 00:02:30.000
+make sure that works. So again, we slightly
+
+50
+00:02:30.000 --> 00:02:33.000
+laboriously have to go to our Client, let it sync,
+
+51
+00:02:33.000 --> 00:02:36.000
+come back in here, just check that this
+
+52
+00:02:36.000 --> 00:02:39.000
+Player Prefab has now received
+
+53
+00:02:39.000 --> 00:02:42.000
+its Transform Component, which it hasn't yet which means the
+
+54
+00:02:42.000 --> 00:02:45.000
+dropbox hasn't quite finished syncing. It's a little clunky doing it this way, but I've found it's
+
+55
+00:02:45.000 --> 00:02:48.000
+the fastest way to get the version of the game across. Now, a common
+
+56
+00:02:48.000 --> 00:02:51.000
+mistake, if it hasn't gone across to see you haven't saved over here. I
+
+57
+00:02:51.000 --> 00:02:54.000
+have saved but it's worth checking. And then, in
+
+58
+00:02:54.000 --> 00:02:57.000
+a moment, we should find that we get a Network Transform.
+
+59
+00:02:57.000 --> 00:03:00.000
+Ah slightly frustrating. Again, in a more
+
+60
+00:03:00.000 --> 00:03:03.000
+serious environment, you would probably be using version control here,
+
+61
+00:03:03.000 --> 00:03:06.000
+but we're trying to iterate so fast, that we want to make sure
+
+62
+00:03:06.000 --> 00:03:09.000
+we can as quickly as possible get this change propagated. So, let's just try
+
+63
+00:03:09.000 --> 00:03:12.000
+once more. So, the problem
+
+64
+00:03:12.000 --> 00:03:15.000
+I'm having here is just distributing my game, if you like. Here you
+
+65
+00:03:15.000 --> 00:03:18.000
+go, the Network Transform has arrived on the Client! So, let's play!
+
+66
+00:03:18.000 --> 00:03:21.000
+Get the Host going, get the Client ready on the
+
+67
+00:03:21.000 --> 00:03:24.000
+Host, over to the Pure Client Machine.
+
+68
+00:03:24.000 --> 00:03:27.000
+Launch Client, Client ready! OK, so I moved to
+
+69
+00:03:27.000 --> 00:03:30.000
+the right, on the PC on the Client, and back here
+
+70
+00:03:30.000 --> 00:03:33.000
+I'm going to move to the left. And you can see it's working.
+
+71
+00:03:33.000 --> 00:03:36.000
+In fact, look from here I can see the other player. I've got my hand on
+
+72
+00:03:36.000 --> 00:03:39.000
+the keyboard of the other machine. Awesome! And again I can get another
+
+73
+00:03:39.000 --> 00:03:42.000
+Client Machine, and I can
+
+74
+00:03:42.000 --> 00:03:45.000
+see myself moving on here. So, it's all working. That's fantastic!
+
+75
+00:03:45.000 --> 00:03:48.000
+The question is, what does this Local Player Authority checkbox actually
+
+76
+00:03:48.000 --> 00:03:51.000
+do for us. So, stop the game, and you need to actually
+
+77
+00:03:51.000 --> 00:03:54.000
+turn off the Local Player Authority, before you start. It seems to
+
+78
+00:03:54.000 --> 00:03:57.000
+remember once it's playing, so you can't do this in Play Mode.
+
+79
+00:03:57.000 --> 00:04:00.000
+So, I'm going to just let this change propagate,
+
+80
+00:04:00.000 --> 00:04:03.000
+so the player now no longer has a Local Player Authority
+
+81
+00:04:03.000 --> 00:04:06.000
+on it. Let's go and make sure that's gone over to the
+
+82
+00:04:06.000 --> 00:04:09.000
+Client Machine, it probably hasn't.
+
+83
+00:04:09.000 --> 00:04:12.000
+It seems to be refreshing. There you go perfect!
+
+84
+00:04:12.000 --> 00:04:15.000
+Now, let's run it with the Local Player Authority setting turned
+
+85
+00:04:15.000 --> 00:04:18.000
+off. So, get the Host and its Client ready, Make sure we can move around, we can.
+
+86
+00:04:18.000 --> 00:04:21.000
+Put it to the left again. Over to the Client,
+
+87
+00:04:21.000 --> 00:04:24.000
+enable the Client, get it's Client ready, reach over to the other
+
+88
+00:04:24.000 --> 00:04:27.000
+keyboard, and move over to the right. OK, so it looks
+
+89
+00:04:27.000 --> 00:04:30.000
+like, back on the Host, that these transform
+
+90
+00:04:30.000 --> 00:04:33.000
+changes aren't actually being sent, now.
+
+91
+00:04:33.000 --> 00:04:36.000
+So, if from the Client I start moving now,
+
+92
+00:04:36.000 --> 00:04:39.000
+without Local Player Authority on, then
+
+93
+00:04:39.000 --> 00:04:42.000
+we do not have a movement being received
+
+94
+00:04:42.000 --> 00:04:45.000
+back on the host. So, it does actually break
+
+95
+00:04:45.000 --> 00:04:48.000
+things, because the Client Network Transform
+
+96
+00:04:48.000 --> 00:04:51.000
+is not being told to send the Transform change
+
+97
+00:04:51.000 --> 00:04:54.000
+up, it's all coming from the Host. In fact, if we're on the Host
+
+98
+00:04:54.000 --> 00:04:57.000
+and we select this right hand guy and move him out and then look
+
+99
+00:04:57.000 --> 00:05:00.000
+at the Client, it will move. Let's test that by say moving it off the ground.
+
+100
+00:05:00.000 --> 00:05:03.000
+There it goes! So, all the transform changes
+
+101
+00:05:03.000 --> 00:05:06.000
+are coming from
+
+102
+00:05:06.000 --> 00:05:09.000
+this side, from the Server side,
+
+103
+00:05:09.000 --> 00:05:12.000
+on the Host and being sent across to the
+
+104
+00:05:12.000 --> 00:05:15.000
+Client, which is obviously backward. It's the wrong way.
+
+105
+00:05:15.000 --> 00:05:18.000
+So, we need to leave the
+
+106
+00:05:18.000 --> 00:05:21.000
+Local Player Authority turned on.
+
+107
+00:05:21.000 --> 00:05:24.000
+And it has another consequence, the Local Player Authority, which
+
+108
+00:05:24.000 --> 00:05:27.000
+is, let me just show you this. So, I'm going to just slightly, naughtily
+
+109
+00:05:27.000 --> 00:05:30.000
+set it on the client, because the sync is a single check
+
+110
+00:05:30.000 --> 00:05:33.000
+box. Generally, you want to make all your changes here and let them sync over DropBox, but when
+
+111
+00:05:33.000 --> 00:05:36.000
+it's a boolean on/off like that, and it's the only thing you're changing
+
+112
+00:05:36.000 --> 00:05:39.000
+then I think you can probably get away with it. Don't tell anybody.
+
+113
+00:05:39.000 --> 00:05:42.000
+So, we're back on now, with Local Player
+
+114
+00:05:42.000 --> 00:05:45.000
+Authority on, and let's just confirm it works.
+
+115
+00:05:45.000 --> 00:05:48.000
+Here we are on the Client, so let's
+
+116
+00:05:48.000 --> 00:05:51.000
+move and then let's look at the Client, from the Host and that works
+
+117
+00:05:51.000 --> 00:05:54.000
+and vise versa. The host is moving left and right, and if I move
+
+118
+00:05:54.000 --> 00:05:57.000
+left, if I look on the Host and the Client... The Host
+
+119
+00:05:57.000 --> 00:06:00.000
+the Client, you get the idea! It's working! The point is that with this
+
+120
+00:06:00.000 --> 00:06:03.000
+Local Player Authority on, watch what happens if I go into
+
+121
+00:06:03.000 --> 00:06:06.000
+Scene View, on the Host and say move the right hand
+
+122
+00:06:06.000 --> 00:06:09.000
+player, the Client Player up into the air. It doesn't move,
+
+123
+00:06:09.000 --> 00:06:12.000
+hasn't moved, and the moment that I move
+
+124
+00:06:12.000 --> 00:06:15.000
+on the Client Machine, it'll snap back to that place.
+
+125
+00:06:15.000 --> 00:06:18.000
+You see that again! I move it up because we have
+
+126
+00:06:18.000 --> 00:06:21.000
+Local Player Authority on, on this
+
+127
+00:06:21.000 --> 00:06:24.000
+player, the bottom player, which is the player from the Host,
+
+128
+00:06:24.000 --> 00:06:27.000
+and this is not the Local Player, it knows
+
+129
+00:06:27.000 --> 00:06:30.000
+it's not the Local Player. Remember our script even accesses
+
+130
+00:06:30.000 --> 00:06:33.000
+if is not local player leave; the very
+
+131
+00:06:33.000 --> 00:06:36.000
+thing that's filtering the input, the very reason why in game,
+
+132
+00:06:36.000 --> 00:06:39.000
+if I go left and right arrows, only the left hand one moves.
+
+133
+00:06:39.000 --> 00:06:42.000
+It's because the system knows this is not the Local Player, which
+
+134
+00:06:42.000 --> 00:06:45.000
+means that the Network
+
+135
+00:06:45.000 --> 00:06:48.000
+Transform and Network Identity Components, who talk to each other,
+
+136
+00:06:48.000 --> 00:06:51.000
+know that this is not the Local Player. So,
+
+137
+00:06:51.000 --> 00:06:54.000
+we have no authority over this player. It looks like we're
+
+138
+00:06:54.000 --> 00:06:57.000
+moving it in Scene View, which of course you couldn't do at run time, but
+
+139
+00:06:57.000 --> 00:07:00.000
+over on the Client it's not moving, and the moment I touch a key
+
+140
+00:07:00.000 --> 00:07:03.000
+on the Client, boom, it snaps to the
+
+141
+00:07:03.000 --> 00:07:06.000
+new position. So, it is exactly what it says! The Local Player,
+
+142
+00:07:06.000 --> 00:07:09.000
+i.e. on the Client Machine, has authority over
+
+143
+00:07:09.000 --> 00:07:12.000
+the transform of this Game Object.
+
+144
+00:07:12.000 --> 00:07:15.000
+So, that's the point! What we need to next, of course, is get
+
+145
+00:07:15.000 --> 00:07:18.000
+cameras working, which of course comes with it's own challenge in multi-
+
+146
+00:07:18.000 --> 00:07:21.000
+player. But that's fine, we're here to solve the challenges, and I'll see you in
+
+147
+00:07:21.000 --> 00:07:22.833
+the next video!
+

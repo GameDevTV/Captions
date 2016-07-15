@@ -1,0 +1,347 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.429 --> 00:00:05.600
+Hey guys welcome back! We're going to talk
+about classes vs. struct, which is short for
+
+00:00:05.600 --> 00:00:11.810
+structure, in C#. So firstly, for storing
+these key frames, these positions of our Game
+
+00:00:11.810 --> 00:00:16.780
+Objects, I'm going to tell you why we're not
+using Unity's Keyframe struct. We'll be comparing
+
+00:00:16.780 --> 00:00:22.320
+classes and structures as options briefly,
+and then, making our own MyKeyframe struct.
+
+00:00:22.320 --> 00:00:28.690
+OK, so what is this Unity KeyFrame struct
+thing? Look at it in the docs, Keyframe struct
+
+00:00:28.690 --> 00:00:33.710
+in Unity Engine. So, Unity Engine is the name
+space, and we always have Unity Engine in
+
+00:00:33.710 --> 00:00:38.230
+all our scripts. Remember at the top of the
+script... Let me show you briefly. We have
+
+00:00:38.230 --> 00:00:43.320
+in whatever script we're in, if I just look
+for scripts here, as a search, find any old
+
+00:00:43.320 --> 00:00:49.739
+script, bring it down into the screen; you'll
+see that everything has using Unity Engine.
+
+00:00:49.739 --> 00:00:53.469
+So, that's what that bit means. It's in the
+Unity Engine name space and it says struct.
+
+00:00:53.469 --> 00:01:00.149
+Now, what's a struct? Well, it's something
+a bit like a class, but it is stored as a
+
+00:01:00.149 --> 00:01:04.540
+value rather than a reference. So, classes
+are stored as references, so they have to
+
+00:01:04.540 --> 00:01:09.860
+point to look off somewhere else, in order
+to find the actual values, where structs are
+
+00:01:09.860 --> 00:01:14.920
+value types. And a Vector3 for example, is
+a struct. So, this Keyframe thing has four
+
+00:01:14.920 --> 00:01:20.400
+values in it. It has an in tangent and out
+tangent. What are they? Well, they are floats.
+
+00:01:20.400 --> 00:01:24.220
+And then, a time and a value. Now, this is
+to do with the Animator. This is saying that
+
+00:01:24.220 --> 00:01:30.170
+at a particular time I want, say the X component
+of the transform or something to do with the
+
+00:01:30.170 --> 00:01:36.240
+rotation to be a particular value, and optionally
+I want to determine the in and the out tangents
+
+00:01:36.240 --> 00:01:41.759
+inside the Animator. So, you have in the Animator
+an option when you're laying down key frames.
+
+00:01:41.759 --> 00:01:46.320
+I won't show you now, but you have an option
+to drag little handles, which allow you to
+
+00:01:46.320 --> 00:01:50.850
+determine the smoothness of the curve, and
+that's what that Keyframe in and out tangent
+
+00:01:50.850 --> 00:01:56.570
+business is. OK, it's like they're called
+Bezier Curves, but we don't need all this
+
+00:01:56.570 --> 00:02:01.009
+basically. We don't need all those things,
+and also, in our code we only want a single
+
+00:02:01.009 --> 00:02:05.159
+entity per frame, for it to store a position
+and rotation. We don't want to have to set
+
+00:02:05.159 --> 00:02:11.579
+in X, Y, Z for position X, Y, Z for rotation.
+So, we're going to make our won structure,
+
+00:02:11.579 --> 00:02:15.049
+alright. And then, it's a question of how
+we're going to do that and how that's going
+
+00:02:15.049 --> 00:02:21.480
+to look. So, we've had a look at why we're
+not using Unity's Keyframe or the Animator.
+
+00:02:21.480 --> 00:02:26.739
+We could use the Animator for all this, but
+it's just slower and cumbersome. Classes are
+
+00:02:26.739 --> 00:02:30.930
+stored as references; structs are stored as
+values. The impact in this particular use
+
+00:02:30.930 --> 00:02:36.819
+case is not very much, they both perform very
+similarly, and we'll be creating our own MyKeyframe
+
+00:02:36.819 --> 00:02:41.849
+struct. So, let's get into some code now,
+and start putting this together. So, here
+
+00:02:41.849 --> 00:02:45.609
+we have our player or our roller ball. I think
+I'm going to rename it Player, so go ahead
+
+00:02:45.609 --> 00:02:50.389
+and rename your roller ball to Player. Fantastic!
+And then, what I'm going to do is, I'm going
+
+00:02:50.389 --> 00:02:55.919
+to create myself a new script here, and I'm
+just going to call it Replay. I'm going to
+
+00:02:55.919 --> 00:03:04.069
+attach that Replay Script to the Player. Let's
+have a look, it's complaining about something.
+
+00:03:04.069 --> 00:03:08.989
+Let's have a look at what it's named it, replay.
+So, maybe Replay is a reserved word? That's
+
+00:03:08.989 --> 00:03:18.739
+possible let's try MyReplay, for now and save
+that. Now, let's try adding that to the Player.
+
+00:03:18.739 --> 00:03:28.169
+Oops! Fantastic! So, I've added it to the
+beam by mistake, but crucially we just simply
+
+00:03:28.169 --> 00:03:34.219
+have a My Replay Script on the ball on the
+Player. OK, let's go into this and take a
+
+00:03:34.219 --> 00:03:39.999
+look. So, we want to make our own new class.
+Now, to make our own class, you define it
+
+00:03:39.999 --> 00:03:46.339
+down here public class... and we did this
+in Bowl Master or maybe we didn't? I certainly
+
+00:03:46.339 --> 00:03:52.019
+considered it. public class MyKeyFrame () OK, and it doesn't
+need to inherit from anything. So, up here
+
+00:03:52.019 --> 00:03:56.019
+in all of your scripts, you say your script
+name, colon, which means it inherits from
+
+00:03:56.019 --> 00:03:59.249
+MonoBehavior. It means it picks up, it's a
+child of MonoBehavior and it picks up a lot
+
+00:03:59.249 --> 00:04:03.369
+of behavior from MonoBehavior. We don't need
+that for this simple thing, we're just going
+
+00:04:03.369 --> 00:04:08.519
+to say public class MyKeyFrame. And then,
+what I want you to do, is I want you to just
+
+00:04:08.519 --> 00:04:12.680
+try and define this class for me, as a challenge.
+You may need to go away and do some Google-ing,
+
+00:04:12.680 --> 00:04:15.799
+but at this stage in the course, you need
+to learn to find things out for yourself.
+
+00:04:15.799 --> 00:04:19.979
+So, in the Replay.cs script there's a helper
+class. I've already shown you where to put
+
+00:04:19.979 --> 00:04:24.409
+it. Define it as a class not a struct, for
+now. Try and provide a constructor as well,
+
+00:04:24.409 --> 00:04:32.090
+so you can say from the outside from the main
+class, keyFrame = new key frame passing in
+
+00:04:32.090 --> 00:04:37.900
+a time as a float, a position as a Vecto3,
+and a rotation as a Quaternion. So, see if
+
+00:04:37.900 --> 00:04:40.740
+you can do that, so that somewhere else in
+your code you can say, oh I want to make a
+
+00:04:40.740 --> 00:04:47.449
+new key frame and it just works. Have a go!
+Go on be brave, look up constructors C#, and
+
+00:04:47.449 --> 00:04:52.509
+making my own frame in Unity, and beware of
+the difference between mono, which is a open
+
+00:04:52.509 --> 00:04:59.240
+source version of C# designed for use with
+Unity and C# itself. It may make a difference
+
+00:04:59.240 --> 00:05:03.919
+and just have a look. Go on look at the docs.
+OK, look if you can't do this one it's fine.
+
+00:05:03.919 --> 00:05:07.460
+It's for bonus marks anyway, so look. Welcome
+back! Let's show you how to define your own
+
+00:05:07.460 --> 00:05:13.150
+class now, and we start off just with some
+public variables. We want a public float framtTime;
+
+00:05:13.150 --> 00:05:19.759
+OK, which is going to be the time at which
+we're storing this event, this state of say
+
+00:05:19.759 --> 00:05:28.030
+the Player. We want public 3 Vector 3 position;
+And a public Quaternion, we still don't know
+
+00:05:28.030 --> 00:05:32.740
+what Quaternions do, but we know they store
+rotation. rotation; Fantastic! So, that's
+
+00:05:32.740 --> 00:05:39.460
+fine, that's the a start, but what we can't
+do yet is say MyKeyFrame I don't know testKey
+
+00:05:39.460 --> 00:05:51.729
+= new MyKeyFrame and then try and give it
+like (1.0f as a float, followed by a Vector3.up
+
+00:05:51.729 --> 00:05:55.599
+followed by Quaternion.identity); Now, that
+should be valid, but look what happens when
+
+00:05:55.599 --> 00:06:00.430
+we try and compile this. MyKeyFrame does not
+contain a constructor that takes three arguments,
+
+00:06:00.430 --> 00:06:05.509
+so the way you make a constructor is you make
+a method with the same name as the class,
+
+00:06:05.509 --> 00:06:15.699
+MyKeyFrame. Now, we just say (float aframe
+or aTime, will do. Vector3 I'm just using
+
+00:06:15.699 --> 00:06:22.180
+a because it wants to be different to these
+guys up here, so I'm just putting a in front.
+
+00:06:22.180 --> 00:06:30.639
+It takes in aPosition, and aRotation) OK.
+And then, all this very simply does is say
+
+00:06:30.639 --> 00:06:43.099
+that frameTime = aTime; and I think you can
+guess the rest. position = aPosition; and
+
+00:06:43.099 --> 00:06:48.740
+rotation = aRotation; Now, what that does
+for us, is when we now build this code, up
+
+00:06:48.740 --> 00:06:53.819
+here I can make myself a new key frame, and
+it will have a time or whatever this float
+
+00:06:53.819 --> 00:07:00.639
+is, Vector3.up and Quaternion.identity, i.e.
+no rotation and it works. So, this is the
+
+00:07:00.639 --> 00:07:04.909
+constructor, so I make myself a new key frame
+here. Alright, that's fantastic! So, well
+
+00:07:04.909 --> 00:07:08.289
+done, if you got that far! Now, how about
+if we wanted it to be a struct rather than
+
+00:07:08.289 --> 00:07:15.699
+a class. How difficult is it to change it?
+Well, have a look, struct build, works exactly
+
+00:07:15.699 --> 00:07:20.129
+the same. OK, so you can just change class
+for struct there, and it will work exactly
+
+00:07:20.129 --> 00:07:26.930
+the same. And this is value type, rather than
+stored as a reference, which of course is
+
+00:07:26.930 --> 00:07:30.949
+very wasteful if lots of different things
+are creating the same values, you want all
+
+00:07:30.949 --> 00:07:36.580
+of those things to point off to the same instance
+in memory, but in this case, we are OK to
+
+00:07:36.580 --> 00:07:40.949
+use a struct, because we are just storing
+values; we are using this as a structure.
+
+00:07:40.949 --> 00:07:44.939
+So, hopefully that makes sense. I'm going
+to get rid of that line there, now that we
+
+00:07:44.939 --> 00:07:51.210
+know how it works. We have now our key frame
+structure set up, ready to store things. So,
+
+00:07:51.210 --> 00:07:54.819
+that's fantastic! In the next video we'll
+actually get the Recording System going and
+
+00:07:54.819 --> 00:07:56.349
+make sure that it works.
+

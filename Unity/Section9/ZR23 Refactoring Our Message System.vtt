@@ -1,0 +1,700 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.570 --> 00:00:08.380
+So, are you ready for a code refactoring party!
+In this message, in this video, we're going
+
+00:00:08.380 --> 00:00:13.200
+to be sending messages up and down the hierarchy,
+using Invoke() to delay audio playback. And
+
+00:00:13.200 --> 00:00:19.560
+you'll be writing RadioSystem.cs for radio
+communications. So, let's get this puppy refactored!
+
+00:00:19.560 --> 00:00:22.080
+I'm just going to go through the scripts,
+from left to right, and I'm going to think
+
+00:00:22.080 --> 00:00:26.449
+about each one and how we might want it now
+that we've moved things around and generally
+
+00:00:26.449 --> 00:00:31.749
+messed things up. And then, let's refactor.
+So, the purpose of all of this refactoring,
+
+00:00:31.749 --> 00:00:36.100
+of course is, this is exactly the sort of
+thing you want to be doing regularly is constantly
+
+00:00:36.100 --> 00:00:42.000
+improving your architecture but now over improving
+it. You want to improve it enough to make
+
+00:00:42.000 --> 00:00:46.829
+your life easy and to make it expandable,
+but be aware of your never going to need it
+
+00:00:46.829 --> 00:00:51.129
+syndrome, which is where you do so much refactoring
+and you try and make so much provision for
+
+00:00:51.129 --> 00:00:56.239
+future functionality that actually, the chances
+are you're never going to need it. And also,
+
+00:00:56.239 --> 00:00:59.399
+the code becomes more complex then, and so
+there's a fine balance. Well, it's certainly
+
+00:00:59.399 --> 00:01:04.410
+worth us doing some refactoring, right now.
+So, let's look at clear area, which is the
+
+00:01:04.410 --> 00:01:08.670
+part of the of the player that looks for a
+clear area. It doesn't need a Start method,
+
+00:01:08.670 --> 00:01:13.790
+so I'm going to get rid of just the stat block
+there, just to save some space. What else
+
+00:01:13.790 --> 00:01:19.590
+is going to be different on here? Well, when
+we do find a clear area, yes he wants to send
+
+00:01:19.590 --> 00:01:28.729
+a message upwards, which will be very useful.
+The other thing that we want to do is we want
+
+00:01:28.729 --> 00:01:36.380
+to send this message up the hierarchy once,
+not every single frame, when these conditions
+
+00:01:36.380 --> 00:01:40.520
+are met. We need one more condition in here.
+It's all very well waiting a second since
+
+00:01:40.520 --> 00:01:44.689
+the last trigger and then, not going off within
+the first 10 seconds, but we also once we've
+
+00:01:44.689 --> 00:01:50.020
+found a clear area we want to never send that
+message again. So, let's just say and not
+
+00:01:50.020 --> 00:02:01.149
+(foundClearArea) Let's make ourselves a private
+boolean, just called foundClearArea and start
+
+00:02:01.149 --> 00:02:07.130
+it as false, and then check for it there.
+And then, of course once we've sent the message
+
+00:02:07.130 --> 00:02:13.860
+let's just say foundClearArea = true; so that
+it no longer sends this message. This loop
+
+00:02:13.860 --> 00:02:18.770
+just won't trigger in the future. So, that
+would be very useful. I think that's all you
+
+00:02:18.770 --> 00:02:21.940
+probably need to do. Actually, one of our
+students, I think it was Doug, very helpful
+
+00:02:21.940 --> 00:02:26.690
+he said, "you know you need to be a bit careful
+with this OnTriggerStay, the player itself
+
+00:02:26.690 --> 00:02:35.030
+can trigger it." So, we could say firstly,
+what's the collider? So, (Collider collider)
+
+00:02:35.030 --> 00:02:46.510
+and then, if (collider.tag doesn't = the "Player")
+so we only want to consider collisions, when
+
+00:02:46.510 --> 00:02:54.950
+the collider's tag is not the player. OK,
+so the name collider. What's wrong? I have
+
+00:02:54.950 --> 00:02:59.250
+spelled collider wrong. OK fantastic! So,
+let's go and tag the player, over in Unity
+
+00:02:59.250 --> 00:03:05.380
+now, as a player very simply. So, we have
+the radio system and the player, and then,
+
+00:03:05.380 --> 00:03:09.850
+we need... We already have a tag called player
+actually, it's a default. Fantastic! So, that
+
+00:03:09.850 --> 00:03:14.620
+one is done. Now, let's move on to the next
+script. I'm just going to go to Daycycle and
+
+00:03:14.620 --> 00:03:19.220
+see what we need to do inside Daycycle, and
+I don't think we need to change anything in
+
+00:03:19.220 --> 00:03:23.420
+Daycycle. In the last video I already took
+out the starting angle, because we didn't
+
+00:03:23.420 --> 00:03:28.360
+need it just moved things from where they
+were. OK, so Daycycle needs no refactoring.
+
+00:03:28.360 --> 00:03:34.910
+Eyes, what are the Eyes all about? So, the
+Eyes are the players eyes and the zooming.
+
+00:03:34.910 --> 00:03:38.900
+Again, I don't think that we need to do anything
+to that, it all looks perfectly straightforward
+
+00:03:38.900 --> 00:03:44.530
+right now. Some people were asking about zooming
+in and out smoothly, but you can look that
+
+00:03:44.530 --> 00:03:48.840
+up in the discussions. Okey Doke, the helicopter,
+I'm sure we're going to need to do some work
+
+00:03:48.840 --> 00:03:53.070
+on the helicopter, because we're going to
+be simplifying the helicopter. Let's think
+
+00:03:53.070 --> 00:03:59.120
+about it. The helicopter just has a wacky
+wacky sound on it, for want of a better word,
+
+00:03:59.120 --> 00:04:03.370
+which is if we look at it just attached to
+the AudioSource. The clip is defined from
+
+00:04:03.370 --> 00:04:08.910
+the beginning, and it plays on awakened loops,
+this helicopter sound. So, we don't actually
+
+00:04:08.910 --> 00:04:14.090
+need to access an AudioSource in script. I'm
+just going to make sure this helicopter sound
+
+00:04:14.090 --> 00:04:19.190
+is aware that it is, because .oggs are causing
+people problems on Windows. OK, so back over
+
+00:04:19.190 --> 00:04:24.970
+in the script, then. We don't need access
+to the audio clip anymore. I do want to keep
+
+00:04:24.970 --> 00:04:29.970
+track of where the helicopter is being called,
+but again we don't need access to an audio
+
+00:04:29.970 --> 00:04:35.940
+source. We do want the Rigidbody and then,
+the red will tell us whatever lines to delete.
+
+00:04:35.940 --> 00:04:43.310
+The audioSource there, and these two lines
+about audioSource. Fantastic! We're actually
+
+00:04:43.310 --> 00:04:50.060
+going to, rather than have a method called call, I'm going to have a... It can just be
+
+00:04:50.060 --> 00:04:54.940
+protected it doesn't need to have a public
+for private, it can just be default. But instead
+
+00:04:54.940 --> 00:05:05.040
+of Call, I'm going to have this OnDispatchHelicopter
+() message, and we won't worry at the helicopter
+
+00:05:05.040 --> 00:05:11.150
+level about whether it's called or not, we'll
+worry about that somewhere else. So, OnDispatchHelicopter
+
+00:05:11.150 --> 00:05:19.680
+() we are going to log that the helicopter
+has been dispatched, set a velocity, and say
+
+00:05:19.680 --> 00:05:23.900
+that the call is true. That will do! So, it's
+very similar, but instead of using a called
+
+00:05:23.900 --> 00:05:30.050
+method, we're going to use a OnDispatchHelicopter
+() message there. OK, and I seem to have an
+
+00:05:30.050 --> 00:05:37.020
+extra closing bracket, for some reason. Fantastic!
+So, yep that's fine. Now, we won't worry about
+
+00:05:37.020 --> 00:05:39.600
+the fact that the player doesn't work. I'm
+just going to step through the scripts, one
+
+00:05:39.600 --> 00:05:43.970
+at a time, refactoring them as I go. So, let's
+go to innerVoice. How is innerVoice gong to
+
+00:05:43.970 --> 00:05:48.760
+change? We created innerVoice, added it to
+that sub-object of the player, but we never
+
+00:05:48.760 --> 00:05:53.040
+actually wrote any script. So, innerVoice
+is just going to have a list of all the things
+
+00:05:53.040 --> 00:05:57.639
+that the innerVoice may say. One of those
+is an audio clip called whatHappened; What
+
+00:05:57.639 --> 00:06:02.110
+the hell happened type of thing. And we're
+going to have another clip explicitly listed
+
+00:06:02.110 --> 00:06:08.820
+in here called goodLandingArea; So, hey I've
+found a great landing area type of thing.
+
+00:06:08.820 --> 00:06:15.860
+We're going to have a private AudioSource,
+which is going to go and find the audioSource;
+
+00:06:15.860 --> 00:06:27.800
+component. So, let's do that. The audioSource
+= GetComponent&lt;AudioSource&gt; (); and we just
+
+00:06:27.800 --> 00:06:32.050
+have some squiggle's and a semicolon. Fantastic!
+What else do we need to do with the Start.
+
+00:06:32.050 --> 00:06:36.970
+We're at the very beginning, we may as well
+set the first audio clip. So, audioSource.clip
+
+00:06:36.970 --> 00:06:39.840
+= whatHappened; So, the first thing we are
+going to say, is "What happened", when we
+
+00:06:39.840 --> 00:06:43.960
+arrive in the space, and we may as well go
+ahead and play it from the beginning. You
+
+00:06:43.960 --> 00:06:49.270
+could just do this by attaching that clip
+in the Inspector and saying Play, at the Start,
+
+00:06:49.270 --> 00:06:54.550
+this is just an alternative for you. We're
+not going to need the update, but the innerVoice
+
+00:06:54.550 --> 00:06:59.590
+is going to need to know that when we've found
+a clear area. So, OnFindClearArea (). I like
+
+00:06:59.590 --> 00:07:06.169
+to start with On, to be consistent with Unity.
+Then, we may as well print out the name of
+
+00:07:06.169 --> 00:07:11.430
+this GameObject, i.e. innerVoice, this component
+this script, innerVoice, and then, the fact
+
+00:07:11.430 --> 00:07:16.870
+that this message has been received. It's
+going to help us in the Console to see exactly
+
+00:07:16.870 --> 00:07:22.389
+what's going on. So, we'll see that innerVoice
+found clear area, and then, we may as well
+
+00:07:22.389 --> 00:07:27.669
+change the clip across to to goodLandingArea;
+So, he's going to go, "Hey, this seems like
+
+00:07:27.669 --> 00:07:31.900
+a good landing area, I'm going to put out
+a flare." And then, we're just going to go
+
+00:07:31.900 --> 00:07:39.780
+and play that AudioSource there. OK, and then,
+we need to wait a little bit, so we're going
+
+00:07:39.780 --> 00:07:43.230
+to Invoke ("CallHeli" and you're going to
+need this type of thing in your challenge,
+
+00:07:43.230 --> 00:07:52.860
+in a minute, but we'll do this after goodLandingArea.Length
+And we could immediately call the heli or
+
+00:07:52.860 --> 00:07:57.730
+we could do it a second after maybe this broadcast
+is finished. So, he's going to say "Hey, I've
+
+00:07:57.730 --> 00:08:00.660
+found a great landing area, I'm going to put
+out a flare and call the helicopter", and
+
+00:08:00.660 --> 00:08:07.760
+then, it will play that and then it will wait
+for the amount of time that, that sample lasts,
+
+00:08:07.760 --> 00:08:11.840
+plus an extra second before it Invokes a new
+method. Now, because of the way Invoke works,
+
+00:08:11.840 --> 00:08:16.130
+we can only supply a string name, we're having
+to create ourselves a simple new method called
+
+00:08:16.130 --> 00:08:21.400
+CallHeli (), here. And that can do whatever
+we need to do, which is going to send the
+
+00:08:21.400 --> 00:08:30.300
+message updwards, and the message is going
+to be ("OnMakeInitialHeliCall"); And that's
+
+00:08:30.300 --> 00:08:36.219
+going to send the message upwards, from the
+innerVoice, through the player, right up to
+
+00:08:36.219 --> 00:08:42.990
+the radio system for anything that needs to
+receive it to receive it. OK, so that's ("OnMakeInitialHeliCall");.
+
+00:08:42.990 --> 00:08:46.300
+What other scripts have we got in here? The
+player, how do we need to change the player?
+
+00:08:46.300 --> 00:08:50.220
+Well, let's take a look. We're nearly there,
+by the way. You are going to be writing the
+
+00:08:50.220 --> 00:08:54.750
+final script in this series, which is going
+to be the radio system itself. So, let's take
+
+00:08:54.750 --> 00:08:58.120
+a look at the Player. What needs to be on
+the Player, what doesn't? The Player no longer
+
+00:08:58.120 --> 00:09:02.529
+needs a reference to the helicopter, in our
+new architecture. It still wants the spawn
+
+00:09:02.529 --> 00:09:09.730
+points. We don't need to know whatHappened.
+The whatHappened AudioClip is going to be
+
+00:09:09.730 --> 00:09:14.860
+attached to the innerVoice. Remember, it's
+an innerVoice thing happening, so it's nice,
+
+00:09:14.860 --> 00:09:19.020
+it's separated out. What else have we got.
+We've got some things to do with re-spawning,
+
+00:09:19.020 --> 00:09:25.690
+spawn points, etc. Last re-sapawn toggle,
+I might rename that LastRespawnToggle. Now,
+
+00:09:25.690 --> 00:09:29.640
+we're not really using Player spawning, at
+the moment, but there's no point in removing
+
+00:09:29.640 --> 00:09:33.450
+this functionality. And then, the innerVoice
+is no longer directly on the Player, so we
+
+00:09:33.450 --> 00:09:38.580
+remove that reference to innerVoice, which
+means that we can remove all this rubbish
+
+00:09:38.580 --> 00:09:44.080
+here about finding AudioSources and sorting
+them by priority. That can all just go. So,
+
+00:09:44.080 --> 00:09:48.860
+all we do on Start is just find the spawn
+points. Then, in Update, we have a bunch of
+
+00:09:48.860 --> 00:09:52.240
+stuff to do with the re-spawning, which we
+may as well leave where it is, including the
+
+00:09:52.240 --> 00:09:58.950
+re-spawn method. And now, when we find a clear
+area, let's just take a completely fresh view
+
+00:09:58.950 --> 00:10:03.420
+on finding a clear area. What are we going
+to do, when we find a clear area? Well, actually,
+
+00:10:03.420 --> 00:10:08.570
+all we're going to do, as far as the Player's
+behavior, is we're just going to drop a flare.
+
+00:10:08.570 --> 00:10:13.140
+So, the clear area is going to broadcast a
+message upwards, and various things are going
+
+00:10:13.140 --> 00:10:16.830
+to hear it, including the radio system, but
+the player himself is just going to drop a
+
+00:10:16.830 --> 00:10:21.390
+flare. Not immediately! He's going to say
+something like, "This sounds like a good area,
+
+00:10:21.390 --> 00:10:25.670
+I'm going to drop a flare and call a helicopter."
+So, he wants to ("DropFlare") which is going
+
+00:10:25.670 --> 00:10:30.750
+to be a method that we'll create in a moment,
+after say 3 seconds. And then, you can have
+
+00:10:30.750 --> 00:10:36.820
+another message, DropFlare, it's a method,
+and that's a very simple thing that is going
+
+00:10:36.820 --> 00:10:40.610
+to drop a flare. So, for now, just say drop
+a flare. It will be a subject of a future
+
+00:10:40.610 --> 00:10:48.070
+lecture, to create and drop the landing area.
+OK, so is that all building. That seems to
+
+00:10:48.070 --> 00:10:53.870
+be building. Fantastic! Alright, so finally,
+it's your job to write the last script, which
+
+00:10:53.870 --> 00:10:58.500
+ties it all together, which is the RadioSystem,
+so I want you to write RadioSystem.cs. I want
+
+00:10:58.500 --> 00:11:04.080
+you to make a void on make initialHeliCall
+method. I want you to play initialHeliCall,
+
+00:11:04.080 --> 00:11:10.790
+there's an audio clip, immediately. One second
+after that finishes, play initialCallReply,
+
+00:11:10.790 --> 00:11:16.940
+and then, send a message to all the children
+called, called "OnDispatchHelicopter". Alright,
+
+00:11:16.940 --> 00:11:23.839
+good luck with that! And, I'll see you in
+a second. Cool welcome back! So, let's just
+
+00:11:23.839 --> 00:11:29.990
+get the helicopter's RadioSystem working.
+So, what are we going to write in the RadioSystem?
+
+00:11:29.990 --> 00:11:35.860
+Well, let's have a little think about it.
+It's going to need a couple of public audio
+
+00:11:35.860 --> 00:11:40.649
+clips. One of them is going to be called initialHeliCall;
+You see it's much nicer, because everything
+
+00:11:40.649 --> 00:11:46.029
+sits against the object where it naturally
+should site, right. All the radio clips are
+
+00:11:46.029 --> 00:11:52.550
+against the radio, all the thoughts are against
+the innerVoice, etc. It's really hard to talk
+
+00:11:52.550 --> 00:11:56.690
+and type something completely different, at
+the same time. I seem to be doing it though.
+
+00:11:56.690 --> 00:12:01.470
+OK, so the private AudioSource, this gets
+boring doesn't it. We have to keep doing that.
+
+00:12:01.470 --> 00:12:06.290
+We could almost make a keyboard shortcut for
+that. So, let's just go find that audioSource
+
+00:12:06.290 --> 00:12:16.940
+again = GetComponent of type &lt;AudioSource&gt;
+() Boosh, boom, bang, wallop! Fantastic! Alright
+
+00:12:16.940 --> 00:12:23.089
+now, we need this on... I said I want you
+to make a void OnMake initial helicall, did
+
+00:12:23.089 --> 00:12:31.040
+I say? What was the name of the method? void
+OnMakeInitialHeliCall, I think. Now, is that
+
+00:12:31.040 --> 00:12:37.779
+what we used in the other script? Let me just
+see what we did. Clear area, send message
+
+00:12:37.779 --> 00:12:41.570
+on final clear area, that's fine. What other
+messages? I'm just looking around to make
+
+00:12:41.570 --> 00:12:47.720
+sure we get the message names right. OnFindClearArea,
+matches OnFindClearArea good. OnFindClearArea,
+
+00:12:47.720 --> 00:13:00.500
+yeah. OnMakeInitialHeliCall, that's right.
+It's a 
+good idea to cut and paste message names,
+
+00:13:00.500 --> 00:13:05.850
+because you don't get any auto-complete help
+with them. We may as well, just print out
+
+00:13:05.850 --> 00:13:10.990
+that this component has made an initial heli
+call, especially while I've got it in the
+
+00:13:10.990 --> 00:13:15.870
+paste bugger, just so that the console gives
+us some usefulness. OK, so the audioSource.clip
+
+00:13:15.870 --> 00:13:27.279
+= initialHeliCall; And then, as I did in one
+of the other examples, a few minutes ago,
+
+00:13:27.279 --> 00:13:34.520
+we want an audioSource.Play (); that, with
+some brackets, and then, we want to use another
+
+00:13:34.520 --> 00:13:39.060
+Invoke, which delays the method. There are
+other ways of doing this, I just want to show
+
+00:13:39.060 --> 00:13:43.190
+you this one. I'm going to call it ("InitialReply",
+and we're going to do it after the length
+
+00:13:43.190 --> 00:13:52.080
+of the initialHeliCall Why is initialHeliCall
+not auto-completing? Have I done something
+
+00:13:52.080 --> 00:13:57.910
+silly? No, I'm just going to cut and past
+and force it to behave. There you go .length
+
+00:13:57.910 --> 00:14:04.519
+plus another second. Just space it out a little
+bit. Cool! So, he goes something like this.
+
+00:14:04.519 --> 00:14:08.860
+You know, "Hey I'm a soldier, I'm lost, I'm
+calling the helicopter" blah blah blah.
+
+00:14:08.860 --> 00:14:13.399
+A second later, we want the reply to come
+back from the helicopter, so it's going to
+
+00:14:13.399 --> 00:14:25.360
+be InitialReply () , and that is just going
+to set the audioSource.clip to initialCallReply;
+
+00:14:25.360 --> 00:14:40.660
+and then, we do audioSource.Play (); and then,
+we do BroadcastMessage ("OnDispatchHelicopter");
+
+00:14:40.660 --> 00:14:47.620
+or probably better to be consistent and say,
+OnDispatchHelicopter, which is what we said
+
+00:14:47.620 --> 00:14:52.260
+in helicopter. Good it fits! OK cool! Let's
+try it! That's a lot of writing code there,
+
+00:14:52.260 --> 00:14:58.080
+without testing it. I have rehearsed this,
+I just thought I'd get it done quickly. So,
+
+00:14:58.080 --> 00:15:01.050
+what's happening? Now, I think what we're
+going to need to do is make sure that we've
+
+00:15:01.050 --> 00:15:07.899
+dragged into these scripts, all of the necessary
+voice clips here. So, we haven't. None of
+
+00:15:07.899 --> 00:15:10.870
+these voice clips are dragged in. Now, I'm
+going to do that in a separate video. I'm
+
+00:15:10.870 --> 00:15:15.540
+going to record all of these voice clips,
+in one go, I'm going to save them as mp3's
+
+00:15:15.540 --> 00:15:18.959
+instead of .oggs, because .oggs don't work
+in Windows. And then, we'll come and drag
+
+00:15:18.959 --> 00:15:23.110
+and attach and make all these things work,
+so that'll do for this video, well done in
+
+00:15:23.110 --> 00:15:27.080
+your refactoring. I'm going to quickly flip
+through all of these scripts now, so that
+
+00:15:27.080 --> 00:15:33.420
+you can see them on the screen easily. That
+one, the Daycycle, the Eyes, didn't change
+
+00:15:33.420 --> 00:15:42.079
+those, helicopter, there's your player. There's
+your innerVoice, and there's your radio system.
+
+00:15:42.079 --> 00:15:48.360
+Now, also please remember that you can go
+over to GitHub and once you get to GitHub,
+
+00:15:48.360 --> 00:15:55.899
+even if you don't have an account, you can
+go to Complete Unity Developer. So, www.github.com/CompleteUnityDeveloper,
+
+00:15:55.899 --> 00:16:01.959
+and then from there, you can go into the Zombie
+Runner repo, and if you look at the Commits,
+
+00:16:01.959 --> 00:16:06.930
+you'll find shortly after I submit this video,
+ZR23 will be this video, and you can always
+
+00:16:06.930 --> 00:16:14.360
+download by clicking over here and down there,
+the .zip. So, let's go back. You go to the
+
+00:16:14.360 --> 00:16:18.839
+master branch commits, which are at this URL,
+you click this little guy here, Brows the
+
+00:16:18.839 --> 00:16:22.390
+Repository at that point, and you click Download
+.zip, so you can always get my code that way,
+
+00:16:22.390 --> 00:16:25.709
+as well. Cool! Alright thanks for watching!
+And I shall see you soon!
+

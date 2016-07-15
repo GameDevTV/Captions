@@ -1,0 +1,374 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:10.269
+Hello, and welcome back! In this video we're going to be looking at how to use layers to
+
+00:00:10.269 --> 00:00:14.549
+control collisions. So we have some problems in our game. The first one we had
+
+00:00:14.549 --> 00:00:18.939
+was, the player shoots itself when its
+firing. The lasers from the player and
+
+00:00:18.939 --> 00:00:24.140
+the enemies collide with each other, when
+the projectiles from the enemies hit
+
+00:00:24.140 --> 00:00:27.990
+other enemies and kill them, which it
+makes the game, too, easy if the enemies are
+
+00:00:27.990 --> 00:00:33.570
+shooting each other. So really we want to be able to control the collisions of those
+
+00:00:33.570 --> 00:00:36.670
+projectiles. We want to be able to control
+the collisions in our game in a
+
+00:00:36.670 --> 00:00:40.780
+structured way, to say these things
+collide with these things, and these
+
+00:00:40.780 --> 00:00:46.239
+things do not collide with these things.
+So let's, without further ado, take a look at
+
+00:00:46.239 --> 00:00:52.050
+layers. So we've got a game here, and if I go back to my scene view and next
+
+00:00:52.050 --> 00:00:58.170
+select my player, you will see this on
+the top of the Inspector. You will see this layer
+
+00:00:58.170 --> 00:01:01.710
+drop down, and right now, the layer has a
+bunch of different ones and this is the
+
+00:01:01.710 --> 00:01:07.110
+layer we're going to be using to change how collisions work. So let's without
+
+00:01:07.110 --> 00:01:10.750
+getting started, we can see we've got
+some layers here. Without moving
+
+00:01:10.750 --> 00:01:14.970
+anywhere else... Without me doing anything, we're going to add a new layer. So we've got the
+
+00:01:14.970 --> 00:01:18.880
+player selected. So let me create a new
+layer, and you'll see you'll be taken straight to the
+
+00:01:18.880 --> 00:01:23.200
+Tags and Layer View. That lets you
+configure tags and layers, and you've
+
+00:01:23.200 --> 00:01:25.170
+got different options. You've got tags, you've got
+
+00:01:25.170 --> 00:01:30.220
+sorting layers, and we will go over those
+in some other videos. For now, we're just
+
+00:01:30.220 --> 00:01:34.470
+worrying about layers and they're useful
+collision. So, right now, I've got a player.
+
+00:01:34.470 --> 00:01:39.409
+I'm going to put my player in a new layer called Friendlies, and this
+
+00:01:39.409 --> 00:01:45.250
+layer will be about all my friendly entities. And at this point, we've got a
+
+00:01:45.250 --> 00:01:50.829
+Friendly Layer, and the player itself now
+can be added to the Friendlies
+
+00:01:50.829 --> 00:01:55.229
+Layer. You should see that, in the
+Inspector, there is now a Friendlies
+
+00:01:55.229 --> 00:01:59.280
+Layer coming up when you click on the
+drop down. So let's do that. So what does
+
+00:01:59.280 --> 00:02:04.890
+that mean, then? Well, the Friendlies Layer
+lets us select how any
+
+00:02:04.890 --> 00:02:08.200
+item, that has been attached to that layer, will react
+
+00:02:08.200 --> 00:02:11.060
+with collisions. Let's take a look at how
+we do that, now.
+
+00:02:11.060 --> 00:02:15.819
+So if I go into my Edit Menu, I go into
+my Project Settings, and I go Physics 2D.
+
+00:02:15.819 --> 00:02:20.400
+Remember this is a 2D world,
+there's the exact same options for 3D,
+
+00:02:20.400 --> 00:02:24.580
+but in fact,  because we're in 2D we're using 2D components. We can see
+
+00:02:24.580 --> 00:02:29.000
+we've got a Rigidbody2D; we've got a modified Physics2D. And here, at the bottom
+
+00:02:29.000 --> 00:02:33.590
+of the Physics2D Inspector pane, you can see this little matrix of
+
+00:02:33.590 --> 00:02:39.720
+check boxes, and what this matrix of
+checkboxes does is it
+
+00:02:39.720 --> 00:02:42.700
+lets you select what collides with what.
+
+00:02:42.700 --> 00:02:46.250
+And at the moment, everything collides
+with everything else, right? And you can
+
+00:02:46.250 --> 00:02:50.209
+see that if, for example, I unchecked
+Friendlies with Friendlies they would,
+
+00:02:50.209 --> 00:02:53.860
+now, stop colliding with each other. So
+the friendlies, anything that's attacked
+
+00:02:53.860 --> 00:02:57.599
+friendlies, would stop colliding with
+anything else that's also attached to the
+
+00:02:57.599 --> 00:03:00.030
+Friendlies Layer. So that's how you
+control
+
+00:03:00.030 --> 00:03:05.849
+collisions in a game. So, now, really it's
+up to you. Now, you're next job is going to be
+
+00:03:05.849 --> 00:03:13.370
+to move the enemy... to create the Enemies and any projectiles and Friendly
+
+00:03:13.370 --> 00:03:19.950
+Projectiles Layer and make sure that all the prefabs in the game are added to the
+
+00:03:19.950 --> 00:03:24.579
+right layers. So, for the friendlies, I
+want just the player ship. For the
+
+00:03:24.579 --> 00:03:28.980
+enemies I want the enemies to be added
+to that layer, and the enemy
+
+00:03:28.980 --> 00:03:32.640
+projectiles should be the enemy lasers
+and the friendly projectiles should be
+
+00:03:32.640 --> 00:03:39.220
+the friendly lasers. So this is your job
+now, to go around,  just the way I've shown
+
+00:03:39.220 --> 00:03:42.850
+you. So feel free to rewind and play
+again to see how I adjusted it
+
+00:03:42.850 --> 00:03:49.450
+to put all the right GameObjects and prefabs in the appropriate
+
+00:03:49.450 --> 00:03:52.290
+layers. So you'll have to create three
+new layers thats
+
+00:03:52.290 --> 00:03:57.120
+Enemies,  Enemy Projectiles, and Friendly
+Projectiles, and you'll have to add all
+
+00:03:57.120 --> 00:04:05.280
+the right things to them. So, I'll see you
+very soon, when you've done all that. See you then.
+
+00:04:05.280 --> 00:04:11.900
+Ok cool! So let's show you how I would do that. So let's jump back. I've already got one layer, and
+
+00:04:11.900 --> 00:04:17.889
+you can always look at the layers by going to the Project Settings, just
+
+00:04:17.889 --> 00:04:21.070
+like you do for Physics2D, but instead of Physics2D you go for the Tags and Layers
+
+00:04:21.070 --> 00:04:26.790
+Menu. And you'll see that, now you have
+the layers in the Inspector. I'm
+
+00:04:26.790 --> 00:04:32.860
+just going to create all my layers here. So we've got enemies, we have enemy projectiles,
+
+00:04:32.860 --> 00:04:39.120
+and we have friendly projectiles. So why
+are we doing this? Why are we doing all this?
+
+00:04:39.120 --> 00:04:45.200
+Friendly Projectiles. Well, we're doing this,
+because we want to be able to control
+
+00:04:45.200 --> 00:04:49.010
+collisions. We don't want things to collide, when we don't want them to.
+
+00:04:49.010 --> 00:04:52.220
+The only thing we want to collide with
+each other are the enemy projectiles
+
+00:04:52.220 --> 00:04:55.640
+with the friendlies and the friendly
+projectiles with the enemies', right. We
+
+00:04:55.640 --> 00:04:59.880
+don't want friendly fire or anything
+like that. So let's get going with adding
+
+00:04:59.880 --> 00:05:03.850
+everything to the right layers. I'm just
+going to  jump into my Entities, grab my
+
+00:05:03.850 --> 00:05:09.979
+Enemy, so that's my Enemy Prefab, and change the layer in my prefab to Enemies. I'm going to
+
+00:05:09.979 --> 00:05:13.900
+do the same with my enemy laser. I'm going to change the layer to Enemy
+
+00:05:13.900 --> 00:05:20.160
+Projectiles. Now, I'm Jumping into my player. I'm going to grab my Player Laser Prefab. Remember it's
+
+00:05:20.160 --> 00:05:24.640
+not the sprite, but the prefab. I'm going
+to add that to the Friendly Projectiles;
+
+00:05:24.640 --> 00:05:30.830
+similarly for my player. I've got a default, because I didn't apply my change to the player objects.
+
+00:05:30.830 --> 00:05:36.350
+I'm just going to set that to Friendlies,
+so now, I've got all four objects in the right
+
+00:05:36.350 --> 00:05:41.680
+layers. So now, if I jump back... if I save
+this game, now Command Save to save my
+
+00:05:41.680 --> 00:05:46.539
+scene. If I press play the behavior
+really hasn't changed at all, we really
+
+00:05:46.539 --> 00:05:50.400
+haven't changed... although you'll see that this is happening, right here. We've got...
+
+00:05:50.400 --> 00:05:55.229
+some projectiles are colliding with each
+other, which is definitely not what we
+
+00:05:55.229 --> 00:05:59.500
+want to happen. So now, how do we get the projectiles to not collide with each
+
+00:05:59.500 --> 00:06:02.860
+other. That was a perfect example of projectiles colliding, because there's
+
+00:06:02.860 --> 00:06:06.500
+projectiles moving downwards and projectiles moving upwards. They collide, they stop,
+
+00:06:06.500 --> 00:06:13.400
+and then, they get stuck. So now, we're
+going to go into our Project Settings, our
+
+00:06:13.400 --> 00:06:18.560
+Physics 2D Settings, and we have
+this matrix at the bottom. Now, remember I unchecked Friendlies with Friendlies.
+
+00:06:18.560 --> 00:06:22.220
+That's exactly what we want, and we want to change the bottom of that matrix, with
+
+00:06:22.220 --> 00:06:25.080
+the friendlies, the enemies, the enemy
+projectiles, and the friendly projectiles.
+
+00:06:25.080 --> 00:06:31.650
+Let me make that a little bit wider for you, so we can see what's going on. Here we go! And with that
+
+00:06:31.650 --> 00:06:36.880
+matrix, I want to deselect everything and
+keep only two collisions. So, the only two
+
+00:06:36.880 --> 00:06:40.680
+collisions I'm going to be keeping, so I'm deselecting everything and then I can
+
+00:06:40.680 --> 00:06:47.300
+reselect it by hand. The only collisions I
+want is friendlies, with the enemy
+
+00:06:47.300 --> 00:06:52.490
+projectiles, so that's this one here, and
+then, the enemies with
+
+00:06:52.490 --> 00:06:56.990
+the friendly projectiles, which is this
+collision right here. So now, I've got my
+
+00:06:56.990 --> 00:07:01.139
+two collisions going. That should have the behavior we want, and we can try that,
+
+00:07:01.139 --> 00:07:04.950
+now. That should be all correct. Everything should be working as we
+
+00:07:04.950 --> 00:07:11.200
+expect it to, but now it's difficult to
+get the case to happen to occur. But
+
+00:07:11.200 --> 00:07:15.510
+now the collisions between say my enemy
+projectiles and my friendly projectiles,
+
+00:07:15.510 --> 00:07:19.130
+simply won't occur, so we'll never get that case where two projectiles hit each other and
+
+00:07:19.130 --> 00:07:23.669
+get stuck in the middle of the game. And
+we can check this by, let's say, disabling
+
+00:07:23.669 --> 00:07:30.130
+the friendly projectiles and... or rather, disabling the friendlies and
+
+00:07:30.130 --> 00:07:35.280
+enemy projectiles, and you'll see that I
+do not get hit by the enemies, rather they go
+
+00:07:35.280 --> 00:07:40.540
+right through me. I don't whether you can notice that, but now, I've disabled the projectiles and their
+
+00:07:40.550 --> 00:07:46.270
+lasers go straight through my player's
+ship. So that was it! That was a nice short
+
+00:07:46.270 --> 00:07:49.190
+video! Let's reenable that, make sure
+I don't forget it.
+
+00:07:49.190 --> 00:07:53.570
+Reenable, save my scene, and that was a nice short video to show you how to use
+
+00:07:53.570 --> 00:07:58.930
+layers, to control collisions within your physics settings. And remember, this is the same
+
+00:07:58.930 --> 00:08:05.639
+in 2D and 3D, so you can do exactly the
+same in your 3D world, when you make a 3D game. So that was it.
+
+00:08:05.639 --> 00:08:09.310
+Hope you enjoyed that,  hope you found it useful, and I will see you in another video!
+
+00:08:09.310 --> 00:08:10.780
+Bye for now.
+

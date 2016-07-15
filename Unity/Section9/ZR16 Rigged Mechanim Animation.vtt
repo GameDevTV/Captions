@@ -1,0 +1,415 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:09.099
+Hey! So, we're going to look at Rigged Mechanim Animation. Now, what's that mean? We're going to
+
+00:00:09.099 --> 00:00:14.280
+be introducing Unity's mechanim
+system, it's Unity's animation system for
+
+00:00:14.280 --> 00:00:19.020
+bipeds and humanoids and things. We'll
+be exploring how Ethan is constructed
+
+00:00:19.020 --> 00:00:24.180
+and finding the rigging and muscle tools,
+within Ethan, so we can have a play
+
+00:00:24.180 --> 00:00:29.980
+with how he moves. So, let's just take a look at Ethan over here, so click on your
+
+00:00:29.980 --> 00:00:34.399
+zombie instance and in my case there it is. It's a little bit close to a tree for
+
+00:00:34.399 --> 00:00:40.290
+my liking, so I'm just going to move it across and maybe down a bit. Ok, so what is this thing? I mean,
+
+00:00:40.290 --> 00:00:43.710
+we've just dropped it in this
+Third Person Character Controller,
+
+00:00:43.710 --> 00:00:46.219
+it's all very well doing that, but the
+problem is we don't really
+
+00:00:46.219 --> 00:00:50.890
+understand how it works. And you may have already had the urge to modify Ethan's movement
+
+00:00:50.890 --> 00:00:56.230
+or appearance, so we need to understand
+how he works to do that. So, there is what
+
+00:00:56.230 --> 00:01:01.410
+I call zombie 01, and let's just take a look at how this prefab has been composed.
+
+00:01:01.410 --> 00:01:07.430
+So, we have an Animator, we've seen the animator before in Glitch Garden and
+
+00:01:07.430 --> 00:01:11.729
+a Animation Controller, we may as well look at that Animation Controller. I'll probably put it
+
+00:01:11.729 --> 00:01:16.420
+down here, which is where we've been used to seeing it. So, there's an Animation
+
+00:01:16.420 --> 00:01:20.280
+Controller, down there. It's got some
+differences, it's using something called a Blend Tree
+
+00:01:20.280 --> 00:01:26.189
+in here, which is new to you, but
+we'll look at that later in the course.
+
+00:01:26.189 --> 00:01:30.590
+So, anyway he has an Animation Controller. He also has an avatar, and it's the Avatar really
+
+00:01:30.590 --> 00:01:35.290
+we're going to be focusing on more during
+this video. So, let's do that now, while we're
+
+00:01:35.290 --> 00:01:39.740
+here. The Avatar, if you click on it and you have your Project Pane open,
+
+00:01:39.740 --> 00:01:44.450
+it will go and find his avatar, right down in
+the Third Person Character Models here,
+
+00:01:44.450 --> 00:01:49.290
+and if you expand out Ethan, we'll just click Avatar over on the Inspector, on the right,
+
+00:01:49.290 --> 00:01:54.320
+it'll go straight to Ethan's avatar. Now, fairly hidden inside Ethan's avatar is a button,
+
+00:01:54.329 --> 00:01:59.469
+saying Configure Avatar, which you may as well go ahead and click. So, try and find that. And you can save
+
+00:01:59.469 --> 00:02:03.939
+the scene, I've moved Ethan around a bit, that's fine. And look, you've got a whole new thing here, and this
+
+00:02:03.939 --> 00:02:08.140
+is called a Rigging Tool, so let's look what's happened when I click that configure
+
+00:02:08.140 --> 00:02:12.830
+button. It's dropped another Ethan clone
+into the scene here, on the left hand
+
+00:02:12.830 --> 00:02:17.819
+side, just temporarily while we play with
+the skeleton, and if you expand that out, you'll
+
+00:02:17.819 --> 00:02:20.890
+see that it's comprised of a body and some glasses. We'll talk about that in a
+
+00:02:20.890 --> 00:02:25.989
+minute, but for this bit what's relevant is
+the skeleton. And what Ethan consists
+
+00:02:25.989 --> 00:02:31.150
+of is a set of bones, which are defined by a bunch of transforms. There you are you can
+
+00:02:31.150 --> 00:02:34.660
+see the bones. And then, there's a
+hierarchy of bones, from the hips,
+
+00:02:34.660 --> 00:02:39.569
+connect to the spine and the leg. You know the hip joint connects to the leg joint, and the leg
+
+00:02:39.569 --> 00:02:43.400
+joint connects to the knee joint. I'm sure there was a kids' rhyme
+
+00:02:43.400 --> 00:02:48.060
+about that. So, we have a hierarchy of all
+his bones drilling through and it's
+
+00:02:48.060 --> 00:02:51.750
+very important they're arranged properly. And you can either click in the Inspector or on the
+
+00:02:51.750 --> 00:02:56.670
+Scene View or actually on these little
+green dots, and you'll see that for the
+
+00:02:56.670 --> 00:03:00.590
+head you can click on the left hand, the
+right hand. And if I had a bit more
+
+00:03:00.590 --> 00:03:03.550
+vertical screen space, you'd see a lot
+more of these bone definitions. And
+
+00:03:03.550 --> 00:03:07.180
+what's happened here is, that when this
+character was set up, all of these
+
+00:03:07.180 --> 00:03:12.780
+transforms here define the bones, and
+the outside is defined by the mesh
+
+00:03:12.780 --> 00:03:17.400
+renderer, the skin mesh renderer. We'll look at that in a second. And this gives Unity
+
+00:03:17.400 --> 00:03:23.510
+the ability to understand how this
+humanoid character is rigged, i.e. how the bones
+
+00:03:23.510 --> 00:03:27.420
+relate to all of these different positions.
+
+00:03:27.420 --> 00:03:30.060
+Ok, so have a look at that, and that will be
+part of your challenge, will be to have a
+
+00:03:30.060 --> 00:03:33.670
+good look around at this stuff. And the
+other fun thing is the Muscles Tab
+
+00:03:33.670 --> 00:03:39.840
+here, and that puts the clone into a
+different pose. And if you look at him here,
+
+00:03:39.840 --> 00:03:43.250
+you'll see he's sitting in a slightly
+awkward floaty pose, and what this does
+
+00:03:43.250 --> 00:03:48.980
+is, it allows you to define, by the moving
+groups of muscles like this or by moving
+
+00:03:48.980 --> 00:03:56.110
+individual muscles like maybe the left
+leg, the range of motion. Now, because
+
+00:03:56.110 --> 00:03:59.260
+the animations for this guy have already
+been defined, it's not actually going to
+
+00:03:59.260 --> 00:04:03.200
+change very much, depending on the state and how the animation was set up. But if you're
+
+00:04:03.200 --> 00:04:07.650
+animating him from a start, you might very well for a zombie, for example, want
+
+00:04:07.650 --> 00:04:11.650
+to restrict the range of motion of his
+legs, and the way you do that is, you drill down into a
+
+00:04:11.650 --> 00:04:15.780
+particular muscle group. And you can
+actually reduce the possible range of
+
+00:04:15.780 --> 00:04:21.030
+motion, by changing one extreme, the
+other extreme, and then, the offset by
+
+00:04:21.030 --> 00:04:24.699
+moving the whole thing. And in fact, you can even see a little indicator here, right by his hip,
+
+00:04:24.699 --> 00:04:27.940
+which gives you some indication of how
+wide a range of motion we're dealing with.
+
+00:04:27.940 --> 00:04:32.960
+So, if I was to restrict his leg motion,
+right down and then, try and move it, you'll see that
+
+00:04:32.960 --> 00:04:37.009
+we can stop it moving forward at all.
+Alright, so it's a pretty cool system!
+
+00:04:37.009 --> 00:04:41.410
+It understands basically, in summary, how
+the bones are connected together, right
+
+00:04:41.410 --> 00:04:45.630
+across the body and then, how the muscle movements are restricted. Pretty cool right!
+
+00:04:45.630 --> 00:04:51.220
+Ok, I'm going to zoom all the way back. Now, I'm going to come out of this system, by clicking Done at
+
+00:04:51.220 --> 00:04:54.660
+the bottom right of the Inspector. Go back
+to the clone and keep working down him.
+
+00:04:54.660 --> 00:04:59.060
+So, that's the avatar, and within the avatar,
+we have access to that whole configure
+
+00:04:59.070 --> 00:05:04.389
+avatar system, which is the muscle and bone system. Then, the rest of the Animator
+
+00:05:04.389 --> 00:05:08.330
+is kind of as before, he's got a Rigidbody and a Capsule Collider, as you can see, and the
+
+00:05:08.330 --> 00:05:13.199
+Navmesh Agent, which we've been
+using to have him automatically move
+
+00:05:13.199 --> 00:05:16.740
+himself from pathfinder and the
+environment. And then, it's got a couple
+
+00:05:16.740 --> 00:05:21.960
+of scripts on it. So, that is the essence of how he is put together. Now, the other thing I
+
+00:05:21.960 --> 00:05:26.870
+want to show you about Ethan, in this short video, is the Fundamental Top Level
+
+00:05:26.870 --> 00:05:30.960
+Construction. So, what I just showed you
+is at the root of Ethan, and then, he has
+
+00:05:30.960 --> 00:05:34.909
+a body here. Now, if we look at that body, it has something called a Skinned Mesh Renderer. If I turn it
+
+00:05:34.909 --> 00:05:39.889
+off it clearly disappears. Now, a Skinned Mesh Renderer is different to a normal mesh
+
+00:05:39.889 --> 00:05:43.849
+renderer, and the reason it's different is because it automatically helps to store the mesh,
+
+00:05:43.849 --> 00:05:48.650
+when things like arms move or any
+joint moves. So, if I look at his shoulder
+
+00:05:48.650 --> 00:05:54.099
+there and then, go to his skeleton and
+drill into, all the way through the spine
+
+00:05:54.099 --> 00:05:59.750
+to the neck, it's quite counter-intuitive at times, and then, all the way up to the left
+
+00:05:59.750 --> 00:06:04.120
+shoulder, for example, and get the Rotate
+Tool. Look as I rotate his shoulder, look
+
+00:06:04.120 --> 00:06:06.889
+carefully at the textures here in his chest,
+
+00:06:06.889 --> 00:06:11.510
+you see they kind of distort, and that's because the Skinned Mesh Renderer is doing a lot
+
+00:06:11.510 --> 00:06:15.159
+of work for us. So, the body has a special
+type of mesh renderer. Basically, if you
+
+00:06:15.159 --> 00:06:19.169
+were making a robot with hinge like joints, you wouldn't use a Skinned Mesh
+
+00:06:19.169 --> 00:06:21.240
+Renderer, you would just use a normal mesh renderer.
+
+00:06:21.240 --> 00:06:24.699
+When you're making something that has
+clothing on the outside or skin on the
+
+00:06:24.699 --> 00:06:27.990
+outside you want to use this very clever
+component, which will do this type of
+
+00:06:27.990 --> 00:06:33.610
+calculation for you. And it takes Ethan's body as a mesh, and it takes the root bone of
+
+00:06:33.610 --> 00:06:39.419
+his skeleton, which is the hips, as
+another parameter. Ok, so the other thing
+
+00:06:39.419 --> 00:06:43.440
+it's got is a set of glasses, that's been
+specified separately, that's also a
+
+00:06:43.440 --> 00:06:46.639
+Skinned Mesh Renderer. Now, you may ask why would you want it to be a skinned
+
+00:06:46.639 --> 00:06:51.340
+renderer for glasses? You don't have to, in this case. The benefit, of course, of it being
+
+00:06:51.340 --> 00:06:55.590
+a skinned renderer is, if you were to expand Ethan's head out then, the glasses would
+
+00:06:55.590 --> 00:06:59.710
+stretch with it, so they're kind of flexible
+glasses, which is cool. And then, the
+
+00:06:59.710 --> 00:07:03.750
+third object is a skeleton and you'll
+notice it's just a hierarchy of transforms,
+
+00:07:03.750 --> 00:07:08.830
+as we drill down it's just transforms on here, but these transforms define the bone
+
+00:07:08.830 --> 00:07:16.270
+positions, rotations, and even scales. Ok,
+so that is the purpose of this hierarchy,
+
+00:07:16.270 --> 00:07:22.060
+is to completely define this guy's skeleton, which as I
+
+00:07:22.060 --> 00:07:28.139
+said, if you go into the Mechanim System, is actually drawn for you. When, you zoom in, to the
+
+00:07:28.139 --> 00:07:31.400
+clone that comes temporarily into the
+scene, there you go, you can see he's got
+
+00:07:31.400 --> 00:07:35.530
+an inner skeleton. Alright, now Unity can
+actually what we call rig, which is
+
+00:07:35.530 --> 00:07:39.370
+putting these bones to a skin for you,
+provided that the thing that you have
+
+00:07:39.370 --> 00:07:44.969
+created in your 3D tool is humanoid-ish and is standing in a t-pose
+
+00:07:44.969 --> 00:07:50.849
+like this. But you will have had to
+define all the bones as well, all
+
+00:07:50.849 --> 00:07:53.870
+the positions and transforms of the bones. So, this is outside the scope of this
+
+00:07:53.870 --> 00:07:57.419
+course, at the moment, but I just want to
+show you how he's comprised so that Ethan no
+
+00:07:57.419 --> 00:08:02.580
+longer is a complete mystery. We'll take a
+look at his animations in a
+
+00:08:02.580 --> 00:08:07.540
+separate video. Ok cool! Thanks for watching! I have a little challenge for you, of course as always,
+
+00:08:07.550 --> 00:08:11.690
+which is I want you to save your project,
+and then, have a good play with Ethan
+
+00:08:11.690 --> 00:08:15.349
+yourself and his rigging. And try restricting some bone movements, see if you
+
+00:08:15.349 --> 00:08:19.849
+can make him a little bit more zombie
+like in the muscle system perhaps, and note
+
+00:08:19.849 --> 00:08:22.800
+where you get stuck, what works what
+doesn't work and just have a play and
+
+00:08:22.800 --> 00:08:26.690
+then, you can revert yourself back to
+whatever you saved. So, maybe zip up, save your project,
+
+00:08:26.690 --> 00:08:30.300
+both the project and the scene. Zip up
+the whole project folder perhaps,
+
+00:08:30.300 --> 00:08:33.669
+or use Version Control to take a
+snapshot. Have a good play! Break things!
+
+00:08:33.669 --> 00:08:37.250
+You'll learn most by breaking things, and note where you get stuck, maybe write down your
+
+00:08:37.250 --> 00:08:38.510
+questions, and I'll see you soon!
+

@@ -1,0 +1,672 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.909 --> 00:00:06.499
+Welcome to using CrossPlatformInputManager!
+In this video we'll be talking about what
+
+00:00:06.499 --> 00:00:12.710
+is this CrossPlatformInputManager thingy,
+how a Virtual control layer works, and we'll
+
+00:00:12.710 --> 00:00:18.279
+be setting-up and reading control values.
+Cool hey! By the way, how did you get on with
+
+00:00:18.279 --> 00:00:23.310
+the Version Control stuff, with all this Source
+Tree Log? So, there's three possibilities,
+
+00:00:23.310 --> 00:00:27.269
+I guess one is you've gotten along great,
+discovered a new thing and it's fantastic!
+
+00:00:27.269 --> 00:00:31.210
+So, well done, and you will not regret it,
+it will just get better and better as you
+
+00:00:31.210 --> 00:00:35.730
+uncover it's mysteries! Another possibility
+is you're already into Version Control, and
+
+00:00:35.730 --> 00:00:39.660
+it was a complete waste of time for you, so
+sorry about that. Ah, I guess another possibility
+
+00:00:39.660 --> 00:00:43.510
+is you struggled or didn't do it, so don't
+worry if you didn't, it doesn't matter. It's
+
+00:00:43.510 --> 00:00:47.850
+peripheral to this section, but it's something
+I wanted to introduce. I will show you how
+
+00:00:47.850 --> 00:00:51.460
+I use Version Control, as we go through, you
+can always go back to the beginning and watch
+
+00:00:51.460 --> 00:00:55.039
+again when you're ready to start using it.
+Maybe you need to wait until you're sold on
+
+00:00:55.039 --> 00:00:59.609
+the idea. OK, so let's talk about Virtual
+Controls, and then, actually do some coding
+
+00:00:59.609 --> 00:01:03.969
+in Unity. That would be cool wouldn't it!
+So, here's Keynote, my presentation program.
+
+00:01:03.969 --> 00:01:09.540
+I want to show you this, it's a slide made
+up of the Virtual Controller. So, imagine
+
+00:01:09.540 --> 00:01:14.580
+four different controller types, one called
+Touch, it's a touch screen on your mobile
+
+00:01:14.580 --> 00:01:20.980
+device. Mouse and keyboard, you're very familiar
+with for web, Mac or PC, Limux, etc. Gamepad
+
+00:01:20.980 --> 00:01:24.980
+of course, you could use a Gamepad on a console,
+you can use a Gamepad on a Mac or PC. I've
+
+00:01:24.980 --> 00:01:29.460
+got a PlayStation 4 controller sitting right
+next to my Mac, as we speak, and it's tethered
+
+00:01:29.460 --> 00:01:34.580
+by Bluetooth, which is kind of fancy. An Etc.
+Controller, an Etc. Controller is a very advanced
+
+00:01:34.580 --> 00:01:39.000
+form of controller, that I can't possibly
+go into here. So, all of those things could
+
+00:01:39.000 --> 00:01:45.000
+feed into a Virtual Controller; well, they
+do in terms of the CrossPlatformInputSystem,
+
+00:01:45.000 --> 00:01:48.310
+and then, what you do is you read from the
+Virtual Controller Layer. You use methods
+
+00:01:48.310 --> 00:01:53.420
+like float to get access, which will feed
+in a string like horizontal or vertical and
+
+00:01:53.420 --> 00:01:59.330
+it gives you back a number between -1 and
++1. Or you could use the method with signature
+
+00:01:59.330 --> 00:02:05.780
+Bool GetButton, and you would say Bool GetButton
+() fire, for example, or use a virtual name,
+
+00:02:05.780 --> 00:02:09.890
+layer of indirection in the Virtual Control
+Layer. So, buttons have names like Fire, Jump,
+
+00:02:09.890 --> 00:02:15.540
+etc. And axis have names, like Vertical, Horizontal,
+etc. and they can all be renamed and you query
+
+00:02:15.540 --> 00:02:20.750
+that layer. Now, regardless then of what control
+system is in use, whether it's touch or mouse,
+
+00:02:20.750 --> 00:02:25.720
+keyboard, etc. then, you use the same methods
+in your code to query the virtual layer, so
+
+00:02:25.720 --> 00:02:29.330
+that provides a layer of indirection, which
+means that when you change platforms, you
+
+00:02:29.330 --> 00:02:34.690
+don't need to change your code. Wicked hey!
+Another thing that's cool about this is that
+
+00:02:34.690 --> 00:02:40.800
+you can use code to drive commands into the
+Virtual Control Layer, therefore you could
+
+00:02:40.800 --> 00:02:46.170
+control your characters purely by code. Think
+about replays, think about rolling demos,
+
+00:02:46.170 --> 00:02:52.240
+hmm exciting. Alright, so let's just get this
+stuff working. Fantastic! So, let's go into
+
+00:02:52.240 --> 00:02:58.640
+Unity, I have an empty Unity project here,
+just gagging for me to play with the Virtual
+
+00:02:58.640 --> 00:03:03.900
+Control Layers. So, let's setup a really really
+simple Game Space. I'm going to put a cube
+
+00:03:03.900 --> 00:03:08.760
+in the Game Space, it's right at the origin
+there, and I think what I'll do is just scale
+
+00:03:08.760 --> 00:03:14.200
+it so it's rather large in the Z, so for now
+100 Z, there you go. If you downloaded my
+
+00:03:14.200 --> 00:03:18.390
+prototype in the early bit, then this is just
+what I did, I just made a big cube. I might
+
+00:03:18.390 --> 00:03:23.210
+double its, Y height just so it looks like
+a kind of beam, you know, like a steel beam
+
+00:03:23.210 --> 00:03:28.010
+or something. OK cool! So, there it is! Now,
+let's add to that, just a... What shall we
+
+00:03:28.010 --> 00:03:33.430
+have for now? A sphere! I'm going to plunk
+a sphere on top. Now, where's on top? Well,
+
+00:03:33.430 --> 00:03:37.780
+on top is bound to be some idealistic place.
+Let's make a material! I'm going to move through
+
+00:03:37.780 --> 00:03:41.720
+this quite quick, because you guys know this
+stuff. I'm just going to call it blue, for
+
+00:03:41.720 --> 00:03:46.860
+the moment. [Sings] Blue daba dee daba die.
+[Starts Talking] OK and just anything to just
+
+00:03:46.860 --> 00:03:52.410
+distinguish this thing from the ball. This
+just looks a bit too boring, when it's all
+
+00:03:52.410 --> 00:03:55.840
+one color, so blue, you can drag it straight
+onto the thing in the scene. Now, that's blue.
+
+00:03:55.840 --> 00:04:00.300
+Do I want it to look metallic? Yeah, I think
+so why not smooth. Who cares, not very smooth,
+
+00:04:00.300 --> 00:04:04.069
+I just want it to look reasonable. OK, so
+where should the ball live if it's going to
+
+00:04:04.069 --> 00:04:09.520
+be sitting right on there? Well, obviously
+it's going to have an X depth of 0, and then,
+
+00:04:09.520 --> 00:04:12.569
+normally what I do is I drag and see where
+it starts clipping and then look at the numbers
+
+00:04:12.569 --> 00:04:17.340
+and kind of make a rationalization of where
+it should be. It should probably be at 1.5.
+
+00:04:17.340 --> 00:04:22.070
+Now, I like things to start just off the surface,
+because they can get stuck in a surface, so
+
+00:04:22.070 --> 00:04:26.570
+there you go. There's a ball sitting there
+on a beam, and this is going to be the beginning
+
+00:04:26.570 --> 00:04:31.770
+of the essence of a 2.5D game right. So, there's
+a Play Space that's 3D, in theory we could
+
+00:04:31.770 --> 00:04:35.790
+put backdrops in, we could put all sorts of
+other things in here, but then, there's a
+
+00:04:35.790 --> 00:04:40.520
+Player that can only move in two dimensions.
+Now, we'll worry about the physics of that
+
+00:04:40.520 --> 00:04:45.370
+later, let's just get control values being
+read. So, I'm just going to call the cube
+
+00:04:45.370 --> 00:04:52.190
+Beam, and I'm going to call this sphere Ball.
+Perfect! OK, let's add a script! What shall
+
+00:04:52.190 --> 00:04:55.340
+we call it? I'm going to call it Player. By
+the way, when you add a script you can just
+
+00:04:55.340 --> 00:05:01.530
+type the name of it, as if it exists here
+and then click New Script. And because it
+
+00:05:01.530 --> 00:05:05.050
+doesn't recognize it, it'll give you the option
+to attach, etc. Now, we have a messy Assets
+
+00:05:05.050 --> 00:05:09.530
+for now, but we'll go with that for now. So,
+here's an overview of the three stage process,
+
+00:05:09.530 --> 00:05:13.270
+we need to apply. This is in your slides,
+and I'll recap it at the end but you need
+
+00:05:13.270 --> 00:05:19.330
+to Import the Package, Import the name space
+number 2, and number 3 access the class. So,
+
+00:05:19.330 --> 00:05:23.949
+let's do it, and I'm going to show you a possible
+caveat that may catch you in how to solve
+
+00:05:23.949 --> 00:05:29.870
+it. So, let's start by Import Package, CrossPlatformInput,
+like that. And that brings in a bunch of stuff,
+
+00:05:29.870 --> 00:05:34.120
+we'll take the lot. Now, there's a few things,
+it puts an Editor Folder with some Editor
+
+00:05:34.120 --> 00:05:38.660
+Scripts, and then, under Standard Assets we
+also get CrossPlatformInput Scripts, and this
+
+00:05:38.660 --> 00:05:43.470
+one here, CrossPlatformInputManager.cs, if
+we just look at it, then it actually defines
+
+00:05:43.470 --> 00:05:52.139
+a new Name Space called UnityStandardAssets.CrossPlatformInput.
+The code is a bit strangely laid out here,
+
+00:05:52.139 --> 00:05:58.280
+but you can see the methods in it. Boolean
+access exists... What else have we got? GetAxis,
+
+00:05:58.280 --> 00:06:02.169
+like I showed you before, so that it returns
+a float, etc. So, we don't really need to
+
+00:06:02.169 --> 00:06:05.780
+mess with this or even understand it, but
+it does list all the methods. Of course, there's
+
+00:06:05.780 --> 00:06:11.840
+an easier way to get to the methods, so step
+1 is done. We have now imported the package.
+
+00:06:11.840 --> 00:06:18.860
+Number 2, we need to use this command, using
+Unity... Oh, it's not there! UnityStandardAssets.CrossPlatformInput.
+
+00:06:18.860 --> 00:06:24.900
+Now, in your case it probably will be there,
+when we try and do Unity standard, but if
+
+00:06:24.900 --> 00:06:28.120
+it's not for any reason, because maybe you've
+been messing around with packages, I just
+
+00:06:28.120 --> 00:06:35.139
+want to show you this gotcha. This is how
+you would fix that. Close Mono, come to your
+
+00:06:35.139 --> 00:06:39.930
+directory that your game exists in. Now, remember
+I told you that all of this stuff in the Root
+
+00:06:39.930 --> 00:06:44.370
+and your Library and your Temp can all be
+deleted. I wouldn't delete Library and Temp
+
+00:06:44.370 --> 00:06:49.449
+right now, while Unity is open, but you can
+when you've closed Unity. But what I would
+
+00:06:49.449 --> 00:06:52.919
+do is just delete all this stuff, because
+what's happened is something has gone wrong
+
+00:06:52.919 --> 00:06:58.310
+with the Solution Cache for MonoDevelop, so
+if you just delete all those files and then,
+
+00:06:58.310 --> 00:07:06.900
+go back into Mono like that. Now, let's try
+using it again. UnityStandardAssets, there
+
+00:07:06.900 --> 00:07:10.389
+it is, so that's a useful tip, in case for
+some reason your name space disappears; just
+
+00:07:10.389 --> 00:07:13.919
+delete all the files in the Root of your Project
+Folder. .CrossPlatformInput; there we go.
+
+00:07:13.919 --> 00:07:21.270
+So, step 2 of the 3 step process is done.
+And then, how do we access it? Well, we just
+
+00:07:21.270 --> 00:07:26.650
+do the following. Well, I'm going to get you
+to do that, I've started it, but it's your
+
+00:07:26.650 --> 00:07:30.889
+turn to finish. [Laughs] So, here's the challenge
+for this section or this video. I just want
+
+00:07:30.889 --> 00:07:38.070
+you to log out Virtual Control Values. Look
+up how you would use Input. you've used it
+
+00:07:38.070 --> 00:07:43.120
+plenty in the course, so you can refresh yourself,
+if you like. Just instead of using Input.
+
+00:07:43.120 --> 00:07:46.520
+replace it with CrossPlatformInput. There's
+not a huge amount of documentation on the
+
+00:07:46.520 --> 00:07:51.970
+web about CrossPlatformInput. but wherever
+you would use Input.GetAccess, for example,
+
+00:07:51.970 --> 00:07:56.669
+you can use CrossPlatformInput. and just replace
+it. Import the appropriate namespace, well
+
+00:07:56.669 --> 00:08:00.139
+I've kind of done that for you. I just want
+you to print control values to the console,
+
+00:08:00.139 --> 00:08:05.400
+so that W, S, A, D, and maybe your Gamepad,
+if you've already got one set up, print the
+
+00:08:05.400 --> 00:08:10.090
+control values to the Console. So, go do that
+now, just get printing values to the console
+
+00:08:10.090 --> 00:08:15.710
+and I'll see you in a sec. Hey, welcome back!
+So, look I hope you are doing the challenges,
+
+00:08:15.710 --> 00:08:19.030
+even at this late stage in the course, right!
+So, please no wiggling out of those, that's
+
+00:08:19.030 --> 00:08:25.270
+really important. So, it's a bit of a mouth
+full, but what we're doing is (CrossPlatformInputManager.GetAxis
+
+00:08:25.270 --> 00:08:28.330
+and then, I'm going to go ("Horizontal");
+Now, how do we know there's such a thing as
+
+00:08:28.330 --> 00:08:33.309
+a Horizontal Axis? Well, go back to Unity
+and I'll show you that code in a moment, by
+
+00:08:33.309 --> 00:08:38.409
+the way. And if you go to Project Settings,
+Input, you can see what has been defined,
+
+00:08:38.409 --> 00:08:41.899
+Horizontal is one of them and Vertical is
+another, so these are the standard ones. So,
+
+00:08:41.899 --> 00:08:45.600
+this is the Layer of Indirection, we're calling
+it ("Horizontal"); Now, I'm on a mouse and
+
+00:08:45.600 --> 00:08:50.110
+keyboard, at the moment, because I'm on a
+Mac, PC, Linux build. So, let's see what this
+
+00:08:50.110 --> 00:08:56.199
+does. We're going to print, Axis, Horizontal.
+OK, and let's just have a look on the Console.
+
+00:08:56.199 --> 00:09:01.209
+Now, it's saying it has an unexpected symbol,
+so I've done a boo boo. Where's my boo boo?
+
+00:09:01.209 --> 00:09:05.470
+There you go, my boo boo, you can tell I've
+got kids, is that I didn't close two sets
+
+00:09:05.470 --> 00:09:12.369
+of brackets. Simple stuff, let's try again.
+So, look at the Console. The reference script
+
+00:09:12.369 --> 00:09:18.089
+on this behavior is missing, I have probably
+just not attached my script, there you go,
+
+00:09:18.089 --> 00:09:24.660
+to the Ball. Perfect! So, look at the Console.
+Here we go -1 and then, you have to be clicked
+
+00:09:24.660 --> 00:09:27.050
+in game remember. I'm just going to watch
+this value at the bottom left, not bother
+
+00:09:27.050 --> 00:09:30.209
+trying to watch the Console, just watch at
+the very bottom left. So, as I hold the Left
+
+00:09:30.209 --> 00:09:35.779
+Key, it goes from -1 to +1 and it actually
+has some speed with it, and that speed is
+
+00:09:35.779 --> 00:09:40.459
+because a setting called Gravity, which we'll
+explore a little bit later on. You can go
+
+00:09:40.459 --> 00:09:47.079
+find that Gravity setting, if you wish, it's
+here under Input and then Horizontal, you
+
+00:09:47.079 --> 00:09:52.860
+see this Gravity. That tells you how quickly
+it returns to normal, so you could change
+
+00:09:52.860 --> 00:09:56.629
+that value if you want to, and that's so that
+your keyboard acts a bit more like a controller.
+
+00:09:56.629 --> 00:10:00.639
+Imagine you let go of the stick of the controller,
+it wouldn't return to center immediately,
+
+00:10:00.639 --> 00:10:07.179
+so that's what this is simulating but anyway,
+-1 +1 all very well. So, may as well go and
+
+00:10:07.179 --> 00:10:14.019
+do the same thing for the Vertical Axis, so
+I'm going to just go H: concatenate like that;
+
+00:10:14.019 --> 00:10:20.999
+take that whole command. I may upgrade myself
+from print to Debug.log. What's the difference?
+
+00:10:20.999 --> 00:10:24.209
+There' s a lot more things you can do with
+a Debug.log, it's a lot more flexible in the
+
+00:10:24.209 --> 00:10:29.149
+long term, and it's better to get into the
+habit of deciding whether you want to be logging
+
+00:10:29.149 --> 00:10:34.550
+a warning, an exception, etc., so, Debug.log
+is a little more professional than just print.
+
+00:10:34.550 --> 00:10:38.989
+And I'm going to go ("Vertical")); so we're
+going to get the Vertical Axis. And now, let's
+
+00:10:38.989 --> 00:10:42.980
+have a look. Now, in the next lecture I'll
+show you how to use a Gamepad, so we won't
+
+00:10:42.980 --> 00:10:48.619
+do that right now, but H and V, of course
+it's coming out in two separate Console lines
+
+00:10:48.619 --> 00:10:53.999
+but you can see from the history, not that's
+working. Fantastic! So, it's pretty much as
+
+00:10:53.999 --> 00:10:57.769
+simple as that. You can also use GetButton
+of course, and again, if you refer back to
+
+00:10:57.769 --> 00:11:03.850
+your Input Manager, then it will tell you
+what buttons are already assigned. Now, you
+
+00:11:03.850 --> 00:11:08.279
+can also allow your player to change these
+things. I think I will just quickly show you
+
+00:11:08.279 --> 00:11:15.999
+that, so I'm on a Mac, PC, Linux Stand Alone
+Build; if I just build this level for now...
+
+00:11:15.999 --> 00:11:21.129
+I'll just need to put the scene into the Build
+Settings, of course, and if I just build and
+
+00:11:21.129 --> 00:11:27.829
+run this, watch what happens. So, I'm going
+to make a folder called Builds inside this,
+
+00:11:27.829 --> 00:11:35.399
+and I'm going to call it Mac. OK, so it's
+going to build a Mac version of this game.
+
+00:11:35.399 --> 00:11:39.569
+It should be quite quick, take a little bit
+longer because of the CrossPlatformInput stuff,
+
+00:11:39.569 --> 00:11:43.399
+Standard Assets always slow down builds and
+things. Look what happens! This is the actual
+
+00:11:43.399 --> 00:11:47.550
+game running this window that's come up. Let
+me quit and show you actually, it's actually
+
+00:11:47.550 --> 00:11:53.059
+a Mac executable here. So, if I just run this
+Mac app that's completely un-customized, look
+
+00:11:53.059 --> 00:11:58.259
+I get a target resolution, which is very well
+but I also get this input, so this is where,
+
+00:11:58.259 --> 00:12:03.829
+just straight out of the box, you can help
+people customize. So, the Horizontal and Vertical,
+
+00:12:03.829 --> 00:12:08.069
+the keys, it's already mapped to the Cursor
+Keys, and to D and A, and even if I used a
+
+00:12:08.069 --> 00:12:13.189
+Gamepad this would work. So, Gamepads are
+the subject of the next video, which is cool!
+
+00:12:13.189 --> 00:12:16.069
+So for now, all that remains is for me to
+show you how I use the Version Controller,
+
+00:12:16.069 --> 00:12:19.610
+at the end of the video. Save the scene and
+save the project, for which there is not a
+
+00:12:19.610 --> 00:12:24.149
+keyboard shortcut. Over to your Version Control
+System, look at the uncommitted changes, there's
+
+00:12:24.149 --> 00:12:29.860
+loads of them, so you stage them with this
+button, right there where I've go the mouse.
+
+00:12:29.860 --> 00:12:35.040
+Stage all un-staged files, all the stuff we've
+done gets added, loads of stuff, mainly because
+
+00:12:35.040 --> 00:12:40.860
+we've imported a package. And then, what I
+do here is, I actually name these things the
+
+00:12:40.860 --> 00:12:48.499
+very same name as the video in question, which
+is Using CrossPlatformInputManager. So, mine
+
+00:12:48.499 --> 00:12:53.679
+tend to come with an actual .mp4 and a name
+in the beginning, which is just fine. In this
+
+00:12:53.679 --> 00:12:58.799
+case, mine is TS07. This is just so that they
+have a sequence. This would actually look
+
+00:12:58.799 --> 00:13:06.129
+like that, but who cares, and we commit it.
+And then, that is done! The end state of the
+
+00:13:06.129 --> 00:13:09.959
+game, for this video, is committed to the
+repository. It's going to take longer than
+
+00:13:09.959 --> 00:13:13.959
+usual because it's having to push all those
+Standard Assets up to GitHub, for the first
+
+00:13:13.959 --> 00:13:18.920
+time, but of course now, when you go over
+to the GitHub website, to the Complete Unity
+
+00:13:18.920 --> 00:13:28.549
+Developers' team page, which we can get to
+via me and to Unity Developer, Twin Stick,
+
+00:13:28.549 --> 00:13:33.779
+and Commits. In a minute, when it's finished
+committing, which it has now if I refresh...
+
+00:13:33.779 --> 00:13:38.100
+Ah now, if you don't see it, it's because
+we're on the wrong branch. Now, we're talking
+
+00:13:38.100 --> 00:13:42.290
+about Master branch, so branches are ways
+of creating side features, but here you are
+
+00:13:42.290 --> 00:13:47.489
+Using CrossPlatformInputManager.mp4. And that
+is the state of the project, at the end, and
+
+00:13:47.489 --> 00:13:52.499
+that's all pushed up to the web. So, this
+is how we use the Version Control. OK, so
+
+00:13:52.499 --> 00:13:56.489
+that's that. I shall see you in the next video,
+where we'll talk about using analog Gamepads.
+

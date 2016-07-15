@@ -1,0 +1,326 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hey, so in this video we're going to learn
+
+2
+00:00:06.000 --> 00:00:09.000
+about something called refactoring, which is super handy. It saves us from
+
+3
+00:00:09.000 --> 00:00:12.000
+repeating ourselves and allows us to make widespread changes
+
+4
+00:00:12.000 --> 00:00:15.000
+in one place. So, we're going to start small, we're going to start simple, but
+
+5
+00:00:15.000 --> 00:00:18.000
+by the end of the video, you'll know how to refactor your code and to create your own
+
+6
+00:00:18.000 --> 00:00:21.000
+custom functions, which goes hand in hand with that.
+
+7
+00:00:21.000 --> 00:00:24.000
+OK, so here's what I'm going to do. I don't want to call all of this stuff
+
+8
+00:00:24.000 --> 00:00:27.000
+in Start. I'm just kind of diving straight in, with a load of code! I want
+
+9
+00:00:27.000 --> 00:00:30.000
+to take this code and put it into a separate function, for neatness,
+
+10
+00:00:30.000 --> 00:00:33.000
+and for the sake of this exercise. So, I'm going to make a new function. I do that
+
+11
+00:00:33.000 --> 00:00:36.000
+at this level of indentation, the same as all of the other function definitions.
+
+12
+00:00:36.000 --> 00:00:39.000
+I could do it straight after Start and in between
+
+13
+00:00:39.000 --> 00:00:42.000
+Start and Update. You'd normally leave Start and Update together,
+
+14
+00:00:42.000 --> 00:00:45.000
+but I'm going to do it straight after Start, in this case. So, void
+
+15
+00:00:45.000 --> 00:00:48.000
+StartGame. Why void? Because we're returning nothing Nothing is
+
+16
+00:00:48.000 --> 00:00:51.000
+coming out of this function and nothing is going in either, actually.
+
+17
+00:00:51.000 --> 00:00:54.000
+So, that's it! I do the curly braces and
+
+18
+00:00:54.000 --> 00:00:57.000
+put my return in and then do my Tab.
+
+19
+00:00:57.000 --> 00:01:00.000
+Perfect! OK, so what I'm going to do is simply move all the code from the
+
+20
+00:01:00.000 --> 00:01:03.000
+Start function, all of it into StartGame.
+
+21
+00:01:03.000 --> 00:01:06.000
+Alright, if I was to save that and run it, absolutely nothing would
+
+22
+00:01:06.000 --> 00:01:09.000
+happen, because nothing is calling StartGame. Let me show you what
+
+23
+00:01:09.000 --> 00:01:12.000
+happens, by what I mean by nothing. We run, we look at
+
+24
+00:01:12.000 --> 00:01:15.000
+the Console, nothing comes on the Console whatsoever. Not very
+
+25
+00:01:15.000 --> 00:01:18.000
+helpful! Of course, the up and down arrows should still work, provided you're clicked
+
+26
+00:01:18.000 --> 00:01:21.000
+in game, but nothing will happen initially. None of the
+
+27
+00:01:21.000 --> 00:01:24.000
+instructions or welcome message come up. OK,
+
+28
+00:01:24.000 --> 00:01:27.000
+and the reason for that is, nothing is calling StartGame.
+
+29
+00:01:27.000 --> 00:01:30.000
+I need a t in there. OK, and to call StartGame we simply say
+
+30
+00:01:30.000 --> 00:01:33.000
+StartGame(), and actually Unity will help you do it,
+
+31
+00:01:33.000 --> 00:01:36.000
+provided you remember that you need to put your brackets, because
+
+32
+00:01:36.000 --> 00:01:39.000
+the function signature is that we pass in nothing.
+
+33
+00:01:39.000 --> 00:01:42.000
+And because we're getting nothing back out from it, we don't have to assign
+
+34
+00:01:42.000 --> 00:01:45.000
+it to anything, that's it! We just say StartGame(); and then it will go, OK
+
+35
+00:01:45.000 --> 00:01:48.000
+I'm going to jump into StartGame(); and do everything it says there! [Laughs] Alright,
+
+36
+00:01:48.000 --> 00:01:51.000
+so that's it! That's real simple! Alright, now
+
+37
+00:01:51.000 --> 00:01:54.000
+I have another challenge for you. Right underneath this, let's create a new function called
+
+38
+00:01:54.000 --> 00:01:57.000
+NextGuess. The same signature, it takes nothing in and returns
+
+39
+00:01:57.000 --> 00:02:00.000
+nothing, but it's called NextGuess, with the same pattern
+
+40
+00:02:00.000 --> 00:02:03.000
+of capitalization. Go ahead and try and do that now!
+
+41
+00:02:03.000 --> 00:02:06.000
+OK, here we go! void
+
+42
+00:02:06.000 --> 00:02:09.000
+NextGuess () boing splotch!
+
+43
+00:02:09.000 --> 00:02:12.000
+Boing doing doong! Perfect!
+
+44
+00:02:12.000 --> 00:02:15.000
+Alright, that was relatively simple! OK, so what I'm
+
+45
+00:02:15.000 --> 00:02:18.000
+going to move into NextGuess() is the two lines that are repeated,
+
+46
+00:02:18.000 --> 00:02:21.000
+inside this Update function. This pair of lines,
+
+47
+00:02:21.000 --> 00:02:24.000
+the guess = (max + min) / 2; and the print bit,
+
+48
+00:02:24.000 --> 00:02:27.000
+are both repeated, so let's
+
+49
+00:02:27.000 --> 00:02:30.000
+take them both, put them into NextGuess().
+
+50
+00:02:30.000 --> 00:02:33.000
+We can actually just delete them, from the second one, and of
+
+51
+00:02:33.000 --> 00:02:36.000
+course, we're leaving a gaping hole and that gaping hole is, it needs to say
+
+52
+00:02:36.000 --> 00:02:39.000
+NextGuess right,
+
+53
+00:02:39.000 --> 00:02:42.000
+same as before. So,
+
+54
+00:02:42.000 --> 00:02:45.000
+we just do that! Fantastic! So now, in both of those cases we
+
+55
+00:02:45.000 --> 00:02:48.000
+just call NextGuess () and jump up here to NextGuess (). It can be defined above
+
+56
+00:02:48.000 --> 00:02:51.000
+or below, which is fine. If you want to move NextGuess (), then just grab it
+
+57
+00:02:51.000 --> 00:02:54.000
+and stick it down here, below Update. I would prefer it was below
+
+58
+00:02:54.000 --> 00:02:57.000
+Update really, because it makes kind of sense to have the Start and the Update
+
+59
+00:02:57.000 --> 00:03:00.000
+together, at the top. Great! Now, we're going to do one final thing,
+
+60
+00:03:00.000 --> 00:03:03.000
+which is going to show the power of
+
+61
+00:03:03.000 --> 00:03:06.000
+refactoring. I would like, when we have
+
+62
+00:03:06.000 --> 00:03:09.000
+made our guess, for the computer to tell us the instructions
+
+63
+00:03:09.000 --> 00:03:12.000
+every time, all over again like this. They're going to
+
+64
+00:03:12.000 --> 00:03:15.000
+say, after the guess has been made, it's going to say... Well, it's actually
+
+65
+00:03:15.000 --> 00:03:18.000
+going to say exactly the same stuff here. I'll just copy this line,
+
+66
+00:03:18.000 --> 00:03:21.000
+from the Start, and put it into the NextGuess ().
+
+67
+00:03:21.000 --> 00:03:24.000
+So, every time it's made the guess, it's going to repeat this line, both
+
+68
+00:03:24.000 --> 00:03:27.000
+whether you push the Up Key or the Down Key. So, we've made a change in
+
+69
+00:03:27.000 --> 00:03:30.000
+two places, from one place, if you like. Let's take a look at this working!
+
+70
+00:03:30.000 --> 00:03:33.000
+OK, so I think of,
+
+71
+00:03:33.000 --> 00:03:36.000
+I don't know, 5, 6, 7? So, is it higher or lower than 500? Higher!
+
+72
+00:03:36.000 --> 00:03:39.000
+Let me just turn Collapse off, it'll be clearer.
+
+73
+00:03:39.000 --> 00:03:42.000
+Click into game. OK, so it's lower than
+
+74
+00:03:42.000 --> 00:03:45.000
+750. OK, you get the idea. We get to
+
+75
+00:03:45.000 --> 00:03:48.000
+5, 6, 7, in a minute,
+
+76
+00:03:48.000 --> 00:03:51.000
+and there it is, and now I can say =. "I
+
+77
+00:03:51.000 --> 00:03:54.000
+won!" Perfect! But notice, it gives me the instructions at every single
+
+78
+00:03:54.000 --> 00:03:57.000
+line, which is called affordance, and that means we're
+
+79
+00:03:57.000 --> 00:04:00.000
+telling the user what they need to do next, very clearly. So, congratulations!
+
+80
+00:04:00.000 --> 00:04:03.000
+You now know how to refactor your code and create your own custom
+
+81
+00:04:03.000 --> 00:04:05.566
+function. Good progress!
+

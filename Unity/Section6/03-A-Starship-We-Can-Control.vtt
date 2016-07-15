@@ -1,0 +1,433 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:08.260
+Hello, and welcome back! In this video
+we're going to be building a spaceship.
+
+00:00:08.260 --> 00:00:13.590
+So what about our spaceship? Well, we just want a spaceship we can control,
+
+00:00:13.590 --> 00:00:18.110
+that's going to be our defender. He's going to be moving in the play space from side to side,
+
+00:00:18.180 --> 00:00:22.780
+and that's what we want to do. So what's the first step in building a spaceship?
+
+00:00:22.900 --> 00:00:27.340
+Well, the first thing I'm gonna do is I'm going to grab
+
+00:00:27.349 --> 00:00:32.449
+some assets, and I found some brilliant
+assets on a place called open game art.org.
+
+00:00:32.580 --> 00:00:37.620
+and in fact, it's a great website for
+your asset needs. In fact, we've bundled
+
+00:00:37.620 --> 00:00:43.070
+all of those assets in our download at
+the beginning of the section. If you want
+
+00:00:43.070 --> 00:00:48.579
+to get ahold of it. Also if you want
+to grab them yourself, they're all on this
+
+00:00:48.579 --> 00:00:53.629
+website called open game art .org, and
+we're talking about the space shooter
+
+00:00:53.629 --> 00:00:57.469
+redux, and there's a whole bunch of space
+assets and our laser defender is going
+
+00:00:57.469 --> 00:01:02.899
+to be our little space ship right here. So
+let's do it. Let's jump straight in and
+
+00:01:02.899 --> 00:01:08.380
+get that done. We want to add the asset
+and we've got it from Unity so I'm
+
+00:01:08.380 --> 00:01:13.200
+just going to jump back into Unity, and I'm going to import some assets, so the way
+
+00:01:13.360 --> 00:01:17.600
+I'm going to do that. I'm going to find them in my browser. I've got my finder here.
+
+00:01:17.720 --> 00:01:24.680
+I'm going to go to the right place on my desk and grab the assets, so got laser
+
+00:01:24.689 --> 00:01:29.880
+defender and it's going to be in the
+bundle. And that's the bundle you download and it's
+
+00:01:29.880 --> 00:01:33.820
+going to be in space shooter redux. Why it's all the way there on the right I have no idea.
+
+00:01:33.820 --> 00:01:38.020
+So let's take a look and what assets do we want for our spaceship?
+
+00:01:38.030 --> 00:01:41.970
+We're talking about the players spaceship, and I kinda like the look of the blue dude.
+
+00:01:41.970 --> 00:01:48.450
+That blue guy is the one I like, so I'm
+going to grab that and I'm going to drag and
+
+00:01:48.450 --> 00:01:54.829
+drop it into my Unity editor. If I
+grab it and drop it on the Asset Pane.
+
+00:01:54.829 --> 00:01:59.200
+it'll create a sprite. I can actually bring it to
+
+00:01:59.200 --> 00:02:03.380
+Assets. Let's jump in there. Let's see? Has
+it been imported properly?
+
+00:02:03.380 --> 00:02:05.420
+Yep, sprite 2D in the UI.
+
+00:02:05.430 --> 00:02:08.830
+if it hasn't been imported as a 2D
+sprite don't forget you can always
+
+00:02:08.830 --> 00:02:12.800
+change that by going to the Inspector
+and you've got the actual item selected
+
+00:02:12.800 --> 00:02:17.220
+So I don't actually care about this scene
+right now, so I'm going to jump back out
+
+00:02:17.220 --> 00:02:28.100
+into my game. Save whatever changes I've made here. Let's get started with our 2D game. So the first thing we're going
+
+00:02:28.100 --> 00:02:33.080
+to do is grab our sprite and drop him in.
+
+00:02:33.080 --> 00:02:38.820
+So, we've got him in the play space. Let's zoom in a little bit, so we can actually see it.
+
+00:02:38.820 --> 00:02:43.690
+Have we got a player ship here?
+
+00:02:43.690 --> 00:02:55.880
+Yes we do. It's not huge. It's fine. We can deal with that. We'll recenter it, to make sure
+
+00:02:55.880 --> 00:03:01.300
+it's all at the origin, and if I've got
+that right and then I can
+
+00:03:01.300 --> 00:03:07.360
+just double-click the ship. and here we are. So that's our player ship. So we've got this player.
+
+00:03:07.360 --> 00:03:12.360
+He's going to be our little space ship, and our job is actually now to make sure we can
+
+00:03:12.360 --> 00:03:16.760
+control him. We can actually get him
+moving the way we want to, and in fact,
+
+00:03:16.760 --> 00:03:21.530
+that is once you've downloaded his assets and imported them to Unity, that's your job.
+
+00:03:21.530 --> 00:03:27.769
+and that's your next job. I want you to
+add a script to your ship so drag and
+
+00:03:27.769 --> 00:03:31.720
+drop a script or create a new script onto
+your script. Call it PlayController that
+
+00:03:31.720 --> 00:03:38.320
+script, and get it to move the ship left
+and right with the arrow keys. You need
+
+00:03:38.320 --> 00:03:41.060
+to make the speed adjustable in the
+editor, because that requires a lot of
+
+00:03:41.060 --> 00:03:47.239
+tuning. So pause the video now, and add a
+controller script to your starship. To your
+
+00:03:47.239 --> 00:03:51.410
+little starship sprite to make sure it
+can move left and right, based on your
+
+00:03:51.410 --> 00:03:56.450
+arrow keys. Now, I know this is a little
+bit of a bigger step and challenge than
+
+00:03:56.450 --> 00:04:01.500
+we're used to, but don't worry too much
+don't stress out take it slow. Remember
+
+00:04:01.500 --> 00:04:08.170
+to break it down into smaller problems. So add a script; add a function inside  your
+
+00:04:08.170 --> 00:04:13.799
+update. Rather add an if statement inside your update that checks whether the right and left arrow keys
+
+00:04:13.799 --> 00:04:17.489
+have been pressing. and if you're not quite
+sure how to. Go back and have a look
+
+00:04:17.489 --> 00:04:23.210
+at the Text 101 game we made, which uses the keyboard, and you'll need to find out
+
+00:04:23.210 --> 00:04:26.979
+the key code for left arrow and right
+arrow. And then once you've done that
+
+00:04:26.979 --> 00:04:31.889
+it's a simple matter of changing the
+transform's position. Modifying the
+
+00:04:31.889 --> 00:04:39.599
+transform's position, the way we did in
+Block Breaker for moving the paddle, so
+
+00:04:39.599 --> 00:04:42.139
+take a look at Block Breaker code for 
+moving the paddle if you're not sure
+
+00:04:42.139 --> 00:04:46.960
+and take a look at the Text 101 code for
+grabbing the keyboard input if you're
+
+00:04:46.960 --> 00:04:57.280
+not sure. And once you've done that,  I will see you and we will go through it together. So see you soon.
+
+00:04:57.280 --> 00:05:03.240
+So here we are, we have our ship in our editor. How do we get a script on and get it to
+
+00:05:03.240 --> 00:05:04.970
+move from side to side
+
+00:05:04.970 --> 00:05:10.860
+based on the arrow keys? Well I'm going
+to just add a component to my...  I've got
+
+00:05:10.860 --> 00:05:13.900
+the ship selected. Actually I'm going to
+rename it player ship one blue doesn't
+
+00:05:13.900 --> 00:05:21.080
+sound good, so I'm just going to call it Player. Oops not play, but Player. So I've
+
+00:05:21.080 --> 00:05:25.500
+got my player, and I'm going to add a component to it. That's going to be a new script.
+
+00:05:25.500 --> 00:05:31.860
+there's going to be a player controller and that's the script responsible for controlling the player
+
+00:05:31.860 --> 00:05:39.860
+and I'm going to edit that script now, so
+here we are we have mono coming up, and
+
+00:05:39.860 --> 00:05:45.150
+let's get this ship moving. So how are we
+going to do that? Well you've seen this
+
+00:05:45.150 --> 00:05:58.800
+before. We just go: if Input.GetKey
+and we're going to go left and right arrow.
+
+00:05:58.800 --> 00:06:04.280
+That's KeyCode with a capital K.
+
+00:06:04.280 --> 00:06:15.120
+KeyCode. And it'll give you left arrow, so
+that's moving my ship left. I want my
+
+00:06:15.120 --> 00:06:26.950
+transformed.position to be  +=
+a new. So I'm changing my position
+
+00:06:26.950 --> 00:06:34.160
+by a vector, so that's X, Y, &amp; Z. And I really want to move it in some distance in the
+
+00:06:34.160 --> 00:06:40.460
+X-direction, so I'm going to have, lets
+say if I'm moving left I want a negative
+
+00:06:40.460 --> 00:06:45.100
+X direction, so that's minus, and
+that's going to be my speed of my
+
+00:06:45.100 --> 00:06:49.880
+little star ship. And I don't
+have this defined just yet but that's
+
+00:06:49.880 --> 00:06:54.120
+ok. I don't want to move up. I don't want it
+to move down, and I do not want it to
+
+00:06:54.120 --> 00:06:58.710
+move in and out of the actual game world. So that's it. Our speed isn't defined, so
+
+00:06:58.710 --> 00:07:05.840
+let me to define that now. Publicly expose a speed variable. I've got a public speed
+
+00:07:05.840 --> 00:07:13.889
+and that's going to be a float, and I
+want to start with a speed of say five.
+
+00:07:13.889 --> 00:07:21.590
+And don't forget the f if declaring float
+variables. And I'm going to do exactly
+
+00:07:21.590 --> 00:07:28.080
+the same thing for the other direction,
+and in fact if you want to pause now and
+
+00:07:28.080 --> 00:07:38.919
+get that done, feel free to. Really it's
+identical. GetKey now on the KeyCode. Now on the right
+
+00:07:38.919 --> 00:07:48.790
+arrow, and once they've got that key code
+sorted, I want to change the position of
+
+00:07:48.790 --> 00:07:55.570
+my ship, with a positive speed in the
+
+00:07:55.570 --> 00:07:59.260
+X-direction this time. So let's save that.
+
+00:07:59.260 --> 00:08:02.220
+See what happens, so we can remove all the
+
+00:08:02.220 --> 00:08:06.860
+stuff we don't need yet. We have an update function.
+
+00:08:06.860 --> 00:08:11.720
+You move your keys, it'll move your ship
+left and right. So we can adjust the
+
+00:08:11.720 --> 00:08:15.100
+speed in the editor, and I'll show you a
+little trick in just a sec to make that
+
+00:08:15.100 --> 00:08:19.940
+speed frame rate independent. So let's
+jump back into Unity. We've got a ship.
+
+00:08:19.940 --> 00:08:26.690
+Let's play the game... [Fumbles Words] I did a boo boo here.
+
+00:08:26.690 --> 00:08:34.620
+Yep, what else? Yeah, I forgot my if, it's
+else if not just else. So I save that,
+
+00:08:34.620 --> 00:08:38.039
+jump back into Unity, and try again.
+
+00:08:38.039 --> 00:08:45.709
+And whoa, that's rather fast! Great, so we've now got our ship moving left and right.
+
+00:08:45.709 --> 00:08:49.690
+We really need to be able to tune that, and
+we thankfully have a speed.
+
+00:08:49.690 --> 00:08:55.290
+Let me tune it in RUN Mode, and save that. Go back into my game and it's a lot more
+
+00:08:55.290 --> 00:08:59.020
+reasonable, now. So we've got the ship moving left and right.
+
+00:08:59.020 --> 00:09:01.140
+Let me jump back into my scene, to pause the game.
+
+00:09:01.140 --> 00:09:08.780
+I might move it down a little, so it's at the bottom of my screen. If I go back to my game that's perfect!
+
+00:09:08.790 --> 00:09:16.620
+If I play again... let's set the
+default speed to 1, shall we. So jump back
+
+00:09:16.620 --> 00:09:20.510
+into our code. Now, actually I'm going to do a little trick here. I'm actually going to
+
+00:09:20.510 --> 00:09:25.240
+multiply my speed. I mentioned that I
+would make its frame rate independent by
+
+00:09:25.240 --> 00:09:28.840
+Time.deltaTime
+
+00:09:28.840 --> 00:09:33.140
+And that means that's the time it
+takes between frame updates. That way
+
+00:09:33.160 --> 00:09:41.330
+if the frame takes longer to
+render then, it'll always have a higher
+
+00:09:41.330 --> 00:09:46.360
+speed, and if it takes less time to
+render, it'll move by a lesser increment.
+
+00:09:46.360 --> 00:09:50.820
+So let's try that to make sure that
+we've got the right factor, given that we're multiplying
+
+00:09:50.820 --> 00:09:56.840
+now by the Delta to the time between
+frames. So if we jump back into Unity and press play,
+
+00:09:56.850 --> 00:10:00.990
+We might find that that's now a little bit
+sluggish. In fact, because we're now multiplying
+
+00:10:00.990 --> 00:10:02.540
+by a small number.
+
+00:10:02.540 --> 00:10:08.500
+Frames render really quickly, so let's change that default to something a
+
+00:10:08.500 --> 00:10:15.150
+little bit more friendly for us. We jump
+back into MonoDevelop and I'm going to put a
+
+00:10:15.150 --> 00:10:25.990
+default of maybe say 15. Jump back into
+Unity. Let's  test it out. Don't forget that if you
+
+00:10:25.990 --> 00:10:32.410
+update the default but you've changed it in the editor itself it''ll not update.
+
+00:10:32.410 --> 00:10:37.640
+So you'll need to update it here as well
+
+00:10:37.650 --> 00:10:46.240
+Alright, ok that seems more reasonable. So let's do a quick recap. We have created a
+
+00:10:46.240 --> 00:10:50.430
+player controller script, which controls
+our little star ship which we just created,
+
+00:10:50.430 --> 00:10:56.200
+and we've used the key getting and we've changed the transform to move it about
+
+00:10:56.200 --> 00:11:00.960
+We've also made sure that
+the position and the movement
+
+00:11:00.960 --> 00:11:05.750
+speed is independent of the frame rate by
+using Time.deltaTime. So we now
+
+00:11:05.750 --> 00:11:09.690
+have a player controller script that moves our player about. So well done for
+
+00:11:09.690 --> 00:11:14.360
+getting this far. Congrats! Hope you enjoy the video, and I will see you in the next one.
+
+00:11:14.360 --> 00:11:15.190
+Bye for now.
+

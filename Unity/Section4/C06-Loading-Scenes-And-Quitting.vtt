@@ -1,0 +1,1018 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hello, and welcome
+
+2
+00:00:06.000 --> 00:00:09.000
+back! In this video, we're going to be looking at how
+
+3
+00:00:09.000 --> 00:00:12.000
+to load scenes and to quit the game.
+
+4
+00:00:12.000 --> 00:00:15.000
+We're going to be using some new functions, that we've not met before, that's the Application
+
+5
+00:00:15.000 --> 00:00:18.000
+.LoadLevel() and Application.Quit()
+
+6
+00:00:18.000 --> 00:00:21.000
+functions, to load new levels and to quit the game
+
+7
+00:00:21.000 --> 00:00:24.000
+in our script. So, we've already got a script in the
+
+8
+00:00:24.000 --> 00:00:27.000
+game, that gets triggered whenever we press a button, and we want to
+
+9
+00:00:27.000 --> 00:00:30.000
+make that, actually not just log to the Console, but actually
+
+10
+00:00:30.000 --> 00:00:33.000
+carry out the actions we want. And once we've done that
+
+11
+00:00:33.000 --> 00:00:36.000
+we'll look a litttle bit more about the limitations of Application
+
+12
+00:00:36.000 --> 00:00:39.000
+.Quit, because it doesn't quite work in
+
+13
+00:00:39.000 --> 00:00:42.000
+all contexts. If we use Application.Quit,
+
+14
+00:00:42.000 --> 00:00:45.000
+say in the web, it's not going to have any effect, and we'll see that
+
+15
+00:00:45.000 --> 00:00:48.000
+and we'll list all the things that Application.Quit can't do
+
+16
+00:00:48.000 --> 00:00:51.000
+and where it doesn't quite work the way we expect. So,
+
+17
+00:00:51.000 --> 00:00:54.000
+let's go straight to the game and
+
+18
+00:00:54.000 --> 00:00:57.000
+jump in. So, we've got our Unity
+
+19
+00:00:57.000 --> 00:01:00.000
+Editor right here and we've got our game, and right now
+
+20
+00:01:00.000 --> 00:01:03.000
+I've got a Start Game, which I'm in right now, and some
+
+21
+00:01:03.000 --> 00:01:06.000
+empty games elsewhere. And what I want to do is,
+
+22
+00:01:06.000 --> 00:01:09.000
+for my Start Button, so when I click it
+
+23
+00:01:09.000 --> 00:01:12.000
+instead of logging something out to the Console, as it does... Now, let's take a look.
+
+24
+00:01:12.000 --> 00:01:15.000
+I press play, I open my Console,
+
+25
+00:01:15.000 --> 00:01:18.000
+I press Start, and we should see that
+
+26
+00:01:18.000 --> 00:01:21.000
+something gets logged out to the Console, and
+
+27
+00:01:21.000 --> 00:01:24.000
+that's all it does right now. Instead, of doing that, I want my Start Button
+
+28
+00:01:24.000 --> 00:01:27.000
+to take me to my next scene. And we already
+
+29
+00:01:27.000 --> 00:01:30.000
+have a LevelManager, that gets called,
+
+30
+00:01:30.000 --> 00:01:33.000
+whenever we actually
+
+31
+00:01:33.000 --> 00:01:36.000
+press the button, and the only thing it does right now is to
+
+32
+00:01:36.000 --> 00:01:39.000
+log something right. And we've got it
+
+33
+00:01:39.000 --> 00:01:42.000
+loading a request for game, and we set that.
+
+34
+00:01:42.000 --> 00:01:45.000
+The thing we want to do is to turn the
+
+35
+00:01:45.000 --> 00:01:48.000
+click that clicks on the Start Button,
+
+36
+00:01:48.000 --> 00:01:51.000
+instead of going to a logging to actually
+
+37
+00:01:51.000 --> 00:01:54.000
+do something. Well, how do we do that? Welll, we can just use the
+
+38
+00:01:54.000 --> 00:01:57.000
+Application.LoadLevel. So, the
+
+39
+00:01:57.000 --> 00:02:00.000
+Application.LoadLevel, you'll see it being auto completed.
+
+40
+00:02:00.000 --> 00:02:03.000
+It's actually right here, LoadLevel is a method,
+
+41
+00:02:03.000 --> 00:02:06.000
+and we can pass in the name of the level,
+
+42
+00:02:06.000 --> 00:02:09.000
+we want to load. So, by just adding this line,
+
+43
+00:02:09.000 --> 00:02:12.000
+this Application.LoadLevel new name, and give it
+
+44
+00:02:12.000 --> 00:02:15.000
+the name, that will then take our
+
+45
+00:02:15.000 --> 00:02:18.000
+Start Button, whenever we press it, and it will take us to
+
+46
+00:02:18.000 --> 00:02:21.000
+our Game Scene. So, let's take a look at that in action.
+
+47
+00:02:21.000 --> 00:02:24.000
+I jump back into Unity, I press Play,
+
+48
+00:02:24.000 --> 00:02:27.000
+and then, if I click Start
+
+49
+00:02:27.000 --> 00:02:30.000
+LoadLevel Game -1 could not
+
+50
+00:02:30.000 --> 00:02:33.000
+be loaded, because it has not been added to the Build Settings.
+
+51
+00:02:33.000 --> 00:02:36.000
+I don't know whether you can see that through the Play Tint, so let me pause the game.
+
+52
+00:02:36.000 --> 00:02:39.000
+You can see this big bright red arrow with a
+
+53
+00:02:39.000 --> 00:02:42.000
+exclamation mark. Something went wrong! So, what went wrong?
+
+54
+00:02:42.000 --> 00:02:45.000
+Well, what's actually going on is we started to play a game
+
+55
+00:02:45.000 --> 00:02:48.000
+and we tried to LoadLevel but it wasn't prepared. We
+
+56
+00:02:48.000 --> 00:02:51.000
+need to tell Unity, these are the levels that you prepare
+
+57
+00:02:51.000 --> 00:02:54.000
+and these are the levels that you should be ready to jump to. Right click doesn't
+
+58
+00:02:54.000 --> 00:02:57.000
+know. So, how do we do that? Well, that's in our Build Settings.
+
+59
+00:02:57.000 --> 00:03:00.000
+So, we can go File, Build Settings, or we can
+
+60
+00:03:00.000 --> 00:03:03.000
+use the shortcut shown in the menu. So, if we go to the File
+
+61
+00:03:03.000 --> 00:03:06.000
+Menu and go Build Settings, we'll have this window pop-up and open.
+
+62
+00:03:06.000 --> 00:03:09.000
+And we can see a bunch of options in the Platform,
+
+63
+00:03:09.000 --> 00:03:12.000
+you can see all the builds of Unity, everything from Windows
+
+64
+00:03:12.000 --> 00:03:15.000
+Phone to the web. And really we don't really care about
+
+65
+00:03:15.000 --> 00:03:18.000
+this right now, we're going to stick with the PC, Mac, and Linux
+
+66
+00:03:18.000 --> 00:03:21.000
+Standalone Build, which is what we're currently on, but what we can
+
+67
+00:03:21.000 --> 00:03:24.000
+notice is that the Scenes in Build list
+
+68
+00:03:24.000 --> 00:03:27.000
+is actually completely empty. So, you can see the scene here,
+
+69
+00:03:27.000 --> 00:03:30.000
+the scenes in Build. That's empty and that's a problem.
+
+70
+00:03:30.000 --> 00:03:33.000
+Basically, what we're saying here is, no scenes should be put together
+
+71
+00:03:33.000 --> 00:03:36.000
+when you build a game, which is not what we mean. So,
+
+72
+00:03:36.000 --> 00:03:39.000
+how do we add scenes in Build? Well, we go to our projects, we
+
+73
+00:03:39.000 --> 00:03:42.000
+select the scenes, and I'm going to select all of them at once,
+
+74
+00:03:42.000 --> 00:03:45.000
+and then, I can drag my scenes into
+
+75
+00:03:45.000 --> 00:03:48.000
+my scene list. And the order matters
+
+76
+00:03:48.000 --> 00:03:51.000
+here, because the order is actually relevant. The first
+
+77
+00:03:51.000 --> 00:03:54.000
+one in the order will be the first one to be run. So,
+
+78
+00:03:54.000 --> 00:03:57.000
+when we've got an order, right now, we can then select
+
+79
+00:03:57.000 --> 00:04:00.000
+the Start Scene, for example. Click it,
+
+80
+00:04:00.000 --> 00:04:03.000
+and then, we can drag it to the top. And I'm just
+
+81
+00:04:03.000 --> 00:04:06.000
+moving stuff around until the Start Scene is at the top.
+
+82
+00:04:06.000 --> 00:04:09.000
+Now, in any build I make, the Start Scene will be the
+
+83
+00:04:09.000 --> 00:04:12.000
+first to be loaded, and then, my Start Scene will continue
+
+84
+00:04:12.000 --> 00:04:15.000
+as normal. So, now I've got this; I don't need to build, I don't need to
+
+85
+00:04:15.000 --> 00:04:18.000
+buld and run. I can just close this window, once I've created
+
+86
+00:04:18.000 --> 00:04:21.000
+my scene list, and then press play again.
+
+87
+00:04:21.000 --> 00:04:24.000
+And when I click Start, we should see that we now jump to a different
+
+88
+00:04:24.000 --> 00:04:27.000
+scene. And obviously, this is an empty scene, there's not distinguishing
+
+89
+00:04:27.000 --> 00:04:30.000
+feature between my Game, Lose, and Win Scene.
+
+90
+00:04:30.000 --> 00:04:33.000
+Right now, the only scene that has anything in it is the Start Scene.
+
+91
+00:04:33.000 --> 00:04:36.000
+We can see the Start Button has actually done its job to
+
+92
+00:04:36.000 --> 00:04:39.000
+jump us to another scene. So,
+
+93
+00:04:39.000 --> 00:04:42.000
+awesome! It is now your turn!
+
+94
+00:04:42.000 --> 00:04:45.000
+What I want you to do is... Now, we can jump to the Start Scene.
+
+95
+00:04:45.000 --> 00:04:48.000
+We are not going to worry about Quit right now, but what I want
+
+96
+00:04:48.000 --> 00:04:51.000
+you to do is, create a button
+
+97
+00:04:51.000 --> 00:04:54.000
+to return to the Start Scene, from the Game Scene.
+
+98
+00:04:54.000 --> 00:04:57.000
+Now, we can jump from the Start Scene, to the Game Scene. I want
+
+99
+00:04:57.000 --> 00:05:00.000
+us to be able to jump backwards, from the Game to the Start Scene,
+
+100
+00:05:00.000 --> 00:05:03.000
+and I want you to create a new button, that's going to do that for us.
+
+101
+00:05:03.000 --> 00:05:06.000
+So, use what you've learned already, use the
+
+102
+00:05:06.000 --> 00:05:09.000
+code that's already there. You don't need to rewrite the LevelManager,
+
+103
+00:05:09.000 --> 00:05:12.000
+you don't need to rewrite the LevelManager Object, or the Level
+
+104
+00:05:12.000 --> 00:05:15.000
+Manager Script. You can just use Control
+
+105
+00:05:15.000 --> 00:05:18.000
+C or Command C to copy them, and then,
+
+106
+00:05:18.000 --> 00:05:21.000
+paste them in the new scene. So, you'll need to grab the existing
+
+107
+00:05:21.000 --> 00:05:24.000
+LevelManager, and copy that across to your
+
+108
+00:05:24.000 --> 00:05:27.000
+new scene. And then, also create a new button
+
+109
+00:05:27.000 --> 00:05:30.000
+in your new scene, that takes us back, and that's just going to be a little
+
+110
+00:05:30.000 --> 00:05:33.000
+little Debug Button, as an exercise for us, so we can jump
+
+111
+00:05:33.000 --> 00:05:36.000
+back and forth between those two scenes. So, I'll see you very soon.
+
+112
+00:05:36.000 --> 00:05:39.000
+[Temporary Silence]
+
+113
+00:05:39.000 --> 00:05:42.000
+[Temporary Silence]
+
+114
+00:05:42.000 --> 00:05:45.000
+So, how did it go? Did you manage to get a button that jumps back from
+
+115
+00:05:45.000 --> 00:05:48.000
+the Game Scene to the Start scene? Let's see
+
+116
+00:05:48.000 --> 00:05:51.000
+how we would do that. So, I'm now in my
+
+117
+00:05:51.000 --> 00:05:54.000
+Unity Editor, and I've got my Start
+
+118
+00:05:54.000 --> 00:05:57.000
+scene here. What I want to copy is my LevelManager
+
+119
+00:05:57.000 --> 00:06:00.000
+and my Start Button. So, I will not worry about the Start Button too much for
+
+120
+00:06:00.000 --> 00:06:03.000
+now. What I'm going to do is I'm just going to grab the LevelManager,
+
+121
+00:06:03.000 --> 00:06:06.000
+copy it, and then open my Game scene,
+
+122
+00:06:06.000 --> 00:06:09.000
+and then paste it in. So, I click again on the Hierarchy,
+
+123
+00:06:09.000 --> 00:06:12.000
+paste it in, and I can see the LevelManager turning up in my
+
+124
+00:06:12.000 --> 00:06:15.000
+Hierarchy, in the Game scene, as well.
+
+125
+00:06:15.000 --> 00:06:18.000
+Now, I need a button, I need a button in my scene right now. So, how do
+
+126
+00:06:18.000 --> 00:06:21.000
+I do that? Well, I can either do a
+
+127
+00:06:21.000 --> 00:06:24.000
+create a new button, by going Game Object,
+
+128
+00:06:24.000 --> 00:06:27.000
+UI, and then, create a text, and then to all the
+
+129
+00:06:27.000 --> 00:06:30.000
+button addition and stuff like that again, or
+
+130
+00:06:30.000 --> 00:06:33.000
+I can cheat again, I copy my button across. So, I'm going
+
+131
+00:06:33.000 --> 00:06:36.000
+to save my game, jump back into my Start Scene,
+
+132
+00:06:36.000 --> 00:06:39.000
+grab my button and my
+
+133
+00:06:39.000 --> 00:06:42.000
+Event System, because remember, we need an Event System,
+
+134
+00:06:42.000 --> 00:06:45.000
+and my Canvas. Copy them across
+
+135
+00:06:45.000 --> 00:06:48.000
+to my Game Scene
+
+136
+00:06:48.000 --> 00:06:51.000
+and paste them in. Here we go, now
+
+137
+00:06:51.000 --> 00:06:54.000
+I've got a Canvas and I've got all sorts of stuff in there. The only thing I
+
+138
+00:06:54.000 --> 00:06:57.000
+actually want is one of the buttons. I'm going to remove everything
+
+139
+00:06:57.000 --> 00:07:00.000
+else, delete them,
+
+140
+00:07:00.000 --> 00:07:03.000
+and use my Quit Button, rename it to
+
+141
+00:07:03.000 --> 00:07:06.000
+Back Button.
+
+142
+00:07:06.000 --> 00:07:09.000
+And change the text
+
+143
+00:07:09.000 --> 00:07:12.000
+and then, go
+
+144
+00:07:12.000 --> 00:07:15.000
+to my handler, and now it's missing, because we've
+
+145
+00:07:15.000 --> 00:07:18.000
+copied them separately. So, I'm going to grab my LevelManager
+
+146
+00:07:18.000 --> 00:07:21.000
+and put it
+
+147
+00:07:21.000 --> 00:07:24.000
+in my Back Button. So, I get my LevelManager, drag it
+
+148
+00:07:24.000 --> 00:07:27.000
+into my On Click () Handler, for my Back Button, if
+
+149
+00:07:27.000 --> 00:07:30.000
+it lets me. Here we go! And then, select the
+
+150
+00:07:30.000 --> 00:07:33.000
+right function, which is LevelManager, LoadLevel,
+
+151
+00:07:33.000 --> 00:07:36.000
+and this time instead of loading Game, I'm obviously going to
+
+152
+00:07:36.000 --> 00:07:39.000
+be loading a diferent one, which is Start. So, now if I
+
+153
+00:07:39.000 --> 00:07:42.000
+press the game, I go back to my Start scene. Don't forget
+
+154
+00:07:42.000 --> 00:07:45.000
+to save your changes to the Game scene.
+
+155
+00:07:45.000 --> 00:07:48.000
+I press play, and then I click on Start.
+
+156
+00:07:48.000 --> 00:07:51.000
+I've got my Game scene right here, and then, I press back and
+
+157
+00:07:51.000 --> 00:07:54.000
+I'm back on my Start scene. And that's kind of what we were expecting,
+
+158
+00:07:54.000 --> 00:07:57.000
+how to go back and forth, using buttons and Load
+
+159
+00:07:57.000 --> 00:08:00.000
+Level. So, that's awesome! What's the next thing to do? Well, the next
+
+160
+00:08:00.000 --> 00:08:03.000
+thing to do is to get Quit to work and look at
+
+161
+00:08:03.000 --> 00:08:06.000
+a bit more about how Quit works and what we can do with Quit.
+
+162
+00:08:06.000 --> 00:08:09.000
+So, it's pretty simple, in terms of the code. Quit
+
+163
+00:08:09.000 --> 00:08:12.000
+is just another application function, and we can use Application
+
+164
+00:08:12.000 --> 00:08:15.000
+.Quit
+
+165
+00:08:15.000 --> 00:08:18.000
+and that will do exactly what we expect it to
+
+166
+00:08:18.000 --> 00:08:21.000
+generally. So, we've got an Application.Quit();
+
+167
+00:08:21.000 --> 00:08:24.000
+We can save and then, we can jump back
+
+168
+00:08:24.000 --> 00:08:27.000
+and try it out in our Editor, and we'll see what the effect
+
+169
+00:08:27.000 --> 00:08:30.000
+is. So, now you press Quit.
+
+170
+00:08:30.000 --> 00:08:33.000
+I've got the request coming up, you can see it in the Console,
+
+171
+00:08:33.000 --> 00:08:36.000
+however my application doesn't pause.
+
+172
+00:08:36.000 --> 00:08:39.000
+Why is that? Well, we've just hit the first limitation of our
+
+173
+00:08:39.000 --> 00:08:42.000
+Application.Quit. Application.Quit works
+
+174
+00:08:42.000 --> 00:08:45.000
+great, if you're making a build. Application
+
+175
+00:08:45.000 --> 00:08:48.000
+.Quit works great, if you're making a build for the PC
+
+176
+00:08:48.000 --> 00:08:51.000
+and the consoles,
+
+177
+00:08:51.000 --> 00:08:54.000
+however it is limited on the Web Build
+
+178
+00:08:54.000 --> 00:08:57.000
+and the Debug
+
+179
+00:08:57.000 --> 00:09:00.000
+Build. So, this is the debug build, this is kind of the debug in Editor
+
+180
+00:09:00.000 --> 00:09:03.000
+Build, and Quit will have no effect, in that case. It will
+
+181
+00:09:03.000 --> 00:09:06.000
+also have no effect if you're in the web. If you create a web
+
+182
+00:09:06.000 --> 00:09:09.000
+plugin and
+
+183
+00:09:09.000 --> 00:09:12.000
+you use the web plugin, then you're web build will have no
+
+184
+00:09:12.000 --> 00:09:15.000
+Application.Quit. Clicking it will have no effect. It's
+
+185
+00:09:15.000 --> 00:09:18.000
+also really important to understand that while it will have an effect on
+
+186
+00:09:18.000 --> 00:09:21.000
+mobile phone platforms, so if you have iOS,
+
+187
+00:09:21.000 --> 00:09:24.000
+Android, or Windows, most of those platforms,
+
+188
+00:09:24.000 --> 00:09:27.000
+form the guidelines for app
+
+189
+00:09:27.000 --> 00:09:30.000
+developers, means that you shouldn't quit your application youself. You should
+
+190
+00:09:30.000 --> 00:09:33.000
+have the player and the operating system
+
+191
+00:09:33.000 --> 00:09:36.000
+manage the application state, in which case Application.Quit
+
+192
+00:09:36.000 --> 00:09:39.000
+is actually a bad pattern to fall into.
+
+193
+00:09:39.000 --> 00:09:42.000
+It's a bad practice, and if you try and submit an
+
+194
+00:09:42.000 --> 00:09:45.000
+application to the app store, with a Quit Button, it'll actaully
+
+195
+00:09:45.000 --> 00:09:48.000
+be rejected, for example, on the iOS app store.
+
+196
+00:09:48.000 --> 00:09:51.000
+So, those are the little limitations of Application.Quit,
+
+197
+00:09:51.000 --> 00:09:54.000
+but now, we at least we can try and build a new
+
+198
+00:09:54.000 --> 00:09:57.000
+build. So, we go into File, Build,
+
+199
+00:09:57.000 --> 00:10:00.000
+Build Settings, grab the right one, click
+
+200
+00:10:00.000 --> 00:10:03.000
+Build and Run. I'll just select
+
+201
+00:10:03.000 --> 00:10:06.000
+a random location, I don't really care where it's loaded. I just want to
+
+202
+00:10:06.000 --> 00:10:09.000
+show you the example. And I'm
+
+203
+00:10:09.000 --> 00:10:12.000
+going to choose a random
+
+204
+00:10:12.000 --> 00:10:15.000
+graphics size, and there we go, we've got our app.
+
+205
+00:10:15.000 --> 00:10:18.000
+Powered by Unity, etc., etc.
+
+206
+00:10:18.000 --> 00:10:21.000
+And we should see our first scene. "Welcome to Number Wizard Puny Human!".
+
+207
+00:10:21.000 --> 00:10:24.000
+And if I press Quit here, it will actually take
+
+208
+00:10:24.000 --> 00:10:27.000
+me back to my Desktop, as we expect
+
+209
+00:10:27.000 --> 00:10:30.000
+it to, which is great! So, that's just to show you the Application.Quit
+
+210
+00:10:30.000 --> 00:10:33.000
+Button, working as you'd expect it to.
+
+211
+00:10:33.000 --> 00:10:36.000
+So, what's next? Well,
+
+212
+00:10:36.000 --> 00:10:39.000
+let's take a review of a little bit of how we load the scene,
+
+213
+00:10:39.000 --> 00:10:42.000
+how all this is wired together. So, if you remember, we have
+
+214
+00:10:42.000 --> 00:10:45.000
+two objects, so those are game level objects. Those are
+
+215
+00:10:45.000 --> 00:10:48.000
+the Start Button and the LevelManager; those are the actual things we're moving
+
+216
+00:10:48.000 --> 00:10:51.000
+around with, and we can see them in the Editor in
+
+217
+00:10:51.000 --> 00:10:54.000
+our Start Scene. For example, this is a LevelManager Object
+
+218
+00:10:54.000 --> 00:10:57.000
+and this is the Start Button Object, right here
+
+219
+00:10:57.000 --> 00:11:00.000
+in the Hierarchy. Now, if we do
+
+220
+00:11:00.000 --> 00:11:03.000
+go into those objects, they each have
+
+221
+00:11:03.000 --> 00:11:06.000
+a component. The Start Button has a Button Componeent and the LevelManager
+
+222
+00:11:06.000 --> 00:11:09.000
+has a LevelManager Componenet. And we can also see this in our
+
+223
+00:11:09.000 --> 00:11:12.000
+Editor, if we jump back. We can see that when we have the Level
+
+224
+00:11:12.000 --> 00:11:15.000
+Manager selected, the components all showed in the
+
+225
+00:11:15.000 --> 00:11:18.000
+Inspector. So, we've got a Transform Component, which is default for all objects,
+
+226
+00:11:18.000 --> 00:11:21.000
+and then, we have a LevelManager Script Component and that's the
+
+227
+00:11:21.000 --> 00:11:24.000
+component we're talking about. Similarly, the Start Button has a
+
+228
+00:11:24.000 --> 00:11:27.000
+Button Component, and
+
+229
+00:11:27.000 --> 00:11:30.000
+inside of its Inspector. We can look at the Inspector here, it has
+
+230
+00:11:30.000 --> 00:11:33.000
+several components, including a Transform, a Canvas
+
+231
+00:11:33.000 --> 00:11:36.000
+Renderer, a Text, etc., and a Button Script
+
+232
+00:11:36.000 --> 00:11:39.000
+Component. So, those are the components.
+
+233
+00:11:39.000 --> 00:11:42.000
+If we jump back, what the Start Button's
+
+234
+00:11:42.000 --> 00:11:45.000
+Component also has an On Click () Event Handler,
+
+235
+00:11:45.000 --> 00:11:48.000
+and that's represented in the Unity Editor.
+
+236
+00:11:48.000 --> 00:11:51.000
+At the bottom there's...
+
+237
+00:11:51.000 --> 00:11:54.000
+at the bottom of the Button Component, there's an On Click ()
+
+238
+00:11:54.000 --> 00:11:57.000
+list, and we can change that and add things to it. So, right now we have
+
+239
+00:11:57.000 --> 00:12:00.000
+a reference to the LevelManager Object, which is this
+
+240
+00:12:00.000 --> 00:12:03.000
+guy here, in the Hierarchy, and we
+
+241
+00:12:03.000 --> 00:12:06.000
+also have a reference to a function
+
+242
+00:12:06.000 --> 00:12:09.000
+we want to call. So, tha's the next thing we want to think of,
+
+243
+00:12:09.000 --> 00:12:12.000
+is there is now a function in LevelManager.
+
+244
+00:12:12.000 --> 00:12:15.000
+And what happens is, the On Click Event Handler has
+
+245
+00:12:15.000 --> 00:12:18.000
+the reference to that function, and whenever the button is clicked
+
+246
+00:12:18.000 --> 00:12:21.000
+it actually calls it. So, that's actually what's happening in the
+
+247
+00:12:21.000 --> 00:12:24.000
+game and how things are wired together, in our scene.
+
+248
+00:12:24.000 --> 00:12:27.000
+OK awesome! I hope it's been useful,
+
+249
+00:12:27.000 --> 00:12:30.000
+I hope you can see how to wire things together now, and
+
+250
+00:12:30.000 --> 00:12:33.000
+how to create buttons that quit and change scenes.
+
+251
+00:12:33.000 --> 00:12:36.000
+And you also know a little bit more about the limitations
+
+252
+00:12:36.000 --> 00:12:39.000
+of the quit function, in Appliation.Quit.
+
+253
+00:12:39.000 --> 00:12:42.000
+Hope you've enjoyed this video, and I will see you in another one!
+
+254
+00:12:42.000 --> 00:12:44.166
+Bye for now!
+
