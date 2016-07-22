@@ -1,0 +1,514 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.700
+
+
+2
+00:00:03.700 --> 00:00:07.700
+So welcome to Animating our Cactus! In this video
+
+3
+00:00:07.700 --> 00:00:11.700
+we'll be animating the cactus from scratch and recapping the 5-step process!
+
+4
+00:00:11.700 --> 00:00:15.700
+So let's dive in! So let's take a look at the Star
+
+5
+00:00:15.700 --> 00:00:19.700
+Trophy now, make sure that is working OK. We're going to move him over next to the Lizard.
+
+6
+00:00:19.700 --> 00:00:23.700
+Ooh, I've just moved the Top. Make sure, if you're moving the Star Trophy, of course, that you move the entire
+
+7
+00:00:23.700 --> 00:00:27.700
+thing. Now the Star Trophy already has this parent child relationship,
+
+8
+00:00:27.700 --> 00:00:31.700
+so we can put him precisely on grid at 4, 3, and then, we
+
+9
+00:00:31.700 --> 00:00:35.700
+can use the fact that the Top and the Base are child objects to
+
+10
+00:00:35.700 --> 00:00:39.700
+just adjust that position slightly. Now, let's make sure we're obeying our rules.
+
+11
+00:00:39.700 --> 00:00:43.700
+We have an animator at the top level, and we have, actually in this case, two body
+
+12
+00:00:43.700 --> 00:00:47.700
+objects, which is fine because we're making a bone based animation. Cool!
+
+13
+00:00:47.700 --> 00:00:51.700
+Let's go take a look! The Idle animation, how is that working? Well it's a
+
+14
+00:00:51.700 --> 00:00:55.700
+bone based animation that we've already setup, and it lasts a total of 4
+
+15
+00:00:55.700 --> 00:00:59.700
+seconds, so we're going to be in there for 4 seconds, that's OK. And then, the
+
+16
+00:00:59.700 --> 00:01:03.700
+Star Birth, let's take a look at that, that lasts a total of 4 seconds
+
+17
+00:01:03.700 --> 00:01:07.700
+as well. So the Star Trophy should already be going from Idle
+
+18
+00:01:07.700 --> 00:01:11.700
+for 4 seconds to Star Birth
+
+19
+00:01:11.700 --> 00:01:15.700
+and then back to Idle. So let's just check these transition arrows. At the moment,
+
+20
+00:01:15.700 --> 00:01:19.700
+we've got 5 cycles before we leave, that's a lot. So I'm making
+
+21
+00:01:19.700 --> 00:01:23.700
+sure that we're not playing when we adjust the Exit Time, 1 cycle Exit Time.
+
+22
+00:01:23.700 --> 00:01:27.700
+Let's try that now! So we should get a
+
+23
+00:01:27.700 --> 00:01:31.700
+single cycle of the star going left and right, and then, a transition over to
+
+24
+00:01:31.700 --> 00:01:35.700
+Star Birth. That's absolutely fine! So this star is up and running!
+
+25
+00:01:35.700 --> 00:01:39.700
+Good, we've already done a load of the work! Now, before I continue and start adding other defenders
+
+26
+00:01:39.700 --> 00:01:43.700
+and attackers, I just want to do a couple of things to make it tidier. I'm going to create another
+
+27
+00:01:43.700 --> 00:01:47.700
+empty game object called Attackers.
+
+28
+00:01:47.700 --> 00:01:51.700
+I'm going to put this at 0, 0, 0, and then, I'm just going to put the
+
+29
+00:01:51.700 --> 00:01:55.700
+Lizard into Attackers. And I'm going to make another empty, at the root, must
+
+30
+00:01:55.700 --> 00:01:59.700
+be at the root. So this guy, that I just made, is at the root, just be careful you
+
+31
+00:01:59.700 --> 00:02:03.700
+make it at the root. Call it Defenders,
+
+32
+00:02:03.700 --> 00:02:07.700
+set it to 0, and then put the Star Trophy in. So all we've done here is
+
+33
+00:02:07.700 --> 00:02:11.700
+organized our Attackers and Defenders together. Fantastic! So now it's
+
+34
+00:02:11.700 --> 00:02:15.700
+time to start composing our second object. Now you've seen how to do both Sprite Based Animation,
+
+35
+00:02:15.700 --> 00:02:19.700
+with the Lizard, and Bone Based Animation, with the Star Trophy. It's
+
+36
+00:02:19.700 --> 00:02:23.700
+time to crack out the third type of character. So which
+
+37
+00:02:23.700 --> 00:02:27.700
+should we go for next? Well let's go look at our Asset Pack! So over
+
+38
+00:02:27.700 --> 00:02:31.700
+here in the section assets, that you would have downloaded, I'm using version 8 in this video.
+
+39
+00:02:31.700 --> 00:02:35.700
+You can open the Unity package, and what it'll do
+
+40
+00:02:35.700 --> 00:02:39.700
+for you is, it will detect the assets that are not already in your game, only
+
+41
+00:02:39.700 --> 00:02:43.700
+the ones that aren't, and it'll allow you to import them. Well let's just go ahead and do that!
+
+42
+00:02:43.700 --> 00:02:47.700
+And in they come! Now suddenly,
+
+43
+00:02:47.700 --> 00:02:51.700
+we've got all the things we need organized into folders. We've got a Cactus, a
+
+44
+00:02:51.700 --> 00:02:55.700
+Fox, and a Gnome, etc., etc. So why don't we just start at
+
+45
+00:02:55.700 --> 00:02:59.700
+the top? Let's have a Cactus! OK, now I will set this entire
+
+46
+00:02:59.700 --> 00:03:03.700
+Cactus up from scratch to you, according to the new scheme, and then, I will challenge you
+
+47
+00:03:03.700 --> 00:03:07.700
+to do the next one. So the Cactus is what? Well it's a Defender!
+
+48
+00:03:07.700 --> 00:03:11.700
+So let's make an empty object, let's call it Cactus.
+
+49
+00:03:11.700 --> 00:03:15.700
+Let's decide where in the scene we're going to put it, somewhere
+
+50
+00:03:15.700 --> 00:03:19.700
+on grid, 3, 2 will be fine or 4
+
+51
+00:03:19.700 --> 00:03:23.700
+2, just so it's below the other Defender. OK fine! Now, we
+
+52
+00:03:23.700 --> 00:03:27.700
+said that for all of these we want a separate sub-body
+
+53
+00:03:27.700 --> 00:03:31.700
+object. Now the Cactus is going to have an Idle sprite sheet animation, so I'm
+
+54
+00:03:31.700 --> 00:03:35.700
+going to call this Body.
+
+55
+00:03:35.700 --> 00:03:39.700
+I'm going to add a Sprite Renderer to the body,
+
+56
+00:03:39.700 --> 00:03:43.700
+and at the Cactus, just like on the Lizard we have an Animator. We need a
+
+57
+00:03:43.700 --> 00:03:47.700
+Animator on the Cactus.
+
+58
+00:03:47.700 --> 00:03:51.700
+OK, that's fantastic! Now, remember the Lizard had an Animator
+
+59
+00:03:51.700 --> 00:03:55.700
+Controller? Well we're going to need one of those, so let's make ourselves,
+
+60
+00:03:55.700 --> 00:03:59.700
+in the Cactus Animations folder an Animator Controller.
+
+61
+00:03:59.700 --> 00:04:03.700
+Call it Cactus, which is consistent with
+
+62
+00:04:03.700 --> 00:04:07.700
+the Lizard. Now you may want to call it underscore Cactus, like I did before, because that
+
+63
+00:04:07.700 --> 00:04:11.700
+just makes it float to the start of the folder, and it's kind of the root
+
+64
+00:04:11.700 --> 00:04:15.700
+object of the folder, so that makes sense. Now, the Cactus here,
+
+65
+00:04:15.700 --> 00:04:19.700
+in the root Cactus object, we can give it an Animator Controller. So now let's
+
+66
+00:04:19.700 --> 00:04:23.700
+give ourselves a default sprite. I'll use the first frame, so I've
+
+67
+00:04:23.700 --> 00:04:27.700
+clicked on the Cactus body now, and against the Sprite Renderer
+
+68
+00:04:27.700 --> 00:04:31.700
+I'm popping the Cactus Idle frame. Ah, there we go!
+
+69
+00:04:31.700 --> 00:04:35.700
+We have a Cactus Idle! Now if this is too big for your taste, of course, with the body
+
+70
+00:04:35.700 --> 00:04:39.700
+element selected, another benefit of having a separate body element is you can do some scaling.
+
+71
+00:04:39.700 --> 00:04:43.700
+And all this positioning and scaling has happened without, at the Cactus level, changing
+
+72
+00:04:43.700 --> 00:04:47.700
+the fact the Cactus is nicely on grid, which our code is going to be very
+
+73
+00:04:47.700 --> 00:04:51.700
+pleased with. Fantastic! Let's go into the animation! Let's
+
+74
+00:04:51.700 --> 00:04:55.700
+create a new clip, let's call it the same as the names
+
+75
+00:04:55.700 --> 00:04:59.700
+down here in the Assets, so I'm going to call it Idle to start with.
+
+76
+00:04:59.700 --> 00:05:03.700
+We're going to add a curve, drilling into the body remember, then the Sprite Renderer,
+
+77
+00:05:03.700 --> 00:05:07.700
+and then, Sprite. It comes up with a default couple of frames, we're used to that.
+
+78
+00:05:07.700 --> 00:05:11.700
+Select all the frames that we want, drop them in. Remove
+
+79
+00:05:11.700 --> 00:05:15.700
+the frames it came with by default, move the rest across to the left, and then
+
+80
+00:05:15.700 --> 00:05:19.700
+have a look at the time-frame. We want this to animate for about 3
+
+81
+00:05:19.700 --> 00:05:23.700
+seconds. We have a frame-rate of 60. That's very high, let's look at see if it's
+
+82
+00:05:23.700 --> 00:05:27.700
+OK. Does it look OK? I think it does for that!
+
+83
+00:05:27.700 --> 00:05:31.700
+So how long is this lasting? Well it's 60 frames
+
+84
+00:05:31.700 --> 00:05:35.700
+a second. We've got, I'm not sure how many frames but you can see
+
+85
+00:05:35.700 --> 00:05:39.700
+that this animation cycle is lasting about 3/4
+
+86
+00:05:39.700 --> 00:05:43.700
+of a second, so we're going to want
+
+87
+00:05:43.700 --> 00:05:47.700
+about 4 of these, in order to get the right times. So
+
+88
+00:05:47.700 --> 00:05:51.700
+in the Animator, we're going to go from Idle to the next state, after about
+
+89
+00:05:51.700 --> 00:05:55.700
+4 cycles, but we're not quite ready to do that yet, because we need the next state to be
+
+90
+00:05:55.700 --> 00:05:59.700
+ready. So how are we going to do that? Well we can come here and create a new clip. What's
+
+91
+00:05:59.700 --> 00:06:03.700
+the new clip going to be called? Well what's it called in the
+
+92
+00:06:03.700 --> 00:06:07.700
+Assets? It's called attack, so why don't we call it Attack!
+
+93
+00:06:07.700 --> 00:06:11.700
+So create a new clip, call it
+
+94
+00:06:11.700 --> 00:06:15.700
+Attack. Now look over in your
+
+95
+00:06:15.700 --> 00:06:19.700
+Animator and you'll see it's made an Attack state here. And let's
+
+96
+00:06:19.700 --> 00:06:23.700
+make the transition from Idle to Attack. We set it
+
+97
+00:06:23.700 --> 00:06:27.700
+once to go, I think after about 4. Let's just test that! So
+
+98
+00:06:27.700 --> 00:06:31.700
+1,000, 2,000, 3,000, and it stops. That's about
+
+99
+00:06:31.700 --> 00:06:35.700
+right. Fantastic! Now Attack needs to do something, so
+
+100
+00:06:35.700 --> 00:06:39.700
+it's the same as before right. We Add a Curve to the Body, because
+
+101
+00:06:39.700 --> 00:06:43.700
+the Animator is controlling the sub-object. We're going to swap out the sprite, we're going to
+
+102
+00:06:43.700 --> 00:06:47.700
+leave the default frames there. Loads of frames in this Attack animation,
+
+103
+00:06:47.700 --> 00:06:51.700
+select all of them except for the last blank ones. We don't want those blank ones. Drop
+
+104
+00:06:51.700 --> 00:06:55.700
+them in, get rid of the frames it started with, Control
+
+105
+00:06:55.700 --> 00:06:59.700
+A or Box Select. Have a little look at how long this is, it's a minute and 10
+
+106
+00:06:59.700 --> 00:07:03.700
+seconds, so we want to come out after about 3 cycles. I'm being rough with these
+
+107
+00:07:03.700 --> 00:07:07.700
+cycle times and that's absolutely fine! So we want to go from Attack back
+
+108
+00:07:07.700 --> 00:07:11.700
+to Idle, after about 3 cycles. Let's
+
+109
+00:07:11.700 --> 00:07:15.700
+see how this look! So about 1,000, 2,000,
+
+110
+00:07:15.700 --> 00:07:19.700
+3,000, then 1,000... Ooh, so he's not doing 3 full
+
+111
+00:07:19.700 --> 00:07:23.700
+cycles. Let's check the return condition, it didn't remember that. Remember that when you
+
+112
+00:07:23.700 --> 00:07:27.700
+set your exit time, you must hit Return and not be in Play Mode.
+
+113
+00:07:27.700 --> 00:07:31.700
+Let's try that again! 1,000, 2,000, 3,000.
+
+114
+00:07:31.700 --> 00:07:35.700
+1,000, 2,000, 3,000. He's just going back and forth.
+
+115
+00:07:35.700 --> 00:07:39.700
+Awesome, so finally the Cactus is a Defender, so I'm going to drag it under Defenders.
+
+116
+00:07:39.700 --> 00:07:43.700
+And we have some structure coming on, we have Attackers, Defenders,
+
+117
+00:07:43.700 --> 00:07:47.700
+and of course, we're just going to keep repeating this process. Now remember, the
+
+118
+00:07:47.700 --> 00:07:51.700
+slide that I gave you in the previous video, this one Character Animation
+
+119
+00:07:51.700 --> 00:07:55.700
+Overview. We create a character parent and child body object. We ensure
+
+120
+00:07:55.700 --> 00:07:59.700
+that the Animator is on the parent object. We convert the Sprite Sheet into separate
+
+121
+00:07:59.700 --> 00:08:03.700
+frames, that's been done for you in the Asset Pack. We add a Sprite Renderer
+
+122
+00:08:03.700 --> 00:08:07.700
+Curve to the body object, and we adjust
+
+123
+00:08:07.700 --> 00:08:11.700
+animation to taste. So that's what we're going to need to do for everything.
+
+124
+00:08:11.700 --> 00:08:15.700
+So I want you to animate the rest of the Defenders now. Animate all the other Defenders,
+
+125
+00:08:15.700 --> 00:08:19.700
+aim for them to cycle every 3 seconds, and if you're stuck, watch me over the
+
+126
+00:08:19.700 --> 00:08:23.700
+coming videos. So pause the video, have a go at animating the rest of the Defenders now,
+
+127
+00:08:23.700 --> 00:08:27.700
+and in the next video, this time, I will start to show you my solution.
+
+128
+00:08:27.700 --> 00:08:30.600
+
+
