@@ -1,0 +1,810 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Hey, so in
+
+2
+00:00:04.000 --> 00:00:08.000
+this video we're going to go from the abstract to the concrete, and we're going to install the Unity
+
+3
+00:00:08.000 --> 00:00:12.000
+Test Tools themselves. So before we start a word of advice! If
+
+4
+00:00:12.000 --> 00:00:16.000
+you're on Unity 5.3 or higher, then take note of Martin's
+
+5
+00:00:16.000 --> 00:00:20.000
+fantastically useful discussion here, which I'm showing on the screen. There's also a
+
+6
+00:00:20.000 --> 00:00:24.000
+link available for you at http://bit.ly/testadvice
+
+7
+00:00:24.000 --> 00:00:28.000
+and that will tell you
+
+8
+00:00:28.000 --> 00:00:32.000
+what you need to do if you're in Unity 5.3 or higher.
+
+9
+00:00:32.000 --> 00:00:36.000
+We're going to find out what Unity Test Tools are, how to find
+
+10
+00:00:36.000 --> 00:00:40.000
+and install them, and then, we're going to be setting up your first failing
+
+11
+00:00:40.000 --> 00:00:44.000
+test. So how do you find the Unity Test Tools? Well the one way is you click this link,
+
+12
+00:00:44.000 --> 00:00:48.000
+in the course slides, or you go to the Unity Assets Store on the web and
+
+13
+00:00:48.000 --> 00:00:52.000
+search for Unity Test Tools. Or, and this is the way I'm going to do it, you go
+
+14
+00:00:52.000 --> 00:00:56.000
+into Unity itself, into this search box here in the Project tab, and type
+
+15
+00:00:56.000 --> 00:01:00.000
+Unity Test Tools. Now that's not going to do much because you're probably
+
+16
+00:01:00.000 --> 00:01:04.000
+haven't got an asset called Unity Test Tools, but if you click the Assets Store button here,
+
+17
+00:01:04.000 --> 00:01:08.000
+ah! You'll get a load of other stuffs but importantly you get
+
+18
+00:01:08.000 --> 00:01:12.000
+that, Unity Test Tools. So the easiest way to get that in here
+
+19
+00:01:12.000 --> 00:01:16.000
+is to just click Import Package. Why not do that?!
+
+20
+00:01:16.000 --> 00:01:20.000
+And there it goes, it's downloading! Now you could click this short link here
+
+21
+00:01:20.000 --> 00:01:24.000
+and that would just take you straight back, probably to exactly the same page it does,
+
+22
+00:01:24.000 --> 00:01:28.000
+exactly the same page as I took you to. So there are lots of way of skinning it.
+
+23
+00:01:28.000 --> 00:01:32.000
+So what is Unity Test Tools, what is it and what does it install? Well let's
+
+24
+00:01:32.000 --> 00:01:36.000
+just look at this package for a minute, it installs a load of different things.
+
+25
+00:01:36.000 --> 00:01:40.000
+ah um, Wow, quite heavy weight! Do you need it all?!
+
+26
+00:01:40.000 --> 00:01:44.000
+Not really. Does it matter if you install it all? Not really.
+
+27
+00:01:44.000 --> 00:01:48.000
+We don't want to be in a position where we're deciding right now, so
+
+28
+00:01:48.000 --> 00:01:52.000
+you've got some examples, lots of example assertations which
+
+29
+00:01:52.000 --> 00:01:56.000
+we'll discover later. You've got some documentation, a link
+
+30
+00:01:56.000 --> 00:02:00.000
+to the documentation on the web, something about the licensing, some common
+
+31
+00:02:00.000 --> 00:02:04.000
+components, including some icons and various other things. Some example
+
+32
+00:02:04.000 --> 00:02:08.000
+tests, which is quite handy. Some frameworks for integration in UnitTesting.
+
+33
+00:02:08.000 --> 00:02:12.000
+Now, Unit Testing is testing, basically, a single class like this score
+
+34
+00:02:12.000 --> 00:02:16.000
+master. IntegrationTesting is a higher level set of testing, that may test,
+
+35
+00:02:16.000 --> 00:02:20.000
+for instance, that your whole game works properly. We're going to be dealing with Unit
+
+36
+00:02:20.000 --> 00:02:24.000
+Testing here. So anyway, just import the whole lot, it's the bottom line, but I
+
+37
+00:02:24.000 --> 00:02:28.000
+always like to have a little nosey around a package, before I do.
+
+38
+00:02:28.000 --> 00:02:32.000
+So this is going to import into our assets in
+
+39
+00:02:32.000 --> 00:02:36.000
+your project,
+
+40
+00:02:36.000 --> 00:02:40.000
+and it's going to all go under something called Unity Test Tools
+
+41
+00:02:40.000 --> 00:02:44.000
+here. There it is! And you have a few things, you could look at the
+
+42
+00:02:44.000 --> 00:02:48.000
+license. You could look at the documentation
+
+43
+00:02:48.000 --> 00:02:52.000
+URL, you could look at the changelog, etc.
+
+44
+00:02:52.000 --> 00:02:56.000
+So if it's install properly and you have enough screen resolution, I would
+
+45
+00:02:56.000 --> 00:03:00.000
+expect to see yes. When you save, you expect to see Unity Test Tools in your
+
+46
+00:03:00.000 --> 00:03:04.000
+menus up here. If you still don't see them, I want to thank Daryl Kempthorne
+
+47
+00:03:04.000 --> 00:03:08.000
+for his advice here. He's posted in the forums to say he had a little
+
+48
+00:03:08.000 --> 00:03:12.000
+bit of problems and that he discovered that he needed to make sure that
+
+49
+00:03:12.000 --> 00:03:16.000
+the code compiled without errors, before his menu would appear. So
+
+50
+00:03:16.000 --> 00:03:20.000
+if you are having problems, then just make sure that you can build all of your
+
+51
+00:03:20.000 --> 00:03:24.000
+current scripts without errors, and once that's happening, hopefully Unity
+
+52
+00:03:24.000 --> 00:03:28.000
+Test Tools will appear. As a final resort just restart Unity,
+
+53
+00:03:28.000 --> 00:03:32.000
+and I think that you should be up and running. So thanks very much Daryl!
+
+54
+00:03:32.000 --> 00:03:36.000
+Just goes to show that your feedback gets integrated back into the course, everybody!
+
+55
+00:03:36.000 --> 00:03:40.000
+So that's awesome! You now have the basics
+
+56
+00:03:40.000 --> 00:03:44.000
+of what you need to get your testing working. So how are we going to actually run our test?
+
+57
+00:03:44.000 --> 00:03:48.000
+Well let's firstly get up the Unit Test Runner! So click on
+
+58
+00:03:48.000 --> 00:03:52.000
+Unity Test Tools, Unity Test Runner there for me.
+
+59
+00:03:52.000 --> 00:03:56.000
+And that will bring up a floating window somewhere on one of your monitors, which you
+
+60
+00:03:56.000 --> 00:04:00.000
+want to grab hold of and probably put next to the Inspector. You probably don't need
+
+61
+00:04:00.000 --> 00:04:04.000
+it at the same time as the Inspector. So if you look, it's already got
+
+62
+00:04:04.000 --> 00:04:08.000
+a whole bunch of tests in here, and we can actually just click run all and see what happens.
+
+63
+00:04:08.000 --> 00:04:12.000
+Now, this is a hierarchical list, so it's saying that cross just
+
+64
+00:04:12.000 --> 00:04:16.000
+means that something in Bowlmaster test, Bowlmaster failed. This cross
+
+65
+00:04:16.000 --> 00:04:20.000
+means something in the UnityTest failed. This cross means something in SampleTests failed,
+
+66
+00:04:20.000 --> 00:04:24.000
+but you get the idea. All the parameterized tests and range tests have worked,
+
+67
+00:04:24.000 --> 00:04:28.000
+the slowness test didn't, etc. So we've not going to worry about any of these
+
+68
+00:04:28.000 --> 00:04:32.000
+tests. These aren't our tests and they're far too complicated to be worrying about. But the basic idea
+
+69
+00:04:32.000 --> 00:04:36.000
+is, you can run all your tests at any point, and it'll tell you all the ones that are passing,
+
+70
+00:04:36.000 --> 00:04:40.000
+all the ones that are failing, and if you give yourself a bit more room on your Unit Tests
+
+71
+00:04:40.000 --> 00:04:44.000
+window, you'll see a few other things. You can filter out
+
+72
+00:04:44.000 --> 00:04:48.000
+tests that haven't been run and tests that are ignored
+
+73
+00:04:48.000 --> 00:04:52.000
+and tests that have failed and tests that have passed.
+
+74
+00:04:52.000 --> 00:04:56.000
+You can also filter a different way. You can show everything, you can show Failing Tests
+
+75
+00:04:56.000 --> 00:05:00.000
+only or not show Failing Tests or whatever you like.
+
+76
+00:05:00.000 --> 00:05:04.000
+Alright, so there's a few options there. Another option, which I think is probably worth doing
+
+77
+00:05:04.000 --> 00:05:08.000
+straight from the beginning, is click this little tiny drop-down at the top-right of Unit Tests
+
+78
+00:05:08.000 --> 00:05:12.000
+for me, and then, click Run on Recompile,
+
+79
+00:05:12.000 --> 00:05:16.000
+because we're going to be running very simple tests. We can do it
+
+80
+00:05:16.000 --> 00:05:20.000
+every single time we recompile, so you want to make sure there's a tick on Run on Recompile. It's
+
+81
+00:05:20.000 --> 00:05:24.000
+just going to save us wearing our fingers clicking run all later on.
+
+82
+00:05:24.000 --> 00:05:28.000
+So before we nuke these standard tests, we might as well learn
+
+83
+00:05:28.000 --> 00:05:32.000
+from them.So, if you go into, We need to find these
+
+84
+00:05:32.000 --> 00:05:36.000
+tests that it's running and see how even write a test. Where is it? We'll have
+
+85
+00:05:36.000 --> 00:05:40.000
+a look around these folders, that it's given you, and see what you can find.
+
+86
+00:05:40.000 --> 00:05:44.000
+Assertations Examples, sample tests, Examples,
+
+87
+00:05:44.000 --> 00:05:48.000
+Unit Testing Examples. So this is where I think you want to be, and in
+
+88
+00:05:48.000 --> 00:05:52.000
+Examples, Unit Test Examples, and it's in a folder called Editor.
+
+89
+00:05:52.000 --> 00:05:56.000
+I'll explain in a bit why it needs to be in a folder called Editor.
+
+90
+00:05:56.000 --> 00:06:00.000
+But what we want is, we want this code here that
+
+91
+00:06:00.000 --> 00:06:04.000
+tells us that we are using
+
+92
+00:06:04.000 --> 00:06:08.000
+at least the Unitytesting, the NUnit, Framework. We're going to have to
+
+93
+00:06:08.000 --> 00:06:12.000
+annotate like this, namespace UnityTest, and we
+
+94
+00:06:12.000 --> 00:06:16.000
+possibly, or at least we're going to need the [TestFixture] bit if nothing else.
+
+95
+00:06:16.000 --> 00:06:20.000
+So what I'd think would make a lot of sense to do here, would be to copy
+
+96
+00:06:20.000 --> 00:06:24.000
+perhaps all of that, the first 18 lines of SampleTest.cs.
+
+97
+00:06:24.000 --> 00:06:28.000
+Just copy them. OK,
+
+98
+00:06:28.000 --> 00:06:32.000
+and then let's start writing our actual own test. Now they need to be in a
+
+99
+00:06:32.000 --> 00:06:36.000
+folder called Editor, so create yourself a folder called Editor.
+
+100
+00:06:36.000 --> 00:06:40.000
+The reason they need to be in a folder that's called Editor is because they rely, because the tests happen
+
+101
+00:06:40.000 --> 00:06:44.000
+in the Editor, and therefore they need access to things that only the Editor
+
+102
+00:06:44.000 --> 00:06:48.000
+has access to, so any scripts that are in Editor are Editor scripts.
+
+103
+00:06:48.000 --> 00:06:52.000
+And then, make yourself a C# script called
+
+104
+00:06:52.000 --> 00:06:56.000
+ScoreMasterTest.
+
+105
+00:06:56.000 --> 00:07:00.000
+So we've got a script called ScoreMasterTest, in the Editor folder,
+
+106
+00:07:00.000 --> 00:07:04.000
+and let's edit that script.
+
+107
+00:07:04.000 --> 00:07:08.000
+Now, just nuke everything that's in it and start afresh, paste in what we copied
+
+108
+00:07:08.000 --> 00:07:12.000
+from the SampleTests. Now we don't
+
+109
+00:07:12.000 --> 00:07:16.000
+need the System.Threading, so take that out, we're not dealing with multithreading. We'll
+
+110
+00:07:16.000 --> 00:07:20.000
+leave in System and Collections.Generic, they're very useful. We need the NUnit.Framework,
+
+111
+00:07:20.000 --> 00:07:24.000
+that is the Unit Testing Framework, and we need the UnityEngine. We don't need to
+
+112
+00:07:24.000 --> 00:07:28.000
+declare a new namespace, that's more complicated than we need, so take that out,
+
+113
+00:07:28.000 --> 00:07:32.000
+and then, I'm going to re-indent my code back to the start.
+
+114
+00:07:32.000 --> 00:07:36.000
+OK we're nearly there. We don't need a Category, so you can take out the Category
+
+115
+00:07:36.000 --> 00:07:40.000
+integration, annotation, and rather than an
+
+116
+00:07:40.000 --> 00:07:44.000
+internal class, which we don't understand, just call it a public class.
+
+117
+00:07:44.000 --> 00:07:48.000
+And I'm going to call it... What shall we call it? ScoreTest.
+
+118
+00:07:48.000 --> 00:07:52.000
+Keep it nice and short. OK.
+
+119
+00:07:52.000 --> 00:07:56.000
+So we have a public class ScoreTest there,
+
+120
+00:07:56.000 --> 00:08:00.000
+and that is going to be full of tests. We don't need
+
+121
+00:08:00.000 --> 00:08:04.000
+categories. So you want to end up with some code, something like this!
+
+122
+00:08:04.000 --> 00:08:08.000
+And we won't even have the first test yet, so this first test just gives
+
+123
+00:08:08.000 --> 00:08:12.000
+you an example of a test but let's not even bother. All you
+
+124
+00:08:12.000 --> 00:08:16.000
+actually need is this, OK. This is the outline of
+
+125
+00:08:16.000 --> 00:08:20.000
+your testing system. It uses System, System.Collection.Generic,
+
+126
+00:08:20.000 --> 00:08:24.000
+NUnit.Framework, UnityEngine. We annotate a
+
+127
+00:08:24.000 --> 00:08:28.000
+new class called as a test [TestFixture]
+
+128
+00:08:28.000 --> 00:08:32.000
+like that. Fantastic! So that is the starting point, and we just
+
+129
+00:08:32.000 --> 00:08:36.000
+borrowed that code from [SampleTest] to get us off the ground.
+
+130
+00:08:36.000 --> 00:08:40.000
+OK, so it's time to write our first failing test.
+
+131
+00:08:40.000 --> 00:08:44.000
+So the way that you write your tests, once you have this basic framework
+
+132
+00:08:44.000 --> 00:08:48.000
+in place, which you can just see on my screen and basically copy it, is as
+
+133
+00:08:48.000 --> 00:08:52.000
+follows. It's public, just like other methods, void. I'm going to call it
+
+134
+00:08:52.000 --> 00:08:56.000
+FailingTest () and you just write it like any other method. Now, the difference
+
+135
+00:08:56.000 --> 00:09:00.000
+with tests is, we normally start with Assert, and if you go Assert dot you'll be able
+
+136
+00:09:00.000 --> 00:09:04.000
+to see what options we've got. There's quite a few things, we can assert the
+
+137
+00:09:04.000 --> 00:09:08.000
+equality of things or the inequality. We can assert things contained,
+
+138
+00:09:08.000 --> 00:09:12.000
+we can count, we can basically do a few things right.
+
+139
+00:09:12.000 --> 00:09:16.000
+Is an instance of, is true, yada yada yada.
+
+140
+00:09:16.000 --> 00:09:20.000
+So let's, that was the simplest possible failing test we could write?
+
+141
+00:09:20.000 --> 00:09:24.000
+Well it would be something like this. Assert.Equals
+
+142
+00:09:24.000 --> 00:09:28.000
+and it's going to compare two objects. Or should we use Equals or
+
+143
+00:09:28.000 --> 00:09:32.000
+AreEqual? Well AreEqual is the one you want to use. So Equals
+
+144
+00:09:32.000 --> 00:09:36.000
+you can use inside, but you always start with AreEqual OK, because that
+
+145
+00:09:36.000 --> 00:09:40.000
+is the actual test assertion. So Assert.AreEqual (1, 2);
+
+146
+00:09:40.000 --> 00:09:44.000
+Try that! That's going to be a failing test right,
+
+147
+00:09:44.000 --> 00:09:48.000
+because 1 doesn't equal 2. Let's have a look! Go over to Unity,
+
+148
+00:09:48.000 --> 00:09:52.000
+and now, down at the bottom-right look really carefully, you'll find
+
+149
+00:09:52.000 --> 00:09:56.000
+a little whirligig. Until that whirligig has gone away your test won't appaer.
+
+150
+00:09:56.000 --> 00:10:00.000
+Once the whirligig has gone away, if you're lucky, you'll be able to hit Run All,
+
+151
+00:10:00.000 --> 00:10:04.000
+and somewhere here you should see your new tests.
+
+152
+00:10:04.000 --> 00:10:08.000
+Now if you don't see them, then we need to get them working for you.
+
+153
+00:10:08.000 --> 00:10:12.000
+So if you don't see your test, then go back to your code and the
+
+154
+00:10:12.000 --> 00:10:16.000
+reason probably is that you need to annotate every single test with the word [Test].
+
+155
+00:10:16.000 --> 00:10:20.000
+If you don't have that [Test] annotation in front, and the [TestFixture]
+
+156
+00:10:20.000 --> 00:10:24.000
+annotation in front of ScoreTest then it won't work. Try again! Save
+
+157
+00:10:24.000 --> 00:10:28.000
+your script or even go as far as building it. Make sure there are no errors over here on your
+
+158
+00:10:28.000 --> 00:10:32.000
+script and go back to Unity. Now, once the little whirligig at the bottom-right has
+
+159
+00:10:32.000 --> 00:10:36.000
+gone away, then here you go look! We can collapse
+
+160
+00:10:36.000 --> 00:10:40.000
+down all the UnityTest stuff, but we have a FailingTest there! You see it?
+
+161
+00:10:40.000 --> 00:10:44.000
+Great! I actually would like to get UnityTest out of my face, but we'll do that
+
+162
+00:10:44.000 --> 00:10:48.000
+at the end. For now, let's make this test pass. We are in red, remember Red,
+
+163
+00:10:48.000 --> 00:10:52.000
+Green, Refactor! So the moment we have a failing test our job is to
+
+164
+00:10:52.000 --> 00:10:56.000
+make it pass. Now, in this case, we don't need to write any code to make it pass,
+
+165
+00:10:56.000 --> 00:11:00.000
+we just need to say AreEqual (1, 1).
+
+166
+00:11:00.000 --> 00:11:04.000
+[laughs] OK, we're going to change the test, in this case, just to show the effect.
+
+167
+00:11:04.000 --> 00:11:08.000
+When you come back over here, we have a whirligig, and provided that you have run
+
+168
+00:11:08.000 --> 00:11:12.000
+test on recompile, now the test passes! Awesome! You get the
+
+169
+00:11:12.000 --> 00:11:16.000
+idea, it's as simple as that! Kind of benign at this point or banal or
+
+170
+00:11:16.000 --> 00:11:20.000
+whatever the word is, but at least we have our framework working. Remember your Unit Tests
+
+171
+00:11:20.000 --> 00:11:24.000
+window might need to be a bit wider than I have mine. So let's ditch this
+
+172
+00:11:24.000 --> 00:11:28.000
+other UnityTests here. How are we going to do that? Well I would go down to
+
+173
+00:11:28.000 --> 00:11:32.000
+your UnityTestTools section, go into Examples,
+
+174
+00:11:32.000 --> 00:11:36.000
+UnityTestExamples, and Editor, and then, in your SampleTests
+
+175
+00:11:36.000 --> 00:11:40.000
+method you can select the whole lot, by just well selecting it all.
+
+176
+00:11:40.000 --> 00:11:44.000
+And then, one way to do it is Command or Control on a PC, and
+
+177
+00:11:44.000 --> 00:11:48.000
+the forward slash to comment it all out. Build that code, which should build to
+
+178
+00:11:48.000 --> 00:11:52.000
+nothing. When you come back into Unity the whirligig at the bottom-right will go around, and
+
+179
+00:11:52.000 --> 00:11:56.000
+then, all of those other tests will disappear and we just have simple Failing
+
+180
+00:11:56.000 --> 00:12:00.000
+Test. OK, it's not a Failing Test, so let's call
+
+181
+00:12:00.000 --> 00:12:04.000
+it a PassingTest. I'm going to use the Refactor Tool
+
+182
+00:12:04.000 --> 00:12:08.000
+and that's it, you have written your first test! Now there's no code
+
+183
+00:12:08.000 --> 00:12:12.000
+but we will be writing code, from the results of the tests, in the next
+
+184
+00:12:12.000 --> 00:12:16.000
+section. So build all your code, make sure its all saved,
+
+185
+00:12:16.000 --> 00:12:20.000
+and make sure all your tests are running and that your PassingTest works,
+
+186
+00:12:20.000 --> 00:12:24.000
+and then, save your project, save your scene, and celebrate! You have written your
+
+187
+00:12:24.000 --> 00:12:28.000
+first test, integrated your testing and development environment, etc. etc.
+
+188
+00:12:28.000 --> 00:12:32.000
+Little gotchas that might cause you problems, um
+
+189
+00:12:32.000 --> 00:12:36.000
+I'm not sure. I think this should just install absolutely fine, but if it doesn't for any reason, go back to the
+
+190
+00:12:36.000 --> 00:12:40.000
+Asset Store, try reinstalling it again. Make sure
+
+191
+00:12:40.000 --> 00:12:44.000
+that your test is in a folder called Editor.
+
+192
+00:12:44.000 --> 00:12:48.000
+Editor doesn't have to be at the root of your Assets, but it does have to be in a folder called
+
+193
+00:12:48.000 --> 00:12:52.000
+Editor and spelled exactly like that. If it's not, you'll get really weird errors.
+
+194
+00:12:52.000 --> 00:12:56.000
+Your test file can be called whatever you like. I recommend ScoreMaster
+
+195
+00:12:56.000 --> 00:13:00.000
+Test. You are going to need to import at least the
+
+196
+00:13:00.000 --> 00:13:04.000
+System, the NUnit.Framework, and the UnityEngine namespaces. I recommend
+
+197
+00:13:04.000 --> 00:13:08.000
+Collections.Generic as well. Your class ScoreTest will need to be
+
+198
+00:13:08.000 --> 00:13:12.000
+annotated with [TestFixture], and each of your tests will need to be annotated with [Test].
+
+199
+00:13:12.000 --> 00:13:16.000
+So that's the code you need to get it working, that must be in a folder called Editor,
+
+200
+00:13:16.000 --> 00:13:20.000
+and then, it should all be hunky-dory.
+
+201
+00:13:20.000 --> 00:13:24.000
+OK, hopefully you've got this far and I'll see you in the next video!
+
+202
+00:13:24.000 --> 00:13:26.000
+
+
