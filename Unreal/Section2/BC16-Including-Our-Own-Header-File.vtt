@@ -1,0 +1,578 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+
+
+2
+00:00:04.000 --> 00:00:08.000
+So welcome to Including Our Own Header Files! In this video we'll be explaining
+
+3
+00:00:08.000 --> 00:00:12.000
+why you never use a namespace or use the keyword
+
+4
+00:00:12.000 --> 00:00:16.000
+using namespace in a dot header file. We'll actually stop using
+
+5
+00:00:16.000 --> 00:00:20.000
+it all together. So over here in main.cpp, where we used to
+
+6
+00:00:20.000 --> 00:00:24.000
+have using namespace standard, we're going to get rid of that and show you the alternative.
+
+7
+00:00:24.000 --> 00:00:28.000
+We are going to create our first .cpp file that actually is
+
+8
+00:00:28.000 --> 00:00:32.000
+associated with the header file, so we'll have a FBCowGame.h, we should have already got,
+
+9
+00:00:32.000 --> 00:00:36.000
+but we'll also have the .cpp file with empty methods. And
+
+10
+00:00:36.000 --> 00:00:40.000
+we'll talk about chains of includes, a little bit about #include, and how they work together.
+
+11
+00:00:40.000 --> 00:00:44.000
+So let's get on with it! So here we are
+
+12
+00:00:44.000 --> 00:00:48.000
+back at our merry code, and our first priority is to get rid of this error! The error
+
+13
+00:00:48.000 --> 00:00:52.000
+is caused because it doesn't understand (string). So what we need to do is
+
+14
+00:00:52.000 --> 00:00:56.000
+#include something. Do you know what we need to #include? Well
+
+15
+00:00:56.000 --> 00:01:00.000
+I'll forgive you if you say iostream, but in this case, we need to be more specific
+
+16
+00:01:00.000 --> 00:01:04.000
+and #include <string> itself, because that's
+
+17
+00:01:04.000 --> 00:01:08.000
+directly what we're trying to do. Now, how do I get (string) to work once I've done that?
+
+18
+00:01:08.000 --> 00:01:12.000
+I go (std::string) instead, and
+
+19
+00:01:12.000 --> 00:01:16.000
+all is right with the world again. Let's just compile our code now
+
+20
+00:01:16.000 --> 00:01:20.000
+and run it and make sure that it works. Good! So we're now in a state
+
+21
+00:01:20.000 --> 00:01:24.000
+where it runs, which is where we want to be most of the time. Now,
+
+22
+00:01:24.000 --> 00:01:28.000
+what you do not do is, using
+
+23
+00:01:28.000 --> 00:01:32.000
+namespace inside a header file. If you do that and you include that
+
+24
+00:01:32.000 --> 00:01:36.000
+header file somewhere else, you're going to completely lose track of what namespaces you have access
+
+25
+00:01:36.000 --> 00:01:40.000
+to, and you have open and that's a nightmare. In fact, it's such a nightmare
+
+26
+00:01:40.000 --> 00:01:44.000
+that a lot of people advocate not using namespace at all, and I'm
+
+27
+00:01:44.000 --> 00:01:48.000
+going to suggest we stop using it. I used it the first time around to make your syntax look simpler
+
+28
+00:01:48.000 --> 00:01:52.000
+and also to introduce you to it, because you're going to see it on the
+
+29
+00:01:52.000 --> 00:01:56.000
+web, you're going to see it in all sorts of places, when you do some searching. But we're going to get rid
+
+30
+00:01:56.000 --> 00:02:00.000
+of it, because it's too dangerous. You're going to end up putting it in a header file one
+
+31
+00:02:00.000 --> 00:02:04.000
+day. You're better off just being completely explicit like this. And also, by the way, this
+
+32
+00:02:04.000 --> 00:02:08.000
+is much easier to search for, this is a very specific searchable thing inside your code.
+
+33
+00:02:08.000 --> 00:02:12.000
+So what I want you to do is remove all references
+
+34
+00:02:12.000 --> 00:02:16.000
+to using namespace, which is only in your main.cpp
+
+35
+00:02:16.000 --> 00:02:20.000
+file. So go ahead and delete using namespace. When you do that your code
+
+36
+00:02:20.000 --> 00:02:24.000
+is going to break. Try and do Control F5 now, you're going to get all sorts of
+
+37
+00:02:24.000 --> 00:02:28.000
+errors, starting with this string at the top. So let me show you
+
+38
+00:02:28.000 --> 00:02:32.000
+how to start sorting it out, then I'm going to challenge you to go and finish sorting it out. What you want to do is
+
+39
+00:02:32.000 --> 00:02:36.000
+go to string, go to Edit, Find and Replace,
+
+40
+00:02:36.000 --> 00:02:40.000
+Quick Replace. That's one of the easiest ways, Control H remember that.
+
+41
+00:02:40.000 --> 00:02:44.000
+And then, what we're going to do is, where we see string we're going to replace it with std::
+
+42
+00:02:44.000 --> 00:02:48.000
+string. OK, I'm going to skip over that first one.
+
+43
+00:02:48.000 --> 00:02:52.000
+If you look through, you can use this button I'm clicking on here to
+
+44
+00:02:52.000 --> 00:02:56.000
+go through the searches right, and then,
+
+45
+00:02:56.000 --> 00:03:00.000
+when it gets to the top it says it's finished starting. I'm not going to show that in the future, so I can comfortably
+
+46
+00:03:00.000 --> 00:03:04.000
+click through the whole lot now. So you can see the one that's highlighted
+
+47
+00:03:04.000 --> 00:03:08.000
+in gray there. So I'm currently at this guy, and then, I'm going to use this button
+
+48
+00:03:08.000 --> 00:03:12.000
+here to replace. And it's saying it can't find anymore occurrences,
+
+49
+00:03:12.000 --> 00:03:16.000
+so you go next. You just have a quick preview of them all, and then, you say
+
+50
+00:03:16.000 --> 00:03:20.000
+Replace All. OK, now of course, it may have done this one here,
+
+51
+00:03:20.000 --> 00:03:24.000
+which just is the only one that doesn't make sense. High, it's Sam here again just helping
+
+52
+00:03:24.000 --> 00:03:28.000
+Ben out with a couple of the Mac bits of content. So I just wanted to
+
+53
+00:03:28.000 --> 00:03:32.000
+quickly show you how to do a find and replace in Xcode.
+
+54
+00:03:32.000 --> 00:03:36.000
+So the trick here, it's Command F, or if you want to actually find the
+
+55
+00:03:36.000 --> 00:03:40.000
+menu, you can go into Find and then Find...
+
+56
+00:03:40.000 --> 00:03:44.000
+very helpful. And we want to do Find and Replace, so actually
+
+57
+00:03:44.000 --> 00:03:48.000
+it's not Command F, it's Command Alt F like so. So we
+
+58
+00:03:48.000 --> 00:03:52.000
+want to search for "string", and we want to replace string with
+
+59
+00:03:52.000 --> 00:03:56.000
+standard string, so it's very straight forward, very much
+
+60
+00:03:56.000 --> 00:04:00.000
+like in VisualStudio. We can just click through to check that
+
+61
+00:04:00.000 --> 00:04:04.000
+everything is the one we want, and we can replace one by
+
+62
+00:04:04.000 --> 00:04:08.000
+one, like so.
+
+63
+00:04:08.000 --> 00:04:12.000
+And we won't replace the top one, so if I save and build that should all be OK.
+
+64
+00:04:12.000 --> 00:04:16.000
+Alright, so just checking that you haven't got double replacements,
+
+65
+00:04:16.000 --> 00:04:20.000
+because if you replace all that's basically how you do it. Let me do it slightly more competently
+
+66
+00:04:20.000 --> 00:04:24.000
+the second time. Let's look down our file, look for the red dots over here, see where
+
+67
+00:04:24.000 --> 00:04:28.000
+it first complains again. It complains at cout. I'm going to use Control and H for
+
+68
+00:04:28.000 --> 00:04:32.000
+quick replace. I'm going to replace cout with std::
+
+69
+00:04:32.000 --> 00:04:36.000
+cout like that, and I'm going to boldly hit Replace All. Boom!
+
+70
+00:04:36.000 --> 00:04:40.000
+8 occurrences replaced. I'm going to have a look through and see if it's caused
+
+71
+00:04:40.000 --> 00:04:44.000
+me any complete nightmares. It hasn't and
+
+72
+00:04:44.000 --> 00:04:48.000
+there you go! We're just going to finish that off, look for the other things that don't work,
+
+73
+00:04:48.000 --> 00:04:52.000
+replace them. Pause the video, do that now. There's no challenge slide up and
+
+74
+00:04:52.000 --> 00:04:56.000
+I'll come back to you in 2 seconds. Cool! Alright, so I'm just
+
+75
+00:04:56.000 --> 00:05:00.000
+going to finish this off with a few more Control H's, endl
+
+76
+00:05:00.000 --> 00:05:04.000
+endl, Replace All.
+
+77
+00:05:04.000 --> 00:05:08.000
+OK, so now it's found our endl's. What else has it got a concern about? It's done a
+
+78
+00:05:08.000 --> 00:05:12.000
+double replace there or I have, because I've been a fool. What else have
+
+79
+00:05:12.000 --> 00:05:16.000
+we got? OK, getline, let's do these ones manually. Standard getline also
+
+80
+00:05:16.000 --> 00:05:20.000
+cin itself. Alright, and here we go.
+
+81
+00:05:20.000 --> 00:05:24.000
+Standard getline, standard cin.
+
+82
+00:05:24.000 --> 00:05:28.000
+Great! Alright, let's recompile our code! Control F5.
+
+83
+00:05:28.000 --> 00:05:32.000
+It all works now! OK, it came up. I put it away a but quickly but it all works. That's great
+
+84
+00:05:32.000 --> 00:05:36.000
+news! Now a little bit later on, I'm actually going to make a type substitution of
+
+85
+00:05:36.000 --> 00:05:40.000
+this to something else that we're going to see inside
+
+86
+00:05:40.000 --> 00:05:44.000
+Unreal called fstring or ftext, so that we start to get even more used to
+
+87
+00:05:44.000 --> 00:05:48.000
+Unreal syntax. Actually the situation will get better again, but
+
+88
+00:05:48.000 --> 00:05:52.000
+for now, let's go from having our eye in to the simple clean stuff,
+
+89
+00:05:52.000 --> 00:05:56.000
+that without to actually be able to train ourselves to read this as well. I want you
+
+90
+00:05:56.000 --> 00:06:00.000
+to be as multitalented as possible, when it comes to reading C++, so that
+
+91
+00:06:00.000 --> 00:06:04.000
+when you need to go and dive online and say, how do I do this in C++, when you're making your own game,
+
+92
+00:06:04.000 --> 00:06:08.000
+you can read lots of different peoples' code. That's really important OK, it's not all sterile
+
+93
+00:06:08.000 --> 00:06:12.000
+code out there. This is actually much more strict, much more correct in many ways. It's just a
+
+94
+00:06:12.000 --> 00:06:16.000
+little bit more noisy, which is absolutely fine. Great! So what we need
+
+95
+00:06:16.000 --> 00:06:20.000
+to do next is, we need to actually make ourselves a .cpp file
+
+96
+00:06:20.000 --> 00:06:24.000
+and include this stuff, so that we can start implementing some of
+
+97
+00:06:24.000 --> 00:06:28.000
+these things that we have here. These greens are saying, it can't find a
+
+98
+00:06:28.000 --> 00:06:32.000
+definition for these things alright. So one simple way to
+
+99
+00:06:32.000 --> 00:06:36.000
+do that, by the way, would be to right click here and go to Quick Actions. I showed you before
+
+100
+00:06:36.000 --> 00:06:40.000
+how to enable that, from the Tools and Options menu if you need to.
+
+101
+00:06:40.000 --> 00:06:44.000
+Create definition of it. Look what happens!
+
+102
+00:06:44.000 --> 00:06:48.000
+It has already made you an FBullCowGame.cpp file. OK, it's
+
+103
+00:06:48.000 --> 00:06:52.000
+showing you a peak into that file, and then, you could open the file here by
+
+104
+00:06:52.000 --> 00:06:56.000
+double clicking in source. I like to have things ordered like this, main because
+
+105
+00:06:56.000 --> 00:07:00.000
+main is, well it's arguable where you put main. So
+
+106
+00:07:00.000 --> 00:07:04.000
+FBullCowGame.h first, for sure, because that thing gets pulled in here,
+
+107
+00:07:04.000 --> 00:07:08.000
+which main.cpp uses as well. Alright, so what we've
+
+108
+00:07:08.000 --> 00:07:12.000
+got now, what it's done for us, is this. It's #included "FBullCowGame.h"
+
+109
+00:07:12.000 --> 00:07:16.000
+but in quotes. You see because I said that if you're looking
+
+110
+00:07:16.000 --> 00:07:20.000
+for something on a standard library use chevrons, but if you're looking for something of your own you go
+
+111
+00:07:20.000 --> 00:07:24.000
+quotes. And it will help us autocomplete. And then it's
+
+112
+00:07:24.000 --> 00:07:28.000
+fleshed out, BullCowGame::Reset() method, and it has no
+
+113
+00:07:28.000 --> 00:07:32.000
+actual implementation right now. But if we go back to the header file,
+
+114
+00:07:32.000 --> 00:07:36.000
+close this little preview window, you can see over here
+
+115
+00:07:36.000 --> 00:07:40.000
+that Reset() is no longer complaining. So I simply want you to finish writing
+
+116
+00:07:40.000 --> 00:07:44.000
+blank definitions. Write blank definitions for all the methods and ensure there are no warnings
+
+117
+00:07:44.000 --> 00:07:48.000
+left in the .h file. Welcome
+
+118
+00:07:48.000 --> 00:07:52.000
+back. This is a simple job thanks to these tools. In fact, I'm going to use Control and dot for the Quick
+
+119
+00:07:52.000 --> 00:07:56.000
+Action, create a definition, and then, I'm just going to close it and trust it.
+
+120
+00:07:56.000 --> 00:08:00.000
+I'm going to come down here, Control and dot, create definition.
+
+121
+00:08:00.000 --> 00:08:04.000
+Close it and trust it, down here Control dot, create definition,
+
+122
+00:08:04.000 --> 00:08:08.000
+close it and trust it. Now we can go and look over here. Look it's done loads of work for us,
+
+123
+00:08:08.000 --> 00:08:12.000
+it's even returned the right things. The only thing it hasn't done is put a return at the end
+
+124
+00:08:12.000 --> 00:08:16.000
+of Reset(), and I want to return there. I said we should always think about
+
+125
+00:08:16.000 --> 00:08:20.000
+what we're going to be returning, even if it's nothing. Alright, so that's that! Now, one
+
+126
+00:08:20.000 --> 00:08:24.000
+question would be, where is... Oh, now GetMaxTries() is OK! Sorry! IsGameWon()
+
+127
+00:08:24.000 --> 00:08:28.000
+1, 2, 3, 4, 5, five methods! How many have we got
+
+128
+00:08:28.000 --> 00:08:32.000
+in here? 1, 2, 3, 4, so we're missing 1.
+
+129
+00:08:32.000 --> 00:08:36.000
+Is it the IsGameWon()? GetMaxTries(), Reset(), GetMaxTries(),
+
+130
+00:08:36.000 --> 00:08:40.000
+GetCurrentTry()... It's GetCurrentTry()! I don't know, to be honest, why it isn't
+
+131
+00:08:40.000 --> 00:08:44.000
+complaining about Get... Yes I do, ha ha ha! Look! Get
+
+132
+00:08:44.000 --> 00:08:48.000
+CurrentTry, it's not complaining here because it's not a method! I should've added brackets after
+
+133
+00:08:48.000 --> 00:08:52.000
+it! OK, so that's the problem, and
+
+134
+00:08:52.000 --> 00:08:56.000
+this what I've done here is, I've defined a variable and you can't implement a variable.
+
+135
+00:08:56.000 --> 00:09:00.000
+So brackets, easy enough mistake to make! So right here,
+
+136
+00:09:00.000 --> 00:09:04.000
+create definition, and we're good to go! It doesn't matter if
+
+137
+00:09:04.000 --> 00:09:08.000
+the order is the same in here, that's not important, but it has actually put it in order.
+
+138
+00:09:08.000 --> 00:09:12.000
+So great! We've done a load of work there! We now have a file that has affectively,
+
+139
+00:09:12.000 --> 00:09:16.000
+once it's finished doing this #include, it's very much what we were doing in
+
+140
+00:09:16.000 --> 00:09:20.000
+main. We are defining these methods, just like we did here in main where we put
+
+141
+00:09:20.000 --> 00:09:24.000
+prototypes at the top here. The difference being here, we've wrapped it in something called a
+
+142
+00:09:24.000 --> 00:09:28.000
+class and said that these are public. Now, we'll understand a lot more about what that means later,
+
+143
+00:09:28.000 --> 00:09:32.000
+but well done in adding more skeleton to your code! And
+
+144
+00:09:32.000 --> 00:09:37.433
+we're doing really nicely here, so pat yourself on the back and I'll see you in the next video!
+
