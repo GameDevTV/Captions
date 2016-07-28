@@ -1,0 +1,522 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So
+
+2
+00:00:04.000 --> 00:00:08.000
+welcome to Edit Anywhere vs. EditDefaultsOnly! A quick apology,
+
+3
+00:00:08.000 --> 00:00:12.000
+I noticed that my indicator 4.12 is a little out of date. The
+
+4
+00:00:12.000 --> 00:00:16.000
+last three videos have said 4.11, when they're really 4.12, but I'm sure that's fairly obvious
+
+5
+00:00:16.000 --> 00:00:20.000
+from the names of the videos. So what we're going to do in this video is just mix things
+
+6
+00:00:20.000 --> 00:00:24.000
+up a little bit, and start using EditDefaultOnly, instead of Edit
+
+7
+00:00:24.000 --> 00:00:28.000
+Anywhere, and you'll see what the consequences of that are inside the
+
+8
+00:00:28.000 --> 00:00:30.866
+Editor. So see you in there!
+
+9
+00:00:30.866 --> 00:00:34.866
+So just before we get into the meat of this new lecture, this GetPlatform
+
+10
+00:00:34.866 --> 00:00:38.866
+TimeSeconds is a proper mystery to me. It's not properly documented, comes out at
+
+11
+00:00:38.866 --> 00:00:42.866
+16.8 Million seconds, which is
+
+12
+00:00:42.866 --> 00:00:46.866
+around 6 months. If I look at my system timer, on the surface,
+
+13
+00:00:46.866 --> 00:00:50.866
+that would mean it's the time in seconds, since the beginning of this year, but if
+
+14
+00:00:50.866 --> 00:00:54.866
+you do that calculations it's not quite, it's off by many days. Also if you change
+
+15
+00:00:54.866 --> 00:00:58.866
+your system Date and Time, you don't get any different result out of this guy, even if you
+
+16
+00:00:58.866 --> 00:01:02.866
+restart Unreal. Also if you pull the network cable out of your computer, it still doesn't
+
+17
+00:01:02.866 --> 00:01:06.866
+get anything, so it doesn't appear to be reading it off the Internet either! So I don't
+
+18
+00:01:06.866 --> 00:01:10.866
+know what this is, but it's a useful timer, it's a double, it's once a second,
+
+19
+00:01:10.866 --> 00:01:14.866
+and if you don't like it, if you're nervous about it like I am now, then you're welcome to use GetWorld
+
+20
+00:01:14.866 --> 00:01:18.866
+then TimeSeconds, like we have done in previous log
+
+21
+00:01:18.866 --> 00:01:22.866
+entires, which we can find here UE_LOG
+
+22
+00:01:22.866 --> 00:01:26.866
+GetWorld()->GetTimeSeconds(); that's just a float rather
+
+23
+00:01:26.866 --> 00:01:30.866
+than a double. So I don't know, mystery! If you know the answer, tell us at community.gamedev.tv
+
+24
+00:01:30.866 --> 00:01:34.866
+and yeah let's crack on with this lecture! Anyway
+
+25
+00:01:34.866 --> 00:01:38.866
+I'm going to recompile my code here, because I'm still running a code state from a previous
+
+26
+00:01:38.866 --> 00:01:42.866
+run. Now, by the way, this is a useful lesson. I have
+
+27
+00:01:42.866 --> 00:01:46.866
+not got the code in here. If we do a search for UE_LOG right now,
+
+28
+00:01:46.866 --> 00:01:50.866
+you'll find that the code state, as it sits on my disk, does not have that log that you were seeing
+
+29
+00:01:50.866 --> 00:01:54.866
+in the um, in the logs here, the one that's talking about
+
+30
+00:01:54.866 --> 00:01:58.866
+the number of times, you know that previous function I was using, the
+
+31
+00:01:58.866 --> 00:02:02.866
+FPlatformTime thing. But what had happened is, if you
+
+32
+00:02:02.866 --> 00:02:06.866
+open Unreal, if you roll your code state back and then open
+
+33
+00:02:06.866 --> 00:02:10.866
+Unreal without recompiling, it will run your previous code state because it remembers
+
+34
+00:02:10.866 --> 00:02:14.866
+it in the intermediate folders. OK, so now, when I just,  because
+
+35
+00:02:14.866 --> 00:02:18.866
+I've recompiled, it's gone back to the previous behavior where I left you on the last video.
+
+36
+00:02:18.866 --> 00:02:22.866
+So that is a pretty useful lesson, by the way, if you find that behavior is kind of odd,
+
+37
+00:02:22.866 --> 00:02:26.866
+it may be because you went back in your source control but didn't recompile
+
+38
+00:02:26.866 --> 00:02:30.866
+when you got into Unreal. Alright, that's just one of the issues with cacheing in Unreal.
+
+39
+00:02:30.866 --> 00:02:34.866
+Anyway, the point of this video is that we have set ourselves a parameter about how fast we can
+
+40
+00:02:34.866 --> 00:02:38.866
+reload. And if we go into the tank header
+
+41
+00:02:38.866 --> 00:02:42.866
+file, we may well want to say, well let's make this a UPROPERTY,
+
+42
+00:02:42.866 --> 00:02:46.866
+and let's imagine it's a firing UPROPERTY. So I'll pop it like this,
+
+43
+00:02:46.866 --> 00:02:50.866
+(EditAnywhere, Category = Firing), I think I'll put it up with the other firing property.
+
+44
+00:02:50.866 --> 00:02:54.866
+And I think while I'm here, I'll put the Setup property above. I'm just having a bit
+
+45
+00:02:54.866 --> 00:02:58.866
+of a reorganization of the Tank.h and the property is just for
+
+46
+00:02:58.866 --> 00:03:02.866
+fun. OK, so there's that UPROPERTY,
+
+47
+00:03:02.866 --> 00:03:06.866
+if I put EditAnywhere on it, let's compile and see what happens.
+
+48
+00:03:06.866 --> 00:03:10.866
+You know that what EditAnywhere is going to do is, it's
+
+49
+00:03:10.866 --> 00:03:14.866
+going on the tank blueprint to expose in the
+
+50
+00:03:14.866 --> 00:03:18.866
+Firing section here, under Launch Speed, a Reload
+
+51
+00:03:18.866 --> 00:03:22.866
+Time in Seconds and that's fine, but EditAnywhere means this can be edited
+
+52
+00:03:22.866 --> 00:03:26.866
+on any tank. Let me show you, if I go to this tank instance right
+
+53
+00:03:26.866 --> 00:03:30.866
+here, then in the world you select the tank, and if I now go
+
+54
+00:03:30.866 --> 00:03:34.866
+down to the Firing property, I could make this guy allowed to reload in just
+
+55
+00:03:34.866 --> 00:03:38.866
+1/2 a second, whereas this guy over here maybe needs to take 5 seconds
+
+56
+00:03:38.866 --> 00:03:42.866
+and this guy over here could maybe take 0.1 of a second. Let's see what
+
+57
+00:03:42.866 --> 00:03:46.866
+happens now, if I play the game. You see all the tanks are
+
+58
+00:03:46.866 --> 00:03:50.866
+firing at completely different rates. It's hard to see the guy in the far distance, unless I use
+
+59
+00:03:50.866 --> 00:03:54.866
+F11 to maximize. But you see all three tanks have a different firing rate and I have my
+
+60
+00:03:54.866 --> 00:03:58.866
+firing rate. Now that's unfair, basically,
+
+61
+00:03:58.866 --> 00:04:02.866
+and you may want to make the command decision that all tanks have to have the same
+
+62
+00:04:02.866 --> 00:04:06.866
+reload time in seconds, so let me show you what you do. Instead of Edit
+
+63
+00:04:06.866 --> 00:04:10.866
+Anywhere for the reload time, you use a different annotation, which
+
+64
+00:04:10.866 --> 00:04:14.866
+is EditDefaultsOnly, and if you look that up,
+
+65
+00:04:14.866 --> 00:04:18.866
+it'll tell you that, that means you can only edit the archetype. Now let's see what that means!
+
+66
+00:04:18.866 --> 00:04:22.866
+That means that we can only edit it on the tank or tanks
+
+67
+00:04:22.866 --> 00:04:26.866
+as a whole, therefore all tanks must have the same value. So let's just
+
+68
+00:04:26.866 --> 00:04:30.866
+see that in action! OK,
+
+69
+00:04:30.866 --> 00:04:34.866
+so now if I look around and I take a particular instance
+
+70
+00:04:34.866 --> 00:04:38.866
+of a tank, I'm just going to play to get myself back to the beginning. Now it's actually disappeared
+
+71
+00:04:38.866 --> 00:04:42.866
+out of the instance menu, i.e. when I'm in the Content
+
+72
+00:04:42.866 --> 00:04:46.866
+Browser or in the 3D View and I select a tank, I cannot see
+
+73
+00:04:46.866 --> 00:04:50.866
+in the Firing section anymore the Reload Time in Seconds.
+
+74
+00:04:50.866 --> 00:04:54.866
+Now you may think that's a mistake. Where has it gone? You know I've said EditDefault, so only does it
+
+75
+00:04:54.866 --> 00:04:58.866
+not work the same way... Well it does work the same way, apart from you can
+
+76
+00:04:58.866 --> 00:05:02.866
+only edit it on the blueprint. If we go to the blueprint, look it's there Reload Time in
+
+77
+00:05:02.866 --> 00:05:06.866
+Seconds, that's what EditDefaultOnly means. Now, if we play the game,
+
+78
+00:05:06.866 --> 00:05:10.866
+you'll find that all tanks must have that 3 second... Well the reason
+
+79
+00:05:10.866 --> 00:05:14.866
+there's a discrepancy right now is because I haven't compiled the, [Laughs]
+
+80
+00:05:14.866 --> 00:05:18.866
+is because Unreal is not quite stable enough to handle that
+
+81
+00:05:18.866 --> 00:05:22.866
+change. But when I'm confident that when I reopen Unreal, recompile the tank
+
+82
+00:05:22.866 --> 00:05:26.866
+blueprint, that that change will have properly propagated. So let's go there,
+
+83
+00:05:26.866 --> 00:05:30.866
+let's reopen the tank blueprint. It had no real excuse
+
+84
+00:05:30.866 --> 00:05:34.866
+to crash there but bless it. Let's 3 seconds,
+
+85
+00:05:34.866 --> 00:05:38.866
+let's compile that. It's compiled successfully. Compiled successfully
+
+86
+00:05:38.866 --> 00:05:42.866
+whatever. If I now play the game, you'll see that we all now have a 3 second
+
+87
+00:05:42.866 --> 00:05:46.866
+firing delay again, and there is no way to select an individual instance
+
+88
+00:05:46.866 --> 00:05:50.866
+and override it. You get the idea. That is what EditDefaultOnly does,
+
+89
+00:05:50.866 --> 00:05:54.866
+it lets you only change it on the blueprint, the archetype
+
+90
+00:05:54.866 --> 00:05:58.866
+the prefab whatever you want to call it, basically on all tanks.
+
+91
+00:05:58.866 --> 00:06:02.866
+So what I want you to do now is to question every use of EditAnywere. What I want you to
+
+92
+00:06:02.866 --> 00:06:06.866
+go through your project, do an actual search, get used to using your IDE search, look for
+
+93
+00:06:06.866 --> 00:06:10.866
+EditAnywhere. For each instance, decide where you want to be editing
+
+94
+00:06:10.866 --> 00:06:14.866
+anywhere or edit defaults only, make the changes, and then, test your game still works.
+
+95
+00:06:14.866 --> 00:06:18.866
+
+
+96
+00:06:18.866 --> 00:06:22.866
+Okey dokey, so welcome back! Relatively simple challenge this one, Edit
+
+97
+00:06:22.866 --> 00:06:26.866
+Anywhere in the current project in VisualStudio,
+
+98
+00:06:26.866 --> 00:06:30.866
+and let's just go through. OK, so the projectile
+
+99
+00:06:30.866 --> 00:06:34.866
+blueprint. Do we want to be able to give different tanks different
+
+100
+00:06:34.866 --> 00:06:38.866
+projectile blueprints? i.e. if I click on this tank here and then look at it's properties,
+
+101
+00:06:38.866 --> 00:06:42.866
+do we want that to have a different projectile at runtime? I don't, I'm going to say Edit
+
+102
+00:06:42.866 --> 00:06:46.866
+DefaultsOnly, and I'm going to copy this into the copy
+
+103
+00:06:46.866 --> 00:06:50.866
+buffer and then ask the same question for the LaunchSpeed. No all tanks I want to have the same
+
+104
+00:06:50.866 --> 00:06:54.866
+LaunchSpeed. So let's move on! What's this guy here? This
+
+105
+00:06:54.866 --> 00:06:58.866
+is the setup of the barrel. Do we want different instances of
+
+106
+00:06:58.866 --> 00:07:02.866
+barrels to have different, no we don't, we want all the barrels to be the same for now. Now, of course,
+
+107
+00:07:02.866 --> 00:07:06.866
+in a bigger game you might have replaceable barrels, etc. but they're still
+
+108
+00:07:06.866 --> 00:07:10.866
+different archetypes, they're still different types of barrel. Alright,
+
+109
+00:07:10.866 --> 00:07:14.866
+so all of these are going to EditDefaultsOnly. How about these crosshair locations?
+
+110
+00:07:14.866 --> 00:07:18.866
+Well we only have one instance of a TankPlayerController,
+
+111
+00:07:18.866 --> 00:07:22.866
+in this case, but still I'm going to go EditDefaultsOnly. In fact, let's make it
+
+112
+00:07:22.866 --> 00:07:26.866
+our default go to annotation property, unless
+
+113
+00:07:26.866 --> 00:07:30.866
+there's a reason to do something else. Same with the tank turret, EditDefaults
+
+114
+00:07:30.866 --> 00:07:34.866
+Only. So I think that's actually it. Yep! It's saying the entire project
+
+115
+00:07:34.866 --> 00:07:38.866
+does not contain EditAnywhere anymore. So
+
+116
+00:07:38.866 --> 00:07:42.866
+let's now recompile, make sure that the game works and that we can still get
+
+117
+00:07:42.866 --> 00:07:46.866
+to the levers in American terms or the le-e-vers in English
+
+118
+00:07:46.866 --> 00:07:50.866
+accent, that we need to get to, to be able to change what we need to change.
+
+119
+00:07:50.866 --> 00:07:54.866
+OK, so the tank blueprint is unhappy.
+
+120
+00:07:54.866 --> 00:07:58.866
+I've recompiled it, I'm playing, that's fine!
+
+121
+00:07:58.866 --> 00:08:02.866
+So it still seems to play OK. A very easy
+
+122
+00:08:02.866 --> 00:08:06.866
+game to test, this one, at this stage. If we go to the tank blueprint, you'll find that we still have
+
+123
+00:08:06.866 --> 00:08:10.866
+the LaunchSpeed, the Reload Time, the Projectile Blueprint, all the things we
+
+124
+00:08:10.866 --> 00:08:14.866
+wanted, but when we click on an instance, none of those things are
+
+125
+00:08:14.866 --> 00:08:18.866
+there, which I think is better. So thank you to Daniel for pointing
+
+126
+00:08:18.866 --> 00:08:22.866
+that out. It's been several videos before I got it into the course, but I wanted to
+
+127
+00:08:22.866 --> 00:08:26.866
+have something to show you it on, i.e. that firing rate. So there it is!
+
+128
+00:08:26.866 --> 00:08:30.866
+EditAnywhere vs. EditDefaultsOnly. Enjoy and in future, let's use
+
+129
+00:08:30.866 --> 00:08:34.866
+EditDefaultsOnly as our default, and think carefully before
+
+130
+00:08:34.866 --> 00:08:37.832
+we say EditAnywhere!
+
