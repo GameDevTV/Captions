@@ -1,0 +1,842 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So
+
+2
+00:00:04.000 --> 00:00:08.000
+we're in this somewhat rambling video! You will be learning about Working Around
+
+3
+00:00:08.000 --> 00:00:12.000
+Awkward Bugs, and by the end of it, your
+
+4
+00:00:12.000 --> 00:00:16.000
+tanks will no longer be jittering around. And I'm just going to talk you through the process
+
+5
+00:00:16.000 --> 00:00:20.000
+that I went through, in order to find this bug in between videos. It took me about
+
+6
+00:00:20.000 --> 00:00:24.000
+2 or 3 hours to get to the bottom of it. I still didn't quite get to the bottom of it, but we'll see the process
+
+7
+00:00:24.000 --> 00:00:27.000
+and we'll see a work around, and that'll be good enough for us to move on.
+
+8
+00:00:27.000 --> 00:00:31.000
+So we've upgraded to 4.12! We have a commit
+
+9
+00:00:31.000 --> 00:00:35.000
+in our repository. We actually probably ought to tag
+
+10
+00:00:35.000 --> 00:00:39.000
+here, even though the commit says that we've upgraded to
+
+11
+00:00:39.000 --> 00:00:43.000
+4.12. I'm actually going to use the tagging system to add a tag to this, specifically
+
+12
+00:00:43.000 --> 00:00:47.000
+commit, saying 4.12 like that,I think that's just going to make
+
+13
+00:00:47.000 --> 00:00:51.000
+sense, as well. So, you can right-click the
+
+14
+00:00:51.000 --> 00:00:55.000
+commit, Tag, then it'll fill in the specific commit and then
+
+15
+00:00:55.000 --> 00:00:59.000
+4.12. And then, that'll just leave this tag here in the hierarchy, as we
+
+16
+00:00:59.000 --> 00:01:03.000
+proceed up. It'll remind me where I did my upgrade, a bit like this 4.11 upgrade there.
+
+17
+00:01:03.000 --> 00:01:07.000
+You see, it's just pretty handy to just immediately see where you went to
+
+18
+00:01:07.000 --> 00:01:11.000
+which version. Anyway, so we've upgraded to 4.12, and we have an issue.
+
+19
+00:01:11.000 --> 00:01:15.000
+Now this is not completely uncommon, the issue actually was there in 4.11,
+
+20
+00:01:15.000 --> 00:01:19.000
+but it's considerably worse in 4.12. Look at this guy over  here, he's got serious
+
+21
+00:01:19.000 --> 00:01:23.000
+issues going on, bouncing around all over the place. Now, this purple outline,
+
+22
+00:01:23.000 --> 00:01:27.000
+I've turned on by the way, is just here under Show and Collision. I think that's
+
+23
+00:01:27.000 --> 00:01:31.000
+probably the only thing I've changed, in between videos. So Show, Collision will turn
+
+24
+00:01:31.000 --> 00:01:35.000
+on your Collision Outliner, but it doesn't give you a huge amount of clues as to what on earth is going
+
+25
+00:01:35.000 --> 00:01:39.000
+on here. So the purpose of this video, really, is to just go through a process of
+
+26
+00:01:39.000 --> 00:01:43.000
+trying to work out how on earth these tanks have ended up in this
+
+27
+00:01:43.000 --> 00:01:47.000
+state and what it could be. So let's explore
+
+28
+00:01:47.000 --> 00:01:51.000
+a few things! I have now worked out what the bug is. Obviously I'm not going to show you all of the
+
+29
+00:01:51.000 --> 00:01:55.000
+thought process, because it was quite a lot of messing around, but I'll show
+
+30
+00:01:55.000 --> 00:01:59.000
+you the sorts of things that I did to get here. So firstly, let's
+
+31
+00:01:59.000 --> 00:02:03.000
+go look at the tank blueprint and remind ourselves how it's put together.
+
+32
+00:02:03.000 --> 00:02:07.000
+Here we go, in the Viewport. Now, we've got all of these components to it and we've got these
+
+33
+00:02:07.000 --> 00:02:11.000
+tracks, and then, the tracks themselves are made up of these Static Meshes,
+
+34
+00:02:11.000 --> 00:02:15.000
+which we can inspect. And the Static Meshes, if we turn the Collision Box here
+
+35
+00:02:15.000 --> 00:02:19.000
+on in the Static Mesh Inspector, you can see there's actually two sets of Collision
+
+36
+00:02:19.000 --> 00:02:23.000
+on here. We have the outer simplified Collision, and then, we have
+
+37
+00:02:23.000 --> 00:02:27.000
+this guy which I can turn on and off under LOD0, Enable Collision.
+
+38
+00:02:27.000 --> 00:02:31.000
+So I initially thought, well maybe it's something to do with this? Maybe we don't want this
+
+39
+00:02:31.000 --> 00:02:35.000
+complex, more complex, Collision Mesh? So I turned that off, and you can also turn it off in the
+
+40
+00:02:35.000 --> 00:02:39.000
+Import Settings, so it doesn't create this more complex Collision
+
+41
+00:02:39.000 --> 00:02:43.000
+Mesh, because we actually only want this simplified one on the outside. So I did that,
+
+42
+00:02:43.000 --> 00:02:47.000
+but unfortunately it doesn't change anything, but it has
+
+43
+00:02:47.000 --> 00:02:51.000
+reduced the amount of collision data, in the game, a little bit. So once
+
+44
+00:02:51.000 --> 00:02:55.000
+you're in the spirit of simplifying Collision Meshes, you may as well do the same thing for the
+
+45
+00:02:55.000 --> 00:02:59.000
+turret. You'll notice that has also imported with a more complex Collision Mesh
+
+46
+00:02:59.000 --> 00:03:03.000
+there. So I think it's worth just stopping that from happening on import and then under LOD0
+
+47
+00:03:03.000 --> 00:03:07.000
+just turning that off as well and saving it. And again, at all these stages, when you're
+
+48
+00:03:07.000 --> 00:03:11.000
+trying these things, it's worth just trying and see if it fixes things. It hasn't,
+
+49
+00:03:11.000 --> 00:03:15.000
+as it happens, fixed it! So you could try the same for the barrel, but this would be getting tenuous.
+
+50
+00:03:15.000 --> 00:03:19.000
+Now I'm going to do it for the barrel. Interestingly the problem is
+
+51
+00:03:19.000 --> 00:03:23.000
+related to the barrel strangely, even though you wouldn't expect it to be. It's very
+
+52
+00:03:23.000 --> 00:03:27.000
+tempting here to go, well it must be something to do with the tracks colliding with the ground.
+
+53
+00:03:27.000 --> 00:03:31.000
+So you could, for example, in your tank blueprint go to your
+
+54
+00:03:31.000 --> 00:03:35.000
+tracks and you could remove them even, and see if that
+
+55
+00:03:35.000 --> 00:03:39.000
+makes a difference. I don't see there's any harm in doing that, so let's remove the tracks and try playing.
+
+56
+00:03:39.000 --> 00:03:43.000
+And then, unfortunately you see it's still work, doing
+
+57
+00:03:43.000 --> 00:03:47.000
+the same thing. So I can use a Control Z hopefully, on the blueprint, to put them back.
+
+58
+00:03:47.000 --> 00:03:51.000
+So very odd right! Now, what other clues have we got? Always look
+
+59
+00:03:51.000 --> 00:03:55.000
+in your log. Is there anything in here? Well I'm not seeing anything right now. We could try playing
+
+60
+00:03:55.000 --> 00:03:59.000
+again and just leaving it running for a second, because it's a really weird sporadic error
+
+61
+00:03:59.000 --> 00:04:03.000
+and it's still still not solved.
+
+62
+00:04:03.000 --> 00:04:07.000
+OK, so it's starting to be a little strange. Now,
+
+63
+00:04:07.000 --> 00:04:11.000
+what else could this, what else could this possibly be?
+
+64
+00:04:11.000 --> 00:04:15.000
+You can look at things like the positioning of these
+
+65
+00:04:15.000 --> 00:04:19.000
+sockets, to see that perhaps the colliders of the track are
+
+66
+00:04:19.000 --> 00:04:23.000
+interacting with the colliders of the tank or something. I've tried that, tried moving all the sockets around,
+
+67
+00:04:23.000 --> 00:04:27.000
+no good it doesn't make any difference. There is something else I really want you to note here,
+
+68
+00:04:27.000 --> 00:04:31.000
+which is that we hid, on the Left and Right Tracks, the Collision...
+
+69
+00:04:31.000 --> 00:04:35.000
+Or no we didn't on the Left and Right Tracks, but on the Turret
+
+70
+00:04:35.000 --> 00:04:39.000
+we hid the Collision section. Do you remember in the C++ code? Let's go and have a look at it!
+
+71
+00:04:39.000 --> 00:04:43.000
+Because one thing about just coming in here and
+
+72
+00:04:43.000 --> 00:04:47.000
+fiddling with all the physics settings on the tank is, they may not all be there,
+
+73
+00:04:47.000 --> 00:04:51.000
+because we chose on the TankTurret.h to
+
+74
+00:04:51.000 --> 00:04:55.000
+say hidecategories = ("Collision"), so I'm actually going to reverse that decision for a moment. So
+
+75
+00:04:55.000 --> 00:04:59.000
+on your TankTurret.h, remove the bit that says hidecategories = ("Collision"),
+
+76
+00:04:59.000 --> 00:05:03.000
+or you can simply, if you want to keep the code, you can comment it and then just close
+
+77
+00:05:03.000 --> 00:05:07.000
+your braces appropriately. And I think we did the same thing on the turret,
+
+78
+00:05:07.000 --> 00:05:11.000
+the barrel rather. So close the brackets and just comment out the hidecategories = ("Collision")
+
+79
+00:05:11.000 --> 00:05:15.000
+on the turret and the barrel. So what that's going to do for us
+
+80
+00:05:15.000 --> 00:05:19.000
+is, it's going to give us some more levers back again, when we're inspecting the turret
+
+81
+00:05:19.000 --> 00:05:23.000
+here in the tank blueprint. At the moment we don't have Collision, and because we disabled Collision it also
+
+82
+00:05:23.000 --> 00:05:27.000
+took the Physics sub-section with it. And it may be that you can't solve the bug without
+
+83
+00:05:27.000 --> 00:05:31.000
+a setting that's in one of those things. So it's a very useful tip to think,
+
+84
+00:05:31.000 --> 00:05:35.000
+well am I seeing everything? So now if we come back to the Turret, you'll see actually we've
+
+85
+00:05:35.000 --> 00:05:39.000
+got Collision back on. Alright, so
+
+86
+00:05:39.000 --> 00:05:43.000
+what is going on? On the Tank, what
+
+87
+00:05:43.000 --> 00:05:47.000
+could this be to do with it? It's almost certainly to do with Collision, but what is it about
+
+88
+00:05:47.000 --> 00:05:51.000
+Collision? I don't think there's anything on the tank itself, i.e. the top level
+
+89
+00:05:51.000 --> 00:05:55.000
+Actor. The Tank, the Static Mesh
+
+90
+00:05:55.000 --> 00:05:59.000
+Root, is there anything on there that could be possibly causing the problem? Well we need
+
+91
+00:05:59.000 --> 00:06:03.000
+to be simulating physics, we need to have gravity. You should ask the question, do
+
+92
+00:06:03.000 --> 00:06:07.000
+we want gravity enabled on the tracks? Well probably not so I'm going to go and turn
+
+93
+00:06:07.000 --> 00:06:11.000
+gravity off on the tracks and try and see if that fixes things, because we only
+
+94
+00:06:11.000 --> 00:06:15.000
+want to simulate gravity on the root object but that still hasn't helped, strangely.
+
+95
+00:06:15.000 --> 00:06:19.000
+So you can carry on down the tank and say, well what's this Auto
+
+96
+00:06:19.000 --> 00:06:23.000
+Weld setting? It's disabled at the top-level body, but it's there on the Left
+
+97
+00:06:23.000 --> 00:06:27.000
+and the Right Tracks. Now it turns out that this does have something to do with the bug. If we
+
+98
+00:06:27.000 --> 00:06:31.000
+turn off Auto Weld, which makes as it says all of the
+
+99
+00:06:31.000 --> 00:06:35.000
+rigid bodies joined into a single RigidBody of the parent. Look
+
+100
+00:06:35.000 --> 00:06:39.000
+what happens! Whoa, flying tank! So that's bad
+
+101
+00:06:39.000 --> 00:06:43.000
+obviously, but it's also good because we're getting a little closer. It's something
+
+102
+00:06:43.000 --> 00:06:47.000
+to do with the way that the tank's colliders are interacting with
+
+103
+00:06:47.000 --> 00:06:51.000
+themselves. So we want Welding on for the tracks and we want Welding on for
+
+104
+00:06:51.000 --> 00:06:55.000
+the Turret, if there's an option there, and there actually probably isn't and
+
+105
+00:06:55.000 --> 00:06:59.000
+why... Ah there is! Sorry there is and
+
+106
+00:06:59.000 --> 00:07:03.000
+also the Barrels. So they all have Auto Welding on, there is no Welding for the Azimuth
+
+107
+00:07:03.000 --> 00:07:07.000
+Gimbal. You may, by the way, hypothesize that it's something to do with this Camera Gimbal, so you
+
+108
+00:07:07.000 --> 00:07:11.000
+could delete it and test, recompile the blueprint, and play.
+
+109
+00:07:11.000 --> 00:07:15.000
+Now I have an unresolved compiler error, and that's because
+
+110
+00:07:15.000 --> 00:07:19.000
+things are relying on that Camera Gimbal, so I better put that back. [Laughs]
+
+111
+00:07:19.000 --> 00:07:23.000
+That and that's crashed the Editor! So
+
+112
+00:07:23.000 --> 00:07:27.000
+this is why it's really important to have yourself a stage here in your SourceControl, before
+
+113
+00:07:27.000 --> 00:07:31.000
+you go messing around trying to work out what the solution is. So let's go back to that Tank blueprint
+
+114
+00:07:31.000 --> 00:07:35.000
+and see if we can continue to dive
+
+115
+00:07:35.000 --> 00:07:39.000
+nose and workout what's going on. I can't really give you a challenge for this video, apart from
+
+116
+00:07:39.000 --> 00:07:43.000
+stop the video now and work it out for yourself, but you know that's a tricky one.
+
+117
+00:07:43.000 --> 00:07:47.000
+So I'm going to check that we haven't lost anything. The Left the Right Track, the Turret, and the Barrel
+
+118
+00:07:47.000 --> 00:07:51.000
+should all have Auto Weld on them, and none of them should have Enable Gravity. You see that
+
+119
+00:07:51.000 --> 00:07:55.000
+checkbox means that some are set and some aren't. So Auto Weld should be on,
+
+120
+00:07:55.000 --> 00:07:59.000
+Enable Gravity should be off. That's definitely what we want but unfortunately, the
+
+121
+00:07:59.000 --> 00:08:03.000
+tracks are still popping through the ground. Hmm,
+
+122
+00:08:03.000 --> 00:08:07.000
+How strange! Now, at one point, in fact, it's there in the logs. Look at this!
+
+123
+00:08:07.000 --> 00:08:11.000
+I saw this pop up! Ah, if I can see if
+
+124
+00:08:11.000 --> 00:08:15.000
+I can get the logs working. I'm being wholly incompetent right now or something's going on.
+
+125
+00:08:15.000 --> 00:08:19.000
+Oh come on! I'll just scroll up.
+
+126
+00:08:19.000 --> 00:08:23.000
+There's an error here somewhere. "Handled error" local pose is PLocalPose.isValid().
+
+127
+00:08:23.000 --> 00:08:27.000
+So it's talking about a pose not being valid, in some physics
+
+128
+00:08:27.000 --> 00:08:31.000
+engine body setup. Hmm, what pose? Well this isn't a
+
+129
+00:08:31.000 --> 00:08:35.000
+humanoid character, right, it's a tank, but I think what's going on... I don't know, by the way, the exact
+
+130
+00:08:35.000 --> 00:08:39.000
+cause of this bug, but what I think's going on is, Unreal is somewhat processing this tank as if
+
+131
+00:08:39.000 --> 00:08:43.000
+it's a humanoid character, and that's causing it problems. See what I've
+
+132
+00:08:43.000 --> 00:08:47.000
+noticed is this, if we say take the Barrel away, for a moment, completely
+
+133
+00:08:47.000 --> 00:08:51.000
+and compile, you'll notice the problem
+
+134
+00:08:51.000 --> 00:08:55.000
+goes away. We're taking the barrel away and the problem goes away. How strange right?
+
+135
+00:08:55.000 --> 00:08:59.000
+So let's put the barrel back. Control Z, if it'll let me.
+
+136
+00:08:59.000 --> 00:09:03.000
+Will it? Nope, so I'm gong to have to manually add the barrel
+
+137
+00:09:03.000 --> 00:09:07.000
+back. Tank Barrel, there it is, pop it in, and there's no harm in
+
+138
+00:09:07.000 --> 00:09:11.000
+refreshing these things anyway, to see if there's perhaps something wrong with the instance
+
+139
+00:09:11.000 --> 00:09:15.000
+of the Tank Barrel. So let's pop it back onto the socket
+
+140
+00:09:15.000 --> 00:09:19.000
+like that, reset its transform. We should be good to go, compile and play. So now
+
+141
+00:09:19.000 --> 00:09:23.000
+I've actually rebuilt the barrel to see if that solves the problem, and actually, for the moment,
+
+142
+00:09:23.000 --> 00:09:27.000
+it has! Look the barrel is fixed, the problem is fixed,
+
+143
+00:09:27.000 --> 00:09:31.000
+after having rebuilt the barrel. Hmm, so
+
+144
+00:09:31.000 --> 00:09:35.000
+there was something wrong with the barrel but let's look deeper. If you go to your Event Graph
+
+145
+00:09:35.000 --> 00:09:39.000
+now, remember where we set the Barrel Reference? It's no longer there look, when we play the
+
+146
+00:09:39.000 --> 00:09:43.000
+game, the barrel won't move, because when we deleted that barrel we lost
+
+147
+00:09:43.000 --> 00:09:47.000
+this reference. OK no problem! So let's just pop, in fact, let's just rename this thing
+
+148
+00:09:47.000 --> 00:09:51.000
+Barrel, I think that's how we had it before. And let's just put the reference
+
+149
+00:09:51.000 --> 00:09:55.000
+back, ready, so that the Set Barrel Reference code knows about the Barrel. Play the
+
+150
+00:09:55.000 --> 00:09:59.000
+game. Oh darn, the problem's back!
+
+151
+00:09:59.000 --> 00:10:03.000
+[Laughs] How strange is that?! So
+
+152
+00:10:03.000 --> 00:10:07.000
+one solution to this... Well it's not possible right, it's not possible to
+
+153
+00:10:07.000 --> 00:10:11.000
+make the solution, well let's not Set the Barrel Reference, we've got to Set the Barrel Reference. So what
+
+154
+00:10:11.000 --> 00:10:15.000
+can we do? Well it turns
+
+155
+00:10:15.000 --> 00:10:19.000
+out that if you were to turn the Collider off on the Turret, the Collision off
+
+156
+00:10:19.000 --> 00:10:23.000
+on the Turret that would also solve it. Now, one way you could do that is, you could
+
+157
+00:10:23.000 --> 00:10:27.000
+come into the, sorry, the Turret here, and you
+
+158
+00:10:27.000 --> 00:10:31.000
+could set the Collision Presets, to the Turret, to NoCollision,
+
+159
+00:10:31.000 --> 00:10:35.000
+compile, and play. Let's see what that does! That makes it go really funny.
+
+160
+00:10:35.000 --> 00:10:39.000
+Let's try doing the same on the Barrel now. So it's kind of shooting
+
+161
+00:10:39.000 --> 00:10:43.000
+in the dark. We'll just trying and find a solution that works, for the moment. No Collision on the Barrel, does that
+
+162
+00:10:43.000 --> 00:10:47.000
+work? Actually that does! So if there's no collision on the Barrel
+
+163
+00:10:47.000 --> 00:10:51.000
+or the Turret, then we are good to go, we don't have the
+
+164
+00:10:51.000 --> 00:10:55.000
+problem anymore. So look, I really don't know precisely what's going on here. In this
+
+165
+00:10:55.000 --> 00:10:59.000
+instance you would ask yourself, do I want to try living with it for a bit,
+
+166
+00:10:59.000 --> 00:11:03.000
+because I would report this bug to Unreal...
+
+167
+00:11:03.000 --> 00:11:07.000
+It's not really a bug yet, we don't know that it's a bug, but we know that we're not sure why this is happening
+
+168
+00:11:07.000 --> 00:11:11.000
+right. Why is it something to do with this hierarchy and this self interaction of
+
+169
+00:11:11.000 --> 00:11:15.000
+colliders? Why is it causing this problem? So you'd report it to Unreal, you'd say well actually I can
+
+170
+00:11:15.000 --> 00:11:19.000
+still play the game, even if my projectiles can't hit the turret and the barrel, for the moment.
+
+171
+00:11:19.000 --> 00:11:23.000
+You would note that it got worse from
+
+172
+00:11:23.000 --> 00:11:27.000
+4.11 to 4.12. Now, we don't know whether that means it's going to get better
+
+173
+00:11:27.000 --> 00:11:31.000
+or worse in a future version of 4.12. It may be the way we're using the engine
+
+174
+00:11:31.000 --> 00:11:35.000
+is, well, it's staying the same, but that that Unreal's
+
+175
+00:11:35.000 --> 00:11:39.000
+idea of how to do these things is diverging from us or it might be that this will get better. So
+
+176
+00:11:39.000 --> 00:11:43.000
+what I'm going to suggest is that we loop back to this later, if it causes a game play
+
+177
+00:11:43.000 --> 00:11:47.000
+problem and, in the meanwhile, that we ask Unreal what is going on. Can
+
+178
+00:11:47.000 --> 00:11:51.000
+you tell us why this is having this problem? Alright, so there's two
+
+179
+00:11:51.000 --> 00:11:55.000
+ways of solving it. One is to go to the Turret and the Barrel and turn on NoCollision.
+
+180
+00:11:55.000 --> 00:11:59.000
+If you don't want to do that you can leave it back at BlockAllDynamic, where the problem will
+
+181
+00:11:59.000 --> 00:12:03.000
+occur, and you can go to the Turret
+
+182
+00:12:03.000 --> 00:12:07.000
+Mesh and then you can Remove the
+
+183
+00:12:07.000 --> 00:12:11.000
+Collision Volume like that. And if you do that on the Turret Mesh, it will
+
+184
+00:12:11.000 --> 00:12:15.000
+also solve the problem. OK, so why is the tank jumping?
+
+185
+00:12:15.000 --> 00:12:19.000
+Oh, it's still doing it actually, so that's not a reliable way of doing
+
+186
+00:12:19.000 --> 00:12:23.000
+it. You're going to want to remove the Collision Mesh, also on the
+
+187
+00:12:23.000 --> 00:12:27.000
+Barrel or Turn off Collisions. I think those two things are equivalent,
+
+188
+00:12:27.000 --> 00:12:31.000
+so let's just try it the other way. Remove Collision Mesh on the Barrel,
+
+189
+00:12:31.000 --> 00:12:35.000
+play the game and just see if it's reliable now. I'm looking for it to not jump at all.
+
+190
+00:12:35.000 --> 00:12:39.000
+So while I wait to see if any of those tanks jump, when they
+
+191
+00:12:39.000 --> 00:12:43.000
+ominously aim at me, I was saying that why does the tank jump when we have this problem? Well
+
+192
+00:12:43.000 --> 00:12:47.000
+frankly, I don't know but what's going on is something like, we are messing up
+
+193
+00:12:47.000 --> 00:12:51.000
+the collision detection on the tank itself, because
+
+194
+00:12:51.000 --> 00:12:55.000
+of the way that these objects that are
+
+195
+00:12:55.000 --> 00:12:59.000
+in a hierarchy are interacting with one another. Possibly because Unreal is
+
+196
+00:12:59.000 --> 00:13:03.000
+making some assumptions about the rigging, i.e. the order in which these things
+
+197
+00:13:03.000 --> 00:13:07.000
+are parented, which would normally be like spine and then, you know, shoulder and arms
+
+198
+00:13:07.000 --> 00:13:11.000
+and stuff like that, being humanoid and it's not a humanoid. So
+
+199
+00:13:11.000 --> 00:13:15.000
+that's my best guess! We'll ask Unreal in the meanwhile and then we can crack on,
+
+200
+00:13:15.000 --> 00:13:19.000
+because we actually had this problem in our prototype, and some of you may have
+
+201
+00:13:19.000 --> 00:13:23.000
+spotted it in the video, the tank jumping off bits of the terrain when it shouldn't have done. I think this
+
+202
+00:13:23.000 --> 00:13:27.000
+was the same thing, it wasn't actually hitting something on the terrain but it was just having a weird
+
+203
+00:13:27.000 --> 00:13:31.000
+self collision glitch, and it's like putting an impulse through the tank and knocking it in the air.
+
+204
+00:13:31.000 --> 00:13:35.000
+But removing the Collision Meshes or turning off Collision, which is the same thing
+
+205
+00:13:35.000 --> 00:13:39.000
+really for the barrel and the turret, solves the problem. Now we can focus on the tank
+
+206
+00:13:39.000 --> 00:13:43.000
+base and on getting that doing what we want. So in the next video, we'll pick up
+
+207
+00:13:43.000 --> 00:13:47.000
+projectiles where we left off, and yeah, sorry about the
+
+208
+00:13:47.000 --> 00:13:51.000
+diversion to 4.12 but it was required. You've got more disk space, the latest version of Unreal,
+
+209
+00:13:51.000 --> 00:13:55.000
+and this fundamental bug is worked around but not resolved.
+
+210
+00:13:55.000 --> 00:13:56.500
+
+
