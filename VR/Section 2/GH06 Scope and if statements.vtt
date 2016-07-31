@@ -1,0 +1,470 @@
+WEBVTT
+
+1
+00:00:07.600 --> 00:00:11.600
+Welcome to another lecture! in this lecture we are going to be
+
+2
+00:00:11.600 --> 00:00:15.600
+talking about the structure of this if statement, and we
+
+3
+00:00:15.600 --> 00:00:19.600
+are going to be talking about how we can prevent a
+
+4
+00:00:19.600 --> 00:00:23.600
+double key pressing issue, by introducing a new statement, the else
+
+5
+00:00:23.600 --> 00:00:27.600
+if statement here. And we're going to be talking a little bit about
+
+6
+00:00:27.600 --> 00:00:31.600
+variables and how their scope works.
+
+7
+00:00:31.633 --> 00:00:35.633
+So far we've glossed over the syntax of the if statments,
+
+8
+00:00:35.633 --> 00:00:39.633
+and I want to go, in this lecture, into a little bit more detail about that
+
+9
+00:00:39.633 --> 00:00:43.633
+and what it's all about. So
+
+10
+00:00:43.633 --> 00:00:47.633
+let's break it down! The first thing is if, that is the keyword
+
+11
+00:00:47.633 --> 00:00:51.633
+that we are using, an if statement, and
+
+12
+00:00:51.633 --> 00:00:55.633
+then, we have this bracketed, what's called an expression,
+
+13
+00:00:55.633 --> 00:00:59.633
+because it returns a thing, it turns into a
+
+14
+00:00:59.633 --> 00:01:03.633
+value. So this returns a true or false value
+
+15
+00:01:03.633 --> 00:01:07.633
+for the if statement. So basically,
+
+16
+00:01:07.633 --> 00:01:11.633
+this is asking the question, if (Input
+
+17
+00:01:11.633 --> 00:01:15.633
+.GetKeyDown. So if the KeyDown is DownArrow,
+
+18
+00:01:15.633 --> 00:01:19.633
+and you can see here there's more brackets, that's just like print,
+
+19
+00:01:19.633 --> 00:01:23.633
+but we're passing in an argument and the argument is which key. So
+
+20
+00:01:23.633 --> 00:01:27.633
+which key is down? The DownArrow, and if it is down
+
+21
+00:01:27.633 --> 00:01:31.633
+then we execute the
+
+22
+00:01:31.633 --> 00:01:35.633
+thing in these parenthesis here. So the way
+
+23
+00:01:35.633 --> 00:01:39.633
+this execution flow works is, that the Update () is called
+
+24
+00:01:39.633 --> 00:01:43.633
+once per frame. Then, it says, is the DownArrow Key pressed?
+
+25
+00:01:43.633 --> 00:01:47.633
+If so, then print. And then, it asks
+
+26
+00:01:47.633 --> 00:01:51.633
+if up arrow pressed then print, etc. And
+
+27
+00:01:51.633 --> 00:01:55.633
+you'll notice we're using indentation to make this easier for the eye to
+
+28
+00:01:55.633 --> 00:01:59.633
+follow, so we know that this print statement belongs to
+
+29
+00:01:59.633 --> 00:02:03.633
+this if statement, because of these four spaces. Now
+
+30
+00:02:03.633 --> 00:02:07.633
+you don't have to use four spaces, in fact, it's best that you don't. If I
+
+31
+00:02:07.633 --> 00:02:11.633
+use four spaces, it would look the same, but I recommend you use a
+
+32
+00:02:11.633 --> 00:02:15.633
+Tab. It's much easier to use in VisualStudio, if you just
+
+33
+00:02:15.633 --> 00:02:19.633
+hit a Tab across like that. OK,
+
+34
+00:02:19.633 --> 00:02:23.633
+so we keep things indented to the levels,
+
+35
+00:02:23.633 --> 00:02:27.633
+so if I were to add another print statement here, it would be indented like so, and
+
+36
+00:02:27.633 --> 00:02:31.633
+the ID makes it really easy for us to do this. So VisualStudio or Xcode will make this
+
+37
+00:02:31.633 --> 00:02:35.633
+very easy for you.
+
+38
+00:02:35.633 --> 00:02:39.633
+So, but we don't want that line!
+
+39
+00:02:39.633 --> 00:02:43.633
+There is something I want to draw your attention to, that you may not have noticed
+
+40
+00:02:43.633 --> 00:02:47.633
+or you may have. So if I hit different arrows, I get different
+
+41
+00:02:47.633 --> 00:02:51.633
+logs that's all fine, but if I hit multiple arrows at
+
+42
+00:02:51.633 --> 00:02:55.633
+once, I get all those arrows at once. Now that's not the behavior
+
+43
+00:02:55.633 --> 00:02:59.633
+we want in our game, so if I hit
+
+44
+00:02:59.633 --> 00:03:03.633
+four arrows or some combination of them, they all come out.
+
+45
+00:03:03.633 --> 00:03:07.633
+So I'm getting the Left and the Right Arrow coming out at the same time. You can try that out
+
+46
+00:03:07.633 --> 00:03:11.633
+for yourself, to see what that feels like. Now the reason for this is because we're going
+
+47
+00:03:11.633 --> 00:03:15.633
+if this print that, if this then print that, which means that if I have the Up
+
+48
+00:03:15.633 --> 00:03:19.633
+Arrow and Down Arrow down at the same time, it's going to print both
+
+49
+00:03:19.633 --> 00:03:23.633
+messages. Now fortunately with if, there is a companion
+
+50
+00:03:23.633 --> 00:03:27.633
+to the if statement, called the else if statement,
+
+51
+00:03:27.633 --> 00:03:31.633
+and it basically works like this. You start off with an if and then
+
+52
+00:03:31.633 --> 00:03:35.633
+you say else if, if I can spell correctly; else
+
+53
+00:03:35.633 --> 00:03:39.633
+space if. You must have the space there, then this
+
+54
+00:03:39.633 --> 00:03:43.633
+condition, and we can do this all the way down, else if
+
+55
+00:03:43.633 --> 00:03:47.633
+else if. But remember, else must always follow
+
+56
+00:03:47.633 --> 00:03:51.633
+an if. And in fact, it can stand on it's own as well, but
+
+57
+00:03:51.633 --> 00:03:55.633
+we won't, we won't deal with that just now. So what this is saying is, if this,
+
+58
+00:03:55.633 --> 00:03:59.633
+arrow is down then print this, but don't then check anything else.
+
+59
+00:03:59.633 --> 00:04:03.633
+But if that isn't down, then go on to check the next line and
+
+60
+00:04:03.633 --> 00:04:07.633
+so on and so on. So let's see whether that has fixed our double-
+
+61
+00:04:07.633 --> 00:04:11.633
+pressing issue. If I hit play,
+
+62
+00:04:11.633 --> 00:04:15.633
+you'll notice that sometimes
+
+63
+00:04:15.633 --> 00:04:19.633
+it happens and sometimes it doesn't anymore, because
+
+64
+00:04:19.633 --> 00:04:23.633
+it's very hard to get things down on exactly the same frame, but if you do
+
+65
+00:04:23.633 --> 00:04:27.633
+then it will no longer be duplicated. So that's generally
+
+66
+00:04:27.633 --> 00:04:31.633
+what we do when we're talking about exclusive conditions,
+
+67
+00:04:31.633 --> 00:04:35.633
+that we don't want to all be true at the same time, so that is
+
+68
+00:04:35.633 --> 00:04:39.633
+why we're doing it like so.
+
+69
+00:04:40.633 --> 00:04:44.633
+So for ths lecture's challenge, I would like you to print the progress
+
+70
+00:04:44.633 --> 00:04:48.633
+message. Now, what do I mean by that? By the progress message I mean this,
+
+71
+00:04:48.633 --> 00:04:52.633
+print("After  "  steps, you are " so many " meters
+
+72
+00:04:52.633 --> 00:04:56.633
+away from home." That's what we're going to want to keep repeating to the user,
+
+73
+00:04:56.633 --> 00:05:00.633
+when they've made a move, so they know how many steps they've taken and how
+
+74
+00:05:00.633 --> 00:05:04.633
+far away from home they are. OK, so how are you going
+
+75
+00:05:04.633 --> 00:05:08.633
+to do this? Well, when a key is pressed, print the message. So we've
+
+76
+00:05:08.633 --> 00:05:12.633
+got some if statements already, use those, use those
+
+77
+00:05:12.633 --> 00:05:16.633
+as a basis to start from. Then, I'd like you to cut and paste,
+
+78
+00:05:16.633 --> 00:05:20.633
+from the Start() method, that progress message we already have. See
+
+79
+00:05:20.633 --> 00:05:24.633
+not really using more code or creating anything new, I just want you to
+
+80
+00:05:24.633 --> 00:05:28.633
+be reorganizing what we already have. Then, you need
+
+81
+00:05:28.633 --> 00:05:32.633
+to paste that code, possibly multiple times, into
+
+82
+00:05:32.633 --> 00:05:36.633
+the Update() method. And I'd like you to make sure you also
+
+83
+00:05:36.633 --> 00:05:40.633
+copy the variable declaration, that's quite important, or the code will
+
+84
+00:05:40.633 --> 00:05:44.633
+fail. You can try and do it without and then see how it fails and then put the
+
+85
+00:05:44.633 --> 00:05:48.633
+variable declarations in. That's a good way of checking yourself and making sure
+
+86
+00:05:48.633 --> 00:05:52.633
+that you know what's going on. Then, you will need
+
+87
+00:05:52.633 --> 00:05:56.633
+those at the top of the Update() method, so by that, I mean underneath the line
+
+88
+00:05:56.633 --> 00:06:00.633
+where it says Update squiggly bracket. Just under that is
+
+89
+00:06:00.633 --> 00:06:04.633
+where those variable declarations will need to go. OK, so pause the video
+
+90
+00:06:04.633 --> 00:06:08.633
+and have a go at doing this yourself!
+
+91
+00:06:08.633 --> 00:06:12.633
+OK welcome back! Now, it is my turn!
+
+92
+00:06:12.633 --> 00:06:16.633
+I hope you've all had a go, before watching my solution, because that's really
+
+93
+00:06:16.633 --> 00:06:20.633
+how you learn. OK, so this
+
+94
+00:06:20.633 --> 00:06:24.633
+is the code, as I said. I'm going to copy it and I am just going
+
+95
+00:06:24.633 --> 00:06:28.633
+to be pasting it into each of these different ifs. I'm just double
+
+96
+00:06:28.633 --> 00:06:32.633
+clicking to get the whole line selected, in fact, triple clicking
+
+97
+00:06:32.633 --> 00:06:36.633
+and then just pasting. OK,
+
+98
+00:06:36.633 --> 00:06:40.633
+now we can instantly... I'm just going to delete this original line.
+
+99
+00:06:40.633 --> 00:06:44.633
+You can instantly see an indication that something might be wrong, with these squiggly red lines.
+
+100
+00:06:44.633 --> 00:06:48.633
+If we mouse over them it says, "The name 'numberOfSteps' does not
+
+101
+00:06:48.633 --> 00:06:52.633
+exist in the current context". OK, so what we've got
+
+102
+00:06:52.633 --> 00:06:56.633
+going on here is that there are two contexts, one in the Update()
+
+103
+00:06:56.633 --> 00:07:00.633
+and one in Start(). In fact, it's a bit more defined than that
+
+104
+00:07:00.633 --> 00:07:04.633
+but we'll see. There's even, this if is a separate context, but it's a
+
+105
+00:07:04.633 --> 00:07:08.633
+context within this context. So if we put something in this context, it's
+
+106
+00:07:08.633 --> 00:07:12.633
+also in this context, and that's what we call a scope.
+
+107
+00:07:12.633 --> 00:07:16.633
+So in order for these to be in scope,
+
+108
+00:07:16.633 --> 00:07:20.633
+we can't have them here, we need to have them in here. So I am going to cut
+
+109
+00:07:20.633 --> 00:07:24.633
+them and just paste them in above, like I said,
+
+110
+00:07:24.633 --> 00:07:28.633
+just at the top of the Update() method. Now you can see
+
+111
+00:07:28.633 --> 00:07:32.633
+the squiggles have gone away, so I'm going to go back into Unity
+
+112
+00:07:32.633 --> 00:07:36.633
+and hit the play button, and hopefully we'll now be getting
+
+113
+00:07:36.633 --> 00:07:40.633
+a progress message, instead of key up and down.
+
+114
+00:07:40.633 --> 00:07:44.633
+There we go! Each time, these are all the different keys I'm hitting, but
+
+115
+00:07:44.633 --> 00:07:48.633
+I'm still getting the same progress message! Perfect! So
+
+116
+00:07:48.633 --> 00:07:52.633
+that's a challenge complete, and we are ready to move on to the next lecture!
+
+117
+00:07:52.633 --> 00:07:53.733
+See you there!
+
