@@ -1,0 +1,450 @@
+WEBVTT
+
+1
+00:00:07.033 --> 00:00:10.000
+Welcome! In this video we're going to be learning about
+
+2
+00:00:10.000 --> 00:00:14.000
+debugging, particularly a type of debugging I like to call Potted Plant
+
+3
+00:00:14.000 --> 00:00:18.000
+Debugging. Other people call it Rubber Duck Debugging. And
+
+4
+00:00:18.000 --> 00:00:22.000
+we're going to fix our first bug in this lecture and introduce play
+
+5
+00:00:22.000 --> 00:00:26.000
+testing, so the process by which we're going to find that first bug. OK
+
+6
+00:00:26.000 --> 00:00:27.500
+let's dive right in!
+
+7
+00:00:27.500 --> 00:00:30.366
+So I want to start out with a little
+
+8
+00:00:30.366 --> 00:00:34.366
+play testing! So what's play testing? It's basically giving your program to a
+
+9
+00:00:34.366 --> 00:00:38.366
+5 year old and seeing what problems they can find in it. It's very simple,
+
+10
+00:00:38.366 --> 00:00:42.366
+just give it to somebody else. It doesn't have to be a 5 year old, it could be your spouse, it could be
+
+11
+00:00:42.366 --> 00:00:46.366
+a friend just anybody you can convince to play your
+
+12
+00:00:46.366 --> 00:00:50.366
+game. Now, because I'm a bit short on people to give it
+
+13
+00:00:50.366 --> 00:00:54.366
+to, I'm just going to do it myself at the moment. [Laughs] Lonely old me!
+
+14
+00:00:54.366 --> 00:00:58.366
+But we can quite easily
+
+15
+00:00:58.366 --> 00:01:02.366
+see that there is a bug here. If you carry on playing
+
+16
+00:01:02.366 --> 00:01:06.366
+past the game over point, you can still create more steps. Not
+
+17
+00:01:06.366 --> 00:01:10.366
+much point having a game over message if you can create more steps. So
+
+18
+00:01:10.366 --> 00:01:14.366
+let's find a way of solving this problem. I don't
+
+19
+00:01:14.366 --> 00:01:18.366
+want to solve the problem for you, I want to teach you how you can solve it for yourself,
+
+20
+00:01:18.366 --> 00:01:22.366
+and we're going to do this via a process called Potted Plant
+
+21
+00:01:22.366 --> 00:01:26.366
+Debugging. So when I was at university, my supervisor told me
+
+22
+00:01:26.366 --> 00:01:30.366
+a story about a professor who put a sign up on his
+
+23
+00:01:30.366 --> 00:01:34.366
+door saying, before you come in and ask me about your math problem,
+
+24
+00:01:34.366 --> 00:01:38.366
+explain it to the potted plant. And invariably what he got is that
+
+25
+00:01:38.366 --> 00:01:42.366
+90% of the time his students would come down, sit in front of the potted plant, explain their
+
+26
+00:01:42.366 --> 00:01:46.366
+problem, and go ah hah and go away again having solved
+
+27
+00:01:46.366 --> 00:01:50.366
+their problem, because just by explaining it you find the problems
+
+28
+00:01:50.366 --> 00:01:54.366
+in your reasoning. So this is what you do! You explain
+
+29
+00:01:54.366 --> 00:01:58.366
+your problem out loud, that is the most important thing. It can be a potted plant,
+
+30
+00:01:58.366 --> 00:02:02.366
+it's also been called Rubber Duck Debugging, so you can also explain it
+
+31
+00:02:02.366 --> 00:02:06.366
+to a rubber duck, if you happen to have one of those on hand. What you need to do is
+
+32
+00:02:06.366 --> 00:02:10.366
+walk through the code and explain each line, explain what all the
+
+33
+00:02:10.366 --> 00:02:14.366
+assumptions you're making are and why you think this should be doing this and then this
+
+34
+00:02:14.366 --> 00:02:18.366
+should be doing that. And then, what you'll do is you'll have an ah hah moment,
+
+35
+00:02:18.366 --> 00:02:22.366
+and you'll be, all of a sudden, going and this should do that and you reallize
+
+36
+00:02:22.366 --> 00:02:26.366
+that it isn't doing that and that is what your problem is.
+
+37
+00:02:26.366 --> 00:02:30.366
+So I'd like you to use your potted plant
+
+38
+00:02:30.366 --> 00:02:34.366
+to solve this problem, to debug this game carrying
+
+39
+00:02:34.366 --> 00:02:38.366
+on. So why does the game continue playing?
+
+40
+00:02:38.366 --> 00:02:42.366
+Now, if you are short on potted plants, you can use the discussions as
+
+41
+00:02:42.366 --> 00:02:46.366
+your potted plant, and in fact, I would recommend that so that you can see what other students
+
+42
+00:02:46.366 --> 00:02:50.366
+are doing and other people's way of Potted Plant Debugging.
+
+43
+00:02:50.366 --> 00:02:54.366
+And then, describe each bit of your program. What is it doing?
+
+44
+00:02:54.366 --> 00:02:58.366
+Go through listing your assumptions and what you think
+
+45
+00:02:58.366 --> 00:03:02.366
+it should do, and just checking is that actually what it is doing?
+
+46
+00:03:02.366 --> 00:03:06.366
+Do you get an ah hah moment, sharing the discussions? Can
+
+47
+00:03:06.366 --> 00:03:10.366
+you figure out what the problem is with our
+
+48
+00:03:10.366 --> 00:03:14.366
+code? OK pause the video and have a go at explaining this to
+
+49
+00:03:14.366 --> 00:03:18.366
+your potted plant!
+
+50
+00:03:18.366 --> 00:03:22.366
+OK welcome back! I hope your potted plants have given you lots of
+
+51
+00:03:22.366 --> 00:03:26.366
+wisdom! We are going to dive in and have a look at what's going on
+
+52
+00:03:26.366 --> 00:03:30.366
+and try a little bit of Potted Plant Debugging.
+
+53
+00:03:30.366 --> 00:03:34.366
+OK so what do we have? I have a
+
+54
+00:03:34.366 --> 00:03:38.366
+few variables here. This variable starts off
+
+55
+00:03:38.366 --> 00:03:42.366
+as being the number of steps equal to 1, and then, home
+
+56
+00:03:42.366 --> 00:03:46.366
+Location is equal to this. The playerLocation is equal to
+
+57
+00:03:46.366 --> 00:03:50.366
+this. That's what we start off with. Now, then
+
+58
+00:03:50.366 --> 00:03:54.366
+there's a Start() method, and this prints the welcome message. Then, the welcome
+
+59
+00:03:54.366 --> 00:03:58.366
+message goes through and prints, ("Welcome to Go Home!").
+
+60
+00:03:58.366 --> 00:04:02.366
+OK now, this is a problem! And then what happens? Well next up,
+
+61
+00:04:02.366 --> 00:04:06.366
+every frame we call the Update() method, and the
+
+62
+00:04:06.366 --> 00:04:10.366
+Update() method will go through here and check the
+
+63
+00:04:10.366 --> 00:04:14.366
+GetKeyDown and then update the playerLocation
+
+64
+00:04:14.366 --> 00:04:18.366
+and PrintUpdateAndContinue. OK that's fine!
+
+65
+00:04:18.366 --> 00:04:22.366
+And then, we get into the UpdateAndContinue and perhaps the game is over. Perhaps the
+
+66
+00:04:22.366 --> 00:04:26.366
+distance magnitude is equal to 0, so our
+
+67
+00:04:26.366 --> 00:04:30.366
+gameOver is true. So we go into print("Game over.
+
+68
+00:04:30.366 --> 00:04:34.366
+OK and then what happens? We have another frame and we've got
+
+69
+00:04:34.366 --> 00:04:38.366
+a KeyDown, and we go through and it does if
+
+70
+00:04:38.366 --> 00:04:42.366
+GetKeyDown, Arrow. and... Oh, what's it do? Well
+
+71
+00:04:42.366 --> 00:04:46.366
+it prints the UpdateAndContinue again. So that's
+
+72
+00:04:46.366 --> 00:04:50.366
+our half moment, is that the UpdateAndContinue keeps
+
+73
+00:04:50.366 --> 00:04:54.366
+being printed, in spite of
+
+74
+00:04:54.366 --> 00:04:58.366
+whether the game is over or not. So
+
+75
+00:04:58.366 --> 00:05:02.366
+how do we fix this issue? How do we fix it? So
+
+76
+00:05:02.366 --> 00:05:06.366
+one way would be to bring this game over
+
+77
+00:05:06.366 --> 00:05:10.366
+so that we can access it in
+
+78
+00:05:10.366 --> 00:05:14.366
+Update() as well. So we know how to do that. It's a scope problem, so we
+
+79
+00:05:14.366 --> 00:05:18.366
+need to remove gameOver from here, so we're just
+
+80
+00:05:18.366 --> 00:05:22.366
+updating it not redefining it. And up at the top
+
+81
+00:05:22.366 --> 00:05:26.366
+here, we can define bool gameOver
+
+82
+00:05:26.366 --> 00:05:30.366
+= false; So we
+
+83
+00:05:30.366 --> 00:05:34.366
+start with the game not being over, but if
+
+84
+00:05:34.366 --> 00:05:38.366
+we come past this line of code and this is true, then the
+
+85
+00:05:38.366 --> 00:05:42.366
+game does become over. OK so what do we want to do to
+
+86
+00:05:42.366 --> 00:05:46.366
+stop all of this from happening? So
+
+87
+00:05:46.366 --> 00:05:50.366
+there is a handy little
+
+88
+00:05:50.366 --> 00:05:54.366
+statement called return, and what the
+
+89
+00:05:54.366 --> 00:05:58.366
+return statement does is, it says just
+
+90
+00:05:58.366 --> 00:06:02.366
+stop executing this method now and
+
+91
+00:06:02.366 --> 00:06:06.366
+everything underneath it will not be executed. So this is what you're seeing,
+
+92
+00:06:06.366 --> 00:06:10.366
+this squiggly line here. It says "Unreachable: Code detected", because we've
+
+93
+00:06:10.366 --> 00:06:14.366
+got a return here, it's never going to get down to this code.
+
+94
+00:06:14.366 --> 00:06:18.366
+It just stops this method, called right there. So
+
+95
+00:06:18.366 --> 00:06:22.366
+how can we use this to end the game?
+
+96
+00:06:22.366 --> 00:06:26.366
+Well we can use an if statement! So if we do if
+
+97
+00:06:26.366 --> 00:06:30.366
+(gameOver)... I spelled it wrong, when (game
+
+98
+00:06:30.366 --> 00:06:34.366
+Over) is what we want. Then, return.
+
+99
+00:06:34.366 --> 00:06:38.366
+So what this says is, if this boolean has been set to
+
+100
+00:06:38.366 --> 00:06:42.366
+true, which we know it is down here
+
+101
+00:06:42.366 --> 00:06:46.366
+when the distance is 0,
+
+102
+00:06:46.366 --> 00:06:50.366
+then don't execute any of the rest of this,
+
+103
+00:06:50.366 --> 00:06:54.366
+which I think is the behavior we want. So let's go into Unity,
+
+104
+00:06:54.366 --> 00:06:58.366
+hit pause, and play!
+
+105
+00:06:58.366 --> 00:07:02.366
+And let's use the Arrow keys
+
+106
+00:07:02.366 --> 00:07:06.366
+to get our way home. OK we're
+
+107
+00:07:06.366 --> 00:07:10.366
+home! And now I'm hitting the arrow keys and nothing happens!
+
+108
+00:07:10.366 --> 00:07:14.366
+Perfect! Well that has solved the bug in our game, and I think also
+
+109
+00:07:14.366 --> 00:07:18.366
+brings us to a close on this game! We have a game that works and you can
+
+110
+00:07:18.366 --> 00:07:22.366
+finish it, Game Over! There's introduction text and you can input
+
+111
+00:07:22.366 --> 00:07:26.366
+and you can win it and you can do better than me! Try
+
+112
+00:07:26.366 --> 00:07:28.900
+and do more than in 7 steps!
+
