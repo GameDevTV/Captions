@@ -1,0 +1,570 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So welcome to Finalizing
+
+2
+00:00:04.000 --> 00:00:08.000
+Your Class Code! In this video what we're going to do is finish off the TankMovement
+
+3
+00:00:08.000 --> 00:00:12.000
+Component altogether, make some final changes to it, sort out our TODOs,
+
+4
+00:00:12.000 --> 00:00:16.000
+check a few things, change a few things around, and talk through why we're doing that
+
+5
+00:00:16.000 --> 00:00:21.433
+and how that's best practice. And the, movemenet is, well this part of it is finished, which is great news!
+
+6
+00:00:21.433 --> 00:00:25.433
+Alright, I just want to start with this! Recently VisualStudio has started
+
+7
+00:00:25.433 --> 00:00:29.433
+noticing changes in this applicationhost.config file inside
+
+8
+00:00:29.433 --> 00:00:33.433
+of my .vs folder, I can ignore that. So if you're getting a similar thing, you're welcome
+
+9
+00:00:33.433 --> 00:00:37.433
+to add this exact file name to the .gitignore.
+
+10
+00:00:37.433 --> 00:00:41.433
+You can actually add BattleTank/.vs
+
+11
+00:00:41.433 --> 00:00:45.433
+to the .gitignore, if you like, because we don't need anything in the .vs folder. So I'm actually
+
+12
+00:00:45.433 --> 00:00:49.433
+going to do that, to future proof that .gitignore. Let's see where it's added. If you want to add it manually
+
+13
+00:00:49.433 --> 00:00:53.433
+BattleTank/.vs/. OK cool!
+
+14
+00:00:53.433 --> 00:00:57.433
+So that's the .gitignore changed, which is fine. Now let's go ahead
+
+15
+00:00:57.433 --> 00:01:01.433
+and open the project and the VisualStudio solution, and what we're going to do
+
+16
+00:01:01.433 --> 00:01:05.433
+is finish off this TankMovementComponent! It's pretty much done actually! This is the
+
+17
+00:01:05.433 --> 00:01:09.433
+first class, I think, that has come to a completion. So
+
+18
+00:01:09.433 --> 00:01:13.433
+let's start in the code and have a bit of a review, as to what's going on!
+
+19
+00:01:13.433 --> 00:01:17.433
+Start in the header file! I'm going to work down from the top. Fill in your copyright notice, in
+
+20
+00:01:17.433 --> 00:01:21.433
+the Project Settings. You know what, we should do that! So Settings in
+
+21
+00:01:21.433 --> 00:01:25.433
+Unreal, Project Settings, and then, somewhere we will have a Copyright
+
+22
+00:01:25.433 --> 00:01:29.433
+Notice. Here it is! Let's fill that in! "Copyright
+
+23
+00:01:29.433 --> 00:01:33.433
+EmbraceIT
+
+24
+00:01:33.433 --> 00:01:37.433
+Ltd." Great! So that won't change the file we've already created,
+
+25
+00:01:37.433 --> 00:01:41.433
+but it will mean that future files will have something like Copyright Embrace
+
+26
+00:01:41.433 --> 00:01:45.433
+IT Ltd. in them. Let's just fill that in for fun, by
+
+27
+00:01:45.433 --> 00:01:49.433
+pasting it. OK #pragma once, we leave. This is all good! Now one of the questions, do we need
+
+28
+00:01:49.433 --> 00:01:53.433
+this forward declaration? Well highlighting it shows that it is used,
+
+29
+00:01:53.433 --> 00:01:57.433
+well you can see that it's used here, UTankTrack, so yes we need it. We have a class
+
+30
+00:01:57.433 --> 00:02:01.433
+description. Do we need to make this class a Blueprint
+
+31
+00:02:01.433 --> 00:02:05.433
+SpawnableComponent? Yes! Remind ourselves why. If we look at the tank
+
+32
+00:02:05.433 --> 00:02:09.433
+blueprint, it is so we can add the Tank Movement Component manually like this.
+
+33
+00:02:09.433 --> 00:02:13.433
+We'll probably do the same thing with the Aiming Component soon. It is down here in our
+
+34
+00:02:13.433 --> 00:02:17.433
+Custom menu as TankMovement. So we need that bit, it's necessary.
+
+35
+00:02:17.433 --> 00:02:21.433
+So do we need to make this guy BlueprintCallable, the Initialize? Yes, because that's where we do
+
+36
+00:02:21.433 --> 00:02:25.433
+the initialization. If you remember, in the Event Graph, we Initialize here
+
+37
+00:02:25.433 --> 00:02:29.400
+by passing in references to the tank tracks. That's sensible! Do we need
+
+38
+00:02:29.400 --> 00:02:33.433
+these guys to be BlueprintCallable, IntendMoveForward and IntendTurnRight, of course, because
+
+39
+00:02:33.433 --> 00:02:37.466
+it's part of the input binding. So that's all good! Now a little
+
+40
+00:02:37.466 --> 00:02:41.500
+hint, Category, and thank you to those on the forum who pointed this out. There's a bit of a bug in Unreal right
+
+41
+00:02:41.500 --> 00:02:45.466
+now. That means you may get some crashes because your category
+
+42
+00:02:45.466 --> 00:02:49.466
+definer isn't in quotes, so to be safe let't put it in
+
+43
+00:02:49.466 --> 00:02:53.433
+quotes. That also lets you put strange characters in like, you know, like other
+
+44
+00:02:53.433 --> 00:02:57.433
+characters in the middle here, if you wanted to. So I'm going to put quotes around
+
+45
+00:02:57.433 --> 00:03:01.433
+this, as I go, in future. Now we said to
+
+46
+00:03:01.433 --> 00:03:05.433
+ourselves, let's see what protection RequestDirectMove needs. Now if you recall,
+
+47
+00:03:05.433 --> 00:03:09.433
+we found RequestDirectMove inside the actual
+
+48
+00:03:09.433 --> 00:03:13.433
+engine code. I don't remember exactly where we found it,
+
+49
+00:03:13.433 --> 00:03:17.433
+but if you go and look at it, it is a public method in the super class,
+
+50
+00:03:17.433 --> 00:03:21.433
+in the UNav component. But it turns out here, we can actually
+
+51
+00:03:21.433 --> 00:03:25.433
+make it as protected as private, and that was very confusing. We can make it
+
+52
+00:03:25.433 --> 00:03:29.433
+private. To not use that other word to confuse things. So we can actually make
+
+53
+00:03:29.433 --> 00:03:33.433
+it this level of protection, private, and it will still work. So let's just prove that!
+
+54
+00:03:33.433 --> 00:03:37.433
+And that's basically because, I'll explain with a
+
+55
+00:03:37.433 --> 00:03:41.433
+diagram. It's basically because if you look back
+
+56
+00:03:41.433 --> 00:03:45.433
+to our diagrams to how the AI system works here, where the Pathfinding
+
+57
+00:03:45.433 --> 00:03:49.433
+Logic has a hook into the RequestDirectMethod(), it has a pointer
+
+58
+00:03:49.433 --> 00:03:53.433
+to a Nav Movement Component, not a Tank Movement Component. And on the Nav Movement
+
+59
+00:03:53.433 --> 00:03:57.433
+Component, RequestDirectMove is a public method. So let's just
+
+60
+00:03:57.433 --> 00:04:01.433
+play and prove that things still work. They do! So because the
+
+61
+00:04:01.433 --> 00:04:05.433
+tanks are moving, RequestDirectMove must be being called, so because we can make it
+
+62
+00:04:05.433 --> 00:04:09.433
+private, we may as well. Let's make a comment as to what this does. So
+
+63
+00:04:09.433 --> 00:04:13.433
+"// Method" or we'll just say "Called
+
+64
+00:04:13.433 --> 00:04:17.433
+from the pathfinding
+
+65
+00:04:17.433 --> 00:04:21.433
+logic by the
+
+66
+00:04:21.433 --> 00:04:25.433
+AI controllers".
+
+67
+00:04:25.433 --> 00:04:29.433
+OK fantastic! So that's what's going on there! I think that the header file
+
+68
+00:04:29.433 --> 00:04:33.433
+is looking in good shape, I'm going to save it. Now let's go through and have a look at the
+
+69
+00:04:33.433 --> 00:04:37.433
+.cpp. So "copyright notice", well fine I will
+
+70
+00:04:37.433 --> 00:04:41.433
+put that in. Obviously it's good to do that in your Project Settings in the beginning, but I just didn't
+
+71
+00:04:41.433 --> 00:04:45.433
+think it's the most important thing for the learning of the section exactly. This is all
+
+72
+00:04:45.433 --> 00:04:49.433
+good! Now what I am going to do, very briefly, is we need to sort out this
+
+73
+00:04:49.433 --> 00:04:53.433
+double-speed issue. I've got a way of preventing the
+
+74
+00:04:53.433 --> 00:04:57.433
+double-speed. I think what I'm going to do is unbind these Shoulder Buttons, but before we
+
+75
+00:04:57.433 --> 00:05:01.433
+do that and consider that a solution, let's just look at
+
+76
+00:05:01.433 --> 00:05:05.433
+the two Throws. I'm just going to say
+
+77
+00:05:05.433 --> 00:05:09.433
+Right: %f, and then I'm going to say Forward:
+
+78
+00:05:09.433 --> 00:05:13.433
+%f" like so. And then, I'm
+
+79
+00:05:13.433 --> 00:05:17.433
+just going to say let's look at the (RightThrow) and let's look at the
+
+80
+00:05:17.433 --> 00:05:21.433
+(ForwardThrow) for all of the tanks. I just want to make sure
+
+81
+00:05:21.433 --> 00:05:25.433
+that these tanks are only passing values between -1 and +1. So let's just have a
+
+82
+00:05:25.433 --> 00:05:29.433
+look at those values. Turn my controller on so I can move my tank as well, so that all of
+
+83
+00:05:29.433 --> 00:05:33.433
+the tanks are reporting their Throw values. If these Throws are between -1 and +1,
+
+84
+00:05:33.433 --> 00:05:37.433
+then the easiest way to prevent doubling up on control between
+
+85
+00:05:37.433 --> 00:05:41.433
+the Left Thumbstick and the Shoulder Buttons is to just unbind the Shoulder Buttons.
+
+86
+00:05:41.433 --> 00:05:45.433
+Frankly we don't need to be driving it from the Shoulder Buttons. So I'm just
+
+87
+00:05:45.433 --> 00:05:49.433
+moving my tank forward, back, left, right. I'm going to stop, take a look at the logs,
+
+88
+00:05:49.433 --> 00:05:53.433
+looking for anything with a 1 or beyond. It's all good, all of these
+
+89
+00:05:53.433 --> 00:05:57.433
+Throws are between -1 and +1, so I'm pretty happy with that.
+
+90
+00:05:57.433 --> 00:06:01.433
+I'm actually going to get rid of the log entry, now that we don't need it,
+
+91
+00:06:01.433 --> 00:06:05.433
+further reducing our lines of code. And where we have a "// TODO
+
+92
+00:06:05.433 --> 00:06:09.433
+prevent double-speed due to dual control use". What I'm going to do is simply this, I'm going
+
+93
+00:06:09.433 --> 00:06:13.433
+to go and remove these input bindings, over in the tank blueprint.
+
+94
+00:06:13.433 --> 00:06:17.433
+We're no longer going to bind the left and right throttle, I don't see the point.
+
+95
+00:06:17.433 --> 00:06:21.433
+I might as well just use that Fly-by-Wire control. It was interesting to see how to use both of them. Of course, it is
+
+96
+00:06:21.433 --> 00:06:25.433
+possible to make them both work together. We have to set a local variable for the
+
+97
+00:06:25.433 --> 00:06:29.433
+throttle in the TankMovementComponent, and then, consume that variable
+
+98
+00:06:29.433 --> 00:06:33.433
+every frame. If you want to do that, it's a bit of extra credit for those of you who care, but it's
+
+99
+00:06:33.433 --> 00:06:37.433
+going to mess up the learning journey for the less advanced people, so
+
+100
+00:06:37.433 --> 00:06:41.433
+I think it seriously isn't worth doing. So by removing that
+
+101
+00:06:41.433 --> 00:06:45.433
+input binding we can now only use the left stick, but
+
+102
+00:06:45.433 --> 00:06:49.433
+life is a lot simpler. So these two methods are just
+
+103
+00:06:49.433 --> 00:06:53.433
+defining what the idea of moving forward and turning right does. If we ever want to make
+
+104
+00:06:53.433 --> 00:06:57.433
+adjustments to what moving forward and turning right does, we do them in these methods here. I'm very
+
+105
+00:06:57.433 --> 00:07:01.433
+happy now with how this whole class is looking. It's very tight, it's pretty
+
+106
+00:07:01.433 --> 00:07:05.433
+clear. It reads nicely, so I'm happy! What I'm going to do before I
+
+107
+00:07:05.433 --> 00:07:09.433
+ever commit is to compile and just have a quick play
+
+108
+00:07:09.433 --> 00:07:13.433
+test of the game. And then, start casting my mind forward to thinking, well what is the least fun
+
+109
+00:07:13.433 --> 00:07:17.433
+thing about this game right now, that age old question, so that in the next video we can come in
+
+110
+00:07:17.433 --> 00:07:21.433
+and fix that. I'm going to Compile the tank blueprint,
+
+111
+00:07:21.433 --> 00:07:25.433
+save the tank blueprint, play the game, hit F11, and just
+
+112
+00:07:25.433 --> 00:07:29.433
+make absolutely sure that, with my left stick, I can control the tank.
+
+113
+00:07:29.433 --> 00:07:33.433
+Slippy slidy! And in fact, that is, thinking about it while I play this,
+
+114
+00:07:33.433 --> 00:07:37.433
+probably the least fun thing about it now. I mean it's fun, like just in the same way that Goat
+
+115
+00:07:37.433 --> 00:07:41.433
+Simulator's fun, [laughs] that these tanks slide around like crazy.
+
+116
+00:07:41.433 --> 00:07:45.433
+And you know what, we may want to put some ice into the world, and in the
+
+117
+00:07:45.433 --> 00:07:49.433
+future play with those physics settings and set a different coefficient of
+
+118
+00:07:49.433 --> 00:07:53.433
+friction, based on the terrain paint. And
+
+119
+00:07:53.433 --> 00:07:57.433
+then actually, make maybe an ice lake. Maybe somebody wants to do that. And then, we'll
+
+120
+00:07:57.433 --> 00:08:01.433
+have some slipping and sliding if we want it, but for most of the time, I think that
+
+121
+00:08:01.433 --> 00:08:05.433
+we need to get rid of this slipping and sliding somehow. And
+
+122
+00:08:05.433 --> 00:08:09.433
+one of the easiest ways to do that is going to be to use a special piece of code that
+
+123
+00:08:09.433 --> 00:08:13.433
+says, well let's put a sideways force in that corrects this, because if we try and
+
+124
+00:08:13.433 --> 00:08:17.433
+do it purely with friction then we're going to end up needing too much power to
+
+125
+00:08:17.433 --> 00:08:21.433
+slide this tank along. Remember this tank is only moving because we are
+
+126
+00:08:21.433 --> 00:08:25.433
+pushing it really hard and these tracks aren't moving, they're just solid lumps sitting
+
+127
+00:08:25.433 --> 00:08:29.433
+on the ground. So that's probably what's fun! This bug, where it keeps diving,
+
+128
+00:08:29.433 --> 00:08:33.433
+you know hitting some invisible like boulder on the floor and spinning over, well that's also
+
+129
+00:08:33.433 --> 00:08:37.433
+a bit un-fun, but it's still kind of fun, I'm not bored of it yet. I'm
+
+130
+00:08:37.433 --> 00:08:41.433
+a bit bored of the sideways sliding. So it's all working after
+
+131
+00:08:41.433 --> 00:08:45.433
+compiling. I'm pretty happy with that! Let's just go ahead and close Unreal,
+
+132
+00:08:45.433 --> 00:08:49.433
+close VisualStudio,
+
+133
+00:08:49.433 --> 00:08:53.433
+and go ahead and Commit. Hopefully you have been using your source control and doing your commit.
+
+134
+00:08:53.433 --> 00:08:57.433
+I commit based on the name of the lecture, and do remember that you can get hold of
+
+135
+00:08:57.433 --> 00:09:01.433
+all of my commits here at github.com/
+
+136
+00:09:01.433 --> 00:09:05.433
+BenTristem and through to UnrealCourse or just straight forward slash UnrealCourse.
+
+137
+00:09:05.433 --> 00:09:09.433
+There's the section name, there are the commits. Clicking
+
+138
+00:09:09.433 --> 00:09:13.433
+over here on these angle braces will allow you to get to the code state at the
+
+139
+00:09:13.433 --> 00:09:17.433
+end of any video, by cloning or downloading. So congratulations! Remember also
+
+140
+00:09:17.433 --> 00:09:21.433
+about on your community site, community.gamedev.tv. There is a thriving Unreal
+
+141
+00:09:21.433 --> 00:09:25.433
+section in there, which we hope to see you in with all your shares. And
+
+142
+00:09:25.433 --> 00:09:28.566
+I will see you soon!
+
