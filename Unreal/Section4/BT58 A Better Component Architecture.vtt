@@ -1,0 +1,734 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So welcome to
+
+2
+00:00:04.000 --> 00:00:08.000
+A Better Component Architecture! In this video we are actually going to get the
+
+3
+00:00:08.000 --> 00:00:12.000
+IntendMoveForward and Backwards working, from our stick. I'm using the
+
+4
+00:00:12.000 --> 00:00:16.000
+the controller left stick now rather than the shoulder buttons, and were going to have it
+
+5
+00:00:16.000 --> 00:00:20.000
+done a slightly different way, with Initialize method on the TankMovementComponent. And furthermore,
+
+6
+00:00:20.000 --> 00:00:24.000
+the TankMovementComponent is going to be added here in Blueprint, rather than being inherited,
+
+7
+00:00:24.000 --> 00:00:28.000
+and we'll see how this works and how it keeps our code even cleaner. So I'll see you in there!
+
+8
+00:00:28.000 --> 00:00:28.400
+
+
+9
+00:00:28.400 --> 00:00:32.400
+Okey dokey, so we want to actually move forward now! So that means
+
+10
+00:00:32.400 --> 00:00:36.400
+that, in the TankMovementComponent here, we need to be able to access the
+
+11
+00:00:36.400 --> 00:00:40.400
+tracks. So how are we going to access the tracks! Well before we dive in and do it, how we
+
+12
+00:00:40.400 --> 00:00:44.400
+did with the AimingComponent, if you remember the tank received
+
+13
+00:00:44.400 --> 00:00:48.400
+references to the AimingComponent in Blueprint, and then, we
+
+14
+00:00:48.400 --> 00:00:52.400
+passed that SetBarrel and SetTurret reference through to the AimingComponent.
+
+15
+00:00:52.400 --> 00:00:56.400
+Well that's fine, that's a valid way of doing it. It's particularly a valid way of doing it when
+
+16
+00:00:56.400 --> 00:01:00.400
+we compose our AimingComponent into our tank, through C++.
+
+17
+00:01:00.400 --> 00:01:04.400
+But the rest of our objects are composed in here in the Inspector.
+
+18
+00:01:04.400 --> 00:01:08.400
+We equally could have added this AimingComponent like this, custom
+
+19
+00:01:08.400 --> 00:01:12.400
+Tank Aiming and then we would have all it's properties. We decided not to do it for the Aiming
+
+20
+00:01:12.400 --> 00:01:16.400
+Component. In fact, we've decided not to do it for the MovementComponent. But let's try things a slightly
+
+21
+00:01:16.400 --> 00:01:20.400
+different way with the MovementComponent, let me explain briefly with the aid of a
+
+22
+00:01:20.400 --> 00:01:24.400
+diagram. So we have a Tank and we're passing those references to the
+
+23
+00:01:24.400 --> 00:01:28.400
+Aiming Component, as I just told you. We're also calling methods on the Aiming Component.
+
+24
+00:01:28.400 --> 00:01:32.400
+But the Aiming Component, the only reason we need a barrel and turret on the
+
+25
+00:01:32.400 --> 00:01:36.400
+Tank is because the Aiming Component needs it, so it's kind of a bit backwards, we're passing it around
+
+26
+00:01:36.400 --> 00:01:40.400
+a loop right, and the same thing with the movement. The movement now needs access to Left and Right Track,
+
+27
+00:01:40.400 --> 00:01:44.400
+but we don't need to pass those references to the Tank. Why not just make it so that only
+
+28
+00:01:44.400 --> 00:01:48.400
+the Movement Component has those references, it would be a lot simpler. And it particularly gets simpler
+
+29
+00:01:48.400 --> 00:01:52.400
+when you have even a third and a fourth component, and it will simplify the interface
+
+30
+00:01:52.400 --> 00:01:56.400
+of our tank, particularly the public interface here. We can get rid of these references.
+
+31
+00:01:56.400 --> 00:02:00.400
+So let's leave the aiming as it is, it works, it's fine, we may fix it later, but
+
+32
+00:02:00.400 --> 00:02:04.400
+for comparison let's try doing the MovementComponent this different way.
+
+33
+00:02:04.400 --> 00:02:08.400
+So let's think about how we're going to do it. We're privately, in the MovementComponent,
+
+34
+00:02:08.400 --> 00:02:12.400
+going to need ourselves a couple of tracks, right UTankTrack.
+
+35
+00:02:12.400 --> 00:02:16.400
+Now UTankTrack will currently be unknown to this class,
+
+36
+00:02:16.400 --> 00:02:20.400
+so we do a forward declaration, class UTankTrack.
+
+37
+00:02:20.400 --> 00:02:24.400
+And while we're here, why don't we tell everybody what this component's about? " * Responsible
+
+38
+00:02:24.400 --> 00:02:28.400
+for driving the tank
+
+39
+00:02:28.400 --> 00:02:32.400
+tracks". Basically, that's what this component does! OK, so we
+
+40
+00:02:32.400 --> 00:02:36.400
+have a UTankTrack and it's LeftTrack, and we're good people so
+
+41
+00:02:36.400 --> 00:02:40.400
+we initialize to the null pointer, so that we have a
+
+42
+00:02:40.400 --> 00:02:44.400
+known memory address that we're pointing to. RightTrack,
+
+43
+00:02:44.400 --> 00:02:48.400
+so we have a Left and a RightTrack available here. OK,
+
+44
+00:02:48.400 --> 00:02:52.400
+so on the TankMovementComponent, let's write ourselves an initialize
+
+45
+00:02:52.400 --> 00:02:56.400
+method: void UTankMovementComponent : :
+
+46
+00:02:56.400 --> 00:03:00.400
+Initialise()
+
+47
+00:03:00.400 --> 00:03:04.400
+spelt the British way, of course! So we have a UTank
+
+48
+00:03:04.400 --> 00:03:08.400
+Track* pointer called LeftTrack
+
+49
+00:03:08.400 --> 00:03:12.400
+ToSet, and we have a UTankTrack*
+
+50
+00:03:12.400 --> 00:03:16.400
+pointer RightTrack
+
+51
+00:03:16.400 --> 00:03:20.400
+ToSet). Quite verbose but they fit on the screen, so they're good with me!
+
+52
+00:03:20.400 --> 00:03:24.400
+OK, so these things are very much like we did in the TankAimingComponent,
+
+53
+00:03:24.400 --> 00:03:28.400
+if you remember. Let's look at its C++! We had these setters here, so it's very similar to
+
+54
+00:03:28.400 --> 00:03:32.400
+that, but we're going to do both of the things that we need, both of the tracks in a single
+
+55
+00:03:32.400 --> 00:03:36.400
+method, in this case. So first thing, we better protect these so if...
+
+56
+00:03:36.400 --> 00:03:40.400
+Which way around should we do it? if not ( I LeftTrackToSet
+
+57
+00:03:40.400 --> 00:03:44.400
+or not Right
+
+58
+00:03:44.400 --> 00:03:48.400
+TrackToSet), then what are we going to do? We're going to get
+
+59
+00:03:48.400 --> 00:03:52.400
+it out of here. We may want to report and error if we have any problems. OK
+
+60
+00:03:52.400 --> 00:03:56.400
+so now what are we going to do? Well it's simply LeftTrack
+
+61
+00:03:56.400 --> 00:04:00.400
+= LeftTrackToSet. It's this sort of stuff that we love
+
+62
+00:04:00.400 --> 00:04:04.400
+programming for! RightTrack = [laughs] RightTrackTo
+
+63
+00:04:04.400 --> 00:04:08.400
+Set. Sorry about the sarcasm. OK great! So now let's go ahead and
+
+64
+00:04:08.400 --> 00:04:12.400
+declare this method. Now it's going to need to be public because
+
+65
+00:04:12.400 --> 00:04:16.400
+we're going to need to be calling it from the blueprint, and it is part of the public
+
+66
+00:04:16.400 --> 00:04:20.400
+interface of the MovementComponent to initialize it. It's something that needs doing, when the
+
+67
+00:04:20.400 --> 00:04:24.400
+component is added. We may as well go ahead and make it a UFUNCTION straight away. It's going to
+
+68
+00:04:24.400 --> 00:04:28.400
+be in the Setup category,
+
+69
+00:04:28.400 --> 00:04:32.400
+and it's going to be a BlueprintCallable Initialize
+
+70
+00:04:32.400 --> 00:04:36.400
+method. That's correct! OK let's go see this in action over in the blueprint!
+
+71
+00:04:36.400 --> 00:04:40.400
+And I'll put you back to the code, while it compiles. So we have a Blueprint
+
+72
+00:04:40.400 --> 00:04:44.400
+Callable Initialize that's going to take in the two TracksToSet and just set the local
+
+73
+00:04:44.400 --> 00:04:48.400
+variables, so that, in our IntendMoveForward, we've got hold of the variables that we need.
+
+74
+00:04:48.400 --> 00:04:52.400
+Now was that a succeed or a fail? It was a fail and
+
+75
+00:04:52.400 --> 00:04:56.400
+it's something to do with my void. And on line 23
+
+76
+00:04:56.400 --> 00:05:00.400
+what have I done?
+
+77
+00:05:00.400 --> 00:05:04.400
+" 'void' should be preceded by" a semicolon, and I've just missed a
+
+78
+00:05:04.400 --> 00:05:08.400
+semicolon there, interestingly on line 20, O.K.  Easy
+
+79
+00:05:08.400 --> 00:05:12.400
+to miss, O.K. especially with these strange UFUNCTION's in the way, which
+
+80
+00:05:12.400 --> 00:05:16.400
+make things a little harder for us. But anyway, we are getting used to it as we improve
+
+81
+00:05:16.400 --> 00:05:20.400
+our Unreal mod. It's worth it isn't it! It's a pretty powerful engine, all this effort's
+
+82
+00:05:20.400 --> 00:05:24.400
+got to be worth the pain, surely. Surely it's got to be. OK,
+
+83
+00:05:24.400 --> 00:05:28.400
+so I failed the compile again! What have I done wrong this time? And this time
+
+84
+00:05:28.400 --> 00:05:32.400
+it's because, in the...
+
+85
+00:05:32.400 --> 00:05:36.400
+Hmm I don't know? Let's read the error message. It uses an
+
+86
+00:05:36.400 --> 00:05:40.400
+"undefined class 'UTankTrack' " in the TankMovementComponent header file.
+
+87
+00:05:40.400 --> 00:05:44.400
+That's
+
+88
+00:05:44.400 --> 00:05:48.400
+because we want it to be a pointer to a UTankTrack, not a UTankTrack
+
+89
+00:05:48.400 --> 00:05:52.400
+class. Alright, so let's try that again! We don't want an instance
+
+90
+00:05:52.400 --> 00:05:56.400
+of a UTankTrack class, because we can't have that at this stage without having the
+
+91
+00:05:56.400 --> 00:06:00.400
+UTankTrack available. We just want a pointer, I just missed the pointers. Good, so there's two different
+
+92
+00:06:00.400 --> 00:06:04.400
+error types you've seen and know how to correct in future. Let's go for third time
+
+93
+00:06:04.400 --> 00:06:08.400
+lucky compilation on this! I'll leave the code on the screen.
+
+94
+00:06:08.400 --> 00:06:12.400
+Ah hah! That sounds much better to me! So
+
+95
+00:06:12.400 --> 00:06:16.400
+let's go and take a look at the tank blueprint now. Now when
+
+96
+00:06:16.400 --> 00:06:20.400
+we are in the tank blueprint, we no longer need the TankMovementComponent here,
+
+97
+00:06:20.400 --> 00:06:24.400
+inherited, so we can remove the code that puts that in. And while we're there,
+
+98
+00:06:24.400 --> 00:06:28.400
+where is the TankMovementComponent? It's not available yet! TankAiming
+
+99
+00:06:28.400 --> 00:06:32.400
+is but TankMovement isn't. Why can't we add TankMovement, at the moment? Well if you look in your Tank
+
+100
+00:06:32.400 --> 00:06:36.400
+AimingComponent header file, you'll see that the class has this annotation that makes it Blueprint
+
+101
+00:06:36.400 --> 00:06:40.400
+Spawnable. So let's do the same thing to the MovementComponent.
+
+102
+00:06:40.400 --> 00:06:44.400
+And while we're at it, let's go ahead and in
+
+103
+00:06:44.400 --> 00:06:48.400
+the Tank.cpp
+
+104
+00:06:48.400 --> 00:06:52.400
+let's get rid of the Create
+
+105
+00:06:52.400 --> 00:06:56.400
+DefaultSubobject MovementComponent. OK so we don't need to do that anymore.
+
+106
+00:06:56.400 --> 00:07:00.400
+So let's try compiling, and then while it's compiling,
+
+107
+00:07:00.400 --> 00:07:04.400
+I'll flick through the code files for you, so that you can see all the things we've changed. In fact, a better way
+
+108
+00:07:04.400 --> 00:07:08.400
+of you seeing what we've changed is for me to go to the source control and to show you the
+
+109
+00:07:08.400 --> 00:07:12.400
+un-staged changes in progress. So here you go! I've removed,
+
+110
+00:07:12.400 --> 00:07:16.400
+from the Tank.cpp, the CreateDefaultSubobject, because we're going to be adding it ourselves in Blueprint.
+
+111
+00:07:16.400 --> 00:07:20.400
+We have added an initialize method in here, inside
+
+112
+00:07:20.400 --> 00:07:24.400
+the TankMovementComponent.cpp, that  just lets you set both the
+
+113
+00:07:24.400 --> 00:07:28.400
+Left Track and Right Track reference, at the same time. And finally, we have
+
+114
+00:07:28.400 --> 00:07:32.400
+put a forward declaration of UTankTrack in, because we need that for these pointers
+
+115
+00:07:32.400 --> 00:07:36.400
+at the bottom. We've annotated the class to make it BlueprintSpawnableComponent,
+
+116
+00:07:36.400 --> 00:07:40.400
+which we'll use in just a second, and we have declared the Initialize() method.
+
+117
+00:07:40.400 --> 00:07:44.400
+So there are all the changes so far. Cool! While I went
+
+118
+00:07:44.400 --> 00:07:48.400
+through that... Hang on, we don't need to restart the EPIC Games Launcher! We
+
+119
+00:07:48.400 --> 00:07:52.400
+need to find Unreal, it's crashed! So my eyes got drawn up to the EPIC Games
+
+120
+00:07:52.400 --> 00:07:56.400
+Launcher, because Unreal had crashed. So we don't
+
+121
+00:07:56.400 --> 00:08:00.400
+need to restore anything. Let's go ahead and make sure the code is compiled,
+
+122
+00:08:00.400 --> 00:08:04.400
+which it is! Let's go to the tank blueprint
+
+123
+00:08:04.400 --> 00:08:08.400
+and take a little look at it. So in the tank blueprint now, we can see
+
+124
+00:08:08.400 --> 00:08:12.400
+that the MovementComponent isn't there anymore, and we can add a TankMovement
+
+125
+00:08:12.400 --> 00:08:16.400
+Component, from the Custom section. TankMovementComponent rather, from the Custom
+
+126
+00:08:16.400 --> 00:08:20.400
+section. There it is! It's available now, because we made it a BlueprintSpawnable
+
+127
+00:08:20.400 --> 00:08:24.400
+Component, remember here. OK so there
+
+128
+00:08:24.400 --> 00:08:28.400
+it is! Now, once we've got it, firstly this this Tank Movement Component here in the Input
+
+129
+00:08:28.400 --> 00:08:32.400
+Setup, that is one we created in C++. We need to get rid of that,
+
+130
+00:08:32.400 --> 00:08:36.400
+and bring in our new Tank Movement reference. There it is! Great, so that will
+
+131
+00:08:36.400 --> 00:08:40.400
+fix that! And then, the second thing we need to do is, on BeginPlay, we want to
+
+132
+00:08:40.400 --> 00:08:44.400
+look for this Initialize() method. There we go, Initialize (TankMovement)!
+
+133
+00:08:44.400 --> 00:08:48.400
+Great! It's already found the reference to the TankMovement
+
+134
+00:08:48.400 --> 00:08:52.400
+Component instance, this guy here, which is fantastic! So then we just need the Left and the Right
+
+135
+00:08:52.400 --> 00:08:56.400
+Track to come in like so.
+
+136
+00:08:56.400 --> 00:09:00.400
+Great! And
+
+137
+00:09:00.400 --> 00:09:04.400
+I'm going to prevent the lines from crossing, just because it's neater, easier to see what's
+
+138
+00:09:04.400 --> 00:09:08.400
+going on. Compile that up! I'm going to Save All because
+
+139
+00:09:08.400 --> 00:09:12.400
+if it crashes I don't want to lose any work. And play, and it seems to work, we seem
+
+140
+00:09:12.400 --> 00:09:16.400
+to have the game running! So what I want you to do now as a challenge is,
+
+141
+00:09:16.400 --> 00:09:20.400
+finish the movement, finish IntendMoveForward, make sure the tank
+
+142
+00:09:20.400 --> 00:09:24.400
+actually moves, and also make sure the speed is variable. So go ahead pause the video and make that simple
+
+143
+00:09:24.400 --> 00:09:28.400
+finishing to our architecture now!
+
+144
+00:09:28.400 --> 00:09:32.400
+OK welcome back! So in
+
+145
+00:09:32.400 --> 00:09:36.400
+IntendMoveForward(), this is where we get to very clearly say what we
+
+146
+00:09:36.400 --> 00:09:40.400
+intend to do. So LeftTrack, and then we can reach through the LeftTrack pointer
+
+147
+00:09:40.400 --> 00:09:44.400
+to, I think it was SetThrottle was it or Throttle or I can't remember?
+
+148
+00:09:44.400 --> 00:09:48.400
+Let's go and have a look! TankTrack.cpp, SetThrottle
+
+149
+00:09:48.400 --> 00:09:52.400
+was the method I'm looking for, so SetThrottle.
+
+150
+00:09:52.400 --> 00:09:56.400
+Maybe it's the semi-colon on the end of that log
+
+151
+00:09:56.400 --> 00:10:00.400
+entry that's throwing things off, I don't know. I'm going to
+
+152
+00:10:00.400 --> 00:10:04.400
+ignore it and just get on, and set the throttle to the throw value. And we're going to do the same on
+
+153
+00:10:04.400 --> 00:10:08.400
+the RightTrack.
+
+154
+00:10:08.400 --> 00:10:12.400
+I'm just going to check the TankMovement
+
+155
+00:10:12.400 --> 00:10:16.400
+Component header file, to make sure I've spelled these right. I have! And
+
+156
+00:10:16.400 --> 00:10:20.400
+let's also make sure... OK, the problem here is that we have
+
+157
+00:10:20.400 --> 00:10:24.400
+not #included "TankTrack.h",
+
+158
+00:10:24.400 --> 00:10:28.400
+so therefore when it looks at the LeftTrack object it doesn't know
+
+159
+00:10:28.400 --> 00:10:32.400
+about any of the methods on it, because it hasn't included the header file, but once that gets included,
+
+160
+00:10:32.400 --> 00:10:36.400
+these two things should work, and to be honest, this is a as simple as we need.
+
+161
+00:10:36.400 --> 00:10:40.400
+Let's go ahead and compile! I'll leave the code on my screen while I'm compiling!
+
+162
+00:10:40.400 --> 00:10:44.400
+The things that are highlighted in blue are the only things that have changed. I'm going to grasp my controller,
+
+163
+00:10:44.400 --> 00:10:48.400
+for all I'm worth, and then, let's celebrate if this works! I'm going to hit F11,
+
+164
+00:10:48.400 --> 00:10:52.400
+I'm going to pull... There you go! The Shoulder buttons, they're the two Shoulder buttons
+
+165
+00:10:52.400 --> 00:10:56.400
+taking me backwards. Now I'm going to try on the left stick backwards. Cool! And the left
+
+166
+00:10:56.400 --> 00:11:00.400
+stick forwards, that works as well. So I can go forward and backwards, using just the left stick.
+
+167
+00:11:00.400 --> 00:11:04.400
+I can still rotate using the Shoulder buttons; later, we'll bring that into the left stick as a second
+
+168
+00:11:04.400 --> 00:11:08.400
+possibility. It's nearly there! All the problem is, is if I'm left stick forward and then
+
+169
+00:11:08.400 --> 00:11:12.400
+I pull the two... Oops! It glitched, it had a self collision, or
+
+170
+00:11:12.400 --> 00:11:16.400
+collided off some imperfection in the terrain there, which is something we can sort later.
+
+171
+00:11:16.400 --> 00:11:20.400
+So what I'm saying is that, if I'm going both Shoulder buttons forward
+
+172
+00:11:20.400 --> 00:11:24.400
+and then I push the stick forward, as well, I end up going twice as fast. That's something we'll need
+
+173
+00:11:24.400 --> 00:11:28.400
+to sort, and because it's something we need to sort, we'll need to put a TODO in here.
+
+174
+00:11:28.400 --> 00:11:32.400
+"// TODO prevent
+
+175
+00:11:32.400 --> 00:11:36.400
+double-speed due
+
+176
+00:11:36.400 --> 00:11:40.400
+to dual control use", or something like that. OK, so if we put in an
+
+177
+00:11:40.400 --> 00:11:44.400
+Input on the stick, using the IntendMoveForward, and we go ahead
+
+178
+00:11:44.400 --> 00:11:48.400
+and directly input in the throttles,
+
+179
+00:11:48.400 --> 00:11:52.400
+then these two things are adding together and we need to prevent that in the long term. OK
+
+180
+00:11:52.400 --> 00:11:56.400
+so I'm just going to have little tiny tidy up in the blueprint, to prevent the crossed wires, slightly obsessively,
+
+181
+00:11:56.400 --> 00:12:00.400
+and I'm not going to go mad though. And that's it! Anyway, well done
+
+182
+00:12:00.400 --> 00:12:04.400
+on getting this far with the movement, and I'll see you in the next video!
+
+183
+00:12:04.400 --> 00:12:04.566
+
+

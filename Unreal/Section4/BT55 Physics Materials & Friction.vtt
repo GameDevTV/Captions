@@ -1,0 +1,838 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Welcome to what it says on
+
+2
+00:00:04.000 --> 00:00:08.000
+the screen, Physics Material & Friction! In this video we
+
+3
+00:00:08.000 --> 00:00:12.000
+are going to talk about Physics Material and Friction. Sorry to be trite.
+
+4
+00:00:12.000 --> 00:00:16.000
+So the point is, the tank is going to be able to move, because we will have assigned physics materials to the
+
+5
+00:00:16.000 --> 00:00:20.000
+tracks and we will have adjusted the frictional values and  driving forces,
+
+6
+00:00:20.000 --> 00:00:24.000
+so that our tank can move in a slightly strange way, for the moment, but at least it's moving.
+
+7
+00:00:24.000 --> 00:00:24.600
+
+
+8
+00:00:24.600 --> 00:00:28.600
+So we've been applying a force to the tank. We determined, by having the
+
+9
+00:00:28.600 --> 00:00:32.600
+tank float in the air, that it should be sufficient force to make this guy accelerate
+
+10
+00:00:32.600 --> 00:00:36.600
+but he's stuck to the ground. What are we going to do about that? There is a certain amount of
+
+11
+00:00:36.600 --> 00:00:40.600
+friction between the tank and the ground. As you can see, when we get hit by a projectile we
+
+12
+00:00:40.600 --> 00:00:44.600
+slide for quite a long way, but we do come to a halt. So
+
+13
+00:00:44.600 --> 00:00:48.600
+let's now tweak two things, the power or the force rather that
+
+14
+00:00:48.600 --> 00:00:52.600
+we are pushing the tank with and the friction between
+
+15
+00:00:52.600 --> 00:00:56.600
+the tank and the ground. Let me show you how to adjust both of those things. So
+
+16
+00:00:56.600 --> 00:01:00.600
+if we go to the tank blueprint, just to remind ourselves how it's put together,
+
+17
+00:01:00.600 --> 00:01:04.600
+and take a look, a good place to orientate ourselves. It's these tracks
+
+18
+00:01:04.600 --> 00:01:08.600
+that are in contact... Well it looks like it's the tracks that are in contact with the
+
+19
+00:01:08.600 --> 00:01:12.600
+ground, but actually, right now, it's not is it? If we go to the BattleGround, play the game,
+
+20
+00:01:12.600 --> 00:01:16.600
+depossess with F8, and make sure that collision is on,
+
+21
+00:01:16.600 --> 00:01:20.600
+under the Show menu, you'll see that actually we've just put... It's very very hard to
+
+22
+00:01:20.600 --> 00:01:24.600
+see this, it's a very thin purple box. But we've just put a
+
+23
+00:01:24.600 --> 00:01:28.600
+[Laughs] I got hit. We've just put a single box collider on
+
+24
+00:01:28.600 --> 00:01:32.600
+the tank, so there's this big slab we're trying to move around,
+
+25
+00:01:32.600 --> 00:01:36.600
+and when we get to hills and things that's not going to respond very well, so we are going to
+
+26
+00:01:36.600 --> 00:01:40.600
+now move back to having discreet components. And if we have any problems with
+
+27
+00:01:40.600 --> 00:01:44.600
+self-collision then we will overcome them now, rather than working
+
+28
+00:01:44.600 --> 00:01:48.600
+around them. Last time we worked around them, because it was good enough to get moving. This time we need to
+
+29
+00:01:48.600 --> 00:01:52.600
+confront the issues head on. So one thing I want to say, before we do that,
+
+30
+00:01:52.600 --> 00:01:56.600
+is that I am on Unreal 4.12.4. If you're
+
+31
+00:01:56.600 --> 00:02:00.600
+on an earlier version of Unreal on that please upgrade to 4.12.4, because
+
+32
+00:02:00.600 --> 00:02:04.600
+we were experiencing problems in any previous versions, particularly in 4.12.3,
+
+33
+00:02:04.600 --> 00:02:08.600
+with the way that components with colliders
+
+34
+00:02:08.600 --> 00:02:12.600
+on them interact with each other. It's something to do with welding. OK, so
+
+35
+00:02:12.600 --> 00:02:16.600
+let's go ahead and change the way these colliders work! There's our tank body.
+
+36
+00:02:16.600 --> 00:02:20.600
+Remember that it has a primitive on it, which is just a box right now.
+
+37
+00:02:20.600 --> 00:02:24.600
+OK, so what we're going to do is just show collision.
+
+38
+00:02:24.600 --> 00:02:28.600
+I'm going to take a Left view, I think will be from the front,
+
+39
+00:02:28.600 --> 00:02:32.600
+strangely because of the way our tank is orientated. Um, and I'm going to
+
+40
+00:02:32.600 --> 00:02:36.600
+change the Y extents to bring it in, a little bit of clearance between the body collider and
+
+41
+00:02:36.600 --> 00:02:40.600
+the tracks. Change the Z Extents a bit and then move it up,
+
+42
+00:02:40.600 --> 00:02:44.600
+in the Z position
+
+43
+00:02:44.600 --> 00:02:48.600
+like so. So now we have a collider, which mainly covers the
+
+44
+00:02:48.600 --> 00:02:52.600
+body of the tank. Great! Let's look at that in
+
+45
+00:02:52.600 --> 00:02:56.600
+3D. You can see that it's covering mainly the body.
+
+46
+00:02:56.600 --> 00:03:00.600
+Now that paves the way for us to actually put collision back on the tracks, so let's go
+
+47
+00:03:00.600 --> 00:03:04.600
+ahead and do that! We can go to the tracks, we can go and find the track mesh, which
+
+48
+00:03:04.600 --> 00:03:08.600
+is here. Where is it? It didn't
+
+49
+00:03:08.600 --> 00:03:12.600
+come up! Um, go find it. There we go?!
+
+50
+00:03:12.600 --> 00:03:16.600
+Left Track mesh, turn on collision, and you can create yourself a 26
+
+51
+00:03:16.600 --> 00:03:20.600
+DOP Collision Mesh, something like that which looks about right. It's going to behave quite well going
+
+52
+00:03:20.600 --> 00:03:24.600
+up and down slopes, without being overly complicated. And now,
+
+53
+00:03:24.600 --> 00:03:28.600
+when we go back, let's go ahead and just play the game and see how we get on with those two
+
+54
+00:03:28.600 --> 00:03:32.600
+separate Collision Meshes. Now if you find that one of your tracks falls
+
+55
+00:03:32.600 --> 00:03:36.600
+into the ground or something like that, please check your Unreal 4.12.4.
+
+56
+00:03:36.600 --> 00:03:40.600
+Also, check that this works from the main menu, this is a great
+
+57
+00:03:40.600 --> 00:03:44.600
+time to be checking that, because what we've noticed is a problem with the way that
+
+58
+00:03:44.600 --> 00:03:48.600
+the tank is constructed in terms of a timing problem. It's what we call a race condition.
+
+59
+00:03:48.600 --> 00:03:52.600
+And the place that this may manifest, if you're having a bug, is
+
+60
+00:03:52.600 --> 00:03:56.600
+as follows. What you have is the tank and then you have the Left
+
+61
+00:03:56.600 --> 00:04:00.600
+and Right Tracks as sub-objects, and you'll notice that you should have a property ticked on those,
+
+62
+00:04:00.600 --> 00:04:04.600
+called Auto Weld, if I can find it.
+
+63
+00:04:04.600 --> 00:04:08.600
+Here you go! It's under Physics and then the extended physics
+
+64
+00:04:08.600 --> 00:04:12.600
+properties. You need to do the drop-down under Physics, off the Left and Right Track, under the
+
+65
+00:04:12.600 --> 00:04:16.600
+extended properties you have Auto Weld. If you were to turn Auto Weld off, let's
+
+66
+00:04:16.600 --> 00:04:20.600
+see what happens. You see it ignores those
+
+67
+00:04:20.600 --> 00:04:24.600
+track colliders, it's just landing on the body collider. So we do need Auto Weld
+
+68
+00:04:24.600 --> 00:04:28.600
+on, because we want the collision meshes of the tracks
+
+69
+00:04:28.600 --> 00:04:32.600
+to weld into the same mesh as the body, as it says here. "If true
+
+70
+00:04:32.600 --> 00:04:36.600
+and is attached to a parent, the two bodies will be joined into a single rigid body." "Physics settings like
+
+71
+00:04:36.600 --> 00:04:40.600
+collision profile and body settings are determined by the root". So they're saying that the root
+
+72
+00:04:40.600 --> 00:04:44.600
+up here, the Tank, will determine the Mass and all these physics settings, but these Left and Right Tracks
+
+73
+00:04:44.600 --> 00:04:48.600
+will contribute to the overall collision. OK, so you do want Auto
+
+74
+00:04:48.600 --> 00:04:52.600
+Weld on. Now it's possible that you could get a problem where
+
+75
+00:04:52.600 --> 00:04:56.600
+Auto Welding doesn't work say from the main menu but does work from the game,
+
+76
+00:04:56.600 --> 00:05:00.600
+and this could be to do with the time that the objects are constructed and whether the
+
+77
+00:05:00.600 --> 00:05:04.600
+welding works properly or not, at that time. If you're having
+
+78
+00:05:04.600 --> 00:05:08.600
+that trouble then there is a way to get around it in blueprint, but I don't think you'll be getting the trouble in
+
+79
+00:05:08.600 --> 00:05:12.600
+Unreal 4.12.4, I haven't seen it once in this version. So
+
+80
+00:05:12.600 --> 00:05:16.600
+if you're really stuck for any reason or you're getting any horrible behavior here, then remember you can always
+
+81
+00:05:16.600 --> 00:05:20.600
+go to GitHub, and you can go and get our project at this stage by
+
+82
+00:05:20.600 --> 00:05:24.600
+following through to Unreal, then the section, then the commits,
+
+83
+00:05:24.600 --> 00:05:28.600
+find the video, this video which isn't there yet, and then go and get the code by clicking
+
+84
+00:05:28.600 --> 00:05:32.600
+on it or by clicking over here on the right, and then, you can clone or download
+
+85
+00:05:32.600 --> 00:05:36.600
+the repo. OK, so that's important! Alright, so I think we've said enough about that.
+
+86
+00:05:36.600 --> 00:05:40.600
+We have now got the tank resting on its tracks,
+
+87
+00:05:40.600 --> 00:05:44.600
+so why isn't it moving? Well firstly, let's get control over the friction between the tracks
+
+88
+00:05:44.600 --> 00:05:48.600
+and the ground. If we go ahead and look at these tracks and scroll down,
+
+89
+00:05:48.600 --> 00:05:52.600
+inside the tank blueprint, you'll see you've got this Physical Material
+
+90
+00:05:52.600 --> 00:05:56.600
+override option, under Collision section. Well there is no
+
+91
+00:05:56.600 --> 00:06:00.600
+material, so let's make ourselves our first physics material. I'm going to put that in the Tank
+
+92
+00:06:00.600 --> 00:06:04.600
+folder, because it's very much related to the tank, and then, I am
+
+93
+00:06:04.600 --> 00:06:08.600
+going to go to Add New, scroll down to Physics, and it's actually the only thing in it,
+
+94
+00:06:08.600 --> 00:06:12.600
+Physical Material. I'm going to call it TrackMaterial
+
+95
+00:06:12.600 --> 00:06:16.600
+or just Track, because it is of type Physics Material.
+
+96
+00:06:16.600 --> 00:06:20.600
+So we don't need anymore naming than that. And if we go into it, we can see we've got a few basic
+
+97
+00:06:20.600 --> 00:06:24.600
+settings, one of them is Friction. Let's turn the track
+
+98
+00:06:24.600 --> 00:06:28.600
+Friction down to say 0.2. Now
+
+99
+00:06:28.600 --> 00:06:32.600
+there is an issue of Friction Combine Mode, and this is set in
+
+100
+00:06:32.600 --> 00:06:36.600
+two places. This is answering the question, how do I combine the Friction setting
+
+101
+00:06:36.600 --> 00:06:40.600
+on the track with the Friction setting on the ground. Now where is that
+
+102
+00:06:40.600 --> 00:06:44.600
+friction setting on the ground? Well it's in the actual Grass_
+
+103
+00:06:44.600 --> 00:06:48.600
+LayerInfo here. Whatever you've painted the ground with, at that point, whether it's
+
+104
+00:06:48.600 --> 00:06:52.600
+grass, mud, ice, whatever, in that LayerInfo you can see
+
+105
+00:06:52.600 --> 00:06:56.600
+that there is a Physics Material option. Now the grass doesn't have a Physics Material,
+
+106
+00:06:56.600 --> 00:07:00.600
+at the moment. We could give it one but that's beyond what we need to be doing here.
+
+107
+00:07:00.600 --> 00:07:04.600
+We could assign different Physics Materials to grass, snow, ice, and have the
+
+108
+00:07:04.600 --> 00:07:08.600
+tank behave differently but for now let's keep it simple. So we won't do that but I just want to point
+
+109
+00:07:08.600 --> 00:07:12.600
+out that the friction is not just determined by the track's friction but it's
+
+110
+00:07:12.600 --> 00:07:16.600
+combined with the friction of the ground. There is also a project
+
+111
+00:07:16.600 --> 00:07:20.600
+level setting under Project Settings and Physics, which
+
+112
+00:07:20.600 --> 00:07:24.600
+determines, in general or by default, how these things are combined, and it's here,
+
+113
+00:07:24.600 --> 00:07:28.600
+Friction Combine Mode. I'm not going to change that, I'm just going to give you the context.
+
+114
+00:07:28.600 --> 00:07:32.600
+The way that we're going to make our friction work is quite simple. We're going to override the Friction
+
+115
+00:07:32.600 --> 00:07:36.600
+Combine Mode and choose Minimum, and that means that we
+
+116
+00:07:36.600 --> 00:07:40.600
+are going to most likely, given that the other thing that we're touching the ground
+
+117
+00:07:40.600 --> 00:07:44.600
+doesn't even have a Physics Material, we're most likely going to end up with this 0.2 as the minimum of
+
+118
+00:07:44.600 --> 00:07:48.600
+the two physics values. OK, so let's see how much difference
+
+119
+00:07:48.600 --> 00:07:52.600
+that makes. We need to assign this Physics Material to both the Left and the Right Tracks.
+
+120
+00:07:52.600 --> 00:07:56.600
+Now that we have it, we can just go to Collision in the tank blueprint,
+
+121
+00:07:56.600 --> 00:08:00.600
+select the Left and the Right Track, with the Control button, and then
+
+122
+00:08:00.600 --> 00:08:04.600
+for Physics Material Override set Track. Remember to Compile. And now let's just try
+
+123
+00:08:04.600 --> 00:08:08.600
+moving the tank. It's not quite moving. See that other tank though, it
+
+124
+00:08:08.600 --> 00:08:12.600
+slid down the slope a lot faster, so there is a lot less friction on it.
+
+125
+00:08:12.600 --> 00:08:16.600
+And that looks fairly reasonable to me, so the next thing to do is
+
+126
+00:08:16.600 --> 00:08:20.600
+to increase the force with which we move the tank. Now this isn't an ideal way to move
+
+127
+00:08:20.600 --> 00:08:24.600
+this tank. We're moving this tank by shoving it along the ground on these
+
+128
+00:08:24.600 --> 00:08:28.600
+flat colliders. There are other ways that you could approach this.
+
+129
+00:08:28.600 --> 00:08:32.600
+You could, for example, put some hidden wheels, a bit like these actual
+
+130
+00:08:32.600 --> 00:08:36.600
+wheels underneath the track, and you could use things called Physics constraints which
+
+131
+00:08:36.600 --> 00:08:40.600
+are down here in the Physics section. And you could try and make axles
+
+132
+00:08:40.600 --> 00:08:44.600
+and make some wheels move, but you'll end up with your own problems doing that, with different types
+
+133
+00:08:44.600 --> 00:08:48.600
+of problems. And you could try and have wheels
+
+134
+00:08:48.600 --> 00:08:52.600
+that revolve and pull the tank along, but the way that I'm going to show you how to do this,
+
+135
+00:08:52.600 --> 00:08:56.600
+by just making the tank pretty slippery and then using some code to stop it sliding
+
+136
+00:08:56.600 --> 00:09:00.600
+sideways and looking like it's on ice, is going to be more general. It'll allow you to make
+
+137
+00:09:00.600 --> 00:09:04.600
+hover tanks, it'll allow you to do basic things with certain types of aircraft or air
+
+138
+00:09:04.600 --> 00:09:08.600
+hockey, and you're going to learn more by doing it this way. So let's pursue this
+
+139
+00:09:08.600 --> 00:09:12.600
+root. Alright, so these tracks have got this track material on
+
+140
+00:09:12.600 --> 00:09:16.600
+now. As I say, the only thing that's making it not be able to move is that we haven't got enough
+
+141
+00:09:16.600 --> 00:09:20.600
+driving force. So I'm going to turn my driving force up. In my case, it's now
+
+142
+00:09:20.600 --> 00:09:24.600
+4 Million. Let's try that and see if it's enough! I'm going to pull
+
+143
+00:09:24.600 --> 00:09:28.600
+both throttles to 100%! And it's not enough, so let's iterate
+
+144
+00:09:28.600 --> 00:09:32.600
+up again to 40 Million. Now we're a thousands times bigger force than we expected
+
+145
+00:09:32.600 --> 00:09:36.600
+to be now but that's because of the amount of friction! There's a huge difference between pushing a frictionless
+
+146
+00:09:36.600 --> 00:09:40.600
+tank and expecting a tank with 40 tons
+
+147
+00:09:40.600 --> 00:09:44.600
+of force to slide on massive tracks, it would take a huge
+
+148
+00:09:44.600 --> 00:09:48.600
+amount of force! And there you go, it's moving around! In fact, I'm going to turn my game controller on
+
+149
+00:09:48.600 --> 00:09:52.600
+and just have a quick go from the game controller, before I put you into your challenge, which is just going to be
+
+150
+00:09:52.600 --> 00:09:56.600
+to tune up your physics, your combination of friction and track,
+
+151
+00:09:56.600 --> 00:10:00.600
+sorry track friction and driving
+
+152
+00:10:00.600 --> 00:10:04.600
+force. Cool that's fun! OK, one final thing before
+
+153
+00:10:04.600 --> 00:10:08.600
+we do that! Let's go to the Project Settings, Input, and I'm going to bind the
+
+154
+00:10:08.600 --> 00:10:12.600
+Shoulder buttons for a reversing throttle on the Left and Right.
+
+155
+00:10:12.600 --> 00:10:16.600
+I'm going to get rid of these left and right keys, I think, and instead of that, I think I'm going to look for
+
+156
+00:10:16.600 --> 00:10:20.600
+Shoulder button. Left Shoulder gives me an input scale of say
+
+157
+00:10:20.600 --> 00:10:24.600
+-0.5. Driving back at half speeds is like pulling the
+
+158
+00:10:24.600 --> 00:10:28.600
+trigger in halfway, and the Right Shoulder will give
+
+159
+00:10:28.600 --> 00:10:32.600
+me -0.5 as well. Bear in mind, if you ever expose this
+
+160
+00:10:32.600 --> 00:10:36.600
+as a sensitivity to a user, which you probably wouldn't do in this case, you might with the triggers
+
+161
+00:10:36.600 --> 00:10:40.600
+but you probably wouldn't with the Shoulder buttons. Then they could if you allowed the user to
+
+162
+00:10:40.600 --> 00:10:44.600
+change this 0.5, they could potentially make their tank go faster than somebody else's, so beware of that,
+
+163
+00:10:44.600 --> 00:10:48.600
+but, for now, it's absolutely fine.
+
+164
+00:10:48.600 --> 00:10:52.600
+We'll worry about that if and when we every expose that value. Now, this is me holding both Shoulder
+
+165
+00:10:52.600 --> 00:10:56.600
+buttons on my gamepad down, and if I hold down both triggers
+
+166
+00:10:56.600 --> 00:11:00.600
+then I can go forward, if I hold down just the right trigger
+
+167
+00:11:00.600 --> 00:11:04.600
+or just the left trigger, that's sliding all over the place
+
+168
+00:11:04.600 --> 00:11:08.600
+but we'll sort that out later. And if I hold down one Trigger and one Shoulder button I can rotate.
+
+169
+00:11:08.600 --> 00:11:12.600
+So look, we have agency, we can move the tank and we can aim the tank, so
+
+170
+00:11:12.600 --> 00:11:16.600
+we are, starting, starting to get there! I think I've got too much friction
+
+171
+00:11:16.600 --> 00:11:20.600
+or too little friction rather but it's difficult to say, because shortly we're going to stop
+
+172
+00:11:20.600 --> 00:11:24.600
+these projectiles from actually making us fly like this because
+
+173
+00:11:24.600 --> 00:11:28.600
+they don't need to be doing that. We can handle the projectile collisions, rather than with
+
+174
+00:11:28.600 --> 00:11:33.633
+physics, as just actual events, and then, decide how to process those events.
+
+175
+00:11:33.633 --> 00:11:37.633
+So I'd like you to tweak your Physics Settings. Set your track
+
+176
+00:11:37.633 --> 00:11:41.633
+Max Driving Force. I'm using 40 Million Newtons in my
+
+177
+00:11:41.633 --> 00:11:45.633
+case. What is 40 Million Newtons, by the way? Well a kilogram
+
+178
+00:11:45.633 --> 00:11:49.633
+weighs about 10 Newtons, 9.8 something, it depends where you're on
+
+179
+00:11:49.633 --> 00:11:53.633
+the Earth. Call it 10! so 40 Million Newtons is
+
+180
+00:11:53.633 --> 00:11:57.633
+4 Million kilograms, which is 4,000 tons! So [Laughs]
+
+181
+00:11:57.633 --> 00:12:01.633
+that's a lot of force, but with a 40 ton tank
+
+182
+00:12:01.633 --> 00:12:05.633
+sitting flat on the ground, it's possible that it needs that much
+
+183
+00:12:05.633 --> 00:12:09.633
+force to move, so it's still within the realms of possibility. The problem is that we don't have revolving
+
+184
+00:12:09.633 --> 00:12:13.633
+wheels, and the reason is that it's quite hard to model a tank, they're quite a unique
+
+185
+00:12:13.633 --> 00:12:17.633
+way of moving. They're neither wheels nor are they slabs, that's the thing about tracks;
+
+186
+00:12:17.633 --> 00:12:21.633
+they're wheels, they're kind of moving slabs with wheels on the inside.
+
+187
+00:12:21.633 --> 00:12:25.633
+So set your track physics material, friction value! I'm using 0.2 for this, and by the
+
+188
+00:12:25.633 --> 00:12:29.633
+way, a friction coefficient of 0.2, you might wonder what it means. I hate
+
+189
+00:12:29.633 --> 00:12:33.633
+things without units, right? Well actually, the friction coefficient of 0.2 is
+
+190
+00:12:33.633 --> 00:12:37.633
+unit-less, which is why I've not put a unit there, but what it is, is it's a force.
+
+191
+00:12:37.633 --> 00:12:41.633
+It's just like contact force and it's 0.4 times the contact force.
+
+192
+00:12:41.633 --> 00:12:45.633
+However hard the track is pushing into the ground, typically on flat
+
+193
+00:12:45.633 --> 00:12:49.633
+ground, that would be half the weight of the tank, however hard that track is pushing into
+
+194
+00:12:49.633 --> 00:12:53.633
+the ground, what this friction force means is that the tank will start to slip, when
+
+195
+00:12:53.633 --> 00:12:57.633
+you push it sideways, forward, backwards, left, right, with 20%
+
+196
+00:12:57.633 --> 00:13:01.633
+of that contact force, OK, on that track. That's what a Friction
+
+197
+00:13:01.633 --> 00:13:05.633
+Coefficient mean, it's a proportion of the contact force at which point
+
+198
+00:13:05.633 --> 00:13:09.633
+you start to slip. So go ahead, pause the video, tweak up your physics settings now,
+
+199
+00:13:09.633 --> 00:13:13.633
+and when you un-pause the video it'll be the end of the video. So just
+
+200
+00:13:13.633 --> 00:13:17.633
+tweak your physics settings, and why not share what you've done with your physics settings over
+
+201
+00:13:17.633 --> 00:13:21.633
+in our new community. You're probably aware that I've made www.community.gamedev.tv
+
+202
+00:13:21.633 --> 00:13:25.633
+here for you. There's a lounge that anybody can join, there's
+
+203
+00:13:25.633 --> 00:13:29.633
+more importantly Unreal, and you can go straight to the Battle Tank section, and you can go ahead and just
+
+204
+00:13:29.633 --> 00:13:33.633
+discuss in there, and you're going to find all sorts of interesting things. Please do check out
+
+205
+00:13:33.633 --> 00:13:37.633
+this here, the HoverTank project. One of our students
+
+206
+00:13:37.633 --> 00:13:41.633
+has made a fantastic looking hover tank! Look at this for inspiration! Low poly,
+
+207
+00:13:41.633 --> 00:13:45.633
+erie, landscape, some nice effects on it. So do
+
+208
+00:13:45.633 --> 00:13:49.633
+share your work in there, and I will see you in the next
+
+209
+00:13:49.633 --> 00:13:52.366
+video!
+
