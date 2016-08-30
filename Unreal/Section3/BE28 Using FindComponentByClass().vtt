@@ -205,342 +205,326 @@ the comment from binding to the line below. So, how are we going to do it? Well,
 it's going to be a new method for you! We've got PhysicsHandle, we've already got that local variable. It's a pointer,
 
 52
-00:03:24.000 --> 00:03:28.000
-right, to a new PhysicsHandle component. How are we going to find it?
+00:03:24.000 --> 00:03:27.100
+right, to a new PhysicsHandle component.
 
 53
-00:03:28.000 --> 00:03:32.000
-Well, there's something called FindComponent
-
-54
-00:03:32.000 --> 00:03:36.000
-By...
-
-55
-00:03:36.000 --> 00:03:40.000
-...
-
-56
-00:03:40.000 --> 00:03:44.000
-...
-
-57
-00:03:44.000 --> 00:03:48.000
+00:03:27.100 --> 00:03:29.066
 So, how are we going to find it? Well, firstly
 
-58
-00:03:48.000 --> 00:03:52.000
+54
+00:03:29.066 --> 00:03:33.066
 what object are we looking for? This PhysicsHandle. Let's go back and take a look!
 
-59
-00:03:52.000 --> 00:03:56.000
+55
+00:03:33.066 --> 00:03:37.066
 If you think about it, it's the Default Pawn isn't it?
 
-60
-00:03:56.000 --> 00:04:00.000
+56
+00:03:37.066 --> 00:03:41.066
 We're in Grabber right now, so we need to go up to the owner, which is the DefaultPawn.
 
-61
-00:04:00.000 --> 00:04:04.000
+57
+00:03:41.066 --> 00:03:45.066
 So, we GetOwner up to here, and then we come back down to find the PhysicsHandle OK,
 
-62
-00:04:04.000 --> 00:04:08.000
+58
+00:03:45.066 --> 00:03:49.066
 or sibling. So, we GetOwner().
 
-63
-00:04:08.000 --> 00:04:12.000
+59
+00:03:49.066 --> 00:03:53.066
 That returns us a pointer to an AActor,
 
-64
-00:04:12.000 --> 00:04:16.000
+60
+00:03:53.066 --> 00:03:57.066
 which we've got now. Because it's a pointer, we use the arrow operator.
 
-65
-00:04:16.000 --> 00:04:20.000
+61
+00:03:57.066 --> 00:04:01.066
 OK, so we have that pointer to an Actor. Now, what we need to do is,
 
-66
-00:04:20.000 --> 00:04:24.000
+62
+00:04:01.066 --> 00:04:05.066
 we need to FindComponentByClass. This is the method
 
-67
-00:04:24.000 --> 00:04:28.000
+63
+00:04:05.066 --> 00:04:09.066
 you're going to need, FindComponentByClass. Now, there's
 
-68
-00:04:28.000 --> 00:04:32.000
+64
+00:04:09.066 --> 00:04:13.066
 something a little bit different about this, the first time you've used this in angle. We're going to use some
 
-69
-00:04:32.000 --> 00:04:36.000
+65
+00:04:13.066 --> 00:04:17.066
 angle brackets. This is something called a generic
 
-70
-00:04:36.000 --> 00:04:40.000
+66
+00:04:17.066 --> 00:04:21.066
 signature. What this is, is this FindComponentByClassMethod will
 
-71
-00:04:40.000 --> 00:04:44.000
+67
+00:04:21.066 --> 00:04:25.066
 work for multiple different classes. It's going to go and find us the physics component,
 
-72
-00:04:44.000 --> 00:04:48.000
+68
+00:04:25.066 --> 00:04:29.066
 the PhysicsHandle, and it's going to find it by class, so we actually specify the class
 
-73
-00:04:48.000 --> 00:04:52.000
+69
+00:04:29.066 --> 00:04:33.066
 in here. <UPhysicsHandle
 
-74
-00:04:52.000 --> 00:04:56.000
+70
+00:04:33.066 --> 00:04:37.066
 Component> in square braces like that. And then,
 
-75
-00:04:56.000 --> 00:05:00.000
+71
+00:04:37.066 --> 00:04:41.066
 in the brackets, Well you actually don't need anything in this case.
 
-76
-00:05:00.000 --> 00:05:04.000
+72
+00:04:41.066 --> 00:04:45.066
 So that's it! So,
 
-77
-00:05:04.000 --> 00:05:08.000
+73
+00:04:45.066 --> 00:04:49.066
 that's working because GetOwner() gets the owner, and then,
 
-78
-00:05:08.000 --> 00:05:12.000
+74
+00:04:49.066 --> 00:04:53.066
 FindComponentByClass looks down the owner, i.e. it looks down the
 
-79
-00:05:12.000 --> 00:05:16.000
+75
+00:04:53.066 --> 00:04:57.066
 Default Pawns components and looks for one that's of type UPhysicsHandleComponent,
 
-80
-00:05:16.000 --> 00:05:20.000
+76
+00:04:57.066 --> 00:05:01.066
 this guy here. OK, so out of this whole statement, we get the
 
-81
-00:05:20.000 --> 00:05:24.000
+77
+00:05:01.066 --> 00:05:05.066
 PhysicsHandle reference. Great! So, now what we need to do, immediately you've done
 
-82
-00:05:24.000 --> 00:05:28.000
+78
+00:05:05.066 --> 00:05:09.066
 something like that, is don't assume it works! So we say if (PhysicsHandle).
 
-83
-00:05:28.000 --> 00:05:32.000
+79
+00:05:09.066 --> 00:05:13.066
 So, if we get here then the "// Physics
 
-84
-00:05:32.000 --> 00:05:36.000
+80
+00:05:13.066 --> 00:05:17.066
 handle is found" and we don't actually need to do
 
-85
-00:05:36.000 --> 00:05:40.000
+81
+00:05:17.066 --> 00:05:21.066
 anything, in this case, else, and this is where your challenge comes in. I want you to log
 
-86
-00:05:40.000 --> 00:05:44.000
+82
+00:05:21.066 --> 00:05:25.066
 a useful message that includes the name of the object,
 
-87
-00:05:44.000 --> 00:05:48.000
+83
+00:05:25.066 --> 00:05:29.066
 i.e. the parent, the owner, the Default Pawn telling you
 
-88
-00:05:48.000 --> 00:05:52.000
+84
+00:05:29.066 --> 00:05:33.066
 that the PhysicsHandle is missing. So, log an at Error verbosity, if no
 
-89
-00:05:52.000 --> 00:05:56.000
+85
+00:05:33.066 --> 00:05:37.066
 component is found. It's an error because it's worse than normal.
 
-90
-00:05:56.000 --> 00:06:00.000
+86
+00:05:37.066 --> 00:05:41.066
 Write an error, as I said, that helps the reader fix the issues, find and include the name of the object,
 
-91
-00:06:00.000 --> 00:06:04.000
+87
+00:05:41.066 --> 00:05:45.066
 the Default Pawn, and temporarily remove the component
 
-92
-00:06:04.000 --> 00:06:08.000
+88
+00:05:45.066 --> 00:05:49.066
 from the Default Pawn blueprint, test that it works, and put it back on. OK, so just
 
-93
-00:06:08.000 --> 00:06:12.000
+89
+00:05:49.066 --> 00:05:53.066
 test that we can detect if it's not connected.
 
-94
-00:06:12.000 --> 00:06:16.000
+90
+00:05:53.066 --> 00:05:57.066
 Awesome, welcome back! So the log, it's going to go something like this. It's going to go
 
-95
-00:06:16.000 --> 00:06:20.000
+91
+00:05:57.066 --> 00:06:01.066
 something like UE_LOG(LogTemp, Error in this case a new
 
-96
-00:06:20.000 --> 00:06:24.000
+92
+00:06:01.066 --> 00:06:05.066
 verbosity, TEXT(). Remember, we need that macro in their. And then, we're
 
-97
-00:06:24.000 --> 00:06:28.000
+93
+00:06:05.066 --> 00:06:09.066
 going to say something like the name of the
 
-98
-00:06:28.000 --> 00:06:32.000
+94
+00:06:09.066 --> 00:06:13.066
 object "%s missing physics
 
-99
-00:06:32.000 --> 00:06:36.000
+95
+00:06:13.066 --> 00:06:17.066
 handle component") And then, the
 
-100
-00:06:36.000 --> 00:06:40.000
+96
+00:06:17.066 --> 00:06:21.066
 string is going to be Get
 
-101
-00:06:40.000 --> 00:06:44.000
+97
+00:06:21.066 --> 00:06:25.066
 Owner() which is going to take us up to the Pawn -> GetName()
 
-102
-00:06:44.000 --> 00:06:48.000
+98
+00:06:25.066 --> 00:06:29.066
 like that. Now, remember that the GetOwner()->GetName)
 
-103
-00:06:48.000 --> 00:06:52.000
+99
+00:06:29.066 --> 00:06:33.066
 this whole lot is going to return an FString and it doesn't want that.
 
-104
-00:06:52.000 --> 00:06:56.000
+100
+00:06:33.066 --> 00:06:37.066
 We need to use the star, which is actually a little confusing here. It's
 
-105
-00:06:56.000 --> 00:07:00.000
+101
+00:06:37.066 --> 00:06:41.066
 not a standard contents at operator.
 
-106
-00:07:00.000 --> 00:07:04.000
+102
+00:06:41.066 --> 00:06:45.066
 It's actually overloaded here, which is pretty horrible, but it has the same type of
 
-107
-00:07:04.000 --> 00:07:08.000
+103
+00:06:45.066 --> 00:06:49.066
 effect. It's saying, give me the contents at this FString. That's not going to
 
-108
-00:07:08.000 --> 00:07:12.000
+104
+00:06:49.066 --> 00:06:53.066
 have anymore detail on that, you know you need to put a start in front of that. Let's try this!
 
-109
-00:07:12.000 --> 00:07:16.000
+105
+00:06:53.066 --> 00:06:57.066
 I haven't yet removed the component, so I'm going to try it working and then I'll remove the component
 
-110
-00:07:16.000 --> 00:07:20.000
+106
+00:06:57.066 --> 00:07:01.066
 and add it back, to make sure you know how to do that. So, here we should get no
 
-111
-00:07:20.000 --> 00:07:24.000
+107
+00:07:01.066 --> 00:07:05.066
 error log, because the PhysicsHandle is attached. Let's go to the Default
 
-112
-00:07:24.000 --> 00:07:28.000
+108
+00:07:05.066 --> 00:07:09.066
 Pawn, remove the PhysicsHandle, recompile it, play the
 
-113
-00:07:28.000 --> 00:07:32.000
+109
+00:07:09.066 --> 00:07:13.066
 game, and see what we get in the logs. Ah, here we go, "Default Pawn"
 
-114
-00:07:32.000 --> 00:07:36.000
+110
+00:07:13.066 --> 00:07:17.066
 "missing physics handle component". And it's quite handy, Default Pawn
 
-115
-00:07:36.000 --> 00:07:40.000
+111
+00:07:17.066 --> 00:07:21.066
 BP C underscore 2. So you can reference that against the world and you'll get
 
-116
-00:07:40.000 --> 00:07:44.000
+112
+00:07:21.066 --> 00:07:25.066
 almost exactly the same thing there. OK, so you would know
 
-117
-00:07:44.000 --> 00:07:48.000
+113
+00:07:25.066 --> 00:07:29.066
 where does that DefaultPawn come from? You stop the game, it disappears, you think oh, it's an
 
-118
-00:07:48.000 --> 00:07:52.000
+114
+00:07:29.066 --> 00:07:33.066
 object that comes on at playtime, so that's probably because
 
-119
-00:07:52.000 --> 00:07:56.000
+115
+00:07:33.066 --> 00:07:37.066
 of my Game Mode. So, you'd come in here
 
-120
-00:07:56.000 --> 00:08:00.000
+116
+00:07:37.066 --> 00:07:41.066
 and you'd look at Maps & Modes and you'd look at your Game Mode
 
-121
-00:08:00.000 --> 00:08:04.000
+117
+00:07:41.066 --> 00:07:45.066
 and you'd realize it's the DefaultPawn blueprint. So, you'd go find your DefaultPawn blueprint
 
-122
-00:08:04.000 --> 00:08:08.000
+118
+00:07:45.066 --> 00:07:49.066
 and you might then work out that you need to add a
 
-123
-00:08:08.000 --> 00:08:12.000
+119
+00:07:49.066 --> 00:07:53.066
 PhysicsHandle to that. Compiling your blueprint, coming back out,
 
-124
-00:08:12.000 --> 00:08:16.000
+120
+00:07:53.066 --> 00:07:57.066
 maybe clearing the log for clarity and playing again, eventually you will
 
-125
-00:08:16.000 --> 00:08:20.000
+121
+00:07:57.066 --> 00:08:01.066
 see no errors, which is pretty cool. By the way, we don't need
 
-126
-00:08:20.000 --> 00:08:24.000
+122
+00:08:01.066 --> 00:08:05.066
 these logs talking about where the chair is at. So, just before we finish off this video,
 
-127
-00:08:24.000 --> 00:08:28.000
+123
+00:08:05.066 --> 00:08:09.066
 I'm going to go clear up the PositionReport.cpp or just remove
 
-128
-00:08:28.000 --> 00:08:32.000
+124
+00:08:09.066 --> 00:08:13.066
 it actually. That's probably the best, rather than changing the code, which would break the Position
 
-129
-00:08:32.000 --> 00:08:36.000
+125
+00:08:13.066 --> 00:08:17.066
 Report, I'm just going to go to say the chair, and I'm going to look for
 
-130
-00:08:36.000 --> 00:08:40.000
+126
+00:08:17.066 --> 00:08:21.066
 PositionReport as a component and just remove it from the chair and the table if necessary
 
-131
-00:08:40.000 --> 00:08:44.000
+127
+00:08:21.066 --> 00:08:25.066
 and anything else, like the door. None of these things need
 
-132
-00:08:44.000 --> 00:08:48.000
+128
+00:08:25.066 --> 00:08:29.066
 PositionReport. That's cool! So the game plays, it's all working well! We
 
-133
-00:08:48.000 --> 00:08:52.000
+129
+00:08:29.066 --> 00:08:33.066
 have a PhysicsHandle attached, you now know how to find components, and in the next
 
-134
-00:08:52.000 --> 00:08:56.000
+130
+00:08:33.066 --> 00:08:37.066
 video, we're going to reuse this knowledge about finding components to start dealing with
 
-135
-00:08:56.000 --> 00:09:00.000
+131
+00:08:37.066 --> 00:08:41.066
 input and input management, so that we can actually press a key to
 
-136
-00:09:00.000 --> 00:09:03.700
+132
+00:08:41.066 --> 00:08:44.766
 enable grabbing mode. So that'll be fun!
 
