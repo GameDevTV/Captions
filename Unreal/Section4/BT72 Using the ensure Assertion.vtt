@@ -74,7 +74,7 @@ way that we currently do our pointer protection, if you have a look,
 
 19
 00:01:14.633 --> 00:01:18.633
-if not (!GetControlledTank()), that's a typical one, then .
+if not (!GetControlledTank()), that's a typical one, then return.
 
 20
 00:01:18.633 --> 00:01:22.633
@@ -146,7 +146,7 @@ number, that would be ideal! So the solution is this, instead of doing things li
 
 37
 00:02:26.633 --> 00:02:30.633
-Track && RightTrack)) ;, I know we do something slightly different but you get the idea,
+Track && RightTrack)) return, I know we do something slightly different but you get the idea,
 
 38
 00:02:30.633 --> 00:02:34.633
@@ -154,7 +154,7 @@ that becomes if not ensure (!ensure(LeftTrack && RightTrack))
 
 39
 00:02:34.633 --> 00:02:38.633
-;. Now this ensure is a very special macro keyword, it's
+return. Now this ensure is a very special macro keyword, it's
 
 40
 00:02:38.633 --> 00:02:42.633
@@ -170,7 +170,7 @@ just carries on. But if it's false, i.e. not ensure all of that stuff in the bra
 
 43
 00:02:50.633 --> 00:02:54.633
-then we ; and we continue to execute
+then we return and we continue to execute
 
 44
 00:02:54.633 --> 00:02:58.633
@@ -266,7 +266,7 @@ do it with this not GetControlledTank. What we do, if we say if not
 
 67
 00:04:26.633 --> 00:04:30.633
-(!ensure(GetControlledtank())), being careful with our brackets, then .
+(!ensure(GetControlledtank())), being careful with our brackets, then return.
 
 68
 00:04:30.633 --> 00:04:34.633
@@ -398,7 +398,7 @@ We don't do anything there in terms of pointer protection. Let's look at the Tan
 
 100
 00:06:38.633 --> 00:06:42.633
-If not (!TankAimingComponent) , OK so
+If not (!TankAimingComponent) return, OK so
 
 101
 00:06:42.633 --> 00:06:46.633
@@ -406,7 +406,7 @@ we need to put one in there. If not (!ensure(TankAimingComponent)
 
 102
 00:06:46.633 --> 00:06:50.633
-. Where else have we got it? Make sure why that didn't come up in that search.
+return. Where else have we got it? Make sure why that didn't come up in that search.
 
 103
 00:06:50.633 --> 00:06:54.633
@@ -442,7 +442,7 @@ not (!ensure... Oops, I haven't got it in the copy buffer anymore!
 
 111
 00:07:22.633 --> 00:07:26.633
-. We'll go for that standard pattern there. If not (!ensure(Barrel))
+return. We'll go for that standard pattern there. If not (!ensure(Barrel))
 
 112
 00:07:26.633 --> 00:07:30.633
@@ -462,7 +462,7 @@ Or you could say if not (!ensure
 
 116
 00:07:42.633 --> 00:07:46.633
-(PlayerTank))  at the top, but let's do it this way here. I want to show you a variety of different ways of
+(PlayerTank)) return at the top, but let's do it this way here. I want to show you a variety of different ways of
 
 117
 00:07:46.633 --> 00:07:50.633
