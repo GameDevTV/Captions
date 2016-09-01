@@ -1,0 +1,838 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So hi
+
+2
+00:00:04.000 --> 00:00:08.000
+and welcome to Aiming Without the Tank! By the end of the video we will have refactored all our
+
+3
+00:00:08.000 --> 00:00:12.000
+aiming code, so that aiming still works, and we will have broken a bunch of dependencies. Our
+
+4
+00:00:12.000 --> 00:00:16.000
+diagram will be looking like this, by the end. Notice that the Tank is almost
+
+5
+00:00:16.000 --> 00:00:20.000
+extracted from the equation, and we've lost at least a couple of dependencies. We've lost the
+
+6
+00:00:20.000 --> 00:00:26.166
+lines from the AI Controller and the Player Controller into the Tank, which is good news. So see you in there!
+
+7
+00:00:26.166 --> 00:00:30.166
+So we are good to go on this aiming refactor.
+
+8
+00:00:30.166 --> 00:00:34.166
+So just before I start and set you into a challenge, I want to get rid of this annoying log
+
+9
+00:00:34.166 --> 00:00:38.166
+entry. If you'll remember, in the Tank blueprint, we've got a couple of logs
+
+10
+00:00:38.166 --> 00:00:42.166
+that we'd put in to do with the construction order. I'm going to get rid of that on the Tank Blueprint
+
+11
+00:00:42.166 --> 00:00:46.166
+Construction Script and this Print String in the Event Graph
+
+12
+00:00:46.166 --> 00:00:50.166
+and just recompile, and just make sure that if we clear the logs now and move and
+
+13
+00:00:50.166 --> 00:00:54.166
+hover over these things or play the game that we only get what we want,
+
+14
+00:00:54.166 --> 00:00:58.166
+which is just this one error here about the Barrel, which is to do with firing
+
+15
+00:00:58.166 --> 00:01:02.166
+and we are going to ignore for now. OK let's get to it! In fact,
+
+16
+00:01:02.166 --> 00:01:06.166
+I'm going to challenge you to to ahead and aim without the tank. Move just the aiming
+
+17
+00:01:06.166 --> 00:01:10.166
+code from the tank. Remember that we were going to keep a copy of the LaunchSpeed in the tank,
+
+18
+00:01:10.166 --> 00:01:14.166
+so that all the inbound calls and all the
+
+19
+00:01:14.166 --> 00:01:18.166
+code in the tank still compiles. The firing doesn't work, but the code needs to compile.
+
+20
+00:01:18.166 --> 00:01:22.166
+Move any forward declarations and includes that you need to, and just check that all
+
+21
+00:01:22.166 --> 00:01:26.166
+tanks can now aim, even though we're not doing the aiming via the tank
+
+22
+00:01:26.166 --> 00:01:30.166
+anymore. So go ahead, pause the video, see if you can make that part of the refactor now.
+
+23
+00:01:30.166 --> 00:01:34.166
+OK
+
+24
+00:01:34.166 --> 00:01:38.166
+welcome back! So I'm going to use, actually, my raw slide here, just as a way of
+
+25
+00:01:38.166 --> 00:01:42.166
+keeping track of what dependencies we've broken as we go through. So
+
+26
+00:01:42.166 --> 00:01:46.166
+where do we start then? We need to, as I said, get
+
+27
+00:01:46.166 --> 00:01:50.166
+rid of aiming on the Tank. So let's start at the top of the Tank.h. Does it
+
+28
+00:01:50.166 --> 00:01:54.166
+need a TankAimingComponent? Well it shouldn't need a TankAimingComponent.
+
+29
+00:01:54.166 --> 00:01:58.166
+Let's just see where we use that, in the current document.
+
+30
+00:01:58.166 --> 00:02:02.166
+We use it here, we keep a pointer to the AimingComponent, so that can all go.
+
+31
+00:02:02.166 --> 00:02:06.166
+The protected section of the tank, with this AimingComponent pointer can go.
+
+32
+00:02:06.166 --> 00:02:10.166
+Do we use this anywhere else? Nope, so now the forward declaration
+
+33
+00:02:10.166 --> 00:02:14.166
+of UTankAimingComponent can go in the Tank.
+
+34
+00:02:14.166 --> 00:02:18.166
+Let's talk about the same thing, the TankAimingComponent. Let's do a Find,
+
+35
+00:02:18.166 --> 00:02:22.166
+without case sensitivity and see what we need to get rid of.
+
+36
+00:02:22.166 --> 00:02:26.166
+Do we need to be finding the TankAimingComponent? No not anymore, that was just to get
+
+37
+00:02:26.166 --> 00:02:30.166
+this to green. We're going to get rid of the AimAt method alltogether,
+
+38
+00:02:30.166 --> 00:02:34.166
+and that is the only reference to TankAimingComponent. So we can
+
+39
+00:02:34.166 --> 00:02:38.166
+remove the #include for TankAimingComponent altogether, from the
+
+40
+00:02:38.166 --> 00:02:42.166
+Tank.cpp. So what have we just done in terms of dependencies? We have just
+
+41
+00:02:42.166 --> 00:02:46.166
+got rid of this dependency. The Tank no longer depends on the Tank Aiming
+
+42
+00:02:46.166 --> 00:02:50.166
+Component. That is cool news! So let's just take
+
+43
+00:02:50.166 --> 00:02:54.166
+a look at what code changes I've made, because I appreciate that a refactor video like this can
+
+44
+00:02:54.166 --> 00:02:58.166
+be a little bit hard to follow. So what I need to do is just save all in Visual
+
+45
+00:02:58.166 --> 00:03:02.166
+Studio, pop into the code tracking tool,
+
+46
+00:03:02.166 --> 00:03:06.166
+SourceTree here, and just show you that in the Tank.h. Let's
+
+47
+00:03:06.166 --> 00:03:10.166
+start there, these are the changes that I've made on the screen, on the right-hand side there. I deleted those
+
+48
+00:03:10.166 --> 00:03:14.166
+lines and in the Tank.cpp I've deleted those lines.
+
+49
+00:03:14.166 --> 00:03:18.166
+OK fantastic! Let's carry on with this refactor, because we have definitely more work
+
+50
+00:03:18.166 --> 00:03:22.166
+to do. We need to get to compilation as quickly as possible. In the tank header
+
+51
+00:03:22.166 --> 00:03:26.166
+file, we had an AimAt() method. That is the thing that we are
+
+52
+00:03:26.166 --> 00:03:30.166
+wanting to move into the TankAimingComponent. So let's cut the AimAt
+
+53
+00:03:30.166 --> 00:03:34.166
+and make sure that it already is in the TankAimingComponent.
+
+54
+00:03:34.166 --> 00:03:38.166
+Now it is but look, the signature is different. And the reason the signature
+
+55
+00:03:38.166 --> 00:03:42.166
+is different is because the AimingComponent used to need to know the LaunchSpeed that was stored on the tank,
+
+56
+00:03:42.166 --> 00:03:46.166
+but now we're going to have a copy of the launch speed
+
+57
+00:03:46.166 --> 00:03:50.166
+right here on the AimingComponent. So, let's go get that. Here's our
+
+58
+00:03:50.166 --> 00:03:54.166
+TankAimingComponent, sorry our Tank, and here is our LaunchSpeed.
+
+59
+00:03:54.166 --> 00:03:58.166
+Let's put that in the AimingComponent. We don't need to the TODO to say remove it,
+
+60
+00:03:58.166 --> 00:04:02.166
+because this is going to be the only place it ends up. Now what happens is,
+
+61
+00:04:02.166 --> 00:04:06.166
+when we call AimAt, we don't actually need a launch speed. That's going to affect
+
+62
+00:04:06.166 --> 00:04:10.166
+things upstream right, that's going to affect the AI Controller and the Player Controller,
+
+63
+00:04:10.166 --> 00:04:14.166
+but we'll fix that in a second. Yeah, it will affect them a
+
+64
+00:04:14.166 --> 00:04:18.166
+little bit. It won't affect the signature, because they never did call into Tank with the LaunchSpeed,
+
+65
+00:04:18.166 --> 00:04:22.166
+but they do need to get the AimingComponent, we'll see that in a minute. The basic point
+
+66
+00:04:22.166 --> 00:04:26.166
+is, we're moving the AimAt over into here, and then, let's take a look at the Tank
+
+67
+00:04:26.166 --> 00:04:30.166
+AimingComponent and it's AimAt() method. We just need to change its signature.
+
+68
+00:04:30.166 --> 00:04:34.166
+OK so there's a start! Now, at this
+
+69
+00:04:34.166 --> 00:04:38.166
+point I would say let's compile, let's see what's not going to work. I can anticipate what's not
+
+70
+00:04:38.166 --> 00:04:42.166
+going to work! For example, the AI Controller and the Player Controller
+
+71
+00:04:42.166 --> 00:04:46.166
+are going to have problems trying to call into the Tank, right now, I think,
+
+72
+00:04:46.166 --> 00:04:50.166
+because there's not AimAt method in it, but let's use the Compiler to help us find what's
+
+73
+00:04:50.166 --> 00:04:54.166
+wrong and we can just start going through its issues. So AimAt is no longer a member
+
+74
+00:04:54.166 --> 00:04:58.166
+of Tank. There you go, in the TankPlayerController! Let's go sort that out!
+
+75
+00:04:58.166 --> 00:05:02.166
+Now, to sort that out, I'm going to do the PlayerController, you're going to do the AIController.
+
+76
+00:05:02.166 --> 00:05:06.166
+Well I say that, if you haven't already done this challenge, I'm giving you a second chance,
+
+77
+00:05:06.166 --> 00:05:10.166
+which is I'm going to help you by doing this with the PlayerController, and then, you can pause the video as a
+
+78
+00:05:10.166 --> 00:05:14.166
+second chance at the challenge, if you need it, and you can do the AI. So
+
+79
+00:05:14.166 --> 00:05:18.166
+what's happening in this TankPlayerController?
+
+80
+00:05:18.166 --> 00:05:22.166
+It goes and gets the ControlledTank. Now what does GetControlledTank do, firstly?
+
+81
+00:05:22.166 --> 00:05:26.166
+I think it's a really thin method that does almost nothing. Yeah,
+
+82
+00:05:26.166 --> 00:05:30.166
+it just returns the Pawn, and it actually doesn't need to cast this Pawn to a
+
+83
+00:05:30.166 --> 00:05:34.166
+Tank, because a Tank is a Pawn. So we can remove the cast
+
+84
+00:05:34.166 --> 00:05:38.166
+and, in fact, while we're at it, let's look for ATank in this document.
+
+85
+00:05:38.166 --> 00:05:42.166
+Where else do we use ATank? It's the only place
+
+86
+00:05:42.166 --> 00:05:46.166
+we actually use the ATank type. So because I've removed the cast,
+
+87
+00:05:46.166 --> 00:05:50.166
+I can actually get rid of the #include Tank.h in the TankPlayerController.
+
+88
+00:05:50.166 --> 00:05:54.166
+What does that do for our dependencies? It gets rid of this line here.
+
+89
+00:05:54.166 --> 00:05:58.166
+Progress! OK that's cool! So let's go look at
+
+90
+00:05:58.166 --> 00:06:02.166
+the TankPlayerController.cpp. Do we also have ATank,
+
+91
+00:06:02.166 --> 00:06:06.166
+sorry, the TankPlayerController header file? I'm just going back to the header
+
+92
+00:06:06.166 --> 00:06:10.166
+file, because I was just in the .cpp. We have a ATank, yeah where are we using that? Let's find
+
+93
+00:06:10.166 --> 00:06:14.166
+it, in this GetControlledTank. Let's
+
+94
+00:06:14.166 --> 00:06:18.166
+ditch GetControlledTank! I'm ditching the method altogether and the forward declaration!
+
+95
+00:06:18.166 --> 00:06:22.166
+Again, that is because we've broken this PlayerController to Tank link. This is good, this
+
+96
+00:06:22.166 --> 00:06:26.166
+is progress in the right direction! So we don't
+
+97
+00:06:26.166 --> 00:06:30.166
+even need a GetControlledTank method. We can just GetPawn(), when we're supposed to be getting
+
+98
+00:06:30.166 --> 00:06:34.166
+ControlledTank, so let's get rid of this method altogether,
+
+99
+00:06:34.166 --> 00:06:38.166
+and in the header field, which we've already just done I think. Yeah.
+
+100
+00:06:38.166 --> 00:06:42.166
+Now let's go search for GetControlledTank,
+
+101
+00:06:42.166 --> 00:06:46.166
+like so. And then say, well where do we
+
+102
+00:06:46.166 --> 00:06:50.166
+use it? Well we use it up here, we go and get an AimingComponent up here in BeginPlay(),
+
+103
+00:06:50.166 --> 00:06:54.166
+and then we go and find it, and then we ensure we have it, and then we
+
+104
+00:06:54.166 --> 00:06:58.166
+report that we found it. We do that at BeginPlay(). We want to do exactly the same
+
+105
+00:06:58.166 --> 00:07:02.166
+thing every time we aim, and the reason we need do it every time is because we may have depossessed
+
+106
+00:07:02.166 --> 00:07:06.166
+the Tank, we may have died and depossessed the Tank. So we want to do something
+
+107
+00:07:06.166 --> 00:07:10.166
+very similar to this. So instead of GetControlledTank it's just GetPawn now,
+
+108
+00:07:10.166 --> 00:07:14.166
+in this instance, and that should fix that bit. And then, down here
+
+109
+00:07:14.166 --> 00:07:18.166
+we want to do a very very similar thing. In fact, I'm just going to use this
+
+110
+00:07:18.166 --> 00:07:22.166
+code here and put it straight in here.
+
+111
+00:07:22.166 --> 00:07:26.166
+We find the AimingComponent, the same way, inside the AimTowardsCrosshair.
+
+112
+00:07:26.166 --> 00:07:30.166
+If we don't have it we , otherwise we
+
+113
+00:07:30.166 --> 00:07:34.166
+don't need to get the ControlledTank AimAt, we just need to say Aiming
+
+114
+00:07:34.166 --> 00:07:38.166
+Component AimAt.
+
+115
+00:07:38.166 --> 00:07:42.166
+So hopefully that makes sense, let's reuse the compiler
+
+116
+00:07:42.166 --> 00:07:46.166
+to help us with where we are, and once it compiles, I will show you
+
+117
+00:07:46.166 --> 00:07:50.166
+the source control changes again, so you can catch up. By the way, if you're having
+
+118
+00:07:50.166 --> 00:07:54.166
+trouble following what I'm doing, in a big refactor video like this, remember that you can always go
+
+119
+00:07:54.166 --> 00:07:58.166
+to github.com/UnrealCourse, click on BattleTank, click on the
+
+120
+00:07:58.166 --> 00:08:02.166
+Commits here, or go to this URL which I will paste in the lecture
+
+121
+00:08:02.166 --> 00:08:06.166
+resources for you, and then, you will see the next
+
+122
+00:08:06.166 --> 00:08:10.166
+video, BT76. But let's imagine it's already there, you can see all the changes by
+
+123
+00:08:10.166 --> 00:08:14.166
+clicking on it. OK so that's that! Now let's go back to Unreal,
+
+124
+00:08:14.166 --> 00:08:18.166
+see how far we've got. Where's Unreal? There it is! Compile Failed! Let's find
+
+125
+00:08:18.166 --> 00:08:22.166
+out why! So this area is an interesting one. In the TankPlayerController 21
+
+126
+00:08:22.166 --> 00:08:26.166
+it's talking about missing a pointer type. Let's go look at it! It's actually a
+
+127
+00:08:26.166 --> 00:08:30.166
+bogus error. It's got a problem at line 21 because, when I deleted
+
+128
+00:08:30.166 --> 00:08:34.166
+whatever I deleted here... What did I delete there? Let's look at the source control,
+
+129
+00:08:34.166 --> 00:08:38.166
+in the TankPlayerController.h I deleted something.
+
+130
+00:08:38.166 --> 00:08:42.166
+Yeah the GetControlledTank, I forgot to take the UFUNCTION annotation
+
+131
+00:08:42.166 --> 00:08:46.166
+with it, so that's what's confusing it. Let's get rid of that!
+
+132
+00:08:46.166 --> 00:08:50.166
+Perfect! Now let's try the compile again! So that's a strange sort of error.
+
+133
+00:08:50.166 --> 00:08:54.166
+You see the error's telling you it's expecting a pointer type, whereas it's actually just reading a UFUNCTION
+
+134
+00:08:54.166 --> 00:08:58.166
+and then expecting something below that it's not seeing you know, so it's a bogus error.
+
+135
+00:08:58.166 --> 00:09:02.166
+I get a lot of these bogus errors! Let's try compiling now, see how well we've done with
+
+136
+00:09:02.166 --> 00:09:06.166
+our code changes! We have another compile failure,
+
+137
+00:09:06.166 --> 00:09:10.166
+so " 'AimAt': is not a member of 'ATank' in the TankAIController. So here
+
+138
+00:09:10.166 --> 00:09:14.166
+is your second mini challenge. We seem to have done it OK for the PlayerController, it's at
+
+139
+00:09:14.166 --> 00:09:18.166
+least compiling. Let's see if we can get the AIController, if you can get the
+
+140
+00:09:18.166 --> 00:09:22.166
+AIController to do exactly the same pattern as we just followed with the playercontroller. Go ahead pause
+
+141
+00:09:22.166 --> 00:09:26.166
+the video and see if you can get that working!
+
+142
+00:09:26.166 --> 00:09:30.166
+OK welcome back! So the TankAIController,
+
+143
+00:09:30.166 --> 00:09:34.166
+well firstly, it includes a Tank.h, we don't want that. Remember over here,
+
+144
+00:09:34.166 --> 00:09:38.166
+we don't want the AIController including the Tank, so I remove the #include.
+
+145
+00:09:38.166 --> 00:09:42.166
+I'm also going to go to the header file and say, do I really want the
+
+146
+00:09:42.166 --> 00:09:46.166
+Tank in there. It's not in there, so we're good, so we can focus
+
+147
+00:09:46.166 --> 00:09:50.166
+in the C++ file of the AIController. We remember, don't need
+
+148
+00:09:50.166 --> 00:09:54.166
+these casts. In fact, we can't even have these casts now that we've removed the #include.
+
+149
+00:09:54.166 --> 00:09:58.166
+So ATank is a Pawn, so we don't need to change the type, we can do all
+
+150
+00:09:58.166 --> 00:10:02.166
+these operations on a Pawn perfectly well. So we ensure...
+
+151
+00:10:02.166 --> 00:10:06.166
+Well let's actually, let's use our normal pattern. If
+
+152
+00:10:06.166 --> 00:10:10.166
+not (!ensure(PlayerTank)) && Controlled
+
+153
+00:10:10.166 --> 00:10:14.166
+Tank))
+
+154
+00:10:14.166 --> 00:10:18.166
+in return. And what this means
+
+155
+00:10:18.166 --> 00:10:21.166
+is, all of this code now doesn't need to be in braces, doesn't
+
+156
+00:10:21.166 --> 00:10:26.166
+need to be indented. Shift, Tab to take them back, much simpler. OK so we move to the Actor and
+
+157
+00:10:26.166 --> 00:10:30.166
+then we say ControlledTank AimAt the (Player. Well it's
+
+158
+00:10:30.166 --> 00:10:34.166
+not the ControlledTank that we do that with is it? It is the
+
+159
+00:10:34.166 --> 00:10:38.166
+AimingComponent of the ControlledTank.
+
+160
+00:10:38.166 --> 00:10:42.166
+So we're just going to say auto AimingComponent
+
+161
+00:10:42.166 --> 00:10:46.166
+=
+
+162
+00:10:46.166 --> 00:10:50.166
+ControlledTank
+
+163
+00:10:50.166 --> 00:10:54.166
+FindComponentByClass
+
+164
+00:10:54.166 --> 00:10:58.166
+UTank AimingComponent. Now we actually need to create
+
+165
+00:10:58.166 --> 00:11:02.166
+a dependency here, because we want the AIController to depend on the Aiming
+
+166
+00:11:02.166 --> 00:11:06.166
+Component. So we're going to do a #include that we didn't have before.
+
+167
+00:11:06.166 --> 00:11:10.166
+
+
+168
+00:11:10.166 --> 00:11:14.166
+It's one of the green lines on our graph.
+
+169
+00:11:14.166 --> 00:11:18.166
+That's pretty cool! So now it will recognize UTankAimingComponent, when it
+
+170
+00:11:18.166 --> 00:11:22.166
+catches up with us. So we
+
+171
+00:11:22.166 --> 00:11:26.166
+go get the AimingComponent, and then, as the AimingComponent...
+
+172
+00:11:26.166 --> 00:11:30.166
+
+
+173
+00:11:30.166 --> 00:11:34.166
+...AimAt that we do. Now, ControlledTankFire, Fire wasn't working
+
+174
+00:11:34.166 --> 00:11:38.166
+before, we don't expect it to work now, but it should be
+
+175
+00:11:38.166 --> 00:11:42.166
+OK. Fire should be still a method... No it's not! It's not a
+
+176
+00:11:42.166 --> 00:11:46.166
+method on a Pawn anymore, because remember we removed the Tank include. We
+
+177
+00:11:46.166 --> 00:11:50.166
+were casting from Pawn to Tank, Pawns don't
+
+178
+00:11:50.166 --> 00:11:54.166
+have a Fire() method on it. We're not trying to fix firing, firing doesn't work anyway. We
+
+179
+00:11:54.166 --> 00:11:58.166
+comment it out and we put a TODO which is
+
+180
+00:11:58.166 --> 00:12:02.166
+"fix firing". OK we're focusing on aiming, let's
+
+181
+00:12:02.166 --> 00:12:06.166
+recompile! Keeping the scope of these things down is really important.
+
+182
+00:12:06.166 --> 00:12:10.166
+Notice how long these videos would be, if I wasn't breaking it
+
+183
+00:12:10.166 --> 00:12:14.166
+into stages for you. And each of these videos represents you sitting down between a couple of cups of coffee,
+
+184
+00:12:14.166 --> 00:12:18.166
+your green tea [Laughs] or whatever you drink, and we want to keep these small. So aiming
+
+185
+00:12:18.166 --> 00:12:22.166
+is working! Aiming is working! Awesome! Let's see if we've got any new
+
+186
+00:12:22.166 --> 00:12:26.166
+errors on our console! We actually haven't even got any errors
+
+187
+00:12:26.166 --> 00:12:30.166
+on our console now, because we're not trying to fire, because I just commented out that
+
+188
+00:12:30.166 --> 00:12:34.166
+Fire line in the AIController. We have Aiming
+
+189
+00:12:34.166 --> 00:12:38.166
+working, under the new architecture, which is fantastic news. If you look
+
+190
+00:12:38.166 --> 00:12:42.166
+over on our diagram, look how good a job we've done, we've nearly decoupled the Tank.
+
+191
+00:12:42.166 --> 00:12:46.166
+We're still working, we've still got these two things talking to the Projectile. Great news,
+
+192
+00:12:46.166 --> 00:12:50.166
+this is a perfect time to just go into your project, Save
+
+193
+00:12:50.166 --> 00:12:54.166
+All, close it down...
+
+194
+00:12:54.166 --> 00:12:58.166
+What have we got here? "Graph is linked to a private object(s) in an external package."
+
+195
+00:12:58.166 --> 00:13:02.166
+"Try to find the chain references", "(may take some time)?"
+
+196
+00:13:02.166 --> 00:13:06.166
+The Tank Blueprint failed to save. This happens sometimes.
+
+197
+00:13:06.166 --> 00:13:10.166
+It's OK, that's not the end of the world, there isn't anything too valuable in the Tank Blueprint. What I would
+
+198
+00:13:10.166 --> 00:13:14.166
+be tempted to do is save what you can here, not the Tank Blueprint.
+
+199
+00:13:14.166 --> 00:13:18.166
+Close down your VisualStudio.
+
+200
+00:13:18.166 --> 00:13:22.166
+Oops, I've just reopened it! And then, reopen your Tank, but just
+
+201
+00:13:22.166 --> 00:13:26.166
+before you commit, if you get an error just before you commit like this, then open it up again. Oh I know why!
+
+202
+00:13:26.166 --> 00:13:30.166
+You know why? I had two copies of the Unreal Editor open, that's what the problem
+
+203
+00:13:30.166 --> 00:13:34.166
+was. You can actually get that in Windows, you see them here? So only have
+
+204
+00:13:34.166 --> 00:13:38.166
+one of these open. Let's just make sure that our aiming works.
+
+205
+00:13:38.166 --> 00:13:42.166
+It does! If you want to be super sure you compile, to make sure you're compiling on the latest code.
+
+206
+00:13:42.166 --> 00:13:46.166
+You can see that it is! The Tank Blueprint, it's saying that it's got a problem. Let's compile
+
+207
+00:13:46.166 --> 00:13:50.166
+it and now we really are happy. Save All. Another useful bit of value there,
+
+208
+00:13:50.166 --> 00:13:54.166
+two editors open could lead to weird errors. And let's Commit our work, because we've done a
+
+209
+00:13:54.166 --> 00:13:57.632
+great job! See you in the next video!
+
