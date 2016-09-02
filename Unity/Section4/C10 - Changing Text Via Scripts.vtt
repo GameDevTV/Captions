@@ -1,0 +1,154 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.700
+
+
+2
+00:00:03.700 --> 00:00:13.700
+We're going to change User Interface text using a script.
+
+3
+00:00:13.700 --> 00:00:23.700
+We want to do this
+
+4
+00:00:23.700 --> 00:00:33.700
+so we can change the ??? guess
+
+5
+00:00:33.700 --> 00:00:43.700
+We can can currently only play through the console
+
+6
+00:00:43.700 --> 00:00:53.700
+We're going to change the ??? text
+
+7
+00:00:53.700 --> 00:00:59.100
+NumberWizard.cs doesn't "know about" the text yet
+
+8
+00:00:59.100 --> 00:01:09.100
+There is no text element here
+
+9
+00:01:09.100 --> 00:01:19.100
+Add a public Text
+
+10
+00:01:19.100 --> 00:01:29.100
+public Text guessText;
+
+11
+00:01:29.100 --> 00:01:39.100
+This is defining a field (variable) in our class called guessText
+
+12
+00:01:39.100 --> 00:01:49.100
+Now Text is red because is a new element
+
+13
+00:01:49.100 --> 00:01:59.100
+that's being introduced with Unity 4.6
+
+14
+00:01:59.100 --> 00:02:09.100
+it's only available in the UnityEngine.UI "namespace".
+
+15
+00:02:09.100 --> 00:02:19.100
+Add using UnityEngine.UI at the top.
+
+16
+00:02:19.100 --> 00:02:29.100
+You see it auto-complete
+
+17
+00:02:29.100 --> 00:02:39.100
+You'll see the word Text turns blue
+
+18
+00:02:39.100 --> 00:02:43.500
+
+
+19
+00:02:43.500 --> 00:02:53.500
+The Text object has a text property we can change
+
+20
+00:02:53.500 --> 00:03:03.500
+Scroll to NextGuess()
+
+21
+00:03:03.500 --> 00:03:13.500
+add this code
+
+22
+00:03:13.500 --> 00:03:23.500
+use the . to auto-complete
+
+23
+00:03:23.500 --> 00:03:33.500
+set the text to guess (a numerical value) dot ToString (to convert to a string)
+
+24
+00:03:33.500 --> 00:03:43.500
+The UI text will be set to current guess
+
+25
+00:03:43.500 --> 00:03:53.500
+We also need to set the guess at the start
+
+26
+00:03:53.500 --> 00:04:03.500
+add this code
+
+27
+00:04:03.500 --> 00:04:13.500
+again with .ToString() to convert int to string
+
+28
+00:04:13.500 --> 00:04:23.500
+The UI text will now update. How do we connect
+
+29
+00:04:23.500 --> 00:04:29.266
+this public guessText in the Editor?
+
+30
+00:04:29.266 --> 00:04:39.266
+When we inspect NumberWizard, there's another item
+
+31
+00:04:39.266 --> 00:04:49.266
+called Guess Text of type Text
+
+32
+00:04:49.266 --> 00:04:59.266
+Simply drag the Guess object to this box
+
+33
+00:04:59.266 --> 00:05:09.266
+Now the connection has been made.
+
+34
+00:05:09.266 --> 00:05:19.266
+The guess now appears. Think of 725
+
+35
+00:05:19.266 --> 00:05:29.266
+play the game
+
+36
+00:05:29.266 --> 00:05:39.266
+We need to modify the behaviour when we press Equal
+
+37
+00:05:39.266 --> 00:05:49.266
+we want to move to the Win Screen. We'll do that in another video.
+
+38
+00:05:49.266 --> 00:05:55.032
+Well done, you've got the text object dynamically updating!
+
