@@ -1,0 +1,546 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So welcome back
+
+2
+00:00:04.000 --> 00:00:08.000
+and welcome to Decoupling your Architecture! What we're going to solve in this video
+
+3
+00:00:08.000 --> 00:00:12.000
+is the problem that our reticle is not taking the value of the Enum. We're going to look in
+
+4
+00:00:12.000 --> 00:00:16.000
+detail at this ordering that things happen in. And then, we're going to find a
+
+5
+00:00:16.000 --> 00:00:20.000
+way over in our TankPlayerController, to find the AimingComponent
+
+6
+00:00:20.000 --> 00:00:24.000
+differently, and we're going to have some temporary blueprint. Than, later we'll end up with C++,
+
+7
+00:00:24.000 --> 00:00:29.300
+that solved the problem. And hopefully you'll understand why we have this rays condition and what we can do about it.
+
+8
+00:00:29.300 --> 00:00:33.300
+So before I get into the meat of this, obviously in the last video
+
+9
+00:00:33.300 --> 00:00:37.300
+I did a boo boo, and that' boo boo was that I did not log out the
+
+10
+00:00:37.300 --> 00:00:41.300
+C++ BeginPlay() for the Tank.
+
+11
+00:00:41.300 --> 00:00:45.300
+So I asked you to do these logs and somehow I just glossed over this. So let me go
+
+12
+00:00:45.300 --> 00:00:49.300
+ahead and do that now. I'm just going to copy the line from the contstructor
+
+13
+00:00:49.300 --> 00:00:53.300
+and just say DONKEY. Remember our keyword, our safe word, if you like. [Laughs] Tank
+
+14
+00:00:53.300 --> 00:00:57.300
+C++ Begin Play. Now let's go ahead
+
+15
+00:00:57.300 --> 00:01:01.300
+and compile that code, just having added in these two lines to the Begin
+
+16
+00:01:01.300 --> 00:01:05.300
+Play() of the tank. And we can analyze a little bit more carefully what happens,
+
+17
+00:01:05.300 --> 00:01:09.300
+from the main menu, just as a quick recap, and then,
+
+18
+00:01:09.300 --> 00:01:13.300
+we will work out why we're not getting the right color from the reticle and what the architectural
+
+19
+00:01:13.300 --> 00:01:17.300
+issues are and learn lots of cool stuff. So if we start the game here we get
+
+20
+00:01:17.300 --> 00:01:21.300
+tons of stuff, including these errors which we'll deal with in a minute or will go away in a minute.
+
+21
+00:01:21.300 --> 00:01:25.300
+But DONKEY, if I search for that, you can see that the BP_38,
+
+22
+00:01:25.300 --> 00:01:29.300
+the AI tank's C++ constructor runs, then the Blueprint
+
+23
+00:01:29.300 --> 00:01:33.300
+Constructor for that tank. So it''s not that all the C++ Constructors happen first,
+
+24
+00:01:33.300 --> 00:01:37.300
+it builds object by object, it's a depth first search.
+
+25
+00:01:37.300 --> 00:01:41.300
+Then, we go ahead and get the player's Constructor and the player's,
+
+26
+00:01:41.300 --> 00:01:45.300
+let's see, Blueprint Constructor. Then, we move into the BeginPlay() regime,
+
+27
+00:01:45.300 --> 00:01:49.300
+in the same way. So let's take a look at this diagrammatically. What we have is
+
+28
+00:01:49.300 --> 00:01:53.300
+Constructors running C++ for a given object, then the blueprint for that
+
+29
+00:01:53.300 --> 00:01:57.300
+object, then we repeat, we go around this circle until all the constructors are done. Then,
+
+30
+00:01:57.300 --> 00:02:01.300
+we move into the era of BeginPlay, whereby the C++ Constructor for a given
+
+31
+00:02:01.300 --> 00:02:05.300
+object runs, then the blueprint, and then, we repeat. But that does raise
+
+32
+00:02:05.300 --> 00:02:09.300
+the question of how do all the objects work in the grand scheme. OK, well that's an eye-full but let's
+
+33
+00:02:09.300 --> 00:02:13.300
+just focus on the left-hand side for a moment. What we do know, and you can find
+
+34
+00:02:13.300 --> 00:02:17.300
+out for yourself if you do some extra logging, is that the AimingComponent will
+
+35
+00:02:17.300 --> 00:02:21.300
+construct after the Tank, because the AimingComponent's a component of the Tank.
+
+36
+00:02:21.300 --> 00:02:25.300
+But what we don't know is when the TankAimingComponent pair is going to construct,
+
+37
+00:02:25.300 --> 00:02:29.300
+compared to other things such as the UI Widget and the PlayerController. So because
+
+38
+00:02:29.300 --> 00:02:33.300
+we don't know what all of these are going to build in, we should not care what order they're going to build in, and we
+
+39
+00:02:33.300 --> 00:02:37.300
+should architect our code so that it doesn't matter. We just know that all of these are going to
+
+40
+00:02:37.300 --> 00:02:41.300
+get constructed at some point. It's going to go around this loop, then this loop, then this loop, then this
+
+41
+00:02:41.300 --> 00:02:45.300
+loop maybe. Or maybe the UI Widget, then the Tank, then the AimingComponent, then the Player
+
+42
+00:02:45.300 --> 00:02:49.300
+Controller? All we know is that these two, the Tank and AimingComponent will happen together.
+
+43
+00:02:49.300 --> 00:02:53.300
+Then, we move into BeginPlay() and we've got exactly the same argument. Now before we look at the
+
+44
+00:02:53.300 --> 00:02:57.300
+BeginPlay(), let's remind ourselves what's going wrong here, at the moment. One of the things we've got
+
+45
+00:02:57.300 --> 00:03:01.300
+going wrong is our reticle is red, our crosshair is red,
+
+46
+00:03:01.300 --> 00:03:05.300
+even though we set Aiming
+
+47
+00:03:05.300 --> 00:03:09.300
+as the default Enum here. So what it's defaulting to is Enum value
+
+48
+00:03:09.300 --> 00:03:13.300
+0, which happens to be red, and it's ignoring the fact that, in the
+
+49
+00:03:13.300 --> 00:03:17.300
+TankAimingComponent's header file,
+
+50
+00:03:17.300 --> 00:03:21.300
+we initialized the Firing State Enum to Aiming.
+
+51
+00:03:21.300 --> 00:03:25.300
+That's not happening, and the reason it's not happening is this TODO
+
+52
+00:03:25.300 --> 00:03:29.300
+here checked that this BP Aiming Component Reference is set. I bet if we check
+
+53
+00:03:29.300 --> 00:03:33.300
+that, which we can do super quickly by dragging a print node in between here
+
+54
+00:03:33.300 --> 00:03:37.300
+and changing this Firing State to a string... Ah not even
+
+55
+00:03:37.300 --> 00:03:41.300
+that, let's change the Component Reference to a string. You don't need to do this, by the way, I'm just
+
+56
+00:03:41.300 --> 00:03:45.300
+debugging here. And pop that into the Print statement. What this is going to do is that
+
+57
+00:03:45.300 --> 00:03:49.300
+every time Get Aim Point Color and Opacity is interrogated, it's going to print out to the screen
+
+58
+00:03:49.300 --> 00:03:53.300
+the value of that pointer and it's none. So what's happening,
+
+59
+00:03:53.300 --> 00:03:57.300
+I'm going to undo all this stuff, is that when the
+
+60
+00:03:57.300 --> 00:04:01.300
+Player UI Blueprint code
+
+61
+00:04:01.300 --> 00:04:05.300
+reads from this BP Aiming Component Reference variable, it's not
+
+62
+00:04:05.300 --> 00:04:09.300
+set, and it's not set because the TankPlayerController has done this stuff
+
+63
+00:04:09.300 --> 00:04:13.300
+before the tank even had an Aiming Component. In fact,
+
+64
+00:04:13.300 --> 00:04:17.300
+we don't even set the Aiming Component in the tank anywhere yet. Remember we
+
+65
+00:04:17.300 --> 00:04:21.300
+used to add the AimingComponent as a default sub-object on the constructor.
+
+66
+00:04:21.300 --> 00:04:25.300
+We just protected a pointer but there's nowhere that we set it. But where would we
+
+67
+00:04:25.300 --> 00:04:29.300
+set it, that's the question? If we try and
+
+68
+00:04:29.300 --> 00:04:33.300
+we can't set the AimingComponent pointer on the tank,
+
+69
+00:04:33.300 --> 00:04:37.300
+inside the .cpp constructor up here
+
+70
+00:04:37.300 --> 00:04:41.300
+because the AimingComponent doesn't exist yet. We know that it's not even
+
+71
+00:04:41.300 --> 00:04:45.300
+existent yet, so that's not going to be a good place. We don't want to be messing around doing it
+
+72
+00:04:45.300 --> 00:04:49.300
+in Blueprint, that seems messy to me, so the next place that we could to be doing it
+
+73
+00:04:49.300 --> 00:04:53.300
+is on the Tank's C++ BeginPlay(), which is here
+
+74
+00:04:53.300 --> 00:04:57.300
+up at the top here. The problem with doing it there is we don't know that this
+
+75
+00:04:57.300 --> 00:05:01.300
+is going to run before the PlayerController, and indeed if we do do it here, it
+
+76
+00:05:01.300 --> 00:05:05.300
+may not run before the PlayerController. We may get the PlayerController BeginPlays
+
+77
+00:05:05.300 --> 00:05:09.300
+and then the Tank, which means that when the PlayerController ran
+
+78
+00:05:09.300 --> 00:05:13.300
+and said, hey I need an
+
+79
+00:05:13.300 --> 00:05:17.300
+AimingComponent we can't guarantee it's going to get it. So this architecture,
+
+80
+00:05:17.300 --> 00:05:21.300
+as we have it stinks, because of these race conditions, as we call them.
+
+81
+00:05:21.300 --> 00:05:25.300
+So now that we've identified that, let's start looking for a solution to that problem.
+
+82
+00:05:25.300 --> 00:05:29.300
+Let's go straight into the TankPlayerController blueprint! This is the first time we've rolled our sleeves
+
+83
+00:05:29.300 --> 00:05:33.300
+up and actually do anything. And let's think of a different way of doing it. How about if rather
+
+84
+00:05:33.300 --> 00:05:37.300
+than asking the Controlled Tank what it's Tank Aiming Component is,
+
+85
+00:05:37.300 --> 00:05:41.300
+how about if we don't do that. How about if we say to the Controlled Tank
+
+86
+00:05:41.300 --> 00:05:45.300
+"find component", or let's just search for the word
+
+87
+00:05:45.300 --> 00:05:49.300
+component. Get Components by Class is the closest
+
+88
+00:05:49.300 --> 00:05:53.300
+thing we seem to have here in Blueprint. So we say to the tank, OK go get
+
+89
+00:05:53.300 --> 00:05:57.300
+all of your components by class. Now this is in the BeginPlay() of the
+
+90
+00:05:57.300 --> 00:06:01.300
+blueprint right, so we're on the right-hand side here over here. So the AimingComponent
+
+91
+00:06:01.300 --> 00:06:05.300
+will have added to the Tank by now, because that happened on construction.
+
+92
+00:06:05.300 --> 00:06:09.300
+So go find your components by class! Now this is messy and we're going to move this to
+
+93
+00:06:09.300 --> 00:06:13.300
+C++ later, but for now, let's just do it here in blueprint. If you
+
+94
+00:06:13.300 --> 00:06:17.300
+take that array and go to Utilities/ Array and then
+
+95
+00:06:17.300 --> 00:06:21.300
+Get, it'll automatically get item 0, and it's item 0 of that array
+
+96
+00:06:21.300 --> 00:06:25.300
+that we can use to set the Blueprint Component Reference.
+
+97
+00:06:25.300 --> 00:06:29.300
+Now the reason that's not working is because we don't have a type yet. You have to select the
+
+98
+00:06:29.300 --> 00:06:33.300
+Component Class here. So you take the Controlled Tank,
+
+99
+00:06:33.300 --> 00:06:37.300
+you find all components of class Tank Aiming Component, we
+
+100
+00:06:37.300 --> 00:06:41.300
+assume there is only one for now, which we don't have any
+
+101
+00:06:41.300 --> 00:06:45.300
+reason for there to be more than one. So we drag from the GET node back into the
+
+102
+00:06:45.300 --> 00:06:49.300
+BP Aiming Component. We should get a tick this time. If you don't, for any reason, just delete this node, the Get
+
+103
+00:06:49.300 --> 00:06:53.300
+Component by Class node and try again, because sometimes it gets stuck with the idea that there's no
+
+104
+00:06:53.300 --> 00:06:57.300
+class. So what we're doing here is we're saying to the tank, OK let's go find the
+
+105
+00:06:57.300 --> 00:07:01.300
+Component by Class and set that as the variable. Why would this work any better
+
+106
+00:07:01.300 --> 00:07:05.300
+than how we were doing it before? Because before we were relying on
+
+107
+00:07:05.300 --> 00:07:09.300
+setting that Aiming Component Reference in the tank. Now I know we hadn't written any code to
+
+108
+00:07:09.300 --> 00:07:13.300
+do that, so it's bound not be to set, but there was no sensible place we could write that code,
+
+109
+00:07:13.300 --> 00:07:17.300
+where we could be sure it would be set at the right time. This way is happening in BeginPlay().
+
+110
+00:07:17.300 --> 00:07:21.300
+It should work o.k., let's try! The symptom will be that the reticle will be amber
+
+111
+00:07:21.300 --> 00:07:25.300
+now. Great! So the reticle is taking the default value from the Enum.
+
+112
+00:07:25.300 --> 00:07:29.300
+If we're not sure or we don't believe that, we could double-check it by
+
+113
+00:07:29.300 --> 00:07:33.300
+saying, OK what's the locked state? You could go to the C++, for example,
+
+114
+00:07:33.300 --> 00:07:37.300
+of the TankAimingComponent you could set it's default, you could initialize it to Locked.
+
+115
+00:07:37.300 --> 00:07:41.300
+Recompiling which is a bit of a pain. In a bigger project you would
+
+116
+00:07:41.300 --> 00:07:45.300
+simply expose that as a blueprint variable and change it or something
+
+117
+00:07:45.300 --> 00:07:49.300
+but... Oh sorry, as Blueprint Editable and change it, but this is going to be
+
+118
+00:07:49.300 --> 00:07:53.300
+fine. I just want to see that the reticle is green now and hence is reading from the Enum.
+
+119
+00:07:53.300 --> 00:07:57.300
+It is! Fantastic! Alright, so that is good news! We now know the
+
+120
+00:07:57.300 --> 00:08:01.300
+order everything is working in, and we have that Enum actually reading
+
+121
+00:08:01.300 --> 00:08:05.300
+through. So what we want to do to tidy this up, of course, is
+
+122
+00:08:05.300 --> 00:08:09.300
+to move this code that we've put in here into
+
+123
+00:08:09.300 --> 00:08:13.300
+the C++, because we don't want to see these sort of
+
+124
+00:08:13.300 --> 00:08:17.300
+things in our blueprint, and also, it'd be good to make this event based. What I'd like to
+
+125
+00:08:17.300 --> 00:08:21.300
+be saying is, actually only create this Blueprint Widget if
+
+126
+00:08:21.300 --> 00:08:25.300
+we found a Tank Aiming Component. So the way we're going to do
+
+127
+00:08:25.300 --> 00:08:29.300
+that is with a Blueprint implementable event,
+
+128
+00:08:29.300 --> 00:08:33.300
+which is going to allow us to have an event like BeginPlay(), that we've created ourself,
+
+129
+00:08:33.300 --> 00:08:37.300
+on the TankPlayerController, which will also have a parameter. And that parameter will get this
+
+130
+00:08:37.300 --> 00:08:41.300
+event arrow, and the parameter will be the AimingComponent. And then, we can
+
+131
+00:08:41.300 --> 00:08:45.300
+only do any of this creation of the blueprint, not on BeginPlay(),
+
+132
+00:08:45.300 --> 00:08:49.300
+but when that happens, so it's all event driven. So the TankPlayer
+
+133
+00:08:49.300 --> 00:08:53.300
+Controller goes OK, I've found the AimingComponent that I need, I'm going to fire off an event, and
+
+134
+00:08:53.300 --> 00:08:57.300
+then, the blueprint is going to say, OK let's make the UI, which is pretty cool!
+
+135
+00:08:57.300 --> 00:09:01.300
+So let's see how to do that in the next video!
+
+136
+00:09:01.300 --> 00:09:01.966
+
+

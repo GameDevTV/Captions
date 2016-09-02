@@ -1,0 +1,498 @@
+WEBVTT
+
+1
+00:00:06.533 --> 00:00:10.533
+Welcome! In this lecture we are going to be
+
+2
+00:00:10.533 --> 00:00:14.533
+overviewing rotation and how rotation can be a little bit weird
+
+3
+00:00:14.533 --> 00:00:18.533
+at times. And we're also going to be looking at parenting of
+
+4
+00:00:18.533 --> 00:00:22.533
+objects. As you can see, this is what's happening in our Hierarchy,
+
+5
+00:00:22.533 --> 00:00:26.533
+at the moment. And in total, what we're going to achieve is creating a
+
+6
+00:00:26.533 --> 00:00:30.533
+Camera Gimbal, which allows us to not have
+
+7
+00:00:30.533 --> 00:00:34.533
+any weird tilting in our camera view.
+
+8
+00:00:34.533 --> 00:00:36.533
+OK let's dive right in!
+
+9
+00:00:36.533 --> 00:00:40.000
+So you may have noticed a problem in the way that our
+
+10
+00:00:40.000 --> 00:00:44.000
+Look script currently works.Â So, for example, going up and
+
+11
+00:00:44.000 --> 00:00:48.000
+down, at the moment, is just fine, but when I turn off to the side and
+
+12
+00:00:48.000 --> 00:00:52.000
+go up and down, I start to tilt a little bit like this. And then, what's worse,
+
+13
+00:00:52.000 --> 00:00:56.000
+if I go left again that tilt remains. So what
+
+14
+00:00:56.000 --> 00:01:00.000
+on Earth is going on here? [Laughs] it's slightly making me feel sick, in fact!
+
+15
+00:01:00.000 --> 00:01:04.000
+So to find out the reason for this, we need
+
+16
+00:01:04.000 --> 00:01:08.000
+to consider, essentially, what looks like
+
+17
+00:01:08.000 --> 00:01:12.000
+a model of a person. So I'm going to create, very quickly, a rough model
+
+18
+00:01:12.000 --> 00:01:16.000
+of a person, and I'm going to do this with two cubes for the shoulders
+
+19
+00:01:16.000 --> 00:01:20.000
+and for the head. So first off, the cube for the body.
+
+20
+00:01:20.000 --> 00:01:24.000
+I'm just going to make it a little bit taller and
+
+21
+00:01:24.000 --> 00:01:28.000
+a little bit broader shouldered. So that is the cube for the body.
+
+22
+00:01:28.000 --> 00:01:32.000
+And then, I'm going to create a new cube and just have that
+
+23
+00:01:32.000 --> 00:01:36.000
+as the cube for the head, and I'm going to stick it there on top of the
+
+24
+00:01:36.000 --> 00:01:40.000
+body, just floating a little bit. So hopefully that makes sense as a person to
+
+25
+00:01:40.000 --> 00:01:44.000
+you. We will make the Z direction, so this direction where his
+
+26
+00:01:44.000 --> 00:01:48.000
+face is pointing. That will be his happy smiley face! And
+
+27
+00:01:48.000 --> 00:01:52.000
+this is his body with no neck, a floating head,
+
+28
+00:01:52.000 --> 00:01:56.000
+but I think you get the picture. Now, one concept I want to
+
+29
+00:01:56.000 --> 00:02:00.000
+introduce you to, in this Hierarchy, of why
+
+30
+00:02:00.000 --> 00:02:04.000
+it's called a Hierarchy rather than a list, is that we can actually parent
+
+31
+00:02:04.000 --> 00:02:08.000
+objects to or put objects
+
+32
+00:02:08.000 --> 00:02:12.000
+inside other objects, so it's called parenting. And I'm going to do that by creating an empty
+
+33
+00:02:12.000 --> 00:02:16.000
+object, and we're going to just call this object the Body.
+
+34
+00:02:16.000 --> 00:02:20.000
+Or in fact, I'll call it the Person,
+
+35
+00:02:20.000 --> 00:02:24.000
+and then, this object we said was the Body.
+
+36
+00:02:24.000 --> 00:02:28.000
+And this object we said was
+
+37
+00:02:28.000 --> 00:02:32.000
+the head, so I've just renamed these. And now I can
+
+38
+00:02:32.000 --> 00:02:36.000
+drag that Head onto the person. You see it goes one level indented
+
+39
+00:02:36.000 --> 00:02:40.000
+underneath. And basically, what that allows me to do is group the
+
+40
+00:02:40.000 --> 00:02:44.000
+Head and the Body into what we now call a Person.
+
+41
+00:02:44.000 --> 00:02:48.000
+So what happens is, what's quite nice is, if I move
+
+42
+00:02:48.000 --> 00:02:52.000
+this Person it moves both the Head and the Body,
+
+43
+00:02:52.000 --> 00:02:56.000
+and fortunately also works for rotation. So if I rotate,
+
+44
+00:02:56.000 --> 00:03:00.000
+I rotate both the Head and the Body. Now,
+
+45
+00:03:00.000 --> 00:03:04.000
+I want to show you why what we were doing ended up
+
+46
+00:03:04.000 --> 00:03:08.000
+being wrong. So rotation is a little bit weird, it's not like
+
+47
+00:03:08.000 --> 00:03:12.000
+movement that we can do. With a movement we can happily first
+
+48
+00:03:12.000 --> 00:03:16.000
+move in this direction, and then, so if I move in that direction
+
+49
+00:03:16.000 --> 00:03:20.000
+then I can move in that direction. That's exactly the same as if I had first
+
+50
+00:03:20.000 --> 00:03:24.000
+moved in this direction and then moved in this direction. You see, I end up in
+
+51
+00:03:24.000 --> 00:03:28.000
+exactly the same place. So that is a nice property of movement there, it doesn't matter which
+
+52
+00:03:28.000 --> 00:03:32.000
+order we move in but it's going to have the exact same result.
+
+53
+00:03:32.000 --> 00:03:36.000
+Now, with rotation it's not the same.
+
+54
+00:03:36.000 --> 00:03:40.000
+So if I rotate by this and then like this,
+
+55
+00:03:40.000 --> 00:03:44.000
+it's not the same as if I had
+
+56
+00:03:44.000 --> 00:03:48.000
+rotated and then rotated in this direction. See how the
+
+57
+00:03:48.000 --> 00:03:52.000
+object is now tilted? And this is exactly what we're seeing, we're seeing that these
+
+58
+00:03:52.000 --> 00:03:56.000
+rotations, done in the wrong order, mean that now
+
+59
+00:03:56.000 --> 00:04:00.000
+you can obviously see that our player is leaning off to the left and he is
+
+60
+00:04:00.000 --> 00:04:04.000
+going to have a tilted view. So this is the problem
+
+61
+00:04:04.000 --> 00:04:08.000
+with the way we are currently doing rotations. We're doing them on the
+
+62
+00:04:08.000 --> 00:04:12.000
+same object, essentially. What we want to do
+
+63
+00:04:12.000 --> 00:04:16.000
+is behave in such a way that rotating left and right
+
+64
+00:04:16.000 --> 00:04:20.000
+rotates the whole body, with the shoulders and head and everything OK.
+
+65
+00:04:20.000 --> 00:04:24.000
+So we rotate to the right. Then,
+
+66
+00:04:24.000 --> 00:04:28.000
+when I look up and down I don't rotate my Body, because that's a bit silly.
+
+67
+00:04:28.000 --> 00:04:32.000
+If I'm rotating my whole body, I'm leaning forward in order to see.
+
+68
+00:04:32.000 --> 00:04:36.000
+What I'm actually doing is I'm rotating my Head
+
+69
+00:04:36.000 --> 00:04:40.000
+up and down, so I look down by rotating there.
+
+70
+00:04:40.000 --> 00:04:44.000
+Now, what that means is, if I go on to rotate my Body
+
+71
+00:04:44.000 --> 00:04:48.000
+again, in any of the directions, my Head
+
+72
+00:04:48.000 --> 00:04:52.000
+hasn't started tilting. So this is essentially what we need to
+
+73
+00:04:52.000 --> 00:04:56.000
+achieve with our camera, by having these two levels where we rotate
+
+74
+00:04:56.000 --> 00:05:00.000
+the whole Body and then the second level where we rotate
+
+75
+00:05:00.000 --> 00:05:04.000
+just the Head, or in our case we rotate just the camera.
+
+76
+00:05:04.666 --> 00:05:08.666
+OK time for your challenge! I would like you to
+
+77
+00:05:08.666 --> 00:05:12.666
+create the Camera Gimbal, using the information that we have
+
+78
+00:05:12.666 --> 00:05:16.666
+about essentially trying to replicate this body movement, about trying
+
+79
+00:05:16.666 --> 00:05:20.666
+to replicate this person. So I'd like you to use that
+
+80
+00:05:20.666 --> 00:05:24.666
+structure of our person, and I would like you to...
+
+81
+00:05:24.666 --> 00:05:28.666
+You will need a parent object to start off with. So like
+
+82
+00:05:28.666 --> 00:05:32.666
+we have a person parent object, you'll need something like a player parent
+
+83
+00:05:32.666 --> 00:05:36.666
+object, for example. Then, I'd like you to take the camera and
+
+84
+00:05:36.666 --> 00:05:40.666
+put it in the place of the head, in the structure,
+
+85
+00:05:40.666 --> 00:05:44.666
+but obviously in the structure using your new object.
+
+86
+00:05:44.666 --> 00:05:48.666
+And then, I'd like you to think about the following two questions.
+
+87
+00:05:48.666 --> 00:05:52.666
+So with mouse X, which object are you going to
+
+88
+00:05:52.666 --> 00:05:56.666
+rotate? OK, so are you going to rotate the parent or
+
+89
+00:05:56.666 --> 00:06:00.666
+are you going to rotate the camera, and in which dimension?
+
+90
+00:06:00.666 --> 00:06:04.666
+And then, I'd like you to think about with mouse Y, which
+
+91
+00:06:04.666 --> 00:06:08.666
+object do you rotate? OK, so answer these two questions and then
+
+92
+00:06:08.666 --> 00:06:12.666
+share in the discussions, and then, come back to the video and we'll see how we do it.
+
+93
+00:06:12.666 --> 00:06:16.666
+OK, so pause and have a go at that!
+
+94
+00:06:16.666 --> 00:06:20.666
+OK welcome back! Let's dive in and have a go at replicating
+
+95
+00:06:20.666 --> 00:06:24.666
+this layout! So, as I said, first we want a parent object, so I'm going to
+
+96
+00:06:24.666 --> 00:06:28.666
+right-click in the Hierarchy and Create Empty. And I'm going to go to the
+
+97
+00:06:28.666 --> 00:06:32.666
+Inspector and rename this, and I'm going to call it our Player,
+
+98
+00:06:32.666 --> 00:06:36.666
+because that's a nice understandable name. Now I said
+
+99
+00:06:36.666 --> 00:06:40.666
+that we want to put the camera in the same place as the head, so that needs to go underneath
+
+100
+00:06:40.666 --> 00:06:44.666
+Player. So I'm going to take our Camera and just drag it onto
+
+101
+00:06:44.666 --> 00:06:48.666
+the Player, and you can see now that goes right underneath our
+
+102
+00:06:48.666 --> 00:06:52.666
+Player location. Perfect! So now,
+
+103
+00:06:52.666 --> 00:06:56.666
+let's remove the person, let's just Delete that, so that it's
+
+104
+00:06:56.666 --> 00:07:00.666
+not confusing us anymore. And we've got our Player and obviously
+
+105
+00:07:00.666 --> 00:07:04.666
+you don't see, particularly, any difference between the Player and the Main Camera, because the Main Camera
+
+106
+00:07:04.666 --> 00:07:08.666
+is the only thing underneath Player. So , all we need to do now is answer our two
+
+107
+00:07:08.666 --> 00:07:12.666
+questions. With mouse X which objects do we rotate?
+
+108
+00:07:12.666 --> 00:07:16.666
+OK, so with mouse X we want to rotate
+
+109
+00:07:16.666 --> 00:07:20.666
+the Body. So left and right and that is going to be
+
+110
+00:07:20.666 --> 00:07:24.666
+like so, so that is rotating our player left and right.
+
+111
+00:07:24.666 --> 00:07:28.666
+And then, with up and
+
+112
+00:07:28.666 --> 00:07:32.666
+down, with Y, which we're going to want to rotate our
+
+113
+00:07:32.666 --> 00:07:36.666
+Camera, like so. As you can see, this is keeping
+
+114
+00:07:36.666 --> 00:07:40.666
+the horizon level in our Camera Preview, that's great! But now, the nice thing is
+
+115
+00:07:40.666 --> 00:07:44.666
+that we've rotated down, and if I rotate the Player
+
+116
+00:07:44.666 --> 00:07:48.666
+left and right, then I can go back to the Camera
+
+117
+00:07:48.666 --> 00:07:52.666
+and I can rotate the Camera up and down again and the
+
+118
+00:07:52.666 --> 00:07:56.666
+horizon still stays level and we don't get any of that nasty tilting. So
+
+119
+00:07:56.666 --> 00:08:00.666
+as long as I rotate left and right on the Player and up and down
+
+120
+00:08:00.666 --> 00:08:04.666
+on the Camera, the result I get is no
+
+121
+00:08:04.666 --> 00:08:08.666
+tilting and exactly the sort of behavior we want. So we've got our
+
+122
+00:08:08.666 --> 00:08:12.666
+Gimbal, as I'm calling it, our Player rig setup, and in the next lecture,
+
+123
+00:08:12.666 --> 00:08:16.666
+we're going to look at how we can do this Player rig programmatically.
+
+124
+00:08:16.666 --> 00:08:19.200
+See you there!
+
