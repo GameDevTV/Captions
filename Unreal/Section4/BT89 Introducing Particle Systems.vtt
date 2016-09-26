@@ -1,0 +1,958 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So welcome to Introducing Particles
+
+2
+00:00:04.000 --> 00:00:08.000
+Systems! In this video we are actually going to get as far as this,
+
+3
+00:00:08.000 --> 00:00:12.000
+which is that we can get our tank, we can fire, and look it leaves
+
+4
+00:00:12.000 --> 00:00:15.500
+smoke and everything. How cool is that! See you in there!
+
+5
+00:00:15.500 --> 00:00:19.500
+OK guys, so we want to make a particle system. Now that we don't have
+
+6
+00:00:19.500 --> 00:00:23.500
+the starter content imported, let me show you a neat trick for getting
+
+7
+00:00:23.500 --> 00:00:27.500
+starter content across, without bringing all of it across. So go
+
+8
+00:00:27.500 --> 00:00:31.500
+ahead into the EPIC Games Launcher or just to
+
+9
+00:00:31.500 --> 00:00:35.500
+your BattleGround project and make a
+
+10
+00:00:35.500 --> 00:00:39.500
+new project. We're going to make a whole new Blank Unreal project With Starter Content.
+
+11
+00:00:39.500 --> 00:00:43.500
+I'm just going to call the project StarterContent,
+
+12
+00:00:43.500 --> 00:00:47.500
+and the idea is that once we have an empty StarterContent
+
+13
+00:00:47.500 --> 00:00:51.500
+project, which you can see forming itself here in the Editor... By the way, with the Settings
+
+14
+00:00:51.500 --> 00:00:55.500
+I used it doesn't need to be a C++ project, it just needs to be Blank project With Starter Content,
+
+15
+00:00:55.500 --> 00:00:59.500
+that's all it needs to be. Now, when it opens, if you've got a VR device, it's
+
+16
+00:00:59.500 --> 00:01:03.500
+going to start trying to open all your VR devices, which is going to be a hassle.
+
+17
+00:01:03.500 --> 00:01:07.500
+So just go to your Plugins, turn off all or any plugins that relate to
+
+18
+00:01:07.500 --> 00:01:11.500
+VR, that are causing those things to start when you start the project
+
+19
+00:01:11.500 --> 00:01:15.500
+and just restart it. Then, you can close your Oculus and
+
+20
+00:01:15.500 --> 00:01:19.500
+your vive and whatever else your lucky enough to have. I have to have those for work, of course.
+
+21
+00:01:19.500 --> 00:01:23.500
+Aren't I hard cut done by? So here we go, we have a Starter Content
+
+22
+00:01:23.500 --> 00:01:27.500
+project. Now what we can do in here is, we can go around, son't change anything in here
+
+23
+00:01:27.500 --> 00:01:31.500
+because that is just a bit of a, you know... ?Well to be honest
+
+24
+00:01:31.500 --> 00:01:35.500
+you could enforce that you can't change anything in here, by making
+
+25
+00:01:35.500 --> 00:01:39.500
+this particular Starter Content folder read only. Let's go ahead and
+
+26
+00:01:39.500 --> 00:01:43.500
+do that, actually. So if you go as far as there, we can go and find
+
+27
+00:01:43.500 --> 00:01:47.500
+in Explorer the Starter Content folder, maybe go up one.
+
+28
+00:01:47.500 --> 00:01:51.500
+What I'm going to do is right-click it, go to Properties, and just make all of
+
+29
+00:01:51.500 --> 00:01:55.500
+it Read Only, turn it into a tick, including the sub-folders.
+
+30
+00:01:55.500 --> 00:01:59.500
+And now, what that means is that if I'm in the Starter Content project, absent mindedly, and I
+
+31
+00:01:59.500 --> 00:02:03.500
+go and try and change something like this Explosion, some parameter on here, it doesn't matter
+
+32
+00:02:03.500 --> 00:02:07.500
+what these things are at the moment, then it won't let me save it. If you get this box
+
+33
+00:02:07.500 --> 00:02:11.500
+it's because it won't let you save, because the file is not writable
+
+34
+00:02:11.500 --> 00:02:15.500
+OK, and you can't even make it writable because it's made
+
+35
+00:02:15.500 --> 00:02:19.500
+non-writable by the operating system. OK but what we can do in this
+
+36
+00:02:19.500 --> 00:02:23.500
+project is browse things, and go, OK well maybe this is good for the muzzle flash, it's
+
+37
+00:02:23.500 --> 00:02:27.500
+a good starting point for the muzzle flash. So let's
+
+38
+00:02:27.500 --> 00:02:31.500
+move this into our project! So let's see how to do that! You right-click it,
+
+39
+00:02:31.500 --> 00:02:35.500
+Asset Actions, and Migrate. So in your Starter
+
+40
+00:02:35.500 --> 00:02:39.500
+Conent project, if you made one, if you haven't take a breath for a moment to go off and
+
+41
+00:02:39.500 --> 00:02:43.500
+make yourself a Starter Content project, it's a useful tool to have. Then,
+
+42
+00:02:43.500 --> 00:02:47.500
+go find the particle system you want, which we're going to be using P_Explosion, right-
+
+43
+00:02:47.500 --> 00:02:51.500
+click it, Asset Actions, Migrate. Then, it'll say well
+
+44
+00:02:51.500 --> 00:02:55.500
+do you want to save what you change? Well no, because we don't want to save what we change, we want the one from
+
+45
+00:02:55.500 --> 00:02:59.500
+the starter pack. It then tells you all the stuff that it's going to bring with it, all these textures and
+
+46
+00:02:59.500 --> 00:03:03.500
+materials. You just say OK. Then, the first time it's a little laborious,
+
+47
+00:03:03.500 --> 00:03:07.500
+because you have to drill through and find where you want to put it. So in my case, it's Documents,
+
+48
+00:03:07.500 --> 00:03:11.500
+repos, Unreal, BattleTank, BattleTank,
+
+49
+00:03:11.500 --> 00:03:15.500
+and it's the Content folder you want to point it to, of your project OK,
+
+50
+00:03:15.500 --> 00:03:19.500
+it's important! Once you've found that project and you say OK, it does a very quick migration.
+
+51
+00:03:19.500 --> 00:03:23.500
+Then, close the StarterContent folder, you don't need to save anything.
+
+52
+00:03:23.500 --> 00:03:27.500
+The whole project even, close the whole project. It didn't matter whether you have your Battle Tank project
+
+53
+00:03:27.500 --> 00:03:31.500
+open or not, at that time, it will work, but don't have two Unreal projects open at the same
+
+54
+00:03:31.500 --> 00:03:35.500
+time, because you'll probably find yourself doing things in one project, when you're meant to be doing
+
+55
+00:03:35.500 --> 00:03:39.500
+them in another. OK. So now, look what we've got over here! We
+
+56
+00:03:39.500 --> 00:03:43.500
+have StarterContent back! Why? Haven't I gone around in circles? Well I have
+
+57
+00:03:43.500 --> 00:03:47.500
+and if we look at source control it should have picked up the fact that we've added StarterContent but there's
+
+58
+00:03:47.500 --> 00:03:51.500
+not much, there's only a little handful of things in here now, OK,
+
+59
+00:03:51.500 --> 00:03:55.500
+and that's the key, is that we've only got what we need for this P_Explosion
+
+60
+00:03:55.500 --> 00:03:59.500
+particle effect. Now in terms of how you want to organize your assets,
+
+61
+00:03:59.500 --> 00:04:03.500
+you could move the Explosion into the Projectile, if you want to.
+
+62
+00:04:03.500 --> 00:04:07.500
+I'm even going to rename it, I'm just going to hit F2 to rename that, and I'm
+
+63
+00:04:07.500 --> 00:04:11.500
+going to call it whatever we called it in the code, actually. I think we called it Launch
+
+64
+00:04:11.500 --> 00:04:15.500
+Blast? Yeah, I won't look it up, I'm pretty sure it was LaunchBlast.
+
+65
+00:04:15.500 --> 00:04:19.500
+
+
+66
+00:04:19.500 --> 00:04:23.500
+LaunchBlast, there you go! So now I have a particle effect, in Projectile,
+
+67
+00:04:23.500 --> 00:04:27.500
+called LaunchBlast, and it's dependencies are sitting in the StarterContent folder.
+
+68
+00:04:27.500 --> 00:04:31.500
+Now it's entirely up to you if you want to move these textures and materials into the
+
+69
+00:04:31.500 --> 00:04:35.500
+Projectile, to have all of the Projectile assets together. There are so many of them, I'm not going to
+
+70
+00:04:35.500 --> 00:04:39.500
+bother. I'm going to allow myself to have a thin, very minimal, source
+
+71
+00:04:39.500 --> 00:04:43.500
+control tracked StarterContent folder now OK, because that's
+
+72
+00:04:43.500 --> 00:04:47.500
+how things end up by default, and if we import other assets they might want to reference these
+
+73
+00:04:47.500 --> 00:04:51.500
+as well. But I will move the actual MuzzleBlast into the Projectile, just to say to me, well
+
+74
+00:04:51.500 --> 00:04:55.500
+these are the things that constitute the Projectile. If I want to see the dependencies of
+
+75
+00:04:55.500 --> 00:04:59.500
+the MuzzleBlast, I can always go to the Reference Viewer and see what else it needs. Cool!
+
+76
+00:04:59.500 --> 00:05:03.500
+So let's finally get in and actually modify
+
+77
+00:05:03.500 --> 00:05:07.500
+this and look at and understand this particle effect! You want to make sure that you can
+
+78
+00:05:07.500 --> 00:05:11.500
+change things, that you can click Save in here, in the beginning, and that it hasn't brought over any read only
+
+79
+00:05:11.500 --> 00:05:15.500
+properties. It hasn't! Now I'm going to talk you through the overview of
+
+80
+00:05:15.500 --> 00:05:19.500
+how this particle system thing works! So you have a Viewport, if you don't have any other windows,
+
+81
+00:05:19.500 --> 00:05:23.500
+I mentioned, just click the Window menu and bring them up. That is showing you a
+
+82
+00:05:23.500 --> 00:05:27.500
+simulation of how this particle effect is going to look. If you don't like the background color, you
+
+83
+00:05:27.500 --> 00:05:31.500
+click in the Viewport, in the toolbar click Background Color, and then, maybe
+
+84
+00:05:31.500 --> 00:05:35.500
+turn it into something like a light sky, because that's what we're go?ing to be seeing it against, mainly.
+
+85
+00:05:35.500 --> 00:05:39.500
+There you go, so I've changed the background color! The rest of this stuff in this toolbar,
+
+86
+00:05:39.500 --> 00:05:43.500
+well we're not going to use that often, possibly Restart Sim just to go back to the beginning of the
+
+87
+00:05:43.500 --> 00:05:47.500
+Simulation, in a longer simulation a longer effect, but otherwise, I'm not going to be using
+
+88
+00:05:47.500 --> 00:05:51.500
+that toolbar much. Let's hide the tab. Viewport, what else can we do in
+
+89
+00:05:51.500 --> 00:05:55.500
+Viewport? Well a whole bunch of stuff on the left, under View, we're not going to use at the moment, but time
+
+90
+00:05:55.500 --> 00:05:59.500
+can be handy. You can slow this thing down to 10%, click Restart, and then, you
+
+91
+00:05:59.500 --> 00:06:03.500
+can really carefully look at say the beginning of the simulation. So that's what you
+
+92
+00:06:03.500 --> 00:06:07.500
+can do under Time. I'm going to leave mine at 100%. Then, let's move right. We have
+
+93
+00:06:07.500 --> 00:06:11.500
+Emitters. Now what's Emitters all about? Well this effect is built up from
+
+94
+00:06:11.500 --> 00:06:15.500
+a whole bunch of things. You can turn them on and off with the ticks, so if you just
+
+95
+00:06:15.500 --> 00:06:19.500
+wanted to turn off say the Shockwave, then you'd turn that off
+
+96
+00:06:19.500 --> 00:06:23.500
+and then you get the same effect without the Shockwave. If you want to look at the Shockwave only,
+
+97
+00:06:23.500 --> 00:06:27.500
+you hit S for Solo, and it turns everything else off, apart from the Shockwave.
+
+98
+00:06:27.500 --> 00:06:31.500
+You can also add the fireball. You can have Solo, S for single, but you can
+
+99
+00:06:31.500 --> 00:06:35.500
+have many singles. So why would you have both the ability to have many singles and
+
+100
+00:06:35.500 --> 00:06:39.500
+checkboxes? Well imagine you had 30 emitters and you wanted to see only 2 of them,
+
+101
+00:06:39.500 --> 00:06:43.500
+you would do that just by going click click, and you don't have to un-tick 28 things off to the
+
+102
+00:06:43.500 --> 00:06:47.500
+right. Imagine, on the other hand, you wanted to see 29 of the
+
+103
+00:06:47.500 --> 00:06:51.500
+30, of course, the way to do that would just be to unselect the one you don't want. So that gives you quite
+
+104
+00:06:51.500 --> 00:06:55.500
+a lot of flexibility. So the other thing we have here in the middle is a button, which changes the
+
+105
+00:06:55.500 --> 00:06:59.500
+render mode, the Emitter Render Mode, for how it displays for
+
+106
+00:06:59.500 --> 00:07:03.500
+debugging. But let's not worry about that one for now, we leave that on what looks like some 10 pin bowling, although it looks less
+
+107
+00:07:03.500 --> 00:07:07.500
+than 10, it's 6 pin bowling [Laughs], and if you click it you can see down here in details
+
+108
+00:07:07.500 --> 00:07:11.500
+what the render mode is. But let's not worry about that for now, we just don't need it.
+
+109
+00:07:11.500 --> 00:07:15.500
+So Details, what does that tell you? Well it depends on what you're selected on. Each Emitter will
+
+110
+00:07:15.500 --> 00:07:19.500
+have a different set of details. When you click in the actual top of it it'll go orange,
+
+111
+00:07:19.500 --> 00:07:23.500
+and if you click down into these, what we call modules like Required, Spawn,
+
+112
+00:07:23.500 --> 00:07:27.500
+Lifetime, Initial Size, each of those will have a bunch of properties, as well.
+
+113
+00:07:27.500 --> 00:07:31.500
+They all have a Required, that tells you what material it's using if any. For example,
+
+114
+00:07:31.500 --> 00:07:35.500
+Smoke is created by using a material that is
+
+115
+00:07:35.500 --> 00:07:39.500
+spawned into the world many times and it's a transparent material, and it tells you
+
+116
+00:07:39.500 --> 00:07:43.500
+where it's being emitted from and how it's aligned to this camera
+
+117
+00:07:43.500 --> 00:07:47.500
+or not. Basically, these things generally are pointing straight to the camera, they're little pieces of
+
+118
+00:07:47.500 --> 00:07:51.500
+transparent cellophane or cardboard, if you like, in real terms. They're just
+
+119
+00:07:51.500 --> 00:07:55.500
+tranSparent textures that are rendered facing the camera and they give these effects.
+
+120
+00:07:55.500 --> 00:07:59.500
+You can also choose whether this stuff happens in local or global space, that will become important
+
+121
+00:07:59.500 --> 00:08:03.500
+in a moment. All of these effects I think, I haven't looked through them all, are in
+
+122
+00:08:03.500 --> 00:08:07.500
+local space, as you click through the Required
+
+123
+00:08:07.500 --> 00:08:11.500
+section. The Sparks aren't actually, so the Sparks are staying in the world. As you click on this Required
+
+124
+00:08:11.500 --> 00:08:15.500
+module, everything but the Sparks and the Shockwave
+
+125
+00:08:15.500 --> 00:08:19.500
+are in local space, so they'll go with the projectile. Let's
+
+126
+00:08:19.500 --> 00:08:23.500
+see that! If we watch carefully as we fire it... Ah, well
+
+127
+00:08:23.500 --> 00:08:27.500
+actually [Laughs] we're missing a trick here, you need to go to your Projectile blueprint.
+
+128
+00:08:27.500 --> 00:08:31.500
+You need to make the Full Blueprint Editor on your LaunchBlast.
+
+129
+00:08:31.500 --> 00:08:35.500
+Of course, we need to choose the particle system under the Details tab, under the
+
+130
+00:08:35.500 --> 00:08:39.500
+Particles, Template, which is the LaunchBlast. Compile that!
+
+131
+00:08:39.500 --> 00:08:43.500
+Now let's take a look at the particle system. F11 for full screen,
+
+132
+00:08:43.500 --> 00:08:47.500
+and then, let's take a look at it coming out. OK, so you can actually just
+
+133
+00:08:47.500 --> 00:08:51.500
+see, if you're sharp, that the particles, the sparks,
+
+134
+00:08:51.500 --> 00:08:55.500
+stay where they are in the world and everything else like
+
+135
+00:08:55.500 --> 00:08:59.500
+the smoke goes along with the actual
+
+136
+00:08:59.500 --> 00:09:03.500
+cannon ball or with the projectile, OK. So that's the difference between world
+
+137
+00:09:03.500 --> 00:09:07.500
+space and local space. There's smoke coming out of the projectile in the world. Look we could fire it,
+
+138
+00:09:07.500 --> 00:09:11.500
+hit F8, and then... Probably easier with our thing up.
+
+139
+00:09:11.500 --> 00:09:15.500
+Let's just fire once more. Possess, fire, F8, Pause.
+
+140
+00:09:15.500 --> 00:09:19.500
+Now we could go to that projectile in the world space.
+
+141
+00:09:19.500 --> 00:09:23.500
+But what we want to happen in the projectile is, we want it to be leaving smoke
+
+142
+00:09:23.500 --> 00:09:27.500
+behind it, so how are we going to do that? Well the final thing we need to
+
+143
+00:09:27.500 --> 00:09:31.500
+look at is this Curve Editor. I want you to remove all curves, that won't change the
+
+144
+00:09:31.500 --> 00:09:35.500
+behavior of the particle effect, try it! Right-click inside one of these curves,
+
+145
+00:09:35.500 --> 00:09:39.500
+down here, Remove All Curves, and it just means it's plotting nothing but the
+
+146
+00:09:39.500 --> 00:09:43.500
+particle effect has been unaffected by that. So this Smoke
+
+147
+00:09:43.500 --> 00:09:47.500
+Emitter here has a Lifetime property or module
+
+148
+00:09:47.500 --> 00:09:51.500
+on it. You can add new modules by right-clicking up here and then
+
+149
+00:09:51.500 --> 00:09:55.500
+adding these modules. There's tons of an amazing amount of stuff you can with particle systems!
+
+150
+00:09:55.500 --> 00:09:59.500
+If you click the little Plot icon, next to Lifetime, it will plot it down here.
+
+151
+00:09:59.500 --> 00:10:03.500
+You can click Fit to fit it to the graph, and you can use the mouse wheel to
+
+152
+00:10:03.500 --> 00:10:07.500
+go in and out. What's this red and green dot. Well firstly, you can turn that
+
+153
+00:10:07.500 --> 00:10:11.500
+lifetime plot on and off. You may have several different factors that you've added with a little yellow
+
+154
+00:10:11.500 --> 00:10:15.500
+dot here, and then, the green and red correspond to something. In this
+
+155
+00:10:15.500 --> 00:10:19.500
+case, what do they correspond to? Well look in the Details tab. We have a
+
+156
+00:10:19.500 --> 00:10:23.500
+Uniform Distribution, which means that this smoke will last somewhere
+
+157
+00:10:23.500 --> 00:10:27.500
+between 2 and 3 seconds. You can change that by dragging
+
+158
+00:10:27.500 --> 00:10:31.500
+the 3 up or dragging this up here to say 9 seconds.
+
+159
+00:10:31.500 --> 00:10:35.500
+And now what that means, if we watch this carefully, is that the smoke part of
+
+160
+00:10:35.500 --> 00:10:39.500
+this will now last somewhere between 3 and 9 seconds, different
+
+161
+00:10:39.500 --> 00:10:43.500
+every time OK. Or 2 and 9 seconds rather. I'm going to reset
+
+162
+00:10:43.500 --> 00:10:47.500
+that to 2 to 3, but that gives some variability. So the general
+
+163
+00:10:47.500 --> 00:10:51.500
+deal with particle systems, have a look on Wikipedia, "wiki particle
+
+164
+00:10:51.500 --> 00:10:55.500
+systems". Just have a look at that, it gives you a pretty good
+
+165
+00:10:55.500 --> 00:10:59.500
+overview of what they're like. It talks about the fuzzy phenomenon and the spawning
+
+166
+00:10:59.500 --> 00:11:03.500
+of things and the fact that you normally are using a
+
+167
+00:11:03.500 --> 00:11:07.500
+variable amount of time that things last for, etc.
+
+168
+00:11:07.500 --> 00:11:10.733
+Have a look at that, I'll put that in the resources of this lecture for you OK.
+
+169
+00:11:10.733 --> 00:11:14.733
+So what we're going to do to leave a smoke trail is, I'm going to start
+
+170
+00:11:14.733 --> 00:11:18.733
+with the same smoke. So right-click on your Smoke and Duplicate the Emitter.
+
+171
+00:11:18.733 --> 00:11:22.733
+Now you've got two called Smoke, so let's right-click. I'm going to choose the right-hand one.
+
+172
+00:11:22.733 --> 00:11:26.733
+They're the same so it doesn't matter. Rename it to Smoke Trail.
+
+173
+00:11:26.733 --> 00:11:30.733
+So now we've got a Smoke Trail to work on. Now the thing that's going to make
+
+174
+00:11:30.733 --> 00:11:34.733
+it different, firstly, is click the Required module of the Smoke Trail,
+
+175
+00:11:34.733 --> 00:11:38.733
+go into the Details tab, and then, go to where it talks about Using
+
+176
+00:11:38.733 --> 00:11:42.733
+Local Space. No, let's go World Space! So let's see the effect of that. We've
+
+177
+00:11:42.733 --> 00:11:46.733
+turned off Local Space on the Smoke Trail. Play the game, we fire.
+
+178
+00:11:46.733 --> 00:11:50.733
+What do we get? Well we get smoke that's staying attached to the projectile, but we also get
+
+179
+00:11:50.733 --> 00:11:54.733
+smoke that stays just outside the barrel but we only get one lump of smoke. What
+
+180
+00:11:54.733 --> 00:11:58.733
+we want is for that projectile to be continuously emitting smoke.
+
+181
+00:11:58.733 --> 00:12:02.733
+So how do you do that? Well you go to the Spawn module there.
+
+182
+00:12:02.733 --> 00:12:06.733
+Under Spawn you go and look, and we're going to make a Constant Spawn
+
+183
+00:12:06.733 --> 00:12:10.733
+Rate, and we're going to have it or we could have a range if you want it, it doesn't really matter. I'm going to
+
+184
+00:12:10.733 --> 00:12:14.733
+go with Constant and let's just try spawning at say 30,
+
+185
+00:12:14.733 --> 00:12:18.733
+30 per second OK. so put a Spawn Rate against the Smoke
+
+186
+00:12:18.733 --> 00:12:22.733
+Trail emitter of 30 per second. Save that, maximize
+
+187
+00:12:22.733 --> 00:12:26.733
+your screen, fire. Ah look at that, that's looking better! It's
+
+188
+00:12:26.733 --> 00:12:30.733
+lifetime's too short, because the smoke is, I would say, running out too early, so I'm just
+
+189
+00:12:30.733 --> 00:12:34.733
+going to fix that, and then, I'm going to challenge you to go ahead and make things how you want them. So click
+
+190
+00:12:34.733 --> 00:12:38.733
+on Lifetime. We've got somewhere between 2 and 3 seconds, let's just make it a constant
+
+191
+00:12:38.733 --> 00:12:42.733
+30 seconds. Then, in code, we can disable this once
+
+192
+00:12:42.733 --> 00:12:46.733
+it hits something. So I've made the Lifetime 30 seconds.
+
+193
+00:12:46.733 --> 00:12:50.733
+Let's have a look! Ah, it looks pretty
+
+194
+00:12:50.733 --> 00:12:54.733
+cool, apart from the color has gone a bit funny now.
+
+195
+00:12:54.733 --> 00:12:58.733
+So that's probably because we have a Color Over Lifetime.
+
+196
+00:12:58.733 --> 00:13:02.733
+If you have a look here, we have Color Over Lifetime,
+
+197
+00:13:02.733 --> 00:13:06.733
+and you can plot that by clicking the little graph. It will bring the curves down here. If you've got curves you
+
+198
+00:13:06.733 --> 00:13:10.733
+don't want, Remove All Curves. Never any harm in doing that, it doesn't change the properties a
+
+199
+00:13:10.733 --> 00:13:14.733
+bit. And if you click Color Over Lifetime, which is the one we're interested in, you can turn off Alpha
+
+200
+00:13:14.733 --> 00:13:18.733
+Over Lifetime with that yellow dot. And if we just plot Color Over Lifetime, you
+
+201
+00:13:18.733 --> 00:13:22.733
+can see the red, green, and blue. How do I know that's what it is? Well just
+
+202
+00:13:22.733 --> 00:13:26.733
+from experience but you could also come in here and look, and if you drill down
+
+203
+00:13:26.733 --> 00:13:30.733
+far enough, eventually you will see what these things
+
+204
+00:13:30.733 --> 00:13:34.733
+actually mean, In Values, Out Values, etc. And
+
+205
+00:13:34.733 --> 00:13:38.733
+you can see what effect this Color Over Lifetime is going to have. I want
+
+206
+00:13:38.733 --> 00:13:42.733
+it to, if anything, not change very much over its life, so I'm just going to reduce that
+
+207
+00:13:42.733 --> 00:13:46.733
+change. Oh, OK
+
+208
+00:13:46.733 --> 00:13:50.733
+so I think what we've got here is we've got... I don't even need, I don't think, Color Over Lifetime.
+
+209
+00:13:50.733 --> 00:13:54.733
+Let's just turn it off, you can temporarily turn it off there.
+
+210
+00:13:54.733 --> 00:13:58.733
+That's fine! But now it doesn't have a color, so we need
+
+211
+00:13:58.733 --> 00:14:02.733
+to maybe make it a constant Color Over Lifetime.
+
+212
+00:14:02.733 --> 00:14:06.733
+So simplify the Color Over Lifetime massively,
+
+213
+00:14:06.733 --> 00:14:10.733
+make it just a constant black. Let's try that!
+
+214
+00:14:10.733 --> 00:14:14.733
+That's better but it's taking a while to
+
+215
+00:14:14.733 --> 00:14:18.733
+grow, it's growing too slowly. So that's the size over
+
+216
+00:14:18.733 --> 00:14:22.733
+lifetime. So if I Remove All the Curves, Plot size over lifetime,
+
+217
+00:14:22.733 --> 00:14:26.733
+have a look at that, I could fit it, and the problem I'm finding is that it's not
+
+218
+00:14:26.733 --> 00:14:30.733
+growing fast enough, so I just drag that to the left. And hopefully
+
+219
+00:14:30.733 --> 00:14:34.733
+you get the idea. Let's have a look! So it's black constant...
+
+220
+00:14:34.733 --> 00:14:38.733
+[Strange Cannon Noise] No something's still... Ah, you know what it probably is, it's probably Transparency
+
+221
+00:14:38.733 --> 00:14:42.733
+Over Lifetime! So if we Plot Color Over Life, one of the things we'll
+
+222
+00:14:42.733 --> 00:14:46.733
+end up with, if we turn the others off, is Alpha Over Life. Let's plot that! And indeed,
+
+223
+00:14:46.733 --> 00:14:50.733
+Alpha Over Life is taking a while to go up,
+
+224
+00:14:50.733 --> 00:14:54.733
+and actually, we don't even want it changing like that. We probably just want a Constant
+
+225
+00:14:54.733 --> 00:14:58.733
+Alpha Over Life. And let's just try fully opaque, see
+
+226
+00:14:58.733 --> 00:15:02.733
+how that looks. That looks better to me! OK
+
+227
+00:15:02.733 --> 00:15:06.733
+there's a thousand handles you can pull here, but to be honest, that's good enough.
+
+228
+00:15:06.733 --> 00:15:10.733
+It's fine that the thing stopped smoking. What I want you to do now is, I want you to go ahead
+
+229
+00:15:10.733 --> 00:15:14.733
+and setup and share your smoke. Tweak the parameters to your taste.
+
+230
+00:15:14.733 --> 00:15:18.733
+Get creative with the color, the size etc. Don't worry about it disappearing from the
+
+231
+00:15:18.733 --> 00:15:22.733
+side view, let me just show you that. If we look at the smoke
+
+232
+00:15:22.733 --> 00:15:26.733
+trail, from a sufficiently wide camera view, it will just disappear. You see how it
+
+233
+00:15:26.733 --> 00:15:30.733
+disappears there, we'll sort that out in the next lecture. That is a known problem, don't try and
+
+234
+00:15:30.733 --> 00:15:34.733
+fix or fix it if you want, but I'm going to tell you, in the next lecture, how to fix it.
+
+235
+00:15:34.733 --> 00:15:38.733
+And then, share with the community, there's a link in the resources to our community site,
+
+236
+00:15:38.733 --> 00:15:42.733
+your smoke effect. I'd love to see it! Get a bit creative with color size, etc., and have
+
+237
+00:15:42.733 --> 00:15:46.733
+fun! Nothing else to do in this video, so the video will end now. And I'll see you in the
+
+238
+00:15:46.733 --> 00:15:50.733
+next one, where we'll sort out the camera issue! But please, make your smoke cool, then share it with
+
+239
+00:15:50.733 --> 00:15:54.266
+the community!
+
