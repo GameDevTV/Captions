@@ -1,0 +1,806 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So welcome to Preparing for Particles! In this video we're
+
+2
+00:00:04.000 --> 00:00:08.766
+just going to be getting ourselves all setup, ready to use particle systems. So I'll see you in there!
+
+3
+00:00:08.766 --> 00:00:12.766
+So let's start focusing on projectiles! We're going to be laying the groundwork here, as I
+
+4
+00:00:12.766 --> 00:00:16.766
+said. So one thing, we don't need an auto-mortar in the scene. The other thing is
+
+5
+00:00:16.766 --> 00:00:20.766
+I'd like to be able to fire nice and rapidly, so I can see my projectiles and I can
+
+6
+00:00:20.766 --> 00:00:24.766
+see the smoke they're going to be leaving behind, I don't want to wait 3 seconds. So let's to go the
+
+7
+00:00:24.766 --> 00:00:28.766
+tank blueprint, AimingComponent, turn the Reload Time
+
+8
+00:00:28.766 --> 00:00:32.766
+down to maybe 0.1 of a second, and compile that. So now I can fire
+
+9
+00:00:32.766 --> 00:00:36.766
+rapidly but I also want to be able to fire more than three rounds, and it slightly disappoints me that
+
+10
+00:00:36.766 --> 00:00:40.766
+I can't set the number of rounds here in blueprint, so let's go fix that quickly!
+
+11
+00:00:40.766 --> 00:00:44.766
+In the TankAimingComponent header file, we have int RoundsLeft =
+
+12
+00:00:44.766 --> 00:00:48.766
+3. Well firstly, it shouldn't be int, it should be int32 or
+
+13
+00:00:48.766 --> 00:00:52.766
+uint32. So int32 and uint32 are both
+
+14
+00:00:52.766 --> 00:00:56.766
+platform independent implementations of the int, which Unreal is
+
+15
+00:00:56.766 --> 00:01:00.766
+using, and it makes sure that when we deploy to different platforms we actually
+
+16
+00:01:00.766 --> 00:01:04.766
+get what we're expecting to get, rather than getting a 64 bit or a 16 bit integer.
+
+17
+00:01:04.766 --> 00:01:08.766
+So we're going to us int32. Why not uint32, which is
+
+18
+00:01:08.766 --> 00:01:12.766
+the unsigned integer? Because it's not compatible with what I'm about to do, which is the
+
+19
+00:01:12.766 --> 00:01:16.766
+UPROPERTY, and we want it (Visible
+
+20
+00:01:16.766 --> 00:01:20.766
+Anywhere), which is a bit strange I know but it will actually let us... Sorry
+
+21
+00:01:20.766 --> 00:01:24.766
+we don't want it VisibleAnywhere, we want it exactly the same
+
+22
+00:01:24.766 --> 00:01:28.766
+annotation as this, as the ReloadTime and the other bit. So we want Edit
+
+23
+00:01:28.766 --> 00:01:32.766
+DefaultsOnly. In fact, I'm going to move this guy right up here,
+
+24
+00:01:32.766 --> 00:01:36.766
+like this, alongside the other properties. And I'm even going to put the
+
+25
+00:01:36.766 --> 00:01:40.766
+ProjectileBluepri?nt up a bit and that way all of our firing
+
+26
+00:01:40.766 --> 00:01:44.766
+metrix, that we're able to set in the bluepri?nt, are sitting next to each other.
+
+27
+00:01:44.766 --> 00:01:48.766
+But I'm going to use int32 for that, so let me go and do a search in my project. Control H
+
+28
+00:01:48.766 --> 00:01:52.766
+will do a search and replace for int, and that wants to become int32,
+
+29
+00:01:52.766 --> 00:01:56.766
+matching whole words. And you'll find that I've used it
+
+30
+00:01:56.766 --> 00:02:00.766
+here in GetRoundsLeft, const in the public part of
+
+31
+00:02:00.766 --> 00:02:04.766
+the declaration of the getter, so we replace that one.
+
+32
+00:02:04.766 --> 00:02:08.766
+And where else have I done it? Well I don't want to just
+
+33
+00:02:08.766 --> 00:02:12.766
+search the current document, I want to search the entire project, and of
+
+34
+00:02:12.766 --> 00:02:16.766
+course, it's in the definition of the function there.
+
+35
+00:02:16.766 --> 00:02:20.766
+And that is it, no more ints in our entire project! You see the approach there, rather than just
+
+36
+00:02:20.766 --> 00:02:24.766
+fixing the one problem we had, I thought let's fix all instances of using int.
+
+37
+00:02:24.766 --> 00:02:28.766
+Luckily we only used it in one place, so it was a bit of a mistake in the first section. Of course, I drilled it
+
+38
+00:02:28.766 --> 00:02:32.766
+into you to use int32 and then forgot myself, I'm only human. So
+
+39
+00:02:32.766 --> 00:02:36.766
+now this is going to be editable in blueprint. Let's go ahead and compile!
+
+40
+00:02:36.766 --> 00:02:40.766
+And what I'm expecting to see is, well that it'll rip focus away from me
+
+41
+00:02:40.766 --> 00:02:44.766
+callously, probably, but if it does compile, when I go back into the TankAimingComponent
+
+42
+00:02:44.766 --> 00:02:48.766
+I should see in the firing section, on the right over here, the ability to set the
+
+43
+00:02:48.766 --> 00:02:52.766
+number of rounds up to a lot more. Maybe I'll set 20 or something, so that we can fire off rounds till
+
+44
+00:02:52.766 --> 00:02:56.766
+our heart's content. There you go! And then, the compilation of the blueprint's real
+
+45
+00:02:56.766 --> 00:03:00.766
+quick, and then, now I can fire, boom boom boom boom boom! And that's absolutely
+
+46
+00:03:00.766 --> 00:03:04.766
+fine! Cool! So now, let's think about how we're going to compose the projectile blueprint.
+
+47
+00:03:04.766 --> 00:03:08.766
+Firstly, I'm going to move it into a Projectile folder, because it's no longer directly
+
+48
+00:03:08.766 --> 00:03:12.766
+about the tank. Now it's complaining, graph is linked to
+
+49
+00:03:12.766 --> 00:03:16.766
+some hot reloaded TankAimingComponent. What's the problem?
+
+50
+00:03:16.766 --> 00:03:20.766
+Sometimes this is because you've got more than one copy of Unreal open. I don't appear to
+
+51
+00:03:20.766 --> 00:03:24.766
+have, so I'm going to close Unreal, saving everything I can, and just
+
+52
+00:03:24.766 --> 00:03:28.766
+reopen it, because I do want to move that projectile out and into its
+
+53
+00:03:28.766 --> 00:03:32.766
+own folder, so that we can start building up all the particle effects and everything in its own folder.
+
+54
+00:03:32.766 --> 00:03:36.766
+So I think it moved, I think it is there in the Projectile folder, let's just
+
+55
+00:03:36.766 --> 00:03:40.766
+have a quick look through the folders while we're here. BattleGround has stuff only relating to the BattleGround.
+
+56
+00:03:40.766 --> 00:03:44.766
+Blueprints. I think I'll move the Mortar into the Mortar folder, otherwise these
+
+57
+00:03:44.766 --> 00:03:48.766
+Blueprints contain pure blueprints. The Mortar
+
+58
+00:03:48.766 --> 00:03:52.766
+has all mortar stuff and mortar materials. The Projectile has that, the Tank
+
+59
+00:03:52.766 --> 00:03:56.766
+still has the TankPlayerController. I think I'll move that back to Blueprints, because that looks
+
+60
+00:03:56.766 --> 00:04:00.766
+like these others, they're all just kine of pure blueprints. Tank just has Tank and Tank assets
+
+61
+00:04:00.766 --> 00:04:04.766
+and UI's, all good. OK, so on this projectile blueprint, if we take a look
+
+62
+00:04:04.766 --> 00:04:08.766
+at it, we can see at the moment that we have a DefaultSceneRoot and then a Sphere that we added
+
+63
+00:04:08.766 --> 00:04:12.766
+to it. I'm actually going to get rid of the Sphere in the
+
+64
+00:04:12.766 --> 00:04:16.766
+projectile blueprint altogether, and we're going to build up this projectile blueprint purely from C++.
+
+65
+00:04:16.766 --> 00:04:20.766
+In fact, I want you to do that. So what we're going to
+
+66
+00:04:20.766 --> 00:04:24.766
+do is, we've done thi?s before. In fact, if you go into your Projectile.cpp,
+
+67
+00:04:24.766 --> 00:04:28.766
+you'll find that we already did this, we
+
+68
+00:04:28.766 --> 00:04:32.766
+created default sub-objects. So what I want you to do is the same thing, setup the projectile
+
+69
+00:04:32.766 --> 00:04:36.766
+components from C++. Create default sub-objects even for
+
+70
+00:04:36.766 --> 00:04:40.766
+a UStaticMeshComponent and call it CollisionMesh and a UParticleSystem
+
+71
+00:04:40.766 --> 00:04:44.766
+Component and call it LaunchBlast. Make them UPROPERTY (Visible
+
+72
+00:04:44.766 --> 00:04:48.766
+Anywhere), also put a category, and check they appear on the blueprint and all that they're
+
+73
+00:04:48.766 --> 00:04:52.766
+properties appear on the blueprint as well. So go ahead, pause the video, and do that now.
+
+74
+00:04:52.766 --> 00:04:56.766
+
+
+75
+00:04:56.766 --> 00:05:00.766
+OK welcome back! So let's make this happen, let's start off...
+
+76
+00:05:00.766 --> 00:05:04.766
+I'm going to start off on the header file, I think. These are going to be private, so we're going to
+
+77
+00:05:04.766 --> 00:05:08.766
+want a couple of things. What did I say they were? A USTATICMESHCOMPONENT.
+
+78
+00:05:08.766 --> 00:05:12.766
+Pointer
+
+79
+00:05:12.766 --> 00:05:16.766
+called CollisionMesh. Now we're going to use that to
+
+80
+00:05:16.766 --> 00:05:20.766
+detect when the projectile hits things.
+
+81
+00:05:20.766 --> 00:05:24.766
+OK, if I can type straight, null pointer. OK, and then the other thing we're going to want is
+
+82
+00:05:24.766 --> 00:05:28.766
+a UParticleSystemComponent which
+
+83
+00:05:28.766 --> 00:05:32.766
+we'll explore in some detail, in the upcoming videos, and we're going to call it LaunchBlast
+
+84
+00:05:32.766 --> 00:05:36.766
+and make it the null pointer.
+
+85
+00:05:36.766 --> 00:05:40.766
+Great! OK, so now that we have these things, let's go
+
+86
+00:05:40.766 --> 00:05:44.766
+and attach them as default sub-objects, starting off with the CollisionMesh. I'll start at the top with
+
+87
+00:05:44.766 --> 00:05:48.766
+that. So we're going to say the CollisionMesh =
+
+88
+00:05:48.766 --> 00:05:52.766
+CreateDefault... In fact, I'm just going to
+
+89
+00:05:52.766 --> 00:05:56.766
+copy CreateDefaultSubobject, and it's going to be
+
+90
+00:05:56.766 --> 00:06:00.766
+a UStaticMeshComponent.
+
+91
+00:06:00.766 --> 00:06:04.766
+And did you remember that you need to give it an (FName)?
+
+92
+00:06:04.766 --> 00:06:08.766
+And why call it anything more complicated than "(CollisionMesh")?
+
+93
+00:06:08.766 --> 00:06:12.766
+OK great! So that is adding a CollisionMesh programmatically. Shall we just
+
+94
+00:06:12.766 --> 00:06:16.766
+text that real quick! No harm, as we'll test the first one. What I'm hoping will happen
+
+95
+00:06:16.766 --> 00:06:20.766
+is a CollisionMesh will pop in here. Then, we want to do a couple of things with that
+
+96
+00:06:20.766 --> 00:06:24.766
+to make sure that we know that it's the root component, etc. But let's just check that it
+
+97
+00:06:24.766 --> 00:06:28.766
+comes in at all and then, I'll work through the rest of the C++ with you.
+
+98
+00:06:28.766 --> 00:06:32.766
+Some of these bits I can't have expected you to have done. So here you go, you have Collision Mesh here.
+
+99
+00:06:32.766 --> 00:06:36.766
+We have a DefaultSceneRoot, which we can actually delete now. If we
+
+100
+00:06:36.766 --> 00:06:40.766
+can't delete it, I think it'll go away if we just close and reopen the Editor.
+
+101
+00:06:40.766 --> 00:06:44.766
+Unreal's a bit funny about that DefaultSceneRoot, it likes to hold onto it, until you next close it,
+
+102
+00:06:44.766 --> 00:06:48.766
+otherwise it'll go away when we add the next object. So let's just look
+
+103
+00:06:48.766 --> 00:06:52.766
+at the Projectile Bluepri?nt, full Editor, there you go! So we just
+
+104
+00:06:52.766 --> 00:06:56.766
+have a CollisionMesh, that's what we've said in C++. Alright, so let's carry on with this now
+
+105
+00:06:56.766 --> 00:07:00.766
+then! We're going to SetRootComponent. Now you weren't expected to do this in the challenge, but
+
+106
+00:07:00.766 --> 00:07:04.766
+I'm going to do that, I'm going to explicitly say I want the CollisionMesh to be the root component over in
+
+107
+00:07:04.766 --> 00:07:08.766
+Blueprint. I'm also, while I'm here, just going to do a couple of other
+
+108
+00:07:08.766 --> 00:07:12.766
+things. I'm going to say, to the CollisionMesh, SetNotifyRigidBody
+
+109
+00:07:12.766 --> 00:07:16.766
+Collision to (true). What does that do? Well before we compile
+
+110
+00:07:16.766 --> 00:07:20.766
+that line, if you look at the CollisionMesh, well firstly we can't see any
+
+111
+00:07:20.766 --> 00:07:24.766
+details of the CollisionMesh. So let me go back to the header file and
+
+112
+00:07:24.766 --> 00:07:28.766
+do what I suggested you did, which is make both of these things a UPROPERTY
+
+113
+00:07:28.766 --> 00:07:32.766
+(VisibleAnywhere, with a category
+
+114
+00:07:32.766 --> 00:07:36.766
+I would say "Components").
+
+115
+00:07:36.766 --> 00:07:40.766
+Always add a category, unless you have a reason not to. And
+
+116
+00:07:40.766 --> 00:07:44.766
+VisibleAnywhere is a bit strange actually, in this instance, because it is actually going to let us edit the
+
+117
+00:07:44.766 --> 00:07:48.766
+values on the Collision Mesh. And what I set
+
+118
+00:07:48.766 --> 00:07:52.766
+here, in the C++, with my SetNotifyRigidBody
+
+119
+00:07:52.766 --> 00:07:56.766
+Collision(true) means that if I make another Blueprint class based on
+
+120
+00:07:56.766 --> 00:08:00.766
+the Projectile class that this checkbox will be ticked by
+
+121
+00:08:00.766 --> 00:08:04.766
+default. Let me show you the checkbox. Click CollisionMesh, now you can see all its properties.
+
+122
+00:08:04.766 --> 00:08:08.766
+Down here, Simulation Generates Hit Events, that is this
+
+123
+00:08:08.766 --> 00:08:12.766
+SetNotifyRigidBodyCollision, and you can see now that it is defaulting
+
+124
+00:08:12.766 --> 00:08:16.766
+to true. If I turn it off we get a little revert arrow, because the default is true. I'm setting
+
+125
+00:08:16.766 --> 00:08:20.766
+sensible defaults, that's what I'm doing here. OK, so while I'm
+
+126
+00:08:20.766 --> 00:08:24.766
+there, we may as well also say that the default for this CollisionMesh
+
+127
+00:08:24.766 --> 00:08:28.766
+is for the visibility.
+
+128
+00:08:28.766 --> 00:08:32.766
+And how will I find that? Well you'd search for the word visibility, you'd find it there,
+
+129
+00:08:32.766 --> 00:08:36.766
+and I generally want it to be false in the future but for now, I'm
+
+130
+00:08:36.766 --> 00:08:40.766
+going to leave it as true. Yeah, I want it to be visible
+
+131
+00:08:40.766 --> 00:08:44.766
+true, because I want to see them for now, but in general, when you're creating
+
+132
+00:08:44.766 --> 00:08:48.766
+these things, we're not going to have big ugly bools, we're just going to be able to see projectiles because they leave
+
+133
+00:08:48.766 --> 00:08:52.766
+smoke. Does that make sense? Hopefully it does. Alright, so the other thing we need to create
+
+134
+00:08:52.766 --> 00:08:56.766
+is the LaunchBlast, alright. So we say Launch
+
+135
+00:08:56.766 --> 00:09:00.766
+Blast =, and then it's another CreateDefaultSubobject, and then, it's a
+
+136
+00:09:00.766 --> 00:09:04.766
+UProjectile...
+
+137
+00:09:04.766 --> 00:09:08.766
+Sorry ParticleSystem
+
+138
+00:09:08.766 --> 00:09:12.766
+Component. Don't worry about the particle emitter components, you'll understand what they are shortly. And we need to
+
+139
+00:09:12.766 --> 00:09:16.766
+give it an (FName), and again, why complicate things, just call it Launch
+
+140
+00:09:16.766 --> 00:09:20.766
+Blast. Great! Now is there anything we want to do
+
+141
+00:09:20.766 --> 00:09:24.766
+with that LaunchBlast? Well the only thing I want to do with it is to make sure that it
+
+142
+00:09:24.766 --> 00:09:28.766
+attaches itself to the CollisionMesh, because the Collision
+
+143
+00:09:28.766 --> 00:09:32.766
+Mesh, the thing that's going to detect what's it's hitting, the big cannon ball, wants to take with it
+
+144
+00:09:32.766 --> 00:09:36.766
+the particle system, that we're going to spend the next few lectures developing. And it wants it to be depositing
+
+145
+00:09:36.766 --> 00:09:40.766
+lumps of smoke behind it. So I'm just going to say LaunchBlast, and, as I say,
+
+146
+00:09:40.766 --> 00:09:44.766
+a couple of these things are not expected of you from the challenge. We're going to say
+
+147
+00:09:44.766 --> 00:09:48.766
+AttachTo(RootComponent),
+
+148
+00:09:48.766 --> 00:09:52.766
+and that will go ahead and attach it in the right place.
+
+149
+00:09:52.766 --> 00:09:56.766
+So I didn't expect you to set either of these two, the NotifyRigidBody or the Visibility,
+
+150
+00:09:56.766 --> 00:10:00.766
+and I didn't really expect you to do the AttachTo either. Of course, it's not
+
+151
+00:10:00.766 --> 00:10:04.766
+= AttachTo, we're doing arrow operator. LaunchBlast
+
+152
+00:10:04.766 --> 00:10:08.766
+Attach to (RootComponent). OK let's go ahead and compile, then we'll look at the blueprint,
+
+153
+00:10:08.766 --> 00:10:12.766
+and I'll recap the code and we are done for laying the foundations of setting
+
+154
+00:10:12.766 --> 00:10:16.766
+up the particle systems. So here it is, CollisionMesh with the LaunchBlast
+
+155
+00:10:16.766 --> 00:10:20.766
+on it. The CollisionMesh is Visible. Well it's
+
+156
+00:10:20.766 --> 00:10:24.766
+invisible by default, but we're leaving it Visible for a moment. Simulation Generates Hits Events has been
+
+157
+00:10:24.766 --> 00:10:28.766
+set as default. That's great! So if I play the game and fire now, I
+
+158
+00:10:28.766 --> 00:10:32.766
+actually get Invisible. I want Visible, so let's just make sure I can make it
+
+159
+00:10:32.766 --> 00:10:36.766
+Visible.  Compile! Maybe I need to save?
+
+160
+00:10:36.766 --> 00:10:40.766
+OK, now the reason
+
+161
+00:10:40.766 --> 00:10:44.766
+it's not visible, of course, is simply that I have not assigned a mesh to that now. Now be careful,
+
+162
+00:10:44.766 --> 00:10:48.766
+where are you going to get your sphere mesh from? We don't have a sphere anymore, right?
+
+163
+00:10:48.766 --> 00:10:52.766
+So we need to think about going and getting ourselves a sphere
+
+164
+00:10:52.766 --> 00:10:56.766
+from the starter content, reinforcing what we did in the last lecture. So we can add
+
+165
+00:10:56.766 --> 00:11:00.766
+new content or feature pack. We can go and add the StarterContent
+
+166
+00:11:00.766 --> 00:11:04.766
+and that's fine. Now watch the source control, as we do this! F5,
+
+167
+00:11:04.766 --> 00:11:08.766
+it's going to have suddenly a load of starter content come in. Great
+
+168
+00:11:08.766 --> 00:11:12.766
+that's fine! We want to go find the sphere in
+
+169
+00:11:12.766 --> 00:11:16.766
+there, it should
+
+170
+00:11:16.766 --> 00:11:20.766
+be in there somewhere. And Sphere is just a StaticMesh, I'm
+
+171
+00:11:20.766 --> 00:11:24.766
+going to move that to the Projectile. Now I can delete the Starter
+
+172
+00:11:24.766 --> 00:11:28.766
+Content again, and that's much neater, we're not holding on to a whole bunch
+
+173
+00:11:28.766 --> 00:11:32.766
+of stuff in the project that we don't need. I'm just grabbing the sphere that I need for the projectile,
+
+174
+00:11:32.766 --> 00:11:36.766
+putting it into the folder it should be in, and then, getting
+
+175
+00:11:36.766 --> 00:11:40.766
+rid of the rest of the starter content. So it says that, here
+
+176
+00:11:40.766 --> 00:11:44.766
+the Game Projectile is referencing a
+
+177
+00:11:44.766 --> 00:11:48.766
+basic wall material. I don't care, I don't need that material.
+
+178
+00:11:48.766 --> 00:11:52.766
+Lets just delete that, let all this starter content go,
+
+179
+00:11:52.766 --> 00:11:56.766
+pop back into the Projectile,
+
+180
+00:11:56.766 --> 00:12:00.766
+make sure that the CollisionMesh actually has a sphere mesh on it now.
+
+181
+00:12:00.766 --> 00:12:04.766
+It doesn't have any materials. Do we have a material? A
+
+182
+00:12:04.766 --> 00:12:08.766
+Rust material will do. I might as well reuse the material we have, so I'm setting the
+
+183
+00:12:08.766 --> 00:12:12.766
+StaticMesh in the material like that. Let's compile, make sure that we can see.
+
+184
+00:12:12.766 --> 00:12:16.766
+Yes we can, our rusty collision, our rusty
+
+185
+00:12:16.766 --> 00:12:20.766
+what do you call it, projectile there that's all good! Fantastic news, so I'm just going to close
+
+186
+00:12:20.766 --> 00:12:24.766
+the Editor now. I'm going to close VisualStudio.
+
+187
+00:12:24.766 --> 00:12:28.766
+I'm just going to make sure that on the disc we do not have
+
+188
+00:12:28.766 --> 00:12:32.766
+our... In Content we do not have a StarterContent folder.
+
+189
+00:12:32.766 --> 00:12:36.766
+Just reopen to make sure everything runs and we are in good shape! So this Starter
+
+190
+00:12:36.766 --> 00:12:40.766
+Content stuff could start to become a pain, if it does we'll look at further solutions, but we've
+
+191
+00:12:40.766 --> 00:12:44.766
+done number one, which is we've stabilized our system. We know what's changing
+
+192
+00:12:44.766 --> 00:12:48.766
+and what's not changing, everything is tracked properly under source control now. That is
+
+193
+00:12:48.766 --> 00:12:52.766
+good, that's worth fighting for. Then, what we will do if we really think this is a
+
+194
+00:12:52.766 --> 00:12:56.766
+hassle dealing with starter content as we'll find another solution, possibly using Get
+
+195
+00:12:56.766 --> 00:13:00.766
+LFS, which is the Large File Storage. So finally, let's see what's changed. We've
+
+196
+00:13:00.766 --> 00:13:04.766
+just got a few changes that have come in here, in this instance.
+
+197
+00:13:04.766 --> 00:13:08.766
+We have a few changes to some assets, we
+
+198
+00:13:08.766 --> 00:13:12.766
+have some changes to our code, etc. but no massive like
+
+199
+00:13:12.766 --> 00:13:16.766
+starter pack in here or anything in here, just a few expected changes.
+
+200
+00:13:16.766 --> 00:13:20.766
+OK fantastic! So I'll stage all those and see you in the next video!
+
+201
+00:13:20.766 --> 00:13:22.499
+
+
