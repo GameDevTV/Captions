@@ -1,0 +1,990 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:02.766
+
+
+2
+00:00:02.766 --> 00:00:06.766
+So welcome to the strangely named Using FAttachmentTransform
+
+3
+00:00:06.766 --> 00:00:10.766
+Rules! It sounds boring, it's called that just because it comes up well on Google search
+
+4
+00:00:10.766 --> 00:00:14.766
+for our sales page, but what we're doing is using a new API
+
+5
+00:00:14.766 --> 00:00:20.600
+and more importantly creating an impact blast! Look that, pretty cool! OK, see you in the video!
+
+6
+00:00:20.600 --> 00:00:24.600
+So let's work on this impact blast then! I'm going to use the same
+
+7
+00:00:24.600 --> 00:00:28.600
+particle effect as the launch blast, so I'm just going to duplicate it and just
+
+8
+00:00:28.600 --> 00:00:32.600
+call it ImpactBlast. It's going to be very
+
+9
+00:00:32.600 --> 00:00:36.600
+similar to that. Of course, all the dependencies of the ImpactBlast will
+
+10
+00:00:36.600 --> 00:00:40.600
+already be here, because it has the same dependencies
+
+11
+00:00:40.600 --> 00:00:44.600
+as the LaunchBlast. So if I save that ImpactBlast
+
+12
+00:00:44.600 --> 00:00:48.600
+and go into it, it should work, we should have no problems with it. And if we look at the Reference
+
+13
+00:00:48.600 --> 00:00:52.600
+Viewer now, after having saved it, you'll see it's picked up all of these
+
+14
+00:00:52.600 --> 00:00:56.600
+references, so we're reusing these things, which is good. OK cool!
+
+15
+00:00:56.600 --> 00:01:00.600
+So ImpactBlast, what's that going to look like then. Well, It's up to you to customize
+
+16
+00:01:00.600 --> 00:01:04.600
+it how you want, I'm not going to go through that too much, but before we do that,
+
+17
+00:01:04.600 --> 00:01:08.600
+let's just get it working from a coding point of view, so we can see it in situation,
+
+18
+00:01:08.600 --> 00:01:12.600
+rather than in isolation. So what do we want? We want on our Projectile
+
+19
+00:01:12.600 --> 00:01:16.600
+a new type of component, called an Impact
+
+20
+00:01:16.600 --> 00:01:20.600
+Blast, and that's almost identical to the LaunchBlast, so I'm not going to insult you by asking you to do it.
+
+21
+00:01:20.600 --> 00:01:24.600
+It's so much like the LaunchBlast that we literally copy this stuff.
+
+22
+00:01:24.600 --> 00:01:28.600
+Call it ImpactBlast in two different places,
+
+23
+00:01:28.600 --> 00:01:32.600
+actually over here as well, ImpactBlast
+
+24
+00:01:32.600 --> 00:01:36.600
+for the name, and of course, we
+
+25
+00:01:36.600 --> 00:01:40.600
+need to declare ImpactBlast, which I'll go and do in the header file right now. It's going to be
+
+26
+00:01:40.600 --> 00:01:44.600
+just like a LaunchBlast, same details so it's literally really
+
+27
+00:01:44.600 --> 00:01:48.600
+simple. The only difference is with the ImpactBlast, of course, is that we don't
+
+28
+00:01:48.600 --> 00:01:52.600
+want it to be activated at the start. So with the LaunchBlast we
+
+29
+00:01:52.600 --> 00:01:56.600
+have not said AutoActivate is false, so it is activated by default and that's
+
+30
+00:01:56.600 --> 00:02:00.600
+right, because we spawn the projectile into the world and it starts off with that particle effect.
+
+31
+00:02:00.600 --> 00:02:04.600
+But what we're going to want with the Impact
+
+32
+00:02:04.600 --> 00:02:08.600
+Blast is, we want it to be AutoActivate false, we don't want it to be
+
+33
+00:02:08.600 --> 00:02:12.600
+activated at the start. Alright, the other thing about this class here is
+
+34
+00:02:12.600 --> 00:02:16.600
+that we say a PrimaryActorTick.bCanEverTick = true. The projectile actually
+
+35
+00:02:16.600 --> 00:02:20.600
+doesn't need to tick, so we can say false here, because if you look
+
+36
+00:02:20.600 --> 00:02:24.600
+down you'll see that we don't use the Tick here at all. I'll leave the BeginPlay() in case we
+
+37
+00:02:24.600 --> 00:02:28.600
+need it but that's it. By the way, while we're talking about Auto Activate, you see that the Projectile
+
+38
+00:02:28.600 --> 00:02:32.600
+Movement does not activate, that's correct as well; we don't want the projectile to
+
+39
+00:02:32.600 --> 00:02:36.600
+move until we actually call the LaunchProjectile() method.
+
+40
+00:02:36.600 --> 00:02:40.600
+OK, so that's all working fine! Let me go ahead
+
+41
+00:02:40.600 --> 00:02:44.600
+and make sure that ImpactBlast is in the header file, because it's not saying that it is,
+
+42
+00:02:44.600 --> 00:02:48.600
+and of course, it isn't because I just copied.
+
+43
+00:02:48.600 --> 00:02:52.600
+OK, so ImpactBlast goes there, these lines get copied, Launch
+
+44
+00:02:52.600 --> 00:02:56.600
+Blast changed for ImpactBlast, and we make it non-auto-activating.
+
+45
+00:02:56.600 --> 00:03:00.600
+Let's go ahead, see if that compiles, and when it does compile or if it does
+
+46
+00:03:00.600 --> 00:03:04.600
+compile, what we should see is, of course, inside the
+
+47
+00:03:04.600 --> 00:03:08.600
+Projectile Blueprint, we should see on the left-hand side a LaunchBlast and
+
+48
+00:03:08.600 --> 00:03:12.600
+a ImpactBlast next to each other. Also, we want to be attaching to (Root Component). Yeah
+
+49
+00:03:12.600 --> 00:03:16.600
+we did that by default, because I just copied, I said let's have the same paradigm
+
+50
+00:03:16.600 --> 00:03:20.600
+as the launch blast, so copying code. So what have I done, I done a boo boo somewhere?
+
+51
+00:03:20.600 --> 00:03:24.600
+"The function is deprecated, use AttachToComponent instead",
+
+52
+00:03:24.600 --> 00:03:28.600
+"update your code". OK, on Projectile line (19) it
+
+53
+00:03:28.600 --> 00:03:32.600
+doesn't like AttachTo(RootComponent) and AttachToComponent.
+
+54
+00:03:32.600 --> 00:03:36.600
+It's funny that it didn't complain about that before, they're just warnings here,
+
+55
+00:03:36.600 --> 00:03:40.600
+and then, we have a linker error. OK so what's
+
+56
+00:03:40.600 --> 00:03:44.600
+happening here is quite interesting. We would have had these warnings before, but we weren't looking
+
+57
+00:03:44.600 --> 00:03:48.600
+at them. OK, so I'm not going to fix them, we'll come back to them. Let's just make
+
+58
+00:03:48.600 --> 00:03:52.600
+a note in the code that we need a TODO. "// TODO
+
+59
+00:03:52.600 --> 00:03:56.600
+update to Attach... Well "update
+
+60
+00:03:56.600 --> 00:04:00.600
+to new API". OK so we've actioned this, in that we've put a TODO,
+
+61
+00:04:00.600 --> 00:04:04.600
+but the thing is that the reason we have a failure of actual compilation
+
+62
+00:04:04.600 --> 00:04:08.600
+here is because we have unresolved externals, which always means that we have a mish
+
+63
+00:04:08.600 --> 00:04:12.600
+or nearly always means that we have a mismatch,
+
+64
+00:04:12.600 --> 00:04:16.600
+between the declaration of something in the header file and the implementation
+
+65
+00:04:16.600 --> 00:04:20.600
+in the other file; and what that is, actually, is
+
+66
+00:04:20.600 --> 00:04:24.600
+Tick, it's because I never took Tick out of the header file. So those
+
+67
+00:04:24.600 --> 00:04:28.600
+errors can be a little bit strange. Now let's go and compile again, because there's useful learning
+
+68
+00:04:28.600 --> 00:04:32.600
+in here, which is that when it compiles again, the compilation
+
+69
+00:04:32.600 --> 00:04:36.600
+will succeed, probably now hopefully, if I've done it right. The compilation
+
+70
+00:04:36.600 --> 00:04:40.600
+will succeed and we will miss those warnings, so I'm just going to make sure that you're
+
+71
+00:04:40.600 --> 00:04:44.600
+aware of how you can get to and check for those warnings. You see, compilation
+
+72
+00:04:44.600 --> 00:04:48.600
+successful, it hasn't told us anything's wrong here, but if we go to Window,
+
+73
+00:04:48.600 --> 00:04:52.600
+Developer Tools, and then, Message Log.
+
+74
+00:04:52.600 --> 00:04:56.600
+I think we should dock our message log here in future, because look, if we
+
+75
+00:04:56.600 --> 00:05:00.600
+come down here and have a look, we've got Compiler Log. Now let's read the Compiler Log.
+
+76
+00:05:00.600 --> 00:05:04.600
+There you go, the warning is there against the
+
+77
+00:05:04.600 --> 00:05:08.600
+Compile Log, and it's saying that we shouldn't use AttachTo, please use
+
+78
+00:05:08.600 --> 00:05:12.600
+AttachToComponent instead. OK well let's go and do that right away, but, the point here,
+
+79
+00:05:12.600 --> 00:05:16.600
+the general point is that a compilation succeeding does not mean there are no warnings, and warnings should still
+
+80
+00:05:16.600 --> 00:05:20.600
+be fixed. I'm just going to try changing to AttachTo
+
+81
+00:05:20.600 --> 00:05:24.600
+Component, like that, and we'll just check the, you know,
+
+82
+00:05:24.600 --> 00:05:28.600
+the documentation for AttachToComponent, at least the inline documentation here. I think
+
+83
+00:05:28.600 --> 00:05:32.600
+that's going to work OK. I won't remove the TODO till it's working. Let's try recompiling!
+
+84
+00:05:32.600 --> 00:05:36.600
+And this time, we'll keep an eye on the message log rather
+
+85
+00:05:36.600 --> 00:05:40.600
+than the output log, the Compiler Log here. And this will still tell us when
+
+86
+00:05:40.600 --> 00:05:44.600
+our... Here you go! It "does not take 1
+
+87
+00:05:44.600 --> 00:05:48.600
+arguments". OK, so you can't just do a straight transposition of one to the other, we actually
+
+88
+00:05:48.600 --> 00:05:52.600
+need to take a second to read that a lot more carefully and see what the
+
+89
+00:05:52.600 --> 00:05:56.600
+deal is, with regards to what it wants. So it wants a USceneComponent pointer
+
+90
+00:05:56.600 --> 00:06:02.600
+which I believe that the Root Component is, but it also wants an FAttachmentTransformRules.
+
+91
+00:06:02.600 --> 00:06:06.600
+So let's look at what this second parameter is, it wants an FAttachment
+
+92
+00:06:06.600 --> 00:06:10.600
+TransformRules. So it appears that this new AttachToComponent method just
+
+93
+00:06:10.600 --> 00:06:14.600
+wants us to be a little bit more explicit about how we attach. If you go to Google
+
+94
+00:06:14.600 --> 00:06:18.600
+and search for that, you'll have FAttachmentTransformRules. I've also
+
+95
+00:06:18.600 --> 00:06:22.600
+linked to this in the course resources. And what we're going to want to do
+
+96
+00:06:22.600 --> 00:06:26.600
+here is to provide a KeepRelativeTransform. What we're saying
+
+97
+00:06:26.600 --> 00:06:30.600
+there is that we want the ImpactBlast to go with the Projectile,
+
+98
+00:06:30.600 --> 00:06:34.600
+at least for now. We may decide to change that policy later, but that's where we're going to
+
+99
+00:06:34.600 --> 00:06:38.600
+start in both cases. So if we look... Sorry I'm flicking all over the
+
+100
+00:06:38.600 --> 00:06:42.600
+place. If we look at the documentation, it's just KeepRelativeTransform is
+
+101
+00:06:42.600 --> 00:06:46.600
+what we want OK, so it's a static. Alright, let's go ahead
+
+102
+00:06:46.600 --> 00:06:50.600
+and have a look at how that's going to work. So in the code we are simply going
+
+103
+00:06:50.600 --> 00:06:54.600
+to say FAttachmentTransformRules:: take the static off it, Keep
+
+104
+00:06:54.600 --> 00:06:58.600
+RelativeTransform and that should do it. Let's do that for both.
+
+105
+00:06:58.600 --> 00:07:02.600
+And by the same argument, I won't remove the TODO,
+
+106
+00:07:02.600 --> 00:07:06.600
+until it compiles without warnings. Let's go back and compile! So
+
+107
+00:07:06.600 --> 00:07:10.600
+from now on you've got this tool of the Message Log, an even better way to be compiling, because not only
+
+108
+00:07:10.600 --> 00:07:14.600
+do you catch errors but you catch warnings. Better than just looking at the
+
+109
+00:07:14.600 --> 00:07:18.600
+output log. OK the compile's complete, we've got no issues at all. If we want to look at our
+
+110
+00:07:18.600 --> 00:07:22.600
+Output Log, at the bottom, that's also pretty normal. So that's all good news!
+
+111
+00:07:22.600 --> 00:07:26.600
+Alright, let's give ourselves some more room. I will just show you the
+
+112
+00:07:26.600 --> 00:07:30.600
+code changes, I made a lot of changes in that lecture, just if this helps you, and then, we'll move onto the
+
+113
+00:07:30.600 --> 00:07:34.600
+next bit. So we stopped at ticking, and then we did this stuff that you
+
+114
+00:07:34.600 --> 00:07:38.600
+can see in here. We removed the Tick but the bulk of it is just this green
+
+115
+00:07:38.600 --> 00:07:42.600
+in there. OK, in the header file, we simply declared and removed the Tick function.
+
+116
+00:07:42.600 --> 00:07:46.600
+OK cool, so that's a recap of where we are! We are about
+
+117
+00:07:46.600 --> 00:07:50.600
+8 minutes into the video, so we've got time for some more. Great! So now
+
+118
+00:07:50.600 --> 00:07:54.600
+what we want to do is to actually customize this
+
+119
+00:07:54.600 --> 00:07:58.600
+ImpactBlast to be how we want it and to activate it when we
+
+120
+00:07:58.600 --> 00:08:02.600
+actually get a hit. So what I want you to do is revise a few lectures ago. I want you
+
+121
+00:08:02.600 --> 00:08:06.600
+register a component OnHit() event delegate. What a mouthful but we did
+
+122
+00:08:06.600 --> 00:08:10.600
+do it a few videos ago. Use the LaunchBlast arrow
+
+123
+00:08:10.600 --> 00:08:14.600
+Deactivate() method, in order to turn off
+
+124
+00:08:14.600 --> 00:08:18.600
+the LaunchBlast, the one that's leaving the smoke trail, when
+
+125
+00:08:18.600 --> 00:08:22.600
+the collider hits something, we turn off the LaunchBlast. Add an Impact
+
+126
+00:08:22.600 --> 00:08:26.600
+Blast particle effect to the projectile. We've already done most of that, we probably haven't
+
+127
+00:08:26.600 --> 00:08:30.600
+actually wired up, in the blueprint, the impact blast. We've done most of it.
+
+128
+00:08:30.600 --> 00:08:34.600
+Activate that on impact, and you activate it using a very similar line to the
+
+129
+00:08:34.600 --> 00:08:38.600
+LaunchBlast Deactivate(), I guess you could imagine what it is. And then, share your
+
+130
+00:08:38.600 --> 00:08:42.600
+explosion with the community and I'll see you in a minute!
+
+131
+00:08:42.600 --> 00:08:46.600
+OK welcome back! So the first thing, I don't think
+
+132
+00:08:46.600 --> 00:08:50.600
+we've done is gone into this ImpactBlast and actually assigned the Impact
+
+133
+00:08:50.600 --> 00:08:54.600
+Blast to the component. So that's done now, if we
+
+134
+00:08:54.600 --> 00:08:58.600
+compile and play that, well then it crashes! Let's just try again. No
+
+135
+00:08:58.600 --> 00:09:02.600
+I don't think there's any particular reason it would have crashed there. I don't think we've done any naughties,
+
+136
+00:09:02.600 --> 00:09:06.600
+not protecting components. Again, my general policy is if it crashes once,
+
+137
+00:09:06.600 --> 00:09:10.600
+don't worry. You might want to run the debugger now, in case it crashes a second time. I'm not going
+
+138
+00:09:10.600 --> 00:09:14.600
+to, I'm just going to reattach the ImpactBlast, compile that, and you see it's
+
+139
+00:09:14.600 --> 00:09:18.600
+absolutely fine. Let's just have a look! We have a LaunchBlast and an ImpactBlast
+
+140
+00:09:18.600 --> 00:09:22.600
+doing basically the same thing, so you can't really tell. It looks like we've just got two particle effects on top of
+
+141
+00:09:22.600 --> 00:09:26.600
+each other. It doesn't look a lot different. OK let's go to the code and think about
+
+142
+00:09:26.600 --> 00:09:30.600
+what we're going to do! Several videos ago we did an OnComponent  hit event,
+
+143
+00:09:30.600 --> 00:09:34.600
+so why don't we just go find that! "OnComponent
+
+144
+00:09:34.600 --> 00:09:38.600
+Hit, and we can go to the entire project and
+
+145
+00:09:38.600 --> 00:09:42.600
+go find that. OK, so what we needed to do in BeginPlay(), when we did this
+
+146
+00:09:42.600 --> 00:09:46.600
+on the TankTrack, is we needed to add a dynamic delegate.
+
+147
+00:09:46.600 --> 00:09:50.600
+So well that's the first thing I've found, let's do that on BeginPlay() of the Projectile.
+
+148
+00:09:50.600 --> 00:09:54.600
+Let's just model what we've done before, it worked before, let's do it again. OK let's keep going!
+
+149
+00:09:54.600 --> 00:09:58.600
+So OnComponentHit, OK so the next thing we need to know
+
+150
+00:09:58.600 --> 00:10:02.600
+is where the definition of the OnHitEvent is inside this TankTrack.
+
+151
+00:10:02.600 --> 00:10:06.600
+So there it is, OnHit, and it's got this massive signature,
+
+152
+00:10:06.600 --> 00:10:10.600
+so let's just go take it. I'm going to put,
+
+153
+00:10:10.600 --> 00:10:14.600
+after LaunchProjectile I'm going to put OnHit like that, put some
+
+154
+00:10:14.600 --> 00:10:18.600
+squigglies, and the only thing you need to be aware of, of course, is changing from your Projectile
+
+155
+00:10:18.600 --> 00:10:22.600
+to your TankTrack to your Projectile. OK let's keep going! If we've got a
+
+156
+00:10:22.600 --> 00:10:26.600
+none hit here in the TankTrack.cpp, then we must have some
+
+157
+00:10:26.600 --> 00:10:30.600
+declaration of that, so let's go see how we did that before. We made it a UFUNCTION(),
+
+158
+00:10:30.600 --> 00:10:34.600
+and let's just copy that straight into the Projectile. Let's
+
+159
+00:10:34.600 --> 00:10:38.600
+think about the protection. It was private, so let's just try private again.
+
+160
+00:10:38.600 --> 00:10:42.600
+And there's no reason for it to be anything but private either. It's a method,
+
+161
+00:10:42.600 --> 00:10:46.600
+so I like it to go at the top. I don't know why, they just seem like they should go at the
+
+162
+00:10:46.600 --> 00:10:50.600
+top, it doesn't matter at all. OK so hopefully that's it! We just put an
+
+163
+00:10:50.600 --> 00:10:54.600
+OnHit here, we have defined it here. Well we're not doing
+
+164
+00:10:54.600 --> 00:10:58.600
+anything yet. I think what would probably make sense to do here is to go
+
+165
+00:10:58.600 --> 00:11:02.600
+to the LaunchBlast and deactivate it,
+
+166
+00:11:02.600 --> 00:11:06.600
+so... I gave you that in the slide, didn't I? I said
+
+167
+00:11:06.600 --> 00:11:10.600
+LaunchBlast Deactivate().
+
+168
+00:11:10.600 --> 00:11:14.600
+So we're going to do that OnHit, as an indication that we have hit
+
+169
+00:11:14.600 --> 00:11:18.600
+something, and let's see if that is working and if the collisions are actually happening.
+
+170
+00:11:18.600 --> 00:11:22.600
+Let's compile! Again, I don't know why I've gotten rid of my Message Log, so I'm going to bring
+
+171
+00:11:22.600 --> 00:11:26.600
+it back, dock it down here, and start looking
+
+172
+00:11:26.600 --> 00:11:30.600
+at the message log. The part of the Message Log you want is the Compile Log
+
+173
+00:11:30.600 --> 00:11:34.600
+there, you'll get nothing out of it until the compiler is finished. Ooh, " 'OnComponent
+
+174
+00:11:34.600 --> 00:11:38.600
+Hit' : undeclared identifier" on line (33).
+
+175
+00:11:38.600 --> 00:11:42.600
+And the problem here is that I'm trying to run OnComponentHit
+
+176
+00:11:42.600 --> 00:11:46.600
+or access OnComponentHit on a projectile, which
+
+177
+00:11:46.600 --> 00:11:50.600
+actually, if you think about it, is not a component at all, it is an
+
+178
+00:11:50.600 --> 00:11:54.600
+actor. So what we need to do is, we need to do the OnComponentHit, we need you to register
+
+179
+00:11:54.600 --> 00:11:58.600
+that against the CollisionMesh OnComponent
+
+180
+00:11:58.600 --> 00:12:02.600
+Hit. OK so that was the dark side of all that copying
+
+181
+00:12:02.600 --> 00:12:06.600
+was that, obviously, it didn't think about what we're doing with the On
+
+182
+00:12:06.600 --> 00:12:10.600
+ComponentHit. Because we're not a component, we need to get into the scope of the component we're talking about.
+
+183
+00:12:10.600 --> 00:12:14.600
+Let's see if that'll compile!
+
+184
+00:12:14.600 --> 00:12:18.600
+UTankTrack is not a class or namespace. And the other dark side, of course,
+
+185
+00:12:18.600 --> 00:12:22.600
+of the copying and pasting is I didn't change that UTankTrack to AProjectile there.
+
+186
+00:12:22.600 --> 00:12:26.600
+Now let's go ahead and compile again! So you can see that copying and pasting clearly saves you a load
+
+187
+00:12:26.600 --> 00:12:30.600
+of time but it also has, as I say, has a darker side, which is that you end up
+
+188
+00:12:30.600 --> 00:12:34.600
+bringing stuff in which can cause you some issues. So it's up to you how much copying and
+
+189
+00:12:34.600 --> 00:12:38.600
+pasting you do vs. writing original code. I thought I'd show you that approach. So
+
+190
+00:12:38.600 --> 00:12:42.600
+it's compiled which is great! Now let's just play the game! Not really necessarily going to be able to
+
+191
+00:12:42.600 --> 00:12:46.600
+see that that... Yes we can, we can see that that particle effect has stopped. You can particularly
+
+192
+00:12:46.600 --> 00:12:50.600
+see it, if you temporarily get rid of the impact blast, just
+
+193
+00:12:50.600 --> 00:12:54.600
+un-assign it. We can just clear that here.
+
+194
+00:12:54.600 --> 00:12:58.600
+Compile the blueprint, play the game, and then,
+
+195
+00:12:58.600 --> 00:13:02.600
+if we just go into the world with F8 and move over to the site
+
+196
+00:13:02.600 --> 00:13:06.600
+of these...
+
+197
+00:13:06.600 --> 00:13:10.600
+...these cannon ball things. You can see that there's no smoke coming out of them, they are deactivated now.
+
+198
+00:13:10.600 --> 00:13:14.600
+OK so that is what's going on! They are deactivated, those components
+
+199
+00:13:14.600 --> 00:13:18.600
+on them are deactivated. You could click into, of course, the actual thing, and
+
+200
+00:13:18.600 --> 00:13:22.600
+you could look and look at the LaunchBlast and then you could probably go into the Details
+
+201
+00:13:22.600 --> 00:13:26.600
+and even confirm that it's deactivated,
+
+202
+00:13:26.600 --> 00:13:30.600
+if it's exposed.
+
+203
+00:13:30.600 --> 00:13:34.600
+No it's not, whether it's actually activated
+
+204
+00:13:34.600 --> 00:13:38.600
+right now is not exposed as a parameter, but you can see it's not activated. So that
+
+205
+00:13:38.600 --> 00:13:42.600
+process of deactivating it on landing, deactivating the LaunchBlast
+
+206
+00:13:42.600 --> 00:13:46.600
+on landing has worked, and it will no longer emit a launch trail. So video's got
+
+207
+00:13:46.600 --> 00:13:50.600
+quite long. I think what we need to do is stop there, for the moment, and just
+
+208
+00:13:50.600 --> 00:13:54.600
+take track on how far we've got. What have you got? Add an ImpactBlast
+
+209
+00:13:54.600 --> 00:13:58.600
+to the projectile, activate it. No we can do that, we can activate
+
+210
+00:13:58.600 --> 00:14:02.600
+that ImpactBlast in the last couple of minutes. Let's just do that. So back to the Projectile Blueprint!
+
+211
+00:14:02.600 --> 00:14:06.600
+ImpactBlast, reassign the Particle System.
+
+212
+00:14:06.600 --> 00:14:10.600
+I'm just going to do something to the ParticleSystem that makes it super obvious,
+
+213
+00:14:10.600 --> 00:14:14.600
+like take the Initial Size of the FireBall, plot just
+
+214
+00:14:14.600 --> 00:14:18.600
+the Initial Size of the FireBall on the graph. Go and say,
+
+215
+00:14:18.600 --> 00:14:22.600
+what's the size range? I'm going to zoom right out and just make it much bigger,
+
+216
+00:14:22.600 --> 00:14:26.600
+like that.
+
+217
+00:14:26.600 --> 00:14:30.600
+Actually, it's going to be easier just to look and say, well these are uniform vectors they have
+
+218
+00:14:30.600 --> 00:14:34.600
+X, Y, Z, so let's just ramp up the maximum possible
+
+219
+00:14:34.600 --> 00:14:38.600
+size and the minimum possible size in X,
+
+220
+00:14:38.600 --> 00:14:42.600
+Y, and Z. It can be asymmetric for now. And what that should do is, when
+
+221
+00:14:42.600 --> 00:14:46.600
+we get an impact blast... Whoah there it is! So, we're starting with the
+
+222
+00:14:46.600 --> 00:14:50.600
+ImpactBlast activated, we don't want that, we want to make sure that AutoActivate
+
+223
+00:14:50.600 --> 00:14:54.600
+is turned off. Now, you go to
+
+224
+00:14:54.600 --> 00:14:58.600
+the Projectile, ImpactBlast,
+
+225
+00:14:58.600 --> 00:15:02.600
+we then search for "auto" activate and it's on. It wants to be off.
+
+226
+00:15:02.600 --> 00:15:06.600
+And it should have been made the default of in the C++. I thought
+
+227
+00:15:06.600 --> 00:15:10.600
+we did that, so let's go and have a look, where we add the ImpactBlast.
+
+228
+00:15:10.600 --> 00:15:14.600
+AutoActivate = false. Ahh look, I've copied again!
+
+229
+00:15:14.600 --> 00:15:18.600
+Wow! I am doing lost of copy and paste boo boos right now!
+
+230
+00:15:18.600 --> 00:15:22.600
+That is why the ImpactBlast did not AutoActivate false!
+
+231
+00:15:22.600 --> 00:15:26.600
+So let's just recompile. Now, when you do this recompilation, the
+
+232
+00:15:26.600 --> 00:15:30.600
+setting that you have against this ImpactBlast component, the fact I've said
+
+233
+00:15:30.600 --> 00:15:34.600
+not AutoActivate in Blueprint is still overriding what's happening in the C++.
+
+234
+00:15:34.600 --> 00:15:38.600
+It's just that the little arrow will go away, because it's now at the new
+
+235
+00:15:38.600 --> 00:15:42.600
+default value. So let's just watch this, see what happens!
+
+236
+00:15:42.600 --> 00:15:46.600
+It's nearly there, what we haven't done is reactivated this on
+
+237
+00:15:46.600 --> 00:15:50.600
+impact. So where we see our OnHit we inactivate the LaunchBlast
+
+238
+00:15:50.600 --> 00:15:54.600
+and we Activate()
+
+239
+00:15:54.600 --> 00:15:58.600
+the ImpactBlast. Let's compile that!
+
+240
+00:15:58.600 --> 00:16:02.600
+And it's pretty simple and meaningful, all of this. I like it, I like the way the code's coming together.
+
+241
+00:16:02.600 --> 00:16:06.600
+So a few little mistakes and hiccups for me, in this video, but again I'm leaving
+
+242
+00:16:06.600 --> 00:16:10.600
+those in, because my general feedback from you guys is that's better, it's more realistic, it's
+
+243
+00:16:10.600 --> 00:16:14.600
+more live and uncut. It's more like the journey you guys are probably having,
+
+244
+00:16:14.600 --> 00:16:18.600
+so hopefully you like that. Boom! Look at that! That's enough for this
+
+245
+00:16:18.600 --> 00:16:22.600
+video! Congratulations! I want you to snapshot your beautiful impacts and things
+
+246
+00:16:22.600 --> 00:16:26.600
+and share them in the community! And I'll see you in the next video!
+
+247
+00:16:26.600 --> 00:16:26.900
+
+
