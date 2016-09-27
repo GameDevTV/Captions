@@ -1,0 +1,850 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So welcome to Blueprint
+
+2
+00:00:04.000 --> 00:00:08.000
+Pure & Health Bars! In this video we will be using
+
+3
+00:00:08.000 --> 00:00:12.000
+BlueprintPure in C++ and giving ourselves a nice read only
+
+4
+00:00:12.000 --> 00:00:17.966
+function and also setting up these little blue health bars above our tank, so we know what state we're in. So see you in there!
+
+5
+00:00:17.966 --> 00:00:21.966
+OK, so to get these health bars going, let's start off
+
+6
+00:00:21.966 --> 00:00:25.966
+by going into the Tank Blueprint! We're going to need a new component on the Tank
+
+7
+00:00:25.966 --> 00:00:29.966
+Blueprint, so we want a Widget Component. Now they're saying that that's an
+
+8
+00:00:29.966 --> 00:00:33.966
+experimental component, recently added, but it should be fine. So
+
+9
+00:00:33.966 --> 00:00:37.966
+just add a Widget to the tank. And, for now, we'll just call it
+
+10
+00:00:37.966 --> 00:00:41.966
+Widget, actually, rather than calling it health bar, just to keep things separate, because
+
+11
+00:00:41.966 --> 00:00:45.966
+this is a component of the tank and it is a widget, but we're actually going
+
+12
+00:00:45.966 --> 00:00:49.966
+to want to make a Widget class for it, a Health
+
+13
+00:00:49.966 --> 00:00:53.966
+Bar Widget class. So it's a component inside a component, if you like. The Widget is a
+
+14
+00:00:53.966 --> 00:00:57.966
+component of the tank, and then, the health bar that we're going to make
+
+15
+00:00:57.966 --> 00:01:01.966
+will be a blueprint that we will specify in here, in this Widget class.
+
+16
+00:01:01.966 --> 00:01:05.966
+OK, so we have the Widget on the tank, that's not going to do anything,
+
+17
+00:01:05.966 --> 00:01:09.966
+right now. If we play the game it just does nothing, but we have it available
+
+18
+00:01:09.966 --> 00:01:13.966
+at least. Now let's go and make ourselves a new blueprint, I'm going to put it in the
+
+19
+00:01:13.966 --> 00:01:17.966
+UI folder, and I'm going to make a new blueprint of type Widget Blueprint
+
+20
+00:01:17.966 --> 00:01:21.966
+here, under the User Interface section. So there you go, I'm going to call it HealthBar.
+
+21
+00:01:21.966 --> 00:01:25.966
+And then, we have the starting point for our HealthBar. Let's go into
+
+22
+00:01:25.966 --> 00:01:29.966
+that HealthBar. Now it's actually going to be a very simple piece of UI. If you
+
+23
+00:01:29.966 --> 00:01:33.966
+look, you've got something here called a Progress Bar. Let's drop that Progress Bar
+
+24
+00:01:33.966 --> 00:01:37.966
+onto the Canvas Panel, so I'm dragging from Common, Progress Bar, dropping it onto the Canvas
+
+25
+00:01:37.966 --> 00:01:41.966
+Panel, and that puts me a Progress Bar component. Now remember
+
+26
+00:01:41.966 --> 00:01:45.966
+I said, whenever you drop UI Components down, the first you want to think about is your anchors, and in this case,
+
+27
+00:01:45.966 --> 00:01:49.966
+we want the Progress Bar to actually fill the canvas altogether. You'll see how
+
+28
+00:01:49.966 --> 00:01:53.966
+that pans out in a moment. So we pull the anchor point, the bottom-right anchor
+
+29
+00:01:53.966 --> 00:01:57.966
+point down to 100% like this. And that way this offset that
+
+30
+00:01:57.966 --> 00:02:01.966
+you see, under the Anchors, in the Details tab is
+
+31
+00:02:01.966 --> 00:02:05.966
+relative to the bottom-right anchor point. So you'll see if I grab
+
+32
+00:02:05.966 --> 00:02:09.966
+the actual bar, you see those numbers getting smaller. So that tells us, pretty much
+
+33
+00:02:09.966 --> 00:02:13.966
+straight away, that if we want to fill out the entire canvas with
+
+34
+00:02:13.966 --> 00:02:17.966
+the Progress Bar, so our entire UI is just a Progress Bar,
+
+35
+00:02:17.966 --> 00:02:21.966
+then we put a 0.0 Offset for Right and
+
+36
+00:02:21.966 --> 00:02:25.966
+Bottom. And there you go, the canvas is now full of health bar! Now we'll
+
+37
+00:02:25.966 --> 00:02:29.966
+worry about sizing and scaling it elsewhere, but that is pretty much it,
+
+38
+00:02:29.966 --> 00:02:33.966
+as far as the health bar is concerned, apart from, if you look down, we're going to need to
+
+39
+00:02:33.966 --> 00:02:37.966
+bind this Percent. We can do that now, and what
+
+40
+00:02:37.966 --> 00:02:41.966
+that's going to do is it's going to give us, under the Graph of the health
+
+41
+00:02:41.966 --> 00:02:45.966
+bar, it's going to give us a Get Percent. It's calling it underscore 0. I'm going to use F2
+
+42
+00:02:45.966 --> 00:02:49.966
+to just take off the underscore 0. And it's got a Get Percent function,
+
+43
+00:02:49.966 --> 00:02:53.966
+and what we're going to do is we're actually going to make a BlueprintPure, as
+
+44
+00:02:53.966 --> 00:02:57.966
+it happens, type of function, that is going to get us our health percent.
+
+45
+00:02:57.966 --> 00:03:01.966
+But in order to do that, we're going to need to be able to reference the tank, and we're a little bit away
+
+46
+00:03:01.966 --> 00:03:05.966
+from the tank, right now. If you think about where we are, the tank has a Widget on it. The
+
+47
+00:03:05.966 --> 00:03:09.966
+Widget is of Widget Class, HealthBar. Now we can
+
+48
+00:03:09.966 --> 00:03:13.966
+choose that, by the way now, back in the component of the tank. You can specify this
+
+49
+00:03:13.966 --> 00:03:17.966
+Health Bar, and then, if we browse with the magnifying glass, this is the Health Bar that we've
+
+50
+00:03:17.966 --> 00:03:21.966
+created. So we're two levels of indirection away from the tank itself, and we need to find a
+
+51
+00:03:21.966 --> 00:03:25.966
+way of actually finding the tank and writing a method on it,
+
+52
+00:03:25.966 --> 00:03:29.966
+that we can access here. So let's think about that! The first thing
+
+53
+00:03:29.966 --> 00:03:33.966
+is that we go back to the tank. The tank itself is going to do need to expose its health
+
+54
+00:03:33.966 --> 00:03:37.966
+percent. So what I'm going to do on a tank is, I'm going to take the constructor and pop it into the private
+
+55
+00:03:37.966 --> 00:03:41.966
+section, just because I want to keep the public interface tidy. I'm then going to make
+
+56
+00:03:41.966 --> 00:03:45.966
+myself a float, GetHealth
+
+57
+00:03:45.966 --> 00:03:49.966
+Percent. Percentage or percent? Let's just say Percent.
+
+58
+00:03:49.966 --> 00:03:53.966
+It doesn't actually need to take any parameters and it's going to return a percentage
+
+59
+00:03:53.966 --> 00:03:57.966
+health, and it's going to return a percentage health between 0 and
+
+60
+00:03:57.966 --> 00:04:01.966
+1. So we could say that "// Returns current health
+
+61
+00:04:01.966 --> 00:04:05.966
+as a percentage
+
+62
+00:04:05.966 --> 00:04:09.966
+of starting health, between
+
+63
+00:04:09.966 --> 00:04:13.966
+0 and 1". OK,
+
+64
+00:04:13.966 --> 00:04:17.966
+so let's make this thing a UFUNCTION. And I'm
+
+65
+00:04:17.966 --> 00:04:21.966
+going to introduce you to a new annotation. Now, I'll link this in the notes for you.
+
+66
+00:04:21.966 --> 00:04:25.966
+But there is something called a "blueprintpure",
+
+67
+00:04:25.966 --> 00:04:29.966
+and BlueprintPure is a bit like the Blueprint equivalent of
+
+68
+00:04:29.966 --> 00:04:33.966
+const in C++. It "does not effect the owning object in any way
+
+69
+00:04:33.966 --> 00:04:37.966
+and can be executed in a Blueprint or Level Blueprint graph."
+
+70
+00:04:37.966 --> 00:04:41.966
+In fact, we don't even need to worry about the execution flow nodes with BlueprintPure, as you'll
+
+71
+00:04:41.966 --> 00:04:45.966
+see, because it's not mutating or changing anything. So BlueprintPure allows us
+
+72
+00:04:45.966 --> 00:04:49.966
+to make this read only Pure
+
+73
+00:04:49.966 --> 00:04:53.966
+function, that we can be sure doesn't change anything. The Category,
+
+74
+00:04:53.966 --> 00:04:57.966
+I'm just going to say, equals "Health".
+
+75
+00:04:57.966 --> 00:05:01.966
+Alright, so it's pretty simple. We've got this float GetHealthPercent(), and, in fact, it should
+
+76
+00:05:01.966 --> 00:05:05.966
+be const as well, because we don't want GetHealthPercent to
+
+77
+00:05:05.966 --> 00:05:09.966
+be mutating any of the properties. So let's go and implement GetHealthPercent! I'm
+
+78
+00:05:09.966 --> 00:05:13.966
+going to do the quick thing, with VisualStudio.
+
+79
+00:05:13.966 --> 00:05:17.966
+Well I say quick, let's see if it's any quicker! I think it is a tiny bit quicker. And here
+
+80
+00:05:17.966 --> 00:05:21.966
+it is! Now, what are we going to return in GetHealthPercent? Well we've got two
+
+81
+00:05:21.966 --> 00:05:25.966
+values, we have a CurrentHealth and a StartingHealth. I just want to return the percentage of CurrentHealth over
+
+82
+00:05:25.966 --> 00:05:29.966
+StartingHealth. One way to do that with these floating points is like this, we can
+
+83
+00:05:29.966 --> 00:05:33.966
+put cast the CurrentHealth
+
+84
+00:05:33.966 --> 00:05:37.966
+to a float like that, and then, we can, while we're
+
+85
+00:05:37.966 --> 00:05:41.966
+doing the division, also cast the StartingHealth
+
+86
+00:05:41.966 --> 00:05:45.966
+to a float. So we're doing floating point division here, ensuring
+
+87
+00:05:45.966 --> 00:05:49.966
+that we are returning a floating point, because we've got a float over a float. Remember
+
+88
+00:05:49.966 --> 00:05:53.966
+that the current and the StartingHealth aren't floats, they're inte32's.
+
+89
+00:05:53.966 --> 00:05:57.966
+So these pretty sensibly get converted from a whole number into a
+
+90
+00:05:57.966 --> 00:06:01.966
+floating point number, then we do a floating point calculation and return the value.
+
+91
+00:06:01.966 --> 00:06:05.966
+So that is the GetHealthPercent method! Let's just compile up and make
+
+92
+00:06:05.966 --> 00:06:09.966
+sure that that is all at least compiling.
+
+93
+00:06:09.966 --> 00:06:13.966
+And we could if we wanted to, on the tank, test that GetHealthPercent, by going
+
+94
+00:06:13.966 --> 00:06:17.966
+to the Event Graph and going and finding the Tick() method.
+
+95
+00:06:17.966 --> 00:06:21.966
+And then, as soon as the compilation is finished, we should have the ability to GetHealthPercent,
+
+96
+00:06:21.966 --> 00:06:25.966
+but it won't be there until compiled.
+
+97
+00:06:25.966 --> 00:06:29.966
+So what we need to do is just grab a reference to ourselves, to the tank,...
+
+98
+00:06:29.966 --> 00:06:33.966
+...from
+
+99
+00:06:33.966 --> 00:06:37.966
+the tank reference. We should have the option for a
+
+100
+00:06:37.966 --> 00:06:41.966
+GetHealthPercent, and what we can do
+
+101
+00:06:41.966 --> 00:06:45.966
+every tick... And you see how this Get Health Percent doesn't have execution nodes.
+
+102
+00:06:45.966 --> 00:06:49.966
+You see it does not have the white nodes, because it can't change anything, it doesn't matter when this
+
+103
+00:06:49.966 --> 00:06:53.966
+happens, which is quite handy. That's a good sign, the more of that we can have in the blueprint the better.
+
+104
+00:06:53.966 --> 00:06:57.966
+It is the execution flow that goes alongside the data flow, so the execution
+
+105
+00:06:57.966 --> 00:07:01.966
+flow being the white stuff that makes things confusing. So then, we're
+
+106
+00:07:01.966 --> 00:07:05.966
+just going to need to turn this into a string and it seems
+
+107
+00:07:05.966 --> 00:07:09.966
+to be doing that straight for us. So we wire up every tick, we're going to print the Health
+
+108
+00:07:09.966 --> 00:07:13.966
+Percent of the tank. Let's just make sure that that works! So we're getting
+
+109
+00:07:13.966 --> 00:07:17.966
+hello hello hello, rather than a HealthPercent, and that's because I've wired it to the duration.
+
+110
+00:07:17.966 --> 00:07:21.966
+And I never compiled, so let's just convert this float into a string
+
+111
+00:07:21.966 --> 00:07:25.966
+and wire it in there.
+
+112
+00:07:25.966 --> 00:07:29.966
+OK, this is more sensible. Compile that, play it! Now we're
+
+113
+00:07:29.966 --> 00:07:33.966
+getting 1.0, 1.0. So that's the two tanks, me and the enemy tank both have a
+
+114
+00:07:33.966 --> 00:07:37.966
+health of 1.0, at the top-left of the viewport. You see my health has now gone down to
+
+115
+00:07:37.966 --> 00:07:41.966
+0.8 and 0.6 and so on, so that's working! That's brilliant! I'm
+
+116
+00:07:41.966 --> 00:07:45.966
+going to get rid of this test code, now that we know that that works, and that is just a simple
+
+117
+00:07:45.966 --> 00:07:49.966
+way of testing what you've done in Blueprint. OK
+
+118
+00:07:49.966 --> 00:07:53.966
+fine, so now the question comes, how do we get the reference to the
+
+119
+00:07:53.966 --> 00:07:57.966
+tank from the HealthBar. Well what we're going to need to do, over in the tank, is we're going to need to do a very similar
+
+120
+00:07:57.966 --> 00:08:01.966
+initialize to what we did before. So starting with this
+
+121
+00:08:01.966 --> 00:08:05.966
+Widget component, what I want you to do is to work
+
+122
+00:08:05.966 --> 00:08:09.966
+out how to come off this. Get the User Widget, so I'll help you
+
+123
+00:08:09.966 --> 00:08:13.966
+a little bit. Get the User Widget Object. You may have to cast or change the type,
+
+124
+00:08:13.966 --> 00:08:17.966
+and then, I want you to make a setter, a Blueprint setter, that is going
+
+125
+00:08:17.966 --> 00:08:21.966
+to set a variable that you'll specify over here on the HealthBar. So you're going to need to make
+
+126
+00:08:21.966 --> 00:08:25.966
+yourself a variable of type Tank over here on the HealthBar, so
+
+127
+00:08:25.966 --> 00:08:29.966
+that we can get a tank reference. We'll be able to drag it in from here. Make a variable of type
+
+128
+00:08:29.966 --> 00:08:33.966
+tank, and then, set that variable from here. If we come off here, we should be able to set
+
+129
+00:08:33.966 --> 00:08:37.966
+the variable, wire up the execution as appropriate, and then, we'll tidy
+
+130
+00:08:37.966 --> 00:08:41.966
+this up a little bit later. I know it's going to be messy but let's just see if you can do that.
+
+131
+00:08:41.966 --> 00:08:45.800
+
+
+132
+00:08:45.800 --> 00:08:49.800
+OK wonderful! So let's get this going! Over on the HealthBar we're going to need a
+
+133
+00:08:49.800 --> 00:08:53.800
+variable for the tank, so I'm simply going to call it Tank or Owning
+
+134
+00:08:53.800 --> 00:08:57.800
+Tank. I just call it MyTank, I think, because it's
+
+135
+00:08:57.800 --> 00:09:01.800
+the tank that is relevant to this particular HealthBar. What type is it? Well it's of
+
+136
+00:09:01.800 --> 00:09:05.800
+type tank, so let's search that for that. There you go,
+
+137
+00:09:05.800 --> 00:09:09.800
+Tank! OK great! So now we have this My Tank
+
+138
+00:09:09.800 --> 00:09:13.800
+reference here, we can get it from my Tank.
+
+139
+00:09:13.800 --> 00:09:17.800
+If this was set, we'd be able to get the Health Percent
+
+140
+00:09:17.800 --> 00:09:21.800
+like so, and then, we can simply, all this HealthBar does
+
+141
+00:09:21.800 --> 00:09:25.800
+is that. It just goes, OK find my tank and
+
+142
+00:09:25.800 --> 00:09:29.800
+return me the Health Percent and set the UI
+
+143
+00:09:29.800 --> 00:09:33.800
+accordingly and then we'll worry about spacing and setting up the UI. But in the tank
+
+144
+00:09:33.800 --> 00:09:37.800
+the challenge that you had to do, of course, was to go and find that. So how are we going to do it? Well we get the User
+
+145
+00:09:37.800 --> 00:09:41.800
+Widget Object, like that, but we need to cast this to a HealthBar,
+
+146
+00:09:41.800 --> 00:09:45.800
+because, at the moment, it is just a generic widget object. Now it's a HealthBar! Let's
+
+147
+00:09:45.800 --> 00:09:49.800
+bring the execution flow in, and if the cast succeeds,
+
+148
+00:09:49.800 --> 00:09:53.800
+then from this we can set tank, Set
+
+149
+00:09:53.800 --> 00:09:57.800
+My Tank. Yeah, because that's the variable we just set over in
+
+150
+00:09:57.800 --> 00:10:01.800
+that HealthBar and the HealthBar has a My Tank variable, and at this node we're
+
+151
+00:10:01.800 --> 00:10:05.800
+in the context of the Health Bar. So this is how we go from
+
+152
+00:10:05.800 --> 00:10:09.800
+the tank to the HealthBar, the HealthBar finds out about it's
+
+153
+00:10:09.800 --> 00:10:13.800
+tank. Now I don't like this, because it's a different level of abstraction to these other things. This is saying
+
+154
+00:10:13.800 --> 00:10:17.800
+Initialize Tank Aiming, Initialize Tank Movement Component, and then, suddenly we're initializing
+
+155
+00:10:17.800 --> 00:10:21.800
+the HealthBar Widget. Well because that's what we're doing, why don't we highlight all these
+
+156
+00:10:21.800 --> 00:10:25.800
+nodes, right-click, and say Collapse to Function. You can do exactly the same in
+
+157
+00:10:25.800 --> 00:10:29.800
+Blueprint as you will in C++. So there you go, that's now
+
+158
+00:10:29.800 --> 00:10:33.800
+collapsed down. All we need to do is go and find it and rename
+
+159
+00:10:33.800 --> 00:10:37.800
+it to Initialize
+
+160
+00:10:37.800 --> 00:10:41.800
+HealthBarWidget.
+
+161
+00:10:41.800 --> 00:10:45.800
+OK, now that's much clearer, and we're operating at the same level of
+
+162
+00:10:45.800 --> 00:10:49.800
+abstraction. You can double-click into that, to see what it is. You can tidy it up all you like,
+
+163
+00:10:49.800 --> 00:10:53.800
+but the point is that this is now a consistent Event Graph hanging off
+
+164
+00:10:53.800 --> 00:10:57.800
+BeginPlay(). So "The property associated with My Tank
+
+165
+00:10:57.800 --> 00:11:01.800
+could not be found". So if you have any problems with this node saying
+
+166
+00:11:01.800 --> 00:11:05.800
+My Tank's not recognized, just ensure that your HealthBar is compiled and saved,
+
+167
+00:11:05.800 --> 00:11:09.800
+and then, remove it and re-add it. The other thing we can do is, we can break the
+
+168
+00:11:09.800 --> 00:11:13.800
+link from Cast Failed to the Return Node. We don't need to worry too much about handling
+
+169
+00:11:13.800 --> 00:11:17.800
+that cast failing, I don't think here, and then, we have a nice simple tidy
+
+170
+00:11:17.800 --> 00:11:21.800
+function in there. I'll just close and zoom in, so you can see the whole
+
+171
+00:11:21.800 --> 00:11:25.800
+thing. So we come in to Initialize HealthBar Widget, we find he Widget
+
+172
+00:11:25.800 --> 00:11:29.800
+component, we Get the User Widget, we cast it to our
+
+173
+00:11:29.800 --> 00:11:33.800
+HealthBar, and then, we set that Blueprint variable, which
+
+174
+00:11:33.800 --> 00:11:37.800
+we then pick up over in the HealthBar over here. So we're nearly there! What
+
+175
+00:11:37.800 --> 00:11:41.800
+we need to do with this HealthBar now is, we need to position it appropriately on the tank.
+
+176
+00:11:41.800 --> 00:11:45.800
+We have a tank, if we look at the viewport of the tank we can zoom out, and you'll see this guy
+
+177
+00:11:45.800 --> 00:11:49.800
+here. Look at the size and shape of it, it's massive! You can move it around and we can decide
+
+178
+00:11:49.800 --> 00:11:53.800
+where here now, physically, it appears. Now you'll only see it from one side,
+
+179
+00:11:53.800 --> 00:11:57.800
+so we're going to just see it from this side. Now, if we grab the Details
+
+180
+00:11:57.800 --> 00:12:01.800
+tab. This is the time, before we change it from World to Screen space,
+
+181
+00:12:01.800 --> 00:12:05.800
+which I'll explain in a minute, we decide how big it's going to be. Maybe 50 pixels wide
+
+182
+00:12:05.800 --> 00:12:09.800
+by maybe 10 pixels high. Pretty small but
+
+183
+00:12:09.800 --> 00:12:13.800
+there it is, and it sits above the tank. You can change the color, of course, if you wish. You can
+
+184
+00:12:13.800 --> 00:12:17.800
+go into the HealthBar itself, into the Designer, and you can come here
+
+185
+00:12:17.800 --> 00:12:21.800
+and just change that color, all you like. But see what happens as
+
+186
+00:12:21.800 --> 00:12:25.800
+the HealthBar progresses first. Once you've got it in the right place, you can
+
+187
+00:12:25.800 --> 00:12:29.800
+switch it from World space to Screen space. It will actually disappear but
+
+188
+00:12:29.800 --> 00:12:33.800
+once we play the game, after saving our Tank Blueprint... You see it there, that little
+
+189
+00:12:33.800 --> 00:12:37.800
+blue bar? Now let's see what happens! I'm going to hit the enemy tank, its health bar goes
+
+190
+00:12:37.800 --> 00:12:41.800
+down. Hopefully you can see that, I'll make the screen bigger. He hits me, my health bar goes down
+
+191
+00:12:41.800 --> 00:12:45.800
+and so on. OK, so we have working health bars after
+
+192
+00:12:45.800 --> 00:12:49.800
+all that! So I hope you managed to follow that, there's quite a lot of stuff going on there.
+
+193
+00:12:49.800 --> 00:12:53.800
+To recap what we did for you, we started off
+
+194
+00:12:53.800 --> 00:12:57.800
+by making ourselves a HealthBar component
+
+195
+00:12:57.800 --> 00:13:01.800
+on the tank. We just called it a Widget, we could now rename it Health Bar.
+
+196
+00:13:01.800 --> 00:13:05.800
+But you see there's two Health Bar's involved. This is Health Bar Widget component,
+
+197
+00:13:05.800 --> 00:13:09.800
+but it's of Widget Class Health Bar. Thats why I left the names the same until the end here.
+
+198
+00:13:09.800 --> 00:13:13.800
+We then made a HealthBar, which is literally just a Progress Bar, 100% of the canvas
+
+199
+00:13:13.800 --> 00:13:17.800
+for the Progress Bar. We then decided to
+
+200
+00:13:17.800 --> 00:13:21.800
+use the Progress... Now where is it on the Progress Bar? We
+
+201
+00:13:21.800 --> 00:13:25.800
+bound this GetPercent() method, which if you look in the graph over here
+
+202
+00:13:25.800 --> 00:13:29.800
+is here, and we used a BlueprintPure function on the tank,
+
+203
+00:13:29.800 --> 00:13:33.800
+called GetPercent. The question comes, how do you find the tank? How do you find the tank
+
+204
+00:13:33.800 --> 00:13:37.800
+that we're talking about? Well in the tank we, in the Event Graph, made
+
+205
+00:13:37.800 --> 00:13:41.800
+this simple Initialize Health Bar Widget, and unfortunately, it needs
+
+206
+00:13:41.800 --> 00:13:45.800
+to do a little bit of casting but this is what we ended up with. And we
+
+207
+00:13:45.800 --> 00:13:49.800
+went through and set that Blueprint variable here, back on the Health
+
+208
+00:13:49.800 --> 00:13:53.800
+Bar and we got the information through that we needed. So any problems with
+
+209
+00:13:53.800 --> 00:13:57.800
+following the code, just simply go over to GitHub as usual, Unreal Course,
+
+210
+00:13:57.800 --> 00:14:01.800
+find this lecture, or you can link from resources. I'll also put a link to this lecture in
+
+211
+00:14:01.800 --> 00:14:05.800
+the resources and you can look at the changes there. So I look
+
+212
+00:14:05.800 --> 00:14:09.033
+forward to seeing you in the next video!
+
