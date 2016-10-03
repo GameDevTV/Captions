@@ -413,194 +413,210 @@ where I gave you in the previous video a link to this
 blog about printing messages to yourself. If you look down this, you'll
 
 104
-00:06:49.700 --> 00:06:53.700
+00:06:49.700 --> 00:06:53.600
 find an example of using these format operators, I believes in here.
 
 105
-00:06:53.700 --> 00:06:54.200
-
-
-106
-00:06:54.200 --> 00:06:58.200
+00:06:53.600 --> 00:06:54.866
 So, this is the pattern we're going to use.
 
-107
-00:06:58.200 --> 00:07:02.200
+106
+00:06:54.866 --> 00:06:58.866
 Now, there's a note here that strings are wanted as
 
-108
-00:07:02.200 --> 00:07:06.200
+107
+00:06:58.866 --> 00:07:02.866
 T plus Char *, we say, but TChar* by the
 
-109
-00:07:06.200 --> 00:07:10.200
+108
+00:07:02.866 --> 00:07:06.866
 log, so use *FString(). Oh, we're just beginning! What's going on here, more complexity?
 
-110
-00:07:10.200 --> 00:07:14.200
+109
+00:07:06.866 --> 00:07:10.866
 OK, so we've done something like this! We said GetOwner
 
-111
-00:07:14.200 --> 00:07:18.200
+110
+00:07:10.866 --> 00:07:11.966
 GetName, and that gave us an FString. What we need to do is put a star in front, which
 
+111
+00:07:11.966 --> 00:07:15.966
+what we need to do is put a star in front of this. Now bear in mind
+
 112
-00:07:18.200 --> 00:07:22.200
-what we call dereferences that. So, our FString is a pointer
+00:07:15.966 --> 00:07:19.966
+This is not dereferencing, which you'll learn about later, because we're inside a macro
 
 113
-00:07:22.200 --> 00:07:26.200
-to a string, this dereference goes and gets the actual value at the
+00:07:19.966 --> 00:07:23.966
+here, this is something called an overloaded operator. That means
 
 114
-00:07:26.200 --> 00:07:30.200
-end of that pointer. So, we just need to put a star in, so let's bring all
+00:07:23.966 --> 00:07:27.966
+C++ has been told to do something different with a * in this instance.
 
 115
-00:07:30.200 --> 00:07:34.200
-that together and see how that's going to work. So, we have an FString here,
+00:07:27.966 --> 00:07:31.966
+It has an effect that's a bit like de-referencing, in it allows this macro to get
 
 116
-00:07:34.200 --> 00:07:38.200
-which is a dynamically sizable string. It's a pointer to a place
+00:07:31.966 --> 00:07:35.966
+to the characters of the string that we need. So that's enough said for now, there's a
 
 117
-00:07:38.200 --> 00:07:42.200
-in memory that contains that. We'll go through pointers in more detail later. Let's
+00:07:35.966 --> 00:07:39.966
+video coming up later about pointers and references. But for now just understand
 
 118
-00:07:42.200 --> 00:07:46.200
-just make it work! ("Position report for, and I'm going to put
+00:07:39.966 --> 00:07:42.633
+that if you're trying to use a string you need a star in front of it.
 
 119
-00:07:46.200 --> 00:07:50.200
-%s, which is where I want the chair to go. I'm going to come outside of those brackets,
+00:07:42.633 --> 00:07:47.600
+So let's bring all that together and see how that's going to work. So, we have an FString here,
 
 120
-00:07:50.200 --> 00:07:54.200
-put a comma, and now I'm going to say
+00:07:47.600 --> 00:07:51.300
+which is a dynamically sizable string. It's a pointer to a place
 
 121
-00:07:54.200 --> 00:07:58.200
-*ObjectName); If I don't say star, I'm going to get a strange error.
+00:07:51.300 --> 00:07:55.300
+in memory that contains that. We'll go through pointers in more detail later. Let's
 
 122
-00:07:58.200 --> 00:08:02.200
-You want to see the error? Let's see the error! Let's build it, because it's better you see this
+00:07:55.300 --> 00:07:59.300
+just make it work! ("Position report for, and I'm going to put
 
 123
-00:08:02.200 --> 00:08:06.200
-error, so that you recognize in the future. No success! What's
+00:07:59.300 --> 00:08:03.300
+%s, which is where I want the chair to go. I'm going to come outside of those brackets,
 
 124
-00:08:06.200 --> 00:08:10.200
-wrong? It's complaining, where's the line? Ah, you see it's pretty
+00:08:03.300 --> 00:08:07.300
+put a comma, and now I'm going to say
 
 125
-00:08:10.200 --> 00:08:14.200
-nasty, because the lines of these errors,
+00:08:07.300 --> 00:08:11.300
+*ObjectName); If I don't say star, I'm going to get a strange error.
 
 126
-00:08:14.200 --> 00:08:18.200
-none of them are actually about this file here, and that is because
+00:08:11.300 --> 00:08:15.300
+You want to see the error? Let's see the error! Let's build it, because it's better you see this
 
 127
-00:08:18.200 --> 00:08:22.200
-these macros, used in the most general sense are
+00:08:15.300 --> 00:08:19.300
+error, so that you recognize in the future. No success! What's
 
 128
-00:08:22.200 --> 00:08:26.200
-causing the problems. OK, so you're just going to have to be
+00:08:19.300 --> 00:08:23.300
+wrong? It's complaining, where's the line? Ah, you see it's pretty
 
 129
-00:08:26.200 --> 00:08:30.200
-careful here, when you do a log, that you give it a dereference pointer
+00:08:23.300 --> 00:08:27.300
+nasty, because the lines of these errors,
 
 130
-00:08:30.200 --> 00:08:34.200
-like that, because it's pretty hard to debug. OK, so let's
+00:08:27.300 --> 00:08:31.300
+none of them are actually about this file here, and that is because
 
 131
-00:08:34.200 --> 00:08:38.200
-go ahead and let it run! That's built now! Now, let's go back to Unreal
+00:08:31.300 --> 00:08:35.300
+these macros, used in the most general sense are
 
 132
-00:08:38.200 --> 00:08:42.200
-and play. Ah hah! Position report for SM_Chair_
+00:08:35.300 --> 00:08:39.300
+causing the problems. OK, so you're just going to have to be
 
 133
-00:08:42.200 --> 00:08:46.200
-5. There are those underscores I was talking about and position report for SM_
+00:08:39.300 --> 00:08:43.300
+careful here, when you do a log, that you give it a dereference pointer
 
 134
-00:08:46.200 --> 00:08:50.200
-Rock_8. Success! We've managed to get C++ to tell us what the
+00:08:43.300 --> 00:08:47.300
+like that, because it's pretty hard to debug. OK, so let's
 
 135
-00:08:50.200 --> 00:08:54.200
-name of the objects are, according to their names here in the World
+00:08:47.300 --> 00:08:51.300
+go ahead and let it run! That's built now! Now, let's go back to Unreal
 
 136
-00:08:54.200 --> 00:08:58.200
-Outliner, with their fully qualified names with the instance number on the end.
+00:08:51.300 --> 00:08:55.300
+and play. Ah hah! Position report for SM_Chair_
 
 137
-00:08:58.200 --> 00:09:02.200
-Alright, so that is pretty cool! Let's just have a quick recap of the code!
+00:08:55.300 --> 00:08:59.300
+5. There are those underscores I was talking about and position report for SM_
 
 138
-00:09:02.200 --> 00:09:06.200
-What we did is, we got owner but that is a pointer.
+00:08:59.300 --> 00:09:03.300
+Rock_8. Success! We've managed to get C++ to tell us what the
 
 139
-00:09:06.200 --> 00:09:10.200
-If we look at GetOwner() here, that returns a pointer to an
+00:09:03.300 --> 00:09:07.300
+name of the objects are, according to their names here in the World
 
 140
-00:09:10.200 --> 00:09:14.200
-Actor, AActor *. I like to put the star before the space
+00:09:07.300 --> 00:09:11.300
+Outliner, with their fully qualified names with the instance number on the end.
 
 141
-00:09:14.200 --> 00:09:18.200
-but you can do either, it returns a point to an Actor.
+00:09:11.300 --> 00:09:15.300
+Alright, so that is pretty cool! Let's just have a quick recap of the code!
 
 142
-00:09:18.200 --> 00:09:22.200
-Then, we looked through that pointer to go and get to the GetName() method,
+00:09:15.300 --> 00:09:19.300
+What we did is, we got owner but that is a pointer.
 
 143
-00:09:22.200 --> 00:09:26.200
-which returned a FString.
+00:09:19.300 --> 00:09:23.300
+If we look at GetOwner() here, that returns a pointer to an
 
 144
-00:09:26.200 --> 00:09:30.200
-And then, we put that into something called ObjectName, and then we
+00:09:23.300 --> 00:09:27.300
+Actor, AActor *. I like to put the star before the space
 
 145
-00:09:30.200 --> 00:09:34.200
-specified ObjectName over here with a star and we used
+00:09:27.300 --> 00:09:31.300
+but you can do either, it returns a point to an Actor.
 
 146
-00:09:34.200 --> 00:09:38.200
-%s which is a format operator. So, a lot of stuff in there! We're going to reuse this
+00:09:31.300 --> 00:09:35.300
+Then, we looked through that pointer to go and get to the GetName() method,
 
 147
-00:09:38.200 --> 00:09:42.200
-again and again and again. But that is your pattern, it's in the docs,
+00:09:35.300 --> 00:09:39.300
+which returned a FString.
 
 148
-00:09:42.200 --> 00:09:46.200
-and good luck enjoy! And I'd like to hear in the discussions whether you're
+00:09:39.300 --> 00:09:43.300
+And then, we put that into something called ObjectName, and then we
 
 149
-00:09:46.200 --> 00:09:50.200
-completely bamboozled, whether that's simple because you're a C++ pro, or
+00:09:43.300 --> 00:09:47.300
+specified ObjectName over here with a star and we used
 
 150
-00:09:50.200 --> 00:09:54.200
-what your reaction to that is! See you soon!
+00:09:47.300 --> 00:09:51.300
+%s which is a format operator. So, a lot of stuff in there! We're going to reuse this
 
 151
-00:09:54.200 --> 00:09:55.433
+00:09:51.300 --> 00:09:55.300
+again and again and again. But that is your pattern, it's in the docs,
+
+152
+00:09:55.300 --> 00:09:59.300
+and good luck enjoy! And I'd like to hear in the discussions whether you're
+
+153
+00:09:59.300 --> 00:10:03.300
+completely bamboozled, whether that's simple because you're a C++ pro, or
+
+154
+00:10:03.300 --> 00:10:07.300
+what your reaction to that is! See you soon!
+
+155
+00:10:07.300 --> 00:10:08.533
 
 
