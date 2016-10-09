@@ -1,0 +1,826 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+
+
+2
+00:00:04.000 --> 00:00:08.000
+Welcome to Booleans and
+
+3
+00:00:08.000 --> 00:00:12.000
+If Statements! In this lecture we are going to be learning, well reviewing,
+
+4
+00:00:12.000 --> 00:00:16.000
+the types of variables, as well as reviewing some of the terms that we've  been
+
+5
+00:00:16.000 --> 00:00:20.000
+using. And there's a lot of terms when it comes to programming, so I know it's hard to keep
+
+6
+00:00:20.000 --> 00:00:24.000
+them all in your head, so I've made a good list for you, a little glossary. And
+
+7
+00:00:24.000 --> 00:00:28.000
+how to use booleans and their operators. So booleans are a new type
+
+8
+00:00:28.000 --> 00:00:32.000
+we're going to learn about, and we're going to learn about operators and boolean expressions and
+
+9
+00:00:32.000 --> 00:00:36.000
+how to do conditional execution with if statements, because the main point of this
+
+10
+00:00:36.000 --> 00:00:40.000
+is to react to different conditions, such as a different input from the user. We want to
+
+11
+00:00:40.000 --> 00:00:44.000
+our script to behave differently, otherwise, it's kind of useless if it's just
+
+12
+00:00:44.000 --> 00:00:47.733
+doing static calculations. So let's dive right in!
+
+13
+00:00:47.733 --> 00:00:51.733
+So what is the next step for our Go Home game? Let's have
+
+14
+00:00:51.733 --> 00:00:55.733
+a look at our pseudocode and find out! So, so far we have
+
+15
+00:00:55.733 --> 00:00:59.733
+done these first three steps, the calculation
+
+16
+00:00:59.733 --> 00:01:03.733
+and the printing and the setting the start location.
+
+17
+00:01:03.733 --> 00:01:07.733
+Now, next up would be to read the player's move, but there's no point reading the player's
+
+18
+00:01:07.733 --> 00:01:11.733
+move, unless we know how to update the location from home. So let's take a look
+
+19
+00:01:11.733 --> 00:01:15.733
+at this one next, and it will give us some helpful building blocks
+
+20
+00:01:15.733 --> 00:01:19.733
+for reading the player's move, which we'll do in the following lecture.
+
+21
+00:01:19.733 --> 00:01:23.733
+So let's revise the types that we have seen,
+
+22
+00:01:23.733 --> 00:01:27.733
+so far! So far, we have seen the floats,
+
+23
+00:01:27.733 --> 00:01:31.733
+integers, and strings, and here are the different types that we actually use when writing
+
+24
+00:01:31.733 --> 00:01:35.733
+it in C#. Now, what we want to
+
+25
+00:01:35.733 --> 00:01:39.733
+do is have some way of conditionally doing things. So to
+
+26
+00:01:39.733 --> 00:01:43.733
+update the location, we want to say, basically,
+
+27
+00:01:43.733 --> 00:01:47.733
+if home is ahead, we need to go back, and if home is
+
+28
+00:01:47.733 --> 00:01:51.733
+forward, we need to go forward. So we need to be able to read in a player's move
+
+29
+00:01:51.733 --> 00:01:55.733
+if it says forward or back and update the location appropriately.
+
+30
+00:01:55.733 --> 00:01:59.733
+So we need to do different operations, depending on
+
+31
+00:01:59.733 --> 00:02:03.733
+what the player's move is. So to do this, we need a new type, it's
+
+32
+00:02:03.733 --> 00:02:07.733
+a type that's known as a boolean. A boolean, basically,
+
+33
+00:02:07.733 --> 00:02:11.733
+allows us to have true/false questions. As you can see here, we've
+
+34
+00:02:11.733 --> 00:02:15.733
+got the abbreviation bool but, most importantly, it's for true/false
+
+35
+00:02:15.733 --> 00:02:19.733
+answers, and the two values it can have are only true and false.
+
+36
+00:02:19.733 --> 00:02:23.733
+So let's have a look at this! How does this variable actually look?
+
+37
+00:02:23.733 --> 00:02:27.733
+So I'm going to open up our VisualStudio
+
+38
+00:02:27.733 --> 00:02:31.733
+with our ConsolePrinter script.
+
+39
+00:02:31.733 --> 00:02:35.733
+And what we want to do is create a new bool variable
+
+40
+00:02:35.733 --> 00:02:39.733
+and print it out and just see, see what happens.
+
+41
+00:02:39.733 --> 00:02:43.733
+OK, so here we have all our variables so far,
+
+42
+00:02:43.733 --> 00:02:47.733
+and let's create a new bool
+
+43
+00:02:47.733 --> 00:02:51.733
+for is
+
+44
+00:02:51.733 --> 00:02:55.733
+TwoGreaterThanOne
+
+45
+00:02:55.733 --> 00:02:59.733
+Notice how I'm writing these variable names. Obviously, there are no spaces allowed
+
+46
+00:02:59.733 --> 00:03:03.733
+in variable names, you've probably gathered that, by now, but in order to make it more
+
+47
+00:03:03.733 --> 00:03:07.733
+readable, I start with a lower case letter and then I do what's called camel case,
+
+48
+00:03:07.733 --> 00:03:11.733
+which is that every new word starts with an upper case. So this just allows me
+
+49
+00:03:11.733 --> 00:03:15.733
+to visually, very easily, see what the words are
+
+50
+00:03:15.733 --> 00:03:19.733
+in these multi-word variable names. Now it's just a typical convention
+
+51
+00:03:19.733 --> 00:03:23.733
+and in C# that's the one we're going to be using throughout this course. Obviously, there are
+
+52
+00:03:23.733 --> 00:03:27.733
+different conventions such as, you might say, is_two
+
+53
+00:03:27.733 --> 00:03:31.733
+greater_than_one. That's also
+
+54
+00:03:31.733 --> 00:03:35.733
+quite a common one, but we're going to stick with this, isTwoGreater
+
+55
+00:03:35.733 --> 00:03:39.733
+ThanOne. So let's just say,
+
+56
+00:03:39.733 --> 00:03:43.733
+so for the sake of argument, isTwoGreaterThanOne? Yes, we know that's true, so I'm
+
+57
+00:03:43.733 --> 00:03:47.733
+going to type in true. Remember our semicolon. And I
+
+58
+00:03:47.733 --> 00:03:51.733
+can print this out, so print
+
+59
+00:03:51.733 --> 00:03:55.733
+("Is two... In fact, I'll put numbers
+
+60
+00:03:55.733 --> 00:03:59.733
+here. ...2 greater than 1"),
+
+61
+00:03:59.733 --> 00:04:03.733
+and then, we can just do a +, like we
+
+62
+00:04:03.733 --> 00:04:07.733
+have already seen with distance, the same thing goes for bools.
+
+63
+00:04:07.733 --> 00:04:11.733
+So, let's say OK and hit play
+
+64
+00:04:11.733 --> 00:04:15.733
+and go into our Console and see that
+
+65
+00:04:15.733 --> 00:04:19.733
+"Is 2 greater than 1:" is indeed "True". Notice that I added a space
+
+66
+00:04:19.733 --> 00:04:23.733
+after my semicolon, and that allowed me to have this space in the logs,
+
+67
+00:04:23.733 --> 00:04:27.733
+as well. So let's do that for distance, too, it'll just make things a little bit more
+
+68
+00:04:27.733 --> 00:04:31.733
+readable. Let's hit play, and there you go,
+
+69
+00:04:31.733 --> 00:04:35.733
+now we've got a space in front of distance, too! OK, so that's fair
+
+70
+00:04:35.733 --> 00:04:39.733
+enough but we could actually get the computer to calculate this
+
+71
+00:04:39.733 --> 00:04:43.733
+for us by saying, well 2 greater than 1. So
+
+72
+00:04:43.733 --> 00:04:47.733
+this is a boolean expression, that is a
+
+73
+00:04:47.733 --> 00:04:51.733
+user then operator, and it returns a boolean. Let's just have a quick
+
+74
+00:04:51.733 --> 00:04:55.733
+revision of those terms that I've been using, because I know they can get slightly
+
+75
+00:04:55.733 --> 00:04:59.733
+confusing at times. Here is our glossary so far, the terms that we have
+
+76
+00:04:59.733 --> 00:05:03.733
+talked about. We have the Value, which is things like numbers
+
+77
+00:05:03.733 --> 00:05:07.733
+and text, and we've seen them use a lot of values, such as these string
+
+78
+00:05:07.733 --> 00:05:11.733
+values, these floating point values, and these integer values. We also have the
+
+79
+00:05:11.733 --> 00:05:15.733
+Type, which is the shape of the value, such as the int, float, and
+
+80
+00:05:15.733 --> 00:05:19.733
+string or now we've even seen boolean types.
+
+81
+00:05:19.733 --> 00:05:23.733
+Then we have the Variable, which is the box with the correct shape for
+
+82
+00:05:23.733 --> 00:05:27.733
+values. So we've got things like anInteger, which has the shape of int or the
+
+83
+00:05:27.733 --> 00:05:31.733
+type of int and the string and so on. We've also seen statements.
+
+84
+00:05:31.733 --> 00:05:35.733
+These are they things that end in semicolons, they are the commands to the
+
+85
+00:05:35.733 --> 00:05:39.733
+dumb computer, the dumb actor, and they tell it what to do, basically, step by
+
+86
+00:05:39.733 --> 00:05:43.733
+step, that's a statement. And finally, as I just said, we've got
+
+87
+00:05:43.733 --> 00:05:47.733
+Expressions, and Expressions are basically any command to the computer that evaluates
+
+88
+00:05:47.733 --> 00:05:51.733
+to a value. So, for example, we have a home location minus the
+
+89
+00:05:51.733 --> 00:05:55.733
+location. We've seen that one before, and we know that this gives us a value,
+
+90
+00:05:55.733 --> 00:05:59.733
+because it's what allows us to put it into that distance box,
+
+91
+00:05:59.733 --> 00:06:03.733
+is returning a value. And again, this string, plus the "Distance",
+
+92
+00:06:03.733 --> 00:06:07.733
+is obviously returning a string value, because it allows us to then
+
+93
+00:06:07.733 --> 00:06:11.733
+print that string value. So those are Expressions, and as we
+
+94
+00:06:11.733 --> 00:06:15.733
+can see here, this is a boolean expression because it returns a boolean. It
+
+95
+00:06:15.733 --> 00:06:19.733
+takes in two integers, and then, we use an operator, which
+
+96
+00:06:19.733 --> 00:06:23.733
+is the greater than operator, and it returns a boolean. So that is how we
+
+97
+00:06:23.733 --> 00:06:27.733
+can use booleans to calculate things for
+
+98
+00:06:27.733 --> 00:06:31.733
+us, do some interesting math for us. OK,
+
+99
+00:06:31.733 --> 00:06:35.733
+so that's all well and good but, like I said in the beginning, if we go
+
+100
+00:06:35.733 --> 00:06:39.733
+way back to update the location, what I want to say is, if the player
+
+101
+00:06:39.733 --> 00:06:43.733
+says one thing do one thing, and if the player says another thing, do a different thing.
+
+102
+00:06:43.733 --> 00:06:47.733
+So how do we do different things, based on these booleans?
+
+103
+00:06:47.733 --> 00:06:51.733
+Well there is such a thing as an if statement, as the name of the lecture
+
+104
+00:06:51.733 --> 00:06:55.733
+suggests, that is what we're going to be using these booleans for. So what I might
+
+105
+00:06:55.733 --> 00:06:59.733
+say is if and then, in brackets,
+
+106
+00:06:59.733 --> 00:07:03.733
+(isTwoGreaterThanOne). And
+
+107
+00:07:03.733 --> 00:07:07.733
+then, I use these curly braces to say that, within the body
+
+108
+00:07:07.733 --> 00:07:11.733
+of these curly braces I will only execute these
+
+109
+00:07:11.733 --> 00:07:15.733
+commands if this boolean is true, otherwise I won't execute them at all. So
+
+110
+00:07:15.733 --> 00:07:19.733
+I can put in, I can remove this print statement here and simply
+
+111
+00:07:19.733 --> 00:07:23.733
+print("2 is greater
+
+112
+00:07:23.733 --> 00:07:27.733
+than 1"), simple as that.
+
+113
+00:07:27.733 --> 00:07:31.733
+And then, what we can say is, go ahead and check that
+
+114
+00:07:31.733 --> 00:07:35.733
+out. I'm going to stop playing and play
+
+115
+00:07:35.733 --> 00:07:39.733
+again. So "2 is greater than 1", it gets printed out! But what if I set this variable
+
+116
+00:07:39.733 --> 00:07:43.733
+to false? Let's try that, too!
+
+117
+00:07:43.733 --> 00:07:47.733
+Let's hit play! Now you notice, this time, nothing
+
+118
+00:07:47.733 --> 00:07:51.733
+gets printed, because 2 is not greater than 1, so it's not going to tell us
+
+119
+00:07:51.733 --> 00:07:55.733
+that 2 is greater than 1. OK, so if statements go hand in hand
+
+120
+00:07:55.733 --> 00:07:59.733
+with booleans, they are why booleans are useful in the same way as strings go hand
+
+121
+00:07:59.733 --> 00:08:03.733
+in hand with being printed, because that's why strings are useful. So
+
+122
+00:08:03.733 --> 00:08:07.733
+we now know why we are going to use booleans, we use them in
+
+123
+00:08:07.733 --> 00:08:11.733
+something called an if statement. An if statement in here takes a boolean
+
+124
+00:08:11.733 --> 00:08:15.733
+expression here. I've given it a variable but I could have just as easily said 2
+
+125
+00:08:15.733 --> 00:08:19.733
+is greater than 1, and that is just as valid
+
+126
+00:08:19.733 --> 00:08:23.733
+and will also print out, because we know that 2 is greater than 1 and that is true! So
+
+127
+00:08:23.733 --> 00:08:27.733
+you see, I've just said it, and I've proved it by making the
+
+128
+00:08:27.733 --> 00:08:31.733
+computer run and do it. So time for you to write your
+
+129
+00:08:31.733 --> 00:08:35.733
+own boolean expression! I'd like you to evaluate whether the location
+
+130
+00:08:35.733 --> 00:08:39.733
+is greater than the homeLocation, because, in this case, what we need to
+
+131
+00:08:39.733 --> 00:08:43.733
+give, as a direction, is that they need to go
+
+132
+00:08:43.733 --> 00:08:47.733
+backwards, basically, in order to get home. However, if the opposite is
+
+133
+00:08:47.733 --> 00:08:51.733
+true, then I would like you to print the correct
+
+134
+00:08:51.733 --> 00:08:55.733
+instructions, as well. So pause the video and have a go at applying your
+
+135
+00:08:55.733 --> 00:08:59.733
+knowledge of booleans and if statements to this problem.
+
+136
+00:08:59.733 --> 00:09:03.733
+OK welcome back! Now
+
+137
+00:09:03.733 --> 00:09:07.733
+remember, if you ever have syntax errors that you can't quite work out,
+
+138
+00:09:07.733 --> 00:09:11.733
+you can always go into the lecture resources and
+
+139
+00:09:11.733 --> 00:09:15.733
+find the exact end state of this video, so that you can compare
+
+140
+00:09:15.733 --> 00:09:19.733
+your syntax to the syntax that I have written in these
+
+141
+00:09:19.733 --> 00:09:23.733
+lectures. Because sometimes it's very small things that you
+
+142
+00:09:23.733 --> 00:09:27.733
+don't miss, as a beginner programmer, you won't quite see
+
+143
+00:09:27.733 --> 00:09:31.733
+that perhaps you have just mistaken the order of something. Obviously, these squiggly
+
+144
+00:09:31.733 --> 00:09:35.733
+lines, the red squiggly lines, the green ones are kind of OK, but the red ones
+
+145
+00:09:35.733 --> 00:09:39.733
+will give you an indication of where to look and do use that, because
+
+146
+00:09:39.733 --> 00:09:43.733
+those are some of the most simple and easy problems to fix. If
+
+147
+00:09:43.733 --> 00:09:47.733
+you are new to programming, you may not have your eye quite tuned to these
+
+148
+00:09:47.733 --> 00:09:51.733
+things, just yet, but remember that the compiler is
+
+149
+00:09:51.733 --> 00:09:55.733
+very very finickity. So basically Unity is very finickity and will
+
+150
+00:09:55.733 --> 00:09:59.733
+pick you up on any small error, so you need to be
+
+151
+00:09:59.733 --> 00:10:03.733
+absolutely perfect in times of typing these things out. But don't
+
+152
+00:10:03.733 --> 00:10:07.733
+worry, it also helps you out by giving you those red squigglies. So
+
+153
+00:10:07.733 --> 00:10:11.733
+here we have our if statement I want to do. Let's just check on the challenge. All that
+
+154
+00:10:11.733 --> 00:10:15.733
+talking and I've forgotten what the challenge is. We want location greater than homeLocation.
+
+155
+00:10:15.733 --> 00:10:19.733
+Well that's fairly simple, we can actually just type that right into the if statement. No need for a variable, I'm
+
+156
+00:10:19.733 --> 00:10:23.733
+going to remove that variable. That was just to show you there was a type going on
+
+157
+00:10:23.733 --> 00:10:27.733
+behind this, but often, we can just do this with boolean expressions. So
+
+158
+00:10:27.733 --> 00:10:31.733
+we've got "location greater than homeLocation).
+
+159
+00:10:31.733 --> 00:10:35.733
+Simple. Now what can I say? Well what is the instruction if
+
+160
+00:10:35.733 --> 00:10:39.733
+the location is greater than the home location, it's going to be ("Go back
+
+161
+00:10:39.733 --> 00:10:43.733
+to get home!"). Now let's
+
+162
+00:10:43.733 --> 00:10:47.733
+test that out! Yes,
+
+163
+00:10:47.733 --> 00:10:51.733
+"Go back to get home!", that's because the location is greater. But what if,
+
+164
+00:10:51.733 --> 00:10:55.733
+what if my location was less?
+
+165
+00:10:55.733 --> 00:10:59.733
+Hmm, then nothing is
+
+166
+00:10:59.733 --> 00:11:03.733
+printed, I have no instruction! That's a bit useless, so
+
+167
+00:11:03.733 --> 00:11:07.733
+what should I do? Well, I'm going to say, if
+
+168
+00:11:07.733 --> 00:11:11.733
+(Location less than homeLocation) see?
+
+169
+00:11:11.733 --> 00:11:15.733
+This is a different operator, the less than operator.
+
+170
+00:11:15.733 --> 00:11:19.733
+Well then, we print
+
+171
+00:11:19.733 --> 00:11:23.733
+("Go forward to get home!").
+
+172
+00:11:23.733 --> 00:11:27.733
+Remembering my semicolon, because VisualStudio was
+
+173
+00:11:27.733 --> 00:11:31.733
+reminding me with that helpful little squiggle. So let's try that out!
+
+174
+00:11:31.733 --> 00:11:35.733
+Let's play
+
+175
+00:11:35.733 --> 00:11:39.733
+and then we get "Go forward to get home!". So no matter what our
+
+176
+00:11:39.733 --> 00:11:43.733
+location is, we are now getting the correct instruction. Well is
+
+177
+00:11:43.733 --> 00:11:47.733
+that quite true? Let's just try that out! If we got 2.1...
+
+178
+00:11:47.733 --> 00:11:51.733
+Oops! So
+
+179
+00:11:51.733 --> 00:11:55.733
+we are at home, what's going to happen then?
+
+180
+00:11:55.733 --> 00:11:59.733
+Let's play! Hmm, no instruction, because neither of these
+
+181
+00:11:59.733 --> 00:12:03.733
+two statements is true, because it's not greater than it's not less than, the only
+
+182
+00:12:03.733 --> 00:12:07.733
+thing that leaves is that it is equal. Now, how do we do
+
+183
+00:12:07.733 --> 00:12:11.733
+equality? You could try (location =
+
+184
+00:12:11.733 --> 00:12:15.733
+homeLocation), but what you'll find is a big squiggly here,
+
+185
+00:12:15.733 --> 00:12:19.733
+saying "Cannot implicitly convert 'float' to 'bool'. So what on
+
+186
+00:12:19.733 --> 00:12:23.733
+Earth is going on here? Well basically what it's done is, it's taken this
+
+187
+00:12:23.733 --> 00:12:27.733
+equals sign to mean an assignment to the variable location.
+
+188
+00:12:27.733 --> 00:12:31.733
+And so, how do we make it a boolean equality?
+
+189
+00:12:31.733 --> 00:12:35.733
+Well let's have a look at the Boolean Operators we've seen so far! We've got the Greater Than,
+
+190
+00:12:35.733 --> 00:12:39.733
+we've got the Less Than, and this is the operator we need for Equals,
+
+191
+00:12:39.733 --> 00:12:43.733
+2 equal signs. A bit weird, I know, but the important thing
+
+192
+00:12:43.733 --> 00:12:47.733
+is it distinguishes it from the assignment operator we've been using before. So this
+
+193
+00:12:47.733 --> 00:12:51.733
+is the assignment operator, equality, equals like that. Whereas the
+
+194
+00:12:51.733 --> 00:12:55.733
+equality operator, the one for booleans, is a double equals sign, like so ==.
+
+195
+00:12:55.733 --> 00:12:59.733
+And so, here we can say print
+
+196
+00:12:59.733 --> 00:13:03.733
+("I am at home!").
+
+197
+00:13:03.733 --> 00:13:07.733
+Let's go back in, and there
+
+198
+00:13:07.733 --> 00:13:11.733
+we go, we have sussed out the equality sign. And just
+
+199
+00:13:11.733 --> 00:13:15.733
+one more boolean operator. There is also a not equal sign, where you put
+
+200
+00:13:15.733 --> 00:13:19.733
+this little exclamation mark. The exclamation mark means not, and so we
+
+201
+00:13:19.733 --> 00:13:23.733
+can do not equality in just this way. OK, so now
+
+202
+00:13:23.733 --> 00:13:27.733
+we know all about booleans! Congratulations, that is a big
+
+203
+00:13:27.733 --> 00:13:31.733
+step in being able to make much more complicated programs! So I will see you
+
+204
+00:13:31.733 --> 00:13:35.733
+in the next lecture, where we will be taking input and acting on
+
+205
+00:13:35.733 --> 00:13:39.733
+those inputs instead. So let's see you there!
+
+206
+00:13:39.733 --> 00:13:40.233
+
+
