@@ -1,0 +1,546 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+
+
+2
+00:00:04.000 --> 00:00:08.000
+
+
+3
+00:00:08.000 --> 00:00:12.000
+Welcome! In this lecture we are digging into a little bit of math, but
+
+4
+00:00:12.000 --> 00:00:16.000
+don't worry, it's not scary when you are doing it with the purpose of a game. The main
+
+5
+00:00:16.000 --> 00:00:20.000
+reason people are scared of math is because when they were taught it, they never really had an application,
+
+6
+00:00:20.000 --> 00:00:24.000
+so we're going to be revisiting it and giving you new confidence. Now, how are we going
+
+7
+00:00:24.000 --> 00:00:28.000
+to be doing this? Well we're going to be calculating the distance from home, so very simple. We're going to be doing
+
+8
+00:00:28.000 --> 00:00:32.000
+addition and subtraction. We're doing it with variables, so that's cool! The computer's doing it
+
+9
+00:00:32.000 --> 00:00:36.000
+for us, as basically a calculator, and furthermore, we're going to learn how
+
+10
+00:00:36.000 --> 00:00:40.000
+we can do addition with strings, which is a very interesting
+
+11
+00:00:40.000 --> 00:00:44.000
+thing which will allow us to put this distance on the same line, rather than
+
+12
+00:00:44.000 --> 00:00:48.000
+on two separate lines in the Unity Console. So without further ado, let's dive right in!
+
+13
+00:00:48.000 --> 00:00:49.033
+
+
+14
+00:00:49.033 --> 00:00:53.033
+So far, we have a location and we're able to
+
+15
+00:00:53.033 --> 00:00:57.033
+print out that location to the Console. And not only
+
+16
+00:00:57.033 --> 00:01:01.033
+is that location a variable but well we can change
+
+17
+00:01:01.033 --> 00:01:05.033
+it whenever we like, and we know about the types of the variables. So how
+
+18
+00:01:05.033 --> 00:01:09.033
+are we doing on our pseudocode plan. So here's the
+
+19
+00:01:09.033 --> 00:01:13.033
+pseudocode plan! So far we have set a start location
+
+20
+00:01:13.033 --> 00:01:17.033
+and we can print that location,
+
+21
+00:01:17.033 --> 00:01:21.033
+but we're not actually printing the distance from home. In fact, we don't have a location
+
+22
+00:01:21.033 --> 00:01:25.033
+for home at all, so and then we're going to need to
+
+23
+00:01:25.033 --> 00:01:29.033
+calculate that distance from home. So let's first start off by creating a
+
+24
+00:01:29.033 --> 00:01:33.033
+float for a home. Now, one way I could do
+
+25
+00:01:33.033 --> 00:01:37.033
+this is saying float home
+
+26
+00:01:37.033 --> 00:01:41.033
+Location = let's say 2.1f,
+
+27
+00:01:41.033 --> 00:01:45.033
+just for a bit of fun. Now, notice that I've done
+
+28
+00:01:45.033 --> 00:01:49.033
+this all on one line, rather than splitting it across two
+
+29
+00:01:49.033 --> 00:01:53.033
+lines like here. Now that's perfectly valid and, in fact, generally I
+
+30
+00:01:53.033 --> 00:01:57.033
+would recommend doing this, because it's fewer lines of code and
+
+31
+00:01:57.033 --> 00:02:01.033
+it avoids some repetition, which just means that there's going to be fewer
+
+32
+00:02:01.033 --> 00:02:05.033
+typos and it's going to be easier for you to read when you come back to it. But I wanted to show you
+
+33
+00:02:05.033 --> 00:02:09.033
+that, actually, the declaration and the assignment are
+
+34
+00:02:09.033 --> 00:02:13.033
+two separate lines, really. They're two separate things that are happening in this one line, but
+
+35
+00:02:13.033 --> 00:02:17.033
+this is just an abbreviation for that and that's what you're going to see most often.
+
+36
+00:02:17.033 --> 00:02:21.033
+In fact, very rarely do you ever want to declare something without giving it a value,
+
+37
+00:02:21.033 --> 00:02:25.033
+because then, what value does it have and you don't know! So best practice,
+
+38
+00:02:25.033 --> 00:02:29.033
+always declare and assign on the same line, but just so you
+
+39
+00:02:29.033 --> 00:02:33.033
+know, they are two separate things going on there. So one is saying
+
+40
+00:02:33.033 --> 00:02:37.033
+save space for this shape of object, and the other is saying, put
+
+41
+00:02:37.033 --> 00:02:41.033
+this value in that object. But as you know, we often want to do the two
+
+42
+00:02:41.033 --> 00:02:45.033
+together, so we never have an empty box. So, now we
+
+43
+00:02:45.033 --> 00:02:49.033
+have a location and a home location. We need to calculate
+
+44
+00:02:49.033 --> 00:02:53.033
+a distance, so well, I guess a distance is going to be another
+
+45
+00:02:53.033 --> 00:02:57.033
+float, but what is it going to be? What are we going
+
+46
+00:02:57.033 --> 00:03:01.033
+to set it to? How do we do these kind of
+
+47
+00:03:01.033 --> 00:03:05.033
+calculations? We really want to find out what the difference between these two is.
+
+48
+00:03:05.033 --> 00:03:09.033
+So let's find out! So these are our
+
+49
+00:03:09.033 --> 00:03:13.033
+types again, and we can perform operations on these types. So
+
+50
+00:03:13.033 --> 00:03:17.033
+we could do a addition of two variables, anInteger and
+
+51
+00:03:17.033 --> 00:03:21.033
+anotherInteger, where they have values 2 and 3. And
+
+52
+00:03:21.033 --> 00:03:25.033
+you would get another value come out, a value of 5.
+
+53
+00:03:25.033 --> 00:03:29.033
+So you can do that! You can also do this between different types,
+
+54
+00:03:29.033 --> 00:03:33.033
+so you could have anInteger and then add it to aFloat. And
+
+55
+00:03:33.033 --> 00:03:37.033
+what would you get out? Well you'd get a float out! Now that makes sense because, as we know,
+
+56
+00:03:37.033 --> 00:03:41.033
+integers can be converted to floats, but floats can't be converted to integers
+
+57
+00:03:41.033 --> 00:03:45.033
+implicitly or easily, basically. So
+
+58
+00:03:45.033 --> 00:03:49.033
+how would be go about calculating this distance and printing
+
+59
+00:03:49.033 --> 00:03:53.033
+it out? Well that is a challenge that is up to you. I'd like you to calculate the distance
+
+60
+00:03:53.033 --> 00:03:57.033
+home. You need to calculate the distance and store it in another variable,
+
+61
+00:03:57.033 --> 00:04:01.033
+which we have already handily created here, called distance. And what
+
+62
+00:04:01.033 --> 00:04:05.033
+values can you mix in addition? So have a little think
+
+63
+00:04:05.033 --> 00:04:09.033
+about that. What are the other types of values we've seen? We can mix
+
+64
+00:04:09.033 --> 00:04:13.033
+integers and floats. Is there anything else that we can mix? And
+
+65
+00:04:13.033 --> 00:04:17.033
+can this make printing easier? That's a bit of a hint! So give this a go!
+
+66
+00:04:17.033 --> 00:04:21.033
+Pause the video and give it a stab!
+
+67
+00:04:21.033 --> 00:04:25.033
+OK welcome back! So here we are, we have
+
+68
+00:04:25.033 --> 00:04:29.033
+our distance, and we know that
+
+69
+00:04:29.033 --> 00:04:33.033
+we can do addition. What does that look like? Well it's as simple as...
+
+70
+00:04:33.033 --> 00:04:37.033
+I kind of left you to try and guess the syntax here, rather than show you,
+
+71
+00:04:37.033 --> 00:04:41.033
+because I wanted to show you how simple it is. This is the addition
+
+72
+00:04:41.033 --> 00:04:45.033
+Location plus homeLocation, and we could
+
+73
+00:04:45.033 --> 00:04:49.033
+actually print out the distance here, rather than Location. Call it Distance.
+
+74
+00:04:49.033 --> 00:04:53.033
+Let's go over to Unity and hit
+
+75
+00:04:53.033 --> 00:04:57.033
+play! I've got 7.1, but
+
+76
+00:04:57.033 --> 00:05:01.033
+obviously that's not correct! I've done an addition here, rather than a
+
+77
+00:05:01.033 --> 00:05:05.033
+subtraction, which is what I actually wanted to do. So what I want to do is say this is
+
+78
+00:05:05.033 --> 00:05:09.033
+our homeLocation, this is location. So we need to say,
+
+79
+00:05:09.033 --> 00:05:13.033
+what's our distance home? Well it is going to be, actually, the location
+
+80
+00:05:13.033 --> 00:05:17.033
+- the homeLocation. So that's another operation
+
+81
+00:05:17.033 --> 00:05:21.033
+that's supported. You can have +, you can have -. Funnily enough, you
+
+82
+00:05:21.033 --> 00:05:25.033
+can also have division, well not so funnily really, as
+
+83
+00:05:25.033 --> 00:05:29.033
+represented with a slash like this, and you can have multiplication. But we'll look into
+
+84
+00:05:29.033 --> 00:05:33.033
+those in more detail in further sections, we don't really need that
+
+85
+00:05:33.033 --> 00:05:37.033
+for the Go Home section; addition is enough and subtraction is enough. So we can
+
+86
+00:05:37.033 --> 00:05:41.033
+see the distance from home is 2.9 meters. Now,
+
+87
+00:05:41.033 --> 00:05:45.033
+strictly speaking, it's -2.9 meters, because
+
+88
+00:05:45.033 --> 00:05:49.033
+if my location had been
+
+89
+00:05:49.033 --> 00:05:53.033
+-1, then
+
+90
+00:05:53.033 --> 00:05:57.033
+I would need to go in the forward direction to go home, and if it was
+
+91
+00:05:57.033 --> 00:06:01.033
+as it was something higher than 2.1 then
+
+92
+00:06:01.033 --> 00:06:05.033
+I need to go in the negative direction. So how do I sort that out? Well I need to
+
+93
+00:06:05.033 --> 00:06:09.033
+flip this order. That's just a quick math reminder for you guys,
+
+94
+00:06:09.033 --> 00:06:13.033
+the order of subtraction does matter, in this case.
+
+95
+00:06:13.033 --> 00:06:17.033
+And we want to do it
+
+96
+00:06:17.033 --> 00:06:21.033
+this way around. And you'll see that Unity does get it right,
+
+97
+00:06:21.033 --> 00:06:25.033
+it's a very good calculator, and it realizes that, indeed, we need to go
+
+98
+00:06:25.033 --> 00:06:29.033
+backwards 0.9 meters. And you
+
+99
+00:06:29.033 --> 00:06:33.033
+notice it adds a few decimal places in here, that's just because of slight
+
+100
+00:06:33.033 --> 00:06:37.033
+inaccuracies when we have to calculate floating
+
+101
+00:06:37.033 --> 00:06:41.033
+point numbers on a computer. OK, so that's,
+
+102
+00:06:41.033 --> 00:06:45.033
+as I've said, we can do floats minus
+
+103
+00:06:45.033 --> 00:06:49.033
+floats, floats plus floats, and as I've mentioned in the lectures,
+
+104
+00:06:49.033 --> 00:06:53.033
+we can also do floats and integers. That's fairly straight forward, I can just
+
+105
+00:06:53.033 --> 00:06:57.033
+show you this, that I could say (distance + 1).
+
+106
+00:06:57.033 --> 00:07:01.033
+So notice I don't have to save this into a variable, I can do it right
+
+107
+00:07:01.033 --> 00:07:05.033
+here, where I would use the value I can do that calculation. That's
+
+108
+00:07:05.033 --> 00:07:09.033
+called an expression, and we'll be using that word a bit more in
+
+109
+00:07:09.033 --> 00:07:13.033
+other lectures, too. There you go, you see that's done a +1, indeed!
+
+110
+00:07:13.033 --> 00:07:17.033
+So that works
+
+111
+00:07:17.033 --> 00:07:21.033
+just fine! So what other things can we do that addition with?
+
+112
+00:07:21.033 --> 00:07:25.033
+Well, funnily enough, we can do it with floats and strings, so I can say ("Distance: "
+
+113
+00:07:25.033 --> 00:07:29.033
++ distance). So I've got the
+
+114
+00:07:29.033 --> 00:07:33.033
+distance string plus the distance float. I can remove this line now.
+
+115
+00:07:33.033 --> 00:07:37.033
+And if we hit play,
+
+116
+00:07:37.033 --> 00:07:41.033
+sure enough we get our "Distance" on the same line,
+
+117
+00:07:41.033 --> 00:07:45.033
+and basically, what this has done is it's turned into a string. How can I work that out?
+
+118
+00:07:45.033 --> 00:07:49.033
+Well if I take this and try and save it into
+
+119
+00:07:49.033 --> 00:07:53.033
+a variable,
+
+120
+00:07:53.033 --> 00:07:57.033
+I'll call this distanceString,
+
+121
+00:07:57.033 --> 00:08:01.033
+then this works! We can tell it's not a float, because if we
+
+122
+00:08:01.033 --> 00:08:05.033
+try to change the type to float it would complain and say,
+
+123
+00:08:05.033 --> 00:08:09.033
+well this I can't convert. It doesn't fit into the box because this expression,
+
+124
+00:08:09.033 --> 00:08:13.033
+i.e. this string
+
+125
+00:08:13.033 --> 00:08:17.033
+value plus a distance value, a float
+
+126
+00:08:17.033 --> 00:08:21.033
+value, this makes up an expression and creates itself
+
+127
+00:08:21.033 --> 00:08:25.033
+another value, is a string.
+
+128
+00:08:25.033 --> 00:08:29.033
+So it needs to be stored in a string box,
+
+129
+00:08:29.033 --> 00:08:33.033
+like so, but it's
+
+130
+00:08:33.033 --> 00:08:37.033
+enough for us to do that straight into the print statement, like so.
+
+131
+00:08:37.033 --> 00:08:41.033
+And it also
+
+132
+00:08:41.033 --> 00:08:45.033
+neatens up things, quite nicely, here in the interface. So
+
+133
+00:08:45.033 --> 00:08:49.033
+have we done everything that was challenged? Yes, we have made the print
+
+134
+00:08:49.033 --> 00:08:53.033
+better, and we have been able to mix different values, the string
+
+135
+00:08:53.033 --> 00:08:57.033
+namely. So congratulations on getting through that challenge!
+
+136
+00:08:57.033 --> 00:09:00.033
+I will see you in the next video!
+
