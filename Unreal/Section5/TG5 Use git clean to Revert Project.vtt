@@ -1,0 +1,694 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Hi! In this video I'm going to
+
+2
+00:00:04.000 --> 00:00:08.000
+be showing you how to use git clean, a very useful command, to revert your project. This will
+
+3
+00:00:08.000 --> 00:00:12.000
+tear away your derived files for you, without you having to manually delete things
+
+4
+00:00:12.000 --> 00:00:16.000
+like build and Intermediate and Binaries, all these sort of things here. And
+
+5
+00:00:16.000 --> 00:00:20.000
+it will also allow me to take an opportunity to show you what we're doing
+
+6
+00:00:20.000 --> 00:00:24.000
+over the upcoming lectures, in terms of AI agents, etc. So final
+
+7
+00:00:24.000 --> 00:00:27.333
+video on Git, before we dive into the project. Let's take a look!
+
+8
+00:00:27.333 --> 00:00:31.333
+So at the end of the last video, I challenge you to make yourself a README.md.
+
+9
+00:00:31.333 --> 00:00:35.333
+Here's mine here, and that will push up to GitHub, next time
+
+10
+00:00:35.333 --> 00:00:39.333
+I do a push and make the website look prettier. So because I've done that, I have an
+
+11
+00:00:39.333 --> 00:00:43.333
+uncommitted change sitting here in my repository, as we would expect.
+
+12
+00:00:43.333 --> 00:00:47.333
+OK that's great! Now, I want to show you
+
+13
+00:00:47.333 --> 00:00:51.333
+a little trick, firstly, called stashing. So imagine you've made a little change
+
+14
+00:00:51.333 --> 00:00:55.333
+like this but you don't want it for now. You want to get rid of it but not
+
+15
+00:00:55.333 --> 00:00:59.333
+lose it forever, so you want to go back to this previous commit state.
+
+16
+00:00:59.333 --> 00:01:03.333
+If you're just making a single change, like this, and you just say ah hang on, I want to go back
+
+17
+00:01:03.333 --> 00:01:07.333
+to where I was, you can do something called stashing.
+
+18
+00:01:07.333 --> 00:01:11.333
+So what you do is you stage your file and hit Stash. Now what that does, let me just say
+
+19
+00:01:11.333 --> 00:01:15.333
+"created readme". This doesn't actually put it in the history, it puts it
+
+20
+00:01:15.333 --> 00:01:19.333
+on the side, to the side of the history. So what I've got here is, on
+
+21
+00:01:19.333 --> 00:01:23.333
+master I created readme, and there's the details, but the master branch has
+
+22
+00:01:23.333 --> 00:01:27.333
+now gone back to the previous commit. I'm now back in exactly the state you were,
+
+23
+00:01:27.333 --> 00:01:31.333
+before I fiddled between videos and wrote my own readme file. Of course, you didn't want to watch me
+
+24
+00:01:31.333 --> 00:01:35.333
+do that. But having it on the Stash does mean I can get back to it later, so we'll
+
+25
+00:01:35.333 --> 00:01:39.333
+explore that in a bit. Let's just leave that on the side and start from here, which is where you are. Now,
+
+26
+00:01:39.333 --> 00:01:43.333
+something else I've been doing between videos. If we go to all branches you can
+
+27
+00:01:43.333 --> 00:01:47.333
+see that I left you here in Marketing & Markdown,
+
+28
+00:01:47.333 --> 00:01:51.333
+and since then, I've been busy doing a lot of prototyping, all these commits
+
+29
+00:01:51.333 --> 00:01:55.333
+are prototypes. And by the way, when you write a commit message, you can actually
+
+30
+00:01:55.333 --> 00:01:59.333
+put additional information under the initial commit message,
+
+31
+00:01:59.333 --> 00:02:03.333
+like this: Add 3rd person AI to scene, and then, you can put a space and then you can put
+
+32
+00:02:03.333 --> 00:02:07.333
+other information. OK, so that's some useful stuff about commits. So I've done some
+
+33
+00:02:07.333 --> 00:02:11.333
+prototyping. Now what I want to do is I want to show you one of these prototype
+
+34
+00:02:11.333 --> 00:02:15.333
+states. Let's have a look at Get perception reporting
+
+35
+00:02:15.333 --> 00:02:19.333
+working. So if I go Checkout, it's going to say "create a
+
+36
+00:02:19.333 --> 00:02:23.333
+detached HEAD". Let's look at what that means! I'll let it do it, it'll take a second because it's got
+
+37
+00:02:23.333 --> 00:02:27.333
+a lot of stuff in Git LFS, and we're going to end up
+
+38
+00:02:27.333 --> 00:02:31.333
+with the HEAD. Now, the HEAD is the indicator of your
+
+39
+00:02:31.333 --> 00:02:35.333
+current disk state, so the disk state is now at
+
+40
+00:02:35.333 --> 00:02:39.333
+Get perception reporting working, and the branch, there is no
+
+41
+00:02:39.333 --> 00:02:43.333
+branch, we're not on a branch. It kind of looks like we're on the prototype branch, but we're not
+
+42
+00:02:43.333 --> 00:02:47.333
+anywhere yet until we create a new branch. Anyway, what I've done is reset
+
+43
+00:02:47.333 --> 00:02:51.333
+my disk state to here, but you know that we have a load of
+
+44
+00:02:51.333 --> 00:02:55.333
+ignored files, so I don't know that my project is in exactly the
+
+45
+00:02:55.333 --> 00:02:59.333
+state it was when I made that commit, and I may get errors, because the Binaries, the
+
+46
+00:02:59.333 --> 00:03:03.333
+Intermediate, etc. are different, potentially different,
+
+47
+00:03:03.333 --> 00:03:07.333
+to when I committed because they're ignored, remember. So I want to introduce you to a
+
+48
+00:03:07.333 --> 00:03:11.333
+new git command, which is the core focus of this video. If you want to switch to a
+
+49
+00:03:11.333 --> 00:03:15.333
+different state in Git with Unreal, here's a very handy thing to do, it's called
+
+50
+00:03:15.333 --> 00:03:19.333
+git clean. Now let's just go git clean -h. You can also look on the
+
+51
+00:03:19.333 --> 00:03:23.333
+web for much more detailed documentation, I've put the link in the resources.
+
+52
+00:03:23.333 --> 00:03:27.333
+And the command line parameters that I want to bring your attention to
+
+53
+00:03:27.333 --> 00:03:31.333
+are -d, because this allows us to clear directories
+
+54
+00:03:31.333 --> 00:03:35.333
+even if they're empty. So if some of these were empty, like maybe Binaries.
+
+55
+00:03:35.333 --> 00:03:39.333
+Well it isn't as it happens, but if any of these were empty, that -d will allow us to
+
+56
+00:03:39.333 --> 00:03:43.333
+remove them; -x, which means that we're cleaning things that
+
+57
+00:03:43.333 --> 00:03:47.333
+are ignored. This is the thing that's going to make sure that, when we change our
+
+58
+00:03:47.333 --> 00:03:51.333
+repository state, we aren't effecting the
+
+59
+00:03:51.333 --> 00:03:55.333
+ignored files, but we want to clear them out and let Unreal create those ignored
+
+60
+00:03:55.333 --> 00:03:59.333
+derived files and we're going to use interactive mode just for safety. So we're
+
+61
+00:03:59.333 --> 00:04:03.333
+going to use the command line options with x, d, and i, it doesn't really matter which order. So let's
+
+62
+00:04:03.333 --> 00:04:07.333
+have a look at it! I'll go ahead and do that now, git clean -x
+
+63
+00:04:07.333 --> 00:04:11.333
+-d -i. Look what it does! It said I would be removing this lot,
+
+64
+00:04:11.333 --> 00:04:15.333
+had you not used -i for interactive. I say 1 or c
+
+65
+00:04:15.333 --> 00:04:19.333
+to clean and it goes ahead and does it. Let's look at the disk! Much better!
+
+66
+00:04:19.333 --> 00:04:23.333
+Now we're back as if we'd have done our manual clearing out of derived files, but
+
+67
+00:04:23.333 --> 00:04:27.333
+we, instead of doing it manually we've used this command, git
+
+68
+00:04:27.333 --> 00:04:31.333
+clean -x -d -i. Now the very advanced among you may want to use
+
+69
+00:04:31.333 --> 00:04:35.333
+something called a Git Hook, which you can then use
+
+70
+00:04:35.333 --> 00:04:39.333
+automation to do this, but I wouldn't bother for now, let's get used to it at this level.
+
+71
+00:04:39.333 --> 00:04:43.333
+OK, so now if I open my project at this state, I want to show you where we're going
+
+72
+00:04:43.333 --> 00:04:47.333
+over the coming lectures, because this is a part of my prototyping.
+
+73
+00:04:47.333 --> 00:04:51.333
+Before I started laying down the terrain... I haven't fully prototyped this project, by the way, I've
+
+74
+00:04:51.333 --> 00:04:55.333
+only just cracked the back of a couple of the most important things.
+
+75
+00:04:55.333 --> 00:04:59.333
+So I'm unpacking the project now, from the Git commit,
+
+76
+00:04:59.333 --> 00:05:03.333
+and it's having to recreate all the derived files, because we're choosing not to
+
+77
+00:05:03.333 --> 00:05:07.333
+store derived files in the repo. Remember the .gitignore automatically
+
+78
+00:05:07.333 --> 00:05:11.333
+was created by Unreal for us, in this case, and it ignores a whole
+
+79
+00:05:11.333 --> 00:05:15.333
+bunch of stuff, all this stuff here. OK, so we're needing to
+
+80
+00:05:15.333 --> 00:05:19.333
+recreate that. That's what's happening now. If you don't do this git clean, you can get a disparity
+
+81
+00:05:19.333 --> 00:05:23.333
+between what's in all your derived files and your non-derived, and your project's in
+
+82
+00:05:23.333 --> 00:05:27.333
+some strange undefined state. So here we go! Let's just take a look at
+
+83
+00:05:27.333 --> 00:05:31.333
+how this is laid out! What I've got is I've got a couple of AI characters placed in
+
+84
+00:05:31.333 --> 00:05:35.333
+here, one's read and one's blue, and then, I've also got ,in
+
+85
+00:05:35.333 --> 00:05:39.333
+this world point, some TargetPoints. One up there, one there, one there,
+
+86
+00:05:39.333 --> 00:05:43.333
+one there, one there... Oh no, that's it! So there's 1, 2, 3,
+
+87
+00:05:43.333 --> 00:05:47.333
+and then, one in this corner down here. And then, each of these TargetPoints has a
+
+88
+00:05:47.333 --> 00:05:51.333
+wait time on it. Most of them are 2 seconds, but the one up here I'm pretending is like
+
+89
+00:05:51.333 --> 00:05:55.333
+a coffee machine and has a 5 second wait time. What I mean by a coffee machine
+
+90
+00:05:55.333 --> 00:05:59.333
+or water filter, whatever they call it in an office. It's what they call a water cooler moment!
+
+91
+00:05:59.333 --> 00:06:03.333
+That's it! Well the idea is that these characters are going to move
+
+92
+00:06:03.333 --> 00:06:07.333
+between these waypoints, waiting for the specified amount of time,
+
+93
+00:06:07.333 --> 00:06:11.333
+but they're going to wait a little bit longer up here, on this one that I'm firing these
+
+94
+00:06:11.333 --> 00:06:15.333
+fetching yellow balls at. And the idea is that eventually you'll end up with a water cooler moment
+
+95
+00:06:15.333 --> 00:06:19.333
+and they'll both end up in the same place. We may, if we have time in the final game,
+
+96
+00:06:19.333 --> 00:06:23.333
+once we're outdoors and everything else and got all the important stuff done, we may
+
+97
+00:06:23.333 --> 00:06:27.333
+organize it that they have a chat with each other or something like that. OK, so basically
+
+98
+00:06:27.333 --> 00:06:31.333
+what we'll be doing over the upcoming videos is using perception. Look at the top-left of the screen.
+
+99
+00:06:31.333 --> 00:06:35.333
+When one of these characters sees me or sees each other, they're reporting who they are
+
+100
+00:06:35.333 --> 00:06:39.333
+and who they've seen, and then, they are patrolling automatically using
+
+101
+00:06:39.333 --> 00:06:43.333
+pathfinding, between these different points, and that is basically the scope of
+
+102
+00:06:43.333 --> 00:06:47.333
+what we're trying to do. If you have a look here, you can see your Navigation
+
+103
+00:06:47.333 --> 00:06:51.333
+mesh will be on here, the green mesh, and it includes the upper surfaces
+
+104
+00:06:51.333 --> 00:06:55.333
+up here. OK cool! So that's all very well! I've given you a preview, now
+
+105
+00:06:55.333 --> 00:06:59.333
+what I want you to do is I want you to have a go at getting comfortable. Excuse the
+
+106
+00:06:59.333 --> 00:07:03.333
+pun, that's a terrible terrible joke there. So make some changes to your project.
+
+107
+00:07:03.333 --> 00:07:07.333
+For example, move a cube, add a class, whatever. Close Unreal
+
+108
+00:07:07.333 --> 00:07:11.333
+and then commit using SourceTree. Don't use Unreal's commit tool, in this
+
+109
+00:07:11.333 --> 00:07:15.333
+case, because it just confuses things. Let's use SourceTree just to make sure everything is committed,
+
+110
+00:07:15.333 --> 00:07:19.333
+because remember, new things, new files may not get committed by
+
+111
+00:07:19.333 --> 00:07:23.333
+Unreal's tools. So just to save confusion use SourceTree this time, close
+
+112
+00:07:23.333 --> 00:07:27.333
+Unreal, use SourceTree. Reset master to your previous commit,
+
+113
+00:07:27.333 --> 00:07:31.333
+run the git clean, and then, open your project and check all that stuff that you
+
+114
+00:07:31.333 --> 00:07:35.333
+changed as truly reverted. And this will give you the confidence to go ahead and
+
+115
+00:07:35.333 --> 00:07:39.333
+experiment with your project, knowing that you can very easily go back to a previous
+
+116
+00:07:39.333 --> 00:07:43.333
+committed state. It's a very important exercise, just have a go at it!Work until you
+
+117
+00:07:43.333 --> 00:07:47.333
+get it done, and I will see you in a minute! Oh, and by the way, if you're struggling with Git
+
+118
+00:07:47.333 --> 00:07:51.333
+LFS, for any particular reason, you can actually get a lot more information
+
+119
+00:07:51.333 --> 00:07:55.333
+about what it can do by coming to the terminal, which I hit here in SourceTree
+
+120
+00:07:55.333 --> 00:07:59.333
+and typing git lfs - help. And it'll give you lots of commands that may help
+
+121
+00:07:59.333 --> 00:08:03.333
+you get it running, if you're having issues. OK, go ahead, pause the video, and do that exercise
+
+122
+00:08:03.333 --> 00:08:07.333
+now!
+
+123
+00:08:07.333 --> 00:08:11.333
+OK great news! So
+
+124
+00:08:11.333 --> 00:08:15.333
+the thing is that I'm just going to close Unreal, I'm going to
+
+125
+00:08:15.333 --> 00:08:19.333
+show only the current branch... Actually, now I'll show all of the branches, so you know where we are. So we are
+
+126
+00:08:19.333 --> 00:08:23.333
+here, in this detached weird HEAD state. Where I want to be is just on the master
+
+127
+00:08:23.333 --> 00:08:27.333
+branch. So I can either right-click master on the left there and say check out master,
+
+128
+00:08:27.333 --> 00:08:31.333
+or I could right click here, or I could go to the Terminal and just say git
+
+129
+00:08:31.333 --> 00:08:35.333
+checkout master. We do have to be able to
+
+130
+00:08:35.333 --> 00:08:39.333
+use a Terminal as well, because sometimes there's things you can only
+
+131
+00:08:39.333 --> 00:08:43.333
+do there. Back in SourceTree, you may need to go View and Refresh for it to catch up
+
+132
+00:08:43.333 --> 00:08:47.333
+with what you did on the Terminal, and if I hide the other
+
+133
+00:08:47.333 --> 00:08:51.333
+branches, just show the master branch, you'll see we're back to exactly where we are. One more thing to do,
+
+134
+00:08:51.333 --> 00:08:55.333
+which is to come over to the Terminal, because remember that your derived
+
+135
+00:08:55.333 --> 00:08:59.333
+files now, in this folder, are generated for that scene I showed you with
+
+136
+00:08:59.333 --> 00:09:03.333
+those red and blue guys running around but we don't want that. And the safest and easiest
+
+137
+00:09:03.333 --> 00:09:07.333
+way to fix that is to go git clean -x -d
+
+138
+00:09:07.333 --> 00:09:11.333
+-i. Check that it all looks right and click 1 or c,
+
+139
+00:09:11.333 --> 00:09:15.333
+and now we're removed and you can reopen your project, rebuild,
+
+140
+00:09:15.333 --> 00:09:19.333
+and you're in a good state. So while that rebuilds,
+
+141
+00:09:19.333 --> 00:09:23.333
+we should see no new files come into the source control, because everything it's
+
+142
+00:09:23.333 --> 00:09:27.333
+building should be ignored, and that's a good sign, if we don't see any changes here,
+
+143
+00:09:27.333 --> 00:09:31.333
+because these are just being pushed into these directories, the Intermediate
+
+144
+00:09:31.333 --> 00:09:35.333
+directories, etc. Alright, one final thing to do, just to complete this lecture,
+
+145
+00:09:35.333 --> 00:09:39.333
+is one, I'm going to make sure that this project does indeed open with no problems,
+
+146
+00:09:39.333 --> 00:09:43.333
+and we're back to exactly where we were at the end of the last lecture. Yep, looks good, no
+
+147
+00:09:43.333 --> 00:09:47.333
+funny AI agents running around, so I'm going to close Unreal. The other
+
+148
+00:09:47.333 --> 00:09:51.333
+thing to do is, remember I talked about stashing? Well now I want to actually
+
+149
+00:09:51.333 --> 00:09:55.333
+commit something for this lecture and I want to put a readme on. So I can right-click on this
+
+150
+00:09:55.333 --> 00:09:59.333
+stash and Apply Stash On master.
+
+151
+00:09:59.333 --> 00:10:03.333
+OK let's see what it does! So it's going to do that, it should be quick because it's just a text
+
+152
+00:10:03.333 --> 00:10:07.333
+file. And we have a single uncommitted change, there's the readme.
+
+153
+00:10:07.333 --> 00:10:11.333
+That's great! So now I can just commit that as TG5,
+
+154
+00:10:11.333 --> 00:10:15.333
+and the name of this lecture, which is Use
+
+155
+00:10:15.333 --> 00:10:19.333
+git clean to Revert Project.
+
+156
+00:10:19.333 --> 00:10:23.333
+OK great, I'm going to Commit that! I've not pushed it
+
+157
+00:10:23.333 --> 00:10:27.333
+to the Internet. What does this 1 ahead mean? This means that the
+
+158
+00:10:27.333 --> 00:10:31.333
+remote repository, if I was to Show Remote Branches now, is behind, so I
+
+159
+00:10:31.333 --> 00:10:35.333
+haven't pushed it to GitHub on the web yet. I very much suggest that you do Push,
+
+160
+00:10:35.333 --> 00:10:39.333
+because by pushing, you're backing up your project state. And if you're ever
+
+161
+00:10:39.333 --> 00:10:43.333
+having another branch or prototyping, please either push that to the web as a backup
+
+162
+00:10:43.333 --> 00:10:47.333
+or make sure you've got some other backup on your system like Backblaze, which is what I
+
+163
+00:10:47.333 --> 00:10:51.333
+use which gives you the ability to recover from dodgy situations.
+
+164
+00:10:51.333 --> 00:10:55.333
+I accidentally, between videos, deleted the project
+
+165
+00:10:55.333 --> 00:10:59.333
+from here, from this EPIC Games Launcher screen. I deleted here like that, don't
+
+166
+00:10:59.333 --> 00:11:03.333
+do it, and that caused all sorts of problems, which meant I had to go and get the files
+
+167
+00:11:03.333 --> 00:11:07.333
+from Backblaze. So please have at least two different forms of backup, source
+
+168
+00:11:07.333 --> 00:11:11.333
+control alone is not necessarily backup, you can still get yourself in trouble if you forget to
+
+169
+00:11:11.333 --> 00:11:15.333
+push or you include the wrong files. Have about at least another system, I would suggest
+
+170
+00:11:15.333 --> 00:11:19.333
+a third system like a local hard disk backup, as well. So
+
+171
+00:11:19.333 --> 00:11:23.333
+the pep talk on backup's over, thank you very much for watching the video, and I will see
+
+172
+00:11:23.333 --> 00:11:27.333
+you in the next one, where we'll actually crack on and get this project going!
+
+173
+00:11:27.333 --> 00:11:27.433
+
+
