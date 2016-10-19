@@ -1,0 +1,434 @@
+WEBVTT
+
+1
+00:00:06.833 --> 00:00:10.833
+Welcome! In this lecture we are going to be learning how we can
+
+2
+00:00:10.833 --> 00:00:14.833
+launch the balls in the direction that we are looking in, rather than simply
+
+3
+00:00:14.833 --> 00:00:18.833
+forward. And to do that, we are going to be recapping a little
+
+4
+00:00:18.833 --> 00:00:22.833
+bit about rotations and how they
+
+5
+00:00:22.833 --> 00:00:26.833
+work in combination with vectors.
+
+6
+00:00:26.833 --> 00:00:28.133
+See you in there!
+
+7
+00:00:28.133 --> 00:00:32.133
+So let's start by recapping what rotating a rotation
+
+8
+00:00:32.133 --> 00:00:36.133
+looks like! So here I have described rotations as
+
+9
+00:00:36.133 --> 00:00:40.133
+two segments of a circle. So this one is a 45
+
+10
+00:00:40.133 --> 00:00:44.133
+degree rotation, on the left, and on the right, we have a 90 degree
+
+11
+00:00:44.133 --> 00:00:48.133
+rotation. Now, remember that multiplying, so these rotations we can
+
+12
+00:00:48.133 --> 00:00:52.133
+imagine are Quaternions, and we can multiply these two Quaternions
+
+13
+00:00:52.133 --> 00:00:56.133
+to essentially rotate the rotations. Now, in two dimensions
+
+14
+00:00:56.133 --> 00:01:00.133
+it's fairly simple, because the order doesn't really matter, but as you can see,
+
+15
+00:01:00.133 --> 00:01:04.133
+what we end up getting is this full angle
+
+16
+00:01:04.133 --> 00:01:08.133
+here. The two multiplied together essentially just rotates this one around by
+
+17
+00:01:08.133 --> 00:01:12.133
+45 degrees, and so the resultant rotation is the sum of the
+
+18
+00:01:12.133 --> 00:01:16.133
+two degrees, very simple. Now, how about if
+
+19
+00:01:16.133 --> 00:01:20.133
+we do a multiplication with a vector? So this is a Quaternion
+
+20
+00:01:20.133 --> 00:01:24.133
+and we multiply it by a vector. What is the result? Now,
+
+21
+00:01:24.133 --> 00:01:28.133
+so as you can see, this gray was the old vector,
+
+22
+00:01:28.133 --> 00:01:32.133
+and now we have
+
+23
+00:01:32.133 --> 00:01:36.133
+rotated by the 45 degree amount and we have a new vector here,
+
+24
+00:01:36.133 --> 00:01:40.133
+that's the red arrow and that is the result of this multiplication.
+
+25
+00:01:40.133 --> 00:01:44.133
+OK, so we can apply rotations by multiplying by
+
+26
+00:01:44.133 --> 00:01:48.133
+vectors, in exactly the same way as we can do it to Quaternions. So
+
+27
+00:01:48.133 --> 00:01:52.133
+the Quaternion rotated by another Quaternion, or we can
+
+28
+00:01:52.133 --> 00:01:56.133
+rotate a vector by multiplying with a Quaternion, as well.
+
+29
+00:01:56.133 --> 00:02:00.133
+So that's quite useful to know! So how about rotating
+
+30
+00:02:00.133 --> 00:02:04.133
+the forward vector? So if we have this following expression, we've got
+
+31
+00:02:04.133 --> 00:02:08.133
+camera.transform.rotation multiplied by Vector3
+
+32
+00:02:08.133 --> 00:02:12.133
+.forward. So this is our camera, as you can see
+
+33
+00:02:12.133 --> 00:02:16.133
+it is pointing forward, so this blue vector is the forward vector
+
+34
+00:02:16.133 --> 00:02:20.133
+which is ppointing in the same direction as the camera.
+
+35
+00:02:20.133 --> 00:02:24.133
+Now what happens if I rotate my camera off to the right, like this?
+
+36
+00:02:24.133 --> 00:02:28.133
+So I've changed the camera.transform.rotation by a little
+
+37
+00:02:28.133 --> 00:02:32.133
+bit less than 90 degrees, at this point, and I
+
+38
+00:02:32.133 --> 00:02:36.133
+multiply that by the forward vector. Where does my forward
+
+39
+00:02:36.133 --> 00:02:40.133
+vector now point? And have a little guess before I tell you.
+
+40
+00:02:40.133 --> 00:02:44.133
+Yes, indeed, it does point forward! So
+
+41
+00:02:44.133 --> 00:02:48.133
+what we've got, by looking at this
+
+42
+00:02:48.133 --> 00:02:52.133
+expression here, is a vector that points in
+
+43
+00:02:52.133 --> 00:02:56.133
+the looking direction of the camera. So this is
+
+44
+00:02:56.133 --> 00:03:00.133
+going to be very useful for calculating which direction we want to launch
+
+45
+00:03:00.133 --> 00:03:04.133
+the balls in, so I want you to launch in the look direction!
+
+46
+00:03:04.133 --> 00:03:08.133
+You've got it, there's a challenge for you already, and I think you are capable
+
+47
+00:03:08.133 --> 00:03:12.133
+of this. You know all the components, you just need to maybe scratch your head a little bit
+
+48
+00:03:12.133 --> 00:03:16.133
+and talk in the discussions about this. So I'd like you to update your
+
+49
+00:03:16.133 --> 00:03:20.133
+velocity or the velocity of your ball that you instantiate,
+
+50
+00:03:20.133 --> 00:03:24.133
+using the camera's rotation
+
+51
+00:03:24.133 --> 00:03:28.133
+and using this expression that we've just seen, and then, I
+
+52
+00:03:28.133 --> 00:03:32.133
+would like you... So you'll be needing to rotate the
+
+53
+00:03:32.133 --> 00:03:36.133
+Vector3.forward, as we just saw in
+
+54
+00:03:36.133 --> 00:03:40.133
+the previous expression. And just think about
+
+55
+00:03:40.133 --> 00:03:44.133
+do you want rotation or localRotation,
+
+56
+00:03:44.133 --> 00:03:48.133
+and which of these two is the correct one for what you're trying to achieve? If you're not sure, perhaps
+
+57
+00:03:48.133 --> 00:03:52.133
+try them both out and see what the difference is. But I'd like you to discuss,
+
+58
+00:03:52.133 --> 00:03:56.133
+in the discussions, why one is right and the other isn't.
+
+59
+00:03:56.133 --> 00:04:00.133
+OK, so pause the video and have a go at doing this yourself!
+
+60
+00:04:00.133 --> 00:04:04.133
+OK, welcome back! So it is
+
+61
+00:04:04.133 --> 00:04:08.133
+time for me to have a go! So
+
+62
+00:04:08.133 --> 00:04:12.133
+the first thing is, well at the
+
+63
+00:04:12.133 --> 00:04:16.133
+moment we're launching in the forward direction, and we clearly want to be launching in the
+
+64
+00:04:16.133 --> 00:04:20.133
+forward drection multiplied by the camera. So let's get hold of our
+
+65
+00:04:20.133 --> 00:04:24.133
+camera first. So it's of Camera type, camera
+
+66
+00:04:24.133 --> 00:04:28.133
+= GetComponentInChildren.
+
+67
+00:04:28.133 --> 00:04:32.133
+Now remember this is possible because the Ball
+
+68
+00:04:32.133 --> 00:04:36.133
+Launcher script is attached to a parent of the camera, it's attached to
+
+69
+00:04:36.133 --> 00:04:40.133
+the player. So we can do this and get hold of our
+
+70
+00:04:40.133 --> 00:04:44.133
+camera component, and now, we just want to multiply by
+
+71
+00:04:44.133 --> 00:04:48.133
+Camera dot... Now what do we want?
+
+72
+00:04:48.133 --> 00:04:52.133
+...transform, I'm going to go with
+
+73
+00:04:52.133 --> 00:04:56.133
+rotation. Well actually, let's try localRotation, that's what was working before, so that's
+
+74
+00:04:56.133 --> 00:05:00.133
+my hunch. I think maybe it should be localRotation,
+
+75
+00:05:00.133 --> 00:05:04.133
+and I'll multiply by the forward vector,
+
+76
+00:05:04.133 --> 00:05:08.133
+Save that, hop into Unity.
+
+77
+00:05:08.133 --> 00:05:12.133
+Now let's give it a go! So if I click,
+
+78
+00:05:12.133 --> 00:05:16.133
+it seems to be... Yes, that seems to be working! But if I
+
+79
+00:05:16.133 --> 00:05:20.133
+rotate now, you see all I'm getting
+
+80
+00:05:20.133 --> 00:05:24.133
+is the up down motion, which makes sense if you think about it,
+
+81
+00:05:24.133 --> 00:05:28.133
+because what we're looking at is the
+
+82
+00:05:28.133 --> 00:05:32.133
+rotation of this Camera, and the Camera
+
+83
+00:05:32.133 --> 00:05:36.133
+locally doesn't rotate around the Y axis, that's this axis
+
+84
+00:05:36.133 --> 00:05:40.133
+here. It doesn't rotate around this axis, it just rotates
+
+85
+00:05:40.133 --> 00:05:44.133
+around its X axis, it's local already rotated X axis.
+
+86
+00:05:44.133 --> 00:05:48.133
+So it's only going to modify whether we are launching the ball
+
+87
+00:05:48.133 --> 00:05:52.133
+upward or downward. So we actually don't want local
+
+88
+00:05:52.133 --> 00:05:56.133
+Rotation at all, we want the global rotation, which tells us exactly where
+
+89
+00:05:56.133 --> 00:06:00.133
+the camera is pointing in our world. So if I hit play
+
+90
+00:06:00.133 --> 00:06:04.133
+and now I start launching, you can see that the
+
+91
+00:06:04.133 --> 00:06:08.133
+balls are flying in all the sorts of right direction! Now,
+
+92
+00:06:08.133 --> 00:06:12.133
+one more tweak I want to make is to... I'm going to minimize this,
+
+93
+00:06:12.133 --> 00:06:16.133
+and I want to make the balls' launcher a little bit
+
+94
+00:06:16.133 --> 00:06:20.133
+faster. So I select the Player and I'm going to up it about
+
+95
+00:06:20.133 --> 00:06:24.133
+20. Let's see if that makes a difference!
+
+96
+00:06:24.133 --> 00:06:28.133
+Yes, this is a bit easier to play isn't it? It's less of a
+
+97
+00:06:28.133 --> 00:06:32.133
+Parabolic Arc and we can pretty much look where we're firing
+
+98
+00:06:32.133 --> 00:06:36.133
+the ball. So to copy that across, we have to hit the cog on
+
+99
+00:06:36.133 --> 00:06:40.133
+the Ball Launcher (Script) component, and then, you can hit Copy
+
+100
+00:06:40.133 --> 00:06:44.133
+Component. So now, when we stop playing, we can go to
+
+101
+00:06:44.133 --> 00:06:48.133
+the Player, click on the cog again on the Ball Launcher, and this
+
+102
+00:06:48.133 --> 00:06:52.133
+time we can Paste Component Values and that will paste
+
+103
+00:06:52.133 --> 00:06:56.133
+that 20 in. But imagine, if you had been modifying lots of different fields, it would
+
+104
+00:06:56.133 --> 00:07:00.133
+have pasted all those fields in. So I can save my scene, and
+
+105
+00:07:00.133 --> 00:07:04.133
+now, when I hit play, you can see my ball is launched with
+
+106
+00:07:04.133 --> 00:07:08.133
+a bit more velocity and momentum than it was before!
+
+107
+00:07:08.133 --> 00:07:12.133
+Excellent! This game is really starting to take shape, and
+
+108
+00:07:12.133 --> 00:07:14.300
+I'll see you in the next lecture!
+
