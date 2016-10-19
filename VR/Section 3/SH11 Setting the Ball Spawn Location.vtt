@@ -1,0 +1,638 @@
+WEBVTT
+
+1
+00:00:07.200 --> 00:00:11.200
+Welcome! In this lecture we are going to be looking at how we can set the
+
+2
+00:00:11.200 --> 00:00:15.200
+ball to spawn behind our camera, to be a little bit more realistic for a basketball game.
+
+3
+00:00:15.200 --> 00:00:19.200
+And we're also going to be looking at how we can allow the
+
+4
+00:00:19.200 --> 00:00:23.200
+designer to tweak things like Ball Speed
+
+5
+00:00:23.200 --> 00:00:27.200
+at game play time, so that they can really do some game play tweaking,
+
+6
+00:00:27.200 --> 00:00:31.200
+as we can see here. At the same time, we're going to do a little bit of a refactor
+
+7
+00:00:31.200 --> 00:00:34.400
+to just clean things up. OK, see you in there!
+
+8
+00:00:34.400 --> 00:00:38.400
+So the balls that we have currently spawning seems to be
+
+9
+00:00:38.400 --> 00:00:42.400
+spawned in a little bit of a weird way. This is not at all how a basketball
+
+10
+00:00:42.400 --> 00:00:46.400
+game works, we should be really launching the balls from where our
+
+11
+00:00:46.400 --> 00:00:50.400
+camera is. So we need to find a way to
+
+12
+00:00:50.400 --> 00:00:54.400
+set the location of those spawned objects, so I'm going to go into
+
+13
+00:00:54.400 --> 00:00:58.400
+our camera Ball
+
+14
+00:00:58.400 --> 00:01:02.400
+Spawner script and just show you how I
+
+15
+00:01:02.400 --> 00:01:06.400
+can update the location of this instance. Now, I'm going to do it
+
+16
+00:01:06.400 --> 00:01:10.400
+for the forward direction, so the UpArrow,
+
+17
+00:01:10.400 --> 00:01:14.400
+so just to show you one example.
+
+18
+00:01:14.400 --> 00:01:18.400
+So what we can do is, with this GameObject,
+
+19
+00:01:18.400 --> 00:01:22.400
+we can get hold of its transform, and obviously, the transform
+
+20
+00:01:22.400 --> 00:01:26.400
+has a position field and we can set this
+
+21
+00:01:26.400 --> 00:01:30.400
+position field from the position of this current script object
+
+22
+00:01:30.400 --> 00:01:34.400
+transform or rather the GameObject this script is on, get the transform
+
+23
+00:01:34.400 --> 00:01:38.400
+of that. So let's just remind ourselves what script, what
+
+24
+00:01:38.400 --> 00:01:42.400
+GameObject is this script on. It's not on the Player
+
+25
+00:01:42.400 --> 00:01:46.400
+but it is on the Camera. If we go down in the Inspector to
+
+26
+00:01:46.400 --> 00:01:50.400
+the bottom, we have a Ball Spawner (Script).
+
+27
+00:01:50.400 --> 00:01:54.400
+OK, so we'd be getting the camera location, which is fine, that is where we want
+
+28
+00:01:54.400 --> 00:01:58.400
+to, indeed, either that position or the player position would be exactly the same.
+
+29
+00:01:59.233 --> 00:02:03.233
+So a quick reminder, at this point! Transform, when written like this without
+
+30
+00:02:03.233 --> 00:02:07.233
+anything before the dot operator, what this means
+
+31
+00:02:07.233 --> 00:02:11.233
+is we're getting the transform of the current script, and
+
+32
+00:02:11.233 --> 00:02:15.233
+we know that the transform of the current script is actually just
+
+33
+00:02:15.233 --> 00:02:19.233
+short form for getting the component transform. So it's getting the
+
+34
+00:02:19.233 --> 00:02:23.233
+transform of the currently attached GameObject, which in this case
+
+35
+00:02:23.233 --> 00:02:24.166
+is the Camera.
+
+36
+00:02:24.166 --> 00:02:27.333
+So we can do a tranform.position
+
+37
+00:02:27.333 --> 00:02:31.333
+with this script, and that is going to
+
+38
+00:02:31.333 --> 00:02:35.333
+essentailly set the new instance's location to being just behind
+
+39
+00:02:35.333 --> 00:02:39.333
+or just at this camera, and also, we carry on giving it
+
+40
+00:02:39.333 --> 00:02:43.333
+this forward velocity, so everything is fine
+
+41
+00:02:43.333 --> 00:02:47.333
+if we hit play and try that out! So
+
+42
+00:02:47.333 --> 00:02:51.333
+using my Up Arrow, I am going to fire this
+
+43
+00:02:51.333 --> 00:02:55.333
+ball from my location and you'll see all the other ones still do the same thing, but
+
+44
+00:02:55.333 --> 00:02:59.333
+now, that ball is actually firing from behind me.
+
+45
+00:02:59.333 --> 00:03:03.333
+Perfect! Now just one more thing!
+
+46
+00:03:03.333 --> 00:03:07.333
+I don't want to be firing the ball using the Arrow Keys, that's not a very
+
+47
+00:03:07.333 --> 00:03:11.333
+intuitive way to play this game, we want to be doing it using a
+
+48
+00:03:11.333 --> 00:03:15.333
+key press. So let's see what's available to us! If we go into Edit, Project
+
+49
+00:03:15.333 --> 00:03:19.333
+Settings, and Input, we can see the different axes available
+
+50
+00:03:19.333 --> 00:03:23.333
+to us! We've used Mouse X and Mouse Y
+
+51
+00:03:23.333 --> 00:03:27.333
+before, to give us contiuous input, but now we want
+
+52
+00:03:27.333 --> 00:03:31.333
+essentially a boolean, just a fire event. And
+
+53
+00:03:31.333 --> 00:03:35.333
+fortunately, there are already some Fire events here! So if we open that first Fire
+
+54
+00:03:35.333 --> 00:03:39.333
+event, we'll notice that we could either use the left control
+
+55
+00:03:39.333 --> 00:03:43.333
+or we can use the mouse down button. So both of these would be
+
+56
+00:03:43.333 --> 00:03:47.333
+fine! Now, because it's a boolean event, what we
+
+57
+00:03:47.333 --> 00:03:51.333
+can do, instead of doing a get Input.GetAxis,
+
+58
+00:03:51.333 --> 00:03:55.333
+is we can do an Input.GetKeyDown, which is exactly what
+
+59
+00:03:55.333 --> 00:03:59.333
+we've got here. But instead of passing in a KeyCode, we pass
+
+60
+00:03:59.333 --> 00:04:03.333
+in the name of the event or the name of the axis which is ("Fire1").
+
+61
+00:04:03.333 --> 00:04:07.333
+So it's a bit confusing, because in the Editor here we call them axes,
+
+62
+00:04:07.333 --> 00:04:11.333
+but we can do it both with a GetAxis or a GetKeyDown
+
+63
+00:04:11.333 --> 00:04:15.333
+and GetKeyDown just returns a boolean. So that is what we're going
+
+64
+00:04:15.333 --> 00:04:19.333
+to go for! So I've changed that one to fire, so that
+
+65
+00:04:19.333 --> 00:04:23.333
+we can fire using a mouse
+
+66
+00:04:23.333 --> 00:04:27.333
+down, but it
+
+67
+00:04:27.333 --> 00:04:31.333
+does appear to not like that, saying that this key name
+
+68
+00:04:31.333 --> 00:04:33.100
+is unknown.
+
+69
+00:04:33.100 --> 00:04:35.800
+And that's because I wasn't quite right in
+
+70
+00:04:35.800 --> 00:04:39.800
+saying that we would Get a Key Down. We need to GetButton
+
+71
+00:04:39.800 --> 00:04:43.800
+Down, and that is more general, that is general to taking in
+
+72
+00:04:43.800 --> 00:04:47.800
+an axis name instead of a key name. So if we hit
+
+73
+00:04:47.800 --> 00:04:51.800
+play again, this time it doesn't complain, and if I click,
+
+74
+00:04:51.800 --> 00:04:55.800
+it does launch the balls as it should.
+
+75
+00:04:56.866 --> 00:05:00.866
+So the name of this BallSpawner script is starting to make less
+
+76
+00:05:00.866 --> 00:05:04.866
+sense now. I'd like you to refactor this BallSpawner script, that means we're going to
+
+77
+00:05:04.866 --> 00:05:08.866
+iteratively improve and improve the legibility of the code
+
+78
+00:05:08.866 --> 00:05:12.866
+and so on. So the way I would like you to go about doing this
+
+79
+00:05:12.866 --> 00:05:16.866
+is, create a new script called BallLauncher. It's going to have a fraction of the functionality,
+
+80
+00:05:16.866 --> 00:05:20.866
+we're not going to do all the Arrow Keys and stuff like that. And then, I would like
+
+81
+00:05:20.866 --> 00:05:24.866
+you to handle only the Fire1 event in this script,
+
+82
+00:05:24.866 --> 00:05:28.866
+as we have done in the BallSpawner script. I'd
+
+83
+00:05:28.866 --> 00:05:32.866
+want it to set the location, as we're doing, give the ball a
+
+84
+00:05:32.866 --> 00:05:36.866
+forward velocity, and as a bonus,
+
+85
+00:05:36.866 --> 00:05:40.866
+if you can expose that forward velocity to the designer, try and
+
+86
+00:05:40.866 --> 00:05:44.866
+see if you can rack your brains and figure out how you might do that. But remember,
+
+87
+00:05:44.866 --> 00:05:48.866
+it's just a bonus, if you can't manage it don't worry! OK, so
+
+88
+00:05:48.866 --> 00:05:52.866
+pause the video and have a go at this now!
+
+89
+00:05:52.866 --> 00:05:56.866
+OK, welcome back! We're going to dive right in and have a go at
+
+90
+00:05:56.866 --> 00:06:00.866
+this refactor ourselves! OK, so I'm going to pause
+
+91
+00:06:00.866 --> 00:06:04.866
+the playing execution, and I'm going to, first off, create this new
+
+92
+00:06:04.866 --> 00:06:08.866
+script. So right-click in the Scripts folder, Create, C# Script,
+
+93
+00:06:08.866 --> 00:06:12.866
+and we're going to do a BallLauncher, instead.
+
+94
+00:06:12.866 --> 00:06:16.866
+That's a much better name for what this is doing, it's not really a BallSpawner,
+
+95
+00:06:16.866 --> 00:06:20.866
+the spawner just doesn't tell us where it's going, whereas Launch
+
+96
+00:06:20.866 --> 00:06:24.866
+here is quite clearly more about what we're
+
+97
+00:06:24.866 --> 00:06:28.866
+all about. Now don't forget you need to drag this script, either onto the
+
+98
+00:06:28.866 --> 00:06:32.866
+Main Camera or the Player. I'm going to use the Player, because I think that's a more logical place for the
+
+99
+00:06:32.866 --> 00:06:36.866
+ball launcher to live, and let's open that C#
+
+100
+00:06:36.866 --> 00:06:40.866
+script! OK, now I'm going to copy and
+
+101
+00:06:40.866 --> 00:06:44.866
+paste this section of code. I'm going to take just the if, without the
+
+102
+00:06:44.866 --> 00:06:48.866
+else, because we aren't going to have any other conditions, and I'm going to copy
+
+103
+00:06:48.866 --> 00:06:52.866
+this into our BallLauncher Update () method, like so.
+
+104
+00:06:52.866 --> 00:06:56.866
+I'm going to save that! Now it's complaining, because
+
+105
+00:06:56.866 --> 00:07:00.866
+we don't have the Prefab defined, nor do we have the speed
+
+106
+00:07:00.866 --> 00:07:04.866
+defined. And this is where we're going to copy over
+
+107
+00:07:04.866 --> 00:07:08.866
+this ballPrefab field, we're going to copy that
+
+108
+00:07:08.866 --> 00:07:12.866
+and go to the top of our launcher and past it in here.
+
+109
+00:07:12.866 --> 00:07:16.866
+OK hit Save! And then, it's complaining about the
+
+110
+00:07:16.866 --> 00:07:20.866
+speed, so I could just declare a variable out here,
+
+111
+00:07:20.866 --> 00:07:24.866
+but if I declare the variable as being public
+
+112
+00:07:24.866 --> 00:07:28.866
+and of type float, which it is,
+
+113
+00:07:28.866 --> 00:07:32.866
+and I call it ballSpeed because that's a better
+
+114
+00:07:32.866 --> 00:07:36.866
+name, more descriptive for what it is, and I can give it a default
+
+115
+00:07:36.866 --> 00:07:40.866
+value here. So what's going to happen now is, if
+
+116
+00:07:40.866 --> 00:07:44.866
+I just rename speed here to ballSpeed as well,
+
+117
+00:07:44.866 --> 00:07:48.866
+for consistancy, but if I go into the Unity Editor and
+
+118
+00:07:48.866 --> 00:07:52.866
+I look at my player with the Ball Launcher component, you'll notice the Ball
+
+119
+00:07:52.866 --> 00:07:56.866
+Speed has appeared in here and I can now drag that and
+
+120
+00:07:56.866 --> 00:08:00.866
+change it, as a designer. So I don't need to know code, in order
+
+121
+00:08:00.866 --> 00:08:04.866
+to change the speed at which the ball is launched, which would be quite useful if we were doing
+
+122
+00:08:04.866 --> 00:08:08.866
+multiple levels for this game.
+
+123
+00:08:08.866 --> 00:08:12.866
+So let's have a look and preview whether
+
+124
+00:08:12.866 --> 00:08:16.866
+this works! I'm going to hit play
+
+125
+00:08:16.866 --> 00:08:20.866
+and OK, we are getting an error straight away here,
+
+126
+00:08:20.866 --> 00:08:24.866
+and the reason for this error is that we haven't assigned our prefab.
+
+127
+00:08:24.866 --> 00:08:28.866
+So I'm going to stop playing, open up
+
+128
+00:08:28.866 --> 00:08:32.866
+our Prefabs folder, select the Player in the Hierarchy,
+
+129
+00:08:32.866 --> 00:08:36.866
+and drag the basketball onto the Prefab field.
+
+130
+00:08:36.866 --> 00:08:40.866
+I'm going to hit Save so my scene doesn't get lost,
+
+131
+00:08:40.866 --> 00:08:44.866
+and hit play! OK, now we are launching
+
+132
+00:08:44.866 --> 00:08:48.866
+balls, but you notice there are two balls in the scene, which is a
+
+133
+00:08:48.866 --> 00:08:52.866
+little bit odd. Now why is that? The reason for
+
+134
+00:08:52.866 --> 00:08:56.866
+that is that we haven't removed our BallSpawner script
+
+135
+00:08:56.866 --> 00:09:00.866
+that was previously on the Camera. So if we scroll down,
+
+136
+00:09:00.866 --> 00:09:04.866
+in the Inspector, on the Camera
+
+137
+00:09:04.866 --> 00:09:08.866
+and just normal click the cog and Remove Component, going to hit save
+
+138
+00:09:08.866 --> 00:09:12.866
+play, and now we just get
+
+139
+00:09:12.866 --> 00:09:16.866
+the one ball. If I right-click to minimize
+
+140
+00:09:16.866 --> 00:09:20.866
+my tab, then I want to show you the power
+
+141
+00:09:20.866 --> 00:09:24.866
+of live editing in Unity. I can actually tweak
+
+142
+00:09:24.866 --> 00:09:28.866
+the speed of this ball, let's make it something very noticable, like 100,
+
+143
+00:09:28.866 --> 00:09:32.866
+right during game play, and now if I fire, you can
+
+144
+00:09:32.866 --> 00:09:36.866
+see my ball's start off with a great deal more velocity
+
+145
+00:09:36.866 --> 00:09:40.866
+than they did before. And so that is the power of being able to
+
+146
+00:09:40.866 --> 00:09:44.866
+tweak these properties right in the Editor. You can really do a
+
+147
+00:09:44.866 --> 00:09:48.866
+lot for the game play and for your designer, by exposing your properties
+
+148
+00:09:48.866 --> 00:09:52.866
+in this way. OK, so the final step of refactoring
+
+149
+00:09:52.866 --> 00:09:56.866
+is just to remove that old script that we no longer want. So
+
+150
+00:09:56.866 --> 00:10:00.866
+that BallSpawner, we're going to right-click and hit Delete.
+
+151
+00:10:00.866 --> 00:10:04.866
+Now, I'm going to Save and
+
+152
+00:10:04.866 --> 00:10:08.866
+hit play, check I haven't deleted anything that was actually necessary.
+
+153
+00:10:08.866 --> 00:10:12.866
+You'll notice the speed has gone back to normal, that is the nature of changing these
+
+154
+00:10:12.866 --> 00:10:16.866
+fields during edit time, is that it is just during edit time you have to
+
+155
+00:10:16.866 --> 00:10:20.866
+copy those values back, if you want them to persist beyond
+
+156
+00:10:20.866 --> 00:10:24.866
+that first run. OK, so we've covered a few concepts
+
+157
+00:10:24.866 --> 00:10:28.866
+here about exposing things to the Editor, and also
+
+158
+00:10:28.866 --> 00:10:32.866
+we have got our balls spawning, in the right location, and done a refactor.
+
+159
+00:10:32.866 --> 00:10:35.500
+Congratulations! Let's move on to the next lecture!
+
