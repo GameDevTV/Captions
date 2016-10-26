@@ -1,0 +1,766 @@
+WEBVTT
+
+1
+00:00:06.466 --> 00:00:10.466
+Welcome! In this lecture we are going to be looking at how we can
+
+2
+00:00:10.466 --> 00:00:14.466
+centralize our score keeping system, so that each of these targets
+
+3
+00:00:14.466 --> 00:00:18.466
+all contributes to the same score. And as a bonus, what we're also going to
+
+4
+00:00:18.466 --> 00:00:22.466
+be doing is making it so that these targets can score differently, so
+
+5
+00:00:22.466 --> 00:00:26.466
+for example, when I hit this far away target, it increments my score
+
+6
+00:00:26.466 --> 00:00:30.433
+by 3. OK, let's dive right into the video!
+
+7
+00:00:30.433 --> 00:00:34.433
+So here is the game, as it stands at the moment! As you
+
+8
+00:00:34.433 --> 00:00:38.433
+can see we are getting the score, but I want to show you a little
+
+9
+00:00:38.433 --> 00:00:42.433
+limitation of how we have written the scripts. So
+
+10
+00:00:42.433 --> 00:00:46.433
+if we go to our Target, and I'm going to
+
+11
+00:00:46.433 --> 00:00:50.433
+look from the front, which is what I'm doing here. And
+
+12
+00:00:50.433 --> 00:00:54.433
+I'm going to duplicate this Target, so
+
+13
+00:00:54.433 --> 00:00:58.433
+we have a second Target and I'm going to stick it over here. And
+
+14
+00:00:58.433 --> 00:01:02.433
+yet another Targer, and I will stick it to the left here.
+
+15
+00:01:02.433 --> 00:01:06.433
+Now, if I play I should see some targets. There we go,
+
+16
+00:01:06.433 --> 00:01:10.433
+arranged in front of us! However, I want to point
+
+17
+00:01:10.433 --> 00:01:14.433
+out what happens. So I score 1, I score 2, now I score
+
+18
+00:01:14.433 --> 00:01:18.433
+this one, and... OK, what happened with the log message there? So
+
+19
+00:01:18.433 --> 00:01:22.433
+if I minimize, we want to take a look at the Console again.
+
+20
+00:01:22.433 --> 00:01:26.433
+You'll notice that we've only got these two log messages, but the number at the side, and this is
+
+21
+00:01:26.433 --> 00:01:30.433
+quite important, is the number of times that log message was
+
+22
+00:01:30.433 --> 00:01:34.433
+actually printed out. And so what we're saying is that
+
+23
+00:01:34.433 --> 00:01:38.433
+we've got a score 1, score 2, and then score 1 again. So
+
+24
+00:01:38.433 --> 00:01:42.433
+the reason for that, if we look in our script. So I'm going
+
+25
+00:01:42.433 --> 00:01:46.433
+to pause the game, stop the game, go into the project
+
+26
+00:01:46.433 --> 00:01:50.433
+scripts, and open up my ScoreKeeper script.
+
+27
+00:01:50.433 --> 00:01:54.433
+In fact, we can see in the preview, even without having to launch
+
+28
+00:01:54.433 --> 00:01:58.433
+Visual Studio, that we are keeping track of this score
+
+29
+00:01:58.433 --> 00:02:02.433
+in the script, but it is only
+
+30
+00:02:02.433 --> 00:02:06.433
+on each Target. So if I add a component
+
+31
+00:02:06.433 --> 00:02:10.433
+here, it's not the same component as is added on this other Target,
+
+32
+00:02:10.433 --> 00:02:14.433
+which means that the field, the field meaning
+
+33
+00:02:14.433 --> 00:02:18.433
+this score, is a different variable
+
+34
+00:02:18.433 --> 00:02:22.433
+on each of these Targets. So when we count we get
+
+35
+00:02:22.433 --> 00:02:26.433
+a different count for each one. So what we want to do
+
+36
+00:02:26.433 --> 00:02:30.433
+is centralize this ScoreKeeper object into a new Game Object.
+
+37
+00:02:30.433 --> 00:02:34.433
+So I'm going to right-click and Create an Empty GameObject called
+
+38
+00:02:34.433 --> 00:02:38.433
+ScoreKeeper.
+
+39
+00:02:38.433 --> 00:02:42.433
+And you'll notice, actually, that ScoreKeeper isn't
+
+40
+00:02:42.433 --> 00:02:46.433
+correctly spelled, so what we have to do here is rename the file ScoreKeeper,
+
+41
+00:02:46.433 --> 00:02:50.433
+and then, we have to go and rename the class as well.
+
+42
+00:02:50.433 --> 00:02:54.433
+So we do that in VisualStudio. It's going to ask us to Reload, because we
+
+43
+00:02:54.433 --> 00:02:58.433
+renamed the file, so we need to open that file again because it doesn't
+
+44
+00:02:58.433 --> 00:03:02.433
+know which one we were talking about. And then, if you right-click on the
+
+45
+00:03:02.433 --> 00:03:06.433
+class name, you can hit Rename and you can just
+
+46
+00:03:06.433 --> 00:03:10.433
+enter the new name and hit Apply.
+
+47
+00:03:10.433 --> 00:03:14.433
+OK, so that has renemaed ScoreKeeper, and if you check all the
+
+48
+00:03:14.433 --> 00:03:18.433
+Targets, they're still pointing at the right thing.
+
+49
+00:03:18.433 --> 00:03:22.433
+However, we don't want the Targets to be responsible for keeping the score, we want our
+
+50
+00:03:22.433 --> 00:03:26.433
+ScoreKeeper Game Object to be responsible for that. So I'm going to drag
+
+51
+00:03:26.433 --> 00:03:30.433
+my script onto the ScoreKeeper Game Object, and I'm going to delete
+
+52
+00:03:30.433 --> 00:03:34.433
+these two Targets, these two Duplicate Targets. For now, we'll just deal with
+
+53
+00:03:34.433 --> 00:03:38.433
+one for simplicity, and I'm going to remove that
+
+54
+00:03:38.433 --> 00:03:42.433
+component. What we're actually going to want is a different script here, we'll do
+
+55
+00:03:42.433 --> 00:03:46.433
+that in just a second. So let's go back to our ScoreKeeper!
+
+56
+00:03:46.433 --> 00:03:50.433
+And what we want to do is allow
+
+57
+00:03:50.433 --> 00:03:54.433
+this method to be called from that other script. So
+
+58
+00:03:54.433 --> 00:03:58.433
+we want the collision detection to happen on the
+
+59
+00:03:58.433 --> 00:04:02.433
+Target but the score keeping to happen on the ScoreKeeper. So
+
+60
+00:04:02.433 --> 00:04:06.433
+let me just show you what I mean. I want to change this
+
+61
+00:04:06.433 --> 00:04:10.433
+method to being a public method. Now, that
+
+62
+00:04:10.433 --> 00:04:14.433
+means that other scripts can also call it, and it'll still
+
+63
+00:04:14.433 --> 00:04:18.433
+return void and it's going to Increment the Score.
+
+64
+00:04:18.433 --> 00:04:22.433
+That's what we want it to do. It doesn't need to take any arguments, what it needs to do
+
+65
+00:04:22.433 --> 00:04:26.433
+is when it's called it increments the score, and we can leave it to print out
+
+66
+00:04:26.433 --> 00:04:30.433
+our current score . Great! So now,
+
+67
+00:04:30.433 --> 00:04:34.433
+we have one game object with one component and one field
+
+68
+00:04:34.433 --> 00:04:38.433
+that is keeping track of the score in and that
+
+69
+00:04:38.433 --> 00:04:42.433
+is on the ScoreKeeper Game Object. Now we need to counterpart,
+
+70
+00:04:42.433 --> 00:04:46.433
+which is the Target script. I'm going to right-click and Create
+
+71
+00:04:46.433 --> 00:04:50.433
+the C# Script, and the name of this script I'm going to call
+
+72
+00:04:50.433 --> 00:04:54.433
+it DetectScoring.
+
+73
+00:04:54.433 --> 00:04:58.433
+So it's a script that detects when
+
+74
+00:04:58.433 --> 00:05:02.433
+there has been a scoring. So now,
+
+75
+00:05:02.433 --> 00:05:06.433
+we check that Target has that script attached. Perfect! And if we open
+
+76
+00:05:06.433 --> 00:05:10.433
+that script up, what do we want it to do? Well we want it to do that
+
+77
+00:05:10.433 --> 00:05:14.433
+OnCollision. We want a void OnCollision
+
+78
+00:05:14.433 --> 00:05:18.433
+Enter. Remember, with (Collision
+
+79
+00:05:18.433 --> 00:05:22.433
+and collision). Now this time, I think I've managed to actually spell
+
+80
+00:05:22.433 --> 00:05:26.433
+Collision. Ooh, no I haven't! [Laughs] There I go, making the same error again.
+
+81
+00:05:26.433 --> 00:05:30.433
+Spell Collision correctly, that's very important because if you don't get the spelling
+
+82
+00:05:30.433 --> 00:05:34.433
+correct, that's not going to be called when a collision is entered.
+
+83
+00:05:34.433 --> 00:05:38.433
+And then, here what we want to do is, we want
+
+84
+00:05:38.433 --> 00:05:42.433
+to call this method. To call this
+
+85
+00:05:42.433 --> 00:05:46.433
+method, we need to get hold of this object and handily in unity, there is a
+
+86
+00:05:46.433 --> 00:05:50.433
+method for doing that is called FindObjectOfType,
+
+87
+00:05:50.433 --> 00:05:54.433
+and then, we just need to get the ScoreKeeper type. So just to be clear,
+
+88
+00:05:54.433 --> 00:05:58.433
+this isn't finding the game object, this is actually finding
+
+89
+00:05:58.433 --> 00:06:02.433
+the component itself, which is exactly what we want. So we
+
+90
+00:06:02.433 --> 00:06:06.433
+can do a ScoreKeeper,
+
+91
+00:06:06.433 --> 00:06:10.433
+that's the type. That's the same as this class, it's the type,
+
+92
+00:06:10.433 --> 00:06:14.433
+and we'll just call it score
+
+93
+00:06:14.433 --> 00:06:18.433
+Keeper and we'll store it in that variable. OK, so
+
+94
+00:06:18.433 --> 00:06:22.433
+we've created a variable for our ScoreKeeper. We have then
+
+95
+00:06:22.433 --> 00:06:26.433
+found the object, using the FindObject of Type.
+
+96
+00:06:26.433 --> 00:06:30.433
+Now, we can simply call our
+
+97
+00:06:30.433 --> 00:06:34.433
+Increment method. So you should get dot
+
+98
+00:06:34.433 --> 00:06:38.433
+Increment coming up. So why is that not happening?
+
+99
+00:06:38.433 --> 00:06:42.433
+We've got ScoreKeeper, it's the right type. Let's just check our class.
+
+100
+00:06:42.433 --> 00:06:46.433
+Ah, I'm not doing it on the variable, so that's an interesting
+
+101
+00:06:46.433 --> 00:06:50.433
+distinction if you do a ScoreKeeper type.
+
+102
+00:06:50.433 --> 00:06:54.433
+There are methods on the type itself, but we won't go into those.
+
+103
+00:06:54.433 --> 00:06:58.433
+Those are called static methods. But we do want the Score
+
+104
+00:06:58.433 --> 00:07:02.433
+Keeper variable, so that is accessing the instance
+
+105
+00:07:02.433 --> 00:07:06.433
+of the type, not the type itself. So the ScoreKeeper
+
+106
+00:07:06.433 --> 00:07:10.433
+.Increment score is what we're looking for. Let's see if we can get the auto-
+
+107
+00:07:10.433 --> 00:07:14.433
+completion to come up. I spelled that
+
+108
+00:07:14.433 --> 00:07:18.433
+variable as Keeper in the first place. Lots of spelling mistakes
+
+109
+00:07:18.433 --> 00:07:22.433
+can cause problems. So I want Increment
+
+110
+00:07:22.433 --> 00:07:26.433
+Score. Finally, we got the auto-complete to show us that there was an Increment
+
+111
+00:07:26.433 --> 00:07:30.433
+Score() method. And notice that I'm naming my
+
+112
+00:07:30.433 --> 00:07:34.433
+methods, always beginning with a capital letter. That is a convention in Unity, it's
+
+113
+00:07:34.433 --> 00:07:38.433
+not necessary. I very well could name this method
+
+114
+00:07:38.433 --> 00:07:42.433
+with a lowercase i and that would still be correct C#,
+
+115
+00:07:42.433 --> 00:07:46.433
+but for Unity, our default is to
+
+116
+00:07:46.433 --> 00:07:50.433
+name all methods starting with a
+
+117
+00:07:50.433 --> 00:07:54.433
+capital letter and using capital letters at the beginning of every word. This is called
+
+118
+00:07:54.433 --> 00:07:58.433
+camel case. OK, so
+
+119
+00:07:58.433 --> 00:08:02.433
+that should now do what we want it to! Let's hit play and
+
+120
+00:08:02.433 --> 00:08:06.433
+just check!
+
+121
+00:08:06.433 --> 00:08:10.433
+It does seem to be taking the score!
+
+122
+00:08:10.433 --> 00:08:14.433
+So we'll have to see what it does with more than one
+
+123
+00:08:14.766 --> 00:08:18.766
+and that is going to be your challenge for this lecture! So I would like you
+
+124
+00:08:18.766 --> 00:08:22.766
+to create a Target prefab and then use this prefab
+
+125
+00:08:22.766 --> 00:08:26.766
+to make multiple targets. You'll need to position them apart
+
+126
+00:08:26.766 --> 00:08:30.766
+in the scene, as I did earlier in the video, but doing that with the
+
+127
+00:08:30.766 --> 00:08:34.766
+prefabs rather than just duplicates. And then, check that the
+
+128
+00:08:34.766 --> 00:08:38.766
+score is updated in one place, by playing the game. OK, and
+
+129
+00:08:38.766 --> 00:08:42.766
+as a bonus, if you are feeling quite confident and would like to
+
+130
+00:08:42.766 --> 00:08:46.766
+give something a bit more tricky a go. I'd like you to allow
+
+131
+00:08:46.766 --> 00:08:50.766
+different targets to score differently, so that will involve
+
+132
+00:08:50.766 --> 00:08:54.766
+creating a field and it will involve passing in
+
+133
+00:08:54.766 --> 00:08:58.766
+different arguments to our IncrementScore() method. So
+
+134
+00:08:58.766 --> 00:09:02.766
+you'll have to see whether you can remember or figure out how to do that
+
+135
+00:09:02.766 --> 00:09:06.766
+and use a bit of the knowledge from the previous videos to
+
+136
+00:09:06.766 --> 00:09:10.766
+do that. So pause the video and see how far you can get through this challenge.
+
+137
+00:09:10.766 --> 00:09:14.766
+Don't take more than half an hour. If it takes more than half an hour,
+
+138
+00:09:14.766 --> 00:09:18.766
+then just move on and mention that in the discussions.
+
+139
+00:09:18.766 --> 00:09:22.766
+OK,
+
+140
+00:09:22.766 --> 00:09:26.766
+welcome back! Let's have a go at
+
+141
+00:09:26.766 --> 00:09:30.766
+doing this challenge! So first things first, I said let's make
+
+142
+00:09:30.766 --> 00:09:34.766
+a prefab. So I'm going to go into the Prefab folder and just drag our
+
+143
+00:09:34.766 --> 00:09:38.766
+Target into that. As you see, it turns blue to show us that we've got a
+
+144
+00:09:38.766 --> 00:09:42.766
+prefab, and I can now drag the Prefab into the scene a couple of times
+
+145
+00:09:42.766 --> 00:09:46.766
+and just position these targets
+
+146
+00:09:46.766 --> 00:09:50.766
+at different points to the camera.
+
+147
+00:09:50.766 --> 00:09:54.766
+And if I hit play, let's check whether the scoring is indeed
+
+148
+00:09:54.766 --> 00:09:58.766
+central. So if I hit this one the score is 1, if I hit this one the score is
+
+149
+00:09:58.766 --> 00:10:02.766
+2, and this one the score is 3. So it does look like
+
+150
+00:10:02.766 --> 00:10:06.766
+we are getting the same score incremented, no matter
+
+151
+00:10:06.766 --> 00:10:10.766
+which of our prefabs we're actually hitting with the ball.
+
+152
+00:10:10.766 --> 00:10:14.766
+Excellent! So next up, we want to
+
+153
+00:10:14.766 --> 00:10:18.766
+see whether we can make the ones perhaps that are further away score better.
+
+154
+00:10:18.766 --> 00:10:22.766
+So let me add in a target that's quite far way, off to the side
+
+155
+00:10:22.766 --> 00:10:26.766
+here. So if I hit play, now that's going to be
+
+156
+00:10:26.766 --> 00:10:30.766
+harder to hit, so I would like that to score more than just 1
+
+157
+00:10:30.766 --> 00:10:34.766
+when I actually hit it. So
+
+158
+00:10:34.766 --> 00:10:38.766
+the way I'm going to do that is by adding an argument to
+
+159
+00:10:38.766 --> 00:10:42.766
+IncrementScore(), so we can increment by different amounts, depending on which
+
+160
+00:10:42.766 --> 00:10:46.766
+DetectScoring instance is
+
+161
+00:10:46.766 --> 00:10:50.766
+actually calling it. So the way I'm going
+
+162
+00:10:50.766 --> 00:10:54.766
+to do that is, say IncrementScore and then the
+
+163
+00:10:54.766 --> 00:10:58.766
+amount, and this is of type int, because the score is of type
+
+164
+00:10:58.766 --> 00:11:02.766
+int. And here we need to change our incrementing method
+
+165
+00:11:02.766 --> 00:11:06.766
+to being += amount. So
+
+166
+00:11:06.766 --> 00:11:10.766
+if the score that comes in is 1 we increment by 1, if it's 2 we increment by
+
+167
+00:11:10.766 --> 00:11:14.766
+2, and so on. OK, so that's good
+
+168
+00:11:14.766 --> 00:11:18.766
+there! If we go into our DetectScoring, you'll notice now it's got the red
+
+169
+00:11:18.766 --> 00:11:22.766
+squiggly line because it's expecting an argument to come in, so
+
+170
+00:11:22.766 --> 00:11:26.766
+let's provide that argument. I'm going to do that by creating a public field
+
+171
+00:11:26.766 --> 00:11:30.766
+and say the score
+
+172
+00:11:30.766 --> 00:11:34.766
+PerHit. I'm going to
+
+173
+00:11:34.766 --> 00:11:38.766
+default that to a 1. So we've got the scorePerHit as 1
+
+174
+00:11:38.766 --> 00:11:42.766
+and that is what I'm going to pass in
+
+175
+00:11:42.766 --> 00:11:46.766
+to our IncrementScore() method.
+
+176
+00:11:46.766 --> 00:11:50.766
+OK, let's just check that everything is working as it was before. It should
+
+177
+00:11:50.766 --> 00:11:54.766
+do, because then my default... Oops,
+
+178
+00:11:54.766 --> 00:11:58.766
+I'm accidentally hitting things. So
+
+179
+00:11:58.766 --> 00:12:02.766
+let's just check, the default score should be 1,
+
+180
+00:12:02.766 --> 00:12:06.766
+and that does seem to be how it's working, so let's
+
+181
+00:12:06.766 --> 00:12:10.766
+increase the score of this outer item to 3. As
+
+182
+00:12:10.766 --> 00:12:14.766
+you can see, we've got our Score Per Hit field here,
+
+183
+00:12:14.766 --> 00:12:18.766
+which the designer can just change, and notice that,
+
+184
+00:12:18.766 --> 00:12:22.766
+because this is a prefab, it's gone bold saying
+
+185
+00:12:22.766 --> 00:12:26.766
+that this is different from the original value in the prefab.
+
+186
+00:12:26.766 --> 00:12:30.766
+If I go to the other prefabs it's still one, and those aren't in bold, but the one
+
+187
+00:12:30.766 --> 00:12:34.766
+that we've modified is now in bold. I'm going to save the
+
+188
+00:12:34.766 --> 00:12:38.766
+scene and hit play. And now if I
+
+189
+00:12:38.766 --> 00:12:42.766
+aim to hit that, there you go my score is 3, and if I hit the other ones,
+
+190
+00:12:42.766 --> 00:12:46.766
+my score just goes up by 1! Excellent!
+
+191
+00:12:46.766 --> 00:12:50.766
+Looks like we have successfully completed that challenge! Join me in the next lecture!
+
