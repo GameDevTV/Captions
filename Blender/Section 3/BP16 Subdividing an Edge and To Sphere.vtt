@@ -1,0 +1,702 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Welcome to Subdividing an Edge and
+
+2
+00:00:04.000 --> 00:00:08.000
+to Sphere! So in this video we will be using this
+
+3
+00:00:08.000 --> 00:00:12.000
+Subdivision Tool to add edge geometry, so adding some more
+
+4
+00:00:12.000 --> 00:00:16.000
+vertices on an edge to take more control out of it, and
+
+5
+00:00:16.000 --> 00:00:20.000
+using To Sphere to create a circular
+
+6
+00:00:20.000 --> 00:00:24.000
+hole. So let's hop straight into Blender and carry
+
+7
+00:00:24.000 --> 00:00:25.500
+these out!
+
+8
+00:00:25.500 --> 00:00:29.500
+So here we are in Blender with our to soon
+
+9
+00:00:29.500 --> 00:00:33.500
+be bowling ball! So first of all, a bowling ball
+
+10
+00:00:33.500 --> 00:00:37.500
+is nice and smooth, so I'm going to
+
+11
+00:00:37.500 --> 00:00:41.500
+find on our Tool Shelf here, under the Tools Tab,
+
+12
+00:00:41.500 --> 00:00:45.500
+Smooth Shading, so we've got a nice smooth surface,
+
+13
+00:00:45.500 --> 00:00:49.500
+and I'm going to hop over into Edit Mode.
+
+14
+00:00:49.500 --> 00:00:53.500
+Now we've got a series of triangles we can work at here, and the
+
+15
+00:00:53.500 --> 00:00:57.500
+subdivision, on the modifier, that we chose
+
+16
+00:00:57.500 --> 00:01:01.500
+has generated a few artifacts. If you look
+
+17
+00:01:01.500 --> 00:01:05.500
+closely, there are a series of six triangles or
+
+18
+00:01:05.500 --> 00:01:09.500
+hexagons being created, but also, occasionally there's a pentagon
+
+19
+00:01:09.500 --> 00:01:13.500
+where they join up and around that pentagon the geometry's just a bit
+
+20
+00:01:13.500 --> 00:01:17.500
+distorted, around there. So we're going to stay clear
+
+21
+00:01:17.500 --> 00:01:21.500
+of the ones with five going around,
+
+22
+00:01:21.500 --> 00:01:25.500
+and we're going to stick to the six ones. So I'm going to find a space in the middle
+
+23
+00:01:25.500 --> 00:01:29.500
+and we're going to create one of our holes. So here is
+
+24
+00:01:29.500 --> 00:01:33.500
+absolutely fine! So I'll go to Face Select
+
+25
+00:01:33.500 --> 00:01:37.500
+and click on these faces here, I'm just going to select a group of
+
+26
+00:01:37.500 --> 00:01:41.500
+them. You could use a series of selection methods to do that,
+
+27
+00:01:41.500 --> 00:01:45.500
+I'm just holding down Shift. And what we can do
+
+28
+00:01:45.500 --> 00:01:49.500
+here is literally extrude in. So we'll see what that looks
+
+29
+00:01:49.500 --> 00:01:53.500
+like, if we do that. So we've got that there, that's being extruded
+
+30
+00:01:53.500 --> 00:01:57.500
+in. That's great! Let's see what that looks like by hopping straight
+
+31
+00:01:57.500 --> 00:02:01.500
+back over into Edit Mode! So it looks like there's a hole
+
+32
+00:02:01.500 --> 00:02:05.500
+in the ball, which is great! It's quite a deep hole, I haven't gone through the other
+
+33
+00:02:05.500 --> 00:02:09.500
+side, fortunately, no control over that! And
+
+34
+00:02:09.500 --> 00:02:13.500
+it looks very rough, I mean that looks absolutely horrible. It doesn't
+
+35
+00:02:13.500 --> 00:02:17.500
+look like an appropriate size hole, to begin with, and neither does it look the
+
+36
+00:02:17.500 --> 00:02:21.500
+right shape, it's a hexagonal hole. so even though we've got Smooth Shading
+
+37
+00:02:21.500 --> 00:02:25.500
+turned on, that's not hidden the fact that we've cut a hexagon
+
+38
+00:02:25.500 --> 00:02:29.500
+into the surface of our model. So let's hop back on over
+
+39
+00:02:29.500 --> 00:02:33.500
+into Edit Mode, and I'm going to undo that last step
+
+40
+00:02:33.500 --> 00:02:37.500
+of geometry. So we need to have more
+
+41
+00:02:37.500 --> 00:02:41.500
+of a step going in, and one of the easiest ways to do this is to,
+
+42
+00:02:41.500 --> 00:02:45.500
+first of all, we're going to select an edge loop. So we want to
+
+43
+00:02:45.500 --> 00:02:49.500
+select the edge loop that's going around our model here,
+
+44
+00:02:49.500 --> 00:02:53.500
+the hexagon basically, and
+
+45
+00:02:53.500 --> 00:02:57.500
+if we go to Edge Mode, hold down Alt, and try and do that, it won't work.
+
+46
+00:02:57.500 --> 00:03:01.500
+And the reason it won't do that is because there isn't an edge loop that's well defined there.
+
+47
+00:03:01.500 --> 00:03:05.500
+It doesn't know which way to go. I mean these are all triangles,
+
+48
+00:03:05.500 --> 00:03:09.500
+so it doesn't know which way to go. Each time, it doesn't know whether to go this way,
+
+49
+00:03:09.500 --> 00:03:13.500
+that way, this way, or any other way. In fact, it's got one, two, three,
+
+50
+00:03:13.500 --> 00:03:17.500
+four, five possibilities and directions, so Blender just does
+
+51
+00:03:17.500 --> 00:03:21.500
+not know which way to go. However, we can help it
+
+52
+00:03:21.500 --> 00:03:25.500
+by simply selecting some triangles again
+
+53
+00:03:25.500 --> 00:03:29.500
+and insetting. So I'm going to use the shortcut key I,
+
+54
+00:03:29.500 --> 00:03:33.500
+and it doesn't have to be by much, it can just be by that. Now the
+
+55
+00:03:33.500 --> 00:03:37.500
+moment we've done that, we've actually broken up and we've created a series of
+
+56
+00:03:37.500 --> 00:03:41.500
+quads around the outside of our new hexagon.
+
+57
+00:03:41.500 --> 00:03:45.500
+Now when we do that and we select an edge loop,
+
+58
+00:03:45.500 --> 00:03:49.500
+when we hold down Alt, we actually get the edge loop itself, which is
+
+59
+00:03:49.500 --> 00:03:53.500
+brilliant! That's exactly what we wanted! Now the
+
+60
+00:03:53.500 --> 00:03:57.500
+tool, To Sphere, can be gotten at in two ways. You can
+
+61
+00:03:57.500 --> 00:04:01.500
+hold down Shift, Alt, and S,
+
+62
+00:04:01.500 --> 00:04:05.500
+and we see in the lower-left the command, To Sphere,
+
+63
+00:04:05.500 --> 00:04:09.500
+has appeared, and that is one of these
+
+64
+00:04:09.500 --> 00:04:13.500
+proportional things, so it goes from 0 to 1.
+
+65
+00:04:13.500 --> 00:04:17.500
+And, as we can see, it's going backwards and forwards, it's making
+
+66
+00:04:17.500 --> 00:04:21.500
+absolutely no difference to our hexagon, and the reason
+
+67
+00:04:21.500 --> 00:04:25.500
+for that is, because there's only six edges that is
+
+68
+00:04:25.500 --> 00:04:29.500
+already spherized as much as it can. So we need to
+
+69
+00:04:29.500 --> 00:04:33.500
+add more edges, even though the shape will be the same, but we need to
+
+70
+00:04:33.500 --> 00:04:37.500
+add more edges, so that it can spherize
+
+71
+00:04:37.500 --> 00:04:41.500
+or make it circular, in this case, since we're dealing with
+
+72
+00:04:41.500 --> 00:04:45.500
+almost a 2D object. So
+
+73
+00:04:45.500 --> 00:04:49.500
+I'm going to cancel that by hitting Escape. The other way you can get to To Sphere
+
+74
+00:04:49.500 --> 00:04:53.500
+is to hit the Spacebar. And ooh, you can see that was my
+
+75
+00:04:53.500 --> 00:04:57.500
+last search! So this is a very good lookup
+
+76
+00:04:57.500 --> 00:05:01.500
+for commands, if you can't find them.
+
+77
+00:05:01.500 --> 00:05:05.500
+And we can see, if I type in "sphere", it gives us a couple of
+
+78
+00:05:05.500 --> 00:05:09.500
+choices there and To Sphere,
+
+79
+00:05:09.500 --> 00:05:13.500
+and it also gives the shortcut keys Shift, Alt,
+
+80
+00:05:13.500 --> 00:05:17.500
+and S. So brilliant! But we know that's not working, at the moment, so we
+
+81
+00:05:17.500 --> 00:05:21.500
+have to subdivide this edge. So we leave that
+
+82
+00:05:21.500 --> 00:05:25.500
+selected and we can do two options, we can either go to
+
+83
+00:05:25.500 --> 00:05:29.500
+Subdivide, here on the Tool Shelf, or we can go to Mesh,
+
+84
+00:05:29.500 --> 00:05:33.500
+Edges, and Subdivide, or you can get to another
+
+85
+00:05:33.500 --> 00:05:37.500
+menu, which is on the W key, as well. And
+
+86
+00:05:37.500 --> 00:05:41.500
+if we go W, and Subdivide is right at the very
+
+87
+00:05:41.500 --> 00:05:45.500
+top, very powerful, and take note of what
+
+88
+00:05:45.500 --> 00:05:49.500
+else is on here, it's a Specials menu. So we just want
+
+89
+00:05:49.500 --> 00:05:53.500
+Subdivide, and that's cut every one of these edges
+
+90
+00:05:53.500 --> 00:05:57.500
+into two, because we've subdivided by 1.
+
+91
+00:05:57.500 --> 00:06:01.500
+So it's cut everything into two. We subdivide by two,
+
+92
+00:06:01.500 --> 00:06:05.500
+it's cut everything in to 3 and 4, etc., etc.
+
+93
+00:06:05.500 --> 00:06:09.500
+So now I'm going to go for 3 and see what happens
+
+94
+00:06:09.500 --> 00:06:13.500
+now, and we can go straight on and try
+
+95
+00:06:13.500 --> 00:06:17.500
+To Sphere. So Shift, Alt, and
+
+96
+00:06:17.500 --> 00:06:21.500
+S, and as we move the mouse to the left and right,
+
+97
+00:06:21.500 --> 00:06:25.500
+we can see at 0 it remains a hexagon shape. But now as
+
+98
+00:06:25.500 --> 00:06:29.500
+we approach 1, if you look in the lower-left there, as it goes
+
+99
+00:06:29.500 --> 00:06:33.500
+up towards 1, we get a lovely circle in our mesh.
+
+100
+00:06:33.500 --> 00:06:37.500
+Brilliant! That's exactly what we want! So let's hop straight into Face
+
+101
+00:06:37.500 --> 00:06:41.500
+Mode again, and select these six slices of that pie,
+
+102
+00:06:41.500 --> 00:06:45.500
+and try pushing that into the model, and let's see what's happens.
+
+103
+00:06:45.500 --> 00:06:49.500
+Let's go into Object Mode to remove all that.
+
+104
+00:06:49.500 --> 00:06:53.500
+So we're almost there but it still looks horrible! It looks now like
+
+105
+00:06:53.500 --> 00:06:57.500
+it's a circle cut, but we're seeing the extra
+
+106
+00:06:57.500 --> 00:07:01.500
+geometry, the hexagonal geometry around it, or the
+
+107
+00:07:01.500 --> 00:07:05.500
+series of triangles that make that up. So we need to do one more step to make that
+
+108
+00:07:05.500 --> 00:07:09.500
+nice and neat. So if we hop back into
+
+109
+00:07:09.500 --> 00:07:13.500
+Edit Mode and undo that step, we can do
+
+110
+00:07:13.500 --> 00:07:17.500
+one final thing and that is insetting this
+
+111
+00:07:17.500 --> 00:07:21.500
+by a little bit, before we then extrude
+
+112
+00:07:21.500 --> 00:07:25.500
+inwards. Now, once we've done that and we hop back
+
+113
+00:07:25.500 --> 00:07:29.500
+over, we see that that nasty geometry surrounding the hole
+
+114
+00:07:29.500 --> 00:07:33.500
+has gone. So by insetting, we have given it the opportunity
+
+115
+00:07:33.500 --> 00:07:37.500
+to not look so horrible. OK, I think
+
+116
+00:07:37.500 --> 00:07:38.833
+it's challenge time!
+
+117
+00:07:38.833 --> 00:07:42.833
+OK, so I'd like you to create the next two circles we need!
+
+118
+00:07:42.833 --> 00:07:46.833
+So if you have done it, undo the extrude into
+
+119
+00:07:46.833 --> 00:07:50.833
+the sphere. We're going to deal with that, in a moment, so it's correct.
+
+120
+00:07:50.833 --> 00:07:54.833
+Then, we're going to create two more holes,
+
+121
+00:07:54.833 --> 00:07:58.833
+and then, using reference materials, just so you get the
+
+122
+00:07:58.833 --> 00:08:02.833
+hole positions right... So use reference materials to
+
+123
+00:08:02.833 --> 00:08:06.833
+guide their placement. Pause the video now and give that
+
+124
+00:08:06.833 --> 00:08:10.833
+a go! OK guys, welcome back!
+
+125
+00:08:10.833 --> 00:08:13.233
+Let's hop over into Blender!
+
+126
+00:08:13.233 --> 00:08:15.233
+Alright, so we have our
+
+127
+00:08:15.233 --> 00:08:19.233
+one hole here, and I'm simply going to
+
+128
+00:08:19.233 --> 00:08:23.233
+go a bit further up and I'm going
+
+129
+00:08:23.233 --> 00:08:27.233
+to put two more holes... Let's see,
+
+130
+00:08:27.233 --> 00:08:31.233
+they have to converge relatively close to one another.
+
+131
+00:08:31.233 --> 00:08:35.233
+So designs, decisions, design
+
+132
+00:08:35.233 --> 00:08:39.233
+decisions. So I'm going to pop it in
+
+133
+00:08:39.233 --> 00:08:43.233
+Perspective Mode, I think, just so I can get an eye on the ball.
+
+134
+00:08:43.233 --> 00:08:47.233
+Yeah! That's going to be about right there! So we can see the line
+
+135
+00:08:47.233 --> 00:08:51.233
+coming up here, so no it won't be there, not at all.
+
+136
+00:08:51.233 --> 00:08:55.233
+It's probably going to be there and there.
+
+137
+00:08:55.233 --> 00:08:59.233
+Now, that looks far too close together! If you look at
+
+138
+00:08:59.233 --> 00:09:03.233
+reference materials and pins, that just won't look right. So
+
+139
+00:09:03.233 --> 00:09:07.233
+let's remove that, and that one, well I'll keep that as a reference
+
+140
+00:09:07.233 --> 00:09:11.233
+because I will need, that
+
+141
+00:09:11.233 --> 00:09:15.233
+will be the lower triangle of the next set that I can possibly use.
+
+142
+00:09:15.233 --> 00:09:19.233
+So that one there and that one there, and let's
+
+143
+00:09:19.233 --> 00:09:23.233
+follow the line down. No, I've got that wrong! I'm blind as a
+
+144
+00:09:23.233 --> 00:09:27.233
+bat, when it comes to this obviously! Let's zoom in a little
+
+145
+00:09:27.233 --> 00:09:31.233
+further and see if we can actually get things lined up. So there will be a flat
+
+146
+00:09:31.233 --> 00:09:35.233
+edge coming up here, so the next available one
+
+147
+00:09:35.233 --> 00:09:39.233
+is that one there and this one here.
+
+148
+00:09:39.233 --> 00:09:43.233
+Now you can see what I'm getting at there! I'm just trying to make sure that it's lined up appropriately,
+
+149
+00:09:43.233 --> 00:09:47.233
+and actually, that one looks a bit too
+
+150
+00:09:47.233 --> 00:09:51.233
+far apart. So is there anything in the middle of this one here and that one
+
+151
+00:09:51.233 --> 00:09:55.233
+there? Nope, so I'm going to leave it like that for
+
+152
+00:09:55.233 --> 00:09:59.233
+the moment. Now, because I've selected them both at once, you can do this
+
+153
+00:09:59.233 --> 00:10:03.233
+by the way, so we can inset at the same time.
+
+154
+00:10:03.233 --> 00:10:07.233
+Now I cannot remember how far I inset
+
+155
+00:10:07.233 --> 00:10:11.233
+before, so I'm just going to do it by eye. That looks about
+
+156
+00:10:11.233 --> 00:10:15.233
+right, and now, we need to select
+
+157
+00:10:15.233 --> 00:10:19.233
+those two edge loops. Let's try and do everything in
+
+158
+00:10:19.233 --> 00:10:23.233
+one fell swoop here. So that one and that
+
+159
+00:10:23.233 --> 00:10:27.233
+one. Great! I'm now going to subdivide those,
+
+160
+00:10:27.233 --> 00:10:31.233
+so we go to Subdivide, and we set them to 3 which is
+
+161
+00:10:31.233 --> 00:10:35.233
+great! We can do that! Now, with
+
+162
+00:10:35.233 --> 00:10:39.233
+them both selected, I'm not sure, at this point, if it's going to
+
+163
+00:10:39.233 --> 00:10:43.233
+sphere correctly. No it's not!
+
+164
+00:10:43.233 --> 00:10:47.233
+you see there, it's doing something weird, so we are going to have to select these
+
+165
+00:10:47.233 --> 00:10:51.233
+individually. So let's select this edge loop here, and then, go
+
+166
+00:10:51.233 --> 00:10:55.233
+To Sphere and wack that up to
+
+167
+00:10:55.233 --> 00:10:59.233
+1, so it's 100% spherized.
+
+168
+00:10:59.233 --> 00:11:03.233
+And now, just select this one and do the same so it's
+
+169
+00:11:03.233 --> 00:11:07.233
+Shift, Alt, S, or you can go Spacebar, To Sphere.
+
+170
+00:11:07.233 --> 00:11:11.233
+And there we go, we've got our next circle!
+
+171
+00:11:11.233 --> 00:11:15.233
+And of course, my instruction before was to undo your extrude here.
+
+172
+00:11:15.233 --> 00:11:18.666
+So if you haven't done that, what can you do?
+
+173
+00:11:18.666 --> 00:11:21.533
+In fact, what we will do in the
+
+174
+00:11:21.533 --> 00:11:25.533
+next lecture is correct that, as if you had made this mistake.
+
+175
+00:11:25.533 --> 00:11:29.533
+That's absolutely fine! And I shall see you very shortly!
+
