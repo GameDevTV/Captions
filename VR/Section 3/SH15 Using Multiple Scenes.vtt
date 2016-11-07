@@ -1,0 +1,546 @@
+WEBVTT
+
+1
+00:00:07.133 --> 00:00:11.133
+Welcome! In this video we're going to be learning about adding extra scenes, so
+
+2
+00:00:11.133 --> 00:00:15.133
+this is a new empty scene, and we're also going to be learning about how, in code,
+
+3
+00:00:15.133 --> 00:00:19.133
+we can transition between these different scenes. So you can see here, by hitting
+
+4
+00:00:19.133 --> 00:00:23.133
+Spacebar, if I have the game's loaded
+
+5
+00:00:23.133 --> 00:00:27.133
+I'm actually loading my game scene. So we've gone from a menu scene
+
+6
+00:00:27.133 --> 00:00:31.133
+to a game scene. See you in the lecture!
+
+7
+00:00:31.133 --> 00:00:35.133
+So I want to show you how we go about adding things like
+
+8
+00:00:35.133 --> 00:00:39.133
+splash screens, to give our game a little bit more polish. We don't really want to
+
+9
+00:00:39.133 --> 00:00:43.133
+end up straight here in the game, with no explanation,
+
+10
+00:00:43.133 --> 00:00:47.133
+no kind of warning, that we're actually going to get into a game at all.
+
+11
+00:00:47.133 --> 00:00:51.133
+So the first component we're going to need for that is to talk a little
+
+12
+00:00:51.133 --> 00:00:55.133
+bit about these scenes. So, as you can see, we have a Main scene
+
+13
+00:00:55.133 --> 00:00:59.133
+here, this is kind of our game scene, and
+
+14
+00:00:59.133 --> 00:01:03.133
+we're going to create a new scene. Because we're going to have more than one scene, I'm going to Create a
+
+15
+00:01:03.133 --> 00:01:07.133
+Folder for all our scenes, and I'm going to
+
+16
+00:01:07.133 --> 00:01:11.133
+prefix it with underscore, so that it shows up at the beginning. So it'll be _Scenes.
+
+17
+00:01:11.133 --> 00:01:15.133
+There it is, it shows up first in our ordering. I'm going to stick the Main
+
+18
+00:01:15.133 --> 00:01:19.133
+scene in there. It doesn't matter if you move it around. And while I'm at it,
+
+19
+00:01:19.133 --> 00:01:23.133
+I am going to actually rename this to
+
+20
+00:01:23.133 --> 00:01:27.133
+02_Game. Now
+
+21
+00:01:27.133 --> 00:01:31.133
+the reason for the 02 is that I want to put a menu scene before
+
+22
+00:01:31.133 --> 00:01:35.133
+this one, so that's going to be 01. So let's right-click,
+
+23
+00:01:35.133 --> 00:01:39.133
+Create, and create ourselves a new Scene.
+
+24
+00:01:39.133 --> 00:01:43.133
+And as I said, this one is going to be 01_Menu.
+
+25
+00:01:43.133 --> 00:01:47.133
+As you see, that obviously goes in the correct order. And if I open
+
+26
+00:01:47.133 --> 00:01:51.133
+up that scene, I just want to Save changes to my current scene,
+
+27
+00:01:51.133 --> 00:01:55.133
+and I get a brand new scene completely.
+
+28
+00:01:55.133 --> 00:01:59.133
+But how does my game know which scene is the right one to load?
+
+29
+00:01:59.133 --> 00:02:03.133
+So for that, we have to go into Edit, and then, go down
+
+30
+00:02:03.133 --> 00:02:07.133
+to... I apologize, we go into Build Settings,
+
+31
+00:02:07.133 --> 00:02:11.133
+which is under File. So File, Build Settings, that's that one here,
+
+32
+00:02:11.133 --> 00:02:15.133
+and it pops up a box here.
+
+33
+00:02:15.133 --> 00:02:19.133
+Now what we can do is, we have Scenes in Build. As you see, we haven't added any
+
+34
+00:02:19.133 --> 00:02:23.133
+yet, and what we need to do is just drag those scenes in
+
+35
+00:02:23.133 --> 00:02:27.133
+from our Scenes folder. And I want you to note the order
+
+36
+00:02:27.133 --> 00:02:31.133
+that these scenes are in; that's actually quite important, because that will dictate
+
+37
+00:02:31.133 --> 00:02:35.133
+or we'll use that to give us the order that they should
+
+38
+00:02:35.133 --> 00:02:39.133
+show up in our game. And so, take a note of
+
+39
+00:02:39.133 --> 00:02:43.133
+this number off to the right, this is what's known as
+
+40
+00:02:43.133 --> 00:02:47.133
+the Build Number. We'll see what that means in
+
+41
+00:02:47.133 --> 00:02:51.133
+just a second. OK, so we are
+
+42
+00:02:51.133 --> 00:02:55.133
+in our menu now. I want to
+
+43
+00:02:55.133 --> 00:02:59.133
+show you how we go from one scene
+
+44
+00:02:59.133 --> 00:03:03.133
+to the next, and I'm going to do that by creating a little
+
+45
+00:03:03.133 --> 00:03:07.133
+script. So I'm going to create a GameObject to
+
+46
+00:03:07.133 --> 00:03:11.133
+attach the script to. I'm going to call it the LevelManager,
+
+47
+00:03:11.133 --> 00:03:15.133
+because it's responsible for loading different levels.
+
+48
+00:03:15.133 --> 00:03:19.133
+I'm going to Create a new script, right-click in the Scripts folder, C# Script,
+
+49
+00:03:19.133 --> 00:03:23.133
+and I'll call that one LevelManager2...
+
+50
+00:03:23.133 --> 00:03:27.133
+I mean I'll call it LevelManager, as well, not LevelManager number 2.
+
+51
+00:03:27.133 --> 00:03:31.133
+I'm going to drag that script onto the GameObject, so that it will run,
+
+52
+00:03:31.133 --> 00:03:35.133
+and then, what I want to do is,
+
+53
+00:03:35.133 --> 00:03:39.133
+in the Start () method, this is where I'm going to "// Load
+
+54
+00:03:39.133 --> 00:03:43.133
+scene". Now, you've probably never
+
+55
+00:03:43.133 --> 00:03:47.133
+seen these before, but the double slash, as we've seen here,
+
+56
+00:03:47.133 --> 00:03:51.133
+indicates a comment. That means something that is completely ignored by the compiler, completely
+
+57
+00:03:51.133 --> 00:03:55.133
+ignored by Unity, and it's just there for the
+
+58
+00:03:55.133 --> 00:03:59.133
+programmer to make notes to themselves. Now
+
+59
+00:03:59.133 --> 00:04:03.133
+we're going to have to import a new module, in order to load the scenes,
+
+60
+00:04:03.133 --> 00:04:07.133
+and that module is called,
+
+61
+00:04:07.133 --> 00:04:11.133
+I think it's called Unity
+
+62
+00:04:11.133 --> 00:04:15.133
+Engine dot...
+
+63
+00:04:15.133 --> 00:04:19.133
+I think it's a manager? SceneManagement, there we go!
+
+64
+00:04:19.133 --> 00:04:23.133
+So you see what I did there, I kind of guessed, I couldn't
+
+65
+00:04:23.133 --> 00:04:27.133
+remember, so I just checked by using the auto-completion. I knew it had
+
+66
+00:04:27.133 --> 00:04:31.133
+Management in there, and with Visual Studio, at least, if you type just
+
+67
+00:04:31.133 --> 00:04:35.133
+part of the word, it can complete the rest for you. So it was SceneManagement,
+
+68
+00:04:35.133 --> 00:04:39.133
+and it knew what I wanted. Now, what we need is
+
+69
+00:04:39.133 --> 00:04:43.133
+the SceneManager, and the SceneManager has a few
+
+70
+00:04:43.133 --> 00:04:47.133
+interesting methods on it, one of them is
+
+71
+00:04:47.133 --> 00:04:51.133
+we can get the current scene.
+
+72
+00:04:51.133 --> 00:04:54.000
+We do that by
+
+73
+00:04:54.566 --> 00:04:58.566
+GetActiveScene here, and that gets
+
+74
+00:04:58.566 --> 00:05:02.566
+us a scene object. And, in fact, the scene
+
+75
+00:05:02.566 --> 00:05:06.566
+object has a few interesting properties, and the number one property that we're
+
+76
+00:05:06.566 --> 00:05:10.566
+interested in looking at is this one, buildIndex. That was that number that
+
+77
+00:05:10.566 --> 00:05:14.566
+you had seen previously, so if we go and have a look at the Build Settings again,
+
+78
+00:05:14.566 --> 00:05:18.566
+this number here, that is called the Build Index. So if we can
+
+79
+00:05:18.566 --> 00:05:22.566
+get hold of our buildIndex, like so...
+
+80
+00:05:22.566 --> 00:05:26.566
+I'm just going to store it as current
+
+81
+00:05:26.566 --> 00:05:30.566
+Index, like so.
+
+82
+00:05:30.566 --> 00:05:34.566
+And then, what we actually want to do is progress to the next scene, so we
+
+83
+00:05:34.566 --> 00:05:38.566
+want the currentIndex + 1. We want
+
+84
+00:05:38.566 --> 00:05:42.566
+to somehow load currentIndex + 1. How are we going to do that?
+
+85
+00:05:42.566 --> 00:05:46.566
+I'll just make that into a comment, "// Load currentIndex + 1".
+
+86
+00:05:46.566 --> 00:05:50.566
+So again, we use the scene manager.
+
+87
+00:05:50.566 --> 00:05:54.566
+And what method would be useful here? Well perhaps Load
+
+88
+00:05:54.566 --> 00:05:58.566
+Scene! And if you have a look at the different overloads
+
+89
+00:05:58.566 --> 00:06:02.566
+that there are for LoadScene, we can go through them with the arrow,
+
+90
+00:06:02.566 --> 00:06:06.566
+you see that one of them takes this
+
+91
+00:06:06.566 --> 00:06:10.566
+sceneBuildIndex. That's exactly the one that we are going to be
+
+92
+00:06:10.566 --> 00:06:14.566
+using. In fact, it's that first one, sceneBuildIndex on its own. So
+
+93
+00:06:14.566 --> 00:06:18.566
+we're going to do (currentIndex + 1).
+
+94
+00:06:18.566 --> 00:06:22.566
+There we go! It should load our next scene, so I'm going to
+
+95
+00:06:22.566 --> 00:06:26.566
+hit Save, go over to Unity,
+
+96
+00:06:26.566 --> 00:06:30.566
+and hit play. OK,
+
+97
+00:06:30.566 --> 00:06:34.566
+something didn't quite work there. There's something a bit fishy! It doesn't look like it actually
+
+98
+00:06:34.566 --> 00:06:38.566
+saved, so I will hit the Save button manually
+
+99
+00:06:38.566 --> 00:06:42.566
+here. OK, having a bit of
+
+100
+00:06:42.566 --> 00:06:46.566
+problems saving here. There we go, now it's saved!
+
+101
+00:06:46.566 --> 00:06:50.566
+If I go back into Unity and hit play, hopefully now with the
+
+102
+00:06:50.566 --> 00:06:54.566
+correct version. There we go! You see it went straight into our second scene,
+
+103
+00:06:54.566 --> 00:06:58.566
+because on start that method was called, the Start () method,
+
+104
+00:06:58.566 --> 00:07:02.566
+the LevelManager's Start () method was called. Let's go over to it,
+
+105
+00:07:02.566 --> 00:07:06.566
+and we got our current scene index, we incremented it by 1, and
+
+106
+00:07:06.566 --> 00:07:10.000
+we loaded that scene. Perfect!
+
+107
+00:07:10.000 --> 00:07:14.000
+So here is a smaller challenge than usual for you! I'd like you to trigger the next
+
+108
+00:07:14.000 --> 00:07:18.000
+scene on Spacebar. So you'll need to be using the
+
+109
+00:07:18.000 --> 00:07:22.000
+GetKeyDown(), our now very familiar GetKeyDown().
+
+110
+00:07:22.000 --> 00:07:26.000
+And I'd like you to factor out a method for going to the next
+
+111
+00:07:26.000 --> 00:07:30.000
+scene, so that it's very tight, very obviously
+
+112
+00:07:30.000 --> 00:07:34.000
+refactored, and all the functionality is essentially self
+
+113
+00:07:34.000 --> 00:07:38.000
+documented, by giving it a sensible name. OK, so pause the video,
+
+114
+00:07:38.000 --> 00:07:42.000
+and have a go at this little challenge!
+
+115
+00:07:42.000 --> 00:07:46.000
+OK welcome back! I am going to do this right
+
+116
+00:07:46.000 --> 00:07:50.000
+now! So the first thing I said is, we want to avoid
+
+117
+00:07:50.000 --> 00:07:54.000
+comments when possible, by just giving things good names. So
+
+118
+00:07:54.000 --> 00:07:58.000
+if I'm going to cut this out, I'm going to create a new method,
+
+119
+00:07:58.000 --> 00:08:02.000
+void, and it's going to be LoadNext
+
+120
+00:08:02.000 --> 00:08:06.000
+Scene(). It doesn't need to take any arguments.
+
+121
+00:08:06.000 --> 00:08:10.000
+And here we go, I can just remove this comment now, because
+
+122
+00:08:10.000 --> 00:08:14.000
+obviously it loads the next scene and this one, too.
+
+123
+00:08:14.000 --> 00:08:18.000
+And now, this one we can call from our Update () method,
+
+124
+00:08:18.000 --> 00:08:22.000
+once we have checked our GetKeyDown(). So if
+
+125
+00:08:22.000 --> 00:08:26.000
+(Input.GetKeyDown.
+
+126
+00:08:26.000 --> 00:08:30.000
+And then, we've got the (KeyCode.Space))! It's what I want!
+
+127
+00:08:30.000 --> 00:08:34.000
+And then, I can just call our method like this, Load
+
+128
+00:08:34.000 --> 00:08:38.000
+NextScene(). As simple
+
+129
+00:08:38.000 --> 00:08:42.000
+as that! So you can see that it's very obvious that when
+
+130
+00:08:42.000 --> 00:08:46.000
+we get the Spacebar we load the next scene, because the method name is
+
+131
+00:08:46.000 --> 00:08:50.000
+very very obvious. And then, LoadNextScene(), because we're in a method named LoadNextScene(),
+
+132
+00:08:50.000 --> 00:08:54.000
+all these lines of code make quite a lot of sense!
+
+133
+00:08:54.000 --> 00:08:58.000
+So if we go back into Unity and hit play,
+
+134
+00:08:58.000 --> 00:09:02.000
+we should hopefully see our empty scene, until we hit space
+
+135
+00:09:02.000 --> 00:09:06.000
+and it has loaded our game.
+
+136
+00:09:06.000 --> 00:09:10.000
+Perfect! Challenge completed! Let's move on to the next video!
+
