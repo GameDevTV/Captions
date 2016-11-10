@@ -1,0 +1,486 @@
+WEBVTT
+
+1
+00:00:07.233 --> 00:00:11.233
+Welcome! In this video we are going to learn how we can add timers to our
+
+2
+00:00:11.233 --> 00:00:15.233
+code, so that our game will automatically just progress. And here
+
+3
+00:00:15.233 --> 00:00:19.233
+I'm doing it after a very short amount of time but this is now, actually,
+
+4
+00:00:19.233 --> 00:00:23.233
+configurable by the designer, so the designer can decide how long a level will be.
+
+5
+00:00:23.233 --> 00:00:26.400
+Let's find out how to do that by diving right in!
+
+6
+00:00:26.400 --> 00:00:30.400
+So you will have noticed that when we play our game,
+
+7
+00:00:30.400 --> 00:00:34.400
+at the moment, there is no way for it to end other than hitting
+
+8
+00:00:34.400 --> 00:00:38.400
+the Spacebar. That's a bit dull and a bit boring, so what I'm going to introduce
+
+9
+00:00:38.400 --> 00:00:42.400
+you to is the notion of timers or how we can create timers
+
+10
+00:00:42.400 --> 00:00:46.400
+in Unity. So let's go into our LevelManager
+
+11
+00:00:46.400 --> 00:00:50.400
+script, because this is what is currently responsible for progressing our levels.
+
+12
+00:00:50.400 --> 00:00:54.400
+I'm just going to maximize Visual Studio. And how do
+
+13
+00:00:54.400 --> 00:00:58.400
+we do this? We need to keep track of some notion of time,
+
+14
+00:00:58.400 --> 00:01:02.400
+so I'm going to create a float
+
+15
+00:01:02.400 --> 00:01:06.400
+field here, and it's
+
+16
+00:01:06.400 --> 00:01:10.400
+going to be the timeTillNextLevel.
+
+17
+00:01:14.400 --> 00:01:18.400
+And I'm going to default this to being
+
+18
+00:01:18.400 --> 00:01:22.400
+5 seconds, just
+
+19
+00:01:22.400 --> 00:01:26.400
+so it's really obvious when we are transitioning.
+
+20
+00:01:26.400 --> 00:01:30.400
+And now, I want to introduce you to the concept of
+
+21
+00:01:30.400 --> 00:01:34.400
+Time.deltaTime. What is this,
+
+22
+00:01:34.400 --> 00:01:38.400
+I hear you ask? So Time.deltaTime
+
+23
+00:01:38.400 --> 00:01:42.400
+is a float, but it is basically a float
+
+24
+00:01:42.400 --> 00:01:46.400
+telling us the number of seconds, the time in seconds,
+
+25
+00:01:46.400 --> 00:01:50.400
+that this frame has taken or that has
+
+26
+00:01:50.400 --> 00:01:54.400
+elapsed since the last call to Update (). So every time
+
+27
+00:01:54.400 --> 00:01:58.400
+this is called, we get a different time value, and we can use this to
+
+28
+00:01:58.400 --> 00:02:02.400
+change our timeTillNextLevel. So we can
+
+29
+00:02:02.400 --> 00:02:06.400
+do it like so, timeTill
+
+30
+00:02:06.400 --> 00:02:10.400
+NextLevel -=
+
+31
+00:02:10.400 --> 00:02:14.400
+Time.deltaTime. So you can see we're just updating that, and
+
+32
+00:02:14.400 --> 00:02:18.400
+what we can do is now do
+
+33
+00:02:18.400 --> 00:02:22.400
+a print() of this.
+
+34
+00:02:26.400 --> 00:02:30.400
+And I'm just going to concatenate in timeTillNext
+
+35
+00:02:30.400 --> 00:02:34.400
+Level variable, remembering my semicolons. And let's
+
+36
+00:02:34.400 --> 00:02:38.400
+go back into Unity and just have a look and see what is being output
+
+37
+00:02:38.400 --> 00:02:42.400
+in our terminal! So there you go, you can see that
+
+38
+00:02:42.400 --> 00:02:46.400
+this timeTillNextLevel is decreasing
+
+39
+00:02:46.400 --> 00:02:49.966
+past 0, obviously, and starts to become negative.
+
+40
+00:02:49.966 --> 00:02:53.966
+This lecture's challenge is to progress after N
+
+41
+00:02:53.966 --> 00:02:57.966
+seconds. So you've seen that it goes down to 0 and below, now
+
+42
+00:02:57.966 --> 00:03:01.966
+I want you to make it progress, when that happens. So make
+
+43
+00:03:01.966 --> 00:03:05.966
+the timeTillNextLevel configurable, so that the game designer
+
+44
+00:03:05.966 --> 00:03:09.966
+can do stuff with this, change that time.
+
+45
+00:03:09.966 --> 00:03:13.966
+I'd like you to progress to the next level, when the time runs out, so write
+
+46
+00:03:13.966 --> 00:03:17.966
+the code that needs to do that. And a little bit trickier, make the
+
+47
+00:03:17.966 --> 00:03:21.966
+default behavior to never progress. Now, that's not very well
+
+48
+00:03:21.966 --> 00:03:25.966
+defined how you need to do that, you've got many different ways, but use your
+
+49
+00:03:25.966 --> 00:03:29.966
+knowledge and get creative and see what you can do in code. OK, so pause the
+
+50
+00:03:29.966 --> 00:03:33.966
+video and have a go! When you're done, share in the discussions!
+
+51
+00:03:33.966 --> 00:03:37.966
+OK welcome back!
+
+52
+00:03:37.966 --> 00:03:41.966
+It is time for me to jump in! So I'm going
+
+53
+00:03:41.966 --> 00:03:44.200
+to go into my code,
+
+54
+00:03:44.200 --> 00:03:48.200
+and the obvious thing to do is, very simply, to do an if
+
+55
+00:03:48.200 --> 00:03:52.200
+statement, where we do (timeTillNextLevel less
+
+56
+00:03:52.200 --> 00:03:56.200
+than 0). And this is the case in which we want to load our
+
+57
+00:03:56.200 --> 00:04:00.200
+next scene. I'm just going to put in a print statement here
+
+58
+00:04:00.200 --> 00:04:04.200
+to say "Load Next Scene".
+
+59
+00:04:08.200 --> 00:04:12.200
+I really need to do all capitals there, but let's just try it out!
+
+60
+00:04:12.200 --> 00:04:16.200
+So I hit play
+
+61
+00:04:16.200 --> 00:04:20.200
+and I should wait about 5 seconds,
+
+62
+00:04:20.200 --> 00:04:24.200
+and there you go, it's saying load next scene! Perfect!
+
+63
+00:04:24.200 --> 00:04:28.200
+So let's actually make it load the next scene! And it's
+
+64
+00:04:28.200 --> 00:04:32.200
+very easy, and as you can see, because we have the right level of abstraction, I can
+
+65
+00:04:32.200 --> 00:04:36.200
+make it very obvious what this code is doing.
+
+66
+00:04:36.200 --> 00:04:40.200
+I'm actually going to remove the Spacebar, because we don't need that anymore.
+
+67
+00:04:40.200 --> 00:04:44.200
+Our way of interacting with the system is going to be through
+
+68
+00:04:44.200 --> 00:04:48.200
+time, essentially. So I hit play and then I'll wait
+
+69
+00:04:48.200 --> 00:04:52.200
+5 seconds. 1, 2, 3,
+
+70
+00:04:52.200 --> 00:04:56.200
+4. There we go! And I can PLAY AGAIN! So I can go back and I'll
+
+71
+00:04:56.200 --> 00:05:00.200
+wait another 5 seconds and see how many I can score in these 5 seconds.
+
+72
+00:05:00.200 --> 00:05:04.200
+And it brings me back! Perfect! Now,
+
+73
+00:05:04.200 --> 00:05:08.200
+the question was, how do I make this configurable? Well
+
+74
+00:05:08.200 --> 00:05:12.200
+it was a bit of a simple question, you just make it public.
+
+75
+00:05:12.200 --> 00:05:16.200
+And if I go to the LevelManager now, you'll see
+
+76
+00:05:16.200 --> 00:05:20.200
+that I can change this to maybe 2 seconds, a very short
+
+77
+00:05:20.200 --> 00:05:24.200
+level. Now I hit play. However, the problem is
+
+78
+00:05:24.200 --> 00:05:28.200
+these two seconds also work on the menu screen, which is not
+
+79
+00:05:28.200 --> 00:05:32.200
+what we want. As you can see, I'm going to go on to
+
+80
+00:05:32.200 --> 00:05:36.200
+here, on to the next level. So our LevelManager is doing that for everything.
+
+81
+00:05:36.200 --> 00:05:40.200
+We want the default to be not to progress at all, so
+
+82
+00:05:40.200 --> 00:05:44.200
+I'm going to do that in a bit of an interesting way. The timeTillNextLevel
+
+83
+00:05:44.200 --> 00:05:48.200
+is 0. Now obviously, at the moment, this isn't
+
+84
+00:05:48.200 --> 00:05:52.200
+the correct behavior, so if I hit play,
+
+85
+00:05:52.200 --> 00:05:56.200
+then
+
+86
+00:05:56.200 --> 00:06:00.200
+it just goes all the way through straight away, instantly, because
+
+87
+00:06:00.200 --> 00:06:04.200
+well I said 0 seconds, and that condition is trivially true.
+
+88
+00:06:04.200 --> 00:06:08.200
+So what I'm going to do is I'm going to wrap this whole thing in another if statement. I'm going to say if
+
+89
+00:06:08.200 --> 00:06:12.200
+(timeTillNextLevel is less than 0...
+
+90
+00:06:12.200 --> 00:06:16.200
+...is greater than 0,
+
+91
+00:06:16.200 --> 00:06:20.200
+then we will subtract stuff, and
+
+92
+00:06:20.200 --> 00:06:24.200
+we check whether it's less than 0. Now, can you see
+
+93
+00:06:24.200 --> 00:06:28.200
+what's going on here? If we do our rubber duck or
+
+94
+00:06:28.200 --> 00:06:32.200
+our plastic plant testing here, we can read through and say,
+
+95
+00:06:32.200 --> 00:06:36.200
+if it's greater than 0 then decrease it.
+
+96
+00:06:36.200 --> 00:06:40.200
+Now suddenly, if it's become less than 0 load the next scene. So this will only happen
+
+97
+00:06:40.200 --> 00:06:44.200
+once, because this decrease will only go from positive to negative
+
+98
+00:06:44.200 --> 00:06:48.200
+once, and if we
+
+99
+00:06:48.200 --> 00:06:52.200
+have 0 in the first place, this will never happen. So
+
+100
+00:06:52.200 --> 00:06:56.200
+let's hit save and see whether this works!
+
+101
+00:06:56.200 --> 00:07:00.200
+So now, obviously,
+
+102
+00:07:00.200 --> 00:07:04.200
+I should be moving on, and I am, because
+
+103
+00:07:04.200 --> 00:07:08.200
+I had set the value to be
+
+104
+00:07:08.200 --> 00:07:12.200
+2. If I set it back to 0, which is the default...
+
+105
+00:07:12.200 --> 00:07:16.200
+Remember, if you've changed the default then this has no
+
+106
+00:07:16.200 --> 00:07:20.200
+effect, changing this value has no effect, it'll keep the
+
+107
+00:07:20.200 --> 00:07:24.200
+value that you set in your game. So
+
+108
+00:07:24.200 --> 00:07:28.200
+let's play now! So it's set to 0, it hasn't
+
+109
+00:07:28.200 --> 00:07:32.200
+moved on after 2 seconds. I'll wait a little bit longer, just to check, but it doesn't look like
+
+110
+00:07:32.200 --> 00:07:36.200
+it is going to move on, not without me hitting the button. Now, I hit the
+
+111
+00:07:36.200 --> 00:07:40.200
+button and hopefully
+
+112
+00:07:40.200 --> 00:07:44.200
+this may be still set to the default, so let's just go and check that! Go to the Assets,
+
+113
+00:07:44.200 --> 00:07:48.200
+go to _Scenes, 02_Game, and then, I'll
+
+114
+00:07:48.200 --> 00:07:52.200
+check my LevelManager here. Yep, that's set to the default, and so I'm just going to set
+
+115
+00:07:52.200 --> 00:07:56.200
+that to 2 seconds. That's really obvious and quick to change.
+
+116
+00:07:56.200 --> 00:08:00.200
+I'll go back to my menu and start playing from there.
+
+117
+00:08:00.200 --> 00:08:04.200
+So I'll wait around just in case. Nope it doesn't move on.
+
+118
+00:08:04.200 --> 00:08:08.200
+I hit play, after 2 seconds it is game over, and I can hit
+
+119
+00:08:08.200 --> 00:08:12.200
+play again and carry on! Perfect! So it
+
+120
+00:08:12.200 --> 00:08:16.200
+looks like we have got our auto-progressing working!
+
+121
+00:08:16.200 --> 00:08:19.333
+Congratulations! Let's move on to the next video!
+
