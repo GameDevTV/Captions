@@ -1,0 +1,454 @@
+WEBVTT
+
+1
+00:00:06.633 --> 00:00:10.633
+Welcome! In this lecture we are going to be adding sound effects to the ball
+
+2
+00:00:10.633 --> 00:00:14.633
+colliding with the hoop. We're also going to be looking at creating
+
+3
+00:00:14.633 --> 00:00:18.633
+little scoring sounds, just like that! Perfect! See you in
+
+4
+00:00:18.633 --> 00:00:19.633
+there!
+
+5
+00:00:19.633 --> 00:00:23.633
+So to add a sound effect to our ball, first off, let's go into our
+
+6
+00:00:23.633 --> 00:00:27.633
+game scene. But we're going to need to deal with the ball itself, so what I'm going to do
+
+7
+00:00:27.633 --> 00:00:31.633
+is go into our ShootHoopKit or our ShootHoot, but hopefully this has changed
+
+8
+00:00:31.633 --> 00:00:35.633
+on yours. I'm going to move this ball into my scene, select the ball,
+
+9
+00:00:35.633 --> 00:00:39.633
+and I need to add a component to it, and the component is, funnily enough,
+
+10
+00:00:39.633 --> 00:00:43.633
+an Audio Source component. So we can search for that!
+
+11
+00:00:43.633 --> 00:00:47.633
+And it has all the exact same components, because obviously the Audio
+
+12
+00:00:47.633 --> 00:00:51.633
+Source game object is just an Audio Source component.
+
+13
+00:00:51.633 --> 00:00:55.633
+Perfect! So we have this Audio Source component,
+
+14
+00:00:55.633 --> 00:00:59.633
+and we need to add an AudioClip. So, as I said, you can just click this little
+
+15
+00:00:59.633 --> 00:01:03.633
+dot with a circle around it and go and look for your component. Now, the
+
+16
+00:01:03.633 --> 00:01:07.633
+one that I'm going to use for this is impact deep thud.
+
+17
+00:01:07.633 --> 00:01:11.633
+I think that's the most appropriate, from this pack.
+
+18
+00:01:11.633 --> 00:01:15.633
+And we don't want it to Play On Awake, we want to trigger this in a script.
+
+19
+00:01:15.633 --> 00:01:19.633
+OK, so just check, when you play this you shouldn't hear anything.
+
+20
+00:01:19.633 --> 00:01:23.633
+That's correct, nothing
+
+21
+00:01:23.633 --> 00:01:27.633
+is being played, in fact! So if we go to the Assets, and Scripts, and Create
+
+22
+00:01:27.633 --> 00:01:31.633
+ourselves a new Script that will be responsible
+
+23
+00:01:31.633 --> 00:01:35.633
+for triggering this sound, I'm going to call it the Ball
+
+24
+00:01:35.633 --> 00:01:39.633
+BounceSound.
+
+25
+00:01:39.633 --> 00:01:43.633
+And then, we can open up this script, and we want to replace
+
+26
+00:01:43.633 --> 00:01:47.633
+all of this, essentially, with an OnCollision.
+
+27
+00:01:47.633 --> 00:01:51.633
+So void OnCollision
+
+28
+00:01:51.633 --> 00:01:55.633
+Enter(Collision
+
+29
+00:01:55.633 --> 00:01:59.633
+collision). And you should be getting fairly used to that signature, by now.
+
+30
+00:01:59.633 --> 00:02:03.633
+And then, what we want to do is get hold of that Audio
+
+31
+00:02:03.633 --> 00:02:07.633
+Source. So I'm going to create a variable for it, AudioSource, call it
+
+32
+00:02:07.633 --> 00:02:11.633
+source, and then, GetComponent.
+
+33
+00:02:11.633 --> 00:02:15.633
+And the component type's AudioSource, and
+
+34
+00:02:15.633 --> 00:02:19.633
+then, on the source, all you have to do is call the, funnily enough,
+
+35
+00:02:19.633 --> 00:02:23.633
+the Play() method. Surprise! Surprise! So we
+
+36
+00:02:23.633 --> 00:02:27.633
+can just try that out now! I'll save the script.
+
+37
+00:02:27.633 --> 00:02:31.633
+It's having trouble saving, so
+
+38
+00:02:31.633 --> 00:02:35.633
+we'll just move between them, and there we go, move between the tabs and then that's saved.
+
+39
+00:02:35.633 --> 00:02:39.633
+And then, I want to drag that script on to
+
+40
+00:02:39.633 --> 00:02:43.633
+the ball, so let's get the BallBounce script, put it
+
+41
+00:02:43.633 --> 00:02:47.633
+on the ball, save, and play!
+
+42
+00:02:47.633 --> 00:02:51.633
+[Ball Bouncing Sound] There we
+
+43
+00:02:51.633 --> 00:02:55.633
+go! Perfect, we're hearing multiple bounces! That's exactly
+
+44
+00:02:55.633 --> 00:02:59.633
+what we need! Now, let's go into our Assets and ShootHoop
+
+45
+00:02:59.633 --> 00:03:03.633
+Kit, and we want to drag this ball back onto that prefab,
+
+46
+00:03:03.633 --> 00:03:07.633
+so that everything that is launched is essentially just a copy of that ball with
+
+47
+00:03:07.633 --> 00:03:11.633
+all the audio scripts, etc.
+
+48
+00:03:11.633 --> 00:03:15.633
+There we go! Now, I can fire all the balls I want, and
+
+49
+00:03:15.633 --> 00:03:19.633
+I'm drowned out by the sound of bouncing balls. Perfect!
+
+50
+00:03:19.633 --> 00:03:23.633
+Finally, we're getting somewhere with this
+
+51
+00:03:23.633 --> 00:03:27.633
+sound! So, now we can move that ball from
+
+52
+00:03:27.633 --> 00:03:31.633
+our scene. And one thing we forgot to do was actually bring this
+
+53
+00:03:31.633 --> 00:03:35.633
+RingBoard, that we'd added all these nice boxes to. If you notice, all the
+
+54
+00:03:35.633 --> 00:03:39.633
+other ones don't have those, that's because we didn't drag it back onto the prefab, so
+
+55
+00:03:39.633 --> 00:03:43.633
+let's do that now! Now, if we check all the others, you see that they can all
+
+56
+00:03:43.633 --> 00:03:47.633
+now score, as well. Maybe you noticed that when you were playing around with the game for
+
+57
+00:03:47.633 --> 00:03:51.633
+yourself. Perfect!
+
+58
+00:03:52.733 --> 00:03:56.733
+So now, it's up to you to create a scoring sound, so a little
+
+59
+00:03:56.733 --> 00:04:00.733
+sound that we make, when we actually have scored a basket.
+
+60
+00:04:00.733 --> 00:04:04.733
+So I'd like you to add an Audio Source Component, and I'm not telling you to
+
+61
+00:04:04.733 --> 00:04:08.733
+what, you'll have to figure that one out for yourself. And I'd like you to find
+
+62
+00:04:08.733 --> 00:04:12.733
+a good sound, the right sort that might, you know,
+
+63
+00:04:12.733 --> 00:04:16.733
+sound like a goal scoring, and then, find and trigger
+
+64
+00:04:16.733 --> 00:04:20.733
+in the appropriate place. So again,
+
+65
+00:04:20.733 --> 00:04:24.733
+just try and use all your knowledge about how
+
+66
+00:04:24.733 --> 00:04:28.733
+we place things and what structures we use to figure this out,
+
+67
+00:04:28.733 --> 00:04:32.733
+and just, you know, try for 30 minutes. If you can't figure it out and you're still scratching
+
+68
+00:04:32.733 --> 00:04:36.733
+your head, then come back to this video. OK, so pause and have a go!
+
+69
+00:04:36.733 --> 00:04:40.733
+OK, welcome back! So I hope you've had a go at this head
+
+70
+00:04:40.733 --> 00:04:44.733
+scratcher, and let's dive right in! So
+
+71
+00:04:44.733 --> 00:04:48.733
+the place I'm going to put this is actually... Well let's think about where I'm going to call it,
+
+72
+00:04:48.733 --> 00:04:52.733
+for the first place! I'm actually going to call it where we score a goal. So where do we score
+
+73
+00:04:52.733 --> 00:04:56.733
+a goal? Well we actually score a goal in our LevelManager.
+
+74
+00:04:56.733 --> 00:05:00.733
+So if we look at our LevelManager, that has a LevelManager
+
+75
+00:05:00.733 --> 00:05:04.733
+script, and that's where we're going to call it from. So if I go to my
+
+76
+00:05:04.733 --> 00:05:08.733
+Scripts, I can go to the LevelManager script.
+
+77
+00:05:08.733 --> 00:05:12.733
+Let's open that up! And, as you see, we have a
+
+78
+00:05:12.733 --> 00:05:16.733
+LoadNextScene. Nope sorry, LevelManager is not the one I'm thinking
+
+79
+00:05:16.733 --> 00:05:20.733
+of, I'm thinking of the ScoreKeeper! My bad! So it'll
+
+80
+00:05:20.733 --> 00:05:24.733
+open up the ScoreKeeper instead, and in fact, we have the IncrementScore. So
+
+81
+00:05:24.733 --> 00:05:28.733
+that's exactly what we want, we want to call it, instead of this print statement let's get rid of that,
+
+82
+00:05:28.733 --> 00:05:32.733
+that obsolete print statement. What we want to do is essentially get
+
+83
+00:05:32.733 --> 00:05:36.733
+this code, which was in, if I
+
+84
+00:05:36.733 --> 00:05:40.733
+can remember correctly... I cannot remember
+
+85
+00:05:40.733 --> 00:05:44.733
+correctly from there, so I think it's in here somewhere. Yes, it's the BallBounce
+
+86
+00:05:44.733 --> 00:05:48.733
+script. We want to copy this code over
+
+87
+00:05:48.733 --> 00:05:52.733
+into our ScoreKeeper. So we Increment the Score, then
+
+88
+00:05:52.733 --> 00:05:56.733
+we play a score sound. Now, this is not going
+
+89
+00:05:56.733 --> 00:06:00.733
+to work right now, because we have no AudioSource on the ScoreKeeper, but
+
+90
+00:06:00.733 --> 00:06:04.733
+we can fix that. So we'll go to the ScoreKeeper, Add a
+
+91
+00:06:04.733 --> 00:06:08.733
+Component, add an Audio Source, and find
+
+92
+00:06:08.733 --> 00:06:12.733
+the sound. And the sound I'm going to use is this chimebell.
+
+93
+00:06:12.733 --> 00:06:16.733
+Let's get that! OK, let's hit play
+
+94
+00:06:16.733 --> 00:06:20.733
+and find out what the sound of scoring is! [Loud Chime Ringing] Something
+
+95
+00:06:20.733 --> 00:06:24.733
+vaguely like that, by the sounds [Laughs] of it!
+
+96
+00:06:24.733 --> 00:06:28.733
+Let's just try and get it to
+
+97
+00:06:28.733 --> 00:06:32.733
+go in, rather than bounce around the rim. [Repeating Popping Ball Sounds]
+
+98
+00:06:32.733 --> 00:06:36.733
+[Ringing Chime Sound] There we go, our chime sound!
+
+99
+00:06:36.733 --> 00:06:40.733
+But you did notice, that when we start the game, [Chime Ringing]
+
+100
+00:06:40.733 --> 00:06:44.733
+we get that chime, and the reason for that is I forgot to uncheck
+
+101
+00:06:44.733 --> 00:06:48.733
+Play On Awake. So if we now save our scene, hit play,
+
+102
+00:06:48.733 --> 00:06:52.733
+and try that again, now
+
+103
+00:06:52.733 --> 00:06:56.733
+it should only play [Chime Ringing] when we score!
+
+104
+00:06:56.733 --> 00:07:00.733
+Perfect! So well done, you have a really nice immersive game now,
+
+105
+00:07:00.733 --> 00:07:04.733
+which has sound effects and it has music and is
+
+106
+00:07:04.733 --> 00:07:08.733
+starting to look quite pretty. Just one thing I'd like to change to make it look
+
+107
+00:07:08.733 --> 00:07:12.733
+a little bit better is this ground, it's a little bit small. So let's make it
+
+108
+00:07:12.733 --> 00:07:16.733
+extend 1,000 in each direction, and this should basically
+
+109
+00:07:16.733 --> 00:07:20.733
+take it off to the horizon.
+
+110
+00:07:20.733 --> 00:07:24.733
+There we go! Now, let's hit play! There we go!
+
+111
+00:07:24.733 --> 00:07:28.733
+We've got balls until the horizon, it's perfect!
+
+112
+00:07:28.733 --> 00:07:32.733
+OK, all this game needs now is for you to give it to a friend and
+
+113
+00:07:32.733 --> 00:07:36.133
+see whether it's as good as you think it is!
+
