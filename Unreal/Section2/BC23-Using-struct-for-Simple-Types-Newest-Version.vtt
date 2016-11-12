@@ -1,0 +1,618 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So welcome to this
+
+2
+00:00:04.000 --> 00:00:08.000
+video! We'll be using Struct to define simple types! Let me just show you, and then,
+
+3
+00:00:08.000 --> 00:00:12.000
+we'll dive in and get it done. We're going to make a thing here called
+
+4
+00:00:12.000 --> 00:00:16.000
+struct BullCowCount, and it's like a class but it's even simpler
+
+5
+00:00:16.000 --> 00:00:20.000
+and it's a simple structure that can contain two integers in one go,
+
+6
+00:00:20.000 --> 00:00:24.000
+so that we can write a method like this, BullCowCount SubmitGuess, taking in
+
+7
+00:00:24.000 --> 00:00:28.000
+a string and returning a pair of integers. So let's get it done!
+
+8
+00:00:28.000 --> 00:00:32.000
+OK guys, welcome back! So we're going to
+
+9
+00:00:32.000 --> 00:00:36.000
+to do something fun in this video, we're going to implement our actual BullCowCount
+
+10
+00:00:36.000 --> 00:00:40.000
+But before we can do that, we need to define a new data type,
+
+11
+00:00:40.000 --> 00:00:44.000
+because where we have said here, in the header, that we want to provide a method
+
+12
+00:00:44.000 --> 00:00:48.000
+for counting bulls and cows and increasing the try number, we need bulls and cows
+
+13
+00:00:48.000 --> 00:00:52.000
+to come back together in one go. And how are we going to organize
+
+14
+00:00:52.000 --> 00:00:56.000
+that? Well we're going to use something called a struct. Now, I must tell
+
+15
+00:00:56.000 --> 00:01:00.000
+you that a struct is exactly the same as a class, basically, except
+
+16
+00:01:00.000 --> 00:01:04.000
+for, by default, it's members are public, and that lends itself to being
+
+17
+00:01:04.000 --> 00:01:08.000
+ideal for simple data types like this. Let me show you! If we say
+
+18
+00:01:08.000 --> 00:01:12.000
+struct BullCowCount here... Now, I'm at the top of Bull
+
+19
+00:01:12.000 --> 00:01:16.000
+CowGame.h, because this is a structure that we're not going to use in main.cpp
+
+20
+00:01:16.000 --> 00:01:20.000
+but we are going to use inside our game logic. OK, now I'm
+
+21
+00:01:20.000 --> 00:01:24.000
+going to open up some brackets, like that,
+
+22
+00:01:24.000 --> 00:01:28.000
+and then, we're going to give it some members. Now, in terms of this bracket style,
+
+23
+00:01:28.000 --> 00:01:32.000
+you can see that IDE sometimes puts them on the wrong line, so I'm
+
+24
+00:01:32.000 --> 00:01:36.000
+going to go with this. It just spaces things out a little and adheres to Unreal's
+
+25
+00:01:36.000 --> 00:01:40.000
+standards. So it's actually very simple, we're going to have two integers in here, one
+
+26
+00:01:40.000 --> 00:01:44.000
+called bulls and we're going to initialize it immediately to 0. Best with
+
+27
+00:01:44.000 --> 00:01:48.000
+structs, keep it simple and don't worry about contractors and things.
+
+28
+00:01:48.000 --> 00:01:52.000
+So it's basically the same as saying class BullCowCount but we don't need to say public, because everything's
+
+29
+00:01:52.000 --> 00:01:56.000
+public by default. It's a bit convoluted to start making things private, why not use a
+
+30
+00:01:56.000 --> 00:02:00.000
+class, and we're not going to have any methods in here. Now, the only thing is
+
+31
+00:02:00.000 --> 00:02:04.000
+I want to use int32, so there's a new habit for you since we made the substitution.
+
+32
+00:02:04.000 --> 00:02:08.000
+So int32, a 32 bit integer for bulls and a 32 bit
+
+33
+00:02:08.000 --> 00:02:12.000
+integer for Cows, both initialized to 0.
+
+34
+00:02:12.000 --> 00:02:16.000
+That's it, BullCowCount! Very simple, it contains two integers! Once we've
+
+35
+00:02:16.000 --> 00:02:20.000
+done that, we can write the signature of our actual method here.
+
+36
+00:02:20.000 --> 00:02:24.000
+So I wan't overdo the comment yet, I'm going to make sure I get the signature right. So
+
+37
+00:02:24.000 --> 00:02:28.000
+we're going to be returning a BullCowCount. I'm going to
+
+38
+00:02:28.000 --> 00:02:32.000
+call it SubmitGuess() for now, pending a better name if we
+
+39
+00:02:32.000 --> 00:02:36.000
+find one, and we're going to take in an (FString), starting to get used to our new types for Unreal.
+
+40
+00:02:36.000 --> 00:02:40.000
+So I'm going to improve this comment,
+
+41
+00:02:40.000 --> 00:02:44.000
+"// provide a method for counting bulls & cows and increasing the try
+
+42
+00:02:44.000 --> 00:02:48.000
+#". That's fine, I'm just going to say "counts", just
+
+43
+00:02:48.000 --> 00:02:52.000
+to make it shorter "bulls & cows, and increases
+
+44
+00:02:52.000 --> 00:02:56.000
+try #". And I'm also
+
+45
+00:02:56.000 --> 00:03:00.000
+going to say that this method assumes or probably in the implementation,
+
+46
+00:03:00.000 --> 00:03:04.000
+I'm going to say it assumes... Why not here? "assuming valid
+
+47
+00:03:04.000 --> 00:03:08.000
+guess", so it assumes that a valid guess comes
+
+48
+00:03:08.000 --> 00:03:12.000
+into this method. Alright, so that's it, we have a Submit
+
+49
+00:03:12.000 --> 00:03:16.000
+Guess signature there. Let's go ahead and define submit guess!
+
+50
+00:03:16.000 --> 00:03:20.000
+So you go Quick Actions and then Create
+
+51
+00:03:20.000 --> 00:03:24.000
+Definition, and then, go over to the game .cpp file.
+
+52
+00:03:24.000 --> 00:03:28.000
+Fantastic news! OK, here we are! So before we do anything,
+
+53
+00:03:28.000 --> 00:03:32.000
+let's pseudocode this before we even start. So what are we going to do?
+
+54
+00:03:32.000 --> 00:03:36.000
+Well as soon as we get in here, we received a valid guess. Let's
+
+55
+00:03:36.000 --> 00:03:40.000
+outline what this does. So "// receives a
+
+56
+00:03:40.000 --> 00:03:44.000
+VALID
+
+57
+00:03:44.000 --> 00:03:48.000
+guess, increments...
+
+58
+00:03:48.000 --> 00:03:52.000
+OK, so it turns out I can't spell increments, but this is a post edit
+
+59
+00:03:52.000 --> 00:03:56.000
+here and I'm afraid we're stuck with it till the end of the section now. So apologies
+
+60
+00:03:56.000 --> 00:04:00.000
+and I know it should be an e in the middle there. ..."turn, and
+
+61
+00:04:00.000 --> 00:04:04.000
+returns count". OK,
+
+62
+00:04:04.000 --> 00:04:08.000
+slightly doubling up on our work here, so if you want to get rid of this
+
+63
+00:04:08.000 --> 00:04:12.000
+in the header file you can, to keep the header file tight and clean like that,
+
+64
+00:04:12.000 --> 00:04:16.000
+and we can focus on the comment being just here
+
+65
+00:04:16.000 --> 00:04:20.000
+in the implementation. By the way, back at the header file, when this says to "make
+
+66
+00:04:20.000 --> 00:04:24.000
+a more rich return value.", this is the sort of thing I'm
+
+67
+00:04:24.000 --> 00:04:28.000
+talking about. This is a richer return value than just a single integer. We'll be doing a similar thing
+
+68
+00:04:28.000 --> 00:04:32.000
+here but we'll actually be using an enumeration. OK, so we have a richer
+
+69
+00:04:32.000 --> 00:04:36.000
+return type. Let's see what this guy is going to do! It's going to "increment the turn number"! Don't do it
+
+70
+00:04:36.000 --> 00:04:40.000
+yet! OK, just
+
+71
+00:04:40.000 --> 00:04:44.000
+stay at this level. What else are we going to do? Well we're going to need to setup a return
+
+72
+00:04:44.000 --> 00:04:48.000
+structure. We're going to need to
+
+73
+00:04:48.000 --> 00:04:52.000
+"// setup a return variable", aren't we? We're going to need to declare ourselves an instance of this Bull
+
+74
+00:04:52.000 --> 00:04:56.000
+CowCount thing and stuff. Don't worry about how we do that yet! Then, we're going to "// loop through
+
+75
+00:04:56.000 --> 00:05:00.000
+all letters in the guess",
+
+76
+00:05:00.000 --> 00:05:04.000
+and then, for each letter we're
+
+77
+00:05:04.000 --> 00:05:08.000
+going to do some comparisons. So for each of those letters, I'm going to
+
+78
+00:05:08.000 --> 00:05:12.000
+indent to represent that. You can indent in pseudocode. I'm going to say "// compare
+
+79
+00:05:12.000 --> 00:05:16.000
+letters against
+
+80
+00:05:16.000 --> 00:05:20.000
+all" or "just against the hidden word".
+
+81
+00:05:20.000 --> 00:05:24.000
+OK, so we're going to increment the turn number, setup
+
+82
+00:05:24.000 --> 00:05:28.000
+something to return, loop through all letters in the guess, and then, compare
+
+83
+00:05:28.000 --> 00:05:32.000
+letters against the hidden word, one at a time, and then,
+
+84
+00:05:32.000 --> 00:05:36.000
+at the end we're going to return the BullCowCount. So that is the structure of our SubmitGuess. Now,
+
+85
+00:05:36.000 --> 00:05:40.000
+before I flesh it out I want to make sure it still runs, that all the
+
+86
+00:05:40.000 --> 00:05:44.000
+scaffolding code I've written is valid. It is, which is fantastic! Alright,
+
+87
+00:05:44.000 --> 00:05:48.000
+so now we're going to start actually implementing it! I'm going to help you a little bit, and then, I'm
+
+88
+00:05:48.000 --> 00:05:52.000
+going to ask you to mainly complete this loop. So far, firstly,
+
+89
+00:05:52.000 --> 00:05:56.000
+how do we increment the turn number? Well under the comment just go ahead and think that
+
+90
+00:05:56.000 --> 00:06:00.000
+it's MyCurrentTry, because that's the member variable, the data inside this class
+
+91
+00:06:00.000 --> 00:06:04.000
+this current instance of the game ++. That's another way of saying
+
+92
+00:06:04.000 --> 00:06:08.000
+MyCurrentTry = MyCurrentTry + 1,
+
+93
+00:06:08.000 --> 00:06:12.000
+but I won't bother writing that, ++ is a shortcut. So we increment the turn number. Fantastic!
+
+94
+00:06:12.000 --> 00:06:16.000
+Now, we need to setup a return variable! How are we going to do that? We say BullCowCount, because that's the type.
+
+95
+00:06:16.000 --> 00:06:20.000
+We give it a name, BullCowCount,
+
+96
+00:06:20.000 --> 00:06:24.000
+and that's it for now! OK, it's already going to have things initialized
+
+97
+00:06:24.000 --> 00:06:28.000
+to 0. If you want to be
+
+98
+00:06:28.000 --> 00:06:32.000
+good about this, you could say BullCowCount.Bulls =
+
+99
+00:06:32.000 --> 00:06:36.000
+0. And you are in this instance, as we're using a struct, allowed to access
+
+100
+00:06:36.000 --> 00:06:40.000
+the members. But actually there's not point, because if we look at how we've defined BullCowCount
+
+101
+00:06:40.000 --> 00:06:44.000
+it automatically initializes to 0. OK.
+
+102
+00:06:44.000 --> 00:06:48.000
+If you wanted to know that from where you were, we could put a comment here.
+
+103
+00:06:48.000 --> 00:06:52.000
+"// two integers, initialized
+
+104
+00:06:52.000 --> 00:06:56.000
+to zero". Or just say, "// All
+
+105
+00:06:56.000 --> 00:07:00.000
+values initialized to zero". If you make that comment ahead of
+
+106
+00:07:00.000 --> 00:07:04.000
+the struct, look what happens here when we say
+
+107
+00:07:04.000 --> 00:07:08.000
+BullCowCount and you hover over it.
+
+108
+00:07:08.000 --> 00:07:12.000
+It says "all values initialized to zero", so we can just call it BullCowCount!
+
+109
+00:07:12.000 --> 00:07:16.000
+Now, in terms of Unreal's naming standard I don't really like this. I don't
+
+110
+00:07:16.000 --> 00:07:20.000
+really like the fact that my line says BullCowCount BullCowCount.
+
+111
+00:07:20.000 --> 00:07:24.000
+If we were a lowercase standard, then we would say BullCowCount lowercase
+
+112
+00:07:24.000 --> 00:07:28.000
+bullCowCount but some people find that more confusing. You could also consider using
+
+113
+00:07:28.000 --> 00:07:32.000
+prefixes here, but we're just going to live with it! Again, I want you to read code
+
+114
+00:07:32.000 --> 00:07:36.000
+like the compiler does! The compiler's saying, the first thing I'm expecting here is a type, and then, I'm expecting,
+
+115
+00:07:36.000 --> 00:07:40.000
+after the type, the name of the variable. So we're just going to say BullCowCount BullCowCount.
+
+116
+00:07:40.000 --> 00:07:44.000
+Now, at this stage, we're going to need the hidden word.
+
+117
+00:07:44.000 --> 00:07:48.000
+Let's go back to our header and think what we're doing about the hidden word! We already have
+
+118
+00:07:48.000 --> 00:07:52.000
+a piece of data for it... No we don't even! We don't even have a data for the hidden word! So we need to make a piece of
+
+119
+00:07:52.000 --> 00:07:56.000
+data! Let's make it an FString, because it's inside here
+
+120
+00:07:56.000 --> 00:08:00.000
+and it's going to be something we may want to manipulate. FString =
+
+121
+00:08:00.000 --> 00:08:04.000
+MyHiddenWord.
+
+122
+00:08:04.000 --> 00:08:08.000
+So now, we have a place to store the HiddenWord!
+
+123
+00:08:08.000 --> 00:08:12.000
+Of course, I shouldn't have an equals, FString MyHiddenWord is just declaring it. Now,
+
+124
+00:08:12.000 --> 00:08:16.000
+we've added a new piece of data to this, now we need to decide where
+
+125
+00:08:16.000 --> 00:08:20.000
+are we going to initialize this HiddenWord? Well in future versions of the game,
+
+126
+00:08:20.000 --> 00:08:24.000
+we can have lots of different HiddenWords on subsequent plays, but for this version of the game, we're going to have a
+
+127
+00:08:24.000 --> 00:08:28.000
+single HiddenWord. So I'm going to initialize it up in the Reset() method,
+
+128
+00:08:28.000 --> 00:08:32.000
+but just before I do, I'm going to fix this error here which is saying "call
+
+129
+00:08:32.000 --> 00:08:36.000
+of an object of a class type without" blah blah. So what's the problem with return? I'm trying to
+
+130
+00:08:36.000 --> 00:08:40.000
+return a function, I should just be returning BullCowCount.
+
+131
+00:08:40.000 --> 00:08:44.000
+So the brackets give it away, let's remove the brackets, and then, that
+
+132
+00:08:44.000 --> 00:08:48.000
+error disappears! So here we are, and, of course, this Hidden
+
+133
+00:08:48.000 --> 00:08:52.000
+Word is very much a magic word, in the same way as 8 was a magic number. So
+
+134
+00:08:52.000 --> 00:08:56.000
+we're going to use const! Now, we're going to try const expressions, because
+
+135
+00:08:56.000 --> 00:09:00.000
+it is known at compile time. And let's see if this works! FString
+
+136
+00:09:00.000 --> 00:09:04.000
+HIDDEN WORD.
+
+137
+00:09:04.000 --> 00:09:08.000
+Constants all in capitals, like that, and I'm going to use "planet" this time.
+
+138
+00:09:08.000 --> 00:09:12.000
+So this is where we're going to go to adjust our HiddenWord. Now, it's complaining! What's the
+
+139
+00:09:12.000 --> 00:09:16.000
+problem? It says the const expression
+
+140
+00:09:16.000 --> 00:09:20.000
+"variable must have a literal type or a reference
+
+141
+00:09:20.000 --> 00:09:24.000
+type". So we're not using reference types and pointers and references and stuff, at the moment,
+
+142
+00:09:24.000 --> 00:09:28.000
+and it's not a literal like a integer. So we can't use const
+
+143
+00:09:28.000 --> 00:09:32.000
+expressions, it's too strong here. So when that happens, drop back to the next strongest,
+
+144
+00:09:32.000 --> 00:09:36.000
+which is just const. OK, that's great! So we've got that, then
+
+145
+00:09:36.000 --> 00:09:40.000
+we're just going to say MyHiddenWord = HIDDEN_WORD.
+
+146
+00:09:40.000 --> 00:09:44.000
+And hopefully, by now, you get that we're doing this to get into the good
+
+147
+00:09:44.000 --> 00:09:48.000
+habit of declaring magic numbers and magic words and strings
+
+148
+00:09:48.000 --> 00:09:52.000
+as constants, so that when there's a big load of code in between here
+
+149
+00:09:52.000 --> 00:09:56.000
+we don't get in trouble and we can easily access what we need to change in a single place.
+
+150
+00:09:56.000 --> 00:10:00.000
+OK, enough on that. We have our HIDDEN_WORD setup! Let's compile our codes,
+
+151
+00:10:00.000 --> 00:10:04.000
+see if it works! So what we're going to do in the next video is look at the
+
+152
+00:10:04.000 --> 00:10:08.000
+length of the HIDDEN_WORD. Oh, I've spelled HIDEN wrong! Let's just fix that!
+
+153
+00:10:08.000 --> 00:10:12.000
+Fantastic! See you soon!
+
+154
+00:10:12.000 --> 00:10:12.466
+
+
