@@ -1,0 +1,603 @@
+1
+00:00:00,000 --> 00:00:04,000
+So in this video,
+
+2
+00:00:04,000 --> 00:00:08,000
+we're going to be talking about the difference between our \n and our endl that
+
+3
+00:00:08,000 --> 00:00:12,000
+we've been using, introducing something called pseudocode programming. We'll, tell you
+
+4
+00:00:12,000 --> 00:00:16,000
+why you need to import another library, and we'll be using
+
+5
+00:00:16,000 --> 00:00:20,000
+cin and a variable for input, and finally, we'll be discovering
+
+6
+00:00:20,000 --> 00:00:24,000
+some woes with our input buffer. So, what that means is that if
+
+7
+00:00:24,000 --> 00:00:28,000
+somebody tries to enter a single word guess then it all works out fine. They
+
+8
+00:00:28,000 --> 00:00:32,000
+can write enter then donkey then kong or good, but if
+
+9
+00:00:32,000 --> 00:00:36,000
+they try and enter a two word guess,
+
+10
+00:00:36,000 --> 00:00:40,000
+we get strange results here. Your guess
+
+11
+00:00:40,000 --> 00:00:44,000
+ignores you and goes straight on, so we'll see how to solve all that. Let's dive in and take a look!
+
+12
+00:00:44,000 --> 00:00:48,000
+Okie dokey! So, before we actually solve this,
+
+13
+00:00:48,000 --> 00:00:52,000
+I just want to tidy up an inconsistency and introduce you to pseudocode programming.
+
+14
+00:00:52,000 --> 00:00:56,000
+Firstly, the inconsistency is that I'm using endl sometimes and
+
+15
+00:00:56,000 --> 00:00:59,166
+/n others. They're almost identical, actually
+
+16
+00:00:59,166 --> 00:01:03,166
+backslash n is slightly different, in that it doesn't so called flush the
+
+17
+00:01:03,166 --> 00:01:06,100
+output buffer, but for our purposes, they're identical at the moment.
+
+18
+00:01:06,100 --> 00:01:10,100
+So, as it's simpler to type \n when you've already got some quotes open,
+
+19
+00:01:10,100 --> 00:01:14,100
+let's just do that, alright. So, that's going to be my convention. If I
+
+20
+00:01:14,100 --> 00:01:18,100
+haven't already got quotes open, then I might use endl.
+
+21
+00:01:18,100 --> 00:01:22,100
+Great! so let's talk about pseudocode programming. What that is, is it's
+
+22
+00:01:22,100 --> 00:01:26,100
+using English comments to write down what we want to do, before we
+
+23
+00:01:26,100 --> 00:01:30,100
+get buried in the details of how we actually do it in a particular language. It's really
+
+24
+00:01:30,100 --> 00:01:34,100
+freeing, it lets you think naturally and at a natural speed. It also raises
+
+25
+00:01:34,100 --> 00:01:38,100
+you to a higher level of abstraction with your thinking, so that you don't get
+
+26
+00:01:38,100 --> 00:01:42,100
+lost in the details. So firstly, let's comment what we already have. What we already have
+
+27
+00:01:42,100 --> 00:01:46,100
+here is introduce the game.
+
+28
+00:01:46,100 --> 00:01:50,100
+And then, what we're going to do in the future, and we're going to continue using pseudocode
+
+29
+00:01:50,100 --> 00:01:54,100
+programming from now, is we're going to get a
+
+30
+00:01:54,100 --> 00:01:58,100
+guess from the user or player. It's a player not a user.
+
+31
+00:01:58,100 --> 00:02:02,100
+And we're going to repeat the guess back to them.
+
+32
+00:02:02,100 --> 00:02:06,100
+So, that's going to be a way of checking it worked. Great, so that is as simple as that. You
+
+33
+00:02:06,100 --> 00:02:10,100
+just use comments to outline what you're plan to do.
+
+34
+00:02:10,100 --> 00:02:14,100
+So, if cout is what we use for character output, I wonder what we use
+
+35
+00:02:14,100 --> 00:02:18,100
+for character input. Well, people who create programming
+
+36
+00:02:18,100 --> 00:02:22,100
+languages, being as sensible as they are, it's called cin. Now, we
+
+37
+00:02:22,100 --> 00:02:26,100
+turn our chevrons around. The operator is just defined in the opposite direction
+
+38
+00:02:26,100 --> 00:02:30,100
+and then, we need to send it somewhere. So, where are we going to send it? Well, we need another
+
+39
+00:02:30,100 --> 00:02:34,100
+variable, because we don't know until the program runs what the user is going to enter.
+
+40
+00:02:34,100 --> 00:02:38,100
+So, we can't use one of these constant expression things. We're going to have to use something called a
+
+41
+00:02:38,100 --> 00:02:42,100
+variable. How do we define a variable? Well, let me show you! You put the type
+
+42
+00:02:42,100 --> 00:02:46,100
+of it first, and we're going to use something called a string. A string is quite a useful
+
+43
+00:02:46,100 --> 00:02:50,100
+feature in C++, and it is built into the
+
+44
+00:02:50,100 --> 00:02:54,100
+standard namespace, so we don't need the std:: because of this handy using statement
+
+45
+00:02:54,100 --> 00:02:58,100
+here. So, a string and I'm going to call it guess, and that's going to be with a
+
+46
+00:02:58,100 --> 00:03:02,100
+upper case G. We're going to name all our variables with upper case letters, just because
+
+47
+00:03:02,100 --> 00:03:06,100
+that complies with the Unreal coding standard. And immediately that we bring in into existence,
+
+48
+00:03:06,100 --> 00:03:10,100
+we give it a sensible value. In this case nothing, because there is no guess value at the moment.
+
+49
+00:03:10,100 --> 00:03:14,100
+Great! So, we've defined a place holder, like a parking space, for
+
+50
+00:03:14,100 --> 00:03:18,100
+whatever string the user decides to type, and we filled it with nothing,
+
+51
+00:03:18,100 --> 00:03:22,100
+to start with. That seems benign filling it with nothing, but it really is important
+
+52
+00:03:22,100 --> 00:03:26,100
+that you know what value is in your parking space,
+
+53
+00:03:26,100 --> 00:03:30,100
+if you like, all of the time. So, this is like assigning somebody a parking space.
+
+54
+00:03:30,100 --> 00:03:34,100
+You want to know what's in it. OK, so how do we do it? We go cin
+
+55
+00:03:34,100 --> 00:03:38,100
+forward slash forward slash, which isn't going to work. We'll talk about that in a minute.
+
+56
+00:03:38,100 --> 00:03:42,100
+Guess;... Now this would take whatever is on the input stream,
+
+57
+00:03:42,100 --> 00:03:46,100
+i.e. whatever the user has typed in the Console, and put it into Guess. Well, it would
+
+58
+00:03:46,100 --> 00:03:50,100
+if we didn't have this horrible error. Now, this error is because
+
+59
+00:03:50,100 --> 00:03:54,100
+we don't have a particular library imported, and that's the
+
+60
+00:03:54,100 --> 00:03:58,100
+string library. If we look up at the top, we have <iostream>, and through
+
+61
+00:03:58,100 --> 00:04:02,100
+<iostream> we're getting lots of useful stuff. If we were to turn it off by
+
+62
+00:04:02,100 --> 00:04:06,100
+turning it into a comment like this, you would see all sorts of things stop working, like
+
+63
+00:04:06,100 --> 00:04:10,100
+cout will stop working and string itself will stop working. But unfortunately, <iostream> doesn't
+
+64
+00:04:10,100 --> 00:04:14,100
+include all of the information we need to do all of the things we can do with strings. And one
+
+65
+00:04:14,100 --> 00:04:18,100
+of those is define something called an operator, i.e. this forward slash forward slash,
+
+66
+00:04:18,100 --> 00:04:22,100
+that tells the compiler what to do in this case when we have
+
+67
+00:04:22,100 --> 00:04:26,100
+a string on the right and an input stream on the left. It doesn't know what to do,
+
+68
+00:04:26,100 --> 00:04:30,100
+that's what that message is saying. And it'll find out what to do by using the string
+
+69
+00:04:30,100 --> 00:04:34,100
+library. So, we #include <string>
+
+70
+00:04:34,100 --> 00:04:38,100
+oops, with a d. Now, how would you find that out,
+
+71
+00:04:38,100 --> 00:04:42,100
+if I didn't just tell you. Well, you could do a Google search for it
+
+72
+00:04:42,100 --> 00:04:46,200
+and you would probably find a good Stack Exchange article that will pretty quickly tell you that, that was
+
+73
+00:04:46,200 --> 00:04:50,100
+a suggestion. But as soon as I put #include <string>, then this operator
+
+74
+00:04:50,100 --> 00:04:54,100
+error goes away and we're all good to go! So, that's how you
+
+75
+00:04:54,100 --> 00:04:58,100
+do it. I'm actually going to delete that and then put you into a challenge. I'm not going to delete the comment
+
+76
+00:04:58,100 --> 00:05:02,100
+though. We leave the comments in. So, here's your challenge! I want you to take
+
+77
+00:05:02,100 --> 00:05:06,100
+and repeat back the guess. Some of it's repeating what we just
+
+78
+00:05:06,100 --> 00:05:10,100
+did. I want you to ask the user for their guess. Use cin
+
+79
+00:05:10,100 --> 00:05:14,100
+to take the guess on the same line,
+
+80
+00:05:14,100 --> 00:05:18,100
+and on the next line, repeat back the guess. It's as simple as that! So, go ahead, pause the video.
+
+81
+00:05:18,100 --> 00:05:22,100
+Have a good play with that, play with the formatting. And I would like you to take a screenshot of the result,
+
+82
+00:05:22,100 --> 00:05:26,100
+by the way, on your Console, and paste it into the discussions so we can see how
+
+83
+00:05:26,100 --> 00:05:30,100
+you formatted your guess and how you've setup your game. OK go for it!
+
+84
+00:05:30,100 --> 00:05:34,100
+Cool and welcome back! So, this is how I'm going to do it!
+
+85
+00:05:34,100 --> 00:05:38,100
+I'm going to do exactly what I did before. I'm going to use this as an opportunity to reiterate string
+
+86
+00:05:38,100 --> 00:05:42,100
+Guess, and I'm going to initialize it as nothing,
+
+87
+00:05:42,100 --> 00:05:46,100
+which is good practice. Great! OK, so part of getting the guess from
+
+88
+00:05:46,100 --> 00:05:50,100
+the player is going to be asking them, actually. cout <<
+
+89
+00:05:50,100 --> 00:05:54,100
+"Enter your guess"
+
+90
+00:05:54,100 --> 00:05:58,100
+colon. I'm going to put a space and a semicolon. And then I'm not going
+
+91
+00:05:58,100 --> 00:06:02,100
+to put a new line, because I want to ask on the same line. Actually, I'm going to space this a little bit, so cout
+
+92
+00:06:02,100 --> 00:06:06,100
+endl. Here's an example where, because I didn't really have quotes open, endl is easier
+
+93
+00:06:06,100 --> 00:06:10,100
+to use. I'm struggling to find my keys. There you go! Poor me, I have to dart
+
+94
+00:06:10,100 --> 00:06:14,100
+between a Mac and a PC all the time, and I get confused about
+
+95
+00:06:14,100 --> 00:06:18,100
+the keyboards but we'll survive! Great! So, what has this done so far! Hopefully, so
+
+96
+00:06:18,100 --> 00:06:22,100
+far this has
+
+97
+00:06:22,100 --> 00:06:26,100
+hmm? Nothing? Let's try again! Control, F 5 is what I'm looking
+
+98
+00:06:26,100 --> 00:06:30,100
+for! Hah! Here we go! "Enter your guess:" and it hasn't asked me for the guess, so
+
+99
+00:06:30,100 --> 00:06:34,100
+that's because I haven't yet come along and done the cin operation.
+
+100
+00:06:34,100 --> 00:06:38,100
+cin >> Guess; and that's fine!
+
+101
+00:06:38,100 --> 00:06:42,100
+Let's check that! Hello great and we
+
+102
+00:06:42,100 --> 00:06:46,100
+just leave the program, because it doesn't tell us to do anything else. We might want to space before we leave,
+
+103
+00:06:46,100 --> 00:06:50,100
+by the way. So, I'm going to go cout end line, as well.
+
+104
+00:06:50,100 --> 00:06:54,100
+I'm going to bind it down, with the return statement, so that we get an extra space right at
+
+105
+00:06:54,100 --> 00:06:58,100
+the bottom here. This is all finesse but I find it quite important to make these things look right! Hello!
+
+106
+00:06:58,100 --> 00:07:02,100
+It didn't work, let's try again! That's because I hit F5
+
+107
+00:07:02,100 --> 00:07:06,100
+without the control. If you do that, you'll be going into debugging mode and that's
+
+108
+00:07:06,100 --> 00:07:10,100
+confusing and we don't need that right now. Cool, so that's all working! Now, what we need to do is repeat
+
+109
+00:07:10,100 --> 00:07:14,100
+the guess back! So, we can go cout and we can access the value of that variable of that guess,
+
+110
+00:07:14,100 --> 00:07:18,100
+right now. Remember to use your chevrons to the left. And that would
+
+111
+00:07:18,100 --> 00:07:22,100
+be fine, apart from let's be a little bit more polite and say what we're saying. Your guess
+
+112
+00:07:22,100 --> 00:07:26,100
+was colon and then your chevrons.
+
+113
+00:07:26,100 --> 00:07:30,100
+And we probably do want an end line here. An endline
+
+114
+00:07:30,100 --> 00:07:34,100
+because I haven't already got quotes open. That's how I'm going to do things, just to be consistent.
+
+115
+00:07:34,100 --> 00:07:38,100
+OK.
+
+116
+00:07:38,100 --> 00:07:42,100
+"Your guess was", apart from I missed the s in was.
+
+117
+00:07:42,100 --> 00:07:46,100
+That's pretty good! Let's try again! Now, there's a problem! Let's just check problem.
+
+118
+00:07:46,100 --> 00:07:50,100
+Great! "Your guess was: problem" It looks all good, but what happens if I put donkey space
+
+119
+00:07:50,100 --> 00:07:54,100
+kong, for example. Ah, your guess was donkey. It only took the first bit
+
+120
+00:07:54,100 --> 00:07:58,100
+off, right. And worse than that, look what happens here. Now, I
+
+121
+00:07:58,100 --> 00:08:02,100
+don't need you to follow this bit. I'm just going to duplicate all my code for a moment, underneath, so
+
+122
+00:08:02,100 --> 00:08:06,100
+I get the guess from the player and repeat it out twice.
+
+123
+00:08:06,100 --> 00:08:10,100
+I'm going to remove this line, because I don't want it to
+
+124
+00:08:10,100 --> 00:08:14,100
+declare string again, it already exists. String has been brought into
+
+125
+00:08:14,100 --> 00:08:18,100
+existence here, in string Guess. We don't need it again. In fact,
+
+126
+00:08:18,100 --> 00:08:22,100
+a good way of seeing where it's used is to click on it there, and it shows it's used here, here, here, here,
+
+127
+00:08:22,100 --> 00:08:26,100
+here, but we don't want to declare it again. That wouldn't make any sense. OK,
+
+128
+00:08:26,100 --> 00:08:30,100
+here you go! "Enter your guess: donkey" and that's fine!
+
+129
+00:08:30,100 --> 00:08:34,100
+Kong, so that's it going through twice and asking me and
+
+130
+00:08:34,100 --> 00:08:38,100
+repeating back, but what happens if I type donkey kong?
+
+131
+00:08:38,100 --> 00:08:42,100
+I get donkey and then immediately I get another your guess was
+
+132
+00:08:42,100 --> 00:08:46,100
+kong. And it didn't even ask me for my guess here, so what happened? The first cin
+
+133
+00:08:46,100 --> 00:08:50,100
+over here, this one here, that read
+
+134
+00:08:50,100 --> 00:08:54,100
+donkey and then stopped when it got to the space, by default,
+
+135
+00:08:54,100 --> 00:08:58,100
+and then, it printed out donkey here.
+
+136
+00:08:58,100 --> 00:09:02,100
+And then, it said "Enter your guess:', which happened. And then, cin found that
+
+137
+00:09:02,100 --> 00:09:06,100
+on the input stream there was still something left and that was kong or probably
+
+138
+00:09:06,100 --> 00:09:10,100
+space kong but it ignored the leading space. So, then it outputed
+
+139
+00:09:10,100 --> 00:09:14,100
+kong and the game was over. So, this isn't what we want because we want
+
+140
+00:09:14,100 --> 00:09:18,100
+the user to be able to put... It's part of our requirements actually that the user can put anything in.
+
+141
+00:09:18,100 --> 00:09:22,100
+And this is breaking our code, what the user is putting in is changing how the
+
+142
+00:09:22,100 --> 00:09:25,566
+code is operating, so we need to take control back of this game,
+
+143
+00:09:25,566 --> 00:09:29,566
+and that's going to be the subject of the next video. So, I'm going to leave the code like
+
+144
+00:09:29,566 --> 00:09:33,566
+this, actually, with two sets of "Enter your guess: ". You're welcome to bring your
+
+145
+00:09:33,566 --> 00:09:37,566
+code to this state now, so to be clear we have the intro at the top
+
+146
+00:09:37,566 --> 00:09:41,566
+there, and then we're getting the guess from the player, repeating it back, getting it from the player, repeating it
+
+147
+00:09:41,566 --> 00:09:45,566
+back. The only line that I haven't copied is this hole here, where I've removed
+
+148
+00:09:45,566 --> 00:09:49,566
+string. So, do this for yourself. You're welcome to try and run it with your string left in,
+
+149
+00:09:49,566 --> 00:09:53,566
+down here, and you'll find it'll fail. Get yourself to this state that
+
+150
+00:09:53,566 --> 00:09:57,566
+you see on the screen. Convince yourself that there's a problem, and in the next video,
+
+151
+00:09:57,566 --> 00:10:00,566
+I will talk about a solution to that!

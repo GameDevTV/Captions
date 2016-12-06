@@ -1,0 +1,635 @@
+1
+00:00:00,000 --> 00:00:04,000
+So, welcome to
+
+2
+00:00:04,000 --> 00:00:08,000
+this exciting video on Booleans and Comparisons! In this video, we're going to
+
+3
+00:00:08,000 --> 00:00:12,000
+explain what a boolean is and how to use it! I'll explain that you need to
+
+4
+00:00:12,000 --> 00:00:16,000
+use == for comparisons in C++, like many other languages.
+
+5
+00:00:16,000 --> 00:00:20,000
+&& for logical AND.
+
+6
+00:00:20,000 --> 00:00:24,000
+You need to use two of those vertical pipes for a logical OR, and if you want
+
+7
+00:00:24,000 --> 00:00:28,000
+to access part of a string, then you're going to use square brackets
+
+8
+00:00:28,000 --> 00:00:32,000
+and then the number of the character starting at 0. You'll see all this in context in a moment.
+
+9
+00:00:32,000 --> 00:00:36,000
+And finally, for characters you need to use single quotes, not double quotes.
+
+10
+00:00:36,000 --> 00:00:40,000
+It's characters and single quotes. Double quotes are for strings, so
+
+11
+00:00:40,000 --> 00:00:43,933
+you'll see all that come together, as we progress through the video.
+
+12
+00:00:43,933 --> 00:00:47,933
+So, let's take a look at our application!
+
+13
+00:00:47,933 --> 00:00:51,933
+What do we need to do next? Well, shortly we're going to want to make sure that
+
+14
+00:00:51,933 --> 00:00:55,933
+we can play the game multiple times. I know, it's not really a game yet,
+
+15
+00:00:55,933 --> 00:00:59,933
+but you know we're doing a kind of top-down design here. We're making sure
+
+16
+00:00:59,933 --> 00:01:03,933
+that the general flow is right, then going in and successively flushing out the details.
+
+17
+00:01:03,933 --> 00:01:07,933
+If we were to play another time, we would want to ask the player if they can play again
+
+18
+00:01:07,933 --> 00:01:11,933
+or if they want to play again. So, how would you do that? Well, you can put a comment in here, that's
+
+19
+00:01:11,933 --> 00:01:15,933
+fine, or we can even directly just say AskToPlayAgain.
+
+20
+00:01:15,933 --> 00:01:19,933
+So, you just put a method in there. That method doesn't exist, of course we get a warning.
+
+21
+00:01:19,933 --> 00:01:23,933
+So, what can we do? Well, we can come to the top and we can declare
+
+22
+00:01:23,933 --> 00:01:27,933
+the method. Of course, we're going to need to say what comes back. Now, let's think about what comes back, from our
+
+23
+00:01:27,933 --> 00:01:31,933
+AskToPlayAgain(). Should nothing come back or could we do something more useful with
+
+24
+00:01:31,933 --> 00:01:35,933
+this method? Could we ask them to play again and then return whether or not they
+
+25
+00:01:35,933 --> 00:01:39,933
+want to play again? That could be handy, because later on we're going to be
+
+26
+00:01:39,933 --> 00:01:43,933
+going around these introduction, game, play again, introduction, game,
+
+27
+00:01:43,933 --> 00:01:47,933
+AskToPlayAgain() many times. It would be very useful to be able to control that looping, as we call it,
+
+28
+00:01:47,933 --> 00:01:51,933
+dependent on what they respond here with. So, let's return
+
+29
+00:01:51,933 --> 00:01:55,933
+something called a bool, which is a boolean, it's true or false. Now, that is
+
+30
+00:01:55,933 --> 00:01:59,933
+represented as 0 for false and 1 for true
+
+31
+00:01:59,933 --> 00:02:03,933
+under the hood, but we really want to pretty much forget that actually. It's much better
+
+32
+00:02:03,933 --> 00:02:07,933
+to think of it in terms of true and false, logically true and false and not
+
+33
+00:02:07,933 --> 00:02:11,933
+to mess around with 1's and 0's trying to represent true and false. It'll just get us in trouble!
+
+34
+00:02:11,933 --> 00:02:13,100
+So, just remember that.
+
+35
+00:02:13,100 --> 00:02:17,100
+Now, a little more on the topic of naming. I know we seem to be spending
+
+36
+00:02:17,100 --> 00:02:21,100
+a lot of time thinking about naming, but actually, there's a famous quote that all
+
+37
+00:02:21,100 --> 00:02:25,100
+problems in computer science, well the hardest problems in computer science are naming
+
+38
+00:02:25,100 --> 00:02:29,100
+and cash validation or cash coherency, so
+
+39
+00:02:29,100 --> 00:02:33,100
+naming is really really important, alright. So, Unreal's coding
+
+40
+00:02:33,100 --> 00:02:37,100
+standards! They quite sensibly say that all functions that return a bool should
+
+41
+00:02:37,100 --> 00:02:41,100
+ask a true false question, such as is visible or should clear
+
+42
+00:02:41,100 --> 00:02:45,100
+buffer. We can do that here. We could
+
+43
+00:02:45,100 --> 00:02:49,100
+call it WantsToPlayAgain, but we would be hiding the side effect
+
+44
+00:02:49,100 --> 00:02:53,100
+of the method then. The more important thing right now is that this thing is actually
+
+45
+00:02:53,100 --> 00:02:57,100
+asking and it's asking something on the Console, and I don't want to hide that side
+
+46
+00:02:57,100 --> 00:03:01,100
+effect behind something like WantsToPlayAgain question mark, because it's
+
+47
+00:03:01,100 --> 00:03:05,100
+not clear that you're actually printing out to the Console. So, we're going to leave it like this! We're going to allow ourselves to
+
+48
+00:03:05,100 --> 00:03:09,100
+flex a bit. We don't have to totally adhere to their standard, because we're not writing
+
+49
+00:03:09,100 --> 00:03:13,200
+code that is going to be integrated into the Unreal Engine, or at least not yet.
+
+50
+00:03:13,200 --> 00:03:18,733
+And later one, when we introduce something called enumerations, we can actually solve this potential paradox, but one step at a time.
+
+51
+00:03:18,733 --> 00:03:22,733
+So, I've wishfully written it here. I've come up to the top and declared it.
+
+52
+00:03:22,733 --> 00:03:26,733
+Now, I can actually right-click, Quick Actions, and
+
+53
+00:03:26,733 --> 00:03:30,733
+Create Definition. It says Declaration / Definition
+
+54
+00:03:30,733 --> 00:03:34,733
+because it's a multipurpose line in there but you're creating the definition.
+
+55
+00:03:34,733 --> 00:03:38,733
+And it does this weird pop-in thing! It's actually just showing us what it's put at
+
+56
+00:03:38,733 --> 00:03:42,733
+the bottom of the code. Alright, so we can close that! So, looking at the
+
+57
+00:03:42,733 --> 00:03:46,733
+bottom, it's actually written the method for us, which is pretty cool!Now look, it has written it in a code format
+
+58
+00:03:46,733 --> 00:03:50,733
+that we're not going for. It hasn't put the brace on a new
+
+59
+00:03:50,733 --> 00:03:54,733
+line, so why don't we start getting it to do that! Let me show you where you control it! Tools,
+
+60
+00:03:54,733 --> 00:03:58,733
+Options. You could just type BRACE, for example, or you could
+
+61
+00:03:58,733 --> 00:04:02,733
+scroll down to Text Editor, C++, Formatting,
+
+62
+00:04:02,733 --> 00:04:06,733
+and then, New Lines. Here you go! And then, we're going to look for the
+
+63
+00:04:06,733 --> 00:04:10,733
+one for "Position of open braces for functions" there on a new line!
+
+64
+00:04:10,733 --> 00:04:14,733
+So, into the options, C++, Formatting,
+
+65
+00:04:14,733 --> 00:04:18,733
+New Lines, "Position of open braces for functions", New Lines. Let's just test that
+
+66
+00:04:18,733 --> 00:04:22,733
+works! I'm going to delete what it created, go back to the top,
+
+67
+00:04:22,733 --> 00:04:26,733
+and then, let it complain that AskToPlayAgain() doesn't exist.
+
+68
+00:04:26,733 --> 00:04:30,733
+Come on! If it doesn't, then you might need to just try recompiling. There you go!
+
+69
+00:04:30,733 --> 00:04:34,733
+So, there you go! Now, right-click, Quick Actions, "Create
+
+70
+00:04:34,733 --> 00:04:38,733
+definition of" it, and then, scroll to the bottom
+
+71
+00:04:38,733 --> 00:04:42,733
+and see that it has actually now started doing things in our code format. That's good, so
+
+72
+00:04:42,733 --> 00:04:46,733
+Again, take control of the tool, tell it what you want! That's under Tools and Options! Great, so we have
+
+73
+00:04:46,733 --> 00:04:50,733
+this AskToPlayAgain() method. Let's start writing it! cout
+
+74
+00:04:50,733 --> 00:04:54,733
+<< "Do you want to play again?" right,
+
+75
+00:04:54,733 --> 00:04:58,733
+question mark! Now, we're going to need something to store our input in,
+
+76
+00:04:58,733 --> 00:05:02,733
+so I'm going to say string Response = " " nothing.
+
+77
+00:05:02,733 --> 00:05:06,733
+Always initialize your variables. Now, let's go get this input.
+
+78
+00:05:06,733 --> 00:05:10,733
+Now, remember we used getline before, from the (cin) stream. We get
+
+79
+00:05:10,733 --> 00:05:14,733
+to put it into response. Great news OK!
+
+80
+00:05:14,733 --> 00:05:18,733
+And now, I want to be looking just at the first character
+
+81
+00:05:18,733 --> 00:05:22,733
+of this. So, how are we going to do that? Well, to get to the first character,
+
+82
+00:05:22,733 --> 00:05:26,733
+it's Response, open square brackets, 0, because computers start counting at
+
+83
+00:05:26,733 --> 00:05:30,733
+0. So, Response[0] is the first character of response! Let's
+
+84
+00:05:30,733 --> 00:05:34,733
+prove that to ourselves by just going cout << "First
+
+85
+00:05:34,733 --> 00:05:38,733
+character, char for short
+
+86
+00:05:38,733 --> 00:05:42,733
+and then like so. OK, let's have a go,
+
+87
+00:05:42,733 --> 00:05:46,733
+make sure all of this code so far is working. So, we put some guesses in. Do you want to play again?
+
+88
+00:05:46,733 --> 00:05:50,733
+DSDF, first character d. Great! OK,
+
+89
+00:05:50,733 --> 00:05:54,733
+so that's working! Now, what we want to do is think about
+
+90
+00:05:54,733 --> 00:05:58,733
+checking whether this first character is y
+
+91
+00:05:58,733 --> 00:06:02,733
+for yes. So, how do we do that? Well,
+
+92
+00:06:02,733 --> 00:06:06,733
+let's try is it y question mark.
+
+93
+00:06:06,733 --> 00:06:10,733
+And I'm going to put an end line here, by the way, just because it's really hard to
+
+94
+00:06:10,733 --> 00:06:14,733
+see without that space. Alright great! So, is it y? And what you can actually
+
+95
+00:06:14,733 --> 00:06:18,733
+output is the idea that Response == means equals.
+
+96
+00:06:18,733 --> 00:06:22,733
+It's the comparison operator y. Now, you need to use
+
+97
+00:06:22,733 --> 00:06:26,733
+single quotes for y, because y is a character,
+
+98
+00:06:26,733 --> 00:06:30,733
+and if you don't you're going to get an error. And you also need to put all of this in
+
+99
+00:06:30,733 --> 00:06:34,733
+brackets, so that this operator here
+
+100
+00:06:34,733 --> 00:06:38,733
+knows to read everything to the right, not just this response bit.
+
+101
+00:06:38,733 --> 00:06:42,733
+OK. So, we need to put all of this in brackets there. So, we're
+
+102
+00:06:42,733 --> 00:06:46,733
+saying the lump, the thing that we want to output, is this lot, so we
+
+103
+00:06:46,733 --> 00:06:50,733
+put it in brackets. Then, this operator knows what to operate on. We could also try
+
+104
+00:06:50,733 --> 00:06:54,733
+the problem of using double quotes. Let's see what happens here. You get another different type of error
+
+105
+00:06:54,733 --> 00:06:58,733
+about operand types being incompatible, char and const char star.
+
+106
+00:06:58,733 --> 00:07:02,733
+Don't worry about what that means. Just when you're comparing to characters, use
+
+107
+00:07:02,733 --> 00:07:06,733
+single quotes. And why is that a character? We turned it into a character by looking at just
+
+108
+00:07:06,733 --> 00:07:10,733
+one element of the Response string. So, is it yes? Let's take a look and
+
+109
+00:07:10,733 --> 00:07:14,733
+see what happens here. Just let you digest this code, for a second, before
+
+110
+00:07:14,733 --> 00:07:18,733
+I hit run, make sure you understand it. OK, let's take a look!
+
+111
+00:07:18,733 --> 00:07:22,733
+So, we put some guesses in, and then we type yes like that. And
+
+112
+00:07:22,733 --> 00:07:26,733
+is it yes? 1! Remember I said they represent true as 1. Now, we want to forget
+
+113
+00:07:26,733 --> 00:07:30,733
+that, but you do need to, for this instance, understand that cout is just instead
+
+114
+00:07:30,733 --> 00:07:34,733
+of saying true, which I prefer it did, it's saying 1. Alright, so that's
+
+115
+00:07:34,733 --> 00:07:38,733
+how you get a boolean out. The
+
+116
+00:07:38,733 --> 00:07:42,733
+actual result of this is a boolean, that thing in brackets there.
+
+117
+00:07:42,733 --> 00:07:46,733
+So, I've got a challenge for you, just to finish this method off. What I want you to do is
+
+118
+00:07:46,733 --> 00:07:50,733
+write the rest of AskToPlayAgain(). I want you to allow
+
+119
+00:07:50,733 --> 00:07:54,733
+for both "y" and big "Y" as the first letter. Remember I told you about the OR
+
+120
+00:07:54,733 --> 00:07:58,733
+operator at the beginning of the section here, this double pipe at the bottom of the screen.
+
+121
+00:07:58,733 --> 00:08:06,733
+See if you can work out how to use that, and then, I want you to ignore the rest of the letters in the word, as we started doing, and then return true for yes
+
+122
+00:08:06,733 --> 00:08:10,733
+and false for no. Now, there's a little star here, true
+
+123
+00:08:10,733 --> 00:08:14,733
+for yes and false for no is on the limit of what's obvious. So, true for yes and false for no is fine,
+
+124
+00:08:14,733 --> 00:08:18,733
+but true for red car false for green car, no no no never do that!
+
+125
+00:08:18,733 --> 00:08:22,733
+OK, pause the video, and I'll see you in a second!
+
+126
+00:08:22,733 --> 00:08:26,733
+Okie dokie! Let's crack
+
+127
+00:08:26,733 --> 00:08:30,733
+on and get this finished! So, what we're actually just doing here is, we're
+
+128
+00:08:30,733 --> 00:08:34,733
+returning, of course. Instead of returning false, which I've done by default here,
+
+129
+00:08:34,733 --> 00:08:38,733
+or when it wrote the method for us it nicely returned something by default.
+
+130
+00:08:38,733 --> 00:08:42,733
+I'm actually going to return this.
+
+131
+00:08:42,733 --> 00:08:46,733
+I'm going to say return
+
+132
+00:08:46,733 --> 00:08:50,733
+(Respons [0] == 'y'); OR
+
+133
+00:08:50,733 --> 00:08:54,733
+...
+
+134
+00:08:54,733 --> 00:08:58,733
+| | (Response [0], or we could make ourselves a temporary variable of
+
+135
+00:08:58,733 --> 00:09:02,733
+type character, called first character or something. Equals ==
+
+136
+00:09:02,733 --> 00:09:06,733
+'Y') ; so
+
+137
+00:09:06,733 --> 00:09:10,733
+we'll only return yes if the first character is y or Y. Let's go ahead and test it!
+
+138
+00:09:10,733 --> 00:09:14,733
+Y and it doesn't matter what we put
+
+139
+00:09:14,733 --> 00:09:18,733
+there. "Press any key to continue". Now of course, we don't know what we returned,
+
+140
+00:09:18,733 --> 00:09:22,733
+so you could come up here and get that value and print
+
+141
+00:09:22,733 --> 00:09:26,733
+it in the main loop. Where is it? Here! We could just cout
+
+142
+00:09:26,733 --> 00:09:30,733
+the result of the AskToPlayAgain() method,
+
+143
+00:09:30,733 --> 00:09:34,733
+so when AskToPlayAgain() finishes it leaves something sitting here, and you
+
+144
+00:09:34,733 --> 00:09:38,733
+could always out put that. Let's just try it!
+
+145
+00:09:38,733 --> 00:09:42,733
+Y e s. 1 you see!
+
+146
+00:09:42,733 --> 00:09:46,733
+So, it says yes. OK, let's just try putting something else
+
+147
+00:09:46,733 --> 00:09:50,733
+like, I don't know, starting with k. 0!
+
+148
+00:09:50,733 --> 00:09:54,733
+And we're pretty confident that it's going to work for the lower case y, because we did that before.
+
+149
+00:09:54,733 --> 00:09:58,733
+Alright, so that's it! What we've done is we've written a method called Ask
+
+150
+00:09:58,733 --> 00:10:02,733
+ToPlayAgain(), that is returning a
+
+151
+00:10:02,733 --> 00:10:06,733
+boolean. I'm going to get rid of this cout, because it's horrible! We don't have to use that
+
+152
+00:10:06,733 --> 00:10:10,733
+return value. In this instance, it's running and we're not using it, but it's there, ready, and waiting for us.
+
+153
+00:10:10,733 --> 00:10:14,733
+So, what we'll be able to do next, is to start to wrap all of this up into a loop,
+
+154
+00:10:14,733 --> 00:10:18,733
+so that we can go around doing this multiple times and stop doing this when
+
+155
+00:10:18,733 --> 00:10:22,733
+AskToPlayAgain() comes out as false. So, congratulations
+
+156
+00:10:22,733 --> 00:10:26,733
+on getting this far, you're doing great! And shortly, by the way, we're going to be taking a
+
+157
+00:10:26,733 --> 00:10:30,733
+step back. I'm going to be doing a talking head and we're going to talk about the design of the whole thing, and
+
+158
+00:10:30,733 --> 00:10:34,733
+it's going to start to get much more exciting, even more exciting than it already is!
+
+159
+00:10:34,733 --> 00:10:37,033
+I'll see you soon!

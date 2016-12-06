@@ -1,0 +1,663 @@
+1
+00:00:03,500 --> 00:00:07,000
+So, welcome to a quick tour of the Unreal Editor!
+
+2
+00:00:07,000 --> 00:00:10,500
+In this video we're going to create ourselves a basic C++
+
+3
+00:00:10,500 --> 00:00:14,000
+project, and then, we're going to add a couple of objects to the scene.
+
+4
+00:00:14,000 --> 00:00:17,500
+Make sure we understand how default scenes work, so that
+
+5
+00:00:17,500 --> 00:00:21,000
+next time you load Unreal you get the same stuff
+
+6
+00:00:21,000 --> 00:00:24,500
+on the screen as you had before, scenes, levels, and
+
+7
+00:00:24,500 --> 00:00:28,000
+maps and all, basically interchangeable terms. And then, we're going to
+
+8
+00:00:28,000 --> 00:00:31,500
+have a play with the interface and customize it. You see my interface is looking a little
+
+9
+00:00:31,500 --> 00:00:35,000
+different. So, let's dive in and get that done now!
+
+10
+00:00:35,000 --> 00:00:38,500
+So, here we are back at the Epic Games
+
+11
+00:00:38,500 --> 00:00:42,000
+Launcher! So hopefully by now your Unreal Engine has finished
+
+12
+00:00:42,000 --> 00:00:45,500
+downloading. If it hasn't, it'll be telling you here and slowly filling up
+
+13
+00:00:45,500 --> 00:00:49,000
+this logo with black, from the bottom to the top. Now, if you can't see any of
+
+14
+00:00:49,000 --> 00:00:52,500
+this, then firstly check here on the right tab. You may be on one of these other tabs along
+
+15
+00:00:52,500 --> 00:00:56,000
+here. So, let's make sure we're on the UE4 tab and that we're in the Library
+
+16
+00:00:56,000 --> 00:00:59,500
+section of the UE4 tab, not the community section. Then, you
+
+17
+00:00:59,500 --> 00:01:03,000
+should see engine versions, and up here we have
+
+18
+00:01:03,000 --> 00:01:06,500
+4.10.1, or yours may be later than that and that's fine. As long as it's at
+
+19
+00:01:06,500 --> 00:01:10,000
+lest 4.10 we are good to go! So, let's launch Unreal
+
+20
+00:01:10,000 --> 00:01:13,500
+for the first time! You may get
+
+21
+00:01:13,500 --> 00:01:17,000
+a Windows Firewall warning here, when this opens. Now, by the way
+
+22
+00:01:17,000 --> 00:01:20,500
+I should say, if you're on a Mac I'm going to be covering the rest of the course on Windows, so
+
+23
+00:01:20,500 --> 00:01:24,000
+your going to have to fend for yourself in terms of the differences but their not huge.
+
+24
+00:01:24,000 --> 00:01:27,500
+The differences are not particularly massive. So that's it! You can actually
+
+25
+00:01:27,500 --> 00:01:31,000
+close the Epic Games Launcher if you want. And we're at a screen like this! I just maximize it!
+
+26
+00:01:31,000 --> 00:01:34,500
+Yours will be a lot smaller than this. As I said, I'm on a very low resolution.
+
+27
+00:01:34,500 --> 00:01:38,000
+What we want to do firstly is select C++, not Blueprint.
+
+28
+00:01:38,000 --> 00:01:41,500
+These are just defaults, by the way. I mean any project can pretty much be turned into any
+
+29
+00:01:41,500 --> 00:01:45,000
+other, but we're just going to start with C++ basic code.
+
+30
+00:01:45,000 --> 00:01:48,500
+But I am going to turn the Starter Content here off, so No
+
+31
+00:01:48,500 --> 00:01:52,000
+Starter Content. So, we want C++ at the top right, or select
+
+32
+00:01:52,000 --> 00:01:55,500
+it on this tab, Basic Code, these settings as default, but
+
+33
+00:01:55,500 --> 00:01:59,000
+No Starter Content just for simplicity. Pick yourself a sensible project
+
+34
+00:01:59,000 --> 00:02:02,500
+folder. I suggest you put all of the sections under one folder and then
+
+35
+00:02:02,500 --> 00:02:06,000
+organize them nicely. I'm just going to call mine, Section_01.
+
+36
+00:02:06,000 --> 00:02:09,500
+You can have spaces, by the way, so _01. And I'm going to create the
+
+37
+00:02:09,500 --> 00:02:13,000
+project. So, the first time you do this, it'll take a little while. It depends on the
+
+38
+00:02:13,000 --> 00:02:16,500
+speed of your machine. Because your Compiler is already installed
+
+39
+00:02:16,500 --> 00:02:20,000
+and running, i.e. Visual Studio or Xcode, then
+
+40
+00:02:20,000 --> 00:02:23,500
+this code generation should go swimmingly. If you get any errors down here, then you need to
+
+41
+00:02:23,500 --> 00:02:27,000
+go back and watch the videos about installing your integrated development
+
+42
+00:02:27,000 --> 00:02:30,500
+environment. Because we've already done that, I'm hoping this bit will go without a hitch
+
+43
+00:02:30,500 --> 00:02:34,000
+for you, and that when it'll finish compiling your C++ source
+
+44
+00:02:34,000 --> 00:02:37,500
+code, it's basically building you your own version of the Unreal Editor,
+
+45
+00:02:37,500 --> 00:02:41,000
+which you could customize if you wanted to. But we're not going to be
+
+46
+00:02:41,000 --> 00:02:44,500
+doing that, certainly, at this stage. So, we let that happen and then
+
+47
+00:02:44,500 --> 00:02:48,000
+we're going to see what Unreal looks like on the inside and
+
+48
+00:02:48,000 --> 00:02:51,500
+learn a little bit about saving and scenes
+
+49
+00:02:51,500 --> 00:02:55,000
+and how that all works. So scenes, you may hear the term level.
+
+50
+00:02:55,000 --> 00:02:58,500
+They're all the same type of idea. So, if it doesn't look like this for you, you can go
+
+51
+00:02:58,500 --> 00:03:02,000
+to the Window Menu, Reset Layout, and then OK.
+
+52
+00:03:02,000 --> 00:03:05,500
+So, it's Window, Layout, Reset Layout,
+
+53
+00:03:05,500 --> 00:03:09,000
+and then, OK, and when you do that it will
+
+54
+00:03:09,000 --> 00:03:12,500
+restart the editor and you'll be back to where we are. But I'm at the default, so I'll leave it as
+
+55
+00:03:12,500 --> 00:03:16,000
+it is. Cool! So, let's do something very simple! Let's find the Modes
+
+56
+00:03:16,000 --> 00:03:19,500
+Window, which is Modes here. If you lose any of these things, you can always come
+
+57
+00:03:19,500 --> 00:03:23,000
+here to Window, and then have a look through and see if you can find
+
+58
+00:03:23,000 --> 00:03:26,500
+Modes, which is there, and turn it on. See that Modes is on the left-hand
+
+59
+00:03:26,500 --> 00:03:30,000
+side. Let's go and find ourselves a basic, say cube, and just drag it and
+
+60
+00:03:30,000 --> 00:03:33,500
+drop it in the scene. You can move it with these arrows, up, down, left, right, etc.
+
+61
+00:03:33,500 --> 00:03:37,000
+And let's just save our project.
+
+62
+00:03:37,000 --> 00:03:40,500
+Now, when you click Save it's saying, save level as,
+
+63
+00:03:40,500 --> 00:03:44,000
+so the project name is Section_01. You see at the top here, it says Section_01,
+
+64
+00:03:44,000 --> 00:03:47,500
+but the level or the scene used
+
+65
+00:03:47,500 --> 00:03:51,000
+interchangeably is called Untitled, at the moment, and star means something has changed
+
+66
+00:03:51,000 --> 00:03:54,500
+on it. So, if we save, we're saving as it says the current level to disk. Let's
+
+67
+00:03:54,500 --> 00:03:58,000
+do that! Let's just call this Level_01. Now, I need
+
+68
+00:03:58,000 --> 00:04:01,500
+to maximize this, because I'm pushing the limits of
+
+69
+00:04:01,500 --> 00:04:05,000
+resolution. I want it to be as low as possible, so you can see everything. Level01
+
+70
+00:04:05,000 --> 00:04:08,500
+OK. So I've saved that level. Let's go ahead and quit
+
+71
+00:04:08,500 --> 00:04:12,000
+the project altogether now, go back to the Epic Games Launcher
+
+72
+00:04:12,000 --> 00:04:15,500
+Library, and then, where it says My Projects, you'll see you have a
+
+73
+00:04:15,500 --> 00:04:19,000
+version 4.10 called section 1. Let's re-open it!
+
+74
+00:04:19,000 --> 00:04:22,500
+And let's see what happens when we re-open
+
+75
+00:04:22,500 --> 00:04:26,000
+this. Ahh! Where's my cube gone?! It's a
+
+76
+00:04:26,000 --> 00:04:29,500
+disaster, I can't see it! Now, it turns out that if you double
+
+77
+00:04:29,500 --> 00:04:33,000
+click Level01 that, of course, it will load Level01, but what's happening is it's not
+
+78
+00:04:33,000 --> 00:04:36,500
+loading Level01 by default. OK, so what we want to
+
+79
+00:04:36,500 --> 00:04:40,000
+do is change that, so that you know how to
+
+80
+00:04:40,000 --> 00:04:43,500
+control the level that it loads by default, and then, we'll make sure that
+
+81
+00:04:43,500 --> 00:04:47,000
+works in a challenge for you, in a moment. So, let me show you how to change it!
+
+82
+00:04:47,000 --> 00:04:50,500
+What we need to do is go up to the Edit Menu
+
+83
+00:04:50,500 --> 00:04:54,000
+and then Project Settings. So, Edit, Project
+
+84
+00:04:54,000 --> 00:04:57,500
+Settings, and in here we're going to have Maps & Modes.
+
+85
+00:04:57,500 --> 00:05:01,000
+Now, levels, scenes, maps, you need to kind of consider those things all the
+
+86
+00:05:01,000 --> 00:05:04,500
+same. So, there we go! Now, Default Maps, Game
+
+87
+00:05:04,500 --> 00:05:08,000
+Default Map, but Editor Startup Map,
+
+88
+00:05:08,000 --> 00:05:11,500
+That's the challenge, is that it is the template default. When you start
+
+89
+00:05:11,500 --> 00:05:15,000
+the Editor it opens up a new blank map. That's fine! But if we want
+
+90
+00:05:15,000 --> 00:05:18,500
+to go back to the work we were working on, look you put the Down Arrow and then
+
+91
+00:05:18,500 --> 00:05:22,000
+Level01. So, there's a project level called Level01. Select that
+
+92
+00:05:22,000 --> 00:05:25,500
+and close and then close your project.
+
+93
+00:05:25,500 --> 00:05:29,000
+Let's try again! Simple stuff right, but this is the sort of thing
+
+94
+00:05:29,000 --> 00:05:32,500
+that will catch you out in Unreal, if you don't get it right from the beginning.
+
+95
+00:05:32,500 --> 00:05:36,000
+So, we come back here! Ahh, we have a cube! OK, I've got
+
+96
+00:05:36,000 --> 00:05:39,500
+a challenge for you! Here it is! I want you to add a second object to the
+
+97
+00:05:39,500 --> 00:05:43,033
+scene, save the scene, close the Unreal Editor, re-open it,
+
+98
+00:05:43,033 --> 00:05:46,533
+and ensure the object is still there, and then, congratulate yourself that you have some
+
+99
+00:05:46,533 --> 00:05:50,033
+semblance of control over the Unreal Engine. So go ahead, pause the video,
+
+100
+00:05:50,033 --> 00:05:53,533
+and do that simple challenge, getting a second object from the Modes Panel,
+
+101
+00:05:53,533 --> 00:05:57,033
+now.
+
+102
+00:05:57,033 --> 00:06:00,533
+Welcome back! So, let's do this thing! I'm going to go to Modes, and I'm
+
+103
+00:06:00,533 --> 00:06:04,033
+going to find, let's say a sphere. Let's stick a sphere on there, lift it up a bit,
+
+104
+00:06:04,033 --> 00:06:07,533
+because it offends me sticking halfway through the floor. I'm going to save my scene
+
+105
+00:06:07,533 --> 00:06:11,033
+level, App,
+
+106
+00:06:11,033 --> 00:06:14,533
+whatever you want to call it. Double click back into my project, from the Epic Games
+
+107
+00:06:14,533 --> 00:06:18,033
+Launcher and they're both there! So, Level01
+
+108
+00:06:18,033 --> 00:06:21,533
+is now loading as the default. Simple stuff but we now
+
+109
+00:06:21,533 --> 00:06:25,033
+know how to make sure our changes persist. Now, I want to talk to you quickly about
+
+110
+00:06:25,033 --> 00:06:28,533
+the layout of the engine here. You can change a lot of things. If you're
+
+111
+00:06:28,533 --> 00:06:32,033
+from Unity, for example, or you're on a very low screen
+
+112
+00:06:32,033 --> 00:06:35,533
+resolution, you might want to move things around. So, you have little grippers
+
+113
+00:06:35,533 --> 00:06:39,033
+here that you can move, and if you're careful then you can move
+
+114
+00:06:39,033 --> 00:06:42,533
+where these things are but you need to understand how it works. So,
+
+115
+00:06:42,533 --> 00:06:46,033
+have an experiment, because remember you can always go Reset Layout.
+
+116
+00:06:46,033 --> 00:06:49,533
+So, I want you to start grabbing tabs, like the World Outliner and
+
+117
+00:06:49,533 --> 00:06:53,033
+Details, and let's just move things around. I'm going to move it around
+
+118
+00:06:53,033 --> 00:06:56,533
+to something I'm more familiar with, which is a Unity style. I'm going to lose Modes.
+
+119
+00:06:56,533 --> 00:07:00,033
+I'm gong to put my World Outliner on the left hand side
+
+120
+00:07:00,033 --> 00:07:03,533
+there. I'm going to leave the Content Browser
+
+121
+00:07:03,533 --> 00:07:07,033
+where it is. Leave the Details where it is, that's equivalent to an
+
+122
+00:07:07,033 --> 00:07:10,533
+Inspector, so if you click on something you see all it's details on the right.
+
+123
+00:07:10,533 --> 00:07:14,033
+The World Outliner basically reflects all the things that are in this level
+
+124
+00:07:14,033 --> 00:07:17,533
+here, so it's a one for one correspondence. You click something there you see it here.
+
+125
+00:07:17,533 --> 00:07:21,033
+This is just like Unity, if you have any familiarity with that. If you don't and you don't
+
+126
+00:07:21,033 --> 00:07:24,533
+even know what Unity is, don't worry. Unity is a different game engine that just...
+
+127
+00:07:24,533 --> 00:07:28,033
+I'm reassuring you that this is fairly industry standard. Lots of these things work
+
+128
+00:07:28,033 --> 00:07:31,533
+in a similar way, which is good. Alright, you can move your panes
+
+129
+00:07:31,533 --> 00:07:35,033
+around, with the divisions in between them. And really, this is just a question of you
+
+130
+00:07:35,033 --> 00:07:38,533
+experimenting. So go ahead, experiment with all of your panes and panels.
+
+131
+00:07:38,533 --> 00:07:42,033
+If you have a very low resolution, like I do, then you may want to
+
+132
+00:07:42,033 --> 00:07:45,533
+change things around a little bit. So, you can double click on this little
+
+133
+00:07:45,533 --> 00:07:49,033
+yellow bit, at the top left, and that will give you a
+
+134
+00:07:49,033 --> 00:07:52,533
+different type of handle, so that you can move things around OK.
+
+135
+00:07:52,533 --> 00:07:56,033
+If you get into a complete mess like this, Window, Reset Layout,
+
+136
+00:07:56,033 --> 00:07:59,533
+OK. And then, do we want to save
+
+137
+00:07:59,533 --> 00:08:03,033
+the level? Well, sure that doesn't matter. If you're
+
+138
+00:08:03,033 --> 00:08:06,533
+changing your layout, then it's going to say do you want to save the level before I go and reload the
+
+139
+00:08:06,533 --> 00:08:10,033
+editor with a new layout. That's fine! Alright, so we're back to there! I'm
+
+140
+00:08:10,033 --> 00:08:13,533
+just going to adjust mine a little bit to be Outliner on the left.
+
+141
+00:08:13,533 --> 00:08:17,033
+I'm going to lose Modes, I'm going to detach this toolbar at the top,
+
+142
+00:08:17,033 --> 00:08:20,533
+then drag it carefully. See it depends where you let to there.
+
+143
+00:08:20,533 --> 00:08:24,033
+Then, the toolbar goes across the top, because i'm on such a low resolution. And
+
+144
+00:08:24,033 --> 00:08:27,533
+this is a layout that I'm pretty comfortable with. I'm going to be able to see all the things in the toolbar
+
+145
+00:08:27,533 --> 00:08:31,033
+I need. I've got plenty of room down on my details, on the right hand
+
+146
+00:08:31,033 --> 00:08:34,533
+side and I'm good to go! Now, bear in mind you
+
+147
+00:08:34,533 --> 00:08:38,033
+can also right click any tab and say Hide Tab, so we don't
+
+148
+00:08:38,033 --> 00:08:41,533
+really need it saying World Outliner, etc. So, if we
+
+149
+00:08:41,533 --> 00:08:45,033
+don't need that we can hide tab, and you can double click to show tab.
+
+150
+00:08:45,033 --> 00:08:48,533
+So, that's up to you how you want to lay our screen out, alright. So,
+
+151
+00:08:48,533 --> 00:08:52,033
+viewports. I, for now, am going to leave all these tabs on for me,
+
+152
+00:08:52,033 --> 00:08:55,533
+apart from the toolbar, so that when I refer to things,
+
+153
+00:08:55,533 --> 00:08:59,033
+I can guid you with my voice. I can say go to the World Outliner or go to the
+
+154
+00:08:59,033 --> 00:09:02,533
+Content Browser or to the Details Tab, but just bear in mind
+
+155
+00:09:02,533 --> 00:09:06,033
+you can right click on a tab and hide a tab like that, and then you can click at the top
+
+156
+00:09:06,033 --> 00:09:09,533
+left, the yellow to resume. I think you've got the idea! You can now customize
+
+157
+00:09:09,533 --> 00:09:13,033
+the Editor to your needs. When you've finished doing that, then just go to Window
+
+158
+00:09:13,033 --> 00:09:16,533
+then Save Layout. And then, you only get one layout, but
+
+159
+00:09:16,533 --> 00:09:20,033
+but you've saved your layout now. OK, so you've got a choice between you saved layout
+
+160
+00:09:20,033 --> 00:09:23,533
+and to reset the layout back to the default. By the way, these windows can
+
+161
+00:09:23,533 --> 00:09:27,033
+be detached completely and put in other places like this, a floating window.
+
+162
+00:09:27,033 --> 00:09:30,533
+So there it is, floating! And if you want to get it back, well then just experiment
+
+163
+00:09:30,533 --> 00:09:34,033
+or reset your layout. It's probably good to get in a bit of a mess,
+
+164
+00:09:34,033 --> 00:09:37,533
+then to learn how to sort yourself out because that is all
+
+165
+00:09:37,533 --> 00:09:41,033
+learning to command the interface. That's it, you have an introduction to Unreal! When you're happy
+
+166
+00:09:41,033 --> 00:09:44,533
+with your layout, just quit altogether, and we'll see you in the next section!

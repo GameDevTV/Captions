@@ -1,0 +1,207 @@
+1
+00:00:01,466 --> 00:00:04,966
+So I'm so excited to actually start coding with you now! C++
+
+2
+00:00:04,966 --> 00:00:08,466
+is a fantastic language, but it can be a little bit daunting
+
+3
+00:00:08,466 --> 00:00:11,966
+to the newcomer, so I've desgined this section called Bulls & Cows
+
+4
+00:00:11,966 --> 00:00:15,466
+to make it a gentle introduction. We're going to ignore all the
+
+5
+00:00:15,466 --> 00:00:18,966
+complexities of the Unreal Engine, by focusing on developing pure
+
+6
+00:00:18,966 --> 00:00:22,466
+C++ code in your IDE, Integrated Development
+
+7
+00:00:22,466 --> 00:00:25,966
+Environment, whether that's Visual Studio on the PC or Xcode on the
+
+8
+00:00:25,966 --> 00:00:29,466
+Mac. We're going to need to use those tools when we move into Unreal in section
+
+9
+00:00:29,466 --> 00:00:32,966
+3, so let's spend some time getting the difficult stuff out of
+
+10
+00:00:32,966 --> 00:00:36,466
+the way and learning to be really comfortable with C++ and really comfortable
+
+11
+00:00:36,466 --> 00:00:39,066
+with our tools. The game we're going to buid is Bulls &
+
+12
+00:00:39,500 --> 00:00:43,000
+Cows, and that is a word game. It's an adaption of the number game
+
+13
+00:00:43,000 --> 00:00:46,500
+Bulls & Cows. The idea is, the computer picks a word. In fact, there's
+
+14
+00:00:46,500 --> 00:00:50,000
+just going to be one word in this version. And then, you hand the game over to a player,
+
+15
+00:00:50,000 --> 00:00:53,500
+who has to try and guess what that word is, and the computer will
+
+16
+00:00:53,500 --> 00:00:57,000
+tell them when they get a bull. Think of bullseye, as when they get a perfect hit,
+
+17
+00:00:57,000 --> 00:01:00,500
+which is where their letter is the right letter in the right place,
+
+18
+00:01:00,500 --> 00:01:04,000
+or when they get a cow, which is where they've got one of those that is right but it's in wrong
+
+19
+00:01:04,000 --> 00:01:07,500
+place. So, Bulls & Cows, letters in the right place
+
+20
+00:01:07,500 --> 00:01:11,000
+and letters that are in the word but they're in the wrong place.
+
+21
+00:01:11,000 --> 00:01:14,500
+And it's a surprisingly good and strategic game, especially when you've got a limited
+
+22
+00:01:14,500 --> 00:01:18,000
+number of moves. You really get the sense that you're running out of time to
+
+23
+00:01:18,000 --> 00:01:21,500
+guess what this word is. What are we going to be learning in this section? Well,
+
+24
+00:01:21,500 --> 00:01:25,000
+types, routines, loops, and even
+
+25
+00:01:25,000 --> 00:01:28,500
+classes, all the fundamentals basically that you need
+
+26
+00:01:28,500 --> 00:01:32,000
+to be able to go off and start writing C++ programs. Everything we'll learn through the rest
+
+27
+00:01:32,000 --> 00:01:35,500
+of the course is going to be icing on the cake. It's going to be further detail and further
+
+28
+00:01:35,500 --> 00:01:39,000
+programming tools, but with these basic constructs like being
+
+29
+00:01:39,000 --> 00:01:42,500
+able to define types like strings and variables
+
+30
+00:01:42,500 --> 00:01:46,000
+and enumerations and being able to
+
+31
+00:01:46,000 --> 00:01:49,500
+loop, to be able to choose where you go in the program and to be able to go around in circles.
+
+32
+00:01:49,500 --> 00:01:53,000
+Conditionals, if statements, switch statements. With these basic tools,
+
+33
+00:01:53,000 --> 00:01:56,500
+you can do anything, and it's a great foundation for your programming.
+
+34
+00:01:56,500 --> 00:02:00,000
+So, we'll be following Unreal's coding style. We'll be doing a few
+
+35
+00:02:00,000 --> 00:02:03,500
+things to make sure that your code looks like the type of code that you're going to be making,
+
+36
+00:02:03,500 --> 00:02:07,000
+once we get inside Unreal in the next section. We're actually going to take our core
+
+37
+00:02:07,000 --> 00:02:10,500
+game class, that we build here, and we're going to move that into
+
+38
+00:02:10,500 --> 00:02:14,000
+the 3D game in the next section, so we're going to be reusing our code.
+
+39
+00:02:14,000 --> 00:02:17,500
+We'll be using Unreal's coding style, as I said, which is
+
+40
+00:02:17,500 --> 00:02:21,000
+by their documentation, which you can see by this link here, and
+
+41
+00:02:21,000 --> 00:02:24,500
+that is the Unreal coding standard. I'm going to adhere
+
+42
+00:02:24,500 --> 00:02:28,000
+to that as closely as I can. Attached to this lecture are notes
+
+43
+00:02:28,000 --> 00:02:31,500
+and resources, so you can download the
+
+44
+00:02:31,500 --> 00:02:35,000
+slide deck. You can even go to a URL. I'll just look it up for you.
+
+45
+00:02:35,000 --> 00:02:38,500
+It is bit.ly forward slash unreal
+
+46
+00:02:38,500 --> 00:02:42,000
+slides, and if you go there you;ll see a list of all the slides by section. And you can see
+
+47
+00:02:42,000 --> 00:02:45,500
+me create the slides live, actually, so that's a cool place to go! You can
+
+48
+00:02:45,500 --> 00:02:49,000
+download them as a .pdf, right here in the resources. Now remember, you can watch
+
+49
+00:02:49,000 --> 00:02:52,500
+the course offline on the iOS or Android App. And when
+
+50
+00:02:52,500 --> 00:02:56,000
+I announce new videos, I'll be posting it into the Facebook group and
+
+51
+00:02:56,000 --> 00:02:59,500
+onto the Unreal course Twitter account. So, let's dive in
+
+52
+00:02:59,500 --> 00:03:03,000
+and start making C++ work for us!

@@ -1,0 +1,639 @@
+1
+00:00:00,000 --> 00:00:04,000
+...
+
+2
+00:00:04,000 --> 00:00:08,000
+So welcome to Simplifying with Functions! In this
+
+3
+00:00:08,000 --> 00:00:12,000
+video we are going to talk about the fact that programming
+
+4
+00:00:12,000 --> 00:00:16,000
+is all about managing complexity. We want to think about as few
+
+5
+00:00:16,000 --> 00:00:20,000
+things at a time as possible. We'll talk about the idea of abstraction
+
+6
+00:00:20,000 --> 00:00:24,000
+and encapsulation. We'll discuss how functions help us simplify
+
+7
+00:00:24,000 --> 00:00:28,000
+things. You'll write and call your own functions.
+
+8
+00:00:28,000 --> 00:00:32,000
+We'll have a warning about the side effects of functions, as they're called
+
+9
+00:00:32,000 --> 00:00:36,000
+and why we always use return at the end of your functions. I'm going to
+
+10
+00:00:36,000 --> 00:00:40,000
+let you make a mistake in the first challenge. Oh no, now I've told you, I've given the game away, and you
+
+11
+00:00:40,000 --> 00:00:44,000
+may not make the mistake! [Laughs] OK let's dive in and take a look at this!
+
+12
+00:00:44,000 --> 00:00:48,000
+So looking at my code right now, I'm not
+
+13
+00:00:48,000 --> 00:00:52,000
+entirely happy, because I'm starting to what I call lose the wood for the trees. There's just too much
+
+14
+00:00:52,000 --> 00:00:56,000
+stuff on the screen to look at, so we want to start
+
+15
+00:00:56,000 --> 00:01:00,000
+managing this complexity, so a word on that firstly
+
+16
+00:01:00,000 --> 00:01:04,000
+Abstraction and encapsulation, big words and you'll see them on
+
+17
+00:01:04,000 --> 00:01:08,000
+smart answers on Stack Overflow. So let me just give you my take on this!
+
+18
+00:01:08,000 --> 00:01:12,000
+Firstly, I would say that a major goal in writing software is to manage complexity.
+
+19
+00:01:12,000 --> 00:01:16,000
+Right a big piece of software is very complex, and we can only keep a
+
+20
+00:01:16,000 --> 00:01:20,000
+certain number of things in our brains at once, so we want to manage that complexity down.
+
+21
+00:01:20,000 --> 00:01:24,000
+We don't want to be too clever actually, we want to make sure that a future version of ourselves
+
+22
+00:01:24,000 --> 00:01:28,000
+or somebody else coming on and seeing our code can easily see what's going on, and that's
+
+23
+00:01:28,000 --> 00:01:32,000
+hard making things that clear and simple. So abstraction is
+
+24
+00:01:32,000 --> 00:01:36,000
+a technique for managing complexity, by considering things at a higher level.
+
+25
+00:01:36,000 --> 00:01:40,000
+For example, the lines of code that print the introduction,
+
+26
+00:01:40,000 --> 00:01:44,000
+as a whole, could be called print introduction. We've kind of
+
+27
+00:01:44,000 --> 00:01:48,000
+got it in the "// introduce the game" comment, but we actually want the comments to almost
+
+28
+00:01:48,000 --> 00:01:52,000
+disappear into the code, self documenting code, so we'll see how that works in a minute.
+
+29
+00:01:52,000 --> 00:01:56,000
+So then, encapsulation is a way of making sure your abstractions are adhered to.
+
+30
+00:01:56,000 --> 00:02:00,000
+So concretely, once we've decided that this is the way we introduce the game,
+
+31
+00:02:00,000 --> 00:02:04,000
+we can wrap that functionality off into a function and call that function
+
+32
+00:02:04,000 --> 00:02:08,000
+and it'll introduce the game for us, then there's only one way to introduce the game
+
+33
+00:02:08,000 --> 00:02:12,000
+and we get very consistent behavior. So enough talking, let's do it! We've
+
+34
+00:02:12,000 --> 00:02:16,000
+already got the right code highlighted. If I cut that code with Control X,
+
+35
+00:02:16,000 --> 00:02:20,000
+and then, I'm going to go and paste it into this new method that we talked about. Now
+
+36
+00:02:20,000 --> 00:02:24,000
+don't keep things in your copy buffer for too long, so I'd probably paste it straight
+
+37
+00:02:24,000 --> 00:02:28,000
+away. And then, wrap the code around it, because you could lose it couldn't you? You can always use
+
+38
+00:02:28,000 --> 00:02:32,000
+Control Z and stuff, you're not amateurs. Anyway, what are we going to call this method?
+
+39
+00:02:32,000 --> 00:02:36,000
+We're introducing the game, so Print
+
+40
+00:02:36,000 --> 00:02:40,000
+Intro() will do fine.
+
+41
+00:02:40,000 --> 00:02:44,000
+OK fantastic! PrintIntro(), so now curly braces!  Need
+
+42
+00:02:44,000 --> 00:02:48,000
+to put one curly brace at the bottom, and then, when you do so, it's helpfully indented. But if it
+
+43
+00:02:48,000 --> 00:02:52,000
+hasn't indented, for any reason, this is how you want to end up alright.
+
+44
+00:02:52,000 --> 00:02:56,000
+So that's a function that takes in no parameters and passes nothing back, but
+
+45
+00:02:56,000 --> 00:03:00,000
+even though we're passing nothing back, I still want you to be in the habit, at the bottom, of saying
+
+46
+00:03:00,000 --> 00:03:04,000
+return. We're not returning anything because it's void, which means
+
+47
+00:03:04,000 --> 00:03:08,000
+that we're returning nothing, but it's a very important habit, otherwise you can start to forget to return things.
+
+48
+00:03:08,000 --> 00:03:12,000
+So what's the point of this PrintIntro()? It's to introduce the game.
+
+49
+00:03:12,000 --> 00:03:16,000
+And it's got its WORD_LENGTH with it, if you click on that it shows you where the
+
+50
+00:03:16,000 --> 00:03:20,000
+other instances are. By the way, let's just have a quick check and make sure we haven't used WORD_LENGTH anywhere
+
+51
+00:03:20,000 --> 00:03:24,000
+else, because WORD_LENGTH is only going to be available now
+
+52
+00:03:24,000 --> 00:03:28,000
+inside PrintIntro(). That's actually a good thing, it means the scope,
+
+53
+00:03:28,000 --> 00:03:32,000
+the width of our code within which we can actually
+
+54
+00:03:32,000 --> 00:03:36,000
+use it, is limited to just what we're seeing there, in fact, right inside
+
+55
+00:03:36,000 --> 00:03:40,000
+here. So we create WORD_LENGTH there, we use it very very soon after,
+
+56
+00:03:40,000 --> 00:03:44,000
+and then, as soon as we leave this function it goes, what we call out of scope and it's
+
+57
+00:03:44,000 --> 00:03:48,000
+not available to anything else. In fact, if you come into main() here and start trying to type WORD_LENGTH
+
+58
+00:03:48,000 --> 00:03:52,000
+it doesn't come in the autocomplete. Alright, that's called scope and it's a good
+
+59
+00:03:52,000 --> 00:03:56,000
+thing. It's to do with encapsulation, it's making sure we can't get
+
+60
+00:03:56,000 --> 00:04:00,000
+hold of this where we don't need it. Now later, we will need to move it  to a different scope but for now
+
+61
+00:04:00,000 --> 00:04:04,000
+this is fine. So PrintIntro() and in the main() what we do is we
+
+62
+00:04:04,000 --> 00:04:08,000
+just go PrintIntro(). Great, let's make sure
+
+63
+00:04:08,000 --> 00:04:12,000
+that works! So we've tidied up the beginning by saying PrintIntro(), look how much tidier
+
+64
+00:04:12,000 --> 00:04:16,000
+main() is now. And it works, it prints the
+
+65
+00:04:16,000 --> 00:04:20,000
+intro! Now, there's something else I want to tell you before we move on! The second part of this is, I want to see
+
+66
+00:04:20,000 --> 00:04:24,000
+main(). In fact, what is main()? Let's comment to say what main is. This is "// the entry
+
+67
+00:04:24,000 --> 00:04:28,000
+point for our application"
+
+68
+00:04:28,000 --> 00:04:32,000
+or something. If you ever feel you need to describe something, do so.
+
+69
+00:04:32,000 --> 00:04:36,000
+I want PrintIntro() to be up underneath this, so let's cut it and put it
+
+70
+00:04:36,000 --> 00:04:40,000
+underneath, but we get a problem! Let's try compiling! Control F5,
+
+71
+00:04:40,000 --> 00:04:44,000
+it doesn't work, "identifier not found"
+
+72
+00:04:44,000 --> 00:04:48,000
+on line 11. So line 11 tries to use
+
+73
+00:04:48,000 --> 00:04:52,000
+PrintIntro(), it doesn't understand it. What we need to do here is take this part of
+
+74
+00:04:52,000 --> 00:04:56,000
+void PrintIntro() and put it at the top like that,
+
+75
+00:04:56,000 --> 00:05:00,000
+with a semicolon. Why a semicolon? Because if we try and put a pair of curly
+
+76
+00:05:00,000 --> 00:05:04,000
+braces, which by the way act as another way of completing
+
+77
+00:05:04,000 --> 00:05:08,000
+the statement. Look at main(), for example, it doesn't have a semicolon on the end and neither does Print
+
+78
+00:05:08,000 --> 00:05:12,000
+Intro(). Yeah, but if we try and just leave curly braces
+
+79
+00:05:12,000 --> 00:05:16,000
+or even curly braces and a semicolon or something, it's going to say no it
+
+80
+00:05:16,000 --> 00:05:20,000
+already has a body. So the curly braces are the implementation of
+
+81
+00:05:20,000 --> 00:05:24,000
+this, and we don't want to define the implementation in two places, really important.
+
+82
+00:05:24,000 --> 00:05:28,000
+So we say, void PrintIntro(), rather, with a semicolon on the end,
+
+83
+00:05:28,000 --> 00:05:32,000
+and if we click on it you can see that it also exists there and that the implementation is at the
+
+84
+00:05:32,000 --> 00:05:36,000
+bottom. OK we want to keep our main() function at the top, because when you first come into this you want to say:
+
+85
+00:05:36,000 --> 00:05:40,000
+what's it doing? Well this is the entry point for our application OK, and
+
+86
+00:05:40,000 --> 00:05:44,000
+what else is happening? And then, we print an intro. Well how does PrintIntro() work? You look down
+
+87
+00:05:44,000 --> 00:05:48,000
+here, it does this stuff. You see how it simplifies? OK let's check it runs!
+
+88
+00:05:48,000 --> 00:05:52,000
+It does, good good! OK,
+
+89
+00:05:52,000 --> 00:05:56,000
+now next thing! We want to put this stuff here into a method of its own, and
+
+90
+00:05:56,000 --> 00:06:00,000
+guess what? That's going to be a challenge for you! I want you to
+
+91
+00:06:00,000 --> 00:06:04,000
+write string GetGuess() as a function. Save your code so you can go
+
+92
+00:06:04,000 --> 00:06:08,000
+back, in case you mess things up. Write a function to get the guess,
+
+93
+00:06:08,000 --> 00:06:12,000
+return it as a string, at the bottom of the function, and restore your code to
+
+94
+00:06:12,000 --> 00:06:16,000
+its former working glory. Have a go, let yourself struggle with it a bit, but not too much.
+
+95
+00:06:16,000 --> 00:06:20,000
+If it takes you more than 15 minutes, 20 minutes, something like that, then watch my solution and
+
+96
+00:06:20,000 --> 00:06:24,000
+don't feel bad. Otherwise have a good go, have a look and see if you can do it by pattern matching
+
+97
+00:06:24,000 --> 00:06:28,000
+and just by sheer determination and by checking on the web if you need to.
+
+98
+00:06:28,000 --> 00:06:32,000
+Whatever you need, see if you can get it done. It's a useful problem to be able to solve, and it's using things you've
+
+99
+00:06:32,000 --> 00:06:36,000
+already learned. OK welcome back!
+
+100
+00:06:36,000 --> 00:06:40,000
+So I'm going to take all this code here, and I'm just going to
+
+101
+00:06:40,000 --> 00:06:44,000
+put it in a method called string GetGuess(),
+
+102
+00:06:44,000 --> 00:06:48,000
+and it takes in no parameters and that's the
+
+103
+00:06:48,000 --> 00:06:52,000
+code. Alright, so it's going to get a guess from the player. In fact, I'm going to move that comment
+
+104
+00:06:52,000 --> 00:06:56,000
+up above like that, because it describes what the whole function does. And I guess,
+
+105
+00:06:56,000 --> 00:07:00,000
+for consistency, I can do the same with PrintIntro().
+
+106
+00:07:00,000 --> 00:07:04,000
+OK so PrintIntro() very simply does
+
+107
+00:07:04,000 --> 00:07:08,000
+that, GetGuess() from player does that. Great! See how "Enter your guess: ", it
+
+108
+00:07:08,000 --> 00:07:12,000
+defines it just as late as it needs to and repeats the guess back to them. Now warning
+
+109
+00:07:12,000 --> 00:07:16,000
+sign, this doesn't just get the guess at the moment. This more than gets
+
+110
+00:07:16,000 --> 00:07:20,000
+the guess, it gets the guess and it prints the guess
+
+111
+00:07:20,000 --> 00:07:24,000
+back to them. I'm going to rename that "// print the guess back".
+
+112
+00:07:24,000 --> 00:07:28,000
+Hmm, not very good! This is what you call a side effect! If
+
+113
+00:07:28,000 --> 00:07:32,000
+you were up here now, let's see it in action, and I just put Get
+
+114
+00:07:32,000 --> 00:07:36,000
+Guess(), that's my function call. So we'd GetGuess().
+
+115
+00:07:36,000 --> 00:07:40,000
+I don't need this second load of code here. Look how simple
+
+116
+00:07:40,000 --> 00:07:44,000
+our main() method is now! We print an intro and get a guess. Let's make sure it works, then I'll talk about this
+
+117
+00:07:44,000 --> 00:07:48,000
+side effect. OK " 'GetGuess()':" " not found",
+
+118
+00:07:48,000 --> 00:07:52,000
+that's because I need to put a prototype of GetGuess() at the top.
+
+119
+00:07:52,000 --> 00:07:56,000
+Now this stuff at the top is starting to become the kind of contract,
+
+120
+00:07:56,000 --> 00:08:00,000
+an overview of what we're going to be doing, and later this will be in something called a header file.
+
+121
+00:08:00,000 --> 00:08:04,000
+But anyway, for now, we just need to make it available like that. Let's run it and see if it works!
+
+122
+00:08:04,000 --> 00:08:08,000
+OK " 'GetGuess': must return a value"!
+
+123
+00:08:08,000 --> 00:08:12,000
+I've made the mistake I told you not to make, return
+
+124
+00:08:12,000 --> 00:08:16,000
+Guess; so now we're returning a string. Enter you guess,
+
+125
+00:08:16,000 --> 00:08:20,000
+define yourself a variable called Guess,
+
+126
+00:08:20,000 --> 00:08:24,000
+use this getline() method, and then, let's have a space and say that we print
+
+127
+00:08:24,000 --> 00:08:28,000
+the guess back. OK let's check it works, and then, we will talk about side-effects.  Test,
+
+128
+00:08:28,000 --> 00:08:32,000
+your guess was test. Fantastic! Look at the win here is the
+
+129
+00:08:32,000 --> 00:08:36,000
+simplicity of main(), but reading main(), it prints the intro
+
+130
+00:08:36,000 --> 00:08:40,000
+and then it gets the guess. Hmm OK, and then you look at that and you
+
+131
+00:08:40,000 --> 00:08:44,000
+look at this, and you say, well there's a guess coming back as a string but I don't see anything.
+
+132
+00:08:44,000 --> 00:08:48,000
+The real problem, the side-effect, is that its printing. It shouldn't be printing
+
+133
+00:08:48,000 --> 00:08:52,000
+when it's just called GetGuess(). That's a bit nasty, so
+
+134
+00:08:52,000 --> 00:08:56,000
+we're going to own up to our mistake by renaming the method to say exactly what it does do.
+
+135
+00:08:56,000 --> 00:09:00,000
+Now you can do that by renaming it in all three places it exists or
+
+136
+00:09:00,000 --> 00:09:04,000
+clicking on it and going Control R once, and it's going to show,
+
+137
+00:09:04,000 --> 00:09:08,000
+waiting for a second chord, Control R again. You could say
+
+138
+00:09:08,000 --> 00:09:12,000
+GetGuessAndPrint
+
+139
+00:09:12,000 --> 00:09:16,000
+Back. In fact, that's what we'll do for now. And when you hit Return it'll say,
+
+140
+00:09:16,000 --> 00:09:20,000
+where do you want to replace this? You can pretty much trust it, if you had it selected right in the first place and it will
+
+141
+00:09:20,000 --> 00:09:24,000
+rename it there and where you call it and in the prototype at the top there.
+
+142
+00:09:24,000 --> 00:09:28,000
+Now this is what it does, this is a horrible method name, or method is another
+
+143
+00:09:28,000 --> 00:09:32,000
+word for function, is another word for routine, and they all have slight
+
+144
+00:09:32,000 --> 00:09:36,000
+subtleties as to what they actually are, but, for now, let's get used to all of the different ways of calling it.
+
+145
+00:09:36,000 --> 00:09:40,000
+GetGuessAndPrintBack() does a lot and that's a bad thing that
+
+146
+00:09:40,000 --> 00:09:44,000
+it does so much but at least we're honest about what it does, we have declared the side-
+
+147
+00:09:44,000 --> 00:09:48,000
+effect and we're going to leave it like this for this video. So all I want to do now is
+
+148
+00:09:48,000 --> 00:09:52,000
+do it twice. Now the structure of main() is it
+
+149
+00:09:52,000 --> 00:09:56,000
+Prints the Intro, GetGuessAndPrintBack(), GetGuessAndPrintBack(),
+
+150
+00:09:56,000 --> 00:10:00,000
+and then it leaves a space and exits. Let's have a look at this work!
+
+151
+00:10:00,000 --> 00:10:04,000
+Donkey... No "doinke" spoot! That'll do! And that
+
+152
+00:10:04,000 --> 00:10:08,000
+worked, and second guess "hello". Now we might want an extra space,
+
+153
+00:10:08,000 --> 00:10:12,000
+but look, let's leave the formatting, it works! And the big big win
+
+154
+00:10:12,000 --> 00:10:16,000
+is that main() is easy to understand and reads in
+
+155
+00:10:16,000 --> 00:10:20,000
+English now. So in the next video, we'll start looking at how we can do things
+
+156
+00:10:20,000 --> 00:10:24,000
+multiple times automatically, using loops, and we'll also look, in future videos, at
+
+157
+00:10:24,000 --> 00:10:28,000
+how we can make this method more single purposed. GetGuessAndPrintBack()
+
+158
+00:10:28,000 --> 00:10:32,000
+is not a nice method, because it's doing two things. OK fantastic! We'll see you soon!
+
+159
+00:10:32,000 --> 00:10:36,000
+...
+
+160
+00:10:36,000 --> 00:10:36,833
+...
