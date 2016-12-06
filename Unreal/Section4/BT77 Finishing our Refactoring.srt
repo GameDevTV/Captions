@@ -1,0 +1,850 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So hey and welcome
+
+2
+00:00:04.000 --> 00:00:08.000
+to Finishing our Refactoring! In this video we are going to finish our refactoring
+
+3
+00:00:08.000 --> 00:00:12.000
+to our new architecture. and we will be in a position to have a nice
+
+4
+00:00:12.000 --> 00:00:15.766
+clean basis to move forward. with our new functionality. So I'll see you in there!
+
+5
+00:00:15.766 --> 00:00:19.766
+OK guys. so you guessed what we're doing in this video! We've done
+
+6
+00:00:19.766 --> 00:00:23.766
+Aiming without the Tank. now we need to do Firing without the Tank. So I've slightly
+
+7
+00:00:23.766 --> 00:00:27.766
+rejigged our architecture diagram. I've made this line here. from
+
+8
+00:00:27.766 --> 00:00:31.766
+the AI Controller to the Aiming Component. gray again. because well it's now like that.
+
+9
+00:00:31.766 --> 00:00:35.766
+And this is what we need to do. we need to break these dependencies on the
+
+10
+00:00:35.766 --> 00:00:39.766
+Projectile and the Barrel from the Tank. and then. we need to introduce this Aiming Component to
+
+11
+00:00:39.766 --> 00:00:43.766
+Tank dependency. basically moving all our code out of the Tank. And I'm going to put you
+
+12
+00:00:43.766 --> 00:00:47.766
+straight into the challenge! File without the Tank. Move all the remaining firing
+
+13
+00:00:47.766 --> 00:00:51.766
+code out of the tank. Yes the tank will end up with no useful code. to
+
+14
+00:00:51.766 --> 00:00:55.766
+the point that we could delete the tank class but we're not going to because we're probably going
+
+15
+00:00:55.766 --> 00:00:59.766
+to need it later. and deleting classes is a hassle in Unreal.
+
+16
+00:00:59.766 --> 00:01:03.766
+Re-specify your Projectile in the blueprint. There's a hint for you. Let me just show
+
+17
+00:01:03.766 --> 00:01:07.766
+you what I mean by that. So if we go to the Tank blueprint. at the moment.
+
+18
+00:01:07.766 --> 00:01:11.766
+you're going to be moving this bit here. where we specify the Projectile
+
+19
+00:01:11.766 --> 00:01:15.766
+Blueprint. you're going to be moving it to the TankAimingComponent and it will be broken. So remember
+
+20
+00:01:15.766 --> 00:01:19.766
+to respecify that. Remember to also rebind the firing in the blueprint.
+
+21
+00:01:19.766 --> 00:01:23.766
+the firing input mapping goes to the Tank. at the moment. it's going to go straight to the Aiming
+
+22
+00:01:23.766 --> 00:01:27.766
+Component and good luck!
+
+23
+00:01:27.766 --> 00:01:31.766
+Okey dokey! Let's roll up our
+
+24
+00:01:31.766 --> 00:01:35.766
+virtual sleeves or even our real sleeves and get our hands dirty
+
+25
+00:01:35.766 --> 00:01:39.766
+with this puppy! I'm going to right-click and close all but the AimingComponent. In fact. I'm going to
+
+26
+00:01:39.766 --> 00:01:43.766
+close everything. and i'm going to get my workspace how I want it for this
+
+27
+00:01:43.766 --> 00:01:47.766
+work. I want the Tank open. then the Tank.cpp.
+
+28
+00:01:47.766 --> 00:01:51.766
+and then I want the TankAimingComponent header file. and then I want the TankAimingComponent.cpp.
+
+29
+00:01:51.766 --> 00:01:55.766
+Why? Because I have some sort of OCD. OK. let's go to the Tank and
+
+30
+00:01:55.766 --> 00:01:59.766
+let's take a look! We have no #includes that we don't
+
+31
+00:01:59.766 --> 00:02:03.766
+want in the Tank. That's good news! We have a Barrel and a Projectile in the Tank. do we want them?
+
+32
+00:02:03.766 --> 00:02:07.766
+Well let's look at our target architecture. No we don't. so let's delete them!
+
+33
+00:02:07.766 --> 00:02:11.766
+We don't need those forward declarations anymore! Great! OK do we want a Fire()
+
+34
+00:02:11.766 --> 00:02:15.766
+method on the Tank? Uh oh. no we don't! So let's cut the Fire() method off the Tank
+
+35
+00:02:15.766 --> 00:02:19.766
+and put it in the TankAimingComponent. Now ask yourself. does it make
+
+36
+00:02:19.766 --> 00:02:23.766
+sense for the TankAimingComponent to have a public BlueprintCallable
+
+37
+00:02:23.766 --> 00:02:27.766
+firing method? I think it does. that makes a lot of sense! We're going to need to
+
+38
+00:02:27.766 --> 00:02:31.766
+remap our input. In fact. as we've broken it. let's do half
+
+39
+00:02:31.766 --> 00:02:35.766
+of the input remapping right away. which is we might as well break this link.
+
+40
+00:02:35.766 --> 00:02:39.766
+We're not calling Fire on the Tank anymore. we're going to be calling it on the AimingComponent.
+
+41
+00:02:39.766 --> 00:02:43.766
+So that's that! Now that means we don't even need a
+
+42
+00:02:43.766 --> 00:02:47.766
+public interface in the Tank. although there's no harm in leaving it there.
+
+43
+00:02:47.766 --> 00:02:51.766
+The Construct will leave. the BeginPlay() will leave. now
+
+44
+00:02:51.766 --> 00:02:55.766
+all of this stuff. What do we have? We have a
+
+45
+00:02:55.766 --> 00:02:59.766
+ProjectileBlueprint. a LaunchSpeed. ReloadTime.
+
+46
+00:02:59.766 --> 00:03:03.766
+a Barrel pointer. and a LastFireTime. Let's take all of that.
+
+47
+00:03:03.766 --> 00:03:07.766
+although we're not going to need all of it. and paste it into the bottom of the
+
+48
+00:03:07.766 --> 00:03:11.766
+TankAimingComponent. Now a couple of things. firstly. we already had a TODO to remove this
+
+49
+00:03:11.766 --> 00:03:15.766
+Barrel; we don't need it look there's a Barrel above. so we don't need two. let's get rid of that.
+
+50
+00:03:15.766 --> 00:03:19.766
+I like to have my methods at the top so... Oops. what did I just do?
+
+51
+00:03:19.766 --> 00:03:23.766
+Cut that. that's right! Sorry! I like to have my methods at
+
+52
+00:03:23.766 --> 00:03:27.766
+the top. so MoveBarrelTowards I'm going to put here under the
+
+53
+00:03:27.766 --> 00:03:31.766
+Constructor. Any other methods? No. Now this
+
+54
+00:03:31.766 --> 00:03:35.766
+LaunchSpeed. you see it's here and it's here. we already had a TODO to remove it. Let's TODO
+
+55
+00:03:35.766 --> 00:03:39.766
+that. OK. so on the TankAimingComponent.
+
+56
+00:03:39.766 --> 00:03:43.766
+what do we end up with? A Constructor made
+
+57
+00:03:43.766 --> 00:03:47.766
+private. just because I have OCD about public interfaces.
+
+58
+00:03:47.766 --> 00:03:51.766
+We have
+
+59
+00:03:51.766 --> 00:03:55.766
+a protected FiringState. we want that.
+
+60
+00:03:55.766 --> 00:03:59.766
+We have a MoveBarrelTowards private helper method. That's fine! We have
+
+61
+00:03:59.766 --> 00:04:03.766
+the Barrel and the Turret. it makes loads of sense. We have a default LaunchSpeed. Yep
+
+62
+00:04:03.766 --> 00:04:07.766
+that's fine! We have a Projectile! Right. it doesn't understand the
+
+63
+00:04:07.766 --> 00:04:11.766
+class AProjectile. Do we want it to? Do we want ATankAiming
+
+64
+00:04:11.766 --> 00:04:15.766
+Component to depend on the Projectile? Yes! It's that green arrow. we need to introduce it. So
+
+65
+00:04:15.766 --> 00:04:19.766
+what do we do? Well we forward declare
+
+66
+00:04:19.766 --> 00:04:23.766
+AProjectile. So if we're adding it in the header file. we're
+
+67
+00:04:23.766 --> 00:04:27.766
+probably going to want to add it in the C++ file. Do we use projectiles in the
+
+68
+00:04:27.766 --> 00:04:31.766
+C++ file anywhere? I'm pretty sure we do. I can't
+
+69
+00:04:31.766 --> 00:04:35.766
+see it at a glance. Let's just search for "projectile"
+
+70
+00:04:35.766 --> 00:04:39.766
+in the Current Document.
+
+71
+00:04:39.766 --> 00:04:43.766
+I looks like we actually don't. we only need it in the forward
+
+72
+00:04:43.766 --> 00:04:47.766
+declaration. That's a bit strange. I think that we probably are going to need it.
+
+73
+00:04:47.766 --> 00:04:51.766
+Where do we use it in the header file?
+
+74
+00:04:51.766 --> 00:04:55.766
+In the ProjectileBlueprint! We don't actually. in this case we only need it
+
+75
+00:04:55.766 --> 00:04:59.766
+in the header file. because we're just dealing with a blueprint. so I'm probably
+
+76
+00:04:59.766 --> 00:05:03.766
+going to end up changing this line to a dotted line effectively. but
+
+77
+00:05:03.766 --> 00:05:07.766
+let's carry on! So here we go. we've got these three. we've got all that stuff. let's get
+
+78
+00:05:07.766 --> 00:05:11.766
+rid of the .cpp and see what needs to happen here!
+
+79
+00:05:11.766 --> 00:05:15.766
+Not very clear to me. looking at it. what needs to happen
+
+80
+00:05:15.766 --> 00:05:19.766
+now. It's all a little but confused. so what I'm going to do is use the
+
+81
+00:05:19.766 --> 00:05:23.766
+compiler to help me. I could go through carefully and reason about it. but of course. the compiler is
+
+82
+00:05:23.766 --> 00:05:27.766
+here to check these dependencies for us. So this is a good time to flip back over
+
+83
+00:05:27.766 --> 00:05:31.766
+and hit Compile. Now remember. as in the previous video. if you're not sure go to GitHub.
+
+84
+00:05:31.766 --> 00:05:35.766
+it's linked in the resources. and find out what code
+
+85
+00:05:35.766 --> 00:05:39.766
+changes I'm making. OK. so the Tank. " 'Fire': is not a member of 'ATank' ". so that's a very
+
+86
+00:05:39.766 --> 00:05:43.766
+simple thing. That's because we need to take the Fire() method out of the
+
+87
+00:05:43.766 --> 00:05:47.766
+Tank and put it in the TankAimingComponent. There it is! So I deleted it
+
+88
+00:05:47.766 --> 00:05:51.766
+in the header file. and when you do that. when you move a method from one class to another. remember to
+
+89
+00:05:51.766 --> 00:05:55.766
+re-annotate like this. Okey dokey. that's
+
+90
+00:05:55.766 --> 00:05:59.766
+cool! What else is in the .cpp? Just the
+
+91
+00:05:59.766 --> 00:06:03.766
+just the BeginPlay() stuff. Now. by the way. does BeginPlay() needed for the Blueprint
+
+92
+00:06:03.766 --> 00:06:07.766
+Begin play to run. that's true. but if you were to take out the method altogether and not
+
+93
+00:06:07.766 --> 00:06:11.766
+override it. then that wouldn't be the case. So for the sake of less
+
+94
+00:06:11.766 --> 00:06:15.766
+lines of code. why don't we just do that. We pretty much need no
+
+95
+00:06:15.766 --> 00:06:19.766
+code whatsoever in our tank. by the way. We can pretty much just
+
+96
+00:06:19.766 --> 00:06:23.766
+take all of this stuff out. maybe just leave the Constructor there.
+
+97
+00:06:23.766 --> 00:06:27.766
+take all of this even the BeginPlay(). just to prove the point.
+
+98
+00:06:27.766 --> 00:06:31.766
+And all we're doing in the Constructor is stopping the Tank itself from ticking. just for
+
+99
+00:06:31.766 --> 00:06:35.766
+performance purposes. Why does it need to tick? It's just a placeholder for the moment. So that's the
+
+100
+00:06:35.766 --> 00:06:39.766
+Tank. it's stripped down to absolutely nothing. which is quite fun.
+
+101
+00:06:39.766 --> 00:06:43.766
+OK cool! AimingComponent is probably
+
+102
+00:06:43.766 --> 00:06:47.766
+in a better state. Let's use a the compiler to tell. Would you do this on a bigger project?
+
+103
+00:06:47.766 --> 00:06:51.766
+Possibly. The compiler is pretty good at only compiling the stuff it needs to. so there's no
+
+104
+00:06:51.766 --> 00:06:55.766
+harm in using the compiler to work out what your next port of call is with your refactor.
+
+105
+00:06:55.766 --> 00:06:59.766
+It's not kind of lazy or cheating. I don't think. it's fine to just
+
+106
+00:06:59.766 --> 00:07:03.766
+OK. let's kind of check in and see where we need to go. So
+
+107
+00:07:03.766 --> 00:07:07.766
+"use of undefined type 'AProjectile' ". in TankAimingComponent. So we actually did
+
+108
+00:07:07.766 --> 00:07:11.766
+need the projectile. I though we didn't. I missed this when I saw it. so we.
+
+109
+00:07:11.766 --> 00:07:15.766
+of course. do need to #include the Projectile.
+
+110
+00:07:15.766 --> 00:07:19.766
+Wicked!
+
+111
+00:07:19.766 --> 00:07:23.766
+OK. Now there's somewhere else... Before I even move on. I've just realized there's
+
+112
+00:07:23.766 --> 00:07:27.766
+somewhere else that's bound not to work. which is that the TankPlayerController.
+
+113
+00:07:27.766 --> 00:07:31.766
+what does it do when we fire? Well we don't. remember we fire
+
+114
+00:07:31.766 --> 00:07:35.766
+directly from input binding. so we can't do anything
+
+115
+00:07:35.766 --> 00:07:39.766
+there until it compiles. because it won't appear in the blueprint. we can't go in and connect that up yet.
+
+116
+00:07:39.766 --> 00:07:43.766
+How about the TankAIController? Well that doesn't fire yet
+
+117
+00:07:43.766 --> 00:07:47.766
+and that's OK. We weren't firing before we started this moving
+
+118
+00:07:47.766 --> 00:07:51.766
+of the firing code into here. so we don't need to fix it
+
+119
+00:07:51.766 --> 00:07:55.766
+yet. not till we're compiling. not will we're compiling. Let's get it compiling!
+
+120
+00:07:55.766 --> 00:07:59.766
+So I think we're good to try recompiling again. and it'll be a pretty
+
+121
+00:07:59.766 --> 00:08:03.766
+simple job. I think. to get the AITankCompiling and even getting us firing should be
+
+122
+00:08:03.766 --> 00:08:07.766
+relatively simple as well. So let's see! Ah. Compile Complete! Brilliant! What happens
+
+123
+00:08:07.766 --> 00:08:11.766
+if we play? Well we can aim. I can't fire. Not
+
+124
+00:08:11.766 --> 00:08:15.766
+surprising! Let's go bind the input. on the Tank! Now the way you do this is. you take the Tank
+
+125
+00:08:15.766 --> 00:08:19.766
+AimingComponent. give yourself a bit more space maybe. Actually. also ask the
+
+126
+00:08:19.766 --> 00:08:23.766
+question. is this comment block reasonable. AimInputBinding? It's really firing
+
+127
+00:08:23.766 --> 00:08:27.766
+or Ballistics
+
+128
+00:08:27.766 --> 00:08:31.766
+Input binding. Keep everything up to date. keep your comments up to
+
+129
+00:08:31.766 --> 00:08:35.766
+date. They're bad enough that they don't keep themselves up to date. Come off the AimingComponent and say Fire.
+
+130
+00:08:35.766 --> 00:08:39.766
+because it's the right type of annotation on there you can do it. When you press the key.
+
+131
+00:08:39.766 --> 00:08:43.766
+you Fire straight into the Aiming Component. Let's try it! Now. why did that crash? I
+
+132
+00:08:43.766 --> 00:08:47.766
+don't have a particularly good reason why that crashed. We made a change to a blueprint. Unreal
+
+133
+00:08:47.766 --> 00:08:51.766
+gets a bit touchy about that sometimes. I'm not too worried that that crashes there. that's why we save regularly.
+
+134
+00:08:51.766 --> 00:08:55.766
+You go back to your tank blueprint. and you just swear a little bit under your
+
+135
+00:08:55.766 --> 00:08:59.766
+breath. and try again. So
+
+136
+00:08:59.766 --> 00:09:03.766
+there's an error on that. Ah we Compiled.
+
+137
+00:09:03.766 --> 00:09:07.766
+It is important we Compiled! Tank Aiming Reference comes in
+
+138
+00:09:07.766 --> 00:09:11.766
+Fire comes in. Now this is why it's a good habit.
+
+139
+00:09:11.766 --> 00:09:15.766
+actually. when you do this. to compile your blueprint and then save it. Or
+
+140
+00:09:15.766 --> 00:09:19.766
+you could go to File and Save All here. Now let's try playing!
+
+141
+00:09:19.766 --> 00:09:23.766
+Can I fire? Ooh interesting. hard crash when I try and
+
+142
+00:09:23.766 --> 00:09:27.766
+fire! Why would that be? In the TankPlayerController?
+
+143
+00:09:27.766 --> 00:09:31.766
+No it doesn't happen there. so it would be in the TankAimingComponent. which we really need to
+
+144
+00:09:31.766 --> 00:09:35.766
+rename to BallisticsComponent. at some point. Is there any reason? Are we not
+
+145
+00:09:35.766 --> 00:09:39.766
+protecting something? So if not (!ensure(Barrel)). we need a Barrel to fire. That's true!
+
+146
+00:09:39.766 --> 00:09:43.766
+The Projectile Blueprint! [Laughs] Ha ha. the thing I told you to... The thing I
+
+147
+00:09:43.766 --> 00:09:47.766
+told you to make sure... So by the way. look this ProjectileBlueprint.
+
+148
+00:09:47.766 --> 00:09:51.766
+we need to have that ProjectileBlueprint there in order
+
+149
+00:09:51.766 --> 00:09:55.766
+for this to work. In fact. for firing to work at all. we need a ProjectileBlueprint.
+
+150
+00:09:55.766 --> 00:09:59.766
+So we'd better say if not (!ensure(Barrel && ProjectileBlueprint)).
+
+151
+00:09:59.766 --> 00:10:03.766
+Yeah that would save that crash for us.
+
+152
+00:10:03.766 --> 00:10:07.766
+So I'll recompile! While I'm recompiling. let's pop into the tank.
+
+153
+00:10:07.766 --> 00:10:11.766
+Let's go do the... What am I going to? Not the Tank itself. it's not on there
+
+154
+00:10:11.766 --> 00:10:15.766
+anymore. it's on the TankAimingComponent. and it's here. Projectile Blueprint. under the
+
+155
+00:10:15.766 --> 00:10:19.766
+Setup section. Projectile Blueprint! Ah hah! I didn't even warn you about
+
+156
+00:10:19.766 --> 00:10:23.766
+that and I made the mistake myself. but I have put the relevant  in place now.
+
+157
+00:10:23.766 --> 00:10:27.766
+to prevent that hard crash from happening in that instance again. Play!
+
+158
+00:10:27.766 --> 00:10:31.766
+Now. can I fire? Yes I can! I can fire and then I wait 3 seconds. and I can
+
+159
+00:10:31.766 --> 00:10:35.766
+fire again. Cool! Now we just need to fix the AI Tanks! We are
+
+160
+00:10:35.766 --> 00:10:39.766
+very very nearly there! TankAIController.cpp.
+
+161
+00:10:39.766 --> 00:10:43.766
+TODO fix tank firing. limit the firing rate. we'll leave that as a thing.
+
+162
+00:10:43.766 --> 00:10:47.766
+It's not the ControlledTank that fires. it is the AimingComponent!
+
+163
+00:10:47.766 --> 00:10:51.766
+I think it's pretty much as simple as that actually.
+
+164
+00:10:51.766 --> 00:10:55.766
+I've done all the other work. Let's go and see! Compile our
+
+165
+00:10:55.766 --> 00:10:59.766
+code and then hopefully we are there!
+
+166
+00:10:59.766 --> 00:11:03.766
+OK let's see if this
+
+167
+00:11:03.766 --> 00:11:07.766
+works! I'm firing. they're firing. I'll F11 it.
+
+168
+00:11:07.766 --> 00:11:11.766
+Yeah they're firing every 3 seconds. Good we are operating
+
+169
+00:11:11.766 --> 00:11:15.766
+on the new... [Laughs] We are operating on the new architecture! That is
+
+170
+00:11:15.766 --> 00:11:19.766
+fantastic news! So let's go to our architecture diagram! What have we done? We've got
+
+171
+00:11:19.766 --> 00:11:23.766
+rid of the Tank dependencies. from the Tank. altogether. We're
+
+172
+00:11:23.766 --> 00:11:27.766
+in this state. In fact. the Tank is basically completely sidelined and
+
+173
+00:11:27.766 --> 00:11:31.766
+irrelevant right now. I'm just going to whip through. in the next minute or
+
+174
+00:11:31.766 --> 00:11:35.766
+two and just check that this is actually the dependency map that we actually have. So let's go
+
+175
+00:11:35.766 --> 00:11:39.766
+back to where we started all of this and whip through the dependencies
+
+176
+00:11:39.766 --> 00:11:43.766
+and just make sure that we've got exactly what we hope to have. So
+
+177
+00:11:43.766 --> 00:11:47.766
+we're going to reopen VisualStudio. The Projectile should depend on nothing. It does. The
+
+178
+00:11:47.766 --> 00:11:51.766
+Tank should depend on. nothing actually. We can remove the #includes from the
+
+179
+00:11:51.766 --> 00:11:55.766
+Tank. The AIController should depend on only
+
+180
+00:11:55.766 --> 00:11:59.766
+the AimingComponent. That's correct! The AimingComponent
+
+181
+00:11:59.766 --> 00:12:03.766
+should depend on the Projectile. the Barrel. and the Turret.
+
+182
+00:12:03.766 --> 00:12:07.766
+Yep. the Barrel should depend on nothing. Check!
+
+183
+00:12:07.766 --> 00:12:11.766
+The TankMovementComponent should only depend on the Track. it's tangential to what we're doing with aiming
+
+184
+00:12:11.766 --> 00:12:15.766
+but we remember that that's true. The PlayerController should only depend on the Aiming
+
+185
+00:12:15.766 --> 00:12:19.766
+Component. Yep! The
+
+186
+00:12:19.766 --> 00:12:23.766
+Track should depend on nothing and the Turret should depend on nothing. Look. awesome! If you really want to be
+
+187
+00:12:23.766 --> 00:12:27.766
+thorough here. you can check that that same set of dependencies works in terms of your forward
+
+188
+00:12:27.766 --> 00:12:31.766
+declaration. so I'm looking for the word Class here. Should the AIController have
+
+189
+00:12:31.766 --> 00:12:35.766
+a forward declaration of Tank? No. it doesn't need it. so let's do that. let's get
+
+190
+00:12:35.766 --> 00:12:39.766
+rid of that! Should the AimingComponent have forward declarations for
+
+191
+00:12:39.766 --> 00:12:43.766
+anything? It doesn't look like it needs them or it wouldn't be compiling.
+
+192
+00:12:43.766 --> 00:12:47.766
+Should the Barrel... Again it doesn't have any. Yes the MovementComponent
+
+193
+00:12:47.766 --> 00:12:51.766
+needs the Track. does the PlayerController need the AimingComponent? Yes!
+
+194
+00:12:51.766 --> 00:12:55.766
+Does the Track need anything? No and it doesn't have anything and neither does the Turret.
+
+195
+00:12:55.766 --> 00:12:59.766
+Ahhh. what a refactor! Let's do a
+
+196
+00:12:59.766 --> 00:13:03.766
+final compile. Please remember that you can go to GitHub
+
+197
+00:13:03.766 --> 00:13:07.766
+and you can look at the Commit. which isn't showing on my screen yet because I haven't made the commit.
+
+198
+00:13:07.766 --> 00:13:11.766
+but the previous one was and that was your code changes.
+
+199
+00:13:11.766 --> 00:13:15.766
+Just check it compiles. play the game.
+
+200
+00:13:15.766 --> 00:13:19.766
+I'm even going to turn my XBox controller on.
+
+201
+00:13:19.766 --> 00:13:23.766
+Just wait for it to warm up and then I'm going to move away
+
+202
+00:13:23.766 --> 00:13:27.766
+myself. try and get away from these pesky enemy tanks if
+
+203
+00:13:27.766 --> 00:13:31.766
+I can. Now I need to replay.
+
+204
+00:13:31.766 --> 00:13:35.766
+Here we go! Now I can move
+
+205
+00:13:35.766 --> 00:13:39.766
+and I can fire. and we're back in the position where we've now got a chance of actually setting
+
+206
+00:13:39.766 --> 00:13:43.766
+this UI to how we want it. All of these physics problems. by the way. will be fixed on a future iteration
+
+207
+00:13:43.766 --> 00:13:47.766
+of the game. So look. huge congratulations on getting this far! It's a lot of
+
+208
+00:13:47.766 --> 00:13:51.766
+work to get to a new architecture! I hope you'll agree that our architecture is a lot cleaner
+
+209
+00:13:51.766 --> 00:13:55.766
+than it used to be. a lot simpler to reason about. We understand a lot more about Unreal.
+
+210
+00:13:55.766 --> 00:13:59.766
+which is the whole point of this course. And I will see you in the upcoming videos. where we actually start
+
+211
+00:13:59.766 --> 00:14:03.766
+to add new functionality. on top of this new quality base that we have built!
+
+212
+00:14:03.766 --> 00:14:04.532
+
+

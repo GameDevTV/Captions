@@ -1,0 +1,154 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Hey it's at this stage I thought I'd pop in and show my face and my
+
+2
+00:00:04.000 --> 00:00:08.000
+very pink polo shirt and explain firstly well done!
+
+3
+00:00:08.000 --> 00:00:12.000
+We're 75 videos into Battle Tank already! The end isn't really
+
+4
+00:00:12.000 --> 00:00:16.000
+in sight. it's a long section. Hopefully you're learning tons about Unreal.
+
+5
+00:00:16.000 --> 00:00:20.000
+tons about C++. tons about game software engineering in general. I hope
+
+6
+00:00:20.000 --> 00:00:24.000
+you're enjoying it! I'm certainly loving the challenge of teaching it! Talking about
+
+7
+00:00:24.000 --> 00:00:28.000
+challenges of teaching. right now we're in a situation where I've
+
+8
+00:00:28.000 --> 00:00:32.000
+lead you into a corner with regards to our architecture. We have
+
+9
+00:00:32.000 --> 00:00:36.000
+architectural problems! I've engineered these in. I'm afraid. they weren't there in the prototype
+
+10
+00:00:36.000 --> 00:00:40.000
+but it's for a purpose. In reality. in fact. when we were building the prototype.
+
+11
+00:00:40.000 --> 00:00:44.000
+we ended up in situations like this where we have spaghetti-fied our
+
+12
+00:00:44.000 --> 00:00:48.000
+architecture and we need to do major refactoring. And
+
+13
+00:00:48.000 --> 00:00:52.000
+real world refactoring is. it can be hard. and I
+
+14
+00:00:52.000 --> 00:00:56.000
+want to. in the next couple of videos. show you a very cool
+
+15
+00:00:56.000 --> 00:01:00.000
+approach to actually refactoring a big piece of code. in a way that will keep you
+
+16
+00:01:00.000 --> 00:01:04.000
+sane. So this is going to be fun! Now the analogy is. in fact. a friend of mine is postman
+
+17
+00:01:04.000 --> 00:01:08.000
+came in today and said. Ben. how's work going? I'm like. well it's going well. but this is really
+
+18
+00:01:08.000 --> 00:01:12.000
+hard to teach. He goes. well what are you teaching? Well he doesn't know about coding. so what I said was
+
+19
+00:01:12.000 --> 00:01:16.000
+imagine you went and learned how to build a brick wall. in college. they would
+
+20
+00:01:16.000 --> 00:01:20.000
+assume that you're building on a perfectly solid foundation. and they'd teach you all these techniques to build
+
+21
+00:01:20.000 --> 00:01:24.000
+walls and arches and all the rest of it. very nice. If you went and had an apprenticeship.
+
+22
+00:01:24.000 --> 00:01:28.000
+with an actual brick layer. what would happen one day is you'd be building this wall and the ground would
+
+23
+00:01:28.000 --> 00:01:32.000
+subside and the wall starts to fall over. How do you deal with that? That's what we're teaching
+
+24
+00:01:32.000 --> 00:01:36.000
+here! In reality. you are going to engineer yourself into a corner with your architecture
+
+25
+00:01:36.000 --> 00:01:40.000
+and you're going to have problems like this and your wall is going to start to lean. and I'm going to show
+
+26
+00:01:40.000 --> 00:01:44.000
+you how to systematically approach that. how to work out what dependencies
+
+27
+00:01:44.000 --> 00:01:48.000
+to change first and how we can do a refactor in a way that won't
+
+28
+00:01:48.000 --> 00:01:52.000
+drive you nuts. We're going to make sure that while we refactor to our
+
+29
+00:01:52.000 --> 00:01:56.000
+target architecture. your code stays as close to compiling as possible.
+
+30
+00:01:56.000 --> 00:02:00.000
+so that you can keep compiling. keep checking you're on track. keep committing your work.
+
+31
+00:02:00.000 --> 00:02:04.000
+and keep moving forward. Because trust me. doing a huge architecture change and a
+
+32
+00:02:04.000 --> 00:02:08.000
+massive recompile can be really really frustrating. because you
+
+33
+00:02:08.000 --> 00:02:12.000
+sometimes feel like you're getting nowhere. you get lost. you lose track. it's a nightmare.
+
+34
+00:02:12.000 --> 00:02:16.000
+So bear with me over the next couple of videos. where we work out exactly the right
+
+35
+00:02:16.000 --> 00:02:20.000
+order to tackle this sort of messy architecture. and while we're at it. you'll learn a whole
+
+36
+00:02:20.000 --> 00:02:24.000
+load of other useful techniques for diagnosing problems. spotting things that
+
+37
+00:02:24.000 --> 00:02:28.000
+may go wrong. So it's going to be fun. pay attention. and I'll see you in there!
+
+38
+00:02:28.000 --> 00:02:29.333
+
+

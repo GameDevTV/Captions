@@ -1,0 +1,754 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So. welcome to
+
+2
+00:00:04.000 --> 00:00:08.000
+Using Physics Handles! In this video. I'm going to explain that Unreal provides a really
+
+3
+00:00:08.000 --> 00:00:12.000
+handy tool called a Physics Handle. that's ideal for picking things up.
+
+4
+00:00:12.000 --> 00:00:16.000
+The Physics Handle component documents are very scant. You can look that
+
+5
+00:00:16.000 --> 00:00:20.000
+word up if you're not English. [Laughs] Find an example of this and
+
+6
+00:00:20.000 --> 00:00:24.000
+use it in the engine. So. it's a hard thing to use. unless you can see it
+
+7
+00:00:24.000 --> 00:00:28.000
+being used as an example. I'm going to show you how to find an
+
+8
+00:00:28.000 --> 00:00:32.000
+example of it in the engine. then we'll get the Physics Handle working. So. there are the docs.
+
+9
+00:00:32.000 --> 00:00:36.000
+And it's an exciting video because. by the end of it. we will have a situation where we can
+
+10
+00:00:36.000 --> 00:00:40.000
+actually pick things up and throw them around and drop them. Look at that! How cool!
+
+11
+00:00:40.000 --> 00:00:40.766
+
+
+12
+00:00:40.766 --> 00:00:44.766
+So. just before we get this working. I want to talk to you about a
+
+13
+00:00:44.766 --> 00:00:48.766
+mental discipline that I call Red. Green. Refactor. It comes from Test Driven
+
+14
+00:00:48.766 --> 00:00:52.766
+Development. which is where you write your code to pass certain formal
+
+15
+00:00:52.766 --> 00:00:56.766
+tests. but in our case it still applies. So. the first stage
+
+16
+00:00:56.766 --> 00:01:00.766
+is Red. it's not working the test is failing. That's where we are now. the Physics Handle isn't
+
+17
+00:01:00.766 --> 00:01:04.766
+working. So. our job is to get to green. which is where it's working.
+
+18
+00:01:04.766 --> 00:01:08.766
+and ugly is OK. And this is the important bit. is to be
+
+19
+00:01:08.766 --> 00:01:12.766
+clear on whether you're just trying to get something working right now or whether you're trying to refactor.
+
+20
+00:01:12.766 --> 00:01:16.766
+which is the third step to make things pretty. and of course. they must still work.
+
+21
+00:01:16.766 --> 00:01:20.766
+So. the beauty is this. we start off with it not working. which is where we are. We
+
+22
+00:01:20.766 --> 00:01:24.766
+work hard to just get it working. kind of whatever it takes. We then
+
+23
+00:01:24.766 --> 00:01:28.766
+commit our work to source control and say. OK it works. I can now safely
+
+24
+00:01:28.766 --> 00:01:32.766
+make it how I really wanted it. make it pretty make it clear.
+
+25
+00:01:32.766 --> 00:01:36.766
+knowing that I can always go back to the working version that's ugly and try again
+
+26
+00:01:36.766 --> 00:01:40.766
+if I mess things up. and then. you just keep repeating that sequence. So. I just want
+
+27
+00:01:40.766 --> 00:01:44.766
+to stress that. before we dive in here. I'm just trying to get the PhysicsHandle
+
+28
+00:01:44.766 --> 00:01:48.766
+working. We're going to do whatever it takes. if it's copying and pasting code. it doesn't matter
+
+29
+00:01:48.766 --> 00:01:52.766
+for now. because we want to focus on one thing at a time when things get complex. And now. it's
+
+30
+00:01:52.766 --> 00:01:56.766
+just let's get it working. OK. so we need the Physics
+
+31
+00:01:56.766 --> 00:02:00.766
+Handle component. Let me just go back a slide to here. which is
+
+32
+00:02:00.766 --> 00:02:04.766
+the documentation of the Physics Handle. Let's start there.
+
+33
+00:02:04.766 --> 00:02:08.766
+this tells you lots of stuff about it. all of the functions that are available on it. These are the ones we're going to use. we're
+
+34
+00:02:08.766 --> 00:02:12.766
+going to start by grabbing component in that grab method. and we're going to
+
+35
+00:02:12.766 --> 00:02:16.766
+pass in a UPrimitiveComponent* pointer. which we won't look at in detail but
+
+36
+00:02:16.766 --> 00:02:20.766
+I'll show you how to get hold of one of those. We're going to pass in a null bone name.
+
+37
+00:02:20.766 --> 00:02:24.766
+because bones are to do with skeletal animation. where you have a skeleton
+
+38
+00:02:24.766 --> 00:02:28.766
+of a humanoid of a dog or anything. We don't have
+
+39
+00:02:28.766 --> 00:02:32.766
+one of those. in this case. The meshes that we are dealing with are all
+
+40
+00:02:32.766 --> 00:02:36.766
+static meshes. Let's take a look. click on the chair. and you can see in the World Outliner its
+
+41
+00:02:36.766 --> 00:02:40.766
+Static Mesh Actor. So. we're not dealing with the
+
+42
+00:02:40.766 --> 00:02:44.766
+bones. so we're going to be passing in a no bone name here.
+
+43
+00:02:44.766 --> 00:02:48.766
+Then. it's going to say the grab location. that is where are we going to grab this
+
+44
+00:02:48.766 --> 00:02:52.766
+thing? Well. where are we going to grab it? What part of it
+
+45
+00:02:52.766 --> 00:02:56.766
+are we going to grab hold of? We're just going to use the base point. You see this
+
+46
+00:02:56.766 --> 00:03:00.766
+circle here. the white ball which is the origin of the
+
+47
+00:03:00.766 --> 00:03:04.766
+chair or the table. that's a good enough point to grab. If we're standing here and we grab that.
+
+48
+00:03:04.766 --> 00:03:08.766
+it'll end up straight in front of us at the end of that reach line. So. we're going to attach the
+
+49
+00:03:08.766 --> 00:03:12.766
+end of the reach line. Let's just move forward and just visualize this
+
+50
+00:03:12.766 --> 00:03:16.766
+a little. then eject with F8. zoom out. Remember that reach
+
+51
+00:03:16.766 --> 00:03:20.766
+line that used to stick out? I've turned the debug trace off. but the idea is that it's going to stick out
+
+52
+00:03:20.766 --> 00:03:24.766
+and it's going to touch onto this white origin point. so that your
+
+53
+00:03:24.766 --> 00:03:28.766
+chair will kind of lift up into the air. and then. as we walk around we want to update its position to
+
+54
+00:03:28.766 --> 00:03:32.766
+stay on the end of the reach line. So. this chair will end up
+
+55
+00:03:32.766 --> 00:03:36.766
+kind of... Well. we've got Physics on at the moment. so I need to pause. This chair will end up staying
+
+56
+00:03:36.766 --> 00:03:40.766
+at the end of the reach line. That's difficult for me to simulate.
+
+57
+00:03:40.766 --> 00:03:44.766
+OK. so that's that bit! Then. once we have grabbed the
+
+58
+00:03:44.766 --> 00:03:48.766
+component. then every frame we're going to set the target location to the end of the
+
+59
+00:03:48.766 --> 00:03:52.766
+reach line. and then. the
+
+60
+00:03:52.766 --> 00:03:56.766
+final thing that we're going to need to be able to do is to actually drop it and somwhere
+
+61
+00:03:56.766 --> 00:04:00.766
+should be a release component. Where is that?
+
+62
+00:04:00.766 --> 00:04:04.766
+Am I being blind? I can't see it right now. I'm going to do a search. Ah. here you go!
+
+63
+00:04:04.766 --> 00:04:08.766
+It's just out of alphabetical order. You have a Release component method there. which releases
+
+64
+00:04:08.766 --> 00:04:12.766
+the currently held handle. So. you'll notice though that this Unreal documentation
+
+65
+00:04:12.766 --> 00:04:16.766
+doesn't actually have any full example code. so let me show you a little trick here
+
+66
+00:04:16.766 --> 00:04:20.766
+for getting hold of example code. in some cases. You can go into your IDE.
+
+67
+00:04:20.766 --> 00:04:24.766
+you can do a search. If I use Find in Visual Studio here.
+
+68
+00:04:24.766 --> 00:04:28.766
+and I search the entire solution for the method that we want to use first. which is
+
+69
+00:04:28.766 --> 00:04:34.833
+"grabcomponent" open bracket. just to make it as specific as possible and I do a Find All.
+
+70
+00:04:34.833 --> 00:04:38.833
+So. I want you to do this find. Find an example in the engine.
+
+71
+00:04:38.833 --> 00:04:42.833
+Search the engine for PhysicsHandle. look for examples of it being used. If
+
+72
+00:04:42.833 --> 00:04:46.833
+that returns too many results. then try GrabComponent(). as I just started.
+
+73
+00:04:46.833 --> 00:04:50.833
+and see if you can find an example of its usage in the engine.
+
+74
+00:04:50.833 --> 00:04:54.833
+And remember. there's a link to the documentation. And I just
+
+75
+00:04:54.833 --> 00:04:58.833
+want you to have an example in front of you. before we go ahead and try and do it for ourselves.
+
+76
+00:04:58.833 --> 00:05:02.833
+
+
+77
+00:05:02.833 --> 00:05:06.833
+Cool welcome back! So. I'm going to complete this
+
+78
+00:05:06.833 --> 00:05:10.833
+search now. by going Find All. and I'm looking for somewhere.
+
+79
+00:05:10.833 --> 00:05:14.833
+where they've already used it. to give us a clue as to how we use it. And one example
+
+80
+00:05:14.833 --> 00:05:19.866
+here is in this PhysicsManipulationMode.cpp. We have
+
+81
+00:05:19.866 --> 00:05:22.833
+GrabComponent right here. GrabComponent (ComponentToGrab) some
+
+82
+00:05:22.833 --> 00:05:26.833
+NAME None. which is the bone name. Where are we going to update? Where are we going to
+
+83
+00:05:26.833 --> 00:05:30.833
+grab it. i.e. that white handle. as I talked about. the origin of the table or
+
+84
+00:05:30.833 --> 00:05:34.833
+chair. and then. whether rotation is allowed or not. say true there. So. that's quite handy.
+
+85
+00:05:34.833 --> 00:05:38.833
+I'm going to copy that code. GrabComponent. So. where do we put it?
+
+86
+00:05:38.833 --> 00:05:42.833
+Well. in our GrabComponent() method.
+
+87
+00:05:42.833 --> 00:05:46.833
+Let me just close these other files. Here you go!
+
+88
+00:05:46.833 --> 00:05:50.833
+Then. we have to attach the Physics Handle. So. we've
+
+89
+00:05:50.833 --> 00:05:54.833
+got the Physics Handle. alright. We've found the reference in the method above. So. we go PhysicsHandle.
+
+90
+00:05:54.833 --> 00:05:58.833
+Now. that's a pointer so arrow operator. Now. paste
+
+91
+00:05:58.833 --> 00:06:02.833
+their code in. GrabComponent. and then let's go through
+
+92
+00:06:02.833 --> 00:06:06.833
+and see what we've got. We've got a component to grab. which we need to create.
+
+93
+00:06:06.833 --> 00:06:10.833
+They've got this NAME_None thing. What's that about? It's an enumerator
+
+94
+00:06:10.833 --> 00:06:14.833
+for the bone. and we don't need anything.
+
+95
+00:06:14.833 --> 00:06:18.833
+so we're going to use NAME_None. because there is no bone to grab hold of.
+
+96
+00:06:18.833 --> 00:06:22.833
+Where are we going to grab the thing. the table
+
+97
+00:06:22.833 --> 00:06:26.833
+or the chair? Well. we're going to grab it at its location. that white
+
+98
+00:06:26.833 --> 00:06:30.833
+anchor pointer. and we're going to allow rotation. So. I'll just comment to say
+
+99
+00:06:30.833 --> 00:06:34.833
+allow. So. it means that when we're grabbing it.
+
+100
+00:06:34.833 --> 00:06:38.833
+it's allowed to spin around. So. what we need to do is get this component to grab now.
+
+101
+00:06:38.833 --> 00:06:42.833
+So. what do we get out of GetFirstPhysicsBody
+
+102
+00:06:42.833 --> 00:06:46.833
+InReach()? Well. we get a let's use auto HitResult.
+
+103
+00:06:46.833 --> 00:06:50.833
+Remember. if we go and look in GetFirstPhysicsBodyInReach() let's go see what it
+
+104
+00:06:50.833 --> 00:06:54.833
+returns. Ooh. well that's a mistake. It shouldn't return a method like
+
+105
+00:06:54.833 --> 00:06:58.833
+that. it should be returning hit. Remember that we made this variable. we used it as
+
+106
+00:06:58.833 --> 00:07:02.833
+an out parameter. and then. we
+
+107
+00:07:02.833 --> 00:07:06.833
+return what's actually hit. so return Hit. Now. this
+
+108
+00:07:06.833 --> 00:07:10.833
+code arguably shouldn't be here. but I'm not in refactor mode right now. I am
+
+109
+00:07:10.833 --> 00:07:14.833
+in just get it working. So. I'm going to resist the urge to refactor anything. We just need
+
+110
+00:07:14.833 --> 00:07:18.833
+to fix the fact that our GetFirstPhysicsBodyInReach() was not returning
+
+111
+00:07:18.833 --> 00:07:22.833
+the right thing. it now returns a hit which is better. Now. the hit
+
+112
+00:07:22.833 --> 00:07:26.833
+ends up in HitResult up here. OK. so that's cool! What do we do with that HitResult?
+
+113
+00:07:26.833 --> 00:07:30.833
+Well. we need a couple of things. don't we? We need the component to grab.
+
+114
+00:07:30.833 --> 00:07:34.833
+That means. what part of the chair or the table do we grab? How do we
+
+115
+00:07:34.833 --> 00:07:38.833
+even know? Well. let's go auto. so it's got a
+
+116
+00:07:38.833 --> 00:07:42.833
+type that's inferred for us.
+
+117
+00:07:42.833 --> 00:07:46.833
+Then. we go HitResult dot. Now. you could just type component.
+
+118
+00:07:46.833 --> 00:07:50.833
+and you'll see that you've got a GetComponent method that returns this UPrimitive
+
+119
+00:07:50.833 --> 00:07:54.833
+Component pointer. which is the type that we want
+
+120
+00:07:54.833 --> 00:07:58.833
+for this first parameter. Look if I delete
+
+121
+00:07:58.833 --> 00:08:02.833
+this first parameter and just open the brackets again.
+
+122
+00:08:02.833 --> 00:08:06.833
+you see it wants a UPrimitiveComponent pointer. OK. so we're
+
+123
+00:08:06.833 --> 00:08:10.833
+just matching types here. We're just giving it the type it is
+
+124
+00:08:10.833 --> 00:08:14.833
+looking for. and we are following the example from Unreal's code. so that
+
+125
+00:08:14.833 --> 00:08:18.833
+sounds promising. Then. we've got the bone name. which is none. and then.
+
+126
+00:08:18.833 --> 00:08:22.833
+we've got the grab location which comes next. which is just the
+
+127
+00:08:22.833 --> 00:08:26.833
+ActorLocation. Then. we want to "// allow rotation"
+
+128
+00:08:26.833 --> 00:08:30.833
+so that's pretty cool. The other thing we're going to want to do is. it says
+
+129
+00:08:30.833 --> 00:08:34.833
+we only want to do this if we hit something.
+
+130
+00:08:34.833 --> 00:08:38.833
+So. auto ActorHit
+
+131
+00:08:38.833 --> 00:08:42.833
+= HitResult.Get
+
+132
+00:08:42.833 --> 00:08:46.833
+Actor(); Then. we can say and as a recap for the
+
+133
+00:08:46.833 --> 00:08:50.833
+beginners I'll explain what this really means. if (ActorHit).
+
+134
+00:08:50.833 --> 00:08:54.833
+Now. that's the same as saying. if the (ActorHit) is not equal to
+
+135
+00:08:54.833 --> 00:08:58.833
+null pointer. i.e. if we actually got something out of this HitResult.
+
+136
+00:08:58.833 --> 00:09:02.833
+there is an Actor attached. then if ActorHit doesn't equal null pointer.
+
+137
+00:09:02.833 --> 00:09:06.833
+or more succinctly if there is an ActorHit then we go ahead and attach the PhysicsHandle.
+
+138
+00:09:06.833 --> 00:09:10.833
+Does that make sense. what I'm doing there? I know it's a lot to take on in one go.
+
+139
+00:09:10.833 --> 00:09:14.833
+Mostly I need some curly braces around this lot. so I'm going to highlight it
+
+140
+00:09:14.833 --> 00:09:18.833
+and just go Shift and curly brace to do that. that's how
+
+141
+00:09:18.833 --> 00:09:22.833
+it works in Visual Studio. So. if there is an ActorHit. attach the PhysicsHandle. I don't
+
+142
+00:09:22.833 --> 00:09:26.833
+need anymore to say TODO. just attached the Physics Handle allowing
+
+143
+00:09:26.833 --> 00:09:30.833
+rotation. That's pretty cool! Now. we're not going to know if that's worked right now.
+
+144
+00:09:30.833 --> 00:09:34.833
+because every frame we need to say "// if the physics handle is attached". move
+
+145
+00:09:34.833 --> 00:09:38.833
+the object that we're holding. So. how do we say "// if the physics handle
+
+146
+00:09:38.833 --> 00:09:42.833
+is attached"? Well. we can say if
+
+147
+00:09:42.833 --> 00:09:46.833
+(PhysicsHandle->)
+
+148
+00:09:46.833 --> 00:09:50.833
+and then. we've got a method called GrabbedComponent there.
+
+149
+00:09:50.833 --> 00:09:54.833
+Well. it's actually property called GrabbedComponent. which is this primitive component we've grabbed
+
+150
+00:09:54.833 --> 00:09:58.833
+hold of. So. we're saying. if we have a GrabbedComponent then.
+
+151
+00:09:58.833 --> 00:10:02.833
+we need to move the object we're holding OK.
+
+152
+00:10:02.833 --> 00:10:06.833
+So. how are we going to move it? Well. we're going to say.
+
+153
+00:10:06.833 --> 00:10:10.833
+PhysicsHandle again.
+
+154
+00:10:10.833 --> 00:10:14.833
+and then. there's a method on there which is the SetTarget
+
+155
+00:10:14.833 --> 00:10:18.833
+Location. Remember that was the third method I told you about? I know I'm doing a lot for you here. but this
+
+156
+00:10:18.833 --> 00:10:22.833
+is a very new thing. and it's not very well documented so I thought I'd help you out a
+
+157
+00:10:22.833 --> 00:10:26.833
+bit. We have SetTargetLocation().
+
+158
+00:10:26.833 --> 00:10:30.833
+Now. what are we going to set the target location to? As I said earlier. we're going to set it to the
+
+159
+00:10:30.833 --> 00:10:34.833
+end of the reach line. Now. this is not the nicest way of doing it. but we're not
+
+160
+00:10:34.833 --> 00:10:38.833
+refactoring now. So. if we want the end of the line trace or the reach line. I'm just going to grab
+
+161
+00:10:38.833 --> 00:10:42.833
+all this code that we know does it. copy it.
+
+162
+00:10:42.833 --> 00:10:46.833
+and just paste it up here where we need it. That's horrible and we'll
+
+163
+00:10:46.833 --> 00:10:50.833
+refactor it in a bit. but at least it gives us access to a LineTraceEnd right
+
+164
+00:10:50.833 --> 00:10:54.833
+now. OK. and I'm just saying we're still just trying to get this working.
+
+165
+00:10:54.833 --> 00:10:58.833
+Let's try.
+
+166
+00:10:58.833 --> 00:11:02.833
+So. we compile the code.
+
+167
+00:11:02.833 --> 00:11:06.833
+and we're still compiling the code.
+
+168
+00:11:06.833 --> 00:11:10.833
+and then. we come along and we have a look and if we right-click... Ah. you see
+
+169
+00:11:10.833 --> 00:11:14.833
+that white point that I talked about. the origins come right in front of our face. Let's try
+
+170
+00:11:14.833 --> 00:11:18.833
+it with the chair. Right-click or Left Shift. See what's happening?
+
+171
+00:11:18.833 --> 00:11:22.833
+And the reach handle is working perfect! Let's just make it drop.
+
+172
+00:11:22.833 --> 00:11:26.833
+And when we've actually finished getting it working. how do we make it drop? Well.
+
+173
+00:11:26.833 --> 00:11:30.833
+on the Release() method. where we have "// TODO release physics handle" let's just
+
+174
+00:11:30.833 --> 00:11:34.833
+see what methods we've got. Well. we looked at it. I told you earlier didn't I? It's PhysicsHandle.
+
+175
+00:11:34.833 --> 00:11:38.833
+it's a pointer.
+
+176
+00:11:38.833 --> 00:11:42.833
+ReleaseComponent(). it's all you have to do. We've already
+
+177
+00:11:42.833 --> 00:11:46.833
+bound the inputs. so the release gets called when we let go of the key. Let's see if that
+
+178
+00:11:46.833 --> 00:11:50.833
+works!
+
+179
+00:11:50.833 --> 00:11:54.833
+Compile was quicker. because a lot of the work has already been done. We come along. we
+
+180
+00:11:54.833 --> 00:11:58.833
+grab the table. let go. and it falls. Grab the chair. that feels
+
+181
+00:11:58.833 --> 00:12:02.833
+great! Look at that. awesome! So look. our work is now done
+
+182
+00:12:02.833 --> 00:12:06.833
+because it's working. so here's the discipline. Save everything in Unreal.
+
+183
+00:12:06.833 --> 00:12:10.833
+File. Save As. Save All. close it. I'm going
+
+184
+00:12:10.833 --> 00:12:14.833
+to save everything in my IDE and close it.
+
+185
+00:12:14.833 --> 00:12:18.833
+I'm going to go over to my source control. and then. at this point. I'm going to stage
+
+186
+00:12:18.833 --> 00:12:22.666
+everything and I am then going to Commit these changes.
+
+187
+00:12:22.666 --> 00:12:26.666
+So. do that before we move on in the next video and refactor and make this
+
+188
+00:12:26.666 --> 00:12:30.499
+code something that we can build on!
+

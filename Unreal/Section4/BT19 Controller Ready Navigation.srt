@@ -1,0 +1,510 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Welcome to
+
+2
+00:00:04.000 --> 00:00:08.000
+Controller Ready Navigation. By the end of the video we'll have
+
+3
+00:00:08.000 --> 00:00:12.000
+achieved something simple but important. which is that if we start the game from main
+
+4
+00:00:12.000 --> 00:00:16.000
+menu and play the game...
+
+5
+00:00:16.000 --> 00:00:20.000
+I'm going to use only the gamepad now. If I hit the A button on the gamepad. the
+
+6
+00:00:20.000 --> 00:00:24.000
+start button takes us into the game. and if I hit the back button on the gamepad. we can
+
+7
+00:00:24.000 --> 00:00:28.000
+actually quit the game. So. there are an important couple of things to be able
+
+8
+00:00:28.000 --> 00:00:32.000
+to do. is to be able to navigate the game by shortcuts
+
+9
+00:00:32.000 --> 00:00:34.966
+and keyboard presses. So. see you in there!
+
+10
+00:00:34.966 --> 00:00:38.966
+So. whether we're targeting our game for the consoles or for Mac stroke PC.
+
+11
+00:00:38.966 --> 00:00:42.966
+we're going to want controller support. Here's a Steam Store page.
+
+12
+00:00:42.966 --> 00:00:46.966
+and you'll notice there's a load of little cards on here and one of those is for Full
+
+13
+00:00:46.966 --> 00:00:50.966
+Controller Support. We want to get that Full Controller Support all the time that we're
+
+14
+00:00:50.966 --> 00:00:54.966
+making a game that is suitable for a controller. Maybe not some types of
+
+15
+00:00:54.966 --> 00:00:58.966
+strategy games. but certainly a game like this. you'd expect the controller to work. and if somebody runs
+
+16
+00:00:58.966 --> 00:01:02.966
+Steam in say big picture mode. we want to make sure that in this mode they can
+
+17
+00:01:02.966 --> 00:01:06.966
+sit on their sofa. from this point. and navigate Steam through the library
+
+18
+00:01:06.966 --> 00:01:10.966
+to your game. And when they get there. you see that badge on the DG2?
+
+19
+00:01:10.966 --> 00:01:14.966
+Above the tick sign there's a controller badge. There's a keyboard badge there on Call of
+
+20
+00:01:14.966 --> 00:01:18.966
+the Starseed. there's a keyboard badge on Lunar Flight. And if I try and load Lunar Flight.
+
+21
+00:01:18.966 --> 00:01:22.966
+I get this horrible warning. "Keyboard/Mouse-Focused Game". We don't want that in a game that
+
+22
+00:01:22.966 --> 00:01:26.966
+is perfectly capable of running on a controller. So. we need to. from the beginning. be thinking
+
+23
+00:01:26.966 --> 00:01:30.966
+about making sure that we support controllers properly. So. let's do that.
+
+24
+00:01:30.966 --> 00:01:34.966
+Let's go into our project. to the main menu. If we play the main
+
+25
+00:01:34.966 --> 00:01:38.966
+menu. at the moment. the controller can't select the start button. and indeed the start button
+
+26
+00:01:38.966 --> 00:01:42.966
+doesn't do anything. So. let's start by giving the start button some
+
+27
+00:01:42.966 --> 00:01:46.966
+functionality. That's relatively simple. we go to the MainMenu blueprint.
+
+28
+00:01:46.966 --> 00:01:50.966
+You click on the StartButton. It wants to be bold in your
+
+29
+00:01:50.966 --> 00:01:54.966
+hierarchy of your main memory blueprint. which means that it is variable. If you turn off
+
+30
+00:01:54.966 --> 00:01:58.966
+Is Variable. it's no longer interact-able. Once Is Variable is on. which it will be by default
+
+31
+00:01:58.966 --> 00:02:02.966
+for a button. then you go down to the OnClicked Events. and you
+
+32
+00:02:02.966 --> 00:02:06.966
+click +. So you're adding an event. Now. what's going to happen when I release the mouse button is. that we're going to switch from the Designer
+
+33
+00:02:06.966 --> 00:02:10.966
+tab at the top-right of the screen. automatically into the graph for this particular
+
+34
+00:02:10.966 --> 00:02:14.966
+widget blueprint. There we go. so we're just there! We were in Designer. we're now in
+
+35
+00:02:14.966 --> 00:02:18.966
+Graph. OK. so I'm going to get rid of these unnecessary events
+
+36
+00:02:18.966 --> 00:02:22.966
+to keep the screen clean. and I'm going to tell the system what we want to do when we click the
+
+37
+00:02:22.966 --> 00:02:26.966
+(StartButton). We're doing this in blueprint. because it's very much a designer's job and it's simple UI programming.
+
+38
+00:02:26.966 --> 00:02:30.966
+What we're going to do is. we're going to want to open a level. So. if you do a search for "open"...
+
+39
+00:02:30.966 --> 00:02:34.966
+And we're going to reference the level by
+
+40
+00:02:34.966 --> 00:02:38.966
+string. unfortunately. which is the BattleGround. So. we're going to go and copy
+
+41
+00:02:38.966 --> 00:02:42.966
+the word BattleGround. paste it in here. This
+
+42
+00:02:42.966 --> 00:02:46.966
+blueprint widget here will automatically convert this BattleGround string into an F name.
+
+43
+00:02:46.966 --> 00:02:50.966
+and we'll be good to go. So. let's try it! Let's make sure that playing
+
+44
+00:02:50.966 --> 00:02:54.966
+allows us to load a level. Whah oh! For the
+
+45
+00:02:54.966 --> 00:02:58.966
+first time we have loaded a level. Now we have some issues. Firstly.
+
+46
+00:02:58.966 --> 00:03:02.966
+if we were on this menu here and we try and hit start with the mouse
+
+47
+00:03:02.966 --> 00:03:06.966
+button. it's not going to work. and that's because we haven't told this start button
+
+48
+00:03:06.966 --> 00:03:10.966
+that we want it to be selected on
+
+49
+00:03:10.966 --> 00:03:14.966
+loading of this widget. OK. there's nothing making the start
+
+50
+00:03:14.966 --> 00:03:18.966
+button actually ready to go. So. how are we going to do that? Where would
+
+51
+00:03:18.966 --> 00:03:22.966
+we put this code? It's a bit tricky. because in the MainMenu blueprint.
+
+52
+00:03:22.966 --> 00:03:26.966
+we want to do it but in what even? You know. this is bound to the
+
+53
+00:03:26.966 --> 00:03:30.966
+main menu. Whenever you load up the main menu screen. you want to make that start button
+
+54
+00:03:30.966 --> 00:03:34.966
+unselected. but there's no event to do that. so let's create a Custom Event.
+
+55
+00:03:34.966 --> 00:03:38.966
+And this custom event's going to be called Widget
+
+56
+00:03:38.966 --> 00:03:42.966
+Ready. OK. so I did that by right-clicking in the widget
+
+57
+00:03:42.966 --> 00:03:46.966
+main menu blueprint graph. adding an event. and then saying add custom
+
+58
+00:03:46.966 --> 00:03:50.966
+event. So. we're going to have a WidgetReady event. Now. what's going to fire the
+
+59
+00:03:50.966 --> 00:03:54.966
+WidgetReady event? Well. we're going to go to the level blueprint for the MainMenu.
+
+60
+00:03:54.966 --> 00:03:58.966
+And it already does some stuff right. setting up the UI.
+
+61
+00:03:58.966 --> 00:04:02.966
+and the last thing it wants to do. when it's finished creating the blueprint.
+
+62
+00:04:02.966 --> 00:04:06.966
+adding it to the viewport. etc.. is making the mouse visible.
+
+63
+00:04:06.966 --> 00:04:10.966
+is it wants to go ahead and say. well actually now the widget is
+
+64
+00:04:10.966 --> 00:04:14.966
+ready. So. the place to get the reference for that is from the
+
+65
+00:04:14.966 --> 00:04:18.966
+MainMenu blueprint widget. because it is the MainMenu blueprint where we created
+
+66
+00:04:18.966 --> 00:04:22.966
+this custom event. So. if I move these other guys up a little bit. to make some room.
+
+67
+00:04:22.966 --> 00:04:26.966
+then we can take the reference of the MainMenu
+
+68
+00:04:26.966 --> 00:04:30.966
+blueprint and we can find this ready event. WidgetReady.
+
+69
+00:04:30.966 --> 00:04:34.966
+And we'll fire that event. when we have finished setting up the
+
+70
+00:04:34.966 --> 00:04:38.966
+rest of the UI. OK. so this will do for now. This means that
+
+71
+00:04:38.966 --> 00:04:42.966
+once the mouse cursor is shown. we then pass execution over
+
+72
+00:04:42.966 --> 00:04:46.966
+here. Now. the reason my compiler has failed is simply because on the MainMenu blueprint I didn't compile this.
+
+73
+00:04:46.966 --> 00:04:50.966
+So. back at the MainMenu blueprint. execution has passed here. What do we do?
+
+74
+00:04:50.966 --> 00:04:54.966
+This is where we're going to talk about the input modes. Once the widget
+
+75
+00:04:54.966 --> 00:04:58.966
+is ready. let's have a look. Do a search for "UI". and you'll see one of the options
+
+76
+00:04:58.966 --> 00:05:02.966
+here is to Set Input Mode UI Only. Well.
+
+77
+00:05:02.966 --> 00:05:06.966
+we're on a menu. so we only need to be in UI. There's also the option of Game
+
+78
+00:05:06.966 --> 00:05:10.966
+and UI. Now this basically depends what the mouse
+
+79
+00:05:10.966 --> 00:05:14.966
+does when it's moved. If you're in a strategy game. you want Game and UI.
+
+80
+00:05:14.966 --> 00:05:18.966
+because as you move your mouse around it would actually move a cursor. If you
+
+81
+00:05:18.966 --> 00:05:22.966
+wanted to say rotate the map with your mouse. you'd have to hold a mouse key down. Whereas
+
+82
+00:05:22.966 --> 00:05:26.966
+with UI only it's going to assume that. as you move the mouse around. that you want that
+
+83
+00:05:26.966 --> 00:05:30.966
+to actually just show a mouse cursor and move around the screen. alright.
+
+84
+00:05:30.966 --> 00:05:34.966
+There's also a game only. which we'll use in the tank game. but
+
+85
+00:05:34.966 --> 00:05:38.966
+for the moment. we want Set Input Mode UI Only. It's going to ask some questions
+
+86
+00:05:38.966 --> 00:05:42.966
+or ask for some references. It's going to ask for a player controller. so let's go and get that.
+
+87
+00:05:42.966 --> 00:05:46.966
+Get Player Controller. so that it knows
+
+88
+00:05:46.966 --> 00:05:50.966
+where to get the mouse from. And it's also
+
+89
+00:05:50.966 --> 00:05:54.966
+going to want to know what widget you want me to focus. Now this is the thing. we grab the
+
+90
+00:05:54.966 --> 00:05:58.966
+Start Menu. from the Variables part of the My Blueprint tab. and drop it in. get the
+
+91
+00:05:58.966 --> 00:06:02.966
+reference. and drop it into there. So. what this means now
+
+92
+00:06:02.966 --> 00:06:06.966
+is that once the widget is ready. we're going to set the input to UI
+
+93
+00:06:06.966 --> 00:06:10.966
+Only. Let's see if it works. And yes.
+
+94
+00:06:10.966 --> 00:06:14.966
+I hit the A button and we came into the game. Let's show that again!
+
+95
+00:06:14.966 --> 00:06:18.966
+We're there. we could hit the Return button on the keyboard or the A button on an Xbox 360
+
+96
+00:06:18.966 --> 00:06:22.966
+controller. and we go into the game. So. that is the first step towards us getting
+
+97
+00:06:22.966 --> 00:06:26.966
+ourselves ready for controller support. I think the second thing we want to do
+
+98
+00:06:26.966 --> 00:06:30.966
+is to just make sure we can get out of the game as well. and then. at least we can
+
+99
+00:06:30.966 --> 00:06:34.966
+start and quit the game right. So. where would be organize to be
+
+100
+00:06:34.966 --> 00:06:38.966
+able to get out of the game? Well. we would be in the BattleGround game itself.
+
+101
+00:06:38.966 --> 00:06:42.966
+so let's go to BattleGround. We're going to need to bind
+
+102
+00:06:42.966 --> 00:06:46.966
+some input. I'll do that with you and then I'll
+
+103
+00:06:46.966 --> 00:06:50.966
+challenge you to just get the tiny bit of blueprint going. There's going to be an Action Mapping
+
+104
+00:06:50.966 --> 00:06:54.966
+for an action called Quit or it could be Quit Menu in
+
+105
+00:06:54.966 --> 00:06:58.966
+future but Quit for now. We'll use say the Escape key.
+
+106
+00:06:58.966 --> 00:07:02.966
+and I'm going to use the Gamepad's
+
+107
+00:07:02.966 --> 00:07:06.966
+special left button. which in the case of an Xbox 360 is the Back button. and
+
+108
+00:07:06.966 --> 00:07:10.966
+Start would be Special Right. Anyway. Special Left is the Back
+
+109
+00:07:10.966 --> 00:07:14.966
+button. So now. we have a quit action. Alright. now this
+
+110
+00:07:14.966 --> 00:07:18.966
+is an aspect that applies to the whole BattleGround
+
+111
+00:07:18.966 --> 00:07:22.966
+level. So we open the level blueprint. and it's in here that you need to go
+
+112
+00:07:22.966 --> 00:07:26.966
+find that event and make sure that we actually quit the game. when that happens. So.
+
+113
+00:07:26.966 --> 00:07:30.966
+that's what I want you to pause the video and have a go at doing. Look and see if you can find that action we
+
+114
+00:07:30.966 --> 00:07:34.966
+just created and then call the quit game node
+
+115
+00:07:34.966 --> 00:07:38.966
+and test to see if you can quit the game by hitting the back button on the controller. Go ahead. pause the
+
+116
+00:07:38.966 --> 00:07:42.966
+video and do that now.
+
+117
+00:07:42.966 --> 00:07:46.966
+Welcome back! So. this is relatively simple. if
+
+118
+00:07:46.966 --> 00:07:50.966
+we look for the Quit game event. Action Event there.
+
+119
+00:07:50.966 --> 00:07:54.966
+When Quit game is pressed. we want to
+
+120
+00:07:54.966 --> 00:07:58.966
+quit the game. Now. of course. you'd really put a menu in between. but we'll
+
+121
+00:07:58.966 --> 00:08:02.966
+do that later. We don't need to do anything else. that's it! We just compile that.
+
+122
+00:08:02.966 --> 00:08:06.966
+play the game. and if we
+
+123
+00:08:06.966 --> 00:08:10.966
+hit the back button on the controller. the game immediately quits. That's great! Now.
+
+124
+00:08:10.966 --> 00:08:14.966
+we'll see that in a little bit more detail. when we compile and actually build
+
+125
+00:08:14.966 --> 00:08:18.966
+for a proper PC executable. in a moment. and make sure that we can get through the full game loop.
+
+126
+00:08:18.966 --> 00:08:22.966
+simple as it is. without touching the mouse and keyboard. So. we'll see you there!
+
+127
+00:08:22.966 --> 00:08:25.366
+
+

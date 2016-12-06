@@ -1,0 +1,406 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So. welcome to
+
+2
+00:00:04.000 --> 00:00:08.000
+Resetting Your Unreal Project. So if you find yourself
+
+3
+00:00:08.000 --> 00:00:12.000
+in a situation like this. where you open your project. for example...
+
+4
+00:00:12.000 --> 00:00:16.000
+And we'll just let it open. It all seems to be OK.
+
+5
+00:00:16.000 --> 00:00:20.000
+and then. you click play and it just crashes and you can't work out
+
+6
+00:00:20.000 --> 00:00:24.000
+why. I want to show you how to reset your project. especially if you're going to start playing with pointers
+
+7
+00:00:24.000 --> 00:00:28.000
+and references and things. so let me show you step-by-step. So in this video.
+
+8
+00:00:28.000 --> 00:00:32.000
+we're going to tell you what to do if your Unreal solution keeps crashing.
+
+9
+00:00:32.000 --> 00:00:36.000
+Tell you how to delete all your temporary files. I'll tell you the order in which to reset
+
+10
+00:00:36.000 --> 00:00:40.000
+things and we'll go from there. So. and at the end I'll
+
+11
+00:00:40.000 --> 00:00:44.000
+challenge you to be doing this. so let me overview the steps and then I will
+
+12
+00:00:44.000 --> 00:00:48.000
+do the steps. and then. I'll recap the steps and then you can do it. So. we're going to
+
+13
+00:00:48.000 --> 00:00:52.000
+"check-out" or "Reset" to a working commit. We're going to delete our derived files and folders.
+
+14
+00:00:52.000 --> 00:00:56.000
+We're going to reopen Unreal from the launcher. and I'll explain why in a second.
+
+15
+00:00:56.000 --> 00:01:00.000
+then. regenerate our IDE project files. And the reason we need to reopen Unreal
+
+16
+00:01:00.000 --> 00:01:04.000
+at stage 3 is because. among other things. it regenerates the generated .h
+
+17
+00:01:04.000 --> 00:01:08.000
+files in the iIntermediate folder. and these are important for your IDE.
+
+18
+00:01:08.000 --> 00:01:12.000
+OK. so that's the plan! Let's see it in action and then I'll recap
+
+19
+00:01:12.000 --> 00:01:16.000
+the plan. So. my project doesn't work. it's broken now. How did I get it broken?
+
+20
+00:01:16.000 --> 00:01:20.000
+Well. if I make things look a little simpler here. I changed my commit.
+
+21
+00:01:20.000 --> 00:01:24.000
+I was somewhere else OK. so I've done some prototyping. some other work.
+
+22
+00:01:24.000 --> 00:01:28.000
+I changed to a different place. You may wonder. how would I go back in time
+
+23
+00:01:28.000 --> 00:01:32.000
+in my source control? How would I go back a few videos? Well. you either
+
+24
+00:01:32.000 --> 00:01:36.000
+Checkout. which goes back but leaves all your working changes. or
+
+25
+00:01:36.000 --> 00:01:40.000
+you reset. Generally you'd reset but it's a potentially destructive operation. I'm not going
+
+26
+00:01:40.000 --> 00:01:44.000
+to go through the details of Checkout and reset here. you can ask about it in the discussions or read about it on
+
+27
+00:01:44.000 --> 00:01:48.000
+the web. But let's say you've gone somewhere and it's broken. You need to go back.
+
+28
+00:01:48.000 --> 00:01:52.000
+so I'm going to go back to this video at this point
+
+29
+00:01:52.000 --> 00:01:56.000
+OK. And this point should work but it doesn't work right now. so how do I fix
+
+30
+00:01:56.000 --> 00:02:00.000
+that? The problem is that some of these files have changed and some others haven't.
+
+31
+00:02:00.000 --> 00:02:04.000
+because of what we're ignoring it's starting to feel like we have better just tracking everything
+
+32
+00:02:04.000 --> 00:02:08.000
+in version control. The problem is there are some really big folders in here. and you need to know how Unreal
+
+33
+00:02:08.000 --> 00:02:12.000
+works. So. let's go through the steps one at a time. Step number 1. check out our
+
+34
+00:02:12.000 --> 00:02:16.000
+reset tool working commit. Number 2. delete the derived
+
+35
+00:02:16.000 --> 00:02:20.000
+files and folder. So on a PC that's .vs. you'd skip that on a Mac.
+
+36
+00:02:20.000 --> 00:02:24.000
+Binaries. Build. Intermediate. and Saved.
+
+37
+00:02:24.000 --> 00:02:28.000
+they all need to go. the same on Mac and PC. The dot solution file or the dot Xcode
+
+38
+00:02:28.000 --> 00:02:32.000
+file on a Mac. and the VC.db on a PC.
+
+39
+00:02:32.000 --> 00:02:36.000
+So you ignore the top and bottom ones on a Mac. and everything else goes on a PC.
+
+40
+00:02:36.000 --> 00:02:40.000
+All of those things can be nuked. OK. now what's step 3?
+
+41
+00:02:40.000 --> 00:02:44.000
+It's to reopen Unreal. and when you reopen Unreal it's going to say I can't find
+
+42
+00:02:44.000 --> 00:02:48.000
+certain things. It'll talk about .dll's or the first .dll it comes across. Now. by the way. a
+
+43
+00:02:48.000 --> 00:02:52.000
+.dll is an object that has been compiled and is ready to use.
+
+44
+00:02:52.000 --> 00:02:56.000
+So it needs to recreate .dll's. Dynamic Link Libraries. but it also
+
+45
+00:02:56.000 --> 00:03:00.000
+importantly needs to recreate in this Intermediate folder. It needs to be
+
+46
+00:03:00.000 --> 00:03:04.000
+recreating a set of things called
+
+47
+00:03:04.000 --> 00:03:08.000
+generated .h files. You'll see them appear in here somewhere. It might be easiest just to search
+
+48
+00:03:08.000 --> 00:03:12.000
+your Intermediate folder for generated .h.
+
+49
+00:03:12.000 --> 00:03:16.000
+And here you go. PositionReport.generated.h! For all your classes you've
+
+50
+00:03:16.000 --> 00:03:20.000
+got generated .h files. It needs to recreate those because they are actually #included
+
+51
+00:03:20.000 --> 00:03:24.000
+by the engine for you in your scripts. So. we've opened the engine.
+
+52
+00:03:24.000 --> 00:03:28.000
+that's step 3 OK. Step 4 now let's you right-click in
+
+53
+00:03:28.000 --> 00:03:32.000
+a PC and say Generate Visual Studio project files. or on a Mac you do it from within
+
+54
+00:03:32.000 --> 00:03:36.000
+Unreal itself. as has been explained. OK.
+
+55
+00:03:36.000 --> 00:03:40.000
+so now you'll recreate in your project files. and we're nearly there at this
+
+56
+00:03:40.000 --> 00:03:44.000
+stage. You should actually find. once you've done that. that your solution does run
+
+57
+00:03:44.000 --> 00:03:48.000
+again. which is awesome! it's all fixed! Now. if
+
+58
+00:03:48.000 --> 00:03:52.000
+you want to be able to edit your solution. you've finally got to go back into
+
+59
+00:03:52.000 --> 00:03:56.000
+your IDE. opening Xcode or Visual Studio.
+
+60
+00:03:56.000 --> 00:04:00.000
+That will do a load of work now. because we nuked all its temporary files. So. it's
+
+61
+00:04:00.000 --> 00:04:04.000
+now going to rebuild itself. So. that's going to take a little
+
+62
+00:04:04.000 --> 00:04:08.000
+while. and when it finishes. everything should work fine. Let me show you a little example of this #Include
+
+63
+00:04:08.000 --> 00:04:12.000
+of a generated .h. while we're here. So. let's go to PositionReport.h for example.
+
+64
+00:04:12.000 --> 00:04:16.000
+Look at this. #include "PositionReport.generated.h".
+
+65
+00:04:16.000 --> 00:04:20.000
+OK. that happens all boiler plate code by the engine. Remember that's
+
+66
+00:04:20.000 --> 00:04:24.000
+in the Intermediate folder. If you want to know that for sure. just do a search. an
+
+67
+00:04:24.000 --> 00:04:28.000
+operating system search. as we just did a minute ago. Look where
+
+68
+00:04:28.000 --> 00:04:32.000
+they all are! All of these generated .h files. if we look at the path.
+
+69
+00:04:32.000 --> 00:04:36.000
+are...not all of them actually um. Yes. all of them.
+
+70
+00:04:36.000 --> 00:04:40.000
+The other bits it's finding inside these files. but the actual generating
+
+71
+00:04:40.000 --> 00:04:44.000
+.h files look where they are. they're all inside the Intermediate directory.
+
+72
+00:04:44.000 --> 00:04:48.000
+So. to recap the process while Visual Studio
+
+73
+00:04:48.000 --> 00:04:52.000
+goes ahead and rebuilds everything for me. it's like this. Let's just go back a step.
+
+74
+00:04:52.000 --> 00:04:56.000
+1). You "Check-out" or  "Reset" to a working commit. That
+
+75
+00:04:56.000 --> 00:05:00.000
+returns most of your folders. depending on what you're ignoring in your source control.
+
+76
+00:05:00.000 --> 00:05:04.000
+to a previous state that we're pretty confident works. OK. but it ignores all the
+
+77
+00:05:04.000 --> 00:05:08.000
+ignored folders. like the Intermediate. Build. Binaries. etc. 2). You
+
+78
+00:05:08.000 --> 00:05:12.000
+delete all derived files and folder. leaving Config. Content. and Source folders at
+
+79
+00:05:12.000 --> 00:05:16.000
+least and very importantly your .uproject file. All of those things
+
+80
+00:05:16.000 --> 00:05:20.000
+need to stay but all the other things that we've showed you before. the derived files. need to be nuked.
+
+81
+00:05:20.000 --> 00:05:24.000
+Then. you reopen Unreal from the Launcher or your .urpoject
+
+82
+00:05:24.000 --> 00:05:28.000
+file. Then. it's going to rebuild not only the .dll's but as I just said.
+
+83
+00:05:28.000 --> 00:05:32.000
+in the Intermediate folder. it's going to recreate all those generated .h files.
+
+84
+00:05:32.000 --> 00:05:36.000
+which you are going to need in your IDE. And then. you regenerate your IDE
+
+85
+00:05:36.000 --> 00:05:40.000
+project files. and then. finally you're ready to go. OK. that's just
+
+86
+00:05:40.000 --> 00:05:44.000
+a note about the generated .h and intermediates. So that is it.
+
+87
+00:05:44.000 --> 00:05:48.000
+that's what needs doing to reset a project when it goes topsy turvy. I think it
+
+88
+00:05:48.000 --> 00:05:52.000
+is what we'd say over here in England. So. what I want you to do now is actually try it
+
+89
+00:05:52.000 --> 00:05:56.000
+yourself. Now number 1. try resetting your solution. It's important you're confident
+
+90
+00:05:56.000 --> 00:06:00.000
+how this works; that's why I want you to do it. It's one of these things you'd put off. until it goes wrong.
+
+91
+00:06:00.000 --> 00:06:04.000
+but if in doubt at all. close everything which means your IDE and
+
+92
+00:06:04.000 --> 00:06:08.000
+Unreal. Take a .zip file of the entire folder.
+
+93
+00:06:08.000 --> 00:06:12.000
+just right click it and zip it up. Then. follow the steps on the previous slide.
+
+94
+00:06:12.000 --> 00:06:16.000
+and then finally. if you're in trouble. ask another student for
+
+95
+00:06:16.000 --> 00:06:20.000
+help. Please take a good backup. don't blame me if you break it. but I would like you to feel confident
+
+96
+00:06:20.000 --> 00:06:24.000
+that you can do the reset that I just did by following those steps. So go ahead.
+
+97
+00:06:24.000 --> 00:06:28.000
+pause the video. and do that now. and I will see you in the next video
+
+98
+00:06:28.000 --> 00:06:32.000
+because I've already showed you how to do it. because I think it's more important that you see it
+
+99
+00:06:32.000 --> 00:06:36.000
+first. So good luck. enjoy. share your success or horrible failures in the
+
+100
+00:06:36.000 --> 00:06:40.000
+discussions. and I'll see you later!
+
+101
+00:06:40.000 --> 00:06:40.400
+
+

@@ -1,0 +1,774 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+
+
+2
+00:00:04.000 --> 00:00:08.000
+So. welcome to Unreals Class System! In this video. we're going to be
+
+3
+00:00:08.000 --> 00:00:12.000
+introducing the idea of inheritance. as it applies to programming.
+
+4
+00:00:12.000 --> 00:00:16.000
+Unreal's scarily powerful class system is there to be used.
+
+5
+00:00:16.000 --> 00:00:20.000
+It's both scary and powerful! It's huge. you can do a massive amount
+
+6
+00:00:20.000 --> 00:00:24.000
+with it. but you need to understand how to access it and how to navigate around it. So.
+
+7
+00:00:24.000 --> 00:00:28.000
+we'll be using the Class Viewer to do that. and inheritance
+
+8
+00:00:28.000 --> 00:00:32.000
+is for "is a" relationships. and
+
+9
+00:00:32.000 --> 00:00:36.000
+components are for "has a" relationships. So that's what we're going to explore! The star. by the way.
+
+10
+00:00:36.000 --> 00:00:40.000
+just links you to the Class View. a little bit about it in Unreal's documentation. Remember.
+
+11
+00:00:40.000 --> 00:00:44.000
+you can click these links in the section notes .pdf. and they should take you straight there.
+
+12
+00:00:44.000 --> 00:00:46.433
+OK cool. let's dive in!
+
+13
+00:00:46.433 --> 00:00:50.433
+So. welcome back! It's time to start actually start writing some C++
+
+14
+00:00:50.433 --> 00:00:54.433
+code and making it interact with things in our Unreal game. already before
+
+15
+00:00:54.433 --> 00:00:58.433
+we get too excited and comfortable with this pretty editor. Let's start working out how to
+
+16
+00:00:58.433 --> 00:01:02.433
+broaden our horizon completely. to the full idea that we
+
+17
+00:01:02.433 --> 00:01:06.433
+can do things in C++ and Blueprint and really take control of this wonderful engine.
+
+18
+00:01:06.433 --> 00:01:10.433
+Bear in mind that once you started to master C++ and how it relates to
+
+19
+00:01:10.433 --> 00:01:14.433
+Unreal. then in principle. you could go in and edit the source code of the engine and do pretty much anything.
+
+20
+00:01:14.433 --> 00:01:14.700
+
+
+21
+00:01:14.700 --> 00:01:18.700
+So. let's start this off by talking about inheritance! Inheritance in programming
+
+22
+00:01:18.700 --> 00:01:22.700
+works quite like it does in terms of bloodlines in animals and in humans.
+
+23
+00:01:22.700 --> 00:01:26.700
+So. for example. a character in Unreal is a Pawn
+
+24
+00:01:26.700 --> 00:01:30.700
+and a pawn is an Actor. Let's compare that to a Dog
+
+25
+00:01:30.700 --> 00:01:34.700
+is a Mammal and a Mammal is an Animal. So. on the right-hand side. the Actor
+
+26
+00:01:34.700 --> 00:01:38.700
+and the Animal are the most general things. and you can define general behavior
+
+27
+00:01:38.700 --> 00:01:42.700
+Actors and Animals over there. In the middle. the Pawn and the
+
+28
+00:01:42.700 --> 00:01:46.700
+Mammal. they have all the shared properties of Actors and Animals. but then they go ahead and
+
+29
+00:01:46.700 --> 00:01:50.700
+add some more detail. like Mammals have mile. And in the case of Unreal.
+
+30
+00:01:50.700 --> 00:01:54.700
+Pawns are possessable and can receive control input.
+
+31
+00:01:54.700 --> 00:01:58.700
+And then. you go down to a Dog. which is a specialization of a Mammal and a Character. in
+
+32
+00:01:58.700 --> 00:02:02.700
+Unreal has the benefit of being a movable bump-able
+
+33
+00:02:02.700 --> 00:02:06.700
+object. like a First Person Character. for example. So. we'll see
+
+34
+00:02:06.700 --> 00:02:10.700
+more about that later! Unreal makes extensive use of inheritance.
+
+35
+00:02:10.700 --> 00:02:14.700
+It's a powerful tool if used properly. but it can be really inflexible and hard
+
+36
+00:02:14.700 --> 00:02:18.700
+to refactor. if you over-use it. So. in this course. we'll be sticking to two
+
+37
+00:02:18.700 --> 00:02:22.700
+or three levels of inheritance in our code. at the most. and trying to keep
+
+38
+00:02:22.700 --> 00:02:26.700
+our hierarchies what we call very flat. And then. we can use another tool
+
+39
+00:02:26.700 --> 00:02:30.700
+to add richer behavior. which is components. Now. components are for
+
+40
+00:02:30.700 --> 00:02:34.700
+"has a" relationships. For instance. the chair and the rock in my scene.
+
+41
+00:02:34.700 --> 00:02:38.700
+when we're finished. we will have a position reporter. We're going to add a
+
+42
+00:02:38.700 --> 00:02:42.700
+component up here. The same component to both of them called Position
+
+43
+00:02:42.700 --> 00:02:46.700
+Reporter. like that OK. So. I'm going to delete that off there for now. but I want to show you the
+
+44
+00:02:46.700 --> 00:02:50.700
+example. They will both have something called PositionReporter. and it will give the same behavior to both of these
+
+45
+00:02:50.700 --> 00:02:54.700
+things. Objects become rich through having many components.
+
+46
+00:02:54.700 --> 00:02:58.700
+in this model. It can be very flexible if it's used
+
+47
+00:02:58.700 --> 00:03:02.700
+properly. but we do need to use it properly. and we do need to know when to use inheritance and when to use
+
+48
+00:03:02.700 --> 00:03:06.700
+components. And the rule of thumb is. inheritance is for "is a". component is for
+
+49
+00:03:06.700 --> 00:03:10.700
+"has a". OK cool! So. back in Unreal. I want to show you something!
+
+50
+00:03:10.700 --> 00:03:14.700
+I want to show you how big and impressive Unreal's Class System is!
+
+51
+00:03:14.700 --> 00:03:18.700
+We go to Window. Developer Tools. and then. you have
+
+52
+00:03:18.700 --> 00:03:23.733
+Class Viewer. Click on that for me! I've got it Maximized. I'm also going to go to View.
+
+53
+00:03:23.733 --> 00:03:26.700
+Collapse All. and Filters. I'm going to
+
+54
+00:03:26.700 --> 00:03:30.700
+uptick Actors Only and even untick... Well. doing that will untick both
+
+55
+00:03:30.700 --> 00:03:34.700
+actually. So. Collapse All. Filters. not
+
+56
+00:03:34.700 --> 00:03:38.700
+Actors Only. This is all of the top level
+
+57
+00:03:38.700 --> 00:03:42.700
+objects we have in Unreal. It's huge. it's bewildering. but if you want to see
+
+58
+00:03:42.700 --> 00:03:45.633
+this hierarchy I just talked about. an Actor is for anything in the world that is
+
+59
+00:03:45.633 --> 00:03:50.700
+intractable. even a chest or a door. Coming down from Actor. there's a lot of things that come
+
+60
+00:03:50.700 --> 00:03:54.700
+straight off Actor. in the family tree. One of those is Pawn here.
+
+61
+00:03:54.700 --> 00:03:58.700
+which as you hover over it. it says it's "the base class of all actors that can be
+
+62
+00:03:58.700 --> 00:04:02.666
+possessed by players or AI." "They are the physical representations of players
+
+63
+00:04:02.666 --> 00:04:06.600
+and creatures in a level". OK. And then. you expand Pawn out and you find Character.
+
+64
+00:04:06.600 --> 00:04:10.700
+"Characters are Pawns that have mesh. collision. and built-in movement logic." So. you can
+
+65
+00:04:10.700 --> 00:04:14.700
+explore the inheritance tree here. If you want to keep it simple. you can say Actors Only.
+
+66
+00:04:14.700 --> 00:04:18.700
+and then that brings it down to just the Actor related things. There's still
+
+67
+00:04:18.700 --> 00:04:22.700
+plenty of all sorts of stuff. including like LeapMotion. which is that cool hand tracking
+
+68
+00:04:22.700 --> 00:04:26.700
+thing or it just goes on. and there's so much stuff! Unreal comes with so much
+
+69
+00:04:26.700 --> 00:04:30.700
+stuff! That's a blessing because it gives us a huge amount of capability. out of the box.
+
+70
+00:04:30.700 --> 00:04:34.700
+and it's also a curse because we have to understand how it works.
+
+71
+00:04:34.700 --> 00:04:40.666
+
+
+72
+00:04:40.666 --> 00:04:44.666
+What I'm going to do is click on my chair. You can click on any Static Mesh Component
+
+73
+00:04:44.666 --> 00:04:48.666
+or any Static Mesh Object. How do I now that this is a Static Mesh Object?
+
+74
+00:04:48.666 --> 00:04:52.666
+Well. there's a hint here. but another that thing you could do is you could go to World
+
+75
+00:04:52.666 --> 00:04:56.666
+Outliner. from the Window Menu. and you'll see that all objects in the scene tell you their
+
+76
+00:04:56.666 --> 00:05:00.666
+type. down here. You have the world itself. some fog. and then. you have the floor.
+
+77
+00:05:00.666 --> 00:05:04.666
+light sources. player start position here. and then the chair
+
+78
+00:05:04.666 --> 00:05:08.666
+and the rock. In my case. they're both Static Mesh Actors. that means they're meshes that don't move.
+
+79
+00:05:08.666 --> 00:05:12.666
+they're not skeletons. and they're actors in that they're somewhat inter-actable.
+
+80
+00:05:12.666 --> 00:05:16.666
+So. grab a Static Mesh Actor! I'm going to use the chair. Go to Add Component. in the Details Tab
+
+81
+00:05:16.666 --> 00:05:20.666
+or window. and then. add a new C++ component.
+
+82
+00:05:20.666 --> 00:05:24.666
+It's going to be an Actor Component. because it's a Component of an Actor. and I'm just going to call it
+
+83
+00:05:24.666 --> 00:05:28.666
+position reporter.
+
+84
+00:05:28.666 --> 00:05:32.666
+because that's what it does. The chair has a Position Reporter
+
+85
+00:05:32.666 --> 00:05:36.666
+or just PositionReport is shorter. OK. so it has
+
+86
+00:05:36.666 --> 00:05:40.666
+a PositionReport. Now. there is a naming convention for
+
+87
+00:05:40.666 --> 00:05:44.666
+components but don't include it here. it's actually going to be you in this case. But don't
+
+88
+00:05:44.666 --> 00:05:48.666
+include it because Unreal will do that for you. Let's create the class!
+
+89
+00:05:48.666 --> 00:05:52.666
+So. what's happening here is fairly heave weight.
+
+90
+00:05:52.666 --> 00:05:56.666
+Unreal is doing a lot of work. it's controlling Visual Studio for us or
+
+91
+00:05:56.666 --> 00:06:00.666
+Xcode on the Mac. and it's creating a load of code and a lot of boiler plate.
+
+92
+00:06:00.666 --> 00:06:04.666
+And in a moment. we're going to be able to see that! It's going to open up in your IDE like
+
+93
+00:06:04.666 --> 00:06:08.666
+this. and if we drill down into Games. Buidling
+
+94
+00:06:08.666 --> 00:06:12.666
+Escape. Source. and then. into BuildingEscape again.
+
+95
+00:06:12.666 --> 00:06:16.666
+you'll see PostionReport.cpp and .h. It's made the header file for us. which is quite
+
+96
+00:06:16.666 --> 00:06:20.666
+bewildering. It's also made a .cpp file for us.
+
+97
+00:06:20.666 --> 00:06:24.666
+And there's a load of stuff in here. and it's all completely new to us. Look how it's
+
+98
+00:06:24.666 --> 00:06:28.666
+named things. by the way. It's called the class UPositionReport. You see over here
+
+99
+00:06:28.666 --> 00:06:32.666
+class. and it's kind of hidden in all of this
+
+100
+00:06:32.666 --> 00:06:36.666
+what we call header tool directives. And also. we've got
+
+101
+00:06:36.666 --> 00:06:40.666
+macros in here as well. There's a couple of different things to catch you
+
+102
+00:06:40.666 --> 00:06:44.666
+out. but it's put a U in. UPositionReport. so it's doing the naming for us.
+
+103
+00:06:44.666 --> 00:06:48.666
+OK. the header file is more scary. it's got a lot of stuff in it. The .cpp file
+
+104
+00:06:48.666 --> 00:06:52.666
+is quite a lot simpler. I will just tell you now that BeginPlay().
+
+105
+00:06:52.666 --> 00:06:56.666
+here is where you're going to want to put code that runs once at the start of the
+
+106
+00:06:56.666 --> 00:07:00.666
+game. and under TickComponent. this is where you're going to want to put code that runs
+
+107
+00:07:00.666 --> 00:07:04.666
+every frame. So. all I want you to do now. actually. is make sure that you
+
+108
+00:07:04.666 --> 00:07:08.666
+have created your Position Report Component. and then. what I want you to do is take a look at the
+
+109
+00:07:08.666 --> 00:07:12.666
+generated code. Take a brief look at the .cpp file. take an even shorter look
+
+110
+00:07:12.666 --> 00:07:16.666
+at that header file. but share what you recognize in the discussions.
+
+111
+00:07:16.666 --> 00:07:20.666
+You know. I recognize what? Maybe I recognize inheritance or maybe
+
+112
+00:07:20.666 --> 00:07:24.666
+you don't because you didn't grasp that. or maybe you recognize some methods or
+
+113
+00:07:24.666 --> 00:07:28.666
+whatever. What do you recognize and what do you not recognize. in there. that's really
+
+114
+00:07:28.666 --> 00:07:32.666
+weird? And what we're going to do is we're going to explore the files. in a moment.
+
+115
+00:07:32.666 --> 00:07:36.666
+in the rest of this video and then a little bit more in the next video as well.
+
+116
+00:07:36.666 --> 00:07:40.666
+OK welcome back!
+
+117
+00:07:40.666 --> 00:07:44.666
+So I just want to talk you through very briefly. then in the next video. we're going to dive in and actually start coding.
+
+118
+00:07:44.666 --> 00:07:48.666
+So. let's start with the header file. as this gets cut and pasted to the top
+
+119
+00:07:48.666 --> 00:07:52.666
+of the .cpp. as all header files do. So. here it's saying
+
+120
+00:07:52.666 --> 00:07:56.666
+"// fill out your copyright notice in the Description in the Project Settings." Let me show you were you do that
+
+121
+00:07:56.666 --> 00:08:00.666
+in Unreal. Settings. Project Settings. and then you've
+
+122
+00:08:00.666 --> 00:08:04.666
+got. over here. you've got Company Name. I'll put mine in. Embrace IT Ltd.
+
+123
+00:08:04.666 --> 00:08:08.666
+Company Distinguished Name. now that means it's unique.
+
+124
+00:08:08.666 --> 00:08:12.666
+Homepage. Support Contact. and then. further down here you can also fill out copyright
+
+125
+00:08:12.666 --> 00:08:16.133
+information. OK. "Copyright" I'm going to say "Ben
+
+126
+00:08:16.133 --> 00:08:20.666
+Tristem 2016" or something OK. Now. that won't immediately update
+
+127
+00:08:20.666 --> 00:08:24.666
+your code. because your code was already generated. but that's the Copyright Notice
+
+128
+00:08:24.666 --> 00:08:28.666
+filled out. if you want to do yours. #pragma once. it puts it in for us. it does a
+
+129
+00:08:28.666 --> 00:08:32.666
+couple of big hash includes. This thing here is telling
+
+130
+00:08:32.666 --> 00:08:36.666
+the Unreal Header Tool how to
+
+131
+00:08:36.666 --> 00:08:40.666
+work with this class OK. so there's going to be a lot of this stuff in
+
+132
+00:08:40.666 --> 00:08:44.666
+Unreal C++. We want to just look past it. for now. and try and see the  wood for the trees. Also.
+
+133
+00:08:44.666 --> 00:08:48.666
+ignore this thing here. But what we've got is a classical position report
+
+134
+00:08:48.666 --> 00:08:52.666
+that inherits from Actor Component. OK.
+
+135
+00:08:52.666 --> 00:08:56.666
+GENERATED_BODY(). we need to leave it there again. That tells Unreal's Header Tool to do some
+
+136
+00:08:56.666 --> 00:09:00.666
+magic. Then. we just have the declaration of the
+
+137
+00:09:00.666 --> 00:09:04.666
+constructor. a declaration of BeginPlay(). It has this virtual word. which means that
+
+138
+00:09:04.666 --> 00:09:08.666
+we're not actually saying exactly how it works here. We're going to be responsible for that
+
+139
+00:09:08.666 --> 00:09:12.666
+somewhere else. but we'll talk about that later. And then. you have the declaration of a Tick Component.
+
+140
+00:09:12.666 --> 00:09:16.666
+Over in the .cpp. it's less scary somehow
+
+141
+00:09:16.666 --> 00:09:20.666
+because you just come in here and this is the constructor. It sets it up and says this thing ticks.
+
+142
+00:09:20.666 --> 00:09:24.666
+Things that tick. by the way. means this bit of code will be run every single frame.
+
+143
+00:09:24.666 --> 00:09:28.666
+on every item that ticks. So. if you want to sleep components or stop them from
+
+144
+00:09:28.666 --> 00:09:32.666
+taking up resources. we turn that off. We'll look at that later. This here
+
+145
+00:09:32.666 --> 00:09:36.666
+is a method called BeginPlay(). which
+
+146
+00:09:36.666 --> 00:09:40.666
+is a part of the UPositionReport class. and this super
+
+147
+00:09:40.666 --> 00:09:44.666
+BeginPlay() says. do whatever happens up the stream. up the
+
+148
+00:09:44.666 --> 00:09:48.666
+inheritance tree. Whatever is supposed to happen in the things that I
+
+149
+00:09:48.666 --> 00:09:52.666
+inherited from. the Actor Component. do that first. the
+
+150
+00:09:52.666 --> 00:09:56.666
+default behavior. and then. here on line 24 of my code. this is
+
+151
+00:09:56.666 --> 00:10:00.666
+where we put our new code. And the same with the TickComponent. it runs the super behavior.
+
+152
+00:10:00.666 --> 00:10:04.666
+the behavior for the things up the inheritance tree. we leave the engine to do that. Then. we put
+
+153
+00:10:04.666 --> 00:10:08.666
+our own code in here. So that's it. that is an overview of what
+
+154
+00:10:08.666 --> 00:10:12.666
+happens! I'm actually going to close everything down right now. and then. I'm going to make my commit.
+
+155
+00:10:12.666 --> 00:10:16.666
+saving the level. Over into my SourceTree.
+
+156
+00:10:16.666 --> 00:10:20.666
+make a commit. and then. we'll start coding in the next level. So. once it notices. it
+
+157
+00:10:20.666 --> 00:10:24.666
+should notice the things that have changed. You know. I'll be able to save those. commit.
+
+158
+00:10:24.666 --> 00:10:28.666
+and go from there. but I won't do that live with you. because I like to do a couple of things just after
+
+159
+00:10:28.666 --> 00:10:32.666
+the video. to make sure that everything is in order before I commit and finalize the video.
+
+160
+00:10:32.666 --> 00:10:36.666
+But OK. I'll leave it with you. you make your commit. and I will see you soon!
+
+161
+00:10:36.666 --> 00:10:39.033
+
+
+162
+00:10:39.033 --> 00:10:43.033
+Just a quick bonus video. for those of you who are
+
+163
+00:10:43.033 --> 00:10:47.033
+using a Mac. If you are on Windows. you can skip past
+
+164
+00:10:47.033 --> 00:10:51.033
+this to the next video. no problem. So. if you
+
+165
+00:10:51.033 --> 00:10:55.033
+ever see this kind of build error in your build.
+
+166
+00:10:55.033 --> 00:10:59.033
+in Xcode. then the chances are you have got the wrong
+
+167
+00:10:59.033 --> 00:11:03.033
+scheme select up here. next to the Play and Stop Button. So. if you
+
+168
+00:11:03.033 --> 00:11:07.033
+scroll down. you want the BuildingEscape scheme selected and then My Mac
+
+169
+00:11:07.033 --> 00:11:11.033
+and that is the one you want. So. just select BuildingEscape
+
+170
+00:11:11.033 --> 00:11:15.033
+and then hit Command B. Command B is Build or
+
+171
+00:11:15.033 --> 00:11:19.033
+find Build in the menu. I almost never do that. I always build with
+
+172
+00:11:19.033 --> 00:11:23.033
+Command B. but Product. Build is the other option and that should
+
+173
+00:11:23.033 --> 00:11:26.866
+work just find. But if you try and build the engine. it won't work in Xcode.
+
+174
+00:11:26.866 --> 00:11:30.866
+This is also a good time to have a look at our .gitignore file for Xcode.
+
+175
+00:11:30.866 --> 00:11:34.866
+So. I'm going to open up SourceTree here. and you can see we've got a few more unstaged
+
+176
+00:11:34.866 --> 00:11:38.866
+files that it's talking about. And if we
+
+177
+00:11:38.866 --> 00:11:42.866
+had built this Xcode project for ourselves and we wanted to track it. we'd still want to ignore
+
+178
+00:11:42.866 --> 00:11:46.866
+some of these files. For example. the scuserdata. we don't want that.
+
+179
+00:11:46.866 --> 00:11:50.866
+That's a setup that's particular to our machines and
+
+180
+00:11:50.866 --> 00:11:54.866
+we wouldn't want to share it with other developers. for example. So. we can click.
+
+181
+00:11:54.866 --> 00:11:58.866
+right-click ignore. and go down to custom pattern. And what
+
+182
+00:11:58.866 --> 00:12:02.866
+I'm going to do is do a **/
+
+183
+00:12:02.866 --> 00:12:06.866
+xcuserdata. I'll make sure.
+
+184
+00:12:06.866 --> 00:12:10.866
+I have to spell it correctly. And this basically says. anywhere where you find
+
+185
+00:12:10.866 --> 00:12:14.866
+a folder called xcuserdata. no matter how many levels deep
+
+186
+00:12:14.866 --> 00:12:18.866
+in the folder hierarchy. just ignore everything beneath it. So. if we hit
+
+187
+00:12:18.866 --> 00:12:22.866
+OK. and you can see that those files disappear. And then.
+
+188
+00:12:22.866 --> 00:12:26.866
+in this case we want to ignore the xc workspace as
+
+189
+00:12:26.866 --> 00:12:30.866
+well. because we can generate
+
+190
+00:12:30.866 --> 00:12:34.866
+that automatically from Unreal. So. I'm just going to ignore this exact
+
+191
+00:12:34.866 --> 00:12:38.866
+file name and hit OK. And we just need to
+
+192
+00:12:38.866 --> 00:12:42.866
+stage our .gitignore and we can do the appropriate
+
+193
+00:12:42.866 --> 00:12:46.766
+commit. I'll leave that to you to do.
+

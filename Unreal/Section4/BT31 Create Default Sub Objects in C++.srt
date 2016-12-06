@@ -1,0 +1,738 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.233
+
+
+2
+00:00:03.233 --> 00:00:07.233
+So. welcome to Creating Default Sub Objects! What we're going to do in this video
+
+3
+00:00:07.233 --> 00:00:11.233
+is. we're going to add an aiming component to our tank blueprint. but we're going to add it
+
+4
+00:00:11.233 --> 00:00:15.233
+in C++ code; so it comes up here. whether you kind of like it or not. You won't even
+
+5
+00:00:15.233 --> 00:00:19.233
+be able to remove it or the designer won't. Then. we're going to delegate down our
+
+6
+00:00:19.233 --> 00:00:23.233
+behavior. our aiming behavior to this component. So let's see how that's done!
+
+7
+00:00:23.233 --> 00:00:23.266
+
+
+8
+00:00:23.266 --> 00:00:27.266
+So. let's talk about the architecture of this puppy! We have
+
+9
+00:00:27.266 --> 00:00:31.266
+already done the whole top of this now. the top up to the Tank.
+
+10
+00:00:31.266 --> 00:00:35.266
+We have both of the Controllers reporting where they're aiming at. and the Tank's
+
+11
+00:00:35.266 --> 00:00:39.266
+receiving those. What we're going to do. mainly as an option to show you
+
+12
+00:00:39.266 --> 00:00:43.266
+other ways of doing thing. for the moment. is we're going to delegate that behavior straight
+
+13
+00:00:43.266 --> 00:00:47.266
+out to a Tank Aiming Component. rather than dealing with it in the Tank. In reality.
+
+14
+00:00:47.266 --> 00:00:51.266
+as you're building up a project. you may well just bungle this in the Tank and then later decide. well
+
+15
+00:00:51.266 --> 00:00:55.266
+actually some of this could be easily moved out into a separate class.
+
+16
+00:00:55.266 --> 00:00:59.266
+especially if you were going to reuse that aiming component. Perhaps as a more general Aiming
+
+17
+00:00:59.266 --> 00:01:03.266
+Component. like a mortar or something like that. But I'm going to go straight to
+
+18
+00:01:03.266 --> 00:01:07.266
+separation into an Aiming Component. because I'm going to show you the delegation process. You'll see that
+
+19
+00:01:07.266 --> 00:01:11.266
+in the engine. you'll see it all over the place. and it
+
+20
+00:01:11.266 --> 00:01:15.266
+works here. It works much better. when we talk about the movement. which you'll see later on when we do all the
+
+21
+00:01:15.266 --> 00:01:19.266
+tank movement. but we'll be ending up doing movement and aiming in exactly the same way. We'll have an Aiming Component
+
+22
+00:01:19.266 --> 00:01:23.266
+and a Movement Component. and it'll all be on level ground in that respect. So. it's an architectural
+
+23
+00:01:23.266 --> 00:01:27.266
+decision. There are lots of ways of approaching this but we're going to stick with this. for this section.
+
+24
+00:01:27.266 --> 00:01:31.266
+And what it means is that we're going to have on the tank here. we're going to add a component.
+
+25
+00:01:31.266 --> 00:01:35.266
+but rather than adding a Blueprint Component and then
+
+26
+00:01:35.266 --> 00:01:39.266
+perhaps choosing Actor Component... Don't do this. by the way. We're not even going to do that. we're
+
+27
+00:01:39.266 --> 00:01:43.266
+not even going to do it by adding a C++ component. We're actually going to do this directly
+
+28
+00:01:43.266 --> 00:01:47.266
+in script. We're actually going to add the component in the constructor of the
+
+29
+00:01:47.266 --> 00:01:51.266
+tank. because the tank is going to require the
+
+30
+00:01:51.266 --> 00:01:55.266
+Tank Aiming Component. It does require the Tank Aiming Component. if it's going to delegate aiming to it.
+
+31
+00:01:55.266 --> 00:01:59.266
+And we're going to show you how to add these things in code. so that means that your designer basically
+
+32
+00:01:59.266 --> 00:02:03.266
+can't break the requirement by
+
+33
+00:02:03.266 --> 00:02:07.266
+removing the Tank Aiming Component. for example. Alright. and that'll make sure all your code runs
+
+34
+00:02:07.266 --> 00:02:11.266
+together. so it's a pretty cool technique. So. the first thing we're going to need to do in our
+
+35
+00:02:11.266 --> 00:02:15.266
+Tank.h then. is to actually make ourselves a space for these
+
+36
+00:02:15.266 --> 00:02:19.266
+aiming components. Now. I'm going to put this in the protected section. Why protected? Well. it can't
+
+37
+00:02:19.266 --> 00:02:23.266
+be private. because we are going to need to
+
+38
+00:02:23.266 --> 00:02:27.266
+access it using a uproperty later. and it's not going to be
+
+39
+00:02:27.266 --> 00:02:31.266
+allowed to be private. we'll get a compiler error. And it doesn't need to be public because
+
+40
+00:02:31.266 --> 00:02:35.266
+who needs access to this component from the outside. This is the tank's business
+
+41
+00:02:35.266 --> 00:02:39.266
+that it is using a separate Aiming and Movement Component. So. we're going to start
+
+42
+00:02:39.266 --> 00:02:43.266
+in protected: so we create ourselves a
+
+43
+00:02:43.266 --> 00:02:47.266
+protected section. and then. we're going to make ourself a Tank Movement Component
+
+44
+00:02:47.266 --> 00:02:51.266
+pointer. But of course. the Tank Movement Component does not exist yet as a class.
+
+45
+00:02:51.266 --> 00:02:55.266
+so let's start by making that class. Over in your
+
+46
+00:02:55.266 --> 00:02:59.266
+Content Browser. C++ Classes. you can
+
+47
+00:02:59.266 --> 00:03:03.266
+Add a New C++ Class. Now. the question is. what's it going to be? Well.
+
+48
+00:03:03.266 --> 00:03:07.266
+which of these things. that are on my screen now. do you think it's going to be. before I tell you; the ones
+
+49
+00:03:07.266 --> 00:03:11.266
+that are highlighted: Character. Pawn. Actor. Actor Component. or Scene Component.
+
+50
+00:03:11.266 --> 00:03:15.266
+if we're making a Tank Aiming Component? Hopefully you guessed that it should
+
+51
+00:03:15.266 --> 00:03:19.266
+be Actor Component. because it's a component on an Actor. So remembering
+
+52
+00:03:19.266 --> 00:03:23.266
+that a Pawn is also an Actor and that a tank is a type of Pawn. which is a type of Actor. You've got to love
+
+53
+00:03:23.266 --> 00:03:27.266
+inheritance. So. we're going to make an Actor Component. and it's going to be called Tank
+
+54
+00:03:27.266 --> 00:03:31.266
+Aiming. with a g.
+
+55
+00:03:31.266 --> 00:03:35.266
+Component. without an eye! [Laughs] OK. so we create
+
+56
+00:03:35.266 --> 00:03:39.266
+the class TankAimingComponent. Just let that
+
+57
+00:03:39.266 --> 00:03:43.266
+happen. And then. we can go back to the Tank
+
+58
+00:03:43.266 --> 00:03:47.266
+and we can start talking about include. do the #include that we need to do.
+
+59
+00:03:47.266 --> 00:03:51.266
+and then we can create ourselves a pointer to a TankAimingComponent. because. of course. without the class
+
+60
+00:03:51.266 --> 00:03:55.266
+none of that is possible. But let's just get the boiler plate code.
+
+61
+00:03:55.266 --> 00:03:59.266
+Have a look and see what the boiler plate code looks like! Here it is. TankAimingComponent.h.
+
+62
+00:03:59.266 --> 00:04:03.266
+It's done all this for us. and TankAiming
+
+63
+00:04:03.266 --> 00:04:07.266
+Component.cpp. Cool! So importantly. we need to
+
+64
+00:04:07.266 --> 00:04:11.266
+we're going to need to #include the "TankAimingComponent.h". just like we do in the .cpp.
+
+65
+00:04:11.266 --> 00:04:15.266
+For the TankAimingComponent. we're going to need to do this in the Tank
+
+66
+00:04:15.266 --> 00:04:19.266
+aren't we? And we're going to need to do it in the Tank.h.
+
+67
+00:04:19.266 --> 00:04:23.266
+because we're going to want to reference it in the Tank.h. Now.
+
+68
+00:04:23.266 --> 00:04:27.266
+remember that you can't be below the Tank generated .h. It's just a rule. you must place
+
+69
+00:04:27.266 --> 00:04:31.266
+new classes above this. I'll make a note here.
+
+70
+00:04:31.266 --> 00:04:35.266
+Paste put...
+
+71
+00:04:35.266 --> 00:04:39.266
+Put probably better. because you're not always pasting. but in this case I'm going to do a paste.
+
+72
+00:04:39.266 --> 00:04:43.266
+with some quotes... Oops. I didn't need that did I?
+
+73
+00:04:43.266 --> 00:04:47.266
+Took the whole thing. There you go! "#include "TankAimingComponent.h"" So that means
+
+74
+00:04:47.266 --> 00:04:51.266
+that the tank now has a concept of this TankAimingComponent.h. This means that in
+
+75
+00:04:51.266 --> 00:04:55.266
+the protected section we can say UTankAiming
+
+76
+00:04:55.266 --> 00:04:59.266
+Component. Remember it's named it like that for us
+
+77
+00:04:59.266 --> 00:05:03.266
+here. UTankAimingComponent pointer.
+
+78
+00:05:03.266 --> 00:05:07.266
+So we want to store a pointer to it. and we can call it Tank
+
+79
+00:05:07.266 --> 00:05:11.266
+AimingComponent = and that should be the null
+
+80
+00:05:11.266 --> 00:05:15.266
+pointer to start with. just to initialize it to something sensible and predictable
+
+81
+00:05:15.266 --> 00:05:19.266
+if not desirable. OK cool! So we have now. the Tank
+
+82
+00:05:19.266 --> 00:05:23.266
+has the ability to have a reference to a TankAimingComponent now. So. over in the Tank.cpp
+
+83
+00:05:23.266 --> 00:05:27.266
+up in it's constructor then. we're going to look about adding this
+
+84
+00:05:27.266 --> 00:05:31.266
+from code. Now. we don't need to protect the pointers. because
+
+85
+00:05:31.266 --> 00:05:35.266
+it's adding in the constructor. and it's very likely to
+
+86
+00:05:35.266 --> 00:05:39.266
+fail. so "// No need to protect pointers
+
+87
+00:05:39.266 --> 00:05:43.266
+as added at construction".
+
+88
+00:05:43.266 --> 00:05:47.266
+Make a note about that before I do it. So. we want the Tank
+
+89
+00:05:47.266 --> 00:05:51.266
+AimingComponent... so AimingComponent
+
+90
+00:05:51.266 --> 00:05:55.266
+Where has my variable gone?
+
+91
+00:05:55.266 --> 00:05:59.266
+TankAimingComponent. it just hasn't popped through yet. The IntelliSense.
+
+92
+00:05:59.266 --> 00:06:03.266
+as usual. is being very slow. So. TankAimingComponent =...
+
+93
+00:06:03.266 --> 00:06:07.266
+Now. this is the new method for you. It's called CreateDefaultSubObject.
+
+94
+00:06:07.266 --> 00:06:11.266
+so let's use that. CreateDefault
+
+95
+00:06:11.266 --> 00:06:15.266
+SubObject. and then. you give it a
+
+96
+00:06:15.266 --> 00:06:19.266
+type. It's a generic type. so in the brackets here we're going to put the type. and then. we're going to give it
+
+97
+00:06:19.266 --> 00:06:23.266
+an FName in the circular brackets. So the type is <UTank
+
+98
+00:06:23.266 --> 00:06:27.266
+AimingComponent>. There you go. something that the IntelliSense is working on!
+
+99
+00:06:27.266 --> 00:06:31.266
+And then. the argument we need to pass is an (FName
+
+100
+00:06:31.266 --> 00:06:35.266
+and we give it a name. and we can call it the AimComponent or ("AimingComponent"))
+
+101
+00:06:35.266 --> 00:06:39.266
+like that. Now. you'll see what that FName does in a moment; you'll see how it
+
+102
+00:06:39.266 --> 00:06:43.266
+appears in the hierarchy. Let's go ahead and see if this will compile. I've got a lot of VisualStudio warnings.
+
+103
+00:06:43.266 --> 00:06:47.266
+but I'm thinking they're probably all just um. all just VisualStudio
+
+104
+00:06:47.266 --> 00:06:51.266
+having a hissy fit about nothing in particular. So. let me see if I can get to the Compile
+
+105
+00:06:51.266 --> 00:06:55.266
+button.
+
+106
+00:06:55.266 --> 00:06:59.266
+Hmm. my Compile button has completely disappeared in Unreal. so I'm
+
+107
+00:06:59.266 --> 00:07:03.266
+just going to close and reopen Unreal. I have seen that happen before. If it ever happens to you. the first port of
+
+108
+00:07:03.266 --> 00:07:07.266
+call is just to close and reopen your Unreal Editor.
+
+109
+00:07:07.266 --> 00:07:11.266
+OK. there it is back. the Compile button! Unless I didn't
+
+110
+00:07:11.266 --> 00:07:15.266
+see it before but I think I didn't. Alright. so that's now
+
+111
+00:07:15.266 --> 00:07:19.266
+triggering VisualStudio to compile this code. which might force into submission in terms
+
+112
+00:07:19.266 --> 00:07:23.266
+of these errors. Either that or there is some error here. but I can't see it. so
+
+113
+00:07:23.266 --> 00:07:27.266
+OK. there is some error. let's take a look and see what it is! CreateDefaultSubObject
+
+114
+00:07:27.266 --> 00:07:31.266
+is undeclared! So the question is. have I spelled that wrong?
+
+115
+00:07:31.266 --> 00:07:35.266
+Yep. it's
+
+116
+00:07:35.266 --> 00:07:39.266
+a small o on the SubObject. I believe that's my problem. Let's
+
+117
+00:07:39.266 --> 00:07:43.266
+recompile! So.
+
+118
+00:07:43.266 --> 00:07:47.266
+the code you want is this. Create DefaultSubobject. like that. with a small
+
+119
+00:07:47.266 --> 00:07:51.266
+o. Let it compile. see if there are any more errors.
+
+120
+00:07:51.266 --> 00:07:55.266
+Compile Complete! Now. if we go look at the tank now. Let's
+
+121
+00:07:55.266 --> 00:07:59.266
+go have a look at the tank blueprint. see how it's looking. Ah. look at
+
+122
+00:07:59.266 --> 00:08:03.266
+that! At the top of the tank blueprint. we have AimingComponent (Inherited).
+
+123
+00:08:03.266 --> 00:08:07.266
+We can't currently see any details on it and we can change that if we wish to.
+
+124
+00:08:07.266 --> 00:08:11.266
+but you have the component added there at construction time. so it's
+
+125
+00:08:11.266 --> 00:08:15.266
+already there before we even play the game. Now. talking about playing the game. we probably should play the game just to
+
+126
+00:08:15.266 --> 00:08:19.266
+make sure that it's not broken. It seems to be fine. Everything that was happening before is happening now.
+
+127
+00:08:19.266 --> 00:08:23.266
+but the tank has a pure C++ Aiming Component that it calls there
+
+128
+00:08:23.266 --> 00:08:25.400
+(Inherited). which is exactly what we want.
+
+129
+00:08:25.400 --> 00:08:29.400
+So it's challenge time! I want you to move the aiming logs. the things that are
+
+130
+00:08:29.400 --> 00:08:33.400
+giving us our logs about where we're pointing to the new component. Move
+
+131
+00:08:33.400 --> 00:08:37.400
+them. don't copy them so that they're in one new place and we can be sure it's working.
+
+132
+00:08:37.400 --> 00:08:41.400
+Obviously recompile your code. and make sure that the message still gets through to
+
+133
+00:08:41.400 --> 00:08:45.400
+the log. And when you've done that. just take a step
+
+134
+00:08:45.400 --> 00:08:49.400
+back and ensure that you're comfortable with what's happening overall. and then. I'll
+
+135
+00:08:49.400 --> 00:08:53.400
+show you quickly how I do that and then we'll end the video. So.
+
+136
+00:08:53.400 --> 00:08:57.400
+see you in a moment! So welcome
+
+137
+00:08:57.400 --> 00:09:01.400
+back! Let's take a look and see what's happening here. So previously.
+
+138
+00:09:01.400 --> 00:09:05.400
+in the Tank C++ we have got some
+
+139
+00:09:05.400 --> 00:09:09.400
+logs. Here you go! AimAt and the AimAt
+
+140
+00:09:09.400 --> 00:09:13.400
+is just logging out directly. It's getting the tank name and it's
+
+141
+00:09:13.400 --> 00:09:17.400
+logging out. So. let's take that code. so it's no longer there. and
+
+142
+00:09:17.400 --> 00:09:21.400
+let's add it into the TankAimingComponent. And then. we need to make
+
+143
+00:09:21.400 --> 00:09:25.400
+ourselves a new AimAt method.
+
+144
+00:09:25.400 --> 00:09:29.400
+in this subcomponent. So. before I do that I'm just going to paste that
+
+145
+00:09:29.400 --> 00:09:33.400
+code back. If you ever cut code and then think you're going to do something and then realize that
+
+146
+00:09:33.400 --> 00:09:37.400
+you're not quite ready to use it. and it's left in the paste buffer. put it back where you left it for a moment. because
+
+147
+00:09:37.400 --> 00:09:41.400
+otherwise you can end up with it. you'll reuse your copy buffer and lose
+
+148
+00:09:41.400 --> 00:09:45.400
+your code right. So it's pretty obvious computer use stuff that. but definitely worth mentioning.
+
+149
+00:09:45.400 --> 00:09:49.400
+OK. so over in the TankAimingComponent... And I'm going to get rid of the AIController.
+
+150
+00:09:49.400 --> 00:09:53.400
+for a minute. Over in the AimingComponent. we're going to need a new method. so this is going to
+
+151
+00:09:53.400 --> 00:09:57.400
+be a public method. Telling the AimingComponent to aim is a
+
+152
+00:09:57.400 --> 00:10:01.400
+candidate for being a public method. So. void AimAt and then
+
+153
+00:10:01.400 --> 00:10:05.400
+we're going to say. well we're going to aim at some (FVector). and let's
+
+154
+00:10:05.400 --> 00:10:09.400
+give it a variable name for now. just kind of for commenting purposes. You don't need it here in
+
+155
+00:10:09.400 --> 00:10:13.400
+the .h file. but WorldSpaceAim). And this thing is going to tell the tank
+
+156
+00:10:13.400 --> 00:10:17.400
+to start aiming at a particular WorldSpace. Aim. pretty self explanatory.
+
+157
+00:10:17.400 --> 00:10:21.400
+So let's make that method over here in the implementation.
+
+158
+00:10:21.400 --> 00:10:25.400
+Just grab the class name and decorate it with that.
+
+159
+00:10:25.400 --> 00:10:29.400
+and then. just pop in and implement. Now.
+
+160
+00:10:29.400 --> 00:10:33.400
+that's fine! So. we now have an AimAt in there. which means that from the tank. instead of
+
+161
+00:10:33.400 --> 00:10:37.400
+doing this logging we can do the following. We can say... We can get the TankAimingComponent. which
+
+162
+00:10:37.400 --> 00:10:41.400
+we should have now down here as TankAimingComponent. So.
+
+163
+00:10:41.400 --> 00:10:45.400
+let's say TankAimingComnponent. Now that's a pointer.
+
+164
+00:10:45.400 --> 00:10:49.400
+And then. we should be able to go AimAt and then this (HitLocation).
+
+165
+00:10:49.400 --> 00:10:53.400
+which means that the log
+
+166
+00:10:53.400 --> 00:10:57.400
+can come from here down to the TankAimingComponent
+
+167
+00:10:57.400 --> 00:11:01.400
+there. The only problem is. we're not just going to be able to get the name of the component;
+
+168
+00:11:01.400 --> 00:11:05.400
+we need to GetOwner()-> GetName(); which means
+
+169
+00:11:05.400 --> 00:11:09.400
+from a hierarchy point of view. we're in the AimingComponent. we're going to come up to the tank itself and get
+
+170
+00:11:09.400 --> 00:11:13.400
+it its name. OK. so that's what I'm proposing we do.
+
+171
+00:11:13.400 --> 00:11:17.400
+The only thing is that we've got WorldSpaceAim as a name coming in here
+
+172
+00:11:17.400 --> 00:11:21.400
+and then HitLocation there. Let's change it all to HitLocation. So. I'm going to
+
+173
+00:11:21.400 --> 00:11:25.400
+change the signature to HitLocation and the same here. So. we're going to
+
+174
+00:11:25.400 --> 00:11:29.400
+aim at a particular HitLocation. that makes just as much sense. And
+
+175
+00:11:29.400 --> 00:11:33.400
+there it is! Alright now. let's compile and see if this makes
+
+176
+00:11:33.400 --> 00:11:37.400
+it all the way down to the new component. that's automatically added in code
+
+177
+00:11:37.400 --> 00:11:41.400
+and if it does that's great! We can focus on tanky stuff at the tank and we can focus on
+
+178
+00:11:41.400 --> 00:11:45.400
+aiming specific stuff in the AimingComponent.
+
+179
+00:11:45.400 --> 00:11:49.400
+While this recompiles... Oops. what I missed...
+
+180
+00:11:49.400 --> 00:11:53.400
+Done! I'll just carry on! Here we go! Ooh look. that works! Now. just to
+
+181
+00:11:53.400 --> 00:11:57.400
+convince ourselves that that's definitely working here. let's just double check that
+
+182
+00:11:57.400 --> 00:12:01.400
+the tank is saved. there are no stars. there's no logs in the tank.
+
+183
+00:12:01.400 --> 00:12:05.400
+the only logs are here. so it is being logged from the AimingComponent. That's it. congratulations! We've got that
+
+184
+00:12:05.400 --> 00:12:07.633
+done!
+

@@ -1,0 +1,678 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.000
+
+
+2
+00:00:03.000 --> 00:00:07.000
+So welcome to Completing Manual Tank Movement! In this video we will be
+
+3
+00:00:07.000 --> 00:00:11.000
+doing exactly what we say on the tin. which is just finishing off the manual tank movement. so
+
+4
+00:00:11.000 --> 00:00:15.000
+that using the Left Stick alone now. I can Fly-by-Wire control my tank
+
+5
+00:00:15.000 --> 00:00:19.000
+forward. backwards. left. and right. So I'll see you in there!
+
+6
+00:00:19.000 --> 00:00:19.366
+
+
+7
+00:00:19.366 --> 00:00:23.366
+OK guys. so we're halfway through getting this TankMovementComponent sorted!
+
+8
+00:00:23.366 --> 00:00:27.366
+There are other things we could be doing right now. like sorting out the TankAimingComponent
+
+9
+00:00:27.366 --> 00:00:31.366
+and bringing it in. but look let's get this finished. we haven't finished the MovementComponent. So we can go back
+
+10
+00:00:31.366 --> 00:00:35.366
+and forth. but we can't go left and right. so let's sort that out. I'm not going to
+
+11
+00:00:35.366 --> 00:00:39.366
+challenge you to do that. because it's actually relatively simple. We have
+
+12
+00:00:39.366 --> 00:00:43.366
+an option here to IntendMoveForward. but we no longer need
+
+13
+00:00:43.366 --> 00:00:47.366
+that log entry there. I think I'll just ditch the log entry. actually. now.
+
+14
+00:00:47.366 --> 00:00:51.366
+I'll be brave. We have a TODO about preventing "double-speed due
+
+15
+00:00:51.366 --> 00:00:55.366
+to dual control use". "Due to dual control use"? I actually think we have that in two places! Let's look
+
+16
+00:00:55.366 --> 00:00:59.366
+at the Task List. Yeah we do. "clamp actual throttle value".
+
+17
+00:00:59.366 --> 00:01:03.366
+Yeah so that's actually the
+
+18
+00:01:03.366 --> 00:01:07.366
+same thing. so I'll get rid of it there. What we're saying is we don't want
+
+19
+00:01:07.366 --> 00:01:11.366
+two inputs from the Shoulder Buttons. etc. to double up. Anyway. so we don't
+
+20
+00:01:11.366 --> 00:01:15.366
+need that in two places. We'll leave that one in there. What I want to
+
+21
+00:01:15.366 --> 00:01:19.366
+do now is an IntendRotateClockwise. that's what we want to do next.
+
+22
+00:01:19.366 --> 00:01:23.366
+So I'm going to Copy that. because it's relatively similar.
+
+23
+00:01:23.366 --> 00:01:27.366
+IntendRotate... Or IntendTurn
+
+24
+00:01:27.366 --> 00:01:31.366
+Right. how's that? Yeah. let's go IntendTurnRight! Now.
+
+25
+00:01:31.366 --> 00:01:35.366
+what is the issue here? We still want to prevent double-
+
+26
+00:01:35.366 --> 00:01:39.366
+speed rotation. but what is the issue with what we're doing with the tracks? Well it's
+
+27
+00:01:39.366 --> 00:01:43.366
+actually pretty simple! Look we are just setting the LeftTrack
+
+28
+00:01:43.366 --> 00:01:47.366
+to... Well if we're going to turn right. the left track's going to go forward and the right track's going to go
+
+29
+00:01:47.366 --> 00:01:51.366
+backwards. So if we are fully with full Throw turning right. then
+
+30
+00:01:51.366 --> 00:01:55.366
+this is what happens. and if you're partially turning right. then you'll have both
+
+31
+00:01:55.366 --> 00:01:59.366
+of these tracks set to partial throttle. So that's pretty easy isn't it?
+
+32
+00:01:59.366 --> 00:02:03.366
+See if it works! Of course. I'm just going to pop into the public sector.
+
+33
+00:02:03.366 --> 00:02:07.366
+the IntendTurnRight declaration.
+
+34
+00:02:07.366 --> 00:02:11.366
+it's going to be a part of the Input part
+
+35
+00:02:11.366 --> 00:02:15.366
+and semicolon. I think we're good to go? Oh sorry. Unreal
+
+36
+00:02:15.366 --> 00:02:19.366
+doesn't like... Let me just try this one more time. I never remember. are you allowed to put a semicolon
+
+37
+00:02:19.366 --> 00:02:23.366
+on the end of a U function? I should make an effort to remember. Let's see!
+
+38
+00:02:23.366 --> 00:02:27.366
+Because if you can it's better. because VisualStudio doesn't keep indenting
+
+39
+00:02:27.366 --> 00:02:31.366
+accidentally for you. But I think it's going to complain. unfortunately. Yeah. it depends on
+
+40
+00:02:31.366 --> 00:02:35.366
+every... Let's just check it is this it's complaining. line 25.
+
+41
+00:02:35.366 --> 00:02:39.366
+Yep sorry! You're not allowed to put semicolons on the end of
+
+42
+00:02:39.366 --> 00:02:43.366
+U function annotation. It's a shame. because it forces VisualStudio to
+
+43
+00:02:43.366 --> 00:02:47.366
+misbehave. Alright. while that's compiling let me show you something else useful.
+
+44
+00:02:47.366 --> 00:02:51.366
+I often open say the tank blueprint. It opens in another window. but it doesn't always open
+
+45
+00:02:51.366 --> 00:02:55.366
+in another tab like this; it did in this case. because I just opened it.
+
+46
+00:02:55.366 --> 00:02:59.366
+But if you want to be sure that things always open in a new tab. you can go to Edit and Editor
+
+47
+00:02:59.366 --> 00:03:03.366
+Preferences. and then. if you look under your Editor Preferences.
+
+48
+00:03:03.366 --> 00:03:07.366
+you've got. under User Interface.
+
+49
+00:03:07.366 --> 00:03:11.366
+Asset Editor Open Location. We want to open that in
+
+50
+00:03:11.366 --> 00:03:15.366
+the Main Window. If you want to do that. that's great! That's that setting
+
+51
+00:03:15.366 --> 00:03:19.366
+there. And what that'll mean. if you open a new asset like this Barrel. it'll just open right up here in
+
+52
+00:03:19.366 --> 00:03:23.366
+this main window. I'd prefer that! If you do well then bully for you. there's an option!
+
+53
+00:03:23.366 --> 00:03:27.366
+OK so where are we? We're going to test this! The compilation has
+
+54
+00:03:27.366 --> 00:03:31.366
+happened. I saw that happen. that's fine! I think we can pretty much... Do we need to
+
+55
+00:03:31.366 --> 00:03:35.366
+do anything in the blueprint? I better compile the blueprint! OK. and we can pretty much just play!
+
+56
+00:03:35.366 --> 00:03:39.366
+And let's try left and right. Nothing on
+
+57
+00:03:39.366 --> 00:03:43.366
+the left and right. at the moment. because I haven't bound input. So you go to the Settings.
+
+58
+00:03:43.366 --> 00:03:47.366
+the Project Settings. Input. and
+
+59
+00:03:47.366 --> 00:03:51.366
+we need to make ourselves an axis. which is going to be Turn Right.
+
+60
+00:03:51.366 --> 00:03:55.366
+And then. we're going to assign
+
+61
+00:03:55.366 --> 00:03:59.366
+that to the Gamepad Left Thumbstick X-Axis. Now we only
+
+62
+00:03:59.366 --> 00:04:03.366
+need a Turn Right and Move Forward. because. of course. if you go negative in either of these then
+
+63
+00:04:03.366 --> 00:04:07.366
+they obviously give the negative value. so you don't need Move Backwards or Turn Left.
+
+64
+00:04:07.366 --> 00:04:11.366
+But I'm giving them a very specific name. because it makes clear what a positive value
+
+65
+00:04:11.366 --> 00:04:15.366
+is. A positive value is turning right. Alright. so to the tank blueprint
+
+66
+00:04:15.366 --> 00:04:19.366
+Batman! In the Input Setup we have this Intend Move Forward
+
+67
+00:04:19.366 --> 00:04:23.366
+thing here. Well it's going to be very very much like that right. We're going to go and find the Turn Right
+
+68
+00:04:23.366 --> 00:04:27.366
+event. we're going to drag
+
+69
+00:04:27.366 --> 00:04:31.366
+it off to Intend Move Forward on the
+
+70
+00:04:31.366 --> 00:04:35.366
+TankMovementComponent. It very kindly finds the TankMovementComponent. We could share that
+
+71
+00:04:35.366 --> 00:04:39.366
+reference between the two parts of the blueprint like that. so there's just a single TankMovementComponent.
+
+72
+00:04:39.366 --> 00:04:43.366
+It's kind of personal choice whether you do that or don't do that. Compile it up.
+
+73
+00:04:43.366 --> 00:04:47.366
+I'm gong to Save All. and let's see if we can turn on the spot now!
+
+74
+00:04:47.366 --> 00:04:51.366
+Now I'm using the Left Stick on the controller!
+
+75
+00:04:51.366 --> 00:04:55.366
+No. not at all! OK so.
+
+76
+00:04:55.366 --> 00:04:59.366
+what's going wrong? Let's go and have a look at the code. Let's make sure that we actually
+
+77
+00:04:59.366 --> 00:05:03.366
+are getting this IntendTurnRight being called.
+
+78
+00:05:03.366 --> 00:05:07.366
+so let's put our UE_LOG back in. In fact. if you've deleted some code
+
+79
+00:05:07.366 --> 00:05:11.366
+and you wish you hadn't. what you can do is you can go to your source control. you can look at your unstaged
+
+80
+00:05:11.366 --> 00:05:15.366
+changes. go find the thing that you deleted the code in. which in my case is
+
+81
+00:05:15.366 --> 00:05:19.366
+the Tank Movement Component.cpp. go find your log file. which was there.
+
+82
+00:05:19.366 --> 00:05:23.366
+your log entry. and you can paste it straight back in from there. which is pretty handy.
+
+83
+00:05:23.366 --> 00:05:27.366
+OK. so we're going to UE_LOG Intend turn right
+
+84
+00:05:27.366 --> 00:05:31.366
+at throw. Let's
+
+85
+00:05:31.366 --> 00:05:35.366
+just log that out and make sure that that's happening. Meanwhile.
+
+86
+00:05:35.366 --> 00:05:39.366
+I'm just going to check the other prerequisites that we have. Turn Right is
+
+87
+00:05:39.366 --> 00:05:43.366
+the string. I'm going to check that's right. When we
+
+88
+00:05:43.366 --> 00:05:47.366
+look at the blueprint. Gamepad Left Thumbstick X-
+
+89
+00:05:47.366 --> 00:05:51.366
+Axis is correct. Look at the tank blueprint. InputAxis
+
+90
+00:05:51.366 --> 00:05:55.366
+Turn Right. Yep that's right! It looks very different to this one.
+
+91
+00:05:55.366 --> 00:05:59.366
+and that's just because the word Right is much shorter than Forward.
+
+92
+00:05:59.366 --> 00:06:03.366
+Ah look. I'm calling the wrong thing. I'm calling Intend Move Forward!
+
+93
+00:06:03.366 --> 00:06:07.366
+I need it to be Intend Turn Right.
+
+94
+00:06:07.366 --> 00:06:11.366
+and that is the problem. So I'm kind of debugging it on two levels at the same time.
+
+95
+00:06:11.366 --> 00:06:15.366
+so that's just saving me time. I have written a log statement
+
+96
+00:06:15.366 --> 00:06:19.366
+over in the C++ to help me diagnose this. but I suspect
+
+97
+00:06:19.366 --> 00:06:23.366
+it's just going to work now anyway. There you go. it works now! And if we look in the
+
+98
+00:06:23.366 --> 00:06:27.366
+console. we do see these Intend Turn Rights coming in. In fact. if I clear the log
+
+99
+00:06:27.366 --> 00:06:31.366
+and play again. we'll find you can see those. and you can see the amount of throw
+
+100
+00:06:31.366 --> 00:06:35.366
+and how it's working. So we cannot only turn left and right but we can move around. so we actually
+
+101
+00:06:35.366 --> 00:06:39.366
+finally have motion. Now that bug there is the tank either self
+
+102
+00:06:39.366 --> 00:06:43.366
+colliding or hitting an imperfection in the terrain. so we need to find a solution to that
+
+103
+00:06:43.366 --> 00:06:47.366
+later. but we'll live with that for right now. because what is good is that we can move this aim
+
+104
+00:06:47.366 --> 00:06:51.366
+point around and we can move the tank. I'm actually
+
+105
+00:06:51.366 --> 00:06:55.366
+finding now with these controls. I don't like my Y axis being that way around.
+
+106
+00:06:55.366 --> 00:06:59.366
+I prefer my Y axis inverted. and. of course. that's incredibly easy because you go to
+
+107
+00:06:59.366 --> 00:07:03.366
+AimElevation and you just go to -1
+
+108
+00:07:03.366 --> 00:07:07.366
+on the Gamepad Right Thumbstick Y-Axis. And that is the sort
+
+109
+00:07:07.366 --> 00:07:11.366
+of thing that would be set through an invert Y axis control for the player.
+
+110
+00:07:11.366 --> 00:07:15.366
+And now that feels a lot better for me. and I feel like I can move around.
+
+111
+00:07:15.366 --> 00:07:19.366
+and I can aim at these tanks. and I could even bind a fire key. of course. to
+
+112
+00:07:19.366 --> 00:07:23.366
+say the Right Trigger or to the A Button. I think I'll make it the A Button. so
+
+113
+00:07:23.366 --> 00:07:27.366
+let's do that now. Action Mapping. Fire. we've already got it. and this is
+
+114
+00:07:27.366 --> 00:07:31.366
+where our work on the project starts to compound. because we've already
+
+115
+00:07:31.366 --> 00:07:35.366
+got places for everything and it's starting to make a
+
+116
+00:07:35.366 --> 00:07:39.366
+lot more sense. So do I have an A Button here?
+
+117
+00:07:39.366 --> 00:07:43.366
+I think it's Gamepad Face Button Bottom. [laughs] let's try that!
+
+118
+00:07:43.366 --> 00:07:47.366
+Face Button Bottom. reminds me of the minions films. bottom he he he. [Laughs] OK.
+
+119
+00:07:47.366 --> 00:07:51.366
+that's it! That's right! So the Face Button Bottom he he [Laughs]
+
+120
+00:07:51.366 --> 00:07:55.366
+is the A there. so that gives me what I want. Fantastic!
+
+121
+00:07:55.366 --> 00:07:59.366
+So that is a lot of the MovementComponent now done.
+
+122
+00:07:59.366 --> 00:08:03.366
+We can move and the other tanks. of course. aren't moving. apart from the one
+
+123
+00:08:03.366 --> 00:08:07.366
+that's sliding down the hill due to friction. And of course. the reason they're not moving is
+
+124
+00:08:07.366 --> 00:08:11.366
+because they are not. well there's a few reasons actually. There's no Navmesh on the terrain
+
+125
+00:08:11.366 --> 00:08:15.366
+and also we have not intercepted the code at the right place. in order to
+
+126
+00:08:15.366 --> 00:08:19.366
+find out if even if there was a Navmesh. and if these AI tanks
+
+127
+00:08:19.366 --> 00:08:23.366
+were going to be trying to navigate to us. We haven't set any of that up. so that's
+
+128
+00:08:23.366 --> 00:08:27.366
+obviously why they're not moving. So you'll find out what a Navmesh is and how we get into this AI
+
+129
+00:08:27.366 --> 00:08:31.366
+stuff a little bit later. well in the next video. I just want to take a
+
+130
+00:08:31.366 --> 00:08:35.366
+quick look at the TankMovementComponent header file with you. while we're working on it.
+
+131
+00:08:35.366 --> 00:08:39.366
+and make sure that it all makes sense and that things are in the right places.
+
+132
+00:08:39.366 --> 00:08:43.366
+So just taking a look at this. it looks fine! We need an Initialize. we need a public
+
+133
+00:08:43.366 --> 00:08:47.366
+Initialize because we're going to call it from blueprint. and then. IntendMoveForward.
+
+134
+00:08:47.366 --> 00:08:51.366
+IntendTurnRight is very simple. that's consistent with the responsibility of the tank.
+
+135
+00:08:51.366 --> 00:08:55.366
+It's "Responsible for". not from. "driving the tank
+
+136
+00:08:55.366 --> 00:08:59.366
+tracks". and then. we just have a couple of private references to our tracks.
+
+137
+00:08:59.366 --> 00:09:03.366
+Why do we need those references? Because we use them in several different methods across the
+
+138
+00:09:03.366 --> 00:09:07.366
+class. So it all looks very clean and simple to me. The only thing I would say is. in the
+
+139
+00:09:07.366 --> 00:09:11.366
+Initialize() method we don't need to be checking pointers. because
+
+140
+00:09:11.366 --> 00:09:15.366
+there's no need. If we passed in a null with LeftTrackToSet or RightTrackToSet.
+
+141
+00:09:15.366 --> 00:09:19.366
+well then these things will just get set to null and they were null before. so it's really not
+
+142
+00:09:19.366 --> 00:09:23.366
+doing anything. that code. But what we can do is move it from here
+
+143
+00:09:23.366 --> 00:09:27.366
+down to the IntendMoveForward() method. because there you
+
+144
+00:09:27.366 --> 00:09:31.366
+do want to make sure that the LeftTrack. not the LeftTrackToSet.
+
+145
+00:09:31.366 --> 00:09:35.366
+and the RightTrack. not the RightTrackToSet. exists before you
+
+146
+00:09:35.366 --> 00:09:39.366
+try doing anything with them. And actually. it's the same deal there with the
+
+147
+00:09:39.366 --> 00:09:43.366
+IntendTurnRight. you want to be protecting your pointers. So I'm going to get rid of the log
+
+148
+00:09:43.366 --> 00:09:47.366
+entry. have my pointers protected here. leave my
+
+149
+00:09:47.366 --> 00:09:51.366
+notes about doubling up on the controls. do a final compile of this.
+
+150
+00:09:51.366 --> 00:09:55.366
+to make sure it works. and then. we'll look forward to looking at the artificial
+
+151
+00:09:55.366 --> 00:09:59.366
+intelligence and how that's going to work. That's going to be a lot of fun!
+
+152
+00:09:59.366 --> 00:10:03.366
+So just quick. wait for the compile.
+
+153
+00:10:03.366 --> 00:10:07.366
+play it.
+
+154
+00:10:07.366 --> 00:10:11.366
+forward. backwards. rotate. rotate. barrel moves. all looks good!
+
+155
+00:10:11.366 --> 00:10:15.366
+Final thing to do. of course. is to play it from the main menu. because you can
+
+156
+00:10:15.366 --> 00:10:19.366
+have problems with raise conditions and the order in which things are constructed. So forward.
+
+157
+00:10:19.366 --> 00:10:23.366
+backwards. left. right. aim. and fire all works! Great
+
+158
+00:10:23.366 --> 00:10:27.366
+news! So well done getting that far! I will leave. for you. the changes that I've
+
+159
+00:10:27.366 --> 00:10:31.366
+made to the code. I'll just quickly flick through them now. so you can pause the video if you need
+
+160
+00:10:31.366 --> 00:10:35.366
+to. So in the Tank Movement Component.cpp we have removed some
+
+161
+00:10:35.366 --> 00:10:39.366
+useless pointer protection on the Initialize. We have added
+
+162
+00:10:39.366 --> 00:10:43.366
+pointer protection to the IntendMoveForward. and then. we have done the
+
+163
+00:10:43.366 --> 00:10:47.366
+IntendTurnRight basically by just setting one of the throttles backwards. very very
+
+164
+00:10:47.366 --> 00:10:51.366
+similar to the forward. Then. what else have we done? We have
+
+165
+00:10:51.366 --> 00:10:55.366
+not much else to be honest. that is mainly it. We've then. of course.
+
+166
+00:10:55.366 --> 00:10:59.366
+wired everything up in the tank blueprint. like so. down at the bottom here.
+
+167
+00:10:59.366 --> 00:11:03.366
+So your challenge. if you haven't already followed me along in this video. is to get this far. get your tank moving
+
+168
+00:11:03.366 --> 00:11:07.366
+left. right. up. down. Get your control systems how you want them. and I will see you
+
+169
+00:11:07.366 --> 00:11:09.232
+in the next video!
+

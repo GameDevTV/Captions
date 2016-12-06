@@ -1,0 +1,874 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:02.800
+So hi
+
+2
+00:00:02.800 --> 00:00:08.000
+and welcome to Blueprint Behavior Tree Tasks! In this video we will be
+
+3
+00:00:08.000 --> 00:00:12.000
+scraping the code on the Blueprint AI Controller.
+
+4
+00:00:12.000 --> 00:00:16.000
+and instead. we will be creating ourselves a custom task here.
+
+5
+00:00:16.000 --> 00:00:20.000
+ChooseNextWaypoint with Blackboard keys. and we will be starting to
+
+6
+00:00:20.000 --> 00:00:24.000
+write some code that will get us back to exactly the behavior we have right now
+
+7
+00:00:24.000 --> 00:00:28.000
+but with clear architectural advantages. which is that we are then ready.
+
+8
+00:00:28.000 --> 00:00:32.000
+in the next video. to be able to cycle through the index and actually iterate through any number
+
+9
+00:00:32.000 --> 00:00:37.200
+of different patrol route points. So I will see you in there!
+
+10
+00:00:37.200 --> 00:00:41.200
+So when it was just one waypoint we were
+
+11
+00:00:41.200 --> 00:00:45.200
+heading to it. it was fine for the NPC AI to be finding
+
+12
+00:00:45.200 --> 00:00:49.200
+that first waypoint. And it says Find Patrol Route. but really all that function
+
+13
+00:00:49.200 --> 00:00:53.200
+does. at the moment. is find the first index 0 of
+
+14
+00:00:53.200 --> 00:00:57.200
+the array. But as we move forward. what we want to be able to do is.
+
+15
+00:00:57.200 --> 00:01:01.200
+in the Behavior Tree here. we want to have a
+
+16
+00:01:01.200 --> 00:01:05.200
+new node that says choose the next waypoint. and then.
+
+17
+00:01:05.200 --> 00:01:09.200
+a node the says Move To the waypoint that we've just
+
+18
+00:01:09.200 --> 00:01:13.200
+chosen. Or we could put all of that in one. it's up to us. The other thing that's not
+
+19
+00:01:13.200 --> 00:01:17.200
+great about this blueprint here is. using a string reference
+
+20
+00:01:17.200 --> 00:01:21.200
+literal name here isn't ideal. Now. there is a variable type.
+
+21
+00:01:21.200 --> 00:01:25.200
+which is of type Blackboard Key Selector.
+
+22
+00:01:25.200 --> 00:01:29.200
+You could use that and you could pass in to the AI. the Blackboard
+
+23
+00:01:29.200 --> 00:01:33.200
+Key. but we don't want to do any of that here. What we want is in the
+
+24
+00:01:33.200 --> 00:01:37.200
+Behavior Tree. we want to have a new task type which doesn't exist
+
+25
+00:01:37.200 --> 00:01:41.200
+yet. which we're going to create first in Blueprint. and then. later we're going to create this
+
+26
+00:01:41.200 --> 00:01:45.200
+task in C++. so that you have that skill. And then.
+
+27
+00:01:45.200 --> 00:01:49.200
+on that task. which will look just like Move To. but it'll be called something slightly different.
+
+28
+00:01:49.200 --> 00:01:53.200
+we will be able to expose one or more Blackboard Keys
+
+29
+00:01:53.200 --> 00:01:57.200
+for that. And then. we're going to be able to keep track
+
+30
+00:01:57.200 --> 00:02:01.200
+of. in the Blackboard of a particular AI. not only the waypoint they're
+
+31
+00:02:01.200 --> 00:02:05.200
+currently heading to but the index of the array. In fact. why don't we create that
+
+32
+00:02:05.200 --> 00:02:09.200
+array index now. NextWaypoint
+
+33
+00:02:09.200 --> 00:02:13.200
+Index. OK. so
+
+34
+00:02:13.200 --> 00:02:17.200
+that's going to keep track of the index number of the waypoints. that are against the third person
+
+35
+00:02:17.200 --> 00:02:21.200
+character. So all your data then is in your Blackboard. so
+
+36
+00:02:21.200 --> 00:02:25.200
+add that key in. it's an integer key called NextWaypointIndex. Great! So
+
+37
+00:02:25.200 --> 00:02:29.200
+over in the AI. firstly. we no longer are going
+
+38
+00:02:29.200 --> 00:02:33.200
+to be doing this here. we're going to remove this bit. So I'm just going to pull it down to the side
+
+39
+00:02:33.200 --> 00:02:37.200
+here. rather than deleting it. skip it in the execution flow. and break any links
+
+40
+00:02:37.200 --> 00:02:41.200
+to our from it. And then. I'm going to put a comment box around here
+
+41
+00:02:41.200 --> 00:02:45.200
+by clicking C. and I'm going say TODO Remove. OK. so if we can
+
+42
+00:02:45.200 --> 00:02:49.200
+power this blueprint up now and try playing. we'll find that obviously this guy doesn't move. because he
+
+43
+00:02:49.200 --> 00:02:53.200
+doesn't know what his waypoints are. So let's now go ahead and forget the blueprint
+
+44
+00:02:53.200 --> 00:02:57.200
+here for the AI and move into the Blackboard.
+
+45
+00:02:57.200 --> 00:03:01.200
+and we're going to make ourself a new task. So in the Blackboard click New Task. and it's
+
+46
+00:03:01.200 --> 00:03:05.200
+going to make this ugly looking thing called BPTask_BlueprintBase_New. Well let's give that a new name.
+
+47
+00:03:05.200 --> 00:03:09.200
+for a start! It's in the blueprints folder. and it's going to be choose
+
+48
+00:03:09.200 --> 00:03:13.200
+NextWaypoint. OK. so that's going to be the name of
+
+49
+00:03:13.200 --> 00:03:17.200
+the task. ChooseNextWaypoint. There you go. it's taken on the new name! And what this will
+
+50
+00:03:17.200 --> 00:03:21.200
+allow us to do is to. in the sequence. go
+
+51
+00:03:21.200 --> 00:03:25.200
+ChooseNextWaypoint as a first port of call. and then.
+
+52
+00:03:25.200 --> 00:03:29.200
+Move To that waypoint. And later. we will expose Blackboard Keys
+
+53
+00:03:29.200 --> 00:03:33.200
+on here. so that it knows what to talk to. But for now. we're just going to do it in this blueprint
+
+54
+00:03:33.200 --> 00:03:37.200
+that has been provided for us. and then. from there we will expand out. as I said. later to C++.
+
+55
+00:03:37.200 --> 00:03:41.200
+So how are we going to do it here inside the Behvior Tree?
+
+56
+00:03:41.200 --> 00:03:45.200
+Well let's think about where we even start. Where do you start with one of these things? You
+
+57
+00:03:45.200 --> 00:03:49.200
+start with an event. and the event that you start with is actually an
+
+58
+00:03:49.200 --> 00:03:53.200
+AI event called AI Received Execute AI.
+
+59
+00:03:53.200 --> 00:03:57.200
+Now. how do you know that? Well you could just print straight off it. and you could
+
+60
+00:03:57.200 --> 00:04:01.200
+say "New Task Running" or something. So
+
+61
+00:04:01.200 --> 00:04:05.200
+compile that and play. and you see "New Task Running" twice
+
+62
+00:04:05.200 --> 00:04:09.200
+there. OK. and it gets called twice because we have two AI's. Let's
+
+63
+00:04:09.200 --> 00:04:13.200
+get rid of one of those AI's for now. so it'll only have I think it's Steve or is it Harry?
+
+64
+00:04:13.200 --> 00:04:17.200
+You never know which one! Steve. so we only have Steve. so we only get one New Task Running
+
+65
+00:04:17.200 --> 00:04:21.200
+come up. Great! Alright. so we know that it's running now. that's the first thing! So now let's
+
+66
+00:04:21.200 --> 00:04:25.200
+block out what we need to do with some comments. Well we need to Get
+
+67
+00:04:25.200 --> 00:04:29.200
+Patrol Points. This is your pseudocode
+
+68
+00:04:29.200 --> 00:04:33.200
+programming now. for Blueprint. You Get your Patrol Points.
+
+69
+00:04:33.200 --> 00:04:37.200
+I could just duplicate that comment I think. because it's the right shape. Then.
+
+70
+00:04:37.200 --> 00:04:41.200
+we're going to Set the Next
+
+71
+00:04:41.200 --> 00:04:45.200
+Waypoint. and then. after that we're
+
+72
+00:04:45.200 --> 00:04:49.200
+going to cycle the Waypoint
+
+73
+00:04:49.200 --> 00:04:53.200
+index.
+
+74
+00:04:53.200 --> 00:04:57.200
+Just say Cycle Index. And it needs to go around in a
+
+75
+00:04:57.200 --> 00:05:01.200
+circular fashion. doesn't it? When we think about the guard here and
+
+76
+00:05:01.200 --> 00:05:05.200
+his patrol route... And now by the way. this Patrol Route.
+
+77
+00:05:05.200 --> 00:05:09.200
+being a property of a ThirdPersonCharacter. a little bit dodgy. it's only needed if
+
+78
+00:05:09.200 --> 00:05:13.200
+the ThirdPersonCharacter is a patrolling character. so you could argue that this should be a
+
+79
+00:05:13.200 --> 00:05:17.200
+component added onto the character but for simplicity we're going to leave it like this. And also.
+
+80
+00:05:17.200 --> 00:05:21.200
+later on. we're going to be specializing this ThirdPersonCharacter class
+
+81
+00:05:21.200 --> 00:05:25.200
+and the AI Controller. so I'll explain why a little bit later on. but let's
+
+82
+00:05:25.200 --> 00:05:29.200
+just leave Patrol Route as a variable of this ThirdPersonCharacter for now.
+
+83
+00:05:29.200 --> 00:05:33.200
+See it's fine. but just be aware you could argue that a ThirdPersonCharacter. in general. doesn't
+
+84
+00:05:33.200 --> 00:05:37.200
+need a Patrol Route on it and this is confusing. but let's just keep things simple while we're trying to
+
+85
+00:05:37.200 --> 00:05:41.200
+focus on Behavior Tree tasks right now. So we need
+
+86
+00:05:41.200 --> 00:05:45.200
+to cycle around these. it needs to go 0. 1. 2. 3. 0. 1. 2. 3. So that's
+
+87
+00:05:45.200 --> 00:05:49.200
+what I mean by cycling around! OK. so it needs to Cycle the
+
+88
+00:05:49.200 --> 00:05:53.200
+Index. And then. how do we finish? Well there's something called "finish".
+
+89
+00:05:53.200 --> 00:05:57.200
+and it's called Finish Execute there and that's the final
+
+90
+00:05:57.200 --> 00:06:01.200
+node OK. And we want to finish with Success. So
+
+91
+00:06:01.200 --> 00:06:05.200
+now. our job is to write some functions in here that do all of this. so
+
+92
+00:06:05.200 --> 00:06:09.200
+I'll write Get Patrol Points for you. and then. I'm going to give you some challenges down the road.
+
+93
+00:06:09.200 --> 00:06:13.200
+So how do we do get Patrol Points? Well I'm just going to write it straight here in line and then
+
+94
+00:06:13.200 --> 00:06:17.200
+collapse it down into a function. So what do we do? Well we've got the Controlled Pawn
+
+95
+00:06:17.200 --> 00:06:21.200
+here. and what we can do is we can cast that... [Fumbles Words] I'm trying to get
+
+96
+00:06:21.200 --> 00:06:25.200
+the words out! We can cast that Controlled Pawn to a Third
+
+97
+00:06:25.200 --> 00:06:29.200
+Person Character. That's a little bit nasty. that feels a bit dirty doing that. but it's
+
+98
+00:06:29.200 --> 00:06:33.200
+fine for now. because the pawn itself does not have any Patrol
+
+99
+00:06:33.200 --> 00:06:37.200
+Points on it. whereas the ThirdPersonCharacter does. So if we come off the
+
+100
+00:06:37.200 --> 00:06:41.200
+ThirdPersonCharacter and look for Patrol Points. then we get an array of Patrol Points. There
+
+101
+00:06:41.200 --> 00:06:45.200
+they are and that's great! Now. what do we do with them? Well as we're going to be needing them
+
+102
+00:06:45.200 --> 00:06:49.200
+later down the line. and we don't want to necessarily pass them around. let's make what's effectively
+
+103
+00:06:49.200 --> 00:06:53.200
+a member variable right here. So we click + for the variables for this blueprint.
+
+104
+00:06:53.200 --> 00:06:57.200
+and we make a member variable. a class level variable for this blueprint.
+
+105
+00:06:57.200 --> 00:07:01.200
+OK. what type is it? Well it's of type Actor.
+
+106
+00:07:01.200 --> 00:07:05.200
+and it's an array. and it's Patrol Points.
+
+107
+00:07:05.200 --> 00:07:09.200
+OK great. so we have now a variable! It doesn't
+
+108
+00:07:09.200 --> 00:07:13.200
+need to be public yet. if we need it to be public we'll make it public later. So we have this
+
+109
+00:07:13.200 --> 00:07:17.200
+Patrol Point array! We can actually just drag this variable over here.
+
+110
+00:07:17.200 --> 00:07:21.200
+give it a setter. plumb that in. and then. if
+
+111
+00:07:21.200 --> 00:07:25.200
+the cast succeeds. then we go ahead and set the Patrol
+
+112
+00:07:25.200 --> 00:07:29.200
+Points array. OK. that functionality is done. that's pretty
+
+113
+00:07:29.200 --> 00:07:33.200
+easy! Now. is this working? Are we getting it right? Well I don't know.
+
+114
+00:07:33.200 --> 00:07:37.200
+If you want to test it before we go on. we can come off here. we can use an Array
+
+115
+00:07:37.200 --> 00:07:41.200
+Utility to get the first value. and we could get item
+
+116
+00:07:41.200 --> 00:07:45.200
+0. and then. we could make ourselves a Print node.
+
+117
+00:07:45.200 --> 00:07:49.200
+And then. you drag from here to the String and it would auto convert.
+
+118
+00:07:49.200 --> 00:07:53.200
+and we bring the execution off and if you want. we can just check that element 0 is
+
+119
+00:07:53.200 --> 00:07:57.200
+what we expect. Let's do that. in fact. and make sure that all this
+
+120
+00:07:57.200 --> 00:08:01.200
+runs! So upstairs is where he's headed. and upstairs is indeed the first
+
+121
+00:08:01.200 --> 00:08:05.200
+waypoint. so I'm pretty confident that works! I'm going to get rid of the printing and testing over here.
+
+122
+00:08:05.200 --> 00:08:09.200
+and I'm going to encapsulate these three Blueprint nodes into
+
+123
+00:08:09.200 --> 00:08:13.200
+a function. So you right-click on them. select them all by dragging with the Left Mouse Button.
+
+124
+00:08:13.200 --> 00:08:17.200
+and then. select Collapse to Function. pop the function in the box.
+
+125
+00:08:17.200 --> 00:08:21.200
+It's already got a name. so I'll barrow it's name there. it's called Get Patrol Points.
+
+126
+00:08:21.200 --> 00:08:25.200
+and let's just rename the function F2. Ooh.
+
+127
+00:08:25.200 --> 00:08:29.200
+I accidentally didn't copy something!
+
+128
+00:08:29.200 --> 00:08:33.200
+Get Patrol Points. Perfect! So now. I no longer need
+
+129
+00:08:33.200 --> 00:08:37.200
+the comment. I have turned it into actual Blueprint code! Great! So
+
+130
+00:08:37.200 --> 00:08:41.200
+now. we need to set the next waypoint. How are we going to do that? So
+
+131
+00:08:41.200 --> 00:08:45.200
+I've got a challenge for you. what I want you to do is set the next waypoint. I want you to get the functionality
+
+132
+00:08:45.200 --> 00:08:49.200
+we had. previous to this video. back but this time in the Behavior Tree rather
+
+133
+00:08:49.200 --> 00:08:53.200
+than on the AI Controller. Just get him to go to the first waypoint again.
+
+134
+00:08:53.200 --> 00:08:57.200
+for now. and you can assume that the index value. that index key. initializes its
+
+135
+00:08:57.200 --> 00:09:01.200
+value to 0. So pause the video. see if you can fill in. purely.
+
+136
+00:09:01.200 --> 00:09:05.200
+this Set Next Waypoint functionality now. and
+
+137
+00:09:05.200 --> 00:09:09.200
+if you want. you can pull from that function through to finish execute. We're just going to be
+
+138
+00:09:09.200 --> 00:09:13.200
+skipping through cycle index for this video. So go ahead. pause the video. and
+
+139
+00:09:13.200 --> 00:09:17.200
+see if you can recover this functionality over here in the Behavior
+
+140
+00:09:17.200 --> 00:09:21.200
+Tree task that we've created.
+
+141
+00:09:21.200 --> 00:09:25.200
+Okey-Dokey! Welcome back! So the
+
+142
+00:09:25.200 --> 00:09:29.200
+first thing you're going to need to be able to do this is a waypoint index. so I'm going to create a variable
+
+143
+00:09:29.200 --> 00:09:33.200
+of type Blackboard Keys. in the list here. Blackboard
+
+144
+00:09:33.200 --> 00:09:40.100
+Key selector. and I'm just going to call it Index and I'm going to make it public.
+
+145
+00:09:40.100 --> 00:09:44.100
+So the reason we make the index public here is because
+
+146
+00:09:44.100 --> 00:09:48.100
+we need to store or want to store all the state of the
+
+147
+00:09:48.100 --> 00:09:52.100
+AI Actor inside the Blackboard. Now. arguabley.
+
+148
+00:09:52.100 --> 00:09:56.100
+you don't need to store both the Waypoint and the next Waypoint Index. you could
+
+149
+00:09:56.100 --> 00:10:00.100
+potentially work just off the index. but for simplicity we're going to keep it this way.
+
+150
+00:10:00.100 --> 00:10:03.933
+Remember. we're going to be re-writing this in C++ shortly.
+
+151
+00:10:03.933 --> 00:10:07.933
+And if we compile. then over on the Patrol you'll find that
+
+152
+00:10:07.933 --> 00:10:11.933
+it can say: OK I want to know what the
+
+153
+00:10:11.933 --> 00:10:15.933
+NextWaypointIndex Blackboard Key is? So you're creating a reference to it there.
+
+154
+00:10:15.933 --> 00:10:19.933
+This is the functions of what's going to happen in terms of
+
+155
+00:10:19.933 --> 00:10:23.933
+execution flow. and now. we're wiring it and saying. this is the data you're going to mutate.
+
+156
+00:10:23.933 --> 00:10:27.933
+So we have a public Blueprint variable. It had to be public or we wouldn't have seen it
+
+157
+00:10:27.933 --> 00:10:31.933
+over here. and that is an index. Now again.
+
+158
+00:10:31.933 --> 00:10:35.933
+I'm going to build this outside here. so we have an index there. Now.
+
+159
+00:10:35.933 --> 00:10:39.933
+what do I need? I need the Patrol Points. so let's go get the Patrol Points array.
+
+160
+00:10:39.933 --> 00:10:43.933
+Then. from the array we need to use Utilities
+
+161
+00:10:43.933 --> 00:10:47.933
+array and GET. The Index is just
+
+162
+00:10:47.933 --> 00:10:51.933
+the Index that we have here. Now. you can't just pull it. because this
+
+163
+00:10:51.933 --> 00:10:55.933
+is a Blackboard Key selector structure. What we need to do is Get
+
+164
+00:10:55.933 --> 00:10:59.933
+Blackboard Value as Integer. Hopefully you found that. Then.
+
+165
+00:10:59.933 --> 00:11:03.933
+we have an integer value. which is the index of the array we're trying to pull from. and then.
+
+166
+00:11:03.933 --> 00:11:07.933
+all this is saying. right now. because of that Blackboard value... Look  if we play the game
+
+167
+00:11:07.933 --> 00:11:11.933
+for a second and have a little look at the Blackboard. the
+
+168
+00:11:11.933 --> 00:11:15.933
+Waypoint Index is initialized to 0. Remember I said you could assume that? So
+
+169
+00:11:15.933 --> 00:11:19.933
+all we're saying here. in here. is this
+
+170
+00:11:19.933 --> 00:11:23.933
+Index value will be 0. The value of the actual Blackboard Key is 0. so I'm
+
+171
+00:11:23.933 --> 00:11:27.933
+going to go and get Patrol Point 0. and that's as simple
+
+172
+00:11:27.933 --> 00:11:31.933
+as that. Now finally. what we need to do is. we need to set a Blackboard
+
+173
+00:11:31.933 --> 00:11:35.933
+value as an object. and the key
+
+174
+00:11:35.933 --> 00:11:39.933
+that we're going to select. we need to also have available for it.
+
+175
+00:11:39.933 --> 00:11:43.933
+So that is going to be the Waypoint.
+
+176
+00:11:43.933 --> 00:11:47.933
+the next Waypoint. Public again. compile it up. and then. when we go
+
+177
+00:11:47.933 --> 00:11:51.933
+back to the Behavior Tree. you'll see that it's asking for the Waypoint and that is
+
+178
+00:11:51.933 --> 00:11:55.933
+Next Waypoints there. So Index and Waypoint. OK
+
+179
+00:11:55.933 --> 00:11:59.933
+cool! So then. the key. rather than using a string
+
+180
+00:11:59.933 --> 00:12:03.933
+reference we can use this. which means the only place that it's wired up is
+
+181
+00:12:03.933 --> 00:12:07.933
+here. which is the ideal place. You're saying this function needs to mutate
+
+182
+00:12:07.933 --> 00:12:11.933
+these pieces of data. It's much neater than off to the side in some blueprint.
+
+183
+00:12:11.933 --> 00:12:15.933
+So that should be it! Let's wire this through and make sure that it works.
+
+184
+00:12:15.933 --> 00:12:19.933
+before we tidy it up into a function! Hopefully you can see
+
+185
+00:12:19.933 --> 00:12:23.933
+what's going on there. I'll zoom in a little bit and so you can see it and keep it still for a moment for you.
+
+186
+00:12:23.933 --> 00:12:27.933
+OK. let's compile it and see what happens!
+
+187
+00:12:27.933 --> 00:12:31.933
+Does he go to the first waypoint?
+
+188
+00:12:31.933 --> 00:12:35.933
+Not yet. so let's play and see what's going on
+
+189
+00:12:35.933 --> 00:12:39.933
+with his Patrol class. He's trying to ChooseNextWaypoint. and the reason is
+
+190
+00:12:39.933 --> 00:12:43.933
+that. what we have not done is finish executing ChooseNext
+
+191
+00:12:43.933 --> 00:12:47.933
+Waypoint. So he never moved off this state in the tree. Let's try again!
+
+192
+00:12:47.933 --> 00:12:51.933
+ChooseNextWaypoint. let's have a look. and it
+
+193
+00:12:51.933 --> 00:12:55.933
+goes to Move To. And what's happening is jittering here and that's
+
+194
+00:12:55.933 --> 00:12:59.933
+because Move To is going to SelfActor. and that's because when we renamed
+
+195
+00:12:59.933 --> 00:13:03.933
+Waypoint to NextWaypoint we just lost the connection here. OK
+
+196
+00:13:03.933 --> 00:13:07.933
+cool! So now. we set the next waypoint over here and ChooseNextWaypoint.
+
+197
+00:13:07.933 --> 00:13:11.933
+and then. we move to it here. Let's see if this works!
+
+198
+00:13:11.933 --> 00:13:15.933
+There he goes. runs up the stairs. and we have recovered the functionality
+
+199
+00:13:15.933 --> 00:13:19.933
+we had in the last video! We've done things a different way. we now can
+
+200
+00:13:19.933 --> 00:13:23.933
+probably scrap everything in this TO DO in the blueprint. The blueprint
+
+201
+00:13:23.933 --> 00:13:27.933
+of the AI Controller is right back to just asset binding again. which is
+
+202
+00:13:27.933 --> 00:13:31.933
+what we want. we're just binding to the patrol data and the Behavior Tree.
+
+203
+00:13:31.933 --> 00:13:35.933
+So we can close that down! We now have this ChooseNextWaypoint
+
+204
+00:13:35.933 --> 00:13:39.733
+task. which is a custom task that we've made. We've
+
+205
+00:13:39.733 --> 00:13:41.166
+built that in Blueprint.
+
+206
+00:13:41.166 --> 00:13:45.166
+we've exposed to separate Blackboard Keys there
+
+207
+00:13:45.166 --> 00:13:49.166
+which while the game is playing keep track of. if we have a look over here.
+
+208
+00:13:49.166 --> 00:13:53.166
+they keep track of the WaypointIndex and his next Waypoint. and it'll do that
+
+209
+00:13:53.166 --> 00:13:57.166
+on an AI by AI instance basis. so each guard will have their own
+
+210
+00:13:57.166 --> 00:14:01.166
+Blackboard. And the great thing about this new architecture is we have the opportunity now
+
+211
+00:14:01.166 --> 00:14:05.166
+to cycle that index right here. in the right place. and go through.
+
+212
+00:14:05.166 --> 00:14:09.166
+So I'm just going to encapsulate this into the name of the this function. which is Set Next
+
+213
+00:14:09.166 --> 00:14:13.166
+Waypoint. I'm going to Collapse to Function.
+
+214
+00:14:13.166 --> 00:14:17.166
+The function name is simply going to be Set Next Waypoint.
+
+215
+00:14:17.166 --> 00:14:21.166
+pop it in there. You can delete the comment box now. because we've achieved
+
+216
+00:14:21.166 --> 00:14:25.166
+the goal. and we are well on the way! In the next video. we'll
+
+217
+00:14:25.166 --> 00:14:29.166
+go through the cycle index to get this patrolling behavior finished off!
+
+218
+00:14:29.166 --> 00:14:31.199
+
+

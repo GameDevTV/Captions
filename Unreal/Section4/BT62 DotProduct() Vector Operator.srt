@@ -1,0 +1,754 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Hey and welcome to
+
+2
+00:00:04.000 --> 00:00:08.000
+DotProduct() Vector Operator! The ratio of how
+
+3
+00:00:08.000 --> 00:00:12.000
+fun this video sounds compared to how fun it's going to be is really really high!
+
+4
+00:00:12.000 --> 00:00:16.000
+By the end of it. we are going to have our tanks actually moving forward
+
+5
+00:00:16.000 --> 00:00:20.000
+and backwards. in order to obtain a broadside position on us. Yes. they overshoot.
+
+6
+00:00:20.000 --> 00:00:24.000
+but that's because they themselves have to use the same control system
+
+7
+00:00:24.000 --> 00:00:29.000
+that we are using and are subject to the same physics system. So I will see you in there!
+
+8
+00:00:29.000 --> 00:00:33.000
+So currently. if we look at the logs that come out of our game. when we're playing.
+
+9
+00:00:33.000 --> 00:00:37.000
+we get this vectoring vector. which is this
+
+10
+00:00:37.000 --> 00:00:41.000
+thing that's logged here this MoveVelocityString. which is the MoveVelocity if you remember
+
+11
+00:00:41.000 --> 00:00:45.000
+that comes in from the AI Pathfinding System. And it is
+
+12
+00:00:45.000 --> 00:00:49.000
+not what we call a unit vector. this vector is long. If you looked at
+
+13
+00:00:49.000 --> 00:00:53.000
+that in 3D space it's got a definite length to it. thousands or hundreds of thousands
+
+14
+00:00:53.000 --> 00:00:57.000
+of units long. So one of the first things we want to do is noramalize
+
+15
+00:00:57.000 --> 00:01:01.000
+this. just to get a unit vector out. We're only actually interested
+
+16
+00:01:01.000 --> 00:01:05.000
+in the direction in which the
+
+17
+00:01:05.000 --> 00:01:09.000
+AI is asking us to move. we will decide how fast we're going to move in
+
+18
+00:01:09.000 --> 00:01:13.000
+that direction. So before we go into how we're going to do these Dot
+
+19
+00:01:13.000 --> 00:01:17.000
+Products and cosigns and things. let's just do that. Let's just go  MoveVelocity Dot...
+
+20
+00:01:17.000 --> 00:01:21.000
+I'm here in. by the way the TankMovementComponent inside the RequestDirectMove() method.
+
+21
+00:01:21.000 --> 00:01:25.000
+MoveVelocity.GetSafeNormal() and if you read what that
+
+22
+00:01:25.000 --> 00:01:29.000
+method does. you'll find that it gets you a
+
+23
+00:01:29.000 --> 00:01:33.000
+normal vector of this MoveVelocity. without changing MoveVelocity.
+
+24
+00:01:33.000 --> 00:01:37.000
+It doesn't mutate it. so that's the safe bit. it means it doesn't change this thing. And it
+
+25
+00:01:37.000 --> 00:01:41.000
+provides us a normalized vector. Let's see what that normalized vector means. I'll just Compile
+
+26
+00:01:41.000 --> 00:01:45.000
+that code! All I've added is what I've highlighted there. GetSaveNormal.
+
+27
+00:01:45.000 --> 00:01:49.000
+and we still convert it to a string and print it out. and then. we'll just see how that
+
+28
+00:01:49.000 --> 00:01:53.000
+changes this vector. So we play! I better clear the logs actually. so
+
+29
+00:01:53.000 --> 00:01:57.000
+we don't have to scroll down. There you go! Now we're still getting these direction vectors out of the
+
+30
+00:01:57.000 --> 00:02:01.000
+AI tanks. but each one of these vectors. if we were to plot them in 3D space. has a
+
+31
+00:02:01.000 --> 00:02:05.000
+total length of 1. So it might just be X = 1. Y = 0. Z = 0.
+
+32
+00:02:05.000 --> 00:02:09.000
+i.e. straight down the X axis. or if it's a total off of that.
+
+33
+00:02:09.000 --> 00:02:13.000
+then you're going to see components in the other directions. But if you were to sum these X.
+
+34
+00:02:13.000 --> 00:02:17.000
+Y. and ?Z components up or square them rather and sum them up.
+
+35
+00:02:17.000 --> 00:02:21.000
+and then. take the square root of what you've got. the whole Pythagoras thing. you'd get a length of 1.
+
+36
+00:02:21.000 --> 00:02:25.000
+I'm not going to bore you with that but these are unit vectors; they are in the same direction
+
+37
+00:02:25.000 --> 00:02:29.000
+but they have just a length of 1. We did visit unit vectors earlier in the
+
+38
+00:02:29.000 --> 00:02:33.000
+course. So that is the unit vector for the direction
+
+39
+00:02:33.000 --> 00:02:37.000
+in which the AI intends
+
+40
+00:02:37.000 --> 00:02:41.000
+for the tank to move forward. In fact. let's give it a better name! Let's
+
+41
+00:02:41.000 --> 00:02:45.000
+call this thing AIForward
+
+42
+00:02:45.000 --> 00:02:49.000
+Intention. And I'd better stop it being a string.
+
+43
+00:02:49.000 --> 00:02:53.000
+and I don't think we need this log entry anymore. I'll just comment
+
+44
+00:02:53.000 --> 00:02:57.000
+out the log. So we have an AIForwardIntention! We get
+
+45
+00:02:57.000 --> 00:03:01.000
+what that is. we've seen the logs of it. it's a unit vector in the direction the AI would like the tank
+
+46
+00:03:01.000 --> 00:03:05.000
+to move. Great! OK let's just move the TankName. In fact. I'm going
+
+47
+00:03:05.000 --> 00:03:09.000
+to get rid of the TankName altogether. There's another thing that would be
+
+48
+00:03:09.000 --> 00:03:13.000
+useful to have. which is the
+
+49
+00:03:13.000 --> 00:03:17.000
+TankForwardDirection. right now. So we just need TankForward. Now how do you get the
+
+50
+00:03:17.000 --> 00:03:21.000
+TankForward? Have a little bit of a think about it yourself. We're on the MovementComponent. what do we do to go
+
+51
+00:03:21.000 --> 00:03:25.000
+from the MovementComponent to the tank itself? We GetOwner()
+
+52
+00:03:25.000 --> 00:03:29.000
+and then through the Owner we GetForwardVector.
+
+53
+00:03:29.000 --> 00:03:33.000
+GetActorForwardVector. because the Owner is an Actor.
+
+54
+00:03:33.000 --> 00:03:37.000
+And I'm going to also GetSaveNormal. So what that
+
+55
+00:03:37.000 --> 00:03:41.000
+will give us is a unit vector. in the direction the tank is facing forward. Let's look at that
+
+56
+00:03:41.000 --> 00:03:45.000
+physically in the game world. If we look at this Tank_BP2
+
+57
+00:03:45.000 --> 00:03:49.000
+here. it's facing along the red arrow. the X axis. and that would be the
+
+58
+00:03:49.000 --> 00:03:53.000
+vector it returns. It's a vector in the direction of the X axis. the tank's local
+
+59
+00:03:53.000 --> 00:03:57.000
+X axis that is. the tank's forward axis. Don't get confused. by the way. with this X
+
+60
+00:03:57.000 --> 00:04:01.000
+down here. this is the Global X axis. This tank just happens to be aligned down the Global
+
+61
+00:04:01.000 --> 00:04:05.000
+X. If we look at this guy he isn't. he is not aligned down the Global
+
+62
+00:04:05.000 --> 00:04:09.000
+X. the Global X is off to the left here. If you click this little button
+
+63
+00:04:09.000 --> 00:04:13.000
+in the top of your viewport... Look where I'm clicking. it's difficult for me to
+
+64
+00:04:13.000 --> 00:04:17.000
+explain where. but it's in the top of the viewport. it's a little box or a world. If you click it from the
+
+65
+00:04:17.000 --> 00:04:21.000
+world to the box. then it will show you the vector in terms of the tank
+
+66
+00:04:21.000 --> 00:04:25.000
+local forward. That's what we're talking about. we're talking about this little local X here
+
+67
+00:04:25.000 --> 00:04:29.000
+for both tanks. OK that red arrow is what it's going to return.
+
+68
+00:04:29.000 --> 00:04:33.000
+with a length of 1. So we've got these two things. we've got the direction of tank
+
+69
+00:04:33.000 --> 00:04:37.000
+currently facing and we've got the direction the AI would like the tank to be
+
+70
+00:04:37.000 --> 00:04:41.000
+heading. And tanks generally drive forward. they don't just drive sideways. So
+
+71
+00:04:41.000 --> 00:04:45.000
+our job is to try and come up with a movement scheme that means that
+
+72
+00:04:45.000 --> 00:04:49.000
+the tank goes forward. and at an appropriate speed. depending on the
+
+73
+00:04:49.000 --> 00:04:53.000
+difference between where the AI wants it to be facing and where it is facing. So what do we
+
+74
+00:04:53.000 --> 00:04:57.000
+need? We need something called a Cosine Function. if you remember your school. So
+
+75
+00:04:57.000 --> 00:05:01.000
+what we're going to have on this axis. is on the X axis we've got the angle between
+
+76
+00:05:01.000 --> 00:05:05.000
+these two things. between the AIForwardIntention and the tank's forward vector.
+
+77
+00:05:05.000 --> 00:05:09.000
+And on the Y axis we have the Throw. where we want to end up
+
+78
+00:05:09.000 --> 00:05:13.000
+with the Throw that we're going to put into IntendMoveForward(). the control Throw.
+
+79
+00:05:13.000 --> 00:05:17.000
+This is so the AI can literally control the controller. So let's think about
+
+80
+00:05:17.000 --> 00:05:21.000
+this. If the angle between the ForwardIntention and the TankForward vector is 0.
+
+81
+00:05:21.000 --> 00:05:25.000
+that means the tank is already facing directly in the direction that the AI wants it to
+
+82
+00:05:25.000 --> 00:05:29.000
+be going. Therefore. what do we do? We go forward at full speed. this 1
+
+83
+00:05:29.000 --> 00:05:33.000
+Throw up here. As that angle closes down towards 90
+
+84
+00:05:33.000 --> 00:05:37.000
+degrees. at 90 degrees that means the AI is saying go
+
+85
+00:05:37.000 --> 00:05:41.000
+to your. say let's call it... Well we have IntendTurnLeft or Right?
+
+86
+00:05:41.000 --> 00:05:45.000
+I can't remember. IntendTurnRight I think? Yep! So let's call 90 degrees and
+
+87
+00:05:45.000 --> 00:05:49.000
+90 degree right turn. If the AI's intending a
+
+88
+00:05:49.000 --> 00:05:53.000
+90 degree right turn or that it wants you to go 90 degrees to your
+
+89
+00:05:53.000 --> 00:05:57.000
+right. how fast forward should you be moving at that point? Well you shouldn't be moving forward. because the thing is
+
+90
+00:05:57.000 --> 00:06:01.000
+to your right precisely. And then. as we move to a position
+
+91
+00:06:01.000 --> 00:06:05.000
+where actually the AI wants you. the AIForwardIntention is 180
+
+92
+00:06:05.000 --> 00:06:09.000
+degrees out of phase with the tank's forward. i.e. the AI wants you going backwards.
+
+93
+00:06:09.000 --> 00:06:13.000
+what do you do? You drive backwards as fast as you can. you put a Throw in of -1
+
+94
+00:06:13.000 --> 00:06:17.000
+and so on for things to your left. And then. again
+
+95
+00:06:17.000 --> 00:06:21.000
+we get back to... OK it's directly in front of you! This 360 degrees
+
+96
+00:06:21.000 --> 00:06:25.000
+difference is the same as a 0 degree. this diagram wraps
+
+97
+00:06:25.000 --> 00:06:29.000
+around itself alright. So we get to 360 it's the same deal. it's basically
+
+98
+00:06:29.000 --> 00:06:33.000
+saying the AIForwardIntention is aligned with the TankForward. Let' go forward at full
+
+99
+00:06:33.000 --> 00:06:37.000
+speed! And the cool thing about this is. it varies smoothly
+
+100
+00:06:37.000 --> 00:06:41.000
+in between these situations as well. So a cosine is perfect for what
+
+101
+00:06:41.000 --> 00:06:45.000
+we want with the forward speed. So what we need or what we could use that
+
+102
+00:06:45.000 --> 00:06:49.000
+would be very appropriate is something called the vector DotProduct(). Now don't go mad about the math. I've
+
+103
+00:06:49.000 --> 00:06:53.000
+extracted a tiny piece of the Wikipedia article on the DotProducts right there for you.
+
+104
+00:06:53.000 --> 00:06:57.000
+And I will just talk about the math. because really it is just a mathematical
+
+105
+00:06:57.000 --> 00:07:01.000
+function. so there's not point in putting fluffy interpretation around it until
+
+106
+00:07:01.000 --> 00:07:05.000
+we've understood the math. So the DotProduct. A dot B. means the magnitude of A.
+
+107
+00:07:05.000 --> 00:07:09.000
+How big is vector A? Which we've already calculated. by the way. it is this guy here TankForward
+
+108
+00:07:09.000 --> 00:07:13.000
+times the magnitude of B. We've already got that. that's the AI
+
+109
+00:07:13.000 --> 00:07:17.000
+ForwardIntention. times the cosign of the angle between them. the thing that we just
+
+110
+00:07:17.000 --> 00:07:21.000
+said we wanted. So a DotProduct is pretty ideal. because it takes the
+
+111
+00:07:21.000 --> 00:07:25.000
+magnitude of these two things and it multiplies by
+
+112
+00:07:25.000 --> 00:07:29.000
+the cosign of the angle between them. But we want the magnitudes to be one
+
+113
+00:07:29.000 --> 00:07:33.000
+before we start. because we don't want the size of this Move
+
+114
+00:07:33.000 --> 00:07:37.000
+Velocity or anything that... This TankForward vector would be
+
+115
+00:07:37.000 --> 00:07:41.000
+a normal vector. even if we didn't do GetSafeNormal. By the way. this is just being
+
+116
+00:07:41.000 --> 00:07:45.000
+safe. But we don't want the size of the MoveVelocity to impact our answer. we want
+
+117
+00:07:45.000 --> 00:07:49.000
+our answer to come out as between 1 and -1. So I am
+
+118
+00:07:49.000 --> 00:07:53.000
+already making sure that these things. the size. these
+
+119
+00:07:53.000 --> 00:07:57.000
+lines here mean the size of A and the size of B. I'm making sure the size of those are both 1 at the
+
+120
+00:07:57.000 --> 00:08:01.000
+most OK. so that we're really focusing on just the angle.
+
+121
+00:08:01.000 --> 00:08:05.000
+So another way of interpreting the DotProduct is. it takes in two FVectors. It
+
+122
+00:08:05.000 --> 00:08:09.000
+outputs a float. What is it? It's the "Projection of one vector onto
+
+123
+00:08:09.000 --> 00:08:13.000
+the other". it's the parallel-ness. How parallel are we
+
+124
+00:08:13.000 --> 00:08:17.000
+if I am already facing in the direction AI wants me to be. to be 100%
+
+125
+00:08:17.000 --> 00:08:21.000
+parallel. I have a value of 1. If I'm facing in the opposite direction. I'm 100% not parallel.
+
+126
+00:08:21.000 --> 00:08:25.000
+I have a parallel-ness of -1 and so on. for everything in between.
+
+127
+00:08:25.000 --> 00:08:29.000
+The value of this DotProduct is maximum when the vectors are parallel and 0 when they're
+
+128
+00:08:29.000 --> 00:08:33.000
+perpendicular. And the diagram. one way of looking at it is like
+
+129
+00:08:33.000 --> 00:08:37.000
+this. So say B is the TankForward direction. but A is the AI
+
+130
+00:08:37.000 --> 00:08:41.000
+ForwardIntention.
+
+131
+00:08:41.000 --> 00:08:45.000
+then what you've got there is you've got the projection. You're saying well. how
+
+132
+00:08:45.000 --> 00:08:49.000
+aligned are they? And that is what we're getting out of the
+
+133
+00:08:49.000 --> 00:08:53.000
+DotProduct here. I know it's a bit mathematical. it's clear to people who understand
+
+134
+00:08:53.000 --> 00:08:57.000
+math. it's difficult for people who don't. But let's just see it in action. that's going to be the key now!
+
+135
+00:08:57.000 --> 00:09:01.000
+So we already have these two things. What I want you to do is
+
+136
+00:09:01.000 --> 00:09:05.000
+use the DotProduct()
+
+137
+00:09:05.000 --> 00:09:09.000
+to actually drive the tank. and see what the result is for yourself. I want to give you that satisfaction.
+
+138
+00:09:09.000 --> 00:09:13.000
+So I want you to use FVector::DotProduct(). Take a DotProduct().
+
+139
+00:09:13.000 --> 00:09:17.000
+between AIForwardIntention & TankForward. feed the result into IntendMove
+
+140
+00:09:17.000 --> 00:09:21.000
+Forward(). and then. share the resulting movement with the community. over on our community site.
+
+141
+00:09:21.000 --> 00:09:25.000
+preferably as a little video. So go ahead. do that. and I'll see you there!
+
+142
+00:09:25.000 --> 00:09:29.000
+
+
+143
+00:09:29.000 --> 00:09:33.000
+OK so let's take a little look at what code we need to write! We want to say something like
+
+144
+00:09:33.000 --> 00:09:37.000
+auto Throw required or
+
+145
+00:09:37.000 --> 00:09:41.000
+RequiredThrow... Or Forward
+
+146
+00:09:41.000 --> 00:09:45.000
+Throw = FVector::
+
+147
+00:09:45.000 --> 00:09:49.000
+DotProduct()
+
+148
+00:09:49.000 --> 00:09:53.000
+between the (TankForward.
+
+149
+00:09:53.000 --> 00:09:57.000
+and the AIForwardIntention).
+
+150
+00:09:57.000 --> 00:10:01.000
+OK. now let's send that to IntendMoveForward.
+
+151
+00:10:01.000 --> 00:10:05.000
+
+
+152
+00:10:05.000 --> 00:10:09.000
+(ForwardThrow).
+
+153
+00:10:09.000 --> 00:10:13.000
+Simples! OK let's see what happens there! Let's Compile
+
+154
+00:10:13.000 --> 00:10:17.000
+this up! While it's compiling. I'll leave the code on the screen. I think I've
+
+155
+00:10:17.000 --> 00:10:21.000
+spelled ForwardThrow wrong. I have. so I need to recompile!
+
+156
+00:10:21.000 --> 00:10:25.000
+OK there you go! So I've just done that and that. as I've highlighted.
+
+157
+00:10:25.000 --> 00:10:29.000
+And then. let's get ourselves some AI tanks in
+
+158
+00:10:29.000 --> 00:10:33.000
+a position that we can deal with. So let's go to the Top perspective and just remind ourselves
+
+159
+00:10:33.000 --> 00:10:37.000
+where the Player Start is. Great. it's there! Where's Tank_BP1?
+
+160
+00:10:37.000 --> 00:10:41.000
+Not that close to us. let's move it a bit closer.
+
+161
+00:10:41.000 --> 00:10:45.000
+And Tank_BP2.
+
+162
+00:10:45.000 --> 00:10:49.000
+OK let's have a look then. Oh look. here it goes! It's driving forward.
+
+163
+00:10:49.000 --> 00:10:53.000
+and then it's oscillating back a little bit. and it's kind of moving
+
+164
+00:10:53.000 --> 00:10:57.000
+until it's side on. Let's have a look at the other tank. Where's the other guy?
+
+165
+00:10:57.000 --> 00:11:01.000
+What I'll do is go into Perspective view.
+
+166
+00:11:01.000 --> 00:11:05.000
+In fact. what I would like is. I would like to be a little bit more out in the open
+
+167
+00:11:05.000 --> 00:11:09.000
+or at least to have my tank say here. And then.
+
+168
+00:11:09.000 --> 00:11:13.000
+this other tank. let's bring him over here so we can see
+
+169
+00:11:13.000 --> 00:11:17.000
+what's going on. OK I'm going to go to F11 or P to play.
+
+170
+00:11:17.000 --> 00:11:21.000
+Let's watch this other tank. he's already side on so he's not moving. This guy wasn't
+
+171
+00:11:21.000 --> 00:11:25.000
+side on. so he's got himself into a side on position. How cool! How about we put that tank
+
+172
+00:11:25.000 --> 00:11:29.000
+over there and watch him.
+
+173
+00:11:29.000 --> 00:11:33.000
+He's moving. This other guy isn't right now. Is he stuck in the ground?
+
+174
+00:11:33.000 --> 00:11:37.000
+Let's see what's up with him! OK there's something
+
+175
+00:11:37.000 --> 00:11:41.000
+fishy about this other tank. So before I spill too much blood on the other
+
+176
+00:11:41.000 --> 00:11:45.000
+tank. what I'm going to quickly do is just go and get a new Tank blueprint and pop it down.
+
+177
+00:11:45.000 --> 00:11:49.000
+in case we've fiddled with the parameters of that tank too much. Now there you go!
+
+178
+00:11:49.000 --> 00:11:53.000
+So look at that tank he goes back! He overshoots because of his
+
+179
+00:11:53.000 --> 00:11:57.000
+momentum. because remember he's applying forces to the tank he's not just
+
+180
+00:11:57.000 --> 00:12:01.000
+moving the tank position. so he goes full throttle backwards! He goes ooh no throttle. but he's over-
+
+181
+00:12:01.000 --> 00:12:05.000
+shooting because of the momentum and then he's going to try and move forward again. And that's
+
+182
+00:12:05.000 --> 00:12:09.000
+pretty cool right! The two tanks are moving forward and back.
+
+183
+00:12:09.000 --> 00:12:13.000
+so that they get broadside onto us. and they are obeying the
+
+184
+00:12:13.000 --> 00:12:17.000
+same physics that we have to. They have inertia. if they don't control
+
+185
+00:12:17.000 --> 00:12:21.000
+their tank right they overshoot just like we do. None of these perfect robotic tanks.
+
+186
+00:12:21.000 --> 00:12:25.000
+So that's a real result for this lecture! I hope you're glad with the result of that and
+
+187
+00:12:25.000 --> 00:12:29.000
+pleased with it. should I say. And I will see you in the next lecture!
+
+188
+00:12:29.000 --> 00:12:30.433
+
+

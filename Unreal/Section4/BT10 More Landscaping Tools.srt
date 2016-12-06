@@ -1,0 +1,738 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So. welcome to
+
+2
+00:00:04.000 --> 00:00:08.000
+More Landscaping Tools! In this video. we're going to be showing you how to make flat
+
+3
+00:00:08.000 --> 00:00:12.000
+shading optional inside your landscape material properties. Importing and exporting
+
+4
+00:00:12.000 --> 00:00:16.000
+landscape heightmaps. which are an image file that represents the landscape layout.
+
+5
+00:00:16.000 --> 00:00:20.000
+Reducing the resolution of the landscape. There's one very simple way of doing this.
+
+6
+00:00:20.000 --> 00:00:24.000
+in a few clicks. If you want to go from high to low poly. with some limitations.
+
+7
+00:00:24.000 --> 00:00:28.000
+And importantly. using a texture in a landscape material. rather than
+
+8
+00:00:28.000 --> 00:00:32.000
+just having completely flat shading. So. by the end of it. I'll have
+
+9
+00:00:32.000 --> 00:00:36.000
+a finalized low poly landscape like this. which will actually have some material still
+
+10
+00:00:36.000 --> 00:00:40.000
+flat shading but actually have a material that has some texture to it like this.
+
+11
+00:00:40.000 --> 00:00:44.000
+and it will be an inescapable terrain where all the
+
+12
+00:00:44.000 --> 00:00:48.000
+sides are too steep for the tank to leave. So. that's important and we
+
+13
+00:00:48.000 --> 00:00:50.233
+have our battle arena. So. see you in there!
+
+14
+00:00:50.233 --> 00:00:54.233
+So. let's start with how to add a texture to our terrain. This
+
+15
+00:00:54.233 --> 00:00:58.233
+technique will apply to high and low poly terrains. In fact. I'm going to leave the
+
+16
+00:00:58.233 --> 00:01:02.233
+landscape material. so that you can either make it flat shaded or not flat shaded
+
+17
+00:01:02.233 --> 00:01:06.233
+very easily. So. let's go find a texture first! One easy way to do that is to go
+
+18
+00:01:06.233 --> 00:01:10.233
+to the Content tab. Add New. and then. Add Feature or Content
+
+19
+00:01:10.233 --> 00:01:14.233
+Pack. and this is a way of getting our starter content in after the events.
+
+20
+00:01:14.233 --> 00:01:18.233
+So. no point in starting the Starter Content. if you don't need it. but if we want it now we can just go to
+
+21
+00:01:18.233 --> 00:01:22.233
+Content Packs. Starter Content. and add it to the project.
+
+22
+00:01:22.233 --> 00:01:26.233
+Now. in that Starter Content under Materials. notice a couple of things. We've got
+
+23
+00:01:26.233 --> 00:01:30.233
+a couple of useful things in here. One is M_Ground
+
+24
+00:01:30.233 --> 00:01:34.233
+_Grass. So that's the grass material. If we look at it. we'll
+
+25
+00:01:34.233 --> 00:01:38.233
+see that under the Usage section. it does have use with landscape ticked.
+
+26
+00:01:38.233 --> 00:01:42.233
+so it is designed to be used as a landscape. And we'll find the same with the gravel. M_
+
+27
+00:01:42.233 --> 00:01:46.233
+Ground_Gravel. So the question is. how do we use these actual textures
+
+28
+00:01:46.233 --> 00:01:50.233
+rather than these flat colors? We want the flat shading still.
+
+29
+00:01:50.233 --> 00:01:54.233
+potentially. We want to be able to choose flat shading. on or off. Solid colors like. we might want
+
+30
+00:01:54.233 --> 00:01:58.233
+a solid color for snow. but we're also going to want some textures. so let me show you that.
+
+31
+00:01:58.233 --> 00:02:02.233
+What we do is. we go ahead and find our material. so
+
+32
+00:02:02.233 --> 00:02:06.233
+that's in Content. and then let's work on the FlatLand
+
+33
+00:02:06.233 --> 00:02:10.233
+one for now. And what we're going to do is replace these flat colors
+
+34
+00:02:10.233 --> 00:02:14.233
+here with actual textures. So what you do is you do a search for texture.
+
+35
+00:02:14.233 --> 00:02:18.233
+and you'll find Texture Sample. That's the one we want.
+
+36
+00:02:18.233 --> 00:02:22.233
+OK. so I'm going to get myself a couple of texture samples. Just
+
+37
+00:02:22.233 --> 00:02:26.233
+Duplicate and we're going to take the output of the
+
+38
+00:02:26.233 --> 00:02:30.233
+Texture Samples into the layers. So. that's the same as
+
+39
+00:02:30.233 --> 00:02:34.233
+using flat colors. The only difference is they're going to want some UV maps.
+
+40
+00:02:34.233 --> 00:02:38.233
+and that's going to tell these textures where on the landscape they're going to be. So. we look
+
+41
+00:02:38.233 --> 00:02:42.233
+for the Landscape section. Then. we're looking for
+
+42
+00:02:42.233 --> 00:02:46.233
+LandscapeLayerCoordinates. That's what we want! And you plumb that into both
+
+43
+00:02:46.233 --> 00:02:50.233
+of your texture samples. for both the grass and the dirt. And then.
+
+44
+00:02:50.233 --> 00:02:54.233
+all you need to do is. for the grass. you go and find the grass. So. you go over to
+
+45
+00:02:54.233 --> 00:02:58.233
+the Details tab. under the Material Expression Texture Base.
+
+46
+00:02:58.233 --> 00:03:02.233
+and then. Texture. use the dropdown. type grass.
+
+47
+00:03:02.233 --> 00:03:06.233
+and choose that. And then. the same for the
+
+48
+00:03:06.233 --> 00:03:10.233
+gravel. Now you've got two on the gravel. You've got a normal map and
+
+49
+00:03:10.233 --> 00:03:14.233
+a detail map. We're going to use just the detail. for the moment. that's just the color the albedo the
+
+50
+00:03:14.233 --> 00:03:18.233
+base color. The normal map would allow you to set some roughness.
+
+51
+00:03:18.233 --> 00:03:22.233
+Now talking about roughness. we have this absolute world position here.
+
+52
+00:03:22.233 --> 00:03:26.233
+We are not going to use that now. the flat shading. or we want the option to be able to use
+
+53
+00:03:26.233 --> 00:03:30.233
+it. so in a moment we're going to kind of find a way of commenting this out in Blueprint. But for now. let's just
+
+54
+00:03:30.233 --> 00:03:34.233
+check the effect of changing to Texture Samples. instead of flat
+
+55
+00:03:34.233 --> 00:03:38.233
+colors. So. I'm just going to save this up.
+
+56
+00:03:38.233 --> 00:03:42.233
+minimize. and then. when this recompiles.
+
+57
+00:03:42.233 --> 00:03:46.233
+we'll see the effect. I quite like the effect of having flat shaded low poly
+
+58
+00:03:46.233 --> 00:03:50.233
+but with a texture. The game The Witness. that fantastic puzzle game that came out in
+
+59
+00:03:50.233 --> 00:03:54.233
+2016. that has this type of effect. low poly but with
+
+60
+00:03:54.233 --> 00:03:58.233
+textures on it. And now you can see the effect. OK. We have
+
+61
+00:03:58.233 --> 00:04:02.233
+exactly the same painting as we had before. but now. we
+
+62
+00:04:02.233 --> 00:04:06.233
+can. with a sufficiently small brush. we can come in and paint
+
+63
+00:04:06.233 --> 00:04:10.233
+dirt where we want it. grass where we want it. and get quite an interesting looking effect.
+
+64
+00:04:10.233 --> 00:04:14.233
+I think. Fantastic. so that is how you use textures. You can use that on a high
+
+65
+00:04:14.233 --> 00:04:18.233
+or a low poly landscape. The other thing I want to show you is. how to make flat shading
+
+66
+00:04:18.233 --> 00:04:22.233
+optional. So. one very simple way of doing that is if you come in and hit
+
+67
+00:04:22.233 --> 00:04:26.233
+C for Comment. you can then put a Comment block. It's better. actually. if
+
+68
+00:04:26.233 --> 00:04:30.233
+you just. before you hit C for Comment. if you select the blocks that you want to comment
+
+69
+00:04:30.233 --> 00:04:34.233
+about. then hit C. and it'll put a Comment block around this. And you can
+
+70
+00:04:34.233 --> 00:04:38.233
+say. Wire to... Oops. if I can type correctly. Wire to
+
+71
+00:04:38.233 --> 00:04:42.233
+Normal for flat shading.
+
+72
+00:04:42.233 --> 00:04:46.233
+OK. Wire to Normal for flat shading. and then.
+
+73
+00:04:46.233 --> 00:04:50.233
+that gives you a group that you can move around. And if we just break the link. by right clicking.
+
+74
+00:04:50.233 --> 00:04:54.233
+and then save. we've got some nodes here that are ready to use if we want to enable
+
+75
+00:04:54.233 --> 00:04:58.233
+Flat Shading. So. that's pretty cool! Let's just save that up and see what that looks like.
+
+76
+00:04:58.233 --> 00:05:02.233
+and what's going to happen now is. we won't have the flat shading anymore. So.
+
+77
+00:05:02.233 --> 00:05:06.233
+on a high poly landscape this is what you would want. You'd want to turn off the Flat Shading like that.
+
+78
+00:05:06.233 --> 00:05:10.233
+and have smooth shading and this will look absolutely fine. There you go!
+
+79
+00:05:10.233 --> 00:05:14.233
+So. this is ready to go for a high poly style. alright.
+
+80
+00:05:14.233 --> 00:05:18.233
+You may get some repetition of your textures. it looks a bit odd on a large landscape.
+
+81
+00:05:18.233 --> 00:05:22.233
+and isotropic filtering on your graphics card will help with that.
+
+82
+00:05:22.233 --> 00:05:26.233
+But at the moment. we're just trying to make the first iteration of this landscape. alright.
+
+83
+00:05:26.233 --> 00:05:30.233
+So. I'm actually going to stick with low poly. so I'm going to delete my landscape material.
+
+84
+00:05:30.233 --> 00:05:34.233
+I don't need that. I'm going to leave FlatLand. I'm going to rewire it to Normal. like that.
+
+85
+00:05:34.233 --> 00:05:38.233
+I want to stick with low poly because I want to get off landscapes now. I want to move
+
+86
+00:05:38.233 --> 00:05:42.233
+onto the tank and moving and controlling the tank. The least fun thing about this game.
+
+87
+00:05:42.233 --> 00:05:46.233
+right now. is not the landscapes. it's the fact it hasn't even got a tank in it. right. But I want
+
+88
+00:05:46.233 --> 00:05:50.233
+to show you a couple of other landscape tools. just before we leave this. So. the first thing I want to show you
+
+89
+00:05:50.233 --> 00:05:54.233
+is the concept of exporting your own height map. So. you come to Landscape
+
+90
+00:05:54.233 --> 00:05:58.233
+tab to sculpt and then down to the target layers. You right-click. it's a bit
+
+91
+00:05:58.233 --> 00:06:02.233
+hidden on the height map. and you can say Export to File. So. I'm just going to do that quickly.
+
+92
+00:06:02.233 --> 00:06:06.233
+I'm just going to call it test. and if I go look at this
+
+93
+00:06:06.233 --> 00:06:10.233
+test. let's go look at the .png. you can see it's a small .png.
+
+94
+00:06:10.233 --> 00:06:14.233
+I need this one. because my landscape is relatively low res. You can see the
+
+95
+00:06:14.233 --> 00:06:18.233
+tiny bit of landscape I've built up on the right-hand side here. just a slightly lighter
+
+96
+00:06:18.233 --> 00:06:22.233
+coloring. Alright. so that's what a height map is. it's a top-down view. Now. luckily one of
+
+97
+00:06:22.233 --> 00:06:26.233
+our students. Chris. has provided us with a much more detailed height map. You're welcome to import
+
+98
+00:06:26.233 --> 00:06:30.233
+that. There it is! So. that is a height map that
+
+99
+00:06:30.233 --> 00:06:34.233
+has got a lot more detail. and it's created with something called TerraGen. Let me just show you how you would
+
+100
+00:06:34.233 --> 00:06:38.233
+import that. if you wanted to. What you could do is. you could add a...
+
+101
+00:06:38.233 --> 00:06:42.233
+Well. actually one of the easiest things to do here is just to create yourself
+
+102
+00:06:42.233 --> 00:06:46.233
+a new scene altogether. So. just make a new level. a new
+
+103
+00:06:46.233 --> 00:06:50.233
+empty level. saving what we've got. and then. work on another level if you want to
+
+104
+00:06:50.233 --> 00:06:54.233
+experiment high versus low. if you're not decided yet. So. in this new level.
+
+105
+00:06:54.233 --> 00:06:58.233
+we can then come to Landscapes. Manage. Import from File.
+
+106
+00:06:58.233 --> 00:07:02.233
+go grab the file that's attached to this very lecture. There it is!
+
+107
+00:07:02.233 --> 00:07:06.233
+Now. notice this is a 5 by 5 kilometer landscape. but we're just going to go with that.
+
+108
+00:07:06.233 --> 00:07:10.233
+for the moment. just so I can demonstrate what this would look like.
+
+109
+00:07:10.233 --> 00:07:14.233
+Now. what we need is a landscape material here. so let's go
+
+110
+00:07:14.233 --> 00:07:18.233
+and find the World Outliner. find the landscape.
+
+111
+00:07:18.233 --> 00:07:22.233
+Go assign a material to it. which I'm going to use Flat
+
+112
+00:07:22.233 --> 00:07:26.233
+Land here. Now. the other problem. if you look. is why
+
+113
+00:07:26.233 --> 00:07:30.233
+is this rendering so poorly in this new scene. Well. if you go compare it to the
+
+114
+00:07:30.233 --> 00:07:34.233
+other scene that we've got. which is the BattleGround. so I better save this scene
+
+115
+00:07:34.233 --> 00:07:38.233
+as BattleGround_High.
+
+116
+00:07:38.233 --> 00:07:42.233
+Let's just go look at the other scene and see what's missing.
+
+117
+00:07:42.233 --> 00:07:46.233
+right. So. if you look in this scene in the World Outliner. we've got Atmospheric Fog a Directional
+
+118
+00:07:46.233 --> 00:07:50.233
+Light. a Light Source. a Lightmassimportance volume. a Player Start.
+
+119
+00:07:50.233 --> 00:07:54.233
+Sky Sphere. We've got all this stuff that we don't have over here
+
+120
+00:07:54.233 --> 00:07:58.233
+in this new BattleGround_Hight. because it was empty when we created it.
+
+121
+00:07:58.233 --> 00:08:02.233
+So. one thing you can do is just paste all that in.
+
+122
+00:08:02.233 --> 00:08:06.233
+I just copied those from the other scene or level
+
+123
+00:08:06.233 --> 00:08:10.233
+and pasted them in here. Now. you can see the beauty of what TerraGen has created. This landscape
+
+124
+00:08:10.233 --> 00:08:14.233
+really does look like it's been crafted with water basically
+
+125
+00:08:14.233 --> 00:08:18.233
+or something like that. It looks very natural. The problem with this landscape. as it stands. is that you
+
+126
+00:08:18.233 --> 00:08:22.233
+could easily drive a tank. say up this valley here. over the top. and then.
+
+127
+00:08:22.233 --> 00:08:26.233
+down the back. and you could end up discovering the end of the world. And we don't want to be discovering
+
+128
+00:08:26.233 --> 00:08:30.233
+the end of the world. So. I just wanted to show you how you could do this type of import. I'm actually not going to use
+
+129
+00:08:30.233 --> 00:08:34.233
+this landscape right now. It's setting the bar too high. It's too beautiful. I'd have to do too much
+
+130
+00:08:34.233 --> 00:08:38.233
+work with materials and textures. and this could turn into a whole course on landscaping. which it
+
+131
+00:08:38.233 --> 00:08:42.233
+isn't. So. I'm going to pop back to my BattleGround. my low poly
+
+132
+00:08:42.233 --> 00:08:46.233
+battleground here. having showed you that. Oh hang on. one more thing!
+
+133
+00:08:46.233 --> 00:08:50.233
+There is one other thing I want to show you. which is you may want to convert a high poly landscape to a low poly landscape.
+
+134
+00:08:50.233 --> 00:08:54.233
+Let me show you a really quick way of doing that! You can go into the Landscaping tool of modes.
+
+135
+00:08:54.233 --> 00:08:58.233
+you can go into Manage. and then. down to Change
+
+136
+00:08:58.233 --> 00:09:02.233
+Component Size. and you can go from 255 quads. say down to 15
+
+137
+00:09:02.233 --> 00:09:06.233
+and select Resample. So. you would reduce your selection size and
+
+138
+00:09:06.233 --> 00:09:10.233
+then Resample. If you apply that. let's just see what that looks like.
+
+139
+00:09:10.233 --> 00:09:14.233
+There you go! So. now we've got a TerraGen generated low poly
+
+140
+00:09:14.233 --> 00:09:18.233
+style landscape. which is quite interesting. but the resampling can
+
+141
+00:09:18.233 --> 00:09:22.233
+lead to some really inconsistent polygon sizes. So. it is a possibility
+
+142
+00:09:22.233 --> 00:09:26.233
+for you changing size but it's not recommended. I would rather you just built low poly
+
+143
+00:09:26.233 --> 00:09:30.233
+landscapes from scratch. because you could get some really weird artifacts that you're seeing here.
+
+144
+00:09:30.233 --> 00:09:34.233
+But you may be interested in that. so I wanted to put it in for you. Let's go back to my
+
+145
+00:09:34.233 --> 00:09:38.233
+low poly landscape here. I'm going to stick with this style
+
+146
+00:09:38.233 --> 00:09:42.233
+for now. and I'm just going to really quickly make it what I'm looking for. which is
+
+147
+00:09:42.233 --> 00:09:46.233
+just a really simple mountainous area around the outside. that
+
+148
+00:09:46.233 --> 00:09:50.233
+prevents us from leaving. So. I'm just going to go ahead and sculpt
+
+149
+00:09:50.233 --> 00:09:54.233
+with a large brush and a strong
+
+150
+00:09:54.233 --> 00:09:58.233
+a strong large brush. and just get it all sculpted up.
+
+151
+00:09:58.233 --> 00:10:02.233
+And it's surprising
+
+152
+00:10:02.233 --> 00:10:06.233
+how well just going around and roughly destroying around the edges of the landscape can
+
+153
+00:10:06.233 --> 00:10:10.233
+actually work. and if you do low poly landscapes like this. then you
+
+154
+00:10:10.233 --> 00:10:14.233
+get to see your geometry and you get a more consistent set of polygon
+
+155
+00:10:14.233 --> 00:10:18.233
+sizes. OK. now Unreal is really good with high poly stuff and you can make
+
+156
+00:10:18.233 --> 00:10:22.233
+beautiful interesting looking high poly landscapes and
+
+157
+00:10:22.233 --> 00:10:26.233
+we'll cover some more of the things like post processing effects and the lights later. But to
+
+158
+00:10:26.233 --> 00:10:30.233
+keep my time down and the amount of time you need to watch me just
+
+159
+00:10:30.233 --> 00:10:34.233
+sculpting landscapes. I'm going to stick with this low poly stuff. but all of the techniques
+
+160
+00:10:34.233 --> 00:10:38.233
+I just showed you apply to high poly as well.
+
+161
+00:10:38.233 --> 00:10:42.233
+
+
+162
+00:10:42.233 --> 00:10:43.266
+
+
+163
+00:10:43.266 --> 00:10:47.266
+
+
+164
+00:10:47.266 --> 00:10:51.266
+
+
+165
+00:10:51.266 --> 00:10:55.266
+So. a little hint for you. if you're having trouble seeing things
+
+166
+00:10:55.266 --> 00:10:59.266
+in shadows. is you can switch from lit to unlit mode. and that will allow you to really
+
+167
+00:10:59.266 --> 00:11:03.266
+quickly just see the landscape without worrying about where the shadows are.
+
+168
+00:11:03.266 --> 00:11:07.266
+Then. you can paint your gravel on the shaded or sloped sides of the
+
+169
+00:11:07.266 --> 00:11:11.266
+mountains. really quite easily. It really only matters what it looks like from the middle of
+
+170
+00:11:11.266 --> 00:11:15.266
+the arena. because that's the only place that the tanks are going to be judging it
+
+171
+00:11:15.266 --> 00:11:19.266
+from. It's quite usual for things that you can't see to not be looking right.
+
+172
+00:11:19.266 --> 00:11:23.266
+that just saves time in the production.
+
+173
+00:11:23.266 --> 00:11:27.266
+So. I'm just going to quickly pop these gravel kind of colors down here.
+
+174
+00:11:27.266 --> 00:11:31.266
+on the sides. making sure that it's good enough for now bearing in mind that
+
+175
+00:11:31.266 --> 00:11:35.266
+you can change everything. and iterate and want to be changing and iterating regularly.
+
+176
+00:11:35.266 --> 00:11:39.266
+And then. we are done. we have an arena! You've seen high poly. you've seen low poly.
+
+177
+00:11:39.266 --> 00:11:43.266
+you've seen flat shaded. you've seen smooth shaded.
+
+178
+00:11:43.266 --> 00:11:47.266
+you've seen using materials that use either textures or just
+
+179
+00:11:47.266 --> 00:11:51.266
+flat colors. and basically you have everything you need to create simple
+
+180
+00:11:51.266 --> 00:11:55.266
+landscapes. or even go and get yourself a trial of TerraGen or the like and make something
+
+181
+00:11:55.266 --> 00:11:59.266
+really really fantastic looking. So. if I go back to Lit now. then we have
+
+182
+00:11:59.266 --> 00:12:03.266
+a pretty cool looking low poly layout. It's fine
+
+183
+00:12:03.266 --> 00:12:07.266
+for me. it's a great arena. and I'll see you in the next video where we'll
+
+184
+00:12:07.266 --> 00:12:09.032
+start actually making the tanks work!
+

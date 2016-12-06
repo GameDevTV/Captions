@@ -1,0 +1,138 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Hey and welcome to section 3! I am really excited
+
+2
+00:00:04.000 --> 00:00:08.000
+that we're about to actually dive into the Unreal Editor and
+
+3
+00:00:08.000 --> 00:00:12.000
+start slowly uncovering all of the power. Now I do warn you. some of the things. when we
+
+4
+00:00:12.000 --> 00:00:16.000
+get in there. are going to be a little bit scary. especially when it comes to the C++
+
+5
+00:00:16.000 --> 00:00:20.000
+code that Unreal will be generating for us. but don't worry. we will dive in step by
+
+6
+00:00:20.000 --> 00:00:24.000
+step and start to understand it. This section is going to be focused on escaping
+
+7
+00:00:24.000 --> 00:00:28.000
+a building. so we're going to be building interiors. things on a several
+
+8
+00:00:28.000 --> 00:00:32.000
+meter scale. We're going to be using Trigger Volumes and Environmental
+
+9
+00:00:32.000 --> 00:00:36.000
+Cues. to give yourself a Static Mesh
+
+10
+00:00:36.000 --> 00:00:40.000
+based puzzle experience. So. by static mesh I mean we're not using animations
+
+11
+00:00:40.000 --> 00:00:44.000
+or Skeletal Meshes. we'll keep it simple for now. And we're going to be just trying to get
+
+12
+00:00:44.000 --> 00:00:48.000
+out of the building. and I'm going to leave you lots of scope to make the building how
+
+13
+00:00:48.000 --> 00:00:52.000
+you like. And we're going to be focusing. really. on how the C++
+
+14
+00:00:52.000 --> 00:00:56.000
+classes are going to talk to Blueprint. where appropriate. and how we're going to trigger the sort of
+
+15
+00:00:56.000 --> 00:01:00.000
+behaviors we want to trigger. Now. we will be using both C++ and
+
+16
+00:01:00.000 --> 00:01:04.000
+Blueprint. The reason for that is just that some things are better done in Blueprint. like
+
+17
+00:01:04.000 --> 00:01:08.000
+the way that a door opens. defining the curve with which that
+
+18
+00:01:08.000 --> 00:01:12.000
+motion happens. much better done in blueprint. Sometimes it's easier to reference things in
+
+19
+00:01:12.000 --> 00:01:16.000
+your scene. using Blueprint. and sometimes it's easier to wire
+
+20
+00:01:16.000 --> 00:01:20.000
+assets through Blueprint than trying to wire assets directly into
+
+21
+00:01:20.000 --> 00:01:24.000
+C++. because then things can be changed and manipulated much more easily.
+
+22
+00:01:24.000 --> 00:01:28.000
+But this is a C++ Unreal course. so fundamentally we're going to be making sure that
+
+23
+00:01:28.000 --> 00:01:32.000
+C++ is always there with us. that we base all our Blueprint classes on C++
+
+24
+00:01:32.000 --> 00:01:36.000
+classes. or at least have the ability to reparent them later. which will
+
+25
+00:01:36.000 --> 00:01:40.000
+make sense when we get there. So. this is going to lay the foundations for
+
+26
+00:01:40.000 --> 00:01:44.000
+using the editor for you. really getting comfortable with the Unreal Editor.
+
+27
+00:01:44.000 --> 00:01:48.000
+for understanding how C++ code can be accessed in
+
+28
+00:01:48.000 --> 00:01:52.000
+Blueprint; for instance an event. our lock code may unlock a door and that
+
+29
+00:01:52.000 --> 00:01:56.000
+event may appear in a Blueprint and also how we can call into C++ code
+
+30
+00:01:56.000 --> 00:02:00.000
+from a Blueprint Flowchart. So. it's going to be exciting! I look forward to working
+
+31
+00:02:00.000 --> 00:02:04.000
+with you on it. I must warn you. at this time of recording. this is an early access section.
+
+32
+00:02:04.000 --> 00:02:08.000
+which means that some things may change. but come with me. have your say.
+
+33
+00:02:08.000 --> 00:02:12.000
+get involved. and let's go and learn Unreal!
+
+34
+00:02:12.000 --> 00:02:12.466
+
+

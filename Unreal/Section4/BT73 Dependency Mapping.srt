@@ -1,0 +1,594 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So welcome to
+
+2
+00:00:04.000 --> 00:00:08.000
+Dependency Mapping! What we're go to do in this video is learn a very useful technique for analyzing
+
+3
+00:00:08.000 --> 00:00:12.000
+our C++ and header files and finding out what depends
+
+4
+00:00:12.000 --> 00:00:15.766
+on what. So let's dive in and make that happen!
+
+5
+00:00:15.766 --> 00:00:19.766
+So let's just have a quick recap of what we've done lately. We've refactored our
+
+6
+00:00:19.766 --> 00:00:23.766
+AimingComponent. in order to make it completely
+
+7
+00:00:23.766 --> 00:00:27.766
+independent. so it could sit on the tank independently of anything else.
+
+8
+00:00:27.766 --> 00:00:31.766
+Basically it could be added and removed from the tank at will. except from of course.
+
+9
+00:00:31.766 --> 00:00:35.766
+we need to initialize it here. I'm just going to remove this
+
+10
+00:00:35.766 --> 00:00:39.766
+Print String. by the way. We don't need these Print Strings. so wherever I see these logs I'm just going to get
+
+11
+00:00:39.766 --> 00:00:43.766
+rid of them. Also. by the way. my tabs are still opening
+
+12
+00:00:43.766 --> 00:00:47.766
+in the wrong place. I want them opening here in the main window. The way to make that change stick is
+
+13
+00:00:47.766 --> 00:00:51.766
+to go to Edit. and Editor Preferences.
+
+14
+00:00:51.766 --> 00:00:55.766
+under Appearance you go Asset Editor Open Location. Let's make that the Main
+
+15
+00:00:55.766 --> 00:00:59.766
+Window. but this time let's click Set as Default. Yes we want to update the default
+
+16
+00:00:59.766 --> 00:01:03.766
+settings. and Yes we want to write to the settings
+
+17
+00:01:03.766 --> 00:01:07.766
+file. It may impact other developers. OK what you'll see in source control is
+
+18
+00:01:07.766 --> 00:01:11.766
+that we have a new file here. which is the DefaultEditor
+
+19
+00:01:11.766 --> 00:01:15.766
+PerProjectUserSettings.ini. What a mouth full! Anyway. we refactored our
+
+20
+00:01:15.766 --> 00:01:19.766
+AimingComponent. The purpose was that we then have this independent AimingComponent that can be
+
+21
+00:01:19.766 --> 00:01:23.766
+added or removed from the tank at will. We then went on and talked about the constructor
+
+22
+00:01:23.766 --> 00:01:27.766
+and begin play timing. and we did some timing decoupling of our architecture.
+
+23
+00:01:27.766 --> 00:01:31.766
+We prevented the startup from being
+
+24
+00:01:31.766 --> 00:01:35.766
+dependent on the order that things happen in. So more specifically what we did.
+
+25
+00:01:35.766 --> 00:01:39.766
+if we remember. is we want into... Where's the TankPlayer
+
+26
+00:01:39.766 --> 00:01:43.766
+Controller? Our TankPlayerController had this Event Found
+
+27
+00:01:43.766 --> 00:01:47.766
+Aiming Component reference. which goes ahead and only creates the crosshair
+
+28
+00:01:47.766 --> 00:01:51.766
+when the AimingComponent is found. if you'll remember. and then. we
+
+29
+00:01:51.766 --> 00:01:55.766
+set this blueprint variable. While we're on here. if you don't like these lines
+
+30
+00:01:55.766 --> 00:01:59.766
+doing this crossing through. you can add something called a reroot node. which
+
+31
+00:01:59.766 --> 00:02:03.766
+is at the bottom of your blueprint menu. You can then drag
+
+32
+00:02:03.766 --> 00:02:07.766
+into that and then out of that. and what you get is you get a
+
+33
+00:02:07.766 --> 00:02:11.766
+simpler. cleaner. line. I would only do this once your blueprint design has
+
+34
+00:02:11.766 --> 00:02:15.766
+been settled and simplified. because otherwise you create constraints that
+
+35
+00:02:15.766 --> 00:02:19.766
+mean you can't move things around so easily. Anyway that's where we got to with
+
+36
+00:02:19.766 --> 00:02:23.766
+that. And then. we used the ensure assertion to catch
+
+37
+00:02:23.766 --> 00:02:27.766
+things like null pointer errors. in a much more helpful way. but at this stage
+
+38
+00:02:27.766 --> 00:02:31.766
+in the project we have a horrible problem looking. which is that our architecture isn't
+
+39
+00:02:31.766 --> 00:02:35.766
+very nice. And how do we even know our architecture's not very nice? Well the symptom
+
+40
+00:02:35.766 --> 00:02:39.766
+is that we've still got problems. not everything is working. we've got
+
+41
+00:02:39.766 --> 00:02:43.766
+some null pointers. etc. Now we can go through and sort those out but
+
+42
+00:02:43.766 --> 00:02:47.766
+I want to show you a formal way of mapping your architecture. and whenever you feel that your
+
+43
+00:02:47.766 --> 00:02:51.766
+project's getting a little bit out of hand. this is what we need to do. What I want you to do
+
+44
+00:02:51.766 --> 00:02:55.766
+is to go to the Private folder and start with the Projectile.cpp.
+
+45
+00:02:55.766 --> 00:02:59.766
+and note that yes it includes the BattleTank
+
+46
+00:02:59.766 --> 00:03:03.766
+and yes it includes the Projectile header but it doesn't include anything else. Everything
+
+47
+00:03:03.766 --> 00:03:07.766
+includes BattleTank. so everything depends on BattleTank.h because
+
+48
+00:03:07.766 --> 00:03:11.766
+this is the Battle Tank project. That's fine but projectile depends on
+
+49
+00:03:11.766 --> 00:03:15.766
+nothing else. So I'm going to start drawing a diagram. only about
+
+50
+00:03:15.766 --> 00:03:19.766
+the aiming part of the architecture. and I'm going to start there with a projectile class
+
+51
+00:03:19.766 --> 00:03:23.766
+saying it doesn't depend on anything. So let me continue. the Tank.
+
+52
+00:03:23.766 --> 00:03:27.766
+The Tank depends on all this stuff in the middle. not the BattleTank. not the Tank
+
+53
+00:03:27.766 --> 00:03:31.766
+itself obviously. but it does depend on the Barrel. the Projectile. the Aiming. and the Movement
+
+54
+00:03:31.766 --> 00:03:35.766
+Components. Let's look at that on a diagram. The Tank depends on the
+
+55
+00:03:35.766 --> 00:03:39.766
+Barrel. the Projectile. the Aiming.
+
+56
+00:03:39.766 --> 00:03:43.766
+and I've left out the TankMovementComponent for clarity. as I said. OK. I'm
+
+57
+00:03:43.766 --> 00:03:47.766
+going to do one more. and then. I'm going to leave it to you to do this  Dependency Mapping. which you literally do through
+
+58
+00:03:47.766 --> 00:03:51.766
+the .cpp files like this. OK so the TankAI
+
+59
+00:03:51.766 --> 00:03:55.766
+Controller.cpp. what does that depend on?
+
+60
+00:03:55.766 --> 00:03:59.766
+Tank. OK so you what you do is you come in and you draw the AI Controller and you
+
+61
+00:03:59.766 --> 00:04:03.766
+say it depends on the tank. Now I don't care how your diagram is laid down. mathematically this thing
+
+62
+00:04:03.766 --> 00:04:07.766
+is called a graph and all I care about is how it's connected. There's an infinite number of
+
+63
+00:04:07.766 --> 00:04:11.766
+ways you could draw this. But I want you to carry on this process and finish off this
+
+64
+00:04:11.766 --> 00:04:15.766
+diagram. by working down the .cpp files. I'm not going to put a challenge slide up.
+
+65
+00:04:15.766 --> 00:04:19.766
+because it would mess up the transition of this nice diagram. but I want you to pause the video and
+
+66
+00:04:19.766 --> 00:04:23.766
+finish this dependency diagram right now. It's really important you spend the time thinking about this.
+
+67
+00:04:23.766 --> 00:04:27.766
+
+
+68
+00:04:27.766 --> 00:04:31.766
+OK so how have you got on? I'm just going to carry on! It's a very simple task actually.
+
+69
+00:04:31.766 --> 00:04:35.766
+but it brings up some really interesting questions. You'll just be able to see that this is not
+
+70
+00:04:35.766 --> 00:04:39.766
+right. So the TankAimingComponent depends on the Barrel and the Turret.
+
+71
+00:04:39.766 --> 00:04:43.766
+TankAimingComponent depends on. which means that it imports the code of. That's what I mean
+
+72
+00:04:43.766 --> 00:04:47.766
+by depends on the Barrel and the Turret. OK what does the Barrel
+
+73
+00:04:47.766 --> 00:04:51.766
+depend on? Nothing. because it's just two. What does the MovementComponent depend on? We don't care
+
+74
+00:04:51.766 --> 00:04:55.766
+because we're not dealing with that. at the moment. What does the PlayerController depend on? The AimingComponent
+
+75
+00:04:55.766 --> 00:04:59.766
+and the Tank. Wow! The PlayerController depends on the AimingComponent
+
+76
+00:04:59.766 --> 00:05:03.766
+and the Tank! How do you guys let me get it into this state?! I'm surprised
+
+77
+00:05:03.766 --> 00:05:07.766
+nobody noticed me sneaking you into this horrible corner! The Track and
+
+78
+00:05:07.766 --> 00:05:11.766
+the Turret depend on nothing. So look just take a look at that. what does it look like to you?
+
+79
+00:05:11.766 --> 00:05:15.766
+Well it may seem acceptable to you but it certainly isn't to me. This is what we call
+
+80
+00:05:15.766 --> 00:05:19.766
+spaghetti! This is not a good architecture! How do we know formally it's
+
+81
+00:05:19.766 --> 00:05:23.766
+not a good architecture? We have loops. well we at least have diamonds here.
+
+82
+00:05:23.766 --> 00:05:27.766
+so the Turret... Where's a diamond? A diamond here with the Barrel and
+
+83
+00:05:27.766 --> 00:05:31.766
+the Player Controller. So what you've got is you've got two ways of going from the Player
+
+84
+00:05:31.766 --> 00:05:35.766
+Controller down to the Barrel. I don't like that. that is pretty minging.
+
+85
+00:05:35.766 --> 00:05:39.766
+We have two things referencing the Barrel. that's not too bad but
+
+86
+00:05:39.766 --> 00:05:43.766
+it's not necessary here. We don't need both the Tank and the Aiming Component to know about the
+
+87
+00:05:43.766 --> 00:05:47.766
+Barrel. In fact the tank doesn't need to know about the barrel. If you remember. I even
+
+88
+00:05:47.766 --> 00:05:51.766
+started to hint at that in the Tank header file. I said. down here.
+
+89
+00:05:51.766 --> 00:05:55.766
+that we could remove the Barrel pointer in the future. So we're starting to get
+
+90
+00:05:55.766 --> 00:05:59.766
+the idea. but look that architecture stinks. it just isn't good.
+
+91
+00:05:59.766 --> 00:06:03.766
+So what are we going to do about it? What target architecture do we want? Well what I want
+
+92
+00:06:03.766 --> 00:06:07.766
+to head towards is just that. Now let's flick between them a couple of times.
+
+93
+00:06:07.766 --> 00:06:11.766
+I know they move slightly but the AI Controller and the Player Controller. at the top here. are in the same
+
+94
+00:06:11.766 --> 00:06:15.766
+place there. The Tank has disappeared.
+
+95
+00:06:15.766 --> 00:06:19.766
+We actually don't need to send everything through the tank. We could. in this architecture. put the
+
+96
+00:06:19.766 --> 00:06:23.766
+Tank where I'm indicating on the diagram. above the Aiming Component. and we could send all
+
+97
+00:06:23.766 --> 00:06:27.766
+these commands through the Tank if we needed to. You would tend to only do that if
+
+98
+00:06:27.766 --> 00:06:31.766
+this code that's calling the Tank is not re-factorable for
+
+99
+00:06:31.766 --> 00:06:35.766
+whatever reason. but as we can refactor this code. we can re-point this to call
+
+100
+00:06:35.766 --> 00:06:39.766
+straight to the Aiming Component. OK. so we don't have a Tank at all.
+
+101
+00:06:39.766 --> 00:06:43.766
+the Aiming Component is still here but it's just in the middle now. and then. Projectile.
+
+102
+00:06:43.766 --> 00:06:47.766
+Barrel. and Turret are at the bottom but look at how simple and clean this is.
+
+103
+00:06:47.766 --> 00:06:51.766
+For aiming [we're talking about aiming here]the AI Controller
+
+104
+00:06:51.766 --> 00:06:55.766
+and the Player Controller just talk straight to the Aiming Component. the Aiming Component needs the Projectile.
+
+105
+00:06:55.766 --> 00:06:59.766
+the Barrel. and the Turret to do it's job. Simple and it's not that hard
+
+106
+00:06:59.766 --> 00:07:05.900
+for us to get to that architecture. By the way. while we're there let's just look at the Movement Component architecture. It's pretty much like this. as we are.
+
+107
+00:07:05.900 --> 00:07:09.900
+So firstly. what we have is Input. it's not really a C++
+
+108
+00:07:09.900 --> 00:07:13.900
+class in the same way. so I'll put it green and also put a dotted line
+
+109
+00:07:13.900 --> 00:07:17.900
+to indicate it's not the same type of dependency. But of course. if you go to your project and you go to
+
+110
+00:07:17.900 --> 00:07:21.900
+the tank blueprint. then we have this dependency here where Input
+
+111
+00:07:21.900 --> 00:07:25.900
+Binding uses the Tank Movement Component. so I wanted to bring that to the surface.
+
+112
+00:07:25.900 --> 00:07:29.900
+We also have the AI Controller. somewhat implicitly
+
+113
+00:07:29.900 --> 00:07:33.900
+depending on the Movement Component via the Pathfinding Logic. You'll remember how that
+
+114
+00:07:33.900 --> 00:07:37.900
+worked. If we look at the TankAIController.cpp
+
+115
+00:07:37.900 --> 00:07:41.900
+it makes a call into MoveToActor. the Pathfinding Logic does stuff with that.
+
+116
+00:07:41.900 --> 00:07:45.900
+and eventually. in the MovementComponent. we end up with RequestDirectMove.
+
+117
+00:07:45.900 --> 00:07:49.900
+So we do have a dependency there. I think because we have that dependency
+
+118
+00:07:49.900 --> 00:07:53.900
+between the AI Controller and the Pathfinding. I'm going to pop it at the top of
+
+119
+00:07:53.900 --> 00:07:57.900
+the file here. So this is saying that the AI Controller has a
+
+120
+00:07:57.900 --> 00:08:01.900
+dependency here. I'm going to write "// Depends on movement component
+
+121
+00:08:01.900 --> 00:08:05.900
+via pathfinding system". I wrote it a few seconds offline. so you don't
+
+122
+00:08:05.900 --> 00:08:09.900
+just see me typing it. So that's up in the header. so that we can shake out the dependencies.
+
+123
+00:08:09.900 --> 00:08:13.900
+We could do the same thing with the Input. although there's no way to write
+
+124
+00:08:13.900 --> 00:08:17.900
+that. so I can't actually comment on the Input. It's going to be pretty obvious
+
+125
+00:08:17.900 --> 00:08:21.900
+what Input depends on in the blueprint. it's not quite as easy to search for.
+
+126
+00:08:21.900 --> 00:08:25.900
+So finally. the Movement Component depends on
+
+127
+00:08:25.900 --> 00:08:29.900
+the tracks right. So if we go to the TankMovementComponent. it should
+
+128
+00:08:29.900 --> 00:08:33.900
+depend on tracks. So that's effectively our movement architecture. All we need to
+
+129
+00:08:33.900 --> 00:08:37.900
+do to get to the architecture is to just go into the Tank.cpp
+
+130
+00:08:37.900 --> 00:08:41.900
+and remove the TankMovementComponent header file. because we're not actually using
+
+131
+00:08:41.900 --> 00:08:45.900
+that. If you're not sure. then what you do is you do a search for
+
+132
+00:08:45.900 --> 00:08:49.900
+UTankMovementComponent
+
+133
+00:08:49.900 --> 00:08:53.900
+in this file. Anyway it's already not showing up. The other thing
+
+134
+00:08:53.900 --> 00:08:57.900
+we need to do is to go to the tank header file and remove the UTankMovementComponent
+
+135
+00:08:57.900 --> 00:09:01.900
+reference there. And I think that's the majority of
+
+136
+00:09:01.900 --> 00:09:05.900
+it actually. it's just getting rid of those things... Ah here yes! The TankMovement
+
+137
+00:09:05.900 --> 00:09:09.900
+Component pointer. in the tank header file. we don't need that either. So we've
+
+138
+00:09:09.900 --> 00:09:13.900
+flushed all the Movement Component stuff out of the Tank. We still have this
+
+139
+00:09:13.900 --> 00:09:17.900
+architecture. There is no Tank featuring there. There is no Tank featuring here.
+
+140
+00:09:17.900 --> 00:09:21.900
+And what we're going to do. in the next video. is to focus on
+
+141
+00:09:21.900 --> 00:09:25.900
+getting to this architecture. It's going to be a big refactor video. so make sure
+
+142
+00:09:25.900 --> 00:09:29.900
+that you've got 20 minutes. at least. to watch the video and
+
+143
+00:09:29.900 --> 00:09:33.900
+more time to actually do the challenge of the refactor yourself. So it's going to be fun. it's going to be a much
+
+144
+00:09:33.900 --> 00:09:37.900
+nicer system for it. I'm just going to pop back into Unreal and make sure that we compiled.
+
+145
+00:09:37.900 --> 00:09:41.900
+If you compile a second time. of course. it's much quicker. I'm just going to make sure that things
+
+146
+00:09:41.900 --> 00:09:45.900
+work. i.e. that I can move. I just turned my controller on. and that
+
+147
+00:09:45.900 --> 00:09:49.900
+they can move. Yep. so movement still works! So in good shape and
+
+148
+00:09:49.900 --> 00:09:53.133
+I'll see you in the next video!
+

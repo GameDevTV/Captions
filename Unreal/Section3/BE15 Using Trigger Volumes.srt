@@ -1,0 +1,618 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So. welcome to Using
+
+2
+00:00:04.000 --> 00:00:08.000
+Trigger Volume! It's going to unlock a load of power in Unreal! In this video. we're going to talk about
+
+3
+00:00:08.000 --> 00:00:12.000
+trigger volume being a very versatile tool. especially if you get a 3D volume
+
+4
+00:00:12.000 --> 00:00:16.000
+that detects thing entering or leaving it. We're going to use one as
+
+5
+00:00:16.000 --> 00:00:20.000
+a pressure plate in our game. and we're going to show you how we can
+
+6
+00:00:20.000 --> 00:00:24.000
+go about specifying which objects in the game can
+
+7
+00:00:24.000 --> 00:00:28.000
+actually open a door. The method we're going to use is IsOverlapping
+
+8
+00:00:28.000 --> 00:00:32.000
+Actor() on ATriggerVolume. And we'll briefly be talking about
+
+9
+00:00:32.000 --> 00:00:36.000
+poling. which is what we're going to be doing. Every frame we're going to be asking. has it overlapped. has it overlapped. has it overlapped?
+
+10
+00:00:36.000 --> 00:00:40.000
+Like a kid that's asking whether or not the car has arrived at their destination. "Are we there yet daddy?".
+
+11
+00:00:40.000 --> 00:00:44.000
+versus using events. which we're not going to do here. But later. we'll get much more grown up
+
+12
+00:00:44.000 --> 00:00:48.000
+and we'll use an Event Driven System. which is where the adult turns around and says. hey kids we're there.
+
+13
+00:00:48.000 --> 00:00:52.000
+and the kids never bug them all the way. but we're not quite at events yet. We're just going to poll
+
+14
+00:00:52.000 --> 00:00:56.000
+for now. and let's get in and see how it works! By the way. by the end.
+
+15
+00:00:56.000 --> 00:00:59.966
+what's going to happen is. as I go over this pressure plate. at least one of these doors will open.
+
+16
+00:00:59.966 --> 00:01:03.966
+So welcome back guys. I'm pretty excited to get this hooked up! Now. of course. by
+
+17
+00:01:03.966 --> 00:01:07.966
+changing this OpenDoor code. we're going to be changing the behavior
+
+18
+00:01:07.966 --> 00:01:11.966
+of both doors. which is pretty cool! This is the benefit of a component. we are recycling
+
+19
+00:01:11.966 --> 00:01:15.966
+behavior. Whatever we do to one open door. why it's just one thing isn't it?
+
+20
+00:01:15.966 --> 00:01:19.966
+It's one component. one piece of code. one .h file. one .cpp.
+
+21
+00:01:19.966 --> 00:01:23.966
+So that's pretty cool right. and then both of these doors get this new behavior!
+
+22
+00:01:23.966 --> 00:01:27.966
+So. what I want to happen next. and this is just a simple design decision.
+
+23
+00:01:27.966 --> 00:01:31.966
+is I want our designer or the designer part of you to be able
+
+24
+00:01:31.966 --> 00:01:35.966
+to choose what this pressure plate or
+
+25
+00:01:35.966 --> 00:01:39.966
+what this door opening code can actually
+
+26
+00:01:39.966 --> 00:01:43.966
+be triggered by. and. in our case. it's going to be
+
+27
+00:01:43.966 --> 00:01:47.966
+the pawn. So. if we play the game and then we Eject
+
+28
+00:01:47.966 --> 00:01:51.966
+ourselves from possession of this pawn. that's now sitting here.
+
+29
+00:01:51.966 --> 00:01:55.966
+you can see it's called a Default Pawn. it's in the World Outliner.
+
+30
+00:01:55.966 --> 00:01:59.966
+And it's this Default Pawn hitting the pressure plate. that we're
+
+31
+00:01:59.966 --> 00:02:03.966
+going to have actually open the door. and normally. in a game like this we'd be using
+
+32
+00:02:03.966 --> 00:02:07.966
+a slightly richer object called a character. The problem is that. that comes with
+
+33
+00:02:07.966 --> 00:02:11.966
+even more boiler plate code. so we'll just leave that for later
+
+34
+00:02:11.966 --> 00:02:15.966
+on. OK. so how are we going to do this then?
+
+35
+00:02:15.966 --> 00:02:19.966
+What I want to be able to do is. I want to be able to click on a door.
+
+36
+00:02:19.966 --> 00:02:23.966
+go to details. go to Open Door. and then. have an option here that says: "OK.
+
+37
+00:02:23.966 --> 00:02:27.966
+what could open this door or these doors? OK. it doesn't give us the flexibility
+
+38
+00:02:27.966 --> 00:02:31.966
+to choose different things for different doors. but you could choose different trigger volumes
+
+39
+00:02:31.966 --> 00:02:35.966
+for different doors. and they could even be on top of each other. those trigger door volumes. So. we could
+
+40
+00:02:35.966 --> 00:02:39.966
+have two trigger volumes on top of each other. One effectively linked to this door. one linked to this
+
+41
+00:02:39.966 --> 00:02:43.966
+door. and then. they could behave differently. so it's pretty flexible. Alright. so
+
+42
+00:02:43.966 --> 00:02:47.966
+how are we going to do it? We need to. firstly.
+
+43
+00:02:47.966 --> 00:02:51.966
+say what Actor is going to do the triggering. so let's go across to our code.
+
+44
+00:02:51.966 --> 00:02:55.966
+How do we get to the code? Well. one way is click on the Open Door. right-click. Open Open
+
+45
+00:02:55.966 --> 00:02:59.966
+Door.h. It'll take us to the header file. and from there. we can very quickly get over to the
+
+46
+00:02:59.966 --> 00:03:03.966
+.cpp. but it's actually the header file we need.
+
+47
+00:03:03.966 --> 00:03:07.966
+Now. it's going to be in the private section again. it's going to be a UPROPERTY again. it's
+
+48
+00:03:07.966 --> 00:03:11.966
+going to be editable anywhere. and instead of being ATriggerVolume
+
+49
+00:03:11.966 --> 00:03:15.966
+*. it's just going to be an actor. *Remember that
+
+50
+00:03:15.966 --> 00:03:19.966
+pawn inherits from Actor. Remember the inheritance. I'm just going to put a comment in here for you.
+
+51
+00:03:19.966 --> 00:03:23.966
+We have. in fact. I'll just put the comment right here.
+
+52
+00:03:23.966 --> 00:03:27.966
+"// Remember pawn inherits from actor".
+
+53
+00:03:27.966 --> 00:03:31.966
+OK. how do I know it's a pawn. by the way? As I said.
+
+54
+00:03:31.966 --> 00:03:35.966
+I've brushed over it. but let me just go back real quick! When we play the game and Eject ourselves
+
+55
+00:03:35.966 --> 00:03:39.966
+and then look back at who we are and click on ourselves. in the game.
+
+56
+00:03:39.966 --> 00:03:43.966
+you can see that we are called DefaultPawn2. Look in the World Outliner.
+
+57
+00:03:43.966 --> 00:03:47.966
+it's one of these yellow temporary items. that only exist at play time.
+
+58
+00:03:47.966 --> 00:03:51.966
+Alright. and remember from the Class Hierarchy. Window.
+
+59
+00:03:51.966 --> 00:03:55.966
+Developer Tools. Class Viewer. that we have Actor.
+
+60
+00:03:55.966 --> 00:03:59.966
+and then. if you drill inside Actor you'll get Pawn. OK. so that's what I mean that Pawn is
+
+61
+00:03:59.966 --> 00:04:03.966
+inherited from Actor. So. we're using an Actor because it's
+
+62
+00:04:03.966 --> 00:04:07.966
+more general. You could say a Pawn. or just type type the word...
+
+63
+00:04:07.966 --> 00:04:11.966
+Ooh. I've got my insert off! Type the word pawn.
+
+64
+00:04:11.966 --> 00:04:15.966
+spelled correctly. of course. And you find
+
+65
+00:04:15.966 --> 00:04:19.966
+APawn and then you're being even more specific. So. we can do that if you wish.
+
+66
+00:04:19.966 --> 00:04:23.966
+APawn or AActor. I'm going to use AActor. It doesn't really matter here
+
+67
+00:04:23.966 --> 00:04:27.966
+which we use. AActor
+
+68
+00:04:27.966 --> 00:04:31.966
+ActorThatOpens. because we want chairs
+
+69
+00:04:31.966 --> 00:04:35.966
+to be open. That's a hint as to what's going to come later. but we might
+
+70
+00:04:35.966 --> 00:04:39.966
+want a chair to be able to open this door. That's why I'm going to the Actor level. rather than down to the
+
+71
+00:04:39.966 --> 00:04:43.966
+Pawn level. and we'll understand a lot more about what Actors and Pawns are later. And also. just
+
+72
+00:04:43.966 --> 00:04:47.966
+by immersion just by coming into our scene and looking at things and saying. well you know
+
+73
+00:04:47.966 --> 00:04:51.966
+what's a chair? Well. it's a Static Mesh Actor. And you know.
+
+74
+00:04:51.966 --> 00:04:55.966
+what are we? We're a Pawn which is more specialized. So. you'll start getting used to this.
+
+75
+00:04:55.966 --> 00:04:59.966
+So. we're going to say AActor*. because everything is a pointer.
+
+76
+00:04:59.966 --> 00:05:03.966
+ActorThatOpen. OK so when I now build this
+
+77
+00:05:03.966 --> 00:05:07.966
+code. what we're going to get
+
+78
+00:05:07.966 --> 00:05:11.966
+probably as you expect over in here... I'm going to be bold and go over to Unreal.
+
+79
+00:05:11.966 --> 00:05:15.966
+being aware of the bottom-right of the screen. where if it works we'll get "Hot Reload Completed!".
+
+80
+00:05:15.966 --> 00:05:19.966
+Cool! Finally. I'll click on a door. go to the details.
+
+81
+00:05:19.966 --> 00:05:23.966
+OpenDoor component. You see. Actor that opens. and of course. I
+
+82
+00:05:23.966 --> 00:05:27.966
+can't choose it right now. because I'm not in the scene. Now. we'll deal with
+
+83
+00:05:27.966 --> 00:05:31.966
+how we find the pawn that isn't here until we're running later. but
+
+84
+00:05:31.966 --> 00:05:35.966
+I'll show you a cool way of attaching it for testing purposes in a minute. Firstly.
+
+85
+00:05:35.966 --> 00:05:40.166
+we need to just do a little bit more code. right. What we need to do is go to the OpenDoor.cpp.
+
+86
+00:05:40.166 --> 00:05:43.966
+All of this stuff up here. in begin play that opens the door where we find the
+
+87
+00:05:43.966 --> 00:05:47.966
+owning actor. create a rotator. and set the door rotation. Let's refactor this out! You can highlight
+
+88
+00:05:47.966 --> 00:05:51.966
+it. Quick Actions. Extract Function.
+
+89
+00:05:51.966 --> 00:05:55.966
+OK. and let's just call it OpenDoor.
+
+90
+00:05:55.966 --> 00:05:59.966
+And that's a lot easier to read now. isn't it? On BeginPlay() we were opening the door. Well. we're
+
+91
+00:05:59.966 --> 00:06:03.966
+no longer going to open the door and begin play. I've got to move
+
+92
+00:06:03.966 --> 00:06:07.966
+that OK. so now. of course. the door just wouldn't open. And what we're going to do
+
+93
+00:06:07.966 --> 00:06:11.966
+is we're going to poll every frame. We're going to "// Poll the
+
+94
+00:06:11.966 --> 00:06:15.966
+Trigger Volume" every frame.
+
+95
+00:06:15.966 --> 00:06:19.966
+Now. pseudocode programming here. We're going to say "// If the
+
+96
+00:06:19.966 --> 00:06:23.966
+ActorThatOpens" I think we called it. didn't
+
+97
+00:06:23.966 --> 00:06:27.966
+we. Yeah. "// If the
+
+98
+00:06:27.966 --> 00:06:31.966
+ActorThatOpens is in the
+
+99
+00:06:31.966 --> 00:06:35.966
+volume" then we "// Open the door"... In fact.
+
+100
+00:06:35.966 --> 00:06:39.966
+I've already got the code for opening the door. but it's not in my paste buffer. so
+
+101
+00:06:39.966 --> 00:06:44.966
+we'll just go Open
+
+102
+00:06:44.966 --> 00:06:47.966
+Door(); Cool! OK. so that's what
+
+103
+00:06:47.966 --> 00:06:51.966
+we want to happen! Now. at the moment. it's going to open the door every frame.
+
+104
+00:06:51.966 --> 00:06:55.966
+So. how do we poll the Trigger Volume and what do I mean by polling it? Well. I'm literally.
+
+105
+00:06:55.966 --> 00:06:59.966
+every single frame. going to just say
+
+106
+00:06:59.966 --> 00:07:03.966
+if... Now. if what? We have to work out what we're asking. Well.
+
+107
+00:07:03.966 --> 00:07:07.966
+we're going to look at the PressurePlate. if
+
+108
+00:07:07.966 --> 00:07:11.966
+type (PressurePlate)...
+
+109
+00:07:11.966 --> 00:07:15.966
+There it is! Now. what is (PressurePlate)? Hover over it. It's a Trigger Volume
+
+110
+00:07:15.966 --> 00:07:19.966
+pointer. so we need to use the arrow operator. Now. how would you
+
+111
+00:07:19.966 --> 00:07:23.966
+know what you can pull off it? Well. difficult!
+
+112
+00:07:23.966 --> 00:07:27.966
+You're going to scroll through. you're going to do a Google search. I mean. obviously. I'm going to tel you right. but I'm trying to tell you how
+
+113
+00:07:27.966 --> 00:07:31.966
+you'd work it out for yourself. You're going to scroll through. you're going to whatever...
+
+114
+00:07:31.966 --> 00:07:35.966
+Is it when something enters the volume? Oh. what was that about overlap?
+
+115
+00:07:35.966 --> 00:07:39.966
+Ah. OnActorEndOverlap! So. maybe it's when the Actor
+
+116
+00:07:39.966 --> 00:07:43.966
+overlaps the volume. So. if we did a search for overlap...
+
+117
+00:07:43.966 --> 00:07:47.966
+Oh hang on! Sorry. I went off. Do a search for overlap.
+
+118
+00:07:47.966 --> 00:07:51.966
+IsOverlappingActor returns a boolean. That's pretty appropriate!
+
+119
+00:07:51.966 --> 00:07:55.966
+And what does it ask for? A pointer to an Actor! Ah. so
+
+120
+00:07:55.966 --> 00:07:59.966
+if PressurePlate is Overlapping
+
+121
+00:07:59.966 --> 00:08:03.966
+with an Actor. which actor would the (ActorThat
+
+122
+00:08:03.966 --> 00:08:07.966
+Opens)) yeah!
+
+123
+00:08:07.966 --> 00:08:11.966
+Then. and that's just going to
+
+124
+00:08:11.966 --> 00:08:15.966
+move these comments around. Then. we open the door.
+
+125
+00:08:15.966 --> 00:08:19.966
+Pretty cool hey! I'm just fudging my brackets here. so
+
+126
+00:08:19.966 --> 00:08:23.966
+just bear with me while I just put these back in place. Perfect!
+
+127
+00:08:23.966 --> 00:08:27.966
+if (PressurePlate->IsOverlapping with an Actor.
+
+128
+00:08:27.966 --> 00:08:31.966
+the (ActorThatOpens) that's we've passed in. in the Inspector. then we
+
+129
+00:08:31.966 --> 00:08:35.966
+Open the Door. Let's try and build it!
+
+130
+00:08:35.966 --> 00:08:39.966
+See I've talked you very much through the process here. because I want you to understand my thinking process. as to
+
+131
+00:08:39.966 --> 00:08:43.966
+how we end up making these sort of decisions and finding this code. It's going to be a lot more
+
+132
+00:08:43.966 --> 00:08:47.966
+useful for you. in the long run. OK. this is how we are going to
+
+133
+00:08:47.966 --> 00:08:51.966
+actually attach our Actor. Right now. it's not going to work! The Pawn is not going to trigger any door
+
+134
+00:08:51.966 --> 00:08:55.966
+opening! Watch this though! Play the game. Eject yourself from the
+
+135
+00:08:55.966 --> 00:08:59.966
+Pawn. yeah .go to the door which you
+
+136
+00:08:59.966 --> 00:09:03.966
+can do. go to the OpenDoor component. Now. you can temporarily go and
+
+137
+00:09:03.966 --> 00:09:07.966
+find DefaultPawn4. at runtime. as the Actor that opens!
+
+138
+00:09:07.966 --> 00:09:11.966
+Repossess the pawn and move forward.
+
+139
+00:09:11.966 --> 00:09:15.966
+Now. we're saying that the door has to be moveable. if you'd like it to move. You
+
+140
+00:09:15.966 --> 00:09:19.966
+see that warning that's come up? That's a very easy fix. we click on the door. We just
+
+141
+00:09:19.966 --> 00:09:23.966
+go down into the Transform in the Details Tab and make it moveable.
+
+142
+00:09:23.966 --> 00:09:27.966
+Play again! To reinforce what we did. we Ejected ourselves from the Pawn.
+
+143
+00:09:27.966 --> 00:09:31.966
+Click on the
+
+144
+00:09:31.966 --> 00:09:35.966
+door. go to the OpenDoor component. go and select the
+
+145
+00:09:35.966 --> 00:09:39.966
+Pawn. repossess the Pawn. move forward.
+
+146
+00:09:39.966 --> 00:09:43.966
+and the doors open. or at least one of the doors open. Why is
+
+147
+00:09:43.966 --> 00:09:47.966
+that? Let's look at the other door's OpenDoor component. because this instance
+
+148
+00:09:47.966 --> 00:09:51.966
+wasn't linked to that Actor. Now. let's not worry about that for now. We could link
+
+149
+00:09:51.966 --> 00:09:55.966
+them both up by Playing. Ejecting. and doing what I did twice. but we don't need to. We're obviously
+
+150
+00:09:55.966 --> 00:09:59.966
+going to do this programmatically. But the real benefit here
+
+151
+00:09:59.966 --> 00:10:03.966
+is that we have learned to actually find out about OverlappingActors
+
+152
+00:10:03.966 --> 00:10:07.966
+and to write some really simple code and to organize it here. in a way that makes it
+
+153
+00:10:07.966 --> 00:10:11.966
+really easy for the designer to put all of this together. So. congratulations on getting this far
+
+154
+00:10:11.966 --> 00:10:14.866
+and I will see you soon!
+

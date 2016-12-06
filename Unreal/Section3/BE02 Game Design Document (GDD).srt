@@ -1,0 +1,278 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+
+
+2
+00:00:04.000 --> 00:00:08.000
+So. as usual. before we dive and start playing with Unreal. we need to have some
+
+3
+00:00:08.000 --> 00:00:12.000
+concept of what we're going to be doing. So. this again is our Game Design Document
+
+4
+00:00:12.000 --> 00:00:16.000
+and our friendly starting point for all game development projects. By the way.
+
+5
+00:00:16.000 --> 00:00:20.000
+on these slides at the bottom right. I'm going to be annotating with the version of Unreal
+
+6
+00:00:20.000 --> 00:00:24.000
+that the tutorial was recorded in. So. you're seeing it's in v.4.10.2.
+
+7
+00:00:24.000 --> 00:00:28.000
+That'll just help you be orientated if watching this. once a later
+
+8
+00:00:28.000 --> 00:00:32.000
+version is out. It always gives you the option to go back.  Anyway. this is about game design.
+
+9
+00:00:32.000 --> 00:00:36.000
+so let's just take a look firstly at the concept. What are we building here?
+
+10
+00:00:36.000 --> 00:00:40.000
+The core concept is really simple: escape the room!
+
+11
+00:00:40.000 --> 00:00:44.000
+You awaken in a locked room. unable to escape; use environmental
+
+12
+00:00:44.000 --> 00:00:48.000
+clues. such as light and sound. to determine what to do next. So. we're going to design
+
+13
+00:00:48.000 --> 00:00:52.000
+some nice simple ways of trying to guide the player. as to what they
+
+14
+00:00:52.000 --> 00:00:56.000
+may need to be doing next. It's going to be a very small scope game. because there's a
+
+15
+00:00:56.000 --> 00:01:00.000
+lot of new stuff. when we get into Unreal. We're going to do things like
+
+16
+00:01:00.000 --> 00:01:04.000
+trigger pressure plates and solve at least the bull cow puzzle. to progress towards
+
+17
+00:01:04.000 --> 00:01:08.000
+the exit. So that's the idea! Rules. well there's no lose
+
+18
+00:01:08.000 --> 00:01:12.000
+condition. apart from the feeling that you're going to die in this room if you don't get out eventually.
+
+19
+00:01:12.000 --> 00:01:16.000
+Anything that you can do you're allowed to do. so there's no
+
+20
+00:01:16.000 --> 00:01:20.000
+kind of restrictions on what you're allowed to do. if you can do it. do it.
+
+21
+00:01:20.000 --> 00:01:24.000
+and you win by finally exiting the room!
+
+22
+00:01:24.000 --> 00:01:28.000
+Requirements! So. what does this thing need to make it happen? Well. we're going to use
+
+23
+00:01:28.000 --> 00:01:32.000
+Unreal's provided Starter Content pack. That's got plenty of wall
+
+24
+00:01:32.000 --> 00:01:36.000
+sections and a table and a chair and some lights and doors and
+
+25
+00:01:36.000 --> 00:01:40.000
+door frames. all the stuff we really need. If you've got assets that you've either
+
+26
+00:01:40.000 --> 00:01:44.000
+bought or made and you want to bring those in. absolutely do that. but I'm just going to start with the
+
+27
+00:01:44.000 --> 00:01:48.000
+Starter Content. so we're all on the same page. We're going to need to write some C++
+
+28
+00:01:48.000 --> 00:01:52.000
+code and some Blueprint to encode the behavior. We're going to use C++ where it
+
+29
+00:01:52.000 --> 00:01:56.000
+makes the most sense and Blueprint where that makes the most sense. We're going to
+
+30
+00:01:56.000 --> 00:02:00.000
+use various sound effects to enhance the atmosphere. If we can't find stuff in the Start
+
+31
+00:02:00.000 --> 00:02:04.000
+Content pack. then I will provide you with sounds from a sound
+
+32
+00:02:04.000 --> 00:02:08.000
+library that's been kindly donated to us. which we'll hear about later on.
+
+33
+00:02:08.000 --> 00:02:12.000
+And you're going to need some sketches for the layout
+
+34
+00:02:12.000 --> 00:02:16.000
+of your room or rooms. It's up to you. really. whether you build one room or multiple
+
+35
+00:02:16.000 --> 00:02:20.000
+rooms. I would either build one big one or lots of little ones interconnected.
+
+36
+00:02:20.000 --> 00:02:24.000
+I also encourage you go build a different layout to what I do in this section.
+
+37
+00:02:24.000 --> 00:02:28.000
+And you're going to need sketches or at least one sketch.
+
+38
+00:02:28.000 --> 00:02:32.000
+for how one puzzle works. Maybe don't sketch them all out yet. because
+
+39
+00:02:32.000 --> 00:02:36.000
+you'd be better off doing one. encoding one. making it work. and then
+
+40
+00:02:36.000 --> 00:02:40.000
+design the rest. maybe after that. when you've got a little bit more experience about what would
+
+41
+00:02:40.000 --> 00:02:44.000
+be involved. before you go and get super excited and start trying to recreate the next
+
+42
+00:02:44.000 --> 00:02:48.000
+version of The Witness or Myst or whatever else you love. There's a lot of programming
+
+43
+00:02:48.000 --> 00:02:52.000
+involved in those things and we're not quite ready for that yet. So that's it!
+
+44
+00:02:52.000 --> 00:02:56.000
+That's the concept rules and requirements. and we'll see how it pans out. What I want
+
+45
+00:02:56.000 --> 00:03:00.000
+you to do now is sketch your room or rooms. Sketch out one large room
+
+46
+00:03:00.000 --> 00:03:04.000
+or a few smaller ones. Annotate where the puzzles will be or at least your
+
+47
+00:03:04.000 --> 00:03:08.000
+first guess. You can change any of this later. you can change your mind later.
+
+48
+00:03:08.000 --> 00:03:12.000
+Create a more detailed sketch of one of the puzzles. just one.
+
+49
+00:03:12.000 --> 00:03:16.000
+As I said. we want to make sure that we
+
+50
+00:03:16.000 --> 00:03:20.000
+understand what's involved in actually implementing these things. before we get carried away with some massive
+
+51
+00:03:20.000 --> 00:03:24.000
+design that we may not be ready as a team  for. whether that's a team of 1. 2. 3. or
+
+52
+00:03:24.000 --> 00:03:28.000
+300! We want to make sure we're capable of delivering what we're
+
+53
+00:03:28.000 --> 00:03:32.000
+dreaming about. so let's deliver things as we think about them. This is very lean to just
+
+54
+00:03:32.000 --> 00:03:36.000
+make one puzzle. get it completely finished. and then start thinking about the
+
+55
+00:03:36.000 --> 00:03:40.000
+rest. We're kind of prototyping and testing all in one. And I want you to
+
+56
+00:03:40.000 --> 00:03:44.000
+just share your sketches in the discussions. with the other students.
+
+57
+00:03:44.000 --> 00:03:48.000
+By the way. Evernote can be a great tool for storying these things. Once you've
+
+58
+00:03:48.000 --> 00:03:52.000
+taken your sketches. then certainly on iOS and
+
+59
+00:03:52.000 --> 00:03:56.000
+Android. you can take a photo of your sketches. using Evernote on the smartphone.
+
+60
+00:03:56.000 --> 00:04:00.000
+and then. you can store it in Evernote and actually get a link
+
+61
+00:04:00.000 --> 00:04:04.000
+to the hosted version of the Evernote. That's one way of storing these things.
+
+62
+00:04:04.000 --> 00:04:08.000
+The good thing about Evernote is. it will recognize your handwriting if it's reasonably neat
+
+63
+00:04:08.000 --> 00:04:12.000
+and really help you find things later. So. just a thought. you could use Evernote or you could use
+
+64
+00:04:12.000 --> 00:04:16.000
+anything else. So. that's it really! I want you to pause the video. In fact. stop the video.
+
+65
+00:04:16.000 --> 00:04:20.000
+go ahead and do your design now. and I'm going to pull out my sketches and
+
+66
+00:04:20.000 --> 00:04:24.000
+designed. as we go through the section as needed. so it will be a surprise for you!
+
+67
+00:04:24.000 --> 00:04:28.000
+And in the next video. we'll start setting up our project and looking at Unreal's files
+
+68
+00:04:28.000 --> 00:04:33.266
+and the file structure and version control and lots of fun stuff like that! I will see you soon!
+
+69
+00:04:33.266 --> 00:04:35.766
+Vroom! Video end!
+

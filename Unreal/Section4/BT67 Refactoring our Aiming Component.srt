@@ -1,0 +1,902 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So hey. welcome back
+
+2
+00:00:04.000 --> 00:00:08.000
+and welcome to Refactoring our Aiming Component. What we're going to do in this video is. we're going
+
+3
+00:00:08.000 --> 00:00:12.000
+to change the architecture of the AimingComponent to use a single initialize method like
+
+4
+00:00:12.000 --> 00:00:16.000
+this. just like the Movement Component did. and then. to strip a whole load of code
+
+5
+00:00:16.000 --> 00:00:20.000
+out of the tank and start moving the functionality over to the AimingComponent. And yeah.
+
+6
+00:00:20.000 --> 00:00:24.000
+we're going to hit a brick wall in it. but I want you to hit that brick wall yourself.
+
+7
+00:00:24.000 --> 00:00:28.000
+Or you may not. you may do things slightly better than I have. but I want you to try and do this
+
+8
+00:00:28.000 --> 00:00:32.000
+reorganization. So look back at the video where we setup the Tank
+
+9
+00:00:32.000 --> 00:00:36.000
+MovementComponent. and see if you can get the TankAimingComponent to the
+
+10
+00:00:36.000 --> 00:00:40.000
+same sort of architecture. where it is actually added here in
+
+11
+00:00:40.000 --> 00:00:44.000
+the Blueprint Editor and not added as
+
+12
+00:00:44.000 --> 00:00:48.000
+a default sub-object. So refactor the AimingComponent. try and move the Aiming
+
+13
+00:00:48.000 --> 00:00:52.000
+Component to the same architecture. as I said. Don't worry if you can't get it working. but see if
+
+14
+00:00:52.000 --> 00:00:56.000
+you can get it at least as far as compiling. If you find your game hard crashes when you play
+
+15
+00:00:56.000 --> 00:01:00.000
+or something. don't worry too much. but just see if you can get compiling and connected up in
+
+16
+00:01:00.000 --> 00:01:04.000
+Blueprint. like I've got there. And that's going to be a great exercise for you! If you
+
+17
+00:01:04.000 --> 00:01:08.000
+struggle with this. don't worry. it's a pretty open-ended exercise. You're very welcome to stop and
+
+18
+00:01:08.000 --> 00:01:12.000
+just follow my solution. You don't need to feel bad about it. I'm setting a pretty nebulous challenge
+
+19
+00:01:12.000 --> 00:01:16.000
+to allow for lots of different ranges of abilities to get their teeth stuck into this.
+
+20
+00:01:16.000 --> 00:01:20.000
+OK so go ahead. pause the video. have a go at that. and when I come back. I will be going through
+
+21
+00:01:20.000 --> 00:01:24.000
+and doing the refactor myself with you.
+
+22
+00:01:24.000 --> 00:01:24.166
+
+
+23
+00:01:24.166 --> 00:01:28.166
+So just before we dive in and start refactoring. let's just give ourselves a little bit of context.
+
+24
+00:01:28.166 --> 00:01:32.166
+Remember that the Movement Component is nicely separated with the Left and Right
+
+25
+00:01:32.166 --> 00:01:36.166
+Tracks. only bound to that component. but the Aiming Component still has this messy
+
+26
+00:01:36.166 --> 00:01:40.166
+loop. where the Tank has reference to the Barrel and they have these setters
+
+27
+00:01:40.166 --> 00:01:44.166
+being passed down. etc. So what we're going to do is move the Aiming Component into the same
+
+28
+00:01:44.166 --> 00:01:48.166
+paradigm as the Movement Component. that is added in Blueprint using an Initialize()
+
+29
+00:01:48.166 --> 00:01:52.166
+method. etc. So I'm going to go through this with you and do some refactoring. You're welcome to try and do
+
+30
+00:01:52.166 --> 00:01:56.166
+the refactor yourself. You know the experienced among you can certainly do that. just
+
+31
+00:01:56.166 --> 00:02:00.166
+bring the Aiming Component into the same pattern as the Movement Component. And then. I'm going to lead us to
+
+32
+00:02:00.166 --> 00:02:04.166
+the point at which we have a horrible hard crash. which will be with no particularly obvious
+
+33
+00:02:04.166 --> 00:02:08.166
+source. and then. we're going to use the debugger. the VisualStudio debugger
+
+34
+00:02:08.166 --> 00:02:12.166
+to actually fix that up. So let's just start this refactor process.
+
+35
+00:02:12.166 --> 00:02:16.166
+Let's have the tank blueprint open. so we can remind ourselves that one of the things we are
+
+36
+00:02:16.166 --> 00:02:20.166
+trying to get rid of is this Set Turret and Set Barrel Reference.
+
+37
+00:02:20.166 --> 00:02:24.166
+In fact. let's be brave and just delete them. we don't need those anymore. We're going to have an Initialize()
+
+38
+00:02:24.166 --> 00:02:28.166
+method on our TankAimingComponent. of course. So let's go
+
+39
+00:02:28.166 --> 00:02:32.166
+break some stuff! Over in the tank header file. let's start off!
+
+40
+00:02:32.166 --> 00:02:36.166
+I think I'm actually going to start at the top and just fix up my copyright notice. as I
+
+41
+00:02:36.166 --> 00:02:40.166
+did in the TankMovementComponent. So let's just do the Copyright notice for the tank header
+
+42
+00:02:40.166 --> 00:02:44.166
+file and the TankAimingComponent header file.
+
+43
+00:02:44.166 --> 00:02:48.166
+They're the two things we're going to be working on. It kind of signals to me. I've touched this thing recently.
+
+44
+00:02:48.166 --> 00:02:52.166
+Sure if I had of set it in the Project Settings in the beginning then it'd be set. but whenever
+
+45
+00:02:52.166 --> 00:02:56.166
+you notice a problem like this. let's fix it as we go. So in the tank header file we have this
+
+46
+00:02:56.166 --> 00:03:00.166
+SetTurret and SetBarrel reference. Don't need them. let's get rid of them! Both the SetTurret and SetBarrel
+
+47
+00:03:00.166 --> 00:03:04.166
+References. Let's remove those and let's remove the code that actually does that setting.
+
+48
+00:03:04.166 --> 00:03:08.166
+So that's great! We can also get rid of. in the ATank
+
+49
+00:03:08.166 --> 00:03:12.166
+BeginPlay(). you'll notice we're not using it. so let's just ditch it. And let's ditch it from the
+
+50
+00:03:12.166 --> 00:03:16.166
+header file as well. if it's in there. You can always put it back. it's really easy to put back again
+
+51
+00:03:16.166 --> 00:03:20.166
+OK. And SetupPlayerInputComponent. we're not using that either. so I'm taking Setup
+
+52
+00:03:20.166 --> 00:03:24.166
+PlayerInputComponent out of the Tank as well. as we're trying to clear
+
+53
+00:03:24.166 --> 00:03:28.166
+up the Tank. Let's clear it up properly! OK. now over in the Tank.
+
+54
+00:03:28.166 --> 00:03:32.166
+the other thing that we're doing is creating a default sub-object of a TankAimingComponent.
+
+55
+00:03:32.166 --> 00:03:36.166
+Remember what that does? It makes this TankAimingComponent inherited here. which we don't have
+
+56
+00:03:36.166 --> 00:03:40.166
+any details for. and it's different to the TankMovementComponent. so we're going to stop doing
+
+57
+00:03:40.166 --> 00:03:44.166
+that! Let's delete the TankAimingComponent DefaultSubobjectCreation there.
+
+58
+00:03:44.166 --> 00:03:48.166
+and then. let's
+
+59
+00:03:48.166 --> 00:03:52.166
+recompile. I think it'll recompile at this stage.
+
+60
+00:03:52.166 --> 00:03:56.166
+Now. I did a lot of code in a very short amount of time there. so what I'll do is I'll do you the favor.
+
+61
+00:03:56.166 --> 00:04:00.166
+Now that hitting Compile has saved all the tabs in VisualStudio. I can  come
+
+62
+00:04:00.166 --> 00:04:04.166
+into SourceTree. while it compiles. and I can show you what I've done. I've deleted a load of code from the
+
+63
+00:04:04.166 --> 00:04:08.166
+Tank.cpp. all of this stuff that you can see on the screen there. I'll leave it for you for a second.
+
+64
+00:04:08.166 --> 00:04:12.166
+And then. you can see what I've done in the header file.
+
+65
+00:04:12.166 --> 00:04:16.166
+removed the relevant references that's all. and then. in the AimingComponent I've just
+
+66
+00:04:16.166 --> 00:04:20.166
+changed my Copyright notice. OK. so there are the changes. Now the hot reload worked.
+
+67
+00:04:20.166 --> 00:04:24.166
+Now lets go look at the tank blueprint! We no longer have this inherited TankAimingComponent.
+
+68
+00:04:24.166 --> 00:04:28.166
+Fantastic! So let's add it back! Now. will it be visible? Well it will be visible in the
+
+69
+00:04:28.166 --> 00:04:32.166
+Custom section. if we made it the correct type of U...
+
+70
+00:04:32.166 --> 00:04:36.166
+Well let's go and have a look! Remember in the TankMovementComponent header file.
+
+71
+00:04:36.166 --> 00:04:40.166
+we annotated as a (BlueprintSpawnableComponent).
+
+72
+00:04:40.166 --> 00:04:44.166
+Well let's go and have a look in the TankAimingComponent header
+
+73
+00:04:44.166 --> 00:04:48.166
+file. and it is already a (BlueprintSpawnableComponent). If
+
+74
+00:04:48.166 --> 00:04:52.166
+yours isn't. of course. you need this annotation on the TankAimingComponent. Great! So
+
+75
+00:04:52.166 --> 00:04:56.166
+because it's BlueprintSpawnable I can come in here and I can add it as a
+
+76
+00:04:56.166 --> 00:05:00.166
+TankAimingComponent. Great! There it is looking just like the TankMovementComponent. and we can
+
+77
+00:05:00.166 --> 00:05:04.166
+actually see the properties on it now. That's fun! Now what we need is one of these Initialize()
+
+78
+00:05:04.166 --> 00:05:08.166
+methods for the TankMovementComponent. So I'm going to go... Ah sorry. not for
+
+79
+00:05:08.166 --> 00:05:12.166
+the TankAimingComponent. I'm going to go look at the TankMovementComponent's Initialize() method. and
+
+80
+00:05:12.166 --> 00:05:16.166
+I think I won't copy it because it's so different but I just want to remind
+
+81
+00:05:16.166 --> 00:05:20.166
+myself how that works. I'm using the English spelling of Initialise and I'm just
+
+82
+00:05:20.166 --> 00:05:24.166
+setting some references. So on the TankAimingComponent. we have
+
+83
+00:05:24.166 --> 00:05:28.166
+these pointers to the Barrel and Turret. which is great! We don't need them on the tank anymore.
+
+84
+00:05:28.166 --> 00:05:32.166
+by the way. So if you look at the tank. we don't need a Barrel reference anymore. Let's delete that from the
+
+85
+00:05:32.166 --> 00:05:36.166
+Tank. that's no longer necessary. And then. in the Tank
+
+86
+00:05:36.166 --> 00:05:40.166
+AimingComponent we're going to need a new Initialize() method. Now it's going to need to be public.
+
+87
+00:05:40.166 --> 00:05:44.166
+isn't it? And it's also going to need to have the same signature as it does in the MovementComponent. so
+
+88
+00:05:44.166 --> 00:05:48.166
+I will use the MovementComponent for that. Here (BlueprintCallable. Category
+
+89
+00:05:48.166 --> 00:05:52.166
+= "Setup") and then it's this Initialize. So let's just use that as inspiration.
+
+90
+00:05:52.166 --> 00:05:56.166
+And then. be very careful to immediately change it from a UTank
+
+91
+00:05:56.166 --> 00:06:00.166
+Track pointer to a UTank
+
+92
+00:06:00.166 --> 00:06:04.166
+Barrel pointer and a UTank
+
+93
+00:06:04.166 --> 00:06:08.166
+Turret pointer. And then. it's
+
+94
+00:06:08.166 --> 00:06:12.166
+going to be BarrelToSet
+
+95
+00:06:12.166 --> 00:06:16.166
+and TurretToSet. OK so we've made an
+
+96
+00:06:16.166 --> 00:06:20.166
+Initialize here. Let's go and define that now over in the .cpp.
+
+97
+00:06:20.166 --> 00:06:24.166
+I'm going to do it in place of. actually. We don't need anymore of
+
+98
+00:06:24.166 --> 00:06:28.166
+this SetBarrelReference and SetTurretReference. We're replacing those with just
+
+99
+00:06:28.166 --> 00:06:32.166
+a single initializer there. which just says Barrel =
+
+100
+00:06:32.166 --> 00:06:36.166
+BarrelToSet and Turret
+
+101
+00:06:36.166 --> 00:06:40.166
+= TurretToSet. No need to protect
+
+102
+00:06:40.166 --> 00:06:44.166
+these incoming values. if they're null well we're going to get null. That's fine!
+
+103
+00:06:44.166 --> 00:06:48.166
+OK. now I removed a couple of setters from the TankAiming
+
+104
+00:06:48.166 --> 00:06:52.166
+Component. so these two SetBarrel and SetTurretReferences they can go in the same Aiming
+
+105
+00:06:52.166 --> 00:06:56.166
+Component. we simply don't need those anymore. And the TankAimingComponent is reduced down to
+
+106
+00:06:56.166 --> 00:07:00.166
+a constructor. which actually because of Unreal magic we can put in the private section.
+
+107
+00:07:00.166 --> 00:07:04.166
+and I'm going to prefer to do that just so it gets it out of my public interface. Then. I have an Initialize
+
+108
+00:07:04.166 --> 00:07:08.166
+which takes a couple of things and an AimAt. Protected. we
+
+109
+00:07:08.166 --> 00:07:12.166
+have this FiringState. which we did a couple of videos ago. So yeah. we're all good to
+
+110
+00:07:12.166 --> 00:07:16.166
+go! Let's just have a little recompile of this code. see if we
+
+111
+00:07:16.166 --> 00:07:20.166
+missed anything. If it compiles. then I'll show you
+
+112
+00:07:20.166 --> 00:07:24.166
+the code changes. and then. we'll start to create the actual problem
+
+113
+00:07:24.166 --> 00:07:28.166
+because I've missed something. Some of you may have seen what I've missed here.
+
+114
+00:07:28.166 --> 00:07:32.166
+I've done this refactoring. let's just see what compile error I have.
+
+115
+00:07:32.166 --> 00:07:36.166
+" 'Barrel': undeclared identifier" in TankAimingComponent 22.
+
+116
+00:07:36.166 --> 00:07:40.166
+OK that's an interesting error. That error has nothing to do with the fact that
+
+117
+00:07:40.166 --> 00:07:44.166
+it's an undeclared identifier. It's because. earlier on. when I made
+
+118
+00:07:44.166 --> 00:07:48.166
+this Initialize method I didn't put
+
+119
+00:07:48.166 --> 00:07:52.166
+the class in front of it. so the compiler has read through that. got very confused. and thinks
+
+120
+00:07:52.166 --> 00:07:56.166
+the error is on line 22. whereas it's actually on 20. So let's recompile! That's definitely
+
+121
+00:07:56.166 --> 00:08:00.166
+worth knowing! So when you see an error. just zoom out a little bit. don't get
+
+122
+00:08:00.166 --> 00:08:04.166
+super focused on it. Ooh. it doesn't understand what this Barrel is! Yeah. but it doesn't understand what the Barrel is
+
+123
+00:08:04.166 --> 00:08:08.166
+because it got stuck trying to read the line before. Yeah. so don't really trust
+
+124
+00:08:08.166 --> 00:08:12.166
+the errors too too much. So we have another compile failure. which is again on
+
+125
+00:08:12.166 --> 00:08:16.166
+line 27. We have a Barrel it doesn't understand.
+
+126
+00:08:16.166 --> 00:08:20.166
+and that is because. in the Tank. I got rid of the Barrel
+
+127
+00:08:20.166 --> 00:08:24.166
+reference. I'm going to pop the Barrel reference back in the Tank. for the moment. in it's header file.
+
+128
+00:08:24.166 --> 00:08:28.166
+Why? Because we are not dealing
+
+129
+00:08:28.166 --> 00:08:32.166
+with taking out this code in the Tank. the Fire code right now.
+
+130
+00:08:32.166 --> 00:08:36.166
+so let's put that back. Now the source control will tell me
+
+131
+00:08:36.166 --> 00:08:40.166
+what I took out of the tank header file. right now. and you can see one of the things I
+
+132
+00:08:40.166 --> 00:08:44.166
+took out was this Barrel reference. So I'm going to put it back by copying
+
+133
+00:08:44.166 --> 00:08:48.166
+it from source control. popping it back in like that. OK it's got a few extra characters with
+
+134
+00:08:48.166 --> 00:08:52.166
+it but we'll live. But I'm going to say "// TODO
+
+135
+00:08:52.166 --> 00:08:56.166
+Remove". because we know we're going to have to remove this at some point. because we want all of this stuff to go
+
+136
+00:08:56.166 --> 00:09:00.166
+over to the AimingComponent. That's not the idea now. we're trying to do as little as possible.
+
+137
+00:09:00.166 --> 00:09:04.166
+while it still compiles. We're just trying to get our thing compiling again. OK. so let's go back and
+
+138
+00:09:04.166 --> 00:09:08.166
+Compile. Don't boil the ocean here! You should be having a feeling. at
+
+139
+00:09:08.166 --> 00:09:12.166
+this point. that you're a long way from a piece of compilable code. and that should worry you
+
+140
+00:09:12.166 --> 00:09:16.166
+because you may not be able to get back to compilation. which means you'd need to revert to your
+
+141
+00:09:16.166 --> 00:09:20.166
+previous commit. which would be a waste of your time. So hurry up to get it compiled!
+
+142
+00:09:20.166 --> 00:09:24.166
+There you go. it has compiled! That is good! Alright. and that's all
+
+143
+00:09:24.166 --> 00:09:28.166
+working. So let's Save All in here and then go into the
+
+144
+00:09:28.166 --> 00:09:32.166
+tank blueprint. and we should now have. if we search for "initialize". a
+
+145
+00:09:32.166 --> 00:09:36.166
+Tank Aiming Component initializer. We do! That's Fantastic! So let's now
+
+146
+00:09:36.166 --> 00:09:40.166
+do the TankAimingComponent initialization. It doesn't matter
+
+147
+00:09:40.166 --> 00:09:44.166
+whether it's done before or after the MovementComponent. the key is that we soft reference this Barrel
+
+148
+00:09:44.166 --> 00:09:48.166
+and this Turret. here in
+
+149
+00:09:48.166 --> 00:09:52.166
+the blueprint.
+
+150
+00:09:52.166 --> 00:09:56.166
+Great OK. so that is done! So let's just compile
+
+151
+00:09:56.166 --> 00:10:00.166
+this up. That compiles. OK let's Save All and try playing.
+
+152
+00:10:00.166 --> 00:10:04.166
+Oh dear. we get a hard crash
+
+153
+00:10:04.166 --> 00:10:08.166
+of Unreal! Well every time we've had a hard crash of Unreal my normal response is.
+
+154
+00:10:08.166 --> 00:10:12.166
+oh well that often happens. let's not worry about it! Let's just try opening the Editor again! But there are some times
+
+155
+00:10:12.166 --> 00:10:16.166
+Unreal has a paddy. when we make changes to blueprints. One thing I think of is.
+
+156
+00:10:16.166 --> 00:10:20.166
+do my categories all have. are they all string referenced? Well they're not here. So
+
+157
+00:10:20.166 --> 00:10:24.166
+one of my reactions to those types of hard crashes. at the moment. with the current bugs in
+
+158
+00:10:24.166 --> 00:10:28.166
+Unreal.  is to make sure these guys are string reference in here. And while I'm at it I
+
+159
+00:10:28.166 --> 00:10:32.166
+would probably do a search for Category = or just Category
+
+160
+00:10:32.166 --> 00:10:36.166
+across the entire project. And we've paid lip service to doing this before
+
+161
+00:10:36.166 --> 00:10:40.166
+but let's now go and do it. Let's check where category appears. and wherever
+
+162
+00:10:40.166 --> 00:10:44.166
+it appears. make sure it's properly string referenced. I know I skipped on there.
+
+163
+00:10:44.166 --> 00:10:48.166
+so I'm going to have to go back and get that.
+
+164
+00:10:48.166 --> 00:10:52.166
+So by paying lip service to something I mean saying oh we ought to. without
+
+165
+00:10:52.166 --> 00:10:56.166
+doing anything. Always capture the idea or just deal with it immediately. Only
+
+166
+00:10:56.166 --> 00:11:00.166
+don't deal with it immediately if doing so would really break your context. in that you feel
+
+167
+00:11:00.166 --> 00:11:04.166
+like you're opening too many ideas in your mind in one go. Otherwise.
+
+168
+00:11:04.166 --> 00:11:08.166
+if you can deal with it immediately do. otherwise at least put a TODO in your code.
+
+169
+00:11:08.166 --> 00:11:12.166
+so that you do come back and deal with it later. because. of course. we're going to be in the good habit
+
+170
+00:11:12.166 --> 00:11:16.166
+of dealing with TODOs regularly. So I'm just going to search through that once more.
+
+171
+00:11:16.166 --> 00:11:20.166
+to make sure all my categories have a string
+
+172
+00:11:20.166 --> 00:11:24.166
+referenced value against them. I think I missed one. OK fine. so
+
+173
+00:11:24.166 --> 00:11:28.166
+that's done! OK. so that was a suspicion that it could be that. Let's recompile!
+
+174
+00:11:28.166 --> 00:11:32.166
+
+
+175
+00:11:32.166 --> 00:11:36.166
+And once it's recompiled. I will open the tank blueprint.
+
+176
+00:11:36.166 --> 00:11:40.166
+which is actually slightly broken which is interesting. Fix up the execution flow.
+
+177
+00:11:40.166 --> 00:11:44.166
+Compile that. Save All. and play and we get
+
+178
+00:11:44.166 --> 00:11:48.166
+a hard crash again! Oh dear! So the interesting thing about this
+
+179
+00:11:48.166 --> 00:11:52.166
+situation is. why is this hard crashing? So you could start saying. well let's look at
+
+180
+00:11:52.166 --> 00:11:56.166
+the Tank implementation file. for a start. and let's look at all
+
+181
+00:11:56.166 --> 00:12:00.166
+instances where we used say a Barrel. And you can say. well the Barrel pointer is
+
+182
+00:12:00.166 --> 00:12:04.166
+protected there. you know. that's fine. etc. You could go through
+
+183
+00:12:04.166 --> 00:12:08.166
+and start to try and work out where the problems are. Is it in the TankAiming
+
+184
+00:12:08.166 --> 00:12:12.166
+Component? I don't know. Let's go look at the implementation file. Can we see somewhere
+
+185
+00:12:12.166 --> 00:12:16.166
+where we're using unprotected pointers. Barrel. there's not Turret in this
+
+186
+00:12:16.166 --> 00:12:20.166
+guy. MoveBarrelTowards is missing pointer protection. We should
+
+187
+00:12:20.166 --> 00:12:24.166
+probably do that. because we use a Barrel and a Turret down here. and it makes no sense to
+
+188
+00:12:24.166 --> 00:12:28.166
+try and move a Barrel without them. So we'd better say if not
+
+189
+00:12:28.166 --> 00:12:32.166
+(!Barrel or II not
+
+190
+00:12:32.166 --> 00:12:36.166
+!Turret) then .
+
+191
+00:12:36.166 --> 00:12:40.166
+So could it be that? Now I'm guessing here. Now there's a better way than guessing.
+
+192
+00:12:40.166 --> 00:12:44.166
+but let's just compile and see what happens! What I'm trying to get you the feeling of is. we're a long
+
+193
+00:12:44.166 --> 00:12:48.166
+way from... Well we're not a long way from from compilation. we're a long way from a running project.
+
+194
+00:12:48.166 --> 00:12:52.166
+You should be feeling by this amount of time working and this amount of changes. we're 12
+
+195
+00:12:52.166 --> 00:12:56.166
+minutes into this video or a bit more. that I want to bring this
+
+196
+00:12:56.166 --> 00:13:00.166
+to some sort of conclusion. because my source control is sitting with a bunch of uncommitted changes. I've
+
+197
+00:13:00.166 --> 00:13:04.166
+obviously done work here but something's not working. So
+
+198
+00:13:04.166 --> 00:13:08.166
+ah. it's compiled! Does it play?
+
+199
+00:13:08.166 --> 00:13:12.166
+No it crashes! Alright. so at this point.
+
+200
+00:13:12.166 --> 00:13:16.166
+because of the length of this video and also because of the amount of code you've changed and
+
+201
+00:13:16.166 --> 00:13:20.166
+the fact that you've made some progress right. we've refactored. A bunch of this
+
+202
+00:13:20.166 --> 00:13:24.166
+stuff initializes into the TankAimingComponent! We've
+
+203
+00:13:24.166 --> 00:13:28.166
+connected it up in Blueprint and it didn't compile. Then. we did a load of work. and
+
+204
+00:13:28.166 --> 00:13:32.166
+now it does compile but it's hard crashing. I'm going to. I'm going to suggest that you
+
+205
+00:13:32.166 --> 00:13:36.166
+would make a micro-commit here. In fact. I'm even going to make a Commit. and then.
+
+206
+00:13:36.166 --> 00:13:40.166
+later I'm going to squash a couple of different commits together. So I'm going to say. here
+
+207
+00:13:40.166 --> 00:13:44.166
+simply "Moved
+
+208
+00:13:44.166 --> 00:13:48.166
+to" Blueprint "composition
+
+209
+00:13:48.166 --> 00:13:52.166
+
+
+210
+00:13:52.166 --> 00:13:56.166
+of Aiming Component
+
+211
+00:13:56.166 --> 00:14:00.166
+now compiles but
+
+212
+00:14:00.166 --> 00:14:04.166
+HARD CRASHES on run". And it's
+
+213
+00:14:04.166 --> 00:14:08.166
+OK to make a temporary commit like that. to say OK I've got it as
+
+214
+00:14:08.166 --> 00:14:12.166
+far as it compiling. Let's capture this work and now go about the
+
+215
+00:14:12.166 --> 00:14:16.166
+job of trying to stop this hard crash. because at least it's compiling. Alright. and yes
+
+216
+00:14:16.166 --> 00:14:20.166
+this messes up my list of lecture names. but we can actually
+
+217
+00:14:20.166 --> 00:14:24.166
+squash things together later. I'm actually going to rename this commit to the same as the
+
+218
+00:14:24.166 --> 00:14:28.166
+lecture name. but don't be afraid to make a commit because I will be showing you how you could. if you
+
+219
+00:14:28.166 --> 00:14:32.166
+really have a particular vision for how your commits work. Just get it
+
+220
+00:14:32.166 --> 00:14:36.166
+committed. because you can change stuff later. Alright. so we have got a
+
+221
+00:14:36.166 --> 00:14:40.166
+fair distance down the road. We have changed the architecture. but
+
+222
+00:14:40.166 --> 00:14:44.166
+we have a hard crash. In the next video. we are going to focus on how
+
+223
+00:14:44.166 --> 00:14:48.166
+we're going to find the source of that hard crash. by attaching the VisualStudio
+
+224
+00:14:48.166 --> 00:14:52.166
+Debugger. so that's going to be pretty cool! I'll see you in there!
+
+225
+00:14:52.166 --> 00:14:52.799
+
+

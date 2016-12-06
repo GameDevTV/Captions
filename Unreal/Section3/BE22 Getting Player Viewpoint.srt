@@ -1,0 +1,766 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So. welcome to Getting
+
+2
+00:00:04.000 --> 00:00:08.000
+Player Viewpoint! In this video. we're going to find out where the player
+
+3
+00:00:08.000 --> 00:00:12.000
+is looking. We'll also be talking about out-parameters. which is where a function
+
+4
+00:00:12.000 --> 00:00:16.000
+actually changes the parameters you've given it. which is a bit nasty. and we'll find a way of taming
+
+5
+00:00:16.000 --> 00:00:20.000
+that. We will be marking those out-parameters up with a little macro.
+
+6
+00:00:20.000 --> 00:00:24.000
+and then. we'll be continuously logging the player viewpoint out every tick.
+
+7
+00:00:24.000 --> 00:00:28.000
+so that at the end of the video you'll be able to do something like this. Look around and see
+
+8
+00:00:28.000 --> 00:00:32.000
+P for Pitch there. changing up and down. The Y for your...
+
+9
+00:00:32.000 --> 00:00:37.466
+The roll won't change because I can't easily rotate my character. OK. see you soon!
+
+10
+00:00:37.466 --> 00:00:41.466
+So. welcome back! Let's start putting this thing together! So.
+
+11
+00:00:41.466 --> 00:00:45.466
+David. in a recent discussion. has brought of the fact that should we really be using components as
+
+12
+00:00:45.466 --> 00:00:49.466
+much as we are? We are slightly overusing components right now. in that
+
+13
+00:00:49.466 --> 00:00:53.466
+we are adding them to everything willy nilly. That's not the only way to do things. We can
+
+14
+00:00:53.466 --> 00:00:57.466
+modify the Actor or the Pawn class directly. I'm just trying to reinforce the
+
+15
+00:00:57.466 --> 00:01:01.466
+use of components. for now. Later in the course. we'll be looking at other ways that we can modify
+
+16
+00:01:01.466 --> 00:01:05.466
+Actor behavior a certain way. So. let's take a little look
+
+17
+00:01:05.466 --> 00:01:09.466
+at our code. The first thing we're going to need to do... Well. let's do a bit of pseudo-coding. shall we. as to
+
+18
+00:01:09.466 --> 00:01:13.466
+what we're going to need to do every frame. So. let's just have a think
+
+19
+00:01:13.466 --> 00:01:17.466
+about roughly how this is going to work. We're going to need to do something like. "// Get the player
+
+20
+00:01:17.466 --> 00:01:21.466
+view point
+
+21
+00:01:21.466 --> 00:01:25.466
+this tick". So. every tick. every frame. we're going to need to get
+
+22
+00:01:25.466 --> 00:01:29.466
+the player's view point. work out where they are and where they're looking. Then. we're going to do something
+
+23
+00:01:29.466 --> 00:01:33.466
+like ray-casting. which is basically sending Superman's lasers out of his eyes.
+
+24
+00:01:33.466 --> 00:01:37.466
+but with just one eye. So. imagine a mono-clopse
+
+25
+00:01:37.466 --> 00:01:41.466
+Superman. with a little laser firing out. So. "// Ray-case
+
+26
+00:01:41.466 --> 00:01:45.466
+out to reach distance".
+
+27
+00:01:45.466 --> 00:01:49.466
+So. that means we're going to need a private variable. at some point.
+
+28
+00:01:49.466 --> 00:01:53.466
+to store the reach. And then. what are we going to do? And then. we're going to "// See
+
+29
+00:01:53.466 --> 00:01:57.466
+what we hit" basically. and then. we're going to go on from
+
+30
+00:01:57.466 --> 00:02:01.466
+there. But look. this is enough to be getting on with. So. what we're going to focus on in this video is getting the
+
+31
+00:02:01.466 --> 00:02:05.466
+player view point this tick. So. how do we do that? Well.
+
+32
+00:02:05.466 --> 00:02:09.466
+I can tell you the method. or I can show you how I would find out. So. what we would do is something
+
+33
+00:02:09.466 --> 00:02:13.466
+like this. By the way. this extension is called Momentum. It's in a Google Chrome
+
+34
+00:02:13.466 --> 00:02:17.466
+extension called Momentum. pretty in it. So. what we'd do is somthing
+
+35
+00:02:17.466 --> 00:02:21.466
+like "get player viewpoint unreal".
+
+36
+00:02:21.466 --> 00:02:25.466
+OK. that search is a little contrived. because I have happened to
+
+37
+00:02:25.466 --> 00:02:29.466
+have been using almost exactly the right words. but this is the sort of search you'd
+
+38
+00:02:29.466 --> 00:02:33.466
+do. You'd have a little look through. and you'd start to try and
+
+39
+00:02:33.466 --> 00:02:36.833
+player camera manager. That one is not helpful.
+
+40
+00:02:36.833 --> 00:02:41.466
+and start to try and collate an idea as to how people are doing this. and when
+
+41
+00:02:41.466 --> 00:02:45.466
+you get a consensus... Here you go! It could be this guy here. GetPlayerViewPoint.
+
+42
+00:02:45.466 --> 00:02:49.466
+and that's asking for a location and a rotation. "Returns Player's
+
+43
+00:02:49.466 --> 00:02:53.466
+Point of View for the AI... Oh. this should be like a
+
+44
+00:02:53.466 --> 00:02:57.466
+full stop here. "For the AI this means the Pawn's 'Eyes' View". "For a Human player". which is us.
+
+45
+00:02:57.466 --> 00:03:01.466
+"this means the Camera's ViewPoint". That's what we need! So. we need GetPlayerView
+
+46
+00:03:01.466 --> 00:03:05.466
+Point. and then what does that run on? Well. it runs on A
+
+47
+00:03:05.466 --> 00:03:09.466
+PlayerController. right? So. we've worked out how to get APlayerController
+
+48
+00:03:09.466 --> 00:03:13.466
+before. So. if you want a micro challenge I'm not going to put a slide up. but why don't
+
+49
+00:03:13.466 --> 00:03:17.466
+you go and see if you can get the player view point and log it out. If you don't fancy taking
+
+50
+00:03:17.466 --> 00:03:21.466
+that on. all in one go. then keep watching and I'm going to break that down and then challenge you to just
+
+51
+00:03:21.466 --> 00:03:25.466
+log it out. to reinforce your logging knowledge. So. a couple of choices for you. depending on where you
+
+52
+00:03:25.466 --> 00:03:29.466
+are in the course. So. here we go. that's what we need to do! So.
+
+53
+00:03:29.466 --> 00:03:33.466
+let's first get the world right. because in order to get the first player
+
+54
+00:03:33.466 --> 00:03:37.466
+controller. we need to get the world first as we discussed by now. So we go and get the
+
+55
+00:03:37.466 --> 00:03:41.466
+first player controller. Ooh. I've missed a
+
+56
+00:03:41.466 --> 00:03:45.466
+arrow. a chevron on my arrow there. OK.
+
+57
+00:03:45.466 --> 00:03:49.466
+and source controller. the
+
+58
+00:03:49.466 --> 00:03:53.466
+intelli-sense is not helping me yet.
+
+59
+00:03:53.466 --> 00:03:57.466
+and that's because I've miss spelled. OK. so the moral. by the way.
+
+60
+00:03:57.466 --> 00:04:01.466
+of that if you're a beginner is that. you really want to make sure you get arrow operator in
+
+61
+00:04:01.466 --> 00:04:05.466
+and that down here there's no little wiggly thing that says the Visual Studio is still processing.
+
+62
+00:04:05.466 --> 00:04:09.466
+and then. you can use the auto-complete to prevent you from making errors.
+
+63
+00:04:09.466 --> 00:04:13.466
+So. GetFirstLocalPlayerFromController() is not quite the right one. so it's Get
+
+64
+00:04:13.466 --> 00:04:17.466
+FirstPlayerController. There you
+
+65
+00:04:17.466 --> 00:04:21.466
+go! So that was the Down Arrow I used there to select and then Return to Enter. It's a
+
+66
+00:04:21.466 --> 00:04:25.466
+method. OK. And then. we need to go in
+
+67
+00:04:25.466 --> 00:04:29.466
+and say well. what is this new method? Well. this new method is the GetPlayer
+
+68
+00:04:29.466 --> 00:04:33.466
+ViewPoint. By the way. you don't have to type it in order. you can just say view
+
+69
+00:04:33.466 --> 00:04:37.466
+point. So another way of discovering this. would be to start at the very beginning
+
+70
+00:04:37.466 --> 00:04:41.466
+and say OK. how do we do this? Well. how are we going to get the player's
+
+71
+00:04:41.466 --> 00:04:45.466
+point of view? Well. we need to get the world first. because we're going to do a top-down search. and
+
+72
+00:04:45.466 --> 00:04:49.466
+then we need to go from the world to what? Well.
+
+73
+00:04:49.466 --> 00:04:53.466
+I need to get the player. the first player... Ah. that's the one! The FirstPlayer
+
+74
+00:04:53.466 --> 00:04:57.466
+Controller() and then I'll need to get the view
+
+75
+00:04:57.466 --> 00:05:01.466
+point. Get player viewpoint. it returns me
+
+76
+00:05:01.466 --> 00:05:05.466
+a player's point of view. OK. so that's cool!
+
+77
+00:05:05.466 --> 00:05:09.466
+So let's do that and now let's see what it says and what parameters
+
+78
+00:05:09.466 --> 00:05:13.466
+it wants. It wants us to pass in an FVector.
+
+79
+00:05:13.466 --> 00:05:17.466
+It's got an Ampersand. which means that it's a reference. For now. let's just
+
+80
+00:05:17.466 --> 00:05:21.466
+brush over what references are. They are a bit like pointers. they can't be reassigned
+
+81
+00:05:21.466 --> 00:05:25.466
+to anything else but they're basically an alias. They are just
+
+82
+00:05:25.466 --> 00:05:29.466
+like the thing. OK. so it's an FVector reference.
+
+83
+00:05:29.466 --> 00:05:33.466
+but the bit that's important is that Unreal has named this parameter out_Location
+
+84
+00:05:33.466 --> 00:05:37.466
+and the same as the rotator. So we're saying. go get the player
+
+85
+00:05:37.466 --> 00:05:41.466
+view point. but the way that this is asking us to work is it's saying
+
+86
+00:05:41.466 --> 00:05:45.466
+I'm going to modify the parameters. Isn't this weird?
+
+87
+00:05:45.466 --> 00:05:49.466
+Look we've got a void getter here! We're saying get and you would expect the
+
+88
+00:05:49.466 --> 00:05:53.466
+things that you give a getter to specify what you want to go and get. to
+
+89
+00:05:53.466 --> 00:05:57.466
+tell me something about what I'm going to get but it doesn't. What this does is it says
+
+90
+00:05:57.466 --> 00:06:01.466
+you give me a couple of parameters. of an FVector and an FRotator. and I...
+
+91
+00:06:01.466 --> 00:06:05.466
+...like envelopes right. and in those envelopes I will put in
+
+92
+00:06:05.466 --> 00:06:09.466
+the results and give them back to you. So. the function is void. it returns nothing.
+
+93
+00:06:09.466 --> 00:06:13.466
+but it changes the input parameters. I actually think that is pretty horrible on two counts.
+
+94
+00:06:13.466 --> 00:06:17.466
+The word void space Get makes me have one heart attack. and then. the idea that these
+
+95
+00:06:17.466 --> 00:06:21.466
+are out parameters makes me have a little second heart attack but it's OK we'll live with it!
+
+96
+00:06:21.466 --> 00:06:25.466
+Let's show you a way of taming this! This is how I'm going to take it! What we're
+
+97
+00:06:25.466 --> 00:06:29.466
+going to do is. we're going to grab ourselves a couple of variable here. We're going
+
+98
+00:06:29.466 --> 00:06:33.466
+to declare FVector and I'm going to call it Player
+
+99
+00:06:33.466 --> 00:06:37.466
+ViewPoint. or maybe with a capital P to be
+
+100
+00:06:37.466 --> 00:06:41.466
+consistent with them. Location OK and then I'm going to say an FRotator.
+
+101
+00:06:41.466 --> 00:06:45.100
+
+
+102
+00:06:45.100 --> 00:06:49.100
+PlayerViewPointRotation. so we've
+
+103
+00:06:49.100 --> 00:06:53.100
+got a couple of variable to store things in. Now. what I want to
+
+104
+00:06:53.100 --> 00:06:57.366
+do here is. I'm going to pass these in. right. as variables. Now. the line is getting too long. so you're
+
+105
+00:06:57.366 --> 00:07:01.100
+allowed to split your line down to something like this. When you've
+
+106
+00:07:01.100 --> 00:07:05.100
+got multiple parameters or long parameters it's perfectly OK to just
+
+107
+00:07:05.100 --> 00:07:09.100
+split things away like that
+
+108
+00:07:09.100 --> 00:07:13.100
+OK. but I don't like the fact that I am actually changing
+
+109
+00:07:13.100 --> 00:07:17.100
+these two values. When we come to log down here. "// Log
+
+110
+00:07:17.100 --> 00:07:21.100
+out to test". So. this is a TODO a temporary TODO.
+
+111
+00:07:21.100 --> 00:07:25.100
+Then. I don't like the fact that I've made a variable here and then I'm changing it
+
+112
+00:07:25.100 --> 00:07:29.100
+by making a function call. so there's lots of ways of taming this beast.
+
+113
+00:07:29.100 --> 00:07:33.100
+Eventually you'll just get used to the fact that you need to be very careful about whether parameters are out parameters.
+
+114
+00:07:33.100 --> 00:07:37.100
+At least Unreal has told us. by putting
+
+115
+00:07:37.100 --> 00:07:41.100
+out underscore. that this is going to change the getter. the void getter
+
+116
+00:07:41.100 --> 00:07:45.100
+is going to change the parameters that come in. I can't even believe that I'm saying this. but we're dealing with an engine
+
+117
+00:07:45.100 --> 00:07:49.100
+here and we can't change that. So. this is what I do. I like to come up
+
+118
+00:07:49.100 --> 00:07:53.100
+top here. and we can say #define
+
+119
+00:07:53.100 --> 00:07:57.100
+OUT. This is a blank macro of our own. We're saying don't
+
+120
+00:07:57.100 --> 00:08:01.100
+do anything with that. but let's hash define the word OUT. Now. what I can do here
+
+121
+00:08:01.100 --> 00:08:05.066
+is I can mark these parameters without. and actually. if I was to type
+
+122
+00:08:05.066 --> 00:08:09.033
+it slowly and wait for Visual Studio to catch up... This is the little whirligig I meant. down at the bottom here.
+
+123
+00:08:09.033 --> 00:08:13.000
+telling us that Visual Studio is still parsing files in the solution. Then. as I start to type
+
+124
+00:08:13.000 --> 00:08:16.966
+out. I know it's a very short word. but it will actually give you completion on that
+
+125
+00:08:16.966 --> 00:08:20.966
+and it'll give you syntax highlighting. So. all I've done there is mark
+
+126
+00:08:20.966 --> 00:08:24.966
+there with a macro that does nothing. Out does absolutely nothing.
+
+127
+00:08:24.966 --> 00:08:28.966
+In the pre-processor. when we run when we compile just before it compiles the code.
+
+128
+00:08:28.966 --> 00:08:32.966
+it will substitute out with absolutely nothing. i.e. just remove it. but it does
+
+129
+00:08:32.966 --> 00:08:36.966
+allow us to annotate to remind ourselves. for now. that that's what's going on.
+
+130
+00:08:36.966 --> 00:08:41.000
+OK. what I want you to do is log out to test that this is working
+
+131
+00:08:41.000 --> 00:08:45.000
+I want you to continuously log out every tick. so that's going to be your challenge.
+
+132
+00:08:45.000 --> 00:08:49.000
+Log the viewpoint every tick. Log a viewpoint position and direction every
+
+133
+00:08:49.000 --> 00:08:53.033
+tick. Hint: You may need to use ToString() somewhere. Get used to working with different data
+
+134
+00:08:53.033 --> 00:08:57.033
+types. and give it at least 20 minutes if you're struggling if you're new to coding.
+
+135
+00:08:57.033 --> 00:09:01.000
+and then carry on watching for my solution. So pause the video and get that logging out now!
+
+136
+00:09:01.000 --> 00:09:05.000
+
+
+137
+00:09:05.000 --> 00:09:09.033
+OK welcome back! So. let's get this buttoned up! Relatively simple.
+
+138
+00:09:09.033 --> 00:09:13.100
+we're going to use a UE_LOG() macro. and then. the category
+
+139
+00:09:13.100 --> 00:09:17.100
+name is going to be (Log Temp) for now. We'll start thinking about making our own categories when we need to.
+
+140
+00:09:17.100 --> 00:09:21.100
+The verbosity is Warning. so it comes up in yellow. and then. we have this strange
+
+141
+00:09:21.100 --> 00:09:25.100
+TEXT()) formatter we have to send in. Now. whether or not we put a semicolon on the end doesn't
+
+142
+00:09:25.100 --> 00:09:29.100
+matter. actually. because the UE_LOG macro doesn't care but there you
+
+143
+00:09:29.100 --> 00:09:33.100
+go. I'm going to not put a semicolon on the end. because it's a macro.
+
+144
+00:09:33.100 --> 00:09:37.100
+OK. so there's really not any right or wrong. so it depends
+
+145
+00:09:37.100 --> 00:09:41.100
+on how the macro is written. It's a bit odd but there you go. that's macros for you.
+
+146
+00:09:41.100 --> 00:09:45.100
+UE_LOG. TEXT. let's just write a quick test here.
+
+147
+00:09:45.100 --> 00:09:49.100
+just to make sure that the log is even working and that all the code we have written so
+
+148
+00:09:49.100 --> 00:09:53.100
+far is working. So. I'm just going to build what I've got. which is basically nothing
+
+149
+00:09:53.100 --> 00:09:57.100
+apart from I have gone and got the world and I am logging nothing
+
+150
+00:09:57.100 --> 00:10:01.100
+yet. but I'm checking all the code around this works. Test test test test test
+
+151
+00:10:01.100 --> 00:10:05.100
+every frame good! So that's working! Now let's just get it working!
+
+152
+00:10:05.100 --> 00:10:09.100
+So. I'm going to say that the ("Location:  is some
+
+153
+00:10:09.100 --> 00:10:13.100
+string and that the Position
+
+154
+00:10:13.100 --> 00:10:17.100
+is some other string. Then. after the
+
+155
+00:10:17.100 --> 00:10:21.100
+brackets. we put in Player
+
+156
+00:10:21.100 --> 00:10:25.100
+ViewPointLocation). Now. what is this type? It
+
+157
+00:10:25.100 --> 00:10:29.066
+is an FVector. Do we have a .ToString? Yes we do
+
+158
+00:10:29.066 --> 00:10:33.100
+and that's a method. OK. now we got too long. it's on too many lines. so
+
+159
+00:10:33.100 --> 00:10:37.100
+I'm going to go over to the next line here. I'm going to indent that just because
+
+160
+00:10:37.100 --> 00:10:41.100
+it's just for style. and then. I'm going to put in the second parameter here. Player
+
+161
+00:10:41.100 --> 00:10:45.100
+ViewPointRotation.To
+
+162
+00:10:45.100 --> 00:10:49.100
+String() and let's try this!
+
+163
+00:10:49.100 --> 00:10:53.100
+We're going to get a lot of logs here!
+
+164
+00:10:53.100 --> 00:10:57.100
+OK. so it doesn't like that! What is it
+
+165
+00:10:57.100 --> 00:11:01.100
+about it that it doesn't like? It's quite likely that it doesn't like the formatting
+
+166
+00:11:01.100 --> 00:11:05.100
+of our spaces. The other thing
+
+167
+00:11:05.100 --> 00:11:09.100
+that it may not like is. remember that this log wants a T
+
+168
+00:11:09.100 --> 00:11:13.100
+star pointer. that really weird error that this log has.
+
+169
+00:11:13.100 --> 00:11:17.100
+It's not this lack of semicolon. we tested that a moment ago. I wanted to prove to you that we don't need
+
+170
+00:11:17.100 --> 00:11:21.100
+semicolons. but it's the fact that it actually doesn't want an FString. It wants
+
+171
+00:11:21.100 --> 00:11:25.100
+a pointer to a T char. so we need to do a star as we've seen
+
+172
+00:11:25.100 --> 00:11:29.100
+before. excuse the guess there. to dereference. And once
+
+173
+00:11:29.100 --> 00:11:33.100
+we've done that star. then it should build. And it does! Let's test it works
+
+174
+00:11:33.100 --> 00:11:37.100
+and then I'll re-layout the code. There you go! Now as I move around. watch what happens
+
+175
+00:11:37.100 --> 00:11:41.100
+here. You see my position and my location...
+
+176
+00:11:41.100 --> 00:11:45.100
+[Laughs] OK. I've said position and position! Look a me! Let's fix that!
+
+177
+00:11:45.100 --> 00:11:49.100
+Rotation.
+
+178
+00:11:49.100 --> 00:11:53.100
+And now that we have broken down the fact that the error
+
+179
+00:11:53.100 --> 00:11:57.100
+wasn't the spacing. the macro probably can handle this white space.
+
+180
+00:11:57.100 --> 00:12:01.100
+then we can re lay it out like that. which is probably nicer and easier to read. right.
+
+181
+00:12:01.100 --> 00:12:05.100
+So. all fixed now! Let's see! Builds. I'm showing you the
+
+182
+00:12:05.100 --> 00:12:09.100
+process. You know this is messy success. sloppy success. Look at that. rotation
+
+183
+00:12:09.100 --> 00:12:13.100
+is working in the Y in the P. OK
+
+184
+00:12:13.100 --> 00:12:17.100
+yep. that's fine! And I can't yaw here. so Pitch. This makes it clear. you see the Pitch
+
+185
+00:12:17.100 --> 00:12:21.100
+changing there? P up Pitch up 90. Pitch 0.
+
+186
+00:12:21.100 --> 00:12:25.100
+Pitch 270. that's Pitch axis! This is the
+
+187
+00:12:25.100 --> 00:12:29.100
+Yaw axis. you see the Y the pitch is changing slowly but the Y is changing fast. and
+
+188
+00:12:29.100 --> 00:12:33.100
+Roll. well we can't easily roll the actor. Roll would be where we
+
+189
+00:12:33.100 --> 00:12:37.100
+tilt the horizon left and right. So that's it. we have actually managed to
+
+190
+00:12:37.100 --> 00:12:41.100
+get the viewpoint of this pawn as we move around. which is pretty cool!
+
+191
+00:12:41.100 --> 00:12:42.733
+
+

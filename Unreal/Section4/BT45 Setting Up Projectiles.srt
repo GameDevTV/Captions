@@ -1,0 +1,638 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Hello. and welcome
+
+2
+00:00:04.000 --> 00:00:08.000
+to Setting Up Projectiles. In this video we are going to arrange
+
+3
+00:00:08.000 --> 00:00:12.000
+that. when we click the fire button. we get a log to say that we're firing. so that all the
+
+4
+00:00:12.000 --> 00:00:16.000
+code is there. We're also going to have this massive one by one by one
+
+5
+00:00:16.000 --> 00:00:20.000
+meter projectile. that we can drop into the world. ready for our firing
+
+6
+00:00:20.000 --> 00:00:23.400
+which will happen in the lecture after this one. So. see you in there!
+
+7
+00:00:23.400 --> 00:00:27.400
+OK. so remembering back to our Iterative Development Cycle.
+
+8
+00:00:27.400 --> 00:00:31.400
+we spent quite a lot of time on the Tank. and the Barrel movement is far
+
+9
+00:00:31.400 --> 00:00:35.400
+from perfect. but let's move on. for the moment. because the least fun thing about
+
+10
+00:00:35.400 --> 00:00:39.400
+this game. in my opinion right now. is that we can't fire. So. let's do a little more with the controls
+
+11
+00:00:39.400 --> 00:00:43.400
+and setup the firing system. So.
+
+12
+00:00:43.400 --> 00:00:47.400
+what I want to do is. firstly. talk about the basic architecture of that. What's
+
+13
+00:00:47.400 --> 00:00:51.400
+going to happen is. we're going to bind some input in the settings. and then.
+
+14
+00:00:51.400 --> 00:00:55.400
+we're going to. inside the blueprint for the tank. we are going to
+
+15
+00:00:55.400 --> 00:00:59.400
+bind the fire event. under Input Setup here.
+
+16
+00:00:59.400 --> 00:01:03.400
+over to. from the input to a method that we'll
+
+17
+00:01:03.400 --> 00:01:07.400
+create in C++. called Fire. and then. that method we will call
+
+18
+00:01:07.400 --> 00:01:11.400
+and we'll take it from there. So. let's start by getting you to setup
+
+19
+00:01:11.400 --> 00:01:15.400
+that overall structure. because it'll be a great recap for you. Nothing complicated here. no real
+
+20
+00:01:15.400 --> 00:01:19.400
+code to write. and then. we'll move on from there. So.
+
+21
+00:01:19.400 --> 00:01:23.400
+your challenge is as follows. Setup the firing code. create a Fire() method on the
+
+22
+00:01:23.400 --> 00:01:27.400
+tank. Make it BlueprintCallable. so we can call it from Blueprint.
+
+23
+00:01:27.400 --> 00:01:31.400
+Bind input and wire-up in Blueprint.
+
+24
+00:01:31.400 --> 00:01:35.400
+And then. test by logging to the console from C++. You might want to copy
+
+25
+00:01:35.400 --> 00:01:39.400
+one of your previous. or move one of your previous log messages. so
+
+26
+00:01:39.400 --> 00:01:43.400
+that we don't have too many log messages hanging around. OK. so go ahead. pause the video.
+
+27
+00:01:43.400 --> 00:01:47.400
+see if you can wire that up now. so that when you click. say the left mouse button. you get a log in
+
+28
+00:01:47.400 --> 00:01:51.400
+the console to say that the tank has fired.
+
+29
+00:01:51.400 --> 00:01:55.400
+
+
+30
+00:01:55.400 --> 00:01:59.400
+Welcome back! Let's take a look at this from the beginning! So.
+
+31
+00:01:59.400 --> 00:02:03.400
+Project Settings and Input allows me to come along and bind an action.
+
+32
+00:02:03.400 --> 00:02:07.400
+and it's an action because it's on or off. The action's simply
+
+33
+00:02:07.400 --> 00:02:11.400
+going to be called Fire. I'll move through this quickly. because you've seen all this before. Left Mouse
+
+34
+00:02:11.400 --> 00:02:15.400
+Button. OK. so we have an action! Fantastic! Into the Tank
+
+35
+00:02:15.400 --> 00:02:19.400
+blueprint! This is no longer just Camera Input Binding. so let's just rename it.
+
+36
+00:02:19.400 --> 00:02:23.400
+It's called Input Binding in general. under the Input Setup Event Graph. That all makes
+
+37
+00:02:23.400 --> 00:02:27.400
+sense to me. Let's go ahead and find this event. make sure that that input
+
+38
+00:02:27.400 --> 00:02:31.400
+that we just setup worked. Search for Fire and there's your action! Now. we
+
+39
+00:02:31.400 --> 00:02:35.400
+can't bind it to the C++ event just yet. because we don't have one.
+
+40
+00:02:35.400 --> 00:02:39.400
+So. I'll just save the blueprint and go over to C++.
+
+41
+00:02:39.400 --> 00:02:43.400
+So. on the Tank itself. after AimAt...
+
+42
+00:02:43.400 --> 00:02:47.400
+In fact. I'm going to move AimAt below the setters. just because I think setters kind of feel like they
+
+43
+00:02:47.400 --> 00:02:51.400
+come first. Aim At. now I'm going to make my new function.
+
+44
+00:02:51.400 --> 00:02:55.400
+BlueprintCallable. In fact. rather than typing I'm going to copy that one up
+
+45
+00:02:55.400 --> 00:02:59.400
+there. It doesn't need a category. because this is not going to be something that we're going to be choosing
+
+46
+00:02:59.400 --> 00:03:03.400
+on the right-hand side. like one of these properties
+
+47
+00:03:03.400 --> 00:03:07.400
+on the right over here. so we don't need a category right now.
+
+48
+00:03:07.400 --> 00:03:11.400
+And then. it's going to be void. Fire doesn't need to return anything. fire and it doesn't need to take
+
+49
+00:03:11.400 --> 00:03:15.400
+anything either. It's always just going to fire in the direction that the barrel's currently pointing.
+
+50
+00:03:15.400 --> 00:03:19.400
+So that is pretty self explanatory. Let's go ahead and implement this
+
+51
+00:03:19.400 --> 00:03:23.400
+method now. So. after AimAt we're going to have Fire().
+
+52
+00:03:23.400 --> 00:03:27.400
+which. of course. needs the class name here.
+
+53
+00:03:27.400 --> 00:03:31.400
+And then. just a little more jiggery pokery with the
+
+54
+00:03:31.400 --> 00:03:35.400
+syntax and we're nearly there! Alright. so where are we going to get this log message from
+
+55
+00:03:35.400 --> 00:03:39.400
+Well. we could type it but that's a pain. Why don't we search all of our project
+
+56
+00:03:39.400 --> 00:03:43.400
+for UE_LOG. This would be a good time to clear up and make sure we only have logs where we want them.
+
+57
+00:03:43.400 --> 00:03:47.400
+Here's one. we get the time in seconds. and
+
+58
+00:03:47.400 --> 00:03:51.400
+then. we talk about an aiming solution being found. We don't need that log anymore. so I'm going to cut that
+
+59
+00:03:51.400 --> 00:03:55.400
+one with Control X. I'm going to delete the other one.
+
+60
+00:03:55.400 --> 00:03:59.400
+for the moment. and just leave a comment "// No aim solution found".
+
+61
+00:03:59.400 --> 00:04:03.400
+Or I just take the whole else out. actually.
+
+62
+00:04:03.400 --> 00:04:07.400
+it's a waste of time then. OK. so just a quick modification to the TankAimingComponent
+
+63
+00:04:07.400 --> 00:04:11.400
+there. The main reason I went over here was to grab the UE_LOG. While I've got it in the paste buffer.
+
+64
+00:04:11.400 --> 00:04:15.400
+let's go and use it straight away and then repurpose it. We get the time. at a
+
+65
+00:04:15.400 --> 00:04:19.400
+particular time we say tank fires"). Now.
+
+66
+00:04:19.400 --> 00:04:23.400
+we could verify which tank that is. but I think it's going to be pretty obvious. Unless we get more
+
+67
+00:04:23.400 --> 00:04:27.400
+log messages then we expect. we don't need to be logging out the tank name. in my opinion.
+
+68
+00:04:27.400 --> 00:04:31.400
+Alright. I'm going to do another search for UE_LOG and make sure that we only have it where we want it. There it is in the
+
+69
+00:04:31.400 --> 00:04:35.400
+Fire() method. There it is on the GetControlledTank(). I think that's a reasonable warning.
+
+70
+00:04:35.400 --> 00:04:39.400
+Most of the time this won't show. because we will have a controlled tank.
+
+71
+00:04:39.400 --> 00:04:43.400
+and the same there. OK great! So. I think that's all fine!
+
+72
+00:04:43.400 --> 00:04:47.400
+Let's go ahead and compile up our code.
+
+73
+00:04:47.400 --> 00:04:51.400
+and then. over here in the tank blueprint. once that C++ code is fired. we should
+
+74
+00:04:51.400 --> 00:04:55.400
+find that from here we can find ourselves a Fire() method. It's not there right
+
+75
+00:04:55.400 --> 00:04:59.400
+now. because the compilation has failed. What have we done?
+
+76
+00:04:59.400 --> 00:05:03.400
+Oh. it must have a category! So. me saying we don't need a category arbitrarily.
+
+77
+00:05:03.400 --> 00:05:07.400
+it does need a category! So. I'm just going to call the category Firing!
+
+78
+00:05:07.400 --> 00:05:11.400
+It doesn't seem to make
+
+79
+00:05:11.400 --> 00:05:15.400
+sense for a BlueprintCallable. but why not? If that's what it wants. there's a little lesson for us all.
+
+80
+00:05:15.400 --> 00:05:19.400
+So. let's go ahead and recompile the code. and again. I'm going to see
+
+81
+00:05:19.400 --> 00:05:23.400
+how good the hot load is. Here I'm going to search for "fire". and see if when compilation
+
+82
+00:05:23.400 --> 00:05:27.400
+finishes at the bottom right. if this becomes available in the list. I highly doubt it. I
+
+83
+00:05:27.400 --> 00:05:31.400
+think that list has already been populated by the Editor. but we shall see
+
+84
+00:05:31.400 --> 00:05:35.400
+just for fun! No. it's not there now. so let's see how much we have to do while we're here just to see.
+
+85
+00:05:35.400 --> 00:05:39.400
+Fire like that's no good. Let's just try coming over here and going Fire.
+
+86
+00:05:39.400 --> 00:05:43.400
+There you go! So the minimum you need to do to refresh it is re-drag an
+
+87
+00:05:43.400 --> 00:05:47.400
+execution node line. There it is. Tank is
+
+88
+00:05:47.400 --> 00:05:51.400
+the target! Now. let's just not brush over that too quickly.
+
+89
+00:05:51.400 --> 00:05:55.400
+Target is self. That is OK because we are the Tank.. it's a Tank
+
+90
+00:05:55.400 --> 00:05:59.400
+blueprint. it's based on the Tank class. and it'll be calling a method on the Tank.
+
+91
+00:05:59.400 --> 00:06:03.400
+Yeah but. but let's not. you know.  it's worth thinking about what the target should be.
+
+92
+00:06:03.400 --> 00:06:07.400
+Great! So let's compile this blueprint. It compiled OK. and save it. I'm going to save
+
+93
+00:06:07.400 --> 00:06:11.400
+everything. just in case something crashes in play. Now checking the log carefully.
+
+94
+00:06:11.400 --> 00:06:15.400
+nothing is being logged at the moment. whereas if I look at something. and then click the Left
+
+95
+00:06:15.400 --> 00:06:19.400
+Mouse Button. there you go! Tank fires at 5.6 seconds into the game. and again.
+
+96
+00:06:19.400 --> 00:06:23.400
+at 9. There you go and you can even see how fast I can click the mouse here. Not
+
+97
+00:06:23.400 --> 00:06:27.400
+that fast. about 10 times a. less than 10 times a second.
+
+98
+00:06:27.400 --> 00:06:31.400
+Alright. anyway that is the skeleton of the Tank
+
+99
+00:06:31.400 --> 00:06:35.400
+firing. I hope it makes sense. it's very simple. Now. we need to actually get on
+
+100
+00:06:35.400 --> 00:06:39.400
+and make some firing happen. So I think. for the rest of this video. let's focus on just
+
+101
+00:06:39.400 --> 00:06:43.400
+creating a feasible projectile and then firing it out.
+
+102
+00:06:43.400 --> 00:06:47.400
+So. now let's think about the projectile that we're actually going to fire. We need to set this up.
+
+103
+00:06:47.400 --> 00:06:51.400
+It's going to have a C++ class. because it's actually going to have a fair amount of stuff on it.
+
+104
+00:06:51.400 --> 00:06:55.400
+We're going to need to control the launch blast. the smoke when it comes out of the barrel.
+
+105
+00:06:55.400 --> 00:06:59.400
+the impact blast when it hits the ground. the explosion force which moves the tank
+
+106
+00:06:59.400 --> 00:07:03.400
+that it lands near. all that type of stuff. so it will need a
+
+107
+00:07:03.400 --> 00:07:07.400
+class. So my challenge to you. it's not a pause the video challenge. it's
+
+108
+00:07:07.400 --> 00:07:11.400
+just a quick think challenge. What class would we base a projectile on?
+
+109
+00:07:11.400 --> 00:07:15.400
+So. we're going to make a new C++ class right now. The question
+
+110
+00:07:15.400 --> 00:07:19.400
+is what? What is it? It is a None? Probably not! Is it a character?
+
+111
+00:07:19.400 --> 00:07:23.400
+Well. it doesn't need all of the responsibility of a character that's listed there. How about a Pawn?
+
+112
+00:07:23.400 --> 00:07:27.400
+Well. because we'r not giving it any. we're not possessing it. neither us
+
+113
+00:07:27.400 --> 00:07:31.400
+or the AI are possessing this projectile or sending in any control inputs. It
+
+114
+00:07:31.400 --> 00:07:35.400
+doesn't even need to be a Pawn. it just needs to be an Actor in the world. We're going to lob it
+
+115
+00:07:35.400 --> 00:07:39.400
+and it's just going to go and do its thing. so we're going to make a new Actor.
+
+116
+00:07:39.400 --> 00:07:43.400
+I'm going to simply call the class Projectile.
+
+117
+00:07:43.400 --> 00:07:47.400
+Ooh. fun! OK great!
+
+118
+00:07:47.400 --> 00:07:51.400
+So. a classical projectile based on Actor.
+
+119
+00:07:51.400 --> 00:07:55.400
+So once that class is made. we're just going to leave it as
+
+120
+00:07:55.400 --> 00:07:59.400
+a template. for the moment. and we will fill in information into it like
+
+121
+00:07:59.400 --> 00:08:03.400
+some events. We may have some broadcast launch event type things
+
+122
+00:08:03.400 --> 00:08:07.400
+and we'll have . as I said. some explosion handling and all sorts of things.
+
+123
+00:08:07.400 --> 00:08:11.400
+And the amount of damage it does. all of that will be specified on the projectile later. but for now.
+
+124
+00:08:11.400 --> 00:08:15.400
+let's just focus on getting our blueprint setup. So. we have a tank here.
+
+125
+00:08:15.400 --> 00:08:19.400
+and we could put its Projectile blueprint here in the Tank folder. or we couild
+
+126
+00:08:19.400 --> 00:08:23.400
+put it in the Blueprints folder. I'm not really pressured. so I think I'm going to put it in the Tank folder.
+
+127
+00:08:23.400 --> 00:08:27.400
+just because the rest of the Tank related bits are there. So.
+
+128
+00:08:27.400 --> 00:08:31.400
+what we need to do then. of course. is make ourselves a new blueprint class
+
+129
+00:08:31.400 --> 00:08:35.400
+based on the projectile. So. it's all very well having the C++ class. we'll code all the behavior in there.
+
+130
+00:08:35.400 --> 00:08:39.400
+but we're going to need a physical projectile with a mesh and all those other nice things. the designer
+
+131
+00:08:39.400 --> 00:08:43.400
+or you with your designer hat on are going to need to tweak. So.
+
+132
+00:08:43.400 --> 00:08:47.400
+you click on the Projectile under the C++ classes. and you say. Create
+
+133
+00:08:47.400 --> 00:08:51.400
+Blueprint Class Based on Projectile. That's what we want. OK. so we need
+
+134
+00:08:51.400 --> 00:08:55.400
+Projectile
+
+135
+00:08:55.400 --> 00:08:59.400
+_BP and we
+
+136
+00:08:59.400 --> 00:09:03.400
+create the blueprint class. tell it its in Tank.
+
+137
+00:09:03.400 --> 00:09:07.400
+Just check it went in the right place. There it is. Projectile blueprint! Great and there it is. we have
+
+138
+00:09:07.400 --> 00:09:11.400
+a Projectile blueprint! We actually already have ourselves a little sphere on
+
+139
+00:09:11.400 --> 00:09:15.400
+here. It's a little visible sphere. it's 1 by 1 by 1 Unreal units.
+
+140
+00:09:15.400 --> 00:09:19.400
+which are centimeters. So let's just make it huge. for the moment. Let's just make this
+
+141
+00:09:19.400 --> 00:09:23.400
+guy a whole 100 centimeters.
+
+142
+00:09:23.400 --> 00:09:27.400
+a whole meter. so we can really see where it is in the world.
+
+143
+00:09:27.400 --> 00:09:31.400
+So I've just scaled up this projectile right now.
+
+144
+00:09:31.400 --> 00:09:35.400
+and I'm going to drop it in the world and just make sure it's truly visible. And there it is!
+
+145
+00:09:35.400 --> 00:09:39.400
+No one's going to miss a 1 by 1 meter projectile! So. that's good enough
+
+146
+00:09:39.400 --> 00:09:43.400
+for now. for this video. it's been long enough. We have two new classes in this video.
+
+147
+00:09:43.400 --> 00:09:47.400
+a Projectile class and a... I can't remember what the other one we made was.
+
+148
+00:09:47.400 --> 00:09:51.400
+No we don't. we have one new class which is the Projectile! We've also added some
+
+149
+00:09:51.400 --> 00:09:55.400
+code to the Tank. and remember. quite a useful way of working out what
+
+150
+00:09:55.400 --> 00:09:59.400
+has changed in a particular video. is you can save everything. In fact. it's probably safer
+
+151
+00:09:59.400 --> 00:10:03.400
+to close everything. even including VisualStudio
+
+152
+00:10:03.400 --> 00:10:07.400
+because it has some locked files. And you can go to your source control system. and of course. you just
+
+153
+00:10:07.400 --> 00:10:11.400
+go and look at the uncommitted changes there and it can be a pretty cool way of getting a recap. A lot of these things
+
+154
+00:10:11.400 --> 00:10:15.400
+you can't see. but you could see that there are some new action mappings in the default input.
+
+155
+00:10:15.400 --> 00:10:19.400
+We made a little bit of a change to the U Map. I don't know why. it's binary you can't see the
+
+156
+00:10:19.400 --> 00:10:23.400
+difference. I'm not sure what changed there. Then. you can see what we did in the .cpp. the Fire() method.
+
+157
+00:10:23.400 --> 00:10:27.400
+the AimingComponent. we took out some logs. etc. So. this is a pretty cool
+
+158
+00:10:27.400 --> 00:10:31.400
+way of recapping what you did. So. it just remains to commit your work. and I'll
+
+159
+00:10:31.400 --> 00:10:34.733
+see you in the next video!
+

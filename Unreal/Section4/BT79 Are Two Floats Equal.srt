@@ -1,0 +1,702 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So welcome
+
+2
+00:00:04.000 --> 00:00:09.166
+to Are Two Floats Equal?! Why am I calling the video that? Hmm. let's dive in and find out!
+
+3
+00:00:09.166 --> 00:00:13.166
+OK. so let's handle these Aiming and Locked states now!
+
+4
+00:00:13.166 --> 00:00:17.166
+So in order to differentiate between Aiming and Locked. we're going to need to know
+
+5
+00:00:17.166 --> 00:00:21.166
+rather if the Barrel is moving. So I'll write the surrounding code and then I'm going to give you a challenge
+
+6
+00:00:21.166 --> 00:00:25.166
+to write the IsBarrelMoving() method. So we're going to say else if
+
+7
+00:00:25.166 --> 00:00:29.166
+(IsBarrelMoving). wishing we had that method. it's called wishful coding.
+
+8
+00:00:29.166 --> 00:00:33.166
+
+
+9
+00:00:33.166 --> 00:00:37.166
+Then. if we had a way of detecting that the Barrel was
+
+10
+00:00:37.166 --> 00:00:41.166
+moving. we would set the FiringState too. And then. i"m going to copy the beginning over.
+
+11
+00:00:41.166 --> 00:00:45.166
+because there's a lot of noise there. EFiringState::
+
+12
+00:00:45.166 --> 00:00:49.166
+Aiming. Then. we move down one.
+
+13
+00:00:49.166 --> 00:00:53.166
+Finally. else... And the order does matter here if you think about it.
+
+14
+00:00:53.166 --> 00:00:57.166
+else we're just going to be in the FiringState of
+
+15
+00:00:57.166 --> 00:01:01.166
+Locked. So we're saying that Reloading. the fact that it has
+
+16
+00:01:01.166 --> 00:01:05.166
+been... Oh look. there's an error here! ...the FPlatformTime - the LastFire
+
+17
+00:01:05.166 --> 00:01:09.166
+Time needs to be less than the ReloadTimeInSeconds. in
+
+18
+00:01:09.166 --> 00:01:13.133
+order for us to be in a state of Reloading. that overrides everything else. If that's not the
+
+19
+00:01:13.133 --> 00:01:17.100
+case then we ask the question. Is the Barrel Moving? If the Barrel's moving. well then
+
+20
+00:01:17.100 --> 00:01:21.066
+I'm in an Aiming state. we're free to fire but we're in an Aiming state. otherwise
+
+21
+00:01:21.066 --> 00:01:25.100
+we're in the Locked state. So we've done that. in theory. handling the locked
+
+22
+00:01:25.100 --> 00:01:29.100
+state. What we need is an IsBarrelMoving method. so I'm going to go ahead and ask
+
+23
+00:01:29.100 --> 00:01:33.100
+you to do that. Write bool IsBarrelMoving(). compare the Barrel's current
+
+24
+00:01:33.100 --> 00:01:37.100
+forward vector with the AimDirection that we're using. within the AimAt()
+
+25
+00:01:37.100 --> 00:01:41.166
+method. Now. when you try and compare two FVectors.
+
+26
+00:01:41.166 --> 00:01:45.166
+you're actually remembering that FVectors are a struct containing floats.
+
+27
+00:01:45.166 --> 00:01:49.166
+so what you're really trying to do is compare floating point values. Now we can
+
+28
+00:01:49.166 --> 00:01:53.166
+ask the question whether floating point values are larger or smaller than each other. but never ever
+
+29
+00:01:53.166 --> 00:01:57.166
+ever ever ever ask whether two floats are equal. It just doesn't make any
+
+30
+00:01:57.166 --> 00:02:01.166
+sense to even ask the question. it's like saying. are two people the
+
+31
+00:02:01.166 --> 00:02:05.166
+same height? You can't even ask the question without specifying
+
+32
+00:02:05.166 --> 00:02:09.166
+a tolerance within which you are asking the question. Are two people.
+
+33
+00:02:09.166 --> 00:02:13.166
+who are about 180 centimeters. the same height? I don't know. it depends
+
+34
+00:02:13.166 --> 00:02:17.166
+whether you care about the millimeters. it depends whether you care about the microns. etc.
+
+35
+00:02:17.166 --> 00:02:21.166
+So when you compare two floats. you must do it in a way that says they are
+
+36
+00:02:21.166 --> 00:02:25.166
+equal within and then insert a tolerance. And that's exactly what this static
+
+37
+00:02:25.166 --> 00:02:29.166
+method. called Equals. that's available on every FVector does for us.
+
+38
+00:02:29.166 --> 00:02:33.166
+We'll take one FVector. like the barrel's current forward. we'll say ::Equals().
+
+39
+00:02:33.166 --> 00:02:37.166
+and then. inside the ::Equals there are two parameters. One is the other vector
+
+40
+00:02:37.166 --> 00:02:41.166
+and then the other is the tollerence. and I'm going to use 0.01
+
+41
+00:02:41.166 --> 00:02:45.166
+just for a small number. Anyway. test that it works by seeing if it changes
+
+42
+00:02:45.166 --> 00:02:49.166
+the color of the crosshair. And I've got a hint coming up next. so if you're ready for the
+
+43
+00:02:49.166 --> 00:02:53.166
+challenge without a hint go ahead. pause the video now. If you want a tiny bit more information. here it comes!
+
+44
+00:02:53.166 --> 00:02:57.166
+I suggest that you promote the AimDirection
+
+45
+00:02:57.166 --> 00:03:01.166
+local variable. inside the AimAt()method. up to a member variable for ease.
+
+46
+00:03:01.166 --> 00:03:05.166
+OK go ahead. pause the video. and have a crack at that now!
+
+47
+00:03:05.166 --> 00:03:09.166
+OK welcome back!
+
+48
+00:03:09.166 --> 00:03:13.166
+Let's make this IsBarrelMoving thingy happen! I'm going to do it.
+
+49
+00:03:13.166 --> 00:03:17.166
+I think. under the Initialize. In fact. I'm going to move Initialize above
+
+50
+00:03:17.166 --> 00:03:21.166
+TickComponent. OCD. that's what I call it! OK so we do the Begin
+
+51
+00:03:21.166 --> 00:03:25.166
+Play(). then we do our kind of manual Initialize. then ticking happens. and then. we ask questions
+
+52
+00:03:25.166 --> 00:03:29.166
+like void. spelled UTank
+
+53
+00:03:29.166 --> 00:03:33.166
+AimingComponent.
+
+54
+00:03:33.166 --> 00:03:37.166
+I should have copied that. shouldn't I. And then
+
+55
+00:03:37.166 --> 00:03:41.166
+::IsBarrelMoving(). comsa!
+
+56
+00:03:41.166 --> 00:03:45.166
+OK great! I'm going to go ahead and declare that right away! Where do we put
+
+57
+00:03:45.166 --> 00:03:49.166
+it? It doesn't really matter. I think it makes sense. somewhere like below the MoveBarrel
+
+58
+00:03:49.166 --> 00:03:53.166
+Towards. It's a boolean. if I made it void in the TankAimingComponent I was wrong.
+
+59
+00:03:53.166 --> 00:03:57.166
+I'll fix that in a second. It's bool IsBarrelMoving()
+
+60
+00:03:57.166 --> 00:04:01.166
+and it needs no parameters. It's self explanatory what it does but the
+
+61
+00:04:01.166 --> 00:04:05.166
+return type os bool. OK. so how are we going to do this? The first thing is that
+
+62
+00:04:05.166 --> 00:04:09.166
+we should never be calling this method when there is no Barrel.
+
+63
+00:04:09.166 --> 00:04:13.166
+so we need to protect against the idea of there being no Barrel.
+
+64
+00:04:13.166 --> 00:04:17.166
+when we call this. Now if there was no Barrel would we want to...
+
+65
+00:04:17.166 --> 00:04:21.166
+I want to talk a little bit more about the ensure statement. We only use ensure
+
+66
+00:04:21.166 --> 00:04:25.166
+for things that we never ever ever expect to happen in our production game. If this
+
+67
+00:04:25.166 --> 00:04:29.166
+stuff is likely to happen in the production game. then it's a failure condition you need to
+
+68
+00:04:29.166 --> 00:04:33.166
+handle. So is it possible that our code would call IsBarrelMoving when there's no
+
+69
+00:04:33.166 --> 00:04:37.166
+Barrel? Umm it really shouldn't. so I'm going to use an
+
+70
+00:04:37.166 --> 00:04:41.166
+ensure here. So if not (!ensure(Barrel)).
+
+71
+00:04:41.166 --> 00:04:45.166
+then we're going to return. Now careful. return
+
+72
+00:04:45.166 --> 00:04:49.166
+what. true or false? You can't just say return out of a method that returns a boolean.
+
+73
+00:04:49.166 --> 00:04:53.166
+Now. let's think about what the most sensible failure case is. If I ask the question
+
+74
+00:04:53.166 --> 00:04:57.166
+of a method. is the Barrel moving and there is no barrel pointer.
+
+75
+00:04:57.166 --> 00:05:01.166
+if we've got a choice between true and false. assuming we're not returning a richer
+
+76
+00:05:01.166 --> 00:05:05.166
+error like an enum. then I'm going to give it false in this case. because how can
+
+77
+00:05:05.166 --> 00:05:09.166
+the barrel be moving if the Barrel pointer's not set? OK you could argue
+
+78
+00:05:09.166 --> 00:05:13.166
+if it was anymore fringe than this. I would suggest you don't return a bool but you
+
+79
+00:05:13.166 --> 00:05:17.166
+return an enum. that gives a meaningful piece of information back. So your options would
+
+80
+00:05:17.166 --> 00:05:21.166
+be yes it's moving. no it's not moving. or don't ask me I can't even look through the Barrel pointer.
+
+81
+00:05:21.166 --> 00:05:25.166
+right now mate. which might be a slightly longer enum state than we need but you get the idea.
+
+82
+00:05:25.166 --> 00:05:29.166
+So with that protection in place. let's dive in! Auto.
+
+83
+00:05:29.166 --> 00:05:33.166
+I'm going to say BarrelForward. a very thin
+
+84
+00:05:33.166 --> 00:05:37.166
+variable here. it's just for self documentation. and we're going to look through the Barrel pointer.
+
+85
+00:05:37.166 --> 00:05:41.166
+which we protected. GetForwardVector(). which I'm pretty sure we've
+
+86
+00:05:41.166 --> 00:05:45.166
+used before. OK. so what are we going to return from this method? We're pretty much ready to
+
+87
+00:05:45.166 --> 00:05:49.166
+return. we're ready to return.
+
+88
+00:05:49.166 --> 00:05:53.166
+pseudocode it. We're going to return the boolean that is not
+
+89
+00:05:53.166 --> 00:05:57.166
+the "vectors are equal". So if
+
+90
+00:05:57.166 --> 00:06:01.166
+the forward direction and the
+
+91
+00:06:01.166 --> 00:06:05.166
+AimDirection. which is where? Let's go find it. AimDirection here! If
+
+92
+00:06:05.166 --> 00:06:09.166
+they're equal. then the Barrel is not
+
+93
+00:06:09.166 --> 00:06:13.166
+moving. If they're not equal the Barrel is moving. so it's the inversion of whether they're equal.
+
+94
+00:06:13.166 --> 00:06:17.166
+So I'm going to say if I BarrelForward.Equals.
+
+95
+00:06:17.166 --> 00:06:21.166
+And now. you can find out about this method. by the way. this dot Equals. It's here.
+
+96
+00:06:21.166 --> 00:06:25.166
+I've put it in the resources of the lecture for you. and it tells you what it does. it does a comparison with a
+
+97
+00:06:25.166 --> 00:06:29.166
+Tolerance. as I said. to
+
+98
+00:06:29.166 --> 00:06:33.166
+what? Well to this AimDirection. We need to promote that. in a second. I'm going to give it 0.01
+
+99
+00:06:33.166 --> 00:06:37.166
+for no particular reason. apart from it's a small number. which means that they look equal enough to be
+
+100
+00:06:37.166 --> 00:06:41.166
+good enough for me. The only thing is that AimDirection is out of scope now. Of course. it's not
+
+101
+00:06:41.166 --> 00:06:45.166
+inside this method. and it no longer needs to be just a local variable inside
+
+102
+00:06:45.166 --> 00:06:49.166
+this AimAt() method. We can take the auto off. which
+
+103
+00:06:49.166 --> 00:06:53.166
+turns it from an initialization and declaration simultaniously into a
+
+104
+00:06:53.166 --> 00:06:57.166
+nothing. because it doesn't know anything about AimDirection. And that's simple. we move AimDirection
+
+105
+00:06:57.166 --> 00:07:01.166
+into an FVector local
+
+106
+00:07:01.166 --> 00:07:05.166
+member of the class. comsa. OK.
+
+107
+00:07:05.166 --> 00:07:09.166
+so we have an AimDirection to compare to towards now. When VisualStudio catches up. all these
+
+108
+00:07:09.166 --> 00:07:13.166
+red squigglies will go away and we should be in good condition. So that's basically
+
+109
+00:07:13.166 --> 00:07:17.166
+the crux of IsBarrel. the way I'm doing it. So let's go ahead and compile
+
+110
+00:07:17.166 --> 00:07:21.166
+and see what we get out of this now! By the way. make sure you've
+
+111
+00:07:21.166 --> 00:07:25.166
+switched your chevron around here. in the question in
+
+112
+00:07:25.166 --> 00:07:29.166
+TickComponent. Is the time since the LastFireTime
+
+113
+00:07:29.166 --> 00:07:33.166
+less than the ReloadTimeInSeconds. not greater than in this case O.K.. otherwise
+
+114
+00:07:33.166 --> 00:07:37.166
+you won't be in the Reloading state. So that's an important note there. Also
+
+115
+00:07:37.166 --> 00:07:41.166
+if you don't like FPlatformTime. and you probably shouldn't like FPlatformTime. I'm showing it to you as
+
+116
+00:07:41.166 --> 00:07:45.166
+an alternative. You can use GetWorld GetTimeSeconds. that will work
+
+117
+00:07:45.166 --> 00:07:49.166
+just as well if not better. So I'm going to leave it until
+
+118
+00:07:49.166 --> 00:07:53.166
+we actually need to make a change back to GetWorld GetTimeSeconds. but just a note for you.
+
+119
+00:07:53.166 --> 00:07:57.166
+OK let's play the game and see what happens! It's red and I can't fire. that's good! After 3 seconds.
+
+120
+00:07:57.166 --> 00:08:01.166
+what happens? Well we get a big glitch and then OK
+
+121
+00:08:01.166 --> 00:08:05.166
+nothing! It's not working! So what's wrong? Let's have a look at the stack trace.
+
+122
+00:08:05.166 --> 00:08:09.166
+
+
+123
+00:08:09.166 --> 00:08:13.166
+Ooh. lots of stuff's going wrong here! So we've got something moaning about the
+
+124
+00:08:13.166 --> 00:08:17.166
+color and opacity. which is a Blueprint variable
+
+125
+00:08:17.166 --> 00:08:21.166
+that we have. if you remember. on the UI. So let's go
+
+126
+00:08:21.166 --> 00:08:25.166
+and look at that. While we've got these errors. let's deal with them one at a time. So on the
+
+127
+00:08:25.166 --> 00:08:29.166
+UI here we read under the PlayerUI
+
+128
+00:08:29.166 --> 00:08:33.166
+a Blueprint variable. in the graph which is here. which is the BP Aiming Component
+
+129
+00:08:33.166 --> 00:08:37.166
+Reference. Let's turn that into a string and then print it.
+
+130
+00:08:37.166 --> 00:08:41.166
+Oh no. we don't need to. because we
+
+131
+00:08:41.166 --> 00:08:45.166
+know that that is being set. because it is actually setting a color. So let's not necessarily
+
+132
+00:08:45.166 --> 00:08:49.166
+do that but note the following. the BP Aiming Component Reference
+
+133
+00:08:49.166 --> 00:08:53.166
+Blueprint variable here is currently private. Let's make that public by
+
+134
+00:08:53.166 --> 00:08:57.166
+clicking the little eye there. because it's being set from one blueprint and read from another.
+
+135
+00:08:57.166 --> 00:09:01.166
+So make that public and Compile! That should get rid of
+
+136
+00:09:01.166 --> 00:09:05.166
+this error about trying to access that Blueprint variable. Now we've
+
+137
+00:09:05.166 --> 00:09:09.166
+got a projectile Blueprint ensure failure on the TankAimingComponent
+
+138
+00:09:09.166 --> 00:09:13.166
+line... What line? I love these line numbers. 100!
+
+139
+00:09:13.166 --> 00:09:17.166
+So on line 100 we are not having a
+
+140
+00:09:17.166 --> 00:09:21.166
+ProjectileBlueprint available. That is probably because the AI tank is firing
+
+141
+00:09:21.166 --> 00:09:25.166
+too early. So have prevented it from firing at the beginning?
+
+142
+00:09:25.166 --> 00:09:29.166
+Yes we have. so it's not that. Let's have a look!
+
+143
+00:09:29.166 --> 00:09:33.166
+Let's recompile and have a look and see how it's behaving now.
+
+144
+00:09:33.166 --> 00:09:37.166
+Play! The AI tanks. when are they firing? They're firing after...
+
+145
+00:09:37.166 --> 00:09:41.166
+Yep. and I can fire after 3 seconds! Let's just see if my crosshair goes amber. Yeah
+
+146
+00:09:41.166 --> 00:09:45.166
+and then green! Actually it's working! So because I've had some ensure problems
+
+147
+00:09:45.166 --> 00:09:49.166
+and because we know that the ensures only work once per compilation
+
+148
+00:09:49.166 --> 00:09:53.166
+cycle or once per opening of the Editor. I'm actually going to close the Editor.
+
+149
+00:09:53.166 --> 00:09:57.166
+and then reopen it just to ensure that
+
+150
+00:09:57.166 --> 00:10:01.166
+we don't have any problems after that. because I don't want to ignore these ensures. It's
+
+151
+00:10:01.166 --> 00:10:05.166
+easy to look past them. when you're trying to get something done. and to not deal with them. So now
+
+152
+00:10:05.166 --> 00:10:09.166
+I'm reopen to make sure. Now I'm waiting a few seconds.
+
+153
+00:10:09.166 --> 00:10:13.166
+You see it goes green when the barrel is moving. it's amber. and when I fire it goes red
+
+154
+00:10:13.166 --> 00:10:17.166
+for 3 seconds. That looks good! I'm getting no errors in the Console
+
+155
+00:10:17.166 --> 00:10:21.166
+here. so that is a lot better. Let me show you the code I've added in SourceControl. briefly.
+
+156
+00:10:21.166 --> 00:10:25.166
+And remember. you can always look this up by going to the GitHub repository for the
+
+157
+00:10:25.166 --> 00:10:29.166
+course. and we're good to go!
+
+158
+00:10:29.166 --> 00:10:33.166
+So what has happened in this video. that's wrong? We haven't moved the
+
+159
+00:10:33.166 --> 00:10:37.166
+Initialize. that's just source control getting confused about the changes. We have switched
+
+160
+00:10:37.166 --> 00:10:41.166
+the chevron around. the comparison around. in this FPlatformTime time.
+
+161
+00:10:41.166 --> 00:10:45.166
+We've written this code here to do with the Barrel moving states.
+
+162
+00:10:45.166 --> 00:10:49.166
+Then. of course. we've written the entire IsBarrel moving method. which was these three lines
+
+163
+00:10:49.166 --> 00:10:53.166
+there. The header file changes are just the required things
+
+164
+00:10:53.166 --> 00:10:57.166
+to make all that work. So great. it's good news. we actually have aiming working.
+
+165
+00:10:57.166 --> 00:11:01.166
+which is quite satisfying. and it's much nicer now that you know
+
+166
+00:11:01.166 --> 00:11:05.166
+when you can and can't fire. I'm just going to get my controller out and have a play
+
+167
+00:11:05.166 --> 00:11:09.166
+and have a quick think about what's the least fun thing about this. And I think the least
+
+168
+00:11:09.166 --> 00:11:13.166
+fun thing now is this slightly ridiculous moving
+
+169
+00:11:13.166 --> 00:11:17.166
+metrics. which is where the tank's physics is a bit sluggish. because it
+
+170
+00:11:17.166 --> 00:11:21.166
+skids sideways so much that I can't really control it. That's actually starting to become annoying
+
+171
+00:11:21.166 --> 00:11:25.166
+now. so is the fact that they're bouncing off the ground like that!
+
+172
+00:11:25.166 --> 00:11:29.166
+Both of those things are somewhat annoying. so that's what we're going to fix next. but at least we
+
+173
+00:11:29.166 --> 00:11:33.166
+have a crosshair that gives us some affordance. as they call it. as to when we can
+
+174
+00:11:33.166 --> 00:11:37.166
+and can't fire and why we can or can't fire. So I look forward to seeing you in the next
+
+175
+00:11:37.166 --> 00:11:39.799
+video!
+

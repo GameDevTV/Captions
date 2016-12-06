@@ -1,0 +1,766 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So I've
+
+2
+00:00:04.000 --> 00:00:08.000
+got something a little different for you mid-section here. We're going to have a fairly major challenge.
+
+3
+00:00:08.000 --> 00:00:12.000
+It's major in terms of how long it'll take you. rather than how difficult it is. and
+
+4
+00:00:12.000 --> 00:00:16.000
+that is to get the turret rotating. So. if you want to dive
+
+5
+00:00:16.000 --> 00:00:20.000
+in without any help. then I'll give you the challenge now. And then. for those of you who want a little bit
+
+6
+00:00:20.000 --> 00:00:24.000
+of extra guidance. I'll give that before showing the solution. So. you're
+
+7
+00:00:24.000 --> 00:00:28.000
+going to need to revise the last few lectures. I think if you need to. unless it's already fresh.
+
+8
+00:00:28.000 --> 00:00:32.000
+At least take a look at your commits*. You are committing aren't you?
+
+9
+00:00:32.000 --> 00:00:36.000
+And we're going to need you to work through the blueprints and the C++ code to
+
+10
+00:00:36.000 --> 00:00:40.000
+make this turret work and basically see if you can get the turret rotating. but
+
+11
+00:00:40.000 --> 00:00:44.000
+don't worry about how the barrel. that barrel moves. It
+
+12
+00:00:44.000 --> 00:00:48.000
+doesn't matter if it goes from A to B in a slightly strange way. we'll deal
+
+13
+00:00:48.000 --> 00:00:52.000
+with that as a separate entity and modification. But
+
+14
+00:00:52.000 --> 00:00:56.000
+see if you can get it working. Now. if you're really confident and pause the video now. go ahead
+
+15
+00:00:56.000 --> 00:01:00.000
+spend a while on it. It's going to be a fantastic way to completely integrate your knowledge.
+
+16
+00:01:00.000 --> 00:01:04.000
+over the last few lectures. If you're not so confident. then bear with me just a second while
+
+17
+00:01:04.000 --> 00:01:08.000
+I show you a few pointers. So. just a few reminders
+
+18
+00:01:08.000 --> 00:01:12.000
+for those of you who want the help. Remember that we set a Barrel Reference
+
+19
+00:01:12.000 --> 00:01:16.000
+on the Tank. and then. that Tank sends that reference down to the TankAimingComponent.
+
+20
+00:01:16.000 --> 00:01:20.000
+Remember that we changed the barrel from a StaticMeshComponent.
+
+21
+00:01:20.000 --> 00:01:24.000
+like the Turret currently is. into a TankBarrelComponent.
+
+22
+00:01:24.000 --> 00:01:28.000
+So. we're going to need to so something very similar. make a TankTurretComponent and reorganize
+
+23
+00:01:28.000 --> 00:01:32.000
+this hierarchy and get all that working. making a BlueprintSpawnableComponent.
+
+24
+00:01:32.000 --> 00:01:36.000
+Now all that sounds scary. but actually. most of this is in here
+
+25
+00:01:36.000 --> 00:01:40.000
+as a template. So. if you start with your TankPlayerController.
+
+26
+00:01:40.000 --> 00:01:44.000
+remember that that's where everything starts. you will need very quickly then to move down
+
+27
+00:01:44.000 --> 00:01:48.000
+to the Tank. where you will be making yourself BarrelReference
+
+28
+00:01:48.000 --> 00:01:52.000
+letters like this for the Turret. And then. we will be moving into the
+
+29
+00:01:52.000 --> 00:01:56.000
+custom class called TankTurret.h. and that will
+
+30
+00:01:56.000 --> 00:02:00.000
+be very similar to this. with slightly different wording of course. And
+
+31
+00:02:00.000 --> 00:02:04.000
+we won't be wanting max and min rotation. we can let the thing just keep going round
+
+32
+00:02:04.000 --> 00:02:08.000
+and round and round. And remember. of course. that all of this is being called from the
+
+33
+00:02:08.000 --> 00:02:12.000
+TankAimingComponent.cpp file. and we are
+
+34
+00:02:12.000 --> 00:02:16.000
+making a (DeltaRotator.Pitch) call. You can probably guess what you need to do.
+
+35
+00:02:16.000 --> 00:02:20.000
+in order to do the turret rotation. So.
+
+36
+00:02:20.000 --> 00:02:24.000
+there are enough hints for you. I think there. Let's go ahead.
+
+37
+00:02:24.000 --> 00:02:28.000
+go back to the challenge. let you really pause the video. enjoy this larger
+
+38
+00:02:28.000 --> 00:02:32.000
+challenge. take your time. and remember to use source control as your friend. when you
+
+39
+00:02:32.000 --> 00:02:36.000
+get a little bit of something working. Make a micro commit if you need to. just a commit if
+
+40
+00:02:36.000 --> 00:02:40.000
+a small amount occurred. and go for it. it'll really increase your confidence if you can get this done.
+
+41
+00:02:40.000 --> 00:02:44.000
+And if you can't get it done for any reason. don't worry. I know it's a big challenge. Just watch my solution
+
+42
+00:02:44.000 --> 00:02:48.000
+and learn what you can from it. So see you soon!
+
+43
+00:02:48.000 --> 00:02:52.000
+OK welcome back! If I had any sleeves
+
+44
+00:02:52.000 --> 00:02:56.000
+I'd be rolling them up to get stuck in. but I don't. I'm in a polo shirt. so no sleeves
+
+45
+00:02:56.000 --> 00:03:00.000
+for me. However. I will say this might well take more than one video to get done.
+
+46
+00:03:00.000 --> 00:03:04.000
+because it's a little bit more. a little bit more. OK. so we've got a magic
+
+47
+00:03:04.000 --> 00:03:08.000
+number sitting right in front of my face. Delete that. we just don't need it.
+
+48
+00:03:08.000 --> 00:03:12.000
+So. I think that in order to get started. we're going to need to
+
+49
+00:03:12.000 --> 00:03:16.000
+start by making this new class. right? Because nearly everything's going to depend on it. I can't wire
+
+50
+00:03:16.000 --> 00:03:20.000
+up the blueprint. I can't get my references. I can't do anything without a new class. so let's go
+
+51
+00:03:20.000 --> 00:03:24.000
+ahead and make a new class! Now. if you're not sure what the class should be. well we're modeling the Turret.
+
+52
+00:03:24.000 --> 00:03:28.000
+the Barrel rather remember. which was a StaticMeshComponent type.
+
+53
+00:03:28.000 --> 00:03:32.000
+So. we add a new C++ class. Now. there is no StaticMeshComponent
+
+54
+00:03:32.000 --> 00:03:36.000
+in this list. unfortunately. so we have to click Show All Classes.
+
+55
+00:03:36.000 --> 00:03:40.000
+And we go StaticMeshComponent like that. and then.
+
+56
+00:03:40.000 --> 00:03:42.300
+let's call it Tank.
+
+57
+00:03:42.300 --> 00:03:46.300
+OK. so let's create this class! Now. it would be prudent.
+
+58
+00:03:46.300 --> 00:03:50.300
+once this class is created. to open up the TankBarrel and use it
+
+59
+00:03:50.300 --> 00:03:54.300
+as a bit of a template for the Turret. Now. when you use another class as a template. you need to be a bit
+
+60
+00:03:54.300 --> 00:03:58.300
+careful that you don't end up inheriting behavior that's not relevant.
+
+61
+00:03:58.300 --> 00:04:02.300
+but on the other hand. you know we've done a lot of work in the Barrel and why not
+
+62
+00:04:02.300 --> 00:04:06.300
+use it. So. there's my TankBarrel.h and then the Turret's
+
+63
+00:04:06.300 --> 00:04:10.300
+to the right of it. By the way. if you want to change the order that these tabs open. say I open
+
+64
+00:04:10.300 --> 00:04:14.300
+Tank. you see mine opens on the right. If you don't like yours opening on the left. it's
+
+65
+00:04:14.300 --> 00:04:18.300
+Tools and Options. over here in VisualStudio. and then. you look for Tab
+
+66
+00:04:18.300 --> 00:04:22.300
+and then you'll find under Environment. Tabs and Windows. this top setting.
+
+67
+00:04:22.300 --> 00:04:26.300
+There. now Xcode people don't really have the same concept. because Windows works
+
+68
+00:04:26.300 --> 00:04:30.300
+differently in Xcode. Alright. so what did we do
+
+69
+00:04:30.300 --> 00:04:34.300
+in the TankBarrel to make it available to the blueprint. It was that line
+
+70
+00:04:34.300 --> 00:04:38.300
+there. Remember that. over in the Tank blueprint. we're going to want to add a
+
+71
+00:04:38.300 --> 00:04:42.300
+system component right. and we don't have Tank Turret. even
+
+72
+00:04:42.300 --> 00:04:46.300
+though we've made the C++ class. And that is simply because we need this line that
+
+73
+00:04:46.300 --> 00:04:50.300
+I've got highlighted. Paste it in as our class
+
+74
+00:04:50.300 --> 00:04:54.300
+annotation like that. Alright. that alone will make it possible to add it to the
+
+75
+00:04:54.300 --> 00:04:58.300
+blueprint. Let's try it! We need to compile. and then. if we go down to the
+
+76
+00:04:58.300 --> 00:05:02.300
+Custom component list here. there it is. Tank Aiming and Tank Barrel right now.
+
+77
+00:05:02.300 --> 00:05:06.300
+Once the code compiles. Tank Turret should appear in that list. Now we may have to
+
+78
+00:05:06.300 --> 00:05:10.300
+just repopulate the list. because it's not dynamic. There you go. Tank Turret!
+
+79
+00:05:10.300 --> 00:05:14.300
+Fantastic! So that was that bit. Now once you've got a Tank Turret. it needs to be
+
+80
+00:05:14.300 --> 00:05:18.300
+childed to the Tank appropriately. So. just make sure by
+
+81
+00:05:18.300 --> 00:05:22.300
+expanding and collapsing. whatever you need to do. to make sure it's at the right level. cause that's
+
+82
+00:05:22.300 --> 00:05:26.300
+really important or the sockets won't work. Cool! Alright. so
+
+83
+00:05:26.300 --> 00:05:30.300
+while we've still got a Turret to model. what is it about it? What have we changed about the
+
+84
+00:05:30.300 --> 00:05:34.300
+Turret? Well not that much. I mean you can't tell by flicking
+
+85
+00:05:34.300 --> 00:05:38.300
+through quickly. but that's one of the reasons. actually. I've hidden Collision on our version.
+
+86
+00:05:38.300 --> 00:05:42.300
+because you see how much simpler and lighter this is. Collision and Physics have gone
+
+87
+00:05:42.300 --> 00:05:46.300
+with the Collision. That makes it easier to look at. but
+
+88
+00:05:46.300 --> 00:05:50.300
+our Turret basically just had a StaticMesh on it. So. let's just go and set
+
+89
+00:05:50.300 --> 00:05:54.300
+the Turret Mesh like this. Ooh. two r's I think.
+
+90
+00:05:54.300 --> 00:05:58.300
+Great! It's go no offset. that's cool! So. we've got a Tank Turret now!
+
+91
+00:05:58.300 --> 00:06:02.300
+We can move our Barrel into this new TankTurret. and I think I can
+
+92
+00:06:02.300 --> 00:06:06.300
+safely say. let's ditch the old Turret. Let's go to the Viewport. it makes life a bit easier to see what's going on.
+
+93
+00:06:06.300 --> 00:06:10.300
+There goes the old Turret. If you highlight it and delete it. the new one can
+
+94
+00:06:10.300 --> 00:06:14.300
+just be called Turret. and then. we've got a bit of messing around
+
+95
+00:06:14.300 --> 00:06:18.300
+to do. Why is the Turret on the floor? Well. because it hasn't been parented
+
+96
+00:06:18.300 --> 00:06:22.300
+to the Tank's Turret socket. Boom! Why is the
+
+97
+00:06:22.300 --> 00:06:26.300
+Barrel up in the air? Because the Barrel has been reparented to this Turret and therefore. it's lost its
+
+98
+00:06:26.300 --> 00:06:30.300
+parent socket connection. Boom! Why is the Barrel still floating in
+
+99
+00:06:30.300 --> 00:06:34.300
+the air? Because it has an arbitrary location. It wants to have a location of 0.
+
+100
+00:06:34.300 --> 00:06:38.300
+so does the Turret. Fantastic. there you go! We have
+
+101
+00:06:38.300 --> 00:06:42.300
+a Turret. looks exactly the same. but of course. this blueprint
+
+102
+00:06:42.300 --> 00:06:46.300
+is completely different. because it's based on the TankTurret class. rather than a
+
+103
+00:06:46.300 --> 00:06:50.300
+StaticMesh. Let's go ahead and compile! I'm also going to Save All.
+
+104
+00:06:50.300 --> 00:06:54.300
+You'll notice that the little stars up here will disappear. when I do that; it's important in case anything crashes.
+
+105
+00:06:54.300 --> 00:06:58.300
+not to lose my work. Alright. how are we doing in this video? We're
+
+106
+00:06:58.300 --> 00:07:02.300
+about 7 and a bit minutes in. and I think we can keep going. So. let's go
+
+107
+00:07:02.300 --> 00:07:06.300
+and think about getting these setter references next. I think while we're still in
+
+108
+00:07:06.300 --> 00:07:10.300
+blueprint. So. in your Tank blueprint. in the Event Graph.
+
+109
+00:07:10.300 --> 00:07:14.300
+we're going to need a set Turret Reference Method.
+
+110
+00:07:14.300 --> 00:07:18.300
+So. let's go and make that happen on the Tank
+
+111
+00:07:18.300 --> 00:07:22.300
+Barrel.cpp file. Ooh. why am I looking there?! Well. I'll leave that open. I
+
+112
+00:07:22.300 --> 00:07:26.300
+need it. but it's actually on the Tank.cpp file.
+
+113
+00:07:26.300 --> 00:07:30.300
+We had ourselves a. let's put the Tank on the left
+
+114
+00:07:30.300 --> 00:07:34.300
+because the execution flow goes left to right.
+
+115
+00:07:34.300 --> 00:07:38.300
+So. there is the SetBarrelReference. of course. we're just going to want to make a Set
+
+116
+00:07:38.300 --> 00:07:42.300
+TurretReference. So. it's simply copying that method. We can do a
+
+117
+00:07:42.300 --> 00:07:46.300
+Find and Replace. There's a quick replace. Control H. Look for Barrel
+
+118
+00:07:46.300 --> 00:07:50.300
+and replace with Turret. in the Selection not the whole thing.
+
+119
+00:07:50.300 --> 00:07:54.300
+Alright. let's Replace All. That looks pretty cool! Alright.
+
+120
+00:07:54.300 --> 00:07:58.300
+now we're going to need the Tank header file. so I'm going to pop that on the left. in this case. after having
+
+121
+00:07:58.300 --> 00:08:02.300
+changed my preference. and we're going to have a very similar thing. It's going to need
+
+122
+00:08:02.300 --> 00:08:06.300
+to be blueprint callable. so that over in the blueprint
+
+123
+00:08:06.300 --> 00:08:10.300
+here we can actually well call it. simply enough. And instead
+
+124
+00:08:10.300 --> 00:08:14.300
+of having a TurretBarrelReference. we have a TurretReference. I've already got that same
+
+125
+00:08:14.300 --> 00:08:18.300
+Find and Replace. So. Control H makes it very easy to just do a quick
+
+126
+00:08:18.300 --> 00:08:22.300
+switch. And that should be it for the Tank. apart
+
+127
+00:08:22.300 --> 00:08:26.300
+from. we need to remember. that it delegates this down to the Tank
+
+128
+00:08:26.300 --> 00:08:30.300
+AimingComponent. and that doesn't currently have a SetTurretReference.
+
+129
+00:08:30.300 --> 00:08:34.300
+So. let's mosey on over to the TankAimingComponent header file
+
+130
+00:08:34.300 --> 00:08:38.300
+and implementation file. as it happens. I'm going to
+
+131
+00:08:38.300 --> 00:08:42.300
+organize these into the order of the call stack. and then. we have this SetBarrelReference
+
+132
+00:08:42.300 --> 00:08:46.300
+that can be duplicated into a SetTurretReference. getting rid of the TODO.
+
+133
+00:08:46.300 --> 00:08:50.300
+because well we're TODO-ing it. [Laughs] OK. let's Control
+
+134
+00:08:50.300 --> 00:08:54.300
+H it. do a Replace. That's cool! So useful having that
+
+135
+00:08:54.300 --> 00:08:58.300
+replacement ready to go like that. and then. the same in the implementation.
+
+136
+00:08:58.300 --> 00:09:02.300
+Pretty simple. we copy and paste. and
+
+137
+00:09:02.300 --> 00:09:06.300
+then. we do a Control H. Now. remember the rule with programming. If you're
+
+138
+00:09:06.300 --> 00:09:10.300
+doing something twice it's fine. if it starts thinking about doing it a third time. well
+
+139
+00:09:10.300 --> 00:09:14.300
+then maybe we need to be thinking about something more generic here. but this is fine for just
+
+140
+00:09:14.300 --> 00:09:18.300
+a Barrel and a Turret. We know that this pain of copying and pasting is going to end. because
+
+141
+00:09:18.300 --> 00:09:22.300
+we only have those two things and everything else in the Tank is somewhat different.
+
+142
+00:09:22.300 --> 00:09:26.300
+But be on the look out for doing things a third time. see if you could do them
+
+143
+00:09:26.300 --> 00:09:30.300
+another way. Alright. we've done enough code manipulation there. We've just cut and pasted
+
+144
+00:09:30.300 --> 00:09:34.300
+methods using what we do in the Barrel as an inspiration for what we're doing
+
+145
+00:09:34.300 --> 00:09:38.300
+in the Turret. So. let's just make sure this compiles now. Then. I think we'll set the reference
+
+146
+00:09:38.300 --> 00:09:42.300
+and call it a day for this video. get the rest of it done in another.
+
+147
+00:09:42.300 --> 00:09:46.300
+So my compile failed. pretty inevitable with a load of code like that.
+
+148
+00:09:46.300 --> 00:09:50.300
+I've probably just done a silly boo boo. where I have not changed the class name.
+
+149
+00:09:50.300 --> 00:09:54.300
+So. in the TankAimingComponent line 22. what are we
+
+150
+00:09:54.300 --> 00:09:58.300
+doing? Ah. OK it's a lack of forward declaration. that's all it
+
+151
+00:09:58.300 --> 00:10:02.300
+is. It doesn't understand what TankTurret is. so we come along and say class
+
+152
+00:10:02.300 --> 00:10:06.300
+UTankTurret. And we should also. while we're here. say. well does the Tank
+
+153
+00:10:06.300 --> 00:10:10.300
+AimingComponent.cpp need a TankTurret? Well of course it does!
+
+154
+00:10:10.300 --> 00:10:14.300
+Thats what I forgot but that's a good reminder about how these forward declarations would work.
+
+155
+00:10:14.300 --> 00:10:18.300
+OK. I'm going to assume. for a moment. that's the only
+
+156
+00:10:18.300 --> 00:10:22.300
+error. because compilation is fast here. When I say the only error it clearly
+
+157
+00:10:22.300 --> 00:10:26.300
+isn't the only error. a lot of these say error error error. By the way. they may say warning sometimes.
+
+158
+00:10:26.300 --> 00:10:30.300
+which isn't fatal but they're all errors. but I suspect that they're all a cascade
+
+159
+00:10:30.300 --> 00:10:34.300
+of what was going wrong there. Alright. so there's one more thing
+
+160
+00:10:34.300 --> 00:10:38.300
+on line 27. and then. we have Turret = TurretToSet.
+
+161
+00:10:38.300 --> 00:10:42.300
+It doesn't have a local member variable called Turret and that's simply because we didn't make one.
+
+162
+00:10:42.300 --> 00:10:46.300
+So. we're just going to copy that line. pop it in.
+
+163
+00:10:46.300 --> 00:10:50.300
+do a Find and Replace with Control H. look for Barrel
+
+164
+00:10:50.300 --> 00:10:54.300
+in the Selection. We'll probably have to reselect and relook
+
+165
+00:10:54.300 --> 00:10:58.300
+for the Barrel. and then. just do a Replace. Replace
+
+166
+00:10:58.300 --> 00:11:02.300
+or Replace All. OK. that should do it. let's see if it does!
+
+167
+00:11:02.300 --> 00:11:06.300
+Back over to the compilation. You can see how kind of wrote this is and
+
+168
+00:11:06.300 --> 00:11:10.300
+simple. As I say. remember the rule of three. twice copying fine. three times
+
+169
+00:11:10.300 --> 00:11:14.300
+probably worth putting a more robust structure in. but that would be much more complicated than we
+
+170
+00:11:14.300 --> 00:11:18.300
+need here. OK fantastic. so that's worked! So. I can stay over here. go to the Tank blueprint.
+
+171
+00:11:18.300 --> 00:11:22.300
+and I'm going to set the reference for the Turret. straight after the Barrel. So.
+
+172
+00:11:22.300 --> 00:11:26.300
+I'm going to go over here. SetTurretReference. perfect! That method has come
+
+173
+00:11:26.300 --> 00:11:30.300
+up. I'm going to go get the Turret. which is of the new type. the Tank Turret type.
+
+174
+00:11:30.300 --> 00:11:34.300
+pop it in there. and then. I think what would be prudent to do
+
+175
+00:11:34.300 --> 00:11:38.300
+now is just compile the blueprint. I'm going to save everything. in case we end
+
+176
+00:11:38.300 --> 00:11:42.300
+up with some null pointer error. We shouldn't. there's no pointers to protect yet. because we're just
+
+177
+00:11:42.300 --> 00:11:46.300
+setting them in the C++ code. It's very simple. we're just setting
+
+178
+00:11:46.300 --> 00:11:50.300
+something to a reference. But it is possible that if we don't
+
+179
+00:11:50.300 --> 00:11:54.300
+tie that up... In fact. we should probably protect it. you know. this BarrelToSet
+
+180
+00:11:54.300 --> 00:11:58.300
+coming in here. How about if that BarrelToSet doesn't come in? So. we could just simply
+
+181
+00:11:58.300 --> 00:12:02.300
+go. if not (BarrelToSet)
+
+182
+00:12:02.300 --> 00:12:06.300
+;
+
+183
+00:12:06.300 --> 00:12:10.300
+Return what? Well nothing. because it's a void method. So. we should do the same thing with the
+
+184
+00:12:10.300 --> 00:12:14.300
+Turret. using our same trick of Control H
+
+185
+00:12:14.300 --> 00:12:18.300
+and replacing. and that just protects the pointer. If you think.
+
+186
+00:12:18.300 --> 00:12:22.300
+oh well it could crash because of a null pointer. don't just sit there on that potential problem. let's deal with it.
+
+187
+00:12:22.300 --> 00:12:26.300
+OK. let's compile up. that'll be a good sign that all of our C++ code
+
+188
+00:12:26.300 --> 00:12:30.300
+works! Then. we'll play the game which will make us sure that all of the blueprints
+
+189
+00:12:30.300 --> 00:12:34.300
+still compile. and that is enough for one video. So let's play the game!
+
+190
+00:12:34.300 --> 00:12:38.300
+And that's working. I'm pretty happy. I'm going to Save All. and make
+
+191
+00:12:38.300 --> 00:12:42.166
+a commit. So. I shall see you in the next video!
+

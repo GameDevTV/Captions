@@ -1,0 +1,526 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So. welcome to Applying
+
+2
+00:00:04.000 --> 00:00:08.000
+Materials. In this video. we're going to explain that a material is comprised
+
+3
+00:00:08.000 --> 00:00:12.000
+of one or more textures and one or more shaders.
+
+4
+00:00:12.000 --> 00:00:16.000
+Textures are image files. Shaders are GPU code. running on your
+
+5
+00:00:16.000 --> 00:00:20.000
+graphics processing unit. your graphics card. So. Unreal ships with some impressive
+
+6
+00:00:20.000 --> 00:00:24.000
+examples of materials. Unreal has powerful material editing
+
+7
+00:00:24.000 --> 00:00:28.000
+tools in it. which we'll take a look at and play with. and it'll be applying materials to our room
+
+8
+00:00:28.000 --> 00:00:32.000
+interior. By the end of it. you will have created something like this. a chair
+
+9
+00:00:32.000 --> 00:00:36.000
+so hideous looking that you will be desperate to escape the room. You'll have
+
+10
+00:00:36.000 --> 00:00:40.000
+nicely materialed floors and walls. and you'll be able to actually change the
+
+11
+00:00:40.000 --> 00:00:44.000
+colors of things like the metal and seats on this chair. so see you there!
+
+12
+00:00:44.000 --> 00:00:44.733
+
+
+13
+00:00:44.733 --> 00:00:48.733
+So guys. it's time to make this thing a lot more pretty. Let's
+
+14
+00:00:48.733 --> 00:00:52.733
+start with the floor. This checkerboard is all very nice with it's. what are they. 5 centimeter squares
+
+15
+00:00:52.733 --> 00:00:56.733
+inside? What are they? 5. 6. 7. 8. 9. 10. so
+
+16
+00:00:56.733 --> 00:01:00.733
+by 50 centimeter squares. but it's kind of boring right? So
+
+17
+00:01:00.733 --> 00:01:04.733
+why don't we get some materials. Where do we find them? Guess what. in the Starter
+
+18
+00:01:04.733 --> 00:01:08.733
+Pack! Go to Materials and then here they are! Now.
+
+19
+00:01:08.733 --> 00:01:12.733
+let's have a look! We can preview them here. if you want more detail you can double-click on them.
+
+20
+00:01:12.733 --> 00:01:16.733
+And then what are you going to get? You're going to get a face full of this thing.
+
+21
+00:01:16.733 --> 00:01:20.733
+which is basically a Node Editor. It's very similar to the Blueprint Editor. it's basically
+
+22
+00:01:20.733 --> 00:01:24.733
+built from the same stuff. and it's a little bit scary. particularly this one.
+
+23
+00:01:24.733 --> 00:01:28.733
+Materials are complicated. they combine together images which can
+
+24
+00:01:28.733 --> 00:01:32.733
+and have a lot of different purposes. This guy here is something called a Normal Map.
+
+25
+00:01:32.733 --> 00:01:36.733
+which gives the illusion of surface detail that's not there. of geometry
+
+26
+00:01:36.733 --> 00:01:40.733
+that's not there. roughness that's not there. and you've got all sorts of things. You have
+
+27
+00:01:40.733 --> 00:01:44.733
+masks that can mask out things like part of something that emits light
+
+28
+00:01:44.733 --> 00:01:48.733
+and part that doesn't. emissive masks. You can have all sorts of different things. complicated
+
+29
+00:01:48.733 --> 00:01:52.733
+bit of kit. but for now. we're going to focus on just applying them and
+
+30
+00:01:52.733 --> 00:01:56.733
+tweaking them slightly. So. how do we apply them? Well. let's find something that's going to work.
+
+31
+00:01:56.733 --> 00:02:00.733
+like a Wood_Floor_Walnut. Just grab it. drag it. drop it on
+
+32
+00:02:00.733 --> 00:02:04.733
+the floor. Oh look at that! If you get close
+
+33
+00:02:04.733 --> 00:02:08.733
+to that floor. look how pretty that is. that's just ridiculous!
+
+34
+00:02:08.733 --> 00:02:12.733
+I mean. bearing in mind this is running at how many frames a second? I don't know.
+
+35
+00:02:12.733 --> 00:02:16.733
+Click at the top-left of the Perspective Viewport. click Show
+
+36
+00:02:16.733 --> 00:02:20.733
+FPS. and OK I'm running a GTX 980 here and a 4
+
+37
+00:02:20.733 --> 00:02:24.733
+Gigahertz processor thingy but it's doing 120 frames per second.
+
+38
+00:02:24.733 --> 00:02:28.733
+which is plenty even for VR. so very very pretty OK!
+
+39
+00:02:28.733 --> 00:02:32.733
+It's cool! You can adjust various properties of these
+
+40
+00:02:32.733 --> 00:02:36.733
+materials. I don't think we need to go into a huge amount of detail about that right now. but I want to show you
+
+41
+00:02:36.733 --> 00:02:40.733
+where you get to the details of the materials. And where do you think it is? It's under the Details
+
+42
+00:02:40.733 --> 00:02:44.733
+Tab! So we click on Details. we scroll down. and we can see materials here.
+
+43
+00:02:44.733 --> 00:02:48.733
+and that tells you what material is assigned. If you have something with a material and you
+
+44
+00:02:48.733 --> 00:02:52.733
+want to see where that is in your Content Browser. you click the little magnifying glass. so
+
+45
+00:02:52.733 --> 00:02:56.733
+we're in the Details Tag against Materials. Clicking the magnifying glass takes you back to the material
+
+46
+00:02:56.733 --> 00:03:00.733
+itself. OK. so that's fine! You
+
+47
+00:03:00.733 --> 00:03:04.733
+can right-click on the material to see various different things. The main thing you're going to want to do
+
+48
+00:03:04.733 --> 00:03:08.733
+there is to say Edit or just double-click. You could also go
+
+49
+00:03:08.733 --> 00:03:12.733
+to Asset Actions and Select Assets Using This Asset. which is kind of a way of going back
+
+50
+00:03:12.733 --> 00:03:16.733
+the other way. That's selected the floor. We've got the floor selected.
+
+51
+00:03:16.733 --> 00:03:20.733
+we can go to Details. and we can go back to the material. So. that's how you can kind of get back and forth between
+
+52
+00:03:20.733 --> 00:03:24.733
+those. The rest of these properties here aren't really too specificly
+
+53
+00:03:24.733 --> 00:03:28.733
+related to the material. but there is a sneaky thing going on here. If you look at Static
+
+54
+00:03:28.733 --> 00:03:32.733
+Mesh under the details. you can actually drag that down and
+
+55
+00:03:32.733 --> 00:03:36.733
+there's other stuff there. and sometimes you'll see other property panels
+
+56
+00:03:36.733 --> 00:03:40.733
+here that have the ability to drag down or click down and show more
+
+57
+00:03:40.733 --> 00:03:44.733
+information. So. just watch out for that. when you're exploring to see what's available. Obviously
+
+58
+00:03:44.733 --> 00:03:48.733
+we will show you things as they're necessary. Rendering here. there's some more information about rendering
+
+59
+00:03:48.733 --> 00:03:52.733
+and to do with all sorts of stuff that we don't need to get into right now.
+
+60
+00:03:52.733 --> 00:03:56.733
+OK. because we can't boil the ocean by teaching everything at once.   So.
+
+61
+00:03:56.733 --> 00:04:00.733
+that's how you apply a material to the floor! How do we apply materials to the wall? Let's go and find a
+
+62
+00:04:00.733 --> 00:04:04.733
+reasonable wall material. I think we're going to end up with a really boring basic wall
+
+63
+00:04:04.733 --> 00:04:08.733
+material. One way is to just grab that and drag it and drop it on the wall panel
+
+64
+00:04:08.733 --> 00:04:12.733
+OK. but they already have that basic wall material on them. So. if we want to make
+
+65
+00:04:12.733 --> 00:04:16.733
+it a little bit different. we could maybe use a brick. So. one wall panel at a time. we can go
+
+66
+00:04:16.733 --> 00:04:20.733
+around dragging the material we want onto it. So for instance. this may be a brick
+
+67
+00:04:20.733 --> 00:04:24.733
+wall down at this end here. and then. we may want to have. I don't know.
+
+68
+00:04:24.733 --> 00:04:28.733
+concrete grime. That's a bit weird but I suppose. if we're going to be trapped in a room
+
+69
+00:04:28.733 --> 00:04:32.733
+then that's maybe what we want on these wall panels.
+
+70
+00:04:32.733 --> 00:04:36.733
+So. I'm just going to apply materials to the rest of the walls here.
+
+71
+00:04:36.733 --> 00:04:40.733
+fairly painstakingly. When you're doing BSP. there is actually a way of selecting adjacent
+
+72
+00:04:40.733 --> 00:04:44.733
+walls. but we're not doing BSP editing. So. look how much better that's looking already!
+
+73
+00:04:44.733 --> 00:04:48.733
+OK. so now what I want to show you. before I briefly leave you to
+
+74
+00:04:48.733 --> 00:04:52.733
+go and customize your materials. is a little bit of customization. Let's take this chair
+
+75
+00:04:52.733 --> 00:04:56.733
+and say I don't like that yellow there! That's horrible! I'm just going to show you how.
+
+76
+00:04:56.733 --> 00:05:00.733
+in the Material Node Editor. we could actually change that yellow. So. go
+
+77
+00:05:00.733 --> 00:05:04.733
+to the chair. go to the Details Tab.
+
+78
+00:05:04.733 --> 00:05:08.733
+click to browse over to the actual
+
+79
+00:05:08.733 --> 00:05:12.733
+material. so not here under Static Mesh but the one below under
+
+80
+00:05:12.733 --> 00:05:16.733
+Materials. That'll take you to here M_Chair. which doesn't look much
+
+81
+00:05:16.733 --> 00:05:20.733
+like the chair. Now. you can zoom out with the Mouse Wheel. we can get rid of the
+
+82
+00:05:20.733 --> 00:05:24.733
+Palette. and there is the general pattern of the chair. Now this thing here. this sphere.
+
+83
+00:05:24.733 --> 00:05:28.733
+is actually the chair. but it's mapped onto a sphere
+
+84
+00:05:28.733 --> 00:05:32.733
+right now. so this is probably the baseplate of the chair or the back. You can map it onto
+
+85
+00:05:32.733 --> 00:05:36.733
+a chair model. but in order to do that. as it says: "You need to select a
+
+86
+00:05:36.733 --> 00:05:40.733
+mesh-based asset" first. So. let's just not bother right now. it's easy enough to do.
+
+87
+00:05:40.733 --> 00:05:44.733
+but let's keep things simple. What I want to show you is how you could change
+
+88
+00:05:44.733 --> 00:05:48.733
+this yellow color. So. it's actually quite well laid out. You've got a Color
+
+89
+00:05:48.733 --> 00:05:52.733
+Seats parameter here. which leads into some Lerp. which is a Linear Interpolation.
+
+90
+00:05:52.733 --> 00:05:56.733
+which leads into another one. which multiplies with something to do with
+
+91
+00:05:56.733 --> 00:06:00.733
+metal coloring. and eventually changes the base coloring of the chair. So.
+
+92
+00:06:00.733 --> 00:06:04.733
+this is not the time to get into the full details of how material node editing works.
+
+93
+00:06:04.733 --> 00:06:08.733
+but what I want to show you is the lever you need to pull. And you need to go and find your color
+
+94
+00:06:08.733 --> 00:06:12.733
+seats. for example. and you can change that to maybe a blue
+
+95
+00:06:12.733 --> 00:06:16.733
+color. with this picker here. Click OK
+
+96
+00:06:16.733 --> 00:06:20.733
+so that's then changed. and then we just need to save at the top-left
+
+97
+00:06:20.733 --> 00:06:24.733
+and then close the whole Node Editor. And look
+
+98
+00:06:24.733 --> 00:06:28.733
+what's happened to my chair! It's actually quite a disgusting blue. I find now!
+
+99
+00:06:28.733 --> 00:06:32.733
+Maybe you like it. So. I'm going to go and edit that once again. just to reinforce
+
+100
+00:06:32.733 --> 00:06:36.733
+it. and then. I want you to go and play but at least change the seat color. You're welcome to
+
+101
+00:06:36.733 --> 00:06:40.733
+play with other properties of the metal. etc. as well. So. let's take another look at
+
+102
+00:06:40.733 --> 00:06:44.733
+that M_Chair material. which is in Content.
+
+103
+00:06:44.733 --> 00:06:48.733
+StarterContent. Props. Materials.
+
+104
+00:06:48.733 --> 00:06:52.733
+We go into it. we have a look around. you zoom with the Mouse Wheel. you drag with the Right Mouse Button.
+
+105
+00:06:52.733 --> 00:06:56.733
+This thing here is a complicated
+
+106
+00:06:56.733 --> 00:07:00.733
+map. which is actually a mask which is telling the system what
+
+107
+00:07:00.733 --> 00:07:04.733
+is metal and what is reflective and what's not. etc. But we want to look around for
+
+108
+00:07:04.733 --> 00:07:08.733
+the color of the metal and the color of the seats. Let's just focus on those two.
+
+109
+00:07:08.733 --> 00:07:12.733
+Customize them to your needs. So. I'm going to go for... I don't know what color seat I want. Bright
+
+110
+00:07:12.733 --> 00:07:16.733
+red. Ferrari Red seat! OK! Wait. make sure it goes
+
+111
+00:07:16.733 --> 00:07:20.733
+red! Don't really like that. it's not quite Ferrari red enough for me.
+
+112
+00:07:20.733 --> 00:07:24.733
+That's a bit better. It's not quite coming out right.
+
+113
+00:07:24.733 --> 00:07:28.733
+Hmm. anyway it's close enough! And then. the color of the metal.
+
+114
+00:07:28.733 --> 00:07:32.733
+Well. maybe I'm going to make the metal a little more goldie. That's going to be a bit bling isn't it? So.
+
+115
+00:07:32.733 --> 00:07:36.733
+then I save the material there. It's now saving the asset.
+
+116
+00:07:36.733 --> 00:07:40.733
+Close. look at the chair. and now it's got... That's actually worse!
+
+117
+00:07:40.733 --> 00:07:44.733
+[Laughs] But so what. it's comic! So. what I want you to do now is to go
+
+118
+00:07:44.733 --> 00:07:48.733
+ahead and customize your materials. Apply materials. as you see fit.
+
+119
+00:07:48.733 --> 00:07:52.733
+from the Starter Pack. play with their properties to see the effect that is has. and then. share
+
+120
+00:07:52.733 --> 00:07:56.733
+your creations in the discussions. See how disgusting you can make that chair!
+
+121
+00:07:56.733 --> 00:08:00.733
+For example. how foul a combination of colors can you create or how cohesive and
+
+122
+00:08:00.733 --> 00:08:04.733
+exciting a combination of colors you can create. Either way. either astound us with your artistic
+
+123
+00:08:04.733 --> 00:08:08.733
+abilities or sicken us with your incoherence.
+
+124
+00:08:08.733 --> 00:08:12.733
+OK guys. welcome back! So there's
+
+125
+00:08:12.733 --> 00:08:16.733
+not really much for me to do here. I've already created a fairly sickening looking chair.
+
+126
+00:08:16.733 --> 00:08:20.733
+and I've already applied materials to everything. I'm leaving the roof open just for lighting. at the moment. So.
+
+127
+00:08:20.733 --> 00:08:24.733
+I would just simply take a screenshot of this. share it in the discussions. I'm going to turn off this
+
+128
+00:08:24.733 --> 00:08:28.733
+frames per second indicator. because it's kind of irritating me. So. that's at the top-left there.
+
+129
+00:08:28.733 --> 00:08:32.733
+And I will see you shortly. when we will carry on building this. Building Escape!
+
+130
+00:08:32.733 --> 00:08:36.733
+With that chair there. you're going to want to escape this building now. so that's the incentive to leave!
+
+131
+00:08:36.733 --> 00:08:38.733
+
+

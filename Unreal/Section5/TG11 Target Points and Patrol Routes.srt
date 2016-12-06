@@ -1,0 +1,554 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So welcome to
+
+2
+00:00:04.000 --> 00:00:08.000
+Target Points and Patrol Routes! What we're going to do in this video is use these
+
+3
+00:00:08.000 --> 00:00:12.000
+little markers here. called Target Points. to work as waypoints for the
+
+4
+00:00:12.000 --> 00:00:16.000
+soldiers to be moving around. and then. we're going to provide a facility for each of the
+
+5
+00:00:16.000 --> 00:00:20.000
+guards to have certain Target Points that he visits like this one. This guy has
+
+6
+00:00:20.000 --> 00:00:24.000
+three or four. and this other guy has different Target Points. But they're also
+
+7
+00:00:24.000 --> 00:00:30.600
+sharing one of them. and they're sharing the one that's upstairs here. So go ahead and take a look at how we get this done!
+
+8
+00:00:30.600 --> 00:00:34.600
+So if we're going to setup the sort of patrolling behavior I showed you a
+
+9
+00:00:34.600 --> 00:00:38.600
+few videos ago. then obviously this method of programming it all
+
+10
+00:00:38.600 --> 00:00:42.600
+individually inside the blueprint is going to get very cumbersome indeed.
+
+11
+00:00:42.600 --> 00:00:46.600
+What we want to be able to do is put something down. physically in the world. something called a
+
+12
+00:00:46.600 --> 00:00:50.600
+Target Point. and then. it's very easy for
+
+13
+00:00:50.600 --> 00:00:54.600
+us or the designer to move those target points around. And then later. we can hang
+
+14
+00:00:54.600 --> 00:00:58.600
+further information off those Target Points. like how long should the AI loiter at
+
+15
+00:00:58.600 --> 00:01:02.600
+this point or anything else that we want. So we need to setup an
+
+16
+00:01:02.600 --> 00:01:06.600
+architecture of Target Points. and then. have a way for a given
+
+17
+00:01:06.600 --> 00:01:10.600
+instance of an AI character like this specifying the Target Point's.
+
+18
+00:01:10.600 --> 00:01:14.600
+that he or she should be visiting. So let's
+
+19
+00:01:14.600 --> 00:01:18.600
+start off by just looking at the blueprint for this AI character.
+
+20
+00:01:18.600 --> 00:01:22.600
+So let's just go find that somewhere in. I think it's in Third
+
+21
+00:01:22.600 --> 00:01:26.600
+PersonCharacterCPP. There you go. ThirdPersonCharacter! Let's go edit the blueprint!
+
+22
+00:01:26.600 --> 00:01:30.600
+Now that didn't open up in the tab how I wanted it to. Unreal
+
+23
+00:01:30.600 --> 00:01:34.600
+seems to forget that setting sometimes. So I'm going to go to my Editor Preferences
+
+24
+00:01:34.600 --> 00:01:38.600
+and right here. Asset Editor Open Location. then Main Window.
+
+25
+00:01:38.600 --> 00:01:42.600
+Just keep beating it into shape! Set that as Default.
+
+26
+00:01:42.600 --> 00:01:46.600
+make my settings writable. So I said Set as Default. make
+
+27
+00:01:46.600 --> 00:01:50.600
+settings writable. It's warned me that it may effect other developers. Well I'm the only developer here. at the moment.
+
+28
+00:01:50.600 --> 00:01:54.600
+That's fine for now. And I'm just going to go ahead and check. in source control. that that's
+
+29
+00:01:54.600 --> 00:01:58.600
+setting has been properly saved. It should have actually made a change to
+
+30
+00:01:58.600 --> 00:02:02.600
+this .ini file. And it looks like it has! Good!
+
+31
+00:02:02.600 --> 00:02:06.600
+And it's right down here. Alright! Anyway. so what we want to
+
+32
+00:02:06.600 --> 00:02:10.600
+do is. inside this ThirdPersonCharacter. I'm going to open up the full blueprint. It's just I find it
+
+33
+00:02:10.600 --> 00:02:14.600
+easier to navigate and give myself some sight here. What we're going to do is start off
+
+34
+00:02:14.600 --> 00:02:18.600
+with a Blueprint Variable that is going to allow to store an
+
+35
+00:02:18.600 --> 00:02:22.600
+array of target points. and then. we'll also talk about
+
+36
+00:02:22.600 --> 00:02:26.600
+what target points are and get those setup. So if you go to the My
+
+37
+00:02:26.600 --> 00:02:30.600
+Blueprint tab. of the ThirdPersonCharacter blueprint.
+
+38
+00:02:30.600 --> 00:02:34.600
+we can add a new variable here and I'm going to call it Patrol
+
+39
+00:02:34.600 --> 00:02:38.600
+Points. Now. if I can put a space in blueprint. I do just
+
+40
+00:02:38.600 --> 00:02:42.600
+because it reads more clearly. And we're going to go ahead and look
+
+41
+00:02:42.600 --> 00:02:46.600
+at what it is. Now. do we have something of Target Point type? We
+
+42
+00:02:46.600 --> 00:02:50.600
+do! Great! Alright. so we want a reference to a
+
+43
+00:02:50.600 --> 00:02:54.600
+Target Point! As I said. we'll see what target points are in a moment. but I just want to get the variables setup
+
+44
+00:02:54.600 --> 00:02:58.600
+first. Now. whenever we've made a blueprint variable before. it's all very well. it sits here.
+
+45
+00:02:58.600 --> 00:03:02.600
+And if I compile this blueprint and look at an instance
+
+46
+00:03:02.600 --> 00:03:06.600
+like this dude here and now search for "patrol".
+
+47
+00:03:06.600 --> 00:03:10.600
+then provided you've made it visible. you see
+
+48
+00:03:10.600 --> 00:03:14.600
+this little eye. you have to click visible here. Recompile so you have a Patrol Point
+
+49
+00:03:14.600 --> 00:03:18.600
+variable. compiled with an eye. If we now look here
+
+50
+00:03:18.600 --> 00:03:22.600
+we see. under the Default category. that category. by the way. is set here. You see
+
+51
+00:03:22.600 --> 00:03:26.600
+category Default. Default's not descriptive. so we could call it
+
+52
+00:03:26.600 --> 00:03:30.600
+Patrol Root or Route if you like. if you're American. So I make the category
+
+53
+00:03:30.600 --> 00:03:34.600
+Patrol Route. and then over here on the guy
+
+54
+00:03:34.600 --> 00:03:38.600
+we have a Patrol Route section. Here it is. buried somewhere!
+
+55
+00:03:38.600 --> 00:03:42.600
+Patrol Route. and it's saying. tell me what the Patrol Points are. but it's only asking me
+
+56
+00:03:42.600 --> 00:03:46.600
+to select a single Patrol Point. We want multiple Patrol Points. so
+
+57
+00:03:46.600 --> 00:03:50.600
+how do you organize that? Well. for the first time. we're going to make our blueprint variable. not just a
+
+58
+00:03:50.600 --> 00:03:54.600
+single but an array. So you literally just click this button here. that turns it
+
+59
+00:03:54.600 --> 00:03:58.600
+into an array. Alright. if we recompile now
+
+60
+00:03:58.600 --> 00:04:02.600
+you can see that you would be able to add multiple elements here to the
+
+61
+00:04:02.600 --> 00:04:06.600
+archetype or probably. more usefully. to the specific instance here.
+
+62
+00:04:06.600 --> 00:04:10.600
+We can now come in. we can go down. find the patrol setup
+
+63
+00:04:10.600 --> 00:04:14.600
+area. or it might be easier. because he's got so many properties. just to type that. and
+
+64
+00:04:14.600 --> 00:04:18.600
+you can start adding multiple Patrol Points. Cool! Alright.
+
+65
+00:04:18.600 --> 00:04:22.600
+so I'm just going to remove all of those patrol points and start talking about what these
+
+66
+00:04:22.600 --> 00:04:26.600
+Target Points actually are in the world. So if you go now to
+
+67
+00:04:26.600 --> 00:04:30.600
+Modes and you look for Target. you'll find a Target Point.
+
+68
+00:04:30.600 --> 00:04:34.600
+and you can drop that into the world. And now. let's just take a little look
+
+69
+00:04:34.600 --> 00:04:38.600
+at it! What is it? Well firstly. you can see it! There it is. it's rendered like a billboard. it's
+
+70
+00:04:38.600 --> 00:04:42.600
+always facing the camera. so it doesn't matter where we go. it doesn't really have three dimensionality to it.
+
+71
+00:04:42.600 --> 00:04:46.600
+And then. you get a load of options on this Target Point! If we click
+
+72
+00:04:46.600 --> 00:04:50.600
+on it here. you can see that it's got a Sprite icon here. and you can get various different
+
+73
+00:04:50.600 --> 00:04:54.600
+screen sizes that you can increase and decrease. but whether or not that
+
+74
+00:04:54.600 --> 00:04:58.600
+will take effect depends on all sorts of factors. So let's not worry too much about screen size.
+
+75
+00:04:58.600 --> 00:05:02.600
+for the moment. The default is there and it's good enough. we can
+
+76
+00:05:02.600 --> 00:05:06.600
+see it. which is what we're after. Alright. so there's other factors
+
+77
+00:05:06.600 --> 00:05:10.600
+here. to do with the UV Mapping. etc. ect. and Editor Scaling. and
+
+78
+00:05:10.600 --> 00:05:14.600
+all of these will effect how large it is but look it works! The point is. it's just a
+
+79
+00:05:14.600 --> 00:05:18.600
+thing in the world that allows us to specify points. and what we're going to do is.
+
+80
+00:05:18.600 --> 00:05:22.600
+we're going to grab these points and pop them around where we want them.
+
+81
+00:05:22.600 --> 00:05:26.600
+So we may have a Target Point there. we may have another Target Point say here.
+
+82
+00:05:26.600 --> 00:05:30.600
+and I'll just put a third Target Point down here. just for the sake of argument.
+
+83
+00:05:30.600 --> 00:05:34.600
+And all these are. for us at the moment. until we start
+
+84
+00:05:34.600 --> 00:05:38.600
+embellishing them with other properties. is a way of defining the Patrol Route.
+
+85
+00:05:38.600 --> 00:05:42.600
+Now. what we can do is we can go to this character. and we
+
+86
+00:05:42.600 --> 00:05:46.600
+can assign that character to the Target Points we
+
+87
+00:05:46.600 --> 00:05:50.600
+want him to move around. Now how do you do that? Well
+
+88
+00:05:50.600 --> 00:05:54.600
+you look for his Patrol Points array and you just start adding them. Now you can pick from
+
+89
+00:05:54.600 --> 00:05:58.600
+them. you can give them meaningful names. if you like. or you can just click on them and
+
+90
+00:05:58.600 --> 00:06:02.600
+notice what their name is. That's Point3. that's Point2. that's Point1. So I'm
+
+91
+00:06:02.600 --> 00:06:06.600
+going to imagine that this soldier wants to patrol between these three
+
+92
+00:06:06.600 --> 00:06:10.600
+points. Now of course. a given point can be shared amongst multiple soldiers.
+
+93
+00:06:10.600 --> 00:06:14.600
+one of the benefits of doing it this way. So let's go to the soldier and just
+
+94
+00:06:14.600 --> 00:06:18.600
+assign these three Target Points. Then. what I'm
+
+95
+00:06:18.600 --> 00:06:22.600
+going to do is. I'm going to challenge you. when this drop-down decides to work. to add in another
+
+96
+00:06:22.600 --> 00:06:26.600
+soldier and make sure that they've got separate Target Points. And then. in the next
+
+97
+00:06:26.600 --> 00:06:30.600
+lecture. we'll start thinking about how we're actually going to read from these Target Points and iterate
+
+98
+00:06:30.600 --> 00:06:34.600
+through them in Blueprint. OK. so this dude
+
+99
+00:06:34.600 --> 00:06:38.600
+has three Target Points associated with him. and there is no currently
+
+100
+00:06:38.600 --> 00:06:42.600
+no other AI Actor in the scene. Perfect! OK
+
+101
+00:06:42.600 --> 00:06:46.600
+let me give you a challenge! So what I want you to do to reinforce what we've just gone through is
+
+102
+00:06:46.600 --> 00:06:50.600
+to add another patrolling soldier. Add another AI character to your scene anywhere.
+
+103
+00:06:50.600 --> 00:06:54.600
+will do. Add a new Target Point up the stairs. and
+
+104
+00:06:54.600 --> 00:06:58.600
+then. make the two soldiers share that one point. So
+
+105
+00:06:58.600 --> 00:07:02.600
+add the point that's at the top of the stairs to the first soldier. the one I just worked on. and then.
+
+106
+00:07:02.600 --> 00:07:06.600
+for the second soldier that you're going to add. make sure that the point that's up the stairs is
+
+107
+00:07:06.600 --> 00:07:10.600
+one of them. So they're going to have different points. in general. but one of them they're going to share.
+
+108
+00:07:10.600 --> 00:07:14.600
+It creates water cooler moments. where they both end up in the same place at the same time and
+
+109
+00:07:14.600 --> 00:07:18.600
+they can chat. And then. add a couple of new points for the new guy. So
+
+110
+00:07:18.600 --> 00:07:22.600
+hopefully you understand that the current guy has three points. we want to add one more for him.
+
+111
+00:07:22.600 --> 00:07:26.600
+and then. a new guy with a few points. at least two or three.
+
+112
+00:07:26.600 --> 00:07:30.600
+one of which is shared with the first guy. Hopefully that makes sense. So go ahead. pause the video. and see
+
+113
+00:07:30.600 --> 00:07:34.600
+if you can get another patrolling soldier and set ourselves up for a water cooler moment
+
+114
+00:07:34.600 --> 00:07:38.600
+right now. OK welcome
+
+115
+00:07:38.600 --> 00:07:42.600
+back! So what do I mean by water cooler moment? I'm just saying that this is an opportunity.
+
+116
+00:07:42.600 --> 00:07:46.600
+as I say. for these two soldiers to interact. So there is
+
+117
+00:07:46.600 --> 00:07:50.600
+my Target Point. at the top of the stairs. I could give this one a more meaningful name.
+
+118
+00:07:50.600 --> 00:07:54.600
+I could say UpStairs. It's worth giving them
+
+119
+00:07:54.600 --> 00:07:58.600
+sensible names. quite early on. I'm going to add UpStairs to this
+
+120
+00:07:58.600 --> 00:08:02.600
+Actor's list. So there you go. UpStairs! You see how easy this is to setup
+
+121
+00:08:02.600 --> 00:08:06.600
+now? It's pretty cool. right? And then. I'm going to go ahead to the Content
+
+122
+00:08:06.600 --> 00:08:10.600
+Browser. drop in another ThirdPersonCharacter. Remember that the End
+
+123
+00:08:10.600 --> 00:08:14.600
+key on your keyboard will snap him to the ground. He has actually snapped to the ground automatically.
+
+124
+00:08:14.600 --> 00:08:18.600
+but should he be up in the air like this. I can hit the End key and push him to the ground.
+
+125
+00:08:18.600 --> 00:08:22.600
+Then. I need to give him at least the UpStairs Patrol Point.
+
+126
+00:08:22.600 --> 00:08:26.600
+and then. I want to get in a few more of these Patrol
+
+127
+00:08:26.600 --> 00:08:30.600
+Points. so I'll put one perhaps here. making sure it's not under the ground.
+
+128
+00:08:30.600 --> 00:08:34.600
+I'm going to hold down the Alt key. that's one way of duplicating something in Unreal.
+
+129
+00:08:34.600 --> 00:08:38.600
+and then. drag with Alt held down and that gives me another couple
+
+130
+00:08:38.600 --> 00:08:42.600
+of Target Points. They are Target Point 4 and 5. and I'll just
+
+131
+00:08:42.600 --> 00:08:46.600
+leave them named like that. for the moment. All the time there's only a handful that is still going to be
+
+132
+00:08:46.600 --> 00:08:50.600
+manageable. So this guy now has Target Point 4
+
+133
+00:08:50.600 --> 00:08:54.600
+and Target Point 5. OK. so as we flip between the two
+
+134
+00:08:54.600 --> 00:08:58.600
+characters. you can see that this guy has these points. this guy has these points.
+
+135
+00:08:58.600 --> 00:09:02.600
+and now. in the next video. we can start focusing on the logic of how we make these
+
+136
+00:09:02.600 --> 00:09:06.600
+characters interact and move between these points. And you can see.
+
+137
+00:09:06.600 --> 00:09:10.600
+hopefully. this is a nice general simple way of specifying Patrol Routes.
+
+138
+00:09:10.600 --> 00:09:14.400
+So I'll see you in the next video!
+

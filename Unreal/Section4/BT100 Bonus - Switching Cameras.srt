@@ -1,0 +1,402 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Hey guys and welcome to bonus video 1. Switching Cameras!
+
+2
+00:00:04.000 --> 00:00:08.000
+In this video I'm going to show you how to switch from first to third
+
+3
+00:00:08.000 --> 00:00:12.000
+person view. like that. Third person. first person. third person. first person.
+
+4
+00:00:12.000 --> 00:00:13.900
+and it's surprisingly simple.
+
+5
+00:00:13.900 --> 00:00:17.900
+Hey and welcome back! So I have solved my 100 lecture
+
+6
+00:00:17.900 --> 00:00:21.900
+limit challenge! I'm going to dive into BT100 now. and I
+
+7
+00:00:21.900 --> 00:00:25.900
+am going to show you how to change to a first person camera. that's been popularly
+
+8
+00:00:25.900 --> 00:00:29.900
+demanded over on our voting site. So if I just show
+
+9
+00:00:29.900 --> 00:00:33.900
+you that. if you go to voting.gamedev.tv. and you click
+
+10
+00:00:33.900 --> 00:00:37.900
+on UnrealCourse. you can see all the suggestions and things that people are talking about. And
+
+11
+00:00:37.900 --> 00:00:41.900
+quite high up here is "Switching from Third to First Person" views. and it got 35
+
+12
+00:00:41.900 --> 00:00:45.900
+votes but it's enough that I want to do it and it's pretty simple enough to show you.
+
+13
+00:00:45.900 --> 00:00:49.900
+So here we are inside Unreal Engine! The first thing I'm going to do. actually.
+
+14
+00:00:49.900 --> 00:00:53.900
+while we talk about feedback from you guys. is to fix a little bug. and for that
+
+15
+00:00:53.900 --> 00:00:57.900
+I want to thank DanM. who on community.gamedev.tv has
+
+16
+00:00:57.900 --> 00:01:01.900
+told us that if you change the way you do the UI. slightly. from the
+
+17
+00:01:01.900 --> 00:01:05.900
+video. then your line traces in the PlayerController may end up hitting the UI
+
+18
+00:01:05.900 --> 00:01:09.900
+effectively. And we want to change ECC_Visibility to ECC_Camera to get
+
+19
+00:01:09.900 --> 00:01:13.900
+around that. that will give you guys more options. So let's just do that! We
+
+20
+00:01:13.900 --> 00:01:17.900
+go into VisualStudio. we go into the TankPlayerController C++
+
+21
+00:01:17.900 --> 00:01:21.900
+under the GetLookVectorHitLocation or whatever you've called your method. and
+
+22
+00:01:21.900 --> 00:01:25.900
+when we do our line trace. instead o ECC_Visibility we change it to ECC_Camera.
+
+23
+00:01:25.900 --> 00:01:29.900
+And that just changes what it hits. and what it doesn't hit it changes the filtering
+
+24
+00:01:29.900 --> 00:01:33.900
+and can remove a bug for you. So I'm going to compile! While I'm
+
+25
+00:01:33.900 --> 00:01:37.900
+compiling. I'm just going to remind you that when you are at our side. like community
+
+26
+00:01:37.900 --> 00:01:41.900
+.gamedev.tv. or voting.gametv. you can actually switch between them if it stops
+
+27
+00:01:41.900 --> 00:01:45.900
+loading this thread. At the top here. you can just click
+
+28
+00:01:45.900 --> 00:01:49.900
+Voting there. Community there. and so on and
+
+29
+00:01:49.900 --> 00:01:53.900
+Udemy just takes you to the courses. OK. so let's see if that compile
+
+30
+00:01:53.900 --> 00:01:57.900
+has finished! I think it has! And if we just play the game. it should play exactly as
+
+31
+00:01:57.900 --> 00:02:01.900
+it was before. [Laughs] apart for our ego. that's fine. I was just inside the
+
+32
+00:02:01.900 --> 00:02:05.900
+terrain. So what I had there was. my camera was just inside the terrain. OK. so
+
+33
+00:02:05.900 --> 00:02:09.900
+nothing's changed. but if you decide to say put your health bar rather than
+
+34
+00:02:09.900 --> 00:02:13.900
+where it is here. on the tank. which kind of floats if the tank
+
+35
+00:02:13.900 --> 00:02:17.900
+depossess like that. Some people are putting their health bar in the corners of the screen.
+
+36
+00:02:17.900 --> 00:02:21.900
+If you're doing that then there's a risk that you line trace and hit your own User Interface.
+
+37
+00:02:21.900 --> 00:02:25.900
+and then things go wrong. then your barrel ends up sticking up in the air. So
+
+38
+00:02:25.900 --> 00:02:29.900
+that small change to the code that I've made there. inside the TankPlayerController
+
+39
+00:02:29.900 --> 00:02:33.900
+C++ will solve that. O.K. Now. how do we
+
+40
+00:02:33.900 --> 00:02:37.900
+get a first person camera working? You go to the tank blueprint. Let's
+
+41
+00:02:37.900 --> 00:02:41.900
+go duplicated the existing camera that's there. and then. with the new camera.
+
+42
+00:02:41.900 --> 00:02:45.900
+let's just move it and stick it on top of the tank and rotate it till its
+
+43
+00:02:45.900 --> 00:02:49.900
+about horizontal. Now. I don't know exactly where we want it until we look through it.
+
+44
+00:02:49.900 --> 00:02:53.900
+but something like that is going to be OK for me. So now. we have two cameras.
+
+45
+00:02:53.900 --> 00:02:57.900
+Camera and Camera1. I'm just going to Compile and Save. If I show you now.
+
+46
+00:02:57.900 --> 00:03:01.900
+nothing changes because we've not told the system to switch to the other camera yet.
+
+47
+00:03:01.900 --> 00:03:05.900
+So in order to be able to switch to the other camera we need some new input. so I'm going to go to the
+
+48
+00:03:05.900 --> 00:03:09.900
+Project Settings. Input. and I want you to bind an action. In my case. I'm going
+
+49
+00:03:09.900 --> 00:03:13.900
+to use a controller button. so I'm just going to say Switch or
+
+50
+00:03:13.900 --> 00:03:17.900
+Swap Cam. and then. I'm going to use the Gamepads
+
+51
+00:03:17.900 --> 00:03:21.900
+Face Button Top. which is the
+
+52
+00:03:21.900 --> 00:03:25.900
+Y button on an Xbox controller. triangle. I think. on a PS4
+
+53
+00:03:25.900 --> 00:03:29.900
+controller. Or use a key. no problem! So you've got a new Action Mapping.
+
+54
+00:03:29.900 --> 00:03:33.900
+so that gives you a Swap Cam thing there! Now I don't like these cameras being named the same. that's
+
+55
+00:03:33.900 --> 00:03:37.900
+really named meaninglessly. That is confusing. so I'm just going to say
+
+56
+00:03:37.900 --> 00:03:41.900
+3rd Person and then I'm going to say 1st Person on this guy. F2.
+
+57
+00:03:41.900 --> 00:03:45.900
+by the way. is a shortcut to rename. Oops. not F1!
+
+58
+00:03:45.900 --> 00:03:49.900
+F2. 1st Person. There we
+
+59
+00:03:49.900 --> 00:03:53.900
+go! Let's just Compile and Save that blueprint and go
+
+60
+00:03:53.900 --> 00:03:57.900
+into the Event Graph! Now. in the Event Graph. you will now have. if you right-click. a
+
+61
+00:03:57.900 --> 00:04:01.900
+Swap Cam event. of course. Now what I want
+
+62
+00:04:01.900 --> 00:04:05.900
+you to do is to see if you can make this camera swapping work. If you search for toggle.
+
+63
+00:04:05.900 --> 00:04:09.900
+come off the depressed and search for "toggle". you're going to find
+
+64
+00:04:09.900 --> 00:04:13.900
+some Toggle Active. Activation methods. which pretty much do
+
+65
+00:04:13.900 --> 00:04:17.900
+it for you. So look. why don't you just finish it off for the satisfaction of it. Search for
+
+66
+00:04:17.900 --> 00:04:21.900
+"toggle" node. See if you can make it work. [Laughs] it's as simple as that.
+
+67
+00:04:21.900 --> 00:04:25.900
+and you'll be surprised how easy it is. Of course. you're going to need to toggle both cameras. so go ahead.
+
+68
+00:04:25.900 --> 00:04:29.900
+pause the video. see if you can make Camera Swapping work then!
+
+69
+00:04:29.900 --> 00:04:33.900
+Awesome welcome back!
+
+70
+00:04:33.900 --> 00:04:37.900
+So let's see how this works! So if I push the Camera Swap button.
+
+71
+00:04:37.900 --> 00:04:41.900
+then I want to Toggle Active the (1st Person) camera.
+
+72
+00:04:41.900 --> 00:04:45.900
+and it automatically drags in a reference to it. You see that? And then. immediately after that.
+
+73
+00:04:45.900 --> 00:04:49.900
+it doesn't matter which order because it's going to happen so quickly we're never even going to
+
+74
+00:04:49.900 --> 00:04:53.900
+realize we Toggle active the (3rd Person).
+
+75
+00:04:53.900 --> 00:04:57.900
+And that's it! Now if we want to comment that block. we can just say Camera
+
+76
+00:04:57.900 --> 00:05:01.900
+Swapping. and that should
+
+77
+00:05:01.900 --> 00:05:05.900
+pretty much be it. Now. arguably Camera Swapping is a...
+
+78
+00:05:05.900 --> 00:05:09.900
+I'll just put that note back. sorry. Edit. Undo Delete selection.
+
+79
+00:05:09.900 --> 00:05:13.900
+What I want to do is take this Camera Swapping stuff. cut it. and put it in
+
+80
+00:05:13.900 --> 00:05:17.900
+Input Setup. because really it is just Input Binding isn't it? Why have it over
+
+81
+00:05:17.900 --> 00:05:21.900
+in the Event Graph. when it could be in Input? And that's the thing. these are all just Event Graphs and
+
+82
+00:05:21.900 --> 00:05:25.900
+you can move them around. That makes more sense to me. OK. Compile and Save and
+
+83
+00:05:25.900 --> 00:05:29.900
+let's see if it works. it may need a minor adjustment but let's see! So there I am. I...
+
+84
+00:05:29.900 --> 00:05:33.900
+Oh. I need the controller on. so I'm just turning the Xbox controller on now.
+
+85
+00:05:33.900 --> 00:05:37.900
+and as soon as it comes alive. which it has now. I can push
+
+86
+00:05:37.900 --> 00:05:41.900
+Y and there you go I swap! Now this other camera. there's something wrong with it. and that
+
+87
+00:05:41.900 --> 00:05:45.900
+is because the camera we are starting with. and well done if you
+
+88
+00:05:45.900 --> 00:05:49.900
+worked this out. this 1st Person camera is starting as active
+
+89
+00:05:49.900 --> 00:05:53.900
+and we don't want it to be active in the beginning. OK.
+
+90
+00:05:53.900 --> 00:05:57.900
+We want it to be inactive. in the beginning. so that the 3rd Person camera is active. in the
+
+91
+00:05:57.900 --> 00:06:01.900
+beginning. and the 1st Person camera is inactive. The problem with the 1st Person camera
+
+92
+00:06:01.900 --> 00:06:05.900
+being active is. we're just getting some arbitrary default camera view that we're switching
+
+93
+00:06:05.900 --> 00:06:09.900
+to. which is of the root transform of the tank in the middle. if both cameras start as active.
+
+94
+00:06:09.900 --> 00:06:13.900
+The whole point of this toggle here is that we're toggling the activity.
+
+95
+00:06:13.900 --> 00:06:17.900
+You see Toggle Active. so you need to start 3rd Person
+
+96
+00:06:17.900 --> 00:06:21.900
+active and 1st Person inactive. OK. so let's try that!
+
+97
+00:06:21.900 --> 00:06:25.900
+If I hit Y now. ah hah. and actually that's not far off.
+
+98
+00:06:25.900 --> 00:06:29.900
+that view. I'm going to stick with that and now I've got a 1st Person view! So there you go.
+
+99
+00:06:29.900 --> 00:06:33.900
+that has been done! So well done and I will see you later!
+
+100
+00:06:33.900 --> 00:06:35.933
+
+

@@ -1,0 +1,826 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So welcome to CrossProduct() Vector Operator! In
+
+2
+00:00:04.000 --> 00:00:08.000
+this video we are going to actually make the tanks not only move forward and backwards but be able to
+
+3
+00:00:08.000 --> 00:00:12.000
+turn as well. By the end of it we will have some crazy situation. something like this.
+
+4
+00:00:12.000 --> 00:00:16.000
+where these AI tanks are not exactly masters of their own movement but
+
+5
+00:00:16.000 --> 00:00:22.433
+they are moving and trying [laughs] to get towards us. despite all the slipping and flipping. So I will see you in there!
+
+6
+00:00:22.433 --> 00:00:26.433
+So the first thing I'm going to do is pop into VisualStudio
+
+7
+00:00:26.433 --> 00:00:30.433
+and just comment. temporarily. out the Intend... Ooh. [Laughs] ...Intend
+
+8
+00:00:30.433 --> 00:00:34.433
+MoveForward. without my Insert key on. and just compile that
+
+9
+00:00:34.433 --> 00:00:38.433
+back up. And what that's going to do. obviously. is just stop the tanks moving forward and backwards.
+
+10
+00:00:38.433 --> 00:00:42.433
+I just want to focus on their rotation. for a moment. entirely so we can see that
+
+11
+00:00:42.433 --> 00:00:46.433
+independently. So we'll freeze them in the forward backward direction. like that. and
+
+12
+00:00:46.433 --> 00:00:50.433
+now they'll just sit there again. They'll still aim. obviously. but they're just going to sit there.
+
+13
+00:00:50.433 --> 00:00:54.433
+Cool! So let's talk about how we want things to work. with regards to
+
+14
+00:00:54.433 --> 00:00:58.433
+rotation. So we have the AI providing this
+
+15
+00:00:58.433 --> 00:01:02.433
+same vector. So this tank here. right now. would probably have a vector heading straight
+
+16
+00:01:02.433 --> 00:01:06.433
+towards me. Whereas if he was around the hill. then remember he may have a vector that takes him
+
+17
+00:01:06.433 --> 00:01:10.433
+around the hill rather than straight towards me. and he has his local forward.
+
+18
+00:01:10.433 --> 00:01:14.433
+Remember you can use this little square for local stroke global. it has this local tank
+
+19
+00:01:14.433 --> 00:01:18.433
+forward. red. vector here. Now the question comes. how do we decide how to
+
+20
+00:01:18.433 --> 00:01:22.433
+rotate? We've done the forward and backwards. at least for now. and now we need to decide
+
+21
+00:01:22.433 --> 00:01:26.433
+how to rotate. So the deal is that if the tank is already... If
+
+22
+00:01:26.433 --> 00:01:30.433
+this guy was already facing us. like this. then it wouldn't need to rotate at
+
+23
+00:01:30.433 --> 00:01:34.433
+all. and if he was facing 90 degrees on. it would want to rotate as fast as
+
+24
+00:01:34.433 --> 00:01:38.433
+possible. It's almost exactly what we were doing before but like in reverse. pretty much.
+
+25
+00:01:38.433 --> 00:01:42.433
+So this is where the Sine Function comes in. Very much like the
+
+26
+00:01:42.433 --> 00:01:46.433
+Cosine Function. in fact. it's exactly the same shape. it's just shifted along by 90
+
+27
+00:01:46.433 --> 00:01:50.433
+degrees. So let's think it through! But firstly. what are the axes? Well the
+
+28
+00:01:50.433 --> 00:01:54.433
+X axis is the angle between the AIForwardIntention and the TankForward. just as before.
+
+29
+00:01:54.433 --> 00:01:58.433
+and the Y axis is the Throw that we're going to pass but this time to Intend
+
+30
+00:01:58.433 --> 00:02:02.433
+TurnRight(). rather than to IntendMoveForward. So
+
+31
+00:02:02.433 --> 00:02:06.433
+if there's not angle. i.e. if the AIForwardIntention is already
+
+32
+00:02:06.433 --> 00:02:10.433
+aligned with its. if it's already facing in the direction the AI wants it to go.
+
+33
+00:02:10.433 --> 00:02:14.433
+then how fast should we turn right? Not all all!
+
+34
+00:02:14.433 --> 00:02:18.433
+If we're 90 degrees out. it's going to turn right as fast as possible.
+
+35
+00:02:18.433 --> 00:02:22.433
+If we're 180 degrees out. it's not going to turn at all. Now we'll talk about that again
+
+36
+00:02:22.433 --> 00:02:26.433
+in a second. because that seems odd but it's OK. And if it's 270
+
+37
+00:02:26.433 --> 00:02:30.433
+degrees out. i.e. if it's on the right instead of the left or the left instead of the right.
+
+38
+00:02:30.433 --> 00:02:34.433
+then we go in the opposite direction. so this should
+
+39
+00:02:34.433 --> 00:02:38.433
+always turn us in the correct direction. So let's say that
+
+40
+00:02:38.433 --> 00:02:42.433
+90 degrees means that the tank wants to be going to its left.
+
+41
+00:02:42.433 --> 00:02:46.433
+sorry to its right. to its right. then that means it turns
+
+42
+00:02:46.433 --> 00:02:50.433
+right at full speed. If it wants to be going behind where
+
+43
+00:02:50.433 --> 00:02:54.433
+it is. then we'll talk about it in a sec. It looks like we do no
+
+44
+00:02:54.433 --> 00:02:58.433
+turn. but we'll think about what happen. And if the thing that it wants to go towards is to
+
+45
+00:02:58.433 --> 00:03:02.433
+the left of it. then it will turn right at a value of -1.
+
+46
+00:03:02.433 --> 00:03:06.433
+i.e. turn left. OK. hopefully I've gone through that slowly enough. You get the idea. Now let's
+
+47
+00:03:06.433 --> 00:03:10.433
+talk about this bit where I'm precisely behind the enemy tank. i.e. it's
+
+48
+00:03:10.433 --> 00:03:14.433
+sitting here. Let's put it in Rotate Mode. with the E key.
+
+49
+00:03:14.433 --> 00:03:18.433
+just as a reminder. If we're in this situation where I'm behind this other tank. what's it going to do?
+
+50
+00:03:18.433 --> 00:03:22.433
+Well the fact is I'm never going to be exactly behind it. These are floating
+
+51
+00:03:22.433 --> 00:03:26.433
+point values. these rotations. and I'm moving and the other tank
+
+52
+00:03:26.433 --> 00:03:30.433
+is likely to be moving forward or backwards.
+
+53
+00:03:30.433 --> 00:03:34.433
+so I'm never going to be exactly behind it. And if I am exactly behind
+
+54
+00:03:34.433 --> 00:03:38.433
+this guy. then the moment there's any deviation
+
+55
+00:03:38.433 --> 00:03:42.433
+from being behind it it's going to be unstable and its going to move up to one of these other
+
+56
+00:03:42.433 --> 00:03:46.433
+points. it's going to move away right. So what's going to happen is that if I'm
+
+57
+00:03:46.433 --> 00:03:50.433
+slightly to its left. behind it. then it's suddenly going to
+
+58
+00:03:50.433 --> 00:03:54.433
+turn left. turn left. turn left. turn left. and head towards me all right. vice
+
+59
+00:03:54.433 --> 00:03:58.433
+versa. So it's just going to move away from this point really quickly. it's not a stable
+
+60
+00:03:58.433 --> 00:04:02.433
+point. So we don't have to worry about the fact that this curve makes it not turn. when it's behind us.
+
+61
+00:04:02.433 --> 00:04:06.433
+Alright. so we need to Vector Cross Product. it's more complicated.
+
+62
+00:04:06.433 --> 00:04:10.433
+The Vector Cross Product is this thing here. it is the magnitude
+
+63
+00:04:10.433 --> 00:04:14.433
+of the two vectors that we're sending in. which remember is the same as before. These are these
+
+64
+00:04:14.433 --> 00:04:18.433
+AIForwardIntention and TankForward things
+
+65
+00:04:18.433 --> 00:04:22.433
+here. And we just group these a little differently.
+
+66
+00:04:22.433 --> 00:04:26.433
+Let's put ForwardThrow right next to where we call IntendMoveForward.
+
+67
+00:04:26.433 --> 00:04:30.433
+OK so we can just see these two vectors as independent. Great!
+
+68
+00:04:30.433 --> 00:04:34.433
+And then. it's sin of the angle between the two. different to before by 90
+
+69
+00:04:34.433 --> 00:04:38.433
+degrees. we've just talked about that. times n which is a unit vector
+
+70
+00:04:38.433 --> 00:04:42.433
+perpendicular to the plane. it says the plane in Wikipedia. What it's talking about is the plane
+
+71
+00:04:42.433 --> 00:04:46.433
+defined by a and b. So a and b create a plane. just like
+
+72
+00:04:46.433 --> 00:04:50.433
+over in Unreal here. If we click on this dude the red and the green
+
+73
+00:04:50.433 --> 00:04:54.433
+arrows say. define the ground play. blue is perpendicular to it.
+
+74
+00:04:54.433 --> 00:04:58.433
+And the direction that it's in depends on the left-hand rule. If you
+
+75
+00:04:58.433 --> 00:05:02.433
+put your left hand out now and you put say your
+
+76
+00:05:02.433 --> 00:05:06.433
+thumb along the red... Well let's do this so it's easy. Put your forefinger along
+
+77
+00:05:06.433 --> 00:05:10.433
+the red line. your index finder. and then. put your next finger along your middle
+
+78
+00:05:10.433 --> 00:05:14.433
+finger. on your left hand. down the green arrow and your thumb pointing upwards.
+
+79
+00:05:14.433 --> 00:05:18.433
+That's the left-hand rule! So the X is your index finger.
+
+80
+00:05:18.433 --> 00:05:22.433
+the Y. the green. is your middle finger. and then. your thumb. in this case.
+
+81
+00:05:22.433 --> 00:05:26.433
+tells you which direction the Z would be in. or the n vector. so
+
+82
+00:05:26.433 --> 00:05:30.433
+it is directional. Let's look at a table a bit like we had before.
+
+83
+00:05:30.433 --> 00:05:34.433
+It takes two FVectors on the input. but the order of them matters now. The
+
+84
+00:05:34.433 --> 00:05:38.433
+order that you cross these things in actually does matter; if you swap an and b around
+
+85
+00:05:38.433 --> 00:05:42.433
+then the direction of n changes. it swaps. The output's an
+
+86
+00:05:42.433 --> 00:05:46.433
+FVector this time. previously we had a float. What does it do? It kind of measures
+
+87
+00:05:46.433 --> 00:05:50.433
+this perpendicularity. it tells how perpendicular these guys are. You can
+
+88
+00:05:50.433 --> 00:05:54.433
+get a maximum vector out of this thing. when the two things are at right angles and a
+
+89
+00:05:54.433 --> 00:05:58.433
+minimum vector when they're parallel. so that's perfect! So when the
+
+90
+00:05:58.433 --> 00:06:02.433
+AIForwardIntention and
+
+91
+00:06:02.433 --> 00:06:06.433
+the TankForward are parallel. then you get 0.
+
+92
+00:06:06.433 --> 00:06:10.433
+and when they're perpendicular you get a maximum value.
+
+93
+00:06:10.433 --> 00:06:14.433
+The vector you get out is always orthogonal to both. Orthogonal means pointing in the
+
+94
+00:06:14.433 --> 00:06:18.433
+other direction. it's perpendicular to both of them exactly like these axes.
+
+95
+00:06:18.433 --> 00:06:22.433
+The only difference from these axes is. of course. the green and the red could squeeze in together or go
+
+96
+00:06:22.433 --> 00:06:26.433
+opposite and we'll look at that in a second. So in a
+
+97
+00:06:26.433 --> 00:06:30.433
+diagram we've got this. This is a and b down the same thing. this is us pointing at the enemy tank. This
+
+98
+00:06:30.433 --> 00:06:34.433
+now is where we are and the enemy tank or the
+
+99
+00:06:34.433 --> 00:06:38.433
+targeted tank is precisely to our left. Forget the magenta line for a minute.
+
+100
+00:06:38.433 --> 00:06:42.433
+In this case. the targeted tank is precisely behind us and there is no
+
+101
+00:06:42.433 --> 00:06:46.433
+turning going on. and then. as the animated .gif comes around.
+
+102
+00:06:46.433 --> 00:06:50.433
+this is where the targeted tank is on the right of us. Now the magenta
+
+103
+00:06:50.433 --> 00:06:54.433
+line is the cross product. So if it's on the right. it's demanding a rotation. it's
+
+104
+00:06:54.433 --> 00:06:58.433
+representing a rotation. Now it's weird that it's a vector but that's just how it is.
+
+105
+00:06:58.433 --> 00:07:02.433
+and you'll see how we use that in a moment. So in this case. there's no rotation. now magenta line.
+
+106
+00:07:02.433 --> 00:07:06.433
+When we see a target on our left. we rotate as fast as possible
+
+107
+00:07:06.433 --> 00:07:10.433
+to the right. That's what an upward arrow is going mean. rotate as fast as possible to the right
+
+108
+00:07:10.433 --> 00:07:14.433
+to get back towards facing it. When it's behind us we don't rotate at all. but
+
+109
+00:07:14.433 --> 00:07:18.433
+as I've said. as soon as we start rotating we'll continue rotating in that
+
+110
+00:07:18.433 --> 00:07:22.433
+direction. And then if our target's on the right-hand
+
+111
+00:07:22.433 --> 00:07:26.433
+side. then this arrow is representing us wanting to turn left. as fast as possible. You
+
+112
+00:07:26.433 --> 00:07:30.433
+can read all about that on Wikipedia. if you want to find more about the Cross Product.
+
+113
+00:07:30.433 --> 00:07:34.433
+What I want to do now is get into actually using it. so just like before
+
+114
+00:07:34.433 --> 00:07:38.433
+you can do this. but I've just got one more thing to tell you. It's a vector that
+
+115
+00:07:38.433 --> 00:07:42.433
+comes out of the Cross Product. and we also need to think about what would happen if the tank was
+
+116
+00:07:42.433 --> 00:07:46.433
+on a hill. Let's say that we're not just constrained to a plane
+
+117
+00:07:46.433 --> 00:07:50.433
+here. But this tank is kind of sitting up on a hillside like
+
+118
+00:07:50.433 --> 00:07:54.433
+this and has fallen down and is let's say rotated a little bit. because it's
+
+119
+00:07:54.433 --> 00:07:58.433
+sitting on the hill. then what are it's vectors doing? Well the Forward
+
+120
+00:07:58.433 --> 00:08:02.433
+Intention vector may be a 3 dimensional vector from this tank down to this tank. but the
+
+121
+00:08:02.433 --> 00:08:06.433
+forward vector is here. But that's OK. the Cross Product will
+
+122
+00:08:06.433 --> 00:08:10.433
+still be a vector pointing up. something like the blue arrow. It'll be a different angle
+
+123
+00:08:10.433 --> 00:08:14.433
+to the blue. but it'll be pointing up kind of up and right here. But it still has a
+
+124
+00:08:14.433 --> 00:08:18.433
+Z component. a component in the World Space up directoin.
+
+125
+00:08:18.433 --> 00:08:22.433
+So these two vectors that... Sorry I'm supposed to go to the code.
+
+126
+00:08:22.433 --> 00:08:26.433
+These two vectors. that we're going to be taking a Cross Product of. are both in World
+
+127
+00:08:26.433 --> 00:08:30.433
+Space. The TankForward and the AIForwardIntention are in World
+
+128
+00:08:30.433 --> 00:08:34.433
+Space. So whereas I've been demonstrating TankForward using
+
+129
+00:08:34.433 --> 00:08:38.433
+the local coordinates. the TankForward as far as what we're getting out of the code is
+
+130
+00:08:38.433 --> 00:08:42.433
+actually that red arrow there. so it's world space. And then. the
+
+131
+00:08:42.433 --> 00:08:46.433
+vector that we are getting for AI
+
+132
+00:08:46.433 --> 00:08:50.433
+ForwardIntention is also in World Space. and. in this
+
+133
+00:08:50.433 --> 00:08:54.433
+case. would probably be a line pretty much straight from this tank down to this tank. it would drive it down the hill.
+
+134
+00:08:54.433 --> 00:08:58.433
+OK. so what you get out of this. out of the Cross Product. also should
+
+135
+00:08:58.433 --> 00:09:02.433
+be interpreted as a World Space vector. and it won't be parallel to the
+
+136
+00:09:02.433 --> 00:09:06.433
+ground but we can just look at its Z component. i.e. the component around the blue
+
+137
+00:09:06.433 --> 00:09:10.433
+line here. to find out whether we should rotate left or right. as far as gravity is
+
+138
+00:09:10.433 --> 00:09:14.433
+concerned. So we're determining our rotations based on gravity.
+
+139
+00:09:14.433 --> 00:09:18.433
+Alright. let's put this tank back in terms of rotations. probably the easiest
+
+140
+00:09:18.433 --> 00:09:22.433
+just to reset the rotator here. I'm going to put it back in terms of location.
+
+141
+00:09:22.433 --> 00:09:26.433
+And then. I'm going to give you a challenge.
+
+142
+00:09:26.433 --> 00:09:30.433
+which is I want you to cross AIForwardIntention and TankForward. just like we did
+
+143
+00:09:30.433 --> 00:09:34.433
+before. but find the Z component of the resulting vector. that's just a dot Z.
+
+144
+00:09:34.433 --> 00:09:38.433
+And feed the result into IntendTurnRight(). then share the resulting movement with the
+
+145
+00:09:38.433 --> 00:09:42.433
+community. ideally on community.gamedev.tv in the Unreal section.
+
+146
+00:09:42.433 --> 00:09:46.433
+under the Battle Tank subsection. See you soon!
+
+147
+00:09:46.433 --> 00:09:50.433
+OK
+
+148
+00:09:50.433 --> 00:09:54.433
+welcome back! So let's have a go at this then! So we're going to have an auto
+
+149
+00:09:54.433 --> 00:09:58.433
+RightThrow
+
+150
+00:09:58.433 --> 00:10:02.433
+= FVector:: there's a static method on FVector called Cross
+
+151
+00:10:02.433 --> 00:10:06.433
+Product. These are really handy. we'll use these things a lot. So which way around do we do these? Frankly
+
+152
+00:10:06.433 --> 00:10:10.433
+we need to just try it! We could reason it with a left-hand rule and think
+
+153
+00:10:10.433 --> 00:10:14.433
+about which way things are increasing. but it's much easier and quicker just to
+
+154
+00:10:14.433 --> 00:10:18.433
+have the framework. which is if we get it wrong it's going to rotate in the wrong direction. and
+
+155
+00:10:18.433 --> 00:10:22.433
+try it one way. I've actually got a feeling that what I'm doing is the wrong way. but I don't mind
+
+156
+00:10:22.433 --> 00:10:26.433
+making that mistake. we can correct it. OK. so I get the CrossProduct between
+
+157
+00:10:26.433 --> 00:10:30.433
+the two. Now. the RightThrow isn't just that. because look these types are
+
+158
+00:10:30.433 --> 00:10:34.433
+incompatible. The RightThrow is currently coming out
+
+159
+00:10:34.433 --> 00:10:38.433
+as an FVector. you see that. Because the CrossProduct returns a vector ForwardThrow.
+
+160
+00:10:38.433 --> 00:10:42.433
+came out as a float. but the right flow is an FVector. That's why. well one of the reasons why we need
+
+161
+00:10:42.433 --> 00:10:46.433
+to take the Z component of it. Now if we look at the type of RightThrow it's a
+
+162
+00:10:46.433 --> 00:10:50.433
+float. IntendTurnRight
+
+163
+00:10:50.433 --> 00:10:54.433
+with (RightThrow). OK let's
+
+164
+00:10:54.433 --> 00:10:58.433
+try it! This may be the wrong way to be doing the CrossProduct.
+
+165
+00:10:58.433 --> 00:11:02.433
+and let's see the symptoms. if it is the wrong way of doing the Cross Product.
+
+166
+00:11:02.433 --> 00:11:06.433
+It's just simply quicker to try it both ways.
+
+167
+00:11:06.433 --> 00:11:10.433
+in this simple case. than it is to be working out what it should be. Now
+
+168
+00:11:10.433 --> 00:11:14.433
+is this guy turning towards us? No not really. Let's try the other guy.
+
+169
+00:11:14.433 --> 00:11:18.433
+Let's just move this other guy in front.
+
+170
+00:11:18.433 --> 00:11:22.433
+He's trying but they're not really turning
+
+171
+00:11:22.433 --> 00:11:26.433
+to face us. Now I'm not convinced. Let's just put him off
+
+172
+00:11:26.433 --> 00:11:30.433
+to that side.
+
+173
+00:11:30.433 --> 00:11:34.433
+OK I'm not convinced they're turning to face us. Let's try
+
+174
+00:11:34.433 --> 00:11:38.433
+doing it around the other way.
+
+175
+00:11:38.433 --> 00:11:42.433
+
+
+176
+00:11:42.433 --> 00:11:46.433
+Recompile. and then if it works what we'll
+
+177
+00:11:46.433 --> 00:11:50.433
+do just very briefly at the end is turn the forward movement back on and see what the total
+
+178
+00:11:50.433 --> 00:11:54.433
+movement looks like. OK let's have a look now!
+
+179
+00:11:54.433 --> 00:11:58.433
+
+
+180
+00:11:58.433 --> 00:12:02.433
+No. I think that's worse! O.K. so what I'm going to do is
+
+181
+00:12:02.433 --> 00:12:06.433
+swap them back to how they were.
+
+182
+00:12:06.433 --> 00:12:10.433
+
+
+183
+00:12:10.433 --> 00:12:14.433
+And then. I'm going to turn in
+
+184
+00:12:14.433 --> 00:12:18.433
+the forward movement as well. and then. let's compile
+
+185
+00:12:18.433 --> 00:12:22.433
+that and see how the total behavior is. In fact. I'm going to get my controller on
+
+186
+00:12:22.433 --> 00:12:26.433
+and get ready to run away from these tanks. just in case it works.
+
+187
+00:12:26.433 --> 00:12:30.433
+So play the game. F11. OK now let's see what happens! I'm
+
+188
+00:12:30.433 --> 00:12:34.433
+going to move out of the way. have a little look around. Ooh. I'm very slippy! We'll sort
+
+189
+00:12:34.433 --> 00:12:38.433
+the slippy-ness out later. How are these guys doing? Yeah. he's coming
+
+190
+00:12:38.433 --> 00:12:42.433
+towards me. trying to broadside me. I think one of the reasons
+
+191
+00:12:42.433 --> 00:12:46.433
+they're not behaving right... Let's just have a look at the Nav Mesh! Hit P... Ah look. there's a big hole in the Nav
+
+192
+00:12:46.433 --> 00:12:50.433
+Mesh! You see that? This guy's sitting near an edge of the Nav Mesh. and if he slides
+
+193
+00:12:50.433 --> 00:12:54.433
+into the hole in the Nav Mesh then we're in trouble. because
+
+194
+00:12:54.433 --> 00:12:58.433
+he's not going to be able to navigate any longer. So what I'm going to do. just to
+
+195
+00:12:58.433 --> 00:13:02.433
+sort that out very quickly. is to go to the World. go to the NavMeshBounds. lift them up a little bit.
+
+196
+00:13:02.433 --> 00:13:06.433
+let them recalculate. so that this hole over here that this tank is near to
+
+197
+00:13:06.433 --> 00:13:10.433
+gets filled in. And then. replay the game.
+
+198
+00:13:10.433 --> 00:13:14.433
+hit F11 so you can see better. [Laughs] This is fun!
+
+199
+00:13:14.433 --> 00:13:18.433
+You see these tanks are being forced to use our control system. It's balmy tank battles here!
+
+200
+00:13:18.433 --> 00:13:22.433
+And the acceptance radius isn't working. at the moment. in that they're coming all the way
+
+201
+00:13:22.433 --> 00:13:26.433
+up to us. but look we've got movement! We've got a kind of fun game. we've got weird
+
+202
+00:13:26.433 --> 00:13:30.433
+AI tank behavior. they're chasing us and they're aiming at us! So congratulations
+
+203
+00:13:30.433 --> 00:13:34.433
+on some sort of tank movement. We've still got bugs with them hitting the ground. we've got
+
+204
+00:13:34.433 --> 00:13:38.433
+all sorts going on. but it's fun and the game is still fun.
+
+205
+00:13:38.433 --> 00:13:42.433
+so this is what we're after! Alright. see you in the next video!
+
+206
+00:13:42.433 --> 00:13:42.633
+
+

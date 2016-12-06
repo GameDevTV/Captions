@@ -1,0 +1,658 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Welcome to
+
+2
+00:00:04.000 --> 00:00:08.000
+BlueprintSpawnableComponent()! In this video we're going to find out how to make our
+
+3
+00:00:08.000 --> 00:00:12.000
+barrel class actually available as a custom component.
+
+4
+00:00:12.000 --> 00:00:16.000
+You'll find that right now it isn't. but TankBarrel will become available. using a new annotation.
+
+5
+00:00:16.000 --> 00:00:20.000
+And then. on that TankBarrel we are going to set some parameters. Max
+
+6
+00:00:20.000 --> 00:00:24.000
+Degrees Per Second. how fast it can move. and how high and how low it can move.
+
+7
+00:00:24.000 --> 00:00:29.533
+so that the barrel doesn't collide with the tank as we move it up and down. So see you in there!
+
+8
+00:00:29.533 --> 00:00:33.533
+So I know there seems to be a lot of hurdles to getting this
+
+9
+00:00:33.533 --> 00:00:37.533
+tank barrel working but they're wonderfully informative hurdles. We've got another big one for you
+
+10
+00:00:37.533 --> 00:00:41.533
+in this video. So. we want to just add a private property here.
+
+11
+00:00:41.533 --> 00:00:45.533
+and that is an (EditAnywhere) so that
+
+12
+00:00:45.533 --> 00:00:49.533
+we can edit some properties of the barrel. Let's just make the variable. that's just going to be called float. the
+
+13
+00:00:49.533 --> 00:00:53.533
+first one for the moment. MaxDegrees per
+
+14
+00:00:53.533 --> 00:00:57.533
+second. Putting a sensible default in. = 20; and I'll just
+
+15
+00:00:57.533 --> 00:01:01.533
+label that as a "// Sensible default". as
+
+16
+00:01:01.533 --> 00:01:05.533
+that's what it is. OK. so anyway. we have
+
+17
+00:01:05.533 --> 00:01:09.533
+made ourselves a UPROPERTY. We would like to be able to set a default degrees per second. when a designer
+
+18
+00:01:09.533 --> 00:01:13.533
+puts a new barrel in the game. They can obviously modify that. but where are they going to edit it?
+
+19
+00:01:13.533 --> 00:01:17.533
+Well. let's compile our code. and then. have a think about where you'd see
+
+20
+00:01:17.533 --> 00:01:21.533
+it. It's not going to be on the tank barrel fbx. because that is a static mesh.
+
+21
+00:01:21.533 --> 00:01:25.533
+Where it's going to be is inside the Tank blueprint. We
+
+22
+00:01:25.533 --> 00:01:29.533
+have a barrel. but this barrel is not the one. In fact. our very blueprint's not
+
+23
+00:01:29.533 --> 00:01:33.533
+compiling right. Now look. we get a warning. and the warning. if we try and compile
+
+24
+00:01:33.533 --> 00:01:37.533
+is it's having the same problem with tank barrels and static references.
+
+25
+00:01:37.533 --> 00:01:41.533
+meshes rather. This SetBarrelReference method
+
+26
+00:01:41.533 --> 00:01:45.533
+now wants an actual tank barrel. whereas what we've got here
+
+27
+00:01:45.533 --> 00:01:49.533
+is a static mesh. We got it from over here and it's a static
+
+28
+00:01:49.533 --> 00:01:53.533
+mesh component. So the question comes. how do we swap this
+
+29
+00:01:53.533 --> 00:01:57.533
+guy out from being a (Static Mesh Component) Barrel
+
+30
+00:01:57.533 --> 00:02:01.533
+to being an actual class based thing? Well.
+
+31
+00:02:01.533 --> 00:02:05.533
+that's interesting question. If we try and add a component. look let's go down to the
+
+32
+00:02:05.533 --> 00:02:09.533
+custom section. What have we got? The only thing we've got at the moment that we've
+
+33
+00:02:09.533 --> 00:02:13.533
+created is Tank Aiming; we have not got our tank barrel. So if we
+
+34
+00:02:13.533 --> 00:02:17.533
+look at our classes. over in the Content Outliner. the C++
+
+35
+00:02:17.533 --> 00:02:21.533
+BattleTank. we have TankAimingComponent there!
+
+36
+00:02:21.533 --> 00:02:25.533
+Is available because it's a component. but TankBarrel is also
+
+37
+00:02:25.533 --> 00:02:29.533
+a component. it's a StaticMeshComponent rather than an actor
+
+38
+00:02:29.533 --> 00:02:33.533
+component but it is not by default available to this blueprint. We
+
+39
+00:02:33.533 --> 00:02:37.533
+can't add it. So our mission here is to make sure that TankBarrel appears
+
+40
+00:02:37.533 --> 00:02:41.533
+in the Custom section. here near TankAiming. So how do we do that?
+
+41
+00:02:41.533 --> 00:02:45.533
+Well. let's go look at the TankAimingComponent!
+
+42
+00:02:45.533 --> 00:02:49.533
+And you see it. by the way. you notice how Unreal in the list under
+
+43
+00:02:49.533 --> 00:02:53.533
+Custom here in the blueprint. it's taken away the word component which is pretty cool.
+
+44
+00:02:53.533 --> 00:02:57.533
+and it's also
+
+45
+00:02:57.533 --> 00:03:01.533
+picked up this forward declaration comment. So. let's go look at the
+
+46
+00:03:01.533 --> 00:03:05.533
+code for the TankAimingComponent. It's picked up forward declaration here.
+
+47
+00:03:05.533 --> 00:03:09.533
+because it's the first thing before the class. So. what I'm going to do is must move forward
+
+48
+00:03:09.533 --> 00:03:13.533
+declaration here. and I can make use of the fact I know that it's  now
+
+49
+00:03:13.533 --> 00:03:17.533
+going to read this comment here. just to introduce the class. So. we can say.
+
+50
+00:03:17.533 --> 00:03:21.533
+"// Holds parameters
+
+51
+00:03:21.533 --> 00:03:25.533
+for barrel's"...
+
+52
+00:03:25.533 --> 00:03:29.533
+Well. holds barrel's properties. basically.
+
+53
+00:03:29.533 --> 00:03:33.533
+
+
+54
+00:03:33.533 --> 00:03:37.533
+..."and Elevate method". Maybe that's
+
+55
+00:03:37.533 --> 00:03:41.533
+too specific because this'll go out of date. but what I want to show you is. if we compile that.
+
+56
+00:03:41.533 --> 00:03:45.533
+that the comment will come across...
+
+57
+00:03:45.533 --> 00:03:49.533
+...
+
+58
+00:03:49.533 --> 00:03:53.533
+here when we get to Custom and our
+
+59
+00:03:53.533 --> 00:03:57.533
+TankAiming. It says HOTRELOADED. so
+
+60
+00:03:57.533 --> 00:04:01.533
+maybe  that's just saying that you need to reload it down again.
+
+61
+00:04:01.533 --> 00:04:05.533
+"Holds barrel's properties and
+
+62
+00:04:05.533 --> 00:04:09.533
+Elevate method". OK. so you've learned a couple of things there as an aside. which is that you want to put
+
+63
+00:04:09.533 --> 00:04:13.533
+your annotation. that's going to come in the
+
+64
+00:04:13.533 --> 00:04:17.533
+hover-over. right here. But look. what we're really interested in is that the TankAimingComponent
+
+65
+00:04:17.533 --> 00:04:21.533
+has this annotation in front of it. Let's compare that to TankBarrel.
+
+66
+00:04:21.533 --> 00:04:25.533
+It has UCLASS() nothing. This guy has UCLASS. and then. ClassGroup=
+
+67
+00:04:25.533 --> 00:04:29.533
+(Custom). meta=(BlueprintSpawnable
+
+68
+00:04:29.533 --> 00:04:33.533
+Component) ). Ah. now that's interesting! So. let's take that stuff and
+
+69
+00:04:33.533 --> 00:04:37.533
+stick it in the front of the TankBarrel. In fact. let's get rid of the (ClassGroup=
+
+70
+00:04:37.533 --> 00:04:41.533
+(Custom). for the moment. and see if it works with just UCLASS (Blueprint
+
+71
+00:04:41.533 --> 00:04:45.533
+SpawnableComponent)). What I'm hoping is going to happen. when we compile this. is
+
+72
+00:04:45.533 --> 00:04:49.533
+it's thing going to allow us to actually add a TankBarrel type here
+
+73
+00:04:49.533 --> 00:04:53.533
+under our Custom components. It may pop into this list.
+
+74
+00:04:53.533 --> 00:04:57.533
+when the compile finishes. It may moan about HOTRELOAD. Let's see when this
+
+75
+00:04:57.533 --> 00:05:01.533
+list is populated. Here you go!
+
+76
+00:05:01.533 --> 00:05:05.533
+Tank Barrel. we now have a Tank Barrel available. Let's add it!
+
+77
+00:05:05.533 --> 00:05:09.533
+Put it where the other barrel is. name it...
+
+78
+00:05:09.533 --> 00:05:13.533
+Well actually. I'll leave it for the moment but misspelled is fine as long
+
+79
+00:05:13.533 --> 00:05:17.533
+as I can differentiate the two. Let's go pick a static mesh.
+
+80
+00:05:17.533 --> 00:05:21.533
+Compare it to the other barrel for a minute. just flick back and
+
+81
+00:05:21.533 --> 00:05:25.533
+forth. OK. that's cool! And the only thing that's different. look is Tank Barrel.
+
+82
+00:05:25.533 --> 00:05:29.533
+Max Degrees Per Second. So. rather than Tank
+
+83
+00:05:29.533 --> 00:05:33.533
+Barrel being the category. we probably want that to be something like setup.
+
+84
+00:05:33.533 --> 00:05:37.533
+
+
+85
+00:05:37.533 --> 00:05:41.533
+And what's happened is that this annotation has allowed us to add it to the blueprint. so let's delete
+
+86
+00:05:41.533 --> 00:05:45.533
+the old Barrel now. Just remove the component.
+
+87
+00:05:45.533 --> 00:05:49.533
+Get this one named properly.
+
+88
+00:05:49.533 --> 00:05:53.533
+Fantastic! Now. that's named right! Now we can
+
+89
+00:05:53.533 --> 00:05:57.533
+bring in a reference to what is now. if we hover over it. a
+
+90
+00:05:57.533 --> 00:06:01.533
+actual tank Barrel type. Bring that into Barrel to set
+
+91
+00:06:01.533 --> 00:06:05.533
+and compile and we should be getting on much better. Let me just
+
+92
+00:06:05.533 --> 00:06:09.533
+recompile all the code. because that way our Barrel. when we
+
+93
+00:06:09.533 --> 00:06:13.533
+go into it. will have instead of it saying
+
+94
+00:06:13.533 --> 00:06:17.533
+Tank Barrel it's section down here. by adding in the code this category called
+
+95
+00:06:17.533 --> 00:06:21.533
+setup. this will move into a Setup section.
+
+96
+00:06:21.533 --> 00:06:25.533
+which is now here. Setup Max Degrees Per Second there. with that sensible
+
+97
+00:06:25.533 --> 00:06:29.533
+default. Isn't that cool?! So. that is where we're going to be able to put our
+
+98
+00:06:29.533 --> 00:06:33.533
+details. Now. you might ask yourself. do you want a designer to be able to
+
+99
+00:06:33.533 --> 00:06:37.533
+actually change things like Physics Properties and Collision Properties on this?
+
+100
+00:06:37.533 --> 00:06:41.533
+Well. you can hide these properties. if you want to. on
+
+101
+00:06:41.533 --> 00:06:45.533
+the Barrel. So for example. say we want to hide Collision properties.
+
+102
+00:06:45.533 --> 00:06:49.533
+this is how you do it. Right up here where we said (meta = (Blueprint
+
+103
+00:06:49.533 --> 00:06:53.533
+SpawnableComponent)) we can say another keyword that I'm going to show you. which is hide
+
+104
+00:06:53.533 --> 00:06:57.533
+categories =
+
+105
+00:06:57.533 --> 00:07:01.533
+and then you give that end brackets. So we need two closed brackets.
+
+106
+00:07:01.533 --> 00:07:05.533
+a string which is ("Collision")) there
+
+107
+00:07:05.533 --> 00:07:09.533
+which is the name of this category. Now. let's try recompiling
+
+108
+00:07:09.533 --> 00:07:13.533
+and see what happens to the Collision category! So. what we're going to do here
+
+109
+00:07:13.533 --> 00:07:17.533
+is strip down anything that having available in the blueprint
+
+110
+00:07:17.533 --> 00:07:21.533
+could make the designer break the interaction. So. I'm just using Collision as an example
+
+111
+00:07:21.533 --> 00:07:25.533
+for now. and you see that now we still have.
+
+112
+00:07:25.533 --> 00:07:29.533
+under Barrel. Setup. but we don't have Collision anymore.
+
+113
+00:07:29.533 --> 00:07:33.533
+That's pretty cool right! So you can customize. like that. by hiding
+
+114
+00:07:33.533 --> 00:07:37.533
+categories. So there's loads of details there about how (BlueprintSpawnableComponent) works!
+
+115
+00:07:37.533 --> 00:07:41.533
+What I want to do. to finish this video. is to just get the rest of these UPROPERTIES laid
+
+116
+00:07:41.533 --> 00:07:45.533
+out. and I want you to do that. it's going to be a really simple challenge for you.
+
+117
+00:07:45.533 --> 00:07:49.533
+So. I want you to add the remaining properties. Add a maximum and a minimum
+
+118
+00:07:49.533 --> 00:07:53.533
+elevation in degrees. as well as the Maximum Degrees Per Second that we've
+
+119
+00:07:53.533 --> 00:07:57.533
+already got sitting there. Give sensible defaults in C++. Check
+
+120
+00:07:57.533 --> 00:08:01.533
+and see how high and low the barrel can go. especially when facing backwards. without hitting the tank.
+
+121
+00:08:01.533 --> 00:08:05.533
+and then. as I said. prevent self collision and make sure that all those
+
+122
+00:08:05.533 --> 00:08:09.533
+properties also come through to the blueprint. So go ahead. add the remaining properties we're going to need for the
+
+123
+00:08:09.533 --> 00:08:13.533
+barrel now. and I'll see you in a moment.
+
+124
+00:08:13.533 --> 00:08:17.533
+OK welcome back! So let's just
+
+125
+00:08:17.533 --> 00:08:21.533
+copy this guy. I'm going to get rid of the word "// Sensible default". it was just a suggestion for you guys.
+
+126
+00:08:21.533 --> 00:08:25.533
+OK. I'm going to get a couple of these down now. So. we need
+
+127
+00:08:25.533 --> 00:08:29.533
+a MaxElevation
+
+128
+00:08:29.533 --> 00:08:33.533
+Degrees. is what I'm going to call mine. and I don't know how
+
+129
+00:08:33.533 --> 00:08:37.533
+many that needs to be yet. so I shall say 0
+
+130
+00:08:37.533 --> 00:08:41.533
+and 0. I'll find out in Blueprint
+
+131
+00:08:41.533 --> 00:08:45.533
+and then I'll come and set it over here in the C++. So. I'm
+
+132
+00:08:45.533 --> 00:08:49.533
+going to set these sensible defaults. and then. we have Min
+
+133
+00:08:49.533 --> 00:08:53.533
+ElevationDegrees here as well. I don't really know what
+
+134
+00:08:53.533 --> 00:08:57.533
+those Max and Min are going to be. In fact. I'll probably find out.
+
+135
+00:08:57.533 --> 00:09:01.533
+pretty easily. by just going to the Tank. Viewport. So. the reason
+
+136
+00:09:01.533 --> 00:09:05.533
+the Barrel is on the floor is. the Parent Socket needs to be set to be set to the Barrel Socket on the Turret. and
+
+137
+00:09:05.533 --> 00:09:09.533
+the location of the Barrel needs to be reset. Great! So now the Barrel is in the
+
+138
+00:09:09.533 --> 00:09:13.533
+right place again. Let's have a look at some sensible defaults. I'm going to rotate
+
+139
+00:09:13.533 --> 00:09:17.533
+it around 180 degrees and. or 170. 180 is better!
+
+140
+00:09:17.533 --> 00:09:21.533
+Oh no. not that! Not the Barrel rotated 180 degrees. of course.
+
+141
+00:09:21.533 --> 00:09:25.533
+but the Turret. How silly of me. So how low can
+
+142
+00:09:25.533 --> 00:09:29.533
+you go. Mr. Barrel? Well. you can go to 0!
+
+143
+00:09:29.533 --> 00:09:33.533
+You're not going to be able to go any lower than 0. you're going to hit the back of the tank. and if you are facing forward...
+
+144
+00:09:33.533 --> 00:09:37.533
+Again I'm rotating the wrong thing. make sure you rotate
+
+145
+00:09:37.533 --> 00:09:41.533
+the Turret here in the Viewport of the blueprint. Grab the barrel. now
+
+146
+00:09:41.533 --> 00:09:45.533
+let's see how high it can go without looking stupid.
+
+147
+00:09:45.533 --> 00:09:49.533
+Maybe 40 degrees in a real push. So. I'm going to say between 0
+
+148
+00:09:49.533 --> 00:09:53.533
+and 40 degrees. as my sensible default. Now. the designer can tweak those further.
+
+149
+00:09:53.533 --> 00:09:57.533
+but that's what I'm just going to start with. So. let's go put that in the C++!
+
+150
+00:09:57.533 --> 00:10:01.533
+MaxElevation 40. MinElevation 0.
+
+151
+00:10:01.533 --> 00:10:05.533
+and get rid of those // TODOs! You say. why do I bother with the TODOs? Just because I was going to move away from the code.
+
+152
+00:10:05.533 --> 00:10:09.533
+I want to make sure I don't forget to do that. If you ever think I musn't forget too.
+
+153
+00:10:09.533 --> 00:10:13.533
+do something about it right there and then. Put a TODO in. don't leave a
+
+154
+00:10:13.533 --> 00:10:17.533
+I must do hanging around. because you won't do what you must do
+
+155
+00:10:17.533 --> 00:10:21.533
+I'm pretty sure. [Laughs] OK. let's compile away. and take a look
+
+156
+00:10:21.533 --> 00:10:25.533
+at the Tank blueprint here and this Barrel component. What we're hoping is. under the Setup
+
+157
+00:10:25.533 --> 00:10:29.533
+section. we'll get two new parameters come in. and then. we are done for this video!
+
+158
+00:10:29.533 --> 00:10:33.533
+It disappeared off the screen but there you go. Max Degrees Per Second. Max Elevation.
+
+159
+00:10:33.533 --> 00:10:37.533
+Min Elevation in degrees. all very clear! Let's compile the blueprint! That worked!
+
+160
+00:10:37.533 --> 00:10:41.533
+I'm going to save everything here and close. I'm going to close
+
+161
+00:10:41.533 --> 00:10:45.533
+VisualStudio. just to be sure. and then. I am going to make
+
+162
+00:10:45.533 --> 00:10:49.533
+a commit over here in the source control. using the name of
+
+163
+00:10:49.533 --> 00:10:53.533
+the current video. which is the way I always do that. But I'll leave that off screen. because that'll
+
+164
+00:10:53.533 --> 00:10:56.699
+bore you. So see you soon!
+

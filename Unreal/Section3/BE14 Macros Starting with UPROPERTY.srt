@@ -1,0 +1,574 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Welcome to
+
+2
+00:00:04.000 --> 00:00:08.000
+Macros Starting with UPROPERTY. By that I'm talking about. we're
+
+3
+00:00:08.000 --> 00:00:12.000
+introducing you to macros and the first one we're going to introduce you to is a UPROPERTY.
+
+4
+00:00:12.000 --> 00:00:16.000
+So in this video we're going to explain that a macro is a programmed
+
+5
+00:00:16.000 --> 00:00:20.000
+cut-and-paste operation that happens before compile time. Ooh. I just did
+
+6
+00:00:20.000 --> 00:00:24.000
+explain it! [Laughs] This happens before the code is compiled. This can
+
+7
+00:00:24.000 --> 00:00:28.000
+unlock some pretty powerful functionality. but we don't get code completers
+
+8
+00:00:28.000 --> 00:00:32.000
+standard. Our IDE will not fill out the macro for us. so we have to be super
+
+9
+00:00:32.000 --> 00:00:36.000
+careful about what we type. We can also create some really weird build errors. so we need to
+
+10
+00:00:36.000 --> 00:00:40.000
+watch that. We can't avoid them though. we can't use Unreal C++ without getting into macros heavily.
+
+11
+00:00:40.000 --> 00:00:44.000
+And at the end we're going to do something called exposing ATriggerVolume* pointer.
+
+12
+00:00:44.000 --> 00:00:48.000
+to the details window. What does that mean? Well it means that by the end of the video.
+
+13
+00:00:48.000 --> 00:00:52.000
+I'll have created another door like this. We'll have something called ATriggerVolume in the world
+
+14
+00:00:52.000 --> 00:00:56.000
+here. and that TriggerVolume will actually be associated to
+
+15
+00:00:56.000 --> 00:01:00.000
+the OpenDoor component of both of these doors like this. so as a
+
+16
+00:01:00.000 --> 00:01:04.000
+pressure plate. So what we're working towards is being able to stand on the pressure plate and open both of the
+
+17
+00:01:04.000 --> 00:01:08.000
+doors. Pretty cool hey?! So I'm going to start by
+
+18
+00:01:08.000 --> 00:01:12.000
+giving you an example. which is allowing us to specify the open angle of the
+
+19
+00:01:12.000 --> 00:01:16.000
+door. I'm going to make it private. from the point of the code
+
+20
+00:01:16.000 --> 00:01:20.000
+privacy. because well firstly it's a property. It's just going to be a float
+
+21
+00:01:20.000 --> 00:01:24.000
+OpenAngle like that. and we better
+
+22
+00:01:24.000 --> 00:01:28.000
+default it to something sensible in the code. like 90 degrees. maybe if I can [Laughs] type straight.
+
+23
+00:01:28.000 --> 00:01:32.000
+OK now. the thing about that is it's private. which means that other methods
+
+24
+00:01:32.000 --> 00:01:36.000
+can't just set it. which is good because we want to use getters and setters as discussed before. but here's
+
+25
+00:01:36.000 --> 00:01:40.000
+something cool that we can actually do. Watch this. we can use something called a UPROPERTY.
+
+26
+00:01:40.000 --> 00:01:44.000
+now this is a macro. and what this means is it's going to do some strange
+
+27
+00:01:44.000 --> 00:01:48.000
+cut-and-paste on our code before... [Sighs] Ah. I'm talking and typing
+
+28
+00:01:48.000 --> 00:01:52.000
+at the same time! ...before it actually compiles. and you don't even put a semicolon
+
+29
+00:01:52.000 --> 00:01:56.000
+on the end. If we say UPROPERTY() like that. then you can read
+
+30
+00:01:56.000 --> 00:02:00.000
+all about U properties over here. "uproperty unreal".
+
+31
+00:02:00.000 --> 00:02:04.000
+and then. here you go. the Unreal documentation will tell you all about it in much more
+
+32
+00:02:04.000 --> 00:02:08.000
+boring detail than I'm going to. But if we make this thing a UPROPERTY
+
+33
+00:02:08.000 --> 00:02:12.000
+and we say (VisibleAnywhere).
+
+34
+00:02:12.000 --> 00:02:16.000
+Now bear in mind that these things will not be in autocomplete
+
+35
+00:02:16.000 --> 00:02:20.000
+for you. because VisualStudio doesn't understand what's going on. If you want to know what's
+
+36
+00:02:20.000 --> 00:02:24.000
+possible in UPROPERTY then you're going to need to use
+
+37
+00:02:24.000 --> 00:02:28.000
+a Google search right. And if you find the right one of these. then
+
+38
+00:02:28.000 --> 00:02:32.000
+you're going to be able to find property specifiers. perhaps. and down here.
+
+39
+00:02:32.000 --> 00:02:36.000
+VisibleInstanceOnly. VisibleAnywhere. and you can see what that says. OK.
+
+40
+00:02:36.000 --> 00:02:40.000
+So I'm going to make this thing VisibleAnywhere and see what it does.
+
+41
+00:02:40.000 --> 00:02:44.000
+and then. we'll see what a UPROPERTY does. (VisibleAnywhere. I'm going to paste that in.
+
+42
+00:02:44.000 --> 00:02:48.000
+because I want to make sure I've spelled it right. which I probably hadn't. I think I put an A in here?
+
+43
+00:02:48.000 --> 00:02:52.000
+Now i'm going to build the project. Now I warn you. if you get anything wrong with one of these things.
+
+44
+00:02:52.000 --> 00:02:56.000
+then you're going to get horrible weird indecipherable build errors. because of when this happens in the
+
+45
+00:02:56.000 --> 00:03:00.000
+compile time. You need to make sure that the UPROPERTY... Like these! [Laughs] You need to make sure
+
+46
+00:03:00.000 --> 00:03:04.000
+that the UPROPERTY does not have a space after it. that it's immediately above the
+
+47
+00:03:04.000 --> 00:03:08.000
+thing you're trying to set as a UPROPERTY. that everything is spelled correctly. So let's
+
+48
+00:03:08.000 --> 00:03:12.000
+see what the problem is. It's good news if you get problems in the actual file. the
+
+49
+00:03:12.000 --> 00:03:16.000
+OpenDoor.h in this case. because they're likely to be easy
+
+50
+00:03:16.000 --> 00:03:20.000
+to understand. And the problem here is that I needed a 90 point.
+
+51
+00:03:20.000 --> 00:03:24.000
+at least or 90.0 and that's what it was complaining about alright.
+
+52
+00:03:24.000 --> 00:03:28.000
+So that's an easy one to solve. because it is giving us an error in the
+
+53
+00:03:28.000 --> 00:03:32.000
+actual syntax of our code. in this file. If we make an error in the spelling of
+
+54
+00:03:32.000 --> 00:03:36.000
+UPROPERTY or VisibleAnywhere or something we'll get a weird error. and it's very very likely if you've just
+
+55
+00:03:36.000 --> 00:03:40.000
+added a macro. you haven't added it right. Let's see what it does! It's compiled
+
+56
+00:03:40.000 --> 00:03:44.000
+and over in Unreal we see that we have a non-editable Open Angle that
+
+57
+00:03:44.000 --> 00:03:48.000
+just defaulted to 90 degrees. If you want to make this editable for later.
+
+58
+00:03:48.000 --> 00:03:52.000
+well you'll see how to do that after the coming challenge. So that's pretty cool
+
+59
+00:03:52.000 --> 00:03:56.000
+right?! We can now see things from our code. in the Inspector. whilst keeping them private.
+
+60
+00:03:56.000 --> 00:04:00.000
+As far as other classes are concerned. they're now visible in
+
+61
+00:04:00.000 --> 00:04:04.000
+the Properties Panel and the Details Panel or what I will also call the Inspector.
+
+62
+00:04:04.000 --> 00:04:08.000
+Cool! So I want you to write your first UPROPERTY now! I want you to
+
+63
+00:04:08.000 --> 00:04:12.000
+open your OpenDoor.h file. we already have it. I want you to declare this.
+
+64
+00:04:12.000 --> 00:04:16.000
+ATriggerVolume* pointer PressurePlate. Now that can be private as well.
+
+65
+00:04:16.000 --> 00:04:20.000
+and this is going to be a pointer called PressurePlate
+
+66
+00:04:20.000 --> 00:04:24.000
+to ATriggerVolume*. which we've already put in the scene. I want you to use the
+
+67
+00:04:24.000 --> 00:04:28.000
+UPROPERTY macro. but this time use EditAnywhere parameter.
+
+68
+00:04:28.000 --> 00:04:32.000
+And the documentation is available there. you can click on that in the section note .pdf's.
+
+69
+00:04:32.000 --> 00:04:36.000
+So basically. almost exactly what we've just done. I've nearly given it to you on a plate here. but
+
+70
+00:04:36.000 --> 00:04:40.000
+by doing it yourself. you're going to understand it obviously a lot better.
+
+71
+00:04:40.000 --> 00:04:44.000
+So it doesn't need to be kind of wired to the PressurePlate. We're not actually linked to
+
+72
+00:04:44.000 --> 00:04:48.000
+that pressure plate yet. but it's going to give us the facility and I'll show you that in the solution. So pause the
+
+73
+00:04:48.000 --> 00:04:52.000
+video. go ahead do that now!
+
+74
+00:04:52.000 --> 00:04:56.000
+Welcome back guys! So what I'm wanting to do then is do something
+
+75
+00:04:56.000 --> 00:05:00.000
+very similar to this. so I'm actually going to copy it. I'm going to make
+
+76
+00:05:00.000 --> 00:05:04.000
+this. Instead of VisibleAnywhere. EditAnywhere. I'm
+
+77
+00:05:04.000 --> 00:05:08.000
+not going to call it OpenAngle. it's going to be ATrigger. Now how do I know
+
+78
+00:05:08.000 --> 00:05:12.000
+it's ATriggerVolume. by the way? Well over in Unreal. I want to briefly
+
+79
+00:05:12.000 --> 00:05:16.000
+introduce you to something called ATriggerVolume. We'll look at this more in the next lecture but let's get it in the scene
+
+80
+00:05:16.000 --> 00:05:20.000
+now. So if you go to your Modes tab and then you look down to the Volumes
+
+81
+00:05:20.000 --> 00:05:24.000
+sub-tab. you'll see there's a whole lot of Volumes. Volume is in a thing
+
+82
+00:05:24.000 --> 00:05:28.000
+in 3D space. so not an audio volume that's confusing. but all the
+
+83
+00:05:28.000 --> 00:05:32.000
+rest of these are talking about a 3D space and one of those is ATriggerVolume.
+
+84
+00:05:32.000 --> 00:05:36.000
+You can find out more about it by clicking on the question mark. it'll take you to their website and
+
+85
+00:05:36.000 --> 00:05:40.000
+show you that ATriggerVolume. for example. is an invisible volume in the game world
+
+86
+00:05:40.000 --> 00:05:44.000
+that can be used to tell code to do something. So in our case we're going to be using
+
+87
+00:05:44.000 --> 00:05:48.000
+ATriggerVolume as a PressurePlate to tell the door to open. So what we want to do is we want to
+
+88
+00:05:48.000 --> 00:05:52.000
+add ATriggerVolume into the world. So drag it from the
+
+89
+00:05:52.000 --> 00:05:56.000
+Modes tab there. into the world. and then. you can just drop it down into the
+
+90
+00:05:56.000 --> 00:06:00.000
+floor and that's good enough! If we walk over that we're going to catch the top of the ATriggerVolume. Make it
+
+91
+00:06:00.000 --> 00:06:04.000
+bigger if you like. so we can't jump over it. and I'm just going to leave it low like that. and then. we have
+
+92
+00:06:04.000 --> 00:06:08.000
+ATriggerVolume in the world! If you go to the Outliner. you can have a look in here.
+
+93
+00:06:08.000 --> 00:06:12.000
+and under Type you can see a strict type name. TriggerVolume. and that is the actual type
+
+94
+00:06:12.000 --> 00:06:16.000
+name we're going to need in C++. So the way that you discover that for yourself.
+
+95
+00:06:16.000 --> 00:06:20.000
+in the future. is that I've got this thing in the scene. it's ATriggerVolume. We found that out maybe
+
+96
+00:06:20.000 --> 00:06:24.000
+through a Google search or just by browsing. You go back to your code. you come in
+
+97
+00:06:24.000 --> 00:06:28.000
+here. and you just type trigger. You make sure that this little whirligig at the
+
+98
+00:06:28.000 --> 00:06:32.000
+bottom of VisualStudio. and there's some similar indicators in Xcode. has finished. because
+
+99
+00:06:32.000 --> 00:06:36.000
+right now it's still going through and parsing the files. Eventually. it'll come up and
+
+100
+00:06:36.000 --> 00:06:40.000
+give you some help. ATriggerVolume sounds like the puppy! Star
+
+101
+00:06:40.000 --> 00:06:44.000
+because it's a pointer! Remember most of the things in Unreal. we don't need copying
+
+102
+00:06:44.000 --> 00:06:48.000
+around by value. we want to leave it where it is in memory rather. And then. I'm going to
+
+103
+00:06:48.000 --> 00:06:52.000
+call it PressurePlate. like that. OK
+
+104
+00:06:52.000 --> 00:06:56.000
+so no other class can set this from the outside. it's private
+
+105
+00:06:56.000 --> 00:07:00.000
+which is great but it is going to be EditAnywhere. Let's try and see
+
+106
+00:07:00.000 --> 00:07:04.000
+what that means. What does
+
+107
+00:07:04.000 --> 00:07:08.000
+being able to edit a PressurePlate mean? What am I talking about here? Well it'll come clear
+
+108
+00:07:08.000 --> 00:07:12.000
+right now. I'll show you the design we're going for. In Unreal we
+
+109
+00:07:12.000 --> 00:07:16.000
+now click on the Door. go to the Details tab.
+
+110
+00:07:16.000 --> 00:07:20.000
+click the OpenDoor component. and look the Pressure Plate
+
+111
+00:07:20.000 --> 00:07:24.000
+property here is saying. show me ATriggerVolume. and very helpfully it
+
+112
+00:07:24.000 --> 00:07:28.000
+filters everything in the World Outliner by TriggerVolume
+
+113
+00:07:28.000 --> 00:07:32.000
+and I can just click it. So I've now associated this door with this TriggerVolume!
+
+114
+00:07:32.000 --> 00:07:36.000
+That's pretty cool! You see the power of that? From the designer's point of view.
+
+115
+00:07:36.000 --> 00:07:40.000
+they can come in and there could be another door and we could associate the other door
+
+116
+00:07:40.000 --> 00:07:44.000
+with the TriggerVolume. In fact. why don't we. just for fun. do that just to
+
+117
+00:07:44.000 --> 00:07:48.000
+show the generality of what we're doing. I'm going to select the door.
+
+118
+00:07:48.000 --> 00:07:52.000
+the door frame. I doesn't matter. that'll do for now; If I'm missing something. I'll just duplicate
+
+119
+00:07:52.000 --> 00:07:56.000
+that across. No I think I've got it all! Oh no. I missed the
+
+120
+00:07:56.000 --> 00:08:00.000
+frame. so I'm going to grab the frame. hold down Alt. drag a new frame
+
+121
+00:08:00.000 --> 00:08:04.000
+over. So now we've got another door here. and. actually. it's
+
+122
+00:08:04.000 --> 00:08:08.000
+already associated with the same TriggerVolume because I duplicated it. So both of these
+
+123
+00:08:08.000 --> 00:08:12.000
+doors are associated with this TriggerVolume. so this volume will open both doors
+
+124
+00:08:12.000 --> 00:08:16.000
+at the same time. Cool hey! So I think that's enough for this video.
+
+125
+00:08:16.000 --> 00:08:20.000
+I just want to recap now what we've done over in here. because there's a lot to think
+
+126
+00:08:20.000 --> 00:08:24.000
+about. We made a couple of simple private properties. they are pretty
+
+127
+00:08:24.000 --> 00:08:28.000
+normal to us. We've made them private because. well basically we make all data
+
+128
+00:08:28.000 --> 00:08:32.000
+like this. all information or member variables private. and we use getters
+
+129
+00:08:32.000 --> 00:08:36.000
+and setters. so we're certainly not making every other class be able to reach in and change these things.
+
+130
+00:08:36.000 --> 00:08:40.000
+We want to keep the OpenDoor class responsible for changing these things.
+
+131
+00:08:40.000 --> 00:08:44.000
+but also. importantly. we have used something called a macro to make this one
+
+132
+00:08:44.000 --> 00:08:48.000
+Visible and this one Editable in the Inspector
+
+133
+00:08:48.000 --> 00:08:52.000
+or the Details tab here. When we look at the OpenDoor component. you can
+
+134
+00:08:52.000 --> 00:08:56.000
+see the difference between an non-editable OpenDoor Angle. which we could easily
+
+135
+00:08:56.000 --> 00:09:00.000
+make editable and a PressurePlate which is editable. and it let's use choose
+
+136
+00:09:00.000 --> 00:09:04.000
+the TriggerVolume and both of these doors are now associated to that TriggerVolume.
+
+137
+00:09:04.000 --> 00:09:08.000
+The only other thing we might want to do is possibly consider
+
+138
+00:09:08.000 --> 00:09:12.000
+how we organize our hierarchy. but to be honest. right now. the hierarchy is simple enough. We've
+
+139
+00:09:12.000 --> 00:09:16.000
+got a folder for Walls and the rest of it is still fairly
+
+140
+00:09:16.000 --> 00:09:20.000
+fairly conceivable. so it's tidy enough. Alright that's great!
+
+141
+00:09:20.000 --> 00:09:24.000
+Let's commit what we've done in our source control and crack on with the next video. where hopefully we'll be able
+
+142
+00:09:24.000 --> 00:09:28.000
+to walk onto this PressurePlate and have both doors open!
+
+143
+00:09:28.000 --> 00:09:28.333
+
+

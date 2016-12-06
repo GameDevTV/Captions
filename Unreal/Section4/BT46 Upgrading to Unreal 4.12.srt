@@ -1,0 +1,670 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Hello and welcome to Upgrading
+
+2
+00:00:04.000 --> 00:00:08.000
+to Unreal 4.12. In fact. I need to update the top-right of these slides. moving forward.
+
+3
+00:00:08.000 --> 00:00:12.000
+to indicate that we will be using 4.12 from here on. So. that's what we're going to be
+
+4
+00:00:12.000 --> 00:00:16.000
+doing. upgrading to 4.12. We will also be removing our versions
+
+5
+00:00:16.000 --> 00:00:20.000
+of 4.10 and 4.11. to free up lots of space on our disk.
+
+6
+00:00:20.000 --> 00:00:22.900
+and upgrading both projects like this. so see you in there!
+
+7
+00:00:22.900 --> 00:00:26.900
+So. I don't know if this is happening for you. but when I open my projectile blueprint.
+
+8
+00:00:26.900 --> 00:00:30.900
+now since the end of the last video just a few minutes ago. the blueprint is not
+
+9
+00:00:30.900 --> 00:00:34.900
+working properly. It doesn't matter what I do with the menus. I can't get all of the blueprint information
+
+10
+00:00:34.900 --> 00:00:38.900
+up. It's not a general problem with the Blueprint Editor. because it is fine for the Tank.
+
+11
+00:00:38.900 --> 00:00:42.900
+So. I've tried a few things to sort this out. and the thing that I found worked
+
+12
+00:00:42.900 --> 00:00:46.900
+most effectively was just opening the project in Unreal 4.12.
+
+13
+00:00:46.900 --> 00:00:50.900
+So. that's what we're going to do. learn a little bit about source control and also upgrade all our projects
+
+14
+00:00:50.900 --> 00:00:54.900
+to Unreal 4.12. So. I'm going to start with Buidling
+
+15
+00:00:54.900 --> 00:00:58.900
+Escape. The first thing I want to do is. make sure that my current state
+
+16
+00:00:58.900 --> 00:01:02.900
+of my project on the disk is in the correct place. so I have some
+
+17
+00:01:02.900 --> 00:01:06.900
+what we call. uncommitted changes here. That means there are some changes to the
+
+18
+00:01:06.900 --> 00:01:10.900
+repository since I last worked on it. and the
+
+19
+00:01:10.900 --> 00:01:14.900
+head tells me what my current disk state is. So.
+
+20
+00:01:14.900 --> 00:01:18.900
+I'm checked out at applying materials. plus there are a few changes
+
+21
+00:01:18.900 --> 00:01:22.900
+since then. That's not what I want. I want. before I do my upgrade. to
+
+22
+00:01:22.900 --> 00:01:26.900
+start where I left off. Now. I left off on BE44. as I call it
+
+23
+00:01:26.900 --> 00:01:30.900
+the Section Wrap-Up video. then I just updated the readme file. so that's
+
+24
+00:01:30.900 --> 00:01:34.900
+where I want to be. An easy way to get there is to use something called stash. This Stash
+
+25
+00:01:34.900 --> 00:01:38.900
+button just saves all of these changes. so that you could get back to them
+
+26
+00:01:38.900 --> 00:01:42.900
+if you wanted to. and then. checks you out in the last place. which is
+
+27
+00:01:42.900 --> 00:01:46.900
+now the correct place. We are here. checked out
+
+28
+00:01:46.900 --> 00:01:50.900
+on master. If we just say Checkout Master to be sure. you can see now
+
+29
+00:01:50.900 --> 00:01:54.900
+that we are nearly at the top of master. What it's telling us here
+
+30
+00:01:54.900 --> 00:01:58.900
+is that. my current disk state is here at BE44.
+
+31
+00:01:58.900 --> 00:02:02.900
+but at origin. i.e. on my Remote repository which
+
+32
+00:02:02.900 --> 00:02:06.900
+is up on Github. I've updated a readme. So. what I
+
+33
+00:02:06.900 --> 00:02:10.900
+want to do to get there is. this little arrow here says I need to pull that down. That means I'm able
+
+34
+00:02:10.900 --> 00:02:14.900
+to change in another computer. and I haven't currently brought that down to you.
+
+35
+00:02:14.900 --> 00:02:18.900
+Great! Now we're all in line. the master branch. the origin/
+
+36
+00:02:18.900 --> 00:02:22.900
+master. and the Head of origin I don't really care about. OK. so now my
+
+37
+00:02:22.900 --> 00:02:26.900
+local file system actually has this readme file in it. We could
+
+38
+00:02:26.900 --> 00:02:30.900
+just have a look at that. for instance. We could go to the repos.
+
+39
+00:02:30.900 --> 00:02:34.900
+we could go to BattleTank. back to our
+
+40
+00:02:34.900 --> 00:02:38.900
+Unreal BuildingEscape. and there's the README.md
+
+41
+00:02:38.900 --> 00:02:42.900
+file. And what would also be prudent would be to quickly open the BuildingEscape project.
+
+42
+00:02:42.900 --> 00:02:46.900
+It should open up in the version of Unreal it's associated with. which is 4.10
+
+43
+00:02:46.900 --> 00:02:50.900
+here. Make sure that we are exactly in the place we want to be. before we go
+
+44
+00:02:50.900 --> 00:02:54.900
+ahead and do our project upgrade. because you don't want to go upgrading a project in a state that's
+
+45
+00:02:54.900 --> 00:02:58.900
+not where you want to start from. So there it is. it's working
+
+46
+00:02:58.900 --> 00:03:02.900
+and it seems to be fine. OK great! So given
+
+47
+00:03:02.900 --> 00:03:06.900
+that that's where we're starting from. I'm going to write my commit message before I even
+
+48
+00:03:06.900 --> 00:03:10.900
+make this upgrade. because it's a very good habit actually to get into to write commit messages before
+
+49
+00:03:10.900 --> 00:03:14.900
+you do your piece of work. Then. when you're deep into something you can think. what on Earth
+
+50
+00:03:14.900 --> 00:03:18.900
+am I doing? So this is very simply. "Upgrade
+
+51
+00:03:18.900 --> 00:03:22.900
+project to 4.12".
+
+52
+00:03:22.900 --> 00:03:26.900
+OK. I'm not going to commit that yet but that's what I intend to do. Now.
+
+53
+00:03:26.900 --> 00:03:30.900
+how do we get it to 4.12? What you're going to need to do. if you haven't already got 4.12.3
+
+54
+00:03:30.900 --> 00:03:34.900
+or later. you click Add Versions and it should come up in the list. but I don't want
+
+55
+00:03:34.900 --> 00:03:38.900
+that. so I'm just going to remove that. I've got 4.12.3 here. so if I go and
+
+56
+00:03:38.900 --> 00:03:42.900
+launch that. While it's launching. notice that these
+
+57
+00:03:42.900 --> 00:03:46.900
+other projects tell you the version number. 4.10. 4.11 OK.
+
+58
+00:03:46.900 --> 00:03:50.900
+So. the Editor's going to launch. then we're going to need to. in 4.12 open
+
+59
+00:03:50.900 --> 00:03:54.900
+BuildingEscape. Now. it's going to give you a choice. It was made with a different
+
+60
+00:03:54.900 --> 00:03:58.900
+version. do you want to convert it or open a copy? OK. well I want
+
+61
+00:03:58.900 --> 00:04:02.900
+to go to More Options and Convert in- place.
+
+62
+00:04:02.900 --> 00:04:06.900
+There's more options at the bottom-left than Convert in-place. Because I have this project under source
+
+63
+00:04:06.900 --> 00:04:10.900
+control. I'm not worried about it breaking it. The reason they're being cautious
+
+64
+00:04:10.900 --> 00:04:14.900
+is. if you were developing a larger game. you're a year or two into production Unreal drops a new
+
+65
+00:04:14.900 --> 00:04:18.900
+version. the last thing you want to do is just suddenly convert your project
+
+66
+00:04:18.900 --> 00:04:22.900
+without being very sure that it's going to work in the new system. It may create you
+
+67
+00:04:22.900 --> 00:04:26.900
+weeks or months of work do convert. so they are quite cautious about
+
+68
+00:04:26.900 --> 00:04:30.900
+upgrading. Normally. you would think very carefully before upgrading to a new major version.
+
+69
+00:04:30.900 --> 00:04:34.900
+half-way through a project. But I have it under source control here. it's a very small project.
+
+70
+00:04:34.900 --> 00:04:38.900
+so I'm going to convert this project in-place. as they call it.
+
+71
+00:04:38.900 --> 00:04:42.900
+If we look in source control. now that it's doing that. at the master branch.
+
+72
+00:04:42.900 --> 00:04:46.900
+we should probably see some changes on the disk already. We have. there's a bunch of
+
+73
+00:04:46.900 --> 00:04:50.900
+stuff here. Not much actually. hardly anything to be honest. it's just changed
+
+74
+00:04:50.900 --> 00:04:54.900
+the engine association there. which is the thing that determines which engine version it opens
+
+75
+00:04:54.900 --> 00:04:58.900
+with when it opens. and a few other things in the solution files.
+
+76
+00:04:58.900 --> 00:05:02.900
+So. let's check we're in 4.12. Help. About Unreal Editor. and you can see that
+
+77
+00:05:02.900 --> 00:05:06.900
+we are in 4.12. Great! Now let's just play the game. make sure that that behaves!
+
+78
+00:05:06.900 --> 00:05:10.900
+It does appear to. I'm just going to make sure I can pick things up.
+
+79
+00:05:10.900 --> 00:05:14.900
+drop them down. Play testing this game. of course. is very easy
+
+80
+00:05:14.900 --> 00:05:18.900
+because it's a very small game. There we go. and I can get out the door
+
+81
+00:05:18.900 --> 00:05:22.900
+and fall to my death. [Laughs] hardly worth the escape! OK. so it all looks
+
+82
+00:05:22.900 --> 00:05:26.900
+good! I'm going to close everything up! I already know what  my commit message is
+
+83
+00:05:26.900 --> 00:05:30.900
+going to be. so I stage my changes. go to Commit. there it is ready to go. and
+
+84
+00:05:30.900 --> 00:05:34.900
+I'm going to push that up to Origin. which means I've connected to Github and I'm just sending it
+
+85
+00:05:34.900 --> 00:05:38.900
+to the cloud. And that is that. that is that project
+
+86
+00:05:38.900 --> 00:05:42.900
+updated! Fantastic! So now. let's open the other. the next repository
+
+87
+00:05:42.900 --> 00:05:46.900
+along. which is going to be
+
+88
+00:05:46.900 --> 00:05:50.900
+BattleTank. because
+
+89
+00:05:50.900 --> 00:05:54.900
+Bulls and Cows was not an Unreal project. if you remember.
+
+90
+00:05:54.900 --> 00:05:58.900
+OK. so the last thing I did was Setting Up Projectiles. Again.
+
+91
+00:05:58.900 --> 00:06:02.900
+we have more state changes. since then. so I'm going to Stash those.
+
+92
+00:06:02.900 --> 00:06:06.900
+They go on the left-hand side. here on the Stashes. It means you're not throwing it away.
+
+93
+00:06:06.900 --> 00:06:10.900
+but you're immediately keeping it on the side. as it were. and you're then
+
+94
+00:06:10.900 --> 00:06:14.900
+able to continue your work from where you left off. So. this is the right
+
+95
+00:06:14.900 --> 00:06:18.900
+place to be. Now. we go to the EPIC Games Launcher. Launch for
+
+96
+00:06:18.900 --> 00:06:22.900
+12.3. Now. I'm expecting.
+
+97
+00:06:22.900 --> 00:06:26.900
+by the way. this BuildingEscape association to change here. I would think we may
+
+98
+00:06:26.900 --> 00:06:30.900
+need to just relaunch the EPIC Games Launcher for that to say 4.12. We'll check all that at the end.
+
+99
+00:06:30.900 --> 00:06:34.900
+So it's saying. what do I want to open? Well I'm saying I want to open
+
+100
+00:06:34.900 --> 00:06:38.900
+BattleTank. which is a 4.11 version game. I'm going to
+
+101
+00:06:38.900 --> 00:06:42.900
+click More Options and Convert in-place again. because we're under source
+
+102
+00:06:42.900 --> 00:06:46.900
+control. We're all good! Yes. that is an Oculus Rift logo we see over
+
+103
+00:06:46.900 --> 00:06:50.900
+there. Sorry if you're jealous but we have to have them. it's part of our work. We have to buy them. we have to
+
+104
+00:06:50.900 --> 00:06:54.900
+expense claim them. It's a terrible terrible thing that has to be done! We've got to
+
+105
+00:06:54.900 --> 00:06:58.900
+teach you guys VR somehow. In fact. 4.12 that we're using
+
+106
+00:06:58.900 --> 00:07:02.900
+now. not only is it very easy to preview your game in VR. which you could in
+
+107
+00:07:02.900 --> 00:07:06.900
+a previous version. but you can actually build levels in VR. I haven't got that working because
+
+108
+00:07:06.900 --> 00:07:10.900
+I haven't got the Oculus Touch hand controllers yet. but don't worry. the moment I have I'll be showing you
+
+109
+00:07:10.900 --> 00:07:14.900
+level building in VR. in Unreal. which is wicked!
+
+110
+00:07:14.900 --> 00:07:18.900
+Alright. so here comes 4.12.3
+
+111
+00:07:18.900 --> 00:07:22.900
+re-spooling up now with the project. And what we're going to be able to do is free up
+
+112
+00:07:22.900 --> 00:07:26.900
+about 20 or 30 gigabytes of disk space shortly. OK now. check
+
+113
+00:07:26.900 --> 00:07:30.900
+that you know which version you're in. About Unreal Editor 4.12. Cool!
+
+114
+00:07:30.900 --> 00:07:34.900
+Play the game. make sure that what we've got works. Fantastic!
+
+115
+00:07:34.900 --> 00:07:38.900
+Let's just go to the main menu. make sure we can play it from
+
+116
+00:07:38.900 --> 00:07:42.900
+there. Start! Ooh. what on Earth was that?!
+
+117
+00:07:42.900 --> 00:07:46.900
+There were tanks flying off into the distance. Did you see that?
+
+118
+00:07:46.900 --> 00:07:50.900
+That was quite a lot of fun! Those other tanks that we put down...
+
+119
+00:07:50.900 --> 00:07:54.900
+Boom. what is going on here?! So. [laughs] what's happened
+
+120
+00:07:54.900 --> 00:07:58.900
+is. we have upgraded to 4.12 but we have a couple of issues. so
+
+121
+00:07:58.900 --> 00:08:02.900
+before I go any further I'm just going to check that this blueprint actually opens.
+
+122
+00:08:02.900 --> 00:08:06.900
+because that was the point of doing this. It looks a bit funny. but if you click Open Full Blueprint
+
+123
+00:08:06.900 --> 00:08:10.900
+Editor all is good. OK. so what I'm going to do is. I'm going to commit
+
+124
+00:08:10.900 --> 00:08:14.900
+this upgrade now. because we have upgraded but we have an issue.
+
+125
+00:08:14.900 --> 00:08:18.900
+OK. so with Unreal closed I'm going to Commit and say upgrade to 4.12.
+
+126
+00:08:18.900 --> 00:08:22.900
+
+
+127
+00:08:22.900 --> 00:08:26.900
+And I'm just going to say that the "tanks fly
+
+128
+00:08:26.900 --> 00:08:30.900
+off" and push that to master.
+
+129
+00:08:30.900 --> 00:08:34.900
+Actually. I won't push that to master. because master is my branch for this particular
+
+130
+00:08:34.900 --> 00:08:38.900
+this particular video. So actually. I'm going to hold off committing. but in your case.
+
+131
+00:08:38.900 --> 00:08:42.900
+you would probably want to commit at this stage. so that you can go back so that
+
+132
+00:08:42.900 --> 00:08:46.900
+while you work on the fix of the tanks flying off you can always roll back to this
+
+133
+00:08:46.900 --> 00:08:50.900
+bit. you don't have to keep re-upgrading your project. I hope that makes sense. But I'm just going to
+
+134
+00:08:50.900 --> 00:08:54.900
+not commit and just try and fix it in line like this. So.
+
+135
+00:08:54.900 --> 00:08:58.900
+why are our tanks flying off? My first suspicion about
+
+136
+00:08:58.900 --> 00:09:02.900
+why they're flying off. if I could open the right project. Let's do it from the EPIC Games Launcher.
+
+137
+00:09:02.900 --> 00:09:06.900
+Let's re-cycle this EPIC Games Launcher now. because it's making
+
+138
+00:09:06.900 --> 00:09:10.900
+me nervous that these are the wrong versions. So. if you just close and reopen the EPIC
+
+139
+00:09:10.900 --> 00:09:14.900
+Games Launcher. I would have thought that by the end of that
+
+140
+00:09:14.900 --> 00:09:18.900
+it will re-read those editor preferences or those
+
+141
+00:09:18.900 --> 00:09:22.900
+engine version files and actually update those thumbnails. Let's see if that's the case.
+
+142
+00:09:22.900 --> 00:09:26.900
+4.12 on both you see! So now.
+
+143
+00:09:26.900 --> 00:09:30.900
+by the way. you can remove these other engine version in the back here. 4.10.4
+
+144
+00:09:30.900 --> 00:09:34.900
+you can uninstall. and 4.11.2
+
+145
+00:09:34.900 --> 00:09:38.900
+you can uninstall. You need to do that with Unreal closed and I don't really need to show you that. but
+
+146
+00:09:38.900 --> 00:09:42.900
+the idea at the end of this will be to uninstall those versions. Alright. I'm going to guess that
+
+147
+00:09:42.900 --> 00:09:46.900
+these tanks fly off just because they're colliding in the start. so if I lift each tank just
+
+148
+00:09:46.900 --> 00:09:50.900
+a little bit further off the ground and try playing. what happens?
+
+149
+00:09:50.900 --> 00:09:54.900
+Ah fine. that's what it was! So there's slightly different collision tolerances or something
+
+150
+00:09:54.900 --> 00:09:58.900
+in 4.12 and that was causing them to fly off. So. if you just
+
+151
+00:09:58.900 --> 00:10:02.900
+move your tanks a bit. we've got some glitches now. You see them kind of funkily jumping
+
+152
+00:10:02.900 --> 00:10:06.900
+around. Well. we can sort those out in up coming videos. but
+
+153
+00:10:06.900 --> 00:10:10.900
+let's stick with this and commit it that we have [Laughs]
+
+154
+00:10:10.900 --> 00:10:14.900
+funky dancing tanks. but at least they're not flying off! So. that's good enough for this video.
+
+155
+00:10:14.900 --> 00:10:18.900
+thank you for watching. and I will see you in the next one. Your challenge to
+
+156
+00:10:18.900 --> 00:10:22.900
+leave you with is to upgrade both projects to 4.12. if you haven't done it already. Building
+
+157
+00:10:22.900 --> 00:10:26.900
+Escape. test and commit. BattleTank. test and commit. and then. remove your
+
+158
+00:10:26.900 --> 00:10:30.900
+previous versions of Unreal as I explained. Finally.
+
+159
+00:10:30.900 --> 00:10:34.900
+consider deleting other vault local content. Just to tell you what that is.
+
+160
+00:10:34.900 --> 00:10:38.900
+it's here in the EPIC Games Launcher. If you scroll down you've got Vault. and if you've got a
+
+161
+00:10:38.900 --> 00:10:42.900
+big demo project. you can click and Remove Local Content. All of this will free up
+
+162
+00:10:42.900 --> 00:10:46.900
+lots of space on your disk. So. I am going to close
+
+163
+00:10:46.900 --> 00:10:50.900
+Unreal. and I am going to start those
+
+164
+00:10:50.900 --> 00:10:54.900
+uninstalls going. You have to have Unreal
+
+165
+00:10:54.900 --> 00:10:58.900
+fully closed. There you go. And that's from the uninstall going
+
+166
+00:10:58.900 --> 00:11:02.900
+ahead. And do that same with 4.11.2. and I will see you in the next video!
+
+167
+00:11:02.900 --> 00:11:04.533
+
+

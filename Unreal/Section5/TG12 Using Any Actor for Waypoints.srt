@@ -1,0 +1,766 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So welcome to Using Any Actor
+
+2
+00:00:04.000 --> 00:00:08.000
+for Waypoints! What we're going to do in this video is get our guys.
+
+3
+00:00:08.000 --> 00:00:12.000
+Steve and Harry we're going to call them. moving at least to their first waypoints. there and there.
+
+4
+00:00:12.000 --> 00:00:16.000
+But we're also going to make it possible to specify waypoints that are not just
+
+5
+00:00:16.000 --> 00:00:20.000
+target points but include cubes. like this EditorCube21. This cube
+
+6
+00:00:20.000 --> 00:00:25.266
+here has now become part of Steve's patrol route. So I will see you in there!
+
+7
+00:00:25.266 --> 00:00:29.266
+OK. so currently these guys are running between two
+
+8
+00:00:29.266 --> 00:00:33.266
+predefined points. as defined in the blueprint hard coded in.
+
+9
+00:00:33.266 --> 00:00:37.266
+and what we want them to do is start going to at least their first waypoints. I believe
+
+10
+00:00:37.266 --> 00:00:41.266
+this guy goes to TargetPoint. as his first one. and this
+
+11
+00:00:41.266 --> 00:00:45.266
+guy over here. on the right. goes to...
+
+12
+00:00:45.266 --> 00:00:49.266
+In fact. why don't I give these guys names! I can't very call them this and this guy. let's give them some
+
+13
+00:00:49.266 --> 00:00:53.266
+names. So ThirdPerson. no no no let's not call him that! Let's F2.
+
+14
+00:00:53.266 --> 00:00:57.266
+call him Guard 1 -
+
+15
+00:00:57.266 --> 00:01:01.266
+Steve. and the other guy can be called Guard 2 -
+
+16
+00:01:01.266 --> 00:01:05.266
+Harry. OK.
+
+17
+00:01:05.266 --> 00:01:09.266
+[Laughs] so we've got a couple of guards in the world. Steve and Harry. So Steve is going to go
+
+18
+00:01:09.266 --> 00:01:13.266
+upstairs and Harry's going to go over here. O.K. so how do we arrange
+
+19
+00:01:13.266 --> 00:01:17.266
+that? Well let's just take a bit of a zoom out and a bit of a recap as to what all this is about.
+
+20
+00:01:17.266 --> 00:01:21.266
+alright. So we have this Behavior Tree. let's watch it running! If you hit play
+
+21
+00:01:21.266 --> 00:01:25.266
+and go to the Behavior Tree. firstly. notice that you've got to decide which Behavior Tree
+
+22
+00:01:25.266 --> 00:01:29.266
+you're looking at. Are you looking at Steve's AI Controller or Harry's AI
+
+23
+00:01:29.266 --> 00:01:33.266
+Controller? Each of them have a different brain in the world. and they're
+
+24
+00:01:33.266 --> 00:01:37.266
+classily named C_1 and C_0. So you can
+
+25
+00:01:37.266 --> 00:01:41.266
+switch between them. and then. for each one you can see where they are. what point they're currently moving to.
+
+26
+00:01:41.266 --> 00:01:45.266
+And at the same way. you can go to the blackboard and see what the data is for each of them
+
+27
+00:01:45.266 --> 00:01:49.266
+as well. In fact. you can see which guards. they are. SelfActor here is Steve and
+
+28
+00:01:49.266 --> 00:01:53.266
+SelfActor here is Harry. Great! Alright. so they're just patrolling
+
+29
+00:01:53.266 --> 00:01:57.266
+between those two points. Now what we want is. rather than these points to be hard coded
+
+30
+00:01:57.266 --> 00:02:01.266
+in. we want these points to be variable. based on their array.
+
+31
+00:02:01.266 --> 00:02:05.266
+So actually. you're just going to delete these keys from the blackboard now bravely. both of
+
+32
+00:02:05.266 --> 00:02:09.266
+those. we don't need them. And we're going to create a new key. but instead of making it a vector. why don't
+
+33
+00:02:09.266 --> 00:02:13.266
+we just make it an object. more generally. and then. we can send the actor
+
+34
+00:02:13.266 --> 00:02:17.266
+not only to vector points but to the position of an object. Let's just see that that works!
+
+35
+00:02:17.266 --> 00:02:21.266
+So I'm just going to call it Waypoint. as simple as that.
+
+36
+00:02:21.266 --> 00:02:25.266
+and that's it really. that's all we have to do. it's just the waypoint that this guy is heading
+
+37
+00:02:25.266 --> 00:02:29.266
+towards right now. OK. back in the Behavior Tree! What are we
+
+38
+00:02:29.266 --> 00:02:33.500
+going to get them to do? I said the job was just to get them to go to their first waypoint.
+
+39
+00:02:33.500 --> 00:02:37.533
+so let's Move To. and then. with the Blackboard Key is going to need to be
+
+40
+00:02:37.533 --> 00:02:41.500
+Waypoint. Now. why doesn't that Blackboard Key come up? Good question. let's just
+
+41
+00:02:41.500 --> 00:02:45.266
+save and see if it does now. and if it doesn't. I'm going to close and reopen the Behavior
+
+42
+00:02:45.266 --> 00:02:49.266
+Tree. because we should be able to go to Waypoint.
+
+43
+00:02:49.266 --> 00:02:53.266
+If you can't. then that's because we need to specialize the Key Type. So come in here
+
+44
+00:02:53.266 --> 00:02:57.266
+and rather than it being an Object. it can be an Actor. Object is
+
+45
+00:02:57.266 --> 00:03:01.266
+just too general for us to be specifying the position of. An Object
+
+46
+00:03:01.266 --> 00:03:05.266
+doesn't have a position. an Actor is the most basic thing that has a position in the
+
+47
+00:03:05.266 --> 00:03:09.266
+world. So get back to your Blackboard. expand out the Key Type. and make it
+
+48
+00:03:09.266 --> 00:03:13.266
+an Actor! If you now go back to your Behavior Tree. you should
+
+49
+00:03:13.266 --> 00:03:17.266
+be able to now say Move To Waypoint. OK.
+
+50
+00:03:17.266 --> 00:03:21.266
+so it's important that it's not just an object but it's an actor. So now that we've made the
+
+51
+00:03:21.266 --> 00:03:25.266
+actual Blackboard item. more generally. an Actor
+
+52
+00:03:25.266 --> 00:03:29.266
+rather than necessarily a particular vector. let's go look at the Third
+
+53
+00:03:29.266 --> 00:03:33.266
+PersonCharacter blueprint. Remember we made an array of patrol points.
+
+54
+00:03:33.266 --> 00:03:37.266
+Well these can be made. rather than target points.
+
+55
+00:03:37.266 --> 00:03:41.266
+they could also just be made to be actors. Now. you may
+
+56
+00:03:41.266 --> 00:03:45.266
+fear you'll lose your data. in this case. you actually won't lose your data. The reason
+
+57
+00:03:45.266 --> 00:03:49.266
+why you don't lose your settings... Firstly. let's just check we haven't lost our settings.
+
+58
+00:03:49.266 --> 00:03:53.266
+If we click on Steve here and look at his Patrol Points. you'll see they're still
+
+59
+00:03:53.266 --> 00:03:57.266
+there. but now. we can actually select not only Target
+
+60
+00:03:57.266 --> 00:04:01.266
+Points but any actor. which is more general and more powerful. Now the reason we don't
+
+61
+00:04:01.266 --> 00:04:05.266
+lose the existing Control Points is. if you look at the Class
+
+62
+00:04:05.266 --> 00:04:09.266
+Viewer and you look at what a Target Point is. It is an
+
+63
+00:04:09.266 --> 00:04:13.266
+Actor. so going from a Target Point up to an Actor is absolutely fine. because
+
+64
+00:04:13.266 --> 00:04:17.266
+it's of the same type. Target Point inherits from Actor.
+
+65
+00:04:17.266 --> 00:04:21.266
+OK cool! So now what we can do is just
+
+66
+00:04:21.266 --> 00:04:25.266
+another handy little thing I want to show you here! If we were to click on say Steve.
+
+67
+00:04:25.266 --> 00:04:29.266
+click the little lock symbol in the Details Panel there. And what that'll do is.
+
+68
+00:04:29.266 --> 00:04:33.266
+when I select other objects now it'll still be Steve's details that show.
+
+69
+00:04:33.266 --> 00:04:37.266
+Now. what I can do is. imagine I wanted him to patrol to this cube and I don't necessarily
+
+70
+00:04:37.266 --> 00:04:41.266
+want to have to put another target point in the scene. Generally. by the way. it's probably a better
+
+71
+00:04:41.266 --> 00:04:45.266
+bet just to put another target point in the scene. Why? Because it decouples
+
+72
+00:04:45.266 --> 00:04:49.266
+the idea of where this guy's navigating from where these things are. Imagine you or a level
+
+73
+00:04:49.266 --> 00:04:53.266
+designer come along later and move the cube. you may or may not want the
+
+74
+00:04:53.266 --> 00:04:57.266
+guard to go with it. so you need to just discuss with everybody involved.
+
+75
+00:04:57.266 --> 00:05:01.266
+But let's just imagine that we do want his waypoint to track any future
+
+76
+00:05:01.266 --> 00:05:05.266
+movements of that cube. Then. this little trick of having him selected. selecting the cube.
+
+77
+00:05:05.266 --> 00:05:09.266
+clicking +. and then. saying Use Select. at the
+
+78
+00:05:09.266 --> 00:05:13.266
+top there. will add this cube to
+
+79
+00:05:13.266 --> 00:05:17.266
+the mix. So we'll do that just for fun! So we've made things more general.
+
+80
+00:05:17.266 --> 00:05:21.266
+Now. what we want these guys to do is go to their first waypoint. So where
+
+81
+00:05:21.266 --> 00:05:25.266
+do we even set that up? Well this is asset binding. isn't it?
+
+82
+00:05:25.266 --> 00:05:29.266
+Remember whenever we want to soft reference things we use Blueprint. Who's blueprint?
+
+83
+00:05:29.266 --> 00:05:33.266
+Who's job is it to pick the piece of paper out of this actor's pocket. this Third
+
+84
+00:05:33.266 --> 00:05:37.266
+PersonCharacter's pocket. and read it? That's my question for you.
+
+85
+00:05:37.266 --> 00:05:41.266
+Is it the job of the ThirdPersonCharacter. or is it the job of the
+
+86
+00:05:41.266 --> 00:05:45.266
+AI Controller. when he turns up on the character and possesses it?
+
+87
+00:05:45.266 --> 00:05:49.266
+Well I would say it's the job of the AI Controller! When he
+
+88
+00:05:49.266 --> 00:05:53.266
+walks up and takes control of this character. it's his job to take the piece
+
+89
+00:05:53.266 --> 00:05:57.266
+of paper out of the pocket and start setting these Blackboard values. So we're going to no longer
+
+90
+00:05:57.266 --> 00:06:01.266
+set these Blackboard keys hard like this. and we're just going to do a bit of top
+
+91
+00:06:01.266 --> 00:06:05.266
+down programming. Sure we're going to use a Blackboard and at the end of the day. we're going to run a
+
+92
+00:06:05.266 --> 00:06:09.266
+Behavior Tree. but in between what are we going to do? Well I'm going to put a comment block here.
+
+93
+00:06:09.266 --> 00:06:13.266
+and I'm going to say. we are going to "Find
+
+94
+00:06:13.266 --> 00:06:17.266
+Patrol Route". basically. That's what we need to do in the middle.
+
+95
+00:06:17.266 --> 00:06:21.266
+So our job now is to work out how we're going to find the Patrol Route.
+
+96
+00:06:21.266 --> 00:06:25.266
+and at least for now. we're going to find the very first element of that
+
+97
+00:06:25.266 --> 00:06:29.266
+Patrol Route. So I'm going to get rid of the tick. and I'm going to start
+
+98
+00:06:29.266 --> 00:06:33.266
+on that and then challenge you to finish it. So we're going to get the Controlled
+
+99
+00:06:33.266 --> 00:06:37.266
+Pawn. this is the first thing. So the AI Controller has
+
+100
+00:06:37.266 --> 00:06:41.266
+possessed the Pawn. we need to get it. Now. from that. can we get the Patrol Points?
+
+101
+00:06:41.266 --> 00:06:45.266
+Well no we can't. because Pawns. in general. don't have Patrol Points. but the
+
+102
+00:06:45.266 --> 00:06:49.266
+ThirdPersonCharacter that we've created does. So we do need to do a cast to a
+
+103
+00:06:49.266 --> 00:06:53.266
+ThirdPersonCharacter. Is that nice? It's not great but it's OK. It's
+
+104
+00:06:53.266 --> 00:06:57.266
+OK because basically. the AI Controller only really works with a ThirdPersonController
+
+105
+00:06:57.266 --> 00:07:01.266
+anyway. We already have a tight coupling in there. So once we have a
+
+106
+00:07:01.266 --> 00:07:05.266
+ThirdPersonCharacter. we can now go get the Patrol Route
+
+107
+00:07:05.266 --> 00:07:09.266
+OK or the Patrol Point. and that is an array of. now. Actors
+
+108
+00:07:09.266 --> 00:07:13.266
+or Actor references. It used to be an
+
+109
+00:07:13.266 --> 00:07:17.266
+array of Target Points. but we've made that more general. Now what
+
+110
+00:07:17.266 --> 00:07:21.266
+I want you to do. at least for now. is to find
+
+111
+00:07:21.266 --> 00:07:25.266
+"First Element
+
+112
+00:07:25.266 --> 00:07:29.266
+only For Now". What I want you to do in here then.
+
+113
+00:07:29.266 --> 00:07:33.266
+is... Let's be consistent on the capitalization. ...is to
+
+114
+00:07:33.266 --> 00:07:37.266
+get this array. find just the first element of it. set the irrelevant
+
+115
+00:07:37.266 --> 00:07:41.266
+key on the Blackboard.  you've got the Blackboard here. Set
+
+116
+00:07:41.266 --> 00:07:45.266
+that Waypoint Key. and then. see if both of our players will actually go
+
+117
+00:07:45.266 --> 00:07:49.266
+to their first Waypoints.
+
+118
+00:07:49.266 --> 00:07:53.266
+OK welcome back! So let's get
+
+119
+00:07:53.266 --> 00:07:57.266
+this done! We will extract this behavior out into a function. in a little bit. but for
+
+120
+00:07:57.266 --> 00:08:01.266
+now. let's just get it working. So you come off of the Patrol Points Array; under
+
+121
+00:08:01.266 --> 00:08:05.266
+Utilities in Array. you have a Get. Now. you might be asking
+
+122
+00:08:05.266 --> 00:08:09.266
+why we're doing this in Blueprint rather than in C++. Just for simplicity. for now. we will
+
+123
+00:08:09.266 --> 00:08:13.266
+decide when we finish refactoring in Blueprint if it's worth moving it to C++.
+
+124
+00:08:13.266 --> 00:08:17.266
+So here is element 0 and it is an Actor. So the next thing we're going to need
+
+125
+00:08:17.266 --> 00:08:21.266
+is the Blackboard. and then. we're going to need to Set Value
+
+126
+00:08:21.266 --> 00:08:25.266
+as Object. Remember we're using objects now. So the execution
+
+127
+00:08:25.266 --> 00:08:29.266
+flow comes through. we have BeginPlay. use Blackboard. we find
+
+128
+00:08:29.266 --> 00:08:33.266
+the Blackboard. We need to decide on what key. so let's generate the key
+
+129
+00:08:33.266 --> 00:08:37.266
+name now. The name. literally. is going to be Waypoint.
+
+130
+00:08:37.266 --> 00:08:41.266
+but I'm not going to type it. I'm going to copy and paste it with any string referencing.
+
+131
+00:08:41.266 --> 00:08:45.266
+And then it says. well OK that's very well. what do you want
+
+132
+00:08:45.266 --> 00:08:49.266
+to set my Waypoint Key to?
+
+133
+00:08:49.266 --> 00:08:53.266
+Well I want to set it to the value of the first Patrol Point.
+
+134
+00:08:53.266 --> 00:08:57.266
+OK that's cool! Now comes the question. when are
+
+135
+00:08:57.266 --> 00:09:01.266
+we going to even cast to ThirdPersonCharacter? It's all very well having that
+
+136
+00:09:01.266 --> 00:09:05.266
+there. but there's no execution flow. so I think that we need to do that before
+
+137
+00:09:05.266 --> 00:09:09.266
+we try and set the value. So I'm moving everything across to the right. I'm going to bring execution
+
+138
+00:09:09.266 --> 00:09:13.266
+flow into here. and then from here. assuming the class succeeds all the way
+
+139
+00:09:13.266 --> 00:09:17.266
+up there. We could bring that up. leave it down. it doesn't really matter. We're going to extract some of this into a
+
+140
+00:09:17.266 --> 00:09:21.266
+function. in a minute. as soon as we know it works. And then. once that's
+
+141
+00:09:21.266 --> 00:09:25.266
+done. we just go ahead and run the Behavior Tree! So that is my code. the
+
+142
+00:09:25.266 --> 00:09:29.266
+Blueprint code that I've added in there. Let's go ahead and see if it works! Do both of these
+
+143
+00:09:29.266 --> 00:09:33.266
+guys go to their first point? Ah hah. they do! There's Harry there going
+
+144
+00:09:33.266 --> 00:09:37.266
+to his point and Steve at the top of the stairs. That's fantastic! So well done if you
+
+145
+00:09:37.266 --> 00:09:42.433
+got that far! What I think I'm going to do now is just take all of this stuff here.
+
+146
+00:09:42.433 --> 00:09:45.266
+including the Get Controlled Pawn. everything apart from
+
+147
+00:09:45.266 --> 00:09:49.266
+this Blackboard. actually. so all of this. but not get Blackboard. The way I'm
+
+148
+00:09:49.266 --> 00:09:53.266
+unselecting get Blackboard is by holding the Control Key down. and all of this. we
+
+149
+00:09:53.266 --> 00:09:57.266
+can say Collapse to Function. And we can name that function. look on the left-hand
+
+150
+00:09:57.266 --> 00:10:01.266
+side. it's waiting. it's going to be Find Patrol
+
+151
+00:10:01.266 --> 00:10:05.266
+Route. We don't need the comment anymore. because that was our
+
+152
+00:10:05.266 --> 00:10:09.266
+way of doing top down coding in Blueprint. You drag that across. tighten
+
+153
+00:10:09.266 --> 00:10:13.266
+it all up. and then. look how tight and tidy the blueprint is. I'll even close the Details Tab so
+
+154
+00:10:13.266 --> 00:10:17.266
+you can see it. On BeginPlay we use the Blackboard. find a Patrol Route. and run
+
+155
+00:10:17.266 --> 00:10:21.266
+the Behavior Tree. [Laughs] Very simple! OK there's some hidden complexity in here.
+
+156
+00:10:21.266 --> 00:10:25.266
+under Find Patrol Route. so let's go tidy that up a little bit. That one's still
+
+157
+00:10:25.266 --> 00:10:29.266
+looks nice and simple as well. So when we start Find Patrol Route.
+
+158
+00:10:29.266 --> 00:10:33.266
+we go ahead. we get the Control Pawn that the AI's controlling down
+
+159
+00:10:33.266 --> 00:10:37.266
+here. we pull off the list of Patrol Points.
+
+160
+00:10:37.266 --> 00:10:41.266
+we get index 0. later we'll iterate through them.
+
+161
+00:10:41.266 --> 00:10:45.266
+and if I bring these two down I can prevent any... Oops. I can
+
+162
+00:10:45.266 --> 00:10:49.266
+prevent any crosses. if I can get it right. I can bring those down.
+
+163
+00:10:49.266 --> 00:10:53.266
+I can put the literal name in here. bring these guys back up.
+
+164
+00:10:53.266 --> 00:10:57.266
+and I can keep it nice and tidy. I don't have to go absolutely mad.
+
+165
+00:10:57.266 --> 00:11:01.266
+and then. it's relatively clear what this is doing. It gets the Control Point.
+
+166
+00:11:01.266 --> 00:11:05.266
+Pawn cast to a ThirdPersonCharacter. Notice this line here. this Selft 2 line.
+
+167
+00:11:05.266 --> 00:11:09.266
+Firstly. it shouldn't be called Self 2. so let's rename that here. How do we
+
+168
+00:11:09.266 --> 00:11:13.266
+rename it? Well we're going to need the Details Panel back. and we can either
+
+169
+00:11:13.266 --> 00:11:17.266
+do it here. at this level. or we could zoom out to the other level. And instead of Self 2.
+
+170
+00:11:17.266 --> 00:11:21.266
+we're asking the question. what is this? Let's go up a level! What is
+
+171
+00:11:21.266 --> 00:11:25.266
+Self 2? It's Blackboard! So I will rename it here because it's easier. Click on it
+
+172
+00:11:25.266 --> 00:11:29.266
+and rename it Blackboard.
+
+173
+00:11:29.266 --> 00:11:33.266
+So if we look back in here. what do we have coming in? We have a Blackboard object coming
+
+174
+00:11:33.266 --> 00:11:37.266
+in. Now. I don't like the way these are crossed
+
+175
+00:11:37.266 --> 00:11:41.266
+over. so I'm going to lift that up so I can see that these are separate objects. And if you don't
+
+176
+00:11:41.266 --> 00:11:45.266
+like things crossing. you can go nuts and start doing all this sort of stuff. but some
+
+177
+00:11:45.266 --> 00:11:49.266
+way. you're going to end up with a cross if you're not careful. So I wouldn't worry about it too
+
+178
+00:11:49.266 --> 00:11:53.266
+much. but certainly. don't obfuscate the fact that two lines are doing different
+
+179
+00:11:53.266 --> 00:11:57.266
+things. So perhaps the best way to lay this out is something like this! That cross doesn't
+
+180
+00:11:57.266 --> 00:12:01.266
+really matter. at least the two blue lines don't get confused. and then. we can bring all
+
+181
+00:12:01.266 --> 00:12:05.266
+this stuff sort of up here and whatever.
+
+182
+00:12:05.266 --> 00:12:09.266
+At this point. you can go mad on the blueprints here! You can start putting
+
+183
+00:12:09.266 --> 00:12:13.266
+reroute nodes in. by the way. if you want to. but I think that that
+
+184
+00:12:13.266 --> 00:12:17.266
+might be going too far. If you want to do that. you right-click. Add
+
+185
+00:12:17.266 --> 00:12:21.266
+Reroute Node. and you can use that
+
+186
+00:12:21.266 --> 00:12:25.266
+Reroute Node to pass execution flow through. I don't like them. because they
+
+187
+00:12:25.266 --> 00:12:29.266
+make it a little bit harder to adjust the blueprint later. but it can tidy things up. if you're worried about
+
+188
+00:12:29.266 --> 00:12:33.266
+how they look. So that's the detail in there. we zoom up to the bigger level. you've
+
+189
+00:12:33.266 --> 00:12:37.266
+got this. and hopefully it's clear what's going on there. I'm just going to compile. play.
+
+190
+00:12:37.266 --> 00:12:41.266
+make sure they go to their initial Patrol Routes. and we are done!
+
+191
+00:12:41.266 --> 00:12:42.632
+
+

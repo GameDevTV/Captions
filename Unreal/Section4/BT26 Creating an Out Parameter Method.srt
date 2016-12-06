@@ -1,0 +1,734 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+So. welcome to
+
+2
+00:00:04.000 --> 00:00:08.000
+Creating an Out Parameter Method! In this video you're actually going to create a method that
+
+3
+00:00:08.000 --> 00:00:12.000
+uses out parameters yourself. It's going to return a boolean. but actually. it's going to
+
+4
+00:00:12.000 --> 00:00:16.000
+take the state of something called hit location. So. it's going to use out parameters. and that will give you a much
+
+5
+00:00:16.000 --> 00:00:20.000
+deeper understanding. So. please take the time to do the challenge in this one and spend a good hour on it.
+
+6
+00:00:20.000 --> 00:00:24.000
+if you're a beginner. but if you get stuck after that. then do just keep watching.
+
+7
+00:00:24.000 --> 00:00:28.000
+OK. let's take a look at this AimTowardsCrosshair()
+
+8
+00:00:28.000 --> 00:00:32.000
+a little bit more closely. I don't think I explained in the last video that the reason we are
+
+9
+00:00:32.000 --> 00:00:36.000
+checking that we have a Controlled Tank is. it doesn't make any sense to start aiming towards the
+
+10
+00:00:36.000 --> 00:00:40.000
+crosshair on the screen unless we're controlling a tank. So. what we need to do
+
+11
+00:00:40.000 --> 00:00:44.000
+now is what it says in the pseudocode. and I want to use an out parameter for this. because the
+
+12
+00:00:44.000 --> 00:00:48.000
+engine uses out parameters a lot and I want you to get used to not only using them but
+
+13
+00:00:48.000 --> 00:00:52.000
+actually creating methods without parameters yourself. And that's going to be your challenge
+
+14
+00:00:52.000 --> 00:00:56.000
+for this video. but for now. let me explain how I plan on building it up. So. we're going
+
+15
+00:00:56.000 --> 00:01:00.000
+to make ourselves an FVector. and you may as well follow me along with this. for the moment. and
+
+16
+00:01:00.000 --> 00:01:04.000
+it's called HitLocation. And it's going to be an
+
+17
+00:01:04.000 --> 00:01:08.000
+Out parameter. Now. I'm going to stop doing the whole hash define out
+
+18
+00:01:08.000 --> 00:01:12.000
+at the top. because that's not common in the engine code. and you need to
+
+19
+00:01:12.000 --> 00:01:16.000
+start getting your eye in. as it were. start getting used to seeing Out parameters
+
+20
+00:01:16.000 --> 00:01:20.000
+when they exist. So. we're going to have this
+
+21
+00:01:20.000 --> 00:01:24.000
+FVector HitLocation rather. Alright.
+
+22
+00:01:24.000 --> 00:01:28.000
+now what I want to do is. I want to print this out
+
+23
+00:01:28.000 --> 00:01:32.000
+to start with. So. let's just go ahead and UE_
+
+24
+00:01:32.000 --> 00:01:36.000
+LOG this. and it should just be a 0 vector to the (LogTemp)
+
+25
+00:01:36.000 --> 00:01:40.000
+with Warning verbosity. using the TEXT
+
+26
+00:01:40.000 --> 00:01:44.000
+sub-macro inside a macro. [Laughs] And we're going to say now.
+
+27
+00:01:44.000 --> 00:01:48.000
+I'm just going to say the following. I'm going to say (HitLocation.)...
+
+28
+00:01:48.000 --> 00:01:52.000
+You'll see there's a ToString. Why is it a dot rather than an arrow? Because it's an actual
+
+29
+00:01:52.000 --> 00:01:56.000
+variable here. it's an actual member. it's not a pointer. Dot
+
+30
+00:01:56.000 --> 00:02:00.000
+ToString() and that's a method. so check your brackets are matched. So. that bracket there.
+
+31
+00:02:00.000 --> 00:02:04.000
+if you select it. is matched with this one which is good. And let's go ahead and
+
+32
+00:02:04.000 --> 00:02:08.000
+see if we at least on every tick. because AimTowardsCrosshair() is called. remember from
+
+33
+00:02:08.000 --> 00:02:12.000
+Tick. we should be getting a 0 vector logged out. Now. there is a deliberate mistake here. by the way.
+
+34
+00:02:12.000 --> 00:02:16.000
+This will not compile but it would be a very easy and innocent thing for you to
+
+35
+00:02:16.000 --> 00:02:20.000
+do here right? And you might think that it's because we're missing a start. but let's
+
+36
+00:02:20.000 --> 00:02:24.000
+just see what the error messages are for the learning. " 'LHitLocation' : undeclared identifier".
+
+37
+00:02:24.000 --> 00:02:28.000
+" 'ToString' must have a" something or other. " 'unknown-type' ". and "function
+
+38
+00:02:28.000 --> 00:02:32.000
+doesn't take 4 arguments". So. the first thing you may try is putting a star. going oh yeah. that old
+
+39
+00:02:32.000 --> 00:02:36.000
+chestnut. This thing needs to be converted to a
+
+40
+00:02:36.000 --> 00:02:40.000
+TCHAR *. so I'm going to put a star in front of it. So yeah. you can
+
+41
+00:02:40.000 --> 00:02:44.000
+try that! Let's see what we get not! It'll get rid of some of the errors. I think. but I don't think it'll get rid of
+
+42
+00:02:44.000 --> 00:02:48.000
+all of them. And then. we'll look a bit more closely. because this is something you may
+
+43
+00:02:48.000 --> 00:02:52.000
+well come up against. and it would frustrate you and I want to help you. So we
+
+44
+00:02:52.000 --> 00:02:56.000
+have here. the log "function does not take 4 arguments". OK.
+
+45
+00:02:56.000 --> 00:03:00.000
+And the reason for that is. it's interpreting...
+
+46
+00:03:00.000 --> 00:03:04.000
+Whatever this TEXT macro is doing. it's interpreting the result as two
+
+47
+00:03:04.000 --> 00:03:08.000
+separate arguments. So. the solution to this type of thing is actually to use the
+
+48
+00:03:08.000 --> 00:03:12.000
+format operator. it's to do something useful. Say TEXT
+
+49
+00:03:12.000 --> 00:03:16.000
+and then say (" *HitLocation:
+
+50
+00:03:16.000 --> 00:03:20.000
+and then you %s" or whatever. Well it needs to be %s
+
+51
+00:03:20.000 --> 00:03:24.000
+for string. Close your braces and then the comma for the HitLocation.
+
+52
+00:03:24.000 --> 00:03:28.000
+Now. check your bracket matching. and now I think that this will work.
+
+53
+00:03:28.000 --> 00:03:32.000
+because actually. this whole thing will be considered just that third
+
+54
+00:03:32.000 --> 00:03:36.000
+parameter. I know that's really strange with where all the commas are. You pretty much
+
+55
+00:03:36.000 --> 00:03:40.000
+just have to remember this. because we don't want to go and dissect exactly how all these macros
+
+56
+00:03:40.000 --> 00:03:44.000
+work. But the UE_LOG macro expects three parameters. one. two. three.
+
+57
+00:03:44.000 --> 00:03:48.000
+and this third thing I have highlighted on the screen is itself just a parameter
+
+58
+00:03:48.000 --> 00:03:52.000
+in aggregate. And let's try that. I think that'll work. and it'll also be more useful
+
+59
+00:03:52.000 --> 00:03:56.000
+because it'll log hit location. rather than just logging some random thing to a console.
+
+60
+00:03:56.000 --> 00:04:00.000
+It's always worth labeling what you're logging. so you know what you're looking at.
+
+61
+00:04:00.000 --> 00:04:04.000
+So that did work. and if we play now we get hit location [Laughs] some massive
+
+62
+00:04:04.000 --> 00:04:08.000
+number. because it was never initialized and then 00.
+
+63
+00:04:08.000 --> 00:04:12.000
+So normally you would initialize your variables. but as we're going to use this as an out parameter
+
+64
+00:04:12.000 --> 00:04:16.000
+I'm actually not going to bother. OK so. so far we've done pretty much nothing
+
+65
+00:04:16.000 --> 00:04:20.000
+apart from learning a little bit more about the necessity of using these format
+
+66
+00:04:20.000 --> 00:04:24.000
+operators or the trick in here. So. what we're going to do is we're going to "//Get the world location
+
+67
+00:04:24.000 --> 00:04:28.000
+of"... Oh. not if but "of the linetrace through the crosshair". What that means
+
+68
+00:04:28.000 --> 00:04:32.000
+is. when you're playing the game and the crosshair's up in the sky it's probably going to hit nothing. but if it
+
+69
+00:04:32.000 --> 00:04:36.033
+hits the terrain. we want to know it's hitting the terrain; and then we want to return the
+
+70
+00:04:36.033 --> 00:04:40.066
+world space location of where it's hit. so that the aiming system can now aim at that mountainside.
+
+71
+00:04:40.066 --> 00:04:44.100
+That's what we're aiming to do. [Laughs] excuse the pun there!
+
+72
+00:04:44.100 --> 00:04:48.066
+What I want to do is. I want to make a method that does all this in one go.
+
+73
+00:04:48.066 --> 00:04:52.033
+and that method's going to be called GetSightRayHitsLocation(). And  I actually want
+
+74
+00:04:52.033 --> 00:04:56.000
+you to write the outline of that method. to take in an out parameter.
+
+75
+00:04:56.000 --> 00:05:00.000
+and the out parameter is this HitLocation. So. you may have to stop and think about this or revisit
+
+76
+00:05:00.000 --> 00:05:04.000
+a previous section. depending on how advanced you are. So. I want you to write Get
+
+77
+00:05:04.000 --> 00:05:08.000
+SightRayHitLocation(). It's going to return a bool. and that's going to be true
+
+78
+00:05:08.000 --> 00:05:12.000
+if it hits anything and false if it doesn't. Now listen. I don't want you to fully implement necessarily
+
+79
+00:05:12.000 --> 00:05:16.000
+this method. I just want you to write the signature of it and get it laid out. So. it's going
+
+80
+00:05:16.000 --> 00:05:20.000
+to return a bool. and it's going to be a constant method. because it's just going to
+
+81
+00:05:20.000 --> 00:05:24.000
+return an out parameter. it's not going to mutate any of the member functions of
+
+82
+00:05:24.000 --> 00:05:28.000
+this tank player controller. We want to return a
+
+83
+00:05:28.000 --> 00:05:32.000
+FVector called HitLocation as an out parameter. but remember you need to use
+
+84
+00:05:32.000 --> 00:05:36.000
+an ampersand somewhere. The reference or is it address of
+
+85
+00:05:36.000 --> 00:05:40.000
+operator. depending on whether it's a prefix or a post fix. Remember about two thirds of the way
+
+86
+00:05:40.000 --> 00:05:44.000
+through. I think. Building Escape. we talk about this in references and pointers. the lecture.
+
+87
+00:05:44.000 --> 00:05:48.000
+As a bonus. you could pseudocode the actual functionality of this GetSightRayHit
+
+88
+00:05:48.000 --> 00:05:52.000
+Location() method. It's purpose is to ray cast through the dot as
+
+89
+00:05:52.000 --> 00:05:56.000
+far as we're concerned. into the landscape and determine whether we hit anything. If
+
+90
+00:05:56.000 --> 00:06:00.000
+we do we return true. and as an out parameter. we return where in the world we've hit.
+
+91
+00:06:00.000 --> 00:06:04.000
+and if we don't hit anything we return false. Alright. and as a super bonus you
+
+92
+00:06:04.000 --> 00:06:08.000
+get it working but that's a bit much. and if it works then your log will actually
+
+93
+00:06:08.000 --> 00:06:11.966
+continuously update with the location of where that crosshair
+
+94
+00:06:11.966 --> 00:06:16.000
+is aiming at. But as I said. that's super advanced and really only try it if you want an extra challenge.
+
+95
+00:06:16.000 --> 00:06:20.000
+That's just for the more advanced people. So go ahead. pause the video and have a go at all that now!
+
+96
+00:06:20.000 --> 00:06:24.000
+Do have a go at this
+
+97
+00:06:24.000 --> 00:06:28.000
+one. It's going to take just a tiny bit of thinking about. but you've used out parameters before. so go and see
+
+98
+00:06:28.000 --> 00:06:32.000
+where they were used and see if you can remember how to do it.
+
+99
+00:06:32.000 --> 00:06:36.000
+OK welcome back! So. here in the
+
+100
+00:06:36.000 --> 00:06:40.000
+PlayerController we're going to think whether we want public or private. for a start. Well. I'm going to
+
+101
+00:06:40.000 --> 00:06:44.000
+suggest it's going to be private. because no other method outside this needs it.
+
+102
+00:06:44.000 --> 00:06:48.000
+It's a helper method. So. we're going to
+
+103
+00:06:48.000 --> 00:06:52.000
+"// Return an OUT parameter." and it's
+
+104
+00:06:52.000 --> 00:06:56.000
+going to be called "true if hit landscape".
+
+105
+00:06:56.000 --> 00:07:00.000
+Alright. now it's bool. I said I wanted it to return bool. we said it's going to be called
+
+106
+00:07:00.000 --> 00:07:04.000
+GetSightRayHitLocation().
+
+107
+00:07:04.000 --> 00:07:08.000
+and we said that it was going to
+
+108
+00:07:08.000 --> 00:07:12.000
+mutate or change an (FVector) and that that FVector was going to
+
+109
+00:07:12.000 --> 00:07:16.000
+be called HitLocation) and that the
+
+110
+00:07:16.000 --> 00:07:20.000
+method was going to be const. But there's one more thing. out parameters work
+
+111
+00:07:20.000 --> 00:07:24.000
+by passing references to. and in this case it's going to be
+
+112
+00:07:24.000 --> 00:07:28.000
+passing a reference to an FVector. This will make a little more sense in a minute.
+
+113
+00:07:28.000 --> 00:07:32.000
+when we see it in context in the implementation. So. I'm going to copy that signature.
+
+114
+00:07:32.000 --> 00:07:36.000
+put it straight in here. Of course. I need the class name
+
+115
+00:07:36.000 --> 00:07:40.000
+like so.
+
+116
+00:07:40.000 --> 00:07:44.000
+OK. long old method definition right?
+
+117
+00:07:44.000 --> 00:07:48.000
+So. or signature as you call it! This thing here is the signature. So.
+
+118
+00:07:48.000 --> 00:07:52.000
+what's actually happening when I pass this in? Well. let's make the call. We're
+
+119
+00:07:52.000 --> 00:07:56.000
+going to go
+
+120
+00:07:56.000 --> 00:08:00.000
+if (GetSight
+
+121
+00:08:00.000 --> 00:08:04.000
+RayHitLocation
+
+122
+00:08:04.000 --> 00:08:08.000
+passing in (HitLocation))
+
+123
+00:08:08.000 --> 00:08:12.000
+as the thing that's going to be used as the out parameter.
+
+124
+00:08:12.000 --> 00:08:16.000
+Then. all of this lot. like
+
+125
+00:08:16.000 --> 00:08:20.000
+so. OK so. the thing about this if (GetSight
+
+126
+00:08:20.000 --> 00:08:24.000
+RayHitLocation(HitLocation)) is it actually does anything. It has a side effect. it doesn't change
+
+127
+00:08:24.000 --> 00:08:28.000
+anything. but it "// Has a sort of "side-effect"" which is that it's
+
+128
+00:08:28.000 --> 00:08:32.000
+actually going to ray trace
+
+129
+00:08:32.000 --> 00:08:36.000
+later on when we implement that OK. And if that's true.
+
+130
+00:08:36.000 --> 00:08:40.000
+then we're going to log it out. So. this "// Get world location of line trace". that's going to be
+
+131
+00:08:40.000 --> 00:08:44.000
+implemented in here.
+
+132
+00:08:44.000 --> 00:08:48.000
+"// If it hits the landscape" return true. Well we know that.
+
+133
+00:08:48.000 --> 00:08:52.000
+I actually better put that in as a comment. I think.
+
+134
+00:08:52.000 --> 00:08:56.000
+
+
+135
+00:08:56.000 --> 00:09:00.000
+The FVector ampersand reference is saying
+
+136
+00:09:00.000 --> 00:09:04.000
+that we're going to create a variable here called HitLocation.
+
+137
+00:09:04.000 --> 00:09:08.000
+we're going to pass what looks like (HitLocation) itself into GetSightRayHitLocation. but it's
+
+138
+00:09:08.000 --> 00:09:12.000
+actually a reference to that. And then. somewhere later in our code.
+
+139
+00:09:12.000 --> 00:09:16.000
+we're going to change the value of hit location. So. I don't like this architecture
+
+140
+00:09:16.000 --> 00:09:20.000
+but you'll see it all over the engine and you do need to make sure you know how that works.
+
+141
+00:09:20.000 --> 00:09:24.000
+Leave this as a TODO. because later we're going to "tell the controlled tank to aim at this point".
+
+142
+00:09:24.000 --> 00:09:28.000
+All. at the moment. we wanted to do is get you this far. that we actually setup
+
+143
+00:09:28.000 --> 00:09:32.000
+an out parameter. So. in
+
+144
+00:09:32.000 --> 00:09:36.000
+the next video we're going to look and see what actual values
+
+145
+00:09:36.000 --> 00:09:40.000
+we're going to put into this thing. But for now. I'm going to return false to say i.e. we haven't hit anything.
+
+146
+00:09:40.000 --> 00:09:44.000
+and I'm going to return a. I'm going to just set HitLocation
+
+147
+00:09:44.000 --> 00:09:48.000
+to something recognizable.
+
+148
+00:09:48.000 --> 00:09:52.000
+FVector(1.0); let's
+
+149
+00:09:52.000 --> 00:09:56.000
+say. And what that's going to do is that's going to return an FVector that's 1 1 1
+
+150
+00:09:56.000 --> 00:10:00.000
+and then we'll be able to recognize that. So. we should go through here. this should go to true.
+
+151
+00:10:00.000 --> 00:10:04.000
+and then. we should log the hit location and it should be 1 and that proves that all our code is
+
+152
+00:10:04.000 --> 00:10:08.000
+executing properly. And then. in the next video. we'll talk about
+
+153
+00:10:08.000 --> 00:10:12.000
+how GetSightRayHitLocation() is actually going to work in practice!
+
+154
+00:10:12.000 --> 00:10:16.000
+It'll be a good further exercise! So. I hope you got on well with that reference challenge and you were
+
+155
+00:10:16.000 --> 00:10:20.000
+able to make this out parameter based method.
+
+156
+00:10:20.000 --> 00:10:24.000
+If this is all sounding gobbley goop to you. then just stick with it. you'll get used to it.
+
+157
+00:10:24.000 --> 00:10:28.000
+You'll get used to the idea here. I really want you to be able to read engine code
+
+158
+00:10:28.000 --> 00:10:32.000
+and real read code written by other people. so we're kind of dragging you through the mud
+
+159
+00:10:32.000 --> 00:10:36.000
+a little bit. So. let's have a look! That all looks OK
+
+160
+00:10:36.000 --> 00:10:40.000
+apart from we're not getting anything come out every hit. so it's obviously
+
+161
+00:10:40.000 --> 00:10:44.000
+(HitLocation)... Ah. I return false. I need to return
+
+162
+00:10:44.000 --> 00:10:48.000
+true. So. what happened there is I was returning false. so this wasn't evaluating
+
+163
+00:10:48.000 --> 00:10:52.000
+so it was just jumping straight out. So. we need to return true. i.e. we're pretending
+
+164
+00:10:52.000 --> 00:10:56.000
+we've hit something and we're pretending we've hit something at a location of 1 1 1.
+
+165
+00:10:56.000 --> 00:11:00.000
+So. I'm playing the game now. it's compiling in the background. When the hot reload
+
+166
+00:11:00.000 --> 00:11:04.000
+completes. I expect the log to fill up with exactly that. HitLocation
+
+167
+00:11:04.000 --> 00:11:08.000
+1 1 1. Great. so we are a step further through our process
+
+168
+00:11:08.000 --> 00:11:12.000
+of setting up the whole architecture. Before we go. let's just remind ourselves
+
+169
+00:11:12.000 --> 00:11:16.000
+what that whole aiming architecture was. I'll go through the slides and show you that one.
+
+170
+00:11:16.000 --> 00:11:20.000
+Remember what we're trying to do here ultimately is. we're trying
+
+171
+00:11:20.000 --> 00:11:24.000
+to have a Tank... Whoops let me go back!
+
+172
+00:11:24.000 --> 00:11:28.000
+...a Tank possessed by either an AI or a Player. The AI
+
+173
+00:11:28.000 --> 00:11:32.000
+was going to tell it where to aim or the Player is going to tell it where to aim. Actually. it's the same AimAt() method.
+
+174
+00:11:32.000 --> 00:11:36.000
+and then. that tank will delegate out the aiming to an aiming component. which we haven't made yet.
+
+175
+00:11:36.000 --> 00:11:40.000
+which will finally tell the blueprint to do some actual
+
+176
+00:11:40.000 --> 00:11:44.000
+rotations of turret and barrel respectively. So. it's a long odd haul getting
+
+177
+00:11:44.000 --> 00:11:48.000
+this working. This is the second most complicated thing we're going to do in this section. The most complicated
+
+178
+00:11:48.000 --> 00:11:52.000
+will be the actual movement of the tank. which of course we'll be game to do the moment we
+
+179
+00:11:52.000 --> 00:11:56.000
+can actually aim our tank. So. anyway that's it! I hope that's all made sense to you. I'll leave
+
+180
+00:11:56.000 --> 00:12:00.000
+the code on the screen. I think that might be helpful to you. so that you can see what we've actually
+
+181
+00:12:00.000 --> 00:12:04.000
+written here. And that's it. I shall see you in the
+
+182
+00:12:04.000 --> 00:12:08.000
+next video! Remember to commit your work to source control!
+
+183
+00:12:08.000 --> 00:12:09.633
+
+
