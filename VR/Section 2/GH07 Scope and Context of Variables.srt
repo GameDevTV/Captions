@@ -1,0 +1,547 @@
+1
+00:00:08,000 --> 00:00:12,000
+Welcome! In this lecture we're finally going to be making our game more
+
+2
+00:00:12,000 --> 00:00:16,000
+fun to play. We're going to be doing this by actually updating
+
+3
+00:00:16,000 --> 00:00:20,000
+those variables, so that, as we go along, the number of steps
+
+4
+00:00:20,000 --> 00:00:24,000
+changes, and also the number of meters away from home changes,
+
+5
+00:00:24,000 --> 00:00:28,000
+depending in which direction we press, so that we can actually get
+
+6
+00:00:28,000 --> 00:00:32,000
+home and finally have a game. So let's
+
+7
+00:00:32,000 --> 00:00:33,000
+get stuck right in!
+
+8
+00:00:33,000 --> 00:00:37,000
+It is all very well that we can input stuff into our program,
+
+9
+00:00:37,000 --> 00:00:41,000
+but it's still not very interesting if all the program does is repeat the same
+
+10
+00:00:41,000 --> 00:00:45,000
+message back to us, so it's really time for us to start
+
+11
+00:00:45,000 --> 00:00:49,000
+changing these on different key presses.
+
+12
+00:00:49,000 --> 00:00:53,000
+Now the problem is, if we were to update this variable, then
+
+13
+00:00:53,000 --> 00:00:57,000
+the next time we come around the update, you see it's going to set it back
+
+14
+00:00:57,000 --> 00:01:01,000
+to being the number of steps being 10. It won't remember
+
+15
+00:01:01,000 --> 00:01:05,000
+this variable between calls to the
+
+16
+00:01:05,000 --> 00:01:09,000
+Update () method, so that is where things like
+
+17
+00:01:09,000 --> 00:01:13,000
+context or, what we're going to now call it is, scope variables becomes
+
+18
+00:01:13,000 --> 00:01:17,000
+very important. We want the scope of this variable to last
+
+19
+00:01:17,000 --> 00:01:21,000
+between calls of Update (). Now
+
+20
+00:01:21,000 --> 00:01:25,000
+fortunately, as I mentioned before, we can nest
+
+21
+00:01:25,000 --> 00:01:29,000
+these variable scopes, or you can have them one
+
+22
+00:01:29,000 --> 00:01:33,000
+inside the other, that's basically what I mean. So this
+
+23
+00:01:33,000 --> 00:01:37,000
+here. these brackets, are a scope as well, but
+
+24
+00:01:37,000 --> 00:01:41,000
+you can see that it has access to all the variables inside the
+
+25
+00:01:41,000 --> 00:01:45,000
+brackets outside, so that we say
+
+26
+00:01:45,000 --> 00:01:49,000
+that these brackets from here to here are
+
+27
+00:01:49,000 --> 00:01:53,000
+the parent scope of these brackets and these brackets
+
+28
+00:01:53,000 --> 00:01:57,000
+and these brackets. Now, you'll notice that there is somewhere else
+
+29
+00:01:57,000 --> 00:02:01,000
+brackets that actually enclose all of this too, and that
+
+30
+00:02:01,000 --> 00:02:05,000
+is here. Here are some more brackets around the whole
+
+31
+00:02:05,000 --> 00:02:09,000
+thing, all the way out to here, and what that means is that
+
+32
+00:02:09,000 --> 00:02:13,000
+this is the parent scope for both Start ()
+
+33
+00:02:13,000 --> 00:02:17,000
+and Update (), which means that any variables we declare
+
+34
+00:02:17,000 --> 00:02:21,000
+in here we'll be able to access
+
+35
+00:02:21,000 --> 00:02:25,000
+in both of these, and also between calls to the Update ().
+
+36
+00:02:25,000 --> 00:02:29,000
+So let me show you what I mean. I'm going to start off by
+
+37
+00:02:29,000 --> 00:02:33,000
+taking numberOfSteps, cutting it,
+
+38
+00:02:33,000 --> 00:02:37,000
+if I can like so, and
+
+39
+00:02:37,000 --> 00:02:41,000
+then, I am going to paste it here in the top of this.
+
+40
+00:02:41,000 --> 00:02:45,000
+As you can see, the indentation is now one level less than
+
+41
+00:02:45,000 --> 00:02:49,000
+we have inside these methods and two levels less than in the if statement, and that's because
+
+42
+00:02:49,000 --> 00:02:53,000
+it is in a parent scope to these methods. And that means we can
+
+43
+00:02:53,000 --> 00:02:57,000
+access this, still access it in here,
+
+44
+00:02:57,000 --> 00:03:01,000
+but also between calls. So if I were to do something like
+
+45
+00:03:01,000 --> 00:03:05,000
+number
+
+46
+00:03:05,000 --> 00:03:09,000
+OfSteps = numberOf
+
+47
+00:03:09,000 --> 00:03:13,000
+Steps... Let me write that properly.
+
+48
+00:03:13,000 --> 00:03:17,000
+numberOfSteps + 1;
+
+49
+00:03:17,000 --> 00:03:21,000
+So what we're doing here is we're assigning
+
+50
+00:03:21,000 --> 00:03:25,000
+the current value of nuumberOfSteps + 1 to numberOfSteps
+
+51
+00:03:25,000 --> 00:03:29,000
+again. So we're basically incrementing the value
+
+52
+00:03:29,000 --> 00:03:33,000
+held in numberOfSteps. So I'm going to save that, let's go over to Unity, and
+
+53
+00:03:33,000 --> 00:03:37,000
+see what that does. OK,
+
+54
+00:03:37,000 --> 00:03:41,000
+so I'm going to hit the Down Arrow, and that doesn't do...
+
+55
+00:03:41,000 --> 00:03:45,000
+OK, you can see that incremented! If I hit Left and Right, it's not incrementing.
+
+56
+00:03:45,000 --> 00:03:49,000
+I hit Up, it's not incremting either. If I hit Down,
+
+57
+00:03:49,000 --> 00:03:53,000
+the number of steps keeps going up, which means it's variable
+
+58
+00:03:53,000 --> 00:03:57,000
+has persisted between different calls to the Update () method. We know it
+
+59
+00:03:57,000 --> 00:04:01,000
+must have done, because we keep repeatedly
+
+60
+00:04:01,000 --> 00:04:05,000
+changing that Update () method. So that is what we have managed to
+
+61
+00:04:05,000 --> 00:04:09,000
+achieve, by using a nested scope, a parent scope of
+
+62
+00:04:09,000 --> 00:04:13,000
+these methods.
+
+63
+00:04:13,000 --> 00:04:17,000
+OK, so it is time for a little challenge! I'd like you to update your distance from
+
+64
+00:04:17,000 --> 00:04:21,000
+home, using that same kind of technique again, which we have seen.
+
+65
+00:04:21,000 --> 00:04:25,000
+So select a starting distance form home. You'll need to choose
+
+66
+00:04:25,000 --> 00:04:29,000
+whether you're 5 meters away, 10 meters away, that's up to you It's going to be
+
+67
+00:04:29,000 --> 00:04:33,000
+the same whatever you do. At least the code will be the same,
+
+68
+00:04:33,000 --> 00:04:37,000
+the output will be different. So then I'd like you to set that
+
+69
+00:04:37,000 --> 00:04:41,000
+in the Start () method, or even as you've seen before.
+
+70
+00:04:41,000 --> 00:04:45,000
+You've seen me do it, you can do it here too. It doesn't have to be in the Start () method,
+
+71
+00:04:45,000 --> 00:04:49,000
+it can be set at the top of this scope here.
+
+72
+00:04:49,000 --> 00:04:53,000
+Then, I'd like you to
+
+73
+00:04:53,000 --> 00:04:57,000
+make it so that moving left subtracts from the distance,
+
+74
+00:04:57,000 --> 00:05:01,000
+and moving right adds to the distance. And each time we keep
+
+75
+00:05:01,000 --> 00:05:05,000
+printing the new distance to home. Moving up and down
+
+76
+00:05:05,000 --> 00:05:09,000
+should do nothing, at least for now. We'll sort that out in later lectures.
+
+77
+00:05:09,000 --> 00:05:13,000
+OK, so pause the video, and have a go at this yourself!
+
+78
+00:05:13,000 --> 00:05:17,000
+OK welcome back! We are going to dive straight
+
+79
+00:05:17,000 --> 00:05:21,000
+in and have a go at doing this! So I'm going to take
+
+80
+00:05:21,000 --> 00:05:25,000
+this distance, as I said, cut it and I'm going to paste it right under the number of
+
+81
+00:05:25,000 --> 00:05:29,000
+steps, as we have been doing. These two seem to move together quite a lot! As I
+
+82
+00:05:29,000 --> 00:05:33,000
+said, I want to select a distance to start off with, so
+
+83
+00:05:33,000 --> 00:05:37,000
+let's say we are 5 meters away from home to begin with.
+
+84
+00:05:37,000 --> 00:05:41,000
+OK, and then I said that going left
+
+85
+00:05:41,000 --> 00:05:45,000
+should detriment the distance, so we'll be going towards
+
+86
+00:05:45,000 --> 00:05:49,000
+home. So the distance is = to distance
+
+87
+00:05:49,000 --> 00:05:53,000
+- 1.; OK,
+
+88
+00:05:53,000 --> 00:05:57,000
+there is actually a way of doing this a little bit quicker and
+
+89
+00:05:57,000 --> 00:06:01,000
+with fewer lines. Because this is such a common thing to
+
+90
+00:06:01,000 --> 00:06:05,000
+do, this can be abbreviated all the way down to being
+
+91
+00:06:05,000 --> 00:06:09,000
+-= 1, like so,
+
+92
+00:06:09,000 --> 00:06:13,000
+which basically says exactly the same thing as what we had just written.
+
+93
+00:06:13,000 --> 00:06:17,000
+So because even this is very very common, we can abbreviate
+
+94
+00:06:17,000 --> 00:06:21,000
+it even more to just --, like this. So
+
+95
+00:06:21,000 --> 00:06:25,000
+distance--; and the Right Arrow we said we wanted
+
+96
+00:06:25,000 --> 00:06:29,000
+to increment by 1. Well it just so happens that there is a distance ++
+
+97
+00:06:29,000 --> 00:06:33,000
+and it works exactly the same way. Or we could do += 1
+
+98
+00:06:33,000 --> 00:06:37,000
+or we could do al the way to distance + 1. But
+
+99
+00:06:37,000 --> 00:06:41,000
+we'll stick with that distance,
+
+100
+00:06:41,000 --> 00:06:45,000
+if I can spell correctly, distance++;
+
+101
+00:06:45,000 --> 00:06:49,000
+OK. So that should do what we want! And one more
+
+102
+00:06:49,000 --> 00:06:53,000
+thing! Let's just increment the number of steps everywhere! So I'll do
+
+103
+00:06:53,000 --> 00:06:57,000
+++, and then, I'm just going to copy this down to whatever key.
+
+104
+00:06:57,000 --> 00:07:01,000
+You see this is now consistent, because
+
+105
+00:07:01,000 --> 00:07:05,000
+every time we make a move we have taken a
+
+106
+00:07:05,000 --> 00:07:09,000
+step, essentially, but only in two directions are we actually moving towards
+
+107
+00:07:09,000 --> 00:07:13,000
+or away from the distance... Away from home rather, not from the distance,
+
+108
+00:07:13,000 --> 00:07:17,000
+that doesn't make any sense. OK, let's hit play
+
+109
+00:07:17,000 --> 00:07:21,000
+and hit play again! OK, now if
+
+110
+00:07:21,000 --> 00:07:25,000
+I hit Up and Down you see I'm taking steps, but I'm not
+
+111
+00:07:25,000 --> 00:07:29,000
+moving to or from home. But
+
+112
+00:07:29,000 --> 00:07:33,000
+if I start hitting Left, I do indeed
+
+113
+00:07:33,000 --> 00:07:37,000
+move towards home, and if I start hitting Right,
+
+114
+00:07:37,000 --> 00:07:41,000
+I move away from home again.
+
+115
+00:07:41,000 --> 00:07:45,000
+So we can just see the effect of that,
+
+116
+00:07:45,000 --> 00:07:49,000
+like so.
+
+117
+00:07:49,000 --> 00:07:53,000
+Now you see there's a little bit of an odd behavior in that!
+
+118
+00:07:53,000 --> 00:07:57,000
+When I change direction, it goes up first.
+
+119
+00:07:57,000 --> 00:08:01,000
+Now the reason for that, if we go and look in the code, is
+
+120
+00:08:01,000 --> 00:08:05,000
+the order. Now order is very important, because this is the order in which all these
+
+121
+00:08:05,000 --> 00:08:09,000
+operations or statements are run. Now, what we
+
+122
+00:08:09,000 --> 00:08:13,000
+really want to be doing is incrementing before we print, because
+
+123
+00:08:13,000 --> 00:08:17,000
+that is essentially what we're saying. You know, we've moved that distance, now let's
+
+124
+00:08:17,000 --> 00:08:21,000
+let's show that updated distance.
+
+125
+00:08:21,000 --> 00:08:25,000
+That's what we really want, so it's very important to get the order right.
+
+126
+00:08:25,000 --> 00:08:29,000
+So let's try that again!
+
+127
+00:08:29,000 --> 00:08:33,000
+So I'm going towards!
+
+128
+00:08:33,000 --> 00:08:37,000
+Now I'm getting away! And you can see I instantly get the feedback about
+
+129
+00:08:37,000 --> 00:08:41,000
+this current step. One more thing to polish it off is, to go
+
+130
+00:08:41,000 --> 00:08:45,000
+and change this start number of steps to being
+
+131
+00:08:45,000 --> 00:08:49,000
+1, so that the first time we
+
+132
+00:08:49,000 --> 00:08:53,000
+have it printed it, it'll say after 1 " steps you are "...
+
+133
+00:08:53,000 --> 00:08:57,000
+Now we could do something about the s, but we won't worry too much about pluralization
+
+134
+00:08:57,000 --> 00:09:01,000
+in this instance. OK, so we have finished that
+
+135
+00:09:01,000 --> 00:09:05,000
+challenge, and our game is actually starting to be an interesting game that you can play!
+
+136
+00:09:05,000 --> 00:09:09,000
+In the next lecture we're going to be looking at how we can make this code a
+
+137
+00:09:09,000 --> 00:09:13,000
+little bit nicer and less repetitive! See you there!

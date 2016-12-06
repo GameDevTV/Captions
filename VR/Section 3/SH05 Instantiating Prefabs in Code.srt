@@ -1,0 +1,487 @@
+1
+00:00:06,500 --> 00:00:10,500
+Welcome! In this lecture we are going to be looking at how we can instantiate
+
+2
+00:00:10,500 --> 00:00:14,500
+these prefabs from code, in order to do things like this.
+
+3
+00:00:14,500 --> 00:00:18,500
+When I hit Spacebar, I can create a new clone just like
+
+4
+00:00:18,500 --> 00:00:22,500
+this. There we go! And this game finally starts to be
+
+5
+00:00:22,500 --> 00:00:26,500
+interactive and a little bit fun. See you in there!
+
+6
+00:00:27,233 --> 00:00:31,233
+Adding instances is all well and good, but it's not very
+
+7
+00:00:31,233 --> 00:00:35,233
+interesting if this is all we can do. What we want to be doing is adding some
+
+8
+00:00:35,233 --> 00:00:39,233
+behavior, adding some scripts that really make things
+
+9
+00:00:39,233 --> 00:00:43,233
+work, you know make things actually do stuff. So let's right-click and
+
+10
+00:00:43,233 --> 00:00:47,233
+Create a new Folder here, where we're going to store our scripts.
+
+11
+00:00:47,233 --> 00:00:51,233
+So you can see that we're getting the beginnings of a nicely organized
+
+12
+00:00:51,233 --> 00:00:55,233
+folder structure here. It's good to keep your files in order, right from the
+
+13
+00:00:55,233 --> 00:00:59,233
+beginning, that way you don't have to worry about doing a big cleanup. Now, I'm going to right-
+
+14
+00:00:59,233 --> 00:01:03,233
+click and create a new C# script, as we have done before. And now
+
+15
+00:01:03,233 --> 00:01:07,233
+what I'm going to call this is a BallSpawner,
+
+16
+00:01:07,233 --> 00:01:11,233
+because the purpose of this script
+
+17
+00:01:11,233 --> 00:01:15,233
+is to create new balls. And that's what we're
+
+18
+00:01:15,233 --> 00:01:19,233
+going to be doing in this lecture, we're going to be figuring out how we can create
+
+19
+00:01:19,233 --> 00:01:23,233
+these prefabs. OK, so I'm going to add this script into a game
+
+20
+00:01:23,233 --> 00:01:27,233
+object. Remember that scripts don't run unless they're on a game object, and in this
+
+21
+00:01:27,233 --> 00:01:31,233
+case, I'm going to add it onto the Camera and that'll make sense in later
+
+22
+00:01:31,233 --> 00:01:35,233
+lectures, but for now, let's just do it like that. And let's
+
+23
+00:01:35,233 --> 00:01:39,233
+launch VisualStudio or MonoDevelop with that C#
+
+24
+00:01:39,233 --> 00:01:43,233
+script that we have just created.
+
+25
+00:01:43,233 --> 00:01:47,233
+Now what we're going to want to do is get hold of
+
+26
+00:01:47,233 --> 00:01:51,233
+reference to that prefab file. Now, how do we do
+
+27
+00:01:51,233 --> 00:01:55,233
+that? Well the prefab has a type of Game
+
+28
+00:01:55,233 --> 00:01:59,233
+Object, so we can create a variable that will
+
+29
+00:01:59,233 --> 00:02:03,233
+hold the prefab. We'll call it ballPrefab,
+
+30
+00:02:03,233 --> 00:02:07,233
+and we're not going to set an equal to anything, because
+
+31
+00:02:07,233 --> 00:02:11,233
+this is going to happen, Unity is going to set this. Now,
+
+32
+00:02:11,233 --> 00:02:15,233
+at the moment, if we save that and go back to Unity
+
+33
+00:02:15,233 --> 00:02:19,233
+and have a look at the Main Camera in the Inspector, you
+
+34
+00:02:19,233 --> 00:02:23,233
+see that the component for Ball Spawner (Script) is not
+
+35
+00:02:23,233 --> 00:02:27,233
+actually showing anything. But if we go
+
+36
+00:02:27,233 --> 00:02:31,233
+back into VisualStudio and we add public in
+
+37
+00:02:31,233 --> 00:02:35,233
+front of this variable, in this variable I'm now going to call field,
+
+38
+00:02:35,233 --> 00:02:39,233
+because you'll notice it's within this declaration of a class. So
+
+39
+00:02:39,233 --> 00:02:43,233
+we were previously ignoring this, but classes defining a type.
+
+40
+00:02:43,233 --> 00:02:47,233
+And so what this says is that we have a public class, and we don't have to worry
+
+41
+00:02:47,233 --> 00:02:51,233
+about what public means, but we're saying it's a class called BallSpawner
+
+42
+00:02:51,233 --> 00:02:55,233
+and it inherits from MonoBehavior. So it's saying that this is
+
+43
+00:02:55,233 --> 00:02:59,233
+a MonoBehavior type, it is a MonoBehavior,
+
+44
+00:02:59,233 --> 00:03:03,233
+and it's a new type called BallSpawner and that's what we're defining
+
+45
+00:03:03,233 --> 00:03:07,233
+here. And this is one of those fields. Remember that we had a vector
+
+46
+00:03:07,233 --> 00:03:11,233
+dot x and vector dot y? Well this is BallSpawner
+
+47
+00:03:11,233 --> 00:03:15,233
+dot Prefab. Now by making it public,
+
+48
+00:03:15,233 --> 00:03:19,233
+we make it accessible to the Unity Editor. So if we go into the Unity
+
+49
+00:03:19,233 --> 00:03:23,233
+Editor and have again a look at our component, you see it just popped up,
+
+50
+00:03:23,233 --> 00:03:27,233
+and Unity's done something clever here, it's managed to pick apart the
+
+51
+00:03:27,233 --> 00:03:31,233
+name of our variable and has called this field Ball
+
+52
+00:03:31,233 --> 00:03:35,233
+Prefab. OK, now how do we link it up? Well it's actually quite easy!
+
+53
+00:03:35,233 --> 00:03:39,233
+We have to just go to our prefab in the folder and then
+
+54
+00:03:39,233 --> 00:03:43,233
+open up the Main Camera again and we just need to drag
+
+55
+00:03:43,233 --> 00:03:47,233
+the prefab onto our Ball Spawner script.
+
+56
+00:03:47,233 --> 00:03:51,233
+Now I'm going to hit Save. And how do we check that this is
+
+57
+00:03:51,233 --> 00:03:55,233
+actually what is happening? Well let's just use a print().
+
+58
+00:03:55,233 --> 00:03:59,233
+I'm just going to print the (ballPrefab) like so, just to
+
+59
+00:03:59,233 --> 00:04:03,233
+check that we are getting it in the Start() method. So hit play!
+
+60
+00:04:03,233 --> 00:04:07,233
+And we'll need it not to be maximized, so I'm
+
+61
+00:04:07,233 --> 00:04:11,233
+going to hit play again and go over to the Console
+
+62
+00:04:11,233 --> 00:04:15,233
+and you see we have the BasketBall is the Unity Game
+
+63
+00:04:15,233 --> 00:04:19,233
+Object. In fact, it's saying that it's not quite mentioning that it's a prefab
+
+64
+00:04:19,233 --> 00:04:23,233
+but that's all fine. OK, now one cool
+
+65
+00:04:23,233 --> 00:04:27,233
+thing we can do with prefabs is we can do an Instantiate
+
+66
+00:04:27,233 --> 00:04:31,233
+call on them. So we just do Instantiate and we take an object
+
+67
+00:04:31,233 --> 00:04:35,233
+and this object is the (ballPrefab).
+
+68
+00:04:35,233 --> 00:04:39,233
+So this uses a function called Instantiate, with the parameter or
+
+69
+00:04:39,233 --> 00:04:43,233
+argument of (ballPrefab), and then, remember your
+
+70
+00:04:43,233 --> 00:04:47,233
+semicolons always. So what happens now? What does
+
+71
+00:04:47,233 --> 00:04:51,233
+Instantiate do? We hit play,
+
+72
+00:04:51,233 --> 00:04:55,233
+you notice we just got an extra ball in there, and it's called BasketBall
+
+73
+00:04:55,233 --> 00:04:59,233
+(Clone). Perfect! So we are getting the scripts to
+
+74
+00:04:59,233 --> 00:05:03,233
+automatically create new balls for us, and we can make that super obvious by
+
+75
+00:05:03,233 --> 00:05:07,233
+deleting all these handmade prefabs
+
+76
+00:05:07,233 --> 00:05:11,233
+and just let the code do the job. So we hit play
+
+77
+00:05:11,233 --> 00:05:15,233
+and it's created a new ball out of nowhere. It wasn't there in the scene to begin with
+
+78
+00:05:15,233 --> 00:05:19,233
+and then when we click play it is!
+
+79
+00:05:19,600 --> 00:05:23,600
+Time for your next challenge! I would like you to spawn a ball on
+
+80
+00:05:23,600 --> 00:05:27,600
+Spacebar, by that I mean when you hit Spacebar, or course, so that we aren't just
+
+81
+00:05:27,600 --> 00:05:31,600
+doing one and we're not responding to user input. So
+
+82
+00:05:31,600 --> 00:05:35,600
+use your previous knowledge of GetKeyDown(), that we
+
+83
+00:05:35,600 --> 00:05:39,600
+used in the previous section. Just..If you can't remember, go back,
+
+84
+00:05:39,600 --> 00:05:43,600
+now is a good time to revise that knowledge. And put the
+
+85
+00:05:43,600 --> 00:05:47,600
+relevant if statements in your Update() function, so
+
+86
+00:05:47,600 --> 00:05:51,600
+that you can actually do something with this
+
+87
+00:05:51,600 --> 00:05:55,600
+GetKeyDown(), with this Spacebar. You'll obviously need to find out
+
+88
+00:05:55,600 --> 00:05:59,600
+which the Spacebar key is in code, but that should be
+
+89
+00:05:59,600 --> 00:06:03,600
+fairly easy with your completion, in either MonoDevelop or VisualStudio.
+
+90
+00:06:03,600 --> 00:06:07,600
+And then, I'd like you to call Instantiate(0 in this if statement,
+
+91
+00:06:07,600 --> 00:06:11,600
+so that you can actually create the ball when the key is down.
+
+92
+00:06:11,600 --> 00:06:15,600
+OK, so pause the video, and have a go at doing this yourself!
+
+93
+00:06:15,600 --> 00:06:19,600
+OK welcome back! I hope you've
+
+94
+00:06:19,600 --> 00:06:23,600
+all had a go and paused. This is very important to
+
+95
+00:06:23,600 --> 00:06:27,600
+try to apply your knowledge from previous lectures, this means that you will actually
+
+96
+00:06:27,600 --> 00:06:31,600
+be really learning and cementing that knowledge and getting to grips with how
+
+97
+00:06:31,600 --> 00:06:35,600
+Unity works. OK, so here I am!
+
+98
+00:06:35,600 --> 00:06:39,600
+Let me pause the playing of this and go into my script.
+
+99
+00:06:39,600 --> 00:06:43,600
+So I want to create this new if statement, and in it I'm
+
+100
+00:06:43,600 --> 00:06:47,600
+going to do my (Input.GetKeyDown().
+
+101
+00:06:47,600 --> 00:06:51,600
+Hopefully you all remember this one. And then remember, we need that Key
+
+102
+00:06:51,600 --> 00:06:55,600
+Code, so we do (KeyCode.). Now I'm going to guess that it
+
+103
+00:06:55,600 --> 00:06:59,600
+has Spacebar or something. That's Space, that is the one I need!
+
+104
+00:06:59,600 --> 00:07:03,600
+Now you see how I just used the completion to essentially explore
+
+105
+00:07:03,600 --> 00:07:07,600
+the way that this function works.
+
+106
+00:07:07,600 --> 00:07:11,600
+OK, so I've got my braces, and I'm just going to
+
+107
+00:07:11,600 --> 00:07:15,600
+put in... I'm going to copy and paste this Instantiate call
+
+108
+00:07:15,600 --> 00:07:19,600
+right into the braces of my if statement, and i'm just going to
+
+109
+00:07:19,600 --> 00:07:23,600
+cleanup some of these extraneous blank lines that we don't need.
+
+110
+00:07:23,600 --> 00:07:27,600
+I'm accidentally opening things! So notice
+
+111
+00:07:27,600 --> 00:07:31,600
+that we used these blank lines, it's just a good point to note it,
+
+112
+00:07:31,600 --> 00:07:35,600
+to separate out things of a larger level.
+
+113
+00:07:35,600 --> 00:07:39,600
+So things like this Start() block are separated by a white line
+
+114
+00:07:39,600 --> 00:07:43,600
+on each side. This is just visually breaks up the code and makes it easier for your eye
+
+115
+00:07:43,600 --> 00:07:47,600
+to go to the relevant parts of, well
+
+116
+00:07:47,600 --> 00:07:51,600
+the implementation. Let's go back into Unity and hit play!
+
+117
+00:07:51,600 --> 00:07:55,600
+And now, it won't Instantiate
+
+118
+00:07:55,600 --> 00:07:59,600
+it on Start(), but when we hit Spacebar, it creates new balls!
+
+119
+00:07:59,600 --> 00:08:03,600
+Perfect! You see when I'm trying to create them over each other, they start bouncing up.
+
+120
+00:08:03,600 --> 00:08:07,600
+OK, this game is actually starting to react to the user
+
+121
+00:08:07,600 --> 00:08:11,600
+input, and it is starting to be sort of fun, even though we have not goal just
+
+122
+00:08:11,600 --> 00:08:12,700
+yet!

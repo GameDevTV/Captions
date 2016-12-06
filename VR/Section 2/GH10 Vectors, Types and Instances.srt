@@ -1,0 +1,639 @@
+1
+00:00:09,000 --> 00:00:13,000
+Welcome! So in this video I'm very excited, because we're about to
+
+2
+00:00:13,000 --> 00:00:17,000
+use vectors in code for the first time, so it's actually going to be doing something
+
+3
+00:00:17,000 --> 00:00:21,000
+useful for us! All this math that we learned in high school and thought would never be relevant,
+
+4
+00:00:21,000 --> 00:00:25,000
+finally, it's going to be put to work for us in making games!
+
+5
+00:00:25,000 --> 00:00:29,000
+So in this video we're going to be meeting types, classes, and structures
+
+6
+00:00:29,000 --> 00:00:33,000
+and things like that, and all those kinds of beasts. We're also going to be
+
+7
+00:00:33,000 --> 00:00:37,000
+learning how to use the Vector2 type, and we're going
+
+8
+00:00:37,000 --> 00:00:41,000
+to be implementing distance, using this new
+
+9
+00:00:41,000 --> 00:00:42,766
+vector knowledge that we have.
+
+10
+00:00:42,766 --> 00:00:46,766
+But before we dive into our code we need to answer this question,
+
+11
+00:00:46,766 --> 00:00:50,766
+what is a type? So a type is, very simply,
+
+12
+00:00:50,766 --> 00:00:54,766
+a way to put abstract things into
+
+13
+00:00:54,766 --> 00:00:58,766
+our variables. So by things I mean, well it could be anything couldn't it? It could
+
+14
+00:00:58,766 --> 00:01:02,766
+be a vector, it could be a house, it could be a dog, but the idea is it's an abstract
+
+15
+00:01:02,766 --> 00:01:06,766
+thing, an abstract object, that we want to put into our
+
+16
+00:01:06,766 --> 00:01:10,766
+variables, and types allow us to do that by giving these
+
+17
+00:01:10,766 --> 00:01:14,766
+things some sort of behaviors and
+
+18
+00:01:14,766 --> 00:01:18,766
+properties. So for example,
+
+19
+00:01:18,766 --> 00:01:22,766
+they're also known... So this is very important, you also need to know that
+
+20
+00:01:22,766 --> 00:01:26,766
+people will call them Classes and they will call the Structs, and it's very
+
+21
+00:01:26,766 --> 00:01:30,766
+common to hear the word Class referring to a user defined type.
+
+22
+00:01:30,766 --> 00:01:34,766
+Just so you know, all of these things are roughly equivalent, like classes and structs
+
+23
+00:01:34,766 --> 00:01:38,766
+are two different kinds of a type, essentially.
+
+24
+00:01:38,766 --> 00:01:42,766
+Then, we can instantiate these
+
+25
+00:01:42,766 --> 00:01:46,766
+types to make a new thing. So that is exactly what we're doing here,
+
+26
+00:01:46,766 --> 00:01:50,766
+when we say new Vector2 with 2 and 3. That's saying
+
+27
+00:01:50,766 --> 00:01:54,766
+that we create a new 2 dimensional vector, with the coordinates
+
+28
+00:01:54,766 --> 00:01:58,766
+2 and 3. So 2 in the X dimension
+
+29
+00:01:58,766 --> 00:02:02,766
+and 3 in the Y dimension. They also
+
+30
+00:02:02,766 --> 00:02:06,766
+have properties or fields like vector.x
+
+31
+00:02:06,766 --> 00:02:10,766
+and vector.y. These basically say, in
+
+32
+00:02:10,766 --> 00:02:14,766
+this case, 2 and 3 for this particular thing, for this particular
+
+33
+00:02:14,766 --> 00:02:18,766
+object or instance, all these terms are equivalent.
+
+34
+00:02:18,766 --> 00:02:22,766
+So we've got X is 2, Y is
+
+35
+00:02:22,766 --> 00:02:26,766
+3, for this particular new Vector2.
+
+36
+00:02:26,766 --> 00:02:30,766
+And then, they also support operations, so I could take two vectors a and
+
+37
+00:02:30,766 --> 00:02:34,766
+b, and I could do a plus operation and the computer would work out the new vector,
+
+38
+00:02:34,766 --> 00:02:38,766
+that it is equated to.
+
+39
+00:02:38,766 --> 00:02:42,766
+OK, so what does this all look like in our code?!
+
+40
+00:02:42,766 --> 00:02:46,766
+So we might want to start off by
+
+41
+00:02:46,766 --> 00:02:50,766
+considering a vector that is home.
+
+42
+00:02:50,766 --> 00:02:54,766
+Now I'm going to remove distance, because we're going to be calculating this now,
+
+43
+00:02:54,766 --> 00:02:58,766
+and we want to create a new vector for home. So
+
+44
+00:02:58,766 --> 00:03:02,766
+the type of that vector is now Vector2. As you can see,
+
+45
+00:03:02,766 --> 00:03:06,766
+it's slightly different to those primitive types that we were using before, like
+
+46
+00:03:06,766 --> 00:03:10,766
+int and float. It's now a more abstract concept, it's a vector
+
+47
+00:03:10,766 --> 00:03:14,766
+rather than just an int or a float. And we'll call this home
+
+48
+00:03:14,766 --> 00:03:18,766
+Location. So it's a nice descriptive name
+
+49
+00:03:18,766 --> 00:03:22,766
+for the thing that we're going to be storing in it, the thing, so the object
+
+50
+00:03:22,766 --> 00:03:26,766
+and the object we need to instantiate. So how did we do
+
+51
+00:03:26,766 --> 00:03:30,766
+that? Let's just go to the slide and check! We had new Vector2
+
+52
+00:03:30,766 --> 00:03:34,766
+and then in brackets, (2, 3)
+
+53
+00:03:34,766 --> 00:03:38,766
+close bracket. So these are giving multiple arguments to Vector2,
+
+54
+00:03:38,766 --> 00:03:42,766
+new Vector2() and then
+
+55
+00:03:42,766 --> 00:03:46,766
+we can do (2, 3). So that's the location of home, and
+
+56
+00:03:46,766 --> 00:03:50,766
+just let's go back and have a look at that again. There was a completion there, when I started typing
+
+57
+00:03:50,766 --> 00:03:54,766
+(2). You see it's saying that it wants something of type float
+
+58
+00:03:54,766 --> 00:03:58,766
+and something of type float. So I can give those like that or I can
+
+59
+00:03:58,766 --> 00:04:02,766
+give them like this as well,
+
+60
+00:04:02,766 --> 00:04:06,766
+and then, semicolon to end the line as always. OK,
+
+61
+00:04:06,766 --> 00:04:10,766
+so that is how we create a
+
+62
+00:04:10,766 --> 00:04:14,766
+new variable, holding a vector
+
+63
+00:04:14,766 --> 00:04:18,766
+thing of type vector.
+
+64
+00:04:18,766 --> 00:04:22,766
+Now, we want to create one more, we want to create one for the
+
+65
+00:04:22,766 --> 00:04:26,766
+player location. So we do the same procedure, the type is Vector2.
+
+66
+00:04:26,766 --> 00:04:30,766
+We do a playerLocation =
+
+67
+00:04:30,766 --> 00:04:34,766
+new Vector2(), and this time we can
+
+68
+00:04:34,766 --> 00:04:38,766
+put in a different set of numbers. So (5.0f,
+
+69
+00:04:38,766 --> 00:04:42,766
+and I'm going to put 1.0f), so there's
+
+70
+00:04:42,766 --> 00:04:46,766
+the floating point numbers. And
+
+71
+00:04:46,766 --> 00:04:50,766
+we can save that! Now, what did I
+
+72
+00:04:50,766 --> 00:04:54,766
+say earlier about fields? Let's see, what do these fields look like?
+
+73
+00:04:54,766 --> 00:04:58,766
+So for example, in
+
+74
+00:04:58,766 --> 00:05:02,766
+the home, in this welcome message, let's put a
+
+75
+00:05:02,766 --> 00:05:06,766
+print statement, which prints out
+
+76
+00:05:06,766 --> 00:05:10,766
+the ("homeLocation
+
+77
+00:05:10,766 --> 00:05:14,766
+.x". Then, we can do + home
+
+78
+00:05:14,766 --> 00:05:18,766
+Location.x) like so. And we can see what
+
+79
+00:05:18,766 --> 00:05:22,766
+that actually returns. If we go into Unity and hit play...
+
+80
+00:05:22,766 --> 00:05:26,766
+OK we have some errors, let's just go over it. It says
+
+81
+00:05:26,766 --> 00:05:30,766
+" 'distance' does not exist in the current context" and that is obviously correct. So
+
+82
+00:05:30,766 --> 00:05:34,766
+we'll just remove these distances for now, now that we've broken, at
+
+83
+00:05:34,766 --> 00:05:38,766
+the moment. I'm just going to remove it there as well, remove the plus
+
+84
+00:05:38,766 --> 00:05:42,766
+so that is all compiling. And
+
+85
+00:05:42,766 --> 00:05:46,766
+let's hit play and see whether this works now. OK
+
+86
+00:05:46,766 --> 00:05:50,766
+so we've got homeLocation, I forgot to add a space, is 2.
+
+87
+00:05:50,766 --> 00:05:54,766
+Let's just check in the code! Yes, 2 is exactly what we set
+
+88
+00:05:54,766 --> 00:05:58,766
+in it! Perfect! So we can see that when we
+
+89
+00:05:58,766 --> 00:06:02,766
+created this vector, it created some properties or some fields
+
+90
+00:06:02,766 --> 00:06:06,766
+here, and that is what we're
+
+91
+00:06:06,766 --> 00:06:10,766
+seeing here, x and y. And the other thing I said is
+
+92
+00:06:10,766 --> 00:06:12,600
+that we can support
+
+93
+00:06:12,600 --> 00:06:16,533
+operations, like so.
+
+94
+00:06:16,533 --> 00:06:20,533
+If I want to calculate a distance,
+
+95
+00:06:20,533 --> 00:06:24,533
+I can create a new variable to hold the distance,
+
+96
+00:06:24,533 --> 00:06:28,533
+like so, and I can calculate the distance.
+
+97
+00:06:28,533 --> 00:06:32,533
+As we said in previous slides and previous lectures, we
+
+98
+00:06:32,533 --> 00:06:36,533
+said that the distance from home is going to be
+
+99
+00:06:36,533 --> 00:06:40,533
+homeLocation - the player
+
+100
+00:06:40,533 --> 00:06:44,533
+location. If I can spell correctly, Location.
+
+101
+00:06:44,533 --> 00:06:48,533
+If I can type correctly, it's player
+
+102
+00:06:48,533 --> 00:06:52,533
+Location; like so.
+
+103
+00:06:52,533 --> 00:06:56,533
+OK it's not complaining. And now, if
+
+104
+00:06:56,533 --> 00:07:00,533
+I print that distance, what do you think it will print?
+
+105
+00:07:00,533 --> 00:07:04,533
+Well let's pause execution and
+
+106
+00:07:04,533 --> 00:07:08,533
+start the preview again. Now if I hit the
+
+107
+00:07:08,533 --> 00:07:12,533
+arrow, you see
+
+108
+00:07:12,533 --> 00:07:16,533
+it's giving us this vector notation for it, and
+
+109
+00:07:16,533 --> 00:07:20,533
+if we have a look at it, it does make sense, because we're saying that we have
+
+110
+00:07:20,533 --> 00:07:24,533
+to go 3 down
+
+111
+00:07:24,533 --> 00:07:28,533
+from the player's location to home, that's what it's saying here.
+
+112
+00:07:28,533 --> 00:07:32,533
+And it's saying we need to go 2 up, from the player's location, to get to
+
+113
+00:07:32,533 --> 00:07:36,533
+home. So that all makes sense! This vector makes sense,
+
+114
+00:07:36,533 --> 00:07:40,266
+as being the distance between the two.
+
+115
+00:07:40,266 --> 00:07:44,266
+Ooh, I feel a challenge coming on! It's time for you
+
+116
+00:07:44,266 --> 00:07:48,266
+to have a go at updating the player's position! So in the same way as
+
+117
+00:07:48,266 --> 00:07:52,266
+we we're updating the distance previously, now we actually want to update the position,
+
+118
+00:07:52,266 --> 00:07:56,266
+because the distance is calculated from that. So
+
+119
+00:07:56,266 --> 00:08:00,266
+I'd like you to consider each of the if statements, the up, down, the left, and
+
+120
+00:08:00,266 --> 00:08:04,266
+the right, and I'd like you to... You'll need to make some modifications in
+
+121
+00:08:04,266 --> 00:08:08,266
+each of those. I'd like you to use assignment,
+
+122
+00:08:08,266 --> 00:08:12,266
+as you did previously, to modify the player's position.
+
+123
+00:08:12,266 --> 00:08:16,266
+And here's some hints for you! I'd like you
+
+124
+00:08:16,266 --> 00:08:20,266
+to... You'll need to build, use the built in vectors, I'm sorry... You'll
+
+125
+00:08:20,266 --> 00:08:24,266
+need to use the built in vectors, Vector2.up and Vector2
+
+126
+00:08:24,266 --> 00:08:28,266
+.left. These are exactly what they sound like, they are a vector that points
+
+127
+00:08:28,266 --> 00:08:32,266
+1 unit up and a vector that points 1 unit left. And there are obviously
+
+128
+00:08:32,266 --> 00:08:36,266
+the ones for down and right as well, but I'm sure you can guess how to write
+
+129
+00:08:36,266 --> 00:08:40,266
+those. And here's another hint for you! You will only need to use addition,
+
+130
+00:08:40,266 --> 00:08:44,266
+in order to do this, no subtraction is necessary. OK, so pause the video
+
+131
+00:08:44,266 --> 00:08:48,266
+and have a go at modifying this code yourself!
+
+132
+00:08:48,266 --> 00:08:52,266
+OK welcome back! It was a bit of a
+
+133
+00:08:52,266 --> 00:08:56,266
+tough challenge, so don't worry if you got a little bit stuck, but the important thing is that you
+
+134
+00:08:56,266 --> 00:09:00,266
+had a go. And let me known in the discussions, if you got stuck and
+
+135
+00:09:00,266 --> 00:09:04,266
+how, and I can try and make the challenge a little bit better with better
+
+136
+00:09:04,266 --> 00:09:08,266
+hints and so on. OK, so here is
+
+137
+00:09:08,266 --> 00:09:12,266
+our code and here are all our different if statements, and for each one, we want to consider
+
+138
+00:09:12,266 --> 00:09:16,266
+doing something different. Now remember, we updated our distance
+
+139
+00:09:16,266 --> 00:09:20,266
+before the PrintUpdateAndContinue(). And that's what we want to do when we're updating
+
+140
+00:09:20,266 --> 00:09:24,266
+our player position, too. So we've got playerLocation
+
+141
+00:09:24,266 --> 00:09:28,266
+is equal to, and now what we want to do is, we want to
+
+142
+00:09:28,266 --> 00:09:32,266
+increase the playerLocation 1 unit in the
+
+143
+00:09:32,266 --> 00:09:36,266
+down direction. So we want to do playerLocation is equal
+
+144
+00:09:36,266 --> 00:09:40,266
+to playerLocation + Vector2
+
+145
+00:09:40,266 --> 00:09:44,266
+.down; Do you see what I'm doing here? I'm adding
+
+146
+00:09:44,266 --> 00:09:48,266
+1 unit down on top of this playerLocation, which effectively
+
+147
+00:09:48,266 --> 00:09:52,266
+moves our player 1 unit down. OK so it
+
+148
+00:09:52,266 --> 00:09:56,266
+shouldn't be too hard to see how we can go from here to all the rest of them.
+
+149
+00:09:56,266 --> 00:10:00,266
+We just need to do an up, and here we need to do
+
+150
+00:10:00,266 --> 00:10:04,266
+a left
+
+151
+00:10:04,266 --> 00:10:08,266
+and here we need to do
+
+152
+00:10:08,266 --> 00:10:12,266
+a right. I'll save that! We'll go ahead
+
+153
+00:10:12,266 --> 00:10:16,266
+and play our game and see whether we are actually updating
+
+154
+00:10:16,266 --> 00:10:20,266
+our distance from home. So
+
+155
+00:10:20,266 --> 00:10:24,266
+as I go along left that distance decreases.
+
+156
+00:10:24,266 --> 00:10:28,266
+If I go right it gets more, if I go up
+
+157
+00:10:28,266 --> 00:10:32,266
+I get to go home, and if I go down I get farther away from home.
+
+158
+00:10:32,266 --> 00:10:36,266
+Perfect! And now our arrow keys are actually moving us around the world,
+
+159
+00:10:36,266 --> 00:10:40,266
+thanks to the beautiful maths of vectors! OK, so
+
+160
+00:10:40,266 --> 00:10:44,200
+that's enough of the maths, let's move on to the next lectures!

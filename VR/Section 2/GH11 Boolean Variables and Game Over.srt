@@ -1,0 +1,503 @@
+1
+00:00:06,533 --> 00:00:10,533
+Welcome! In this lecture we are going to be looking at how we can print this
+
+2
+00:00:10,533 --> 00:00:14,533
+game over message, [Laughs] for finally some closure for this poor player, who has to keep playing
+
+3
+00:00:14,533 --> 00:00:18,533
+on and on and getting his way home. And
+
+4
+00:00:18,533 --> 00:00:22,533
+we're also, in the process of this, going to be learning about boolean variables
+
+5
+00:00:22,533 --> 00:00:26,533
+and recapping a little bit about ifs and elses and
+
+6
+00:00:26,533 --> 00:00:29,566
+if and else statements. Let's dive right in!
+
+7
+00:00:29,566 --> 00:00:33,566
+So one thing you might have noticed from last time is that obviously this vector
+
+8
+00:00:33,566 --> 00:00:37,566
+is not a number of meters away from home. So I want to
+
+9
+00:00:37,566 --> 00:00:41,566
+introduce you to a new field that
+
+10
+00:00:41,566 --> 00:00:45,566
+vectors have, and one way you could have discovered this is by hitting the
+
+11
+00:00:45,566 --> 00:00:49,566
+dot. And then, you see that there's all these things that you can
+
+12
+00:00:49,566 --> 00:00:53,566
+call on this field,
+
+13
+00:00:53,566 --> 00:00:57,566
+I mean on this vector. So we have lots of different
+
+14
+00:00:57,566 --> 00:01:01,566
+things and we don't understand all of them just yet, but there's x and there's y,
+
+15
+00:01:01,566 --> 00:01:05,566
+so that's interesting but also there's this magnitude.
+
+16
+00:01:05,566 --> 00:01:09,566
+Now what does magnitude mean? Magnitude means, what is the
+
+17
+00:01:09,566 --> 00:01:13,566
+length of the vector, excluding it's direction? So if we go with that,
+
+18
+00:01:13,566 --> 00:01:17,566
+and if we just put our mouse over, we see that what we get back is a float
+
+19
+00:01:17,566 --> 00:01:21,566
+not a vector anymore. So if we hit play...
+
+20
+00:01:21,566 --> 00:01:25,566
+...
+
+21
+00:01:25,566 --> 00:01:29,566
+...and then we hit our arrows around,
+
+22
+00:01:29,566 --> 00:01:33,566
+you see now what we're getting
+
+23
+00:01:33,566 --> 00:01:37,566
+is actually how many meters away from home we are. And this
+
+24
+00:01:37,566 --> 00:01:41,566
+is starting to get quite interesting, because you can see I'm getting
+
+25
+00:01:41,566 --> 00:01:45,566
+farther away, then I'm getting closer again, then I'm getting closer
+
+26
+00:01:45,566 --> 00:01:49,566
+and closer and then I'm far away again. So 5, I'm
+
+27
+00:01:49,566 --> 00:01:53,566
+going around, I'm trying to find my way home. And how do I
+
+28
+00:01:53,566 --> 00:01:57,566
+find my way home, etc.?
+
+29
+00:01:58,133 --> 00:02:02,100
+And eventually, after a long time, I manage to actually get
+
+30
+00:02:02,100 --> 00:02:06,100
+there, after a very many steps as you can see here.
+
+31
+00:02:06,100 --> 00:02:10,100
+That was a bit silly! I
+
+32
+00:02:10,100 --> 00:02:14,100
+could have done that lot quicker, that was a bit of a dumb way of
+
+33
+00:02:14,100 --> 00:02:18,100
+doing it. However, you can now see that we
+
+34
+00:02:18,100 --> 00:02:22,100
+are actually playing a fun game, but one thing
+
+35
+00:02:22,100 --> 00:02:26,100
+that is not so fun about this game is that it doesn't actually end.
+
+36
+00:02:26,100 --> 00:02:30,100
+There's no game over message saying well done, you've made it in [Laughs] 100 or 53
+
+37
+00:02:30,100 --> 00:02:34,100
+steps all the way back home! So what
+
+38
+00:02:34,100 --> 00:02:38,100
+we need to do is introduce that. Now, to
+
+39
+00:02:38,100 --> 00:02:42,100
+introduce that, I want to take you first back to the idea of
+
+40
+00:02:42,100 --> 00:02:46,100
+a boolean variable. So that is
+
+41
+00:02:46,100 --> 00:02:50,100
+a variable that can hold true and false values.
+
+42
+00:02:50,100 --> 00:02:54,100
+So let me show you what I mean by putting some more print
+
+43
+00:02:54,100 --> 00:02:58,100
+statements in this welcome message. So
+
+44
+00:02:58,100 --> 00:03:02,100
+the type is bool and I'm going to call it gameOver,
+
+45
+00:03:02,100 --> 00:03:06,100
+because that's what we're going to be doing in a bit. Now if I
+
+46
+00:03:06,100 --> 00:03:10,100
+say false, then we can see
+
+47
+00:03:10,100 --> 00:03:14,100
+that if we print the (gameOver)
+
+48
+00:03:14,100 --> 00:03:18,100
+bool, right after here,
+
+49
+00:03:18,100 --> 00:03:22,100
+then what would we expect?
+
+50
+00:03:22,100 --> 00:03:26,100
+Pause and play and see what happens!
+
+51
+00:03:26,100 --> 00:03:30,100
+OK we just get false back, which is kind of what we expect,
+
+52
+00:03:30,100 --> 00:03:34,100
+and if we put true in here,
+
+53
+00:03:34,100 --> 00:03:38,100
+what do we get?
+
+54
+00:03:38,100 --> 00:03:42,100
+Well yes, we get true again! OK but
+
+55
+00:03:42,100 --> 00:03:46,100
+this is a bit boring, but what we can do is, we can actually evaluate
+
+56
+00:03:46,100 --> 00:03:50,100
+truth expressions. So we can do something along the
+
+57
+00:03:50,100 --> 00:03:54,100
+lines of, is home...
+
+58
+00:03:54,100 --> 00:03:58,100
+Let's see, let's do the distance.
+
+59
+00:03:58,100 --> 00:04:02,100
+So I'm going to move this down to here,
+
+60
+00:04:02,100 --> 00:04:06,100
+where we can get hold of our distance,
+
+61
+00:04:06,100 --> 00:04:10,100
+and I'm going to say, is the distance.magnitude
+
+62
+00:04:10,100 --> 00:04:14,100
+less than 1?
+
+63
+00:04:14,100 --> 00:04:18,100
+OK, now this is something that we
+
+64
+00:04:18,100 --> 00:04:22,100
+don't always know, so let's have a look and pause and
+
+65
+00:04:22,100 --> 00:04:26,100
+play!
+
+66
+00:04:26,100 --> 00:04:30,100
+So it's saying false false false false. Now if I get
+
+67
+00:04:30,100 --> 00:04:34,100
+closer to where I want to be,
+
+68
+00:04:34,100 --> 00:04:38,100
+now I'm 1 again, and that is true
+
+69
+00:04:38,100 --> 00:04:42,100
+all of a sudden, when we're on 0. OK, so this is very interesting,
+
+70
+00:04:42,100 --> 00:04:46,100
+a variable that can change between false and true.
+
+71
+00:04:46,100 --> 00:04:50,100
+Now, this less than 1 is interesting, the magnitude can never be less than 1.
+
+72
+00:04:50,100 --> 00:04:54,100
+The condition in which the game should be over is when it's equal to 1,
+
+73
+00:04:54,100 --> 00:04:58,100
+but we can't just use equal, because equal is used for assignment,
+
+74
+00:04:58,100 --> 00:05:02,100
+so we have to do ==. So we use ==
+
+75
+00:05:02,100 --> 00:05:06,100
+to mean return true if
+
+76
+00:05:06,100 --> 00:05:10,100
+this is equal to that. So I'm going to put in 0 here,
+
+77
+00:05:10,100 --> 00:05:14,100
+and if we run it again, we should
+
+78
+00:05:14,100 --> 00:05:18,100
+be getting that game over equal to true,
+
+79
+00:05:18,100 --> 00:05:22,100
+exactly when...
+
+80
+00:05:22,100 --> 00:05:26,100
+...exactly when we go down to 0, so
+
+81
+00:05:26,100 --> 00:05:30,100
+I find my way home again.
+
+82
+00:05:30,100 --> 00:05:34,100
+Here we go, true exactly when it's 0. And if I come
+
+83
+00:05:34,100 --> 00:05:38,100
+back to 0 again, true again. Perfect!
+
+84
+00:05:38,100 --> 00:05:42,100
+OK, so we now have a variable that gives us whether
+
+85
+00:05:42,100 --> 00:05:44,666
+the game is over or not.
+
+86
+00:05:44,666 --> 00:05:48,666
+So for this lecture's challenge, I would like you to print a game
+
+87
+00:05:48,666 --> 00:05:52,666
+over message. You're going to use an if and the bool
+
+88
+00:05:52,666 --> 00:05:56,666
+to print out this message, and then, I would like you, as a bonus
+
+89
+00:05:56,666 --> 00:06:00,666
+if you manage this, to
+
+90
+00:06:00,666 --> 00:06:04,666
+not print out the progress message
+
+91
+00:06:04,666 --> 00:06:08,666
+after the game over, so that we're not getting two messages
+
+92
+00:06:08,666 --> 00:06:12,666
+once. OK so pause the video and have a go at this, and have a go at the bonus if you can
+
+93
+00:06:12,666 --> 00:06:16,666
+manage it, but don't worry if you can't.
+
+94
+00:06:16,666 --> 00:06:20,666
+OK welcome back!
+
+95
+00:06:20,666 --> 00:06:24,666
+Let's dive right in and have a go at this!
+
+96
+00:06:24,666 --> 00:06:28,666
+So my first instinct is that if
+
+97
+00:06:28,666 --> 00:06:32,666
+must be about true and false right. These things in here must be returning
+
+98
+00:06:32,666 --> 00:06:36,666
+true and false, and if we have a variable which holds true and false,
+
+99
+00:06:36,666 --> 00:06:40,666
+then surely we can use that in the if as well. So we can say if
+
+100
+00:06:40,666 --> 00:06:44,666
+(gameOver), then we can
+
+101
+00:06:44,666 --> 00:06:48,666
+print("Game over
+
+102
+00:06:48,666 --> 00:06:52,666
+in "). Then, I'm going to add in the
+
+103
+00:06:52,666 --> 00:06:56,666
+numberOfSteps, and then
+
+104
+00:06:56,666 --> 00:07:00,666
+just the text  "steps.") after it.
+
+105
+00:07:00,666 --> 00:07:04,666
+OK, I'm going to remove that print,
+
+106
+00:07:04,666 --> 00:07:08,666
+and let's hit
+
+107
+00:07:08,666 --> 00:07:12,666
+the play. Now we need to be able
+
+108
+00:07:12,666 --> 00:07:16,666
+to actually finish the game, which I've been notoriously bad at so far.
+
+109
+00:07:16,666 --> 00:07:20,666
+And we go towards home and there we go, we have game over in 9
+
+110
+00:07:20,666 --> 00:07:24,666
+steps! But the problem is that we get a little message coming up after
+
+111
+00:07:24,666 --> 00:07:28,666
+this game over. So how do we get rid of that? Well
+
+112
+00:07:28,666 --> 00:07:32,666
+remember I told you about a little statement called else?
+
+113
+00:07:32,666 --> 00:07:36,666
+Well that essentially allows us to not do an
+
+114
+00:07:36,666 --> 00:07:40,666
+else if. Remember else if requires some other boolean
+
+115
+00:07:40,666 --> 00:07:44,666
+in here. But if we just do else, then we say
+
+116
+00:07:44,666 --> 00:07:48,666
+(gameOver) then do this, else do this, which makes sense.
+
+117
+00:07:48,666 --> 00:07:52,666
+It's like reading English. So we can just copy these two statements in here
+
+118
+00:07:52,666 --> 00:07:56,666
+and paste them in there. So what we now get
+
+119
+00:07:56,666 --> 00:08:00,666
+is we either print this or we print this and we increment the number
+
+120
+00:08:00,666 --> 00:08:01,866
+of steps.
+
+121
+00:08:01,866 --> 00:08:05,866
+Let's head into Unity and have a go at playing this!
+
+122
+00:08:05,866 --> 00:08:09,866
+OK so we've got our game here and I'm going to try and win
+
+123
+00:08:09,866 --> 00:08:13,866
+it as quickly as possible this time. OK, we've got the game over in 7
+
+124
+00:08:13,866 --> 00:08:17,866
+steps! And that's it, no more messages! Perfect! It looks like
+
+125
+00:08:17,866 --> 00:08:21,866
+we have a very nearly complete game! In the next lecture
+
+126
+00:08:21,866 --> 00:08:25,533
+we're going to be looking at making it a little bit more robust and doing a bit of play testing!

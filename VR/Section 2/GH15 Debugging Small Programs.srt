@@ -1,0 +1,619 @@
+1
+00:00:00,000 --> 00:00:04,000
+...
+
+2
+00:00:04,000 --> 00:00:08,000
+Welcome to
+
+3
+00:00:08,000 --> 00:00:12,000
+Debugging Small Programs, our very final lecture
+
+4
+00:00:12,000 --> 00:00:16,000
+or at least almost! We are going to, in this lecture, finish
+
+5
+00:00:16,000 --> 00:00:20,000
+off the game, polish off some bugs that we have found and introduced during
+
+6
+00:00:20,000 --> 00:00:24,000
+the course of writing this game, and we are going to be figuring out
+
+7
+00:00:24,000 --> 00:00:28,000
+how to play test, how to show it to people, and get feedback,
+
+8
+00:00:28,000 --> 00:00:32,000
+as well as introducing a concept, a very enigmatic concept,
+
+9
+00:00:32,000 --> 00:00:38,033
+called Rubber Duck Debugging and how this can help us to debug our own code. So let's dive right in!
+
+10
+00:00:38,033 --> 00:00:42,033
+So our code is starting to take shape, our game is
+
+11
+00:00:42,033 --> 00:00:46,033
+starting to take shape but there is a problem, and
+
+12
+00:00:46,033 --> 00:00:50,033
+that problem is, well let's play and have a look! This is
+
+13
+00:00:50,033 --> 00:00:54,033
+the idea, you have to play test, and sometimes you won't be able to find the solution
+
+14
+00:00:54,033 --> 00:00:58,033
+yourself. Well I'm sorry, you won't be able to find problems yourself, in the game. Like you won't
+
+15
+00:00:58,033 --> 00:01:02,033
+be able to find out whether it's fun or not. So what we really want to do is
+
+16
+00:01:02,033 --> 00:01:06,033
+give this to somebody who hasn't seen the game before. Give it to your daughter,
+
+17
+00:01:06,033 --> 00:01:10,033
+give it to your wife, give it to somebody who hasn't played but likes
+
+18
+00:01:10,033 --> 00:01:14,033
+playing these sorts of games, and just go on through and see if
+
+19
+00:01:14,033 --> 00:01:18,033
+they encounter any problems that you haven't foreseen. So
+
+20
+00:01:18,033 --> 00:01:22,033
+you might find out that the game's not fun, that is one thing you might find,
+
+21
+00:01:22,033 --> 00:01:26,033
+and the whole premise needs scrapping or you might find a bug, such as this one. So
+
+22
+00:01:26,033 --> 00:01:30,033
+I've got home now, but if I keep moving I can go
+
+23
+00:01:30,033 --> 00:01:34,033
+away from home, and it basically doesn't end the game or get any
+
+24
+00:01:34,033 --> 00:01:38,033
+satisfaction of having finished. And also, you'll notice
+
+25
+00:01:38,033 --> 00:01:42,033
+that the whole time I'm getting two sets of
+
+26
+00:01:42,033 --> 00:01:46,033
+distances printed out. So what is going on here? Why would I get
+
+27
+00:01:46,033 --> 00:01:50,033
+two distances printed out, why would I be able to carry on? Well let's
+
+28
+00:01:50,033 --> 00:01:54,033
+answer the first one. The two distances being printed out, well that's clearly not
+
+29
+00:01:54,033 --> 00:01:58,033
+ours here, we are only printing distances once, and why they're different, that
+
+30
+00:01:58,033 --> 00:02:02,033
+doesn't make any sense. It seems that there are two scripts somewhere, and
+
+31
+00:02:02,033 --> 00:02:06,033
+indeed, I think we have one lying around from before? Yep, on the Directional
+
+32
+00:02:06,033 --> 00:02:10,033
+Light, we have a go home game script lying around, which shouldn't be there.
+
+33
+00:02:10,033 --> 00:02:14,033
+So we'll Remove that Component. And also the ConsolePrinter Game Object,
+
+34
+00:02:14,033 --> 00:02:18,033
+that's no longer the right thing, it's no longer the right name, it's
+
+35
+00:02:18,033 --> 00:02:22,033
+more the Go Home Game Object, like
+
+36
+00:02:22,033 --> 00:02:26,033
+so. Hit Enter to set it,
+
+37
+00:02:26,033 --> 00:02:30,033
+and now, if we play... Oops, there you go! That's probably
+
+38
+00:02:30,033 --> 00:02:34,033
+how it happened. I probably deleted the component, while playing, and then started
+
+39
+00:02:34,033 --> 00:02:38,033
+playing and the component came back. So let's just repeat those steps!
+
+40
+00:02:38,033 --> 00:02:42,033
+Remove the Component and rename this one,
+
+41
+00:02:42,033 --> 00:02:46,033
+hit Enter, and
+
+42
+00:02:46,033 --> 00:02:50,033
+test it out before saving. So now,
+
+43
+00:02:50,033 --> 00:02:54,033
+we've only got one set of log messages, and as I move
+
+44
+00:02:54,033 --> 00:02:58,033
+around, I'm getting the distance printed out. So let's
+
+45
+00:02:58,033 --> 00:03:02,033
+try and find our way home, as quickly as we know how,
+
+46
+00:03:02,033 --> 00:03:06,033
+and that's increasing, so we probably
+
+47
+00:03:06,033 --> 00:03:10,033
+need to go in this direction. Oops, not quite.
+
+48
+00:03:10,033 --> 00:03:14,033
+We're getting there. Yes, home!
+
+49
+00:03:14,033 --> 00:03:18,033
+But we still have this problem, though we can still carry on playing. Now, it may not
+
+50
+00:03:18,033 --> 00:03:22,033
+be immediately obvious to you why this is happening, it may be immediately obvious to you
+
+51
+00:03:22,033 --> 00:03:26,033
+why this is happening, but I want to show you a technique which will make it obvious
+
+52
+00:03:26,033 --> 00:03:30,033
+to you, no matter what, and this is called Rubber Duck Debugging.
+
+53
+00:03:30,033 --> 00:03:34,033
+What on Earth is Rubber Duck Debugging and why is it called this?
+
+54
+00:03:34,033 --> 00:03:38,033
+So the story goes that programmers often carry around
+
+55
+00:03:38,033 --> 00:03:42,033
+a little rubber duck. Now the reason for this is because you often want
+
+56
+00:03:42,033 --> 00:03:46,033
+to get a eureka moment, by describing things people.
+
+57
+00:03:46,033 --> 00:03:50,033
+You'll find that you go to your colleague and you start describing what your program
+
+58
+00:03:50,033 --> 00:03:54,033
+is, what it does, and the bug that you're having, and you'll go, ah hah
+
+59
+00:03:54,033 --> 00:03:58,033
+I know what's wrong with it! And that's even before your colleague has opened his mouth
+
+60
+00:03:58,033 --> 00:04:02,033
+to say anything. So really, it is the act of explaining things to people
+
+61
+00:04:02,033 --> 00:04:06,033
+and teaching things to people, even if they understand nothing about the subject,
+
+62
+00:04:06,033 --> 00:04:10,033
+that allows us to get a different perspective and to
+
+63
+00:04:10,033 --> 00:04:14,033
+go, ahh now I get what is going wrong with this! So it's a really good technique
+
+64
+00:04:14,033 --> 00:04:18,033
+for you to use! If you ever get stuck during this course, just imagine
+
+65
+00:04:18,033 --> 00:04:22,033
+you're speaking to a rubber duck. Say it out loud, if you really want to. Say it to
+
+66
+00:04:22,033 --> 00:04:26,033
+your wife or someone who doesn't understand anything about programming
+
+67
+00:04:26,033 --> 00:04:30,033
+or your husband or your children, and just
+
+68
+00:04:30,033 --> 00:04:34,033
+bore them with an explanation of what's going wrong and you'll often find
+
+69
+00:04:34,033 --> 00:04:38,033
+that it actually helps you fix it. So the basic outline is, explain your
+
+70
+00:04:38,033 --> 00:04:42,033
+problem out loud, walk through the code explaining each line and what you
+
+71
+00:04:42,033 --> 00:04:46,033
+expect it to do, and the sensei will be enigmatic. So if you're using a rubber
+
+72
+00:04:46,033 --> 00:04:50,033
+duck, I'm sure that you'll have a very enigmatic sensei here, who just
+
+73
+00:04:50,033 --> 00:04:54,033
+basically just sits there and gives you a hard look and doesn't really say
+
+74
+00:04:54,033 --> 00:04:58,033
+very much but you will definitely have an ah hah moment! If you don't,
+
+75
+00:04:58,033 --> 00:05:02,033
+then you may have to resort to slightly more in depth ways of debugging, but
+
+76
+00:05:02,033 --> 00:05:06,033
+for a start, this can be really quite effective and is the way
+
+77
+00:05:06,033 --> 00:05:10,033
+renowned scientists like Einstein say that they came up with
+
+78
+00:05:10,033 --> 00:05:14,033
+some big theories, so it should probably work for
+
+79
+00:05:14,033 --> 00:05:18,033
+you, too. So I'd like you to give this a go, to explain the bug to your
+
+80
+00:05:18,033 --> 00:05:22,033
+sensei. You can use our forums as a sensei, if you like.
+
+81
+00:05:22,033 --> 00:05:26,033
+Just go in there and type up a post, that explains line by line what you expect
+
+82
+00:05:26,033 --> 00:05:30,033
+your code to be doing, and see if you can find
+
+83
+00:05:30,033 --> 00:05:34,033
+any inconsistencies with that. So, run through the code, pretend to be the
+
+84
+00:05:34,033 --> 00:05:38,033
+computer. If you like, you can try and do each line, as if you were the
+
+85
+00:05:38,033 --> 00:05:42,033
+computer following the execution flow and having a look,
+
+86
+00:05:42,033 --> 00:05:46,033
+and then, explain what you would expect it to do and where does it go wrong.
+
+87
+00:05:46,033 --> 00:05:50,033
+That is the crucial thing we want to find. And do you have any ideas on how to
+
+88
+00:05:50,033 --> 00:05:54,033
+fix it? So pause and have a go at this style of debugging!
+
+89
+00:05:54,033 --> 00:05:58,033
+Hey, so welcome back!
+
+90
+00:05:58,033 --> 00:06:02,033
+We are going to try out the start of debugging! So what
+
+91
+00:06:02,033 --> 00:06:06,033
+happens? What is happening just before something goes wrong here?
+
+92
+00:06:06,033 --> 00:06:10,033
+So we've played around, we've got a certain
+
+93
+00:06:10,033 --> 00:06:14,033
+distance, which is very close to home in the playerLocation, and we've got some
+
+94
+00:06:14,033 --> 00:06:18,033
+home location, in homeLocation. We go into the
+
+95
+00:06:18,033 --> 00:06:22,033
+Update () loop. Say this is a frame in which there is some
+
+96
+00:06:22,033 --> 00:06:26,033
+movement, so we go into the UpArrow, we execute
+
+97
+00:06:26,033 --> 00:06:30,033
+that, we go down into this, the UpArrow
+
+98
+00:06:30,033 --> 00:06:34,033
+is down, so we execute this, and say this
+
+99
+00:06:34,033 --> 00:06:38,033
+is the last move, before we end up home, so this
+
+100
+00:06:38,033 --> 00:06:42,033
+movementVector moves us into a location, the playerLocation, which is the same
+
+101
+00:06:42,033 --> 00:06:46,033
+as home. Then, we PrintDistanceToHome(), it'll calculate
+
+102
+00:06:46,033 --> 00:06:50,033
+this, that'll give us a 0 vector so that magnitude
+
+103
+00:06:50,033 --> 00:06:54,033
+of 0 vector is 0, and it'll say distance to home is 0, and it'll say
+
+104
+00:06:54,033 --> 00:06:58,033
+they are ==, so find home. O.K.,So that was the move
+
+105
+00:06:58,033 --> 00:07:02,033
+before. Now, what if in the next frame I
+
+106
+00:07:02,033 --> 00:07:06,033
+hold down the Up Arrow or the Left Arrow again? So I go into
+
+107
+00:07:06,033 --> 00:07:10,033
+here, I execute the if statement again, I
+
+108
+00:07:10,033 --> 00:07:14,033
+update the playerLocation, instantly, then I
+
+109
+00:07:14,033 --> 00:07:18,033
+print the distance from home. Well I still calculate that distance from home.
+
+110
+00:07:18,033 --> 00:07:22,033
+So something is definitely wrong here in that we
+
+111
+00:07:22,033 --> 00:07:26,033
+can still UpdateMovement, when
+
+112
+00:07:26,033 --> 00:07:30,033
+the words, I'm home, have been
+
+113
+00:07:30,033 --> 00:07:34,033
+printed. So what we want to do is prevent that. Once there words have
+
+114
+00:07:34,033 --> 00:07:38,033
+been printed, no more checks are done. So we know that we could
+
+115
+00:07:38,033 --> 00:07:42,033
+stop there checks from being done, with conditional execution. So we could say if
+
+116
+00:07:42,033 --> 00:07:46,033
+something, then we can cut and paste this
+
+117
+00:07:46,033 --> 00:07:50,033
+into here. And then, what is going to go into this if
+
+118
+00:07:50,033 --> 00:07:54,033
+statement? Well one thing that we can do is store a boolean variable.
+
+119
+00:07:54,033 --> 00:07:58,033
+For example, we could say that the game is over; at the end here, we can say
+
+120
+00:07:58,033 --> 00:08:02,033
+that is true. So what I want to do is declare a new boolean variable.
+
+121
+00:08:02,033 --> 00:08:06,033
+I don't need it to be public, so it could just be bool
+
+122
+00:08:06,033 --> 00:08:10,033
+game
+
+123
+00:08:10,033 --> 00:08:14,033
+IsOver, to describe very well what it does.
+
+124
+00:08:14,033 --> 00:08:18,033
+And right here, we can actually give it a value if we want to, a default value of the
+
+125
+00:08:18,033 --> 00:08:22,033
+game over being false. That's what we want,
+
+126
+00:08:22,033 --> 00:08:26,033
+lower case and a semicolon at the end.
+
+127
+00:08:26,033 --> 00:08:30,033
+So what we want to say is, if the game is
+
+128
+00:08:30,033 --> 00:08:34,033
+not over. So how do we do that? Well in actual fact
+
+129
+00:08:34,033 --> 00:08:38,033
+we've seen one way you might think of doing it is gameIsOver not equal
+
+130
+00:08:38,033 --> 00:08:42,033
+to true? So that is one way of doing it
+
+131
+00:08:42,033 --> 00:08:46,033
+and that would be fine! And in
+
+132
+00:08:46,033 --> 00:08:50,033
+here, after the print go home, we can say that game
+
+133
+00:08:50,033 --> 00:08:54,033
+IsOver is = to true. So now, from here
+
+134
+00:08:54,033 --> 00:08:58,033
+on, once we have printed out this statement,
+
+135
+00:08:58,033 --> 00:09:02,033
+when we go into an update loop it won't execute anything, because it
+
+136
+00:09:02,033 --> 00:09:06,033
+will be = to true. Now I can
+
+137
+00:09:06,033 --> 00:09:10,033
+abbreviate this. I was just going to say that if you want to say
+
+138
+00:09:10,033 --> 00:09:14,033
+true, you can just leave it like that, so if we wanted to execute this only when
+
+139
+00:09:14,033 --> 00:09:18,033
+the game is over, we could put it like this, but what we want to do is say the opposite of this, when
+
+140
+00:09:18,033 --> 00:09:22,033
+this is not the case. Now to say not in C#, you use
+
+141
+00:09:22,033 --> 00:09:26,033
+the exclamation mark. When we say not (!gameIsOver), like that, that's how we
+
+142
+00:09:26,033 --> 00:09:30,033
+read it. Exclamation mark reads as not, simple as that, and that's just an
+
+143
+00:09:30,033 --> 00:09:34,033
+abbreviation for what I wrote previously. So let's
+
+144
+00:09:34,033 --> 00:09:38,033
+play now and see whether we have fixed the issue!
+
+145
+00:09:38,033 --> 00:09:42,033
+...
+
+146
+00:09:42,033 --> 00:09:46,033
+I'm going to move with the aid of the
+
+147
+00:09:46,033 --> 00:09:50,033
+location, over in the Inspector. It's cheating a little bit but just to make it a little bit quicker.
+
+148
+00:09:50,033 --> 00:09:54,033
+So now, I'm home, and you'll notice that from the sound
+
+149
+00:09:54,033 --> 00:09:58,033
+I'm hitting the keys and nothing is happening. So we have fixed that
+
+150
+00:09:58,033 --> 00:10:02,033
+bug, the game is over, the last message is printed, and
+
+151
+00:10:02,033 --> 00:10:06,033
+no longer can we update the location, so bug fixed! We have
+
+152
+00:10:06,033 --> 00:10:10,033
+a fully functioning game! I would like to see the results of you play testing
+
+153
+00:10:10,033 --> 00:10:14,033
+it with other people you know and seeing what improvements you can make
+
+154
+00:10:14,033 --> 00:10:18,033
+to this game, to make it even more fun, more enjoyable, and do share those in
+
+155
+00:10:18,033 --> 00:10:23,166
+the forums in the discussions! So see you in the next section!

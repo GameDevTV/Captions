@@ -1,0 +1,587 @@
+1
+00:00:06,766 --> 00:00:10,766
+Welcome! In this lecture we are going to be looking at how we can add
+
+2
+00:00:10,766 --> 00:00:14,766
+velocity to our balls. So you can see here, they're
+
+3
+00:00:14,766 --> 00:00:18,766
+firing off in different directions, depending on which key I'm actually
+
+4
+00:00:18,766 --> 00:00:20,233
+pressing.
+
+5
+00:00:20,233 --> 00:00:24,233
+So the aim is to add some velocity to this ball
+
+6
+00:00:24,233 --> 00:00:28,233
+that we have just created here. Now that ball is created in the
+
+7
+00:00:28,233 --> 00:00:32,233
+Instantiate call here. Um, I want
+
+8
+00:00:32,233 --> 00:00:36,233
+to point out something about functions. So, so far we've mostly
+
+9
+00:00:36,233 --> 00:00:40,233
+just been calling functions and ignoring, you know, what they
+
+10
+00:00:40,233 --> 00:00:44,233
+return, and you may not have even realized that
+
+11
+00:00:44,233 --> 00:00:48,233
+they were returning things, because these ones..these methods here, Update() and Start(),
+
+12
+00:00:48,233 --> 00:00:52,233
+they don't return anything, that's why we have void at the front. But if we have a different type
+
+13
+00:00:52,233 --> 00:00:56,233
+at the front, they do return something. So if we go over KeyDown
+
+14
+00:00:56,233 --> 00:01:00,233
+you'll notice that the type at the front is bool, which is why we can use it in
+
+15
+00:01:00,233 --> 00:01:04,233
+an if statement, because it is returning something of type bool.
+
+16
+00:01:04,233 --> 00:01:08,233
+On the other hand Instantiate, if we mouse over it, returns a type
+
+17
+00:01:08,233 --> 00:01:12,233
+of GameObject, which is the GameObject it creates.
+
+18
+00:01:12,233 --> 00:01:16,233
+So we can get hold of this GameObject
+
+19
+00:01:16,233 --> 00:01:20,233
+and call it instance, like so,
+
+20
+00:01:20,233 --> 00:01:24,233
+and we can do things with this GameObject.
+
+21
+00:01:24,600 --> 00:01:26,600
+Now what we want to do
+
+22
+00:01:26,600 --> 00:01:30,600
+is actually get hold of this GameObject's Rigidbody
+
+23
+00:01:30,600 --> 00:01:34,600
+component. So remember, if we click here we have a Rigidbody
+
+24
+00:01:34,600 --> 00:01:38,600
+component as one of the components on the BasketBall
+
+25
+00:01:38,600 --> 00:01:42,600
+GameObject, so that's what we were trying to get hold of. So we can do
+
+26
+00:01:42,600 --> 00:01:46,600
+that by doing an instance. and then Get
+
+27
+00:01:46,600 --> 00:01:50,600
+Component. Now what's going on here? What it means is, we're
+
+28
+00:01:50,600 --> 00:01:54,600
+calling a method like Start() and Update(), but we're calling
+
+29
+00:01:54,600 --> 00:01:58,600
+it on this particular thing, this object
+
+30
+00:01:58,600 --> 00:02:02,600
+called instance. And now remember that instances are
+
+31
+00:02:02,600 --> 00:02:06,600
+created from types and these types can be classes,
+
+32
+00:02:06,600 --> 00:02:10,600
+like we have for BallSpawner or GameObject as a class.
+
+33
+00:02:10,600 --> 00:02:14,600
+And it creates an instance or a
+
+34
+00:02:14,600 --> 00:02:18,600
+object or a thing, and we can
+
+35
+00:02:18,600 --> 00:02:22,600
+call methods on this thing. So we do that by doing get dot
+
+36
+00:02:22,600 --> 00:02:26,600
+Rather, by doing a dot and then the name of the method, in this case,
+
+37
+00:02:26,600 --> 00:02:30,600
+GetComponent. Now there's two versions of GetComponent we could use.
+
+38
+00:02:30,600 --> 00:02:34,600
+We could use this one, which takes a string to name
+
+39
+00:02:34,600 --> 00:02:38,600
+the component, but that's not particularly nice to take
+
+40
+00:02:38,600 --> 00:02:42,600
+a string to name "Rigidbody", for example, because
+
+41
+00:02:42,600 --> 00:02:46,600
+the compiler can't tell whether this is correct or not.
+
+42
+00:02:46,600 --> 00:02:50,600
+Instead, a better version is to do a GetComponent
+
+43
+00:02:50,600 --> 00:02:54,600
+with these angle brackets and Rigidbody.
+
+44
+00:02:54,600 --> 00:02:58,600
+So that says get me the component
+
+45
+00:02:58,600 --> 00:03:02,600
+that is of the type Rigidbody. Then we need...
+
+46
+00:03:02,600 --> 00:03:06,600
+It'll be complaining about the fact that we are not
+
+47
+00:03:06,600 --> 00:03:10,600
+putting any brackets here, so put the brackets there.
+
+48
+00:03:10,600 --> 00:03:14,600
+And now if we look at this you'll see that it's very clever, because
+
+49
+00:03:14,600 --> 00:03:18,600
+we've asked for a Rigidbody, the type returned from GetComponent.
+
+50
+00:03:18,600 --> 00:03:22,600
+is also a Rigidbody. So we can assign this
+
+51
+00:03:22,600 --> 00:03:26,600
+to a variable. I'm going to call
+
+52
+00:03:26,600 --> 00:03:30,600
+it rb, short for Rigidbody, and
+
+53
+00:03:30,600 --> 00:03:34,600
+then, we can use the Rigidbody, so Rigidbody dot.
+
+54
+00:03:34,600 --> 00:03:38,600
+Let's see what fields and methods we've got here.
+
+55
+00:03:38,600 --> 00:03:42,600
+So you can see drag instantly. Drag is something we saw in
+
+56
+00:03:42,600 --> 00:03:46,600
+our Editor. So you can see how these two start to link up, the Editor shows
+
+57
+00:03:46,600 --> 00:03:50,600
+components and it shows the fields from our
+
+58
+00:03:50,600 --> 00:03:54,600
+objects. But there are some objects that aren't in the Editor, so
+
+59
+00:03:54,600 --> 00:03:58,600
+for example, we have velocity. That's the one we want to
+
+60
+00:03:58,600 --> 00:04:02,600
+have a go at! So what are we going to add velocity to?
+
+61
+00:04:02,600 --> 00:04:06,600
+Well we could set it to 5. Let's see if that works!
+
+62
+00:04:06,600 --> 00:04:10,600
+Hmm what's wrong with this? it's saying cannot convert
+
+63
+00:04:10,600 --> 00:04:14,600
+from int to Vector3. OK Vector3 looks
+
+64
+00:04:14,600 --> 00:04:18,600
+very familiar, it looks a lot like Vector2 and it is!
+
+65
+00:04:18,600 --> 00:04:22,600
+[Laughs] So we can do Vector3 dot left, for
+
+66
+00:04:22,600 --> 00:04:26,600
+example, and this gives us the left vector in 3 dimensional
+
+67
+00:04:26,600 --> 00:04:30,600
+space. So let's have a go at that, let's see whether that has added any velocity
+
+68
+00:04:30,600 --> 00:04:34,600
+onto our ball!
+
+69
+00:04:34,600 --> 00:04:38,600
+There we go! You could see that there was
+
+70
+00:04:38,600 --> 00:04:42,600
+some initial velocity going on, as we create
+
+71
+00:04:42,600 --> 00:04:46,133
+our balls. Perfect!
+
+72
+00:04:46,133 --> 00:04:50,133
+So your challenge for this slide, use a different
+
+73
+00:04:50,133 --> 00:04:54,133
+key, use different keys for velocity!
+
+74
+00:04:54,133 --> 00:04:58,133
+So by this I mean, use different Arrow keys to choose the velocity direction. So if
+
+75
+00:04:58,133 --> 00:05:02,133
+I go forward then the ball should be projected forward, by a
+
+76
+00:05:02,133 --> 00:05:06,133
+hit left then it should go left, etc. And you can
+
+77
+00:05:06,133 --> 00:05:10,133
+use the knowledge that you've used for previous key presses and the
+
+78
+00:05:10,133 --> 00:05:14,133
+different ways that Vector.up, down, left, right, forward, backwards,
+
+79
+00:05:14,133 --> 00:05:18,133
+etc. to create those different velocities.
+
+80
+00:05:18,133 --> 00:05:22,133
+Then, the next thing I want you to do is to increase the velocity to something more noticiable.
+
+81
+00:05:22,133 --> 00:05:26,133
+You saw that velocity was barely notable, so I would like you to see if
+
+82
+00:05:26,133 --> 00:05:30,133
+you could figure out how to increase the velocity. Maybe you need to increase the length
+
+83
+00:05:30,133 --> 00:05:34,133
+of the vector, so that's the hint. The hint is that you can multiply Vector3 by
+
+84
+00:05:34,133 --> 00:05:38,133
+floats. Now see what that does, have a go, and
+
+85
+00:05:38,133 --> 00:05:41,700
+just share in the discussions what you managed to achieve.
+
+86
+00:05:41,700 --> 00:05:45,333
+Oh and just as another quick hint! Don't worry too much, if
+
+87
+00:05:45,333 --> 00:05:49,333
+you have to violate the DRY Principle in order to achieve this, you may have to
+
+88
+00:05:49,333 --> 00:05:53,333
+based on your knowledge of C#, because you may not know enough of the
+
+89
+00:05:53,333 --> 00:05:55,566
+constructs to do this just yet.
+
+90
+00:05:55,566 --> 00:05:58,000
+OK pause the video and have a go!
+
+91
+00:05:58,000 --> 00:06:02,000
+OK welcome back! We are going to
+
+92
+00:06:02,000 --> 00:06:06,000
+dive right into this! So first things first!
+
+93
+00:06:06,000 --> 00:06:10,000
+We want to respond to different key presses, so the first
+
+94
+00:06:10,000 --> 00:06:14,000
+thing I'm going to do is this Rigidbody. I'm going to need that everywhere, so I
+
+95
+00:06:14,000 --> 00:06:18,000
+will actually need to just do something
+
+96
+00:06:18,000 --> 00:06:22,000
+slightly different here, because you
+
+97
+00:06:22,000 --> 00:06:26,000
+notice that we have one if statement. If I create a
+
+98
+00:06:26,000 --> 00:06:30,000
+second if statement, let's make this really obvious what the problem is. If I do an
+
+99
+00:06:30,000 --> 00:06:34,000
+else if,
+
+100
+00:06:34,000 --> 00:06:38,000
+like so, and if I do a Key
+
+101
+00:06:38,000 --> 00:06:42,000
+Code, let's say, Left
+
+102
+00:06:42,000 --> 00:06:46,000
+Arrow or ArrowLeft...
+
+103
+00:06:46,000 --> 00:06:50,000
+We've got LeftArrow and Right
+
+104
+00:06:50,000 --> 00:06:54,000
+Arrow like so. Now, you'll
+
+105
+00:06:54,000 --> 00:06:58,000
+notice that we instantiate the prefab in here,
+
+106
+00:06:58,000 --> 00:07:02,000
+but what we want to do is instantiate it if any key is
+
+107
+00:07:02,000 --> 00:07:06,000
+down. So how do we go about doing that, that's a little bit
+
+108
+00:07:06,000 --> 00:07:10,000
+more interesting isn't it? We need..what we need to do is
+
+109
+00:07:10,000 --> 00:07:14,000
+create a new function, so we won't be doing that yet in this lecture
+
+110
+00:07:14,000 --> 00:07:18,000
+but we'll be doing it in the next one. So, for now, we're going to put up with the
+
+111
+00:07:18,000 --> 00:07:22,000
+repetition, but I want you to think ahead and think that in general
+
+112
+00:07:22,000 --> 00:07:26,000
+we do not like repetition in code. So doing this
+
+113
+00:07:26,000 --> 00:07:30,000
+is generally a bad idea, but because you don't know how we can make it a little bit easier
+
+114
+00:07:30,000 --> 00:07:34,000
+then we won't do it right now. OK, so we've got left, right.
+
+115
+00:07:34,000 --> 00:07:38,000
+I want a forward... Or is it...
+
+116
+00:07:38,000 --> 00:07:42,000
+I want UpArrow and I want
+
+117
+00:07:42,000 --> 00:07:46,000
+DownArrow, and this is going to correspond to different vectors,
+
+118
+00:07:46,000 --> 00:07:50,000
+so I want the right vector here. And for this one, I actually want the
+
+119
+00:07:50,000 --> 00:07:54,000
+forward rather than the up vector, and you'll see why in a second.
+
+120
+00:07:54,000 --> 00:07:58,000
+And I'll do it here too, I want the down arrow.
+
+121
+00:07:58,000 --> 00:08:02,000
+So actually, I don't want down I want back.
+
+122
+00:08:02,000 --> 00:08:06,000
+So these are all different vectors
+
+123
+00:08:06,000 --> 00:08:10,000
+pointing in the different dimensions of space. So
+
+124
+00:08:10,000 --> 00:08:14,000
+I will hit play and let's see what...
+
+125
+00:08:14,000 --> 00:08:18,000
+Ah, so you see we are being able to send them in different
+
+126
+00:08:18,000 --> 00:08:22,000
+directions, based on... OK so that's going back and this is going forwards.
+
+127
+00:08:22,000 --> 00:08:26,000
+Perfect! So we're able to send our balls
+
+128
+00:08:26,000 --> 00:08:30,000
+in different directions, depending on
+
+129
+00:08:30,000 --> 00:08:34,000
+how we press our arrow keys. Great! This game is starting to look
+
+130
+00:08:34,000 --> 00:08:38,000
+more and more fun, but I said I also wanted to increase the velocity.
+
+131
+00:08:38,000 --> 00:08:42,000
+And this we can do just by multiplying by some factor.
+
+132
+00:08:42,000 --> 00:08:46,000
+And now, because the factor is going to be the same, I'm going to bring it out the front here,
+
+133
+00:08:46,000 --> 00:08:50,000
+and I'm going to call it float
+
+134
+00:08:50,000 --> 00:08:54,000
+and velocity
+
+135
+00:08:54,000 --> 00:08:58,000
+and I'm just going to give it a 5.0f, something
+
+136
+00:08:58,000 --> 00:09:02,000
+like that. And then we can multiply all of these by
+
+137
+00:09:02,000 --> 00:09:06,000
+velocity, and all that
+
+138
+00:09:06,000 --> 00:09:10,000
+does is it make our vector longer. By default, if you click on it, you see
+
+139
+00:09:10,000 --> 00:09:14,000
+it's one in length, because it's (1, 0, 0),
+
+140
+00:09:14,000 --> 00:09:18,000
+that's what this vector actually means. You can hover
+
+141
+00:09:18,000 --> 00:09:22,000
+over it and see. And by multiplying by velocity it essentially just
+
+142
+00:09:22,000 --> 00:09:26,000
+says, OK that's going to be 5 in length rather than 1 in length,
+
+143
+00:09:26,000 --> 00:09:30,000
+and essentially it just makes our ball go
+
+144
+00:09:30,000 --> 00:09:34,000
+that much faster.
+
+145
+00:09:34,000 --> 00:09:38,000
+So I hit play again!
+
+146
+00:09:42,000 --> 00:09:46,000
+You can see now, we're really launching those balls out a little bit more than we were before!
+
+147
+00:09:46,000 --> 00:09:49,300
+Perfect!

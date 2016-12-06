@@ -1,0 +1,619 @@
+1
+00:00:07,166 --> 00:00:11,166
+Welcome! In this video we are going to be creating pretty splash screens, like you see
+
+2
+00:00:11,166 --> 00:00:15,166
+here, allowing ourselves to progress between them as we have
+
+3
+00:00:15,166 --> 00:00:19,166
+previously. And we're also going to be creating a game over screen, which is very
+
+4
+00:00:19,166 --> 00:00:23,166
+much similar to the splash screen we saw before but with a different image.
+
+5
+00:00:23,166 --> 00:00:25,900
+So let's dive right in!
+
+6
+00:00:25,900 --> 00:00:29,900
+So our splash screen, at the moment, [Laughs] is a little bit of a joke!
+
+7
+00:00:29,900 --> 00:00:33,900
+I wouldn't really call it so much of a splash screen as an empty screen,
+
+8
+00:00:33,900 --> 00:00:37,900
+so what we want to do is actually add some UI that will
+
+9
+00:00:37,900 --> 00:00:41,900
+allow us to introduce the player to the game. So
+
+10
+00:00:41,900 --> 00:00:45,900
+fortunately, that is again very easy in Unity, all we have to do is right-click
+
+11
+00:00:45,900 --> 00:00:49,900
+in our Hierarchy, go to the UI, and
+
+12
+00:00:49,900 --> 00:00:53,900
+we want to select a Canvas, first of all. So that
+
+13
+00:00:53,900 --> 00:00:57,900
+is the basis of which we make all our UI. Now, yours may not
+
+14
+00:00:57,900 --> 00:01:01,900
+be centered, yours might look something more like this. To center it, just double-
+
+15
+00:01:01,900 --> 00:01:05,900
+click on the Canvas and that will get you there, and what you also want to do is make
+
+16
+00:01:05,900 --> 00:01:09,900
+sure you are in 2D mode. So you can just hit 2D on
+
+17
+00:01:09,900 --> 00:01:13,900
+your viewport, and that will flip you over there. And one more thing
+
+18
+00:01:13,900 --> 00:01:17,900
+is, we want to select this right-most tool here, which
+
+19
+00:01:17,900 --> 00:01:21,900
+is basically for rescaling 2D elements,
+
+20
+00:01:21,900 --> 00:01:25,900
+which is exactly what we need. So you can see it gives us these kind of handles.
+
+21
+00:01:25,900 --> 00:01:29,900
+OK so what we're going to need to do is add in an image
+
+22
+00:01:29,900 --> 00:01:33,900
+here, a background image, that is the first thing that will make the biggest
+
+23
+00:01:33,900 --> 00:01:37,900
+difference. So let's go looking for them! I'm going to
+
+24
+00:01:37,900 --> 00:01:41,900
+just Google for "basketball" images, but
+
+25
+00:01:41,900 --> 00:01:45,900
+I do suggest you're careful, because you need to make sure
+
+26
+00:01:45,900 --> 00:01:49,900
+you have rights. So if you were just to copy anything off of Google,
+
+27
+00:01:49,900 --> 00:01:53,900
+you wouldn't be able to distribute the game, it would be against copyright law, so make sure you
+
+28
+00:01:53,900 --> 00:01:57,900
+just hit this Search Tools button, and then, under Usage Rights,
+
+29
+00:01:57,900 --> 00:02:01,900
+select something that is Labeled For Reuse and that will allow you
+
+30
+00:02:01,900 --> 00:02:05,900
+to sell the game. If you're not going to sell the game, just share it, then just go for Labeled
+
+31
+00:02:05,900 --> 00:02:09,900
+for Noncommercial Reuse. And if you're going to
+
+32
+00:02:09,900 --> 00:02:13,900
+modify, you obviously need modification and so on, but this will basically
+
+33
+00:02:13,900 --> 00:02:17,900
+filter down, based on licenses that you can use. Now, you can
+
+34
+00:02:17,900 --> 00:02:21,900
+take your pick from the list of images, that shows up here.
+
+35
+00:02:21,900 --> 00:02:25,900
+I'm going to go with this one, I think that's fairly nice.
+
+36
+00:02:25,900 --> 00:02:29,900
+And this one comes from a website called Pixabay, which is quite common. You
+
+37
+00:02:29,900 --> 00:02:33,900
+may have to scroll down to find the image again but it's here. They
+
+38
+00:02:33,900 --> 00:02:37,900
+do a lot of good free public domain images. So I'm
+
+39
+00:02:37,900 --> 00:02:41,900
+going to download, not the original size. You can get the original size but
+
+40
+00:02:41,900 --> 00:02:45,900
+you need to sign up for it, I don't particularly want to. And then,
+
+41
+00:02:45,900 --> 00:02:49,900
+this is very easy, we can just drag that file into Unity, but first, I'm going to
+
+42
+00:02:49,900 --> 00:02:53,900
+Create a Folder for my images. So right-click, Create, Folder,
+
+43
+00:02:53,900 --> 00:02:57,900
+Images, and I'm going to just
+
+44
+00:02:57,900 --> 00:03:01,900
+drag over into that folder.
+
+45
+00:03:01,900 --> 00:03:05,900
+So it should import. There it is! Now, it's the one
+
+46
+00:03:05,900 --> 00:03:09,900
+you see. It's turned it into a square, which is a little bit annoying but
+
+47
+00:03:09,900 --> 00:03:13,900
+we will sort that out later.
+
+48
+00:03:13,900 --> 00:03:17,900
+And now what we want to do is right-click on our Canvas, because we want to create a
+
+49
+00:03:17,900 --> 00:03:21,900
+child of the Canvas. Go into UI,
+
+50
+00:03:21,900 --> 00:03:25,900
+and then, select the Raw Image option.
+
+51
+00:03:25,900 --> 00:03:29,900
+So that will allow us to create a raw image
+
+52
+00:03:29,900 --> 00:03:33,900
+texture, if we go to the Inspector and we drag our image
+
+53
+00:03:33,900 --> 00:03:37,900
+into it's Texture field. There you go, we're starting
+
+54
+00:03:37,900 --> 00:03:41,900
+to see the light. We have our image, but
+
+55
+00:03:41,900 --> 00:03:45,900
+it's a little bit annoying, because the scale isn't quite right.
+
+56
+00:03:45,900 --> 00:03:49,900
+So let's just go back to the website and I noticed that when
+
+57
+00:03:49,900 --> 00:03:53,900
+I hit Free Download there was the scale there, so it's
+
+58
+00:03:53,900 --> 00:03:57,900
+1280. Let me stick that in!
+
+59
+00:03:57,900 --> 00:04:01,900
+1280
+
+60
+00:04:01,900 --> 00:04:05,900
+and then, 853.
+
+61
+00:04:09,900 --> 00:04:13,900
+So I've got the image size right!
+
+62
+00:04:13,900 --> 00:04:17,900
+Now, I just need to use the Scale Tool, and if you click and drag
+
+63
+00:04:17,900 --> 00:04:21,900
+on the center box, it does a proportionate scale. And I'm just going to scale the
+
+64
+00:04:21,900 --> 00:04:25,900
+whole thing, and I'm going to move this image to be centered,
+
+65
+00:04:25,900 --> 00:04:29,900
+which fortunately there are some snapping tools to help me out.
+
+66
+00:04:29,900 --> 00:04:33,900
+And I am going to just scale it so that it fills the whole screen.
+
+67
+00:04:33,900 --> 00:04:37,900
+Now, let's hit play and see what that looks like! OK, better but not
+
+68
+00:04:37,900 --> 00:04:41,900
+perfect, because we're still seeing this world around the edges, which we really don't
+
+69
+00:04:41,900 --> 00:04:45,900
+want to be seeing. Now, the way we fix that is by clicking on the
+
+70
+00:04:45,900 --> 00:04:49,900
+Canvas, then going into our
+
+71
+00:04:49,900 --> 00:04:53,900
+Canvas Scaler, and selecting Scale with Screen
+
+72
+00:04:53,900 --> 00:04:57,900
+Size. Now, you'll notice that changes our Canvas size, somewhat. We need to
+
+73
+00:04:57,900 --> 00:05:01,900
+adjust the size of our RawImage, this way.
+
+74
+00:05:01,900 --> 00:05:05,900
+So I'm going to click RawImage and just,
+
+75
+00:05:05,900 --> 00:05:09,900
+there we go, make sure it is big enough. I'll save my scene.
+
+76
+00:05:09,900 --> 00:05:13,900
+Now, let's hit play! OK, much better! Now
+
+77
+00:05:13,900 --> 00:05:17,900
+you know, I can even adjust the size of this window
+
+78
+00:05:17,900 --> 00:05:21,900
+to make sure that everything is going to fit on the screen.
+
+79
+00:05:21,900 --> 00:05:25,900
+I suggest you do the same thing, is try out for different screen
+
+80
+00:05:25,900 --> 00:05:29,900
+scale sizes, like so. It's all going to
+
+81
+00:05:29,900 --> 00:05:33,900
+look alright, whether you play it on an iPod or an iPhone
+
+82
+00:05:33,900 --> 00:05:37,900
+or on your computer and on different computer screens.
+
+83
+00:05:37,933 --> 00:05:41,933
+So your challenge, this lecture, is to create a game over
+
+84
+00:05:41,933 --> 00:05:45,933
+scene! So we've just created a menu screen, and I'd like you to use
+
+85
+00:05:45,933 --> 00:05:49,933
+all that knowledge and replicate it to create your own new scene.
+
+86
+00:05:49,933 --> 00:05:53,933
+So, as I said, create a scene, and then, put it last
+
+87
+00:05:53,933 --> 00:05:57,933
+in the build order, because that is the order in which we want to see these scenes.
+
+88
+00:05:57,933 --> 00:06:01,933
+And add a canvas with a background image, just like we've
+
+89
+00:06:01,933 --> 00:06:05,933
+done, just replicate those steps, and make it reachable
+
+90
+00:06:05,933 --> 00:06:09,933
+from the game. So I don't know how you're going to do that,
+
+91
+00:06:09,933 --> 00:06:13,933
+it depends. You can choose many different ways, but
+
+92
+00:06:13,933 --> 00:06:17,933
+perhaps using some input from the keyboard and some
+
+93
+00:06:17,933 --> 00:06:21,933
+components, perhaps, that we've already made, you'll be able to reach the game over
+
+94
+00:06:21,933 --> 00:06:25,933
+screen from the game. I'm not saying create a game over condition
+
+95
+00:06:25,933 --> 00:06:29,933
+but you could try that too if you like, but we'll be covering those in later lectures. So
+
+96
+00:06:29,933 --> 00:06:33,933
+let's pause the video and have a go!
+
+97
+00:06:36,500 --> 00:06:40,500
+OK, welcome back! Let's dive right into
+
+98
+00:06:40,500 --> 00:06:44,500
+doing this! So the first thing I'm going to
+
+99
+00:06:44,500 --> 00:06:48,500
+do is go into my _Scenes and right-click Create
+
+100
+00:06:48,500 --> 00:06:52,500
+and select Scene. This one is going to be
+
+101
+00:06:52,500 --> 00:06:56,500
+03_GameOver. Notice
+
+102
+00:06:56,500 --> 00:07:00,500
+I'm using Camel Case there, as well, starting with a capital G.
+
+103
+00:07:00,500 --> 00:07:04,500
+And then, what I want to do is go into this game, save
+
+104
+00:07:04,500 --> 00:07:08,500
+my menu scene. When I switch, you always have to make sure you're saving the scene.
+
+105
+00:07:08,500 --> 00:07:12,500
+And then, I'm going to create a UI Canvas.
+
+106
+00:07:12,500 --> 00:07:16,500
+I'm going to, while I'm here, set the scale
+
+107
+00:07:16,500 --> 00:07:20,500
+to be Scale With Screen Size. So I've done that
+
+108
+00:07:20,500 --> 00:07:24,500
+straight away. I'm going to right-click on my Canvas, I'm going to add
+
+109
+00:07:24,500 --> 00:07:28,500
+a Raw Image, and then, I might go and
+
+110
+00:07:28,500 --> 00:07:32,500
+pick out a different image from the list of those
+
+111
+00:07:32,500 --> 00:07:36,500
+basketball images. Let's see what might be a good one.
+
+112
+00:07:36,500 --> 00:07:40,500
+I think this one looks fairly good, just open that up!
+
+113
+00:07:40,500 --> 00:07:44,500
+OK, you've got a free download of that!
+
+114
+00:07:44,500 --> 00:07:48,500
+I need to Save Image As,
+
+115
+00:07:48,500 --> 00:07:52,500
+stick it in the Downloads, and
+
+116
+00:07:52,500 --> 00:07:56,500
+just drag it into the Assets.
+
+117
+00:07:56,500 --> 00:08:00,500
+So I'm going to drag it into my Images folder.
+
+118
+00:08:00,500 --> 00:08:04,500
+Done right! Now, I can take the Raw
+
+119
+00:08:04,500 --> 00:08:08,500
+Image and drag that image onto its Texture field,
+
+120
+00:08:08,500 --> 00:08:12,500
+and again, I'm going to need to get the resolution right, which is a bit of a pain.
+
+121
+00:08:12,500 --> 00:08:16,500
+But let's just do this one by
+
+122
+00:08:16,500 --> 00:08:20,500
+eye. So I can
+
+123
+00:08:20,500 --> 00:08:24,500
+select the UI Tool here,
+
+124
+00:08:24,500 --> 00:08:28,500
+so that is the fifth one along, and I can just
+
+125
+00:08:28,500 --> 00:08:32,500
+scale it until it's approximately right. I think we'll get away
+
+126
+00:08:32,500 --> 00:08:36,500
+with that. That's definitely more than that.
+
+127
+00:08:36,500 --> 00:08:40,500
+Let's make sure that this is vaguely spherical. That'll do the trick!
+
+128
+00:08:40,500 --> 00:08:44,500
+OK that's looking fairly OK.
+
+129
+00:08:44,500 --> 00:08:48,500
+And I'm just going to use the Scale Tool now to just scale
+
+130
+00:08:48,500 --> 00:08:52,500
+everything proportionally outwards, and
+
+131
+00:08:52,500 --> 00:08:56,500
+let's hit play and see what that scene looks like!
+
+132
+00:08:56,500 --> 00:09:00,500
+OK, yes much better, we can
+
+133
+00:09:00,500 --> 00:09:04,500
+quite clearly see everything is fitting in the screen.
+
+134
+00:09:04,500 --> 00:09:08,500
+I'm going to save that scene, and I said I need to
+
+135
+00:09:08,500 --> 00:09:12,500
+put it in the Build Order. So File, Build Settings, let's
+
+136
+00:09:12,500 --> 00:09:16,500
+add... You can hit either Add Open Scene or you can drag the scene in.
+
+137
+00:09:16,500 --> 00:09:20,500
+I'm going to hit Add Open Scene. It's automatically added it in third
+
+138
+00:09:20,500 --> 00:09:24,500
+place, in build order number 2. So that is good!
+
+139
+00:09:24,500 --> 00:09:28,500
+That's where we want it to be! Now, let's go into our _Scenes
+
+140
+00:09:28,500 --> 00:09:32,500
+folder and open up the game. So how are we
+
+141
+00:09:32,500 --> 00:09:36,500
+going to progress? Well I say we'll just create a
+
+142
+00:09:36,500 --> 00:09:40,500
+LevelManager in here, as well. So create a new GameObject, say Level
+
+143
+00:09:40,500 --> 00:09:44,500
+Manager.
+
+144
+00:09:44,500 --> 00:09:48,500
+And then, get this LevelManager script, that we already have written,
+
+145
+00:09:48,500 --> 00:09:52,500
+because scripts are shared between scenes, and we can just stick that on the Level
+
+146
+00:09:52,500 --> 00:09:56,500
+Manager, so it has a LevelManager script component. And as we know, the LevelManager
+
+147
+00:09:56,500 --> 00:10:00,500
+script does, in fact, wait for the Spacebar, and then, it progresses to the
+
+148
+00:10:00,500 --> 00:10:04,500
+next level. So if we hit play now...
+
+149
+00:10:04,500 --> 00:10:08,500
+OK, the lighting's gone a bit weird here, but if we hit
+
+150
+00:10:08,500 --> 00:10:12,500
+Spacebar, there we go we move on to our game over
+
+151
+00:10:12,500 --> 00:10:16,500
+scene! So in total, if we started
+
+152
+00:10:16,500 --> 00:10:20,500
+with our Menu screen, we should be able to now get all the way
+
+153
+00:10:20,500 --> 00:10:24,500
+through to all our scenes. From there, to our game, and
+
+154
+00:10:24,500 --> 00:10:28,500
+from our game, on to the game over screen! Perfect! A
+
+155
+00:10:28,500 --> 00:10:31,600
+challenge successfully completed! See you in the next video!
