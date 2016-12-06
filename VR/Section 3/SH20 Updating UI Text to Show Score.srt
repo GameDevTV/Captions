@@ -1,0 +1,811 @@
+1
+00:00:06,966 --> 00:00:10,966
+Welcome! In this lecture we are going to be learning about adding text to our
+
+2
+00:00:10,966 --> 00:00:14,966
+game play overlays, so that we are simultaneously updating
+
+3
+00:00:14,966 --> 00:00:18,966
+them in code, so that we can do things like this to keep score at the top
+
+4
+00:00:18,966 --> 00:00:22,966
+but also to see how much time is remaining, until game over!
+
+5
+00:00:24,066 --> 00:00:28,066
+So, at the moment, it's not the best experience for our player,
+
+6
+00:00:28,066 --> 00:00:32,066
+that the only time they can see the score is if they
+
+7
+00:00:32,066 --> 00:00:36,066
+go to the logs, and these logs down here don't show up,
+
+8
+00:00:36,066 --> 00:00:40,066
+by the way, when actually publishing your game.
+
+9
+00:00:40,066 --> 00:00:44,066
+So how do we go about getting our
+
+10
+00:00:44,066 --> 00:00:48,066
+score on the screen? So to start off with, let's make our time
+
+11
+00:00:48,066 --> 00:00:52,066
+out a little bit more manageable. Two seconds was great for testing but a little
+
+12
+00:00:52,066 --> 00:00:56,066
+bit insane for actually playing the game, so I'm going to go for about 15 seconds.
+
+13
+00:00:56,066 --> 00:01:00,066
+It's still very short but just for testing,
+
+14
+00:01:00,066 --> 00:01:04,066
+perhaps this is a little bit more usable, and we can
+
+15
+00:01:04,066 --> 00:01:08,066
+actually see the score increasing now.
+
+16
+00:01:08,066 --> 00:01:12,066
+OK, so what we want to do is create
+
+17
+00:01:12,066 --> 00:01:16,066
+some UI in the main level that
+
+18
+00:01:16,066 --> 00:01:20,066
+allows us to keep track of the score. So how do we go about
+
+19
+00:01:20,066 --> 00:01:24,066
+doing that? Well we start off by
+
+20
+00:01:24,066 --> 00:01:28,066
+adding in a Canvas and some Text. If I add in some Text, actually,
+
+21
+00:01:28,066 --> 00:01:32,066
+it will add the Canvas for me automatically. Now, mine's
+
+22
+00:01:32,066 --> 00:01:36,066
+already scaled to the right dimensions but if yours isn't, just remember, double-click your Canvas,
+
+23
+00:01:36,066 --> 00:01:40,066
+then zoom in to the right amount. Now,
+
+24
+00:01:40,066 --> 00:01:44,066
+we're going to want to do a UI scale mode and set it to
+
+25
+00:01:44,066 --> 00:01:48,066
+Scale With Screen Size again, on that Canvas.
+
+26
+00:01:48,066 --> 00:01:52,066
+And we actually have two options here about Matching
+
+27
+00:01:52,066 --> 00:01:56,066
+Width or Height. Now, I'm not going to go into any detail about that
+
+28
+00:01:56,066 --> 00:02:00,066
+just yet. Ah, we'll see for ourselves which one we want.
+
+29
+00:02:00,066 --> 00:02:04,066
+OK, so let's select our Text in the Hierarchy, and I'm going to
+
+30
+00:02:04,066 --> 00:02:08,066
+make this a little bit bigger, and I'm going to
+
+31
+00:02:08,066 --> 00:02:12,066
+select a more appropriate font, as well.
+
+32
+00:02:12,066 --> 00:02:16,066
+We'll go with the font I've been using for everything else. If you want to mix and match
+
+33
+00:02:16,066 --> 00:02:20,066
+fonts go ahead, obviously mixing too many
+
+34
+00:02:20,066 --> 00:02:24,066
+fonts can look a bit tacky. So I'm going to start off with the
+
+35
+00:02:24,066 --> 00:02:28,066
+score being 0, and I'm going to make it red,
+
+36
+00:02:28,066 --> 00:02:32,066
+because that is what's going to contrast most of the background and I'm
+
+37
+00:02:32,066 --> 00:02:36,066
+going to position it up here. OK I'm going to hit save,
+
+38
+00:02:36,066 --> 00:02:40,066
+and let's see that in action! OK, there's our score
+
+39
+00:02:40,066 --> 00:02:44,066
+in the top corner. Let's just check the different screen dimensions.
+
+40
+00:02:44,066 --> 00:02:48,066
+OK, so this is where things start to go wrong! If I bring
+
+41
+00:02:48,066 --> 00:02:52,066
+my screen dimension down, in this way,
+
+42
+00:02:52,066 --> 00:02:56,066
+then I actually get the text disappearing off
+
+43
+00:02:56,066 --> 00:03:00,066
+the top of the screen. Now, the reason for that is that the screen
+
+44
+00:03:00,066 --> 00:03:04,066
+size is being matched, in terms of width, and it's going,
+
+45
+00:03:04,066 --> 00:03:08,066
+disappearing, off the top. So what we have to do is actually make that
+
+46
+00:03:08,066 --> 00:03:12,066
+match in terms of Height, and then, you notice it's added in this
+
+47
+00:03:12,066 --> 00:03:16,066
+margin for error, where the Width may come in. That is good, that's what we want!
+
+48
+00:03:16,066 --> 00:03:20,066
+And we just want to bring our score up to the top of
+
+49
+00:03:20,066 --> 00:03:24,066
+that height. Now, it won't disappear off. Let's just check that!
+
+50
+00:03:24,066 --> 00:03:28,066
+It won't disappear off, no matter what scale we make it,
+
+51
+00:03:28,066 --> 00:03:32,066
+because what we adjust, instead, is this margin to the
+
+52
+00:03:32,066 --> 00:03:36,066
+left, which looks a bit funky on some screen sizes but when we go back
+
+53
+00:03:36,066 --> 00:03:40,066
+to our normal screen size, maybe we could move it a little bit over. In fact,
+
+54
+00:03:40,066 --> 00:03:44,066
+I'm just going to do that, make it look a little less weird.
+
+55
+00:03:44,066 --> 00:03:48,066
+I'll probably put it about there, and let's see!
+
+56
+00:03:48,066 --> 00:03:52,066
+Yeah, that looks about right! So I think this is
+
+57
+00:03:52,066 --> 00:03:56,066
+going to work on most aspect ratios. If you want to test an exact aspect ratio,
+
+58
+00:03:56,066 --> 00:04:00,066
+the smallest you're probably going to have to go for is 4:3,
+
+59
+00:04:00,066 --> 00:04:04,066
+so you want to check that, and obviously, here it has disappeared.
+
+60
+00:04:04,066 --> 00:04:08,066
+So we do need to bring it in a little bit further than that, on 4:3. Yes,
+
+61
+00:04:08,066 --> 00:04:12,066
+you see 4:3 doesn't really work, so I'm going to bring it in.
+
+62
+00:04:12,066 --> 00:04:16,066
+Now if I hit play, it works on
+
+63
+00:04:16,066 --> 00:04:20,066
+4:3, but if I've got it on Free Aspect, it's also fine.
+
+64
+00:04:20,066 --> 00:04:24,066
+And I can test out on 16:9,
+
+65
+00:04:24,066 --> 00:04:28,066
+which is another very common screen resolution. So here we go, that's
+
+66
+00:04:28,066 --> 00:04:32,066
+all our different screen aspects covered! Now, we
+
+67
+00:04:32,066 --> 00:04:36,066
+want to update this text in code.
+
+68
+00:04:36,066 --> 00:04:40,066
+So how are we going to do that? Well I want to create a new script
+
+69
+00:04:40,066 --> 00:04:44,066
+for this called the Score Display,
+
+70
+00:04:44,066 --> 00:04:48,066
+and I'll explain why in just a second.
+
+71
+00:04:48,066 --> 00:04:52,066
+In general, we like to keep our display
+
+72
+00:04:52,066 --> 00:04:56,066
+code separate from the code which actually stores the values.
+
+73
+00:04:56,066 --> 00:05:00,066
+So the value for the score is stored in the ScoreKeeper,
+
+74
+00:05:00,066 --> 00:05:04,066
+and I want the formatting logic, that is the logic that adds
+
+75
+00:05:04,066 --> 00:05:08,066
+in all the text and connects it up, I want that to be in a different object.
+
+76
+00:05:08,066 --> 00:05:12,066
+It's just generally a good way to design your code,
+
+77
+00:05:12,066 --> 00:05:16,066
+is to have data and presentation logic in different
+
+78
+00:05:16,066 --> 00:05:20,066
+places. So what are we going to have to do? We're going to have
+
+79
+00:05:20,066 --> 00:05:24,066
+to get hold of our text here and update it, so
+
+80
+00:05:24,066 --> 00:05:28,066
+let's do that in the following way. I'm going
+
+81
+00:05:28,066 --> 00:05:32,066
+to create a field that'll hold my text.
+
+82
+00:05:32,066 --> 00:05:36,066
+Now, if you'll notice there's no text type.
+
+83
+00:05:36,066 --> 00:05:40,066
+That's because we need to do an import, so we'll create a using
+
+84
+00:05:40,066 --> 00:05:44,066
+UnityEngine.UI.
+
+85
+00:05:44,066 --> 00:05:48,066
+So we need to import that, at the top of the file,
+
+86
+00:05:48,066 --> 00:05:52,066
+just underneath all your other imports, and then we do a Text. Then, I'm going to call it
+
+87
+00:05:52,066 --> 00:05:56,066
+text, very boringly, and we can get this text by
+
+88
+00:05:56,066 --> 00:06:00,066
+it doing a GetComponent. So I'm going to add this script, as you might guess,
+
+89
+00:06:00,066 --> 00:06:04,066
+on the Text itself, so that we can get hold of that
+
+90
+00:06:04,066 --> 00:06:08,066
+Text component. So let me just show you, the Text of
+
+91
+00:06:08,066 --> 00:06:12,066
+GameObject has a Text component and that is what we're trying to get hold
+
+92
+00:06:12,066 --> 00:06:16,066
+of. So I'm going to drag my ScoreDisplay onto that component, so
+
+93
+00:06:16,066 --> 00:06:20,066
+that GetComponent can do its magic. Now,
+
+94
+00:06:20,066 --> 00:06:24,066
+with text you have a field, funnily enough, also called text,
+
+95
+00:06:24,066 --> 00:06:28,066
+which contains the string of text. So I can update
+
+96
+00:06:28,066 --> 00:06:32,066
+this to do something like "Score:
+
+97
+00:06:32,066 --> 00:06:36,066
+bla", like so,
+
+98
+00:06:36,066 --> 00:06:38,566
+and I can hit play.
+
+99
+00:06:38,566 --> 00:06:42,566
+and you notice that the SCORE text has indeed
+
+100
+00:06:42,566 --> 00:06:44,600
+been updated.
+
+101
+00:06:44,600 --> 00:06:48,600
+Your challenge for this lecture is to set the correct score, so
+
+102
+00:06:48,600 --> 00:06:52,600
+it's no longer just blah! I would like you to use the FindObject
+
+103
+00:06:52,600 --> 00:06:56,600
+OfType method to access your ScoreKeeper, in this script,
+
+104
+00:06:56,600 --> 00:07:00,600
+and to expose the score as a public variable. By that I mean, in
+
+105
+00:07:00,600 --> 00:07:04,600
+the ScoreKeeper, you'll need it to be exposed as a public variable, so that you can
+
+106
+00:07:04,600 --> 00:07:08,600
+get access to it in our Score Display script.
+
+107
+00:07:08,600 --> 00:07:12,600
+Then, use concatenation, this (+) operator, to update
+
+108
+00:07:12,600 --> 00:07:16,600
+the score text. So by that I mean to concatenate the
+
+109
+00:07:16,600 --> 00:07:20,600
+score colon with the actual score value.
+
+110
+00:07:20,600 --> 00:07:24,600
+And then, finally, when you've done all of that and had success, have a go
+
+111
+00:07:24,600 --> 00:07:28,600
+at repeating all of those steps, for a time remaining display
+
+112
+00:07:28,600 --> 00:07:32,600
+script. So one that would be added to a different text field
+
+113
+00:07:32,600 --> 00:07:36,600
+and show the time remaining in this level. OK, so
+
+114
+00:07:36,600 --> 00:07:40,600
+pause the video and have a go! OK,
+
+115
+00:07:40,600 --> 00:07:44,600
+welcome back! I hope you've all had a go at this! It is
+
+116
+00:07:44,600 --> 00:07:48,600
+sometimes tricky and intimidating, but it really does help,
+
+117
+00:07:48,600 --> 00:07:52,600
+even if you don't manage to make it all the way through. Just allow yourself 30
+
+118
+00:07:52,600 --> 00:07:56,600
+minutes, have a play as much as you can, and if you can't get anywhere and get really stuck,
+
+119
+00:07:56,600 --> 00:07:58,800
+then come back to the video. But do have a go first.
+
+120
+00:07:58,800 --> 00:08:02,800
+So let's dive right in! The first thing we have to do
+
+121
+00:08:02,800 --> 00:08:06,800
+is get hold of the ScoreKeeper. So I'm going to create a Score
+
+122
+00:08:06,800 --> 00:08:10,800
+Keeper variable here, at the top level, so
+
+123
+00:08:10,800 --> 00:08:14,800
+I'd only have to get hold of it once and not get hold of it in every
+
+124
+00:08:14,800 --> 00:08:18,800
+Update loop. I should have explained that's why I was doing this with Text, as well.
+
+125
+00:08:18,800 --> 00:08:22,800
+So we'll do a ScoreKeeper, which is initially empty,
+
+126
+00:08:22,800 --> 00:08:26,800
+because we need to set it here using the FindObjectOfType.
+
+127
+00:08:26,800 --> 00:08:30,800
+Obviously the type is ScoreKeeper
+
+128
+00:08:30,800 --> 00:08:34,800
+and we can save that, and now, we can
+
+129
+00:08:34,800 --> 00:08:38,800
+try and get hold of our score here. So I said, by concatenation, I'm going to add
+
+130
+00:08:38,800 --> 00:08:42,800
+on the score, and I'll do scoreKeeper dot.
+
+131
+00:08:42,800 --> 00:08:46,800
+And you'll notice that there is no score there and that is
+
+132
+00:08:46,800 --> 00:08:50,800
+because you need to make the score public. So just add public in
+
+133
+00:08:50,800 --> 00:08:54,800
+front here, which will allow us to access it from anywhere. So
+
+134
+00:08:54,800 --> 00:08:58,800
+that will do, scoreKeeper.score. And
+
+135
+00:08:58,800 --> 00:09:02,800
+that should just about do it! So I'm going to go back into Unity
+
+136
+00:09:02,800 --> 00:09:06,800
+and hit play, and let's just check
+
+137
+00:09:06,800 --> 00:09:10,800
+what we have here! So
+
+138
+00:09:10,800 --> 00:09:14,800
+I'll have a little look around, I'll shoot at the targets,
+
+139
+00:09:14,800 --> 00:09:18,800
+and I'm not actually getting any updates, which is a bit disappointing.
+
+140
+00:09:18,800 --> 00:09:22,800
+So let's just check that all the scripts are in the right place.
+
+141
+00:09:22,800 --> 00:09:26,800
+If I go in the Text, ah
+
+142
+00:09:26,800 --> 00:09:30,800
+for some reason that has not been added in here. Perhaps I didn't save?
+
+143
+00:09:30,800 --> 00:09:34,800
+And I did just have a crash in between, halfway through this video, so
+
+144
+00:09:34,800 --> 00:09:38,800
+that shouldn't happen to you guys but it did happen to me. So I'm going to take the
+
+145
+00:09:38,800 --> 00:09:42,800
+ScoreDisplay, put it on Text, and while I'm at it, I'm going to rename Text to
+
+146
+00:09:42,800 --> 00:09:46,800
+Score, because that is more semantic and just makes more sense.
+
+147
+00:09:46,800 --> 00:09:50,800
+So I'll do that. There we go! Now when I hit it
+
+148
+00:09:50,800 --> 00:09:54,800
+it does, in fact, go up as we would expect. And what if I hit that really far
+
+149
+00:09:54,800 --> 00:09:58,800
+off target? Yes, it goes up by 3, just as we needed!
+
+150
+00:09:58,800 --> 00:10:02,800
+And as the time limit runs out, we should go on to the game over screen.
+
+151
+00:10:02,800 --> 00:10:06,800
+Perfect timing! OK, I'll make sure I hit save,
+
+152
+00:10:06,800 --> 00:10:10,800
+this time. [Laughs] Don't make the same mistakes I do! Let's copy all of this
+
+153
+00:10:10,800 --> 00:10:14,800
+for a time remaining text. So I'm going to
+
+154
+00:10:14,800 --> 00:10:18,800
+Duplicate this object, call it Time
+
+155
+00:10:18,800 --> 00:10:22,800
+Remaining, like so,
+
+156
+00:10:22,800 --> 00:10:26,800
+and I'll just put in some filler text. "Time remaining.
+
+157
+00:10:26,800 --> 00:10:30,800
+3.5"
+
+158
+00:10:30,800 --> 00:10:34,800
+or something like that. Now, if I use my 2D
+
+159
+00:10:34,800 --> 00:10:38,800
+tool, I can move this down around
+
+160
+00:10:38,800 --> 00:10:42,800
+the bottom somewhere, trying to keep it, as much as possible, aligned
+
+161
+00:10:42,800 --> 00:10:46,800
+with that one at the top. I'm going to
+
+162
+00:10:46,800 --> 00:10:50,800
+Bottom-Align it, like so. Let's just check that out!
+
+163
+00:10:50,800 --> 00:10:54,800
+Yep, that looks about right, but because we have the same script,
+
+164
+00:10:54,800 --> 00:10:58,800
+obviously it is, no matter what the placeholder text is saying,
+
+165
+00:10:58,800 --> 00:11:02,800
+it actually just gets replaced by exactly the same thing. So that's an
+
+166
+00:11:02,800 --> 00:11:06,800
+advantage of having this script, you could actually attach it to multiple things and it would
+
+167
+00:11:06,800 --> 00:11:10,800
+do, in fact, exactly the same thing. So
+
+168
+00:11:10,800 --> 00:11:14,800
+we want to create a new script, so I'm going to right-click, Create, new C#
+
+169
+00:11:14,800 --> 00:11:18,800
+Script, and I'm going to call it Time
+
+170
+00:11:18,800 --> 00:11:22,800
+Remaining
+
+171
+00:11:22,800 --> 00:11:26,800
+Display. Do excuse my Java notifications.
+
+172
+00:11:26,800 --> 00:11:30,800
+And let's open that up! And for the most part,
+
+173
+00:11:30,800 --> 00:11:34,800
+I can copy what we have in our ScoreDisplay,
+
+174
+00:11:34,800 --> 00:11:38,800
+so I want the UI
+
+175
+00:11:38,800 --> 00:11:42,800
+up here. Then, I want the Text
+
+176
+00:11:42,800 --> 00:11:46,800
+in here. Just
+
+177
+00:11:46,800 --> 00:11:50,800
+make sure I keep my new lines consistent. So just
+
+178
+00:11:50,800 --> 00:11:54,800
+a reminder, those extra white space lines are there to
+
+179
+00:11:54,800 --> 00:11:58,800
+basically allow us to see the logical
+
+180
+00:11:58,800 --> 00:12:02,800
+delimitation between different things. So it's just
+
+181
+00:12:02,800 --> 00:12:06,800
+an aid to helping the programmer's reading.
+
+182
+00:12:06,800 --> 00:12:10,800
+And I'll just pop that in there. And obviously, the ScoreKeeper does not exist yet,
+
+183
+00:12:10,800 --> 00:12:14,800
+and so for that, we need to create a new thing that holds the Level
+
+184
+00:12:14,800 --> 00:12:18,800
+Manager, because the LevelManager is what has the information we're looking
+
+185
+00:12:18,800 --> 00:12:22,800
+for, how many seconds are left in the game. Then,
+
+186
+00:12:22,800 --> 00:12:26,800
+I can set the LevelManager in exactly the same way, doing FindObjectOfType.
+
+187
+00:12:26,800 --> 00:12:30,800
+Here we go with our LevelManager.
+
+188
+00:12:30,800 --> 00:12:34,800
+OK. And then, I'll do a levelManager
+
+189
+00:12:34,800 --> 00:12:38,800
+dot and I want timeTillNext
+
+190
+00:12:38,800 --> 00:12:42,800
+Level. That is exactly what I want! So here we need to change the text to
+
+191
+00:12:42,800 --> 00:12:46,800
+"Time remaining: ". And
+
+192
+00:12:46,800 --> 00:12:50,800
+hopefully that should do the trick. So let's pop back in,
+
+193
+00:12:50,800 --> 00:12:54,800
+hit play,
+
+194
+00:12:54,800 --> 00:12:58,800
+and that didn't quite seem to work, because we didn't add in the script.
+
+195
+00:12:58,800 --> 00:13:02,800
+So I'm going to go remove our ScoreDisplay script
+
+196
+00:13:02,800 --> 00:13:06,800
+and add in the TimeRemaining script instead.
+
+197
+00:13:06,800 --> 00:13:10,800
+Let's hit play now and there you go!
+
+198
+00:13:10,800 --> 00:13:14,800
+We have our time counting down, while our score is
+
+199
+00:13:14,800 --> 00:13:18,800
+counting up, and so we know how frantically we have to
+
+200
+00:13:18,800 --> 00:13:22,800
+click, essentially, to get the most points possible before
+
+201
+00:13:22,800 --> 00:13:26,800
+the time elapses, which it just did and we got the game over!
+
+202
+00:13:26,800 --> 00:13:30,800
+Perfect! Congratulations on getting this far! Let's move on
+
+203
+00:13:30,800 --> 00:13:32,166
+to the next video!

@@ -1,0 +1,1007 @@
+1
+00:00:01,300 --> 00:00:05,300
+...
+
+2
+00:00:05,300 --> 00:00:09,300
+Welcome to Don't Repeat Yourself
+
+3
+00:00:09,300 --> 00:00:13,300
+with Functions! In this lecture we are going to be understanding something
+
+4
+00:00:13,300 --> 00:00:17,300
+called The Dry Principle. What this means is that you don't repeat
+
+5
+00:00:17,300 --> 00:00:21,300
+yourself, and this allows us to take all of that horrible repetitive code
+
+6
+00:00:21,300 --> 00:00:25,300
+and make it this short, and we're going to be doing this
+
+7
+00:00:25,300 --> 00:00:29,300
+by learning how to write our own methods, as well as learning how to call
+
+8
+00:00:29,300 --> 00:00:33,300
+methods and giving you, basically, an introduction to refactoring as a whole. This is
+
+9
+00:00:33,300 --> 00:00:38,200
+a very crucial crucial skill for programmers, so see you in there!
+
+10
+00:00:38,200 --> 00:00:42,200
+So far, the code is working fine, and we're able
+
+11
+00:00:42,200 --> 00:00:46,200
+to play the game! So we're very very nearly there, but that's not quite
+
+12
+00:00:46,200 --> 00:00:50,200
+the end of the game, because for you, as a programmer, you need to know
+
+13
+00:00:50,200 --> 00:00:54,200
+how to keep your code maintainable. And by that I mean, in the
+
+14
+00:00:54,200 --> 00:00:58,200
+future, when you come back to your code and you want to make modifications, you've got to make sure
+
+15
+00:00:58,200 --> 00:01:02,200
+it's easy to make those modifications, and at the moment, it really isn't easy to make
+
+16
+00:01:02,200 --> 00:01:06,200
+those modifications. You've also got to think about working in a bigger team, and somebody's
+
+17
+00:01:06,200 --> 00:01:10,200
+going to come along and want to change something and you've got to make it easy for that
+
+18
+00:01:10,200 --> 00:01:14,200
+to happen. Now why do I say it's not easy for that, at
+
+19
+00:01:14,200 --> 00:01:18,200
+the moment? Because we've got a lot of repetition. So here
+
+20
+00:01:18,200 --> 00:01:22,200
+there lines of code are almost identical, which means if I want to
+
+21
+00:01:22,200 --> 00:01:26,200
+go and change the message that gets printed, for the "Distance
+
+22
+00:01:26,200 --> 00:01:30,200
+to home: ", I have to change that in four places. You know, any of
+
+23
+00:01:30,200 --> 00:01:34,200
+these modifications are going to require a lot of typing, and
+
+24
+00:01:34,200 --> 00:01:38,200
+this is why, in general as a programmer, we want to follow what's called
+
+25
+00:01:38,200 --> 00:01:42,200
+The Dry Principle. Now, what does The Dry Principle stand for?
+
+26
+00:01:42,200 --> 00:01:46,200
+It stands for Don't Repeat Yourself. So
+
+27
+00:01:46,200 --> 00:01:50,200
+this basically means that you shouldn't have code like
+
+28
+00:01:50,200 --> 00:01:54,200
+this, you shouldn't have what's known as WET code like this, and
+
+29
+00:01:54,200 --> 00:01:58,200
+WET actually stands for Write Everything Twice. And in principle, you write
+
+30
+00:01:58,200 --> 00:02:02,200
+things more than twice, but that is the two acronyms that you
+
+31
+00:02:02,200 --> 00:02:06,200
+want to remember. DRY code is the good sort of code, WET code is the bad
+
+32
+00:02:06,200 --> 00:02:10,200
+sort of code, and WET code is what we currently have, where everything is written
+
+33
+00:02:10,200 --> 00:02:14,200
+twice or more than twice, in our case, it's written four times! So
+
+34
+00:02:14,200 --> 00:02:18,200
+we want to find a way to avoid all this repetition!
+
+35
+00:02:18,200 --> 00:02:22,200
+Now the main tool that we have in our arsenal against
+
+36
+00:02:22,200 --> 00:02:26,200
+WET code is methods. Now these factories,
+
+37
+00:02:26,200 --> 00:02:30,200
+basically, can be used to take those repeated operations and
+
+38
+00:02:30,200 --> 00:02:34,200
+turn them into one method, which we can pass variables into
+
+39
+00:02:34,200 --> 00:02:38,200
+and get variables out of and essentially just do
+
+40
+00:02:38,200 --> 00:02:42,200
+that one thing in one place and write that code once.
+
+41
+00:02:42,200 --> 00:02:46,200
+Now, how do we do that? We've seen some methods
+
+42
+00:02:46,200 --> 00:02:50,200
+before. We've seen void, we've seen Update (), but none of these
+
+43
+00:02:50,200 --> 00:02:54,200
+have been quite what we understand by this. So let me just give you
+
+44
+00:02:54,200 --> 00:02:58,200
+an example of how we might choose to take some code that already
+
+45
+00:02:58,200 --> 00:03:02,200
+exists, multiple times, and turn it into a method. So
+
+46
+00:03:02,200 --> 00:03:06,200
+one example is if we have an averaging
+
+47
+00:03:06,200 --> 00:03:10,200
+operation. So I have a variable, I'll
+
+48
+00:03:10,200 --> 00:03:14,200
+call it an int, and, in fact, let's make it a
+
+49
+00:03:14,200 --> 00:03:18,200
+float, so that it can have like half values and stuff.
+
+50
+00:03:18,200 --> 00:03:22,200
+So I want to say average 1 is =
+
+51
+00:03:22,200 --> 00:03:26,200
+to 2 + 3
+
+52
+00:03:26,200 --> 00:03:30,200
+over 2. So this, /, does
+
+53
+00:03:30,200 --> 00:03:34,200
+division and our, +, addition operations and
+
+54
+00:03:34,200 --> 00:03:38,200
+produces an average value, and then, I want to print it out, say
+
+55
+00:03:38,200 --> 00:03:42,200
+like so.
+
+56
+00:03:42,200 --> 00:03:46,200
+That's all well and good! So far so good, we haven't
+
+57
+00:03:46,200 --> 00:03:50,200
+repeated anything. And I've used the wrong quotes, so I'm going to change that!
+
+58
+00:03:50,200 --> 00:03:54,200
+So we haven't repeated anything, but say I
+
+59
+00:03:54,200 --> 00:03:58,200
+write this out again. I have like a float
+
+60
+00:03:58,200 --> 00:04:02,200
+average 2 =, and here we're going to put
+
+61
+00:04:02,200 --> 00:04:06,200
+something like (5 + 10), so different numbers but I'm still
+
+62
+00:04:06,200 --> 00:04:10,200
+going to average them out, OK. And then I
+
+63
+00:04:10,200 --> 00:04:14,200
+want to print it out, so average 2.
+
+64
+00:04:14,200 --> 00:04:18,200
+In fact, I can just... Oops, I can just remove the
+
+65
+00:04:18,200 --> 00:04:22,200
+average 2 altogether, so I'm even using the same message, so this is
+
+66
+00:04:22,200 --> 00:04:26,200
+really quite repeated code, average 2. I put my semicolon on
+
+67
+00:04:26,200 --> 00:04:30,200
+the end. Now if I hit play, let's just check this works!
+
+68
+00:04:30,200 --> 00:04:34,200
+Yes, so now we have our 2 averages,
+
+69
+00:04:34,200 --> 00:04:38,200
+2 and 7 popping out here. You'll notice
+
+70
+00:04:38,200 --> 00:04:42,200
+that they are coming out a little bit weird. Now, the reason for that is because
+
+71
+00:04:42,200 --> 00:04:46,200
+these are integers and this is an integer, and so what
+
+72
+00:04:46,200 --> 00:04:50,200
+actually happens, when we do a division, is an integer division.
+
+73
+00:04:50,200 --> 00:04:54,200
+You can tell this by just hovering over it,
+
+74
+00:04:54,200 --> 00:04:58,200
+it gives us some indication that, indeed, we've got integers on the left and the
+
+75
+00:04:58,200 --> 00:05:02,200
+right, so we've got an integer division. An integer division, as you can
+
+76
+00:05:02,200 --> 00:05:06,200
+see here, leaves us with the rounded value, rather than the actual
+
+77
+00:05:06,200 --> 00:05:10,200
+value. So let's go ahead and correct that, by essentially putting
+
+78
+00:05:10,200 --> 00:05:14,200
+f on the end. If we put f on the end of these, then they become floating points,
+
+79
+00:05:14,200 --> 00:05:18,200
+and so, if you look at it, there you go we've got
+
+80
+00:05:18,200 --> 00:05:22,200
+the floating point division happening. So I'm just going to go
+
+81
+00:05:22,200 --> 00:05:26,200
+dig through one of these,
+
+82
+00:05:26,200 --> 00:05:30,200
+and let's hit play again and just check our average. Now, we're getting
+
+83
+00:05:30,200 --> 00:05:34,200
+2.5. So this is correct, we are working out averages. But obviously,
+
+84
+00:05:34,200 --> 00:05:38,200
+if I wanted to change the message and the way it's being printed or if I wanted
+
+85
+00:05:38,200 --> 00:05:42,200
+to change the way that I'm calculating the average, for whatever reason, if I wanted
+
+86
+00:05:42,200 --> 00:05:46,200
+to weight the average, for example, I wanted this one to be twice as important as this
+
+87
+00:05:46,200 --> 00:05:50,200
+one, then that's going to be hard to do that in both places.
+
+88
+00:05:50,200 --> 00:05:54,200
+So what we want to do is create a method
+
+89
+00:05:54,200 --> 00:05:58,200
+that is responsible for doing exactly this. How do we do that?
+
+90
+00:05:58,200 --> 00:06:02,200
+Well the first step is to identify the bits of
+
+91
+00:06:02,200 --> 00:06:06,200
+the code that are similar and the bits that are different. So
+
+92
+00:06:06,200 --> 00:06:10,200
+far, we can see that, pretty much, it's identical except for
+
+93
+00:06:10,200 --> 00:06:14,200
+these two numbers in here, we can see that, in both cases, these
+
+94
+00:06:14,200 --> 00:06:18,200
+two numbers are different. So what we need to do is
+
+95
+00:06:18,200 --> 00:06:22,200
+create variables that store those two numbers, and that
+
+96
+00:06:22,200 --> 00:06:26,200
+starts to make obvious how we can take this code out.
+
+97
+00:06:26,200 --> 00:06:30,200
+So I'm going to say float x = 2f
+
+98
+00:06:30,200 --> 00:06:34,200
+and float y = 3f,
+
+99
+00:06:34,200 --> 00:06:38,200
+like so. Then, I
+
+100
+00:06:38,200 --> 00:06:42,200
+can say x and y in here, so I've
+
+101
+00:06:42,200 --> 00:06:46,200
+replaced those values with variables.
+
+102
+00:06:46,200 --> 00:06:50,200
+That's the first step, replacing the values with variables. Then, I can
+
+103
+00:06:50,200 --> 00:06:54,200
+turn this into a method. Now, how does that look? So
+
+104
+00:06:54,200 --> 00:06:58,200
+we know that if we don't have a return value our return
+
+105
+00:06:58,200 --> 00:07:02,200
+value is void, like we're seeing with the Start (), and also, you can see that we've got empty
+
+106
+00:07:02,200 --> 00:07:06,200
+brackets, that's because the Start () has no arguments. But we're going to have some
+
+107
+00:07:06,200 --> 00:07:10,200
+arguments, so we're going to create a new function
+
+108
+00:07:10,200 --> 00:07:14,200
+which... Let's have a look! What's it return? Well out of here,
+
+109
+00:07:14,200 --> 00:07:18,200
+out of this block, there's no variables that we want to use later on. We never use
+
+110
+00:07:18,200 --> 00:07:22,200
+average 1 again, so our return value is going to be void.
+
+111
+00:07:22,200 --> 00:07:26,200
+There's nothing that comes out of this factory. However,
+
+112
+00:07:26,200 --> 00:07:30,200
+what goes into this factory? We notice that x and y, these two variables
+
+113
+00:07:30,200 --> 00:07:34,200
+we just created to into the factory, and they're both of type float. So
+
+114
+00:07:34,200 --> 00:07:38,200
+let's give the first... We need to give it a method name, so the name to this factory,
+
+115
+00:07:38,200 --> 00:07:42,200
+well I think I'm going to call it Average.
+
+116
+00:07:42,200 --> 00:07:46,200
+And you can see that the convention is to start with a capital letter
+
+117
+00:07:46,200 --> 00:07:50,200
+for the method names. Then, in brackets I need to put
+
+118
+00:07:50,200 --> 00:07:54,200
+the type and the type name
+
+119
+00:07:54,200 --> 00:07:58,200
+of the argument, and we make a list of
+
+120
+00:07:58,200 --> 00:08:02,200
+these arguments, like so. And then, in
+
+121
+00:08:02,200 --> 00:08:06,200
+these curly brackets we can cut and paste this
+
+122
+00:08:06,200 --> 00:08:10,200
+code here. So I'm going to cut that out, paste it in here,
+
+123
+00:08:10,200 --> 00:08:14,200
+and you can see it automatically works, because
+
+124
+00:08:14,200 --> 00:08:18,200
+this code now refers to the arguments.
+
+125
+00:08:18,200 --> 00:08:22,200
+And it doesn't pass anything out of this function, so we have a void;
+
+126
+00:08:22,200 --> 00:08:26,200
+there's nothing returned from the factory.
+
+127
+00:08:26,200 --> 00:08:30,200
+Now here, I can replace that code that I just cut and pasted
+
+128
+00:08:30,200 --> 00:08:34,200
+into the method, with a call to the method itself. So I can just say
+
+129
+00:08:34,200 --> 00:08:38,200
+Average(x, y), like so.
+
+130
+00:08:38,200 --> 00:08:42,200
+And in fact, I no longer need these variables,
+
+131
+00:08:42,200 --> 00:08:46,200
+but they allowed us to see what was necessary,
+
+132
+00:08:46,200 --> 00:08:50,200
+what was variable inside this code.
+
+133
+00:08:50,200 --> 00:08:54,200
+So I'm going to just paste these back
+
+134
+00:08:54,200 --> 00:08:58,200
+in and remove the variables entirely, just use the values
+
+135
+00:08:58,200 --> 00:09:02,200
+again. And now,
+
+136
+00:09:02,200 --> 00:09:06,200
+this repeated block of code, I can simply, I don't have
+
+137
+00:09:06,200 --> 00:09:10,200
+to repeat that whole process again, all I have to do is call that method
+
+138
+00:09:10,200 --> 00:09:14,200
+with those variables. So it's 5 and 10, so I'm going to say Average
+
+139
+00:09:14,200 --> 00:09:18,200
+(5, 10), and you'll
+
+140
+00:09:18,200 --> 00:09:22,200
+notice a nice little side effect is that I don't have to put the f on the end, because the argument
+
+141
+00:09:22,200 --> 00:09:26,200
+is automatically of type float.
+
+142
+00:09:26,200 --> 00:09:30,200
+So if we play to check,
+
+143
+00:09:30,200 --> 00:09:34,200
+you notice that, indeed... I'll just clear and show
+
+144
+00:09:34,200 --> 00:09:38,200
+you that this is being calculated afresh. Indeed we have the average
+
+145
+00:09:38,200 --> 00:09:42,200
+being calculated here, 2.5 and 7.5. And
+
+146
+00:09:42,200 --> 00:09:46,200
+so that code does exactly the same thing, except now we aren't having to repeat
+
+147
+00:09:46,200 --> 00:09:50,200
+ourselves, we're just calling Average() in two different places.
+
+148
+00:09:50,200 --> 00:09:54,200
+So that's exactly the process we are going to want to do
+
+149
+00:09:54,200 --> 00:09:58,200
+with these blocks of code. You can see that these blocks are the repeated
+
+150
+00:09:58,200 --> 00:10:02,200
+blocks and that some part of these repeated blocks
+
+151
+00:10:02,200 --> 00:10:06,200
+is the variable we want to take out. So these are
+
+152
+00:10:06,200 --> 00:10:10,200
+the variable bits, that bit there and this
+
+153
+00:10:10,200 --> 00:10:14,200
+bit here. Everything else is staying exactly the same, between
+
+154
+00:10:14,200 --> 00:10:18,200
+all of these blocks of code. So that is what we're going to want to turn
+
+155
+00:10:18,200 --> 00:10:22,200
+into a method. So that is your
+
+156
+00:10:22,200 --> 00:10:26,200
+challenge, to make your code DRY as possible! I'd like you to create
+
+157
+00:10:26,200 --> 00:10:30,200
+a new method for the duplicated code. Remember that a method
+
+158
+00:10:30,200 --> 00:10:34,200
+looks like this. We have a return type, which can be void and probably
+
+159
+00:10:34,200 --> 00:10:38,200
+will be void, in your case. We have a method name, so use something descriptive for
+
+160
+00:10:38,200 --> 00:10:42,200
+what this method actually does, what this factory does, and
+
+161
+00:10:42,200 --> 00:10:46,200
+then, use the list of arguments, the things that you need
+
+162
+00:10:46,200 --> 00:10:50,200
+to pass in these variables in our repeated
+
+163
+00:10:50,200 --> 00:10:54,200
+box of code. Then, this is the code that we are
+
+164
+00:10:54,200 --> 00:10:58,200
+trying to eliminate the repetition for, so give it a descriptive name,
+
+165
+00:10:58,200 --> 00:11:02,200
+copy in the duplicated code, and ensure
+
+166
+00:11:02,200 --> 00:11:06,200
+all the arguments are declared and replaced, within that block of code.
+
+167
+00:11:06,200 --> 00:11:10,200
+So this block of code shouldn't be using, you know, any of those values
+
+168
+00:11:10,200 --> 00:11:14,200
+that you had before, shouldn't be using any of these values or these values
+
+169
+00:11:14,200 --> 00:11:18,200
+but instead should be using those variables that you used as
+
+170
+00:11:18,200 --> 00:11:22,200
+arguments to the method that you're passing into this factory.
+
+171
+00:11:22,200 --> 00:11:26,200
+And then, replace the duplicated code, so the place is where
+
+172
+00:11:26,200 --> 00:11:30,200
+all that code is duplicated and there's four places. Replace it with a method,
+
+173
+00:11:30,200 --> 00:11:34,200
+and remember, this is what a method call looks like. You may not need
+
+174
+00:11:34,200 --> 00:11:38,200
+to assign the return value to anything, because that
+
+175
+00:11:38,200 --> 00:11:42,200
+assignment only works if you have something, and if you are returning
+
+176
+00:11:42,200 --> 00:11:46,200
+void, then you can just call it and that will be enough. So pause the video and have a go
+
+177
+00:11:46,200 --> 00:11:50,200
+at making your code DRY! This is very good practice! If you get stuck go and
+
+178
+00:11:50,200 --> 00:11:54,200
+watch the first part of this video again, to see what I did with that averaging function.
+
+179
+00:11:54,200 --> 00:11:58,200
+And if you're really really stuck, you can carry on and watch the rest of this video, where I'll show you
+
+180
+00:11:58,200 --> 00:12:02,200
+how to do it, but first, pause and have a go yourself!
+
+181
+00:12:02,200 --> 00:12:06,200
+OK welcome back! We're going to quickly whiz through this, because you
+
+182
+00:12:06,200 --> 00:12:10,200
+have seen me do it once before. So this is the block of code
+
+183
+00:12:10,200 --> 00:12:14,200
+we want to replace. As I said, these are the variables, so I'm
+
+184
+00:12:14,200 --> 00:12:18,200
+going to create a variable. First the KeyCode, like so,
+
+185
+00:12:18,200 --> 00:12:22,200
+and we will set that =
+
+186
+00:12:22,200 --> 00:12:26,200
+to KeyCode.LeftArrow, like
+
+187
+00:12:26,200 --> 00:12:30,200
+so. Now I can replace that value with the variable, keyCode,
+
+188
+00:12:30,200 --> 00:12:34,200
+as long as I get the case
+
+189
+00:12:34,200 --> 00:12:38,200
+right. Because if you change the case, it's referring to this KeyCode,
+
+190
+00:12:38,200 --> 00:12:42,200
+rather than the variable that I just created. In fact, let's make it
+
+191
+00:12:42,200 --> 00:12:46,200
+very unambiguous, I'm going to call this kc for short,
+
+192
+00:12:46,200 --> 00:12:50,200
+for keyCode. And then, we've got this vector here. What
+
+193
+00:12:50,200 --> 00:12:54,200
+am I going to replace this with?
+
+194
+00:12:54,200 --> 00:12:58,200
+Well it's the movementVector! That's describes perfectly what it does, and
+
+195
+00:12:58,200 --> 00:13:02,200
+I'm going to declare a variable of type Vector2 called
+
+196
+00:13:02,200 --> 00:13:06,200
+movementVector and set it
+
+197
+00:13:06,200 --> 00:13:10,200
+= to this thing, which I cut out of the value
+
+198
+00:13:10,200 --> 00:13:14,200
+that I cut out of here. Now this is the block of code that we
+
+199
+00:13:14,200 --> 00:13:18,200
+want to turn into a method. So let's do that! Just above here, above the Update (),
+
+200
+00:13:18,200 --> 00:13:22,200
+I'm going to create that code. In fact,
+
+201
+00:13:22,200 --> 00:13:26,200
+we'll do it below, so that you can read it from higher level of
+
+202
+00:13:26,200 --> 00:13:30,200
+abstraction to lower level, so if we ask, in Update (), what we're doing
+
+203
+00:13:30,200 --> 00:13:34,200
+it's very short and easy, and then, we can go down into deeper, more detail.
+
+204
+00:13:34,200 --> 00:13:38,200
+So, as I said, there's nothing returned down to these blocks of code,
+
+205
+00:13:38,200 --> 00:13:42,200
+we're not using any of the values created within them, so the return value
+
+206
+00:13:42,200 --> 00:13:46,200
+should be void. Now, what is this block of code doing? I think it
+
+207
+00:13:46,200 --> 00:13:50,200
+is essentially checking for movement. And
+
+208
+00:13:50,200 --> 00:13:54,200
+what are the arguments? Well we've said what the arguments are, they're these two variables here. So
+
+209
+00:13:54,200 --> 00:13:58,200
+I'm going to say (KeyCode kc, and
+
+210
+00:13:58,200 --> 00:14:02,200
+movementVector, so Vector2,
+
+211
+00:14:02,200 --> 00:14:06,200
+movementVector),
+
+212
+00:14:06,200 --> 00:14:10,200
+like so. Now, with our curly braces,
+
+213
+00:14:10,200 --> 00:14:14,200
+we can copy and paste or cut and paste this code up here.
+
+214
+00:14:14,200 --> 00:14:18,200
+So I cut that and paste it in here.
+
+215
+00:14:18,200 --> 00:14:22,200
+So that works fine! Then, you
+
+216
+00:14:22,200 --> 00:14:26,200
+can see there's no errors or squiggly lines. I haven't forgotten to replace the variable anywhere.
+
+217
+00:14:26,200 --> 00:14:30,200
+If you get any squiggly lines, it's probably because you have forgotten to replace the
+
+218
+00:14:30,200 --> 00:14:34,200
+variable. Then, what we can do is,
+
+219
+00:14:34,200 --> 00:14:38,200
+as I said, we don't need to have these variables, we can just
+
+220
+00:14:38,200 --> 00:14:42,200
+call the method, so CheckForMovement(). We need to give it
+
+221
+00:14:42,200 --> 00:14:46,200
+the values, so I'm going to cut and paste these values in here,
+
+222
+00:14:46,200 --> 00:14:50,200
+just as a list
+
+223
+00:14:50,200 --> 00:14:54,200
+of values that can be used by the method.
+
+224
+00:14:54,200 --> 00:14:58,200
+I can remove the variables now, they already have served their purpose
+
+225
+00:14:58,200 --> 00:15:02,200
+as an intermediary stage for our refactoring here. And
+
+226
+00:15:02,200 --> 00:15:06,200
+then, we can say CheckForMovement(), and we can do it for all
+
+227
+00:15:06,200 --> 00:15:10,200
+these ones down below. So let's do (KeyCode.RightArrow, )
+
+228
+00:15:10,200 --> 00:15:14,200
+and this vector here,
+
+229
+00:15:14,200 --> 00:15:18,200
+so I'm going to cut that out and paste it in,
+
+230
+00:15:18,200 --> 00:15:22,200
+like so. That means I can remove this block of code.
+
+231
+00:15:22,200 --> 00:15:26,200
+Wow, that's a big block of code to remove! Next up, Check ForMovement,
+
+232
+00:15:26,200 --> 00:15:30,200
+again, if I can type. CheckForMovement.
+
+233
+00:15:30,200 --> 00:15:34,200
+And then, this KeyCode, the UpArrow, and
+
+234
+00:15:34,200 --> 00:15:38,200
+this vector. Let's cut that and paste it in here!
+
+235
+00:15:38,200 --> 00:15:42,200
+And finally, one more check for movement! Oh yeah, by the way,
+
+236
+00:15:42,200 --> 00:15:46,200
+I'm done with this block of code. Isn't this getting short? So
+
+237
+00:15:46,200 --> 00:15:50,200
+CheckForMovement(KeyCode.
+
+238
+00:15:50,200 --> 00:15:54,200
+DownArrow, ), and then, this hunk.
+
+239
+00:15:54,200 --> 00:15:58,200
+Let's make sure I'm actually cutting it, and paste it in
+
+240
+00:15:58,200 --> 00:16:02,200
+there, and finally this chunk of code is gone.
+
+241
+00:16:02,200 --> 00:16:06,200
+So we have just removed lines and lines of code, while retaining
+
+242
+00:16:06,200 --> 00:16:10,200
+the exact same functionality. Now, let me prove it to you! Let's go over, clear the
+
+243
+00:16:10,200 --> 00:16:14,200
+Console, and play, and we should now be
+
+244
+00:16:14,200 --> 00:16:18,200
+able to move around, just as we did before. And it does seem to be working
+
+245
+00:16:18,200 --> 00:16:22,200
+flawlessly! Aren't I great! I've managed to refactor all that code
+
+246
+00:16:22,200 --> 00:16:26,200
+and so have you, and I'm very very proud of you for having been able
+
+247
+00:16:26,200 --> 00:16:30,200
+to do that! You've finally seen how important keeping your code
+
+248
+00:16:30,200 --> 00:16:34,200
+DRY is, because now we could just change this message in
+
+249
+00:16:34,200 --> 00:16:38,200
+one place and everywhere it will be changed, in every case
+
+250
+00:16:38,200 --> 00:16:42,200
+of the Left, Right, Up, and Down Arrow. So congratulations, you're
+
+251
+00:16:42,200 --> 00:16:46,200
+starting to see the power of using code in this way,
+
+252
+00:16:46,200 --> 00:16:49,600
+and in the next lecture, we are going to go even deeper! So I'll see you there!

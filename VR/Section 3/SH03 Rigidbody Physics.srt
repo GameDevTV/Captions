@@ -1,0 +1,375 @@
+1
+00:00:06,666 --> 00:00:10,666
+Welcome! In this lecture we are going to be looking at how we can create spheres and
+
+2
+00:00:10,666 --> 00:00:14,666
+add physics to them, so we can make them collide and do cool things like
+
+3
+00:00:14,666 --> 00:00:17,000
+this! OK let's dive right in!
+
+4
+00:00:17,000 --> 00:00:21,000
+OK so let's get started by adding a sphere
+
+5
+00:00:21,000 --> 00:00:25,000
+into this scene! So remember that we need to right-click
+
+6
+00:00:25,000 --> 00:00:29,000
+in our Hierarchy, then go down to 3D Object, and this is where we've
+
+7
+00:00:29,000 --> 00:00:33,000
+got the list of 3D objects available to us. So
+
+8
+00:00:33,000 --> 00:00:37,000
+let's click on the sphere. Now, if we use
+
+9
+00:00:37,000 --> 00:00:41,000
+Alt to rotate around this scene, then we can see
+
+10
+00:00:41,000 --> 00:00:45,000
+where that sphere is located, at the moment, and we can see
+
+11
+00:00:45,000 --> 00:00:49,000
+that our floor is a little bit slanty. One thing
+
+12
+00:00:49,000 --> 00:00:53,000
+perhaps of interest is, if you have a
+
+13
+00:00:53,000 --> 00:00:57,000
+look at this widget here, to the right of your viewport,
+
+14
+00:00:57,000 --> 00:01:01,000
+it allows us to look from the different dimensions. So I can look from
+
+15
+00:01:01,000 --> 00:01:05,000
+the X dimension, I can look from the Y, dimension, I can look from the Z dimension,
+
+16
+00:01:05,000 --> 00:01:09,000
+and you can also look from the opposite sides as well, just by clicking
+
+17
+00:01:09,000 --> 00:01:13,000
+on these elements, essentially.
+
+18
+00:01:13,000 --> 00:01:17,000
+And if you click in the middle, it switches from the Perspective view,
+
+19
+00:01:17,000 --> 00:01:21,000
+like this, to an Orthographic view, which is...just
+
+20
+00:01:21,000 --> 00:01:25,000
+makes it easier to see that we're actually rotating this, this plane.
+
+21
+00:01:25,000 --> 00:01:29,000
+And let's have a look where our Camera is. So that's where our Camera is,
+
+22
+00:01:29,000 --> 00:01:33,000
+this is where our Sphere is, and this is where our
+
+23
+00:01:33,000 --> 00:01:37,000
+Cube is. I'm going to remove the Rotation from
+
+24
+00:01:37,000 --> 00:01:41,000
+that, by... And the way I did that is by going into the Transform,
+
+25
+00:01:41,000 --> 00:01:45,000
+in the Inspector, and the Transform is basically about the Position
+
+26
+00:01:45,000 --> 00:01:49,000
+and Rotation. So we can see there's Position, here's Rotation,
+
+27
+00:01:49,000 --> 00:01:53,000
+and then, I'm just going to just use the arrows to adjust the Position. You see as I adjust
+
+28
+00:01:53,000 --> 00:01:57,000
+the arrows, the position numbers are also changing.
+
+29
+00:01:57,000 --> 00:02:01,000
+So let's speed that along and I can hit play.
+
+30
+00:02:01,000 --> 00:02:05,000
+OK so now we've got the floor underneath us.
+
+31
+00:02:05,000 --> 00:02:09,000
+Perhaps a little bit too far underneath, so let's
+
+32
+00:02:09,000 --> 00:02:13,000
+put it back. OK, now what we want
+
+33
+00:02:13,000 --> 00:02:17,000
+is that sphere to actually be in front of the camera, because, at the moment, if we look
+
+34
+00:02:17,000 --> 00:02:21,000
+at the camera it's over here, and now we can see that the sphere
+
+35
+00:02:21,000 --> 00:02:25,000
+is in the preview. let's just play to check! There we go, there's
+
+36
+00:02:25,000 --> 00:02:29,000
+the sphere! A bit boring all being static, at the moment, so what I wanted
+
+37
+00:02:29,000 --> 00:02:33,000
+to show you in this lecture is something called the RigidBody
+
+38
+00:02:33,000 --> 00:02:37,000
+Component. So you'll notice, in this Inspector, we've got lots of tabs, so each of these
+
+39
+00:02:37,000 --> 00:02:41,000
+tabs is for a different component. We have a Transform component, a Camera
+
+40
+00:02:41,000 --> 00:02:45,000
+component, and these are the things that essentially make our object what it is.
+
+41
+00:02:45,000 --> 00:02:49,000
+So if I look at the Cube, for example, or if I look at the
+
+42
+00:02:49,000 --> 00:02:53,000
+Sphere, in fact that's what we want to be modifying, you'll notice that there are
+
+43
+00:02:53,000 --> 00:02:57,000
+different components that make it a sphere. We have the Transform which tells
+
+44
+00:02:57,000 --> 00:03:01,000
+us where that sphere is located, we have the sphere
+
+45
+00:03:01,000 --> 00:03:05,000
+mesh itself, (Mesh Filter). I'm not sure
+
+46
+00:03:05,000 --> 00:03:09,000
+what that one does, but the Mesh Renderer is the thing that makes it such that
+
+47
+00:03:09,000 --> 00:03:13,000
+we can see our sphere in the scene,
+
+48
+00:03:13,000 --> 00:03:17,000
+and we also have something called a Sphere Collider, we won't worry about. But what I want
+
+49
+00:03:17,000 --> 00:03:21,000
+to do is add a new component, and what we want to do is
+
+50
+00:03:21,000 --> 00:03:25,000
+create some physics on this. So if we look at component
+
+51
+00:03:25,000 --> 00:03:29,000
+called Rigidbody... This is what we need, not the 2D
+
+52
+00:03:29,000 --> 00:03:33,000
+version but the 3D version. And what this is going to do,
+
+53
+00:03:33,000 --> 00:03:37,000
+as we can see by these different fields, is it's going to add some
+
+54
+00:03:37,000 --> 00:03:41,000
+mass and some Gravity to our sphere. So let's save that
+
+55
+00:03:41,000 --> 00:03:45,000
+scene and hit play.
+
+56
+00:03:45,000 --> 00:03:49,000
+There we go! So our sphere just dropped to the ground, without us
+
+57
+00:03:49,000 --> 00:03:52,766
+having to do anything. Perfect!
+
+58
+00:03:52,766 --> 00:03:56,766
+So time for your challenge! I would like you go create a second sphere,
+
+59
+00:03:56,766 --> 00:04:00,766
+using the knowledge that we have just had, and by doing this,
+
+60
+00:04:00,766 --> 00:04:04,766
+I'd like you to add a sphere to the Hierarchy and then position that
+
+61
+00:04:04,766 --> 00:04:08,766
+sphere in the viewport. And then, when you've done that with the positioning,
+
+62
+00:04:08,766 --> 00:04:12,766
+I'd like you to add a Rigidbody component to that sphere, so that it can fall
+
+63
+00:04:12,766 --> 00:04:16,766
+when you hit play. And make it so that, when you position
+
+64
+00:04:16,766 --> 00:04:20,766
+them, the spheres actually collide, we can see what kind of
+
+65
+00:04:20,766 --> 00:04:24,766
+cool effects that's going to have, when spheres actually collide with one another!
+
+66
+00:04:24,766 --> 00:04:28,766
+Finally, share those results in the discussions! We'd all love to see what
+
+67
+00:04:28,766 --> 00:04:32,766
+[Laughs] crazy things you manage to do with spheres. Maybe many spheres, maybe cubes as well,
+
+68
+00:04:32,766 --> 00:04:36,766
+I just want to see what you can concoct out of all these
+
+69
+00:04:36,766 --> 00:04:40,766
+shapes colliding with one another. OK, so pause the video and let your creativity
+
+70
+00:04:40,766 --> 00:04:44,766
+run wild!
+
+71
+00:04:44,766 --> 00:04:48,766
+OK welcome back! We are
+
+72
+00:04:48,766 --> 00:04:52,766
+going to dive right in! So we
+
+73
+00:04:52,766 --> 00:04:56,766
+want to create a new sphere! I'm going to right-click, go down to
+
+74
+00:04:56,766 --> 00:05:00,766
+3D Object again, and Sphere, and as you
+
+75
+00:05:00,766 --> 00:05:04,766
+can see, it's given the name Sphere (1) because all the names have to be unique.
+
+76
+00:05:04,766 --> 00:05:08,766
+I'm going to move this sphere and position it, just slightly
+
+77
+00:05:08,766 --> 00:05:12,766
+underneath but at an offset, so we will get a more interesting collision this way.
+
+78
+00:05:12,766 --> 00:05:16,766
+I'm going to have a look from the front, maybe I'll offset it slightly in this
+
+79
+00:05:16,766 --> 00:05:20,766
+dimension, too. Now, as I said, I want to add a component. As you can
+
+80
+00:05:20,766 --> 00:05:24,766
+see, it still remembers that I had searched for Rigidbody, so I'm going to click that one
+
+81
+00:05:24,766 --> 00:05:28,766
+and add in a Rigidbody component. OK, I'm going to hit play,
+
+82
+00:05:28,766 --> 00:05:32,766
+and there we go, the spheres collide and they start to roll off
+
+83
+00:05:32,766 --> 00:05:36,766
+in different directions. Now, one thing that I think would
+
+84
+00:05:36,766 --> 00:05:40,766
+be interesting to play with here is, perhaps if we increase the Mass
+
+85
+00:05:40,766 --> 00:05:44,766
+of this sphere underneath. So it's going to roll off
+
+86
+00:05:44,766 --> 00:05:48,766
+much less quickly, because it's heavier.
+
+87
+00:05:48,766 --> 00:05:52,766
+So let's hit that play button! There we go, so
+
+88
+00:05:52,766 --> 00:05:56,766
+that sphere underneath has definitely rolled much less. Now, what happens if I
+
+89
+00:05:56,766 --> 00:06:00,766
+invert this? You see, it's very fun! You get to play with physics just right
+
+90
+00:06:00,766 --> 00:06:04,766
+here on your computer, without having to do much work at all!
+
+91
+00:06:04,766 --> 00:06:08,766
+Just tweaking a few parameters. There we go, we've got a heavier sphere.
+
+92
+00:06:08,766 --> 00:06:12,766
+Yep, that is still rolling quite well! OK cool! So that is
+
+93
+00:06:12,766 --> 00:06:16,766
+your introduction to Rigidbody, and well done on getting that
+
+94
+00:06:16,766 --> 00:06:19,666
+done!

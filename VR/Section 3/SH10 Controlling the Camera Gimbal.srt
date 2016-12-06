@@ -1,0 +1,547 @@
+1
+00:00:06,900 --> 00:00:10,900
+Welcome! In this video we are going to be getting our Gimbal to actually
+
+2
+00:00:10,900 --> 00:00:14,900
+update, so that we can look around and actually see
+
+3
+00:00:14,900 --> 00:00:18,900
+the world through non-tilted glasses. And to do this,
+
+4
+00:00:18,900 --> 00:00:22,900
+we are going to be learning a little bit about Global versus Local Rotation,
+
+5
+00:00:22,900 --> 00:00:26,900
+as well as getting access to components in
+
+6
+00:00:26,900 --> 00:00:30,166
+our child objects. See you in the lecture!
+
+7
+00:00:30,166 --> 00:00:34,166
+So in order to be able to change the Transform
+
+8
+00:00:34,166 --> 00:00:38,166
+or the rotation of both this Player, parent,
+
+9
+00:00:38,166 --> 00:00:42,166
+and this Main Camera, child,
+
+10
+00:00:42,166 --> 00:00:46,166
+we're going to need to be able to get hold of a reference
+
+11
+00:00:46,166 --> 00:00:50,166
+to both of these. We need to get hold of the Transform
+
+12
+00:00:50,166 --> 00:00:54,166
+of each of these. Now when
+
+13
+00:00:54,166 --> 00:00:58,166
+we have the script directly on the Camera and the Camera's Transform was over there
+
+14
+00:00:58,166 --> 00:01:02,166
+trying to access. Just a quick recap of how we got hold of that!
+
+15
+00:01:02,166 --> 00:01:06,166
+If we go and look at our CameraRotation script, you'll see that we
+
+16
+00:01:06,166 --> 00:01:10,166
+just used transform.rotation and that was enough.
+
+17
+00:01:10,166 --> 00:01:14,166
+Now, the
+
+18
+00:01:14,166 --> 00:01:18,166
+fortunate thing is that we can get hold of the
+
+19
+00:01:18,166 --> 00:01:22,166
+child object fairly easily in Unity. It's hard
+
+20
+00:01:22,166 --> 00:01:26,166
+to get hold of parents, but getting hold of child objects is very straight forward. So
+
+21
+00:01:26,166 --> 00:01:30,166
+what that means is, we need to move our CameraRotation script
+
+22
+00:01:30,166 --> 00:01:34,166
+from being on our Camera, which is the child, to being on the parent so that it can
+
+23
+00:01:34,166 --> 00:01:38,166
+easily access both the parent and the child. So to do that
+
+24
+00:01:38,166 --> 00:01:42,166
+we scroll down in the Inspector to our CameraRotation script, and
+
+25
+00:01:42,166 --> 00:01:46,166
+we click on the cog on the right-hand side, and hit Remove
+
+26
+00:01:46,166 --> 00:01:50,166
+Component. OK, and then we go into Assets and
+
+27
+00:01:50,166 --> 00:01:54,166
+Scripts and then choose our CameraRotation script and drag it
+
+28
+00:01:54,166 --> 00:01:58,166
+onto the Player, so it's on the parent now.
+
+29
+00:01:58,166 --> 00:02:02,166
+Now let's go into our script and see what is going to
+
+30
+00:02:02,166 --> 00:02:06,166
+happen here! I'm going to remove entirely...
+
+31
+00:02:06,166 --> 00:02:10,166
+Well actually, I'll leave the code here, but just to show you,
+
+32
+00:02:10,166 --> 00:02:14,166
+we are going to have to get hold of our different transforms .
+
+33
+00:02:14,166 --> 00:02:18,166
+We will do a print() in here. So
+
+34
+00:02:18,166 --> 00:02:22,166
+first off, I am going to print the ("Parent transform")
+
+35
+00:02:22,166 --> 00:02:26,166
+and I'm going to do this on a new line. I'm going to do a print
+
+36
+00:02:26,166 --> 00:02:30,166
+just simply the (transform), so that should
+
+37
+00:02:30,166 --> 00:02:34,166
+get hold of our parent. Then, I'm going to print the
+
+38
+00:02:34,166 --> 00:02:38,166
+("Camera transform") and show you
+
+39
+00:02:38,166 --> 00:02:42,166
+how we get hold of our camera transform. So the camera transform
+
+40
+00:02:42,166 --> 00:02:46,166
+is done by doing Camera camera =
+
+41
+00:02:46,166 --> 00:02:50,166
+to, and we then do, it's very similar to the GetComponent but GetComponent
+
+42
+00:02:50,166 --> 00:02:54,166
+only does a GetComponent on the current object. What we actually want
+
+43
+00:02:54,166 --> 00:02:58,166
+is GetComponentInChildren, because that will get hold of
+
+44
+00:02:58,166 --> 00:03:02,166
+the Camera component in any of our children,
+
+45
+00:03:02,166 --> 00:03:06,166
+any of the children of this game object. So
+
+46
+00:03:06,166 --> 00:03:10,166
+then, we can do a print, and funnily enough it's (camera.transform)
+
+47
+00:03:10,166 --> 00:03:14,166
+is what we're looking for. That gets us the field
+
+48
+00:03:14,166 --> 00:03:18,166
+that is a member of the camera component, which is the transform on
+
+49
+00:03:18,166 --> 00:03:22,166
+that game object. So let's just go ahead and play this
+
+50
+00:03:22,166 --> 00:03:26,166
+to make sure we're understanding everything correctly.
+
+51
+00:03:26,166 --> 00:03:30,166
+Now, I'm going to Minimize by right-clicking on
+
+52
+00:03:30,166 --> 00:03:34,166
+a tab and unchecking the Maximize. That
+
+53
+00:03:34,166 --> 00:03:38,166
+means I can then go to the Console and I can see that we've
+
+54
+00:03:38,166 --> 00:03:42,166
+got Parent transform is Player Transform, and Camera
+
+55
+00:03:42,166 --> 00:03:46,166
+transform is Main Camera Transform. So we are definitely getting hold
+
+56
+00:03:46,166 --> 00:03:50,166
+of the correct transforms, by using these
+
+57
+00:03:50,166 --> 00:03:54,166
+two methods I've shown you in the Start () method here.
+
+58
+00:03:55,033 --> 00:03:59,033
+So time for a challenge! I would like you to have a go at
+
+59
+00:03:59,033 --> 00:04:03,033
+updating the rotations, and by that I mean the rotation of both
+
+60
+00:04:03,033 --> 00:04:07,033
+of the transforms. So you'll need to split your rotation update into
+
+61
+00:04:07,033 --> 00:04:11,033
+two Quaternions, one for going in the X direction, one for
+
+62
+00:04:11,033 --> 00:04:15,033
+going in the Y direction. Then, I'd like you apply one
+
+63
+00:04:15,033 --> 00:04:19,033
+of these Quaternions to our transform.rotation.
+
+64
+00:04:19,033 --> 00:04:23,033
+So that's the parent transform. Then, the other one I want you to apply
+
+65
+00:04:23,033 --> 00:04:27,033
+to camera.transform.rotation, so the child's rotation.
+
+66
+00:04:27,033 --> 00:04:31,033
+And then, what do you expect the behavior to be?
+
+67
+00:04:31,033 --> 00:04:35,033
+And is that what you get? Do you get the expected behavior?
+
+68
+00:04:35,033 --> 00:04:39,033
+If not, what if
+
+69
+00:04:39,033 --> 00:04:43,033
+you use transform.localRotation for both? Does that then
+
+70
+00:04:43,033 --> 00:04:47,033
+get you the expected behavior? And
+
+71
+00:04:47,033 --> 00:04:51,033
+can you explain why these two might give different results? Just have a go in
+
+72
+00:04:51,033 --> 00:04:55,033
+the discussions, see if you can have a go. It doesn't matter if you get it
+
+73
+00:04:55,033 --> 00:04:59,033
+wrong. The important thing is just to have a go and it really cements these
+
+74
+00:04:59,033 --> 00:05:03,033
+concepts in your head, when they finally do get explained and everything settles in place. OK
+
+75
+00:05:03,033 --> 00:05:07,033
+so pause the video and have a go at this challenge!
+
+76
+00:05:07,033 --> 00:05:11,033
+OK welcome back! We are going to attempt this
+
+77
+00:05:11,033 --> 00:05:15,033
+challenge now, in this video! So the first
+
+78
+00:05:15,033 --> 00:05:19,033
+thing I said was to split this Quaternion. So what I'm actually going to
+
+79
+00:05:19,033 --> 00:05:23,033
+do is I'm going to take this camera code and stick it
+
+80
+00:05:23,033 --> 00:05:27,033
+down here in the Update (), because I'm going to need to get hold of the camera.transform
+
+81
+00:05:27,033 --> 00:05:31,033
+.rotation. So let's have a go at that! camera
+
+82
+00:05:31,033 --> 00:05:35,033
+.transform.rotation. You can see it's completing with me, which is very
+
+83
+00:05:35,033 --> 00:05:39,033
+very helpful. And then, I'm going to copy this Quaternion over
+
+84
+00:05:39,033 --> 00:05:43,033
+but, as I said, I want to split.
+
+85
+00:05:43,033 --> 00:05:47,033
+So if you remember, I want the child to rotate with the
+
+86
+00:05:47,033 --> 00:05:51,033
+Y, so that means I'm going to set the mouseX to 0.
+
+87
+00:05:51,033 --> 00:05:55,033
+And I want the body, the parent, to
+
+88
+00:05:55,033 --> 00:05:59,033
+rotate with the X, so I'm going to set the mouseY to 0.
+
+89
+00:05:59,033 --> 00:06:03,033
+So that's effectively split our rotation into two different Quaternions.
+
+90
+00:06:03,033 --> 00:06:07,033
+And then, here I'm going to multiply by, you guessed
+
+91
+00:06:07,033 --> 00:06:11,033
+it, camera.transform.rotation. Make sure it's not transform.rotation
+
+92
+00:06:11,033 --> 00:06:15,033
+or it will be constantly trying to reset the rotation and that won't look good
+
+93
+00:06:15,033 --> 00:06:19,033
+at all. But if we do it like this, that's
+
+94
+00:06:19,033 --> 00:06:23,033
+the behavior we would like. I can remove these prints now, because we need
+
+95
+00:06:23,033 --> 00:06:27,033
+to make sure we always cleanup after ourselves, when we've done some debugging
+
+96
+00:06:27,033 --> 00:06:31,033
+information like that. Now, if we go back to Unity
+
+97
+00:06:31,033 --> 00:06:35,033
+and pause and play and see if
+
+98
+00:06:35,033 --> 00:06:39,033
+there's now the expected behavior. So I turn... Ooh, I'm still getting my tilting,
+
+99
+00:06:39,033 --> 00:06:43,033
+so what is happening there? Well I suggested
+
+100
+00:06:43,033 --> 00:06:47,033
+that you try replacing rotation with local
+
+101
+00:06:47,033 --> 00:06:51,033
+rotation. Now, because it's in a couple of places, I'm going to teach you a
+
+102
+00:06:51,033 --> 00:06:55,033
+quick shortcut. What we want to do is Command and F.
+
+103
+00:06:55,033 --> 00:06:59,033
+In fact, we want to do Command and H in VisualStudio,
+
+104
+00:06:59,033 --> 00:07:03,033
+and that's going to get us a replacement. So I'm going to
+
+105
+00:07:03,033 --> 00:07:07,033
+make sure it's matching case, otherwise, you saw it was
+
+106
+00:07:07,033 --> 00:07:11,033
+highlighting CameraRotation which is not what I wanted to replace.
+
+107
+00:07:11,033 --> 00:07:15,033
+And then, I'm going to replace
+
+108
+00:07:15,033 --> 00:07:19,033
+some of these instances, not all of them, just these ones. So maybe I'll search for a
+
+109
+00:07:19,033 --> 00:07:23,033
+.rotate, and I'm going to replace .rotate with
+
+110
+00:07:23,033 --> 00:07:27,033
+.localRotation. Make sure I get my capital
+
+111
+00:07:27,033 --> 00:07:31,033
+letters right. It's very important, because capital letters
+
+112
+00:07:31,033 --> 00:07:35,033
+do matter, it is case sensitive. And I should be
+
+113
+00:07:35,033 --> 00:07:39,033
+able to just do a replace, perhaps by hitting Enter.
+
+114
+00:07:39,033 --> 00:07:43,033
+OK, I think I'll have to do that multiple times.
+
+115
+00:07:43,033 --> 00:07:47,033
+There we go, and we have sorted that out!
+
+116
+00:07:47,033 --> 00:07:51,033
+Now I'll hit save on this file, go back into Unity,
+
+117
+00:07:51,033 --> 00:07:55,033
+and hit play! Let's see if
+
+118
+00:07:55,033 --> 00:07:59,033
+we're now getting the behavior we want. Yes perfect!
+
+119
+00:07:59,033 --> 00:08:03,033
+This is exactly what we want it to do, no more of this funny tilting business!
+
+120
+00:08:03,033 --> 00:08:07,033
+So what was going on there, between the local and
+
+121
+00:08:07,033 --> 00:08:11,033
+global rotation, was that in the global rotation,
+
+122
+00:08:11,033 --> 00:08:15,033
+it's saying once I've applied the parent's rotation, what
+
+123
+00:08:15,033 --> 00:08:19,033
+is the rotation of the Main Camera. So we can actually see
+
+124
+00:08:19,033 --> 00:08:23,033
+this by toggling this Global and Local button,
+
+125
+00:08:23,033 --> 00:08:27,033
+in our Editor, in the top to the left of the play buttons.
+
+126
+00:08:27,033 --> 00:08:31,033
+So what we see here is, if I rotate my
+
+127
+00:08:31,033 --> 00:08:35,033
+Player, all the way around like this, then I look at the Main Camera.
+
+128
+00:08:35,033 --> 00:08:39,033
+I have two options, I can see the Global rotation which sets up
+
+129
+00:08:39,033 --> 00:08:43,033
+my axes looking like this, or if I've toggled
+
+130
+00:08:43,033 --> 00:08:47,033
+to the Local rotation, you see now my axis is in the right place for rotating.
+
+131
+00:08:47,033 --> 00:08:51,033
+Because otherwise, if I was in the Global rotation, then
+
+132
+00:08:51,033 --> 00:08:55,033
+doing this rotation essentially tilts, which is the exact behavior
+
+133
+00:08:55,033 --> 00:08:59,033
+we were actually seeing it doing. So we always want to be operating on these
+
+134
+00:08:59,033 --> 00:09:03,033
+local rotations, when we're talking about our Gimbal. So
+
+135
+00:09:03,033 --> 00:09:07,033
+congratulations, you have successfully got our Gimbal working!
+
+136
+00:09:07,033 --> 00:09:11,033
+I'm just going to undo these rotations to put it back to how it should be.
+
+137
+00:09:11,033 --> 00:09:15,033
+And I'll see you in the next video!

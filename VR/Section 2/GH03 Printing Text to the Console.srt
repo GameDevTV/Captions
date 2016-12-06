@@ -1,0 +1,591 @@
+1
+00:00:07,800 --> 00:00:11,800
+Welcome! In this lecture we are going to be looking at what
+
+2
+00:00:11,800 --> 00:00:15,800
+is going on in this Unity Editor, it would seem quite confusing
+
+3
+00:00:15,800 --> 00:00:19,800
+to somebody just looking at it for the first time. And we're also going to be using
+
+4
+00:00:19,800 --> 00:00:23,800
+this thing called the Console and being able to print
+
+5
+00:00:23,800 --> 00:00:27,800
+these messages using code, so we're going to actually start programming in
+
+6
+00:00:27,800 --> 00:00:29,100
+this lecture.
+
+7
+00:00:29,100 --> 00:00:33,100
+So the first thing we need to do is create a new
+
+8
+00:00:33,100 --> 00:00:37,100
+Unity project, so I'm going to fire up the Unity Editor.
+
+9
+00:00:37,100 --> 00:00:41,100
+And we want to create a New
+
+10
+00:00:41,100 --> 00:00:45,100
+Project, call it GoHome,
+
+11
+00:00:45,100 --> 00:00:49,100
+and you can put this in any location that makes sense for
+
+12
+00:00:49,100 --> 00:00:53,100
+you, and it doesn't matter whether it's 3D or 2D at this stage but we'll
+
+13
+00:00:53,100 --> 00:00:57,100
+keep it on 3D which is the default. So let's create that project
+
+14
+00:00:57,100 --> 00:01:01,100
+and see what Unity creates for us. It will
+
+15
+00:01:01,100 --> 00:01:05,100
+do a little bit of generating and different things, and when it's finished with that it
+
+16
+00:01:05,100 --> 00:01:09,100
+will pop up and look something like this. So
+
+17
+00:01:09,100 --> 00:01:13,100
+you can resize these different panes, as you can see I'm doing
+
+18
+00:01:13,100 --> 00:01:17,100
+here, just to give a different amount of space. And
+
+19
+00:01:17,100 --> 00:01:21,100
+very roughly what we have here is the 3D Viewport
+
+20
+00:01:21,100 --> 00:01:25,100
+in the middle, a Hierarchy to the left, which tells us what
+
+21
+00:01:25,100 --> 00:01:29,100
+objects are in this 3D view. We have an Inspector to
+
+22
+00:01:29,100 --> 00:01:33,100
+the right, we won't worry about what that is, and we have a couple of tabs down
+
+23
+00:01:33,100 --> 00:01:37,100
+here. We have a Project pane and a Console pane.
+
+24
+00:01:37,100 --> 00:01:41,100
+Now the one we're interested in is the Console, so let's click on the Console tab
+
+25
+00:01:41,100 --> 00:01:45,100
+and have a look at what we've got here. OK, so there's some
+
+26
+00:01:45,100 --> 00:01:49,100
+buttons here for clearing and doing other things with this Console,
+
+27
+00:01:49,100 --> 00:01:53,100
+but until there's some text on the Console, it's not very obvious what
+
+28
+00:01:53,100 --> 00:01:57,100
+this is actually for. So I'm going to leave that
+
+29
+00:01:57,100 --> 00:02:01,100
+for now, and we're going to have a look in the Hierarchy and in
+
+30
+00:02:01,100 --> 00:02:05,100
+our Project pane. So our Project pane is where all the files are stored,
+
+31
+00:02:05,100 --> 00:02:09,100
+and we need to start off by creating what Unity calls a scene. A
+
+32
+00:02:09,100 --> 00:02:13,100
+scene is a collection of these objects at the top here, and it
+
+33
+00:02:13,100 --> 00:02:17,100
+basically describes something like a level in our game, and in our case
+
+34
+00:02:17,100 --> 00:02:21,100
+we only have one level. So I'm going to right click in the Project pane,
+
+35
+00:02:21,100 --> 00:02:25,100
+in the Assets folder, so you can see here I've got the
+
+36
+00:02:25,100 --> 00:02:29,100
+Assets folder selected on the left and that's why I'm right clicking in the
+
+37
+00:02:29,100 --> 00:02:33,100
+right. Then, I go to Create and then I select Scene
+
+38
+00:02:33,100 --> 00:02:37,100
+down here. So I create a scene, and this scene is going to be
+
+39
+00:02:37,100 --> 00:02:41,100
+called Main. So you can see, I can create the scene and rename it instantly.
+
+40
+00:02:41,100 --> 00:02:45,100
+Now, if I double-click that, I can see,
+
+41
+00:02:45,100 --> 00:02:49,100
+up in the top window here, that I've created a scene called
+
+42
+00:02:49,100 --> 00:02:53,100
+Main.unity. That's what I'm editing at the moment. So the Unity Editor
+
+43
+00:02:53,100 --> 00:02:57,100
+only edits one scene at a time, and that is important to remember.
+
+44
+00:02:57,100 --> 00:03:01,100
+Now, in the Hierarchy we have a list of objects. We have a Camera and a
+
+45
+00:03:01,100 --> 00:03:05,100
+Directional Light, but none of this is actually what we want, so I'm just going to right click
+
+46
+00:03:05,100 --> 00:03:09,100
+both of these and just delete them. And we're going to want to introduce a
+
+47
+00:03:09,100 --> 00:03:13,100
+new object. So to do that, you've got two objects, you can right click the...
+
+48
+00:03:13,100 --> 00:03:17,100
+You can click on the Game Object menu at the top of the page, or you can right click
+
+49
+00:03:17,100 --> 00:03:21,100
+in the Hierarchy, go down to Create Empty. We want to
+
+50
+00:03:21,100 --> 00:03:25,100
+start with an empty object. And I'm just going to call this game
+
+51
+00:03:25,100 --> 00:03:29,100
+object, if you go over to the right there is the Inspector,
+
+52
+00:03:29,100 --> 00:03:33,100
+and at the top of the Inspector is the name, so you can just change its name. I'm
+
+53
+00:03:33,100 --> 00:03:37,100
+going to call it GoHomeGame, and
+
+54
+00:03:37,100 --> 00:03:41,100
+then just hit Enter to apply that rename. Now,
+
+55
+00:03:41,100 --> 00:03:45,100
+the reason we have to create a new object in our Hierarchy is that Unity can't
+
+56
+00:03:45,100 --> 00:03:49,100
+run scripts unless they're attached to a game, and we want
+
+57
+00:03:49,100 --> 00:03:53,100
+to create a script, we want to start programming. So how do we
+
+58
+00:03:53,100 --> 00:03:57,100
+create that first script of ours? Well again, in the Assets folder,
+
+59
+00:03:57,100 --> 00:04:01,100
+you can right click, and we're going to create a new Asset, which this time is going to
+
+60
+00:04:01,100 --> 00:04:05,100
+be a C# script. So let's right click, Create,
+
+61
+00:04:05,100 --> 00:04:09,100
+C# Script, that's the one I have selected here.
+
+62
+00:04:09,100 --> 00:04:13,100
+And I'm going to also call this one GoHomeGame.
+
+63
+00:04:13,100 --> 00:04:17,100
+Now, as I said, we need to attach
+
+64
+00:04:17,100 --> 00:04:21,100
+a script to a game object. How do we do that? Very simply,
+
+65
+00:04:21,100 --> 00:04:25,100
+we select the script in the Assets folder and we drag it
+
+66
+00:04:25,100 --> 00:04:29,100
+onto the game object in the Hierarchy, like so.
+
+67
+00:04:29,100 --> 00:04:33,100
+Now I can check that that's worked by selecting the game object in the Hierarchy
+
+68
+00:04:33,100 --> 00:04:37,100
+and then having a look in the Inspector. The Inspector tells us various properties about the
+
+69
+00:04:37,100 --> 00:04:41,100
+game object. We don't need to worry about Transform, but the important one is
+
+70
+00:04:41,100 --> 00:04:45,100
+below Transform, where it says Go Home (Script), Go Home Game
+
+71
+00:04:45,100 --> 00:04:49,100
+(Script). That tells us that the script has been attached to the game object and it
+
+72
+00:04:49,100 --> 00:04:53,100
+will be run, when we run our game. OK, so there's a
+
+73
+00:04:53,100 --> 00:04:57,100
+script here, but what does it contain? If we double click it,
+
+74
+00:04:57,100 --> 00:05:01,100
+on Windows this will open up in VisualStudio, on Mac it will open up
+
+75
+00:05:01,100 --> 00:05:05,100
+in MonoDevelop. And it's pretty much the same,
+
+76
+00:05:05,100 --> 00:05:09,100
+there will be some differences between the UI, but
+
+77
+00:05:09,100 --> 00:05:13,100
+you should be able to follow along in both cases.
+
+78
+00:05:13,100 --> 00:05:17,100
+OK, so this is VisualStudio and it's basically just for
+
+79
+00:05:17,100 --> 00:05:21,100
+editing our code. And what is our code? Well it is
+
+80
+00:05:21,100 --> 00:05:25,100
+things like this. We don't have to worry about what all of this
+
+81
+00:05:25,100 --> 00:05:29,100
+means right now, we are just going to be adding some code
+
+82
+00:05:29,100 --> 00:05:33,100
+into this bit underneath Start (), between these two brackets here.
+
+83
+00:05:33,100 --> 00:05:37,100
+You see these curly braces? We're going to be adding code only between these two
+
+84
+00:05:37,100 --> 00:05:41,100
+braces, for now. Now the code I want to add
+
+85
+00:05:41,100 --> 00:05:45,100
+is the following. I'll hit Tab,
+
+86
+00:05:45,100 --> 00:05:49,100
+so that makes this indented like so, and
+
+87
+00:05:49,100 --> 00:05:53,100
+I'm going to write code print, brackets,
+
+88
+00:05:53,100 --> 00:05:57,100
+and then, I'm going to print a message ("Hello world"),
+
+89
+00:05:57,100 --> 00:06:01,100
+because I'm traditional and that's what we always like to print in our first programs.
+
+90
+00:06:01,100 --> 00:06:05,100
+Now you can see there's a little red squiggly line, and if I hover
+
+91
+00:06:05,100 --> 00:06:09,100
+over it, it says that it expects a semicolon. OK,
+
+92
+00:06:09,100 --> 00:06:13,100
+so I will write that and then, I'll just save my file command
+
+93
+00:06:13,100 --> 00:06:17,100
+or Control S, depending which platform you're on. So there's no
+
+94
+00:06:17,100 --> 00:06:21,100
+red squiggly line, so there's nothing misspelled nothing wrong in terms of
+
+95
+00:06:21,100 --> 00:06:25,100
+the code here. Now what was it that we have just written here? It's a
+
+96
+00:06:25,100 --> 00:06:29,100
+bit interesting, we have written what is called a print statement
+
+97
+00:06:29,100 --> 00:06:33,100
+or a call to a print function. It's
+
+98
+00:06:33,100 --> 00:06:37,100
+very much like a function you'd have in math, like sign or co-sign,
+
+99
+00:06:37,100 --> 00:06:41,100
+but this function has the effect of writing stuff to the Console.
+
+100
+00:06:41,100 --> 00:06:45,100
+So that is the name of the function
+
+101
+00:06:45,100 --> 00:06:49,100
+print, and then, in brackets is what
+
+102
+00:06:49,100 --> 00:06:53,100
+we'd call the argument to our function, so it is the
+
+103
+00:06:53,100 --> 00:06:57,100
+thing that we want to print. And because it's text, we have to put
+
+104
+00:06:57,100 --> 00:07:01,100
+quotes around it, so the program can tell the difference between text and just
+
+105
+00:07:01,100 --> 00:07:05,100
+other parts of the program, the other names in the program like print,
+
+106
+00:07:05,100 --> 00:07:09,100
+for example. And then, in C# everything,
+
+107
+00:07:09,100 --> 00:07:13,100
+every line, has to end with a semicolon, which is why it was complaining earlier.
+
+108
+00:07:13,100 --> 00:07:17,100
+So that's what we have here. Now if we go back over
+
+109
+00:07:17,100 --> 00:07:21,100
+to Unity and if we hit our Play Button...
+
+110
+00:07:21,100 --> 00:07:25,100
+And we need to make sure it's not maximizing on
+
+111
+00:07:25,100 --> 00:07:29,100
+play, so I'm going to stop it again by hitting the Play Button again.
+
+112
+00:07:29,100 --> 00:07:33,100
+Now, if we hit play, it shouldn't maximize. That's
+
+113
+00:07:33,100 --> 00:07:37,100
+correct, it says the "Scene is missing a fullscreen camera". That is fine because we're only interested in the
+
+114
+00:07:37,100 --> 00:07:41,100
+output in the Console, so if we click on the Console there we go,
+
+115
+00:07:41,100 --> 00:07:45,000
+we have our message that we printed from our script!
+
+116
+00:07:45,000 --> 00:07:49,000
+So it's time for a quick challenge! I'd like you to write your own print
+
+117
+00:07:49,000 --> 00:07:53,000
+statement. I'd like you to introduce the user to the game, some text
+
+118
+00:07:53,000 --> 00:07:57,000
+basically saying, hello welcome to our game!
+
+119
+00:07:57,000 --> 00:08:01,000
+And then, I would like you to try something a little bit more difficult, which is how do you write
+
+120
+00:08:01,000 --> 00:08:05,000
+multiple lines into the Console? See if you can figure that out from what I've
+
+121
+00:08:05,000 --> 00:08:09,000
+told you, so far, and then, share a screenshot in the discussions,
+
+122
+00:08:09,000 --> 00:08:13,000
+that tells you basically, shows everyone
+
+123
+00:08:13,000 --> 00:08:17,000
+what you've been able to do, what you've been able to print out. Don't worry about sharing
+
+124
+00:08:17,000 --> 00:08:21,000
+something or a question, that's fine, that's what the discussions are there for.
+
+125
+00:08:21,000 --> 00:08:25,000
+So pause the video, go have a go at this!
+
+126
+00:08:25,000 --> 00:08:29,000
+OK
+
+127
+00:08:29,000 --> 00:08:33,000
+welcome back! I hope you've all managed to have a go! It doesn't matter if you've got it right,
+
+128
+00:08:33,000 --> 00:08:35,166
+we will be going through the solution right now.
+
+129
+00:08:35,166 --> 00:08:39,166
+So the first part of the challenge was to print a
+
+130
+00:08:39,166 --> 00:08:43,166
+welcome message. So I'm going to say
+
+131
+00:08:43,166 --> 00:08:47,166
+("Welcome,
+
+132
+00:08:47,166 --> 00:08:51,166
+something like that!
+
+133
+00:08:51,166 --> 00:08:55,166
+("Welcome to Go Home!"). And then, we want to print a second line, so
+
+134
+00:08:55,166 --> 00:08:59,166
+what we're going to do is copy this entire line and
+
+135
+00:08:59,166 --> 00:09:03,166
+add a new line, using the Return key, and printing
+
+136
+00:09:03,166 --> 00:09:07,166
+adding a second print, inside Start (). So print
+
+137
+00:09:07,166 --> 00:09:11,166
+and then, I'll put some different text on this line,
+
+138
+00:09:11,166 --> 00:09:15,166
+saying something along the lines of...
+
+139
+00:09:15,166 --> 00:09:19,166
+[Typing Sounds]
+
+140
+00:09:19,166 --> 00:09:23,166
+("A game
+
+141
+00:09:23,166 --> 00:09:27,166
+where you need to find your way home."). That sounds about right, I'm going to delete this
+
+142
+00:09:27,166 --> 00:09:31,166
+extra line, just for prettiness. And you'll notice it's
+
+143
+00:09:31,166 --> 00:09:35,166
+very similar, we've got two prints, and hopefully, that will
+
+144
+00:09:35,166 --> 00:09:39,166
+create two lines for us. So we have to pause the game, stop the game, in
+
+145
+00:09:39,166 --> 00:09:43,166
+fact,using,  by hitting the Play Button, and then, hit the play again
+
+146
+00:09:43,166 --> 00:09:47,166
+to start the game again. And as you can see, now we've have two lines. We've got "Welcome to
+
+147
+00:09:47,166 --> 00:09:51,166
+Go Home" and "A game where you need to find your way home".
+
+148
+00:09:51,166 --> 00:09:55,166
+Perfect, challenge completed! I look forward to seeing you in the next lecture!

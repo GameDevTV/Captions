@@ -1,0 +1,483 @@
+1
+00:00:06,766 --> 00:00:10,766
+Welcome! In this lecture we are going to be looking at how we can
+
+2
+00:00:10,766 --> 00:00:14,766
+start to programmatically keep score! If you can notice in the bottom left-
+
+3
+00:00:14,766 --> 00:00:18,766
+hand corner, I've got a score coming up every time I hit this box,
+
+4
+00:00:18,766 --> 00:00:22,766
+and we're going to be dealing with something called collisions and collision
+
+5
+00:00:22,766 --> 00:00:26,366
+components. See you in the lecture!
+
+6
+00:00:26,366 --> 00:00:30,366
+So our game is quite fun, as it is! You can shoot balls around
+
+7
+00:00:30,366 --> 00:00:34,366
+and watch them interact with each other and shoot many in all
+
+8
+00:00:34,366 --> 00:00:38,366
+sorts of directions, but there really is no scope or goal to this
+
+9
+00:00:38,366 --> 00:00:42,366
+game just yet. There's no way we can target anything, so
+
+10
+00:00:42,366 --> 00:00:46,366
+in this lecture we're going to have a look at that, and we're going
+
+11
+00:00:46,366 --> 00:00:50,366
+to do this using a concept called a collider.
+
+12
+00:00:50,366 --> 00:00:54,366
+So you may have noticed, if we look at our BasketballPrefab,
+
+13
+00:00:54,366 --> 00:00:58,366
+that we have a Sphere Collider on here. Now the Collider
+
+14
+00:00:58,366 --> 00:01:02,366
+is responsible for, as it may sound, ensuring that collisions happen
+
+15
+00:01:02,366 --> 00:01:06,366
+and that we, for example, the reason we can hit the ground
+
+16
+00:01:06,366 --> 00:01:10,366
+is because of this collider. So if I uncheck that, let's just check
+
+17
+00:01:10,366 --> 00:01:14,366
+the hypothesis. If I hit play, now you see it goes straight through the
+
+18
+00:01:14,366 --> 00:01:18,366
+ground, because there is no collision going on with the ground,
+
+19
+00:01:18,366 --> 00:01:22,366
+and you see the Cube does indeed have this Box Collider
+
+20
+00:01:22,366 --> 00:01:26,366
+on it. So, and while we're at it, let's not call this
+
+21
+00:01:26,366 --> 00:01:30,366
+Cube but actually change the name in the Inspector to Ground.
+
+22
+00:01:30,366 --> 00:01:34,366
+There we go! So just keeping things nice and
+
+23
+00:01:34,366 --> 00:01:38,366
+tight, in terms of the name.
+
+24
+00:01:38,366 --> 00:01:42,366
+Great, so we have the Sphere Collider! What we want is a
+
+25
+00:01:42,366 --> 00:01:46,366
+goal, so let me just zoom in. So if you double-click on something in the Hierarchy,
+
+26
+00:01:46,366 --> 00:01:50,366
+it takes it to the center of your viewpoint, and I'm going to take
+
+27
+00:01:50,366 --> 00:01:54,366
+a little look from the top. Now, what I want to
+
+28
+00:01:54,366 --> 00:01:58,366
+do is add in a Cube that we can aim at.
+
+29
+00:01:58,366 --> 00:02:02,366
+So I'm going to create a Cube, I'm just going to position it in front of
+
+30
+00:02:02,366 --> 00:02:06,366
+our Player. So let's just bring that up
+
+31
+00:02:06,366 --> 00:02:10,366
+and let's hit
+
+32
+00:02:10,366 --> 00:02:14,366
+play and check where it is in the viewport. OK, that
+
+33
+00:02:14,366 --> 00:02:18,366
+is doable. Now, you notice that this box
+
+34
+00:02:18,366 --> 00:02:22,366
+already has a collider on it, which is why we can bounce these balls
+
+35
+00:02:22,366 --> 00:02:26,366
+off of it, like so. So how do we make
+
+36
+00:02:26,366 --> 00:02:30,366
+use of this in code? How do we figure out what this
+
+37
+00:02:30,366 --> 00:02:34,366
+collider is doing? So let's start with a script, and we'll
+
+38
+00:02:34,366 --> 00:02:38,366
+call it a ScoreKeeper script. So
+
+39
+00:02:38,366 --> 00:02:42,366
+I'm going to right-click, Create, C# Script, and I'll call it
+
+40
+00:02:42,366 --> 00:02:46,366
+ScoreKeeper.
+
+41
+00:02:46,366 --> 00:02:50,366
+And we will drag this onto our Cube
+
+42
+00:02:50,366 --> 00:02:54,366
+and open the script.
+
+43
+00:02:54,366 --> 00:02:58,366
+That's OK, I'll go back to that later. I'm going to drag it onto the
+
+44
+00:02:58,366 --> 00:03:02,366
+Cube, and while I'm at it, I'm going to call the Cube something meaningful, I'm going to call it
+
+45
+00:03:02,366 --> 00:03:06,366
+the Target. OK,
+
+46
+00:03:06,366 --> 00:03:10,366
+notice I tend to spell all my objects, beginning with
+
+47
+00:03:10,366 --> 00:03:14,366
+a capital letter. I just like to keep that
+
+48
+00:03:14,366 --> 00:03:18,366
+convention but you might choose to do differently. It basically follows the
+
+49
+00:03:18,366 --> 00:03:22,366
+convention that Unity already uses, when it was adding in a directional light, for example. So
+
+50
+00:03:22,366 --> 00:03:26,366
+using capital case, and spaces are
+
+51
+00:03:26,366 --> 00:03:30,366
+allowed, obviously, in those names. So we'll go back to VisualStudio
+
+52
+00:03:30,366 --> 00:03:34,366
+and we don't want either of these two methods,
+
+53
+00:03:34,366 --> 00:03:38,366
+for now. We'll leave the Start () in, maybe for later, and the Update (), so just for
+
+54
+00:03:38,366 --> 00:03:42,366
+reference but we don't actually need them. What we do need is a
+
+55
+00:03:42,366 --> 00:03:46,366
+void method with OnCollision
+
+56
+00:03:46,366 --> 00:03:50,366
+Enter(), as the name, and as an
+
+57
+00:03:50,366 --> 00:03:54,366
+argument, it needs to take a Collision.
+
+58
+00:03:54,366 --> 00:03:58,366
+Now, we haven't seen arguments before,
+
+59
+00:03:58,366 --> 00:04:02,366
+but an argument is essentially like a variable that gets passed in
+
+60
+00:04:02,366 --> 00:04:06,366
+to a function. So when we're calling but we haven't seen
+
+61
+00:04:06,366 --> 00:04:10,366
+how we define them, and this is how we define it. We're saying that
+
+62
+00:04:10,366 --> 00:04:14,366
+OnCollisionEnter takes a parameter called
+
+63
+00:04:14,366 --> 00:04:18,366
+collision of type Collision.
+
+64
+00:04:18,366 --> 00:04:22,366
+So let's just print() out a log message,
+
+65
+00:04:22,366 --> 00:04:26,366
+when this happens, or say ("Ball hits
+
+66
+00:04:26,366 --> 00:04:30,366
+target!"). And
+
+67
+00:04:30,366 --> 00:04:34,366
+so we'll just check that the script is on the Target!
+
+68
+00:04:34,366 --> 00:04:38,366
+It is! And let's hit play and see whether that log message gets printed
+
+69
+00:04:38,366 --> 00:04:42,366
+out! So let's just
+
+70
+00:04:42,366 --> 00:04:46,366
+minimize the window, go to the Console,
+
+71
+00:04:46,366 --> 00:04:50,366
+and indeed, we're not getting what we would expect.
+
+72
+00:04:50,366 --> 00:04:54,366
+So I'm just going to check in Google that we
+
+73
+00:04:54,366 --> 00:04:58,366
+have the right signature, because sometimes even I forget,
+
+74
+00:04:58,366 --> 00:05:02,366
+and that is the way that you should be going about things, too.
+
+75
+00:05:02,366 --> 00:05:06,366
+So it does seem to be correcting
+
+76
+00:05:06,366 --> 00:05:10,366
+the way I have spelled this.
+
+77
+00:05:10,366 --> 00:05:14,366
+So it is quite possible that I
+
+78
+00:05:14,366 --> 00:05:18,366
+simply miss-spelled, but let's check what needs to be passed in.
+
+79
+00:05:18,366 --> 00:05:22,366
+So indeed, it's just this collision. So we can just copy and
+
+80
+00:05:22,366 --> 00:05:26,366
+paste it from here. That will make sure that we don't have any
+
+81
+00:05:26,366 --> 00:05:30,366
+kind of ambiguity about whether we spelled it correctly.
+
+82
+00:05:30,366 --> 00:05:34,366
+OK, I was simply missing an I somewhere, it seems, which is
+
+83
+00:05:34,366 --> 00:05:38,366
+a bit silly. There you go, you've seen my terrible spelling,
+
+84
+00:05:38,366 --> 00:05:42,366
+and you can all laugh at me! So we are going to try that
+
+85
+00:05:42,366 --> 00:05:46,366
+again, [Laughs] and hopefully this time without spelling errors. But it just goes
+
+86
+00:05:46,366 --> 00:05:50,366
+to show how important spelling is. OK there we go, we can see
+
+87
+00:05:50,366 --> 00:05:54,366
+in the bottom left-hand corner, that last log message, and that is that the ball
+
+88
+00:05:54,366 --> 00:05:58,366
+has indeed hit the target!
+
+89
+00:05:59,666 --> 00:06:03,666
+So once again, it is time for your challenge! I would like you to
+
+90
+00:06:03,666 --> 00:06:07,666
+keep the score, and I know it's a bit silly with just one
+
+91
+00:06:07,666 --> 00:06:11,666
+goal but, at the moment, let's just keep it simple! So
+
+92
+00:06:11,666 --> 00:06:15,666
+create a field in your script, to keep track of that score.
+
+93
+00:06:15,666 --> 00:06:19,666
+And what type should the field be? I just answered that
+
+94
+00:06:19,666 --> 00:06:23,666
+question in the discussions. And what type should your field be? And
+
+95
+00:06:23,666 --> 00:06:27,666
+explain a little bit why you think that's the case. And then, on each collision I'd like you
+
+96
+00:06:27,666 --> 00:06:31,666
+to increment that field and print out the score.
+
+97
+00:06:31,666 --> 00:06:35,666
+So print out the score once you have incremented it. OK, pause the video,
+
+98
+00:06:35,666 --> 00:06:39,666
+and have a go at this little challenge!
+
+99
+00:06:39,666 --> 00:06:43,666
+OK, so I hope you all had a go at the challenge! I'm going to dive right
+
+100
+00:06:43,666 --> 00:06:47,666
+in now! So I'm going to hop over into the script.
+
+101
+00:06:47,666 --> 00:06:51,666
+And as I said, I want to create a field, but what type should this field be?
+
+102
+00:06:51,666 --> 00:06:55,666
+So it shouldn't be public, because we don't want to expose it in the Editor,
+
+103
+00:06:55,666 --> 00:06:59,666
+but it should not be a float either, because
+
+104
+00:06:59,666 --> 00:07:03,666
+a float would be something that we can't count on our fingers, whereas a score
+
+105
+00:07:03,666 --> 00:07:07,666
+we can definitely count on our fingers, it is an int.
+
+106
+00:07:07,666 --> 00:07:11,666
+So I'm going to call this score and it's going to start out at 0.
+
+107
+00:07:11,666 --> 00:07:15,666
+Now what we're going to do is, each time
+
+108
+00:07:15,666 --> 00:07:19,666
+we're going to do our score++, which is,
+
+109
+00:07:19,666 --> 00:07:23,666
+if you remember correctly, increments, and we're going to say
+
+110
+00:07:23,666 --> 00:07:27,666
+("You scored.
+
+111
+00:07:27,666 --> 00:07:31,666
+Your current
+
+112
+00:07:31,666 --> 00:07:35,666
+score is ", and
+
+113
+00:07:35,666 --> 00:07:39,666
+then, we will just add in the + score) like this, using our string concatenation, which we're
+
+114
+00:07:39,666 --> 00:07:43,666
+fairly familiar with now. So let's go over into Unity,
+
+115
+00:07:43,666 --> 00:07:47,666
+and we are going to hit play and see whether our score printing now
+
+116
+00:07:47,666 --> 00:07:51,666
+works. OK, the score is 1, the score is
+
+117
+00:07:51,666 --> 00:07:55,666
+2. It does seem to be working now!
+
+118
+00:07:55,666 --> 00:07:59,666
+Every time I collide with our box my score gets
+
+119
+00:07:59,666 --> 00:08:03,666
+incremented [Laughs], and I get a nice big pile of balls building up
+
+120
+00:08:03,666 --> 00:08:07,666
+at the bottom here. Fantastic! Challenge complete! Let's move on to the
+
+121
+00:08:07,666 --> 00:08:08,266
+next lecture!

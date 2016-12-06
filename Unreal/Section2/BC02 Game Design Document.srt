@@ -1,0 +1,443 @@
+1
+00:00:00,000 --> 00:00:04,000
+...
+
+2
+00:00:04,000 --> 00:00:08,000
+So just before I get into this lecture, I want to explain to the slightly more advanced people that this
+
+3
+00:00:08,000 --> 00:00:12,000
+section is purely a console game in VisualStudio. We don't even open
+
+4
+00:00:12,000 --> 00:00:16,000
+Unreal Engine in this section. So if you're a seasoned
+
+5
+00:00:16,000 --> 00:00:20,000
+C++ developer, please just do skip ahead to section 3, the Building Escape,
+
+6
+00:00:20,000 --> 00:00:24,000
+and we'll get straight into Unreal stuff, this really is just the basics.
+
+7
+00:00:24,000 --> 00:00:28,000
+An alternative is, you could go to the last lecture, have a look at our final bit of code, make
+
+8
+00:00:28,000 --> 00:00:32,000
+sure everything's clear to you, and carry on, but for everybody else, let's get on!
+
+9
+00:00:32,000 --> 00:00:36,000
+Hey guys and girls! So I want to talk to you a little bit about Game Design
+
+10
+00:00:36,000 --> 00:00:40,000
+Documents and start to introduce a process for planning your
+
+11
+00:00:40,000 --> 00:00:44,000
+games. Now it's going to be very brief, because we don't have a lot of experience at this stage, and there's a lot
+
+12
+00:00:44,000 --> 00:00:48,000
+of planning that we can't do. So in this video we're going to
+
+13
+00:00:48,000 --> 00:00:52,000
+talk about how much planning we should do, that's not very much for this first game.
+
+14
+00:00:52,000 --> 00:00:56,000
+I suggest you spend an hour or two on the planning.
+
+15
+00:00:56,000 --> 00:01:00,000
+Define the emotional problem the game solves, and I'll explain where I
+
+16
+00:01:00,000 --> 00:01:04,000
+got that idea from later. But basically, in all marketing
+
+17
+00:01:04,000 --> 00:01:08,000
+and all software we're always solving a problem, so we've got to think about the problem, for the
+
+18
+00:01:08,000 --> 00:01:12,000
+player, that we're solving. It's an interesting angle. Choose the concept, rules, and
+
+19
+00:01:12,000 --> 00:01:16,000
+requirements, that's another very basic skeleton for a
+
+20
+00:01:16,000 --> 00:01:20,000
+Game Design Document, and start to think about the architecture of the game. That's
+
+21
+00:01:20,000 --> 00:01:24,000
+the thing that you can't do yet, because with this current level of experience, I'm assuming you
+
+22
+00:01:24,000 --> 00:01:28,000
+don't know much about games or programming or game design, you can't really think about the software
+
+23
+00:01:28,000 --> 00:01:32,000
+architecture because you don't know enough about it, so we're going to kind of skip that. And then, we're going to copy
+
+24
+00:01:32,000 --> 00:01:36,000
+as much, as possible, of this into the code. We're actually going to do that in a future
+
+25
+00:01:36,000 --> 00:01:40,000
+lecture. But I just want to mention that we want this stuff to end up not just some dead
+
+26
+00:01:40,000 --> 00:01:44,000
+dry document, but we want our eyes on this stuff regularly, it's going to be a moving
+
+27
+00:01:44,000 --> 00:01:48,000
+plan. We also want to document now what may change later. So
+
+28
+00:01:48,000 --> 00:01:52,000
+future idea for the game, we need a not going to do now list, it's really important we
+
+29
+00:01:52,000 --> 00:01:56,000
+restrict the scope. If you don't take anything away from this slide apart from
+
+30
+00:01:56,000 --> 00:02:00,000
+this, the most important thing we do here in this design is we work out
+
+31
+00:02:00,000 --> 00:02:04,000
+what our initial requirements are for assets, for code, etc.,
+
+32
+00:02:04,000 --> 00:02:08,000
+and we stick to them until we've got that working. We have a nice don't do
+
+33
+00:02:08,000 --> 00:02:12,000
+list. OK a good book for you is Code Complete by Steve McConnell,
+
+34
+00:02:12,000 --> 00:02:16,000
+Microsoft Press 2004. Chapter 3.3 talks about requirements
+
+35
+00:02:16,000 --> 00:02:20,000
+and the problem that the game solves. So let's dive straight in, talk about the problem,
+
+36
+00:02:20,000 --> 00:02:24,000
+and in a minute I'm going to challenge you to write down the requirements. So an example
+
+37
+00:02:24,000 --> 00:02:28,000
+of the problem this word game solves is, I want a mental challenge. That could be the problem it would solve.
+
+38
+00:02:28,000 --> 00:02:32,000
+I'm sitting down on the sofa and I think, ooh I want a mental challenge. Well maybe we reach for the
+
+39
+00:02:32,000 --> 00:02:36,000
+Bull Cow game. I want to feel smart or prove myself, perhaps you're just feeling a little
+
+40
+00:02:36,000 --> 00:02:40,000
+thick or something and you need to prove yourself. Maybe you just
+
+41
+00:02:40,000 --> 00:02:44,000
+miss word puzzles, maybe it's a nostalgia thing. Maybe you want to
+
+42
+00:02:44,000 --> 00:02:48,000
+prove yourself again. Maybe you want to challenge or
+
+43
+00:02:48,000 --> 00:02:52,000
+feel superior to, if we're honest, somebody else, and maybe you want to kind of
+
+44
+00:02:52,000 --> 00:02:56,000
+shove the game in front of somebody else's face. Anyway
+
+45
+00:02:56,000 --> 00:03:00,000
+there's lots of reasons but it's important to get clear on the problem that the game
+
+46
+00:03:00,000 --> 00:03:04,000
+solves. I know it's a strange thing to think about, but games still do scratch emotional
+
+47
+00:03:04,000 --> 00:03:08,000
+itches. So so what itch are they scratching?
+
+48
+00:03:08,000 --> 00:03:12,000
+So what's the concept and the rules of the game? So you need to just write that down, it's a "guess
+
+49
+00:03:12,000 --> 00:03:16,000
+the isogram" game. An isogram is a word with no repeating letters.
+
+50
+00:03:16,000 --> 00:03:20,000
+the user has a limited number of guesses, that's one of the things that
+
+51
+00:03:20,000 --> 00:03:24,000
+makes it fun. And after each guess the computer outputs a bull,
+
+52
+00:03:24,000 --> 00:03:28,000
+which is the right letter in the right place, so
+
+53
+00:03:28,000 --> 00:03:32,000
+we think of bullseye, if you want to remember it or cow,
+
+54
+00:03:32,000 --> 00:03:36,000
+which is the right letter in the wrong place. So bulls and cows, that's where it gets its name.
+
+55
+00:03:36,000 --> 00:03:40,000
+And you win by guessing the word within a maximum number of tries. Cool! So that is
+
+56
+00:03:40,000 --> 00:03:44,000
+the concept and the rules all in one actually. That's simple, look we've only got five bullet
+
+57
+00:03:44,000 --> 00:03:48,000
+points. OK, seven if you count the sub-bullets. But we've got the
+
+58
+00:03:48,000 --> 00:03:52,000
+concepts and the rules of the game written down, that's pretty powerful and that's the sort of thing
+
+59
+00:03:52,000 --> 00:03:56,000
+I want you to do with your game. OK so what I want you to do now is write up the
+
+60
+00:03:56,000 --> 00:04:00,000
+requirements. So knowing what the game needs to do, I want you to think about what the
+
+61
+00:04:00,000 --> 00:04:04,000
+inputs will be and in what format. Remember this is a console game, so let me give you a hint
+
+62
+00:04:04,000 --> 00:04:08,000
+here. The input is just text, just plain text on the console.
+
+63
+00:04:08,000 --> 00:04:12,000
+What will the outputs be? What tasks will
+
+64
+00:04:12,000 --> 00:04:16,000
+the user be asked to do? Do we have any performance
+
+65
+00:04:16,000 --> 00:04:20,000
+limitations to think about, in this simple game? And what assets are going to need to be created,
+
+66
+00:04:20,000 --> 00:04:24,000
+art, story, sound, etc.? So have a think and
+
+67
+00:04:24,000 --> 00:04:28,000
+pause the video for a moment, grab a sheet of paper or a document, and start writing
+
+68
+00:04:28,000 --> 00:04:32,000
+down some bullets, some really simple ideas and requirements. Try and get to
+
+69
+00:04:32,000 --> 00:04:36,000
+at least five requirements. OK so pause the video. I know you don't
+
+70
+00:04:36,000 --> 00:04:40,000
+necessarily know what you're doing here and this is a little fuzzy. But look, there's enough prompts on the screen
+
+71
+00:04:40,000 --> 00:04:44,000
+and I want you to get used to thinking about, what are the requirements, what is this game going
+
+72
+00:04:44,000 --> 00:04:48,000
+to need? Have a go!
+
+73
+00:04:48,000 --> 00:04:52,000
+Cool so welcome back! Hopefully you did pause the video there and you're doing the challenge. Here are some ideas
+
+74
+00:04:52,000 --> 00:04:56,000
+of requirements. Plain text instructions for all interactions, that's something we're going to need,
+
+75
+00:04:56,000 --> 00:05:00,000
+things like introducing the game and helping the user to make valid guesses and stuff.
+
+76
+00:05:00,000 --> 00:05:04,000
+Code to deal, I should say deal with, but
+
+77
+00:05:04,000 --> 00:05:08,000
+code to help the player make a valid guess, i.e. all lowercase.
+
+78
+00:05:08,000 --> 00:05:12,000
+You know, is it an isogram? Is the word that they're putting in the right
+
+79
+00:05:12,000 --> 00:05:16,000
+length? So we're going to need code to help them make a guess correctly. Code to check the
+
+80
+00:05:16,000 --> 00:05:20,000
+number of bulls and cows, in the guess, compared to the hidden word. That's kind of the core
+
+81
+00:05:20,000 --> 00:05:24,000
+of the game. And code to keep track of the number of
+
+82
+00:05:24,000 --> 00:05:28,000
+valid guesses, of course, and other things that we've forgotten, but I just wanted to give you an idea
+
+83
+00:05:28,000 --> 00:05:32,000
+of some of the things that you'd want to put into this. And of course, these will
+
+84
+00:05:32,000 --> 00:05:36,000
+actually translate into routines and lines of code, I'm quite sure.
+
+85
+00:05:36,000 --> 00:05:40,000
+So possible future ideas! Another way of looking at this is (The
+
+86
+00:05:40,000 --> 00:05:44,000
+No List), these are things we're not going to do OK, and it's important to have this list. It really
+
+87
+00:05:44,000 --> 00:05:48,000
+is important to have a list of things you've specifically chosen not to put in this version
+
+88
+00:05:48,000 --> 00:05:52,000
+of the game. OK, so we want to give feedback on every
+
+89
+00:05:52,000 --> 00:05:56,000
+key press, perhaps, in the future. We can't actually do that in a console, because a console submits an
+
+90
+00:05:56,000 --> 00:06:00,000
+entire string in one game, but in a 3D version of the game, we might want feedback on every key
+
+91
+00:06:00,000 --> 00:06:04,000
+press. So let me just revisit that. So what I mean is, if you start to type a
+
+92
+00:06:04,000 --> 00:06:08,000
+non isogram, say I start typing the word every then I might type
+
+93
+00:06:08,000 --> 00:06:12,000
+E V, and then when I hit the next E it might kind of go [Makes Funny Sound] or shake or do something
+
+94
+00:06:12,000 --> 00:06:16,000
+to say, no you can't put another E in because you've already had an E and if you did it would not be an isogram.
+
+95
+00:06:16,000 --> 00:06:20,000
+So key level checking. Have a large dictionary of hidden words, so the game we play
+
+96
+00:06:20,000 --> 00:06:24,000
+is with more than just one word. Have a user selectable word length, so the user chooses
+
+97
+00:06:24,000 --> 00:06:28,000
+a word length and then maybe a difficulty level as well. So if you have a long word,
+
+98
+00:06:28,000 --> 00:06:32,000
+you get lots of tries, but if it's on hard you get less tries, you know that type of thing.
+
+99
+00:06:32,000 --> 00:06:36,000
+Checking the user's guess is a dictionary isogram, so every time they put a guess in maybe it goes into
+
+100
+00:06:36,000 --> 00:06:40,000
+a standard dictionary and says: Well is this a word in the dictionary and is it an isogram?
+
+101
+00:06:40,000 --> 00:06:44,000
+Maybe we provide a time limit for the guesses, put the pressure on a little. Maybe we have a hint
+
+102
+00:06:44,000 --> 00:06:48,000
+system. Maybe you could spend one of your turns in return for a hint. I don't know but these
+
+103
+00:06:48,000 --> 00:06:52,000
+are possible future ideas, and importantly these are things we're not going to do in this version
+
+104
+00:06:52,000 --> 00:06:56,000
+of the game. So that's it, we've covered an overview of
+
+105
+00:06:56,000 --> 00:07:00,000
+how you would do a design. Hopefully you've at least written down the requirements, which is the bits
+
+106
+00:07:00,000 --> 00:07:04,000
+that we need to move on to the next stage. We're going to skip over the software architecture this time around,
+
+107
+00:07:04,000 --> 00:07:08,000
+because we're going to build this code from the inside out, starting with the coding
+
+108
+00:07:08,000 --> 00:07:12,000
+and then wrapping things up into what we call routings and then kind of building
+
+109
+00:07:12,000 --> 00:07:16,000
+outwards like that. So in future sections, in future games, we'll get a
+
+110
+00:07:16,000 --> 00:07:20,000
+little bit more detailed on our planning, but this is enough for now, let's crack on in the next video
+
+111
+00:07:20,000 --> 00:07:24,000
+and get our environment setup!
