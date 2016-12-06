@@ -1,0 +1,480 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:01.040 --> 00:00:04.350
+Welcome back! After a reasonable amount of
+thought and planning. we're ready to start
+
+00:00:04.350 --> 00:00:10.809
+creating a ReplaySystem. So. we will give
+you an overview of our ReplaySystem code.
+
+00:00:10.809 --> 00:00:15.620
+and then. we'll be implementing a ring buffer
+for the frames. and testing and recording
+
+00:00:15.620 --> 00:00:20.259
+our Playback. So. let's just get on with it.
+MyReplay now. MyReplay is a weird name.
+
+00:00:20.259 --> 00:00:25.380
+I'm actually going to rename it ReplaySystem.
+Now. remember you can use Command or Control
+
+00:00:25.380 --> 00:00:30.230
+R to rename a class. and that will not only
+rename the class up here. but of course it
+
+00:00:30.230 --> 00:00:34.930
+will rename. as we know down here. the actual
+script. Now. I'm going to put this on the
+
+00:00:34.930 --> 00:00:39.770
+Player. but also to prove that this is going
+to work for more than one object. well let's
+
+00:00:39.770 --> 00:00:45.770
+put another cube down here. for example. And
+let's find out where that guy has gone.
+
+00:00:45.770 --> 00:00:51.690
+he's kind of disappeared. [Laughs] I'm going to
+reset his transform and go look at him. Hey.
+
+00:00:51.690 --> 00:00:55.420
+there he is. and then. move him out of the
+way. Fantastic! Now. I'm going to add a Rigidbody
+
+00:00:55.420 --> 00:01:01.000
+to this cube and make it really lite. Now.
+let's just test an interaction with it. so
+
+00:01:01.000 --> 00:01:04.970
+I just want to see that there's something
+else in the scene. OK. that's cool! That's
+
+00:01:04.970 --> 00:01:10.100
+fine! Now. this ReplaySystem is going to get
+slow. if we start putting our ReplaySystem
+
+00:01:10.100 --> 00:01:16.510
+code on lots and lots of items. but for now.
+I'm OK with it. So. I have a missing script.
+
+00:01:16.510 --> 00:01:21.720
+We want to end up. with on your player. just
+a ReplaySystem script on the player. but also
+
+00:01:21.720 --> 00:01:27.060
+a ReplaySystem script on the cube. We want
+this replay to work for both the Player and
+
+00:01:27.060 --> 00:01:33.409
+the cube. the two things that currently move
+in this game. OK. Fantastic! Cool! So. let's
+
+00:01:33.409 --> 00:01:41.560
+go in and do the coding. So. if you've got
+Code Folding turned on. and it's in a slightly
+
+00:01:41.560 --> 00:01:46.010
+different place on a PC. but on a Mac it's
+MonoDevelop. Preferences. just find your preferences.
+
+00:01:46.010 --> 00:01:51.490
+TextEditor. General. Enable Code Folding here.
+Then. you can just collapse down the key frame
+
+00:01:51.490 --> 00:01:56.400
+definition. we don't need that anymore. We
+have already defined it. so we don't have
+
+00:01:56.409 --> 00:01:59.700
+to keep looking at it. necessarily. OK. so
+what are we going to need in here?
+
+00:01:59.700 --> 00:02:08.890
+Well. we're going to need a private constant integer buffer size. or bufferFrames. to be more specific.
+
+00:02:08.890 --> 00:02:12.719
+and let's make it 100 frames to start with.
+OK. so we're going to store 100 frames. Now.
+
+00:02:12.719 --> 00:02:17.239
+why private? Because we don't need access
+from the outside. Why const? A couple of reasons.
+
+00:02:17.239 --> 00:02:21.879
+firstly wherever you can use a constant. instead
+of a variable. do it. it's good practice.
+
+00:02:21.879 --> 00:02:25.760
+and secondly. look the next thing we're going
+to need here. is we're going to need an array.
+
+00:02:25.760 --> 00:02:32.010
+a private array of my key frames. so that's
+the definition of an array; I'm going to call it keyFrames.
+
+00:02:32.010 --> 00:02:39.719
+but look what we can do if we've
+had a constant for the buffer size. Is a
+
+00:02:39.719 --> 00:02:46.309
+new array of my key frames. but how big? [bufferFrames]; big. OK. and we can use that. If this was
+
+00:02:46.309 --> 00:02:50.459
+a variable. if we didn't have constant and
+we tried to compile this watch. Initializer
+
+00:02:50.459 --> 00:02:53.900
+cannot reference a non-static field. because
+at the time of compiling. it doesn't know
+
+00:02:53.900 --> 00:02:59.949
+what bufferFrames is. make it constant and
+it does. Hmm. cunning as a box of frogs. aye.
+
+00:02:59.949 --> 00:03:03.939
+No. that's funny as a box of frogs. Ah well.
+anyway. so what else are we going to need
+
+00:03:03.939 --> 00:03:09.629
+access to? Well. we're going to need to be
+able to get the Rigidbody off the thing. so
+
+00:03:09.629 --> 00:03:17.019
+that we can make it Kinematic and non Kinematic
+right. so when we are in Record Mode. then
+
+00:03:17.019 --> 00:03:20.650
+we're going to want the Player and the cube
+to be Non-Kinematic. but in Playback Mode
+
+00:03:20.650 --> 00:03:24.050
+we're going to want them to be Kinematic.
+so the Physics Engine isn't kicking in.
+
+00:03:24.050 --> 00:03:29.779
+So. getrigidbody. now we do this so often I've made myself a keyboard shortcut. It does private
+
+00:03:29.779 --> 00:03:33.819
+Rigidbody rigidBody; and then in Start it
+goes and finds it. Alright. so that's all
+
+00:03:33.819 --> 00:03:37.559
+I was doing there. I was cheating with a keyboard
+shortcut. but that's all you need to do is
+
+00:03:37.559 --> 00:03:42.269
+you define Rigidbody and then. you go find
+it in the Start. This is new to Unity 5 of
+
+00:03:42.269 --> 00:03:51.520
+course. that's probably all we need right
+now. So. now let's think about recording the
+
+00:03:51.520 --> 00:03:54.780
+frames. I'm going to do it inside Update to
+start with. Alright. so how are we going to
+
+00:03:54.790 --> 00:03:59.609
+do that? Well. let's start with thinking about
+what the frame number is going to be. The
+
+00:03:59.609 --> 00:04:08.260
+frame number. some integer that we're going
+to store into. is = Time.frameCount What is that?
+
+00:04:08.260 --> 00:04:12.529
+That's the number of total frames. that
+have passed since the game started. Yeah.
+
+00:04:12.529 --> 00:04:18.340
+modded with. remember we said a couple of lectures
+ago. the size of the buffer. which is bufferFrames;
+
+00:04:18.340 --> 00:04:23.630
+So. this frame number will just keep. Well.
+let's print it and see print (frame); It'll
+
+00:04:23.630 --> 00:04:29.730
+just keep looping around between 0 and 100.
+Let's try it. Watch down here. bottom left.
+
+00:04:29.730 --> 00:04:33.810
+Yeah. it's just going to go around and around
+0 to 100. because the remainder between
+
+00:04:33.810 --> 00:04:38.450
+the actual frame now. which will just keep going
+up and up and up into the thousands. modular
+
+00:04:38.450 --> 00:04:42.200
+with bufferFrames tells you the remainder.
+when you do these divisions. and then that
+
+00:04:42.200 --> 00:04:46.540
+gives you what you want. Cool! So. this is
+the frame we actually want to store at. which
+
+00:04:46.540 --> 00:04:55.130
+is pretty cool. So. I'm now just going to
+say print ("Writing frame " + frame); just
+
+00:04:55.130 --> 00:05:00.570
+so we know what that log entry is all about.
+Fine. Now. how are we going to write it? Well.
+
+00:05:00.570 --> 00:05:07.030
+good question. What we need also to know is.
+what are we going to store as a time? It's
+
+00:05:07.030 --> 00:05:11.480
+all hardly worth creating. but I'm going to
+do it just for clarity. float time = Time.time;
+
+00:05:11.480 --> 00:05:19.190
+We're going to store the time. since the game
+started. Alright. so we're going to have
+
+00:05:19.190 --> 00:05:22.500
+a frame number and a time since the game started.
+So. what do we do each frame? Well. we say
+
+00:05:22.500 --> 00:05:26.690
+keyFrames at frame frame. Remember. that's
+going to keep going around and around in circles
+
+00:05:26.690 --> 00:05:30.920
+from 0 to 100. so we'll never store more than
+100 frames. which is good. because we've only
+
+00:05:30.920 --> 00:05:39.710
+got an array of size 100. so we've got a limited
+amount of memory taken up. Here's a new KeyFrame.
+
+00:05:39.710 --> 00:05:44.460
+or new MyKeyFrame. not KeyFrame. KeyFrame
+is the Unity built in one that we discussed earlier.
+
+00:05:44.460 --> 00:05:48.860
+so we want a MyKeyFrame. which is
+also a struct. you see. By the way. you see
+
+00:05:48.860 --> 00:05:53.620
+how they have a summary here. we didn't put
+a summary on MyKeyFrame; we could. three forward
+
+00:05:53.620 --> 00:06:01.560
+slashes. and then. we can say "A structure
+for storing time. rotation and position" or
+
+00:06:01.560 --> 00:06:09.110
+position and rotation. OK now. if I say = new
+MyKeyFrame. you see I have a summary. Look
+
+00:06:09.110 --> 00:06:16.330
+how much alike MyKeyFrame looks to the Unity
+one now. they look identical. with a different
+
+00:06:16.330 --> 00:06:19.620
+summary. Pretty cool aye! So. we're making real
+kind of code here. So. we're going to make
+
+00:06:19.620 --> 00:06:24.840
+a new MyKeyFrame at time time. which is why I
+said it was hardly worth doing. with position
+
+00:06:24.840 --> 00:06:30.090
+transform small t. Oh. it won't let me do
+a small t. Why is that? Well. good question.
+
+00:06:30.090 --> 00:06:35.450
+let's have a look down... Something is broken
+about our class. frameTime is in red. frameTime
+
+00:06:35.450 --> 00:06:40.830
+is not commented. hmm weird? OK. something
+went wrong. when we put this triple thing in.
+
+00:06:40.830 --> 00:06:44.620
+so how are we going to sort that out?
+Something is wrong between here and here.
+
+00:06:44.620 --> 00:06:49.510
+Let's just delete everything between there
+and there. and return again. Ah. that's better!
+
+00:06:49.510 --> 00:06:53.610
+OK. so there was something wrong in the white
+space between here and here. I'll do the same
+
+00:06:53.610 --> 00:06:59.550
+for the next line. just in case. and maybe
+even this. Something hanging on the end of
+
+00:06:59.550 --> 00:07:04.330
+these lines or something like that. Alright
+that's fine. So. that's all tidied up. that
+
+00:07:04.330 --> 00:07:10.540
+works. and now hopefully I can go transform.
+I can with a small t dot position. and transform.
+
+00:07:10.540 --> 00:07:19.389
+oh with a small t again please. Hmm? Maybe
+I need to rebuild. before it realizes that
+
+00:07:19.389 --> 00:07:22.910
+I should be able to accept a small transform.
+I do. transform.rotation); So. weird
+
+00:07:22.910 --> 00:07:29.670
+sort of stuff you may come across. OK fantastic!
+So. we are creating now our key frame. into
+
+00:07:29.670 --> 00:07:34.630
+frame number frame. and there it goes. That's
+wicked! Let's see if it's working.
+
+00:07:34.630 --> 00:07:38.650
+How are we going to know if it's working? Well. good
+question. We're just going to run and see
+
+00:07:38.650 --> 00:07:44.580
+if we get any errors. for a start. It says
+it's writing these frames. Cool! That's pretty
+
+00:07:44.580 --> 00:07:48.260
+good! So. if it's really writing the frames.
+then we should be able to go into some sort of
+
+00:07:48.260 --> 00:07:53.720
+Playback Mode and see those frames coming
+back out. So. how are we going to do this?
+
+00:07:53.720 --> 00:07:59.060
+Well. we're going to need to think about how
+we're going to trigger into and out of a
+
+00:07:59.070 --> 00:08:02.610
+Playback Mode. So. let's start by doing a
+little refactoring. and then. I think I'll
+
+00:08:02.610 --> 00:08:07.610
+do the management of playback and recording.
+in a separate video. So. I'm going to highlight
+
+00:08:07.610 --> 00:08:14.180
+all that code and refactor it out. as Record
+(); as simple as that. which is just Record
+
+00:08:14.180 --> 00:08:19.220
+Mode. And I also am going to want a Playback
+method. so let's make a Playback method. What
+
+00:08:19.220 --> 00:08:25.710
+are we going to do. when we playback? Well.
+we're going to do something like this. We're
+
+00:08:25.710 --> 00:08:35.749
+going to say rigidBody.isKinematic = true;
+Actually. we want to also make on Record the
+
+00:08:35.749 --> 00:08:40.699
+Kinematic not true. Yeah. so we want the Physics
+Engine to move it. while we're recording.
+
+00:08:40.699 --> 00:08:45.089
+and we want to move it ourselves when we're
+playing back. OK. on playback. what's the
+
+00:08:45.089 --> 00:08:49.059
+frame number going to be? Well. it's going
+to be the same sort of thing. it's going to
+
+00:08:49.059 --> 00:08:54.829
+be exactly the same actually. It's going to
+be Time.frameCount. not just with buffer frames.
+
+00:08:54.829 --> 00:08:59.470
+So. we're just going to go around exactly
+the same loop. when we playback. You'll see
+
+00:08:59.470 --> 00:09:02.809
+that. that will work; we'll start in the right
+place. it'll all just work. How do you
+
+00:09:02.809 --> 00:09:07.100
+get to that yourself. if you weren't just
+following me? Well. just experiment. just
+
+00:09:07.100 --> 00:09:14.199
+try and see how this works. If you think about
+it. if you were on frame 9. then here when
+
+00:09:14.199 --> 00:09:17.180
+you stored the last thing. then you went to
+Playback Mode. you'd end up back on frame
+
+00:09:17.180 --> 00:09:21.220
+0. in my example from a couple of lectures
+ago. So. you'd start playing back in exactly
+
+00:09:21.220 --> 00:09:27.269
+the right place. so it's fine. it does work.
+Let's print out the fact we're ("Reading frame
+
+00:09:27.269 --> 00:09:33.740
+" + the frame number. And then. what we do
+there is we simply say transform.position
+
+00:09:33.740 --> 00:09:44.860
+= keyFrames at frame number frame .position.
+And the rotation. you can do yourself. Go
+
+00:09:44.860 --> 00:09:49.220
+ahead. pause the video. and recall the rotation
+from the appropriate member of the keyFrame
+
+00:09:49.230 --> 00:09:57.970
+array. Go for that now. Pause the video and
+recall the rotation. OK. so it's transform.rotation
+
+00:09:57.970 --> 00:10:02.540
+= keyFrames at frame frame .rotation. Now.
+these are Quaternions flying around. but we
+
+00:10:02.550 --> 00:10:08.300
+don't care. they should work. So. we set and
+we release Kinematic. that's absolutely fantastic!
+
+00:10:08.300 --> 00:10:14.619
+So. all we need now is a way of getting into
+and out of Playback Mode. So. we're going
+
+00:10:14.619 --> 00:10:18.670
+to do that. by having a GameManager. that
+determines whether we're in Playback Mode
+
+00:10:18.670 --> 00:10:23.369
+or not. and I'll do that in the next video.
+So. well done getting this far! Hopefully
+
+00:10:23.369 --> 00:10:26.869
+you've followed what's going on there. You
+only had a very minor challenge in this video.
+
+00:10:26.869 --> 00:10:31.499
+which was to write this line. but in the next
+video I'll set you up for a nice challenge.
+
+00:10:31.499 --> 00:10:37.019
+where you sort the GameManager out and reference
+it in here. So. we're good to go! Fantastic!
+
+00:10:37.019 --> 00:10:37.890
+It's coming together!
+

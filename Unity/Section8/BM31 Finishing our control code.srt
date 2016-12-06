@@ -1,0 +1,954 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:08.360
+Isn't this fun? in this video we're gonna be
+finishing our control code. In fact I'm
+
+00:00:08.360 --> 00:00:12.380
+going to challenge you to finish the
+control code. I want you to go through
+
+00:00:12.380 --> 00:00:17.930
+the red green factor loop strictly. Focus
+your failing tests on the edge cases on
+
+00:00:17.930 --> 00:00:23.390
+awkward situations like the last frame
+for example. Keep your actionMaster.cs
+
+00:00:23.390 --> 00:00:29.220
+code looking clean but only do that
+at the refactor step; stop when you're
+
+00:00:29.220 --> 00:00:35.730
+confident it's done. and then why not challenge the
+community to write a failing test? Paste
+
+00:00:35.730 --> 00:00:39.469
+your action.Master.cs code into
+pastebin or something like that.
+
+00:00:39.469 --> 00:00:43.410
+share it into the discussions and say
+hey guys I think this does it. can
+
+00:00:43.410 --> 00:00:48.079
+you guys write me a failing test; and then your
+fellow students can try and write a
+
+00:00:48.079 --> 00:00:52.170
+failing test. paste that back to you via
+pastebin or similar. or with a short test
+
+00:00:52.170 --> 00:00:55.920
+it'll probably be fine to paste straight
+into the discussions and then have a
+
+00:00:55.920 --> 00:01:00.620
+little battle between you and see if you
+can settle on the nicest possible action
+
+00:01:00.620 --> 00:01:03.960
+master dot cs code. I'm going to do my
+best but I'll be interested to see what
+
+00:01:03.960 --> 00:01:07.700
+you guys can come up with also this same
+challenge applies to our code my code
+
+00:01:07.700 --> 00:01:13.049
+just try and write a failing test to
+make our staff fail. This only applies to
+
+00:01:13.049 --> 00:01:17.610
+whether it's returning the right status
+of course in terms of tidy reset
+
+00:01:17.610 --> 00:01:18.229
+etcetera
+
+00:01:18.229 --> 00:01:22.509
+so go ahead pause the video. if this
+takes you two days then it takes you two
+
+00:01:22.509 --> 00:01:23.610
+days it's fine
+
+00:01:23.610 --> 00:01:27.900
+this is a major thing in a way
+especially if you've never done test
+
+00:01:27.900 --> 00:01:31.100
+driven development before.  you need to get
+your head round it so struggle with it
+
+00:01:31.100 --> 00:01:35.460
+and then try and succeed. There isn't
+that much more code to write in action
+
+00:01:35.460 --> 00:01:38.990
+master dot cs. it's only a handful of
+lines you could probably only add 10 more
+
+00:01:38.990 --> 00:01:43.299
+lines so I suggest you think really
+carefully about how the last frame is
+
+00:01:43.299 --> 00:01:48.229
+handled. I suggest you be very careful
+about indexes if you ever write bowls
+
+00:01:48.229 --> 00:01:52.649
+open square bracket and then a number
+rather than a variable then be careful
+
+00:01:52.649 --> 00:01:56.799
+about what that number is because what
+we're calling bowls is in human terms
+
+00:01:56.799 --> 00:02:02.280
+counting from 1 and if you ever do a
+direct access of the member in an array
+
+00:02:02.280 --> 00:02:06.450
+then you are of course starting counting
+from 0. So a couple of gotchas there have a
+
+00:02:06.450 --> 00:02:09.910
+go. really give it a go see if you can get this code
+stable so that we can control
+
+00:02:09.910 --> 00:02:12.080
+automatically the reset tidy
+
+00:02:12.080 --> 00:02:18.700
+next player and game. Go ahead. see you soon.
+
+00:02:18.700 --> 00:02:21.430
+OK. welcome back I don't know how long it's been
+for you it could be minutes it could have
+
+00:02:21.430 --> 00:02:24.620
+been days and days is fine. if you really
+struggled then hopefully you learned
+
+00:02:24.620 --> 00:02:28.950
+something or you're at your wits end and you
+need our help either way we are here to
+
+00:02:28.950 --> 00:02:34.540
+help so let's go over to actionmaster to
+the to the Unity Project and just recap
+
+00:02:34.540 --> 00:02:40.220
+what tests we've got so far; so far we're
+doing pretty well we have just a few
+
+00:02:40.220 --> 00:02:44.040
+basic test but actually the code that
+we've written for action master is fairly
+
+00:02:44.040 --> 00:02:48.879
+general it seems to handle most odd and
+even; well most in the middle frames here
+
+00:02:48.879 --> 00:02:52.200
+but it's pretty glaringly obvious
+looking at this code is it's not gonna
+
+00:02:52.200 --> 00:02:56.890
+handle the last frame properly there's just
+nothing in here to tell it what the
+
+00:02:56.890 --> 00:03:00.670
+special rules are in the last frame. So
+let's try and write some tests that
+
+00:03:00.670 --> 00:03:06.060
+break the last frame. Firstly let's just
+think about how the last frame works so
+
+00:03:06.060 --> 00:03:10.760
+here I've got listed the frame before
+last so bowls 17 and 18 counting from 1;
+
+00:03:10.760 --> 00:03:16.280
+and then the last frame is bowls 19. 20 and
+possibly 21. So let's take the top case for a
+
+00:03:16.280 --> 00:03:21.980
+minute. In the top case we bowled 1. 1. we 
+bowl 1 and then 1 in nineteen and twenty so
+
+00:03:21.980 --> 00:03:26.519
+no Bowl 21 is awarded because we have
+not scored enough we need to have scored 10
+
+00:03:26.519 --> 00:03:33.510
+or more in bowls 19 and 20 to be awarded a
+extra bowl so the game will end at bowl
+
+00:03:33.510 --> 00:03:39.060
+20 and there'll be no bowl 21
+allowed. So the second case down we bowl
+
+00:03:39.060 --> 00:03:44.040
+a spare on the 20th bowl. so at that
+point we do get awarded a 21. it's a
+
+00:03:44.040 --> 00:03:47.519
+question mark as we don't yet know what
+the score's gonna be and we need to
+
+00:03:47.519 --> 00:03:52.380
+issue a reset at poll twenty here
+because it's not the end of the game. and
+
+00:03:52.380 --> 00:03:55.530
+the other kind of special case I can
+think of is where you bowl a strike on
+
+00:03:55.530 --> 00:04:00.920
+bowl 19; and what that does is it awards a bowl 21 because you always get the next
+
+00:04:00.920 --> 00:04:06.010
+two bowls to add up to a strike you do a
+reset though immediately at bowl nineteen
+
+00:04:06.010 --> 00:04:13.090
+and you do do a  bowl 20. now you may
+actually bowl a nothing at bowl 20 which
+
+00:04:13.090 --> 00:04:19.320
+is why I've put a dash in for a 0. or a gutterball. and if you bowl a zero at bowl 20 then you
+
+00:04:19.320 --> 00:04:22.980
+still get a bowl 21 is what I'm
+trying to get across
+
+00:04:22.980 --> 00:04:27.160
+Cool. so let's think about what our tests could
+be for that so back into MonoDevelop
+
+00:04:27.160 --> 00:04:31.690
+into ActionMaster test what test could
+be write to start putting some pressure
+
+00:04:31.690 --> 00:04:38.980
+on this last frame so one test we could 
+write is as follows test and I'm going
+
+00:04:38.980 --> 00:04:50.090
+to call it public void test what number
+are we on? 5. check reset at strike in last frame
+
+00:04:50.090 --> 00:04:53.520
+so we're going to do a strike in the
+last frame just like the slide I drew for
+
+00:04:53.520 --> 00:04:57.250
+you a moment ago we are going to go to
+the bottom case first because it's just a
+
+00:04:57.250 --> 00:05:03.010
+weird one I want to get off my mind and
+that is one one strike ok so firstly we
+
+00:05:03.010 --> 00:05:08.140
+need to populate the early game so how
+we gonna do that well there's lots of
+
+00:05:08.140 --> 00:05:13.530
+ways we could do this but why don't we
+just use a for each loop and a explicit
+
+00:05:13.530 --> 00:05:18.620
+list of rolls do that in this case let's
+take an array of integers rolls and
+
+00:05:18.620 --> 00:05:25.600
+let's just write a general array now. which you use curly braces for like that and
+
+00:05:25.600 --> 00:05:32.100
+let's just specify them 11 and then 11
+again and we're just gonna do 11 all the way through.
+
+00:05:32.100 --> 00:05:37.990
+When I've got five I think I just copy so I
+don't go nuts and then take one away so
+
+00:05:37.990 --> 00:05:41.790
+I need nine pairs here
+
+00:05:41.790 --> 00:05:51.410
+1. 2. 3. 4. 5. 6. 7. 8. 9 pairs of rolls will take me up
+to bowl number 18 here. at the end of that array
+
+00:05:51.410 --> 00:05:58.500
+which you can see coming in on the
+bottom left on this diagram 1 1. 1 1 are
+
+00:05:58.500 --> 00:06:02.310
+these two here ok so that gets us to
+this point all we need of course a for
+
+00:06:02.310 --> 00:06:05.940
+each loop to iterate through this now
+because they're all ones you could just
+
+00:06:05.940 --> 00:06:11.060
+put one in the for each loop. but i wanna show
+you a more general simple way of. you know
+
+00:06:11.060 --> 00:06:15.710
+you can change any of these numbers now
+very easily. it's very explicit so for each int
+
+00:06:15.710 --> 00:06:27.800
+roll in rolls. what are we gonna do? Well.  we're gonna
+ActionMaster dot bowl the roll - Bowl
+
+00:06:27.800 --> 00:06:34.120
+the role there you go. so that's just gonna
+issue a bowl this many times of one
+
+00:06:34.120 --> 00:06:41.190
+Fine. So the actual magic kind of happens here this is
+where we do a strike here so we're gonna just
+
+00:06:41.190 --> 00:06:44.020
+do the strike straight inside the assert
+statement as before
+
+00:06:44.020 --> 00:06:51.310
+Assert.AreEqual. and then we are actually gonna
+call SM dot bowl and we want a reset
+
+00:06:51.310 --> 00:06:58.800
+back so reset is what we expect to come
+back
+
+00:06:58.800 --> 00:07:01.919
+Now. why does it not have access to reset?
+Because we haven't declared a reset at
+
+00:07:01.919 --> 00:07:08.129
+the top so give yourself a instance of
+reset just to make things short; just a short
+
+00:07:08.129 --> 00:07:13.000
+cut to reset perfect now when you try
+and say are equal to reset it will be
+
+00:07:13.000 --> 00:07:16.729
+there and then where's that gonna come from
+where's the value reset gonna come from?
+
+00:07:16.729 --> 00:07:23.620
+from a method call to action master dot
+bowl with a number of 10 in our case. a strike.
+
+00:07:23.620 --> 00:07:31.440
+Alright. so we have their 18 ones and
+then a strikes again back to the slide 8
+
+00:07:31.440 --> 00:07:36.219
+in the bottom case 18 ones and then a
+strike now what we want to come back
+
+00:07:36.219 --> 00:07:39.729
+from that is a reset so we're trying to
+get red green refactor let's go to unity
+
+00:07:39.729 --> 00:07:44.169
+see what happens. Run the tests or wait
+for your whirligig to finish and it'll
+
+00:07:44.169 --> 00:07:47.840
+do itself I just need to fix
+check here but look we get an end turn and
+
+00:07:47.840 --> 00:07:52.159
+it wants a reset so is not awarding us
+this last frame that's the problem so
+
+00:07:52.159 --> 00:07:58.240
+let me firstly fix the spelling error
+in check there you go so we don't want a
+
+00:07:58.240 --> 00:08:03.719
+what happened. let's have a look at the results. Click
+on your test it says expected a reset
+
+00:08:03.719 --> 00:08:08.129
+and it got an end turn so if you look into your
+code. your actual production code why is it
+
+00:08:08.129 --> 00:08:13.000
+giving an end turn. because the condition
+is simply this its if pins equal 10 then
+
+00:08:13.000 --> 00:08:16.599
+increment the bowl two and return
+end turn. Well that's not right in this case we
+
+00:08:16.599 --> 00:08:20.440
+need to put the other behavior above
+that we need to catch it before that. We
+
+00:08:20.440 --> 00:08:25.669
+have a slightly more special case. so
+what is our special case?
+
+00:08:25.669 --> 00:08:30.740
+Well look at our diagram. be as general as
+we can but without doing any more than
+
+00:08:30.740 --> 00:08:36.089
+we need to to pass this test so what do we
+need to do to make this pass? The basic
+
+00:08:36.089 --> 00:08:39.440
+issue is that if bowls 19 and 20 are 10
+or more
+
+00:08:39.440 --> 00:08:48.790
+then we're allowed a last frame then bowl
+21 is awarded. So if bowls 19 and 20 are
+
+00:08:48.790 --> 00:08:54.460
+greater than or equal to 10 then we award a last frame. OK so that's one way
+
+00:08:54.460 --> 00:09:05.490
+of looking at it. So let's just write the
+simplest code we can really if the
+
+00:09:05.490 --> 00:09:13.790
+bowl number is greater than or equal to
+19. so if we're in that last frame then what
+
+00:09:13.790 --> 00:09:17.860
+do we do? Do we just end the game well
+it depends if let's do a bit of wishful
+
+00:09:17.860 --> 00:09:25.770
+coding if we're in the last frame  bowl number's greater than or equal to 19 and bowl 21 has been awarded
+
+00:09:25.770 --> 00:09:33.260
+we'll write that method in minute then what do we do?
+That's the question. Well then you
+
+00:09:33.260 --> 00:09:42.440
+increment the bowl index one and you
+return a reset which is what we're after
+
+00:09:42.440 --> 00:09:45.660
+In fact that's the case that we're
+trying to code for we don't need to
+
+00:09:45.660 --> 00:09:49.590
+write any more than this if we're in the
+last frame and Bowl 21 has been awarded
+
+00:09:49.590 --> 00:09:53.330
+then we need to reset so we can keep
+playing the game so finally how do we
+
+00:09:53.330 --> 00:09:58.510
+calculate bowl 21 awarded? Well let's just
+write ourself a boolean method down the
+
+00:09:58.510 --> 00:10:06.910
+bottom here a nice simple private bool
+action Ball 21 awarded; doesn't need
+
+00:10:06.910 --> 00:10:10.690
+to take any parameters it can just look
+straight to the Bowl array and then how do
+
+00:10:10.690 --> 00:10:14.120
+we know whether bowl 21 has been awarded
+now be careful this is where you need to
+
+00:10:14.120 --> 00:10:17.260
+remember that arrays
+
+00:10:17.260 --> 00:10:23.600
+start counting at zero. Quite important
+
+00:10:23.600 --> 00:10:27.490
+OK. so how we gonna do it? Well we're gonna return
+one very simple way of writing this is
+
+00:10:27.490 --> 00:10:33.330
+return what bowls 19. but be careful
+it's not 19 is it it's bowl 19 but
+
+00:10:33.330 --> 00:10:36.010
+you need to take one off it so you could
+do it right in there bowls 19
+
+00:10:36.010 --> 00:10:44.560
+plus bowls 20 but take the one off because
+arrays are awkward and then if thats greater
+
+00:10:44.560 --> 00:10:48.140
+or equal to 10 then you get your bowl
+twenty-one awarded
+
+00:10:48.140 --> 00:10:54.390
+OK but we don't have any concept of the
+bowls. nothing is storing the bowls yet so
+
+00:10:54.390 --> 00:10:58.480
+in order to be able to determine whether bowl
+21 is awarded we do need to start
+
+00:10:58.480 --> 00:11:04.020
+storing the actual bowl numbers so we're
+gonna need an array of bowls up here
+
+00:11:04.020 --> 00:11:08.520
+remember we started writing that before.
+I did in line 7 now it's time to bring
+
+00:11:08.520 --> 00:11:17.230
+dust that off a 21 index size array of
+integers called bowls so 21 bowls is a
+
+00:11:17.230 --> 00:11:19.060
+maximum we could ever have.
+
+00:11:19.060 --> 00:11:24.890
+If we bowl a strike then we'll
+enter it as ten comma zero so that we always have
+
+00:11:24.890 --> 00:11:31.250
+21 bowls. So now we have a bowls array there we
+need to make sure that every time we
+
+00:11:31.250 --> 00:11:36.570
+bowl anything provided there's not an
+error that we insert the bowl we just
+
+00:11:36.570 --> 00:11:37.060
+did so
+
+00:11:37.060 --> 00:11:44.760
+bowls. and then we need again because of the 0-basing
+of this index bowl minus one equals pins
+
+00:11:44.760 --> 00:11:50.180
+so the pinfall comes in and you put it in the
+array at position bowl minus one
+
+00:11:50.180 --> 00:11:54.060
+because of the way arrays count so if we
+do that every time that we get a valid
+
+00:11:54.060 --> 00:11:57.740
+bowl. so if it's invalid we just jump out; if we do
+that every time I get a valid bowl then
+
+00:11:57.740 --> 00:12:02.670
+down here we should be to say bowl 21 is
+awarded provided the bowl 19 + bowl
+
+00:12:02.670 --> 00:12:08.440
+20 is greater than equal to 10 and
+if bowl 21 is awarded and we're in the last frame
+
+00:12:08.440 --> 00:12:17.820
+then increment 1 and reset. let's try it.
+Waiting for the whirligig
+
+00:12:17.820 --> 00:12:22.360
+there you go it's passed. Fantastic now I've
+kind of jumped to a nice solution. of
+
+00:12:22.360 --> 00:12:25.380
+course I've rehearsed this; what you're
+allowed to do is make much more of a
+
+00:12:25.380 --> 00:12:31.840
+mess than this and then refactor and
+tidy your code as you go of course ok
+
+00:12:31.840 --> 00:12:35.740
+fine so what else could go wrong in the
+last frame. let's think of any other tests how
+
+00:12:35.740 --> 00:12:41.040
+about if we bowled a spare in the last
+frame back to the slide for a minute. so the
+
+00:12:41.040 --> 00:12:44.640
+situation we're testing now is the
+middle one. just making sure that if we get a
+
+00:12:44.640 --> 00:12:49.810
+1 then a 9 in 19 and 20. 9 is drawn as a forward slash
+because it's a convention on a scorecard
+
+00:12:49.810 --> 00:12:53.660
+for a spare then the same behavior. we
+should get bowl 21 awarded and a reset
+
+00:12:53.660 --> 00:12:59.700
+so let's just take a look and see if
+that works. firstly we need to write the
+
+00:12:59.700 --> 00:13:03.150
+code now we can use a leg up from the
+last test no harm in copying and pasting
+
+00:13:03.150 --> 00:13:07.320
+test code so this case we roll all of
+these guys the difference here is we're
+
+00:13:07.320 --> 00:13:15.310
+just gonna go action master dot roll or
+bowl a five and then we're going to
+
+00:13:15.310 --> 00:13:21.260
+bowl say another five or if we want to
+be consistent with our slide then 1 and then 9
+
+00:13:21.260 --> 00:13:26.220
+gives you the same thing so we're gonna
+bowl all these then a 1 and a 9 just like the slide
+
+00:13:26.220 --> 00:13:27.550
+instance in the middle there.
+
+00:13:27.550 --> 00:13:35.740
+OK so let's do that let's see how that
+test goes. so you compile your code and to
+
+00:13:35.740 --> 00:13:39.820
+our delight over unity the test passes.
+Fantastic so what else do we need to do
+
+00:13:39.820 --> 00:13:44.050
+well I think we need to deal with the
+end game now. If you look in here in the
+
+00:13:44.050 --> 00:13:47.830
+code and you do a find command or control
+- f on tidy then you see the code
+
+00:13:47.830 --> 00:13:49.900
+contains a tidy output
+
+00:13:49.900 --> 00:13:54.990
+a reset. an end turn but not an end game
+yet. So it's tempting just to kind of come
+
+00:13:54.990 --> 00:13:58.820
+in here and try to write the end game
+conditions but let's not do that. let's write
+
+00:13:58.820 --> 00:14:05.210
+the failing tests to make sure that the
+end game actually happens. So why don't
+
+00:14:05.210 --> 00:14:11.070
+we use the YouTube video that we had a
+few slides ago and use its data as a
+
+00:14:11.070 --> 00:14:16.150
+test game that would be quite fun wouldn't
+it make sure that that runs properly so
+
+00:14:16.150 --> 00:14:20.640
+let's make a new test here which is
+
+00:14:20.640 --> 00:14:35.680
+public void test 07 YouTube rolls in end
+game. OK so we've got a load of rolls
+
+00:14:35.680 --> 00:14:39.480
+there on that YouTube video it may make
+sense if you're ever gonna link off to web
+
+00:14:39.480 --> 00:14:44.300
+content like that to a) remember that may
+disappear and b) maybe to put the URL
+
+00:14:44.300 --> 00:14:47.380
+you could pop the URL
+of the YouTube video from the earlier
+
+00:14:47.380 --> 00:14:52.170
+slides into your code if you wanted to
+for reference but I'm just gonna put
+
+00:14:52.170 --> 00:14:57.400
+the roll array which I've pre-typed here
+so you don't have to get bored stiff now
+
+00:14:57.400 --> 00:15:02.450
+do you need to initialize it? No you
+can just say that int roll array equals
+
+00:15:02.450 --> 00:15:06.540
+that thing there and that's exactly the
+rolls from the YouTube video. and what
+
+00:15:06.540 --> 00:15:10.570
+does that end up with that ends up with a
+nine. So we get an eight and a two which is
+
+00:15:10.570 --> 00:15:14.640
+a spare than a 9 on the end. We need to
+take the 9 off because we need to
+
+00:15:14.640 --> 00:15:19.350
+actually do some assertations on that.
+So it's doing a simple for each loop
+
+00:15:19.350 --> 00:15:24.380
+again through all the YouTube rolls like that
+and then on the last one we going to
+
+00:15:24.380 --> 00:15:26.430
+assert
+
+00:15:26.430 --> 00:15:33.030
+are equal; now do we even have a shortcut
+for the endgame? We probably don't yet
+
+00:15:33.030 --> 00:15:41.889
+No we don't so let's make the short
+cut at the top here
+
+00:15:41.889 --> 00:15:45.489
+OK. fantastic now you've got a shortcut
+now we're going to assert that the
+
+00:15:45.489 --> 00:15:52.989
+endgame is equal when we call action
+master dot bowl on a number what was
+
+00:15:52.989 --> 00:15:56.639
+it? 9 for the last one I believe so
+
+00:15:56.639 --> 00:16:00.809
+okay regardless if we bowl a nine here
+we should be doing an end game so
+
+00:16:00.809 --> 00:16:08.790
+compile and test. or compile and run let's see what
+happens and of course we get a reset
+
+00:16:08.790 --> 00:16:12.489
+but we wanted an end game so why are we
+getting a reset at the end here?
+
+00:16:12.489 --> 00:16:17.980
+Well you look at the code then bowl 21
+has been awarded so it just does a reset
+
+00:16:17.980 --> 00:16:25.079
+so we need to intercept this above there in
+this case or below here so let's think
+
+00:16:25.079 --> 00:16:30.459
+about it we gonna say beforehand or
+after well we actually are in the
+
+00:16:30.459 --> 00:16:38.980
+situation where it's bowl number 20.... 1 isn't
+it it's bowl number 21 and whenever it's
+
+00:16:38.980 --> 00:16:46.419
+bowl number 21 it's an end game so if
+the bowl equals 21 then you simply
+
+00:16:46.419 --> 00:16:48.509
+you're done
+
+00:16:48.509 --> 00:16:55.829
+turn action . endgame. It's always the case if
+you get as far as 21 let's try and
+
+00:16:55.829 --> 00:17:01.579
+see if that makes the test pass. Here it
+goes yes no maybe. Yes it makes the test
+
+00:17:01.579 --> 00:17:08.010
+pass. Awesome. so great that's working what
+else could go wrong? Well how about
+
+00:17:08.010 --> 00:17:15.290
+if you... were at bowl
+
+00:17:15.290 --> 00:17:20.200
+20 but there was no Bowl 21 awarded so
+look at the slide for a minute
+
+00:17:20.200 --> 00:17:24.250
+imagine we're at bowl 20 but no bowl 21 is
+awarded that top case well let's just
+
+00:17:24.250 --> 00:17:31.010
+code that in so game ends at bowl 20 could be
+the test name. So let's make a new one
+
+00:17:31.010 --> 00:17:37.830
+I'm gonna take it from here because it's
+very very similar to that test; but I'm going to remember
+
+00:17:37.830 --> 00:17:43.500
+to change the name this time. So it's
+test number eight and Bowl ends at; game
+
+00:17:43.500 --> 00:17:55.310
+ends at bowl 20. So we're gonna roll
+123456789 so that's eighteen times; we may as well roll
+
+00:17:55.310 --> 00:17:59.940
+once more in here and then if we
+rolled a 1 at the end there we should get
+
+00:17:59.940 --> 00:18:06.030
+an end game. Again from the slide it is
+this situation at the top
+
+00:18:06.030 --> 00:18:12.330
+now we want an end game and no bowl 21
+awarded. Let's see what happens. Back to
+
+00:18:12.330 --> 00:18:21.990
+Unity. let it whirligig. and it gets an end turn but you
+should be getting an endgame ok so how
+
+00:18:21.990 --> 00:18:25.060
+do we make that test pass? And it
+should be pretty much the last one I
+
+00:18:25.060 --> 00:18:29.900
+think. Well where's the situation here?
+It's not at bowl twenty-one cause
+
+00:18:29.900 --> 00:18:35.080
+we're only on bowl 20. So we are on bowl greater than
+or equal to 19 but in this case we're
+
+00:18:35.080 --> 00:18:42.280
+bowled greater than or equal to 19 or
+specifically we're on bowl 20 and 21 was not
+
+00:18:42.280 --> 00:18:55.620
+awarded so else if bowl equals 20 and
+
+00:18:55.620 --> 00:19:00.920
+not bowl 21 awarded; so bowl 21 is
+not awarded then it's the end of the
+
+00:19:00.920 --> 00:19:05.320
+game right?
+
+00:19:05.320 --> 00:19:17.670
+try it. OK so I'm getting this time
+I'm no getting a failing test I'm getting
+
+00:19:17.670 --> 00:19:23.270
+code not compiling so what have I done?
+Splodge b to build there and it's just
+
+00:19:23.270 --> 00:19:29.040
+that I never called bowl twenty-one
+awarded; I should never put the braces in
+
+00:19:29.040 --> 00:19:35.730
+the brackets in so I never called the
+method so let's try now. Awesome. so the game is
+
+00:19:35.730 --> 00:19:38.800
+at bowl 20 so let's take a look at this. Do we
+think we're done? I think we could be
+
+00:19:38.800 --> 00:19:45.530
+done. I think that we are saying that we
+check the validity of the pins. we store the
+
+00:19:45.530 --> 00:19:49.670
+pin fall if the pinfall is valid. If it's
+bowl 21 it's always the end of
+
+00:19:49.670 --> 00:19:55.429
+the game otherwise if it's bowl 19 and
+bowl 21 has been awarded or rather if
+
+00:19:55.429 --> 00:20:00.450
+it's bowl 19 or above. so we're at the beginning
+of the last frame and Bowl 21 has been
+
+00:20:00.450 --> 00:20:06.420
+awarded we go ahead and reset otherwise
+if it's bowl 20 and bowl 21 hasn't
+
+00:20:06.420 --> 00:20:10.700
+been awarded then we end the game. Fair enough 
+so this is all this whole thing here is
+
+00:20:10.700 --> 00:20:19.170
+handling handle last frame special cases
+otherwise in general if you bowl a
+
+00:20:19.170 --> 00:20:23.250
+strike you end the turn and if you're mid-
+frame you tidy and if you're end-frame
+
+00:20:23.250 --> 00:20:27.280
+you end turn. If you're not sure what to do you
+get an exception we haven't had one of
+
+00:20:27.280 --> 00:20:30.710
+those for a while but let's leave it in
+there and then your logic for Bowl 21
+
+00:20:30.710 --> 00:20:35.960
+awarded is if bowl 19 plus 20 is greater than or equal to 10. I like it I think it
+
+00:20:35.960 --> 00:20:40.300
+feels right. So at this point I'm going to
+throw it out the gauntlet to you guys to
+
+00:20:40.300 --> 00:20:44.860
+say if can you make my tests fail. So
+if you use exactly my code then can you
+
+00:20:44.860 --> 00:20:49.220
+make my tests fail that would be your
+challenge right now what I'll do is
+
+00:20:49.220 --> 00:20:53.720
+attach my current state of action
+master dot cs and actionMaster tests
+
+00:20:53.720 --> 00:20:57.600
+dot cs to this lecture under the
+resources so that you can download them
+
+00:20:57.600 --> 00:21:00.940
+and put them in a project if you want to
+and then try and write a failing test
+
+00:21:00.940 --> 00:21:03.340
+for us and if you can do that then
+
+00:21:03.340 --> 00:21:06.130
+please stick it in the discussions in
+the comments and we'll improve the
+
+00:21:06.130 --> 00:21:09.360
+section and the code. Meanwhile I'm gonna
+crack on with the physics and the
+
+00:21:09.360 --> 00:21:10.540
+control systems. See you soon.
+

@@ -1,0 +1,570 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hey.
+
+2
+00:00:06.000 --> 00:00:09.000
+welcome back! So. in this video. we're going to talk about the coding trade
+
+3
+00:00:09.000 --> 00:00:12.000
+off triangle. It sounds mysterious. almost sounds like
+
+4
+00:00:12.000 --> 00:00:15.000
+the Bermuda Triangle. We're going to think about our
+
+5
+00:00:15.000 --> 00:00:18.000
+future self on the project. also mysterious.
+
+6
+00:00:18.000 --> 00:00:21.000
+And then. we're going to do the simple things. which are renaming a Game
+
+7
+00:00:21.000 --> 00:00:24.000
+Object and class. and we're going to use Debug.
+
+8
+00:00:24.000 --> 00:00:27.000
+LogError(). for the first time. So. what's this triangle thing?
+
+9
+00:00:27.000 --> 00:00:30.000
+Well. you've probably heard of a cost
+
+10
+00:00:30.000 --> 00:00:33.000
+quality time trade-off. in project management.
+
+11
+00:00:33.000 --> 00:00:36.000
+or even if you haven't. there's something similar when you write code.
+
+12
+00:00:36.000 --> 00:00:39.000
+You can write code that runs fast.
+
+13
+00:00:39.000 --> 00:00:42.000
+you can write code that's easy to extend.
+
+14
+00:00:42.000 --> 00:00:45.000
+and you can write code that's fast to write.
+
+15
+00:00:45.000 --> 00:00:48.000
+but you don't get to do all three.
+
+16
+00:00:48.000 --> 00:00:51.000
+The better you are. the closer you can get to
+
+17
+00:00:51.000 --> 00:00:54.000
+doing all three. but really you need to pick two.
+
+18
+00:00:54.000 --> 00:00:57.000
+So if code runs fast
+
+19
+00:00:57.000 --> 00:01:00.000
+and it's very easy for somebody to extend in the future. then it's
+
+20
+00:01:00.000 --> 00:01:03.000
+probably taken a long time to write. If it's
+
+21
+00:01:03.000 --> 00:01:06.000
+easy to extend and build on in the future. and it was very
+
+22
+00:01:06.000 --> 00:01:09.000
+fast to write. then it probably doesn't run very fast.
+
+23
+00:01:09.000 --> 00:01:12.000
+And if it's fast to write and it runs fast. then
+
+24
+00:01:12.000 --> 00:01:15.000
+it probably isn't easy to extend. So.
+
+25
+00:01:15.000 --> 00:01:18.000
+what we're going to do where is just think about it
+
+26
+00:01:18.000 --> 00:01:21.000
+extending our code. Imagine we come back to this in a few years
+
+27
+00:01:21.000 --> 00:01:24.000
+time. What can we do to improve it. so
+
+28
+00:01:24.000 --> 00:01:27.000
+that when we get back to it. it makes more sense to us?
+
+29
+00:01:27.000 --> 00:01:30.000
+Well. just a couple of simple challenges to you.
+
+30
+00:01:30.000 --> 00:01:33.000
+A thank you to John. for pointing out that I spelled
+
+31
+00:01:33.000 --> 00:01:36.000
+lose wrong. in the Lose Collider
+
+32
+00:01:36.000 --> 00:01:39.000
+Prefab. So. I'd like you to change the prefab name. it's a little
+
+33
+00:01:39.000 --> 00:01:42.000
+fidley. Also. change the script
+
+34
+00:01:42.000 --> 00:01:45.000
+and class name. and make sure the game still runs.
+
+35
+00:01:45.000 --> 00:01:48.000
+So. pause the video and change loose to
+
+36
+00:01:48.000 --> 00:01:51.000
+lose. throughout your game. now please.
+
+37
+00:01:51.000 --> 00:01:54.000
+[Temporary Silence]
+
+38
+00:01:54.000 --> 00:01:57.000
+So welcome back! There's a couple of good learnings in here. Let's
+
+39
+00:01:57.000 --> 00:02:00.000
+dive into Unity. take a look. So firstly. we go into
+
+40
+00:02:00.000 --> 00:02:03.000
+our prefabs. One of the beauties of prefabs is that. however
+
+41
+00:02:03.000 --> 00:02:06.000
+many levels you've got. when we change this Lose Collider we
+
+42
+00:02:06.000 --> 00:02:09.000
+only change it in one place. So. how do you find it? Well. it's
+
+43
+00:02:09.000 --> 00:02:12.000
+nested under the Play Space. so click on Assets.
+
+44
+00:02:12.000 --> 00:02:15.000
+Prefabs. Play Space. open the drawer with the little
+
+45
+00:02:15.000 --> 00:02:18.000
+triangle. and then. we're looking for Lose Collider.
+
+46
+00:02:18.000 --> 00:02:21.000
+Now. I'm going to rename it. up in the Inspector. and then. I'm going to hit Return.
+
+47
+00:02:21.000 --> 00:02:24.000
+And then. I'm going to check that in this particular level.
+
+48
+00:02:24.000 --> 00:02:27.000
+it has changed. It has but you'll notice a little bit of a
+
+49
+00:02:27.000 --> 00:02:30.000
+but or a querk of Unity is that. it hasn't yet changed.
+
+50
+00:02:30.000 --> 00:02:33.000
+certainly on my machine. within my Assets Drawer. but
+
+51
+00:02:33.000 --> 00:02:36.000
+if I save the projet it does update.
+
+52
+00:02:36.000 --> 00:02:39.000
+Great so. that's one place! Now. we 've got somewhere else
+
+53
+00:02:39.000 --> 00:02:42.000
+we need to change that. If we again go to the
+
+54
+00:02:42.000 --> 00:02:45.000
+Lose Collider Prefab. it's got a script on it. and the
+
+55
+00:02:45.000 --> 00:02:48.000
+script has got the wrong name. Let's go into the script here. Lose Collider.
+
+56
+00:02:48.000 --> 00:02:51.000
+There we go. Now. this is the class definition. You
+
+57
+00:02:51.000 --> 00:02:54.000
+need to change the class definition is one thing. save your script.
+
+58
+00:02:54.000 --> 00:02:57.000
+and then. you need to rename the script as
+
+59
+00:02:57.000 --> 00:03:00.000
+well. They need to be in sync in C#. so you
+
+60
+00:03:00.000 --> 00:03:03.000
+rename your script here. at the Asset Manager
+
+61
+00:03:03.000 --> 00:03:06.000
+and you change your class name. inside the script
+
+62
+00:03:06.000 --> 00:03:09.000
+at the top. where it says public class LoseCollider.
+
+63
+00:03:09.000 --> 00:03:12.000
+That brings it all into sync. Let's now that we've made these changes. have
+
+64
+00:03:12.000 --> 00:03:15.000
+a test that the thing still works and that we can
+
+65
+00:03:15.000 --> 00:03:18.000
+still lose. Good! And let's
+
+66
+00:03:18.000 --> 00:03:21.000
+just check a couple of other levels. to make sure that
+
+67
+00:03:21.000 --> 00:03:24.000
+the Lose Collider is still spelled correctly. Awesome!
+
+68
+00:03:24.000 --> 00:03:27.000
+Well done. if you've managed to do all those things yourself! You're really starting to
+
+69
+00:03:27.000 --> 00:03:30.000
+find your way around Unity. Got another challenge for you now! Here we go!
+
+70
+00:03:30.000 --> 00:03:33.000
+Let's take a look at the next one!
+
+71
+00:03:33.000 --> 00:03:36.000
+I want to add some "guard code" in Brick.cs.
+
+72
+00:03:36.000 --> 00:03:39.000
+so that when a sprite is missing. you get an error log to the console.
+
+73
+00:03:39.000 --> 00:03:42.000
+So at the moment. we check to see if
+
+74
+00:03:42.000 --> 00:03:45.000
+there is a sprite available to load.
+
+75
+00:03:45.000 --> 00:03:48.000
+for a given brick. but we don't log to the
+
+76
+00:03:48.000 --> 00:03:51.000
+Console. an error if there isn't. So. thanks to Ole
+
+77
+00:03:51.000 --> 00:03:54.000
+for pointing this out. So. I want you to do that.
+
+78
+00:03:54.000 --> 00:03:57.000
+Rather than using Debug.Log. like we normally do. just use
+
+79
+00:03:57.000 --> 00:04:00.000
+Debug.LogError. The only difference
+
+80
+00:04:00.000 --> 00:04:03.000
+with Debug.LogError is. when you look at your
+
+81
+00:04:03.000 --> 00:04:06.000
+Console. it will come up as a different
+
+82
+00:04:06.000 --> 00:04:09.000
+type. so it'll come up as an actual error. because it's quite serious. So.
+
+83
+00:04:09.000 --> 00:04:12.000
+you can choose what level of error you log out. and we're
+
+84
+00:04:12.000 --> 00:04:15.000
+going to be logging out a error. in this case. So. go
+
+85
+00:04:15.000 --> 00:04:18.000
+ahead and do that.
+
+86
+00:04:18.000 --> 00:04:21.000
+[Temporary Silence]
+
+87
+00:04:21.000 --> 00:04:24.000
+Cool! Welcome back! So relatively easy and it's going to be a good
+
+88
+00:04:24.000 --> 00:04:27.000
+revision of what goes on in Brick.cs. So. open up your
+
+89
+00:04:27.000 --> 00:04:30.000
+Brick.cs. I'm going to put an extra line
+
+90
+00:04:30.000 --> 00:04:33.000
+space in here. So. this if statement says. if (hit
+
+91
+00:04:33.000 --> 00:04:36.000
+Sprites[spriteIndex]). Well. that's really saying
+
+92
+00:04:36.000 --> 00:04:39.000
+if (hitSprite[spriteIndex]) does not equal
+
+93
+00:04:39.000 --> 00:04:42.000
+null... OK. let's just put that does not
+
+94
+00:04:42.000 --> 00:04:45.000
+equal null in. just to prove that it has no effect
+
+95
+00:04:45.000 --> 00:04:48.000
+on the game. the game still runs exactly the same.
+
+96
+00:04:48.000 --> 00:04:51.000
+OK. it still works fine.
+
+97
+00:04:51.000 --> 00:04:54.000
+But that's what it's really saying. It's saying if (hitSprites [spriteIndex])
+
+98
+00:04:54.000 --> 00:04:57.000
+doesn't equal null. i.e. that is.
+
+99
+00:04:57.000 --> 00:05:00.000
+a sprite at this sprite index. But how about if
+
+100
+00:05:00.000 --> 00:05:03.000
+there isn't a sprite? At the moment. it just does nothing. it doesn't load a sprite.
+
+101
+00:05:03.000 --> 00:05:06.000
+So. I'm going to say else.
+
+102
+00:05:06.000 --> 00:05:09.000
+This is where we put our Debug.Log. Now. look what we've
+
+103
+00:05:09.000 --> 00:05:12.000
+got. We've got errors. exceptions. and warnings.
+
+104
+00:05:12.000 --> 00:05:15.000
+They're your three types. well actually four types. you can just
+
+105
+00:05:15.000 --> 00:05:18.000
+log. You can log an error. an exception. and a warning. We're
+
+106
+00:05:18.000 --> 00:05:21.000
+just going to log an error here. It just comes up in a slightly different
+
+107
+00:05:21.000 --> 00:05:24.000
+filter. in a different color.
+
+108
+00:05:24.000 --> 00:05:27.000
+[Typing Sound]
+
+109
+00:05:27.000 --> 00:05:30.000
+("Brick sprite missing");  OK. you see what I've
+
+110
+00:05:30.000 --> 00:05:33.000
+done there. If it can't find a sprite. at that position in the index. when it
+
+111
+00:05:33.000 --> 00:05:36.000
+gets to it. it says there's a brick sprite missing. So.
+
+112
+00:05:36.000 --> 00:05:39.000
+obviously when I run as normal. we get no
+
+113
+00:05:39.000 --> 00:05:42.000
+problems no errors. If I pause and
+
+114
+00:05:42.000 --> 00:05:45.000
+look at the Console. we have no errors. but how about
+
+115
+00:05:45.000 --> 00:05:48.000
+if I was to go to my Prefabs
+
+116
+00:05:48.000 --> 00:05:51.000
+and bravely take. say off the red.
+
+117
+00:05:51.000 --> 00:05:54.000
+one of the
+
+118
+00:05:54.000 --> 00:05:57.000
+hit sprites. this Element 1 here. Let's
+
+119
+00:05:57.000 --> 00:06:00.000
+make that none. OK. now let's see what happens when we
+
+120
+00:06:00.000 --> 00:06:03.000
+run. When I click play...
+
+121
+00:06:03.000 --> 00:06:06.000
+Let's pause.
+
+122
+00:06:06.000 --> 00:06:09.000
+Here you go! In the Console. we have a red
+
+123
+00:06:09.000 --> 00:06:12.000
+warning. You can filter on and off these errors here.
+
+124
+00:06:12.000 --> 00:06:15.000
+and it says. error "Brick sprite missing".
+
+125
+00:06:15.000 --> 00:06:18.000
+OK fantastic! So. again congratulations
+
+126
+00:06:18.000 --> 00:06:21.000
+if you did that! If you've tested by taking a sprite off. like I did.
+
+127
+00:06:21.000 --> 00:06:24.000
+just pop it back on. just so that everything
+
+128
+00:06:24.000 --> 00:06:27.000
+works. And that's it! So congratulations!
+
+129
+00:06:27.000 --> 00:06:30.000
+Just by way of a quick recap for you.
+
+130
+00:06:30.000 --> 00:06:33.000
+we have looked at the coding trade off triangle.
+
+131
+00:06:33.000 --> 00:06:36.000
+Remember. things Run Fast. they're Easy to Extend. or they're
+
+132
+00:06:36.000 --> 00:06:39.000
+Fast to Write. but you don't get to really do all three.
+
+133
+00:06:39.000 --> 00:06:42.000
+We've thought about our future self on the project and said. well
+
+134
+00:06:42.000 --> 00:06:45.000
+if we see Loose Collider rather than Lose.
+
+135
+00:06:45.000 --> 00:06:48.000
+that's a bit confusing. so let's change that. We've also
+
+136
+00:06:48.000 --> 00:06:51.000
+said it's going to be a bit confusing if a
+
+137
+00:06:51.000 --> 00:06:54.000
+sprite doesn't swap out; it'd be much more useful to have an error.
+
+138
+00:06:54.000 --> 00:06:57.000
+And then. we've looked at renaming Game Objects and Classes.
+
+139
+00:06:57.000 --> 00:07:00.000
+and we've used a different type of Debug.Log. just so that you
+
+140
+00:07:00.000 --> 00:07:03.000
+can stream your logs into different
+
+141
+00:07:03.000 --> 00:07:06.000
+severities. levels of severity.
+
+142
+00:07:06.000 --> 00:07:09.000
+So congratulations. and I will see you soon!
+

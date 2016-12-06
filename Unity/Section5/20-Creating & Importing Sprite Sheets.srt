@@ -1,0 +1,1242 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hey welcome back guys and girls!
+
+2
+00:00:06.000 --> 00:00:09.000
+So in this video. we want to give the users some feedback
+
+3
+00:00:09.000 --> 00:00:12.000
+about how broken the blocks are. So. the yellow ones
+
+4
+00:00:12.000 --> 00:00:15.000
+break immediately but the green ones you have to hit
+
+5
+00:00:15.000 --> 00:00:18.000
+more than once. but the use has no idea
+
+6
+00:00:18.000 --> 00:00:21.000
+how many times they need to hit them. So. what we're going
+
+7
+00:00:21.000 --> 00:00:24.000
+to do. in this lecture particularly. is
+
+8
+00:00:24.000 --> 00:00:27.000
+we are going to explain why a Sprite
+
+9
+00:00:27.000 --> 00:00:30.000
+Sheet is a useful thing. the key features
+
+10
+00:00:30.000 --> 00:00:33.000
+of a Sprite Sheet. We'll create the sprites'
+
+11
+00:00:33.000 --> 00:00:36.000
+partially broken blocks. and import them into Unity.
+
+12
+00:00:36.000 --> 00:00:39.000
+So. why is a Sprite Sheet a useful thing. and what is
+
+13
+00:00:39.000 --> 00:00:42.000
+a Sprite Sheet. Well firstly. what is a Sprite Sheet?
+
+14
+00:00:42.000 --> 00:00:45.000
+It's something like this. just a set of images
+
+15
+00:00:45.000 --> 00:00:48.000
+that are related. for the various animation
+
+16
+00:00:48.000 --> 00:00:51.000
+states. or just states of something in your game.
+
+17
+00:00:51.000 --> 00:00:54.000
+Here's a brick wall crumbling. in the top row.
+
+18
+00:00:54.000 --> 00:00:57.000
+So currently. if we look in our
+
+19
+00:00:57.000 --> 00:01:00.000
+Sprites Folder. we have a Full Brick. and
+
+20
+00:01:00.000 --> 00:01:03.000
+if you click the little arrow you'll see that
+
+21
+00:01:03.000 --> 00:01:06.000
+the image is called Full Brick and
+
+22
+00:01:06.000 --> 00:01:09.000
+it's being treated. if you look in the Inspector. as a single
+
+23
+00:01:09.000 --> 00:01:12.000
+sprite. You see under Inspector. Sprite
+
+24
+00:01:12.000 --> 00:01:15.000
+Mode. Single. and then. if you
+
+25
+00:01:15.000 --> 00:01:18.000
+pull the little drawer out. what you've got in the drawer is a single
+
+26
+00:01:18.000 --> 00:01:21.000
+sprite called Full Brick and it's actually that.
+
+27
+00:01:21.000 --> 00:01:24.000
+that we're referring to in the prefabs. If I was to
+
+28
+00:01:24.000 --> 00:01:27.000
+change the name of this Full Brick
+
+29
+00:01:27.000 --> 00:01:30.000
+sprite then. over in the prefab here.
+
+30
+00:01:30.000 --> 00:01:33.000
+that's what would change. When we select sprite
+
+31
+00:01:33.000 --> 00:01:36.000
+we're selecting the thing in the drawer. same with
+
+32
+00:01:36.000 --> 00:01:39.000
+the Left Brick and same with the Right Brick. So
+
+33
+00:01:39.000 --> 00:01:42.000
+where does it make sense for the ball to possibly be a separate sprite.
+
+34
+00:01:42.000 --> 00:01:45.000
+in the backgrounds? The brick is so related to itself
+
+35
+00:01:45.000 --> 00:01:48.000
+that there's some benefits. in terms of organization.
+
+36
+00:01:48.000 --> 00:01:51.000
+in having it all in
+
+37
+00:01:51.000 --> 00:01:54.000
+one Sprite Sheet. particularly when you
+
+38
+00:01:54.000 --> 00:01:57.000
+get to more complex scenarios. like you see here like
+
+39
+00:01:57.000 --> 00:02:00.000
+this bomb going off and the flames and things.
+
+40
+00:02:00.000 --> 00:02:03.000
+So firstly. I'm going to tidy up the
+
+41
+00:02:03.000 --> 00:02:06.000
+Left and Right Brick. into a single Sprite Sheet. so that we have
+
+42
+00:02:06.000 --> 00:02:09.000
+one. and then. I'm going to challenge you to create the
+
+43
+00:02:09.000 --> 00:02:12.000
+broken block effect. your way. So. how are we going to
+
+44
+00:02:12.000 --> 00:02:15.000
+do this. Well. I'm going to find where my Full
+
+45
+00:02:15.000 --> 00:02:18.000
+Brick sprite is in my File System.
+
+46
+00:02:18.000 --> 00:02:21.000
+and I'm going to open it. in my case. with Pixen. P. i. x.
+
+47
+00:02:21.000 --> 00:02:24.000
+e. n. That's a Mac program you can find
+
+48
+00:02:24.000 --> 00:02:27.000
+just by Googleing for Pixen. I think it's worth the
+
+49
+00:02:27.000 --> 00:02:30.000
+$10 if you're doing any Pixel art. The other
+
+50
+00:02:30.000 --> 00:02:33.000
+thing you can use. which is free and will work on Mac
+
+51
+00:02:33.000 --> 00:02:36.000
+and PC is Gimp. And even
+
+52
+00:02:36.000 --> 00:02:39.000
+though we introduced Gimp earlier in the course. I don't want this course to become too
+
+53
+00:02:39.000 --> 00:02:42.000
+reliant on Gimp. so I'm going to use a different Mac program
+
+54
+00:02:42.000 --> 00:02:45.000
+called Pixen. But if you don't have a
+
+55
+00:02:45.000 --> 00:02:48.000
+Mac or you prefer to use Gimp then one of our students. Okiliy
+
+56
+00:02:48.000 --> 00:02:51.000
+Dokily. has very helpfully provided
+
+57
+00:02:51.000 --> 00:02:54.000
+Gimp instructions. that you can see in the discussions
+
+58
+00:02:54.000 --> 00:02:57.000
+agaisnt this lecture or on the screen right now.
+
+59
+00:02:57.000 --> 00:03:00.000
+These are step by step. I've pretty much left them unedited. just as a
+
+60
+00:03:00.000 --> 00:03:03.000
+homage to Okiliy Dokily for his super helpful
+
+61
+00:03:03.000 --> 00:03:06.000
+set of instructions. The other thing you can do. of course. if you
+
+62
+00:03:06.000 --> 00:03:09.000
+think. I just want to crack on with making the game. is just go to the
+
+63
+00:03:09.000 --> 00:03:12.000
+resources of this lecture. and I've provided my
+
+64
+00:03:12.000 --> 00:03:15.000
+completed Sprite Sheet. attached to this very lecture.
+
+65
+00:03:15.000 --> 00:03:18.000
+So. you don't even need to bother making a Sprite Sheet for yourself.
+
+66
+00:03:18.000 --> 00:03:21.000
+if you don't want to. So. to recap. you can use
+
+67
+00:03:21.000 --> 00:03:24.000
+Gimp. you can use another editor of your choice.
+
+68
+00:03:24.000 --> 00:03:27.000
+but whatever image editor you decide to go for. it's important
+
+69
+00:03:27.000 --> 00:03:30.000
+it supports tranparent backgrounds.
+
+70
+00:03:30.000 --> 00:03:33.000
+You'll see why. It's important it's easy to resize your
+
+71
+00:03:33.000 --> 00:03:36.000
+Canvas. to resize the image to put more space around
+
+72
+00:03:36.000 --> 00:03:39.000
+the outside of it. and ideally it would support layers as
+
+73
+00:03:39.000 --> 00:03:42.000
+well. So. let's
+
+74
+00:03:42.000 --> 00:03:45.000
+take a look. I'm. as I say. going to open my Full Brick
+
+75
+00:03:45.000 --> 00:03:48.000
+in Pixen. which is my program of choice here.
+
+76
+00:03:48.000 --> 00:03:51.000
+so let's just do that.
+
+77
+00:03:51.000 --> 00:03:54.000
+And the principles
+
+78
+00:03:54.000 --> 00:03:57.000
+I'll show you in Pixen will apply very well to anything else that
+
+79
+00:03:57.000 --> 00:04:00.000
+you decide to use. So the mission is. and I'm going to
+
+80
+00:04:00.000 --> 00:04:03.000
+walk you through it. is to end up with all three the Full Brick. the Left
+
+81
+00:04:03.000 --> 00:04:06.000
+Brick. and the Right Brick. in the same image. So.
+
+82
+00:04:06.000 --> 00:04:09.000
+how big is this image? 128 wide by 41
+
+83
+00:04:09.000 --> 00:04:12.000
+high. I want to put two more bricks below it. both of
+
+84
+00:04:12.000 --> 00:04:15.000
+height 41. and I want at least one. I'm
+
+85
+00:04:15.000 --> 00:04:18.000
+going to go for two pixels of gap around. So.
+
+86
+00:04:18.000 --> 00:04:21.000
+4. 8. 12. 123
+
+87
+00:04:21.000 --> 00:04:24.000
+pixels. so if I go for
+
+88
+00:04:24.000 --> 00:04:27.000
+125 I'll be about right. So. I'm going to resize
+
+89
+00:04:27.000 --> 00:04:30.000
+my canvas. leaving the current image at the top
+
+90
+00:04:30.000 --> 00:04:33.000
+to 125.
+
+91
+00:04:33.000 --> 00:04:36.000
+OK cool! Then. I'm going to
+
+92
+00:04:36.000 --> 00:04:39.000
+go into my other bricks. I'm going to go find my Left
+
+93
+00:04:39.000 --> 00:04:42.000
+Brick. I'm going to open that in
+
+94
+00:04:42.000 --> 00:04:45.000
+Pixen. I'm going to copy it
+
+95
+00:04:45.000 --> 00:04:48.000
+and paste it into this image down here.
+
+96
+00:04:51.000 --> 00:04:54.000
+Like so.
+
+97
+00:04:54.000 --> 00:04:57.000
+And then. I'm going to go back. I'm going to find my Right Brick.
+
+98
+00:04:57.000 --> 00:05:00.000
+I'm going to open it with Pixen.
+
+99
+00:05:00.000 --> 00:05:03.000
+copy it all.
+
+100
+00:05:03.000 --> 00:05:06.000
+and paste it in here. Now. I can put it at the bottom.
+
+101
+00:05:06.000 --> 00:05:09.000
+which would be fine. It doesn't quite
+
+102
+00:05:09.000 --> 00:05:12.000
+look the same width. Let me just check that. I'm on different layers here.
+
+103
+00:05:15.000 --> 00:05:18.000
+I just want to make sure that you put your things down in exactly the right
+
+104
+00:05:18.000 --> 00:05:21.000
+place. That's OK. these are opacities I'm playing with
+
+105
+00:05:21.000 --> 00:05:24.000
+we don't need to change them. So. I can put it here in the Sprite Sheet
+
+106
+00:05:24.000 --> 00:05:27.000
+or I could put it here. For neatness. I'm going to put it there.
+
+107
+00:05:27.000 --> 00:05:30.000
+I've got a bit of extra space to use later. as long as you
+
+108
+00:05:30.000 --> 00:05:33.000
+understand what's going on. I've got three images in the
+
+109
+00:05:33.000 --> 00:05:36.000
+same image now. effectively. So . if I
+
+110
+00:05:36.000 --> 00:05:39.000
+was to then save this. and I'm going to save it as something
+
+111
+00:05:39.000 --> 00:05:42.000
+different. I'm going to save it as Bricks. in the
+
+112
+00:05:42.000 --> 00:05:45.000
+folder. in the Assets Folder. So. Block Breaker.
+
+113
+00:05:45.000 --> 00:05:48.000
+Assets. Sprites. I'm going to call it Bricks. and
+
+114
+00:05:48.000 --> 00:05:51.000
+I'm going to save it as a .png OK.
+
+115
+00:05:51.000 --> 00:05:54.000
+because that supports transparencies in the background. Let's go
+
+116
+00:05:54.000 --> 00:05:57.000
+back to Unity. and if you refresh
+
+117
+00:05:57.000 --> 00:06:00.000
+in here. you may see bricks appear. I do
+
+118
+00:06:00.000 --> 00:06:03.000
+see bricks. it's also changed my original file. It doesn't matter
+
+119
+00:06:03.000 --> 00:06:06.000
+because I'm going to delete all three of these. In fact. I'm going to boldly delete
+
+120
+00:06:06.000 --> 00:06:09.000
+all of the other sprites now. completely.
+
+121
+00:06:09.000 --> 00:06:12.000
+Everything will disappear out of your scene. don't worry about it. it's very easy to
+
+122
+00:06:12.000 --> 00:06:15.000
+fix. Bricks. what is this? This is an
+
+123
+00:06:15.000 --> 00:06:18.000
+image with three sprites in it. but currently the system only sees
+
+124
+00:06:18.000 --> 00:06:21.000
+it as one sprite. so this is how we chop out the
+
+125
+00:06:21.000 --> 00:06:24.000
+sprites. Watch this! Click onto Bricks. your new image.
+
+126
+00:06:24.000 --> 00:06:27.000
+under the Inspector in Sprite Mode click
+
+127
+00:06:27.000 --> 00:06:30.000
+Multiple. you're telling it there's more than one. You'll
+
+128
+00:06:30.000 --> 00:06:33.000
+recall that your Pixels Per Unit was 128 before
+
+129
+00:06:33.000 --> 00:06:36.000
+and click Sprite Editor. I
+
+130
+00:06:36.000 --> 00:06:39.000
+actually click apply first. and then it'll apply the 128.
+
+131
+00:06:39.000 --> 00:06:42.000
+You can do this at any time. you can do it later. Once you're
+
+132
+00:06:42.000 --> 00:06:45.000
+in the Sprite Editor. here you see it now. under the Slice options
+
+133
+00:06:45.000 --> 00:06:48.000
+at the top left. because we've left
+
+134
+00:06:48.000 --> 00:06:51.000
+a space around them and the background is transparent the Automatic
+
+135
+00:06:51.000 --> 00:06:54.000
+Slice will work. Click Automatic and you'll
+
+136
+00:06:54.000 --> 00:06:57.000
+see some very faint borders. If you click on each part of the image.
+
+137
+00:06:57.000 --> 00:07:00.000
+you'll see it's actually recognized all three images.
+
+138
+00:07:00.000 --> 00:07:03.000
+Now. all we need to do is name them. and I'm going to call this
+
+139
+00:07:03.000 --> 00:07:06.000
+one 0 hits. because it has
+
+140
+00:07:06.000 --> 00:07:09.000
+not been hit. I'm just going to call this one very clearly. simply
+
+141
+00:07:09.000 --> 00:07:12.000
+left. and I'm going to call this one right.
+
+142
+00:07:12.000 --> 00:07:15.000
+And the final thing I'm going to do is put their pivot points at the bottom left.
+
+143
+00:07:15.000 --> 00:07:18.000
+because that's where they were before. OK.
+
+144
+00:07:18.000 --> 00:07:21.000
+Cool! If  you click apply at the top here.
+
+145
+00:07:21.000 --> 00:07:24.000
+towards the top right. and then close this.
+
+146
+00:07:24.000 --> 00:07:27.000
+now look back in Unity. You have a single
+
+147
+00:07:27.000 --> 00:07:30.000
+Bricks Sprite Sheet image.
+
+148
+00:07:30.000 --> 00:07:33.000
+which is being interpreted as multiple sprites.
+
+149
+00:07:33.000 --> 00:07:36.000
+and when you pull out the drawer. you have 0 hits. left. and right
+
+150
+00:07:36.000 --> 00:07:39.000
+sprite. Awesome! Now. this is how you connect stuff back
+
+151
+00:07:39.000 --> 00:07:42.000
+up. Go to your Prefabs and your Paddle. it's missing
+
+152
+00:07:42.000 --> 00:07:45.000
+the sprite. so you just give it the 0 hits sprite.
+
+153
+00:07:45.000 --> 00:07:48.000
+Great! Now. what else is missing?
+
+154
+00:07:48.000 --> 00:07:51.000
+Well. the 1 hit. 2 hit. and 3 hit prefabs
+
+155
+00:07:51.000 --> 00:07:54.000
+are all missing sprites. so you can multi-select them
+
+156
+00:07:54.000 --> 00:07:57.000
+and give them all the 0 hits sprite. Now.
+
+157
+00:07:57.000 --> 00:08:00.000
+we are nearly back up and running. Now. what's going wrong with that
+
+158
+00:08:00.000 --> 00:08:03.000
+ball. Why is the ball sitting there? Well.
+
+159
+00:08:03.000 --> 00:08:06.000
+I don't know. but also these bricks look off. so I think it
+
+160
+00:08:06.000 --> 00:08:09.000
+has something to do with our Pivot Point. So. going back into the Sprite
+
+161
+00:08:09.000 --> 00:08:12.000
+Editor. it seems that actually we want central pivot
+
+162
+00:08:12.000 --> 00:08:15.000
+points. So. that's the sort of error you'll get if your Pivot
+
+163
+00:08:15.000 --> 00:08:18.000
+Point is wrong. It'll rotate around the wrong place.
+
+164
+00:08:18.000 --> 00:08:21.000
+and it's offset will be wrong. So. pop back into the Sprite Editor.
+
+165
+00:08:21.000 --> 00:08:24.000
+pop the Pivot Point for all of the sprites
+
+166
+00:08:24.000 --> 00:08:27.000
+back to central. and now observe that the ball
+
+167
+00:08:27.000 --> 00:08:30.000
+sits nicely on the paddle and that we're back to where
+
+168
+00:08:30.000 --> 00:08:33.000
+we were. with one important difference. which is that we now
+
+169
+00:08:33.000 --> 00:08:36.000
+understand Sprite Sheets a lot better
+
+170
+00:08:36.000 --> 00:08:39.000
+than we did before. So. what do we want you to do next? Well.
+
+171
+00:08:39.000 --> 00:08:42.000
+I want you to create the damaged bricks. I want you to add
+
+172
+00:08:42.000 --> 00:08:45.000
+two more sprites at the bottom. That means you're going to need to make a
+
+173
+00:08:45.000 --> 00:08:48.000
+little bit more space at the bottom of your image. for one more brick.
+
+174
+00:08:48.000 --> 00:08:51.000
+I want you to add one slightly damaged looking
+
+175
+00:08:51.000 --> 00:08:54.000
+brick. Now. you can do that by chopping out the brick.
+
+176
+00:08:54.000 --> 00:08:57.000
+into the background color and/or
+
+177
+00:08:57.000 --> 00:09:00.000
+painting over the top of the brick with maybe a dark color
+
+178
+00:09:00.000 --> 00:09:03.000
+for breakage. It's up to you. let the artist
+
+179
+00:09:03.000 --> 00:09:06.000
+within out. You can do the
+
+180
+00:09:06.000 --> 00:09:09.000
+break squiggles or the break colors
+
+181
+00:09:09.000 --> 00:09:12.000
+on a different layer. I don't care. You can even just write
+
+182
+00:09:12.000 --> 00:09:15.000
+numbers on the bricks. 2. 1. whatever you like. but just
+
+183
+00:09:15.000 --> 00:09:18.000
+make two different brick sprites that look like
+
+184
+00:09:18.000 --> 00:09:21.000
+they're being damaged. One for once a brick has been hit once.
+
+185
+00:09:21.000 --> 00:09:24.000
+and a very damaged brick that has been hit twice.
+
+186
+00:09:24.000 --> 00:09:27.000
+Then. reimport that same Sprite Sheet. the Bricks
+
+187
+00:09:27.000 --> 00:09:30.000
+Sprite Sheet. to include the 1 hit
+
+188
+00:09:30.000 --> 00:09:33.000
+and 2 hit. and then. just apply those to a couple
+
+189
+00:09:33.000 --> 00:09:36.000
+of the prefabs and make sure they display properly. So. that's
+
+190
+00:09:36.000 --> 00:09:39.000
+your challenge. Go away. have a play with sprites. Improve
+
+191
+00:09:39.000 --> 00:09:42.000
+your Sprite Sheet. make sure you understand how it all works. and when you finish.
+
+192
+00:09:42.000 --> 00:09:45.000
+come back and I'll show you how I do it.
+
+193
+00:09:45.000 --> 00:09:48.000
+OK congrats
+
+194
+00:09:48.000 --> 00:09:51.000
+and welcome back! I hope you managed to do it. I'm going to go ahead now
+
+195
+00:09:51.000 --> 00:09:54.000
+and see what's going on in Pixen. Here we go. here
+
+196
+00:09:54.000 --> 00:09:57.000
+is my Bricks sheet.  What do I need to do? Well.
+
+197
+00:09:57.000 --> 00:10:00.000
+first thing I need to do is add some more pixels to the bottom.
+
+198
+00:10:00.000 --> 00:10:03.000
+I need another 41 pixels at the bottom.
+
+199
+00:10:03.000 --> 00:10:06.000
+at least. so that would take me up to 166
+
+200
+00:10:06.000 --> 00:10:09.000
+pixels. Great! So now.
+
+201
+00:10:09.000 --> 00:10:12.000
+I've got the space to add two more bricks in.
+
+202
+00:10:12.000 --> 00:10:15.000
+I'm going to zoom out a little bit. I'm going to copy
+
+203
+00:10:15.000 --> 00:10:18.000
+the top brick. Now. I'm not sure which one the is. so trial and error.
+
+204
+00:10:18.000 --> 00:10:21.000
+I think it may be Main Layer? Nope. it's
+
+205
+00:10:21.000 --> 00:10:24.000
+not. Now. you of course could rename your layers
+
+206
+00:10:24.000 --> 00:10:27.000
+so that you don't have to mess around too much like this but
+
+207
+00:10:27.000 --> 00:10:30.000
+either way it doesn't really matter. I'm just going to do
+
+208
+00:10:30.000 --> 00:10:33.000
+a copy now. In fact. what I'm going to do. because I don't need layers is I'm
+
+209
+00:10:33.000 --> 00:10:36.000
+going to merge my layers together. I just don't
+
+210
+00:10:36.000 --> 00:10:39.000
+need layers. at this point. it's much easier without them.
+
+211
+00:10:39.000 --> 00:10:42.000
+So. here we go! I now can
+
+212
+00:10:42.000 --> 00:10:45.000
+take a Select Tool. I can copy
+
+213
+00:10:45.000 --> 00:10:48.000
+the brick. provided I select
+
+214
+00:10:48.000 --> 00:10:51.000
+everything perfectly.
+
+215
+00:10:51.000 --> 00:10:54.000
+There we go! I think my selection is
+
+216
+00:10:54.000 --> 00:10:57.000
+the right size. Paste that brick down. using the
+
+217
+00:10:57.000 --> 00:11:00.000
+Move Tool to paste my new brick.
+
+218
+00:11:00.000 --> 00:11:03.000
+There that's fine. and you must
+
+219
+00:11:03.000 --> 00:11:06.000
+have some space. some barber pole in between. and again.
+
+220
+00:11:06.000 --> 00:11:09.000
+paste the final one down. If I've done my sums right. it'll fit
+
+221
+00:11:09.000 --> 00:11:12.000
+with a little bit of space. OK. there's a slight
+
+222
+00:11:12.000 --> 00:11:15.000
+problem there with... Yeah something is not pasting
+
+223
+00:11:15.000 --> 00:11:18.000
+right. So. what's going on?
+
+224
+00:11:18.000 --> 00:11:21.000
+That one is good. So. you may have to fiddle
+
+225
+00:11:21.000 --> 00:11:24.000
+around with it. fight the editor a little bit. Great! So. I've got
+
+226
+00:11:24.000 --> 00:11:27.000
+now all the images I need. That's fantastic! Now.
+
+227
+00:11:27.000 --> 00:11:30.000
+how am I going to make these bricks look like they are broken? Well.
+
+228
+00:11:30.000 --> 00:11:33.000
+I'm just going to do this in a very rough and ready way.
+
+229
+00:11:33.000 --> 00:11:36.000
+Again. I'm going to merge my layers. I only need one layer.
+
+230
+00:11:36.000 --> 00:11:39.000
+So. it's a single flat image now. and I'm just for
+
+231
+00:11:39.000 --> 00:11:42.000
+the partially broken one. I'm just going to take some chunks out of it like
+
+232
+00:11:42.000 --> 00:11:45.000
+this. Just little little little bits like
+
+233
+00:11:45.000 --> 00:11:48.000
+kind of missing here. and in then the background will
+
+234
+00:11:48.000 --> 00:11:51.000
+show through in Unity.
+
+235
+00:11:51.000 --> 00:11:54.000
+And it doesn't really matter how it looks. This is where you could spend a long
+
+236
+00:11:54.000 --> 00:11:57.000
+time being very artistic with it. The other one. I'm going to take some
+
+237
+00:11:57.000 --> 00:12:00.000
+fairly major chunks out of. but
+
+238
+00:12:00.000 --> 00:12:03.000
+not break the edges of it too much.
+
+239
+00:12:03.000 --> 00:12:06.000
+And if you want to come in with a pen. as I said. possibly on a new
+
+240
+00:12:06.000 --> 00:12:09.000
+layer and just
+
+241
+00:12:09.000 --> 00:12:12.000
+kind of squiggle on these bricks a little bit. then you
+
+242
+00:12:12.000 --> 00:12:15.000
+can. And this one is looking really...
+
+243
+00:12:15.000 --> 00:12:18.000
+Well. I don't really know if you can
+
+244
+00:12:18.000 --> 00:12:21.000
+see. If you're not an artist. you would have to spend a lot of time to get this right.
+
+245
+00:12:21.000 --> 00:12:24.000
+but that's going to do. This is my 1 hit. this is my 2 hit.
+
+246
+00:12:24.000 --> 00:12:27.000
+I'm going to save that file and go back to Unity.
+
+247
+00:12:27.000 --> 00:12:30.000
+My Sprite Sheet has updated. but my sprites
+
+248
+00:12:30.000 --> 00:12:33.000
+haven't updated properly yet. I need to reimport them. it's
+
+249
+00:12:33.000 --> 00:12:36.000
+actually broken my left and right sprite. So. let's go
+
+250
+00:12:36.000 --> 00:12:39.000
+into the Sprite Editor and get this fixed up. You can do a new
+
+251
+00:12:39.000 --> 00:12:42.000
+automatic trim. deleting existing.
+
+252
+00:12:42.000 --> 00:12:45.000
+which is fine for this small sheet.
+
+253
+00:12:45.000 --> 00:12:48.000
+So. this one I'm just going to rename. I'm just going to start a
+
+254
+00:12:48.000 --> 00:12:51.000
+fresh. This is my 0 hit. This guy is
+
+255
+00:12:51.000 --> 00:12:54.000
+my left. this guy is my right.
+
+256
+00:12:54.000 --> 00:12:57.000
+this guy is my 1 hit.
+
+257
+00:12:57.000 --> 00:13:00.000
+and this guy is my 2
+
+258
+00:13:00.000 --> 00:13:03.000
+hit. Now. like a good student.
+
+259
+00:13:03.000 --> 00:13:06.000
+I'm going to check my brief to make sure that... Yes.
+
+260
+00:13:06.000 --> 00:13:09.000
+that is what I set to call them. 1 hit and 2 hit.
+
+261
+00:13:09.000 --> 00:13:12.000
+Fantastic! Alright. now I'm going to apply that and close.
+
+262
+00:13:12.000 --> 00:13:15.000
+Now. look this is a cool Sprite Sheet! We have left and right
+
+263
+00:13:15.000 --> 00:13:18.000
+and broken. We're probably not going to make much use of these left and right
+
+264
+00:13:18.000 --> 00:13:21.000
+sprites. It's more of an exercise in cutting and messing
+
+265
+00:13:21.000 --> 00:13:24.000
+around. but these 1 hit and 2 hits are certainly useful.
+
+266
+00:13:24.000 --> 00:13:27.000
+So again. let's go fix our prefabs. We fix our paddle
+
+267
+00:13:27.000 --> 00:13:30.000
+by giving it a no hit sprite.
+
+268
+00:13:30.000 --> 00:13:33.000
+We could fix our 1 hit block temporally by giving it
+
+269
+00:13:33.000 --> 00:13:36.000
+1 hit. Now. of course. it hasn't been hit so that's a bit strange.
+
+270
+00:13:36.000 --> 00:13:39.000
+but we're just testing that these
+
+271
+00:13:39.000 --> 00:13:42.000
+sprites work. And if I zoom in. they do
+
+272
+00:13:42.000 --> 00:13:45.000
+appear to. the background is showing through. Now. they look scraggy.
+
+273
+00:13:45.000 --> 00:13:48.000
+they don't look very good. but at least we have now two different levels
+
+274
+00:13:48.000 --> 00:13:51.000
+of brokenness in our sprites. Now. if you look
+
+275
+00:13:51.000 --> 00:13:54.000
+at them like I am. well they don't look sufficiently different.
+
+276
+00:13:54.000 --> 00:13:57.000
+Well. I'd agree with that. Look how flexible it is!
+
+277
+00:13:57.000 --> 00:14:00.000
+You can go straight back into your Image Editor and say. well
+
+278
+00:14:00.000 --> 00:14:03.000
+I haven't really got enough missing from
+
+279
+00:14:03.000 --> 00:14:06.000
+my 2 hit brick. So. I'm going to pull a
+
+280
+00:14:06.000 --> 00:14:09.000
+bit more out of this guy and say well. you know he's not
+
+281
+00:14:09.000 --> 00:14:12.000
+really looking decimated enough. So here
+
+282
+00:14:12.000 --> 00:14:15.000
+it goes. this guy is going to look a little bit worse. Now.
+
+283
+00:14:15.000 --> 00:14:18.000
+when I save and go back to Unity. it immediately updates. which is really cool!
+
+284
+00:14:18.000 --> 00:14:21.000
+So. I quite like that! I think that
+
+285
+00:14:21.000 --> 00:14:24.000
+you can very quickly get a good idea. as to
+
+286
+00:14:24.000 --> 00:14:27.000
+what it's finally going to look like. every time you save it
+
+287
+00:14:27.000 --> 00:14:30.000
+updates. And I think that's looking
+
+288
+00:14:30.000 --> 00:14:33.000
+sufficiently good. Maybe the thick one needs some...
+
+289
+00:14:33.000 --> 00:14:36.000
+Maybe the more broken brick needs some thick lines
+
+290
+00:14:36.000 --> 00:14:39.000
+on it. I don't know. I'm not going to embarrass myself as an artist.
+
+291
+00:14:39.000 --> 00:14:42.000
+too much longer here. because
+
+292
+00:14:42.000 --> 00:14:45.000
+you know. I just don't need to do a lot more on this brick at the moment.
+
+293
+00:14:45.000 --> 00:14:48.000
+But I'm just going to add a bit more kind of black breakage
+
+294
+00:14:48.000 --> 00:14:51.000
+in here. Try and keep it on
+
+295
+00:14:51.000 --> 00:14:54.000
+top of the brick. Here we go! Ah. really ugly!
+
+296
+00:14:54.000 --> 00:14:57.000
+And there you go. you have some really ugly art! Now. this is why you want to team
+
+297
+00:14:57.000 --> 00:15:00.000
+up with an artist. but I'm trying to show you the programming points here.
+
+298
+00:15:00.000 --> 00:15:03.000
+You have much nicer looking
+
+299
+00:15:03.000 --> 00:15:06.000
+sprites available to you. on the web for free. if you look around. And
+
+300
+00:15:06.000 --> 00:15:09.000
+I'm sure you've got mates who look at this and say: Yuck! I can do better!
+
+301
+00:15:09.000 --> 00:15:12.000
+Well. let them! Let them make you a Sprite Sheet like this. and do
+
+302
+00:15:12.000 --> 00:15:15.000
+better! All you have to tell them is that you want your bricks
+
+303
+00:15:15.000 --> 00:15:18.000
+to be 41 pixels high by 128 wide
+
+304
+00:15:18.000 --> 00:15:21.000
+and that you want them on a transparent background.
+
+305
+00:15:21.000 --> 00:15:24.000
+with a little bit of space. at lest one or two pixels of space around each
+
+306
+00:15:24.000 --> 00:15:27.000
+thing. And then. you can just import it yourself. So
+
+307
+00:15:27.000 --> 00:15:30.000
+cool! Congratulations! You have now achieved everything
+
+308
+00:15:30.000 --> 00:15:33.000
+we set out to. at the beginning. Hopefully you understand why a Sprite Sheet is
+
+309
+00:15:33.000 --> 00:15:36.000
+useful. the key features of it. how you create them.
+
+310
+00:15:36.000 --> 00:15:39.000
+and how you import them. I'll see you soon!
+

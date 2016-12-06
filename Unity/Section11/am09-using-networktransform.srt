@@ -1,0 +1,550 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hey. welcome back! So. in this video. we're going to use something called
+
+2
+00:00:06.000 --> 00:00:09.000
+a Network Transform on our cube.
+
+3
+00:00:09.000 --> 00:00:12.000
+one of these things. and it's going to allow us to actually send
+
+4
+00:00:12.000 --> 00:00:15.000
+the movement of the cube across from the Host
+
+5
+00:00:15.000 --> 00:00:18.000
+to the Client. So. I'm going to explain what a Network Transform does
+
+6
+00:00:18.000 --> 00:00:21.000
+for us. I'm going to tell you about this network
+
+7
+00:00:21.000 --> 00:00:24.000
+identity thing that comes along. We're going to make movements travel over the Network.
+
+8
+00:00:24.000 --> 00:00:27.000
+test it over the LAN. also. with
+
+9
+00:00:27.000 --> 00:00:30.000
+a local build and optionally you can go off and try
+
+10
+00:00:30.000 --> 00:00:33.000
+it to a mobile. on your network as well.
+
+11
+00:00:33.000 --> 00:00:36.000
+OK. so to make this work. we're going to need something called a
+
+12
+00:00:36.000 --> 00:00:39.000
+Network Transform. so go to your Cube on your
+
+13
+00:00:39.000 --> 00:00:42.000
+Host Machine. in the primary version of the game. and then
+
+14
+00:00:42.000 --> 00:00:45.000
+look for a Network Transform.
+
+15
+00:00:45.000 --> 00:00:48.000
+When you do that. it'll also add a Network Identity. so
+
+16
+00:00:48.000 --> 00:00:51.000
+the Network Identity is an ID that allows
+
+17
+00:00:51.000 --> 00:00:54.000
+the system. at either end of the game
+
+18
+00:00:54.000 --> 00:00:57.000
+or any of the Clients. to access a particular
+
+19
+00:00:57.000 --> 00:01:00.000
+asset. in this case a cube by an ID.
+
+20
+00:01:00.000 --> 00:01:03.000
+So for example. you're playing Grand Theft
+
+21
+00:01:03.000 --> 00:01:06.000
+Auto. and suddenly a brand new car you've never seen before
+
+22
+00:01:06.000 --> 00:01:09.000
+appears on the horizon. What's going on there is. that car asset
+
+23
+00:01:09.000 --> 00:01:12.000
+of course. is already on your game disc or in your game download. and
+
+24
+00:01:12.000 --> 00:01:15.000
+it's an ID that is being passed over the network. to say that this
+
+25
+00:01:15.000 --> 00:01:18.000
+asset needs to be pulled from the Assets and
+
+26
+00:01:18.000 --> 00:01:21.000
+spawned. So. that's what the Network Identifier does; it allows you to
+
+27
+00:01:21.000 --> 00:01:24.000
+uniquely identify particular assets. So. adding it to the
+
+28
+00:01:24.000 --> 00:01:27.000
+cube here of course means. it will also be added over on the
+
+29
+00:01:27.000 --> 00:01:30.000
+Client version. when it all updates.
+
+30
+00:01:30.000 --> 00:01:33.000
+Alright! And the other thing we're going to add is a Network Transform.
+
+31
+00:01:33.000 --> 00:01:36.000
+And what that does is. according to this rate that you set here...
+
+32
+00:01:36.000 --> 00:01:39.000
+I'm going to set this to 10. so 10 times a second is going to send the
+
+33
+00:01:39.000 --> 00:01:42.000
+transform of this cube over the network to the
+
+34
+00:01:42.000 --> 00:01:45.000
+Clients. Alright. so let's see if we can
+
+35
+00:01:45.000 --> 00:01:48.000
+make that work. By the way. I warn you that the player not having a material
+
+36
+00:01:48.000 --> 00:01:51.000
+on it is probably going to cause an error. but let's
+
+37
+00:01:51.000 --> 00:01:54.000
+let that error come up and solve it. when it comes up. Then. you'll have the experience
+
+38
+00:01:54.000 --> 00:01:57.000
+to recognize that type of error. because it's not particularly
+
+39
+00:01:57.000 --> 00:02:00.000
+clear. when it does come up. So. let's go for it! Let's
+
+40
+00:02:00.000 --> 00:02:03.000
+add to the Cube. this Network Transform.
+
+41
+00:02:03.000 --> 00:02:06.000
+which will come with an identity. which is a dependency.
+
+42
+00:02:06.000 --> 00:02:09.000
+Save it. go over to our Client...
+
+43
+00:02:09.000 --> 00:02:12.000
+I need to look at my Dropbox folders
+
+44
+00:02:12.000 --> 00:02:15.000
+and make it sync. for some reason. which forces a reloading
+
+45
+00:02:15.000 --> 00:02:18.000
+Unity. OK now. back to the Host!
+
+46
+00:02:18.000 --> 00:02:21.000
+Let's get the Host up and running. so Start Host.
+
+47
+00:02:21.000 --> 00:02:24.000
+In fact. hang on stop! I am fed up with typing
+
+48
+00:02:24.000 --> 00:02:27.000
+this network address. so in my very Network Manager.
+
+49
+00:02:27.000 --> 00:02:30.000
+under Network Address. I'm just going to put the address
+
+50
+00:02:30.000 --> 00:02:33.000
+of the Host. for myself. OK.
+
+51
+00:02:33.000 --> 00:02:36.000
+Over here. Network Manager. under
+
+52
+00:02:36.000 --> 00:02:39.000
+Network Info. Just put it. save it again.
+
+53
+00:02:39.000 --> 00:02:42.000
+and then. let your client version refresh.
+
+54
+00:02:42.000 --> 00:02:45.000
+and then. in Network Manager you'll see that there's
+
+55
+00:02:45.000 --> 00:02:48.000
+a default address there. which means that when we start
+
+56
+00:02:48.000 --> 00:02:51.000
+the Client. we will get
+
+57
+00:02:51.000 --> 00:02:54.000
+that as a default address. So. I've started the Host.
+
+58
+00:02:54.000 --> 00:02:57.000
+Let's go over to the Client; you can click LAN
+
+59
+00:02:57.000 --> 00:03:00.000
+Client now. and it'll have the address defaulted.
+
+60
+00:03:00.000 --> 00:03:03.000
+OK. Now. the Client
+
+61
+00:03:03.000 --> 00:03:06.000
+is connected. so the machines are talking to each other. What we need to do now is click
+
+62
+00:03:06.000 --> 00:03:09.000
+Client Ready. OK. this means the Client is finished loading all its
+
+63
+00:03:09.000 --> 00:03:12.000
+assets and it's ready to go. There you go! So. you're seeing both the ugly player.
+
+64
+00:03:12.000 --> 00:03:15.000
+with no material. and the Cube. Let's move back over
+
+65
+00:03:15.000 --> 00:03:18.000
+to the Host. We're going to go to Scene View and
+
+66
+00:03:18.000 --> 00:03:21.000
+I'm going to try just translating that Cube.
+
+67
+00:03:21.000 --> 00:03:24.000
+OK. I can see that that's working. but you probably don't believe
+
+68
+00:03:24.000 --> 00:03:27.000
+me. so let me show you that's working. by doing a
+
+69
+00:03:27.000 --> 00:03:30.000
+Split Screen. So. I'm going to make Team Viewer. rather than Full Screen.
+
+70
+00:03:30.000 --> 00:03:33.000
+I'm going to make it somewhat smaller. I will
+
+71
+00:03:33.000 --> 00:03:36.000
+make just the Game View visible.
+
+72
+00:03:36.000 --> 00:03:39.000
+By the way. this machine is called Bertie. because I couldn't think of a better name when
+
+73
+00:03:39.000 --> 00:03:42.000
+Windows surprised me. by asking me for a name. so
+
+74
+00:03:42.000 --> 00:03:45.000
+just in case you're wondering why you're seeing Bertie. So. what I have on the left
+
+75
+00:03:45.000 --> 00:03:48.000
+is my Unity. On the
+
+76
+00:03:48.000 --> 00:03:51.000
+Host. which is on a Mac. and on the right. we're Team Viewing into a
+
+77
+00:03:51.000 --> 00:03:54.000
+separate computer. a PC over on the network. Watch this!
+
+78
+00:03:54.000 --> 00:03:57.000
+Wow! It's amazing. it's a miracle. it moves. and if we grab
+
+79
+00:03:57.000 --> 00:04:00.000
+the Rotation Tool. then it's a little slow.
+
+80
+00:04:00.000 --> 00:04:03.000
+but Rotation works as well. So. that
+
+81
+00:04:03.000 --> 00:04:06.000
+is great news! We actually have movements
+
+82
+00:04:06.000 --> 00:04:09.000
+working over the network. which is really cool!
+
+83
+00:04:09.000 --> 00:04:12.000
+So. I haven't actually seen
+
+84
+00:04:12.000 --> 00:04:15.000
+this error yet. so I'm going to leave that ugly
+
+85
+00:04:15.000 --> 00:04:18.000
+material-less player. until we see an error. but
+
+86
+00:04:18.000 --> 00:04:21.000
+at some point we'll probably get a complaint. about something not
+
+87
+00:04:21.000 --> 00:04:24.000
+being initialized or some prefab not being
+
+88
+00:04:24.000 --> 00:04:27.000
+available or something like that. And at that point. we can be on our guard
+
+89
+00:04:27.000 --> 00:04:30.000
+to just give this player a material.
+
+90
+00:04:30.000 --> 00:04:33.000
+OK cool! So. that's working! Now. what I want to do is try
+
+91
+00:04:33.000 --> 00:04:36.000
+doing it to a local build. so I'm going to leave that to you as a challenge.
+
+92
+00:04:36.000 --> 00:04:39.000
+And what I want you to do is test to a local build. Creat
+
+93
+00:04:39.000 --> 00:04:42.000
+a local build of your game. run this build as a Client.
+
+94
+00:04:42.000 --> 00:04:45.000
+ensure that movement works between the two on the same machine.
+
+95
+00:04:45.000 --> 00:04:48.000
+and as a bonus. you can create a mobile build and try
+
+96
+00:04:48.000 --> 00:04:51.000
+building to that. as well. You can simultaneously have your cubes moving around
+
+97
+00:04:51.000 --> 00:04:54.000
+both. on the same machine. and another machine and
+
+98
+00:04:54.000 --> 00:04:57.000
+a mobile if you want. if you really want to go crazy. Have a go
+
+99
+00:04:57.000 --> 00:05:00.000
+and I'll see you on the other side.
+
+100
+00:05:00.000 --> 00:05:03.000
+Cool! Welcome back! So. let's make this
+
+101
+00:05:03.000 --> 00:05:06.000
+happen! It's simply a question of going to Build Settings.
+
+102
+00:05:06.000 --> 00:05:09.000
+making sure that the scene is in there. building for Mac
+
+103
+00:05:09.000 --> 00:05:12.000
+and Linux. and let's just build and run. Ahoy Matey Mac. I've
+
+104
+00:05:12.000 --> 00:05:15.000
+already built before. so I'm going to replace the Ahoy Matey Mac Build.
+
+105
+00:05:15.000 --> 00:05:18.000
+In your case. you may be on PC or Linux. Now. you probably
+
+106
+00:05:18.000 --> 00:05:21.000
+want to run it windowed and then just play. The resolution is
+
+107
+00:05:21.000 --> 00:05:24.000
+pretty irrelevant. Here it comes!
+
+108
+00:05:27.000 --> 00:05:30.000
+So. what I want to do is run this as a Client. but not yet. let's get the
+
+109
+00:05:30.000 --> 00:05:33.000
+Host going first. So. I'm going to make my
+
+110
+00:05:33.000 --> 00:05:36.000
+windows a little bit smaller so we can see what's going
+
+111
+00:05:36.000 --> 00:05:39.000
+on. And
+
+112
+00:05:39.000 --> 00:05:42.000
+let's run over here. It's setup as a
+
+113
+00:05:42.000 --> 00:05:45.000
+Host. that's fine.
+
+114
+00:05:45.000 --> 00:05:48.000
+I'm going to go to Scene View. with my cube selected.
+
+115
+00:05:48.000 --> 00:05:51.000
+Now. let's go back over here. set this guy up as a Client.
+
+116
+00:05:51.000 --> 00:05:54.000
+and say Client ready. OK. so on the right hand side. you're seeing the local
+
+117
+00:05:54.000 --> 00:05:57.000
+build. On the left hand side. you're seeing the Host in the Unity Editor. Let's
+
+118
+00:05:57.000 --> 00:06:00.000
+move the cube and it works! Great! So. that's
+
+119
+00:06:00.000 --> 00:06:03.000
+challenge one done! How about if we wanted to continue
+
+120
+00:06:03.000 --> 00:06:06.000
+to talk to the Client machine. over here on the
+
+121
+00:06:06.000 --> 00:06:09.000
+network. Let's try spooling that up. at the same time!
+
+122
+00:06:09.000 --> 00:06:12.000
+See if we can get two Clients coming in. at the same time. Let's launch a
+
+123
+00:06:12.000 --> 00:06:15.000
+Client and say that we're ready. OK.
+
+124
+00:06:15.000 --> 00:06:18.000
+Now. again I'm going to have to do some jiggery pokery. as
+
+125
+00:06:18.000 --> 00:06:21.000
+we call it. with the windows here. So.
+
+126
+00:06:21.000 --> 00:06:24.000
+what you've got now is. let's just maximize on
+
+127
+00:06:24.000 --> 00:06:27.000
+the PC. on the Client. There you go! So. you have
+
+128
+00:06:27.000 --> 00:06:30.000
+PC down on the bottom right. you have a Local
+
+129
+00:06:30.000 --> 00:06:33.000
+Native Mac Build. at the top
+
+130
+00:06:33.000 --> 00:06:36.000
+right of the screen. and on the left
+
+131
+00:06:36.000 --> 00:06:39.000
+hand side. we have the editor. Let's see if this works.
+
+132
+00:06:39.000 --> 00:06:42.000
+Can't really see can we. because I've go too much stuff.
+
+133
+00:06:42.000 --> 00:06:45.000
+Here you go. look at that! So. we now
+
+134
+00:06:45.000 --> 00:06:48.000
+have two Clients receiving the same information. one across the network.
+
+135
+00:06:48.000 --> 00:06:51.000
+one on the same machine. Pretty nifty hey! So. this
+
+136
+00:06:51.000 --> 00:06:54.000
+is what we covered in the video. and I look forward to seeing you in the next video.
+
+137
+00:06:54.000 --> 00:06:57.000
+when we continue to build out our multiplayer game.
+

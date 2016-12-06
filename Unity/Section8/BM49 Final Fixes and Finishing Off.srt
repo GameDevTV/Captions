@@ -1,0 +1,455 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:06.509
+So let's bring this game to a close. we're
+going to be doing final fixes and finishing
+
+00:00:06.509 --> 00:00:10.719
+off we're going to stop the ball from
+nudging off the floor. or stop nudging
+
+00:00:10.719 --> 00:00:11.940
+ball off the floor.
+
+00:00:11.940 --> 00:00:15.080
+Make ball collision detection continuous.
+and that'll be giving you some
+
+00:00:15.080 --> 00:00:19.000
+suggestions for improvements and thank
+you to Yang for bringing up the issue of
+
+00:00:19.000 --> 00:00:22.960
+the ball coming off the floor. So you
+know what I mean by that. hopefully at
+
+00:00:22.960 --> 00:00:26.320
+the beginning of the game when you click
+left and right on the UI buttons. the
+
+00:00:26.320 --> 00:00:29.510
+ball you can nudge the ball right off
+the floor so what I want you to do now
+
+00:00:29.510 --> 00:00:30.750
+is as a challenge
+
+00:00:30.750 --> 00:00:41.800
+use whatever tools you've got to stop
+the ball nudging off the floor
+
+00:00:41.800 --> 00:00:45.430
+Hey. so to stop this ball falling off we
+can't just use the translate function
+
+00:00:45.430 --> 00:00:50.580
+any more. we're gonna have to break it
+down into X Y and Z. so let's just
+
+00:00:50.580 --> 00:01:04.000
+do that float XPos or well let's just do the YPos and ZPos first
+
+00:01:04.000 --> 00:01:13.910
+So the YPos is the YPos. the ZPos is he
+ZPos. just keep track of those
+
+00:01:13.910 --> 00:01:17.340
+okay and then we do the Y Pos...
+that's the XPos because that's the hardest one
+
+00:01:17.340 --> 00:01:23.310
+but still quite easy. so it's the ball dot
+transform dot position plus however much
+
+00:01:23.310 --> 00:01:31.270
+we've asked it to move. and then we clamp all of this - remember the old Mathf dot clamp function? - to
+
+00:01:31.270 --> 00:01:37.840
+a range of minus 50f to plus 50f cos the
+lane is a hundred and five Y so
+
+00:01:37.840 --> 00:01:41.250
+fifty should be about right and we don't
+translate anymore we just say Ball
+
+00:01:41.250 --> 00:01:47.039
+transform dot position equals a new vector 3 which we'll construct right now and
+
+00:01:47.039 --> 00:01:53.560
+we'll just go XPos comma YPos comma ZPos
+could've just used Z. X. Y. Z couldn't I?
+
+00:01:53.560 --> 00:01:54.069
+Oh well.
+
+00:01:54.069 --> 00:01:58.770
+that's absolutely fine so what's the
+problem here?
+
+00:01:58.770 --> 00:02:04.270
+Ball dot transform dot position dot
+X is all I'm missing and let's dive in
+
+00:02:04.270 --> 00:02:07.850
+So that's the code. take a look at that
+make sure it's clear. and now let's just
+
+00:02:07.850 --> 00:02:10.170
+check the clamping works fine
+
+00:02:10.170 --> 00:02:14.620
+So ball's in the middle here. we go left
+then right. get to 50 and it stops moving
+
+00:02:14.620 --> 00:02:18.800
+just as the ball looks like it's gonna
+fall of the edge and the same on the other edge.
+
+00:02:18.800 --> 00:02:21.700
+Perfect. so we've achieved the first
+thing we wanted to achieve in this video
+
+00:02:21.700 --> 00:02:25.930
+which is stopping the ball fall off. What
+else have we got? We have make the ball
+
+00:02:25.930 --> 00:02:30.310
+collision detections continuous. ok so
+if you look at the ball and you look at
+
+00:02:30.310 --> 00:02:33.870
+its physics it currently I have discrete
+collision detection what I want is
+
+00:02:33.870 --> 00:02:39.900
+continuous I want it to do
+continuous... let me get my tongue in...
+
+00:02:39.900 --> 00:02:44.480
+continuous collision detection I believe
+we already have that on all the pins
+
+00:02:44.480 --> 00:02:48.530
+it's worth checking whether or not you
+already have that on all the pins but we
+
+00:02:48.530 --> 00:02:52.380
+do want continuous collision detection.
+it's designed for fast-moving objects. so
+
+00:02:52.380 --> 00:02:56.300
+check all your pins as well and check
+that they have either continuous or
+
+00:02:56.300 --> 00:03:00.300
+continuous dynamic; the difference is that
+continuous dynamic applies continuous
+
+00:03:00.300 --> 00:03:04.350
+detection to other continuous objects
+like the ball and a more basic detection
+
+00:03:04.350 --> 00:03:08.940
+to non-continuous objects like the floor.
+So continuous dynamic is appropriate for
+
+00:03:08.940 --> 00:03:14.150
+the pins and continuous is appropriate
+for the ball. Make sure you made those
+
+00:03:14.150 --> 00:03:17.260
+changes not in play mode so that they're
+stuck.
+
+00:03:17.260 --> 00:03:25.260
+and then when you come along and
+bowl your ball... boom even at very high speed it
+
+00:03:25.260 --> 00:03:30.040
+works now that ball prefab has changed
+you can see that there's a bold item in
+
+00:03:30.040 --> 00:03:34.299
+here continuous collision detection and
+this 400 so we can always apply these changes back to the
+
+00:03:34.299 --> 00:03:39.239
+prefab if we want. and that ball will be
+ready if you ever instantiate another ball but we
+
+00:03:39.239 --> 00:03:43.739
+can go very fast now. it doesn't pass
+through. Fantastic. so I think we are
+
+00:03:43.739 --> 00:03:48.310
+there. Let's just do a little bit of
+playtesting. let's go to maximize on play I
+
+00:03:48.310 --> 00:03:51.970
+think we're about ready to bring this
+came to a close because you've got all
+
+00:03:51.970 --> 00:03:56.629
+the elements that you need to make this
+your own and you've already seen how to
+
+00:03:56.629 --> 00:03:59.980
+do menu systems. you've already seen how to do
+music you've already seen how to port
+
+00:03:59.980 --> 00:04:06.319
+to mobile I've already got nearly 50 videos in this
+section and we've got plenty of other genres of
+
+00:04:06.319 --> 00:04:09.859
+games to be adding so my feeling is
+that anything else I add to this
+
+00:04:09.859 --> 00:04:13.709
+section now becomes a diminishing
+return very rapidly and also denies you
+
+00:04:13.709 --> 00:04:17.570
+the opportunity to start weaning
+yourself off the course in a way and
+
+00:04:17.570 --> 00:04:21.570
+starting to do things your own way; to
+make your own menu system your way. not
+
+00:04:21.570 --> 00:04:26.440
+the way that we've been making menu
+systems necessarily. Provide maybe a
+
+00:04:26.440 --> 00:04:30.599
+second ball option. this ball looks fine
+but how about a Death Star? We're out in space here.
+
+00:04:30.599 --> 00:04:33.800
+my wife said Jupiter's good but
+maybe in the menu you can choose a Death
+
+00:04:33.800 --> 00:04:38.979
+Star get some music in there. get some
+sound effects. volume creation. Maybe even
+
+00:04:38.979 --> 00:04:42.620
+write the high score. the highest score
+you've ever had to the player
+
+00:04:42.620 --> 00:04:46.289
+preferences file so you can tell the
+player whether they've had a high score or not
+
+00:04:46.289 --> 00:04:50.300
+So just generally have fun with the
+user interface. polish all this stuff
+
+00:04:50.300 --> 00:04:54.470
+move this pin counter. make sure it always
+stays underneath the. underneath the
+
+00:04:54.470 --> 00:04:57.970
+camera there you know get the scores
+looking pretty... it would look better if they
+
+00:04:57.970 --> 00:05:01.909
+had boxes around them whatever you want
+to do I think it may look better
+
+00:05:01.909 --> 00:05:06.580
+portrait; maybe deploy it to mobile
+maybe even make it a multiplayer game I
+
+00:05:06.580 --> 00:05:08.620
+don't know whatever you want to do to
+make it your own
+
+00:05:08.620 --> 00:05:12.060
+we'd love to see it but I'm just doing
+a run-through here to make sure that the
+
+00:05:12.060 --> 00:05:16.680
+game plays properly now I have an out of
+sequence; if you get out of sequence here
+
+00:05:16.680 --> 00:05:21.460
+X and then six goes over there then
+that's because if we look at our user
+
+00:05:21.460 --> 00:05:27.409
+interface in the scores element then
+some of it just must be out of sequence
+
+00:05:27.409 --> 00:05:30.230
+and it's probably not the way these are
+wired up
+
+00:05:30.230 --> 00:05:36.150
+as such but the way they're laid out; so if you
+go to your scores panel and then go down
+
+00:05:36.150 --> 00:05:40.520
+these elements you see there's a jump
+there three and four are out of sequence
+
+00:05:40.520 --> 00:05:48.450
+etcetera so that just needs fixing up in
+order to in order that things are round the
+
+00:05:48.450 --> 00:05:53.360
+right way and it actually means that we
+need to rewire or reposition either way
+
+00:05:53.360 --> 00:05:57.670
+it's actually gonna be slightly easier
+to just reposition these UI elements if
+
+00:05:57.670 --> 00:06:00.680
+they're in the wrong place. so three
+needs to come back one. remember we can
+
+00:06:00.680 --> 00:06:10.460
+hold down our control or command key. and
+then four needs to go over here; five
+
+00:06:10.460 --> 00:06:20.370
+needs to come back a couple. 6 needs to
+come back a couple 1. 2. 3. 4. 5. 6 holding down
+
+00:06:20.370 --> 00:06:30.740
+Ctrl or command snaps remember. 7. 8. 9.  10.
+Great so my UI elements were just in
+
+00:06:30.740 --> 00:06:34.810
+the wrong order if you copied me
+absolutely verbatim you'll be suffering
+
+00:06:34.810 --> 00:06:39.280
+from the same problem so that's it we
+are at the end of this game it is a
+
+00:06:39.280 --> 00:06:44.170
+complete game the majority of the effort
+of this game was the test driven
+
+00:06:44.170 --> 00:06:47.810
+development. I hope you've enjoyed that
+it's a toy don't have to use every time
+
+00:06:47.810 --> 00:06:51.260
+but it's certainly something that
+applies very very well to ten pin
+
+00:06:51.260 --> 00:06:55.320
+bowling. We've used Unity 5 features like
+render textures and we're using some of
+
+00:06:55.320 --> 00:06:59.710
+Unity 5's physics and we've got three
+separate scripts simultaneously watching
+
+00:06:59.710 --> 00:07:04.410
+this game we've got something working
+out what the action is next the action
+
+00:07:04.410 --> 00:07:08.240
+master and I will leave it as an exercise
+to the reader to improve that action
+
+00:07:08.240 --> 00:07:13.700
+master script. it works. it tests ok. but
+it is ugly and it's nowhere near as
+
+00:07:13.700 --> 00:07:17.380
+elegant as the score master or the score
+display script so I challenge you to get
+
+00:07:17.380 --> 00:07:22.030
+the action master down to being as
+condensed as I did for the other two
+
+00:07:22.030 --> 00:07:25.140
+I wanna leave that satisfaction to you
+because I've already had the
+
+00:07:25.140 --> 00:07:29.590
+satisfaction of making two beautiful
+bits of code if I may say so myself and
+
+00:07:29.590 --> 00:07:33.670
+then you got another piece of code that
+is constantly working out what how to
+
+00:07:33.670 --> 00:07:35.990
+display the scoring when we just wrote
+that
+
+00:07:35.990 --> 00:07:39.160
+and that seems to be working beautifully
+down the bottom here putting the actual
+
+00:07:39.160 --> 00:07:42.960
+bowls into the right boxes and then we
+have another piece of code that is
+
+00:07:42.960 --> 00:07:48.800
+asynchronously working out what
+frame score to display and when; and then I
+
+00:07:48.800 --> 00:07:53.180
+bowled impetuous and i hit the reset
+bar and that's fine. that's physical
+
+00:07:53.180 --> 00:07:57.190
+that's what happens in real bowling you
+can bowl too early and if you do you're
+
+00:07:57.190 --> 00:08:01.950
+just gonna hit the machine like that and
+waste your go so I think this really now
+
+00:08:01.950 --> 00:08:06.320
+covers the essence of ten pin bowling
+and it's a framework that I'd love to
+
+00:08:06.320 --> 00:08:10.810
+see some of you take and release
+commercial ten pin bowling apps for the
+
+00:08:10.810 --> 00:08:15.850
+App Store with a real with a real spirit to them
+with maybe multiplayer maybe even
+
+00:08:15.850 --> 00:08:17.500
+networked multiplayer
+
+00:08:17.500 --> 00:08:20.690
+even if its single player then really
+make a thing of how high a score can you
+
+00:08:20.690 --> 00:08:24.950
+get - maybe put ducks on the screen when
+there are ducks and all the other
+
+00:08:24.950 --> 00:08:27.900
+bowling terms and just have a lot of fun
+with it
+
+00:08:27.900 --> 00:08:31.810
+We've really built a strong engine here.
+it's been a lot of fun making this section. and
+
+00:08:31.810 --> 00:08:35.720
+I'm gonna look forward to getting on to
+the next genre of game in this epic course.
+
+00:08:35.720 --> 00:08:38.750
+so thank you for being one of our
+students. Do share your game. do make it
+
+00:08:38.750 --> 00:08:40.480
+your own and we'll see you soon.
+

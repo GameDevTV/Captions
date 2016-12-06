@@ -1,0 +1,698 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+So. here we are happily creating
+
+2
+00:00:06.000 --> 00:00:09.000
+multiple scenes in our game. and we
+
+3
+00:00:09.000 --> 00:00:12.000
+have a great Prefabrication System. where we have all
+
+4
+00:00:12.000 --> 00:00:15.000
+the main things we need to create a new scene. setup
+
+5
+00:00:15.000 --> 00:00:18.000
+as prefabs. The challenge we have is
+
+6
+00:00:18.000 --> 00:00:21.000
+a couple of things break every time we try to make a new level.
+
+7
+00:00:21.000 --> 00:00:24.000
+One of them is the link between the
+
+8
+00:00:24.000 --> 00:00:27.000
+Paddle and the Ball. So. the Ball needs
+
+9
+00:00:27.000 --> 00:00:30.000
+to see an instance of a Paddle.
+
+10
+00:00:30.000 --> 00:00:33.000
+and there's no way that we can link the prefabs together.
+
+11
+00:00:33.000 --> 00:00:36.000
+We have to do this every time we create a new
+
+12
+00:00:36.000 --> 00:00:39.000
+scene. and we wouldn't want a designer having to think about
+
+13
+00:00:39.000 --> 00:00:42.000
+these type of details right. So basically.
+
+14
+00:00:42.000 --> 00:00:45.000
+we want a designer to be at very easily setup new
+
+15
+00:00:45.000 --> 00:00:48.000
+levels. to take the friction out of the process. So. that's
+
+16
+00:00:48.000 --> 00:00:51.000
+one problem. is that the ball and the paddle don't meet. and the other
+
+17
+00:00:51.000 --> 00:00:54.000
+problem. you'll see when the game ends. is that the LevelManager
+
+18
+00:00:54.000 --> 00:00:57.000
+here is similarly broken. So. if we
+
+19
+00:00:57.000 --> 00:01:00.000
+click on the LooseCollider.
+
+20
+00:01:00.000 --> 00:01:03.000
+it's expecting a LevelManager. and yes. sure I could
+
+21
+00:01:03.000 --> 00:01:06.000
+drag the LevelManager in but I don't want to
+
+22
+00:01:06.000 --> 00:01:09.000
+have to do that. so let's show you what we're going to do.
+
+23
+00:01:09.000 --> 00:01:12.000
+In this lesson. we're going to talk about why
+
+24
+00:01:12.000 --> 00:01:15.000
+linking prefabs programmatically helps. I've just explained
+
+25
+00:01:15.000 --> 00:01:18.000
+that. Unity doesn't support Nested Prefabs.
+
+26
+00:01:18.000 --> 00:01:21.000
+so we basically can't drag prefab to prefab and expect
+
+27
+00:01:21.000 --> 00:01:24.000
+it to maintain the connection. So. we're going to use something
+
+28
+00:01:24.000 --> 00:01:27.000
+called GameObject.FindObjectOfType&lt;&gt; OK.
+
+29
+00:01:27.000 --> 00:01:30.000
+and we're going to link things programmatically.
+
+30
+00:01:30.000 --> 00:01:33.000
+so our designers basically don't have to do it.
+
+31
+00:01:33.000 --> 00:01:36.000
+Cool! So. let's link the ball and the paddle this way.
+
+32
+00:01:36.000 --> 00:01:39.000
+If we go into the script for the ball. at the moment.
+
+33
+00:01:39.000 --> 00:01:42.000
+it's a public Paddle paddle; So. what I'm going to
+
+34
+00:01:42.000 --> 00:01:45.000
+do is. instead of public I'm just going to make it private.
+
+35
+00:01:45.000 --> 00:01:48.000
+so it's no longer exposed in the Inspector.
+
+36
+00:01:48.000 --> 00:01:51.000
+And then. in the Start method. the first thing I'm going to
+
+37
+00:01:51.000 --> 00:01:54.000
+do is say paddle =. Now.
+
+38
+00:01:54.000 --> 00:01:57.000
+follow me through with this one. It's GameObject.Find
+
+39
+00:01:57.000 --> 00:02:00.000
+and when you type that you'll see a load of options. We're going
+
+40
+00:02:00.000 --> 00:02:03.000
+to look for. it's a single object not a multiple object.
+
+41
+00:02:03.000 --> 00:02:06.000
+it's a single level manager. so we want FindObjectOf
+
+42
+00:02:06.000 --> 00:02:09.000
+Type. Now. you're very welcome to look at the docs for that
+
+43
+00:02:09.000 --> 00:02:12.000
+and see by example how it might work.
+
+44
+00:02:15.000 --> 00:02:18.000
+Here they are! And you can see it being used
+
+45
+00:02:18.000 --> 00:02:21.000
+here. This is one way. static "FindObjectOfType);"
+
+46
+00:02:21.000 --> 00:02:24.000
+In fact. it's the only one they show you. And let's
+
+47
+00:02:24.000 --> 00:02:27.000
+look at the example. While they do it like this.
+
+48
+00:02:27.000 --> 00:02:30.000
+I'm going to do it a slightly different way OK. So. just
+
+49
+00:02:30.000 --> 00:02:33.000
+follow my example through. because it's going to be more consistent
+
+50
+00:02:33.000 --> 00:02:36.000
+with other things. So. we're going to use a pair of
+
+51
+00:02:36.000 --> 00:02:39.000
+chevrons to do... Well. it's actually something called generics. it's
+
+52
+00:02:39.000 --> 00:02:42.000
+kind of like a filter. We're saying. I only want to FindObjects
+
+53
+00:02:42.000 --> 00:02:45.000
+that are or Type. whatever I put in the chevrons.
+
+54
+00:02:45.000 --> 00:02:48.000
+It's still a method. so we'd still need these curly brackets.
+
+55
+00:02:48.000 --> 00:02:51.000
+but we have the chevrons just before the curly brackets.
+
+56
+00:02:51.000 --> 00:02:54.000
+And what type of thing are we finding? Well. we're finding a &lt;Paddle&gt;.
+
+57
+00:02:54.000 --> 00:02:57.000
+It's actually as simple as that!
+
+58
+00:02:57.000 --> 00:03:00.000
+Yes. now that's right! There's only a single thing of type &lt;Paddle&gt; in the
+
+59
+00:03:00.000 --> 00:03:03.000
+entire game. So. when we say that we
+
+60
+00:03:03.000 --> 00:03:06.000
+declare our Paddle at the top here. so it's available to all of these
+
+61
+00:03:06.000 --> 00:03:09.000
+methods. because remember we're using Paddle down here. In fact.
+
+62
+00:03:09.000 --> 00:03:12.000
+if I do a search we can see all the places we're using Paddle.
+
+63
+00:03:12.000 --> 00:03:15.000
+So. we declare it there. and then. immediately when the game starts we go looking for
+
+64
+00:03:15.000 --> 00:03:18.000
+the Paddle. so that we don't have to associate it in the Editor.
+
+65
+00:03:18.000 --> 00:03:21.000
+Let's have a look at what happens now! If we run!
+
+66
+00:03:24.000 --> 00:03:27.000
+OK. we are getting
+
+67
+00:03:27.000 --> 00:03:30.000
+no exception error. Hang on. let's go to the Start Menu.
+
+68
+00:03:30.000 --> 00:03:33.000
+Let's run all the way through.
+
+69
+00:03:33.000 --> 00:03:36.000
+OK fine! So. that
+
+70
+00:03:36.000 --> 00:03:39.000
+level is working fine! If we look at Level_01.
+
+71
+00:03:39.000 --> 00:03:42.000
+and we look at it's LevelManager and we look at its Ball.
+
+72
+00:03:42.000 --> 00:03:45.000
+it no longer has a Paddle
+
+73
+00:03:45.000 --> 00:03:48.000
+associated. and when we look. when we move the paddle around
+
+74
+00:03:48.000 --> 00:03:51.000
+the ball sits on it. Level_02.
+
+75
+00:03:51.000 --> 00:03:54.000
+when we move it around it sits on it. and
+
+76
+00:03:54.000 --> 00:03:57.000
+if we were to create a new level it would work but we'll do
+
+77
+00:03:57.000 --> 00:04:00.000
+that at the end. as a complete test.
+
+78
+00:04:00.000 --> 00:04:03.000
+So. I want you to do the same thing for the LooseCollider. Let's fix
+
+79
+00:04:03.000 --> 00:04:06.000
+that other problem. I want you to make the public instance variable
+
+80
+00:04:06.000 --> 00:04:09.000
+private. That's the instance of the LevelManager.
+
+81
+00:04:09.000 --> 00:04:12.000
+remember the LooseCollider needs the LevelManager to load the next
+
+82
+00:04:12.000 --> 00:04:15.000
+level. So. make that private and then. do the same thing.
+
+83
+00:04:15.000 --> 00:04:18.000
+Find the LevelManager using exactly the same method
+
+84
+00:04:18.000 --> 00:04:21.000
+type that I used before. Obviously. it'll be a different type
+
+85
+00:04:21.000 --> 00:04:24.000
+in chevrons.
+
+86
+00:04:24.000 --> 00:04:27.000
+And test that it also loads properly and works. So. have a go at that
+
+87
+00:04:27.000 --> 00:04:30.000
+now!
+
+88
+00:04:30.000 --> 00:04:33.000
+OK welcome back! So. I'm going to go into
+
+89
+00:04:33.000 --> 00:04:36.000
+the LooseCollider. I'm
+
+90
+00:04:36.000 --> 00:04:39.000
+going to make my LevelManager private.
+
+91
+00:04:39.000 --> 00:04:42.000
+and then. in the Start here. I'm going to stop printing ("Trigger").
+
+92
+00:04:42.000 --> 00:04:45.000
+by the way. I just don't need it anymore. I'm going to go LevelManager.
+
+93
+00:04:45.000 --> 00:04:48.000
+[Laughs] Pirate. private!
+
+94
+00:04:48.000 --> 00:04:51.000
+OK. so levelManager
+
+95
+00:04:51.000 --> 00:04:54.000
+=
+
+96
+00:04:54.000 --> 00:04:57.000
+GameObject.Find.
+
+97
+00:04:57.000 --> 00:05:00.000
+It's a static method. ObjectOfType
+
+98
+00:05:00.000 --> 00:05:03.000
+What's the type? &lt;LevelManager&gt;
+
+99
+00:05:03.000 --> 00:05:06.000
+a bit weird looking function this. isn't it?
+
+100
+00:05:06.000 --> 00:05:09.000
+OK cool! So. let's try that! So.
+
+101
+00:05:09.000 --> 00:05:12.000
+hopefully our LevelManger now no longer needs to be associated
+
+102
+00:05:12.000 --> 00:05:15.000
+in the Editor. Let's go to the very Start Scene.
+
+103
+00:05:15.000 --> 00:05:18.000
+and make sure it works!
+
+104
+00:05:21.000 --> 00:05:24.000
+OK cool! Now. Start goes to
+
+105
+00:05:24.000 --> 00:05:27.000
+the End Scene. straight away. which is
+
+106
+00:05:27.000 --> 00:05:30.000
+fine. Let's just test it from Level_02 and make sure
+
+107
+00:05:30.000 --> 00:05:33.000
+Level_02 also works. Yep.
+
+108
+00:05:33.000 --> 00:05:36.000
+goes straight to the End Scene! So. obviously at some point we're going to want
+
+109
+00:05:36.000 --> 00:05:39.000
+Level_01 going to Level_02. and I'll show you that
+
+110
+00:05:39.000 --> 00:05:42.000
+in another video. For now. let's just make sure that we
+
+111
+00:05:42.000 --> 00:05:45.000
+can actually create a third level. that our prefabs are
+
+112
+00:05:45.000 --> 00:05:48.000
+right. So. let's create a new scene or level.
+
+113
+00:05:48.000 --> 00:05:51.000
+Scene and level are used interchangeably. It's
+
+114
+00:05:51.000 --> 00:05:54.000
+untitled. so let's save it straight into
+
+115
+00:05:54.000 --> 00:05:57.000
+Scenes.
+
+116
+00:06:00.000 --> 00:06:03.000
+There it is. Level_03! Now.
+
+117
+00:06:03.000 --> 00:06:06.000
+this is the proof of the pudding. Grab one of all of the prefabs. drop
+
+118
+00:06:06.000 --> 00:06:09.000
+them in. ditch the Main Camera.
+
+119
+00:06:09.000 --> 00:06:12.000
+You could. by the way. make an even higher order
+
+120
+00:06:12.000 --> 00:06:15.000
+prefab if you wanted. of all these things like that
+
+121
+00:06:15.000 --> 00:06:18.000
+but let's not bother with that. Just so that they're always in the right order. There is
+
+122
+00:06:18.000 --> 00:06:21.000
+no right order in the Hierarchy. It's just that I like to see
+
+123
+00:06:21.000 --> 00:06:24.000
+Main Camera. LevelManager. Play Space. Ball.
+
+124
+00:06:24.000 --> 00:06:27.000
+Paddle. or that could just be me bing OCD.
+
+125
+00:06:27.000 --> 00:06:30.000
+OK. so let's try this! Off it goes! Of course. it's got
+
+126
+00:06:30.000 --> 00:06:33.000
+a default background. and it goes to the End Screen.
+
+127
+00:06:33.000 --> 00:06:36.000
+Awesome! So. our prefabrication is working! Look. we have
+
+128
+00:06:36.000 --> 00:06:39.000
+fixed the issue with the ball leaving the paddle. By default they're
+
+129
+00:06:39.000 --> 00:06:42.000
+associated properly now. because they're associated in code.
+
+130
+00:06:42.000 --> 00:06:45.000
+And the other thing that's working is that the LevelManager is
+
+131
+00:06:45.000 --> 00:06:48.000
+now associated and linked to the
+
+132
+00:06:48.000 --> 00:06:51.000
+Loose Collider. so it's all working programmatically.
+
+133
+00:06:51.000 --> 00:06:54.000
+This is huge progress! We've not got three levels. it's now
+
+134
+00:06:54.000 --> 00:06:57.000
+become a trivial matter to create more levels. Of
+
+135
+00:06:57.000 --> 00:07:00.000
+course. in your new level. you can drop as many blocks in as
+
+136
+00:07:00.000 --> 00:07:03.000
+you want. Probably best. when you first drop them
+
+137
+00:07:03.000 --> 00:07:06.000
+in. to drop them into the Hierarchy
+
+138
+00:07:06.000 --> 00:07:09.000
+on the left here. because then they'll be on grid.
+
+139
+00:07:09.000 --> 00:07:12.000
+and then. you can drag them around
+
+140
+00:07:12.000 --> 00:07:15.000
+from there. If they ever get off grid. remember Edit. Snap Settings.
+
+141
+00:07:15.000 --> 00:07:18.000
+Snap All Axes.
+
+142
+00:07:18.000 --> 00:07:21.000
+In fact. saying they'll be on grid. look! We have a minor problem with our
+
+143
+00:07:21.000 --> 00:07:24.000
+prefab. They're not on grid! You see this guy
+
+144
+00:07:24.000 --> 00:07:27.000
+I just dropped into the Hierarchy. is not on
+
+145
+00:07:27.000 --> 00:07:30.000
+grid. So. why is that? That
+
+146
+00:07:30.000 --> 00:07:33.000
+is because. if we look at the prefab for these guys
+
+147
+00:07:33.000 --> 00:07:36.000
+for these bricks. their default position is
+
+148
+00:07:36.000 --> 00:07:39.000
+actually not on the grid and that's not very good. So. let's
+
+149
+00:07:39.000 --> 00:07:42.000
+fix that right now. Let's take a look at
+
+150
+00:07:42.000 --> 00:07:45.000
+what would be on grid. for instance. 9.92
+
+151
+00:07:45.000 --> 00:07:48.000
+is a position that's on grid. Let's apply that position
+
+152
+00:07:48.000 --> 00:07:51.000
+to the prefab. for the green brick.
+
+153
+00:07:51.000 --> 00:07:54.000
+for the yellow brick.
+
+154
+00:07:54.000 --> 00:07:57.000
+and we also need to make sure that
+
+155
+00:07:57.000 --> 00:08:00.000
+the red brick is on the tab. This is the default
+
+156
+00:08:00.000 --> 00:08:03.000
+position of the red brick. Again. being
+
+157
+00:08:03.000 --> 00:08:06.000
+careful! See that's slightly off grid! You see that?
+
+158
+00:08:06.000 --> 00:08:09.000
+You need to make sure that your prefab
+
+159
+00:08:09.000 --> 00:08:12.000
+default positions are on grid. Now.
+
+160
+00:08:12.000 --> 00:08:15.000
+they all are. provided that I Apply.
+
+161
+00:08:15.000 --> 00:08:18.000
+You see these have gone bold. they're different to the prefab.
+
+162
+00:08:18.000 --> 00:08:21.000
+Click Apply and it should
+
+163
+00:08:21.000 --> 00:08:24.000
+change the prefab. Now. all of the prefabs have a Y
+
+164
+00:08:24.000 --> 00:08:27.000
+position of 9.92 and slightly different
+
+165
+00:08:27.000 --> 00:08:30.000
+X positions. That's desirable. let's see the benefit.
+
+166
+00:08:30.000 --> 00:08:33.000
+If I now drop in three different
+
+167
+00:08:33.000 --> 00:08:36.000
+bricks. into the
+
+168
+00:08:36.000 --> 00:08:39.000
+Hierarchy. they all go in. in slightly different positions.
+
+169
+00:08:39.000 --> 00:08:42.000
+They're now not on top of each other. and they are
+
+170
+00:08:42.000 --> 00:08:45.000
+on grid. If I was to select one of them. Snap Settings.
+
+171
+00:08:45.000 --> 00:08:48.000
+Snap All Axes. it's on grid. Awesome! So. a little
+
+172
+00:08:48.000 --> 00:08:51.000
+bonus at the end of the video there now. We now have
+
+173
+00:08:51.000 --> 00:08:54.000
+three scenes all working perfectly! Congratulations!
+
+174
+00:08:54.000 --> 00:08:55.966
+See you soon!
+

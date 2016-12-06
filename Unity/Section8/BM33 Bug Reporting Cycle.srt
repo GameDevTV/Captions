@@ -1,0 +1,648 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:14.519
+Hey. so we're gonna talk about the bug reporting
+cycle right now so a brief overview of a
+
+00:00:14.519 --> 00:00:19.480
+possible TDD bug reporting cycle
+creating relevant tests from user bug
+
+00:00:19.480 --> 00:00:25.849
+reports and a bit about sticking to the
+TDD discipline. So here's a possible bug
+
+00:00:25.849 --> 00:00:29.949
+reporting cycle. a very simple cycle so
+you're... imagine we have released our game
+
+00:00:29.949 --> 00:00:35.610
+now and it's out there in the wild and
+there're some issues and so your user
+
+00:00:35.610 --> 00:00:41.559
+submits a bug report so you are gonna be
+all three of the bold people here the QA
+
+00:00:41.559 --> 00:00:45.309
+and both developers as an indie
+developer. but in a larger company you
+
+00:00:45.309 --> 00:00:50.329
+may have quality assurance verify this
+bug is valid and can be reproduced. They
+
+00:00:50.329 --> 00:00:54.629
+may then pass it on to developer one who
+writes a failing test; who passes it on to
+
+00:00:54.629 --> 00:00:59.910
+developer two who writes code to make the test
+pass and then maybe the user is informed.
+
+00:00:59.910 --> 00:01:04.129
+something like that. So let's just take
+the example of a couple of our very
+
+00:01:04.129 --> 00:01:09.790
+helpful students who have found some
+more failing tests or bugs so the
+
+00:01:09.790 --> 00:01:15.140
+first discipline is to be able to turn a bug
+report like this into a test that
+
+00:01:15.140 --> 00:01:18.909
+actually tests for the symptoms of the
+problem so Nathan quite rightly
+
+00:01:18.909 --> 00:01:23.600
+points out the following problem and I'll
+just let you read that for a moment. Iwon't read it
+
+00:01:23.600 --> 00:01:26.110
+out to you so pause the video and read
+that if you wish
+
+00:01:26.110 --> 00:01:32.710
+ok so basically he's pointing out an
+issue but the issue is probably even
+
+00:01:32.710 --> 00:01:35.840
+more helpful than you would get from a
+user because it's looking behind the
+
+00:01:35.840 --> 00:01:40.570
+scenes into the code and talking about
+how we increment the bowl index and of
+
+00:01:40.570 --> 00:01:45.240
+course that doesn't directly result in a
+testable symptom so we need to make a
+
+00:01:45.240 --> 00:01:50.240
+test. in fact you need to make a test to
+test the symptoms of this problem within
+
+00:01:50.240 --> 00:01:53.140
+the scope of what we're doing at the
+moment because remember we're still just
+
+00:01:53.140 --> 00:01:58.439
+writing the action master. we're still
+just writing a system that needs to
+
+00:01:58.439 --> 00:02:03.220
+correctly tell the PinSetter whether to
+end the turn. to
+
+00:02:03.220 --> 00:02:09.540
+tidy. to reset etcetera so you need to
+make a test that makes this problem that
+
+00:02:09.540 --> 00:02:13.930
+Nathan's talking about manifest in a
+failing test. So that's a slightly
+
+00:02:13.930 --> 00:02:18.880
+different skill for you. it's making
+something testable. OK so go ahead and
+
+00:02:18.880 --> 00:02:29.430
+write that failing test for Nathan's test
+now. Welcome back so now with our test
+
+00:02:29.430 --> 00:02:33.290
+designer's hat on let's start
+thinking about how we would make a test
+
+00:02:33.290 --> 00:02:38.209
+that's going to fail. to exhibit the
+symptoms of this problem so let's focus
+
+00:02:38.209 --> 00:02:42.830
+on the first row of this diagram what
+Nathan is saying is that we bowled a 0
+
+00:02:42.830 --> 00:02:48.620
+then a ten. and the bowl pointer gets
+incremented two. which is wrong. and let's
+
+00:02:48.620 --> 00:02:52.690
+just look at the code that does that for a
+second if we look over in action master
+
+00:02:52.690 --> 00:03:00.070
+to show you the offending code. What's
+happening is that we handle the last frame
+
+00:03:00.070 --> 00:03:03.610
+here and then immediately say
+well if pins is 10. increment
+
+00:03:03.610 --> 00:03:09.239
+the bowl twice and return end turn. Well the
+problem with that is we get pins equals
+
+00:03:09.239 --> 00:03:15.280
+10 on bowl two. we increment bowl index
+twice and return end turn so that's not
+
+00:03:15.280 --> 00:03:18.930
+right because look what happens if we
+write the following tests we bowl 0.
+
+00:03:18.930 --> 00:03:24.019
+now I'm looking at the second row we bowl 0.
+10 and then a five look where the five
+
+00:03:24.019 --> 00:03:28.500
+goes the five goes in the wrong place.
+it goes in the second slot of the second
+
+00:03:28.500 --> 00:03:33.959
+frame and then the system will wrongly return a
+tidy. What we want to happen when we
+
+00:03:33.959 --> 00:03:41.100
+bowl a 0. a 10 and a five and then. say. a 1 is that
+on that one we want an end turn. So the bottom
+
+00:03:41.100 --> 00:03:46.700
+case is our test if we bowl 0. 10 5. 1 we
+should get an end turn but I think at the
+
+00:03:46.700 --> 00:03:50.630
+moment our code will give it tidy which
+is our failing test. So let's do that let's
+
+00:03:50.630 --> 00:03:56.750
+just write the test 0. 10. 5. 1. Relatively
+simple so over in action master test
+
+00:03:56.750 --> 00:04:01.720
+gonna call it in my case test 11 you
+just increment your test number if you
+
+00:04:01.720 --> 00:04:04.769
+want to do things like this you don't
+have to give them names it's only the
+
+00:04:04.769 --> 00:04:08.530
+reason I put this number here by the way
+is just over in unity it keeps them
+
+00:04:08.530 --> 00:04:12.330
+sorted in the order we wrote them down
+it just makes it easy to find
+
+00:04:12.330 --> 00:04:24.130
+Nathan Bowl index test. How's that. Nathan
+bowl index test and what we said we were
+
+00:04:24.130 --> 00:04:32.910
+gonna bowl was a 0 then a 10.  then a 5 and then
+we were going to assert that when we bowl
+
+00:04:32.910 --> 00:04:43.890
+say a one - is that what I said in my slide?
+yeah 0. 10. 5. 1... 0. 10. 5. when we bowl a 1 here we assert that what
+
+00:04:43.890 --> 00:04:48.820
+we should be getting is an end turn. Let's try it
+
+00:04:48.820 --> 00:04:53.950
+Compile your code now I've missed
+something a semicolon there. Fantastic
+
+00:04:53.950 --> 00:04:59.280
+Now back into Unity and the whirligig goes round
+in the bottom right Nathan bowl index test
+
+00:04:59.280 --> 00:05:04.160
+expected end turn got tidy. Perfect. so we
+have a failing test; red green
+
+00:05:04.160 --> 00:05:08.640
+refactor we have a red. So let's go into
+the green condition. How do we fix the
+
+00:05:08.640 --> 00:05:10.510
+code to make it work? Well again
+
+00:05:10.510 --> 00:05:15.560
+Nathan suggested a solution to this but
+you need to think about the solution for
+
+00:05:15.560 --> 00:05:18.890
+your code because it's going to be
+different in your code. So let's look in
+
+00:05:18.890 --> 00:05:20.620
+the code. this lot here
+
+00:05:20.620 --> 00:05:28.390
+handles frame special cases
+
+00:05:28.390 --> 00:05:34.450
+put my tongue back in there. So we've got our special
+frame handling now the problem is this
+
+00:05:34.450 --> 00:05:38.230
+line here this is the one that causes
+the issue so let's think about what this
+
+00:05:38.230 --> 00:05:44.580
+code does here so what does mid frame mean?
+We're taking the modulus and we're
+
+00:05:44.580 --> 00:05:51.820
+saying well it's not really mid frame is
+it is this is first bowl of frames one to nine
+
+00:05:51.820 --> 00:06:02.260
+and this is the first frist... and this is
+second bowl of frames one to nine so on
+
+00:06:02.260 --> 00:06:09.460
+the second bowl of frames one to nine we always increment one and end turn but on the first bowl of frames one to nine we
+
+00:06:09.460 --> 00:06:16.760
+don't always do this do we? It depends on
+the pins per this logic up here so
+
+00:06:16.760 --> 00:06:24.050
+what we want to do is we want to say that
+if pins is 10
+
+00:06:24.050 --> 00:06:28.330
+then we do this stuff here. that's where we
+want that
+
+00:06:28.330 --> 00:06:37.500
+else we increment one and return tidy. We
+just have done logic in slightly the
+
+00:06:37.500 --> 00:06:41.629
+wrong place but I think this is a
+solution so let's get rid of that. we
+
+00:06:41.629 --> 00:06:47.069
+moved  it inside the if statement. we said if
+we are in the first bowl of flames 1 to 9.
+
+00:06:47.069 --> 00:06:52.930
+strictly this isn't necessarily actually
+the first ball of flames one to nine is it because
+
+00:06:52.930 --> 00:06:58.129
+there are other instances where this
+modulus may equal 0 so im just gonna say
+
+00:06:58.129 --> 00:07:03.409
+first bowl of frame. second bowl of frame
+but anyway if we're in the first bowl of the
+
+00:07:03.409 --> 00:07:07.159
+frame and the pins is equal to 10 then we
+do the increment 2 and end turn.
+
+00:07:07.159 --> 00:07:11.310
+otherwise we only increment one and tidy.
+Let's try it before we get too excited.
+
+00:07:11.310 --> 00:07:18.469
+The great thing about this test is all these
+previous tests need to pass as well. green
+
+00:07:18.469 --> 00:07:23.020
+red green refactor so we've done red. 
+we've done green let's see if we need to
+
+00:07:23.020 --> 00:07:25.300
+refactor well actually think this is
+pretty clear.
+
+00:07:25.300 --> 00:07:29.740
+We've gone straight to clear code. Now
+if you've kind of hacked it in here or you
+
+00:07:29.740 --> 00:07:35.039
+think that you need to refactor then go
+ahead and do that. You could maybe take
+
+00:07:35.039 --> 00:07:39.800
+all this out and say handle first bowl of
+frame or something but I don't think
+
+00:07:39.800 --> 00:07:44.009
+it's necessary I think this reads ok so
+fantastic that is that one done now
+
+00:07:44.009 --> 00:07:46.960
+let's see there's another bug report
+We're going to work the next one
+
+00:07:46.960 --> 00:07:50.759
+the opposite way round in this case
+we're putting our hat on as if we are
+
+00:07:50.759 --> 00:07:57.729
+developer two. let's go back to the slide
+remember the first time with Nathan's
+
+00:07:57.729 --> 00:08:03.199
+test we acted as QA and developer one
+and developer two and we wrote the test
+
+00:08:03.199 --> 00:08:09.129
+ourselves well as QA we kind of
+verified the test. we wrote the test and
+
+00:08:09.129 --> 00:08:14.830
+then we wrote the solution
+now what we're gonna do with Nathan's. sorry
+
+00:08:14.830 --> 00:08:19.120
+with Dondi's issue is he's actually
+we're pretending we're developer two. He's
+
+00:08:19.120 --> 00:08:21.930
+actually written a failing test and we're
+gonna take it from there so if we go to
+
+00:08:21.930 --> 00:08:28.240
+this slide here then Dondi has told us
+that this test fails. so it's Dondi
+
+00:08:28.240 --> 00:08:32.409
+10th frame Turkey which is fine and he
+rolls all this stuff gets us into the
+
+00:08:32.409 --> 00:08:34.099
+last frame and then rolls
+
+00:08:34.099 --> 00:08:43.079
+strike strike and then strike and it
+should be end game. OK so if he's written us
+
+00:08:43.079 --> 00:08:46.420
+a test then lets going to stick it
+straight in our code now a couple ways you
+
+00:08:46.420 --> 00:08:49.880
+can do this you should be able to copy and
+paste this from the slide deck if you've
+
+00:08:49.880 --> 00:08:53.440
+got it as a PDF. Alternatively if you're
+online on your device click on that link
+
+00:08:53.440 --> 00:08:58.019
+and it'll bring up a Gist which is a
+nice easy way. an alternative to pastebin
+
+00:08:58.019 --> 00:09:02.389
+possibly a more solid way of sharing your
+code and you'll be able to copy and paste the
+
+00:09:02.389 --> 00:09:06.399
+code from that Gist there so let's go and actually take the test. it's a
+
+00:09:06.399 --> 00:09:10.259
+perfectly valid system this take
+somebody else's test slot it right into
+
+00:09:10.259 --> 00:09:15.500
+your code; in my case I'm going to just
+increment my test number in front just for
+
+00:09:15.500 --> 00:09:23.180
+my reference and let's go ahead and go
+back into unity and run all the tests. Look
+
+00:09:23.180 --> 00:09:31.269
+Dondi10thframeturkey expected a
+reset you got a tidy. That doesn't sound
+
+00:09:31.269 --> 00:09:35.160
+right I thought that we were expecting
+Oh OK. so we don't even get the reset
+
+00:09:35.160 --> 00:09:39.509
+here. So Dondi's doing three tests.
+he's doing testing this is reset this is
+
+00:09:39.509 --> 00:09:44.420
+reset and this is endgame. So it's three
+tests in one which is kind of ok. it
+
+00:09:44.420 --> 00:09:50.439
+would be easier to tackle this if we did
+it 1 action at a time we could split
+
+00:09:50.439 --> 00:09:54.449
+this into three tests but let's see if we can
+find what the problem is. Now Dondi has
+
+00:09:54.449 --> 00:09:59.930
+also suggested what the problem may be
+and he suggested that when we are
+
+00:09:59.930 --> 00:10:04.740
+handling the last frame here instead of
+being saying that we are definitely on
+
+00:10:04.740 --> 00:10:09.839
+Bowl 19 let's say that we are on bowl
+greater than or equal to 19. Let's just
+
+00:10:09.839 --> 00:10:14.040
+try that solution and see if it makes
+the test pass. No harm in cheating like
+
+00:10:14.040 --> 00:10:17.600
+this. no harm in saying well you know
+somebody's given us a hint there you go and
+
+00:10:17.600 --> 00:10:21.500
+that seems to make not only Dondi's
+test pass which I wouldn't be too
+
+00:10:21.500 --> 00:10:27.269
+confident is not just a hack but all the
+previous tests as well so we've gone red
+
+00:10:27.269 --> 00:10:31.600
+green now let's refactor let's make sure
+this makes sense so handle the
+
+00:10:31.600 --> 00:10:36.980
+last frame so certainly Bowl 19 and above is
+the last frame but this first if
+
+00:10:36.980 --> 00:10:43.250
+statement only catches the case where
+we have a strike. So then we do a reset
+
+00:10:43.250 --> 00:10:46.450
+That's fine and then it's saying what else
+
+00:10:46.450 --> 00:10:55.070
+if bowl equals 20. then what do we do that's all fine. So how come are we getting an end game on Bowl 21?
+
+00:10:55.070 --> 00:10:59.800
+I'm not sure why we're getting ever
+getting... Aha. because that's the
+
+00:10:59.800 --> 00:11:04.260
+first thing we catch great so it kind of
+makes sense we get an end game on Bowl
+
+00:11:04.260 --> 00:11:11.130
+20. if all of the above conditions aren't
+met or always on bowl 21. Great. so what
+
+00:11:11.130 --> 00:11:14.080
+that seems to be doing is it seems to be
+catching all three of these tests in one
+
+00:11:14.080 --> 00:11:19.120
+go making sure that we get reset reset
+endgame. Perfect so you might now be
+
+00:11:19.120 --> 00:11:23.220
+slightly losing confidence in the
+solidity of your solution even though
+
+00:11:23.220 --> 00:11:27.950
+we're adding more and more tests. One
+thing I certainly feel at this stage is
+
+00:11:27.950 --> 00:11:31.140
+well that's all very well but every time
+we add another test and feel more
+
+00:11:31.140 --> 00:11:35.600
+confident about our code because yet
+another test is fail... passed we also
+
+00:11:35.600 --> 00:11:39.700
+feel more and more that there's going to
+be more tests that could come along that
+
+00:11:39.700 --> 00:11:40.400
+will fail
+
+00:11:40.400 --> 00:11:44.610
+well that's true so how could you really
+button this up? At some point you need to
+
+00:11:44.610 --> 00:11:48.710
+ship your product and be willing to
+change it if a user does report a bug
+
+00:11:48.710 --> 00:11:52.810
+but in the case of say a bowling game or
+you're making a deal making an ASIC. an
+
+00:11:52.810 --> 00:11:58.130
+Application Specific Integrated Circuit
+maybe your coding for that
+
+00:11:58.130 --> 00:12:02.770
+and it's gonna be millions of pounds
+spent on the structure of that or
+
+00:12:02.770 --> 00:12:05.970
+something like that some cases you know
+your shrink wrapping your game you
+
+00:12:05.970 --> 00:12:10.210
+really just don't want major bugs. How
+do you know that this is
+
+00:12:10.210 --> 00:12:14.920
+working? Well you can never really prove
+it in in the aviation industry you have
+
+00:12:14.920 --> 00:12:19.190
+to make software that's really really
+tightly and proven to be working but
+
+00:12:19.190 --> 00:12:22.970
+here in in the game industry you know
+that you have to be willing to patch
+
+00:12:22.970 --> 00:12:26.080
+your game if there is a bug. as Brice says.
+there will be bugs in the game the
+
+00:12:26.080 --> 00:12:30.150
+question is do they interfere with the
+user experience. So how we gonna just
+
+00:12:30.150 --> 00:12:33.290
+make ourselves feel more confident? Well
+one thing you could do is you could go
+
+00:12:33.290 --> 00:12:37.210
+to the rules of bowling if you can find
+them written out sufficiently clearly
+
+00:12:37.210 --> 00:12:42.380
+and just make sure that there is a test
+for every rule of bowling. so at the moment
+
+00:12:42.380 --> 00:12:47.110
+we have only 12 tests and we're probably
+not covering all cases. What we have done
+
+00:12:47.110 --> 00:12:50.450
+here is we've actually developed these
+tests in a pretty cool way with the
+
+00:12:50.450 --> 00:12:54.310
+community. So we've got a lot of students on
+the course and they are willing to try
+
+00:12:54.310 --> 00:12:57.050
+and make failing tests so I'm going to
+continue this way actually.
+
+00:12:57.050 --> 00:13:02.550
+I'm gonna say throw it back to the
+community and see if from this video you can
+
+00:13:02.550 --> 00:13:03.740
+make any more
+
+00:13:03.740 --> 00:13:08.130
+failing tests so eventually nobody will
+be able to find a valid
+
+00:13:08.130 --> 00:13:12.320
+failing test. I mean anybody can make a
+failing tests right but you gotta have a
+
+00:13:12.320 --> 00:13:16.779
+failing test that is actually valid in terms
+of the rules of bowling. So guys back over
+
+00:13:16.779 --> 00:13:22.459
+to you try and make yet another failing
+test because I am feeling pretty
+
+00:13:22.459 --> 00:13:26.140
+confident about this code but I'm very
+happy to accept there could be more
+
+00:13:26.140 --> 00:13:28.190
+issues with it
+
+00:13:28.190 --> 00:13:31.730
+OK so congratulations on following this
+video and we'll see you soon.
+

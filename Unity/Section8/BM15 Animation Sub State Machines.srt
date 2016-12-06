@@ -1,0 +1,785 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:09.780 align:middle line:90%
+Welcome back. so we're going to talk about
+animation sub-state machines. So this part
+
+00:00:09.780 --> 00:00:15.170 align:middle line:90%
+is sufficiently complex that I'm going to
+take the unusual step of overviewing the pinsetter.
+
+00:00:15.170 --> 00:00:20.320 align:middle line:90%
+which is the device that resets and clears
+the pins and our end goal in a prototype.
+
+00:00:20.320 --> 00:00:27.359 align:middle line:90%
+and then we will set up a swiper bar to tidy
+and reset the pins. add a swipe animation
+
+00:00:27.359 --> 00:00:32.739 align:middle line:90%
+etc. and talk about animation state machines.
+and manage it all in code. So. quite a lot
+
+00:00:32.739 --> 00:00:36.370 align:middle line:90%
+to do and we may end up breaking this into
+more than one video.
+
+00:00:36.370 --> 00:00:40.140 align:middle line:90%
+So the first thing that I'm going to do is
+I'm going to take you to a prototype. This
+
+00:00:40.140 --> 00:00:44.059 align:middle line:90%
+is the prototype that I built before teaching
+this section and this is going to give you
+
+00:00:44.059 --> 00:00:49.950 align:middle line:90%
+an idea of the end result that we are heading
+towards. So. we have something called a swiper.
+
+00:00:49.950 --> 00:00:56.090 align:middle line:90%
+it's this thing here. It's a piece of glass
+in my case and let's just see what happens
+
+00:00:56.090 --> 00:01:03.370 align:middle line:90%
+with this swiper. so if we click play here
+and just go back to the scene view and look
+
+00:01:03.370 --> 00:01:08.439 align:middle line:90%
+down at the sharp end of the game down by
+the pins and swiper. we have a state machine
+
+00:01:08.439 --> 00:01:12.500 align:middle line:90%
+- an animation state machine that's sitting
+in an idle state at the moment and it has
+
+00:01:12.500 --> 00:01:16.950 align:middle line:90%
+two of these funny things that you can create
+by right clicking and saying create sub-state
+
+00:01:16.950 --> 00:01:19.070 align:middle line:84%
+machine for reset and tidy.
+
+00:01:19.070 --> 00:01:22.680 align:middle line:90%
+So let's look at the difference. What is a
+reset? Well a reset is where the swiper goes
+
+00:01:22.680 --> 00:01:29.700 align:middle line:90%
+down. swipes all the pins out of the way.
+comes back again. i.e. renewing the pins.
+
+00:01:29.700 --> 00:01:33.860 align:middle line:90%
+and then goes back to idle. So let's look
+at that substate machine again. so let's just
+
+00:01:33.860 --> 00:01:41.549 align:middle line:90%
+pause. you come into this state. this reset
+state. you swipe. down here and back; you
+
+00:01:41.549 --> 00:01:45.939 align:middle line:90%
+renew the pins which is just a single bang
+- here - here's a new set of pins and then
+
+00:01:45.939 --> 00:01:51.780 align:middle line:90%
+you lower those pins back down to the ground.
+Right? So you swipe. renew lower. let's watch
+
+00:01:51.780 --> 00:01:52.369 align:middle line:84%
+it again.
+
+00:01:52.369 --> 00:02:00.479 align:middle line:90%
+So. in the scene view. trigger the reset.
+swipe happening now. all the pins get swiped
+
+00:02:00.479 --> 00:02:05.770 align:middle line:90%
+out of the way. renew i.e. instantiate new
+pins and then drop them down real quick. OK
+
+00:02:05.770 --> 00:02:10.360 align:middle line:90%
+so that is a reset. and we use a sub state
+machine just to keep the animation hierarchy
+
+00:02:10.360 --> 00:02:14.940 align:middle line:90%
+tidy. it sits there in idle just in case we
+trigger a reset. Perfect so what's a tidy.
+
+00:02:14.940 --> 00:02:19.480 align:middle line:90%
+let's look at a tidy first. click that. all
+the pins are lifted up. whatever's left i.e.
+
+00:02:19.480 --> 00:02:23.770 align:middle line:90%
+the pins that have fallen over are swiped
+and then they're put back down again. So let's
+
+00:02:23.770 --> 00:02:27.610 align:middle line:84%
+look at the sub-state machine.
+
+00:02:27.610 --> 00:02:32.709 align:middle line:90%
+So we come in. we raise the pins. we lower
+the pins again and then we leave. OK so let's
+
+00:02:32.709 --> 00:02:39.300 align:middle line:90%
+look at that again. When the trigger happens
+we raise the pins that haven't fallen over.
+
+00:02:39.300 --> 00:02:46.280 align:middle line:90%
+we swipe the ones that have fallen over and
+we lower the pins back down. OK? So you can
+
+00:02:46.280 --> 00:02:50.510 align:middle line:90%
+see how the end result of what we're looking
+is pretty neat; it's pretty cool that we can
+
+00:02:50.510 --> 00:02:55.040 align:middle line:90%
+have these submachines and they automatically
+reset to idle when they finish resetting or
+
+00:02:55.040 --> 00:03:00.780 align:middle line:90%
+tidying and we are defining what it actually
+means to reset the pins or tidy the pins - by
+
+00:03:00.780 --> 00:03:04.780 align:middle line:90%
+the way you can drag around these states all
+you like so that you can see them better.
+
+00:03:04.780 --> 00:03:06.450 align:middle line:84%
+Like that. that's fine.
+
+00:03:06.450 --> 00:03:11.920 align:middle line:90%
+So you are making the definition of what it
+means to reset or tidy inside the animator.
+
+00:03:11.920 --> 00:03:16.360 align:middle line:90%
+The other thing you should know is how do
+these work? How does the raise work? Well
+
+00:03:16.360 --> 00:03:23.310 align:middle line:90%
+let's take a look. raise for a start is just
+after point three of a second it just calls
+
+00:03:23.310 --> 00:03:30.950 align:middle line:90%
+a method called lift pins. How does swipe
+work? Well. swipe here is an actual animation
+
+00:03:30.950 --> 00:03:35.730 align:middle line:90%
+and it has a curve and it has key frames.
+Mostly the key frames that you've been looking
+
+00:03:35.730 --> 00:03:42.269 align:middle line:90%
+at so literally that's where the swiper moves
+through the game space. If we click play and
+
+00:03:42.269 --> 00:03:46.760 align:middle line:90%
+you look in the scene view that's what actually
+moves this guy.
+
+00:03:46.760 --> 00:03:53.390 align:middle line:90%
+So we have key frames for the swiping. lowering
+again is just a call to a method to lower
+
+00:03:53.390 --> 00:03:59.400 align:middle line:90%
+the pins and very similarly for the reset
+it's the same type of ideas. In fact we re-used
+
+00:03:59.400 --> 00:04:04.069 align:middle line:90%
+the concepts of raising the pins. lowering
+the pins. it's only renewing the pins that's
+
+00:04:04.069 --> 00:04:10.989 align:middle line:90%
+different for the reset and again that's just
+a method call. Now you can for this approach
+
+00:04:10.989 --> 00:04:16.549 align:middle line:90%
+of course use animations for lowering and
+raising. we just drop the pins when we lower
+
+00:04:16.549 --> 00:04:20.889 align:middle line:90%
+them but you're very welcome to include an
+animation. you've got the facility to do that.
+
+00:04:20.889 --> 00:04:25.000 align:middle line:90%
+So I quite like this structure. I quite like
+the idea that the animator is responsible
+
+00:04:25.000 --> 00:04:29.430 align:middle line:90%
+for this. There are some risks. one of the
+risks is that we trigger something and that
+
+00:04:29.430 --> 00:04:34.449 align:middle line:90%
+the animator never returns control flow back
+to the game because if for any reason one
+
+00:04:34.449 --> 00:04:38.350 align:middle line:90%
+of these things doesn't get called or we get
+stuck in an animation state it's slightly
+
+00:04:38.350 --> 00:04:42.830 align:middle line:90%
+risky leaving the core execution flow going
+through the animator but I'm showing you lots
+
+00:04:42.830 --> 00:04:47.240 align:middle line:90%
+of different ways of doing things and this
+is a perfectly valid approach to go into a
+
+00:04:47.240 --> 00:04:52.400 align:middle line:90%
+tidy state through there and automatically
+exits through a base layer.
+
+00:04:52.400 --> 00:04:56.520 align:middle line:90%
+So let's just watch it in progress once again
+and then you are going to be responsible for
+
+00:04:56.520 --> 00:05:03.750 align:middle line:90%
+making it happen; but there is a. what is
+this a reset happening now. There it is and
+
+00:05:03.750 --> 00:05:09.840 align:middle line:90%
+then a tidy is slightly different. We're re-using
+everything. we only have one renew one lower
+
+00:05:09.840 --> 00:05:15.389 align:middle line:90%
+one raise one swipe animation. So it's pretty
+neat. it's kind of organised quite nicely.
+
+00:05:15.389 --> 00:05:20.139 align:middle line:90%
+Cool so you've got the overview of what we
+are trying to do here. Now we need to go back
+
+00:05:20.139 --> 00:05:27.060 align:middle line:90%
+to our project as we've left it which is our
+BowlMaster project and make our project do
+
+00:05:27.060 --> 00:05:30.680 align:middle line:84%
+this. so bear with me while it loads.
+
+00:05:30.680 --> 00:05:34.000 align:middle line:90%
+So where are we? What's the gap between what
+we've just seen and where we are? Well we
+
+00:05:34.000 --> 00:05:40.009 align:middle line:90%
+don't even have a swiper. So let's go ahead
+and make a swiper object to start with. So
+
+00:05:40.009 --> 00:05:43.580 align:middle line:90%
+this is just going to be a piece of something
+that looks like glass but we'll worry about
+
+00:05:43.580 --> 00:05:48.639 align:middle line:90%
+the visuals later. down towards the end of
+the scene so go ahead and make yourself a
+
+00:05:48.639 --> 00:05:56.000 align:middle line:90%
+cube - a 3D cube-like object that sits just
+above the pins as a swiper. Pause the video
+
+00:05:56.000 --> 00:06:00.110 align:middle line:84%
+and do that micro-challenge right now.
+
+00:06:00.110 --> 00:06:03.009 align:middle line:90%
+OK so the way that I'm going to do it is I'm
+going to go 3D object / cube like that and
+
+00:06:03.009 --> 00:06:06.979 align:middle line:90%
+then I'm just going to scale it. Now the scale
+in x is going to be 105 because that's the
+
+00:06:06.979 --> 00:06:15.240 align:middle line:90%
+width of the lane; y what 20cm high something
+like that and then how deep? What. 5cm? 10cm?
+
+00:06:15.240 --> 00:06:20.509 align:middle line:90%
+If in doubt make it thick because it's going
+to make sure that it collides because at high
+
+00:06:20.509 --> 00:06:26.750 align:middle line:90%
+speed sometimes things don't collide so I'm
+going to make mine 10cm thick and 40 or 30cm
+
+00:06:26.750 --> 00:06:30.500 align:middle line:90%
+high. let's say 30. those proportions look
+OK.
+
+00:06:30.500 --> 00:06:34.039 align:middle line:90%
+So there it is. Later on. or if you want to
+now you can put some materials on here that
+
+00:06:34.039 --> 00:06:38.419 align:middle line:90%
+make it look more like glass but for now that's
+fine. Of course you need to position it so
+
+00:06:38.419 --> 00:06:43.229 align:middle line:90%
+that it's at 0x. right in the middle of the
+lane and then we need to make a judgement
+
+00:06:43.229 --> 00:06:46.509 align:middle line:90%
+call on whether it's at the right height.
+I think that I'm going to lift mine up to
+
+00:06:46.509 --> 00:06:53.009 align:middle line:90%
+I think 80 cm and we may as well have a nice
+round z position. Now remember the trick.
+
+00:06:53.009 --> 00:06:58.530 align:middle line:90%
+you can click on the letter z and drag left
+and right and watch how it affects the numbers
+
+00:06:58.530 --> 00:07:04.319 align:middle line:84%
+so I'm going to make mine at 1750 I think.
+
+00:07:04.319 --> 00:07:12.800 align:middle line:90%
+OK perfect. so we now have a cube but this
+is actually called a swiper so name the object.
+
+00:07:12.800 --> 00:07:17.830 align:middle line:90%
+So at least we have a swiper in place now.
+So the next thing to do is think about how
+
+00:07:17.830 --> 00:07:21.770 align:middle line:90%
+we're going to set up our animation. Let's
+look at our hierarchy. we have a camera and
+
+00:07:21.770 --> 00:07:27.000 align:middle line:90%
+a main camera and a directional light and
+a floor. a load of pins and a ball. Well I
+
+00:07:27.000 --> 00:07:31.160 align:middle line:90%
+would say that the floor and the swiper are
+both part of a more general thing called the
+
+00:07:31.160 --> 00:07:35.750 align:middle line:90%
+lane. so why don't we create an empty object
+and just call it lane?
+
+00:07:35.750 --> 00:07:41.590 align:middle line:90%
+Now provided that you reset the transform
+of that empty game object you can then drag
+
+00:07:41.590 --> 00:07:46.830 align:middle line:90%
+in the swiper and the floor without any negative
+effects. you're just grouping the floor and
+
+00:07:46.830 --> 00:07:50.180 align:middle line:90%
+the swiper together and saying that they're
+all just part of the lane as a whole. They're
+
+00:07:50.180 --> 00:07:54.009 align:middle line:90%
+not part of the pins. the pins are separate
+to the lane. so is the ball. that lot's all
+
+00:07:54.009 --> 00:08:01.389 align:middle line:90%
+part of the bowling alley or the lane. OK
+fine. that's good. now we need to put an animator
+
+00:08:01.389 --> 00:08:07.770 align:middle line:90%
+on something so that it can move around the
+swiper. Now. put the animator on the most
+
+00:08:07.770 --> 00:08:09.620 align:middle line:84%
+specific thing that you can.
+
+00:08:09.620 --> 00:08:14.699 align:middle line:90%
+Yes. you could put the animator on the lane.
+that would work. and then you could reach
+
+00:08:14.699 --> 00:08:19.050 align:middle line:90%
+in to the swiper object; but ask yourself
+do we have anything else to animate in this
+
+00:08:19.050 --> 00:08:23.550 align:middle line:90%
+lane? Well there's a design decision there
+for you. If for example you had some of those
+
+00:08:23.550 --> 00:08:29.060 align:middle line:90%
+kids' gutter bars down the side left and right
+that could pop up. they could pop up as an
+
+00:08:29.060 --> 00:08:33.419 align:middle line:90%
+animation so it may make sense to keep things
+simple to have a single animator on the lane
+
+00:08:33.419 --> 00:08:40.589 align:middle line:90%
+and then it would be able to access the swiper.
+maybe the gutter bars if we had them. so that
+
+00:08:40.589 --> 00:08:41.060 align:middle line:84%
+would be fine.
+
+00:08:41.060 --> 00:08:44.779 align:middle line:90%
+The cost of that is that it would be a little
+more cumbersome to use the animator. the other
+
+00:08:44.779 --> 00:08:49.080 align:middle line:90%
+option is that you put the animator on the
+swiper itself and have a dedicated animator
+
+00:08:49.080 --> 00:08:54.550 align:middle line:90%
+for the swiper so it's entirely up to you
+which way you do that. In my case I'm going
+
+00:08:54.550 --> 00:09:00.060 align:middle line:90%
+to take my own advice and put my animator
+on the swiper. the most specific object. So
+
+00:09:00.060 --> 00:09:05.290 align:middle line:90%
+let's go ahead and do that. There is an animator.
+Now the other thing that you're going to need
+
+00:09:05.290 --> 00:09:09.750 align:middle line:90%
+on this swiper if it's actually going to impact
+with the pins is you're going to need yourself
+
+00:09:09.750 --> 00:09:11.140 align:middle line:84%
+a RigidBody.
+
+00:09:11.140 --> 00:09:16.450 align:middle line:90%
+It already has a box collider but no physics
+collisions will be exhibited unless you have
+
+00:09:16.450 --> 00:09:20.670 align:middle line:90%
+a RigidBody as well. We certainly don't want
+it to be a trigger. it's a lot more than that.
+
+00:09:20.670 --> 00:09:27.519 align:middle line:90%
+it is a fully physical object but let's add
+a RigidBody. A 3D RigidBody these days. We
+
+00:09:27.519 --> 00:09:32.310 align:middle line:90%
+don't need gravity on that RigidBody and I
+personally like to move that up the hierarchy
+
+00:09:32.310 --> 00:09:39.170 align:middle line:90%
+to sit next to the collider just so that at
+a glance I can see that this is a RigidBody
+
+00:09:39.170 --> 00:09:45.470 align:middle line:90%
+collider. but it is kinematic. we are going
+to be specifying the motion through the animator.
+
+00:09:45.470 --> 00:09:50.209 align:middle line:90%
+Alright so that's the right type of object.
+now your challenge is going to be to actually
+
+00:09:50.209 --> 00:09:55.570 align:middle line:90%
+use the animator to make that type of swipe
+animation that you saw ensuring that in doing
+
+00:09:55.570 --> 00:10:01.110 align:middle line:90%
+so you'll actually swipe the pins out of the
+way. So go ahead and do that now. create a
+
+00:10:01.110 --> 00:10:06.260 align:middle line:90%
+swipe animation. Be careful not to hit any
+raised pins on your way down or back. you'll
+
+00:10:06.260 --> 00:10:10.750 align:middle line:90%
+need enough key frames to kind of go around
+the bend; and then go out and back smoothly.
+
+00:10:10.750 --> 00:10:15.170 align:middle line:90%
+So pause the video and make an animation similar
+to what you saw in my prototype right now.
+
+00:10:15.170 --> 00:10:18.610 align:middle line:84%
+and I'll see you when you're ready.
+
+00:10:18.610 --> 00:10:23.399 align:middle line:90%
+OK cool welcome back so this is how I'm going
+to add the swipe animation. let's go to the
+
+00:10:23.399 --> 00:10:28.380 align:middle line:90%
+swiper and let's get ourselves in an animation
+layout. Now have you saved an animation layout?
+
+00:10:28.380 --> 00:10:33.420 align:middle line:90%
+Not since I upgraded to Unity 5. So I'm going
+to get the windows that I need. I want an
+
+00:10:33.420 --> 00:10:39.079 align:middle line:90%
+animation window and I like to have that up
+here and then I want another window which
+
+00:10:39.079 --> 00:10:44.500 align:middle line:90%
+is the animator and that animator which gives
+me all of my animation states I like to have
+
+00:10:44.500 --> 00:10:49.950 align:middle line:90%
+down the bottom here and then that layout
+I'm going to save as animation. Entirely up
+
+00:10:49.950 --> 00:10:54.120 align:middle line:90%
+to you how you workflow this but now I can
+quickly switch to this animation layout in
+
+00:10:54.120 --> 00:10:57.070 align:middle line:90%
+future and that just went because of Unity
+5.
+
+00:10:57.070 --> 00:11:04.579 align:middle line:90%
+Cool. so our swiper has an animator on it.
+But is has no animation controller so let's
+
+00:11:04.579 --> 00:11:10.040 align:middle line:90%
+start getting ourselves a little tidier. Create
+a folder called animations - if you like.
+
+00:11:10.040 --> 00:11:15.720 align:middle line:90%
+you can organise this how you like - and create
+yourself a new animation controller. I'm going
+
+00:11:15.720 --> 00:11:20.459 align:middle line:90%
+to call it swiper. because that's what's being
+animated. and you can drag it onto the swiper
+
+00:11:20.459 --> 00:11:25.110 align:middle line:90%
+like that. Now. the system is intelligent
+enough to know that you want the animation
+
+00:11:25.110 --> 00:11:30.620 align:middle line:90%
+controller here. that you just created. to
+go into the animator of the swiper. so that's
+
+00:11:30.620 --> 00:11:36.180 align:middle line:90%
+cool. Now. if you clicked on the animator
+then we have this empty state machine view
+
+00:11:36.180 --> 00:11:41.930 align:middle line:90%
+here. you can use the middle mouse button
+or the mouse wheel to drag around this thing.
+
+00:11:41.930 --> 00:11:46.550 align:middle line:90%
+We have no animation clips right now. or states.
+So let's create ourselves an empty state called
+
+00:11:46.550 --> 00:11:55.220 align:middle line:90%
+idle. So we'll organise our animations into
+sub-state machines and stuff later in a future
+
+00:11:55.220 --> 00:12:00.010 align:middle line:90%
+video. for now let's just focus on getting
+this swipe animation working properly so you
+
+00:12:00.010 --> 00:12:06.200 align:middle line:90%
+can create a new empty state here. call it
+swipe. it can be moved into a lower level
+
+00:12:06.200 --> 00:12:12.730 align:middle line:90%
+later. It doesn't have a motion. so let's
+make a motion. Create / animation and just
+
+00:12:12.730 --> 00:12:21.610 align:middle line:90%
+call it swipe. So back at your animator swipe
+can now be given a swipe motion. perfect;
+
+00:12:21.610 --> 00:12:24.290 align:middle line:84%
+and then we need a way of getting into swipe.
+
+00:12:24.290 --> 00:12:28.829 align:middle line:90%
+Well I'm just going to make the transition
+happen by default. so if you click play it
+
+00:12:28.829 --> 00:12:33.339 align:middle line:90%
+goes idle and then swipe. Alright? That's
+absolutely fine for testing purposes. Remember
+
+00:12:33.339 --> 00:12:37.660 align:middle line:90%
+we're going to reorganise this state machine
+later. The focus of this video is to get the
+
+00:12:37.660 --> 00:12:43.540 align:middle line:90%
+swipe animation working properly. So you need
+to be clicked on the swiper and now you need
+
+00:12:43.540 --> 00:12:48.610 align:middle line:90%
+the clip swipe. and this is where we actually
+model the animation. So if you click record
+
+00:12:48.610 --> 00:12:53.930 align:middle line:90%
+here. remember that you can just switch between
+the animation and the scene to apply your
+
+00:12:53.930 --> 00:12:55.180 align:middle line:84%
+key frames.
+
+00:12:55.180 --> 00:13:01.670 align:middle line:90%
+So at the start we need a key frame which
+is where the swiper is where it is - right
+
+00:13:01.670 --> 00:13:08.820 align:middle line:90%
+at the top there. that's fine. So maybe after
+one second we add a key frame. but a key frame
+
+00:13:08.820 --> 00:13:12.810 align:middle line:90%
+what? It's all very well to just add a key
+frame but you need to be changing a particular
+
+00:13:12.810 --> 00:13:19.649 align:middle line:90%
+property and that property is the position
+of the swiper. So at the start. there. when
+
+00:13:19.649 --> 00:13:24.230 align:middle line:90%
+you look at the scene the swiper's here. Now
+at. say. one second. we go over to the scene
+
+00:13:24.230 --> 00:13:29.639 align:middle line:90%
+and we move it to where we want it. We want
+it to be down a bit and forward a bit. Now
+
+00:13:29.639 --> 00:13:32.209 align:middle line:90%
+bear in mind it will smooth the corners of
+these motions.
+
+00:13:32.209 --> 00:13:39.649 align:middle line:90%
+So if we play that at the moment... to there.
+that's OK. So now you just have to go in and
+
+00:13:39.649 --> 00:13:43.389 align:middle line:90%
+put the rest of your key frames in. So maybe
+I'm going to spend another two seconds getting
+
+00:13:43.389 --> 00:13:49.199 align:middle line:90%
+myself to the back. So what do I mean by the
+back? I want to get to this kind of position.
+
+00:13:49.199 --> 00:13:53.839 align:middle line:90%
+something like this at the back here right.
+Low enough to make sure that we swipe everything.
+
+00:13:53.839 --> 00:13:59.889 align:middle line:90%
+great. and then maybe two seconds later over
+here somewhere we add a new keyframe and maybe
+
+00:13:59.889 --> 00:14:02.070 align:middle line:84%
+we want to be back at the start by then.
+
+00:14:02.070 --> 00:14:07.389 align:middle line:90%
+Or near the start. back here perhaps; and
+then maybe we need a final keyframe maybe
+
+00:14:07.389 --> 00:14:13.110 align:middle line:90%
+a second later giving us a 6 second total
+animation that is back right at the beginning.
+
+00:14:13.110 --> 00:14:18.180 align:middle line:90%
+But if you leave that keyframe off to start
+with never have overlapping keyframes because
+
+00:14:18.180 --> 00:14:21.260 align:middle line:90%
+there's a risk that you'll have glitching
+then. So let's just see how that works if
+
+00:14:21.260 --> 00:14:24.500 align:middle line:90%
+you don't have that final keyframe in. It
+goes along. it swipes them out of the way.
+
+00:14:24.500 --> 00:14:29.949 align:middle line:90%
+it doesn't move far enough back and it doesn't
+return to the start position so we are going
+
+00:14:29.949 --> 00:14:34.490 align:middle line:90%
+to need a keyframe to return to the start
+position but it's always worth checking that.
+
+00:14:34.490 --> 00:14:39.420 align:middle line:90%
+So. copy those keyframes of the start position
+to be safe. and then paste them where you
+
+00:14:39.420 --> 00:14:43.519 align:middle line:90%
+want them so that you know that they're in
+the right position. Also the end position
+
+00:14:43.519 --> 00:14:47.860 align:middle line:90%
+which I believe is here simply isn't far enough
+back to swipe them off the back of the lane.
+
+00:14:47.860 --> 00:14:52.970 align:middle line:90%
+There you go. let's take a look at this animation
+now. Again all of this can be improved later
+
+00:14:52.970 --> 00:14:56.790 align:middle line:90%
+but look. that's pretty cool. it swipes them
+off the back. it's going through the floor.
+
+00:14:56.790 --> 00:15:00.350 align:middle line:90%
+Why is it going through the floor? Let's just
+take a look at that.
+
+00:15:00.350 --> 00:15:04.149 align:middle line:90%
+So key frames tell you most of the story but
+they don't tell you the entire story. What
+
+00:15:04.149 --> 00:15:08.610 align:middle line:90%
+helps is to go to curves and what curves is
+going to do is to tell you how the system
+
+00:15:08.610 --> 00:15:13.160 align:middle line:90%
+is interpolating between these points and
+the problem is here and here where the swiper
+
+00:15:13.160 --> 00:15:17.820 align:middle line:90%
+is going too low. So how are we going to deal
+with that? Well you could just play with your
+
+00:15:17.820 --> 00:15:22.630 align:middle line:90%
+curves here and make sure that your swiper
+doesn't go through the floor and also doesn't
+
+00:15:22.630 --> 00:15:27.730 align:middle line:90%
+clip the pins. You see what I'm doing? So
+that's curves there. so the dope sheet is
+
+00:15:27.730 --> 00:15:33.190 align:middle line:90%
+what are the positions and when but the curves
+is additional information. In addition to
+
+00:15:33.190 --> 00:15:34.750 align:middle line:84%
+that. OK?
+
+00:15:34.750 --> 00:15:39.889 align:middle line:90%
+So and you've got two different curves here.
+what are they for? They're for the x position
+
+00:15:39.889 --> 00:15:47.600 align:middle line:90%
+and the y position and the z position of the
+swiper. So its x position doesn't want to
+
+00:15:47.600 --> 00:15:52.360 align:middle line:90%
+change. its y position. up and down. does
+want to change in a fairly smooth curve like
+
+00:15:52.360 --> 00:15:57.380 align:middle line:90%
+that and at the same time that that's happening
+the z position wants to change backwards and
+
+00:15:57.380 --> 00:16:00.930 align:middle line:90%
+forwards. Pretty cool. eh? and you can see
+them all together like this. although there's
+
+00:16:00.930 --> 00:16:04.500 align:middle line:90%
+a scaling issue because it moves a lot further
+in z than it does in x.
+
+00:16:04.500 --> 00:16:08.690 align:middle line:90%
+Let's just take a look and see how that adjustment
+to the curves has worked - down. swipes the
+
+00:16:08.690 --> 00:16:13.810 align:middle line:90%
+pins. doesn't go through the floor and smoothly
+comes back. How cool is that? We may need
+
+00:16:13.810 --> 00:16:17.730 align:middle line:90%
+to adjust it later but for the moment we have
+achieved what we want to achieve for this
+
+00:16:17.730 --> 00:16:21.829 align:middle line:90%
+video which is creating our swiper animation.
+So I look forward to seeing yours. you can
+
+00:16:21.829 --> 00:16:25.350 align:middle line:90%
+make your movement a load more funky you can
+make this guy spin and dance and do whatever
+
+00:16:25.350 --> 00:16:29.880 align:middle line:90%
+you like but the point is we have an animation
+ready for future work so congratulations and
+
+00:16:29.880 --> 00:16:34.880 align:middle line:84%
+I'll see you soon.

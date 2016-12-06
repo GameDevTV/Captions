@@ -1,0 +1,1446 @@
+WEBVTT
+
+1
+00:00:06.000 --> 00:00:09.000
+So. at this point in our game we're doing really well. but our
+
+2
+00:00:09.000 --> 00:00:12.000
+defenders are firing all the
+
+3
+00:00:12.000 --> 00:00:15.000
+time. regardless of who is in their lane. So. what
+
+4
+00:00:15.000 --> 00:00:18.000
+we want to do in this video is.
+
+5
+00:00:18.000 --> 00:00:21.000
+find a way of defenders detecting that there are attackers
+
+6
+00:00:21.000 --> 00:00:24.000
+in the lane. Only shoot at attackers
+
+7
+00:00:24.000 --> 00:00:27.000
+if they are ahead of the defender
+
+8
+00:00:27.000 --> 00:00:30.000
+in the lane. If they're past and they've gone behind. a bit to late right.
+
+9
+00:00:30.000 --> 00:00:33.000
+We're going to make significant modifications to the Shooter.cs
+
+10
+00:00:33.000 --> 00:00:36.000
+class. to make all of this work. and then. test
+
+11
+00:00:36.000 --> 00:00:39.000
+that defenders enter and leave the Attack state.
+
+12
+00:00:39.000 --> 00:00:42.000
+so that ultimately. if I say put a gnome down here.
+
+13
+00:00:42.000 --> 00:00:45.000
+he won't be bouncing around and agitated. he'll be blissfully
+
+14
+00:00:45.000 --> 00:00:48.000
+chilled that there's nothing he can do about the lizard behind him. [Laughs]
+
+15
+00:00:48.000 --> 00:00:51.000
+So. he could just turn around and shoot at him. of course. but that's
+
+16
+00:00:51.000 --> 00:00:54.000
+not how this game works and this is the exercise right.
+
+17
+00:00:54.000 --> 00:00:57.000
+So. they will only start attacking when their is something ahead of them.
+
+18
+00:00:57.000 --> 00:01:00.000
+in the lane. and when there is no longer anything ahead. they will stop
+
+19
+00:01:00.000 --> 00:01:03.000
+attacking. Cool! So. how are we going to do
+
+20
+00:01:03.000 --> 00:01:06.000
+this? Well. good question! Let's go dive into our Shooter code. right.
+
+21
+00:01:06.000 --> 00:01:09.000
+So. go find your
+
+22
+00:01:09.000 --> 00:01:12.000
+Shooter.cs Script class. both.
+
+23
+00:01:12.000 --> 00:01:15.000
+and let's take a look at how we're going to modify it. Well. let's
+
+24
+00:01:15.000 --> 00:01:18.000
+start with the kind of crux of it. It's that every
+
+25
+00:01:18.000 --> 00:01:21.000
+frame. so in the Update cycle...
+
+26
+00:01:21.000 --> 00:01:24.000
+If I can just remember how to spell Update.
+
+27
+00:01:24.000 --> 00:01:27.000
+not the most complex word. What are we going to do every
+
+28
+00:01:27.000 --> 00:01:30.000
+single update? Well. good question? But basically. we're going to say that
+
+29
+00:01:30.000 --> 00:01:33.000
+if there's an attacker ahead in the lane. then
+
+30
+00:01:33.000 --> 00:01:36.000
+we want to shoot at it. Otherwise. we want
+
+31
+00:01:36.000 --> 00:01:39.000
+to not be in Attacker state. right. So. why not just
+
+32
+00:01:39.000 --> 00:01:42.000
+write that in code. as soon as we think about it and have ourselves a
+
+33
+00:01:42.000 --> 00:01:45.000
+wishful method that doesn't exist yet. which isAttackerAheadIn
+
+34
+00:01:45.000 --> 00:01:48.000
+Lane. Well. I'll get you to write that later. So.
+
+35
+00:01:48.000 --> 00:01:51.000
+if (isAttackerAheadIn
+
+36
+00:01:51.000 --> 00:01:54.000
+Lane(). Nice long method name. I make no apologies.
+
+37
+00:01:54.000 --> 00:01:57.000
+Then. again let's
+
+38
+00:01:57.000 --> 00:02:00.000
+hope that we have an animator. which we don't yet.
+
+39
+00:02:00.000 --> 00:02:03.000
+So. the Autocomplete is
+
+40
+00:02:03.000 --> 00:02:06.000
+going to mess around with me.
+
+41
+00:02:06.000 --> 00:02:09.000
+I may have to just force it to do what I say. animator.
+
+42
+00:02:09.000 --> 00:02:12.000
+SetBool (" isAttacking"
+
+43
+00:02:12.000 --> 00:02:15.000
+to true
+
+44
+00:02:15.000 --> 00:02:18.000
+OK. else.
+
+45
+00:02:18.000 --> 00:02:21.000
+So. if there's not an attacker ahead in the lane then...
+
+46
+00:02:21.000 --> 00:02:24.000
+Well there isn't. then what do we do? Then.
+
+47
+00:02:24.000 --> 00:02:27.000
+we do exactly the same thing. but we set the attacker back to a
+
+48
+00:02:27.000 --> 00:02:30.000
+animation state of false. Now. my inclination here. before
+
+49
+00:02:30.000 --> 00:02:33.000
+I go any further. would be to pop over to the Animator and make sure
+
+50
+00:02:33.000 --> 00:02:36.000
+that this Bool is attacking. is in there and spelled
+
+51
+00:02:36.000 --> 00:02:39.000
+exactly like that. So. let's do that on our
+
+52
+00:02:39.000 --> 00:02:42.000
+attackers. Let's make sure that both of them. in their Animators...
+
+53
+00:02:42.000 --> 00:02:45.000
+And by the way. you can drag your Animator. say
+
+54
+00:02:45.000 --> 00:02:48.000
+over to the right here. and see it right
+
+55
+00:02:48.000 --> 00:02:51.000
+next to the actual
+
+56
+00:02:51.000 --> 00:02:54.000
+assets. if you wish to. like this. OK.
+
+57
+00:02:54.000 --> 00:02:57.000
+So. IsAttacking we have on the Fox there. and it's
+
+58
+00:02:57.000 --> 00:03:00.000
+spelled correctly. And IsAttacking we have on the Lizard. Great!
+
+59
+00:03:00.000 --> 00:03:03.000
+So. that's helpful. before we go any further trying to set Bools that don't exist!
+
+60
+00:03:03.000 --> 00:03:06.000
+So. that's the crux of it actually.
+
+61
+00:03:06.000 --> 00:03:09.000
+Of course. it doesn't work yet. but this is quite cool. because we can now start
+
+62
+00:03:09.000 --> 00:03:12.000
+solving the problems. Firstly. we don't have an Animator.
+
+63
+00:03:12.000 --> 00:03:15.000
+so we're just going to have to go ahead and do the pretty rope thing
+
+64
+00:03:15.000 --> 00:03:18.000
+of finding the Animator. Why don't you. as a mini challenge.
+
+65
+00:03:18.000 --> 00:03:21.000
+have a go at doing that. You can listen to me. maybe. while you do it. See if you can
+
+66
+00:03:21.000 --> 00:03:24.000
+do it before I do. Find the Animator.
+
+67
+00:03:24.000 --> 00:03:27.000
+and store it in a private member variable.
+
+68
+00:03:30.000 --> 00:03:33.000
+OK. private Animator animator; That gives all methods in this
+
+69
+00:03:33.000 --> 00:03:36.000
+class access to an Animator. and then. on the Start we best go
+
+70
+00:03:36.000 --> 00:03:39.000
+find it right. So. how are we going to do that?
+
+71
+00:03:39.000 --> 00:03:42.000
+Well. we've done a GameObject.Find there.
+
+72
+00:03:42.000 --> 00:03:45.000
+for the projectileParent. I'm going to keep it above that code. to keep these things
+
+73
+00:03:45.000 --> 00:03:48.000
+separate.
+
+74
+00:03:48.000 --> 00:03:51.000
+It's simply animator = GameObject
+
+75
+00:03:51.000 --> 00:03:54.000
+.FindObjectOftype
+
+76
+00:03:54.000 --> 00:03:57.000
+is the one you want. And then.
+
+77
+00:03:57.000 --> 00:04:00.000
+&lt;animator&gt;(); Remember.
+
+78
+00:04:00.000 --> 00:04:03.000
+it's a method and close the brackets. Cool! So now. down here this animator.
+
+79
+00:04:03.000 --> 00:04:06.000
+SetBool is OK. Right. then the other thing we need
+
+80
+00:04:06.000 --> 00:04:09.000
+is a method called IsAttackerAheadInLane.
+
+81
+00:04:12.000 --> 00:04:15.000
+Let me just fix that typo there. it needs to be capitals. Great! IsAttacker
+
+82
+00:04:15.000 --> 00:04:18.000
+AheadInLane. So. I'm going to write. isAttackerAheadInLane and it's going to
+
+83
+00:04:18.000 --> 00:04:21.000
+return a bool.
+
+84
+00:04:21.000 --> 00:04:24.000
+And for now. I'm just going to return true
+
+85
+00:04:24.000 --> 00:04:27.000
+to prove that this works and also try changing it to false.
+
+86
+00:04:27.000 --> 00:04:30.000
+so return true. Let's just
+
+87
+00:04:30.000 --> 00:04:33.000
+check it all works. and then. I'm going to get you to write the actual method.
+
+88
+00:04:33.000 --> 00:04:36.000
+So. isAttackerAheadInLane is always saying. yes
+
+89
+00:04:36.000 --> 00:04:39.000
+so they're always agitated. Fine! Now. let's try changing the code
+
+90
+00:04:39.000 --> 00:04:42.000
+so it always returns false.
+
+91
+00:04:42.000 --> 00:04:45.000
+Now what happens when I place my
+
+92
+00:04:45.000 --> 00:04:48.000
+guys down? Look how chilled that gnome is. just blinking away.
+
+93
+00:04:48.000 --> 00:04:51.000
+OK. the cactus is a little less chilled. He's sweating but maybe that's
+
+94
+00:04:51.000 --> 00:04:54.000
+just the heat. but at least they're doing nothing. Of course. they're
+
+95
+00:04:54.000 --> 00:04:57.000
+not responding yet. because isAttackerAheadInLane method
+
+96
+00:04:57.000 --> 00:05:00.000
+doesn't do jack yet. So.
+
+97
+00:05:00.000 --> 00:05:03.000
+how are we going to do this? How are we going to get isAttackerAhead
+
+98
+00:05:03.000 --> 00:05:06.000
+InLane working? Well. the general architecture that I think
+
+99
+00:05:06.000 --> 00:05:09.000
+would make sense is to base it on whether or
+
+100
+00:05:09.000 --> 00:05:12.000
+not your spawner. i.e. the Spawner
+
+101
+00:05:12.000 --> 00:05:15.000
+for the lane that you are his has any children.
+
+102
+00:05:15.000 --> 00:05:18.000
+Let me show you that. over in Unity.
+
+103
+00:05:18.000 --> 00:05:21.000
+Let's imagine I've placed a gnome. He's there in that lane. In fact.
+
+104
+00:05:21.000 --> 00:05:24.000
+let me come out of Maximize on Play. so we can see it all together.
+
+105
+00:05:24.000 --> 00:05:27.000
+So. I've placed a gnome in lane 1. Let's keep
+
+106
+00:05:27.000 --> 00:05:30.000
+things simple. There he is! Where are the Spawners?
+
+107
+00:05:30.000 --> 00:05:33.000
+Over here. we have a Spawner for lane 1 and its
+
+108
+00:05:33.000 --> 00:05:36.000
+Y position is 1. precisely. and
+
+109
+00:05:36.000 --> 00:05:39.000
+because of all the careful work we've done on the gnome.
+
+110
+00:05:39.000 --> 00:05:42.000
+his root transform Y position is also
+
+111
+00:05:42.000 --> 00:05:45.000
+1. precisely. So. we can just say if
+
+112
+00:05:45.000 --> 00:05:48.000
+the Spawner. with Y
+
+113
+00:05:48.000 --> 00:05:51.000
+coordinate 1. has no children.
+
+114
+00:05:51.000 --> 00:05:54.000
+then there's nothing ahead in the lane. If it has children. like it does now. you see
+
+115
+00:05:54.000 --> 00:05:57.000
+see little lizards then it's got two children right now. You see them
+
+116
+00:05:57.000 --> 00:06:00.000
+here under the Spawner. There are attackers in the lane.
+
+117
+00:06:00.000 --> 00:06:03.000
+So. that's the first part of the problem. is just finding
+
+118
+00:06:03.000 --> 00:06:06.000
+out if there are attackers in the lane at all.
+
+119
+00:06:06.000 --> 00:06:09.000
+and then. we're going to modify if slightly to say are they ahead
+
+120
+00:06:09.000 --> 00:06:12.000
+of us. in the lane looking at the X coordinate?
+
+121
+00:06:12.000 --> 00:06:15.000
+So that's relatively simple! Cool!
+
+122
+00:06:15.000 --> 00:06:18.000
+OK. so the first thing we need to do is find our Spawner.
+
+123
+00:06:18.000 --> 00:06:21.000
+so why don't we get you to do that? So. let's
+
+124
+00:06:21.000 --> 00:06:24.000
+just get you setup to win here. We're going to have a private member
+
+125
+00:06:24.000 --> 00:06:27.000
+variable. of type Spawner. and I'm going to call it
+
+126
+00:06:27.000 --> 00:06:30.000
+myLaneSpawner; This is where
+
+127
+00:06:30.000 --> 00:06:33.000
+the instance. the actual shooter. is going to store a reference
+
+128
+00:06:33.000 --> 00:06:36.000
+to his Spawner. OK. And now.
+
+129
+00:06:36.000 --> 00:06:39.000
+I want a method that is going to find out whether
+
+130
+00:06:39.000 --> 00:06:42.000
+or not there's anything in the lane. And now. we
+
+131
+00:06:42.000 --> 00:06:45.000
+want a method that is going to set this myLane
+
+132
+00:06:45.000 --> 00:06:48.000
+Spawner for us. So. it's going to be void
+
+133
+00:06:48.000 --> 00:06:51.000
+setMyLane
+
+134
+00:06:51.000 --> 00:06:54.000
+Spawner (). And what that method is going
+
+135
+00:06:54.000 --> 00:06:57.000
+to do is to "Look
+
+136
+00:06:57.000 --> 00:07:00.000
+through all spawners. and
+
+137
+00:07:00.000 --> 00:07:03.000
+set" member variable. or just be specific.
+
+138
+00:07:03.000 --> 00:07:06.000
+"my LaneSpawner if found".
+
+139
+00:07:06.000 --> 00:07:09.000
+OK. so I want you to write the set
+
+140
+00:07:09.000 --> 00:07:12.000
+MyLaneSpawner method. So. here's your challenge
+
+141
+00:07:12.000 --> 00:07:15.000
+slide for it! That's your signature.
+
+142
+00:07:15.000 --> 00:07:18.000
+at the top. Look through all of the Spawners. loop through
+
+143
+00:07:18.000 --> 00:07:21.000
+them. Find the one with the same Y position as yours.
+
+144
+00:07:21.000 --> 00:07:24.000
+If you can find it. set the private Spawner
+
+145
+00:07:24.000 --> 00:07:27.000
+myLaneSpawner. that we just set at the top. If you can't find it
+
+146
+00:07:27.000 --> 00:07:30.000
+return an error. There's your challenge!
+
+147
+00:07:30.000 --> 00:07:33.000
+I know you're up to it. and I just know you're going to pause the video!
+
+148
+00:07:33.000 --> 00:07:36.000
+I bet you've already paused the video. Surely you've already paused it.
+
+149
+00:07:36.000 --> 00:07:39.000
+You paused it? Cool! Alright. so
+
+150
+00:07:39.000 --> 00:07:42.000
+welcome back! Hopefully you have done nicely with that
+
+151
+00:07:42.000 --> 00:07:45.000
+challenge. Let's see how I approach it! It's not necessarily
+
+152
+00:07:45.000 --> 00:07:48.000
+the only way! It's not necessarily the right way. it's just a way!
+
+153
+00:07:48.000 --> 00:07:51.000
+So. we're going to have a Spawner array. for a start!
+
+154
+00:07:51.000 --> 00:07:54.000
+The way we define that is. we say Spawner then a pair of empty square brackets.
+
+155
+00:07:54.000 --> 00:07:57.000
+And what shall I call it? Well. why don't I cryptically call
+
+156
+00:07:57.000 --> 00:08:00.000
+it spawnerArray! Yeah!
+
+157
+00:08:00.000 --> 00:08:03.000
+That sounds good! OK. and
+
+158
+00:08:03.000 --> 00:08:06.000
+what is that? Well. we're going to need to FindObjects
+
+159
+00:08:06.000 --> 00:08:09.000
+OfType&lt;Spawner&gt;();
+
+160
+00:08:09.000 --> 00:08:12.000
+Cool hey!
+
+161
+00:08:12.000 --> 00:08:15.000
+So. that line is going to go ahead and put all of
+
+162
+00:08:15.000 --> 00:08:18.000
+the Spawners. if there are any I hope there are. into the spawner
+
+163
+00:08:18.000 --> 00:08:21.000
+Array. Let's just be clear on what we mean by the Spawners. that's obviously these
+
+164
+00:08:21.000 --> 00:08:24.000
+things. There's five of them in our scene. Cool! So. they
+
+165
+00:08:24.000 --> 00:08:27.000
+end up in that array. What next? Well. we've got the nice foreach
+
+166
+00:08:27.000 --> 00:08:30.000
+loop haven't we? We've got foreach.
+
+167
+00:08:30.000 --> 00:08:33.000
+and then. what's the syntax? Type
+
+168
+00:08:33.000 --> 00:08:36.000
+first. (Spawner spawner [Laughs]
+
+169
+00:08:36.000 --> 00:08:39.000
+keep it simple. in spawnerArray).
+
+170
+00:08:39.000 --> 00:08:42.000
+So. for each one of those guys. what are we going to do?
+
+171
+00:08:42.000 --> 00:08:45.000
+Well. if the (spawner.transform
+
+172
+00:08:45.000 --> 00:08:48.000
+.position.y
+
+173
+00:08:48.000 --> 00:08:51.000
+== remember for a comparison.
+
+174
+00:08:51.000 --> 00:08:54.000
+transform.position. Small t. the transform
+
+175
+00:08:54.000 --> 00:08:57.000
+of the current GameObject. which is the shooter
+
+176
+00:08:57.000 --> 00:09:00.000
+in question. i.e. the cactus or the gnome.
+
+177
+00:09:00.000 --> 00:09:03.000
+transform.position.y)
+
+178
+00:09:03.000 --> 00:09:06.000
+So if that happens. then we've got a situation
+
+179
+00:09:06.000 --> 00:09:09.000
+in which. as I showed you. the gnome and
+
+180
+00:09:09.000 --> 00:09:12.000
+the Spawner or the cactus and the Spawner are in the same position
+
+181
+00:09:12.000 --> 00:09:15.000
+in Y. so that must be the LaneSpawner.
+
+182
+00:09:15.000 --> 00:09:18.000
+Simply say it. myLaneSpawner =. this time it's an assignment =
+
+183
+00:09:18.000 --> 00:09:21.000
+the spawner. from this loop of
+
+184
+00:09:21.000 --> 00:09:24.000
+foreach loop. OK.
+
+185
+00:09:24.000 --> 00:09:27.000
+Hopefully that makes sense. What would happen if we
+
+186
+00:09:27.000 --> 00:09:30.000
+can't find the Spawner? Well. I want to log an error. so I
+
+187
+00:09:30.000 --> 00:09:33.000
+could just put my error code at the bottom here. but I need to do a return
+
+188
+00:09:33.000 --> 00:09:36.000
+first. I just need to say return; i.e. get out of here.
+
+189
+00:09:36.000 --> 00:09:39.000
+stop executing this method. if
+
+190
+00:09:39.000 --> 00:09:42.000
+we find it. If we don't find it. this is when we come along
+
+191
+00:09:42.000 --> 00:09:45.000
+and go Debug.LogError. and it is an error. because this
+
+192
+00:09:45.000 --> 00:09:48.000
+is a show stopper! That's what I mean by an error!
+
+193
+00:09:48.000 --> 00:09:51.000
+Put out the name gnome. etc.. just to help
+
+194
+00:09:51.000 --> 00:09:54.000
+the designer or you find the problem. " can't find
+
+195
+00:09:54.000 --> 00:09:57.000
+spawner in lane").
+
+196
+00:09:57.000 --> 00:10:00.000
+And that means if you don't have a Spawner in the lane or if the
+
+197
+00:10:00.000 --> 00:10:03.000
+Spawner isn't precisely set at the Y coordinate of the shooter.
+
+198
+00:10:03.000 --> 00:10:06.000
+you'll get an error. otherwise it will work!
+
+199
+00:10:06.000 --> 00:10:09.000
+That's pretty cool! So. how do we know that's
+
+200
+00:10:09.000 --> 00:10:12.000
+working? Well. let's go into the Start method. and just
+
+201
+00:10:12.000 --> 00:10:15.000
+say. print for now. (set...
+
+202
+00:10:15.000 --> 00:10:18.000
+Well. actually let's just do it this way: set
+
+203
+00:10:18.000 --> 00:10:21.000
+MyLaneSpawner; Call the method. Now. what's wrong?
+
+204
+00:10:21.000 --> 00:10:24.000
+What's the confusion? It's the s. I've used a method
+
+205
+00:10:24.000 --> 00:10:27.000
+name starting with a small letter. That's inconsistent with how
+
+206
+00:10:27.000 --> 00:10:30.000
+we do things. right. and that's why you can
+
+207
+00:10:30.000 --> 00:10:33.000
+get yourself confused. so use capitalization
+
+208
+00:10:33.000 --> 00:10:36.000
+to your advantage. There you go! We're looking
+
+209
+00:10:36.000 --> 00:10:39.000
+for a method. set my LaneSpawner.
+
+210
+00:10:39.000 --> 00:10:42.000
+Fantastic! It doesn't need any parameters. It will set the member
+
+211
+00:10:42.000 --> 00:10:45.000
+variable. And if immediately after that. we print my
+
+212
+00:10:45.000 --> 00:10:48.000
+LaneSpawner. let's see what we get. What do you think
+
+213
+00:10:48.000 --> 00:10:51.000
+we're going to get. by the way? How many different log entries do you think we're going to get? One.
+
+214
+00:10:51.000 --> 00:10:54.000
+two. five? Well. let's see what we end up getting!
+
+215
+00:10:54.000 --> 00:10:57.000
+If I put
+
+216
+00:10:57.000 --> 00:11:00.000
+a defender down...
+
+217
+00:11:00.000 --> 00:11:03.000
+OK. now let's zoom so we can see the log a little better.
+
+218
+00:11:03.000 --> 00:11:06.000
+We have a single entry. because this gnome has done his check!
+
+219
+00:11:06.000 --> 00:11:09.000
+Put another guy down. we get another entry. Put another
+
+220
+00:11:09.000 --> 00:11:12.000
+guy down. So. for each defender that we put down. they
+
+221
+00:11:12.000 --> 00:11:15.000
+find their Spawner. and then. all the new ones also find
+
+222
+00:11:15.000 --> 00:11:18.000
+their Spawner. That's fine! That's great! So. we're finding Spawners!
+
+223
+00:11:18.000 --> 00:11:21.000
+Congratulations! So in the Start of this
+
+224
+00:11:21.000 --> 00:11:24.000
+method. what are we doing? We are firstly
+
+225
+00:11:24.000 --> 00:11:27.000
+finding the Animator. That's pretty clear. I don't think I need to comment it.
+
+226
+00:11:27.000 --> 00:11:30.000
+The next little block of code "Creates
+
+227
+00:11:30.000 --> 00:11:33.000
+a parent if necessary".
+
+228
+00:11:33.000 --> 00:11:36.000
+Now. yes you could
+
+229
+00:11:36.000 --> 00:11:39.000
+refactor that out to another method. but you could also just
+
+230
+00:11:39.000 --> 00:11:42.000
+leave it there and use spacing to your advantage. Then. you Set
+
+231
+00:11:42.000 --> 00:11:45.000
+MyLaneSpawner. Is there anything else that we need to do at the
+
+232
+00:11:45.000 --> 00:11:48.000
+Start of this method? I don't think so. at the moment.
+
+233
+00:11:48.000 --> 00:11:51.000
+I think that's most of it. Now. you should be equipped. given
+
+234
+00:11:51.000 --> 00:11:54.000
+that you have the LaneSpawner and
+
+235
+00:11:54.000 --> 00:11:57.000
+everything else wrapping around this. You should be able to
+
+236
+00:11:57.000 --> 00:12:00.000
+write isAttackerAheadInLane(). Now of course. I
+
+237
+00:12:00.000 --> 00:12:03.000
+have also stared a method with a small i. so I'm going to use a
+
+238
+00:12:03.000 --> 00:12:06.000
+capital i. All your method names. you want to start with
+
+239
+00:12:06.000 --> 00:12:09.000
+big I's right. so then I need to fix it up here.
+
+240
+00:12:09.000 --> 00:12:12.000
+Cool! So. you go ahead and write IsAttackerAheadInLane.
+
+241
+00:12:12.000 --> 00:12:15.000
+I think you're ready for it! There's a
+
+242
+00:12:15.000 --> 00:12:18.000
+signature!
+
+243
+00:12:18.000 --> 00:12:21.000
+Check that these guys enter the Attack state. when you've
+
+244
+00:12:21.000 --> 00:12:24.000
+written this. when there are things ahead. and check they leave
+
+245
+00:12:24.000 --> 00:12:27.000
+the Attack state. when there's nothing ahead. Now. if you ant to break this problem down
+
+246
+00:12:27.000 --> 00:12:30.000
+into two. by just checking that there's an attacker in the lane at all.
+
+247
+00:12:30.000 --> 00:12:33.000
+that's fine. And then add the bit that does the ahead.
+
+248
+00:12:33.000 --> 00:12:36.000
+Good challenge for you. have a go at it!
+
+249
+00:12:39.000 --> 00:12:42.000
+Okie Dokie! So. how do we make this IsAttacker
+
+250
+00:12:42.000 --> 00:12:45.000
+AheadInLane method work?
+
+251
+00:12:45.000 --> 00:12:48.000
+Well. let's break it down! Firstly. I want it
+
+252
+00:12:48.000 --> 00:12:51.000
+to just get out of here. if there are no attackers. because there's no point in
+
+253
+00:12:51.000 --> 00:12:54.000
+looking through all of the attackers in the lane. to find out where they are
+
+254
+00:12:54.000 --> 00:12:57.000
+left and right if there are none. So. "Exit if no
+
+255
+00:12:57.000 --> 00:13:00.000
+attackers in lane" right. and it's fine to write comments
+
+256
+00:13:00.000 --> 00:13:03.000
+and then write the code to make the comment work. That's great!
+
+257
+00:13:03.000 --> 00:13:06.000
+So. "Exit if there's not attackers in lane".
+
+258
+00:13:06.000 --> 00:13:09.000
+What does that look like? if (myLaneSpawner
+
+259
+00:13:09.000 --> 00:13:12.000
+.transform.childCount.
+
+260
+00:13:12.000 --> 00:13:15.000
+There's a useful method! If it's less than
+
+261
+00:13:15.000 --> 00:13:18.000
+equal to 0. why less than? Well. it's unlikely to become
+
+262
+00:13:18.000 --> 00:13:21.000
+negative. but let's catch it if it ever did become negative.
+
+263
+00:13:21.000 --> 00:13:24.000
+If the childCount of my Lane
+
+264
+00:13:24.000 --> 00:13:27.000
+Spawner is 0. basically. then we return false.
+
+265
+00:13:27.000 --> 00:13:30.000
+Great! So that has
+
+266
+00:13:30.000 --> 00:13:33.000
+done the behavior that says. exit if there are no attackers
+
+267
+00:13:33.000 --> 00:13:36.000
+in lane. Now. we could log this. if you wanted
+
+268
+00:13:36.000 --> 00:13:39.000
+to. but I'm just going to confidently keep writing the code. actually. because I'm
+
+269
+00:13:39.000 --> 00:13:42.000
+pretty sure that's going to work. If you were struggling or
+
+270
+00:13:42.000 --> 00:13:45.000
+if you want to stop now and carry on the challenge. then you know. feel free
+
+271
+00:13:45.000 --> 00:13:48.000
+to put log entries in. but put them above the return statement please. If you
+
+272
+00:13:48.000 --> 00:13:51.000
+try logging. after the return statement. then you're not going to get very
+
+273
+00:13:51.000 --> 00:13:54.000
+much joy. or you might not depending on the timing. so
+
+274
+00:13:54.000 --> 00:13:57.000
+put it above. OK. so if we find
+
+275
+00:13:57.000 --> 00:14:00.000
+an attacker. "If there are attackers. are
+
+276
+00:14:00.000 --> 00:14:03.000
+they ahead?" is the next question right.
+
+277
+00:14:03.000 --> 00:14:06.000
+I mean not losing the thing on your shoulders. but the thing right in front of you. You get my idea.
+
+278
+00:14:06.000 --> 00:14:09.000
+So. foreach...
+
+279
+00:14:09.000 --> 00:14:12.000
+Let's try typing... foreach what?
+
+280
+00:14:12.000 --> 00:14:15.000
+(Transform. why do we use the transforms? Because that's the only bit we're interested
+
+281
+00:14:15.000 --> 00:14:18.000
+in. child. because it's each of the children.
+
+282
+00:14:18.000 --> 00:14:21.000
+in myLaneSpawner
+
+283
+00:14:21.000 --> 00:14:24.000
+.transform); Ooh. now that's a
+
+284
+00:14:24.000 --> 00:14:27.000
+weird foreach definition. foreach (Transform child
+
+285
+00:14:27.000 --> 00:14:30.000
+in myLandSpawner.transform). Just talk about
+
+286
+00:14:30.000 --> 00:14:33.000
+that for a second. that's a bit weird! Let's go to Unity's docs
+
+287
+00:14:33.000 --> 00:14:36.000
+for a transforms. for a second.
+
+288
+00:14:36.000 --> 00:14:39.000
+It's only a little bit weird. but it's a little bit weird because if you
+
+289
+00:14:39.000 --> 00:14:42.000
+read here. it just subtly slips in.
+
+290
+00:14:42.000 --> 00:14:45.000
+The transforms also support enumerators. so you can
+
+291
+00:14:45.000 --> 00:14:48.000
+loop through children. OK. it just
+
+292
+00:14:48.000 --> 00:14:51.000
+says that in the docs there. easy to miss. So. what this code
+
+293
+00:14:51.000 --> 00:14:54.000
+is doing is using that. It's saying. I'm
+
+294
+00:14:54.000 --> 00:14:57.000
+going to go through a whole bunch of children in myLaneSpawner
+
+295
+00:14:57.000 --> 00:15:00.000
+.transform). I'm going to look at the transform's children and loop through them.
+
+296
+00:15:00.000 --> 00:15:03.000
+using that built in enumerator. Alright. so
+
+297
+00:15:03.000 --> 00:15:06.000
+a little bit different to the normal foreach you've writing. but hopefully you've found
+
+298
+00:15:06.000 --> 00:15:09.000
+a similar solution. Then. for each one we say something
+
+299
+00:15:09.000 --> 00:15:12.000
+and we say if. If what? Well.
+
+300
+00:15:12.000 --> 00:15:15.000
+if (child.transform
+
+301
+00:15:15.000 --> 00:15:18.000
+.position.x
+
+302
+00:15:18.000 --> 00:15:21.000
+is &gt; transform.position.x...
+
+303
+00:15:21.000 --> 00:15:24.000
+i.e. if the child's
+
+304
+00:15:24.000 --> 00:15:27.000
+transform's x position. i.e. the child of the
+
+305
+00:15:27.000 --> 00:15:30.000
+Spawner is the Defender. So. that's what's
+
+306
+00:15:30.000 --> 00:15:33.000
+coming into the child variable. each time you go around
+
+307
+00:15:33.000 --> 00:15:36.000
+this foreach loop. It is actually the Defender.
+
+308
+00:15:36.000 --> 00:15:39.000
+so we could call it that if it's easier. We can
+
+309
+00:15:39.000 --> 00:15:42.000
+call this Defender. Let's do that! OK. let me just
+
+310
+00:15:42.000 --> 00:15:45.000
+finish this command. and then. I'm going to rename something. So.
+
+311
+00:15:45.000 --> 00:15:48.000
+if the x position is greater. then you return true. That's basically
+
+312
+00:15:48.000 --> 00:15:51.000
+what we're saying. but rather than saying remove child. let's try
+
+313
+00:15:51.000 --> 00:15:54.000
+calling it defender. see how that reads.
+
+314
+00:15:54.000 --> 00:15:57.000
+because the only children of Spawners are Defenders.
+
+315
+00:15:57.000 --> 00:16:00.000
+Attackers. attackers! Sue me!
+
+316
+00:16:00.000 --> 00:16:03.000
+OK. so Transform attacker!
+
+317
+00:16:03.000 --> 00:16:06.000
+Does this read better? in myLaneSpawner.transform)
+
+318
+00:16:06.000 --> 00:16:09.000
+if (attacker.transform.position.x is &gt; transform
+
+319
+00:16:09.000 --> 00:16:12.000
+Yeah. that's better! Then. return true!
+
+320
+00:16:12.000 --> 00:16:15.000
+So. this just makes it explicit that we are looping through
+
+321
+00:16:15.000 --> 00:16:18.000
+attackers. Still a little bit weird! Why are we
+
+322
+00:16:18.000 --> 00:16:21.000
+looping through attackers. when we're looking at a Spawner? Because
+
+323
+00:16:21.000 --> 00:16:24.000
+the only enumeration that works on this Spawner's transform
+
+324
+00:16:24.000 --> 00:16:27.000
+is on the children
+
+325
+00:16:27.000 --> 00:16:30.000
+of the Spawner's transform. So. what's the children
+
+326
+00:16:30.000 --> 00:16:33.000
+of the Spawner's transform? It is all of
+
+327
+00:16:33.000 --> 00:16:36.000
+the transforms of the attackers that
+
+328
+00:16:36.000 --> 00:16:39.000
+get spawned. Does that make sense?
+
+329
+00:16:39.000 --> 00:16:42.000
+The Spawner transform has
+
+330
+00:16:42.000 --> 00:16:45.000
+attackers chilled to it. and
+
+331
+00:16:45.000 --> 00:16:48.000
+that is what's returned into attacker here. So. it's just worth
+
+332
+00:16:48.000 --> 00:16:51.000
+laboring and thinking about this a little bit. Alright. let's see how we're getting on.
+
+333
+00:16:51.000 --> 00:16:54.000
+Are we anywhere near working?
+
+334
+00:16:54.000 --> 00:16:57.000
+So. we're complaining that isAttackerAheadInLane?
+
+335
+00:16:57.000 --> 00:17:00.000
+Not all code paths return a value. and because we want a Bool
+
+336
+00:17:00.000 --> 00:17:03.000
+out of this thing. it demands that we make
+
+337
+00:17:03.000 --> 00:17:06.000
+sure we cover all cases. So. we may have nothing in our lane. in which case
+
+338
+00:17:06.000 --> 00:17:09.000
+we say false. there's nothing in the lane. We may have something
+
+339
+00:17:09.000 --> 00:17:12.000
+in the lane. but how about if we
+
+340
+00:17:12.000 --> 00:17:15.000
+have children but they're not ahead of us in the lane?
+
+341
+00:17:15.000 --> 00:17:18.000
+Well then. we need to return false.
+
+342
+00:17:18.000 --> 00:17:21.000
+And then. you could comment that. if you like.
+
+343
+00:17:21.000 --> 00:17:24.000
+"Attackers in lane. but
+
+344
+00:17:24.000 --> 00:17:27.000
+behind us." OK. that's that
+
+345
+00:17:27.000 --> 00:17:30.000
+condition. and the compiler has very helpfully told us. hey you've forgotten
+
+346
+00:17:30.000 --> 00:17:33.000
+a condition here! Not all code paths return a value!
+
+347
+00:17:33.000 --> 00:17:36.000
+Cool! Does this work? This is the half a million
+
+348
+00:17:36.000 --> 00:17:39.000
+dollar question. Let's try it! So first
+
+349
+00:17:39.000 --> 00:17:42.000
+thing. we're going to need some enemies and some attackers. Look at our attackers! Look at this
+
+350
+00:17:42.000 --> 00:17:45.000
+gnome in his zen like... This guy. at the bottom. in his zen
+
+351
+00:17:45.000 --> 00:17:48.000
+like state. just blinking away right! And then. anybody
+
+352
+00:17:48.000 --> 00:17:51.000
+that's got an attacker in their lane is all agitated. Let's
+
+353
+00:17:51.000 --> 00:17:54.000
+try a gnome behind the fox. at the top here!
+
+354
+00:17:54.000 --> 00:17:57.000
+Ah. he's chilled. because the gnome is behind him.
+
+355
+00:17:57.000 --> 00:18:00.000
+Pretty cool! Let's try putting a gravestone in the way of the fox!
+
+356
+00:18:00.000 --> 00:18:03.000
+Useless. foxes jump straight over gravestones! It appears
+
+357
+00:18:03.000 --> 00:18:06.000
+to be working! So. if you got all of that working on your own. congratulations!
+
+358
+00:18:06.000 --> 00:18:09.000
+If you needed a bit of help. congratulations! And if you needed to
+
+359
+00:18:09.000 --> 00:18:12.000
+watch all of my videos. congratulations for just getting it
+
+360
+00:18:12.000 --> 00:18:15.000
+done! So well done. we now have defenders
+
+361
+00:18:15.000 --> 00:18:18.000
+detecting attackers properly!
+

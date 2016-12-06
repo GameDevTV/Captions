@@ -1,0 +1,1390 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hey guys and girls. welcome back!
+
+2
+00:00:06.000 --> 00:00:09.000
+So. we have some bugs! So. in this video we're going to learn a bit
+
+3
+00:00:09.000 --> 00:00:12.000
+more about Transform.Translate(). use the
+
+4
+00:00:12.000 --> 00:00:15.000
+Step Button to slow things down. talk about the perils
+
+5
+00:00:15.000 --> 00:00:18.000
+of moving Static Colliders. how
+
+6
+00:00:18.000 --> 00:00:21.000
+default animation blends can cause issues. and
+
+7
+00:00:21.000 --> 00:00:24.000
+also warning you about moving motion clips around. which
+
+8
+00:00:24.000 --> 00:00:27.000
+is another thing that caused our bug. So. let's take a look at these things.
+
+9
+00:00:27.000 --> 00:00:30.000
+one at a time. and see where our problems
+
+10
+00:00:30.000 --> 00:00:33.000
+have been caused. Let's start by reminding ourselves
+
+11
+00:00:33.000 --> 00:00:36.000
+what the problem is. The problem is that. when you click Tidy
+
+12
+00:00:36.000 --> 00:00:39.000
+in the game
+
+13
+00:00:39.000 --> 00:00:42.000
+state here. you see the way the pins disappear? Let's get
+
+14
+00:00:42.000 --> 00:00:45.000
+the pins up. on the left hand side here. So you
+
+15
+00:00:45.000 --> 00:00:48.000
+play the game. hit the Tidy trigger. and a
+
+16
+00:00:48.000 --> 00:00:51.000
+bunch of pins disappear. If we go down and look at the Scene View.
+
+17
+00:00:51.000 --> 00:00:54.000
+you've only got two or three pins left. And
+
+18
+00:00:54.000 --> 00:00:57.000
+what's going on? So. firstly my pins
+
+19
+00:00:57.000 --> 00:01:00.000
+are not lifting. so let's deal with that element first. If you go to
+
+20
+00:01:00.000 --> 00:01:03.000
+your PinSetter Script
+
+21
+00:01:03.000 --> 00:01:06.000
+and take a look at the
+
+22
+00:01:06.000 --> 00:01:09.000
+"(Raising pins") method. I have said transform.Translate
+
+23
+00:01:09.000 --> 00:01:12.000
+and then I put in a Vector3. but let's look at the
+
+24
+00:01:12.000 --> 00:01:15.000
+docs for Transform.Translate. just for a moment.
+
+25
+00:01:15.000 --> 00:01:18.000
+You'll notice something in the docs. the Transform
+
+26
+00:01:18.000 --> 00:01:21.000
+.Translate. which is this.
+
+27
+00:01:21.000 --> 00:01:24.000
+"If relativeTo is left out or
+
+28
+00:01:24.000 --> 00:01:27.000
+set to Space.Self the
+
+29
+00:01:27.000 --> 00:01:30.000
+movement is applied relative to the transform's local axes."
+
+30
+00:01:30.000 --> 00:01:33.000
+So. this thing here is defaulting to
+
+31
+00:01:33.000 --> 00:01:36.000
+a transform. relative to the local axes
+
+32
+00:01:36.000 --> 00:01:39.000
+of the pin. rather than
+
+33
+00:01:39.000 --> 00:01:42.000
+the global axes of the game. And we want to move this thing
+
+34
+00:01:42.000 --> 00:01:45.000
+up. in the global Y space. so we need to just
+
+35
+00:01:45.000 --> 00:01:48.000
+add in a comma space dot world.
+
+36
+00:01:48.000 --> 00:01:51.000
+So. let's just do that. On the end of your translate
+
+37
+00:01:51.000 --> 00:01:54.000
+function. you can put in .Space.World);
+
+38
+00:01:54.000 --> 00:01:57.000
+And that should make it reliably move up. in the global
+
+39
+00:01:57.000 --> 00:02:00.000
+Y direction. in the game's general Y direction. Let's just
+
+40
+00:02:00.000 --> 00:02:03.000
+take a look at that first bit. and make sure that over in this
+
+41
+00:02:03.000 --> 00:02:06.000
+Scene View. the pins rise up. They do! You can see that they are
+
+42
+00:02:06.000 --> 00:02:09.000
+raised up there. in the very beginning. Let's just check it again.
+
+43
+00:02:09.000 --> 00:02:12.000
+Click play. the pins do raise
+
+44
+00:02:12.000 --> 00:02:15.000
+up. OK. sure they fall down again. but we'll deal with all that
+
+45
+00:02:15.000 --> 00:02:18.000
+in a moment. So. that was the lesson about
+
+46
+00:02:18.000 --> 00:02:21.000
+the Transform.Translate. but I still want to know why these pins
+
+47
+00:02:21.000 --> 00:02:24.000
+are disappearing. so here's another trick for you. Let's
+
+48
+00:02:24.000 --> 00:02:27.000
+go to the Animator. turn off your trigger for a sec. play the game.
+
+49
+00:02:27.000 --> 00:02:30.000
+go and have a look down at the
+
+50
+00:02:30.000 --> 00:02:33.000
+end. and then. pause the game.
+
+51
+00:02:33.000 --> 00:02:36.000
+You can set your trigger off. even in Pause Mode.
+
+52
+00:02:36.000 --> 00:02:39.000
+and I'm going to look at my PinSetter here.
+
+53
+00:02:39.000 --> 00:02:42.000
+Do you remember the Pin Setter Box over here? It has a Box Collider
+
+54
+00:02:42.000 --> 00:02:45.000
+on it. the Pin Setter. So. let's
+
+55
+00:02:45.000 --> 00:02:48.000
+start stepping through and see what happens.
+
+56
+00:02:51.000 --> 00:02:54.000
+Now. if for some
+
+57
+00:02:54.000 --> 00:02:57.000
+reason your Box Collider is not showing. mine is off in the Gizmos
+
+58
+00:02:57.000 --> 00:03:00.000
+for some reason. you're welcome to turn it back on. I'd like you to
+
+59
+00:03:00.000 --> 00:03:03.000
+be able to see your Box Collider. I'm not sure how my ended up off.
+
+60
+00:03:03.000 --> 00:03:06.000
+So. as I step through frame by frame here. watch what happens! Ahh.
+
+61
+00:03:06.000 --> 00:03:09.000
+those back pins disappear out the end of the Box Collider.
+
+62
+00:03:09.000 --> 00:03:12.000
+and then they get destroyed by that OnTrigger
+
+63
+00:03:12.000 --> 00:03:15.000
+Exit Script. So. this
+
+64
+00:03:15.000 --> 00:03:18.000
+moving step by step is incredibly useful for spotting that
+
+65
+00:03:18.000 --> 00:03:21.000
+sort of thing. Now. of course there are two issues here. One is
+
+66
+00:03:21.000 --> 00:03:24.000
+why is the whole Box Collider moving? And the other
+
+67
+00:03:24.000 --> 00:03:27.000
+is. why are the pins being destroyed. when it goes out the back?
+
+68
+00:03:27.000 --> 00:03:30.000
+Well. they're being destroyed. when it goes out the back. simply
+
+69
+00:03:30.000 --> 00:03:33.000
+because the code tells them to be destroyed. If you look at your
+
+70
+00:03:33.000 --> 00:03:36.000
+PinSetter code. you have an OnTriggerExit.
+
+71
+00:03:36.000 --> 00:03:39.000
+and it says if a pin leaves the collider.
+
+72
+00:03:39.000 --> 00:03:42.000
+then destroy it. Also. we shouldn't really be
+
+73
+00:03:42.000 --> 00:03:45.000
+moving this collider. because it is a Static Collider.
+
+74
+00:03:45.000 --> 00:03:48.000
+If you'll remember back to your Collider Interaction Matrix.
+
+75
+00:03:48.000 --> 00:03:51.000
+it's just a Static Collider. because it has no Rigidbody on it.
+
+76
+00:03:51.000 --> 00:03:54.000
+We don't want to be moving those. So.
+
+77
+00:03:54.000 --> 00:03:57.000
+why are we moving them? Well. we're moving it because
+
+78
+00:03:57.000 --> 00:04:00.000
+when we took our motion. that was attached to the Swiper
+
+79
+00:04:00.000 --> 00:04:03.000
+and renamed it PinSetter. it was a
+
+80
+00:04:03.000 --> 00:04:06.000
+motion that was just effecting the transform. Remember the
+
+81
+00:04:06.000 --> 00:04:09.000
+motion here is just effecting the transform of the thing
+
+82
+00:04:09.000 --> 00:04:12.000
+it was attached to. It used to be attached to the PinSetter. it's now
+
+83
+00:04:12.000 --> 00:04:15.000
+up to the Swiper rather. it's now attached to the PinSetter. so it's
+
+84
+00:04:15.000 --> 00:04:18.000
+moving the entire PinSetter. Now. because the Swiper
+
+85
+00:04:18.000 --> 00:04:21.000
+is a child object of the PinSetter. they are all moving together
+
+86
+00:04:21.000 --> 00:04:24.000
+in that same animation sequence. Let's watch them do it. You see that.
+
+87
+00:04:24.000 --> 00:04:27.000
+So. that'a a bit weird right? And that's
+
+88
+00:04:27.000 --> 00:04:30.000
+a little bit weird that that's doing that. and that's what's causing the bug.
+
+89
+00:04:30.000 --> 00:04:33.000
+So. a warning about moving animation clips
+
+90
+00:04:33.000 --> 00:04:36.000
+around. How do we fix it? Well. good question!
+
+91
+00:04:36.000 --> 00:04:39.000
+There's two ways you could fix it. You could either remake your animation. which is what
+
+92
+00:04:39.000 --> 00:04:42.000
+I'm going to suggest. because it's going to produce the most fundamental solution.
+
+93
+00:04:42.000 --> 00:04:45.000
+The problem here is that we're animating now the wrong
+
+94
+00:04:45.000 --> 00:04:48.000
+thing; we're animating the whole PinSetter. rather than just the Swiper
+
+95
+00:04:48.000 --> 00:04:51.000
+inside it. so I'm going to suggest doing that. There are other
+
+96
+00:04:51.000 --> 00:04:54.000
+ways around this. Of course. you could on this Animator
+
+97
+00:04:54.000 --> 00:04:57.000
+here. say to the Box Collider. you could turn it off
+
+98
+00:04:57.000 --> 00:05:00.000
+but that's just adding complexity. Turning the Box
+
+99
+00:05:00.000 --> 00:05:03.000
+Collider off. at the start of the animation. and then.
+
+100
+00:05:03.000 --> 00:05:06.000
+turning it on again is a bit nasty. it's
+
+101
+00:05:06.000 --> 00:05:09.000
+adding complexity to try and solve the problem. Whenever you're doing
+
+102
+00:05:09.000 --> 00:05:12.000
+that. you're making things worse. really. So. if you can
+
+103
+00:05:12.000 --> 00:05:15.000
+bite the bullet and redo this animation. which I'll do in a moment. then that's
+
+104
+00:05:15.000 --> 00:05:18.000
+always going to be a better way of doing things. But I want to show you one
+
+105
+00:05:18.000 --> 00:05:21.000
+more potential problem with this as well. which also makes it quite hard to
+
+106
+00:05:21.000 --> 00:05:24.000
+debug. Watch this! If you look at the transition
+
+107
+00:05:24.000 --> 00:05:27.000
+in the tidy substate.
+
+108
+00:05:27.000 --> 00:05:30.000
+from Raise to Swipe. you'll notice that by default over here
+
+109
+00:05:30.000 --> 00:05:33.000
+in the Inspector it has a blend.
+
+110
+00:05:33.000 --> 00:05:36.000
+What that means is that. it... Oh. let me just try
+
+111
+00:05:36.000 --> 00:05:39.000
+and get it back on the screen. There we go! It has this blend. it
+
+112
+00:05:39.000 --> 00:05:42.000
+spends a little bit of time both in Raise and Swipe.
+
+113
+00:05:42.000 --> 00:05:45.000
+and of course. it doesn't trigger that piece of code
+
+114
+00:05:45.000 --> 00:05:48.000
+to raise the pins. until very near the
+
+115
+00:05:48.000 --> 00:05:51.000
+end of the Raise motion.
+
+116
+00:05:51.000 --> 00:05:54.000
+And have a look at the Raise motion. where it is at the end of it. it
+
+117
+00:05:54.000 --> 00:05:57.000
+is just a call to a piece of script. So.
+
+118
+00:05:57.000 --> 00:06:00.000
+let's watch what happens step by step again.
+
+119
+00:06:00.000 --> 00:06:03.000
+when we trigger. So. let's to through...
+
+120
+00:06:03.000 --> 00:06:06.000
+I have to start again.
+
+121
+00:06:06.000 --> 00:06:09.000
+So. start with your trigger off. pause the game.
+
+122
+00:06:09.000 --> 00:06:12.000
+look at the scene. maybe get the
+
+123
+00:06:12.000 --> 00:06:15.000
+PinSetter on the screen. play the game.
+
+124
+00:06:15.000 --> 00:06:18.000
+and then. we've already done the trigger. so I'm going to go to the top
+
+125
+00:06:18.000 --> 00:06:21.000
+level. Step
+
+126
+00:06:21.000 --> 00:06:24.000
+through the Idle state. until... I'll just redo
+
+127
+00:06:24.000 --> 00:06:27.000
+the trigger. just in case I forgot it. Step through the Idle state
+
+128
+00:06:27.000 --> 00:06:30.000
+until it's finished. Here you go! So we're going through Raise now.
+
+129
+00:06:30.000 --> 00:06:33.000
+Raise raise. Now look. you see the Swipe
+
+130
+00:06:33.000 --> 00:06:36.000
+motion. you see this blue line going down the
+
+131
+00:06:36.000 --> 00:06:39.000
+transition here. It's saying there's a blend in progress. and
+
+132
+00:06:39.000 --> 00:06:42.000
+even before the Raise has finished or even
+
+133
+00:06:42.000 --> 00:06:45.000
+triggered. look the thing is moving! The box is moving.
+
+134
+00:06:45.000 --> 00:06:48.000
+so we delete the back pins.
+
+135
+00:06:48.000 --> 00:06:51.000
+Then. we're raising up and then because gravity is
+
+136
+00:06:51.000 --> 00:06:54.000
+on. the pins fall down. So. hopefully you can
+
+137
+00:06:54.000 --> 00:06:57.000
+understand all of those different things. interactions. that are going
+
+138
+00:06:57.000 --> 00:07:00.000
+on there. So. we'll fix it in just a moment. but I just want to put the
+
+139
+00:07:00.000 --> 00:07:03.000
+problem back on the screen for you. so you can understand.
+
+140
+00:07:03.000 --> 00:07:06.000
+So. we decided to use Transform.Translate() and that's fine!
+
+141
+00:07:06.000 --> 00:07:09.000
+Of course. you could have said Transform.position +=
+
+142
+00:07:09.000 --> 00:07:12.000
+in a vector. That would have worked fine. If you are going to use
+
+143
+00:07:12.000 --> 00:07:15.000
+Transform.Translate() be aware of that last parameter. and make your
+
+144
+00:07:15.000 --> 00:07:18.000
+decision about whether you're moving in world space or relative to the
+
+145
+00:07:18.000 --> 00:07:21.000
+object. Number two. using the Step button to
+
+146
+00:07:21.000 --> 00:07:24.000
+slow things down. Incredibly helpful. you can do it at any time.
+
+147
+00:07:24.000 --> 00:07:27.000
+You can pause the game and go through one frame at a time. really handy.
+
+148
+00:07:27.000 --> 00:07:30.000
+Number three. the perils of moving those
+
+149
+00:07:30.000 --> 00:07:33.000
+Static Colliders. So. we don't want to move a Static Collider.
+
+150
+00:07:33.000 --> 00:07:36.000
+Unity doesn't expect Static Colliders like that
+
+151
+00:07:36.000 --> 00:07:39.000
+PinSetter Box to be moving. so don't move them.
+
+152
+00:07:39.000 --> 00:07:42.000
+Number four. how default animation blends can cause issues.
+
+153
+00:07:42.000 --> 00:07:45.000
+So. if you were wondering why
+
+154
+00:07:45.000 --> 00:07:48.000
+the Swipe motion was starting to
+
+155
+00:07:48.000 --> 00:07:51.000
+happen. before even the Raise happened. that's because
+
+156
+00:07:51.000 --> 00:07:54.000
+of the blend. the Animation State Blend. And by default you'll have
+
+157
+00:07:54.000 --> 00:07:57.000
+those blends in there. to try and make animations smooth. but if
+
+158
+00:07:57.000 --> 00:08:00.000
+you're calling functions from script and you have a blend in
+
+159
+00:08:00.000 --> 00:08:03.000
+place. it can cause problems. And be careful
+
+160
+00:08:03.000 --> 00:08:06.000
+about moving your motion clips around. because otherwise. you're going to have to do what we
+
+161
+00:08:06.000 --> 00:08:09.000
+ought to do now. which is just redo this animation.
+
+162
+00:08:09.000 --> 00:08:12.000
+The animation. in my case. wasn't great anyway. I'm very sorry if you spend a
+
+163
+00:08:12.000 --> 00:08:15.000
+lot of time on your animation. I want to use this as
+
+164
+00:08:15.000 --> 00:08:18.000
+a warning to you about the difficulty. actually. of copying an animation.
+
+165
+00:08:18.000 --> 00:08:21.000
+because I don't know a way of getting this animation
+
+166
+00:08:21.000 --> 00:08:24.000
+in here. from the Swipe motion
+
+167
+00:08:24.000 --> 00:08:27.000
+of the pin. I don't know how to get these keyframes.
+
+168
+00:08:27.000 --> 00:08:30.000
+and I have had a good look. there are some tools that'll do it.
+
+169
+00:08:30.000 --> 00:08:33.000
+But I don't know any standard way in Unity of taking all these keyframes and applying
+
+170
+00:08:33.000 --> 00:08:36.000
+them to what we need it to be applied to now.
+
+171
+00:08:36.000 --> 00:08:39.000
+which is the Swiper's transform. of course .position.
+
+172
+00:08:39.000 --> 00:08:42.000
+That's the thing that we need to be adding to this. We need to
+
+173
+00:08:42.000 --> 00:08:45.000
+dig in and add very similar keyframes to the Swiper.
+
+174
+00:08:45.000 --> 00:08:48.000
+So. you can do it just by inspection. of course. but you're
+
+175
+00:08:48.000 --> 00:08:51.000
+not going to easily be able to do it by copying
+
+176
+00:08:51.000 --> 00:08:54.000
+and pasting. even in the curves. Some people seem to have had some luck;
+
+177
+00:08:54.000 --> 00:08:57.000
+I can't make it work reliably enough to teach it. So. what I'm
+
+178
+00:08:57.000 --> 00:09:00.000
+going to do is. I'm just going to delete all of the properties that
+
+179
+00:09:00.000 --> 00:09:03.000
+move the PinSetter's position and just leave
+
+180
+00:09:03.000 --> 00:09:06.000
+the sub-object. Swiper. and just reanimate. I'm just going to delete
+
+181
+00:09:06.000 --> 00:09:09.000
+all the keyframes and just reanimate. There's not a huge amount of value
+
+182
+00:09:09.000 --> 00:09:12.000
+in there. in my case. So. what I'm going to
+
+183
+00:09:12.000 --> 00:09:15.000
+do is just go in. in the Recording Mode of the Animator.
+
+184
+00:09:15.000 --> 00:09:18.000
+you're hopefully getting quite used to now. and I am
+
+185
+00:09:18.000 --> 00:09:21.000
+going to start putting my keyframes in. So. my first keyframe is going
+
+186
+00:09:21.000 --> 00:09:24.000
+to be at say half a second. something like that.
+
+187
+00:09:24.000 --> 00:09:27.000
+Remember. you can zoom in by holding down Alt and
+
+188
+00:09:27.000 --> 00:09:30.000
+rolling the mouse wheel.
+
+189
+00:09:30.000 --> 00:09:33.000
+So. it's something like. this time I'm going to put in a keyframe.
+
+190
+00:09:33.000 --> 00:09:36.000
+and just go ahead now. really quickly. and rebuild that animation.
+
+191
+00:09:36.000 --> 00:09:39.000
+So obviously. I've sped up the video
+
+192
+00:09:39.000 --> 00:09:42.000
+again here. I'm going to make more and more use of that technique. as we go
+
+193
+00:09:42.000 --> 00:09:45.000
+through the course. so that we can get some leverage on
+
+194
+00:09:45.000 --> 00:09:48.000
+your time. when it's repetitive things like this.
+
+195
+00:09:48.000 --> 00:09:51.000
+So. we're just going ahead and reproducing a very similar
+
+196
+00:09:51.000 --> 00:09:54.000
+animation. to before. by moving the object
+
+197
+00:09:54.000 --> 00:09:57.000
+around in this Record Mode of the Animator.
+
+198
+00:09:57.000 --> 00:10:00.000
+and then placing our keyframes and their positions.
+
+199
+00:10:00.000 --> 00:10:03.000
+as we go. And then. I'm making sure
+
+200
+00:10:03.000 --> 00:10:06.000
+that the Swiper comes back. I'm using the Inspector
+
+201
+00:10:06.000 --> 00:10:09.000
+occasionally. to look at the Z position of
+
+202
+00:10:09.000 --> 00:10:12.000
+the Swiper. so that we return to the same
+
+203
+00:10:12.000 --> 00:10:15.000
+horizontal position. before moving up vertically.
+
+204
+00:10:15.000 --> 00:10:18.000
+And then finally. to smooth out
+
+205
+00:10:18.000 --> 00:10:21.000
+the motion. I'm going to be taking a look at the curves.
+
+206
+00:10:21.000 --> 00:10:24.000
+so that the Swiper doesn't go through the floor. So. by
+
+207
+00:10:24.000 --> 00:10:27.000
+holding down Alt and scrolling around or double clicking.
+
+208
+00:10:27.000 --> 00:10:30.000
+if you're not sure. you should get to the curves. Look for your
+
+209
+00:10:30.000 --> 00:10:33.000
+Y curve. and you can get a really nice motion.
+
+210
+00:10:33.000 --> 00:10:36.000
+OK welcome back! So. we've got a pretty cool looking
+
+211
+00:10:36.000 --> 00:10:39.000
+Swipe motion. going on there now. which is fantastic! And
+
+212
+00:10:39.000 --> 00:10:42.000
+we're back to where we want to be. with the simplest possible solution.
+
+213
+00:10:42.000 --> 00:10:45.000
+which was redoing the PinSetter's
+
+214
+00:10:45.000 --> 00:10:48.000
+animation motion. for the
+
+215
+00:10:48.000 --> 00:10:51.000
+Swipe motion and we're digging into the
+
+216
+00:10:51.000 --> 00:10:54.000
+swiper. OK fantastic! So.
+
+217
+00:10:54.000 --> 00:10:57.000
+that's working nicely now. Now. what we need to do. or what
+
+218
+00:10:57.000 --> 00:11:00.000
+you need to do is just get these Raise and Lower pins methods finished off.
+
+219
+00:11:00.000 --> 00:11:03.000
+So. it's going to be a challenge for you now. Let's go ahead and do that!
+
+220
+00:11:03.000 --> 00:11:06.000
+Refactor Raise and LowerPins(). Enter Pin.cs.
+
+221
+00:11:06.000 --> 00:11:09.000
+We don't really want it in the PinSetter. there's enough stuff in the PinSetter.
+
+222
+00:11:09.000 --> 00:11:12.000
+Now. let's move some of the responsibility over to the
+
+223
+00:11:12.000 --> 00:11:15.000
+pin itself. So. move RaisePins()
+
+224
+00:11:15.000 --> 00:11:18.000
+and LoverPins() into Pin.cs. Rename them Raise() and Lower(). because
+
+225
+00:11:18.000 --> 00:11:21.000
+the context now tells you what they do.
+
+226
+00:11:21.000 --> 00:11:24.000
+Create a distToRaise. at the top of the Pin.cs
+
+227
+00:11:24.000 --> 00:11:27.000
+class. which is going to be a property that tells us how
+
+228
+00:11:27.000 --> 00:11:30.000
+high we need to raise them. It will depend on the height of the pins mainly.
+
+229
+00:11:30.000 --> 00:11:33.000
+And disable and re-enable
+
+230
+00:11:33.000 --> 00:11:36.000
+gravity as necessary. during the animation sequence.
+
+231
+00:11:36.000 --> 00:11:39.000
+so that the pins don't fall. And just test that the whole lot works
+
+232
+00:11:39.000 --> 00:11:42.000
+together. properly for me. So go ahead. pause the video! See if you can get
+
+233
+00:11:42.000 --> 00:11:45.000
+all this. Tidy and Reset. finished off and working
+
+234
+00:11:45.000 --> 00:11:48.000
+properly. now that we've solved the bugs.
+
+235
+00:11:48.000 --> 00:11:51.000
+OK great! Fantastic!
+
+236
+00:11:51.000 --> 00:11:54.000
+Welcome back! So. let's go ahead and do this refactoring. It's always a good
+
+237
+00:11:54.000 --> 00:11:57.000
+thing to be refactoring. when you think that you need to.
+
+238
+00:11:57.000 --> 00:12:00.000
+So. I'm going from Pinsetter to Pin. so I may as well rearrange
+
+239
+00:12:00.000 --> 00:12:03.000
+my tabs at the top. so I know what I'm doing.
+
+240
+00:12:03.000 --> 00:12:06.000
+And just take a look. So. where have we got
+
+241
+00:12:06.000 --> 00:12:09.000
+RaisePins and LowerPins here?
+
+242
+00:12:09.000 --> 00:12:12.000
+Well. we already have a RaisePins and LowerPins
+
+243
+00:12:12.000 --> 00:12:15.000
+in PinSetter. Now. you're going to need to leave the RaisePins
+
+244
+00:12:15.000 --> 00:12:18.000
+and LowePins methods there. of course. because otherwise the
+
+245
+00:12:18.000 --> 00:12:21.000
+Animator will not be able to make the calls to them
+
+246
+00:12:21.000 --> 00:12:24.000
+because an Animator can only call scripts that are on the object
+
+247
+00:12:24.000 --> 00:12:27.000
+or sub objects. But we're just going to make them a very thin
+
+248
+00:12:27.000 --> 00:12:30.000
+pass through. So. rather than saying
+
+249
+00:12:30.000 --> 00:12:33.000
+if the pin is standing. do all this.
+
+250
+00:12:33.000 --> 00:12:36.000
+we'll take that responsibility and put it
+
+251
+00:12:36.000 --> 00:12:39.000
+over in the pin here. So.
+
+252
+00:12:39.000 --> 00:12:42.000
+over in the pin. let's go to the bottom and pop that code in
+
+253
+00:12:42.000 --> 00:12:45.000
+and then. wrap it in a public...
+
+254
+00:12:45.000 --> 00:12:48.000
+Yes it does need to be public; public Raise ()
+
+255
+00:12:48.000 --> 00:12:51.000
+and it's void. it doesn't send anything back. Public
+
+256
+00:12:51.000 --> 00:12:54.000
+void Raise () and then.
+
+257
+00:12:54.000 --> 00:12:57.000
+we need to just change that code up a little bit. so it's no longer if (pin.
+
+258
+00:12:57.000 --> 00:13:00.000
+IsStanding(). because we are in the context now of the pin.
+
+259
+00:13:00.000 --> 00:13:03.000
+so it's just (IsStanding(). Again. we don't need the pin
+
+260
+00:13:03.000 --> 00:13:06.000
+.transform.Translate. distanceToRaise...
+
+261
+00:13:06.000 --> 00:13:09.000
+...distToRaise. Just stick
+
+262
+00:13:09.000 --> 00:13:12.000
+with my example. and then. at the top of the method
+
+263
+00:13:12.000 --> 00:13:15.000
+we are going to go public float
+
+264
+00:13:15.000 --> 00:13:18.000
+distToRaise = I'm going to give it a default of 40 centimeters.
+
+265
+00:13:18.000 --> 00:13:21.000
+It's about right for this size of pin.
+
+266
+00:13:21.000 --> 00:13:24.000
+So. if it's standing raise it. that's fine!
+
+267
+00:13:24.000 --> 00:13:27.000
+That's done right! If it's standing raise it. that's simple.
+
+268
+00:13:27.000 --> 00:13:30.000
+And let's have another method. which is public
+
+269
+00:13:30.000 --> 00:13:33.000
+Lower () and is void. I keep forgetting the
+
+270
+00:13:33.000 --> 00:13:36.000
+return types tonight. So fantastic! There you
+
+271
+00:13:36.000 --> 00:13:39.000
+go! So. we're just going to lower them. regardless.
+
+272
+00:13:39.000 --> 00:13:42.000
+We're just going to transform.Translate it downwards. in world
+
+273
+00:13:42.000 --> 00:13:45.000
+space. by minus the distance. which
+
+274
+00:13:45.000 --> 00:13:48.000
+is why I'm using a variable because we can change the same thing in two places.
+
+275
+00:13:48.000 --> 00:13:51.000
+Great! So. we also said that we
+
+276
+00:13:51.000 --> 00:13:54.000
+wanted to turn the gravity
+
+277
+00:13:54.000 --> 00:13:57.000
+off of all of the pins. in question. So.
+
+278
+00:13:57.000 --> 00:14:00.000
+let's not do that here. because we...
+
+279
+00:14:00.000 --> 00:14:03.000
+Do we have access to the Rigidbody? Yes. we do! OK.
+
+280
+00:14:03.000 --> 00:14:06.000
+because we already have access to the Rigidbody and the pin. let's go ahead
+
+281
+00:14:06.000 --> 00:14:09.000
+and do that. So. it's going to simply a case of going say. rigidBody
+
+282
+00:14:09.000 --> 00:14:12.000
+.gravity or use gravity
+
+283
+00:14:12.000 --> 00:14:15.000
+= false; So. we turn gravity
+
+284
+00:14:15.000 --> 00:14:18.000
+off and raise it up. and then. when we lower it down. we put gravity back
+
+285
+00:14:18.000 --> 00:14:21.000
+on at the end. So. we put it down on the floor and turn gravity back
+
+286
+00:14:21.000 --> 00:14:24.000
+on. And that's how we stop the pins from falling.
+
+287
+00:14:24.000 --> 00:14:27.000
+Cool! So.
+
+288
+00:14:27.000 --> 00:14:30.000
+there's my code
+
+289
+00:14:30.000 --> 00:14:33.000
+for the raise and lower. inside the pins. and then. all I need to do
+
+290
+00:14:33.000 --> 00:14:36.000
+over in the PinSetter. when I raise. I say for each
+
+291
+00:14:36.000 --> 00:14:39.000
+pin just pin.Raise();
+
+292
+00:14:39.000 --> 00:14:42.000
+Just showing you how you can move
+
+293
+00:14:42.000 --> 00:14:45.000
+code around all you like and just change the API.
+
+294
+00:14:45.000 --> 00:14:48.000
+and don't be afraid to refactor and do this. So. pin
+
+295
+00:14:48.000 --> 00:14:51.000
+.lower. Oops. small p. Ah.
+
+296
+00:14:51.000 --> 00:14:54.000
+OK. so with LowerPins of course. I've got to do the same thing. roughly the same
+
+297
+00:14:54.000 --> 00:14:57.000
+same thing. I just need to
+
+298
+00:14:57.000 --> 00:15:00.000
+iterate through like this. and pin.Lower ();
+
+299
+00:15:00.000 --> 00:15:03.000
+So. one other thing is. it's not just raising them. it's raising
+
+300
+00:15:03.000 --> 00:15:06.000
+them if standing.
+
+301
+00:15:06.000 --> 00:15:09.000
+So. I'm actually going to change my suggestion from the challenge. having
+
+302
+00:15:09.000 --> 00:15:12.000
+done it. and just make this method on Pin.cs. Raise if
+
+303
+00:15:12.000 --> 00:15:15.000
+Standing (). because that's what it actually does.
+
+304
+00:15:15.000 --> 00:15:18.000
+OK. let's try all this and see how we get on.
+
+305
+00:15:18.000 --> 00:15:21.000
+So. the main thing to be concerned about is. what happens
+
+306
+00:15:21.000 --> 00:15:24.000
+when we click the Tidy trigger? Does it work?
+
+307
+00:15:24.000 --> 00:15:27.000
+Hmm. sort of. the Raise isn't happening.
+
+308
+00:15:27.000 --> 00:15:30.000
+Now. that's probably just because we've been playing around
+
+309
+00:15:30.000 --> 00:15:33.000
+with the names of our methods and it's disconnected.
+
+310
+00:15:36.000 --> 00:15:39.000
+Raise and lets just check Lower. while
+
+311
+00:15:39.000 --> 00:15:42.000
+we're here. LowerPins().
+
+312
+00:15:42.000 --> 00:15:45.000
+OK. so I'm a bit concerned that
+
+313
+00:15:45.000 --> 00:15:48.000
+this thing is called Raise. Go back to your code. make sure...
+
+314
+00:15:48.000 --> 00:15:51.000
+Ah OK! RaisePins ()
+
+315
+00:15:51.000 --> 00:15:54.000
+OK. just get your name in right. Now. when you change your
+
+316
+00:15:54.000 --> 00:15:57.000
+method name. back in the Animator. you probably
+
+317
+00:15:57.000 --> 00:16:00.000
+find you're going to need to reconnect that.
+
+318
+00:16:03.000 --> 00:16:06.000
+Yep you are. OK fantastic!
+
+319
+00:16:06.000 --> 00:16:09.000
+So hopefully now. with any luck when we're looking
+
+320
+00:16:09.000 --> 00:16:12.000
+down at the end and we go through our various animation
+
+321
+00:16:12.000 --> 00:16:15.000
+triggers it'll work. Tidy trigger! Raises!
+
+322
+00:16:15.000 --> 00:16:18.000
+The animation happens like that. the Swipe happens all the way to the back
+
+323
+00:16:18.000 --> 00:16:21.000
+and it drops them down. Beautiful! Let's try the Reset! We
+
+324
+00:16:21.000 --> 00:16:24.000
+are not raising in the Reset. What's happening
+
+325
+00:16:24.000 --> 00:16:27.000
+there? Well. you're not supposed to Raise
+
+326
+00:16:27.000 --> 00:16:30.000
+it in the Reset. That's absolutely fine! Yeah. the Reset is
+
+327
+00:16:30.000 --> 00:16:33.000
+not yet instantiating new pins. but that will be for another video.
+
+328
+00:16:33.000 --> 00:16:36.000
+All I want to do to finish this one off is to bowl the ball down
+
+329
+00:16:36.000 --> 00:16:39.000
+and have a few standing pins. before I Tidy.
+
+330
+00:16:39.000 --> 00:16:42.000
+And then. I am done for this video. and we'll talk about instantiating
+
+331
+00:16:42.000 --> 00:16:45.000
+new pins and what else we need to do.
+
+332
+00:16:45.000 --> 00:16:48.000
+in terms of tidying up in the next video. So. let's just check
+
+333
+00:16:48.000 --> 00:16:51.000
+that the Tidy actually really works properly now.
+
+334
+00:16:51.000 --> 00:16:54.000
+[Ball Sound Effect in Background]
+
+335
+00:16:54.000 --> 00:16:57.000
+Here it comes! So. the pin counting
+
+336
+00:16:57.000 --> 00:17:00.000
+is working. that's fantastic! Let's hit Tidy! Oh. it's
+
+337
+00:17:00.000 --> 00:17:03.000
+gone to the Start. That's absolutely fine! And let's hit Tidy now.
+
+338
+00:17:03.000 --> 00:17:06.000
+That's great. because we've actually got a couple of pins
+
+339
+00:17:06.000 --> 00:17:09.000
+to swipe out of the way. at least one. Lift up.
+
+340
+00:17:09.000 --> 00:17:12.000
+swipe the remaining pin. it comes back. and
+
+341
+00:17:12.000 --> 00:17:15.000
+drops them down. Look at that! Beautiful! Beautiful! Beautiful! Beautiful!
+
+342
+00:17:15.000 --> 00:17:18.000
+So. that's good enough for this video. You've done really well.
+
+343
+00:17:18.000 --> 00:17:21.000
+and we will polish off all of this
+
+344
+00:17:21.000 --> 00:17:24.000
+and do a little bit of code refactoring. in the next video.
+
+345
+00:17:24.000 --> 00:17:27.000
+before moving on to different things like physics. And then
+
+346
+00:17:27.000 --> 00:17:30.000
+Eventually. we'll swing all the way around to the scoring system. So. good progress
+
+347
+00:17:30.000 --> 00:17:31.800
+and we'll see you soon!
+

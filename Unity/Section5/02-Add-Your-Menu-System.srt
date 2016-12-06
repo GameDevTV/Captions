@@ -1,0 +1,750 @@
+WEBVTT
+
+1
+00:00:06.000 --> 00:00:09.000
+Hey welcome back! So. before we dive in and start playing with blocks.
+
+2
+00:00:09.000 --> 00:00:12.000
+we're going to get our Menu System setup. Remember. we want
+
+3
+00:00:12.000 --> 00:00:15.000
+to get in the habit of having our Menu System setup from the very
+
+4
+00:00:15.000 --> 00:00:18.000
+beginning. so that we can navigate around the
+
+5
+00:00:18.000 --> 00:00:21.000
+Start Menu. the Game Screens. and then
+
+6
+00:00:21.000 --> 00:00:24.000
+onto the final Win Screen. So.
+
+7
+00:00:24.000 --> 00:00:27.000
+that we really set the president. we wet the standard.
+
+8
+00:00:27.000 --> 00:00:30.000
+and we've created the structure. So. we're going to go into the
+
+9
+00:00:30.000 --> 00:00:33.000
+Number Wizard UI and export the menus and
+
+10
+00:00:33.000 --> 00:00:36.000
+import them into this project. customize the words and fonts.
+
+11
+00:00:36.000 --> 00:00:39.000
+and then. you're going to wire up the buttons. So. let's
+
+12
+00:00:39.000 --> 00:00:42.000
+take a look! I'm sitting here in my Block Breaker. that's got almost nothing
+
+13
+00:00:42.000 --> 00:00:45.000
+in it. It's just got a game scene
+
+14
+00:00:45.000 --> 00:00:48.000
+and some sprites. I'm going to switch over to
+
+15
+00:00:48.000 --> 00:00:51.000
+Number Wizard UI. for a moment.
+
+16
+00:00:51.000 --> 00:00:54.000
+which is in my recent projects. when I go to open the File and Open
+
+17
+00:00:54.000 --> 00:00:57.000
+Project.
+
+18
+00:00:57.000 --> 00:01:00.000
+And here we are! So. what I'm going to do from here is. I'm
+
+19
+00:01:00.000 --> 00:01:03.000
+going to export a package. just like the packages you see in the Unity
+
+20
+00:01:03.000 --> 00:01:06.000
+Store. And I'm going to say to myself. well what do I need? Well.
+
+21
+00:01:06.000 --> 00:01:09.000
+I don't need the game. because the Number Wizard UI game is very
+
+22
+00:01:09.000 --> 00:01:12.000
+different to this game. and I don't need the Number Wizard
+
+23
+00:01:12.000 --> 00:01:15.000
+Script. because we're not going to be using any of Number Wizard's
+
+24
+00:01:15.000 --> 00:01:18.000
+behavior here. But I do want the LevelManager
+
+25
+00:01:18.000 --> 00:01:21.000
+and I do want the Start Screen and the Win Screen. because they're our starting
+
+26
+00:01:21.000 --> 00:01:24.000
+point for my next Menu System. so let's
+
+27
+00:01:24.000 --> 00:01:27.000
+do that. Make yourself a package somewhere.
+
+28
+00:01:27.000 --> 00:01:30.000
+It doesn't matter what you call it. Menus if you like.
+
+29
+00:01:30.000 --> 00:01:33.000
+OK. and you get menu.unitypackage
+
+30
+00:01:33.000 --> 00:01:36.000
+here. OK fantastic! So. what are
+
+31
+00:01:36.000 --> 00:01:39.000
+we going to do with that? Well. back over to
+
+32
+00:01:39.000 --> 00:01:42.000
+our Block Breaker project.
+
+33
+00:01:42.000 --> 00:01:45.000
+Once there. we go to
+
+34
+00:01:45.000 --> 00:01:48.000
+Assets and Import Package. and it's a Custom Package.
+
+35
+00:01:48.000 --> 00:01:51.000
+Don't we feel clever. we've made our own custom package already.
+
+36
+00:01:51.000 --> 00:01:54.000
+And we import menu.unitypackage.
+
+37
+00:01:54.000 --> 00:01:57.000
+the thing we just exported.
+
+38
+00:01:57.000 --> 00:02:00.000
+Well. we're going to import everything. because we just chose what we're going to export.
+
+39
+00:02:00.000 --> 00:02:03.000
+So. it's literally just copying and pasting between projects. at this stage.
+
+40
+00:02:03.000 --> 00:02:06.000
+Now. we need a little tidy up. In our previous
+
+41
+00:02:06.000 --> 00:02:09.000
+project. we called scenes. scenes with an S without an underscore.
+
+42
+00:02:09.000 --> 00:02:12.000
+Now. look how confusing that is. Scenes. Scripts. and Sprites. That's why
+
+43
+00:02:12.000 --> 00:02:15.000
+I prefer the underscore version . but immediately you seen an inconsistency
+
+44
+00:02:15.000 --> 00:02:18.000
+like that. sort it out. Take your Start and Win
+
+45
+00:02:18.000 --> 00:02:21.000
+Menus. put them in your _Scenes Folder. and Delete.
+
+46
+00:02:21.000 --> 00:02:24.000
+Oops... That's
+
+47
+00:02:24.000 --> 00:02:27.000
+better! Delete that one. Fantastic! So now. what
+
+48
+00:02:27.000 --> 00:02:30.000
+we have is we have three scenes. Start Menu.
+
+49
+00:02:30.000 --> 00:02:33.000
+Win Screen. and Level_01. and then. we have
+
+50
+00:02:33.000 --> 00:02:36.000
+the Scripts Folder with LevelManager in it and the same sprites we had
+
+51
+00:02:36.000 --> 00:02:39.000
+before. Let's get to work changing these scenes. one at a time.
+
+52
+00:02:39.000 --> 00:02:42.000
+Into your Start Menu! So. the first thing that's
+
+53
+00:02:42.000 --> 00:02:45.000
+inappropriate about this Start Menu is the fonts. We need to change
+
+54
+00:02:45.000 --> 00:02:48.000
+the font. in my opinion. so let's do that first!
+
+55
+00:02:48.000 --> 00:02:51.000
+I'm going to go to a website called
+
+56
+00:02:51.000 --> 00:02:54.000
+www.dafont.com a great place to get free fonts. and I'm just
+
+57
+00:02:54.000 --> 00:02:57.000
+going to search for block and see what we get.
+
+58
+00:02:57.000 --> 00:03:00.000
+Now. scroll down and find a font that
+
+59
+00:03:00.000 --> 00:03:03.000
+is readable and appropriate feeling.
+
+60
+00:03:03.000 --> 00:03:06.000
+It's entirely up to you what font you use. I'm
+
+61
+00:03:06.000 --> 00:03:09.000
+going to plump for the first one that looks good. I think I'm going to go for
+
+62
+00:03:09.000 --> 00:03:12.000
+BM Block here. So. download your font from
+
+63
+00:03:12.000 --> 00:03:15.000
+dafont. There it is. bm_block!
+
+64
+00:03:15.000 --> 00:03:18.000
+And then. just take the .ttf file from that.
+
+65
+00:03:18.000 --> 00:03:21.000
+and drop it into Unity
+
+66
+00:03:21.000 --> 00:03:24.000
+Assets. Now. I'm going to
+
+67
+00:03:24.000 --> 00:03:27.000
+make myself a tidy immediately. by
+
+68
+00:03:27.000 --> 00:03:30.000
+creating a folder called Fonts and putting the bm_block font in it.
+
+69
+00:03:30.000 --> 00:03:33.000
+Great! Now. you can select all of
+
+70
+00:03:33.000 --> 00:03:36.000
+your Text Elements under you Hierarchy. Start Menu.
+
+71
+00:03:36.000 --> 00:03:39.000
+and you can hold down Shift. click on Title. and keep
+
+72
+00:03:39.000 --> 00:03:42.000
+Shift held down. and click on the Quit button.
+
+73
+00:03:42.000 --> 00:03:45.000
+Then. you'll be able to select all of these elements or do them one at a time.
+
+74
+00:03:45.000 --> 00:03:48.000
+The way you change the fonts. one in the Inspector under the
+
+75
+00:03:48.000 --> 00:03:51.000
+Text Script component where it says Font.
+
+76
+00:03:51.000 --> 00:03:54.000
+click the little circle and choose your
+
+77
+00:03:54.000 --> 00:03:57.000
+bm_block. Great! Now. it's just a question of moving
+
+78
+00:03:57.000 --> 00:04:00.000
+things around to see your
+
+79
+00:04:00.000 --> 00:04:03.000
+taste and changing the Font Size again.
+
+80
+00:04:03.000 --> 00:04:06.000
+to taste. "Welcome to Number Wizard!"
+
+81
+00:04:06.000 --> 00:04:09.000
+If you get corruption like I've just got. play the game.
+
+82
+00:04:09.000 --> 00:04:12.000
+and then. un-play and you'll find that it should go away.
+
+83
+00:04:12.000 --> 00:04:15.000
+So. Start is clearly too big.
+
+84
+00:04:15.000 --> 00:04:18.000
+Quit I'm going to make a little smaller this time. so it's a bit more balanced.
+
+85
+00:04:18.000 --> 00:04:21.000
+OK. how does that
+
+86
+00:04:21.000 --> 00:04:24.000
+look? Let's hit the play button.
+
+87
+00:04:24.000 --> 00:04:27.000
+OK fantastic! Now. let's change the text.
+
+88
+00:04:30.000 --> 00:04:33.000
+Of course. you may be better changing
+
+89
+00:04:33.000 --> 00:04:36.000
+the text before you change the Font Size; then. you won't have to keep going in
+
+90
+00:04:36.000 --> 00:04:39.000
+circles. Tell them what they need to do.
+
+91
+00:04:42.000 --> 00:04:45.000
+"Smash all the blocks to win!" If you need to resize the Text Element.
+
+92
+00:04:45.000 --> 00:04:48.000
+of course. click on it. This is the Subtitle. Use the UI Element
+
+93
+00:04:48.000 --> 00:04:51.000
+Tool or the T Button on the keyboard. resize it.
+
+94
+00:04:51.000 --> 00:04:54.000
+and then. use it's snapping ability to decentralize.
+
+95
+00:04:54.000 --> 00:04:57.000
+OK. let's take a look at that!
+
+96
+00:04:57.000 --> 00:05:00.000
+Fantastic! Alright. let's give the same treatment
+
+97
+00:05:00.000 --> 00:05:03.000
+now to the other scene. which is the Win Scene. You'll
+
+98
+00:05:03.000 --> 00:05:06.000
+immediately see. oh that feels different and looks different.
+
+99
+00:05:06.000 --> 00:05:09.000
+OK. let's just change the font on both. so we're consistent.
+
+100
+00:05:09.000 --> 00:05:12.000
+Great! "I guessed right" is
+
+101
+00:05:12.000 --> 00:05:15.000
+no longer appropriate. so let's change that! "You
+
+102
+00:05:15.000 --> 00:05:18.000
+beat Block Breaker"
+
+103
+00:05:18.000 --> 00:05:21.000
+Get the font right .and then our
+
+104
+00:05:21.000 --> 00:05:24.000
+play button. again it's too big. "Play Again"
+
+105
+00:05:24.000 --> 00:05:27.000
+but that's looking about right.
+
+106
+00:05:27.000 --> 00:05:30.000
+We can move elements around. if we want to.
+
+107
+00:05:33.000 --> 00:05:36.000
+OK. let's play and see! "You beat Block Breaker"
+
+108
+00:05:36.000 --> 00:05:39.000
+OK fantastic! Now.
+
+109
+00:05:39.000 --> 00:05:42.000
+we have achieved most of our objectives! What I want you to do now
+
+110
+00:05:42.000 --> 00:05:45.000
+is to wire up these buttons. as a challenge. so that
+
+111
+00:05:45.000 --> 00:05:48.000
+they work. So. let's just dive into the presentation.
+
+112
+00:05:48.000 --> 00:05:51.000
+Here! Get the Start button to go to Level_01.
+
+113
+00:05:51.000 --> 00:05:54.000
+Add a temporary "Game Over"
+
+114
+00:05:54.000 --> 00:05:57.000
+button to Level_01. so that when we click it that
+
+115
+00:05:57.000 --> 00:06:00.000
+Game Over Button goes to the Win Screen.
+
+116
+00:06:00.000 --> 00:06:03.000
+Then. change the "Play Again" button to go back to
+
+117
+00:06:03.000 --> 00:06:06.000
+the Start Menu. So. you'll be able to navigate from the
+
+118
+00:06:06.000 --> 00:06:09.000
+Start Scene into a Game Screen. which will just be a blue background
+
+119
+00:06:09.000 --> 00:06:12.000
+with nothing in it. where you can click "Game Over".
+
+120
+00:06:12.000 --> 00:06:15.000
+And you'll go over to the Win Screen. and then. on the Win Screen you can click Play Again.
+
+121
+00:06:15.000 --> 00:06:18.000
+to restart the whole thing. and test that you can navigate fully. So.
+
+122
+00:06:18.000 --> 00:06:21.000
+pause the video and go ahead and get yourself confident
+
+123
+00:06:21.000 --> 00:06:24.000
+doing that now.
+
+124
+00:06:24.000 --> 00:06:27.000
+Awesome and welcome back! So. let's
+
+125
+00:06:27.000 --> 00:06:30.000
+take a look at how we're going to do this.
+
+126
+00:06:30.000 --> 00:06:33.000
+Hopefully you've already done it. Are you doing the challenges or are you just waiting for me to show you?
+
+127
+00:06:33.000 --> 00:06:36.000
+I hope you're doing the challenges. [Laughs] So. let's click on the Start Button.
+
+128
+00:06:36.000 --> 00:06:39.000
+What's wrong with it's script? Well. down at the bottom here.
+
+129
+00:06:39.000 --> 00:06:42.000
+under the button script on the OnClick event. we're going
+
+130
+00:06:42.000 --> 00:06:45.000
+to the Game Scene. There is no Game Scene in this game. and we have Level_01.
+
+131
+00:06:45.000 --> 00:06:48.000
+so that should fix the Start Button.
+
+132
+00:06:48.000 --> 00:06:51.000
+Let's try it! Start!
+
+133
+00:06:51.000 --> 00:06:54.000
+OK. Level_01 could not be loaded. because it's not been
+
+134
+00:06:54.000 --> 00:06:57.000
+added to the Build Settings. That's just fine and expected. Let's go to the
+
+135
+00:06:57.000 --> 00:07:00.000
+Build Settings. Let's get all of your scenes
+
+136
+00:07:00.000 --> 00:07:03.000
+visible and drag all of them into the Build Settings. and then.
+
+137
+00:07:03.000 --> 00:07:06.000
+set the order to be logical. i.e. Start Menu comes first.
+
+138
+00:07:06.000 --> 00:07:09.000
+You may have to click. it's a bit
+
+139
+00:07:09.000 --> 00:07:12.000
+awkward. There you go! Start Menu to Level_01 to Win Screen.
+
+140
+00:07:12.000 --> 00:07:15.000
+Fantastic! You don't need to build. You can just exit the Build
+
+141
+00:07:15.000 --> 00:07:18.000
+Settings. but now. when you come to run this you should
+
+142
+00:07:18.000 --> 00:07:21.000
+find that. when you click Start. it goes to the Level_01. which is
+
+143
+00:07:21.000 --> 00:07:24.000
+fantastic! And also. when you click Quite. nothing
+
+144
+00:07:24.000 --> 00:07:27.000
+will happen. but you will get a log down here on the bottom left saying "Quit
+
+145
+00:07:27.000 --> 00:07:30.000
+requested". Fantastic! So. the other scene you needed to modify was
+
+146
+00:07:30.000 --> 00:07:33.000
+your Win Scene. Saving as we go! Play again!
+
+147
+00:07:33.000 --> 00:07:36.000
+It should simply go to the Start Menu.
+
+148
+00:07:36.000 --> 00:07:39.000
+so actually by the looks of it you don't need to do anything.
+
+149
+00:07:39.000 --> 00:07:42.000
+It already works. Start! OK
+
+150
+00:07:42.000 --> 00:07:45.000
+fantastic! Now. the final thing you need to do is. on Level_01.
+
+151
+00:07:45.000 --> 00:07:48.000
+I said we needed a button that is going to allow us
+
+152
+00:07:48.000 --> 00:07:51.000
+to transition onto
+
+153
+00:07:51.000 --> 00:07:54.000
+the Win Screen. So. how are we going to do that? Well.
+
+154
+00:07:54.000 --> 00:07:57.000
+I'm going to create a UI Element.
+
+155
+00:07:57.000 --> 00:08:00.000
+and I'm going to make it a button.
+
+156
+00:08:00.000 --> 00:08:03.000
+What is this type of Canvas? Let's take a look! It's a Screen
+
+157
+00:08:03.000 --> 00:08:06.000
+Space Overlay. so it's going to cross the entire screen. That's OK!
+
+158
+00:08:06.000 --> 00:08:09.000
+And then. for now. we can just have a very ugly button somewhere. Where
+
+159
+00:08:09.000 --> 00:08:12.000
+shall I stick it? Bottom right. say for now. Let's just call it
+
+160
+00:08:12.000 --> 00:08:15.000
+Game Over.
+
+161
+00:08:15.000 --> 00:08:18.000
+So. once you've named the text on your button.
+
+162
+00:08:18.000 --> 00:08:21.000
+go back to the Button itself. under Hierarchy. Canvas. and
+
+163
+00:08:21.000 --> 00:08:24.000
+then Button. And we're going to need to
+
+164
+00:08:24.000 --> 00:08:27.000
+deal with the OnClick even. Now. the way
+
+165
+00:08:27.000 --> 00:08:30.000
+that the other scenes. let's take a look at say the Win Screen.
+
+166
+00:08:30.000 --> 00:08:33.000
+The way that they deal with that. let's look at this button. this Play Again
+
+167
+00:08:33.000 --> 00:08:36.000
+Button. What you have here is you
+
+168
+00:08:36.000 --> 00:08:39.000
+have a LevelManager passed in. you see. and then. it uses LevelManager
+
+169
+00:08:39.000 --> 00:08:42.000
+.LoadLevel. So. what we're missing is a LevelManager on
+
+170
+00:08:42.000 --> 00:08:45.000
+our Level_01 scene. So. let's put it on! Copy LevelManager
+
+171
+00:08:45.000 --> 00:08:48.000
+from here. that's one way of doing it. or you could recreate it.
+
+172
+00:08:48.000 --> 00:08:51.000
+Look. what is it at the end of the day? It's just a thing with a Level
+
+173
+00:08:51.000 --> 00:08:54.000
+Manager Script against it.
+
+174
+00:08:54.000 --> 00:08:57.000
+Paste into your Hierarchy
+
+175
+00:08:57.000 --> 00:09:00.000
+there. So. we now have a LevelManager in this scene.
+
+176
+00:09:00.000 --> 00:09:03.000
+Back to our Game Over Button. We can now
+
+177
+00:09:03.000 --> 00:09:06.000
+drag the Level Manager onto
+
+178
+00:09:06.000 --> 00:09:09.000
+the Game Over Button's OnClick event.
+
+179
+00:09:09.000 --> 00:09:12.000
+Now. we'll be able to choose LevelManager.LoadLevel
+
+180
+00:09:12.000 --> 00:09:15.000
+and we can call it Win Screen! Fantastic!
+
+181
+00:09:15.000 --> 00:09:18.000
+Just time to test! Let's click play! Game Over takes
+
+182
+00:09:18.000 --> 00:09:21.000
+us to there. "You beat Block Breaker". Great! Play Again!
+
+183
+00:09:21.000 --> 00:09:24.000
+We could Quit! We'll just expect to get a quit request
+
+184
+00:09:24.000 --> 00:09:27.000
+logged! You click Start. you go to a very basic and ugly
+
+185
+00:09:27.000 --> 00:09:30.000
+Game Screen. you click Game Over. Fantastic! Our Menu
+
+186
+00:09:30.000 --> 00:09:33.000
+System is functioning and customized to look like
+
+187
+00:09:33.000 --> 00:09:36.000
+Block Breaker. Congratulations! See you soon!
+

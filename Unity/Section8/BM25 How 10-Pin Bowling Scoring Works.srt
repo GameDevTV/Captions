@@ -1,0 +1,372 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:07.930
+Hey welcome back guys. so I think it's
+about time that we find out about how
+
+00:00:07.930 --> 00:00:12.490
+scoring works in ten pin bowling and
+draw ourselves an object communication diagram
+
+00:00:12.490 --> 00:00:16.779
+to work out how the Pinsetter and the
+scorekeeper or whatever we decide to
+
+00:00:16.779 --> 00:00:22.289
+call it talk to each other. At the moment
+in our project we have not ideal physics
+
+00:00:22.289 --> 00:00:25.880
+certainly my project doesn't have
+ideal physics but I'm getting bored of
+
+00:00:25.880 --> 00:00:31.010
+playing with the physics and of clicking
+these reset and tidy buttons and I want some
+
+00:00:31.010 --> 00:00:35.540
+code to decide whether it's time to
+reset or tidy. The challenge with that of
+
+00:00:35.540 --> 00:00:39.290
+course is that we need to solve the
+whole problem of scoring in ten pin
+
+00:00:39.290 --> 00:00:43.219
+bowling in order to do that because
+whether we lay down new pins or tidy
+
+00:00:43.219 --> 00:00:48.789
+what's there entirely depends on what we
+scored what we scored last time where we
+
+00:00:48.789 --> 00:00:51.870
+are in the game and lots of different
+factors so we really need to start
+
+00:00:51.870 --> 00:00:54.820
+attacking that problem now and then
+we'll loop around at the end of this
+
+00:00:54.820 --> 00:01:00.660
+section when we start adding in user
+interface and savings scores to disk
+
+00:01:00.660 --> 00:01:03.750
+and then we'll worry about the final
+tweaks if you wanna go ahead and tweak
+
+00:01:03.750 --> 00:01:07.470
+your physics and tweak the way it behaves now
+go ahead but I would rather do that once
+
+00:01:07.470 --> 00:01:12.400
+the game is automatically resetting and
+tidying. Sso the theme of all of this is
+
+00:01:12.400 --> 00:01:16.890
+to understand scoring in ten pin bowling.
+So firstly where can you find out about
+
+00:01:16.890 --> 00:01:20.939
+it? Well I found quite useful YouTube
+video here I suggest you go and look at
+
+00:01:20.939 --> 00:01:24.320
+that it's called how to keep score in
+bowling score in bowling by Steven
+
+00:01:24.320 --> 00:01:28.540
+Anderson and he basically goes through
+in this video and takes you step-by-step
+
+00:01:28.540 --> 00:01:33.270
+through the process of the scoring
+system and he shows you here for
+
+00:01:33.270 --> 00:01:37.439
+instance if you bowl an eight in the
+first bowl of the first frame and then
+
+00:01:37.439 --> 00:01:43.430
+that little line means a spare. it means
+that you have bowled all ten in the two
+
+00:01:43.430 --> 00:01:47.000
+strike in the two bowls so now we have a
+score of 10 in the first frame which
+
+00:01:47.000 --> 00:01:49.689
+means we don't know the first frame
+score yet and so on
+
+00:01:49.689 --> 00:01:52.100
+Now he's gonna walk you through that I
+really recommend you spend the four and
+
+00:01:52.100 --> 00:01:55.530
+a half minutes watching that because
+it's a very cogent and step-by-step
+
+00:01:55.530 --> 00:02:00.659
+example. we'll also be using freeze-frame
+from this later on in the development to
+
+00:02:00.659 --> 00:02:04.170
+help us make sure that the scoring is
+going right so that's one place you can
+
+00:02:04.170 --> 00:02:07.860
+find out about scoring and other places
+you can go to are Wikipedia and help
+
+00:02:07.860 --> 00:02:12.010
+yourself get off to sleep at night by
+reading the overly detailed but
+
+00:02:12.010 --> 00:02:16.739
+very concise. well not concise at all
+but very complete
+
+00:02:16.739 --> 00:02:20.920
+indication of how scoring works here on
+Wikipedia or you can have an adventure
+
+00:02:20.920 --> 00:02:25.040
+and learn with the computer with us and
+not even get too into it now and
+
+00:02:25.040 --> 00:02:28.230
+just solve the challenges as they come
+along however you like you may already
+
+00:02:28.230 --> 00:02:32.510
+know all about ten pin bowling scoring
+so you just need an overview right now I
+
+00:02:32.510 --> 00:02:36.769
+would watch that video and then what we're
+gonna do is I'm going to ask you to draw
+
+00:02:36.769 --> 00:02:41.489
+an object communication diagram fact I'm
+going to ask you to do that in just a
+
+00:02:41.489 --> 00:02:45.760
+moment; before we do that let's just look
+at our Pinsetter script and remind
+
+00:02:45.760 --> 00:02:50.760
+yourself of the main functionality of it.
+So it raises pins. it lowers pins. it
+
+00:02:50.760 --> 00:02:54.079
+renews pins etc
+
+00:02:54.079 --> 00:02:59.940
+count standing pins but it doesn't have
+at the moment anyway for the reset or
+
+00:02:59.940 --> 00:03:03.879
+the tidy to be called from anywhere but
+the animator of these buttons we need
+
+00:03:03.879 --> 00:03:08.970
+something that can call a reset and a
+tidy so I think that the Pinsetter is
+
+00:03:08.970 --> 00:03:14.000
+going to talk to a new class which is
+going to be called the scorekeeper or
+
+00:03:14.000 --> 00:03:20.129
+the score card or the scoremaster
+maybe the best word and the question is
+
+00:03:20.129 --> 00:03:23.620
+how they gonna talk to each other so if
+we just had a scoremaster and a Pinsetter
+
+00:03:23.620 --> 00:03:27.690
+what would the communication be between them
+Well that's your challenge. I want you to draw a
+
+00:03:27.690 --> 00:03:32.209
+couple of boxes on a bit of paper for
+Pinsetter and scoremaster. I want you to
+
+00:03:32.209 --> 00:03:36.540
+draw lines for the API calls that you
+want to set up between them; i.e.
+
+00:03:36.540 --> 00:03:41.629
+what methods are called. When you decide
+what messages will be passed what public
+
+00:03:41.629 --> 00:03:45.310
+properties if any you need. and mentally
+just rehearse how it's gonna work
+
+00:03:45.310 --> 00:03:50.540
+what's the PinSetter gonna say to the
+scoremaster in order to have a sensible
+
+00:03:50.540 --> 00:03:54.040
+communication between the two of them
+here about what's going on and when the
+
+00:03:54.040 --> 00:03:57.409
+resets and tidy needs doing. Now this
+doesn't have to be perfect if you
+
+00:03:57.409 --> 00:04:01.319
+haven't a clue what to do just draw
+something down and try and get into the
+
+00:04:01.319 --> 00:04:05.290
+habit of when you're not sure about the
+way your top-level design works draw a
+
+00:04:05.290 --> 00:04:09.419
+diagram that's all I'm trying to do here
+is enforce a habit of drawing a diagram at
+
+00:04:09.419 --> 00:04:17.040
+least have a go we have covered these in
+previous sections and see how you get on
+
+00:04:17.040 --> 00:04:21.690
+so welcome back. This is what we've got. we have a very
+simple API for the score master class
+
+00:04:21.690 --> 00:04:26.580
+I've defined a public enum well. we're going to
+be defining a public enum called action
+
+00:04:26.580 --> 00:04:30.760
+which means we can explicitly say
+whether or not we should be tidying or
+
+00:04:30.760 --> 00:04:35.330
+resetting so we tidy every single bowl
+even if we have a gutter ball. because even
+
+00:04:35.330 --> 00:04:38.780
+if the ball has gone flying down the
+side it may have just clipped a pin on
+
+00:04:38.780 --> 00:04:41.630
+the end and dislodged it so we always do
+a tidy;
+
+00:04:41.630 --> 00:04:45.860
+sometimes we do a full reset depending
+on where we are in the game and the
+
+00:04:45.860 --> 00:04:49.480
+frame list thing that we're passing back
+which I'll show you in a moment we'll grow
+
+00:04:49.480 --> 00:04:54.140
+as the game progresses so the PinSetter 
+has the option to call a method called
+
+00:04:54.140 --> 00:04:59.370
+public Action Roll (int pins) on
+scoremaster so that's a method inside
+
+00:04:59.370 --> 00:05:04.070
+scoremaster and what it does is it
+passes back an action which is either reset or tidy
+
+00:05:04.070 --> 00:05:09.300
+and it takes in a number of pins so it
+just says I've rolled  3 pins and it says what I
+
+00:05:09.300 --> 00:05:14.080
+do next and Scoremaster goes well reset or
+you tidy depends where you are in the
+
+00:05:14.080 --> 00:05:17.430
+frame and the other thing that you can
+do from the outside of school master is
+
+00:05:17.430 --> 00:05:19.480
+you can get a frame list back from it
+
+00:05:19.480 --> 00:05:24.020
+a list of integers of frames but only
+completed frames only frames where the
+
+00:05:24.020 --> 00:05:28.360
+score is known now as we go through or
+if you watch that YouTube video you 'llknow
+
+00:05:28.360 --> 00:05:29.570
+what I mean by that.
+
+00:05:29.570 --> 00:05:34.470
+It's basically the concept that while
+you're scoring in bowling sometimes you
+
+00:05:34.470 --> 00:05:39.640
+don't know for a while what the score is
+gonna be so here if we bowl an eight and
+
+00:05:39.640 --> 00:05:44.890
+then a two giving us a spare or 10 in
+the first frame we don't know what the
+
+00:05:44.890 --> 00:05:48.650
+score of this frame is yet because it
+depends on what we got here in this box
+
+00:05:48.650 --> 00:05:53.250
+once that score comes in we now know
+that it's ten plus a bonus of seven which
+
+00:05:53.250 --> 00:06:00.880
+is 17. OK so we don't know the result of
+every frame immediately so our frame
+
+00:06:00.880 --> 00:06:05.660
+list is going to grow only as we get
+finalized results coming into it that's
+
+00:06:05.660 --> 00:06:08.400
+the way we're going to approach it
+that's the way I'm going to approach it
+
+00:06:08.400 --> 00:06:11.670
+for this test driven development so
+that's it really that's a quick overview
+
+00:06:11.670 --> 00:06:16.280
+of the architecture our job is going to
+be to write the ScoreMaster.cs
+
+00:06:16.280 --> 00:06:20.700
+and the approach we gonna use is test
+driven development because that allows
+
+00:06:20.700 --> 00:06:26.350
+us to write the code in a way that
+always complies with our rules and if you
+
+00:06:26.350 --> 00:06:29.800
+try and do without test driven
+development I think you'd find it tricky so
+
+00:06:29.800 --> 00:06:33.640
+we're going to use test driven development. It's also
+an incredibly useful tool in your arsenal
+
+00:06:33.640 --> 00:06:37.890
+for your ways of creating games so see you
+in the next video when we'll get cracking with
+
+00:06:37.890 --> 00:06:38.070
+it
+

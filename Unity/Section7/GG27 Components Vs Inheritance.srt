@@ -1,0 +1,926 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.010 --> 00:00:07.950
+So I've rearranged my game space here just
+to demonstrate something the next thing
+
+00:00:07.950 --> 00:00:13.350
+we want this game to do is for the
+lizard to stop and attack the stone when
+
+00:00:13.350 --> 00:00:17.789
+it gets to it but the fox wants to jump
+over it and then when both the lizard and
+
+00:00:17.789 --> 00:00:23.100
+the fox get to the gnome and the cactus at the
+back they both want to attack. So this is
+
+00:00:23.100 --> 00:00:26.600
+some abstraction we need to be doing
+here. we need - they're both attackers but
+
+00:00:26.600 --> 00:00:31.439
+they need to behave slightly differently;
+how are we going to achieve that? In this video
+
+00:00:31.439 --> 00:00:36.469
+I'm gonna talk about two different
+approaches to abstraction; talk about the
+
+00:00:36.469 --> 00:00:41.649
+benefits of a component model. and we'll
+get strike - I'll challenge you to get strike
+
+00:00:41.649 --> 00:00:46.170
+current target working. So what's the
+difference between the two different
+
+00:00:46.170 --> 00:00:47.729
+ways of doing things? Well the difference between
+
+00:00:47.729 --> 00:00:51.299
+abstraction and inheritance is as
+follows:
+
+00:00:51.299 --> 00:00:54.989
+instead of sharing code between two
+classes by having them inherit from the
+
+00:00:54.989 --> 00:01:01.260
+same class we do so by having them both
+own an instance of the same class; that's
+
+00:01:01.260 --> 00:01:04.559
+from the game programming patterns
+website and book which I highly
+
+00:01:04.559 --> 00:01:09.380
+recommend. So what we're saying here is
+that the lizard and the fox both have
+
+00:01:09.380 --> 00:01:13.060
+attacker scripts on them. you can see
+that in the inspector. what we gonna be
+
+00:01:13.060 --> 00:01:16.640
+doing is... that makes them
+both attackers. but what we gonna be
+
+00:01:16.640 --> 00:01:21.430
+doing is adding scripts called fox
+and lizard respectively to introduce their
+
+00:01:21.430 --> 00:01:26.620
+specialized behavior. So they are both
+attackers because they both have an
+
+00:01:26.620 --> 00:01:31.790
+attacker script. that's what Robert means
+when he says both of them own an instance
+
+00:01:31.790 --> 00:01:35.760
+of the same class. that's both the lizard and
+the fox having an attacker script on
+
+00:01:35.760 --> 00:01:40.790
+them. So why do it this way will let me
+show you a table. At the moment we have a
+
+00:01:40.790 --> 00:01:44.480
+fox and a lizard interacting with the
+stone. a star trophy. and a cactus - the top
+
+00:01:44.480 --> 00:01:48.430
+left of this table and we want the fox
+to jump over stones. attack star
+
+00:01:48.430 --> 00:01:53.320
+trophies and attack cacti. and we want
+to lizard to attack everything. but
+
+00:01:53.320 --> 00:01:57.390
+imagine in future that we introduce a mole
+and a jumping mole as enemies. and a land
+
+00:01:57.390 --> 00:02:03.620
+mine and a big stone as other types of
+defender then we may have more
+
+00:02:03.620 --> 00:02:06.720
+interesting behaviors for instance
+the mole may burrow under a big stone
+
+00:02:06.720 --> 00:02:10.170
+but nobody can jump over a big stone
+it's just too high;
+
+00:02:10.170 --> 00:02:15.680
+jumping mole may burrow under a big stone
+but jump over a normal stone for example
+
+00:02:15.680 --> 00:02:20.360
+- so it's a pretty dangerous guy this jumping
+mole. The cool thing about this is they're
+
+00:02:20.360 --> 00:02:24.090
+just script names fox. lizard mole.
+jumping mole. they would all be scripts
+
+00:02:24.090 --> 00:02:28.560
+you add to an attacker alongside their
+attacker script. and then you get the
+
+00:02:28.560 --> 00:02:32.450
+specialist behavior you're looking for. and then
+these other scripts we already have a
+
+00:02:32.450 --> 00:02:36.590
+stone. star trophy. cactus... and you would
+be adding land mine and big stone
+
+00:02:36.590 --> 00:02:40.880
+scripts to those defenders; you may also
+have a general defender script that ties
+
+00:02:40.880 --> 00:02:45.160
+them all together. if nothing else to
+tag them as a defender. although you could use
+
+00:02:45.160 --> 00:02:49.060
+Unity's tag. but if there's any general
+defender behavior they would all exhibit you
+
+00:02:49.060 --> 00:02:53.319
+would put it in there. So this is why
+it's so powerful because we can extend
+
+00:02:53.319 --> 00:02:56.560
+our code and our behavior without
+changing our existing code base or
+
+00:02:56.560 --> 00:03:00.440
+breaking anything. Imagine you're releasing a
+patch to your game and it introduces new
+
+00:03:00.440 --> 00:03:05.709
+enemy types. much safer to do it this way.
+So let's start thinking about setting up
+
+00:03:05.709 --> 00:03:10.280
+to do that. how are we gonna do it? Then well
+we're gonna need two different scripts.
+
+00:03:10.280 --> 00:03:14.750
+we're going to need a fox and a lizard script which
+you just simply add to these guys.
+
+00:03:14.750 --> 00:03:19.880
+you're going to want to use some on trigger
+enter 2d method inside the fox and lizard
+
+00:03:19.880 --> 00:03:24.150
+script. and then that's going to want to
+call into attacker; but I'm gonna leave
+
+00:03:24.150 --> 00:03:28.410
+all of that to you. so this is gonna be
+a big challenge for you. go ahead and
+
+00:03:28.410 --> 00:03:31.920
+have a go at it - add a fox and a lizard cs
+script for the specialized behavior.
+
+00:03:31.920 --> 00:03:37.190
+arrange for these scripts to talk to
+attacker dot cs. they can also trigger the
+
+00:03:37.190 --> 00:03:42.109
+animator directly. still no need to actually
+deal any damage. just logging that out is
+
+00:03:42.109 --> 00:03:46.650
+fine. and put your on trigger enter 2d on
+the fox and lizard; at the end of the
+
+00:03:46.650 --> 00:03:51.730
+challenge I want to see the fox and the
+lizard approach the stones. the lizard
+
+00:03:51.730 --> 00:03:56.609
+attacks the stone. the fox jumps over the
+stone. and then the fox continues on
+
+00:03:56.609 --> 00:04:00.850
+until he gets to another defender. at which
+point. like a gnome or a cactus he
+
+00:04:00.850 --> 00:04:05.250
+just attacks that. and as long as they're doing that it's
+fine; we don't need the stone to disappear.
+
+00:04:05.250 --> 00:04:14.020
+we don't need them to deal any damage yet.
+So. go for it. and I shall see you on the other side.
+
+00:04:14.020 --> 00:04:19.080
+How did you get on with that challenge?
+Well. let's take a look at how we're gonna
+
+00:04:19.080 --> 00:04:23.570
+do this then. so start off by giving the
+fox some specialist behavior - the first
+
+00:04:23.570 --> 00:04:27.210
+thing I want to happen let's say is the
+fox jumps over the stone. so let's
+
+00:04:27.210 --> 00:04:35.790
+create a new script called fox - you have
+an on trigger - void on trigger enter 2d
+
+00:04:35.790 --> 00:04:38.990
+method and we're gonna need to know what
+the collider is that he has triggered
+
+00:04:38.990 --> 00:04:46.350
+with. so let's talk about the collider 
+2d. collider. like that now the
+
+00:04:46.350 --> 00:04:49.540
+first thing I would like to do is make
+sure that this is actually happening. so
+
+00:04:49.540 --> 00:04:56.540
+debug dot log. and then we say
+something like fox collided with and
+
+00:04:56.540 --> 00:05:01.160
+then plus collider; so let's just see if
+the fox collides. but before we get too
+
+00:05:01.160 --> 00:05:04.950
+excited about the fox colliding with
+anything let's make sure he can collide
+
+00:05:04.950 --> 00:05:09.930
+with something; he has on him... what does
+he have. he has a box collider but he's
+
+00:05:09.930 --> 00:05:14.370
+moving. so if he's moving he's going to need
+a rigid body on him as well now
+
+00:05:14.370 --> 00:05:17.680
+previously we did that in script this
+time I'm gonna do it the other way I'm
+
+00:05:17.680 --> 00:05:24.290
+going to do it by adding a rigid body
+and making that rigid body kinematic so
+
+00:05:24.290 --> 00:05:27.680
+he has a kinematic rigid body
+collider. you always need that when something's moving.
+
+00:05:27.680 --> 00:05:32.460
+and then I'm gonna move that up next to
+the collider they kind of go together. So we
+
+00:05:32.460 --> 00:05:38.320
+have a 2D box collider with kinematic
+rigid body on it which makes it a rigid
+
+00:05:38.320 --> 00:05:43.680
+body trigger collider; kinematic rigid
+body trigger collided. OK. that's good
+
+00:05:43.680 --> 00:05:47.600
+now let's just check the thing he's going to
+collide with which is a gravestone. put this at the
+
+00:05:47.600 --> 00:05:52.760
+top. what's that got on it? Just a box
+collider that's a trigger. Good. so the fox now should
+
+00:05:52.760 --> 00:05:57.110
+collide with the grave stone. let's make
+sure that happened. in terms of the log
+
+00:05:57.110 --> 00:06:01.750
+entries. gravestone trigger enter fox
+collided with axe... lots of triggers. so
+
+00:06:01.750 --> 00:06:07.050
+let me just turn off the maximize on
+play. get a better look at the console.
+
+00:06:07.050 --> 00:06:14.200
+what we're looking for is fox collided
+with gravestone. there you go. so the fox is
+
+00:06:14.200 --> 00:06:17.320
+colliding with a gravestone. Let's not
+worry about all these other triggers. all these
+
+00:06:17.320 --> 00:06:20.600
+other events for now. we need to
+intercept the fact the fox collided with
+
+00:06:20.600 --> 00:06:25.050
+the grave stone and then get him to jump
+over the grave stone
+
+00:06:25.050 --> 00:06:29.870
+using the jump trigger. OK so the first
+thing I want to do is to pull off the
+
+00:06:29.870 --> 00:06:34.129
+game objects from the collider. so let's
+be clear on what's happening here. There is a
+
+00:06:34.129 --> 00:06:38.030
+message being called on the fox because
+its trigger collider has been entered.
+
+00:06:38.030 --> 00:06:42.259
+Into that is being passed the collider
+of the other object. the thing it's
+
+00:06:42.259 --> 00:06:46.590
+collided with. so in this case it's
+collided with a gravestone. So what I want to
+
+00:06:46.590 --> 00:06:50.729
+create myself is a GameObject
+ready to take that gravestone and let's
+
+00:06:50.729 --> 00:06:51.360
+call it
+
+00:06:51.360 --> 00:06:55.740
+obj just for now. just for simplicity. and
+brevity it's the object that it has
+
+00:06:55.740 --> 00:07:02.469
+collided with; and it equals collider dot 
+game object so when this fox hits the stone
+
+00:07:02.469 --> 00:07:10.870
+obj will be the actual gravestone
+object. Great. alright now
+
+00:07:10.870 --> 00:07:14.610
+first thing we need to do is say well we
+only gonna do anything if I've actually
+
+00:07:14.610 --> 00:07:18.379
+collided with a defender. Say I've collided
+with a projectile. or I've collided with
+
+00:07:18.379 --> 00:07:19.270
+something else
+
+00:07:19.270 --> 00:07:23.930
+another attacker I don't do anything so
+the way we can do that is we can say if
+
+00:07:23.930 --> 00:07:35.199
+obj dot get component and then defender. and its
+nice and strong. now you could use tags but
+
+00:07:35.199 --> 00:07:38.169
+this is much stronger because it
+actually going to check this at
+
+00:07:38.169 --> 00:07:43.150
+compile-time all of our defenders have
+got a defender script on them right so
+
+00:07:43.150 --> 00:07:46.930
+if our gravestone has to have a
+defender script on it then why not just
+
+00:07:46.930 --> 00:07:50.210
+look for that as the indication. 
+remember back to my slide
+
+00:07:50.210 --> 00:07:54.830
+look here. This matrix is saying how do
+we know that it's a stone? Well because
+
+00:07:54.830 --> 00:08:00.090
+it has the grave stone script on it. How do
+we know it's a defender in general?
+
+00:08:00.090 --> 00:08:02.509
+Because it has a defender script on
+it; how do we know it's a lizard? Because it has a
+
+00:08:02.509 --> 00:08:08.930
+lizard script on it. you get the idea. So
+if obj dot get component defender - if that is
+
+00:08:08.930 --> 00:08:15.840
+true then what do we do? Well. actually we
+want an abort condition at the top. so if
+
+00:08:15.840 --> 00:08:20.349
+it's not a defender then we return. we
+just get out of here
+
+00:08:20.349 --> 00:08:25.740
+OK if you're not sure what that does just put
+a comment in; abort or leave the method
+
+00:08:25.740 --> 00:08:31.889
+if not colliding with defender.
+
+00:08:31.889 --> 00:08:35.050
+OK cool. so we just get out of there if we're not
+colliding with a defender. How about if we
+
+00:08:35.050 --> 00:08:39.589
+are colliding with a defender? Well you
+could move this debug log code below
+
+00:08:39.589 --> 00:08:44.339
+here to find out that that is working
+correctly. ok. now let's try that - now we
+
+00:08:44.339 --> 00:08:48.700
+should only beginning log entries of the
+fox colliding with defenders; so
+
+00:08:48.700 --> 00:08:52.800
+previously it was colliding with the
+gravestone. and the axe. and other things
+
+00:08:52.800 --> 00:08:58.510
+let's try again now. Don't worry about any
+errors for now. but what we're looking
+
+00:08:58.510 --> 00:09:02.769
+for is for fox colliding with the gravestone but no
+axe; it's not colliding with the axes.
+
+00:09:02.769 --> 00:09:07.420
+So when we talked about collision
+detection and collision matrices and things
+
+00:09:07.420 --> 00:09:15.540
+in code. we've already started doing that here. Hopefully that makes sense to you. OK. so now we go
+
+00:09:15.540 --> 00:09:23.440
+for the specialized fox behavior. we say
+if object dot get component... just gonna copy
+
+00:09:23.440 --> 00:09:24.060
+from above...
+
+00:09:24.060 --> 00:09:30.310
+Now what? If it collides with the
+stone then we have some special behavior.
+
+00:09:30.310 --> 00:09:37.180
+what do we do if it collides with the stone?
+Well we're gonna go straight to the
+
+00:09:37.180 --> 00:09:44.110
+animator and trigger a jump animation.
+why not? So what we need here of course
+
+00:09:44.110 --> 00:09:49.130
+is the stones to have themselves a stone
+script on them even if the gravestone
+
+00:09:49.130 --> 00:09:53.579
+script doesn't do anything else but tell
+us that we're dealing with a gravestone
+
+00:09:53.579 --> 00:09:59.760
+we need that so on the prefabs for the
+stones rather than just tagging it with
+
+00:09:59.760 --> 00:10:04.940
+stone or anything. let's actually give it
+a new script called stone; it's much
+
+00:10:04.940 --> 00:10:09.410
+stronger. it can be checked at compile time
+apart from anything else.
+
+00:10:09.410 --> 00:10:14.870
+Tidy up our scripts. now if you're back in here
+
+00:10:14.870 --> 00:10:20.260
+get component stone will actually work;
+so if that happens we need to animator .
+
+00:10:20.260 --> 00:10:25.140
+set trigger then the jump trigger;
+remember over in the animator for the
+
+00:10:25.140 --> 00:10:30.750
+fox let's take a look at the fox
+look at his animator. how does he get into
+
+00:10:30.750 --> 00:10:36.490
+jump? He gets into jump because we've got a
+jump trigger. so we need
+
+00:10:36.490 --> 00:10:40.089
+to set that trigger from code. so how do
+we do that? Well we need to talk to the animator.
+
+00:10:40.089 --> 00:10:49.899
+let's find the animator first. so at the
+class level we're gonna need the animator. OK.
+
+00:10:49.899 --> 00:11:02.680
+and then we need to find that animator
+on start; ok so we've gone and found the animator
+
+00:11:02.680 --> 00:11:04.260
+we have access to the animator now as anim.
+
+00:11:04.260 --> 00:11:10.160
+. now how do you do this set trigger? Well
+it's set trigger. and then what do you
+
+00:11:10.160 --> 00:11:15.820
+give it? Well it just wants an id or a
+string. and we called it jump trigger as a
+
+00:11:15.820 --> 00:11:22.060
+string; so if it collides with the stone. jump
+else what are we gonna do? Well if it doesn't
+
+00:11:22.060 --> 00:11:26.930
+collide with a stone then we just want it
+to attack; so let's have a way of talking
+
+00:11:26.930 --> 00:11:32.830
+to the attacker and saying attacker .
+attack alright? So how are we gonna talk to the
+
+00:11:32.830 --> 00:11:39.160
+attacker? Well firstly here's a new thing for
+you. require component: if fox's always
+
+00:11:39.160 --> 00:11:44.790
+rely on an attacker here's an annotation
+for you that's incredibly useful. require
+
+00:11:44.790 --> 00:11:51.670
+component bracket type of brackets
+attacker and the reason we're doing that
+
+00:11:51.670 --> 00:11:55.529
+is because the fox makes no
+sense without an attacker. the fox is a
+
+00:11:55.529 --> 00:11:59.480
+specialization of the attacker behaviour
+so we must have an attacker component so
+
+00:11:59.480 --> 00:12:03.060
+this require component is a protection
+mechanism; what it means is that in
+
+00:12:03.060 --> 00:12:08.839
+future if we ever add a fox dot cs
+script to a GameObject then at that time
+
+00:12:08.839 --> 00:12:12.390
+when we add it in the inspector unity will
+check to see if we've also got an
+
+00:12:12.390 --> 00:12:17.130
+attacker. and if we haven't it will add
+an attacker component for us. let's make
+
+00:12:17.130 --> 00:12:23.529
+sure we do. here's our fox. he has both an
+attacker and a fox script. we're good. Now we
+
+00:12:23.529 --> 00:12:29.190
+need to find that attacker. so we're gonna
+need a private attacker. and this is the
+
+00:12:29.190 --> 00:12:33.640
+general pattern when you use components
+here. and then in the start you need to
+
+00:12:33.640 --> 00:12:38.250
+go find that attacker. Why don't you do that
+right now? Why don't you go find that
+
+00:12:38.250 --> 00:12:45.360
+attacker now? It's very simple. very similar to
+the line above. Go ahead. do it without me OK
+
+00:12:45.360 --> 00:12:52.560
+so it's just a standard get component again.
+OK perfect so we have our attacker
+
+00:12:52.560 --> 00:12:57.410
+available now. so what are we gonna do if
+we're not encountering a stone in all
+
+00:12:57.410 --> 00:13:03.399
+other cases if we look back at our
+matrix when a fox meets anything else
+
+00:13:03.399 --> 00:13:08.430
+apart from a stone it attacks. so why don't we
+pretend we have a method called attacker dot
+
+00:13:08.430 --> 00:13:14.120
+attack and just pass in the object -
+moving quite quickly here to get this
+
+00:13:14.120 --> 00:13:17.910
+finished off and keep the video short.
+you can always rewind if you need to. let's go
+
+00:13:17.910 --> 00:13:25.350
+over to attacker and make this attack
+method public void attack. and it doesn't
+
+00:13:25.350 --> 00:13:30.370
+need to... it takes in actually sorry
+a GameObject
+
+00:13:30.370 --> 00:13:33.329
+OK so let's be clear on what the difference between attack
+
+00:13:33.329 --> 00:13:38.940
+and strike current target is; attack puts the
+attacker into attack mode strike current
+
+00:13:38.940 --> 00:13:50.079
+target is called from the animator at
+the time of the actual attack. At the
+
+00:13:50.079 --> 00:13:53.860
+time of the actual blow. alright but we
+need to know what the current target is
+
+00:13:53.860 --> 00:13:58.220
+so one thing we're going to need up here
+is the current target; so by the way we
+
+00:13:58.220 --> 00:14:01.440
+don't need the current speed or its
+range to be publicly exposed in the
+
+00:14:01.440 --> 00:14:03.649
+attacker anymore so make it private
+
+00:14:03.649 --> 00:14:10.910
+I'm also gonna have myself a private
+game object current target so the
+
+00:14:10.910 --> 00:14:15.360
+attacker is always keeping track of the
+current target; who is he supposed to be
+
+00:14:15.360 --> 00:14:23.279
+attacking. so what do we do on this
+attack thing? Well it's relatively simple
+
+00:14:23.279 --> 00:14:27.110
+we're just firstly going to set the
+current target to the thing that's been
+
+00:14:27.110 --> 00:14:35.250
+passed in. so in this case the fox has
+hit the stone and then it has passed the
+
+00:14:35.250 --> 00:14:42.930
+stone in here as an object and we just
+say obj. like that OK. so now the current
+
+00:14:42.930 --> 00:14:46.399
+target becomes the object. we'll use the
+current target and strike current target
+
+00:14:46.399 --> 00:14:50.149
+in a different video. the other thing we
+need to do is signal the animator to
+
+00:14:50.149 --> 00:14:55.510
+change its state so we're going to need
+the animator in here to
+
+00:14:55.510 --> 00:15:01.400
+have access to the animator. possibly
+in here or in the fox. possibly in
+
+00:15:01.400 --> 00:15:05.810
+both; in fact as we've already got access
+to the animator inside the fox why don't
+
+00:15:05.810 --> 00:15:12.080
+we just attacker dot attack with a
+capital A and then immediately before
+
+00:15:12.080 --> 00:15:17.120
+that... before that lets say. let's
+put the animator into a different
+
+00:15:17.120 --> 00:15:28.650
+state animator . set bool is attacking
+to true; so this script says if I hit a
+
+00:15:28.650 --> 00:15:34.440
+stone then jump. otherwise set the
+attacking state to true and then tell
+
+00:15:34.440 --> 00:15:37.940
+the attacker to go into attack mode and
+then the attacker does the general
+
+00:15:37.940 --> 00:15:41.460
+handling of attack. which at the moment
+just sets the current target. Let's see
+
+00:15:41.460 --> 00:15:49.260
+what the behaviour is for now with this
+fox; fox walks along. hits a stone. jumps
+
+00:15:49.260 --> 00:15:53.200
+and then carries on walking. Beautiful. all we need
+to do is get the behaviour into the lizard.
+
+00:15:53.200 --> 00:15:57.930
+Now the lizard is going to be relatively simple
+because he's very very similar to the
+
+00:15:57.930 --> 00:16:03.180
+fox. he just has one small difference. So
+let's take the fox's code; all of the
+
+00:16:03.180 --> 00:16:11.390
+fox's code. copy it. go to your lizard. add
+yourself a component called lizard.
+
+00:16:11.390 --> 00:16:20.500
+a lizard script; go into to your lizard script
+
+00:16:20.500 --> 00:16:28.090
+Also tidying the scripts as you go while we wait for
+it to open... scripts / lizard. put all of your
+
+00:16:28.090 --> 00:16:34.310
+fox code into the lizard. rename the
+class at the top immediately to match
+
+00:16:34.310 --> 00:16:39.640
+the filename. now it still needs an
+animator it still needs the concept of
+
+00:16:39.640 --> 00:16:43.240
+an attacker that it's going to be
+talking to what it doesn't have is
+
+00:16:43.240 --> 00:16:49.410
+anything about jumping over a stone.
+Basically all the lizard does is attack
+
+00:16:49.410 --> 00:16:53.260
+so basically if it's not a defender it's
+meeting it leaves in the same way. but
+
+00:16:53.260 --> 00:16:54.770
+otherwise it just
+
+00:16:54.770 --> 00:16:58.800
+attacks straight away. so we don't need
+this stuff about the stone and that is
+
+00:16:58.800 --> 00:17:05.030
+reflected in the table that we have over
+in our slide. if you have a look at the
+
+00:17:05.030 --> 00:17:11.850
+lizard and its behaviour is just attacks any
+defender. so we say if it's not a defender.
+
+00:17:11.850 --> 00:17:15.690
+get out of here and then otherwise you
+just attack it. and let's get just rid of the
+
+00:17:15.690 --> 00:17:20.230
+debug statements and you have a very simple
+lizard specialization and I'm going to
+
+00:17:20.230 --> 00:17:24.410
+get rid of the debug statement in fox.
+let's just check this all works and
+
+00:17:24.410 --> 00:17:30.960
+we'll close up this video... so
+lizard comes in. fox comes in and jumps.
+
+00:17:30.960 --> 00:17:34.750
+liard comes in and does not start
+attacking. so why is the lizard not
+
+00:17:34.750 --> 00:17:40.220
+attacking? So if we look at the lizard he
+doesn't have a rigid body on him. let's
+
+00:17:40.220 --> 00:17:44.340
+just do this a different way once
+and for all. let's have a rigid body on
+
+00:17:44.340 --> 00:17:45.810
+the fox as well.
+
+00:17:45.810 --> 00:17:49.390
+but lets just require the component in the
+script instead of adding rigid bodies in
+
+00:17:49.390 --> 00:17:53.650
+the start let's take another approach to
+this which is just that we say. all
+
+00:17:53.650 --> 00:17:59.780
+attackers require. because they moving.
+require component type of rigid body
+
+00:17:59.780 --> 00:18:05.070
+and that's just going to make sure that
+we require a rigid body 2d in all of our
+
+00:18:05.070 --> 00:18:13.000
+attackers and then we go back over here
+and try running...
+
+00:18:13.000 --> 00:18:19.970
+OK parameter is attacking does not exist
+in the lizard. so animator set bool is
+
+00:18:19.970 --> 00:18:23.770
+attacking and that's just because of the
+way I've spelt it. If you have a look
+
+00:18:23.770 --> 00:18:28.560
+over in the animator you'll find that we have
+is attacking with a capital A for the
+
+00:18:28.560 --> 00:18:32.900
+lizard and then the fox has is attacking
+with a capital A as well for some reason
+
+00:18:32.900 --> 00:18:36.980
+the fox's script has accepted is
+attacking like that. where I actually
+
+00:18:36.980 --> 00:18:41.780
+want is attacking. we never actually
+waited 'til the fox got to attacking. so
+
+00:18:41.780 --> 00:18:45.550
+change it to is attacking spelt properly.
+and let's finally have a look at this.
+
+00:18:45.550 --> 00:18:52.020
+it should work; getting no errors logged
+now. there you go. the lizard stops and
+
+00:18:52.020 --> 00:18:58.740
+attacks. the fox jumps the stone and
+let's just watch him get to the end. and
+
+00:18:58.740 --> 00:19:05.420
+he will attack the gnome with any luck.
+OK let's try that again. lizard stops and
+
+00:19:05.420 --> 00:19:08.660
+attacks. we'll sort out the collision
+distances between the lizard and the
+
+00:19:08.660 --> 00:19:12.870
+stone in a further refinement. everything
+coming up on the log are just triggers.
+
+00:19:12.870 --> 00:19:18.090
+and then when the fox hits the gnome.
+provided we spell the trigger correctly...
+
+00:19:18.090 --> 00:19:22.080
+great he sits there and just does
+damage. No damage actually being caused
+
+00:19:22.080 --> 00:19:27.790
+yet but we have got the behavior we want.
+Long video! It's time to take stock for the
+
+00:19:27.790 --> 00:19:28.910
+evening I think. see you soon.
+

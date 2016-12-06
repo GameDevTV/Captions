@@ -1,0 +1,650 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hey. welcome back! So. the next thing we need to
+
+2
+00:00:06.000 --> 00:00:09.000
+do is. add a ball to our scene. I think. and then. we can
+
+3
+00:00:09.000 --> 00:00:12.000
+pop a ball in the middle here. And we're going to arrange for a little bit of
+
+4
+00:00:12.000 --> 00:00:15.000
+gravity to pull it down. so that it falls out the bottom of the
+
+5
+00:00:15.000 --> 00:00:18.000
+play space. So. let's start with that.
+
+6
+00:00:18.000 --> 00:00:21.000
+So. you've got your assets. in the assets that we gave
+
+7
+00:00:21.000 --> 00:00:24.000
+you to download. or go and find your own ball image.
+
+8
+00:00:24.000 --> 00:00:27.000
+My Block Breaker assets are
+
+9
+00:00:27.000 --> 00:00:30.000
+here. So. a little
+
+10
+00:00:30.000 --> 00:00:33.000
+simple mini challenge for you. I want you to add this ball to the
+
+11
+00:00:33.000 --> 00:00:36.000
+play space. as follows.
+
+12
+00:00:36.000 --> 00:00:39.000
+Number 1. import the ball sprite into the Sprites Folder.
+
+13
+00:00:39.000 --> 00:00:42.000
+Play with the sensible Pixels Per Unit yourself.
+
+14
+00:00:42.000 --> 00:00:45.000
+to get the scale of that ball right. and then.
+
+15
+00:00:45.000 --> 00:00:48.000
+place the ball right in the middle. precisely in the middle of the play
+
+16
+00:00:48.000 --> 00:00:51.000
+space. So. go ahead. pause the video and do that now.
+
+17
+00:00:51.000 --> 00:00:54.000
+See you in a second.
+
+18
+00:00:54.000 --> 00:00:57.000
+Fantastic! So. this is how I'm doing it. I'm popping the ball
+
+19
+00:00:57.000 --> 00:01:00.000
+in the Sprites Folder. The ball. at the
+
+20
+00:01:00.000 --> 00:01:03.000
+moment. is just a sprite. Now. we don't know whether 100
+
+21
+00:01:03.000 --> 00:01:06.000
+is a suitable pixels per unit. so I'm going to drop the
+
+22
+00:01:06.000 --> 00:01:09.000
+ball where I want it. in the scene. roughly in the middle here and then have a
+
+23
+00:01:09.000 --> 00:01:12.000
+look. Now. that ball is firstly very not visible
+
+24
+00:01:12.000 --> 00:01:15.000
+and secondly. not very big. so I'm going to try going
+
+25
+00:01:15.000 --> 00:01:18.000
+upwards or downwards. with the pixels per world unit.
+
+26
+00:01:18.000 --> 00:01:21.000
+but if I go less pixels per
+
+27
+00:01:21.000 --> 00:01:24.000
+unit. that thing will get bigger. and actually let me show you a trick here.
+
+28
+00:01:24.000 --> 00:01:27.000
+If you hover your mouse over the word Pixels Per World Unit. you'll see that
+
+29
+00:01:27.000 --> 00:01:30.000
+you can drag left and right. It doesn't have much of an effect here.
+
+30
+00:01:30.000 --> 00:01:33.000
+because it doesn't update immediately. but that's a useful facility
+
+31
+00:01:33.000 --> 00:01:36.000
+in the Editor. I'm going to try 50
+
+32
+00:01:36.000 --> 00:01:39.000
+and apply. There you go. the ball has doubled in
+
+33
+00:01:39.000 --> 00:01:42.000
+size. I'm actually going to throttle back my background
+
+34
+00:01:42.000 --> 00:01:45.000
+image a little more. so it's darker.
+
+35
+00:01:45.000 --> 00:01:48.000
+Ah. there you go. the ball is clearer now.
+
+36
+00:01:48.000 --> 00:01:51.000
+Fantastic! So. that's stage 1. We
+
+37
+00:01:51.000 --> 00:01:54.000
+have a ball in the scene. I just want to make it precisely
+
+38
+00:01:54.000 --> 00:01:57.000
+in the middle. So. what is the middle? Well. explore the space 16
+
+39
+00:01:57.000 --> 00:02:00.000
+wide by 12 high. so it must
+
+40
+00:02:00.000 --> 00:02:03.000
+be 8. 6.
+
+41
+00:02:03.000 --> 00:02:06.000
+Perfect! Ball in the middle of the scene. as planned.
+
+42
+00:02:06.000 --> 00:02:09.000
+OK. now the next thing we want to do. if we play the game.
+
+43
+00:02:09.000 --> 00:02:12.000
+you'll notice
+
+44
+00:02:12.000 --> 00:02:15.000
+that the ball just sits there. We want it to fall
+
+45
+00:02:15.000 --> 00:02:18.000
+out the bottom of the screen. and actually we want that to trigger the Game Over.
+
+46
+00:02:18.000 --> 00:02:21.000
+at some point. So. let's start by. how do we make the ball
+
+47
+00:02:21.000 --> 00:02:24.000
+fall. Well. it needs some physics. it needs to have a component
+
+48
+00:02:24.000 --> 00:02:27.000
+on it. called a Rigidbody. The first thing I'm going to do is
+
+49
+00:02:27.000 --> 00:02:30.000
+just rename the ball. with a capital B. just to be tidy.
+
+50
+00:02:30.000 --> 00:02:33.000
+and then. I'm going to add a component. Physics
+
+51
+00:02:33.000 --> 00:02:36.000
+2D Rigidbody2D.
+
+52
+00:02:36.000 --> 00:02:39.000
+What's a Rigidbody? Well. the best way to find out is to look at it.
+
+53
+00:02:39.000 --> 00:02:42.000
+You can straightaway see that it has to do with its Mass
+
+54
+00:02:42.000 --> 00:02:45.000
+and its Drag and its Gravity Scale.
+
+55
+00:02:45.000 --> 00:02:48.000
+What's the mass unit? Well. it's unitless really. but if
+
+56
+00:02:48.000 --> 00:02:51.000
+you consider that one unit is a kilogram. then that's a
+
+57
+00:02:51.000 --> 00:02:54.000
+reasonable starting point.
+
+58
+00:02:54.000 --> 00:02:57.000
+Excuse me. We're not going to worry about drag or angular drag right
+
+59
+00:02:57.000 --> 00:03:00.000
+now. Gravity Scale of 1.
+
+60
+00:03:00.000 --> 00:03:03.000
+let's try it let's see what happens. click play.
+
+61
+00:03:03.000 --> 00:03:06.000
+There it goes! The ball falls
+
+62
+00:03:06.000 --> 00:03:09.000
+out the bottom of the scene. That's fantastic! So. that is a
+
+63
+00:03:09.000 --> 00:03:12.000
+great start! So. what we want to do now
+
+64
+00:03:12.000 --> 00:03:15.000
+is have some way of that ball
+
+65
+00:03:15.000 --> 00:03:18.000
+triggering the end of the level. rather than us having to
+
+66
+00:03:18.000 --> 00:03:21.000
+click the Game Over Button.
+
+67
+00:03:21.000 --> 00:03:24.000
+And while you're here. by the way. you'll notice we have
+
+68
+00:03:24.000 --> 00:03:27.000
+some work to do on this screen but that's fine.
+
+69
+00:03:27.000 --> 00:03:30.000
+Rather than clicking Game Over. we want the ball to do that work for us.
+
+70
+00:03:30.000 --> 00:03:33.000
+So. let's at least get the ball to log to the
+
+71
+00:03:33.000 --> 00:03:36.000
+Console. when it falls off the bottom of the screen. How are we going to do
+
+72
+00:03:36.000 --> 00:03:39.000
+that? Well. we need something called a collider. What's
+
+73
+00:03:39.000 --> 00:03:42.000
+a collider? We're going to cover that in different videos.
+
+74
+00:03:42.000 --> 00:03:45.000
+in detail. but I'm going to give an overview here. So
+
+75
+00:03:45.000 --> 00:03:48.000
+firstly. the ball will need a collider on it. It is a
+
+76
+00:03:48.000 --> 00:03:51.000
+physical body. now it has a Rigidbody. but it has no
+
+77
+00:03:51.000 --> 00:03:54.000
+collider. Go and find the collider. under Physic 2D.
+
+78
+00:03:54.000 --> 00:03:57.000
+Circle Collider 2D. if you zoom right in.
+
+79
+00:03:57.000 --> 00:04:00.000
+I'm rolling my mouse button to do that. you'll see that this is fitted Itself
+
+80
+00:04:00.000 --> 00:04:03.000
+quite well to the size of the
+
+81
+00:04:03.000 --> 00:04:06.000
+ball. You could change the radius using that technique perhaps.
+
+82
+00:04:06.000 --> 00:04:09.000
+I showed you before. you click in the Inspector
+
+83
+00:04:09.000 --> 00:04:12.000
+on the word Radius and hold the mouse button. Then. move left and right
+
+84
+00:04:12.000 --> 00:04:15.000
+slowly. and you'll see that the radius changes.
+
+85
+00:04:15.000 --> 00:04:18.000
+But about 0.2 isn't far off
+
+86
+00:04:18.000 --> 00:04:21.000
+at all. and that green circle
+
+87
+00:04:21.000 --> 00:04:24.000
+is the extent of this thing. called a collider.
+
+88
+00:04:24.000 --> 00:04:27.000
+That's fine. we want it just like that. it's not going to be a trigger actually.
+
+89
+00:04:27.000 --> 00:04:30.000
+because the ball is going to physically collide with things.
+
+90
+00:04:30.000 --> 00:04:33.000
+So. the difference with a trigger... Well. let's look at their docs. remember you can hit.
+
+91
+00:04:33.000 --> 00:04:36.000
+what I just did there was hit the Blue Book. So.
+
+92
+00:04:36.000 --> 00:04:39.000
+hit the Blue Book. to go to the docs. and it'll tell you.
+
+93
+00:04:39.000 --> 00:04:42.000
+What's a trigger? Does the collider behave as a trigger? Not particularly
+
+94
+00:04:42.000 --> 00:04:45.000
+helpful. So. let me tell you what a trigger is. A trigger is
+
+95
+00:04:45.000 --> 00:04:48.000
+something that is going to ignore the Physics Engine.
+
+96
+00:04:48.000 --> 00:04:51.000
+OK. the moment you click that. it would no longer collide and
+
+97
+00:04:51.000 --> 00:04:54.000
+actually appear to hit things. So in the case of the ball. we do want it
+
+98
+00:04:54.000 --> 00:04:57.000
+to actually hit things and exhibit physics.
+
+99
+00:04:57.000 --> 00:05:00.000
+So. that's one half of the puzzle. of making this
+
+100
+00:05:00.000 --> 00:05:03.000
+ball trigger a new level. It's still just going to fall out the bottom. when we click
+
+101
+00:05:03.000 --> 00:05:06.000
+play. because it's got nothing to
+
+102
+00:05:06.000 --> 00:05:09.000
+trigger with. Colliders work by hitting other
+
+103
+00:05:09.000 --> 00:05:12.000
+colliders. In fact. I've got a slide prepared for you.
+
+104
+00:05:12.000 --> 00:05:15.000
+that talks about colliders. Give me one moment to find that.
+
+105
+00:05:15.000 --> 00:05:18.000
+There you go! What is a collider? It's a component that
+
+106
+00:05:18.000 --> 00:05:21.000
+defines "the shape of an object. for the purposes of physical collisions."
+
+107
+00:05:21.000 --> 00:05:24.000
+"A collider. which is invisible. need not be the exact same shape as the object's."
+
+108
+00:05:24.000 --> 00:05:27.000
+And there's a link there to Unity's docs. on colliders.
+
+109
+00:05:27.000 --> 00:05:30.000
+The point is. you need two colliders. so
+
+110
+00:05:30.000 --> 00:05:33.000
+let's add a second one. Create yourself an
+
+111
+00:05:33.000 --> 00:05:36.000
+empty GameObject.
+
+112
+00:05:36.000 --> 00:05:39.000
+I'm going to call it.
+
+113
+00:05:39.000 --> 00:05:42.000
+LooseCollider. I think.
+
+114
+00:05:42.000 --> 00:05:45.000
+[Typing Sound]
+
+115
+00:05:45.000 --> 00:05:48.000
+[Screeching Record Sound] No! That's not how you spell
+
+116
+00:05:48.000 --> 00:05:51.000
+Lose! That's Loose you numpty. Oh.
+
+117
+00:05:51.000 --> 00:05:54.000
+well sorry. but it's going to stay like that until the end
+
+118
+00:05:54.000 --> 00:05:57.000
+of this section. where I will correct it. It's not possible to
+
+119
+00:05:57.000 --> 00:06:00.000
+change it in every single video. without re-recording the whole lot. which would be
+
+120
+00:06:00.000 --> 00:06:03.000
+crazy. And at the moment. this is nothing right. This
+
+121
+00:06:03.000 --> 00:06:06.000
+thing is just a transform. a GameObject.
+
+122
+00:06:06.000 --> 00:06:09.000
+But we're going to add
+
+123
+00:06:09.000 --> 00:06:12.000
+to it another component. which is that collider again. This time.
+
+124
+00:06:12.000 --> 00:06:15.000
+a Box Collider. and this will all come clear in a minute.
+
+125
+00:06:15.000 --> 00:06:18.000
+Look if we make the size in X 16.
+
+126
+00:06:18.000 --> 00:06:21.000
+because that's the width of our
+
+127
+00:06:21.000 --> 00:06:24.000
+play space. and then. if we move this thing
+
+128
+00:06:24.000 --> 00:06:27.000
+down to a position at the bottom of the screen.
+
+129
+00:06:27.000 --> 00:06:30.000
+you could put it at a Y of 0. It would probably do.
+
+130
+00:06:30.000 --> 00:06:33.000
+Preferably. just
+
+131
+00:06:33.000 --> 00:06:36.000
+below our play space actually. so maybe a Y of minus
+
+132
+00:06:36.000 --> 00:06:39.000
+a half or something. Maybe even minus
+
+133
+00:06:39.000 --> 00:06:42.000
+1. depending on the width. the vertical width
+
+134
+00:06:42.000 --> 00:06:45.000
+of your collider here. Well. actually it doesn't depend. because of where the
+
+135
+00:06:45.000 --> 00:06:48.000
+anchor is. you can have as big a collider as you like look.
+
+136
+00:06:48.000 --> 00:06:51.000
+And the anchor point of the collider stays there.
+
+137
+00:06:51.000 --> 00:06:54.000
+So. I'm going to have a collider that's 16 wide by 1 height
+
+138
+00:06:54.000 --> 00:06:57.000
+and that sits at a Transform Position of 8. -1 there.
+
+139
+00:06:57.000 --> 00:07:00.000
+OK. and this one is a trigger.
+
+140
+00:07:00.000 --> 00:07:03.000
+because we don't want the things staying on this.
+
+141
+00:07:03.000 --> 00:07:06.000
+Well. actually it kind of. in this case
+
+142
+00:07:06.000 --> 00:07:09.000
+it doesn't matter. Firstly. let's look at the behavior. what happens to this ball.
+
+143
+00:07:09.000 --> 00:07:12.000
+Well. in this view you can't see it.
+
+144
+00:07:12.000 --> 00:07:15.000
+so what we want to do is hit pause. then play.
+
+145
+00:07:15.000 --> 00:07:18.000
+Now. go back. Now.
+
+146
+00:07:18.000 --> 00:07:21.000
+once it's playing. make sure you're on the Scene View and un-pause.
+
+147
+00:07:21.000 --> 00:07:24.000
+You see the ball passes straight through
+
+148
+00:07:24.000 --> 00:07:27.000
+the bottom of the play space. That's
+
+149
+00:07:27.000 --> 00:07:30.000
+tricky to see. so what you might need to do is move your Game Tab next
+
+150
+00:07:30.000 --> 00:07:33.000
+to your Scene Tab. like that. Try this.
+
+151
+00:07:33.000 --> 00:07:36.000
+watch what happens. The ball passes
+
+152
+00:07:36.000 --> 00:07:39.000
+straight down through that collider. which is fine. If this
+
+153
+00:07:39.000 --> 00:07:42.000
+Lose Collider was not of type trigger.
+
+154
+00:07:42.000 --> 00:07:45.000
+try and see what happens now.
+
+155
+00:07:45.000 --> 00:07:48.000
+You see it lands on it and just stays
+
+156
+00:07:48.000 --> 00:07:51.000
+there. So. actually either of those behaviors would work
+
+157
+00:07:51.000 --> 00:07:54.000
+for this. because at the end of the day all we're trying to do
+
+158
+00:07:54.000 --> 00:07:57.000
+is trigger the loading of a new level. when this
+
+159
+00:07:57.000 --> 00:08:00.000
+happens. So. that's an overview
+
+160
+00:08:00.000 --> 00:08:03.000
+of how we're going to get the ball to trigger the new level. And we'll go
+
+161
+00:08:03.000 --> 00:08:06.000
+into detail about how we handle it from there. in script
+
+162
+00:08:06.000 --> 00:08:07.633
+shortly.
+

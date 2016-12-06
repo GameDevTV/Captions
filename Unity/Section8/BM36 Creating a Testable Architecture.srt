@@ -1,0 +1,1067 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:08.090
+Hey. welcome to the third part of this
+section so we're gonna be talking
+
+00:00:08.090 --> 00:00:14.509
+about creating a testable architecture
+now we'll be taking the time to refactor
+
+00:00:14.509 --> 00:00:18.859
+our code because we need to step back and
+think about the strategy for a moment
+
+00:00:18.859 --> 00:00:22.560
+while we're talking about strategy I'm
+going to share some of my thoughts on
+
+00:00:22.560 --> 00:00:30.019
+being your own boss. we will then take a
+look at our current architecture. decide
+
+00:00:30.019 --> 00:00:35.100
+on a target architecture and then talk
+about keeping our current tests in place.
+
+00:00:35.100 --> 00:00:39.760
+So firstly let's just talk for a second
+about taking the time to refactor.
+
+00:00:39.760 --> 00:00:44.550
+Refactoring is all part of the journey
+the way that we are teaching you to make
+
+00:00:44.550 --> 00:00:49.100
+games and you are going to want to
+continually make progress but also
+
+00:00:49.100 --> 00:00:53.559
+continually refactor at the same time so
+if you're spending too much time in
+
+00:00:53.559 --> 00:00:57.039
+planning it's time to get coding and if
+you're spending too much time in coding
+
+00:00:57.039 --> 00:01:02.539
+it's time to get planning the key is to
+know when it's worth refactoring and
+
+00:01:02.539 --> 00:01:06.350
+when it's not and actually in this
+section we gonna see examples of when
+
+00:01:06.350 --> 00:01:10.689
+it's worth it like now it's definitely
+worth considering our architecture
+
+00:01:10.689 --> 00:01:13.950
+before we move forward and start trying
+to tackle scores you'll see why in a
+
+00:01:13.950 --> 00:01:17.250
+moment and we're also going to see an
+instance where it's not worth
+
+00:01:17.250 --> 00:01:21.070
+refactoring any further so that'll
+happen when we do some work on the
+
+00:01:21.070 --> 00:01:25.549
+action master you'll see that we'll get
+to a point where we could make some
+
+00:01:25.549 --> 00:01:28.909
+improvements so that the code read more nicely
+but it wouldn't actually add any value
+
+00:01:28.909 --> 00:01:32.740
+to do so so it's a question of whether
+or not the refactoring adds value
+
+00:01:32.740 --> 00:01:38.680
+another thing to consider is are you
+stuck: if your stuck it's worth it. If you
+
+00:01:38.680 --> 00:01:42.470
+can't move forward clearly. you're not
+quite sure. you're scratching your head then
+
+00:01:42.470 --> 00:01:49.020
+it's probably better to take some action
+in the form of some strategic work so briefly
+
+00:01:49.020 --> 00:01:52.079
+I'd like to share with you some of my ideas
+about being your own boss.
+
+00:01:52.079 --> 00:01:55.740
+Think about the fact that you if you're
+working on your own wear two hats at
+
+00:01:55.740 --> 00:02:00.950
+least. One is your boss telling you what
+to do and the other is the worker obeying
+
+00:02:00.950 --> 00:02:05.430
+the boss. Now my thoughts are that
+neither can improve if the lines are
+
+00:02:05.430 --> 00:02:10.300
+blurred. What I mean by that is that if you
+set out to tell yourself that you're
+
+00:02:10.300 --> 00:02:10.910
+gonna do
+
+00:02:10.910 --> 00:02:16.130
+certain things. for example we are going
+to choose a target architecture in a
+
+00:02:16.130 --> 00:02:19.340
+moment. we're going to decide how we
+gonna make the game in the next in the
+
+00:02:19.340 --> 00:02:23.490
+next like sprint. If you then don't obey
+your own rules and start questioning your
+
+00:02:23.490 --> 00:02:29.460
+own judgment once you get into worker bee mode
+then how are you ever gonna get any good at
+
+00:02:29.460 --> 00:02:32.860
+telling yourself what to do the boss
+inside you won't be any goodm it's very hard to
+
+00:02:32.860 --> 00:02:37.800
+become a good boss if you have
+delinquent staff and vice versa if you
+
+00:02:37.800 --> 00:02:41.790
+don't do what the boss says then you are
+never going to be particularly satisfied
+
+00:02:41.790 --> 00:02:45.460
+in your work so I think it's worth
+making the mental separation. it takes
+
+00:02:45.460 --> 00:02:49.730
+discipline but it's worth it. It's making
+worth making the mental separation
+
+00:02:49.730 --> 00:02:52.100
+between when you're telling yourself
+what to do which is what we gonna be
+
+00:02:52.100 --> 00:02:55.360
+thinking about in this video. we're
+standing back and doing some strategy
+
+00:02:55.360 --> 00:02:59.810
+and then once you've committed to a
+reasonable course of action that's not
+
+00:02:59.810 --> 00:03:03.150
+gonna take too long you know it's going
+to take days or hours or days rather
+
+00:03:03.150 --> 00:03:07.750
+than weeks or months then go ahead and
+get on with it without too much review
+
+00:03:07.750 --> 00:03:13.450
+without too much questioning and then
+come back and reap the consequences of
+
+00:03:13.450 --> 00:03:18.160
+your actions and review your decision
+after that that's just a a good habit to
+
+00:03:18.160 --> 00:03:22.890
+get into. I think. But if you don't then share
+in the discussions I'd like to hear your
+
+00:03:22.890 --> 00:03:23.260
+thoughts.
+
+00:03:23.260 --> 00:03:26.260
+Anyway let's talk about the code now so
+our current architecture is something
+
+00:03:26.260 --> 00:03:30.400
+like this and we're gonna show the bits
+that are relevant so we have a mono
+
+00:03:30.400 --> 00:03:36.290
+behavior called the lane box and that sends
+a ball out signal over to the PinSetter
+
+00:03:36.290 --> 00:03:42.910
+which sends a single pin fall number;
+some number between 0 and 10 to
+
+00:03:42.910 --> 00:03:49.060
+the action master and the action master
+has an array of integers called bowls
+
+00:03:49.060 --> 00:03:53.700
+and I put it in red because it's a bit
+dodgy. for want of a better word. that the
+
+00:03:53.700 --> 00:03:57.959
+action master is storing the state and
+that int array of the bowls or the
+
+00:03:57.959 --> 00:04:03.340
+PinFalls is is the state of the game. is
+the main thing that determines what
+
+00:04:03.340 --> 00:04:06.620
+state the game's in and we'll see why in
+a moment that the action must is probably not
+
+00:04:06.620 --> 00:04:09.660
+the best place to keep that. that's why I made it
+red
+
+00:04:09.660 --> 00:04:12.820
+The other thing to note is that action
+master is a base class which does not
+
+00:04:12.820 --> 00:04:16.060
+inherit from mono behavior and one of the good
+things about it we could pop action
+
+00:04:16.060 --> 00:04:18.959
+master into any bowling game and it
+should work fine.
+
+00:04:18.959 --> 00:04:23.970
+It also makes it very testable. we can
+construct new action masters in our test
+
+00:04:23.970 --> 00:04:27.900
+scripts and work on fresh action masters
+and make sure it behave so it's good
+
+00:04:27.900 --> 00:04:32.900
+that action must as a base class that
+part of this architecture is ok. Then the
+
+00:04:32.900 --> 00:04:36.120
+next thing that happens is that action master
+returns an action to the PinSetter. that's
+
+00:04:36.120 --> 00:04:41.260
+our enum. The PinSetter then passes that
+action on to the animator now at this
+
+00:04:41.260 --> 00:04:44.680
+point the PinSetter is starting to look a
+bit like a manager. it's doing more than
+
+00:04:44.680 --> 00:04:48.080
+just setting pins right? It's talking to
+the action master and then it's talking to
+
+00:04:48.080 --> 00:04:52.430
+the Animator. it's coordinating it's kind of
+got a bit big for its boots right now
+
+00:04:52.430 --> 00:04:56.790
+and then the animator replies with
+things like raise or lower the pins
+
+00:04:56.790 --> 00:05:00.930
+coordinating with the PinSetter. So that
+coordination between the animator and
+
+00:05:00.930 --> 00:05:04.680
+the PinSetter. the animator doing what
+it's best at like the Swipe motion and
+
+00:05:04.680 --> 00:05:08.490
+the PinSetter doing what it's best at like
+raising and lowering pins. that's all fine I
+
+00:05:08.490 --> 00:05:11.270
+just don't like the fact that PinSetter
+is acting like a manager or a
+
+00:05:11.270 --> 00:05:15.930
+coordinator here. and finally the PinSetter
+sends reset commands to the ball;
+
+00:05:15.930 --> 00:05:19.590
+again really we're stretching the
+definition of a PinSetter here. Far too
+
+00:05:19.590 --> 00:05:23.810
+thin and the problem with this
+architecture is what happens now when we
+
+00:05:23.810 --> 00:05:28.540
+want to start introducing a scoring
+system how are we gonna do it? So there's
+
+00:05:28.540 --> 00:05:31.669
+lots of places you could potentially put
+a scoring system. you could try and
+
+00:05:31.669 --> 00:05:36.080
+modify action master to deal with frame
+scores. By a scoring system by the way
+
+00:05:36.080 --> 00:05:39.360
+I'm talking about what are the frame
+scores. So when we bowl a 1 and a 4
+
+00:05:39.360 --> 00:05:46.390
+then we know that that frame has scored
+1 + 4 which equals 5. So who's going to be
+
+00:05:46.390 --> 00:05:49.580
+responsible for that? Well I'm tempted
+not to mess around too much with action
+
+00:05:49.580 --> 00:05:54.080
+master right now. it's a reasonably long
+class and it does its job I don't want to break
+
+00:05:54.080 --> 00:05:58.230
+it. So how would we move forward then
+bolting on scoring systems well it would've been
+
+00:05:58.230 --> 00:06:02.910
+messy and this diagonal just looks messy so
+let me propose a target architecture
+
+00:06:02.910 --> 00:06:07.150
+it's going to entail some refactoring
+and that's fine and you're going to have
+
+00:06:07.150 --> 00:06:12.150
+to refactor some tests as well and
+that's fine and this is real coding here
+
+00:06:12.150 --> 00:06:15.810
+what we haven't done is coded a perfect
+solution and then
+
+00:06:15.810 --> 00:06:19.930
+and then walked you through that perfect
+solution as that really doesn't help you
+
+00:06:19.930 --> 00:06:23.660
+learn anything. What we're trying to do
+here is show you the tactics and the
+
+00:06:23.660 --> 00:06:27.880
+strategy of building a game and how you
+do get into situations where you need to
+
+00:06:27.880 --> 00:06:32.060
+stand back and we'll stand back together
+and so if you think of it that we are
+
+00:06:32.060 --> 00:06:35.460
+you know are you on a guided tour of game
+development here or are we teaching you
+
+00:06:35.460 --> 00:06:38.440
+to be game developers? Well I like to
+think that we are teaching you to be
+
+00:06:38.440 --> 00:06:41.940
+game developers which means that you get
+all the warts and all and we have to
+
+00:06:41.940 --> 00:06:46.570
+make these refactors and strategic
+decisions so join us in the journey and
+
+00:06:46.570 --> 00:06:51.229
+be stronger for it. So the target
+architecture that I propose is a pin
+
+00:06:51.229 --> 00:06:57.110
+counter. Call it a pin counter. stick it on the
+lane box and its job is purely to count
+
+00:06:57.110 --> 00:07:01.560
+the pins and to send the pinfall to the
+game manager. Now I want to move state
+
+00:07:01.560 --> 00:07:05.750
+out of the action master make action
+master stateless and have a list of pins
+
+00:07:05.750 --> 00:07:07.010
+a list not an array
+
+00:07:07.010 --> 00:07:12.510
+probably of pins here in game manager.
+and game manager does keep the state so
+
+00:07:12.510 --> 00:07:16.780
+then game manager will send pin falls -
+plural here - gonna send all of the
+
+00:07:16.780 --> 00:07:21.740
+pinfalls that've currently happened in this
+game as a list to action master. Why a list?
+
+00:07:21.740 --> 00:07:25.950
+Rather than an array? Because the length of
+the list will vary as the game goes on
+
+00:07:25.950 --> 00:07:30.530
+and if we send an array. array has to be
+fixed length because it's a value type
+
+00:07:30.530 --> 00:07:35.760
+and if it's fixed length then we have to
+somehow try and then pass with that how far
+
+00:07:35.760 --> 00:07:41.690
+into it action master should look. it's a hassle. Let's
+just talk about a list. So the game
+
+00:07:41.690 --> 00:07:44.789
+manager could pass a list of pinfalls to the
+action master which will again return an
+
+00:07:44.789 --> 00:07:48.610
+action. So we may send six different
+Pinfalls in and the action would go ok.
+
+00:07:48.610 --> 00:07:52.690
+based on that and based on the last
+pinfall and all the history this is what
+
+00:07:52.690 --> 00:07:53.729
+you need to do next
+
+00:07:53.729 --> 00:07:57.860
+The game manager could then pass that
+action on to the PinSetter stroke
+
+00:07:57.860 --> 00:08:01.039
+animator those two work together very
+similarly to how they do now I just put
+
+00:08:01.039 --> 00:08:05.750
+them in a single box and the game
+manager would then be responsible for
+
+00:08:05.750 --> 00:08:08.789
+resetting the ball; pulling that
+functionality out of the PinSetter seems
+
+00:08:08.789 --> 00:08:13.810
+to make a lot more sense to me and then
+moving forward to bolt on the score
+
+00:08:13.810 --> 00:08:17.539
+which is of course the task in hand I
+suggest something like this: that the game
+
+00:08:17.539 --> 00:08:24.070
+manager also passes its list of Pinfalls
+to a scoremaster and the scoremaster
+
+00:08:24.070 --> 00:08:29.289
+can pass back a set of frame scores. It
+can say okay so you've bowled one.
+
+00:08:29.289 --> 00:08:35.089
+two. and then three then you know that
+the first frame has a score of. well
+
+00:08:35.089 --> 00:08:41.019
+three and because it's the one plus the
+two but you but you don't know the score
+
+00:08:41.019 --> 00:08:44.019
+for the third frame; for the second
+frame yet because you have one and two
+
+00:08:44.019 --> 00:08:50.880
+which is the first frame which adds up to 3
+and tehn you bowl a 3. and you don't know the score of this frame yet because
+
+00:08:50.880 --> 00:08:55.079
+the frame hasn't closed yet and there
+are plenty of other situations in which
+
+00:08:55.079 --> 00:08:58.850
+we the frame score is not finalized for
+instance when you keep bowling strikes
+
+00:08:58.850 --> 00:09:02.759
+we don't yet know the frames score. So
+let's make scoremaster
+
+00:09:02.759 --> 00:09:07.170
+a stateless thing it doesn't need to
+store any state that given a set of
+
+00:09:07.170 --> 00:09:12.240
+PinFalls. whether they're 5. 5. 5. 5. or
+strike strike strike whatever they are
+
+00:09:12.240 --> 00:09:17.110
+it just returns all of the possible
+frame scores that can be known at this
+
+00:09:17.110 --> 00:09:23.199
+stage so if you send it 5. 5. 5. 5. then initially on the
+first two 5s at this stage you do not have
+
+00:09:23.199 --> 00:09:29.940
+any frame scores because you don't know
+the spare bonus yet; then you bowl another five and you
+
+00:09:29.940 --> 00:09:36.709
+know at this stage that the first
+frames score is 15; 10 for the two 5s plus the 5 for
+
+00:09:36.709 --> 00:09:41.949
+the spare bonus and then when you bowl
+your second five then you still only
+
+00:09:41.949 --> 00:09:45.310
+have a single element in your list you
+do not know what's in that empty box yet
+
+00:09:45.310 --> 00:09:49.800
+because you need to wait for the next
+bowl so that's an example of how the
+
+00:09:49.800 --> 00:09:54.800
+timing needs to work we need the code to
+return the correct list of frames the
+
+00:09:54.800 --> 00:10:00.959
+bottom row of numbers in this diagram at
+the right time for us; does that make sense and
+
+00:10:00.959 --> 00:10:06.190
+we can create and test this scoremaster
+thing completely independently of the
+
+00:10:06.190 --> 00:10:10.510
+action master; we create a whole new set of tests
+for scoremaster and build that up. make
+
+00:10:10.510 --> 00:10:14.209
+sure that works keep it stateless in
+fact we'll probably even make its main
+
+00:10:14.209 --> 00:10:19.439
+method a static so that it's absolutely
+stateless so there are no instances of
+
+00:10:19.439 --> 00:10:23.899
+it any more there's just one; and it's just a
+function basically you just pass in a list of Pin falls
+
+00:10:23.899 --> 00:10:27.480
+and back comes the frame score the same
+as the action master the newly refactored
+
+00:10:27.480 --> 00:10:32.110
+action master; and you may say well
+hang on aren't the action master and the
+
+00:10:32.110 --> 00:10:35.600
+score master gonna have very similar
+coding? Well we don't know yet we just
+
+00:10:35.600 --> 00:10:38.970
+don't know yet maybe I have a hunch they
+will have quite similar code they both
+
+00:10:38.970 --> 00:10:41.230
+need to have concepts of frames and
+
+00:10:41.230 --> 00:10:46.560
+and spares and strikes and things but we
+don't want to break action master right now
+
+00:10:46.560 --> 00:10:49.620
+action master's pretty well defined
+it's got a good set of tests around it
+
+00:10:49.620 --> 00:10:54.670
+and I want to show you a way that we can
+move forward without having to break
+
+00:10:54.670 --> 00:10:59.100
+what we've already got keeping all of
+our tests in place so we'll build this
+
+00:10:59.100 --> 00:11:03.810
+score master using test driven development
+it'll be a base class and then it'll get the
+
+00:11:03.810 --> 00:11:07.110
+scores and pass them onto a score
+display that should then have a nice
+
+00:11:07.110 --> 00:11:12.130
+simple job of just showing the scores on the
+screen. however we do that. so that
+
+00:11:12.130 --> 00:11:16.200
+architecture to me just looks better
+maybe just cause the diagram symmetric
+
+00:11:16.200 --> 00:11:20.320
+but maybe there's something in that
+maybe the fact that this is simpler and
+
+00:11:20.320 --> 00:11:24.360
+clearer and a cleaner said it flows is
+actually a really good thing and it is
+
+00:11:24.360 --> 00:11:27.740
+worth taking the time. Now this took me
+some time to come up with but it's an
+
+00:11:27.740 --> 00:11:31.990
+architecture that I'm happy to now
+commit to trying. and later if score master
+
+00:11:31.990 --> 00:11:35.670
+and action master end up being very
+similar then we have an option we can
+
+00:11:35.670 --> 00:11:41.490
+keep our tests in place and actually
+merge those two together. so firstly we're
+
+00:11:41.490 --> 00:11:45.590
+gonna need to refactor the action master
+tests. we'll see that in the subsequent
+
+00:11:45.590 --> 00:11:55.150
+videos because if we if we pass in a in
+our target architecture here... there if we
+
+00:11:55.150 --> 00:11:59.380
+pass in a list of PinFalls - plural to
+action master that's a different API into
+
+00:11:59.380 --> 00:12:03.120
+action master it used to be just
+get a single bowl number now is getting a
+
+00:12:03.120 --> 00:12:07.160
+whole list but we can minimally
+disrupt action master and our test to
+
+00:12:07.160 --> 00:12:11.120
+do that so we will need to refactor
+the action master tests but
+
+00:12:11.120 --> 00:12:14.540
+that will be fine; we will build a
+score master using test driven
+
+00:12:14.540 --> 00:12:18.990
+development. Later we will have the
+option to merge those two classes the
+
+00:12:18.990 --> 00:12:23.430
+action master and the score master
+and if we do decide to merge them and I
+
+00:12:23.430 --> 00:12:26.720
+don't know yet I actually. whilst recording
+this video do not know whether we'll do that
+
+00:12:26.720 --> 00:12:31.360
+it depends on overlap in code in various
+other things but if we do decide to do
+
+00:12:31.360 --> 00:12:36.260
+that then that merge would be protected
+by two separate sets of tests we would
+
+00:12:36.260 --> 00:12:39.810
+have a set of tests on action master and
+a set of tests on score master and we
+
+00:12:39.810 --> 00:12:44.180
+would make sure we can use those tests
+to make to ensure the new
+
+00:12:44.180 --> 00:12:49.050
+merged class call it bowl master maybe
+actually works and and performs both of
+
+00:12:49.050 --> 00:12:53.570
+the functions. There is unlikely to be a
+benefit in merging these classes but
+
+00:12:53.570 --> 00:12:57.300
+there may be. we may decide to. So that's it
+really I just wanna leave you with a
+
+00:12:57.300 --> 00:13:01.860
+diagram of the target infrastructure
+it's like that so in your slide deck
+
+00:13:01.860 --> 00:13:05.010
+you'll see all the builds of this
+slide so as separate slides you get all
+
+00:13:05.010 --> 00:13:10.010
+of these different builds each set of
+arrows and boxes coming up on your on
+
+00:13:10.010 --> 00:13:13.250
+your slides. so do take a look at the
+section notes. it'll remind you the order that I built
+
+00:13:13.250 --> 00:13:17.670
+that diagram and talk through it in do
+digest this target architecture and if
+
+00:13:17.670 --> 00:13:22.110
+you want a real challenge and your an experienced
+coder then go ahead and don't even watch
+
+00:13:22.110 --> 00:13:25.180
+any more of this section for a bit until you
+get your game to this target
+
+00:13:25.180 --> 00:13:28.470
+architecture. Now this is only a
+challenge for the more advanced students
+
+00:13:28.470 --> 00:13:31.690
+is not really reasonable to expect you
+to do that on your own but if you think
+
+00:13:31.690 --> 00:13:34.690
+you can then why not give yourself that
+challenge? I'm not gonna put a challenge
+
+00:13:34.690 --> 00:13:39.420
+slide up because frankly that's a big
+pill to swallow but in doing this we're
+
+00:13:39.420 --> 00:13:43.310
+gonna learn a lot. we can learn a lot
+about keeping tests running we gonna be
+
+00:13:43.310 --> 00:13:49.120
+learning a lot about segregation of
+responsibility. we're gonna be learning a
+
+00:13:49.120 --> 00:13:53.200
+lot about the value of refactoring and
+you'll see that by the time we finish
+
+00:13:53.200 --> 00:13:57.060
+this factor. refactor that the code will
+be a lot cleaner. more easy to reason
+
+00:13:57.060 --> 00:14:00.500
+about and it'll be worth the effort and
+the pain
+
+00:14:00.500 --> 00:14:04.060
+There'll possibly be a temptation for you at the
+moment if you were doing this on your
+
+00:14:04.060 --> 00:14:09.600
+own to plow ahead and to just try and
+get the game finished and think will I'm
+
+00:14:09.600 --> 00:14:13.610
+nearly there let's just plow ahead and
+and and hack it together and you'll end
+
+00:14:13.610 --> 00:14:18.060
+up with pretty ugly code you may get
+stuck completely and I don't think
+
+00:14:18.060 --> 00:14:21.870
+that's a good. I don't think that's a
+good habit I think that taking time
+
+00:14:21.870 --> 00:14:26.710
+to think about strategy means that when
+you've done that when after this and you
+
+00:14:26.710 --> 00:14:32.650
+after we've done this exercise of the
+refactor you will be better at judging
+
+00:14:32.650 --> 00:14:37.190
+strategy in the future and I think you
+only get that judgment by taking the
+
+00:14:37.190 --> 00:14:40.490
+time to set a precedent. say no we want
+to make things with nice architecture
+
+00:14:40.490 --> 00:14:44.520
+and we're going to do that if it takes
+more time and cost a little bit more in
+
+00:14:44.520 --> 00:14:47.740
+the in the early days it would be worth
+it later when you come to update your
+
+00:14:47.740 --> 00:14:53.030
+game. or you get bug reports for your live
+game. or you just want to to build on
+
+00:14:53.030 --> 00:14:56.760
+what you've already got and maybe create a new
+game reusing some of your code all
+
+00:14:56.760 --> 00:15:00.790
+of that stuff will be a lot easier if
+you've taken the time as you go along to
+
+00:15:00.790 --> 00:15:03.950
+get the architectur right and you'll
+find that if you do that. and you set
+
+00:15:03.950 --> 00:15:04.930
+that precedent
+
+00:15:04.930 --> 00:15:08.980
+then you will automatically start to
+pick a better architecture in the
+
+00:15:08.980 --> 00:15:12.899
+beginning but right now you can't expect
+to pick a perfect architecture because
+
+00:15:12.899 --> 00:15:17.750
+you don't have enough experience to to
+know exactly what the ideal architecture
+
+00:15:17.750 --> 00:15:21.339
+is and that's what we're doing here with the
+course. we're simulating your
+
+00:15:21.339 --> 00:15:25.660
+learning journey and the fact that at
+this point you're likely to need to make
+
+00:15:25.660 --> 00:15:28.080
+an architectural change when
+you're trying to put your games together
+
+00:15:28.080 --> 00:15:31.130
+and I want to encourage you to to step
+back and do that and to give you the
+
+00:15:31.130 --> 00:15:34.610
+tools to step back and do that. So I'd
+like to leave you with an outline for
+
+00:15:34.610 --> 00:15:38.770
+this scoremaster script so just let me
+set it up with you. Let's create
+
+00:15:38.770 --> 00:15:45.060
+ourselves a C# script called
+scoremaster and let's go take a quick
+
+00:15:45.060 --> 00:15:48.290
+look at what the outline of this script
+will be. I'm not going to do the whole
+
+00:15:48.290 --> 00:15:51.709
+solution to you by any means that's going
+to be in a different video. I just wanna talk
+
+00:15:51.709 --> 00:15:56.450
+about lists and getting this set up. So.
+start of the top. Firstly to use lists we're
+
+00:15:56.450 --> 00:16:01.220
+gonna need something called systems.
+system dot collections dot
+
+00:16:01.220 --> 00:16:06.640
+generic which is the namespace that
+contains the list data type Alright? So
+
+00:16:06.640 --> 00:16:09.880
+then we'll be able to deal with lists. Then we
+need to take the monobehavior
+
+00:16:09.880 --> 00:16:13.339
+inheritance off. Remember I said that
+score master. like action master was
+
+00:16:13.339 --> 00:16:18.190
+going to be a base class. not inherit
+from monobehaviour. The moment that we don't
+
+00:16:18.190 --> 00:16:21.950
+inherit from monobehavior we cannot
+then intercept the start or update message
+
+00:16:21.950 --> 00:16:26.700
+because they won't be passed to us. because we are a base class. We are just nothing now
+
+00:16:26.700 --> 00:16:32.980
+ok so there we are. a nice simple plain class
+now I'm gonna write the signature of
+
+00:16:32.980 --> 00:16:36.370
+this method so we have a public static
+why static because I really want this
+
+00:16:36.370 --> 00:16:40.760
+thing to be stateless we don't need
+multiple score masters. in fact we
+
+00:16:40.760 --> 00:16:43.770
+don't even need score master to hold any
+state we're just gonna say to
+
+00:16:43.770 --> 00:16:47.870
+score master give me back a list of
+integers and this is the syntax for that
+
+00:16:47.870 --> 00:16:51.970
+ok so generics format we're saying
+produce a list and the type of list I
+
+00:16:51.970 --> 00:16:56.600
+want you to produce is an integer. like that.
+a bit like the GameObject dot find object
+
+00:16:56.600 --> 00:17:02.690
+of type and that sort of thing and
+I'm gonna call it score frames and then
+
+00:17:02.690 --> 00:17:06.189
+I'm gonna pass in a list of integers
+called rolls now how are we gona write that?
+
+00:17:06.189 --> 00:17:12.400
+Same way. list of int like that and we pass in the rolls
+ok so that's the outline of the only
+
+00:17:12.400 --> 00:17:16.659
+method that we need bear in mind that
+this score frames thing is going to
+
+00:17:16.659 --> 00:17:20.989
+it's not gonna return cumulative scores
+it's going to return individual scores for
+
+00:17:20.989 --> 00:17:24.879
+each frame unlike a bowling score
+card. You might want to write another method to
+
+00:17:24.879 --> 00:17:28.720
+do the cumulative bit. calling this thing
+many times but anyway I'll just finish
+
+00:17:28.720 --> 00:17:32.499
+off with setting this up for you. you need a list of
+integers like so I'm going to call it
+
+00:17:32.499 --> 00:17:37.389
+frame list. You need a new list of
+integers. you need to construct these things
+
+00:17:37.389 --> 00:17:42.450
+Now if your list doesn't come up in blue it's
+because you haven't importeded system dot
+
+00:17:42.450 --> 00:17:47.279
+collections dot generic or you spelt it
+wrong okay and then you have to use the
+
+00:17:47.279 --> 00:17:51.919
+curly brackets because this new here is
+a constructor.  we're constructing a new
+
+00:17:51.919 --> 00:17:54.820
+empty list then you're gonna write some
+code in here
+
+00:17:54.820 --> 00:18:02.849
+your code here and then at the end you're
+gonna return frame list. OK. sounds simple
+
+00:18:02.849 --> 00:18:06.090
+right and it's got to do what we
+discussed it's got to return the right
+
+00:18:06.090 --> 00:18:10.539
+frame list every time you spit a list of
+frames at it; completely stateless it
+
+00:18:10.539 --> 00:18:13.369
+doesn't matter what the history of the
+game is we can just always pass it a
+
+00:18:13.369 --> 00:18:17.229
+list of rolls and it will return as a
+list of currently calculable frames. Now
+
+00:18:17.229 --> 00:18:22.349
+this took me more than two days to get the final code.
+it was a real nightmare but great fun. I
+
+00:18:22.349 --> 00:18:25.879
+learned a lot about test driven
+development I got a solution that fits
+
+00:18:25.879 --> 00:18:30.549
+in here in nineteen new lines in the
+middle here. you made during the process
+
+00:18:30.549 --> 00:18:34.080
+of trying to do this write hundreds of lines
+and that's ok. We'll talk about that more
+
+00:18:34.080 --> 00:18:37.289
+in a subsequent video meanwhile I'm
+going to leave you with this slide which
+
+00:18:37.289 --> 00:18:40.979
+just tells you a little bit about lists. so
+using system dot collections dot generics
+
+00:18:40.979 --> 00:18:46.070
+to use lists you need to import that new
+namespace. the line you need is using
+
+00:18:46.070 --> 00:18:48.450
+system.collections.generic
+
+00:18:48.450 --> 00:18:51.989
+You define a list like that where T is the
+type and there you go
+
+00:18:51.989 --> 00:18:57.269
+so that's that there's my outline and if
+you really want to challenge go and
+
+00:18:57.269 --> 00:19:00.690
+refactor all of your code and write score
+frames if you want a bit of a leg up. see
+
+00:19:00.690 --> 00:19:01.269
+you in the next video.
+

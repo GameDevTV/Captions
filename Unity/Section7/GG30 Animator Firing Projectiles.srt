@@ -1,0 +1,839 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:07.950
+So the purpose of this video is going to
+be getting our projectiles firing and
+
+00:00:07.950 --> 00:00:11.719
+spawning properly. Before we do. let's
+just have a quick recap about this
+
+00:00:11.719 --> 00:00:16.650
+component architecture. so if we look at
+our attackers and then flip between them.
+
+00:00:16.650 --> 00:00:20.590
+looking over in the inspector; I've
+changed around the order of the
+
+00:00:20.590 --> 00:00:24.850
+components by the way. by moving up and
+moving down. just to make it look clear
+
+00:00:24.850 --> 00:00:30.119
+and I'd maybe collapse down the rigid body and
+the box colliders. so it may look very
+
+00:00:30.119 --> 00:00:33.559
+slightly different to yours; but the
+question is what's the general structure
+
+00:00:33.559 --> 00:00:37.690
+here? So start with attackers: all attackers
+have an attacker script. that's fair
+
+00:00:37.690 --> 00:00:41.370
+enough. and what does the attacker script
+do? Quite a lot of general attack
+
+00:00:41.370 --> 00:00:46.640
+behavior. so that makes sense. Then. again
+looking at the attackers. they have
+
+00:00:46.640 --> 00:00:51.530
+specialist behaviour for the fox and the
+lizard. well is that worth it? Is it worth
+
+00:00:51.530 --> 00:00:55.900
+a whole component? Well the lizard
+certainly is. and looks like the fox is as well
+
+00:00:55.980 --> 00:01:01.250
+OK. so they look absolutely fine in terms
+of structure. and they both have health;
+
+00:01:01.250 --> 00:01:06.189
+is health worth it? Just. very small but
+it saves us repeating the code in lots of
+
+00:01:06.189 --> 00:01:09.409
+different places - bear in mind that that
+health object is used across all of
+
+00:01:09.409 --> 00:01:15.229
+our attackers and defenders. OK. so also
+the thing to note here is that both the
+
+00:01:15.229 --> 00:01:20.200
+fox and the lizard have box colliders which
+are set as triggers and they have rigid
+
+00:01:20.200 --> 00:01:25.340
+body 2Ds which are set as kinematic
+so they are kinematic rigid body trigger
+
+00:01:25.340 --> 00:01:30.740
+colliders. OK. that's all consistent and
+fine. now the defenders. All defenders have
+
+00:01:30.740 --> 00:01:34.540
+a defender script. so let's look at the
+defender script briefly. Very thin in
+
+00:01:34.540 --> 00:01:38.799
+fact I'm gonna get rid of this log
+entry in here. in fact I don't have anything
+
+00:01:38.799 --> 00:01:42.270
+in the defender script once I get rid
+of the log entry. so why the hell are we
+
+00:01:42.270 --> 00:01:48.060
+keeping a defender class? Well. good
+question. We're keeping it because
+
+00:01:48.060 --> 00:01:54.200
+something uses it as a tag. remember? If
+you go search. find in files in Mono.
+
+00:01:54.200 --> 00:02:00.710
+and then you search the whole solution
+for the word defender you'll remember
+
+00:02:00.710 --> 00:02:05.360
+that several things try getting
+component defender like the fox and the
+
+00:02:05.360 --> 00:02:08.340
+lizard. the specialisations do that.
+
+00:02:08.340 --> 00:02:16.230
+So at the moment this is only being used
+as a tag for now. OK now that is pretty -
+
+00:02:16.230 --> 00:02:21.300
+you know. it's a pretty heavy weight
+solution using a entire component - an entire
+
+00:02:21.300 --> 00:02:27.950
+class just to say that I am a defender.
+You could tag all these guys using the
+
+00:02:27.950 --> 00:02:33.920
+tag system up here in the inspector but
+we're keeping it this way for now. I'm gonna
+
+00:02:33.920 --> 00:02:37.840
+start worrying about excess components if
+we get to more than three components
+
+00:02:37.840 --> 00:02:41.230
+on a given object. but the other thing to
+notice about the defenders is they all
+
+00:02:41.230 --> 00:02:45.720
+have box colliders but they don't have
+any rigid body on them because they're
+
+00:02:45.720 --> 00:02:49.780
+static colliders. they're not moving and
+the other thing to notice is that stone
+
+00:02:49.780 --> 00:02:55.870
+again has a script that does absolutely
+nothing and it's just used as a tag for now.
+
+00:02:55.870 --> 00:03:00.069
+So when you realize that it may be a good
+idea to combine your code immediately.
+
+00:03:00.069 --> 00:03:04.950
+Again that may be over the top but it's
+fine for now if towards the end of the
+
+00:03:04.950 --> 00:03:07.829
+game you realize you really aren't going to
+be adding any more
+
+00:03:07.829 --> 00:03:11.400
+code into these scripts I would probably
+change the way we do things. but not a
+
+00:03:11.400 --> 00:03:15.000
+problem for now because they don't have -
+you know we don't have lots and lots of
+
+00:03:15.000 --> 00:03:18.530
+scripts on each object. and at the end of
+the day Unity is pushing you heavily
+
+00:03:18.530 --> 00:03:21.750
+down the component route anyway. look how
+many components you've got even without
+
+00:03:21.750 --> 00:03:26.019
+our script. you've already got a transform. an
+animator. a box collider. Alright. now the
+
+00:03:26.019 --> 00:03:31.239
+projectiles again with the projectiles
+they are projectiles that have kinematic
+
+00:03:31.239 --> 00:03:34.430
+rigid body trigger colliders because of
+the combination of these two components.
+
+00:03:34.430 --> 00:03:38.370
+box collider and rigid body. but they're
+also projectiles because we have
+
+00:03:38.370 --> 00:03:45.310
+projectile scripts on them. So what I'm
+proposing now then is that we actually fire
+
+00:03:45.310 --> 00:03:50.319
+by animation events. and who's going to
+fire? Well it's only some of the defenders. were
+
+00:03:50.319 --> 00:03:54.400
+going to specialize the defenders into
+shooters: the cactus and the gnome
+
+00:03:54.400 --> 00:03:58.340
+will be doing the firing. and they'll
+have a fire gun method which the
+
+00:03:58.340 --> 00:04:04.370
+animator will be able to access and we'll also put a
+gun object on them so that they have
+
+00:04:04.370 --> 00:04:09.690
+somewhere to spawn the projectile
+from. So for now I'm gonna go
+
+00:04:09.690 --> 00:04:14.849
+ahead and specialize my cactus and
+my gnome by creating myself yet another
+
+00:04:14.849 --> 00:04:18.950
+script called shooter. So I'll
+create a new script called
+
+00:04:18.950 --> 00:04:24.700
+shooter. and this now has got three
+components on it. so that's about as many
+
+00:04:24.700 --> 00:04:28.950
+as I want but cactus and gnome have shooter.
+just to be tidy I've gotta move that
+
+00:04:28.950 --> 00:04:33.300
+script again. I wish I could create it
+straight in the scripts folder but you either
+
+00:04:33.300 --> 00:04:36.260
+create it attached to an object or you
+create it in the scripts folder. it doesn't seem
+
+00:04:36.260 --> 00:04:40.480
+that you can do both. If you know differently
+let me know. So now the cactus and the gnome
+
+00:04:40.480 --> 00:04:45.550
+have shooter scripts on them. we need to think
+about how this shooter object is gonna
+
+00:04:45.550 --> 00:04:49.630
+work . Well let's go into it and take a
+look.
+
+00:04:49.630 --> 00:04:53.430
+OK so what is shooter gonna need access
+to? Well shooters... we're gonna need to know
+
+00:04:53.430 --> 00:05:03.450
+what the projectile they fire is. so let's make a
+public GameObject projectile; that's fine
+
+00:05:03.450 --> 00:05:07.230
+and then immediately that we've done
+that lets go ahead to the prefabs and
+
+00:05:07.230 --> 00:05:12.550
+tell the shooter script what they fire.
+so the cactus fires a cougette
+
+00:05:12.550 --> 00:05:21.490
+and the gnome fires an axe. OK great. so we
+got hold of the projectile that they're
+
+00:05:21.490 --> 00:05:26.080
+going to fire; then the other thing they're
+going to need privately. I think it's safe
+
+00:05:26.080 --> 00:05:31.590
+that they make the assumption that there
+is a gun sub-object attached to the actual
+
+00:05:31.590 --> 00:05:36.150
+defender. So the cactus and the gnome are
+going to create new child objects in
+
+00:05:36.150 --> 00:05:44.960
+here. They're gonna be called gun. not gun
+GameObject just gun. and then that can be
+
+00:05:44.960 --> 00:05:49.140
+moved crucially; if you have trouble
+moving it in the scene view just
+
+00:05:49.140 --> 00:05:55.650
+move it in the inspector. So the cactus
+could spawn his courgettes right at his
+
+00:05:55.650 --> 00:06:04.390
+hand there and the gnome will have a very
+similar gun object up here somewhere.
+
+00:06:04.390 --> 00:06:11.880
+maybe from his belly. and he is going to
+fire axes out of the gun.
+
+00:06:11.880 --> 00:06:15.550
+so we're also gonna need to child these
+projectiles when they arrive to
+
+00:06:15.550 --> 00:06:20.440
+something. What are we gonna child them to?
+So we're not gonna child them to the gun.
+
+00:06:20.440 --> 00:06:23.440
+the gun is just there to adjust the
+position they are instantiated at. the
+
+00:06:23.440 --> 00:06:27.450
+reason we're not going to child them to the
+gun is that childing them to the gun means that
+
+00:06:27.450 --> 00:06:31.480
+they're in turn childed to the actual
+game object. the cactus. and when the
+
+00:06:31.480 --> 00:06:35.720
+cactus gets destroyed we want it's
+projectiles to stay in flight. we don't them
+
+00:06:35.720 --> 00:06:40.510
+to just disappear. that's why we've created
+a projectiles object here. So we want them to
+
+00:06:40.510 --> 00:06:45.340
+be childed to the projectiles object.
+So we're going to have a public pet
+
+00:06:45.340 --> 00:06:48.440
+another public GameObject. and I can
+declare it straight after this. called
+
+00:06:48.440 --> 00:06:56.740
+projectile parent like that. again let's
+immediately go in there and do this. So
+
+00:06:56.740 --> 00:07:02.960
+the cactus' shooter script wants to
+know where is it going to parent the
+
+00:07:02.960 --> 00:07:08.050
+things that it creates to. to the projectiles
+object and the same with the gnome. I'm
+
+00:07:08.050 --> 00:07:11.520
+gonna parent to the projectiles object.
+Now you could find that projectiles
+
+00:07:11.520 --> 00:07:15.450
+object a different way than dragging it
+in. you could just find it at start by
+
+00:07:15.450 --> 00:07:19.820
+name and then log out to the designer
+hang on you haven't made one. you need to create
+
+00:07:19.820 --> 00:07:24.550
+one. That's an alternative approach
+which is completely valid. So the main
+
+00:07:24.550 --> 00:07:29.750
+thing that we need in the shooter class
+is a fire method. and it can actually be
+
+00:07:29.750 --> 00:07:39.760
+private. and I always prefer to go private if I can
+so private void fire. have a look. If you
+
+00:07:39.760 --> 00:07:44.850
+go to the animator now for the cactus
+which has a shooter script on it you'll
+
+00:07:44.850 --> 00:07:49.000
+find that you can actually select fire
+even though it's a private method. so
+
+00:07:49.000 --> 00:07:54.190
+just to let you know the animator can
+reach into private methods; so we have a
+
+00:07:54.190 --> 00:08:03.800
+fire method. what is fire going to do?
+Well it needs to instantiate a projectile
+
+00:08:03.800 --> 00:08:08.000
+That's the first thing that it needs to do but
+we need to get the new game object that
+
+00:08:08.000 --> 00:08:10.590
+it instantiates and keep hold of it.
+
+00:08:10.590 --> 00:08:16.930
+So the type is going to be GameObject. it's gonna
+be a new projectile and it is the result of
+
+00:08:16.930 --> 00:08:23.379
+the instantiation. Now. I'm not going to
+show you through all of this. I thought you hope...
+
+00:08:23.379 --> 00:08:26.819
+I think that you are thinking I was
+going to sit there and show you exactly
+
+00:08:26.819 --> 00:08:30.729
+how to do all this. I'm afraid that's not how this
+course works. it's all about challenges. so
+
+00:08:30.729 --> 00:08:34.870
+I've told you what we need to do. we have
+created a shooter dot cs. we've created a
+
+00:08:34.870 --> 00:08:39.419
+fire gun method. now we've also created
+the gun game object to spawn projectiles
+
+00:08:39.419 --> 00:08:43.589
+to. So I want you to finish it off. you
+need to write the rest of the code that is
+
+00:08:43.589 --> 00:08:50.810
+going to parent those new projectiles and
+then when they appear they go flying
+
+00:08:50.810 --> 00:08:54.459
+off to the right as they already are. we
+already have the animation for that. and
+
+00:08:54.459 --> 00:08:58.490
+we want the animator as I showed you to
+call the fire gun. at least once per
+
+00:08:58.490 --> 00:09:04.690
+cycle. once per clip. Now you're gonna
+have a problem possibly if you're using
+
+00:09:04.690 --> 00:09:09.940
+my assets with your known because his
+attack animation is so short that he
+
+00:09:09.940 --> 00:09:11.890
+will be firing very. very rapidly. I will
+
+00:09:11.890 --> 00:09:15.450
+show you a solution to that in my
+solution. Feel free to try and create
+
+00:09:15.450 --> 00:09:19.600
+your own solution. So. see you in a moment.
+
+00:09:19.600 --> 00:09:21.100
+So welcome back let's get this working.
+
+00:09:21.160 --> 00:09:26.320
+so the new projectiles transform dot
+parent - the parent of the new projectile
+
+00:09:26.320 --> 00:09:38.200
+is projectile parent dot transform.
+OK so that should now instantiate...
+
+00:09:38.200 --> 00:09:43.630
+when we call the fire method it should
+instantiate a new projectile at the
+
+00:09:43.630 --> 00:09:49.810
+position of parented to projectile
+parent let's make sure that it does and
+
+00:09:49.810 --> 00:09:54.470
+then we'll worry about the position of it; so
+here we are going to use say the
+
+00:09:54.470 --> 00:09:59.430
+cactus in its attack - and in its
+attack animation I'm going to put in an
+
+00:09:59.430 --> 00:10:04.970
+event here and I'm going to fire once
+per attack at say one second into his
+
+00:10:04.970 --> 00:10:08.920
+attack animation. Now let's have a look
+at the error we have down here. I can't
+
+00:10:08.920 --> 00:10:13.380
+implicitly convert something. we
+need to instantiate as a GameObject or it'll
+
+00:10:13.380 --> 00:10:20.610
+come back as an object; cool. let's try this. see
+what happens. Run the game. have a look
+
+00:10:20.610 --> 00:10:25.490
+at our projectiles. now. Nothing's gonna
+happen of course until we put our
+
+00:10:25.490 --> 00:10:33.160
+cactus into the attacking state.
+so let's do that and here you go. he's
+
+00:10:33.160 --> 00:10:37.260
+instantiating courgettes and they are
+being childed to the projectiles
+
+00:10:37.260 --> 00:10:42.209
+GameObject. Awesome. of course they're never
+dying. it would be useful if they died at
+
+00:10:42.209 --> 00:10:46.699
+some point let's get that working real
+quick so into the projectile script. There's a
+
+00:10:46.699 --> 00:10:54.920
+very easy way to do this. it's void on
+became invisible and that method there
+
+00:10:54.920 --> 00:11:02.779
+will destroy the game object. That means
+when no camera is seeing it. let's take a
+
+00:11:02.779 --> 00:11:07.270
+look at the docs for on became invisible.
+On became invisible is called when no
+
+00:11:07.270 --> 00:11:12.209
+camera can see the object. So let's just
+try it. let's make sure now that these
+
+00:11:12.209 --> 00:11:17.180
+things that are being spawned as they
+get spawned here obviously they're being
+
+00:11:17.180 --> 00:11:21.779
+spawned from the wrong place. in a minute
+we'll move them immediately they're instantiated to
+
+00:11:21.779 --> 00:11:27.060
+the gun position. OK but let's just
+watch and see what happens to them.
+
+00:11:27.060 --> 00:11:36.100
+watch the number of courgettes here. how
+many are there? and do they just keep increasing?
+
+00:11:36.160 --> 00:11:41.759
+They do. so why does on became invisible not
+work in this instance? Well the reason is
+
+00:11:41.759 --> 00:11:46.449
+you can't actually use it here. because on
+became invisible is sitting on a script
+
+00:11:46.449 --> 00:11:51.209
+that is on the courgette. but the
+courgette has no sprite renderer. it's only the
+
+00:11:51.209 --> 00:11:55.050
+body that has a sprite render so the
+courgette as far as it's concerned never
+
+00:11:55.050 --> 00:11:59.589
+becomes invisible; its confused the method.
+so we're not gonna be able to use on
+
+00:11:59.589 --> 00:12:02.720
+became invisible but that's a common
+trap to get in. you could easily spend
+
+00:12:02.720 --> 00:12:06.620
+a lot of time trying to work out how to deal
+with that. So we're going to use a
+
+00:12:06.620 --> 00:12:10.649
+shredder that we've used so many times
+before so very quickly I'm just gonna
+
+00:12:10.649 --> 00:12:21.800
+put a shredder into the scene; gonna
+reset its transform for now; gonna move it;
+
+00:12:21.800 --> 00:12:29.870
+scale it. once I put a box collider 2d on
+it. which is going to be a trigger - gonna
+
+00:12:29.870 --> 00:12:33.360
+use triggers for everything. nice and
+wide so that if things are going fast
+
+00:12:33.360 --> 00:12:36.660
+they they don't pass through it
+accidentally. off to the right of the
+
+00:12:36.660 --> 00:12:41.100
+play space and 10 units high in Y. or five
+units is it?
+
+00:12:41.100 --> 00:12:46.550
+Or 9 or 8... there you go. 8. that's plenty to everything that goes off to the right is going to hit
+
+00:12:46.550 --> 00:12:59.700
+the shredder. quick script. shredder. and
+shredder simply... on trigger enter 2d they don't
+
+00:12:59.779 --> 00:13:02.209
+actually have to put the parameters in
+if you're not going to do anything with
+
+00:13:02.209 --> 00:13:12.379
+them on trigger enter 2d simply destroy GameObject but. what would that do? That would destroy the
+
+00:13:12.379 --> 00:13:20.209
+shredder. OK? So you do need the
+parameters; it's a collider 2d. collider and
+
+00:13:20.209 --> 00:13:24.920
+we are destroying collider - the other
+thing that it hits. or the thing that's hitting it dot
+
+00:13:24.920 --> 00:13:32.680
+game object. OK? I hope that makes sense
+apart from we need a void in front of that.
+
+00:13:32.680 --> 00:13:36.019
+just watch the shredder work. you see the moment
+we see a bunch of projectiles being
+
+00:13:36.019 --> 00:13:40.870
+fired and not being tidied up we want to
+get into tidying them up. so let's set
+
+00:13:40.870 --> 00:13:47.009
+this cactus firing. watch our number of
+courgettes and then you can see they're
+
+00:13:47.009 --> 00:13:50.990
+hitting the shredder. you can see more
+clearly in scene view. especially if you
+
+00:13:50.990 --> 00:13:53.899
+highlight the shredder and as soon as
+they hit it they get minced. Perfect.
+
+00:13:53.899 --> 00:13:58.309
+ok so they are now being minced. let's go
+back to the firing code in the gun;
+
+00:13:58.309 --> 00:14:05.050
+or the shooter and we said that the new
+projectile's transform dot position
+
+00:14:05.050 --> 00:14:11.009
+equals what? Now we need the gun's
+transform position. so how we gonna do
+
+00:14:11.009 --> 00:14:16.410
+this? Do you want to drag it into the Inspector? Do you want to find it? I'm just going to say gun here. make
+
+00:14:16.410 --> 00:14:27.400
+it really easy. and then it's just gonna
+be gun dot transform dot position
+
+00:14:27.400 --> 00:14:31.090
+Now the dark side is you then have to
+drag things around. we have to go back to
+
+00:14:31.090 --> 00:14:37.930
+the inspector. we have to look at our
+prefabs for two of our defenders and we
+
+00:14:37.930 --> 00:14:43.000
+have to independently say who the gun is
+and who the projectile parent is because
+
+00:14:43.000 --> 00:14:46.410
+we need to be doing this in the prefab.
+Now we have an important rule here to
+
+00:14:46.410 --> 00:14:50.550
+consider is that we should be dragging
+prefab to prefabs. not instances to
+
+00:14:50.550 --> 00:14:56.250
+instances. So at the moment there's no
+projectile parent against the pre-fab. if
+
+00:14:56.250 --> 00:15:00.460
+you look at the cactus it has a
+projectile parent but the prefab doesn't
+
+00:15:00.460 --> 00:15:06.270
+OK so that's quite an important point.
+Now let's apply the changes to the
+
+00:15:06.270 --> 00:15:14.120
+cactus. Now the cactus prefab has a
+gun sub-prefab in it. So. it is the
+
+00:15:14.120 --> 00:15:19.530
+cactus that wanted to know about its
+own gun. it's dragging a prefab to a prefab
+
+00:15:19.530 --> 00:15:23.720
+Does that make sense? And the same for the
+gnome. the gnome currently as we've been
+
+00:15:23.720 --> 00:15:28.390
+playing around with the instance does
+not have a gun in its prefab we apply. and it
+
+00:15:28.390 --> 00:15:33.400
+does have a gun in its prefab. now we can say
+to the gnome's shooter script here is
+
+00:15:33.400 --> 00:15:38.920
+your gun. So how about the projectile
+parent? Do we want to be prefabbing the
+
+00:15:38.920 --> 00:15:45.360
+projectile parent? Well I would suggest
+we do actually but not with an axe and a
+
+00:15:45.360 --> 00:15:49.910
+courgette built in. but just a straight
+prefab of the projectiles and the
+
+00:15:49.910 --> 00:15:53.550
+shredder actually because when we set up
+a new level. remember we want everything to be
+
+00:15:53.550 --> 00:15:57.880
+prefabbed. so we just drop one of
+everything in. So we will keep the
+
+00:15:57.880 --> 00:16:03.880
+projectiles prefab even though it's
+a nothing we'll keep it prefabbed; now when
+
+00:16:03.880 --> 00:16:09.260
+you go to your defender prefab and you
+look at its script and it's saying give
+
+00:16:09.260 --> 00:16:15.620
+me a projectile parent you can and you
+can give it the projectiles prefab you
+
+00:16:15.620 --> 00:16:21.440
+must drag a prefab to a prefab. alright?
+Hopefully I've rubbed that in enough now. If
+
+00:16:21.440 --> 00:16:27.070
+you're always using prefab down here for
+practically everything and you are - and
+
+00:16:27.070 --> 00:16:30.930
+you are always dragging prefabs to
+prefabs. you're in a good place. Should
+
+00:16:30.930 --> 00:16:35.449
+you be prefabbing the event system? No.
+because it's independent for every
+
+00:16:35.449 --> 00:16:39.579
+different scene and it will come
+automatically. but the canvas. should you be
+
+00:16:39.579 --> 00:16:45.400
+prefabbing attackers and defenders itself? Yeah.
+why not. we'll do that when we tidy up later
+
+00:16:45.449 --> 00:16:48.929
+Alright. so the other defender was the
+gnome and he's asking for a projectile
+
+00:16:48.929 --> 00:16:56.869
+parent. so we don't drag the instance from
+there. we drag the prefab from here. So
+
+00:16:56.869 --> 00:17:01.949
+hopefully that's useful learning for you.
+So here we go. let's try again. what is
+
+00:17:01.949 --> 00:17:08.839
+happening when our attacker is in the
+- sorry our cactus is in the attack
+
+00:17:08.839 --> 00:17:13.659
+state? Let's put him in the attack state. and
+now they're being spawned - they're far too big.
+
+00:17:13.659 --> 00:17:19.549
+these courgettes. but they are being spawned from
+his hand. So that's great. and then this
+
+00:17:19.549 --> 00:17:24.439
+exactly the same thing would apply to
+the gnome. let's put the gnome in his
+
+00:17:24.439 --> 00:17:31.940
+attack state. The reason the gnome is not
+firing yet. do you know why? It's because in the
+
+00:17:31.940 --> 00:17:38.090
+gnome's animation I have not yet in his
+attacking animation added a call to fire
+
+00:17:38.090 --> 00:17:46.370
+a weapon but I have now; update my gnome prefab. now I can put my gnome in the attacking state and he
+
+00:17:46.370 --> 00:17:50.970
+fires axes; there's far too many of them.
+we'll deal with that in a moment. but
+
+00:17:50.970 --> 00:17:54.760
+he's firing them. and again if we go to
+the cactus and put him in attack state.
+
+00:17:54.760 --> 00:18:01.600
+he then fires his axes. Great so that's
+working really nicely. That's enough for this video.
+
+00:18:01.600 --> 00:18:05.769
+let's leave it there and in the next
+video we will work out how we can use
+
+00:18:05.769 --> 00:18:11.559
+different states to better control our
+firing rate and basically tidy up and
+
+00:18:11.559 --> 00:18:14.250
+tweak these firing animations. So see you
+shortly
+

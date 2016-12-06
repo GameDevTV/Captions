@@ -1,0 +1,736 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:08.730
+Hello and welcome back. In this video we're going to be looking at shooting our
+
+00:00:08.730 --> 00:00:14.769
+enemies. Right now. let's remind ourselves slowly of what we have. Let's jump into our game and have a look.
+
+00:00:14.769 --> 00:00:20.880
+We have a game where we can shoot lasers. but they are completely impotent to our
+
+00:00:20.880 --> 00:00:23.910
+enemies. They don't actually cause any
+damage. They don't strike the enemies.
+
+00:00:23.910 --> 00:00:29.320
+Nothing occurs when they hit our
+enemies. That's not what we want. So what
+
+00:00:29.320 --> 00:00:34.790
+we're going to do in this video is turn that into lasers that cause damage to the enemies. and
+
+00:00:34.790 --> 00:00:39.649
+to do that we're going to be adding a
+Kinematic Rigidbody Trigger to our
+
+00:00:39.649 --> 00:00:47.030
+enemy prefabs. and that will create an
+event whenever it's collided with by the
+
+00:00:47.030 --> 00:00:52.000
+projectile. by the laser beam itself. and
+whenever that trigger is entered. the enemy will
+
+00:00:52.000 --> 00:00:58.469
+take damage according to the projectile
+component of our laser. So we'll add a
+
+00:00:58.469 --> 00:01:03.010
+projectile script to our lasers. That projectile script will have a
+
+00:01:03.010 --> 00:01:07.600
+public damage field. that's the amount of damage the projectile causes. So let's say if it's a big
+
+00:01:07.600 --> 00:01:11.170
+massive laser that's the result of a power-up. it'll be a lot of damage. If it's the
+
+00:01:11.170 --> 00:01:14.640
+normal laser it'll be a little damage. and
+then we'll add this script as a component of
+
+00:01:14.640 --> 00:01:19.200
+our lasers and we'll use that to cause damage to our enemies. And in fact. the first
+
+00:01:19.200 --> 00:01:25.259
+thing I want you to do is to log a message.
+when the projectile hits an enemy. I want
+
+00:01:25.259 --> 00:01:29.890
+you to pause the video and make sure that
+whenever you're using a kinematic rigid body
+
+00:01:29.890 --> 00:01:33.329
+trigger. I want you to make sure that
+whenever a projectile. whenever a laser.
+
+00:01:33.329 --> 00:01:38.020
+hits one of the enemy's a message is
+logged out to the console. So that's
+
+00:01:38.020 --> 00:01:41.110
+whenever there's a collision a message is logged out to the console. There's a
+
+00:01:41.110 --> 00:01:44.220
+bonus point if you can figure out how
+to log messages. only when the projectile is
+
+00:01:44.220 --> 00:01:50.259
+hit by a projectile object. And
+there's a little hint here where you can
+
+00:01:50.259 --> 00:01:55.210
+use the get competent projectile. and
+it'll return either the projectile itself
+
+00:01:55.210 --> 00:02:01.579
+or null if it doesn't exist. So pause the
+video now. and try and get the enemies to
+
+00:02:01.579 --> 00:02:09.979
+log out a message whenever a laser hits
+them.
+
+00:02:09.979 --> 00:02:16.330
+Ok! How did it go? Let's take a look at
+how we would do that. So let's remind
+
+00:02:16.330 --> 00:02:19.239
+ourselves we're trying to detect laser
+collisions and log out a message
+
+00:02:19.239 --> 00:02:23.810
+whenever we're hit by a projectile. So the
+first thing I need to do is pause my
+
+00:02:23.810 --> 00:02:29.709
+game. which is currently running. And I'm
+going to grab my enemies themselves. so
+
+00:02:29.709 --> 00:02:33.379
+let's take a look at our enemy. We've got an enemy prefab. Remember the folder
+
+00:02:33.379 --> 00:02:38.750
+structure is so that the enemies are within the entities. Let's take a look at our enemy
+
+00:02:38.750 --> 00:02:42.370
+prefab. Right now. we only have a sprite renderer. That's no good. We really want a
+
+00:02:42.370 --> 00:02:47.709
+rigid body... Kinematic Rigidbody Trigger.
+which means we're going to need a collider.
+
+00:02:47.709 --> 00:02:52.230
+And let's take a look at what else.. We're going to need a rigid body on there. So let's find a
+
+00:02:52.230 --> 00:02:56.849
+rigid body. And that's a 2D rigid body.
+Remembered this is a 2D game. And we're going to
+
+00:02:56.849 --> 00:03:03.000
+need a collider. too. So that's a 2D box
+collider. And I'm using a box collider for simplicity's
+
+00:03:03.000 --> 00:03:08.359
+sake. You could use a polygon collider to
+make it a little bit more accurate. to
+
+00:03:08.359 --> 00:03:12.319
+follow the outline of the wings. and
+things like that. but frankly as far as
+
+00:03:12.319 --> 00:03:16.470
+we're concerned a box collider will be
+sufficient. because whenever the laser
+
+00:03:16.470 --> 00:03:21.389
+hits it it'll be in the enemy. and we can
+always change that later. So we now have
+
+00:03:21.389 --> 00:03:29.030
+a Rigidbody 2D. Now. I don't want
+my ships to have any angular drag. I don't want that. so I will set that to 0. And
+
+00:03:29.030 --> 00:03:34.310
+they should not be affected by gravity. this is all in space. We have a fixed angle. This
+
+00:03:34.310 --> 00:03:38.000
+is because we don't want them to rotate as a result of a collision. and
+
+00:03:38.000 --> 00:03:41.989
+they are kinematic. which means we control how they move. Now. we have a Rigidbody
+
+00:03:41.989 --> 00:03:46.720
+collider 2D. and it's got a size of 1 and 1. and I'm really not quite sure what that means. So
+
+00:03:46.720 --> 00:03:51.230
+let's take a look. I'm going to create an
+enemy in the game. and we can see here
+
+00:03:51.230 --> 00:03:54.590
+the box collider has a green outline when you've got the enemy selected. And that looks
+
+00:03:54.590 --> 00:03:58.910
+about right. and I'm happy with that.
+so I'm going to delete my enemy from the game.
+
+00:03:58.910 --> 00:04:03.579
+safe in the knowledge that my box collider in my prefab does what we want. So now we
+
+00:04:03.579 --> 00:04:09.260
+have the box collider on the enemy. The
+next step is
+
+00:04:09.260 --> 00:04:14.959
+how do we detect the collision? So what
+I'm gonna do now is. I'm going to go into
+
+00:04:14.959 --> 00:04:19.859
+my enemy prefab. and I'm going to add a component. Now. that's going to be a script.
+
+00:04:19.859 --> 00:04:24.539
+and it's gonna be a new script. and that's
+going to be enemy behavior. So that enemy
+
+00:04:24.539 --> 00:04:29.979
+behavior is going to... Whenever we're hit by a
+
+00:04:29.979 --> 00:04:34.760
+projectile. by anything in fact. I'm going to log out a message. So let's try that now.
+
+00:04:34.760 --> 00:04:39.620
+Let's go into my enemy behavior script. And I don't need start. I don't
+
+00:04:39.620 --> 00:04:44.039
+need update. I don't really mind those two functions. In fact. I'm just going to remove them. We
+
+00:04:44.039 --> 00:04:55.039
+don't need them for now. What I do need is
+a void OnTriggerEnter2D
+
+00:04:55.040 --> 00:05:01.060
+And because it's a trigger let's... I forgot to do something quite vital
+
+00:05:01.060 --> 00:05:07.500
+for this to work. I save the script. Let's jump back into our game. I have not set my
+
+00:05:07.500 --> 00:05:10.610
+collider to be a trigger collider. So I'll set my collider to be a trigger
+
+00:05:10.610 --> 00:05:14.850
+collider. Now. I'll jump back into my script. OnTriggerEnter2D Well what do I want
+
+00:05:14.850 --> 00:05:22.039
+to do? And let's not forget that OnTriggerEnter2D takes in a collider. And that's a collider
+
+00:05:22.039 --> 00:05:28.800
+2D. because we're working in 2D. And that's
+the collider I'm colliding with. and
+
+00:05:28.800 --> 00:05:36.480
+I now want to. whenever I hit a collider.
+I'm going to log it out. So that's Debug.Log(Collider);
+
+00:05:36.480 --> 00:05:41.600
+And I'm just going to log out the collider I've collided with. I think that will be
+
+00:05:41.610 --> 00:05:46.310
+fine. So let's try this out in the game and
+see what happens. when we run this. So we've
+
+00:05:46.310 --> 00:05:49.940
+got the script attached to our prefabs. so
+whenever they're generated they will do
+
+00:05:49.940 --> 00:05:53.400
+something. Let's take a look at our console.
+Let's clear on play. We don't want to
+
+00:05:53.400 --> 00:05:56.880
+collapse. we want to see all the message. Let's press play. and right now there's nothing
+
+00:05:56.880 --> 00:06:02.940
+happening. And here we go. whenever lasers hits our enemies. there's a log message
+
+00:06:02.940 --> 00:06:07.020
+that comes out. which is great that's
+exactly what we want. And we've got a
+
+00:06:07.040 --> 00:06:13.380
+Box Collider2D result. Great! So now comes the little bonus point. which is I only
+
+00:06:13.380 --> 00:06:18.120
+want this to occur whenever we've
+got a projectile that actually hits our
+
+00:06:18.120 --> 00:06:22.539
+enemy. If something else collides. we don't want to trigger the behavior. So what I'm going to
+
+00:06:22.539 --> 00:06:30.010
+do is I'm gonna look at my players... the
+player's laser. and on the player laser...
+
+00:06:30.010 --> 00:06:33.270
+I want the player laser prefab. not the sprite.
+
+00:06:33.270 --> 00:06:39.860
+And we don't have a script. so I'm going
+to add a script. And I'm going to add a
+
+00:06:39.860 --> 00:06:46.170
+projectile script. and this projectile
+script is going to be a general script
+
+00:06:46.170 --> 00:06:50.490
+for all projectiles and it's going to be
+really simple. So let's open this up and
+
+00:06:50.490 --> 00:06:57.780
+have a look. We don't want anything except
+the public damage for the moment. so public
+
+00:06:57.780 --> 00:07:06.060
+float damage. and I'm going to set it to 100 by default. There's no reason why it should
+
+00:07:06.060 --> 00:07:10.340
+be anything else. I don't mind. Let's not forget it's a float. Right! So this is our entire
+
+00:07:10.340 --> 00:07:17.130
+script! Very complex script right! But
+really it's just to. for the moment. say
+
+00:07:17.130 --> 00:07:21.660
+this is a projectile anything that has
+this is considered as a projectile. and
+
+00:07:21.660 --> 00:07:26.260
+we should trigger the projectile behavior whenever we collide with something that is a projectile.
+
+00:07:26.270 --> 00:07:31.870
+So if we jump back into our enemy behavior script now. I want to check whether the
+
+00:07:31.870 --> 00:07:38.820
+thing I'm colliding with is a projectile.
+and to do that I do collider.GameObject.
+
+00:07:38.820 --> 00:07:43.830
+And that will be the game object we're colliding with. So right now what we're getting is a collider.
+
+00:07:43.830 --> 00:07:48.780
+so it'll be the... let's say the
+rigid or the BoxCollider2D or
+
+00:07:48.780 --> 00:07:53.350
+the PolygonCollider2D. Whichever one of
+those. it's going to be a collider we get
+
+00:07:53.350 --> 00:07:57.330
+back in the OnTriggerEnter2D. That's not really what we want. So we
+
+00:07:57.330 --> 00:08:01.560
+need to get the GameObject out. and extract from the GameObject
+
+00:08:01.560 --> 00:08:06.110
+another component. And the way to do
+that is to use the GetComponent method.
+
+00:08:06.110 --> 00:08:12.190
+and I want to get a projectile component.
+so I'm calling it with the projectile
+
+00:08:12.190 --> 00:08:16.370
+types. I'm saying.  I'm grabbing the colliders. I'm grabbing the game object of
+
+00:08:16.370 --> 00:08:20.100
+the collider and from that GameObject I'm
+grabbing another component. Basically. it's the
+
+00:08:20.100 --> 00:08:26.020
+child of a GameObject. which is the projectile component. and
+
+00:08:26.020 --> 00:08:33.610
+that's going to be a projectile missile.
+
+00:08:33.610 --> 00:08:38.610
+Now. that's what we are looking
+for. and if it doesn't exist this get
+
+00:08:38.610 --> 00:08:44.480
+component method will return null. Now. I can check whether the missile
+
+00:08:44.480 --> 00:08:48.279
+exists. If it doesn't that means the
+collider I'm colliding with did not have
+
+00:08:48.279 --> 00:08:53.990
+a projectile component. So let's say I'm colliding with another...
+
+00:08:53.990 --> 00:08:59.769
+another ship... I'm colliding with a
+player... I'm colliding with something else.
+
+00:08:59.769 --> 00:09:04.399
+It doesn't matter. I'm just colliding
+with something else. And the way to do that. I can just
+
+00:09:04.399 --> 00:09:09.370
+check if(missile){}. which will mean if
+missile exists. and is not null.
+
+00:09:09.370 --> 00:09:13.660
+unknown. or false value then. I can do
+something. And then I'm just going to log
+
+00:09:13.660 --> 00:09:28.769
+out into my console. Debug.Log("Hit by a projectile") Let's make sure it's a string. Not
+
+00:09:28.769 --> 00:09:34.570
+projectiles. projectile. So now I can save
+this. and it won't really change the
+
+00:09:34.570 --> 00:09:38.449
+behavior of what we saw in the game. Let's jump back into our game. Press play
+
+00:09:38.449 --> 00:09:47.440
+again. We should still see. in the console.
+the same messages. but now we know it's a
+
+00:09:47.440 --> 00:09:51.930
+projectile. because it has... its checking
+for the projectile component. If I remove
+
+00:09:51.930 --> 00:09:56.649
+the projectile component from my prefab.
+let's say for a moment I remove this
+
+00:09:56.649 --> 00:10:01.930
+component. I'm doing this in the game in
+the green mode. in the play mode... and
+
+00:10:01.930 --> 00:10:06.329
+now I fired again. You'll see that there are no longer any debug objects.
+
+00:10:06.329 --> 00:10:10.149
+I'm not getting the scrolling. The
+console isn't scrolling. because it doesn't
+
+00:10:10.149 --> 00:10:17.959
+have a component. I add the component again. so let's add a script. and let's call it...
+
+00:10:17.959 --> 00:10:20.120
+What was it? It was projectile.
+
+00:10:20.120 --> 00:10:25.000
+We add the projectile component again. and we start shooting again. And now you can see
+
+00:10:25.000 --> 00:10:28.769
+the console is now scrolling again and
+the number of messages goes up. which it
+
+00:10:28.769 --> 00:10:32.630
+didn't when I didn't have the script. So
+great that's fantastic. we can stop the
+
+00:10:32.630 --> 00:10:36.829
+game. and we're happy with how this is
+working out. Now. we've really done a lot
+
+00:10:36.829 --> 00:10:42.750
+of the work we needed to. So let's recap!
+Briefly how do you get
+
+00:10:42.750 --> 00:10:48.600
+this behavior working? Well we've got the
+OnTriggerEnter2D() to detect collisions. We
+
+00:10:48.600 --> 00:10:53.170
+checked that something that's built into
+our enemies is a projectile component. and
+
+00:10:53.170 --> 00:10:57.730
+now comes the interesting bit. Now.  comes the bit where if we do... if
+
+00:10:57.730 --> 00:11:01.100
+it is a projectile component. we're going to damage ourselves. So we're
+
+00:11:01.100 --> 00:11:03.460
+introducing the concept of health. Our
+
+00:11:03.460 --> 00:11:07.430
+enemies have health. and whenever we are hit by a projectile. we reduce our health by the
+
+00:11:07.430 --> 00:11:12.480
+amount that the projectile has. And to finalize everything. we're going to call the
+
+00:11:12.480 --> 00:11:17.650
+projectile and we're going to call the hit method of the projectile. Thats to tell a
+
+00:11:17.650 --> 00:11:22.720
+missile... say we've been hit. we've taken the damage. it's time to end
+
+00:11:22.720 --> 00:11:25.950
+the missile. Otherwise the
+missile will continue on its way because
+
+00:11:25.950 --> 00:11:29.370
+it's a trigger and wouldn't destroy
+ourselves. And then the hit method is when
+
+00:11:29.370 --> 00:11:32.870
+we will be. in the future. doing things
+like animating the explosion of the
+
+00:11:32.870 --> 00:11:36.280
+laser and things like that. So for the
+moment let's jump back into our code.
+
+00:11:36.280 --> 00:11:42.670
+Let's grab the projectile script. Right
+now actually it's in a... it's in the wrong
+
+00:11:42.670 --> 00:11:46.130
+place. It's in the Asset folder directly... because it's a general script that
+
+00:11:46.130 --> 00:11:50.870
+applies a lot of things. I'm going to move
+it to Scripts. The enemy behavior really
+
+00:11:50.870 --> 00:11:55.540
+belongs to my Enemy folder. It's really about the enemy. So I'm just going to move it to
+
+00:11:55.540 --> 00:11:59.720
+Entities Enemy. And my shredder script
+is also a general script. it doesn't
+
+00:11:59.720 --> 00:12:03.710
+really belong to anything. It's a very
+general utility script. I'm just going to move it to Scripts.
+
+00:12:03.710 --> 00:12:10.360
+So that's a little bit of a tidy up for
+our assets. So let's
+
+00:12:10.360 --> 00:12:17.270
+jump into our projectile script. which is
+in the general scripts. and in the
+
+00:12:17.270 --> 00:12:25.320
+projectile we're going to add... don't save.
+Yes save. I'm not sure why he's asking that for. but
+
+00:12:25.320 --> 00:12:34.780
+that's ok. In the projectile script we
+can now add a new void method. which is
+
+00:12:34.780 --> 00:12:40.450
+going to be hit and it will take nothing. and that's just to signal the
+
+00:12:40.450 --> 00:12:43.760
+projectile that we've just hit an object. You know it's entering a trigger will
+
+00:12:43.760 --> 00:12:49.230
+will say. hey. you've just hit an object.
+now it's time to do your thing. So how do
+
+00:12:49.230 --> 00:12:54.560
+we do...  What do we expect to do? Well
+really we expect the projectile to...
+
+00:12:54.560 --> 00:13:02.630
+We expect the projectile to destroy itself. so we'll do Destroy and destroy the GameObject.
+
+00:13:02.630 --> 00:13:09.880
+So now we're destroying the GameObject. For some reason it's not... We've got a problem with Mono
+
+00:13:09.880 --> 00:13:16.300
+behavior here. not recognizing something. Let's just save it and build it. Seems to be ok. It's
+
+00:13:16.300 --> 00:13:20.500
+red for some reason. I'm not sure why.
+And also we are going to create another
+
+00:13:20.500 --> 00:13:31.480
+method. We're going to create a void GetDamage(){} function. and this get damage...
+
+00:13:31.480 --> 00:13:37.220
+Let's capitalize it the way we wanted
+to. This GetDamage function will. in fact.
+
+00:13:37.220 --> 00:13:44.230
+return the damage we deal. So that's a
+very simple return damage. and that's
+
+00:13:44.230 --> 00:13:47.820
+just so to make our calling convention nicer. We don't really want to be messing
+
+00:13:47.820 --> 00:13:52.260
+around with variable... and that's not void
+actually. this will be float. if we're
+
+00:13:52.260 --> 00:13:57.290
+returning the damage. So if we don't
+really want to be twiddling the damage
+
+00:13:57.290 --> 00:14:06.290
+property attribute from our... from the
+code... from the enemy code itself. So let's
+
+00:14:06.290 --> 00:14:11.170
+jump back out. and this time let's take a
+look at...
+
+00:14:11.170 --> 00:14:14.970
+Woo. it doesn't like... Something does not
+like that. Let's take a look at what's
+
+00:14:14.970 --> 00:14:15.770
+going on here.
+
+00:14:15.770 --> 00:14:22.990
+I think I should not... so right. I think it has duplicated the projectile script. so
+
+00:14:22.990 --> 00:14:24.510
+if you ever seen an error like this.
+
+00:14:24.510 --> 00:14:27.560
+"the namespace global already contains a
+definition for projectile" That means
+
+00:14:27.560 --> 00:14:31.050
+it has duplicated a script. I'm just going to delete the old one. so
+
+00:14:31.050 --> 00:14:36.350
+that we only have one in the Scripts folder.
+
+00:14:36.350 --> 00:14:44.280
+So right now comes the turn to make the
+enemy behavior handle the damage dealt
+
+00:14:44.280 --> 00:14:49.550
+by the laser. So let's jump into enemy
+behavior. we grab the enemy behavior
+
+00:14:49.550 --> 00:14:57.960
+script. and if it's a missile then we can
+say. if it's a projectile. we can say let's
+
+00:14:57.960 --> 00:15:06.120
+pretend we have health.  health -= so I'm reducing the health
+
+00:15:06.120 --> 00:15:20.000
+by missile.GetDamage(). and it'll be GetDamage. That's the right one? Yep. GetDamage
+
+00:15:20.180 --> 00:15:23.700
+Oh. and let's make sure that get damage is
+public. Let's make sure that both GetDamage
+
+00:15:23.720 --> 00:15:28.320
+and Hit are public. otherwise. we'll never be able to call them from the outside.
+
+00:15:28.320 --> 00:15:32.460
+That's why they're not coming up in the
+autocomplete. So let's save
+
+00:15:32.460 --> 00:15:39.410
+this one. Let's save our projectile script. jump back here GetDamage. and if the health is less
+
+00:15:39.410 --> 00:15:49.100
+than equal to 0 that means we're dead. If
+health less than or equal to 0 then we
+
+00:15:49.100 --> 00:15:55.490
+want to destroy ourselves. Let's make
+sure everything is spelled properly. and
+
+00:15:55.490 --> 00:16:04.790
+let's do Destroy(gameObject) Here we go. Now health is
+
+00:16:04.790 --> 00:16:08.050
+red. I haven't got the concept of health yet. so let's create.
+
+00:16:08.050 --> 00:16:16.260
+a public health float. That's my hit points essentially. and that's
+
+00:16:16.260 --> 00:16:23.140
+going to be equal to let's say 150. so you have to hit an enemy twice at least to destroy them. Now.
+
+00:16:23.140 --> 00:16:27.720
+I'm doing it to 150. Do whatever you
+want. this is really about play tuning
+
+00:16:27.720 --> 00:16:32.450
+when you come to balancing the game. making sure the game is fun.
+
+00:16:32.450 --> 00:16:36.150
+This is really where you want to be able to
+twiddle those numbers. For the moment it
+
+00:16:36.150 --> 00:16:38.630
+doesn't really matter. we're just building the
+infrastructure. and we can do some of the
+
+00:16:38.630 --> 00:16:43.230
+play tuning later. So I can remove the
+Debug message. and we should see that now
+
+00:16:43.230 --> 00:16:53.680
+if an enemy has been hit twice by a missile. then it will be
+
+00:16:53.680 --> 00:16:58.040
+destroyed. And let's not forget we need
+to tell the missile we've collided.
+
+00:16:58.040 --> 00:17:04.050
+and I'm going to use the hit method. And
+I'm going to do that.
+
+00:17:04.050 --> 00:17:09.580
+not if the health is less than 0. but
+always. So I'm just going to give the damage and
+
+00:17:09.580 --> 00:17:15.040
+call the hit method. So that's missile.Hit()
+And now. because we made it public
+
+00:17:15.040 --> 00:17:20.100
+it comes up in the autocomplete. So
+great let's jump back into our game. and
+
+00:17:20.100 --> 00:17:25.290
+see what that all means. it's a bit abstract
+right now. Let's see what that turns into. So
+
+00:17:25.290 --> 00:17:27.000
+if I press play... here we go!
+
+00:17:27.000 --> 00:17:31.470
+They get hit twice. and notice you'll need
+two shots. and they get destroyed. And
+
+00:17:31.470 --> 00:17:38.010
+that is essentially the end of this
+video. We have. just to recap. we've got the
+
+00:17:38.010 --> 00:17:43.180
+enemy responding to a projectile when it enters and hits them. We are
+
+00:17:43.180 --> 00:17:49.310
+using a Kinematic Rigidbody Triggers for
+the enemies. And we went over the missile
+
+00:17:49.310 --> 00:17:53.810
+is entering the trigger. we're taking
+damage. and notifying the missile to do its
+
+00:17:53.810 --> 00:17:57.440
+animation. So that's it for now. That's it for this video.
+
+00:17:57.440 --> 00:18:01.930
+Congratulations on getting this far! Hope
+you've enjoyed it. and I will see you for
+
+00:18:01.930 --> 00:18:03.390
+the next one! Bye for now.
+

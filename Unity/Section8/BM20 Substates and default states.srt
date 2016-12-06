@@ -1,0 +1,874 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:07.990
+welcome back so we're finally ready to
+return to the topic of animator substate
+
+00:00:07.990 --> 00:00:12.799
+machines and default States and all that
+sort of thing so if you remember we
+
+00:00:12.799 --> 00:00:18.029
+broke off when we were in the middle of
+building this animation system because
+
+00:00:18.029 --> 00:00:22.449
+even though we could animate the motion
+of the Swiper we weren't able to
+
+00:00:22.449 --> 00:00:28.070
+determine which of the pins were
+standing in order to raise them up so we
+
+00:00:28.070 --> 00:00:31.340
+had a little sidetrack. did several
+several videos where we produced some
+
+00:00:31.340 --> 00:00:35.860
+great code that's allowed us now to
+determine how many pins are standing and
+
+00:00:35.860 --> 00:00:39.329
+there is the standing count that we've
+just built so what we need to do moving
+
+00:00:39.329 --> 00:00:42.110
+forward I'm gonna give you an overview
+of everything that's coming now but this
+
+00:00:42.110 --> 00:00:46.149
+is a couple of videos dealing with
+roughly the same thing so in this
+
+00:00:46.149 --> 00:00:51.230
+particular video we're going to overview how the tidy
+and the reset work modify the
+
+00:00:51.230 --> 00:00:55.680
+architecture of the game a little bit
+and the hierarchy learn more about sub
+
+00:00:55.680 --> 00:01:00.149
+state machines learn about default
+transitions while we're there and then
+
+00:01:00.149 --> 00:01:04.760
+we'll actually set up our tidy and our
+reset sub states and there'll be a couple of
+
+00:01:04.760 --> 00:01:10.650
+challenges for you and then in the video
+after this one we will be creating some
+
+00:01:10.650 --> 00:01:16.479
+animator helper scripts for raising and
+lowering pins so those two kind of go
+
+00:01:16.479 --> 00:01:19.900
+together but it's going to be too much
+for one video and at the end of this we'll
+
+00:01:19.900 --> 00:01:24.390
+have a fantastic animation controller
+that will be responsible for both moving
+
+00:01:24.390 --> 00:01:29.140
+the Swiper with a nice motion and also
+for calling script that is going to
+
+00:01:29.140 --> 00:01:33.420
+raise and lower these pins based on
+whether they're standing so let's crack
+
+00:01:33.420 --> 00:01:37.060
+on and get on with that so the first
+thing to do is to talk about the
+
+00:01:37.060 --> 00:01:40.990
+architecture of the game so the moment
+I've got it set up like this I have a
+
+00:01:40.990 --> 00:01:46.390
+PinSetter which is just a box collider
+and a script and we have that as a
+
+00:01:46.390 --> 00:01:50.200
+separate component to the Swiper
+but actually if you think about it the
+
+00:01:50.200 --> 00:01:54.290
+Swiper is part of the PinSetter
+arrangements so I'm gonna move the PinSetter
+
+00:01:54.290 --> 00:01:58.040
+to the top level of my hierarchy you
+notice nothing changes it's just how it's
+
+00:01:58.040 --> 00:02:03.649
+organized and then I'm gonna sub the swiper to the PinSetter so we end
+
+00:02:03.649 --> 00:02:06.790
+up in this arrangement here so now when
+you click on the PinSetter you get both
+
+00:02:06.790 --> 00:02:11.370
+the PinSetter and its part which is the
+swiper selected. Great.
+
+00:02:11.370 --> 00:02:15.330
+so that's the first architectural change
+I wanna make. The next architectural
+
+00:02:15.330 --> 00:02:19.560
+change i wanna talk about is the fact
+that at the moment the animation controller
+
+00:02:19.560 --> 00:02:23.980
+and the animator are attached to the
+Swiper well that was fine all the time
+
+00:02:23.980 --> 00:02:28.970
+that the Swiper was the only animation that
+was going on but now we want to actually
+
+00:02:28.970 --> 00:02:34.319
+be able to lift the pins from script so we
+have a swipe motion and we absolutely
+
+00:02:34.319 --> 00:02:38.379
+want to keep that swipe motion that
+motion that we've come up with that goes
+
+00:02:38.379 --> 00:02:43.530
+out and back is absolutely fine but the
+Swiper animation controller is no longer
+
+00:02:43.530 --> 00:02:49.569
+a swiper animation controller at all. In fact
+we may as well just delete it's actually gonna be a
+
+00:02:49.569 --> 00:02:54.170
+PinSetter animation controller so let's
+delete the swiper animation controller and
+
+00:02:54.170 --> 00:03:00.519
+the Swipe the animator from the swiper
+doesn't need one at all what we're going to
+
+00:03:00.519 --> 00:03:03.819
+create a whole new animator and
+animation controller at this level on
+
+00:03:03.819 --> 00:03:10.049
+the PinSetter so add an animator to the
+PinSetter for me and create yourself a
+
+00:03:10.049 --> 00:03:17.690
+new animation controller and call it PinSetter. We're just going to start afresh and then
+
+00:03:17.690 --> 00:03:21.849
+make sure that that PinSetter animation controller is attached to the PinSetter
+
+00:03:21.849 --> 00:03:25.599
+Fantastic. There it is I'm gonna move my script to the bottom because I'm obsessive like that.
+
+00:03:25.599 --> 00:03:31.879
+Great so let's start laying out this PinSetter animation controller so I'm gonna do
+
+00:03:31.879 --> 00:03:35.239
+the top-level part of this diagram for
+you and then I'm going to ask you to
+
+00:03:35.239 --> 00:03:38.889
+play with the sub-state machine and to
+organize that so while you're in the
+
+00:03:38.889 --> 00:03:44.359
+animator bear in mind you can hold down
+the Alt key to scroll around and in
+
+00:03:44.359 --> 00:03:48.540
+Unity 5 it looks a little bit different
+to before we have an any state node an
+
+00:03:48.540 --> 00:03:52.780
+exit node and an entry notes so let's
+start looking at how this works. What I'm
+
+00:03:52.780 --> 00:04:02.090
+going to want is a tidy substate machine
+and a reset substate machine. Because they do
+
+00:04:02.090 --> 00:04:06.819
+slightly different things but they reuse
+some things so we have a reset just be careful
+
+00:04:06.819 --> 00:04:13.480
+with your renaming and a tidy. I'll put tidy
+at the top I dunno why. I just feel like it
+
+00:04:13.480 --> 00:04:18.130
+so what the idea is that we're gonna be
+sitting by default in an idle states so we're
+
+00:04:18.130 --> 00:04:23.620
+also going to need that idle state let's
+generate the idle state now so this is a
+
+00:04:23.620 --> 00:04:28.669
+state. not a sub-state machine and it's
+called idle and it's made itself the
+
+00:04:28.669 --> 00:04:32.830
+default state for this level so we're at
+the top level the base layer of the
+
+00:04:32.830 --> 00:04:36.940
+animator when we come into this base
+layer from anywhere which includes from
+
+00:04:36.940 --> 00:04:41.400
+the tidy level which is like a folder
+we've just gone down into a folder then the
+
+00:04:41.400 --> 00:04:45.639
+default transition is into idle which is
+fine we don't need a motion on idle
+
+00:04:45.639 --> 00:04:49.580
+because there's nothing to move around
+the scene so that's all we need to do
+
+00:04:49.580 --> 00:04:52.590
+there and then we're gonna have two
+different sub state machines one is
+
+00:04:52.590 --> 00:04:59.560
+going to be tidy which is going to lift
+up the pins swipe the Swiper with that
+
+00:04:59.560 --> 00:05:03.350
+motion we've created and then put the
+pins back down on the bed before
+
+00:05:03.350 --> 00:05:08.500
+returning back up to this level and
+sitting back in the idle state and then
+
+00:05:08.500 --> 00:05:11.639
+we're also gonna have a reset substate
+machine which will do something
+
+00:05:11.639 --> 00:05:15.539
+slightly different it's just gonna swipe
+away everything. instantiate a new set of
+
+00:05:15.539 --> 00:05:20.210
+pins and put them in place. So slightly
+different behaviors for these two
+
+00:05:20.210 --> 00:05:23.599
+sub-machine so the sub machines are just
+basically like a folder they're a way of
+
+00:05:23.599 --> 00:05:28.660
+going in here and saying what do I want
+to happen within this sub-state and you
+
+00:05:28.660 --> 00:05:31.610
+have very similar looking apart from we have an up to base layer which takes us
+
+00:05:31.610 --> 00:05:33.080
+back to the top
+
+00:05:33.080 --> 00:05:38.789
+Fantastic so it is time now for your
+first challenge which is to set up your
+
+00:05:38.789 --> 00:05:43.860
+tidy animation I want you to create the
+tidy substate and it inner states. I've
+
+00:05:43.860 --> 00:05:49.360
+already made the tidy sub-state in my
+case. Set up the tidy trigger parameter
+
+00:05:49.360 --> 00:05:53.320
+which is going to be what takes us from
+the idle state into this sub state
+
+00:05:53.320 --> 00:05:59.470
+machine and include all the following steps so what's gonna
+
+00:05:59.470 --> 00:06:02.250
+happen at the end of this is you click
+playing your game you'll be looping
+
+00:06:02.250 --> 00:06:07.280
+around the idle state until you tick on
+the tidy trigger parameter which would
+
+00:06:07.280 --> 00:06:11.639
+take us into this sub state machine will
+go through an empty raise. swipe lower
+
+00:06:11.639 --> 00:06:14.729
+and exit. None of those things need to do
+anything at the moment
+
+00:06:14.729 --> 00:06:18.500
+although you're welcome to attach the swipe motion to the swipe state if you wish
+
+00:06:18.500 --> 00:06:23.110
+but once it just passes through here and back
+up to the top level and starts looping
+
+00:06:23.110 --> 00:06:24.210
+round tidy.
+
+00:06:24.210 --> 00:06:27.960
+idle again you're in good shape so let's
+get that sub-state machine working now
+
+00:06:27.960 --> 00:06:36.949
+Pause the video and set it up. OK welcome
+back so let's make this stuff happen shall we?
+
+00:06:36.949 --> 00:06:40.889
+Firstly I'm gonna make the transition
+into the tidy substate machine there is
+
+00:06:40.889 --> 00:06:44.560
+and I need to make that parameter so it's
+on the left hand side slightly different
+
+00:06:44.560 --> 00:06:49.740
+in Unity 5. add a trigger parameter
+and I'm going to call it tidy trigger
+
+00:06:49.740 --> 00:06:53.630
+Now the reason in unity four point X I
+used to
+
+00:06:53.630 --> 00:06:56.990
+suffix everything with trigger is because
+it wasn't at all clear in the parameters
+
+00:06:56.990 --> 00:07:01.389
+list whether we were dealing with a bool
+or a trigger. In this case it actually is
+
+00:07:01.389 --> 00:07:05.310
+if I put the bool in we now in Unity 5
+have a square checkbox whereas triggers
+
+00:07:05.310 --> 00:07:11.110
+have a round but for momentum because we have momentum I'm gonna continue to use
+
+00:07:11.110 --> 00:07:16.990
+a trigger suffix at least for the moment.
+So there is our transition from idle we
+
+00:07:16.990 --> 00:07:20.280
+need to add the condition which is
+OnTidyTrigger. let's check it works.
+
+00:07:20.280 --> 00:07:25.449
+Sometimes these animators are a little bit
+tricky so it's not working right now
+
+00:07:25.449 --> 00:07:29.830
+idle is not doing anything so what's
+wrong let's check the PinSetter. it has
+
+00:07:29.830 --> 00:07:31.330
+an animation controller on it.
+
+00:07:31.330 --> 00:07:36.080
+Fantastic let's I can remove has exit time from this transition because we
+
+00:07:36.080 --> 00:07:39.599
+want the transition to happen the moment
+that the tidy trigger happens. so let's
+
+00:07:39.599 --> 00:07:42.930
+see if it works now without has exit time
+yes it does look. We're looping around
+
+00:07:42.930 --> 00:07:48.080
+idle and the moment I hit tidy trigger
+then we go into the sub-state machine and
+
+00:07:48.080 --> 00:07:52.570
+back out but it's so quick you can't see
+it. So let's make the return transition
+
+00:07:52.570 --> 00:08:00.009
+like that and go into the sub-state
+machine to edit it so what have we got? Well
+
+00:08:00.009 --> 00:08:06.180
+we said we had a raise pins. that was the first state. Now you can either create I'm
+
+00:08:06.180 --> 00:08:09.090
+going to do the raise this way I'm
+going to create an actual state with no
+
+00:08:09.090 --> 00:08:13.360
+motion and then later we'll probably
+have to create a motion I'm going to do
+
+00:08:13.360 --> 00:08:19.690
+the lower a different way and the Swipe
+so here's the Swipe how are we gonna get the
+
+00:08:19.690 --> 00:08:21.240
+swipe into here?
+
+00:08:21.240 --> 00:08:26.630
+Well we already have a motion for swipe
+so we may as well just create the state
+
+00:08:26.630 --> 00:08:30.680
+for swipe like so and
+
+00:08:30.680 --> 00:08:37.909
+attach it to the existing motion and
+make the transition. Fantastic and then
+
+00:08:37.909 --> 00:08:40.399
+finally I'll show you a slightly
+different way of doing things let's
+
+00:08:40.399 --> 00:08:45.360
+click onto the PinSetter. onto the
+animation and then you have a list of
+
+00:08:45.360 --> 00:08:48.870
+motions here so far we only have the
+swipe motion. remember that motion we
+
+00:08:48.870 --> 00:08:53.930
+created. How about if you create a new clip
+in here. what does that do? Pop it in your
+
+00:08:53.930 --> 00:08:58.330
+animations folder. you can always choose it from here if you need to I'm talking about
+
+00:08:58.330 --> 00:09:04.209
+assets / animations and let's call this one
+lower. So now what's happened if we
+
+00:09:04.209 --> 00:09:08.720
+scroll around we should be able to find in
+one of our state machine diagrams
+
+00:09:08.720 --> 00:09:12.770
+probably at the base layer there you go
+it's created lower at the base layer and
+
+00:09:12.770 --> 00:09:16.690
+that's the problem is not gone where we
+want it can we drag it into that
+
+00:09:16.690 --> 00:09:21.880
+lower layer? Yes we can but we have to drag around so this is an alternative and
+
+00:09:21.880 --> 00:09:24.899
+what you've actually created here is two
+things. you've created an animation state
+
+00:09:24.899 --> 00:09:30.890
+here and you've created an associated
+clip so if we inspect lower you'll see it
+
+00:09:30.890 --> 00:09:32.270
+has a lower motion clip;
+
+00:09:32.270 --> 00:09:37.430
+raise does not have a motion clip. well
+we're going to need a motion clip for
+
+00:09:37.430 --> 00:09:43.490
+raise later so why don't we just create one now just several ways of doing this. So we create
+
+00:09:43.490 --> 00:09:47.660
+an animation we call it raise it's just
+gonna be a script call by the way this
+
+00:09:47.660 --> 00:09:51.130
+thing but we still need it and let's
+attach it. So several ways of doing it
+
+00:09:51.130 --> 00:09:54.350
+but it's really important we dig into
+this like this so you can understand
+
+00:09:54.350 --> 00:09:57.350
+what's going on under the behind the
+scenes when you start creating things
+
+00:09:57.350 --> 00:10:01.610
+you understand the difference between a clip and the motion; well the motion and the clip
+
+00:10:01.610 --> 00:10:03.800
+are the same thing but I want you to
+understand the difference between an
+
+00:10:03.800 --> 00:10:07.320
+animation state and the associated
+motion that's the main thing to learn
+
+00:10:07.320 --> 00:10:12.500
+from this. OK so once we've lowered we
+are going to exit this sub state
+
+00:10:12.500 --> 00:10:17.209
+machine. So we come into the substate machine. raise. swipe. lower exit and that's just fine
+
+00:10:17.209 --> 00:10:20.380
+swipe has a motion but raise and lower
+don't do anything yet
+
+00:10:20.380 --> 00:10:25.660
+that's absolutely fine. so let's try
+it. Let's see what happens. We loop around
+
+00:10:25.660 --> 00:10:29.649
+the idle state. we trigger the parameter.
+Boom. It goes into the machine it's doing
+
+00:10:29.649 --> 00:10:33.339
+the animation if you look down the end
+of the play space and here in the swipe
+
+00:10:33.339 --> 00:10:38.279
+and then it goes to lower and then it exits back up to the top level. Look at that isn't
+
+00:10:38.279 --> 00:10:39.250
+that wonderful.
+
+00:10:39.250 --> 00:10:42.790
+The only other thing you might want to
+watch out for is that your default state
+
+00:10:42.790 --> 00:10:48.220
+in this sub state machine and your entry
+so at the moment what's the default
+
+00:10:48.220 --> 00:10:52.800
+state what's the entry point you can
+right-click and say set as layer default
+
+00:10:52.800 --> 00:10:56.710
+state but you don't need to because what's
+happening the flow that's happening is
+
+00:10:56.710 --> 00:11:01.660
+we're coming into entry. raise. swipe lower. The thing that you do want to be aware
+
+00:11:01.660 --> 00:11:07.210
+of is if you hadn't already created this
+transition over here from idle to tidy
+
+00:11:07.210 --> 00:11:12.430
+let's remove it and try putting in again
+it's going to be different now. Find it. now make the
+
+00:11:12.430 --> 00:11:15.830
+transition from idle to tidy look what
+happens I can't just make it. I've got to make a
+
+00:11:15.830 --> 00:11:20.540
+choice it's saying do I want to jump
+into a specific state or do I want to
+
+00:11:20.540 --> 00:11:22.800
+just link to the state machine
+
+00:11:22.800 --> 00:11:27.270
+called tidy. Well I want to link to the state
+machine called tidy. really important it would
+
+00:11:27.270 --> 00:11:31.650
+be really strange and and and dangerous
+to be linking directly into a sub-state
+
+00:11:31.650 --> 00:11:36.260
+of tidy. Sure. there are instances when you would want to do that but the whole point in
+
+00:11:36.260 --> 00:11:39.600
+our case of putting all these things in
+the tidy sub-machine is that it deals
+
+00:11:39.600 --> 00:11:44.000
+with the sequence of events so link
+to the state machine itself and then in
+
+00:11:44.000 --> 00:11:47.960
+tidy we determine what happens. So have a
+little browse around all that. make sure that
+
+00:11:47.960 --> 00:11:54.450
+makes sense to you and make sure you
+understand what's going on here. So why
+
+00:11:54.450 --> 00:11:58.380
+did we jump then for example when I just
+played straight across because I didn't
+
+00:11:58.380 --> 00:12:04.080
+put a parameter in. Yeah we need a tidy trigger and no exit time so now
+
+00:12:04.080 --> 00:12:07.200
+we loop we trigger we go.
+
+00:12:07.200 --> 00:12:10.760
+Fantastic. alright so you get the idea
+there now your turn
+
+00:12:10.760 --> 00:12:15.460
+so back over to you I want you to set up
+your reset animation create a reset
+
+00:12:15.460 --> 00:12:19.270
+substate machine set up a reset
+trigger and just include the following
+
+00:12:19.270 --> 00:12:23.140
+steps again. swipe. renew and lower
+
+00:12:23.140 --> 00:12:28.950
+you can use the swipe motion on swipe
+but renew create yourself a new motion
+
+00:12:28.950 --> 00:12:32.930
+for renew but obviously don't do
+anything with it yet and then lower you
+
+00:12:32.930 --> 00:12:36.080
+can reuse and this is one of the
+beauties of using the sub-state machines
+
+00:12:36.080 --> 00:12:40.320
+like this how you can reuse the lower
+clip that we used before
+
+00:12:40.320 --> 00:12:46.760
+OK so swipe. use the existing motion. renew. create a new motion. lower. use the existing
+
+00:12:46.760 --> 00:12:47.600
+motion
+
+00:12:47.600 --> 00:12:50.910
+Go ahead and set that sub state machine
+up now make sure it works in the same
+
+00:12:50.910 --> 00:13:00.420
+way as the other one did. Awesome. welcome back so
+let's do this thing let's make this
+
+00:13:00.420 --> 00:13:04.250
+other sub state machine so I will this
+time I'll do the transition later let's
+
+00:13:04.250 --> 00:13:09.079
+just set up the sub states. So what is the
+first thing you do when you reset? Well
+
+00:13:09.079 --> 00:13:13.029
+if you look at the challenge it was to
+swipe. renew and then lower so let's
+
+00:13:13.029 --> 00:13:17.670
+start by swiping. So it's a new state
+because it's part of this new state
+
+00:13:17.670 --> 00:13:23.690
+machine so we swipe first with motion
+what well with the swipe motion.
+
+00:13:23.690 --> 00:13:30.000
+Fantastic now next state. We are going to
+renew this is a new thing this is going
+
+00:13:30.000 --> 00:13:33.089
+to create new pins.
+
+00:13:33.089 --> 00:13:39.269
+There it is. Now you see somewhere. if you try and name something and it
+
+00:13:39.269 --> 00:13:42.519
+starts putting numbers on the end it's
+because you already have that thing
+
+00:13:42.519 --> 00:13:46.190
+named so I already have this thing named
+renew I just made a mistake so be aware
+
+00:13:46.190 --> 00:13:48.800
+of that. If you see it starting to increment
+numbers it's because it's trying to
+
+00:13:48.800 --> 00:13:54.420
+prevent duplication of names. You can
+have swipe here and in a different
+
+00:13:54.420 --> 00:13:58.370
+substate machines swipe swipe no
+problem; in fact it would make sense but
+
+00:13:58.370 --> 00:14:01.860
+within a state machine or sub state
+machine you cannot have two different
+
+00:14:01.860 --> 00:14:07.459
+states with the same name which kind of
+makes sense. So that's renew and then the
+
+00:14:07.459 --> 00:14:12.199
+final one is lower which is a different
+state because it's in a different state
+
+00:14:12.199 --> 00:14:17.430
+machine but it's going to use the same
+motion which currently doesn't do
+
+00:14:17.430 --> 00:14:22.220
+anything it's going to call a script later.
+Now we need to make ourselves a renew
+
+00:14:22.220 --> 00:14:26.519
+motion let's do that; and again this
+motion is just gonna be a call out to a
+
+00:14:26.519 --> 00:14:34.120
+script. There it is and attach it. you get the idea. Hopefully this is really burning in your
+
+00:14:34.120 --> 00:14:36.100
+understanding of this animator. It's a
+
+00:14:36.100 --> 00:14:39.529
+fantastically powerful general state
+machine and you can use it by the way
+
+00:14:39.529 --> 00:14:43.209
+don't tell anybody I said this but you
+could use it almost to program your game
+
+00:14:43.209 --> 00:14:47.079
+you can build in game logic in fact we
+are building in game logic right here
+
+00:14:47.079 --> 00:14:48.910
+aren't we we're determining the game
+
+00:14:48.910 --> 00:14:53.810
+execution flow diagrammatically and the
+diagram is actually going to to run and
+
+00:14:53.810 --> 00:14:58.050
+make the game and it's a bit like a
+blueprint over in Unreal this is; we
+
+00:14:58.050 --> 00:14:59.889
+can do some of that sort of stuff over here
+in Unity.
+
+00:14:59.889 --> 00:15:04.470
+So pretty cool so I've just made default
+transitions between these. it just means it
+
+00:15:04.470 --> 00:15:08.579
+does its thing and moves on. Nothing to
+configure on the transitions; what we do
+
+00:15:08.579 --> 00:15:12.299
+need finally is the transition from idle
+to reset - again that annoying menu pops
+
+00:15:12.299 --> 00:15:15.859
+up but it's a really important menu; do we want to jump into a sub-state no
+
+00:15:15.859 --> 00:15:17.569
+no. no no no
+
+00:15:17.569 --> 00:15:21.339
+we know the dangers of that now ok so
+we just dive straight into the sub-state
+
+00:15:21.339 --> 00:15:24.819
+machine itself and let the sub-state
+machine handle what's going on
+
+00:15:24.819 --> 00:15:30.809
+remember to transition back. So we're nearly there. but we need a parameter so here we go
+
+00:15:30.809 --> 00:15:39.220
+It's going to be called reset trigger and this transition's condition is that it's
+
+00:15:39.220 --> 00:15:40.970
+reset trigger
+
+00:15:40.970 --> 00:15:47.119
+OK. fantastic let's try it and see if it
+works. We're sitting in idle. we get a reset
+
+00:15:47.119 --> 00:15:50.850
+trigger coming from a script or a
+UI button or from wherever. from the gods
+
+00:15:50.850 --> 00:15:54.600
+above what happens boom we swipe. it's
+working. it's
+
+00:15:54.600 --> 00:15:58.049
+taking as long as it takes we go into
+renewing which does nothing lowering
+
+00:15:58.049 --> 00:15:59.679
+which does nothing and we come back out.
+
+00:15:59.679 --> 00:16:06.329
+Awesome let's do a tidy trigger. We raise. we swipe. I don't know about you but this is
+
+00:16:06.329 --> 00:16:10.910
+really satisfying this is exciting. this
+is programming with diagrams that is
+
+00:16:10.910 --> 00:16:14.649
+perfect for an idiot like me because
+then I don't have to think about the code. I
+
+00:16:14.649 --> 00:16:16.019
+can just program with a diagram. how
+
+00:16:16.019 --> 00:16:21.540
+cool is that? I think it's cool. anyway if
+you don't think it's cool then you're a heathen and I'm sorry to
+
+00:16:21.540 --> 00:16:24.209
+say so but anyway right
+
+00:16:24.209 --> 00:16:28.169
+we're done we're done we have made
+fantastic progress we have sub state
+
+00:16:28.169 --> 00:16:31.470
+machines working we have a little widget.
+it looks like Knight Rider that's why
+
+00:16:31.470 --> 00:16:35.249
+I like it so much look at that. That idle
+state blue bar looks like Knight Rider
+
+00:16:35.249 --> 00:16:38.339
+that's what's so cool about it I've
+realized why i like it so much now
+
+00:16:38.339 --> 00:16:41.399
+anyway guys nuff said I see in the next
+video.
+

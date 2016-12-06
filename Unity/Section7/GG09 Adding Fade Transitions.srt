@@ -1,0 +1,609 @@
+WEBVTT
+
+00:00:04.480 --> 00:00:07.630 align:middle line:90%
+Hey guys I don't know about you but I'm feeling
+really good about the way that this is coming
+
+00:00:07.630 --> 00:00:13.150 align:middle line:90%
+on now. it's really starting to pull together
+as a proper game so. well I say a game. at
+
+00:00:13.150 --> 00:00:15.030 align:middle line:84%
+least a menu system for a game.
+
+00:00:15.030 --> 00:00:21.210 align:middle line:90%
+What I'd like to be able to do is create a
+fade-in from the intro screen here I want
+
+00:00:21.210 --> 00:00:25.589 align:middle line:90%
+this to fade in not just bang but fade up
+and we're going to be able to re-use that
+
+00:00:25.589 --> 00:00:29.990 align:middle line:90%
+fading functionality in other places. This
+is about just finishing the polish of this
+
+00:00:29.990 --> 00:00:31.829 align:middle line:90%
+system. So what are we going to do in this
+video?
+
+00:00:31.829 --> 00:00:36.370 align:middle line:90%
+We're going to add a nice fade-in to this
+start scene. I'm going to give up completely
+
+00:00:36.370 --> 00:00:40.520 align:middle line:90%
+on trying to spell lose or loose properly
+because it's just not working. we're going
+
+00:00:40.520 --> 00:00:45.260 align:middle line:90%
+to add a background image to the levels a
+grass for our play scene and check that it
+
+00:00:45.260 --> 00:00:48.989 align:middle line:84%
+all flows really nicely before moving on.
+
+00:00:48.989 --> 00:00:53.690 align:middle line:90%
+OK so let's get on with that. So how are we
+going to do fading? Well. sorry to say. you're
+
+00:00:53.690 --> 00:00:58.210 align:middle line:90%
+going to work it out. You're brave. you're
+going to work it out. Have a go for yourself.
+
+00:00:58.210 --> 00:01:02.219 align:middle line:90%
+what I want you to do is make the start scene
+fade in over a variable amount of time.
+
+00:01:02.219 --> 00:01:05.800 align:middle line:90%
+Try it your way. it's great learning to try
+to see and explore the different ways. Use
+
+00:01:05.800 --> 00:01:09.300 align:middle line:90%
+google. think of ways of doing it. I'm going
+to give you a couple of hints. I'll be using
+
+00:01:09.300 --> 00:01:14.340 align:middle line:90%
+a UI panel and adjusting its alpha and if
+you're wondering where to place the script
+
+00:01:14.340 --> 00:01:19.010 align:middle line:90%
+then why not on that very panel. So there's
+enough hints. enough ideas there why don't
+
+00:01:19.010 --> 00:01:22.420 align:middle line:90%
+you see if you can get the start scene fading
+in over a couple of seconds?
+
+00:01:22.420 --> 00:01:26.370 align:middle line:90%
+Pause the video. have a good go at that now.
+and when you're ready to see how I do it just
+
+00:01:26.370 --> 00:01:29.810 align:middle line:84%
+carry on.
+
+00:01:29.810 --> 00:01:35.080 align:middle line:90%
+OK welcome back so it's time for me to show
+you how I'm going to achieve my fade. So we
+
+00:01:35.080 --> 00:01:40.540 align:middle line:90%
+go to the scene in question which is the start
+scene; open up the canvas and let's add ourselves
+
+00:01:40.540 --> 00:01:46.300 align:middle line:90%
+a UI panel. Perfect. Where is that panel?
+Well it's sitting right over the top of everything.
+
+00:01:46.300 --> 00:01:50.740 align:middle line:90%
+I'm going to go into my UI mode and literally
+put this over the top of the entire canvas.
+
+00:01:50.740 --> 00:01:51.900 align:middle line:84%
+Like so.
+
+00:01:51.900 --> 00:01:57.500 align:middle line:90%
+There it is. That is my panel covering my
+entire canvas. So. what am I going to do with
+
+00:01:57.500 --> 00:02:03.840 align:middle line:90%
+that panel. Well. let's set its colour to
+black and its transparency to 255. its alpha
+
+00:02:03.840 --> 00:02:10.450 align:middle line:90%
+to 255 so fully opaque. Now you can't see
+anything. Now where it is in the hierarchy
+
+00:02:10.450 --> 00:02:14.099 align:middle line:90%
+does that make a difference? Well it does
+in the case of the UI elements so you are
+
+00:02:14.099 --> 00:02:17.590 align:middle line:90%
+going to want this at the very bottom of your
+canvas like that.
+
+00:02:17.590 --> 00:02:23.049 align:middle line:90%
+So fantastic we have now a blank. useless
+start screen but. this is the start state.
+
+00:02:23.049 --> 00:02:27.290 align:middle line:90%
+this is how we want to start and then we want
+it to fade through. so it's the alpha that
+
+00:02:27.290 --> 00:02:30.379 align:middle line:90%
+we're going to be changing on this guy so
+let's add a component. a script straight on
+
+00:02:30.379 --> 00:02:35.569 align:middle line:90%
+the panel itself and let's call it. well.
+fade in. Maybe later we'll generalise this
+
+00:02:35.569 --> 00:02:38.950 align:middle line:90%
+a little more. make it a fade in/fade out
+script but for now all it does is fade in
+
+00:02:38.950 --> 00:02:41.180 align:middle line:84%
+so we should call it fade in.
+
+00:02:41.180 --> 00:02:48.090 align:middle line:90%
+Scripts. organise the scripts into the scripts
+folder. and let's take a look. So. how are
+
+00:02:48.090 --> 00:02:52.810 align:middle line:90%
+we going to achieve a fade in. Well. good
+question. what would the public variable that
+
+00:02:52.810 --> 00:02:57.430 align:middle line:90%
+we need to expose be for a start? Well I suggest
+that it's something to do with the amount
+
+00:02:57.430 --> 00:03:05.060 align:middle line:90%
+of time that it fades over right. so why don't
+we start with a public float and what would
+
+00:03:05.060 --> 00:03:08.909 align:middle line:90%
+we call it? Have a think about the name. I'm
+not just going to tell you the name for two
+
+00:03:08.909 --> 00:03:15.709 align:middle line:90%
+seconds. what would you call it? Naming is
+everything. Well. FadeInTime. You could say
+
+00:03:15.709 --> 00:03:21.680 align:middle line:90%
+FadeInTime in seconds. so what are we going
+to need in order to be able to control this?
+
+00:03:21.680 --> 00:03:25.909 align:middle line:90%
+Well. privately we're going to need to have
+an image; that's a UI image.
+
+00:03:25.909 --> 00:03:32.069 align:middle line:90%
+Now why does image not come up in my list?
+Because we need to import the UnityEngine.UI
+
+00:03:32.069 --> 00:03:39.969 align:middle line:90%
+namespace. Great. So now we can say private
+image and it'll work; and what are we going
+
+00:03:39.969 --> 00:03:44.689 align:middle line:90%
+to call this image? Well. I'm going to call
+it FadePanel. OK? Pretty unimaginatively.
+
+00:03:44.689 --> 00:03:49.180 align:middle line:90%
+You know. if it's a dog. call it a dog. If
+it's a cat call it a cat. private. what else
+
+00:03:49.180 --> 00:03:53.620 align:middle line:90%
+do we need here? Well. we're going to need
+a colour. Why? Because in C# you may have
+
+00:03:53.620 --> 00:03:58.669 align:middle line:90%
+noticed that often you need to pass methods
+complete objects like you need to form your
+
+00:03:58.669 --> 00:04:02.579 align:middle line:90%
+vectors before you pass them in. In the same
+way we need to fully form our colour before
+
+00:04:02.579 --> 00:04:03.779 align:middle line:84%
+we pass it into the panel.
+
+00:04:03.779 --> 00:04:07.480 align:middle line:90%
+So we're going to need a private colour. and
+I'm going to call it currentColour. because
+
+00:04:07.480 --> 00:04:12.730 align:middle line:90%
+it's going to change every frame. right? Now
+do I put a "u" in my colour? Oh here's a dilemma.
+
+00:04:12.730 --> 00:04:16.669 align:middle line:90%
+how long do we spend considering this. Unity
+don't put a 'u' because they're heathens and
+
+00:04:16.669 --> 00:04:20.780 align:middle line:90%
+they're American. I'm English and I like 'u's
+I'm going to leave it consistent with Unity.
+
+00:04:20.780 --> 00:04:25.470 align:middle line:90%
+how's that? I'm giving up the flag for the
+sake of being consistent with that dodgy American
+
+00:04:25.470 --> 00:04:26.410 align:middle line:84%
+spelling.
+
+00:04:26.410 --> 00:04:30.820 align:middle line:90%
+So what do we start the colour with? We start
+it with color.black so we don't necessarily
+
+00:04:30.820 --> 00:04:37.650 align:middle line:90%
+have to set it in the inspector because we
+are initialising here. OK. that's fine so
+
+00:04:37.650 --> 00:04:41.270 align:middle line:90%
+on the Start. what are we going to do? We're
+going to find that fade panel. Let's just
+
+00:04:41.270 --> 00:04:44.780 align:middle line:90%
+go back to Unity and make sure that we understand
+what we're talking about. If you look at the
+
+00:04:44.780 --> 00:04:51.100 align:middle line:90%
+panel. I'm adding a script. I want to find
+the actual image component - this bit - this
+
+00:04:51.100 --> 00:04:54.970 align:middle line:90%
+image script here and it's this colour that
+I'm going to change and what I want to do
+
+00:04:54.970 --> 00:04:58.520 align:middle line:90%
+in script is have the effect of dragging this
+alpha slider. you see?
+
+00:04:58.520 --> 00:05:03.380 align:middle line:90%
+As I drag it it starts to appear. Perfect.
+so that's the control that I want from script.
+
+00:05:03.380 --> 00:05:09.070 align:middle line:90%
+So the way that I need to do that is I need
+to get component image from within my script.
+
+00:05:09.070 --> 00:05:12.190 align:middle line:90%
+I'm getting another component off a different
+component on the same gameObject and it's
+
+00:05:12.190 --> 00:05:20.320 align:middle line:90%
+of type image so fadePanel equals GetComponent.
+and I'm going to use the chevron format type
+
+00:05:20.320 --> 00:05:23.960 align:middle line:90%
+image. and then it's a method so it needs
+squigglies. Fantastic.
+
+00:05:23.960 --> 00:05:33.620 align:middle line:90%
+Alright. so on the update. what are we going
+to say? Well basically. we do something when
+
+00:05:33.620 --> 00:05:40.080 align:middle line:90%
+Time.timeSinceLevelLoad OK time since level
+loaded when that is less than the fade in
+
+00:05:40.080 --> 00:05:45.580 align:middle line:90%
+time then we do something. What are we going
+to do? Well. put a comment in for the moment.
+
+00:05:45.580 --> 00:05:50.960 align:middle line:90%
+Fade in. Basically; and then what do we do
+otherwise? Well. this is quite important.
+
+00:05:50.960 --> 00:05:56.240 align:middle line:90%
+Once that fade-in has finished we're going
+to need to de-activate the panel. otherwise
+
+00:05:56.240 --> 00:05:59.000 align:middle line:90%
+you're not going to be able to click anything.
+You see right now you wouldn't be able to
+
+00:05:59.000 --> 00:06:02.390 align:middle line:90%
+click any of these objects. We're going to
+need to deactivate it which has the same effect
+
+00:06:02.390 --> 00:06:04.360 align:middle line:84%
+as clicking this tick.
+
+00:06:04.360 --> 00:06:10.150 align:middle line:90%
+So it will go from black through the alpha
+over the period of two seconds. or however
+
+00:06:10.150 --> 00:06:14.550 align:middle line:90%
+long you set to white and then it will disable
+so that we can click the buttons below and
+
+00:06:14.550 --> 00:06:21.070 align:middle line:90%
+it's out of the way. So that's the pattern
+that we're going for. So else gameObject.SetActive
+
+00:06:21.070 --> 00:06:26.280 align:middle line:90%
+false. That's setting active false is unticking
+this box effectively.
+
+00:06:26.280 --> 00:06:30.610 align:middle line:90%
+Cool. so now all we need to do is write the
+fading code. Ah. come on. I've got to challenge
+
+00:06:30.610 --> 00:06:34.550 align:middle line:90%
+you to do this at this point. surely. How
+about you write it? It's three lines. well
+
+00:06:34.550 --> 00:06:40.770 align:middle line:90%
+I've done it in three lines. and it's relatively
+simple it involves the currentColour.a and
+
+00:06:40.770 --> 00:06:45.400 align:middle line:90%
+a bit of Time.DeltaTime and a bit of division
+and stuffs. Have a go. see if you can write
+
+00:06:45.400 --> 00:06:48.890 align:middle line:90%
+this fade-in code and make it work. If you
+can't. don't beat yourself up. just come straight
+
+00:06:48.890 --> 00:06:51.670 align:middle line:84%
+back and I'll show you how.
+
+00:06:51.670 --> 00:06:55.900 align:middle line:90%
+Awesome. so I'm going to define an intermediate
+variable called alphaChange so we can see
+
+00:06:55.900 --> 00:07:02.080 align:middle line:90%
+what we're doing. So alphaChange is what?
+Well. in this frame we need Time.DeltaTime
+
+00:07:02.080 --> 00:07:05.370 align:middle line:90%
+s that could be a few milliseconds. typically
+it's going to be something like fifty milliseconds
+
+00:07:05.370 --> 00:07:12.150 align:middle line:90%
+or whatever. depends how fast the framerate
+of the game is at the moment. Divided by fadeInTime.
+
+00:07:12.150 --> 00:07:18.880 align:middle line:90%
+yeah? So that's how much change we need this
+frame. Time.DeltaTime over the fadeInTime.
+
+00:07:18.880 --> 00:07:24.020 align:middle line:90%
+So if it's a two second frame. and the fade
+in time is two seconds. then you would have
+
+00:07:24.020 --> 00:07:30.120 align:middle line:90%
+a hundred percent alpha change. If the fade
+in time was say two seconds but we had a tenth
+
+00:07:30.120 --> 00:07:34.700 align:middle line:90%
+of a second frame then we would have twenty.
+we would only want a twentieth of the fade
+
+00:07:34.700 --> 00:07:39.200 align:middle line:90%
+to happen this frame. Does that make sense?
+It's just the proportion of the fade that
+
+00:07:39.200 --> 00:07:41.440 align:middle line:84%
+we want to happen this frame.
+
+00:07:41.440 --> 00:07:49.460 align:middle line:90%
+Fine. so now we go currentColor.a we take
+its alpha channel off and we reduce it by
+
+00:07:49.460 --> 00:07:55.260 align:middle line:90%
+the thing we just made. alphaChange. So we
+reduce the alpha and then we set the fadePanel.color.
+
+00:07:55.260 --> 00:08:01.590 align:middle line:90%
+No we can't do it all in one step in C# unfortunately.
+Equals currentColor. Anyway this reads really
+
+00:08:01.590 --> 00:08:09.220 align:middle line:90%
+nice and clear. So. hopefully. that works.
+OK. let's have a go. I'm going to start on
+
+00:08:09.220 --> 00:08:14.890 align:middle line:90%
+my splash screen. Hang on. back to your start.
+remember to set your parameter. Under your
+
+00:08:14.890 --> 00:08:21.120 align:middle line:90%
+panel here. and I'm going to call it fade
+panel. Fade in time of how long shall we go
+
+00:08:21.120 --> 00:08:26.070 align:middle line:90%
+for? Well shall we try three seconds? The
+same fade in as the fade out on the splash
+
+00:08:26.070 --> 00:08:35.019 align:middle line:90%
+screen? ie the delay on the splash screen?
+Let's try.
+
+00:08:35.019 --> 00:08:39.189 align:middle line:90%
+Looks good. apart from my panel positioning
+is wrong. So lets take a look at what's up
+
+00:08:39.189 --> 00:08:45.370 align:middle line:90%
+with our fade panel. Well. for me what's happened
+is that when I first added the fade panel
+
+00:08:45.370 --> 00:08:49.220 align:middle line:90%
+it subtly came in as completely the wrong
+type of image. It came in as a sliced image
+
+00:08:49.220 --> 00:08:55.920 align:middle line:90%
+so let's set it to simple. Before I do though.
+the clue is here up in the size of the rect
+
+00:08:55.920 --> 00:09:02.240 align:middle line:90%
+transform. It's 283 by 19 pixels so that's
+a bit weird. it's all sliced and stretched
+
+00:09:02.240 --> 00:09:06.970 align:middle line:90%
+let's just set it to a simple image. That's
+starting to help. Now if we play with the
+
+00:09:06.970 --> 00:09:12.009 align:middle line:90%
+alpha for a second of this image. you'll see
+that its got a kind of oval background and
+
+00:09:12.009 --> 00:09:14.990 align:middle line:90%
+that's because it's a background image. We
+don't want an image so that's the second thing
+
+00:09:14.990 --> 00:09:16.360 align:middle line:84%
+to fix.
+
+00:09:16.360 --> 00:09:21.079 align:middle line:90%
+Now that option has gone away. Because there's
+no image if you set the image then you get
+
+00:09:21.079 --> 00:09:25.639 align:middle line:90%
+the image type slice but as soon as we take
+the image away there is no option any more
+
+00:09:25.639 --> 00:09:30.079 align:middle line:90%
+so we're much closer to where we want to be.
+It kind of looked OK in the preview by luck
+
+00:09:30.079 --> 00:09:32.360 align:middle line:84%
+before but this is set up properly.
+
+00:09:32.360 --> 00:09:36.240 align:middle line:90%
+The final thing we want to do is actually
+explicitly set the size of this image to the
+
+00:09:36.240 --> 00:09:42.889 align:middle line:90%
+1600 by 900 that we're talking about. It's
+still not working. so why is that not working?
+
+00:09:42.889 --> 00:09:47.209 align:middle line:90%
+Well. you've got a little tiny element up
+here and you've got a really strange position
+
+00:09:47.209 --> 00:09:51.100 align:middle line:90%
+you've got stretching set. you've got really
+weird settings in this rect transform. Just
+
+00:09:51.100 --> 00:09:56.420 align:middle line:90%
+reset the rect transform. there you go. There
+it is in the middle. now all we need to do
+
+00:09:56.420 --> 00:09:58.300 align:middle line:84%
+is set the 1600 by 900.
+
+00:09:58.300 --> 00:10:02.829 align:middle line:90%
+So they're the sort of things you may need
+to go through and align the image. OK? So
+
+00:10:02.829 --> 00:10:06.680 align:middle line:90%
+if in doubt trying to add a simple panel like
+this. reset your rect transform. set the resolution
+
+00:10:06.680 --> 00:10:11.110 align:middle line:90%
+explicitly and make sure there is no source
+image. Now we're in business. let's have a
+
+00:10:11.110 --> 00:10:17.339 align:middle line:84%
+look.
+
+00:10:17.339 --> 00:10:21.069 align:middle line:90%
+So I reduced the music volume and delay so
+it went through quickly. final thing of course
+
+00:10:21.069 --> 00:10:26.309 align:middle line:90%
+that I forgot to do was just to add the script
+back - fade in script over I'm going to make
+
+00:10:26.309 --> 00:10:32.569 align:middle line:90%
+it two seconds. I think that three is too
+long. let's try that for effect.
+
+00:10:32.569 --> 00:10:42.790 align:middle line:90%
+Whip through that. one. two and then it works.
+Fantastic. let's try starting the game. So
+
+00:10:42.790 --> 00:10:50.079 align:middle line:90%
+where's my start button taking me. let's have
+a quick look at that. Where's the start button
+
+00:10:50.079 --> 00:10:55.420 align:middle line:90%
+wired to? It's wired to start. Well we don't
+want it wired to start. we want it wired to
+
+00:10:55.420 --> 00:11:02.100 align:middle line:90%
+02 level 01. Now. we have a problem here.
+This is different to the prefab. the thing
+
+00:11:02.100 --> 00:11:09.449 align:middle line:90%
+is we've prefabbed a start button and it's
+doing two different things. This start button
+
+00:11:09.449 --> 00:11:14.050 align:middle line:90%
+is taking us to level 1 and our prefab start
+button which we use on the win screen and
+
+00:11:14.050 --> 00:11:18.480 align:middle line:84%
+the lose screen is taking us back to the start.
+
+00:11:18.480 --> 00:11:23.459 align:middle line:90%
+So why don't we change the name of one of
+them? Why don't we just change this one on
+
+00:11:23.459 --> 00:11:30.199 align:middle line:90%
+the front scene here instead of being called
+start. it's a play button now. OK? So play
+
+00:11:30.199 --> 00:11:38.999 align:middle line:90%
+button and it's not. it's nothing to do with
+the prefab any more. So it would actually
+
+00:11:38.999 --> 00:11:43.050 align:middle line:90%
+be better to disconnect it from the prefab.
+The easiest way to do that would be to duplicate
+
+00:11:43.050 --> 00:11:49.259 align:middle line:90%
+the options button. remove the play button
+altogether and then just call it play button.
+
+00:11:49.259 --> 00:11:52.800 align:middle line:90%
+Because it's nothing to do with the prefab.
+that's where the confusion is coming in.
+
+00:11:52.800 --> 00:12:02.149 align:middle line:90%
+OK so again. naming. So many issues around
+naming. right? Play Game. and then simply
+
+00:12:02.149 --> 00:12:07.819 align:middle line:90%
+whip out the UI size. make sure that the play
+game's script is wired to the right place.
+
+00:12:07.819 --> 00:12:15.410 align:middle line:90%
+which is 02 level 01. that's fine. Now lets
+just try it all.
+
+00:12:15.410 --> 00:12:22.139 align:middle line:90%
+So wait for that fade to finish. play game
+lose condition. you moose. start takes you
+
+00:12:22.139 --> 00:12:30.730 align:middle line:90%
+back here. play game win condition. you win.
+Fantastic. So we have a nice simple fade script
+
+00:12:30.730 --> 00:12:35.869 align:middle line:90%
+that we can use on any UI image panel and
+we can apply that same technique to any level.
+
+00:12:35.869 --> 00:12:39.059 align:middle line:90%
+We didn't quite get around to adding the grass
+to the levels but that's fine. we'll do that
+
+00:12:39.059 --> 00:12:42.910 align:middle line:90%
+in a subsequent video. because we need to
+think a little bit carefully about our scaling
+
+00:12:42.910 --> 00:12:46.759 align:middle line:90%
+mode for all of the levels and how we're going
+to deal with that. congratulations on getting
+
+00:12:46.759 --> 00:12:51.759 align:middle line:84%
+this far. and I shall see you soon.

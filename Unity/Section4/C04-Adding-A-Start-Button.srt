@@ -1,0 +1,462 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hi and welcome to this video!
+
+2
+00:00:06.000 --> 00:00:09.000
+In this video. we're going to be looking at how to
+
+3
+00:00:09.000 --> 00:00:12.000
+add a Start Button to our scene and make it respond
+
+4
+00:00:12.000 --> 00:00:15.000
+to our mouse click. In particular. we want to
+
+5
+00:00:15.000 --> 00:00:18.000
+have the button change color. when we
+
+6
+00:00:18.000 --> 00:00:21.000
+hover over it with the mouse. and we want to
+
+7
+00:00:21.000 --> 00:00:24.000
+have the button change color. whenever it's clicked.
+
+8
+00:00:24.000 --> 00:00:27.000
+So. we're going to use a Text Element as a button. to do that.
+
+9
+00:00:27.000 --> 00:00:30.000
+So. let's get started. So. I'll
+
+10
+00:00:30.000 --> 00:00:33.000
+jump straight into Unity. and here we have our scene.
+
+11
+00:00:33.000 --> 00:00:36.000
+Right now. it's missing two buttons. a Start and
+
+12
+00:00:36.000 --> 00:00:39.000
+a Quit button. so that's what we're going to add now. To do that. the first thing
+
+13
+00:00:39.000 --> 00:00:42.000
+I'm going to do is. I'm going to change the name of these Text Elements. These Text
+
+14
+00:00:42.000 --> 00:00:45.000
+Elements are not really named very well. so I'm just
+
+15
+00:00:45.000 --> 00:00:48.000
+going to rename them. to know what they are. I'm going to call this
+
+16
+00:00:48.000 --> 00:00:51.000
+one Title and the one underneath Subtitle.
+
+17
+00:00:51.000 --> 00:00:54.000
+Don't forget to
+
+18
+00:00:54.000 --> 00:00:57.000
+press Return. If you don't press Return. this change won't take effect.
+
+19
+00:00:57.000 --> 00:01:00.000
+And finally. I'm going to add a new
+
+20
+00:01:00.000 --> 00:01:03.000
+UI object text. from my Game
+
+21
+00:01:03.000 --> 00:01:06.000
+Object Menu. and you'll see the text come up.
+
+22
+00:01:06.000 --> 00:01:09.000
+I'm going to drag it underneath. and I'm going to rename
+
+23
+00:01:09.000 --> 00:01:12.000
+this one Start Button.
+
+24
+00:01:12.000 --> 00:01:15.000
+[Typing Sound]
+
+25
+00:01:15.000 --> 00:01:18.000
+So. I've got this Start Button here. I'm going to change
+
+26
+00:01:18.000 --> 00:01:21.000
+the text to Start.
+
+27
+00:01:21.000 --> 00:01:24.000
+as you'd expect. Change the color
+
+28
+00:01:24.000 --> 00:01:27.000
+to white. by default.
+
+29
+00:01:27.000 --> 00:01:30.000
+And I'm going to also
+
+30
+00:01:30.000 --> 00:01:33.000
+make it a little bit bigger and center it. So. centering it
+
+31
+00:01:33.000 --> 00:01:36.000
+first. and then. make the Font Size a bit bigger.
+
+32
+00:01:36.000 --> 00:01:39.000
+How's that? That looks good!
+
+33
+00:01:39.000 --> 00:01:42.000
+It's now positioned and we have
+
+34
+00:01:42.000 --> 00:01:45.000
+what will become our button. So. right now it's
+
+35
+00:01:45.000 --> 00:01:48.000
+just text. So. how do I turn it into a button? Well. I can
+
+36
+00:01:48.000 --> 00:01:51.000
+click Add Component. and if I look at my
+
+37
+00:01:51.000 --> 00:01:54.000
+Component Hierarcy I can go to UI and then.
+
+38
+00:01:54.000 --> 00:01:57.000
+there will be a Button component.
+
+39
+00:01:57.000 --> 00:02:00.000
+So. I can click the Button Component. and here we
+
+40
+00:02:00.000 --> 00:02:03.000
+have a interactable button attached
+
+41
+00:02:03.000 --> 00:02:06.000
+to... Oops. that's not attched to the right thing. that's attached to our Canvas.
+
+42
+00:02:06.000 --> 00:02:09.000
+Look we've got the Canvas selected
+
+43
+00:02:09.000 --> 00:02:12.000
+and I've added a Button Script to it. [Laughs] Not quite what I
+
+44
+00:02:12.000 --> 00:02:15.000
+wanted to do! So. let me remove that component and select the right thing. which
+
+45
+00:02:15.000 --> 00:02:18.000
+is my Start Button. which I've miss-spelled. That's not
+
+46
+00:02:18.000 --> 00:02:21.000
+Strart. it's just Start Button. [Laughs] I think that's a much better name for it.
+
+47
+00:02:21.000 --> 00:02:24.000
+So. now I want to add a component to my Start
+
+48
+00:02:24.000 --> 00:02:27.000
+Button. So. UI Button
+
+49
+00:02:27.000 --> 00:02:30.000
+to my Start Button. and now everything in there. it'll automatically
+
+50
+00:02:30.000 --> 00:02:33.000
+find the right target graphic. it'll find the buttons.
+
+51
+00:02:33.000 --> 00:02:36.000
+And we've got a bunch of stuff. and then. it'll have this box of.
+
+52
+00:02:36.000 --> 00:02:39.000
+this OnClick () box. which will let it carry
+
+53
+00:02:39.000 --> 00:02:42.000
+our actions. whenever it's clicked. Now. if I press Play.
+
+54
+00:02:42.000 --> 00:02:45.000
+if I move my mouse over this button.
+
+55
+00:02:45.000 --> 00:02:48.000
+absolutely nothing happens. Can you see that? Nothing at
+
+56
+00:02:48.000 --> 00:02:51.000
+all happens. We want to change that. so what we're going to be doing is we're going
+
+57
+00:02:51.000 --> 00:02:54.000
+to use the Transition Attribute of our button
+
+58
+00:02:54.000 --> 00:02:57.000
+script. and we're going to select the color tint. So. now there's
+
+59
+00:02:57.000 --> 00:03:00.000
+three options or four.  None. which means nothing happens. Color
+
+60
+00:03:00.000 --> 00:03:03.000
+Tint. which means you change the color overlay slightly.
+
+61
+00:03:03.000 --> 00:03:06.000
+and then. Sprite Swap. which means you change the actual sprite.
+
+62
+00:03:06.000 --> 00:03:09.000
+underlying the button. and finally. Animation. which let's you play an
+
+63
+00:03:09.000 --> 00:03:12.000
+animation. whenever one of those states is triggered. We're going to use
+
+64
+00:03:12.000 --> 00:03:15.000
+Color Tint. because it's very simple. No more color is going to remain
+
+65
+00:03:15.000 --> 00:03:18.000
+white. Highlighted color. I'm going to give it a
+
+66
+00:03:18.000 --> 00:03:21.000
+nice bright green. to make it very clear.
+
+67
+00:03:21.000 --> 00:03:24.000
+that we've highlighted it. and then. press Color. I'm going to
+
+68
+00:03:24.000 --> 00:03:27.000
+choose a deep orange. In fact. I'm going to go
+
+69
+00:03:27.000 --> 00:03:30.000
+more towards the red than usual. because remember
+
+70
+00:03:30.000 --> 00:03:33.000
+this is a tint. so it's on top of the existing color.
+
+71
+00:03:33.000 --> 00:03:36.000
+rather than as a replacement.
+
+72
+00:03:36.000 --> 00:03:39.000
+So. now if I press play. and go into my game.
+
+73
+00:03:39.000 --> 00:03:42.000
+I hover over it. and it goes green.
+
+74
+00:03:42.000 --> 00:03:45.000
+I click it and it goes orange. and that's the kind of behavior I
+
+75
+00:03:45.000 --> 00:03:48.000
+am looking for. Now. it is somewhat buggy
+
+76
+00:03:48.000 --> 00:03:51.000
+sometimes. depending on which version of Unity you are in. and
+
+77
+00:03:51.000 --> 00:03:54.000
+sometimes. when you click. you'll see here that the hover color
+
+78
+00:03:54.000 --> 00:03:57.000
+remains. This is a known bug with Unity.
+
+79
+00:03:57.000 --> 00:04:00.000
+Don't worry too much. it doesn't effect
+
+80
+00:04:00.000 --> 00:04:03.000
+too many versions. but that is something to keep in
+
+81
+00:04:03.000 --> 00:04:06.000
+mind. and there are work-arounds if you need them.
+
+82
+00:04:06.000 --> 00:04:09.000
+But for now. that's sufficiently good for us. We have a Start Button.
+
+83
+00:04:09.000 --> 00:04:12.000
+and now it is your turn.
+
+84
+00:04:12.000 --> 00:04:15.000
+This is what I want you to do now. I want you to add a quick
+
+85
+00:04:15.000 --> 00:04:18.000
+button. Same as the Start Button. but instead of having a Start
+
+86
+00:04:18.000 --> 00:04:21.000
+Button called Start Button. I want a Quit Button
+
+87
+00:04:21.000 --> 00:04:24.000
+called Quit Button. that has the same kind of behavior as my
+
+88
+00:04:24.000 --> 00:04:27.000
+Start Button. I'll see you very soon. when you've sorted that out.
+
+89
+00:04:27.000 --> 00:04:30.000
+[Temporary Silence]
+
+90
+00:04:30.000 --> 00:04:33.000
+So. I'm going to cheat a little bit to add my Quit
+
+91
+00:04:33.000 --> 00:04:36.000
+Button. I'm going to go back into my Unity.
+
+92
+00:04:36.000 --> 00:04:39.000
+and instead of actually creating
+
+93
+00:04:39.000 --> 00:04:42.000
+a Quit Button. I'm going to duplicate my Start Button!
+
+94
+00:04:42.000 --> 00:04:45.000
+My shortcut for duplicating on a Mac is Command D.
+
+95
+00:04:45.000 --> 00:04:48.000
+I'm not quite sure what it is on Windows. but you can also
+
+96
+00:04:48.000 --> 00:04:51.000
+I believe. use the menu and use
+
+97
+00:04:51.000 --> 00:04:54.000
+Duplicate. when you have it on the right
+
+98
+00:04:54.000 --> 00:04:57.000
+click. for your menu. Now. I've got two Start Buttons. I don't want
+
+99
+00:04:57.000 --> 00:05:00.000
+that many. Bring the second one down. let me rename
+
+100
+00:05:00.000 --> 00:05:03.000
+it to Quit Button.
+
+101
+00:05:03.000 --> 00:05:06.000
+And I've got a Quit Button now.
+
+102
+00:05:06.000 --> 00:05:09.000
+Don't forget you need to press
+
+103
+00:05:09.000 --> 00:05:12.000
+Return. once you have renamed.
+
+104
+00:05:12.000 --> 00:05:15.000
+renamed your entity. And I'm going to change
+
+105
+00:05:15.000 --> 00:05:18.000
+change this to Quit. And now.
+
+106
+00:05:18.000 --> 00:05:21.000
+if I go back to my page. and I play the game
+
+107
+00:05:21.000 --> 00:05:24.000
+we now have two buttons that respond to mouse hover.
+
+108
+00:05:24.000 --> 00:05:27.000
+respond to clicks. and
+
+109
+00:05:27.000 --> 00:05:30.000
+change their
+
+110
+00:05:30.000 --> 00:05:33.000
+colors. And that is it for this video! We
+
+111
+00:05:33.000 --> 00:05:36.000
+have now created buttons. We know how to create menu...
+
+112
+00:05:36.000 --> 00:05:39.000
+at least text buttons. and we'll be looking at other
+
+113
+00:05:39.000 --> 00:05:42.000
+types of buttons in future videos. but for now. that
+
+114
+00:05:42.000 --> 00:05:45.000
+is sufficiently good for us to create our
+
+115
+00:05:45.000 --> 00:05:48.000
+Number Wizard UI game. So. I'll see you in the next video.
+

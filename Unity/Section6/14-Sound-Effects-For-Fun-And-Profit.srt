@@ -1,0 +1,288 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:09.519
+Hello. and welcome back! In this video we're going to be adding sound effects to our
+
+00:00:09.519 --> 00:00:13.679
+game. Now. we've got a little space
+shooter game. right now. but it sounds a
+
+00:00:13.679 --> 00:00:17.070
+little bit dull... Well. it
+sounds a little bit dull without sound.
+
+00:00:17.070 --> 00:00:22.400
+really. so let's take a look at what it's like. Let's take a look at the game.
+
+00:00:22.400 --> 00:00:27.000
+when we play it. so we can definitely shoot stuff down and we can definitely get an
+
+00:00:27.000 --> 00:00:31.539
+updating score and we can definitely
+get shot ourselves. Let me get
+
+00:00:31.539 --> 00:00:35.540
+deliberately killed. So we can do all
+that. but really without sound...
+
+00:00:35.540 --> 00:00:39.899
+it's just not as good. The sound adds a lot to the game. So our task.
+
+00:00:39.899 --> 00:00:46.000
+now. is to add some sound to our game. That's basically it. and in fact. since you've
+
+00:00:46.000 --> 00:00:49.430
+done this before. you're going to try and do that. You're going to be doing the
+
+00:00:49.430 --> 00:00:55.070
+player firing. enemy firing. and enemy dying sounds. So I want you to grab the sounds from
+
+00:00:55.070 --> 00:01:00.829
+the assets we bundled at the beginning
+of this section and used as sounds.
+
+00:01:00.829 --> 00:01:06.250
+or a sound you create or a sound you download yourself. to create some sort of
+
+00:01:06.250 --> 00:01:10.010
+liveliness. whenever the player fires or
+whenever the enemy fires or an enemy
+
+00:01:10.010 --> 00:01:15.390
+dies. because it'll give a much better
+feel to your game. And I'll see you in
+
+00:01:15.390 --> 00:01:21.290
+a few minutes. and I'll show you how I would go about doing just that. So pause
+
+00:01:21.290 --> 00:01:24.990
+the video. now. Try and add some sound for when the player fires. the enemy fires.
+
+00:01:24.990 --> 00:01:31.619
+and the enemy dies. and I will see you
+very shortly. to go through it. So. how did
+
+00:01:31.619 --> 00:01:36.840
+you get on? Did you manage to get the
+sounds added to your game. so that when
+
+00:01:36.840 --> 00:01:41.040
+the player or enemy fires. they
+make a sound. or when the enemy dies they
+
+00:01:41.040 --> 00:01:46.270
+make a sound. And let's see how we would do that. So this is already a recap. and the
+
+00:01:46.270 --> 00:01:51.460
+first thing I want to do is grab my sound assets and import them into Unity. So to
+
+00:01:51.460 --> 00:01:58.549
+do that. I'm going to jump into my folder. that's part of the bundled assets from the
+
+00:01:58.549 --> 00:02:03.869
+package we had at the beginning of the
+section. So. I'm grabbing all my sound
+
+00:02:03.869 --> 00:02:07.680
+assets. and that's in the SFX folder. the special effects folder. and I'm dragging them
+
+00:02:07.680 --> 00:02:11.450
+into the sound folder within my assets tab.
+
+00:02:11.450 --> 00:02:16.300
+So cool. so now I've got all the sounds in my game. Let's get started. I'm going to start
+
+00:02:16.300 --> 00:02:23.470
+with my player. I'm going to open the player controller. and I'm going to add a public
+
+00:02:23.470 --> 00:02:29.940
+audio clip. So. that's going to be the fire sound. right.  The public AudioClip
+
+00:02:29.940 --> 00:02:35.230
+fireSound; that's going to be the sound of my guns and I'm going to drag and drop that
+
+00:02:35.230 --> 00:02:40.349
+in the Inspector. and whenever we fire I
+will also. as well as firing a beam or
+
+00:02:40.349 --> 00:02:49.599
+projectile. I will also go AudioSource.PlayClipAtPoint. and I'm going to play my
+
+00:02:49.599 --> 00:02:54.349
+fire sound at my current location.
+
+00:02:54.349 --> 00:02:59.730
+my current location represented by the
+position of my transform. So cool! For
+
+00:02:59.730 --> 00:03:04.579
+now. I'm playing this sound. whenever
+I fire. Let's jump back into our Unity
+
+00:03:04.579 --> 00:03:11.870
+editor. and in this case. let's add the sound itself to the player prefab. So let's take
+
+00:03:11.870 --> 00:03:16.799
+a look at the player prefab. There's now a slot open in the player controller script. for the fire
+
+00:03:16.799 --> 00:03:23.639
+sound. Let's drag and drop our laser
+sound into the prefab slot. Let's save our scene.
+
+00:03:23.639 --> 00:03:30.380
+and let's press play. So now. you should be hearing that. whenever I press the
+
+00:03:30.380 --> 00:03:38.150
+spacebar. whenever I shoot the laser. I get an isolated sound coming up. Brilliant! So what's
+
+00:03:38.150 --> 00:03:43.359
+next? Well. next is my enemy. So. let's take a look at the enemy behavior script. and
+
+00:03:43.359 --> 00:03:48.819
+this time we're  going to do exactly the same. We're going to create a public AudioClip.
+
+00:03:48.820 --> 00:03:56.359
+for my fireSound. but we're also
+going to do something else. We're going
+
+00:03:56.359 --> 00:04:03.199
+to create a public AudioClip. for my
+deathSound.
+
+00:04:03.200 --> 00:04:06.880
+That sounds very morbid. isn't it.
+
+00:04:06.889 --> 00:04:10.910
+Death sound and fire sound. so the fire sound is really exactly identical to what we did
+
+00:04:10.910 --> 00:04:22.150
+with the player. We can do... so its AudioSource.PlayClipAtPoint fireSounds...
+
+00:04:22.150 --> 00:04:31.520
+Not fire pause but fireSounds and my current position. And now. we've got the...
+
+00:04:31.540 --> 00:04:36.580
+sound playing when we fire. We can also
+do a little bit of clean up. while we're here. Because
+
+00:04:36.580 --> 00:04:40.440
+we no longer collide with projectiles. we no longer need to add
+
+00:04:40.440 --> 00:04:46.610
+this offset here. So we can just use
+transform.position. instead of fire
+
+00:04:46.610 --> 00:04:55.690
+pause. which saves us two lines and cleans this up a little bit. Here we ago! And so. whenever we
+
+00:04:55.690 --> 00:04:59.810
+fire. we instantiate a new projectile. give it some velocity. and play a sound.
+
+00:04:59.810 --> 00:05:02.780
+That's great! And next.
+
+00:05:02.780 --> 00:05:08.050
+whenever we die. as well as notifying the
+scorekeeper and destroying the object. we
+
+00:05:08.050 --> 00:05:16.500
+will also do an Audio Source and do the
+same thing but play the death sound. Dot PlayClipAtPoint.
+
+00:05:16.500 --> 00:05:24.659
+and I want to play the death sound. at my
+current position. dot position. Here we go.
+
+00:05:24.659 --> 00:05:28.979
+So. now. I'm playing the sounds at the right position. I'm going to also extract this
+
+00:05:28.979 --> 00:05:34.210
+stuff. We've got three lines here. I'm going extract that into a yet more morbid die
+
+00:05:34.210 --> 00:05:40.659
+method. that's when the enemy dies. Grab
+all the stuff and make it happen in a
+
+00:05:40.659 --> 00:05:46.919
+function. make sure not to forget my
+capital A. and then now. call the Die
+
+00:05:46.919 --> 00:05:53.320
+function from the appropriate place in
+my OnTriggerEnter2D function. Save all that. jump back
+
+00:05:53.320 --> 00:05:58.950
+into my Unity. and this time I'm going to
+add my appropriate sounds to my Enemy
+
+00:05:58.950 --> 00:06:05.300
+prefab. Let's grab the sound. and for the
+fire sound I'm going to use the SFX Laser 2.
+
+00:06:05.300 --> 00:06:08.500
+Obviously. you can use whatever you
+wanted that doesn't matter all that much.
+
+00:06:08.500 --> 00:06:12.080
+and iSFX Lose for my death sound.
+
+00:06:12.090 --> 00:06:18.780
+Awesome! Let's save that scene and press play and see what happens. So. you can hear
+
+00:06:18.780 --> 00:06:24.889
+my sound. my fire. You can also hear the
+enemy fire. Let's try and destroy a few
+
+00:06:24.889 --> 00:06:28.570
+and see what happens then. Can you hear that enemy being killed?
+
+00:06:28.570 --> 00:06:38.660
+Yep. sounds good to me! And that is us done! We have now added the sounds. very quickly.
+
+00:06:38.660 --> 00:06:45.340
+to our little game. So. we now have not
+only added some sounds for firing but for
+
+00:06:45.340 --> 00:06:49.020
+dying as well. And obviously you can go
+nuts. you can add sounds to many more
+
+00:06:49.020 --> 00:06:55.210
+events in the game. not just the firing
+and dying. but also things like let's say
+
+00:06:55.210 --> 00:07:00.490
+once in awhile add a weird creepy sound
+or anything you want. So. really go nuts
+
+00:07:00.490 --> 00:07:04.690
+with sounds on the events. maybe add a
+sound whenever the player dies or
+
+00:07:04.690 --> 00:07:08.100
+something like that. or whenever. the
+score goes up. instead of having a
+
+00:07:08.100 --> 00:07:15.479
+player an enemy dying have a little clang or ching whenever the score goes up.
+
+00:07:15.479 --> 00:07:18.940
+Anything like that. you can have a play around with. but that's the point. we've got the
+
+00:07:18.940 --> 00:07:20.240
+sounds going in the game.
+
+00:07:20.240 --> 00:07:23.650
+It sounds so much better. and when it
+plays... when we play the game. it feels
+
+00:07:23.650 --> 00:07:28.960
+much cooler with the sounds actually in
+there. So that's great stuff! I hope you
+
+00:07:28.960 --> 00:07:32.450
+enjoy the video and I will see you in
+another one! Bye for now.
+

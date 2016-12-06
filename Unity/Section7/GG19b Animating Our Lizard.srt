@@ -1,0 +1,694 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.700
+
+
+2
+00:00:03.700 --> 00:00:07.700
+So in this video we're going to be looking at different ways of animating objects.
+
+3
+00:00:07.700 --> 00:00:11.700
+different ways of moving the transform or the pivot point of those objects.
+
+4
+00:00:11.700 --> 00:00:15.433
+and then. options for combining those together. So by the end of it.
+
+5
+00:00:15.433 --> 00:00:19.433
+what we're looking to do. and by the way. this is just a preview of what we're going to have in
+
+6
+00:00:19.433 --> 00:00:23.433
+the next few videos time is. things like this. We're going to be able to put Defenders
+
+7
+00:00:23.433 --> 00:00:27.433
+down. they're going to have Sprite Sheet Animation. some of them. These Cactuses are purely
+
+8
+00:00:27.433 --> 00:00:31.433
+based on frame based animation. Then. these Star Trophies are pure
+
+9
+00:00:31.433 --> 00:00:35.433
+bone based animation. at the top half. The Defenders here are
+
+10
+00:00:35.433 --> 00:00:39.433
+rotating and translating. and then. the Attackers have a combination as
+
+11
+00:00:39.433 --> 00:00:42.066
+well. So that's a preview of what's coming! Let me just
+
+12
+00:00:42.066 --> 00:00:46.066
+show you a slide that should help you to understand these different ways of
+
+13
+00:00:46.066 --> 00:00:50.066
+moving objects. So we've got Sprite Sheet. which is where we're changing the frames in a
+
+14
+00:00:50.066 --> 00:00:54.066
+flip-book style. We have Bone Based. which is where we are changing the transform.
+
+15
+00:00:54.066 --> 00:00:58.066
+rotation. or scale of the object. or part of the object like
+
+16
+00:00:58.066 --> 00:01:02.066
+if we look back here at the sun. The top of the sun is a Bone Based
+
+17
+00:01:02.066 --> 00:01:06.066
+Animation. just swinging left and right and pivoting around the base of the sun.
+
+18
+00:01:06.066 --> 00:01:10.066
+whereas the Cactuses are purely Sprite Sheet based. And then. we have it Moving
+
+19
+00:01:10.066 --> 00:01:14.066
+the Pivot in Script. So in the case of the Lizard. its
+
+20
+00:01:14.066 --> 00:01:18.066
+pivot point is moving because of a script. and the actual
+
+21
+00:01:18.066 --> 00:01:22.066
+frames of the animation are coming from a Sprite Sheet. So let's go through and take a look!
+
+22
+00:01:22.066 --> 00:01:26.066
+All the Attackers are going to be using Sprite Sheet for their animation.
+
+23
+00:01:26.066 --> 00:01:30.066
+they'll have no Bone Based Animation. and they will all have their pivot point moved by
+
+24
+00:01:30.066 --> 00:01:34.066
+script. So that's the division of labor. if you like. for the
+
+25
+00:01:34.066 --> 00:01:38.066
+Attackers. The Defenders. how about them? Well the Gnome and the Cactus
+
+26
+00:01:38.066 --> 00:01:42.066
+will be using Sprite Sheet Animation. but the Star Trophy
+
+27
+00:01:42.066 --> 00:01:46.066
+and the Grave Stone we're going to animate through Bone Based. The Star Trophy. you can already see.
+
+28
+00:01:46.066 --> 00:01:50.066
+is wobbling left and right. and the Grave Stone. when we get to it. is going to shake based
+
+29
+00:01:50.066 --> 00:01:54.066
+on a movement of it's transform. Neither of them will have any movement
+
+30
+00:01:54.066 --> 00:01:58.066
+of their pivot point in script. they're just going to sit still. And then. finally we have the
+
+31
+00:01:58.066 --> 00:02:02.066
+Defender Projectiles. So what does that mean? That means things like this zucchini or Cactus...
+
+32
+00:02:02.066 --> 00:02:06.066
+Sorry this Zucchini or in English Courgette. [Laughs] Ah. here it goes!
+
+33
+00:02:06.066 --> 00:02:10.066
+Now that is a combination of two things. that is a single frame.
+
+34
+00:02:10.066 --> 00:02:14.066
+so it is a Sprite Sheet but it is just one frame for the Courgette
+
+35
+00:02:14.066 --> 00:02:18.066
+or the what do I call it? A cucumber. that's what I call it!
+
+36
+00:02:18.066 --> 00:02:22.066
+[laughs] And then. the Rotation! What's happening with Bone Based
+
+37
+00:02:22.066 --> 00:02:26.066
+part of the animation is the Rotation is being controlled through Bone Based
+
+38
+00:02:26.066 --> 00:02:30.066
+Animation. and the movement is happening through Translation
+
+39
+00:02:30.066 --> 00:02:34.066
+from script. So basically. we just take a single frame. we just
+
+40
+00:02:34.066 --> 00:02:38.066
+spin it using the Animator. and then. we move it by using script.
+
+41
+00:02:38.066 --> 00:02:42.066
+So by the end of it. that'll all come together. and we'll have a rich set of different types of
+
+42
+00:02:42.066 --> 00:02:46.066
+animations. So in this video we're going to focus just on animating the Lizard.
+
+43
+00:02:46.066 --> 00:02:46.533
+
+
+44
+00:02:46.533 --> 00:02:50.533
+So here we are. where we left off with our Lizard. Now there's a 5 step process outlined
+
+45
+00:02:50.533 --> 00:02:54.533
+in your section notes. like that. and I'm going to take you through step by step.
+
+46
+00:02:54.533 --> 00:02:58.533
+just for the Lizard and then give you time to do it yourself. So you could just watch me or you can follow along.
+
+47
+00:02:58.533 --> 00:03:02.533
+but you'll have time in your challenge to actually take these steps. So the first
+
+48
+00:03:02.533 --> 00:03:06.533
+step is to create a character parent and a child body object. What does that mean?
+
+49
+00:03:06.533 --> 00:03:10.533
+Well. at the moment. the Lizard is the only object. What we want to do is
+
+50
+00:03:10.533 --> 00:03:14.533
+Create an Empty Child object on the Lizard. So with the Lizard selected.
+
+51
+00:03:14.533 --> 00:03:18.533
+and then. I'm going to call that body. Now the reason is.
+
+52
+00:03:18.533 --> 00:03:22.533
+we want to move the Lizard. the top-level object.
+
+53
+00:03:22.533 --> 00:03:26.533
+in script. but we want the animation to occur on the body. And we want the Lizard to
+
+54
+00:03:26.533 --> 00:03:30.533
+be able to see it right in the middle of the square. so we want independent control of the position
+
+55
+00:03:30.533 --> 00:03:34.533
+of the body and the rest of the Lizard as a whole. That means our Sprite Renderer
+
+56
+00:03:34.533 --> 00:03:38.533
+has to come off the Lizard. so I'm going to Copy the Component. the Sprite
+
+57
+00:03:38.533 --> 00:03:42.533
+Renderer of the Lizard. I'm going to go to the Body and then Paste the Component
+
+58
+00:03:42.533 --> 00:03:46.533
+as new on the Body. and then. remove it from
+
+59
+00:03:46.533 --> 00:03:50.533
+the Lizard. So all I've done there is moved. carefully moved the Sprite Renderer down to
+
+60
+00:03:50.533 --> 00:03:54.533
+the Body. This means we can now move our Lizard around.
+
+61
+00:03:54.533 --> 00:03:58.533
+Now. in terms of where our Lizard is positioned. the frame that we have
+
+62
+00:03:58.533 --> 00:04:02.533
+here for this animation is not very helpful. He's mid-flight in my case. so
+
+63
+00:04:02.533 --> 00:04:06.533
+if that's the case for you. then go and find yourself a Lizard appearing frame.
+
+64
+00:04:06.533 --> 00:04:10.533
+that's towards the end of the animation or even the final frame. And remember
+
+65
+00:04:10.533 --> 00:04:14.533
+that you can just select that frame. once you've opened the tray out. and drop it
+
+66
+00:04:14.533 --> 00:04:18.533
+onto the sprite. And then. that will move the Lizard to his last
+
+67
+00:04:18.533 --> 00:04:22.533
+frame of animation. Now. I can move the Body of the Lizard around. you see. like this.
+
+68
+00:04:22.533 --> 00:04:26.533
+and I can get him to a nice even space like 5. 3.
+
+69
+00:04:26.533 --> 00:04:30.533
+And then. 5. 3 should be 1. 2. 3.
+
+70
+00:04:30.533 --> 00:04:34.533
+4. 5. 1. 2. 3. So 5. 3 should be in the middle of the square he's
+
+71
+00:04:34.533 --> 00:04:38.533
+nearly in the middle of. So I can make my final adjustment in the body.
+
+72
+00:04:38.533 --> 00:04:42.533
+You see the power that gives us! Now our script can move the Lizard
+
+73
+00:04:42.533 --> 00:04:46.533
+transform. and it could go from 5. 3. to 4. 3 or 5.
+
+74
+00:04:46.533 --> 00:04:50.533
+3. or 6. 3 you see. And I can just move him along integer squares.
+
+75
+00:04:50.533 --> 00:04:54.533
+Perfect. so I'll leave him there for now. And then. the Body can make the final
+
+76
+00:04:54.533 --> 00:04:58.533
+adjustments. Cool! OK. so that is the Lizard positioned
+
+77
+00:04:58.533 --> 00:05:02.533
+properly. The top level object just has an Animator. and the bottom
+
+78
+00:05:02.533 --> 00:05:06.533
+level object has a Sprite Renderer. So that's step 1 complete! Let's have a look at the next
+
+79
+00:05:06.533 --> 00:05:10.533
+step. Create the character parent and child body. Done! Number 2. ensure
+
+80
+00:05:10.533 --> 00:05:14.533
+there is an Animator on the parent object. Well we already have one! Here is the parent. the Lizard.
+
+81
+00:05:14.533 --> 00:05:18.533
+and it has an Animator. Wicked! Let's move on! Convert the Sprite Sheet
+
+82
+00:05:18.533 --> 00:05:22.533
+into separate frames. Well in the case of the Lizard we've already done that. Here they are. they're
+
+83
+00:05:22.533 --> 00:05:26.533
+already done for the appearing and for the attacking and for the
+
+84
+00:05:26.533 --> 00:05:30.533
+walking state. so this is easy. Number 3. 4 even. if I could count
+
+85
+00:05:30.533 --> 00:05:34.533
+add a Sprite Renderer curve to the body object. OK. let's take a little look
+
+86
+00:05:34.533 --> 00:05:38.533
+at that! We have a Sprite Renderer. and if I look in the animation.
+
+87
+00:05:38.533 --> 00:05:42.533
+we used to have a Sprite Renderer Curve. But it's confused now. it's gone
+
+88
+00:05:42.533 --> 00:05:46.533
+yellow. because it's looking for the Sprite Renderer against the Lizard. In fact. when I
+
+89
+00:05:46.533 --> 00:05:50.533
+select this line in the appearing clip. in the Animation tab.
+
+90
+00:05:50.533 --> 00:05:54.533
+you can see it's trying to find it on the Lizard. In fact.
+
+91
+00:05:54.533 --> 00:05:58.533
+if I play. it may even give me that error message. No it doesn't. but it's the yellow that's
+
+92
+00:05:58.533 --> 00:06:02.533
+indicating that it's missing. So I'm just going to delete this clip.
+
+93
+00:06:02.533 --> 00:06:06.533
+OK. so with nothing left in appearing. we're going to Add a Curve. Now.
+
+94
+00:06:06.533 --> 00:06:10.533
+notice you can now drill down into the body. The Animators at the Lizard
+
+95
+00:06:10.533 --> 00:06:14.533
+level. but it can drill through the body. into the Sprite Renderer. and then. Sprite.
+
+96
+00:06:14.533 --> 00:06:18.533
+That's where we want to go! Body. Sprite Renderer. Sprite on the
+
+97
+00:06:18.533 --> 00:06:22.533
+appearing curve. Great! We get a couple of frames. leave them there for now. It's really
+
+98
+00:06:22.533 --> 00:06:26.533
+handy just to leave them there. because then you can select all of the frames of appearing. pop them in.
+
+99
+00:06:26.533 --> 00:06:30.533
+we've done this before. delete the frames it came with. and then. move
+
+100
+00:06:30.533 --> 00:06:34.533
+the rest. Control A will select them all. over to the left. Now remember. you can hold
+
+101
+00:06:34.533 --> 00:06:38.533
+down Alt and scroll. and and you can change the
+
+102
+00:06:38.533 --> 00:06:42.533
+size. You've done a lot of this before. And there you go. we have an animation for Appearing.
+
+103
+00:06:42.533 --> 00:06:46.533
+Let's just get the Animator up. so we can see the state. and go
+
+104
+00:06:46.533 --> 00:06:50.533
+to our scene and play. There he comes. boom! Wicked! He
+
+105
+00:06:50.533 --> 00:06:54.533
+appears! Now. the final thing we said we wanted him to do is appear for 3
+
+106
+00:06:54.533 --> 00:06:58.533
+seconds. didn't we? So we need to decide how long we stay on
+
+107
+00:06:58.533 --> 00:07:02.533
+Appearing for. Well if you look at the animation. you can see it's at 30
+
+108
+00:07:02.533 --> 00:07:06.533
+samples a second. and he seems to have 24
+
+109
+00:07:06.533 --> 00:07:10.533
+frames. So we've got to decide in this transition. from Lizard Appearing
+
+110
+00:07:10.533 --> 00:07:14.533
+to Walking. how many cycles are we going to do to end up
+
+111
+00:07:14.533 --> 00:07:18.533
+in 3 seconds in total. Well at 30
+
+112
+00:07:18.533 --> 00:07:22.533
+frames a second it's tricky to work out. How about if I set the Animation to 24
+
+113
+00:07:22.533 --> 00:07:26.533
+samples a second. It makes life a little bit easier because one cycle then
+
+114
+00:07:26.533 --> 00:07:30.533
+lasts precisely a second. in which case the exit time
+
+115
+00:07:30.533 --> 00:07:34.533
+for this transition is after 3 cycles. This is an exit time in number
+
+116
+00:07:34.533 --> 00:07:38.533
+of cycles. And you see Lizard Appearing there. Lizard Appearing. Lizard Appearing 3
+
+117
+00:07:38.533 --> 00:07:42.533
+times. each one lasting 1 second. And I shouldn't have messed up the frame-rate too much. Let's have a look!
+
+118
+00:07:42.533 --> 00:07:46.533
+There he goes. and that's appearing for 3 seconds. Great!
+
+119
+00:07:46.533 --> 00:07:50.533
+So the next thing we want to do is have him walking for 3
+
+120
+00:07:50.533 --> 00:07:54.533
+seconds. So the aim of this game is to have the Lizard Appearing. the Lizard
+
+121
+00:07:54.533 --> 00:07:58.533
+Walking. and the Lizard Attacking. So I think this is a good time to put you over to your challenge. I
+
+122
+00:07:58.533 --> 00:08:02.533
+think you can try finishing it off. and I will help you if you need it. So let's see
+
+123
+00:08:02.533 --> 00:08:06.533
+if you can finish animating your Lizard. Animate the Lizard in place. using the Sprite Sheet
+
+124
+00:08:06.533 --> 00:08:10.533
+just as I did with that 5 step process. but do the same thing now
+
+125
+00:08:10.533 --> 00:08:14.533
+for the two other animation states. for the Walking and the Attacking
+
+126
+00:08:14.533 --> 00:08:18.533
+states. And then. cycle through the states every 3 seconds. So we want him to Appear
+
+127
+00:08:18.533 --> 00:08:22.533
+for 3 seconds. Walk for 3 seconds. and then. Attack for 3 seconds.
+
+128
+00:08:22.533 --> 00:08:26.533
+So pause the video. see if you can make that work and figure out what goes where now. and if you can't
+
+129
+00:08:26.533 --> 00:08:30.533
+for any reason. no problem. just resume the video I'll show you how to do it. And you'll have ample opportunity
+
+130
+00:08:30.533 --> 00:08:34.533
+to practice this on all of the other characters.
+
+131
+00:08:34.533 --> 00:08:38.533
+Welcome back! O.K. so let's look at the Walking
+
+132
+00:08:38.533 --> 00:08:42.533
+animation state now. In the Animation tab. go down to Walking. We've got the
+
+133
+00:08:42.533 --> 00:08:46.533
+same problem. it's gone yellow because it's lost track. I'm going to go
+
+134
+00:08:46.533 --> 00:08:50.533
+find the Walking frames. down in my Project tab.
+
+135
+00:08:50.533 --> 00:08:54.533
+under Assets. I'm going to pull all my Walking... Ah. hang on. before I do that
+
+136
+00:08:54.533 --> 00:08:58.533
+I'm going to add a Body. Remember Sprite Renderer. Sprite.
+
+137
+00:08:58.533 --> 00:09:02.533
+Curve. that one there. I'm going to leave the frame.
+
+138
+00:09:02.533 --> 00:09:06.533
+so that I'm scrolling up with two fingers on my Trackpad or rolling the Mouse Wheel.
+
+139
+00:09:06.533 --> 00:09:10.533
+Drop the frames in. delete the stuff that came at the start. Control
+
+140
+00:09:10.533 --> 00:09:14.533
+A or box select around. Drag it to the
+
+141
+00:09:14.533 --> 00:09:18.533
+left. observe how long this is. It's 15 frames.
+
+142
+00:09:18.533 --> 00:09:22.533
+so it's 1/2 a second. because we have 15 frames and
+
+143
+00:09:22.533 --> 00:09:26.533
+30 frames a second. therefore we want to go from Walking to Attacking after how many cycles?
+
+144
+00:09:26.533 --> 00:09:30.533
+Well it's going to be 6. because we have 1/2 a second each.
+
+145
+00:09:30.533 --> 00:09:34.533
+Let's check that works!
+
+146
+00:09:34.533 --> 00:09:38.533
+1.000. 2.000. 3.000. Appearing. Walking for 1. 2.
+
+147
+00:09:38.533 --> 00:09:42.533
+3. and then. he goes to Attacking. Well of course he doesn't go to Attacking. because that's the final
+
+148
+00:09:42.533 --> 00:09:46.533
+state I need to do. Same process. Delete the curve!
+
+149
+00:09:46.533 --> 00:09:50.533
+Add a new Curve. selecting Body. That's important! Then. Sprite Renderer.
+
+150
+00:09:50.533 --> 00:09:54.533
+then Sprite. Cool! Default frames. they're fine. we'll leave them
+
+151
+00:09:54.533 --> 00:09:58.533
+there for now. They're handy. they prevent us from losing our line.
+
+152
+00:09:58.533 --> 00:10:02.533
+We want to find the Attacking state. Ooh. lots and lots of frames in this guy.
+
+153
+00:10:02.533 --> 00:10:06.533
+Drop it in. delete what was there.
+
+154
+00:10:06.533 --> 00:10:10.533
+drag to the left. observe how long this lasts for.
+
+155
+00:10:10.533 --> 00:10:14.533
+This is lasting for nearly 3 seconds on its own. so that's going to be good enough. So at a
+
+156
+00:10:14.533 --> 00:10:18.533
+frame-rate of 15 a second it's lasting nearly 3. Let's take a look! Animator
+
+157
+00:10:18.533 --> 00:10:22.533
+open. play. He appears for about 3 seconds.
+
+158
+00:10:22.533 --> 00:10:26.533
+as before he transitions to Walking. does 6 cycles of
+
+159
+00:10:26.533 --> 00:10:30.533
+Walking. and then. he's just doing 1 cycle of Attacking. which happens to last
+
+160
+00:10:30.533 --> 00:10:34.533
+about 3 seconds. Ah. he's not doing 1 cycle. [Laughs]
+
+161
+00:10:34.533 --> 00:10:38.533
+So to limit the amount of tacking. rather than it just looping around. I'm going to transition back
+
+162
+00:10:38.533 --> 00:10:42.533
+to Lizard Appearing. for now. and exit after 1 cycle.
+
+163
+00:10:42.533 --> 00:10:46.533
+So in the scene view. let's just take a look and make sure it works. He
+
+164
+00:10:46.533 --> 00:10:50.533
+appears for 3 cycles. walks for 6. because each one takes
+
+165
+00:10:50.533 --> 00:10:54.533
+1/2 a seconds. attacks for just 1 cycle. and then goes
+
+166
+00:10:54.533 --> 00:10:58.533
+back to appearing. Awesome. so that is our Lizard animated! Just
+
+167
+00:10:58.533 --> 00:11:02.533
+to recap. let me go show you the slide that shows you the process!
+
+168
+00:11:02.533 --> 00:11:06.533
+Now. you'll make more sense. Here it is! So we create the parent.. we create
+
+169
+00:11:06.533 --> 00:11:10.533
+the child. we ensure there's an Animator on the parent object. because it can reach into the child.
+
+170
+00:11:10.533 --> 00:11:14.533
+We convert Sprite Sheet into separate frames. we add a Sprite Renderer Curve to the
+
+171
+00:11:14.533 --> 00:11:18.533
+body object. and then. we adjust animation to taste and repeat. So that's what
+
+172
+00:11:18.533 --> 00:11:22.533
+we're going to do for all of the other animals. in our upcoming videos!
+
+173
+00:11:22.533 --> 00:11:24.033
+
+

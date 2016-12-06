@@ -1,0 +1,557 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.010 --> 00:00:07.370
+Hey guys welcome back so just before we
+dive in and actually get the defender
+
+00:00:07.370 --> 00:00:10.960
+spawning working I want to sort out a
+little glitch that we're going to end up
+
+00:00:10.960 --> 00:00:15.030
+with because of the way that we are
+handling this projectiles parent
+
+00:00:15.030 --> 00:00:20.770
+placeholder; now it's a good idea to
+organize your spawned objects into
+
+00:00:20.770 --> 00:00:26.080
+parent objects when the game starts
+running. so if we have a look here. back
+
+00:00:26.080 --> 00:00:29.670
+over on the scene view. once the game
+starts running we've currently organized
+
+00:00:29.670 --> 00:00:33.329
+that all new projectiles go into this
+projectiles placeholder object and you
+
+00:00:33.329 --> 00:00:36.280
+can see them spawning in here. all the
+axis et cetera. That's a good idea
+
+00:00:36.280 --> 00:00:40.379
+otherwise your hierarchy would end up
+filling up and it'd be really hard in
+
+00:00:40.379 --> 00:00:44.469
+this mode to see what's going on and to
+get a handle on anything. So that's good
+
+00:00:44.469 --> 00:00:48.049
+and it does best practices out there on
+the web. here's a blog post which I'll
+
+00:00:48.049 --> 00:00:51.510
+link you to. Glenn Stevens best
+practices and he says you know spawning
+
+00:00:51.510 --> 00:00:54.679
+objects don't let spawned objects
+clutter your hierarchy
+
+00:00:54.679 --> 00:00:58.629
+totally agree - good idea. the way that we've
+gone about it so far that I've taken you
+
+00:00:58.629 --> 00:01:02.729
+down is not ideal so let's introduce
+another best practice and the second
+
+00:01:02.729 --> 00:01:05.620
+best practice I'm getting from another
+great blog post which you'll find in the
+
+00:01:05.620 --> 00:01:10.800
+slides which is this devmag blog post
+here and it's got a whole bunch of best
+
+00:01:10.800 --> 00:01:14.420
+practices for unity. we've actually got
+them all on our wall. we're making sure we're infusing them
+
+00:01:14.420 --> 00:01:17.670
+through the course and one of them is
+making the game runable from any scene
+
+00:01:17.670 --> 00:01:21.120
+Now you can read this in detail
+yourself but there's a pattern here that
+
+00:01:21.120 --> 00:01:25.950
+basically says if we need something like
+this parent game holder then
+
+00:01:25.950 --> 00:01:30.230
+find it and if we can't find it create it.
+Ao that's what we're going to do in this
+
+00:01:30.230 --> 00:01:35.390
+video so what we gonna do here is - I'll
+explain in a bit more detail what the
+
+00:01:35.390 --> 00:01:39.500
+problem with the current way of doing
+things is. You've got a link there to the
+
+00:01:39.500 --> 00:01:43.270
+Glenn Stevens article on Unity 3d best
+practices that massively overlaps with
+
+00:01:43.270 --> 00:01:47.090
+the devmag one which is also linked on
+the next slide. and I'm going to show
+
+00:01:47.090 --> 00:01:50.960
+you and then help you implement a pattern
+for checking and creating the parent
+
+00:01:50.960 --> 00:01:53.980
+objects rather than the way we doing it
+now. So what's the problem with the way
+
+00:01:53.980 --> 00:01:58.100
+we're doing it now? Let's take a look. If we
+drop a new defender in here like a gnome.
+
+00:01:58.100 --> 00:02:02.950
+bang. into the scene - you need to be in scene view
+clearly - and start running let's see what
+
+00:02:02.950 --> 00:02:08.530
+happens - what happens when he starts
+spawning objects? Well
+
+00:02:08.530 --> 00:02:11.940
+he needs - you see they're spawning at the top
+here? He hasn't found that there's a
+
+00:02:11.940 --> 00:02:15.630
+projectiles object. so why not? You might
+say well let's look at the gnome. he has
+
+00:02:15.630 --> 00:02:19.420
+a prefab right and how come the
+projectile parent prefab is not
+
+00:02:19.420 --> 00:02:24.660
+connected to hit to the gnome? Well you
+could and that's why I went down the
+
+00:02:24.660 --> 00:02:29.280
+route with prefabs. you could drag the projectile
+parent prefab into the projectile
+
+00:02:29.280 --> 00:02:32.630
+parent here obeying a good rule which
+is that prefabs should be dragged to
+
+00:02:32.630 --> 00:02:37.069
+prefabs. but sometimes combining two good
+rules i.e. prefab should be dragged to
+
+00:02:37.069 --> 00:02:41.760
+prefabs and the idea that we should
+parent spawned game objects actually can
+
+00:02:41.760 --> 00:02:45.380
+create something that's still more
+complicated than we need. Alright the
+
+00:02:45.380 --> 00:02:48.739
+problem with this is you've got to do
+that for every object. it has actually lost
+
+00:02:48.739 --> 00:02:51.900
+the connection for me but even if I go
+fix the connection for the gnome I've gotta
+
+00:02:51.900 --> 00:02:55.920
+make sure it's in place for the cactus
+and the star trophy et cetera - hassle right?
+
+00:02:55.920 --> 00:03:01.310
+Just spells hassle to me so why don't we
+introduce you to a whole new pattern. a
+
+00:03:01.310 --> 00:03:04.690
+whole new way of doing things. I'm going
+to start by deleting the projectiles
+
+00:03:04.690 --> 00:03:09.890
+parent game object and the projectiles
+prefab. we're not going to have it at all
+
+00:03:09.890 --> 00:03:11.970
+alright? It doesn't exist anymore
+
+00:03:11.970 --> 00:03:16.060
+OK then what I'm going to do is
+challenge you to make the necessary
+
+00:03:16.060 --> 00:03:20.079
+changes to the shooter script. because
+that's the script that does it
+
+00:03:20.079 --> 00:03:24.390
+It's specifically things that do shooting
+I'm going to ask you to make the necessary
+
+00:03:24.390 --> 00:03:28.489
+change in the shooting script to look to
+see if there is a game object in the
+
+00:03:28.489 --> 00:03:34.459
+hierarchy called projectiles. here's the
+shooter script and if there is then
+
+00:03:34.459 --> 00:03:40.010
+just use it for the parents - all this
+code here can stay the same - but
+
+00:03:40.010 --> 00:03:44.459
+if it doesn't exist then you're going to
+need to create it. so as a hint it's
+
+00:03:44.459 --> 00:03:50.060
+going to be in the void start method and
+in here you're gonna put some code that's
+
+00:03:50.060 --> 00:03:51.940
+going to follow the following pattern. let's
+
+00:03:51.940 --> 00:03:55.870
+take a look at the slide. So here's the
+pattern. My object = find object in scene
+
+00:03:55.870 --> 00:03:58.470
+that's kind of pseudo code that's not
+gonna work but something very similar
+
+00:03:58.470 --> 00:04:01.820
+will work. so go looking for it go
+looking for something called projectiles
+
+00:04:01.820 --> 00:04:05.620
+if it exists fine. if it doesn't exist
+
+00:04:05.620 --> 00:04:09.230
+spawn it alright. so that's pseudocode on the
+screen but it's gonna be enough for you
+
+00:04:09.230 --> 00:04:16.200
+to have a go at it so go ahead try and
+make this work
+
+00:04:16.200 --> 00:04:20.160
+Awesome welcome back so let's take a
+look at how we are going to make it work
+
+00:04:20.160 --> 00:04:25.610
+So projectile parent gun and projectile
+well firstly we're no longer in a publicly
+
+00:04:25.610 --> 00:04:29.110
+expose the projectile parent. we're going to
+take that pain away and we have much
+
+00:04:29.110 --> 00:04:32.210
+more naturally now that shooters you
+just tell them about their projectile
+
+00:04:32.210 --> 00:04:39.900
+and their gun. Privately they worry
+about whether or not they need a parent
+
+00:04:39.900 --> 00:04:47.690
+to spawn to OK? so then we have a private
+game object projectile parent. OK. fine
+
+00:04:47.690 --> 00:04:52.190
+so what we do on start? We go looking for
+it right so it's valid to say projectile
+
+00:04:52.190 --> 00:05:04.540
+parent equals GameObject dot find and
+then projectiles; ok fine now if
+
+00:05:04.540 --> 00:05:09.690
+something in the hierarchy called
+projectiles exists. so if projectiles or
+
+00:05:09.690 --> 00:05:13.390
+put it this way if there is nothing
+called projectiles then projectile parent
+
+00:05:13.390 --> 00:05:24.330
+will be null so if not projectile parent
+ok if there is no result of this game
+
+00:05:24.330 --> 00:05:29.980
+object dot find then create one. well how are you gonna create one? Projectile parent... now you might be
+
+00:05:29.980 --> 00:05:33.290
+tempted to try and use instantiate here. don't
+use instantiate - instantiate's for
+
+00:05:33.290 --> 00:05:37.310
+instantiating prefabs. we're doing
+instantiation down here
+
+00:05:37.310 --> 00:05:42.260
+of a projectile prefab but here which is
+creating a blank GameObject. so how do
+
+00:05:42.260 --> 00:05:46.510
+you create a new Vector? You go new vector
+three right? How do you create a new
+
+00:05:46.510 --> 00:05:52.980
+anything? You use the keyword new. does that
+make sense so we go looking for
+
+00:05:52.980 --> 00:05:57.940
+something called projectiles if we find
+it then projectile parent is already set
+
+00:05:57.940 --> 00:06:02.600
+if not projectile parent does not
+evaluate so we skip over this and we go
+
+00:06:02.600 --> 00:06:07.010
+ahead and do the parenting if however we
+cannot find a projectile parent then
+
+00:06:07.010 --> 00:06:13.500
+this will take the value of now and then
+we will create one. let's see if it works and the
+
+00:06:13.500 --> 00:06:17.580
+way I've written the code we get the
+following error in the shooter script
+
+00:06:17.580 --> 00:06:22.550
+an expression requires brackets square or
+squiggly on line 14; so back to the code
+
+00:06:22.550 --> 00:06:26.620
+what have we done? Line 14. well GameObject
+What I would do here is go look at the
+
+00:06:26.620 --> 00:06:30.400
+docs. what we're actually missing is just a
+pair of brackets like that but why? So
+
+00:06:30.400 --> 00:06:35.159
+let's go look at the docs for game
+object; so here we are at the docs of
+
+00:06:35.159 --> 00:06:40.069
+game object when you construct a new
+game object what parameters do you
+
+00:06:40.069 --> 00:06:44.550
+pass in if anything? So if you search for
+constructor on the page you'll find here
+
+00:06:44.550 --> 00:06:49.990
+in this section - and this is a general pattern for
+most of the methods you'll see in unity
+
+00:06:49.990 --> 00:06:53.440
+you may have a constructor. so let's
+look at it. It's actually got three
+
+00:06:53.440 --> 00:06:58.349
+constructors. look carefully at the docs
+one signature is this that you do
+
+00:06:58.349 --> 00:07:02.520
+game object and then you pass in a
+string. you see them down here? They're
+
+00:07:02.520 --> 00:07:06.490
+saying new game object call it player
+alright let's move down. there's another
+
+00:07:06.490 --> 00:07:10.279
+signature here. there should be a big black
+line there isn't; another signature from
+
+00:07:10.279 --> 00:07:14.199
+this point down. different stuff as we
+said before; second signature says don't
+
+00:07:14.199 --> 00:07:18.900
+pass anything in. new game object alright
+well let's try that so now that we've
+
+00:07:18.900 --> 00:07:22.629
+got our brackets it knows to actually
+construct a new game object. let's try
+
+00:07:22.629 --> 00:07:24.490
+running. see what happens
+
+00:07:24.490 --> 00:07:29.490
+Gonna get some issues here you go now we've
+got five new game objects. why? Why have we got
+
+00:07:29.490 --> 00:07:30.900
+five new game objects?
+
+00:07:30.900 --> 00:07:33.719
+well because there are five different
+things in the scene with that script
+
+00:07:33.719 --> 00:07:37.529
+attached and each one of them is creating
+a new game object and parenting it's
+
+00:07:37.529 --> 00:07:41.979
+projectiles to it because none of them
+have actually named the GameObject
+
+00:07:41.979 --> 00:07:47.190
+projectiles. So you could name the game
+object projectiles like this. you could
+
+00:07:47.190 --> 00:07:51.909
+gather this new projectile parent you've
+created and then say . name equals
+
+00:07:51.909 --> 00:07:55.629
+projectiles. let's just try that. why would
+you do that? Good question. you wouldn't but
+
+00:07:55.629 --> 00:08:00.180
+let's just show you that it works; now
+the first one immediately creates something
+
+00:08:00.180 --> 00:08:03.400
+called projectiles. everybody else finds it and
+says that's fine I'll use that and they
+
+00:08:03.400 --> 00:08:06.979
+stuff their projectiles under there; good
+news so the only thing I would say is
+
+00:08:06.979 --> 00:08:10.669
+that why write all that code when you
+can take this projectiles bit and use
+
+00:08:10.669 --> 00:08:12.800
+the helpful constructor that lets you
+name it
+
+00:08:12.800 --> 00:08:20.520
+while you create it; I'll re-type projectiles.
+there you go so we don't need to address the
+
+00:08:20.520 --> 00:08:24.830
+projectiles . name later there is
+actually a third variation down here
+
+00:08:24.830 --> 00:08:29.669
+this one here which takes in a name and
+an array of components which could be
+
+00:08:29.669 --> 00:08:31.040
+useful if you want if you want to
+
+00:08:31.040 --> 00:08:34.820
+construct a rich object that has a
+whole lot of things already attached to
+
+00:08:34.820 --> 00:08:38.950
+it. maybe sprite renderers. maybe scripts
+whatever then you could get into that
+
+00:08:38.950 --> 00:08:44.240
+but we're using this top version here where we
+just say new game object and give it a
+
+00:08:44.240 --> 00:08:45.750
+name while we're at it
+
+00:08:45.750 --> 00:08:50.210
+alright guys so that is what's happening
+there now this process is much more
+
+00:08:50.210 --> 00:08:55.460
+robust now when we drop our guys in the
+scene they will just create a
+
+00:08:55.460 --> 00:08:58.640
+projectiles game object if there's not
+already one there. so we don't even have
+
+00:08:58.640 --> 00:08:59.710
+to have one in the scene.
+
+00:08:59.710 --> 00:09:03.550
+Let's just test that on a second
+scene just to rub the point home
+
+00:09:03.550 --> 00:09:08.500
+So here this scene's got no defenders in
+it whatsoever. if I stick a gnome in
+
+00:09:08.500 --> 00:09:13.240
+this scene and hit play look at the
+hierarchy on the left. he immediately goes I
+
+00:09:13.240 --> 00:09:16.680
+can't find any projectiles. I'm gonna
+create one and if we stick a cactus
+
+00:09:16.680 --> 00:09:20.170
+in he'll come along and go - you
+actually have to be in the scene view so
+
+00:09:20.170 --> 00:09:24.390
+I'll put him in the hierarchy. here is the
+cactus he goes I can't find any
+
+00:09:24.390 --> 00:09:28.930
+projectiles I'll also create one and he
+will spawn all of his things if he fires
+
+00:09:28.930 --> 00:09:34.200
+anything to the same thing; so let's do another gnome. just to prove the point. two gnomes standing on
+
+00:09:34.200 --> 00:09:37.810
+top of each other they both find the
+same projectiles object and they stick
+
+00:09:37.810 --> 00:09:42.180
+their axes in there and that keeps our
+hierarchy all happy. Point driven home
+
+00:09:42.180 --> 00:09:48.010
+hopefully here is the general pattern
+I'll leave you with the slide hopefully
+
+00:09:48.010 --> 00:09:52.010
+you passed that challenge. and that general
+pattern is pretty handy. Take a look
+
+00:09:52.010 --> 00:09:56.470
+through the rest of those tips both on
+Devmag and also on here. on Glenn
+
+00:09:56.470 --> 00:09:59.430
+Stevens which has most of the same stuff
+as Devmag but also some other
+
+00:09:59.430 --> 00:10:03.280
+useful best practices. so hopefully that
+was helpful for you and start doing that
+
+00:10:03.280 --> 00:10:04.330
+in your games from now.
+

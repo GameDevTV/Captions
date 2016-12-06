@@ -1,0 +1,564 @@
+﻿WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:05.130
+Hello. hello hello!
+
+00:00:05.130 --> 00:00:09.530
+Golden copy testing what's all that about?
+So we'll be telling you what golden
+
+00:00:09.530 --> 00:00:14.880
+copies are; why they're useful for verification
+testing; I'll be showing you the about
+
+00:00:14.880 --> 00:00:19.760
+using the category name test
+annotation; we will be using binary
+
+00:00:19.760 --> 00:00:24.740
+search to find the failing tests;
+necessary it won't be but still I tell
+
+00:00:24.740 --> 00:00:29.410
+you and also commenting your code for
+future readability and then finally
+
+00:00:29.410 --> 00:00:33.329
+you're gonna share it as something really cool
+and pretty into the discussions as the
+
+00:00:33.329 --> 00:00:39.020
+pièce de resistance and I'm very very sorry
+Brice for that French. OK. fantastic
+
+00:00:39.020 --> 00:00:45.789
+so back over to unity. even if you
+say it like that. and back into mono
+
+00:00:45.789 --> 00:00:47.460
+develop. and
+
+00:00:47.460 --> 00:00:51.670
+let's take a look at our code and our test.
+here they are so bunch of verification
+
+00:00:51.670 --> 00:00:55.570
+tests I'm gonna take the bold step of
+undoing them all at the same time now if
+
+00:00:55.570 --> 00:00:59.170
+they all pass that's great but what I
+want to just tell you is if they didn't
+
+00:00:59.170 --> 00:01:03.620
+all pass then what you could do to find
+the ones that aren't is chop the
+
+00:01:03.620 --> 00:01:07.640
+space in half like we did in number
+wizard and then try the first half and then
+
+00:01:07.640 --> 00:01:10.950
+try the second half and keep dividing
+the space in half. you could do a binary search
+
+00:01:10.950 --> 00:01:14.240
+if you had a lot of tests to find the
+ones that are faliing. So that's one
+
+00:01:14.240 --> 00:01:18.619
+thing I want to say and the other thing
+is this is a useful tip. putting URLs in
+
+00:01:18.619 --> 00:01:24.750
+here these URLs support the test so they
+are... this is the evidence it is the link
+
+00:01:24.750 --> 00:01:29.540
+the reference to where I got that test
+data from. OK. and the other thing here is
+
+00:01:29.540 --> 00:01:34.020
+this category annotation; it can go above or
+below the word test. and let me show you what
+
+00:01:34.020 --> 00:01:39.119
+it does. we build. it's just a way of
+organizing your test once you've got
+
+00:01:39.119 --> 00:01:43.750
+verification sorry annotations in like
+that then this drop down at the top
+
+00:01:43.750 --> 00:01:48.780
+right here lets you filter for things
+with no annotations all things just with
+
+00:01:48.780 --> 00:01:52.070
+the verification annotation and it
+actually turns out that all of our
+
+00:01:52.070 --> 00:01:55.540
+verification tests passed so that is
+pretty cool
+
+00:01:55.540 --> 00:01:59.579
+we've got full games in here; full  real
+games with lots of weird things going on
+
+00:01:59.579 --> 00:02:05.119
+and it all works. Well I'm pretty pleased
+with that in fact I'm slightly smug
+
+00:02:05.119 --> 00:02:07.210
+about my code and very pleased with it
+
+00:02:07.210 --> 00:02:12.599
+so you can see what golden copies are
+now they are just full examples of real
+
+00:02:12.599 --> 00:02:13.130
+games. They're
+
+00:02:13.130 --> 00:02:17.130
+not really very useful for driving your
+development in the first place because
+
+00:02:17.130 --> 00:02:21.630
+what tends to happen is they fail and
+then it's not at all obvious why they
+
+00:02:21.630 --> 00:02:26.540
+fail which is why we're building up the
+solution one frame at a time we built
+
+00:02:26.540 --> 00:02:30.620
+our tests up like one frame one
+suggestion one week point at a time.
+
+00:02:30.620 --> 00:02:35.390
+Anyway they're very useful for verification
+testing like this and verification
+
+00:02:35.390 --> 00:02:39.390
+testing is fantastic for protecting us
+when we refactor. So if at this stage
+
+00:02:39.390 --> 00:02:43.930
+if you've watched all this and your code is still
+pretty big. and bloated. and ugly then what I want
+
+00:02:43.930 --> 00:02:47.860
+you to do now is to use the fact that
+all the tests are in place and go to
+
+00:02:47.860 --> 00:02:52.560
+your code and try and get it as
+concise as the code we've written and
+
+00:02:52.560 --> 00:02:57.420
+really look through it and ask every
+line is it necessary? You know. could I do
+
+00:02:57.420 --> 00:03:02.580
+things more clearly? Do I use less than
+or less than or equals? Particularly like
+
+00:03:02.580 --> 00:03:07.370
+here: do we have rolls dot count -1 is
+less than i? Less than or equal to 1? Or
+
+00:03:07.370 --> 00:03:12.610
+or less than 2? I'm saying less than or equal to
+one because it's one look ahead we need
+
+00:03:12.610 --> 00:03:19.520
+so we need - and let's put it in the
+comment ensure at least one look ahead
+
+00:03:19.520 --> 00:03:22.950
+available.
+
+00:03:22.950 --> 00:03:26.510
+OK and then comment - make sure that
+your comment about why you're doing
+
+00:03:26.510 --> 00:03:31.900
+things - why do we do this? To prevent the
+11th frame. Do we need to; do we need to
+
+00:03:31.900 --> 00:03:32.830
+comment here?
+
+00:03:32.830 --> 00:03:38.010
+Normal open frame - not necessarily but I
+think it's clear. I think it helps it
+
+00:03:38.010 --> 00:03:42.230
+helps it helps clarify that this is a
+normal frame in bowling so it's almost a
+
+00:03:42.230 --> 00:03:46.030
+why but the what your code does I don't
+think you should have to write it if
+
+00:03:46.030 --> 00:03:50.120
+it's not clear this reads pretty clear
+right you add together two rolls the
+
+00:03:50.120 --> 00:03:54.930
+previous roll and next the current roll
+and then here. what's going on here? Why
+
+00:03:54.930 --> 00:04:02.040
+Do we break out? Wll this ensures that at least a look ahead is available. Fine. Here. this is a strike. Fine. This
+
+00:04:02.040 --> 00:04:07.150
+why do we do this thing well because a
+strike frame has just one bowl so we're
+
+00:04:07.150 --> 00:04:10.200
+adjusting the iterator for that. that seems
+to work really well.
+
+00:04:10.200 --> 00:04:13.430
+Obvious what we're doing here. What are
+we doing here?
+
+00:04:13.430 --> 00:04:17.250
+well this is calculating the spare bonus
+useful and there's not really anything
+
+00:04:17.250 --> 00:04:20.320
+to be said about this line because it's
+obvious by looking at these two lines
+
+00:04:20.320 --> 00:04:26.630
+that they're kind of doing things right
+there adding 10 plus the frame ahead and in the
+
+00:04:26.630 --> 00:04:30.330
+case of a strike you get two frames
+ahead and then you just return the
+
+00:04:30.330 --> 00:04:34.720
+frames at the end. so that's my final
+code I think I think it's bomb proof I
+
+00:04:34.720 --> 00:04:37.890
+hope its bomb proof if you guys can
+write a failing test against this code
+
+00:04:37.890 --> 00:04:42.530
+- a valid failing test of course it's
+very easy to write a failing tests you
+
+00:04:42.530 --> 00:04:46.110
+write a test that doesn't make any sense -
+but if you can write a test that is
+
+00:04:46.110 --> 00:04:50.919
+valid and to show that my code here is not
+scoring bowling properly I would love to
+
+00:04:50.919 --> 00:04:55.120
+hear about it and I'd love to hear about it
+as soon as possible so that I can fix it.
+
+00:04:55.120 --> 00:04:59.479
+I'd really be quite sad if you find
+one. because I'm very proud of this
+
+00:04:59.479 --> 00:05:02.640
+piece of code for its simplicity and I
+hope you realize after having gone
+
+00:05:02.640 --> 00:05:07.990
+through the exercise of trying to get to
+this point that it is quite hard to get
+
+00:05:07.990 --> 00:05:11.990
+very condensed code out of this; even the
+white space matters. it even makes a
+
+00:05:11.990 --> 00:05:16.080
+difference if you do that or that; right
+I like to drink things in logical groups
+
+00:05:16.080 --> 00:05:17.950
+we come into the loop
+
+00:05:17.950 --> 00:05:26.370
+hang on we'd better put in another comment in here.
+we'd better say step... something like... I
+
+00:05:26.370 --> 00:05:30.479
+think if I've got a longer comment I'll put
+the comment above. so I'll say something
+
+00:05:30.479 --> 00:05:37.310
+like frame index... was it a frame index or just a
+bowl index or just an index? Let's just say an
+
+00:05:37.310 --> 00:05:47.900
+index i points to second bowl of frame.
+OK so that's another clarification. So
+
+00:05:47.900 --> 00:05:54.220
+I converged on a strategy where we stepped
+through the frames second bowl at a time.
+
+00:05:54.220 --> 00:05:59.310
+that took a lot of time and effort and a
+lot of refactoring so the strategy is
+
+00:05:59.310 --> 00:06:03.910
+everything once this loop strategy is
+correct the rest of it becomes a lot
+
+00:06:03.910 --> 00:06:08.130
+easier. This I think could be improved. if
+you can find a way to improve that I
+
+00:06:08.130 --> 00:06:12.130
+don't like that line. the fact we have to
+break out there but fundamentally i can't
+
+00:06:12.130 --> 00:06:16.830
+see any other way at the moment of of
+knowing that we are in the last frame
+
+00:06:16.830 --> 00:06:21.910
+unless we look at the frame count so if
+you can think of a neater way. great and
+
+00:06:21.910 --> 00:06:26.260
+tell us. share in the discussions
+and here we go into calculating a normal
+
+00:06:26.260 --> 00:06:31.389
+open frame which seems to be obviously
+correct then the next thing we must do
+
+00:06:31.389 --> 00:06:34.720
+when we're going through with real-time scoring
+is check we have enough look ahead and
+
+00:06:34.720 --> 00:06:38.010
+abandon if we don't and that's what
+gives us the scores at just the right
+
+00:06:38.010 --> 00:06:42.780
+time and then we deal with strikes and
+spares I think I don't need that strike
+
+00:06:42.780 --> 00:06:49.380
+comment there because we talked about
+strikes here I think I'm going to just
+
+00:06:49.380 --> 00:06:56.240
+put strike and open in bold but as we
+deal with open strike spare... spare bonus
+
+00:06:56.240 --> 00:06:59.880
+fine. Great I can't refactor that code
+anymore. I've got to the point where it's
+
+00:06:59.880 --> 00:07:04.000
+as clean as it can be from my mind all
+the comments lineup so let's talk about
+
+00:07:04.000 --> 00:07:08.570
+beautifying your code. There it is. I
+don't like nots. I don't like negatives. so
+
+00:07:08.570 --> 00:07:14.080
+let's just take the not out of that and
+any variables you want to change? I used
+
+00:07:14.080 --> 00:07:17.040
+to use current list here instead of
+frames but as Brice pointed out frames
+
+00:07:17.040 --> 00:07:21.490
+or framelist is better. so once you've
+converged on this code that you think is
+
+00:07:21.490 --> 00:07:25.480
+as good as you can get it. let's do this
+as a final challenge:
+
+00:07:25.480 --> 00:07:30.790
+One. make your code as pretty as possible.
+Two. the shorter it is. the easier it's going to be to
+
+00:07:30.790 --> 00:07:35.650
+reason about. Number three. write comments
+about why you do things. Number four. let the
+
+00:07:35.650 --> 00:07:37.590
+code speak for itself
+
+00:07:37.590 --> 00:07:42.310
+re: the what; it should be obvious what
+it's doing and finally we're gonna make it
+
+00:07:42.310 --> 00:07:49.460
+pretty using instacode dot es. So
+go to that website; when you get there
+
+00:07:49.460 --> 00:07:54.230
+paste in your method. your score frames
+method. don't worry if it looks ugly
+
+00:07:54.230 --> 00:07:57.750
+when you paste it. Tell it that is
+dealing with c sharp in this box over
+
+00:07:57.750 --> 00:08:06.120
+here. choose a theme I quite like fruity
+and proceed. It's gonna do some magic... there it goes
+
+00:08:06.120 --> 00:08:10.530
+now you've got pretty pretty pretty
+pretty pretty looking code so scrolling
+
+00:08:10.530 --> 00:08:13.970
+carefully. if you scroll inside the box it's
+going to zoom. if you scroll outside of the box
+
+00:08:13.970 --> 00:08:20.290
+it's going to pan the page. You can tilt
+your code a little bit if you want. you
+
+00:08:20.290 --> 00:08:23.410
+can choose whether you're rotating or
+translating with buttons at the bottom
+
+00:08:23.410 --> 00:08:27.680
+here so I could translate it here and then I
+could go back to rotate... and what I want you
+
+00:08:27.680 --> 00:08:30.810
+guys to do is make the prettiest
+possible solution to this code you can.
+
+00:08:30.810 --> 00:08:35.250
+Make a pretty thing here. looks like a
+Polaroid image doesn't it?
+
+00:08:35.250 --> 00:08:43.590
+Beauty in code question mark like that.
+and then what I want you to do is to
+
+00:08:43.590 --> 00:08:47.120
+share that in the course discussion so
+once you've got it and you've got to the
+
+00:08:47.120 --> 00:08:51.840
+zoom level you want. the rotation you
+want. then you just come down you can
+
+00:08:51.840 --> 00:08:58.630
+choose some other options here that you
+can play with you publish... instant
+
+00:08:58.630 --> 00:09:01.570
+hipsterization.
+
+00:09:01.570 --> 00:09:09.990
+Here it is. and there's your code and you can
+take that image. just save the image and once
+
+00:09:09.990 --> 00:09:14.160
+you've got the image go to the course
+discussions and just upload it into the
+
+00:09:14.160 --> 00:09:19.260
+discussion saying here's my solution but
+please do it like this. Please
+
+00:09:19.260 --> 00:09:23.260
+over in the discussions. I'll just go over
+to a discussions thread myself. start the
+
+00:09:23.260 --> 00:09:27.580
+discussion with the word spoiler in
+square brackets and capitals like
+
+00:09:27.580 --> 00:09:31.750
+spoiler alert me to show you. because
+you're going to be posting a potential
+
+00:09:31.750 --> 00:09:34.570
+solution to a challenge that other
+students are going to want. so do it
+
+00:09:34.570 --> 00:09:40.190
+against this very lecture. so you'd be in
+this very lecture itself. so let's go find
+
+00:09:40.190 --> 00:09:42.100
+this lecture I think it's here already.
+
+00:09:42.100 --> 00:09:45.350
+golden copy testing there you go. You know
+how to paste to the discussions. by the
+
+00:09:45.350 --> 00:09:48.540
+way if you've never posted to the
+discussions now's the time do this
+
+00:09:48.540 --> 00:09:57.110
+spoiler alert or something. or just spoiler.
+my beautiful code and then say what you
+
+00:09:57.110 --> 00:10:02.500
+wanna say and insert the instacode
+image that we just created. I hope this is
+
+00:10:02.500 --> 00:10:06.330
+the right one... always a bit dangerous going
+into my downloads and uploading a random
+
+00:10:06.330 --> 00:10:09.080
+image not quite knowing if it's the
+right thing but it is there you go and
+
+00:10:09.080 --> 00:10:12.610
+share that with the rest of the code
+students ok and that's the final point
+
+00:10:12.610 --> 00:10:17.870
+of this part of the section you have now
+created great code for bowling scoring
+
+00:10:17.870 --> 00:10:22.650
+and then we need to finish move on to
+how to display that score. and there's a little bit
+
+00:10:22.650 --> 00:10:26.410
+of trickery that needs to be done there
+but it's not the responsibility of the
+
+00:10:26.410 --> 00:10:30.800
+score master to do that. it's going to be
+a score display class. and we've got a
+
+00:10:30.800 --> 00:10:34.890
+few other little bits to tidy up in this
+game but anyway. congratulations getting
+
+00:10:34.890 --> 00:10:40.510
+this far. this is a huge feather in your...
+cap? Something like that I don't know.
+
+00:10:40.510 --> 00:10:43.140
+Anyway it's good news if you've got this
+far.
+
+00:10:43.140 --> 00:10:43.720
+see you soon.
+

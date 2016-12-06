@@ -1,0 +1,544 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:02.520 --> 00:00:07.839
+Hello and welcome back! In this video. we're
+going to go about looking at some approaches
+
+00:00:07.839 --> 00:00:14.219
+to debug small programs. So. many of our students
+come and have problems on the course. They
+
+00:00:14.219 --> 00:00:18.880
+hit a bug. they hit the snag and we want to
+help you out. so that when you hit those things
+
+00:00:18.880 --> 00:00:23.350
+you have some things to try out so that you
+don't get too stuck. So. the first thing I
+
+00:00:23.350 --> 00:00:28.449
+want to go through is the compiler. The compiler
+is our friend and our friend is the compiler.
+
+00:00:28.449 --> 00:00:33.320
+So. the compiler is there basically to turn
+your code into code that we can understand.
+
+00:00:33.320 --> 00:00:37.620
+as humans. All the syntax we're going to be
+using in MonoDevelop. all the stuff we're
+
+00:00:37.620 --> 00:00:41.489
+going to be writing. all the code is basically
+human readable. It's the human version of
+
+00:00:41.489 --> 00:00:46.039
+what the computer actually needs. and the
+compiler basically translates from the human
+
+00:00:46.039 --> 00:00:50.860
+version. or human friendly version. to a computer
+friendly version. If you were to look at a
+
+00:00:50.860 --> 00:00:55.379
+file that's designed for the computer to read.
+you'd find out it's actually completely illegible
+
+00:00:55.379 --> 00:01:01.219
+to a human. The computer needs things in a
+particular format. It's very very hard to
+
+00:01:01.219 --> 00:01:06.229
+see what it's doing. from the eye. It's very
+hard to read. and in fact. for every line
+
+00:01:06.229 --> 00:01:10.000
+of our code in our language we use to talk
+to the computer. the coding language. in our
+
+00:01:10.000 --> 00:01:16.729
+case C#. we might generate thousands of computer
+instructions that the actual processor inside
+
+00:01:16.729 --> 00:01:21.330
+your computer is going to execute. So. basically
+the compiler is the guy or the program that
+
+00:01:21.330 --> 00:01:28.829
+takes the human readable to computer readable
+source code. And basically. you might not
+
+00:01:28.829 --> 00:01:35.020
+think that code is very human readable and
+it isn't. It's not a great format for creating
+
+00:01:35.020 --> 00:01:40.840
+and putting together instructions. but it's
+currently the best we have. And if you have
+
+00:01:40.840 --> 00:01:45.070
+a look at the code that the computer executes.
+you'd find that it's a significant step up.
+
+00:01:45.070 --> 00:01:49.600
+So. why is the compiler our friend?
+Well. because the compiler has to understand
+
+00:01:49.600 --> 00:01:54.460
+all the code that we write to be able to turn
+it into code the computer will understand.
+
+00:01:54.460 --> 00:01:59.040
+and it's a great way to find errors and warnings.
+So. the first thing I would recommend is listen
+
+00:01:59.040 --> 00:02:02.590
+to the errors and the warnings in the compiler.
+that's really useful and important. Make sure
+
+00:02:02.590 --> 00:02:06.530
+you have no errors and make sure you have
+no warnings. when your game runs. and make
+
+00:02:06.530 --> 00:02:12.319
+sure that every warning is investigated and
+every error is investigated. So. when you
+
+00:02:12.319 --> 00:02:17.680
+double click an error on compiler line or
+if you're in Unity and you look at the Console
+
+00:02:17.680 --> 00:02:21.040
+and there's an error there. you can always
+double click it and it'll take you straight
+
+00:02:21.040 --> 00:02:25.510
+to the line of code that caused the error.
+That's really useful. And what you'll find
+
+00:02:25.510 --> 00:02:29.920
+is that the error is always above or on the
+line that's mentioned in the error. and what
+
+00:02:29.920 --> 00:02:34.690
+you'll tend to find is that the error often.
+if you have a simple syntax error. it'll be
+
+00:02:34.690 --> 00:02:38.720
+on the line above. Let's say you've forgotten
+the semicolon or you've forgotten to close
+
+00:02:38.720 --> 00:02:42.780
+a curly braces. then it will tell you there's
+an error on that line. But what you really
+
+00:02:42.780 --> 00:02:48.010
+want to look at is. do I have a syntax error
+on the line above? So. that's the first thing.
+
+00:02:48.010 --> 00:02:52.190
+The second one is. you can run a build in
+MonoDevelop before you test in Unity. and
+
+00:02:52.190 --> 00:02:57.360
+you can use the shortcut Command D on OS X
+or F8 on Windows. to run a build. And what
+
+00:02:57.360 --> 00:03:02.680
+that will do is it will highlight the lines
+of code that have warnings or errors attached.
+
+00:03:02.680 --> 00:03:08.040
+even before you jump into Unity. so that you
+can make sure your code can run correctly
+
+00:03:08.040 --> 00:03:13.830
+or at least compile correctly. before you
+get to your game. Now. understanding all the
+
+00:03:13.830 --> 00:03:18.819
+errors. the error messages. can be quite intimidating.
+and it's normal to not quite understand what's
+
+00:03:18.819 --> 00:03:23.459
+going on when you begin to program and this
+is something that will take time and practice.
+
+00:03:23.459 --> 00:03:28.700
+to realize what an error means.So. if you
+see an error have a look. dig through the
+
+00:03:28.700 --> 00:03:33.739
+code. try the other steps we'll show you.
+and then. eventually with time. you'll be
+
+00:03:33.739 --> 00:03:37.900
+able to understand a lot of those compiler
+error messages and see exactly what's going
+
+00:03:37.900 --> 00:03:42.530
+on. And in fact. eventually it'll become a
+super power. I've had situations where I've
+
+00:03:42.530 --> 00:03:46.110
+sat next to somebody. and I've seen the compiler
+say hey. this is what's happening with your
+
+00:03:46.110 --> 00:03:50.459
+code. this is on the line above. this is what's
+going on. The fact is. the compiler gives
+
+00:03:50.459 --> 00:03:54.430
+you a lot of information. it just takes time
+and practice to be able to realize what it
+
+00:03:54.430 --> 00:03:58.920
+means. but don't worry too much. it's quite
+helpful eventually. The second one. is The
+
+00:03:58.920 --> 00:04:03.849
+Rubber Duck Sensei. Now. it's called a rubber
+duck debugging. and as you can see our lovely
+
+00:04:03.849 --> 00:04:08.500
+little yellow duck. right here. and The Rubber
+Duck Sensei is basically every time you have
+
+00:04:08.500 --> 00:04:11.849
+a problem with your code. every time you have
+an issue or a bug. the first thing you want
+
+00:04:11.849 --> 00:04:15.560
+to do is have a rubber duck next to you on
+the table. and what you do is you turn to
+
+00:04:15.560 --> 00:04:20.840
+the rubber duck and out loud. actually speaking.
+you tell the rubber duck what the problem
+
+00:04:20.840 --> 00:04:25.750
+is. Not only do you tell the rubber duck what
+the problem is. but you also explain what
+
+00:04:25.750 --> 00:04:30.100
+you think is going on with your code. So.
+step the rubber duck through all the code.
+
+00:04:30.100 --> 00:04:34.660
+line by line. explaining what's going on.
+and eventually. you'll come to see the rubber
+
+00:04:34.660 --> 00:04:39.060
+duck is the wisest friend you've ever had.
+because the rubber duck will tell you when
+
+00:04:39.060 --> 00:04:43.669
+you have a problem with your code. It won't
+speak because it's far too wise to be using
+
+00:04:43.669 --> 00:04:48.440
+such a simple method of communication. as
+actually quacking. It'll actually simply look
+
+00:04:48.440 --> 00:04:53.699
+at you and make you realize what the error
+is. So. I highly recommend that any time you
+
+00:04:53.699 --> 00:04:58.120
+have an error you step through the code. line
+by line. speaking out loud explaining to the
+
+00:04:58.120 --> 00:05:02.960
+rubber duck what you think is going on. it
+is invaluable and you can look at more information
+
+00:05:02.960 --> 00:05:08.060
+about Rubber Duck Debugging on that link right
+there. I'm not joking. some programmers really
+
+00:05:08.060 --> 00:05:12.990
+do have rubber ducks next to their computer.
+I personally try and to write an e-mail to
+
+00:05:12.990 --> 00:05:17.440
+a friend. that's always very useful. It's
+like this is what is going on with my program.
+
+00:05:17.440 --> 00:05:21.630
+it's got this bug I don't really understand
+it. and the more I write the more I find out
+
+00:05:21.630 --> 00:05:26.250
+the solution on my own. So. this is Rubber
+Duck Debugging. that's another technique for
+
+00:05:26.250 --> 00:05:32.539
+you to try. Next is assumptions. Right. when
+you're debugging a program you should assume
+
+00:05:32.539 --> 00:05:38.050
+nothing. Most bugs in computer code are actually
+due to your incorrect assumption of the programmer.
+
+00:05:38.050 --> 00:05:42.680
+so the programmer sitting in front of the
+computer and is assuming something that isn't
+
+00:05:42.680 --> 00:05:47.560
+so. Computers are really good at doing exactly
+what we tell them to. and in fact. they're
+
+00:05:47.560 --> 00:05:51.160
+too good at that right. So. if you tell them
+to do something not quite right. they will
+
+00:05:51.160 --> 00:05:55.030
+do it quite blindly. and that's the point.
+The point is most of the time. we make assumptions
+
+00:05:55.030 --> 00:06:01.759
+about the state of our program that cause
+problems as the program progresses. So. the
+
+00:06:01.759 --> 00:06:05.319
+first thing you want to do is list all the
+assumptions. before and after a method is
+
+00:06:05.319 --> 00:06:09.919
+called. for example. or any section of code.
+So. list all the assumptions you're making.
+
+00:06:09.919 --> 00:06:14.419
+Firstly. you're assuming simple things right.
+the machine is on. I guarantee you I personally.
+
+00:06:14.419 --> 00:06:17.949
+in my programming life. have had problems
+where my assumption about the machine being
+
+00:06:17.949 --> 00:06:23.039
+turned on or off was incorrect. and I spent
+weeks debugging this problem. simply because
+
+00:06:23.039 --> 00:06:29.020
+I did not make that assumption clear and didn't
+check my assumption. So. prove your assumption
+
+00:06:29.020 --> 00:06:33.319
+using prints or debug log messages. to make
+sure that the assumptions you're making about
+
+00:06:33.319 --> 00:06:38.110
+the state of your programs are correct. If
+you can write the assumption down in your
+
+00:06:38.110 --> 00:06:42.610
+code as comments. that's useful. but better
+yet. you write them down in the code as tests
+
+00:06:42.610 --> 00:06:47.639
+or assertions. So. you're making the assertions
+that this is the state of your program. before
+
+00:06:47.639 --> 00:06:53.910
+and after a particular section of code. this
+is invaluable. Knowing what is an assumption
+
+00:06:53.910 --> 00:06:58.759
+and what isn't is really useful. and whenever
+you have an assumption don't think it's got
+
+00:06:58.759 --> 00:07:04.770
+to be like that! No. prove your assumptions.There is nothing but.
+It's only an assumption unless you've proven
+
+00:07:04.770 --> 00:07:10.910
+it. So. until you can say this is so. because
+I can prove it and I can prove it by writing
+
+00:07:10.910 --> 00:07:15.699
+out the output on my console. you have proved
+nothing. You have just got an assumption.
+
+00:07:15.699 --> 00:07:21.750
+so turn assumptions into facts using proof
+via printing or testing. And remember. this
+
+00:07:21.750 --> 00:07:26.440
+is not just you that's going to make those
+methods. it is hard. programming is hard.
+
+00:07:26.440 --> 00:07:32.759
+and in fact the Mars Climate Orbiter was a
+very expensive space probe that crashed in
+
+00:07:32.759 --> 00:07:37.759
+the Martian atmosphere. because somebody made
+an assumption about the units used in the
+
+00:07:37.759 --> 00:07:42.440
+code. So. instead of using Newton per second.
+they were using pounds per second or something
+
+00:07:42.440 --> 00:07:49.090
+like that. and the difference between Metric
+and Imperial unit meant the probe crashed. So.
+
+00:07:49.090 --> 00:07:53.680
+this is hard. assumptions matter. and if you
+are not careful they can lead to very very
+
+00:07:53.680 --> 00:08:00.220
+expensive and embarrassing blunders. So. what's
+next? The next one is the Minimum Viable Test
+
+00:08:00.220 --> 00:08:05.300
+Case. When you've got a bug and you've got
+a problem with your code. you want to be removing
+
+00:08:05.300 --> 00:08:10.479
+as much code as possible. while still having
+that bug. so you still have a bug in your
+
+00:08:10.479 --> 00:08:15.280
+code. but you're removing every bit of code
+that isn't relevant to that bug. So. step
+
+00:08:15.280 --> 00:08:22.060
+by step. remove a line of code or remove a
+section of code or remove a function. till
+
+00:08:22.060 --> 00:08:26.629
+you've got only the code that causes the bug.
+At some point. you'll be removing a line of
+
+00:08:26.629 --> 00:08:32.760
+code that is where the bug is. and the bug
+will disappear. the behavior will stop. That's
+
+00:08:32.760 --> 00:08:37.700
+really useful. because you'll know exactly
+where the bug is being created. where the
+
+00:08:37.700 --> 00:08:43.599
+bug is being caused. It's also much easier
+to reason about smaller code sizes smaller
+
+00:08:43.599 --> 00:08:48.320
+code samples. and it's also. we'll jump a
+little bit ahead of ourselves here. but once
+
+00:08:48.320 --> 00:08:52.880
+you've got a Minimum Viable Test Case. it's
+much easier to share with other people. If
+
+00:08:52.880 --> 00:08:58.680
+you've got a 5.000 line program. or even just
+a 500 or 50 line program. and the error is
+
+00:08:58.680 --> 00:09:03.790
+just in 5 lines. it's much easier abouts for
+somebody else to reason about those 5 lines.
+
+00:09:03.790 --> 00:09:08.029
+than it is to reason about the 500 lines.
+So. a minimum viable test case does not mean
+
+00:09:08.029 --> 00:09:13.750
+you're removing code that works. You're making
+the smallest thing that actually reproduces
+
+00:09:13.750 --> 00:09:19.940
+the bug. not a line more. but the point is
+it's still a fully working piece of code.
+
+00:09:19.940 --> 00:09:24.269
+It still runs and executes. it's just that
+it exhibits the behavior and nothing else.
+
+00:09:24.269 --> 00:09:29.089
+That's the Minimum Viable Test Case. and we'll
+meet it again when we do "How to Ask Good
+
+00:09:29.089 --> 00:09:35.730
+Questions" . And finally. debugging is like
+science. Use the Scientific Method for debugging.
+
+00:09:35.730 --> 00:09:41.470
+So. roughly speaking. The Scientific Method
+is. you make a hypothesis and you develop
+
+00:09:41.470 --> 00:09:45.760
+a testable prediction. so if something goes
+wrong with your program you make a hypothesis
+
+00:09:45.760 --> 00:09:52.060
+about why that is. you develop a testable
+prediction. given your hypothesis. and then.
+
+00:09:52.060 --> 00:09:57.700
+you test it. So. let's say my hypothesis is
+the variable isn't changed in those 5 lines
+
+00:09:57.700 --> 00:10:03.089
+of code. Well. OK. let's make a test. Well.
+I can test by printing the variable out before
+
+00:10:03.089 --> 00:10:07.870
+the 5 lines of code. printing it out after
+the 5 lines of code. and make sure that the
+
+00:10:07.870 --> 00:10:13.010
+variable has the same value. And then. I test
+the prediction by running this code in my
+
+00:10:13.010 --> 00:10:18.579
+system and I repeat until my tests are in
+agreement with my hypothesis. or I repeat
+
+00:10:18.579 --> 00:10:23.890
+until I have to make a new hypothesis about
+what the cause of my problem is. This is really
+
+00:10:23.890 --> 00:10:28.370
+the key of debugging. The Scientific Method
+is really what you're going to be using for
+
+00:10:28.370 --> 00:10:33.360
+debugging your program. so don't forget this
+scientist is the guy who can debug your code.
+
+00:10:33.360 --> 00:10:39.670
+At least. it'll be what you look like. after
+a crazy bug. I'm sure. [Laughs] So. that is
+
+00:10:39.670 --> 00:10:45.540
+how to debug small programs. There are some
+great resources as well. on this page. You
+
+00:10:45.540 --> 00:10:49.980
+can see Eric Lippert. who is a programmer
+who has written this great blog post about
+
+00:10:49.980 --> 00:10:55.690
+how to debug small programs. and John Regehr's.
+I apologize if I'm not saying his name correctly.
+
+00:10:55.690 --> 00:11:00.630
+he also wrote something about the scientific
+approach to debugging in that blog post. in
+
+00:11:00.630 --> 00:11:03.990
+another blog post as well. As you progress
+through the course. this will become more
+
+00:11:03.990 --> 00:11:09.170
+and more relevant and should hopefully help
+you sort out your problems with your code.
+
+00:11:09.170 --> 00:11:11.930
+Alright. I'll see you in another video! Bye
+for now!
+

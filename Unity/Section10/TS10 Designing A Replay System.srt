@@ -1,0 +1,283 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.510 --> 00:00:04.380
+Hey. we're going to talk about designing a
+Replay System! So. I'll give you an overview
+
+00:00:04.380 --> 00:00:09.600
+of Replay Systems. Well. talk about Deterministic
+vs. Non-Deterministic Replays. Oh. that sounds
+
+00:00:09.600 --> 00:00:13.559
+fancy. doesn't it! We'll have an overview
+of how we're going to do things. Hint. it's
+
+00:00:13.559 --> 00:00:18.700
+the second one. and we'll be introducing a
+circular or ring buffer. as a concept. So.
+
+00:00:18.700 --> 00:00:24.130
+one way to do replays is Deterministic or
+Event Storage Replay. That's where we store
+
+00:00:24.130 --> 00:00:28.330
+all of the starting state of the game. the
+seeds of random numbers the AI state. etc..
+
+00:00:28.330 --> 00:00:33.519
+etc.. everything about the player. the world.
+From that point. after that single storage.
+
+00:00:33.519 --> 00:00:39.710
+single frame snapshot. we just reproduce all
+the player input into that virtual controller
+
+00:00:39.710 --> 00:00:43.579
+and it takes up much less storage. but the
+simulation must run perfectly. we can't forget
+
+00:00:43.579 --> 00:00:47.940
+anything. And it's hard to do rewinds with
+this. because everything is kind of designed
+
+00:00:47.940 --> 00:00:52.769
+and set up to go forward. but that's one way
+of doing things. We basically put the player
+
+00:00:52.769 --> 00:00:57.929
+input back in from a no in start state. or
+if the game is more Non-Deterministic and
+
+00:00:57.929 --> 00:01:02.699
+we want to just store the state we can store
+the entire game state every frame. This leads
+
+00:01:02.699 --> 00:01:07.980
+to larger files sizes. but allows random access
+and it's much easier to rewind. too. We could
+
+00:01:07.980 --> 00:01:12.330
+just replay the frames in any order. but it
+does mean that every GameObject. that we want
+
+00:01:12.330 --> 00:01:17.580
+to see move or record the position of. needs
+to store it's positions every frame. So. we're
+
+00:01:17.580 --> 00:01:22.780
+going to go with this latter Non-Deterministic
+state storage way of doing things. for our
+
+00:01:22.780 --> 00:01:27.810
+game. So. here's an overview of how we are
+going to do things. We are going to. for each
+
+00:01:27.810 --> 00:01:34.520
+GameObject say the Player here in the Inspector
+the cube. etc.. we are going to have a Component
+
+00:01:34.520 --> 00:01:39.600
+in the Inspector. we're going to add a new
+Script Component. down here somewhere. and
+
+00:01:39.600 --> 00:01:43.920
+that's script is going to be responsible for
+saving the state of this GameObject. Now.
+
+00:01:43.920 --> 00:01:48.810
+there will be one more GameObject to consider.
+which is the. we're going to need a Game Manager
+
+00:01:48.810 --> 00:01:55.030
+of some sort. and that's going to store things
+like whether we're in Replay or Playback Mode
+
+00:01:55.030 --> 00:01:58.820
+at the moment. and all of these things will
+reference the Game Manager. to determine whether
+
+00:01:58.820 --> 00:02:03.510
+we're in Replay or Playback and how long we
+want to be recording for. etc. So. every GameObject
+
+00:02:03.510 --> 00:02:10.049
+will have a script on it. down here. I'll
+use black again. which will make it store
+
+00:02:10.049 --> 00:02:15.159
+it's state somewhere into some member variable
+into memory basically. which is fine for short
+
+00:02:15.159 --> 00:02:20.269
+replays. And then. when we go back into Playback
+Mode it looks of the Game Manager and says.
+
+00:02:20.269 --> 00:02:24.650
+right now let's just start playing back. So.
+we're going to need some sort of data structure.
+
+00:02:24.650 --> 00:02:27.260
+What sort of data structure are we going to
+need? Well. I'm going to call it... I don't
+
+00:02:27.260 --> 00:02:31.829
+know. what shall we call it? Let's have a
+look at what I called it. in my prototype.
+
+00:02:31.829 --> 00:02:37.159
+I called it MyKeyFrame. so we'll probably
+create ourself a class called MyKeyFrame.
+
+00:02:37.159 --> 00:02:42.810
+Now. you could use the Animator and I have
+tried using the Animator to store state. but
+
+00:02:42.810 --> 00:02:47.400
+the problem with it is it's not as performant.
+it's a bit slower. and it creates a bit of
+
+00:02:47.400 --> 00:02:52.219
+complication we don't need. So. in this key
+frame we're going to need float. which gives
+
+00:02:52.219 --> 00:03:00.810
+the time of the frame that we're storing.
+We're also going to need to have a Vector3.
+
+00:03:00.810 --> 00:03:06.359
+for the position of the GameObject. and we're
+also going to need a Quaternion... Ooh that
+
+00:03:06.359 --> 00:03:13.769
+doesn't look much like a Q does it? ...to
+store the rotation. So. it's as simple as
+
+00:03:13.769 --> 00:03:19.049
+that. It's going to be a new class. or you
+could make it a struct. if you wanted to.
+
+00:03:19.049 --> 00:03:23.849
+but the performance is very similar between
+a class and a struct. The difference. by the
+
+00:03:23.849 --> 00:03:27.409
+way. between a class and a struct is. in a
+class things are stored by reference. and
+
+00:03:27.409 --> 00:03:31.959
+in a struct things are stored by value. But
+it makes very little difference. in my testing
+
+00:03:31.959 --> 00:03:36.029
+the class actually runs a little bit faster.
+Alright. so there's what we are going to make.
+
+00:03:36.029 --> 00:03:40.069
+and then. it's going to be a relatively simple
+bit of code. that's going to record key frames
+
+00:03:40.069 --> 00:03:45.169
+and play them back. But the one little trick
+we do need. is this Circular Buffer idea.
+
+00:03:45.169 --> 00:03:50.139
+So. what a Circular Buffer is. is this. if
+we have... It's often easiest just to draw
+
+00:03:50.139 --> 00:03:56.219
+some rings for this. so let's draw a couple
+of rings. OK. so the amount of frames then.
+
+00:03:56.219 --> 00:04:01.779
+that we have go to deal with. are as follows:
+So. imagine that we have just I don't know.
+
+00:04:01.779 --> 00:04:05.419
+however many segments I've got around here
+for now. we're probably going to have hundreds
+
+00:04:05.419 --> 00:04:13.510
+or thousands of frames. but imagine it's just
+this many. 1. 2. 3. 4. 5. 6. 7. 8. 9! All
+
+00:04:13.510 --> 00:04:18.130
+a Circular Buffer does. it's pretty simple.
+is it starts by storing into here then. goes
+
+00:04:18.130 --> 00:04:23.500
+to here. here. and so on. it's just storing
+things into an array. but when we have finished
+
+00:04:23.500 --> 00:04:27.490
+and got to here. then we go straight back
+and overwrite this guy. OK. so it's like a
+
+00:04:27.490 --> 00:04:32.730
+CCTV Tape. it's overwriting. and then. we
+overwrite this guy. So. we keep the last X
+
+00:04:32.730 --> 00:04:38.470
+number of things. Now. a way to do that. an
+operator that makes this really easy is modulus.
+
+00:04:38.470 --> 00:04:44.150
+this percentage tells you the remainder. the
+percentage time tells you the remainder. So.
+
+00:04:44.150 --> 00:04:54.010
+if we want to store it in frame. something
+or other. we could say Time.frameCount. which
+
+00:04:54.010 --> 00:04:59.070
+tells you the total frame count in the game.
+since it started. Modulus the buffer size
+
+00:04:59.070 --> 00:05:03.600
+.bs for example. It's unfortunate. but there
+you go. And if you do Modulus like that. then
+
+00:05:03.600 --> 00:05:07.750
+this is exactly what will happen to this frame
+number. it will just loop around every buffer
+
+00:05:07.750 --> 00:05:12.980
+size. and the reason for that is that the
+remainder. however big this frame count is.
+
+00:05:12.980 --> 00:05:18.440
+the remainder when you divide the frame count
+by the buffer size is always going to be this
+
+00:05:18.440 --> 00:05:21.340
+circular number. you want to put it into.
+So. just have a think about that. make sure
+
+00:05:21.340 --> 00:05:28.360
+you understand that. if I'm on frame 9 and
+I do a Modulus with a 9 frame buffer size.
+
+00:05:28.360 --> 00:05:33.420
+I get a remainder of 0. So. this is element
+0 here. remember arrays start counting at
+
+00:05:33.420 --> 00:05:38.440
+0. so with 0 there would be no remainder.
+so that would go in there. When I got to say
+
+00:05:38.440 --> 00:05:44.410
+frame 10. actual game frame 10. and I'm Modulus
+9. I get a remainder of 1. so we'd be putting
+
+00:05:44.410 --> 00:05:50.420
+it in index number 1 here and so on. And it'll
+just loop around. which is pretty cool right!
+
+00:05:50.420 --> 00:05:54.650
+Fantastic! So. that's an overview of how we're
+going to do things. Let's. in the next lecture.
+
+00:05:54.650 --> 00:05:56.570
+dive in and actually start making this work!
+

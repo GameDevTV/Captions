@@ -1,0 +1,512 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.010 --> 00:00:07.620
+So in this video we're going to give our
+projectiles some rotation in the animator.
+
+00:00:07.620 --> 00:00:11.710
+we're also gonna give them some
+translation from the animator.
+
+00:00:11.710 --> 00:00:18.420
+temporarily. and we're going to see the
+combined motion. So let's take a look at
+
+00:00:18.420 --> 00:00:23.150
+that. So back over in Unity. firstly a tiny
+bit of housekeeping. I've noticed that in my
+
+00:00:23.150 --> 00:00:28.400
+cactus animation folder I've got this
+core game animator that's created itself
+
+00:00:28.400 --> 00:00:32.029
+accidentally created an extra animation
+controller so I'm going to get rid of that
+
+00:00:32.029 --> 00:00:35.920
+and just check that the cactus still
+animates properly. I'm confident he will.
+
+00:00:35.920 --> 00:00:42.039
+provided I click the right buttons... there he is. he's
+happy and hopefully he'll change state there
+
+00:00:42.039 --> 00:00:42.609
+he goes. Cool.
+
+00:00:42.609 --> 00:00:46.609
+so that's fine the other thing I've
+noticed is that I talked about in that
+
+00:00:46.609 --> 00:00:51.859
+sped up video about the naming and of
+course my trophy here is just called idle.
+
+00:00:51.859 --> 00:00:56.409
+it may make sense to call it trophy idle. and
+star birth I'm gonna call it
+
+00:00:56.409 --> 00:01:04.379
+trophy grow... just so that we know
+that is the trophy in both cases. OK
+
+00:01:04.379 --> 00:01:11.670
+fantastic so let's move on. we need to
+get the cactus and the gnome firing
+
+00:01:11.670 --> 00:01:15.170
+things; so let's start with the cactus.
+what's the cactus gonna fire? Well I'm
+
+00:01:15.170 --> 00:01:21.760
+gonna import a new asset and I'm
+gonna go to find the Glitch garden .pngs and I'm
+
+00:01:21.760 --> 00:01:29.290
+gonna get him firing a zucchini...
+or in real language (sorry Americans!) a courgette.
+
+00:01:29.290 --> 00:01:32.700
+I just never heard of a zucchini until I spent a
+few months living in America. but
+
+00:01:32.700 --> 00:01:36.950
+apparently a courgette is called a zucchini
+over there. So there it is. there is a
+
+00:01:36.950 --> 00:01:41.540
+zucchini or courgette and it's going to
+come flying out of one of our defenders
+
+00:01:41.540 --> 00:01:44.260
+which is gonna be a cactus just cos
+they're both green. I can't
+
+00:01:44.260 --> 00:01:50.530
+give you any more reason than that. So
+how are we going to animate this
+
+00:01:50.530 --> 00:01:55.220
+thing? How are we gonna have a zucchini
+flying off the cactus? Well there's a
+
+00:01:55.220 --> 00:02:00.590
+good question. So let's create a child
+GameObject for the cactus called
+
+00:02:00.590 --> 00:02:05.890
+a courgette. Not sure if it's U - R or just R. Let's just leave it
+
+00:02:05.890 --> 00:02:13.830
+like that for now. it doesn't matter. So
+it's going to need a sprite renderer. I know anybody who thinks spelling
+
+00:02:13.830 --> 00:02:17.440
+matters is going to really hate me right
+now I'll check it and change it later if
+
+00:02:17.440 --> 00:02:24.740
+it's wrong; so there we have a courgette
+sitting in front of the cactus. I'm just
+
+00:02:24.740 --> 00:02:28.640
+gonna move it. translate it to the right a
+little bit in order to stop it looking
+
+00:02:28.640 --> 00:02:32.440
+like it's completely covering the
+cactus' face. and then I'm going to
+
+00:02:32.440 --> 00:02:37.319
+scale it down a little bit like that. OK.
+so we have a courgette childed  to the
+
+00:02:37.319 --> 00:02:42.440
+cactus. so what we want to do is look
+at rotating that as it flies off t o the
+
+00:02:42.440 --> 00:02:46.739
+right so we can actually use the cactus'
+animator. that is fine. because we can
+
+00:02:46.739 --> 00:02:51.280
+reach through into the courgette to its
+transform and we can give it some
+
+00:02:51.280 --> 00:02:55.070
+rotation just like we did before. in fact as a
+challenge why don't you give it some
+
+00:02:55.070 --> 00:03:01.970
+rotation. so just get it rotating get the courgette rotating now. Go on. I'm not going to do it until you've done it...
+
+00:03:01.970 --> 00:03:07.769
+Right. so basically at the beginning it has
+no rotation. at the end let's say let's
+
+00:03:07.769 --> 00:03:12.180
+try minus 359 degrees - I think it's
+gonna need to rotate that way. what
+
+00:03:12.180 --> 00:03:13.040
+happens?
+
+00:03:13.040 --> 00:03:17.310
+Absolutely nothing. why? Because that's
+the attack state where the rotation is
+
+00:03:17.310 --> 00:03:21.910
+happening. there's no rotation in the
+other states... that's ok we can just wait
+
+00:03:21.910 --> 00:03:26.480
+let's see. so he's sitting in the idle state
+cause it doesn't and then when he fires
+
+00:03:26.480 --> 00:03:31.000
+the courgette it rotates. OK. it only
+rotates once of course. so how would you
+
+00:03:31.000 --> 00:03:31.980
+sort that out?
+
+00:03:31.980 --> 00:03:37.019
+Well. you need to make the rotation loop
+but it already is looping - the point
+
+00:03:37.019 --> 00:03:42.030
+is he's only rotating while he is in the
+attack state. So you could apply the same
+
+00:03:42.030 --> 00:03:47.829
+rotation to the idle state if you want
+to. So there it is. that's the rotation.
+
+00:03:47.829 --> 00:03:51.910
+how about translation? How about if we
+were to come in here and say actually
+
+00:03:51.910 --> 00:03:56.530
+when he fires this thing we want to
+translate the transform of the courgette
+
+00:03:56.530 --> 00:04:02.019
+not the whole cactus. but of the
+courgette. Well then you could do that as
+
+00:04:02.019 --> 00:04:06.450
+well. you could say at the end I want
+him to be... I don't know 10 squares to the
+
+00:04:06.450 --> 00:04:11.600
+right let's try that. So in idle the
+courgette's still showing. we'll deal with that in a
+
+00:04:11.600 --> 00:04:15.660
+minute they you go. off it goes and it's firing. 
+Looks pretty good right? I'm getting a slight
+
+00:04:15.660 --> 00:04:18.790
+fuzziness on my courgette and I 
+think that's cause of texture compression
+
+00:04:18.790 --> 00:04:22.990
+or my low screen resolution but I'm not
+worried. OK now how about if we don't
+
+00:04:22.990 --> 00:04:28.120
+want the courgette to appear in the idle
+state? Well then you've got courgette
+
+00:04:28.120 --> 00:04:33.490
+is active and we set this to false
+
+00:04:33.490 --> 00:04:40.690
+in both keyframes. let's try it. So in the idle state
+there's no courgette and then he fires
+
+00:04:40.690 --> 00:04:44.690
+and it comes out. So that's one way of
+dealing with it. we're actually going to
+
+00:04:44.690 --> 00:04:47.990
+deal with things differently later. we're
+going to animate the position of the
+
+00:04:47.990 --> 00:04:50.800
+projectiles using script. remember we
+talked about the different ways of doing
+
+00:04:50.800 --> 00:04:55.100
+it in the decisions. but I wanted to show
+you that you can animate it this way it's
+
+00:04:55.100 --> 00:04:59.630
+just gonna have consequences we don't
+want later. but this is an example say
+
+00:04:59.630 --> 00:05:03.050
+you wanted a boomerang with a specific
+type of animation you could do it like
+
+00:05:03.050 --> 00:05:03.850
+this.
+
+00:05:03.850 --> 00:05:08.630
+The challenge comes with something like
+a boomerang. what happens... when do you turn
+
+00:05:08.630 --> 00:05:13.210
+it round? If you've got a fixed 10 unit
+offset in your animation like we have
+
+00:05:13.210 --> 00:05:21.090
+here like our transform moves 10 units
+in the attack state. here you go. position 10
+
+00:05:21.090 --> 00:05:25.660
+units. then what would happen if the
+cactus was in the middle of the place?
+
+00:05:25.660 --> 00:05:29.240
+It would go right out the game space and back .
+so something has to modify the animation.
+
+00:05:29.240 --> 00:05:33.010
+So either we have a different animation
+from every single starting position.
+
+00:05:33.010 --> 00:05:39.280
+every column. or we actually move it in
+script which is what we're gonna do; but
+
+00:05:39.280 --> 00:05:42.340
+there's an example. lets do the same thing
+for the gnome just so there is an axe in
+
+00:05:42.340 --> 00:05:46.130
+the scene. and I'm gonna create the axe
+a different way. I'm not gonna create a sub-
+
+00:05:46.130 --> 00:05:56.390
+object yet. I'm just gonna import
+the asset which is a class axe as they
+
+00:05:56.390 --> 00:06:00.490
+call it and if I just drag and drop that
+on the gnome look what happens. we get nearly
+
+00:06:00.490 --> 00:06:05.860
+what we want - apart from it ends up in the 
+wrong place so we can reset its transform. that's
+
+00:06:05.860 --> 00:06:09.170
+better we can move it away from the
+gnome and the other problem is it just
+
+00:06:09.170 --> 00:06:14.240
+gives the object a crazy name. let's
+just call it an axe. Slightly less crazy now
+
+00:06:14.240 --> 00:06:17.570
+and again you can animate the axe in
+exactly the same way. let's take a look.
+
+00:06:17.570 --> 00:06:25.220
+Let's go into the gnome. add a curve for... well in
+the idle state there is nothing so firstly in
+
+00:06:25.220 --> 00:06:29.150
+the idle state we're going to have to make the axe inactive. now bear in mind we're only doing this
+
+00:06:29.150 --> 00:06:31.040
+as an example of some
+
+00:06:31.040 --> 00:06:34.150
+animator features. I don't suggest it's how
+we end up doing it. we'll show you how to
+
+00:06:34.150 --> 00:06:35.720
+do it a different way from
+
+00:06:35.720 --> 00:06:40.700
+instantiation from script later; but here's
+the attacking gnome. he has an axe and we
+
+00:06:40.700 --> 00:06:47.450
+want it to do two things we want it to
+translate and to rotate the axe. Starting to
+
+00:06:47.450 --> 00:06:55.730
+get how this animator guy works? I'm going
+to zoom in. scroll left and then say what
+
+00:06:55.730 --> 00:07:00.110
+rotation do we want? Well let's do a full
+rotation by the end of the frame again.
+
+00:07:00.110 --> 00:07:07.510
+359 or minus 359... let's try 359. I'm not sure which
+way the axe needs to rotate. We need to wait
+
+00:07:07.510 --> 00:07:11.850
+for the animation state to switch is rotating
+backwards. No. we want the actual blade
+
+00:07:11.850 --> 00:07:18.140
+to hit people in the head don't we. because we're psychos. So -359 would be better. OK. now the
+
+00:07:18.140 --> 00:07:28.630
+translation again let's have him fire it
+10 units off; OK. take a look. In the idle state
+
+00:07:28.630 --> 00:07:33.420
+the gnome has no axe active and then in the
+firing state it goes flying off. Now. massive
+
+00:07:33.420 --> 00:07:36.160
+difference in speed between the
+projectiles of the gnome and the
+
+00:07:36.160 --> 00:07:43.000
+cactus - why is that? Can you think why?
+It's because the number of frames of
+
+00:07:43.000 --> 00:07:46.860
+animation we have in the gnome compared
+to the cactus - the cactus has enough
+
+00:07:46.860 --> 00:07:50.690
+animation frames that at 30 frames per
+second its loop lasts two and a half
+
+00:07:50.690 --> 00:07:54.060
+seconds whereas the gnome is only
+lasting a fraction of a second so
+
+00:07:54.060 --> 00:07:58.730
+another reason we're going to end up
+controlling all this in script. but for now you have
+
+00:07:58.730 --> 00:08:02.870
+a pretty good situation. So up next we're
+gonna be looking at using the Unity
+
+00:08:02.870 --> 00:08:06.780
+remote to start previewing how we're  doing
+on the mobile but before we go there I
+
+00:08:06.780 --> 00:08:11.440
+need to make you aware of something... this
+part of the course you're watching has
+
+00:08:11.440 --> 00:08:17.430
+actually been replaced and in order that
+the next video on the Unity remote looks
+
+00:08:17.430 --> 00:08:21.030
+very similar to what you're seeing here
+I've had to go through and change a few
+
+00:08:21.030 --> 00:08:25.070
+things. so you are gonna notice a few
+things spelt differently. like the star
+
+00:08:25.070 --> 00:08:29.680
+trophy may have capitals instead of
+lower case. trophy here is purposefully
+
+00:08:29.680 --> 00:08:33.770
+misspelled for example you'll also see a
+few other little things like the
+
+00:08:33.770 --> 00:08:39.290
+cactus scale is 1. 1 at this level and
+then his body is a different scale
+
+00:08:39.290 --> 00:08:42.450
+whereas later in the course we will
+actually go through the process
+
+00:08:42.450 --> 00:08:45.670
+of getting to that point. so you're gonna
+see a few little things. your cactus.
+
+00:08:45.670 --> 00:08:50.490
+your gravestone scale's going to be
+looking similar but achieved a slightly
+
+00:08:50.490 --> 00:08:54.340
+different way. a different balance between
+the scale of the major transform and its
+
+00:08:54.340 --> 00:08:59.380
+child and then just a few differences in
+renaming which I've done since I just
+
+00:08:59.380 --> 00:09:04.050
+faded out a moment ago I've changed a
+few of these assets here to be called
+
+00:09:04.050 --> 00:09:07.880
+attack maybe instead of cactus attack
+this is all to get us back to a state so
+
+00:09:07.880 --> 00:09:11.440
+that the next video you go to should be
+very similar to this but you will see
+
+00:09:11.440 --> 00:09:16.420
+the odd little glitch from now all the
+way through to nearly the end of the
+
+00:09:16.420 --> 00:09:20.040
+project you'll just see some minor
+differences I'm afraid. but I've done my
+
+00:09:20.040 --> 00:09:22.980
+best using our source control system
+here to keep track of all the changes
+
+00:09:22.980 --> 00:09:27.390
+and to minimize them. Things will be in
+slightly different positions and there
+
+00:09:27.390 --> 00:09:30.930
+will be just some little oddities where
+you think that's not quite what I've got
+
+00:09:30.930 --> 00:09:34.900
+in my project. It will only apply to you if
+you've been following me through. really
+
+00:09:34.900 --> 00:09:39.070
+verbatim. really precisely and it'll also
+only apply to you of course if you're
+
+00:09:39.070 --> 00:09:42.290
+creating a very similar project. If
+you've been doing your own thing you
+
+00:09:42.290 --> 00:09:45.240
+won't really notice a difference
+hopefully. If you do notice anything
+
+00:09:45.240 --> 00:09:48.880
+jarring when you get into the Unity
+remote videos. or after please
+
+00:09:48.880 --> 00:09:52.490
+immediately post that to the discussions
+and we'll look to see what we can do
+
+00:09:52.490 --> 00:09:55.450
+about it but hopefully you can look past
+any minor changes and keep focusing on
+
+00:09:55.450 --> 00:09:57.930
+the learning. so good luck and I'll see you soon.
+

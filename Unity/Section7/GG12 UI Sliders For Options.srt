@@ -1,0 +1,816 @@
+WEBVTT
+
+00:00:04.589 --> 00:00:09.369 align:middle line:90%
+Hey welcome back so it's time to get our options
+screen working properly. In this video we're
+
+00:00:09.369 --> 00:00:15.350 align:middle line:90%
+going to introduce UI sliders. and both volume
+and difficulty sliders. Create ourselves an
+
+00:00:15.350 --> 00:00:19.800 align:middle line:90%
+options controller.cs script and ensure that
+it all works properly. So I'm going to start
+
+00:00:19.800 --> 00:00:22.760 align:middle line:90%
+with the volume. I'm going to help you with
+the volume. and then I'm going to challenge
+
+00:00:22.760 --> 00:00:26.230 align:middle line:90%
+you in a little bit to get the difficulty
+sliders working yourself.
+
+00:00:26.230 --> 00:00:31.140 align:middle line:90%
+So. let's go ahead and customise this scene.
+Now you're welcome to customise your scene
+
+00:00:31.140 --> 00:00:35.600 align:middle line:90%
+how you like. I'm just going to make a few
+changes to mine and then we'll add the sliders.
+
+00:00:35.600 --> 00:00:41.230 align:middle line:90%
+So My changes are going to be the title is
+just going to become options for me. the subtitle
+
+00:00:41.230 --> 00:00:47.079 align:middle line:90%
+is going to be nothing actually. I'm going
+to use the subtitle for volume. I'm going
+
+00:00:47.079 --> 00:00:56.200 align:middle line:90%
+to rename it volume label. like that and then
+change the UI element with my 'T' key and
+
+00:00:56.200 --> 00:00:57.170 align:middle line:84%
+then move it down.
+
+00:00:57.170 --> 00:01:02.010 align:middle line:90%
+Now I'm going to choose to have may back button
+all left aligned an right down at the bottom
+
+00:01:02.010 --> 00:01:07.700 align:middle line:90%
+of the screen like that. I'm going to choose
+to put my defaults somewhere else. somewhere
+
+00:01:07.700 --> 00:01:20.599 align:middle line:90%
+like that. and then I'm going to duplicate
+my volume label and call it difficulty label
+
+00:01:20.599 --> 00:01:28.479 align:middle line:90%
+and move the guy down. something like that;
+and then just manually change the value. Nothing
+
+00:01:28.479 --> 00:01:33.409 align:middle line:90%
+too difficult there. apart from I need to
+make it large enough... di-fi-cul-ty. vol-ume.
+
+00:01:33.409 --> 00:01:37.889 align:middle line:90%
+Perfect. OK so I thin that that looks reasonably
+good as a screen. now what we want to do is
+
+00:01:37.889 --> 00:01:45.740 align:middle line:90%
+start adding our game object UI slider component.
+that's where it is in the menus. OK? Pop that
+
+00:01:45.740 --> 00:01:53.270 align:middle line:90%
+in. straight away move it to where you want
+it and name it volume slider. OK. I'n not
+
+00:01:53.270 --> 00:01:55.819 align:middle line:90%
+actually going to do the difficulty slider
+at all I'm going to completely leave that
+
+00:01:55.819 --> 00:02:00.630 align:middle line:90%
+to you. So let's just make this volume slider
+large enough. I'm actually going to chose
+
+00:02:00.630 --> 00:02:05.229 align:middle line:90%
+its size based on the bottom here. because
+I don't want to encroach on the tree too much.
+
+00:02:05.229 --> 00:02:10.679 align:middle line:90%
+So in fact I'm already crowding the fox. the
+fox needs a bit more space. so ok. if that
+
+00:02:10.679 --> 00:02:13.459 align:middle line:90%
+was the difficulty slider it would be fine
+so I'm going to move it up to the volume's
+
+00:02:13.459 --> 00:02:18.569 align:middle line:90%
+position. and then you can do the difficulty
+slider later. So let's see how this slider
+
+00:02:18.569 --> 00:02:22.680 align:middle line:90%
+works. When you play you can just slide it.
+Good that. isn't it? Just like it says on
+
+00:02:22.680 --> 00:02:27.010 align:middle line:90%
+the tin; and as you slide it. if you look
+at the slider volume properties you'll see
+
+00:02:27.010 --> 00:02:31.310 align:middle line:90%
+here that we have a value. in fact changing
+the value in the inspector also moves it in
+
+00:02:31.310 --> 00:02:35.180 align:middle line:90%
+the game so scene. hopefully you can see that;
+and we have a choice over the maximum and
+
+00:02:35.180 --> 00:02:38.540 align:middle line:90%
+minimum value. you could set the maximum value
+to four.
+
+00:02:38.540 --> 00:02:42.079 align:middle line:90%
+Of course it will still go from fully left
+to fully right but now the top represents
+
+00:02:42.079 --> 00:02:46.370 align:middle line:90%
+four - it's a float. They're always floats
+these guys. Alright? When I stop playing it
+
+00:02:46.370 --> 00:02:50.810 align:middle line:90%
+reverts to one. because all changes in play
+mode are obviously not saved. So now we have
+
+00:02:50.810 --> 00:02:55.709 align:middle line:90%
+a volume slider in place. the question is
+how are we going to write the value of that
+
+00:02:55.709 --> 00:03:02.249 align:middle line:90%
+to PlayerPrefs? Well. I think that it's appropriate
+to have a separate object in this scene called
+
+00:03:02.249 --> 00:03:08.700 align:middle line:90%
+the Options controller. So I think that's
+a good architecture. I'm going to reset this
+
+00:03:08.700 --> 00:03:14.659 align:middle line:90%
+thing's transform and add a dedicated script
+to it called Options Controller. it's very
+
+00:03:14.659 --> 00:03:16.859 align:middle line:84%
+clear what that does.
+
+00:03:16.859 --> 00:03:20.390 align:middle line:90%
+Just tidy your scripts up. and let's get in
+the options controller and think how it's
+
+00:03:20.390 --> 00:03:26.450 align:middle line:90%
+going to work. So what's the general pattern?
+We are going to come into the options. it
+
+00:03:26.450 --> 00:03:30.730 align:middle line:90%
+want to load into the sliders the moment we
+come in whatever's in the PlayerPrefs. and
+
+00:03:30.730 --> 00:03:35.280 align:middle line:90%
+then whatever value we set. when we click
+back. we want to save to the PlayerPrefs.
+
+00:03:35.280 --> 00:03:39.150 align:middle line:90%
+so it's going to need access to a level manager.
+which we don't yet have so let's put a level
+
+00:03:39.150 --> 00:03:42.939 align:middle line:90%
+manager into this scene. because we're going
+to need an instance of it to wire up. with
+
+00:03:42.939 --> 00:03:44.920 align:middle line:84%
+no auto-load that's perfect.
+
+00:03:44.920 --> 00:03:49.409 align:middle line:90%
+So it needs a level manager. we'll need a
+music manager if we're going to be able to
+
+00:03:49.409 --> 00:03:56.209 align:middle line:90%
+hear the effect of changing volume but the
+music manager only exists in the splash screen.
+
+00:03:56.209 --> 00:03:59.879 align:middle line:90%
+but we can confidently assume that it will
+be here in the options screen provided we
+
+00:03:59.879 --> 00:04:04.120 align:middle line:90%
+started in the splash screen and we'll find
+the music manager. but it's still going to
+
+00:04:04.120 --> 00:04:08.480 align:middle line:90%
+work if you can't find it it's just that you
+won't be able to hear what's going on; and
+
+00:04:08.480 --> 00:04:12.029 align:middle line:90%
+then what else do we need in this scene? What
+else does this need access to? It needs access
+
+00:04:12.029 --> 00:04:13.560 align:middle line:84%
+to the sliders themselves.
+
+00:04:13.560 --> 00:04:22.919 align:middle line:90%
+So let's get into the script and start doing
+it. so a few things; first thing we're going
+
+00:04:22.919 --> 00:04:29.780 align:middle line:90%
+to need. well it's not really in any order.
+public slider volume slider. Now slider doesn't
+
+00:04:29.780 --> 00:04:36.819 align:middle line:90%
+come up in the list; why? Why can I not auto-complete
+slider at the moment? No matter what I do.
+
+00:04:36.819 --> 00:04:42.840 align:middle line:90%
+even if I type it right. it's not going to
+work. we need using UnityEngine.UI we need
+
+00:04:42.840 --> 00:04:51.210 align:middle line:90%
+to User Interface word space. Great. so public
+slider volume slider. there he is. So now
+
+00:04:51.210 --> 00:04:56.900 align:middle line:90%
+we have a slider we can drag in. let's take
+a look at it. there it is. Drag the slider
+
+00:04:56.900 --> 00:04:58.110 align:middle line:84%
+in off we go.
+
+00:04:58.110 --> 00:05:05.310 align:middle line:90%
+Fantastic. step one done. what else did I
+say we needed? We need a level manager. OK.
+
+00:05:05.310 --> 00:05:10.699 align:middle line:90%
+save it. drag the level manager in. So the
+level manager is wired up. cool. so we can
+
+00:05:10.699 --> 00:05:15.120 align:middle line:90%
+now change levels. What are we going to do
+about the music manager? Well let's have a
+
+00:05:15.120 --> 00:05:26.699 align:middle line:90%
+private music manager in here. OK and then
+on start let's find the music manager that's
+
+00:05:26.699 --> 00:05:31.419 align:middle line:90%
+almost inevitably in the scene. So it's music
+manager equals. we've done this plenty of
+
+00:05:31.419 --> 00:05:40.919 align:middle line:90%
+times. GameObject.FindObjectOfType()
+and it's a method; and let's just make sure
+
+00:05:40.919 --> 00:05:45.740 align:middle line:90%
+we are finding this music manager. let's just
+Debug.Log what we've got.
+
+00:05:45.740 --> 00:05:54.590 align:middle line:90%
+OK. so if we now run this we should get an
+error saying null; well not error. just null.
+
+00:05:54.590 --> 00:06:00.610 align:middle line:90%
+there is no music manager alright? However.
+if we were to run from the splash screen all
+
+00:06:00.610 --> 00:06:09.099 align:middle line:90%
+the way through persistent music is there.
+persistent music is there. persistent music
+
+00:06:09.099 --> 00:06:14.330 align:middle line:90%
+is here and then it logs out persistent music
+music manager. Alright? So that's all working
+
+00:06:14.330 --> 00:06:19.849 align:middle line:90%
+fine. we're finding the music manager providing
+we start from the splash screen. Fan-diddly-an-tastic
+
+00:06:19.849 --> 00:06:23.199 align:middle line:84%
+so. what do we need to do next?
+
+00:06:23.199 --> 00:06:28.599 align:middle line:90%
+Well. when we hit this back button over on
+the options scene. we need to call something
+
+00:06:28.599 --> 00:06:31.470 align:middle line:90%
+different. We're not just going to call the
+level manager and go straight back to the
+
+00:06:31.470 --> 00:06:36.020 align:middle line:90%
+start. we need to call something like save
+and exit so let's call it that. Public void
+
+00:06:36.020 --> 00:06:49.159 align:middle line:90%
+SaveAndExit. OK and what's save and exit going
+to do? Well. it's going to go to PlayerPrefsManager
+
+00:06:49.159 --> 00:06:56.659 align:middle line:90%
+and it's going to set the master volume to
+volumeSlider.Value; and then it's going to
+
+00:06:56.659 --> 00:07:04.409 align:middle line:90%
+say levelManager.LoadLevel and now it's going
+to go back to the start. Does that make sense?
+
+00:07:04.409 --> 00:07:07.349 align:middle line:90%
+it's going to save and exit; and later of
+course we;re going to have a line in here
+
+00:07:07.349 --> 00:07:09.599 align:middle line:84%
+where you are going to save the difficulty.
+
+00:07:09.599 --> 00:07:16.990 align:middle line:90%
+That's fine. so. let's wire that back button
+now to our new entity. Back Button. wired
+
+00:07:16.990 --> 00:07:23.599 align:middle line:90%
+into our options controller like so. dragging
+the options controller onto the On Click event
+
+00:07:23.599 --> 00:07:31.580 align:middle line:90%
+of the back button's button script in the
+inspector. Now choose Option Controller's
+
+00:07:31.580 --> 00:07:38.659 align:middle line:90%
+save and exit. Let's see what happens. Back.
+well it comes out. which is great. but whether
+
+00:07:38.659 --> 00:07:40.419 align:middle line:90%
+or not it wrote the PlayerPrefs. well. we
+don't know yet. because we haven't done quite
+
+00:07:40.419 --> 00:07:45.110 align:middle line:90%
+the other half of it. So let's look back at
+the options controller that's great so we
+
+00:07:45.110 --> 00:07:47.759 align:middle line:84%
+can save and exit.
+
+00:07:47.759 --> 00:07:50.819 align:middle line:90%
+When we start. once we've found the music
+manager. what else would make sense? Well
+
+00:07:50.819 --> 00:07:56.340 align:middle line:90%
+it would make sense to set the volume slider
+to... I'll leave a little bit of space here...
+
+00:07:56.340 --> 00:08:10.039 align:middle line:90%
+volume slider's value to PlayerPrefManager.GetMasterVolume()
+just set it to the master volume. Great so
+
+00:08:10.039 --> 00:08:14.550 align:middle line:90%
+let's try it. make sure that the value gets
+saved. So we turn the volume down. we go back.
+
+00:08:14.550 --> 00:08:21.379 align:middle line:90%
+we go to options. it's down where it was.
+you go up you go back it's down now the crucial
+
+00:08:21.379 --> 00:08:28.460 align:middle line:90%
+thing is here - oh. it didn't seem to save
+there you see I put it up. I go back. go to
+
+00:08:28.460 --> 00:08:30.699 align:middle line:84%
+options... Oh it has saved that's fine.
+
+00:08:30.699 --> 00:08:36.450 align:middle line:90%
+Just check again. put it in the middle. back.
+and options. Great. it's saving it and it
+
+00:08:36.450 --> 00:08:40.150 align:middle line:90%
+would save even if we stop the game let's
+put it somewhere here. just slightly under
+
+00:08:40.150 --> 00:08:45.630 align:middle line:90%
+the top. back. back to commit it to player
+prefs; stop playing the game. play the game
+
+00:08:45.630 --> 00:08:50.320 align:middle line:90%
+again and you see it's remembered it even
+between play sessions this is stored persistently
+
+00:08:50.320 --> 00:08:56.660 align:middle line:90%
+in the storage of the device. Great eh? Pretty
+cool. So now you have the structure that you
+
+00:08:56.660 --> 00:09:00.280 align:middle line:90%
+need. Now what I don't like is that I can't
+hear the music change - if you notice if we
+
+00:09:00.280 --> 00:09:04.650 align:middle line:90%
+were to start from the splash screen and if
+you do this on yours and you listen for the
+
+00:09:04.650 --> 00:09:10.460 align:middle line:90%
+music. if you get into the options as we drag
+music nothing happens as we drag; so what
+
+00:09:10.460 --> 00:09:14.130 align:middle line:90%
+I want is that I want this to actually change
+the music levels.
+
+00:09:14.130 --> 00:09:18.690 align:middle line:90%
+So how are we going to do that? Well. we've
+got a music manager so it's not actually too
+
+00:09:18.690 --> 00:09:23.540 align:middle line:90%
+challenging to do this what we can do is on
+every single frame actually we can say music
+
+00:09:23.540 --> 00:09:29.560 align:middle line:90%
+manager... dot change volume oh... we don't
+have a change volume method. but it would
+
+00:09:29.560 --> 00:09:33.100 align:middle line:90%
+be nice if we did wouldn't it? What would
+we set it to? Well we'd set it to the volume
+
+00:09:33.100 --> 00:09:38.500 align:middle line:90%
+slider value. OK. so as a little challenge
+for you why don't you go write change volume
+
+00:09:38.500 --> 00:09:44.660 align:middle line:90%
+inside music manager? It's going to be a pretty
+simple method. Go and have a go. are you pausing
+
+00:09:44.660 --> 00:09:47.280 align:middle line:90%
+the video and having a go or are you waiting
+for me to show you how?
+
+00:09:47.280 --> 00:09:51.670 align:middle line:90%
+I bet you're pausing the video and having
+a go... but you can't be otherwise you wouldn't
+
+00:09:51.670 --> 00:09:55.490 align:middle line:90%
+hear me... OK come on let's just get in there
+and do it. So over in music manager we need
+
+00:09:55.490 --> 00:10:00.370 align:middle line:90%
+a public method right? Otherwise nothing else
+can see it. It's not going to return anything.
+
+00:10:00.370 --> 00:10:09.840 align:middle line:90%
+it's going to be change volume. and it's going
+to take in a float. So float... volume...
+
+00:10:09.840 --> 00:10:12.970 align:middle line:90%
+like that. and then when it receives message
+what is it going to do? Well it's going to
+
+00:10:12.970 --> 00:10:20.830 align:middle line:90%
+go AudioSource.volume = volume. Simple. It
+provides a method to change that volume so
+
+00:10:20.830 --> 00:10:25.150 align:middle line:90%
+back here in options controller change volume
+now works; if you don't like change volume
+
+00:10:25.150 --> 00:10:29.010 align:middle line:90%
+and you want it to be set volume you can actually
+change it right here by clicking control or
+
+00:10:29.010 --> 00:10:34.910 align:middle line:90%
+command "r" and you can just change it to
+set volume and click OK. and look at this
+
+00:10:34.910 --> 00:10:38.660 align:middle line:90%
+it has changed the music manager as well.
+as long as you save your scripts. OK it's
+
+00:10:38.660 --> 00:10:48.310 align:middle line:90%
+pretty cool. right? Now let's try it. starting
+from the splash scene. We've purposefully
+
+00:10:48.310 --> 00:10:58.020 align:middle line:90%
+reduced that delay. that's working a treat
+for me. and when I play a second time. the
+
+00:10:58.020 --> 00:11:02.980 align:middle line:90%
+start scene's just as loud as it was and that's
+by choice. but this is exactly where I left
+
+00:11:02.980 --> 00:11:08.010 align:middle line:90%
+it. Now. about that start scene being as loud
+as it was remember. on the start scene we
+
+00:11:08.010 --> 00:11:12.470 align:middle line:90%
+had a load sound with a hard-wired volume
+in here. well I've left it at point nought
+
+00:11:12.470 --> 00:11:18.020 align:middle line:90%
+four. I'm actually long term going to recommend
+that it's at about point five and we could
+
+00:11:18.020 --> 00:11:25.910 align:middle line:90%
+modify our music manager script to allow for
+the master volume to affect this but I actually
+
+00:11:25.910 --> 00:11:28.930 align:middle line:90%
+don't want for the master volume to affect
+this. you know when you first open an app
+
+00:11:28.930 --> 00:11:32.920 align:middle line:90%
+on say the iPad for example. and you hear
+an intro sound that's a really good time to
+
+00:11:32.920 --> 00:11:37.630 align:middle line:90%
+set your system volume appropriately; you
+know is it late at night or is it a loud environment;
+
+00:11:37.630 --> 00:11:41.080 align:middle line:90%
+and if that's always the same volume then
+it gives you an idea about where you are;
+
+00:11:41.080 --> 00:11:46.820 align:middle line:90%
+if it's really loud then you know it's your
+system volume that's too loud. or if it's
+
+00:11:46.820 --> 00:11:49.660 align:middle line:90%
+just right but when you get into the game
+it's too quiet then you're going to know straight
+
+00:11:49.660 --> 00:11:52.050 align:middle line:84%
+away to go into options and change the volume.
+
+00:11:52.050 --> 00:11:56.820 align:middle line:90%
+So that's a design choice that we're going
+to allow that first one to be fixed and then
+
+00:11:56.820 --> 00:12:02.280 align:middle line:90%
+everything else to change. Hopefully that
+makes sense. Cool. so now let's just recap.
+
+00:12:02.280 --> 00:12:05.160 align:middle line:90%
+what did I say we were going to do? We're
+going to introduce UI sliders. hopefully that's
+
+00:12:05.160 --> 00:12:09.780 align:middle line:90%
+done. they're just little things that set
+a float value in the inspector and you can
+
+00:12:09.780 --> 00:12:13.650 align:middle line:90%
+have programmatic access to those values.
+Add volume and difficulty sliders; well. you're
+
+00:12:13.650 --> 00:12:17.210 align:middle line:90%
+getting the job of the difficulty one. Create
+OptionsController well I've done that and
+
+00:12:17.210 --> 00:12:19.530 align:middle line:84%
+check they work; I've kind of done that.
+
+00:12:19.530 --> 00:12:25.730 align:middle line:90%
+So I want you to get Difficulty options working.
+I need you to change the check in the PlayerPreferencesManager.
+
+00:12:25.730 --> 00:12:29.940 align:middle line:90%
+currently it says taht difficulty is between
+zero and one. we you want difficulty to be
+
+00:12:29.940 --> 00:12:36.800 align:middle line:90%
+between one and three inclusive because the
+next thing that you can do with your difficulty
+
+00:12:36.800 --> 00:12:40.160 align:middle line:90%
+slider is that you can actually set it to
+whole numbers and you can say I want it to
+
+00:12:40.160 --> 00:12:44.410 align:middle line:90%
+have a value between one and three that'll
+give a nice snapping effect of kind of easy.
+
+00:12:44.410 --> 00:12:49.040 align:middle line:90%
+medium and hard and you won't even need to
+write the words because it's going to be so
+
+00:12:49.040 --> 00:12:51.800 align:middle line:90%
+obvious to the player that that's what's going
+on but you're going t need to change your
+
+00:12:51.800 --> 00:12:53.440 align:middle line:84%
+check on PlayerPrefsManager.
+
+00:12:53.440 --> 00:12:58.470 align:middle line:90%
+Follow exactly the same pattern as I did for
+the volume load and save and just check it
+
+00:12:58.470 --> 00:13:04.530 align:middle line:90%
+all works so I'd like you to put a Debug statement
+on some script in level one and just check
+
+00:13:04.530 --> 00:13:10.350 align:middle line:90%
+by calling the PlayerPrefsManager. check that
+the difficulty is actually being set when
+
+00:13:10.350 --> 00:13:14.180 align:middle line:90%
+you go ll the way through to the game. So
+go ahead. pause the video. spend some time
+
+00:13:14.180 --> 00:13:19.810 align:middle line:90%
+and do that now and I'll see you when you've
+cracked it. Or not and need some help. See
+
+00:13:19.810 --> 00:13:24.370 align:middle line:84%
+you in a mo.
+
+00:13:24.370 --> 00:13:31.590 align:middle line:90%
+OK. so let's get this done quite quickly.
+In the options menu then we need to take the
+
+00:13:31.590 --> 00:13:38.220 align:middle line:90%
+volume slider and duplicate it. going to drag
+that down. zoom in so I can see that it's
+
+00:13:38.220 --> 00:13:42.160 align:middle line:90%
+lined up with the word difficulty. the blue
+snap lines will show when you're centrally
+
+00:13:42.160 --> 00:13:49.130 align:middle line:90%
+aligned. That's no longer the volume slider.
+that's the difficulty slider. OK. now the
+
+00:13:49.130 --> 00:13:53.480 align:middle line:90%
+values. this is what we are talking about.
+Minimum value one. maximum value three whole
+
+00:13:53.480 --> 00:14:01.750 align:middle line:90%
+numbers. Watch what this does. It gives you
+a nice snap. isn't that cool. OK? That's fantastic.
+
+00:14:01.750 --> 00:14:05.350 align:middle line:90%
+we're getting object reference not set that's
+because of the Music player. that's not a
+
+00:14:05.350 --> 00:14:08.160 align:middle line:84%
+problem.
+
+00:14:08.160 --> 00:14:12.380 align:middle line:90%
+So now what do we need to do in the options
+controller in order to make this difficulty
+
+00:14:12.380 --> 00:14:16.490 align:middle line:90%
+saving work? Well. before we go into that
+I said that I'd give you the hint that we
+
+00:14:16.490 --> 00:14:19.740 align:middle line:90%
+need to go into the PlayerPrefs manager and
+there's a couple of things that I want to
+
+00:14:19.740 --> 00:14:23.950 align:middle line:90%
+do I want to allow volume to be zero and I
+want to allow volume to be one. so that when
+
+00:14:23.950 --> 00:14:28.300 align:middle line:90%
+the slider is at the top and bottom we don't
+get an error. and then when it comes to setting
+
+00:14:28.300 --> 00:14:35.240 align:middle line:90%
+the difficulty I want the difficulty range
+to be one to three inclusive now. we're just
+
+00:14:35.240 --> 00:14:39.480 align:middle line:90%
+changing the whole API. we're changing the
+way that we've decided to do it. OK so back
+
+00:14:39.480 --> 00:14:43.540 align:middle line:90%
+over in the options controller. your job is
+relatively simple here.
+
+00:14:43.540 --> 00:14:47.980 align:middle line:90%
+What you're going to do is unload. you're
+just going to go difficulty. hopefully you've
+
+00:14:47.980 --> 00:14:51.950 align:middle line:90%
+already done this. difficulty slider. Now
+you don't have a difficulty slider. I'm going
+
+00:14:51.950 --> 00:14:58.410 align:middle line:90%
+to declare mine right here. OK I'm just going
+to call mine diff slider there he is. and
+
+00:14:58.410 --> 00:15:05.690 align:middle line:90%
+I'm immediately going to save and drag that
+difficulty slider in to my options controller.
+
+00:15:05.690 --> 00:15:11.440 align:middle line:90%
+So options controller. drag it in as soon
+as it starts asking for it one moment. It's
+
+00:15:11.440 --> 00:15:17.160 align:middle line:90%
+not asking because I've left a d in the script.
+The script needs to be able to build in order
+
+00:15:17.160 --> 00:15:18.570 align:middle line:84%
+for you to be able to drag things into it.
+
+00:15:18.570 --> 00:15:23.560 align:middle line:90%
+There you go. it's asking for the difficulty
+slider now. so I've just dragged it across.
+
+00:15:23.560 --> 00:15:33.230 align:middle line:90%
+Back to the script. now it's quite simple.
+diffSlider.value = PlayerPrefsManager.GetDifficulty()
+
+00:15:33.230 --> 00:15:38.930 align:middle line:90%
+very very similar pattern to before fantastic.
+What are we going to do on Update? Do we need
+
+00:15:38.930 --> 00:15:42.880 align:middle line:90%
+to be setting the volume or the difficulty?
+Is there an equivalent here for the difficulty?
+
+00:15:42.880 --> 00:15:50.580 align:middle line:90%
+No. there isn't. Then on the way out what
+do we do? We go PlayerPrefsManager.SetDifficulty
+
+00:15:50.580 --> 00:15:57.780 align:middle line:90%
+and then we give it the difficulty slider
+value and there it is. Absolutely fantastic
+
+00:15:57.780 --> 00:16:03.060 align:middle line:90%
+so we are pretty much good to go let's check
+that this is working now. so my difficulty
+
+00:16:03.060 --> 00:16:11.080 align:middle line:90%
+is on one or what I call low if I put it there
+and go back to options. set it to medium.
+
+00:16:11.080 --> 00:16:13.540 align:middle line:84%
+back. back to options.
+
+00:16:13.540 --> 00:16:20.530 align:middle line:90%
+OK? And if you want to test that this is persisting
+through. you can then go to your level one
+
+00:16:20.530 --> 00:16:24.260 align:middle line:90%
+scene. and you could drop a script on one
+of these options and just print it out. but
+
+00:16:24.260 --> 00:16:27.190 align:middle line:90%
+I'm not going to bother. I'm pretty happy
+that's going to work. What I am going to do
+
+00:16:27.190 --> 00:16:34.840 align:middle line:90%
+is test it from the splash screen one final
+time. Options. hear my music getting louder
+
+00:16:34.840 --> 00:16:41.010 align:middle line:90%
+and quieter. set my difficulty. and then that's
+it. Now the defaults button is the very final
+
+00:16:41.010 --> 00:16:45.470 align:middle line:90%
+thing to crack. and that's pretty simple.
+all we'll do is we'll have a set defaults
+
+00:16:45.470 --> 00:16:48.050 align:middle line:90%
+method - Oh that was fun. let's go back to
+source OK.
+
+00:16:48.050 --> 00:16:58.820 align:middle line:90%
+So we'll have a public void SetDefaults and
+that set defaults method is just going to
+
+00:16:58.820 --> 00:17:03.800 align:middle line:90%
+hard code in what we want. So we're going
+to have Volume Slider. we're going to have
+
+00:17:03.800 --> 00:17:09.889 align:middle line:90%
+the default of eighty percent and a default
+difficulty of two in the middle; and the final
+
+00:17:09.889 --> 00:17:14.600 align:middle line:90%
+thing that we're going to do is wire the button
+to set defaults. so that defaults button on
+
+00:17:14.600 --> 00:17:20.759 align:middle line:90%
+your options scene. I'm going to show you
+that code that I did so quickly in a moment.
+
+00:17:20.759 --> 00:17:22.370 align:middle line:90%
+I'm going to wire it and then I'll show you
+the code.
+
+00:17:22.370 --> 00:17:29.710 align:middle line:90%
+So hang on a second. the defaults button I'm
+just going to wire to the options controller.
+
+00:17:29.710 --> 00:17:34.389 align:middle line:90%
+the function is going to be set defaults.
+OK? Let's test it works then I'll show you
+
+00:17:34.389 --> 00:17:42.240 align:middle line:90%
+the code. Move some things around. set defaults.
+look off we go. Beautiful. So here's your
+
+00:17:42.240 --> 00:17:47.159 align:middle line:90%
+code. set defaults simply says volume slider
+is point eight and diff slider is two. Isn't
+
+00:17:47.159 --> 00:17:53.519 align:middle line:90%
+that cool? You have options fully working.
+congratulations on huge progress. nice architecture.
+
+00:17:53.519 --> 00:17:58.870 align:middle line:90%
+and we are now ready to dive in to the level
+one and start actually putting animated characters
+
+00:17:58.870 --> 00:17:59.950 align:middle line:84%
+into our scene.
+
+00:17:59.950 --> 00:18:04.950 align:middle line:90%
+So it's the start of a new chapter. see you
+soon.

@@ -1,0 +1,978 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hey guys and
+
+2
+00:00:06.000 --> 00:00:09.000
+welcome to our information interview on dynamic music.
+
+3
+00:00:09.000 --> 00:00:12.000
+as promised in the Kickstarter. So. I'm Ben Tristem. as
+
+4
+00:00:12.000 --> 00:00:15.000
+you know. author of the Unity Developer course. and I'm with...
+
+5
+00:00:15.000 --> 00:00:18.000
+Michael author of the Complete Blender course.
+
+6
+00:00:18.000 --> 00:00:21.000
+So Michael. you may not know. is also a talented
+
+7
+00:00:21.000 --> 00:00:24.000
+musician. a man of many talents. Thank you. He's been
+
+8
+00:00:24.000 --> 00:00:27.000
+playing the piano. since he was this big. So.
+
+9
+00:00:27.000 --> 00:00:30.000
+for the concept of this discussion or for the scope of this discussion.
+
+10
+00:00:30.000 --> 00:00:33.000
+what are we talking about? Well. we're going to be talking about dynamic music.
+
+11
+00:00:33.000 --> 00:00:36.000
+specifically in Unity. but this applies to any game engine.
+
+12
+00:00:36.000 --> 00:00:39.000
+And we're just going to talk about the basics of it. which is the ability
+
+13
+00:00:39.000 --> 00:00:42.000
+to change track and to change the
+
+14
+00:00:42.000 --> 00:00:45.000
+sound volume. So. we're going to assume you're allowed to play multiple different sound tracks.
+
+15
+00:00:45.000 --> 00:00:48.000
+There could be different pieces of music. could be different instruments. We'll talk
+
+16
+00:00:48.000 --> 00:00:51.000
+about that later. And we're going to assume you've got the ability to start and stop
+
+17
+00:00:51.000 --> 00:00:54.000
+pretty accurately. which you certainly have in Unity and Unreal and other engines.
+
+18
+00:00:54.000 --> 00:00:57.000
+and we're going to assume that you can control
+
+19
+00:00:57.000 --> 00:01:00.000
+the volume. with some finesse as well. So. that's what
+
+20
+00:01:00.000 --> 00:01:03.000
+we're going to do. Why is it important? A couple
+
+21
+00:01:03.000 --> 00:01:06.000
+of reasons why. Mikey. why do we want to change music? Well. sounds incredibly
+
+22
+00:01:06.000 --> 00:01:09.000
+important throughout everything. If you imagine
+
+23
+00:01:09.000 --> 00:01:12.000
+any films you've seen. any moments of silence. Well. that silence
+
+24
+00:01:12.000 --> 00:01:15.000
+itself is a sound. There's a little tip for you.
+
+25
+00:01:15.000 --> 00:01:18.000
+But it's a soundtrack. whether it's music or a sound
+
+26
+00:01:18.000 --> 00:01:21.000
+effect. it's all the soundtrack for your game. for whatever
+
+27
+00:01:21.000 --> 00:01:24.000
+project you're working on. Now. sound is incredible.
+
+28
+00:01:24.000 --> 00:01:27.000
+it can lead us up to an emotional state. I mean you
+
+29
+00:01:27.000 --> 00:01:30.000
+can have the same scene... Imagine some swings. swinging
+
+30
+00:01:30.000 --> 00:01:33.000
+in a playground and playing happy
+
+31
+00:01:33.000 --> 00:01:36.000
+cheerful music. well it's a cheerful scene. You do the
+
+32
+00:01:36.000 --> 00:01:39.000
+same and put a bit of horror music in it. perhaps
+
+33
+00:01:39.000 --> 00:01:42.000
+even the same theme but a bit more discordant a bit
+
+34
+00:01:42.000 --> 00:01:45.000
+harmonics. You know it's horrible. slow. or echoey.
+
+35
+00:01:45.000 --> 00:01:48.000
+It's something you've got horror. horror scene. To completely change the feeling of it. It's exactly
+
+36
+00:01:48.000 --> 00:01:51.000
+the same sort of... Well. there's nothing changed
+
+37
+00:01:51.000 --> 00:01:54.000
+in the scene. only the music. and that can change what
+
+38
+00:01:54.000 --> 00:01:57.000
+you're feeling. massively. OK. to summarize it.
+
+39
+00:01:57.000 --> 00:02:00.000
+setting the mood and for non visual
+
+40
+00:02:00.000 --> 00:02:03.000
+cues as well. Important Yes. OK. so we're
+
+41
+00:02:03.000 --> 00:02:06.000
+going to run through with you. three specific examples
+
+42
+00:02:06.000 --> 00:02:09.000
+and we're going to talk about how we may actually implement that.
+
+43
+00:02:09.000 --> 00:02:12.000
+Yes. So number one. this is inspired by an experience
+
+44
+00:02:12.000 --> 00:02:15.000
+we both had recently. playing Until Dawn on the PS4.
+
+45
+00:02:15.000 --> 00:02:18.000
+That's Until Dawn. it's a horror game interactive
+
+46
+00:02:18.000 --> 00:02:21.000
+horror. Pretty cool! And we just noticed. as we went to a doorway
+
+47
+00:02:21.000 --> 00:02:24.000
+boundary. and as we approach that doorway I think I'm not even
+
+48
+00:02:24.000 --> 00:02:27.000
+sure what happened. I know I felt uneasy but I think some strings maybe got  a lot
+
+49
+00:02:27.000 --> 00:02:30.000
+louder. Yes. so as we approached the door. it was leading us up.
+
+50
+00:02:30.000 --> 00:02:33.000
+It was saying. beyond this doorway and the closer and closer
+
+51
+00:02:33.000 --> 00:02:36.000
+you got the louder and more intense these strings became.
+
+52
+00:02:36.000 --> 00:02:39.000
+And I'm not sure if it made us jump afterwards.
+
+53
+00:02:39.000 --> 00:02:42.000
+but when we passed through the door it just went dead. Yeah. so there was a huge
+
+54
+00:02:42.000 --> 00:02:45.000
+amount of contrast there. So. let's talk briefly about how we might do that.
+
+55
+00:02:45.000 --> 00:02:48.000
+So. a simple way to do this would be
+
+56
+00:02:48.000 --> 00:02:51.000
+to have a AudioSource. in the doorway. just
+
+57
+00:02:51.000 --> 00:02:54.000
+say on the floor. just floating in the air. it's invisible who cares.
+
+58
+00:02:54.000 --> 00:02:57.000
+And then. you work on the Volume Rolloff Curve for
+
+59
+00:02:57.000 --> 00:03:00.000
+that AudioSource. and arrange that when you get within a few feet or
+
+60
+00:03:00.000 --> 00:03:03.000
+meters of the door. that
+
+61
+00:03:03.000 --> 00:03:06.000
+an audio track... So. let's imagine you've got some discordant music of
+
+62
+00:03:06.000 --> 00:03:09.000
+some sort. running in the background. right. And then.
+
+63
+00:03:09.000 --> 00:03:12.000
+you could as a separate track. attach to this AudioSource a string.
+
+64
+00:03:12.000 --> 00:03:15.000
+some strings or something. You could just ramp up the volume.
+
+65
+00:03:15.000 --> 00:03:18.000
+It's very simple at this stage. just ramp up the volume as you get closer
+
+66
+00:03:18.000 --> 00:03:21.000
+and closer to the door. In fact. you probably want it very subtle
+
+67
+00:03:21.000 --> 00:03:24.000
+as you approach the door. depending on the speed of your character and the distance
+
+68
+00:03:24.000 --> 00:03:27.000
+between it. But as you get closer and closer to the door. you
+
+69
+00:03:27.000 --> 00:03:30.000
+want it to ramp up to really make that doorway tense.
+
+70
+00:03:30.000 --> 00:03:33.000
+OK cool! So. we're talking about two audio tracks here. One is
+
+71
+00:03:33.000 --> 00:03:36.000
+music that is
+
+72
+00:03:36.000 --> 00:03:39.000
+compatible with the idea of having louder and louder strings.
+
+73
+00:03:39.000 --> 00:03:42.000
+that plays through the whole room that we're in. and then.
+
+74
+00:03:42.000 --> 00:03:45.000
+another one. which is specifically a strings AudioSource.
+
+75
+00:03:45.000 --> 00:03:48.000
+that sits in the doorway. It just gets louder
+
+76
+00:03:48.000 --> 00:03:51.000
+and louder as you approach. It's a 3D sound and the sound ramps up and
+
+77
+00:03:51.000 --> 00:03:54.000
+ramps up. as you get close to it. And you play test it. by walking up to the door and seeing how it
+
+78
+00:03:54.000 --> 00:03:57.000
+feels. And then. you said that in Until Dawn
+
+79
+00:03:57.000 --> 00:04:00.000
+you seem to remember it stopping very quickly. Yes. So.
+
+80
+00:04:00.000 --> 00:04:03.000
+one way we could do that. in say Unity. is just to put a collider on just the other side of the door.
+
+81
+00:04:03.000 --> 00:04:06.000
+for example. a Trigger Collider. and then. wire that Trigger Collider to
+
+82
+00:04:06.000 --> 00:04:09.000
+the AudioSource script and just say stop playing the sound. So. it gets
+
+83
+00:04:09.000 --> 00:04:12.000
+louder and louder and louder. and then. we walk through the door and it stops.
+
+84
+00:04:12.000 --> 00:04:15.000
+Now. you either scare them at that point or whatever or you don't.
+
+85
+00:04:15.000 --> 00:04:18.000
+Or leave them hanging. But you've created the mood right.
+
+86
+00:04:18.000 --> 00:04:21.000
+So. hopefully that's clear. that particular scenario. Yeah.
+
+87
+00:04:21.000 --> 00:04:24.000
+Anything else to add on that one? Not really. I mean
+
+88
+00:04:24.000 --> 00:04:27.000
+you can apply this to any sort of
+
+89
+00:04:27.000 --> 00:04:30.000
+context. whether you're approaching a base.
+
+90
+00:04:30.000 --> 00:04:33.000
+if you've made a game. or approaching home. you can make it
+
+91
+00:04:33.000 --> 00:04:36.000
+triumphant. etc. So. you can use that sort of thing wherever you are.
+
+92
+00:04:36.000 --> 00:04:39.000
+These are general geographic cues and
+
+93
+00:04:39.000 --> 00:04:42.000
+you can do this with your own scripting. but remember that most game engines have
+
+94
+00:04:42.000 --> 00:04:45.000
+a 3D AudioSource. Unity certainly does. that you can let
+
+95
+00:04:45.000 --> 00:04:48.000
+it do the calculations about how loud it is for the volume and you just move a curve.
+
+96
+00:04:48.000 --> 00:04:51.000
+I guess the other thing I noticed when talking to you about this before
+
+97
+00:04:51.000 --> 00:04:54.000
+was that you said. because in the case of discordant
+
+98
+00:04:54.000 --> 00:04:57.000
+music. because the music is already discordant. it doesn't matter really what strings
+
+99
+00:04:57.000 --> 00:05:00.000
+sound you put on top. but in some cases you may need to match
+
+100
+00:05:00.000 --> 00:05:03.000
+and get your music design or just listen to make sure that what you're
+
+101
+00:05:03.000 --> 00:05:06.000
+adding matches with the underlying sound track. Otherwise you end up with a
+
+102
+00:05:06.000 --> 00:05:09.000
+muddy mess and you do want to avoid that. And in the case
+
+103
+00:05:09.000 --> 00:05:12.000
+with sound. and probably most things. less is actually more.
+
+104
+00:05:12.000 --> 00:05:15.000
+So. if you over complicate it. you end up with a muddy mess
+
+105
+00:05:15.000 --> 00:05:18.000
+and essentially the character
+
+106
+00:05:18.000 --> 00:05:21.000
+or you as a player is just going to become confused.
+
+107
+00:05:21.000 --> 00:05:24.000
+Fantastic! OK. in a moment we're going to move on to the second
+
+108
+00:05:24.000 --> 00:05:27.000
+example of what we can do with this sound.
+
+109
+00:05:27.000 --> 00:05:30.000
+OK. so for our second example we're just going to use the case of a
+
+110
+00:05:30.000 --> 00:05:33.000
+character drawing their sword. as simple as that.
+
+111
+00:05:33.000 --> 00:05:36.000
+Or any weapon. So. talk us through what might be
+
+112
+00:05:36.000 --> 00:05:39.000
+happening there. Mikey. Before we draw the sword. what could be going on with the music?
+
+113
+00:05:39.000 --> 00:05:42.000
+If you imagine. let's take an RPG for example.
+
+114
+00:05:42.000 --> 00:05:45.000
+so you'll be trolling. strolling... [Laughs]
+
+115
+00:05:45.000 --> 00:05:48.000
+Trolling. strolling. patrolling! [Laughs] ...strolling around the forrest
+
+116
+00:05:48.000 --> 00:05:51.000
+scene and you see a potential enemy. however. you may
+
+117
+00:05:51.000 --> 00:05:54.000
+have the calm music playing at the moment. You want something
+
+118
+00:05:54.000 --> 00:05:57.000
+to trigger the sound change. and
+
+119
+00:05:57.000 --> 00:06:00.000
+one of the things. well if you've got your weapon out you're going to be attacking.
+
+120
+00:06:00.000 --> 00:06:03.000
+so you can change from calm music
+
+121
+00:06:03.000 --> 00:06:06.000
+to attacking music. more aggressive music. more exciting music.
+
+122
+00:06:06.000 --> 00:06:09.000
+the moment you have your weapon drawn. Fantastic! So in
+
+123
+00:06:09.000 --> 00:06:12.000
+Unity for example. you could just do that straight from the Player Animation State.
+
+124
+00:06:12.000 --> 00:06:15.000
+You could say that it he's in a Weapon Ready State or in
+
+125
+00:06:15.000 --> 00:06:18.000
+a Weapon Ready Sub-State Machine
+
+126
+00:06:18.000 --> 00:06:21.000
+then that's the point at which a script triggers
+
+127
+00:06:21.000 --> 00:06:24.000
+a different music. Yes. we do obviously have to be careful. when
+
+128
+00:06:24.000 --> 00:06:27.000
+we change... You can just imagine someone going oh. the music
+
+129
+00:06:27.000 --> 00:06:30.000
+changes. Well. what happens if I do this?
+
+130
+00:06:30.000 --> 00:06:33.000
+Of course. you do have to have some sort of Roll Off
+
+131
+00:06:33.000 --> 00:06:36.000
+with the music itself. You mean if you keep putting the music away.
+
+132
+00:06:36.000 --> 00:06:39.000
+the sword in and out. It's just going to sound silly if you do that. so you're going to have to
+
+133
+00:06:39.000 --> 00:06:42.000
+have some buffer that it's playing agressive
+
+134
+00:06:42.000 --> 00:06:45.000
+music for a while after...
+
+135
+00:06:45.000 --> 00:06:48.000
+That's a good idea. If you imagine your adrenaline. in reality. doesn't suddenly
+
+136
+00:06:48.000 --> 00:06:51.000
+disappear the moment you put the weapon away. you need to keep it tense for a
+
+137
+00:06:51.000 --> 00:06:54.000
+while. OK. so we get down to the
+
+138
+00:06:54.000 --> 00:06:57.000
+specifics for them of how this might work. then we'd have a
+
+139
+00:06:57.000 --> 00:07:00.000
+script that looks for a change in Animation State. In a particular Animation State
+
+140
+00:07:00.000 --> 00:07:03.000
+it would fade down the current music. over a
+
+141
+00:07:03.000 --> 00:07:06.000
+period of time in the script and then fade up the volume of the aggressive music
+
+142
+00:07:06.000 --> 00:07:09.000
+and then play that for a certain amount of time.
+
+143
+00:07:09.000 --> 00:07:12.000
+either using a co-routine
+
+144
+00:07:12.000 --> 00:07:15.000
+or using an AudioSource that plays a sound
+
+145
+00:07:15.000 --> 00:07:18.000
+for a particular amount of time. There's ways of doing it. we're talking about sound design here
+
+146
+00:07:18.000 --> 00:07:21.000
+rather than specific implementation. but I think what Mikey is saying is if the
+
+147
+00:07:21.000 --> 00:07:24.000
+battle has ended or you put a sword away. we don't immediately trigger the
+
+148
+00:07:24.000 --> 00:07:27.000
+stop of that sound. that we let that sound play for a little bit
+
+149
+00:07:27.000 --> 00:07:30.000
+longer and then calm it down. probably slower than we ramped it up.
+
+150
+00:07:30.000 --> 00:07:33.000
+So the volume. it comes in it fades in rapidly and
+
+151
+00:07:33.000 --> 00:07:36.000
+down slowly. And you can use that type of sound design. not only
+
+152
+00:07:36.000 --> 00:07:39.000
+when you're drawing a weapon but when. let's say. when an enemy spots you.
+
+153
+00:07:39.000 --> 00:07:42.000
+So it's a good audio cue. that you're now
+
+154
+00:07:42.000 --> 00:07:45.000
+in danger but you don't know where from. So that would be
+
+155
+00:07:45.000 --> 00:07:48.000
+triggered off the AI's state. when you've come into his line of sight.
+
+156
+00:07:48.000 --> 00:07:51.000
+Cool! So. so far we've had number one's
+
+157
+00:07:51.000 --> 00:07:54.000
+Geographic Triggers. like in the Until Dawn example on the
+
+158
+00:07:54.000 --> 00:07:57.000
+Micro Scale a doorway. on the Macro Scale you mentioned approaching a base.
+
+159
+00:07:57.000 --> 00:08:00.000
+The second idea we've had is based on states. state of view. state of the game.
+
+160
+00:08:00.000 --> 00:08:03.000
+state of an enemy. could even be the state of a video camera.
+
+161
+00:08:03.000 --> 00:08:06.000
+you know. A very strong example is Metal Gear Solid. when
+
+162
+00:08:06.000 --> 00:08:09.000
+somebody recognizes you it goes ding. it makes this kind rrrah sound and there's an
+
+163
+00:08:09.000 --> 00:08:12.000
+exclamation mark. and you know for sure that somebody has spotted you. That's
+
+164
+00:08:12.000 --> 00:08:15.000
+a sound effect more than music. but they kind of tie together.
+
+165
+00:08:15.000 --> 00:08:18.000
+OK fantastic. that's the second one. So. in a moment we'll explore a third
+
+166
+00:08:18.000 --> 00:08:21.000
+way that we can dive into using dynamic music in our games.
+
+167
+00:08:21.000 --> 00:08:24.000
+OK guys. let's
+
+168
+00:08:24.000 --> 00:08:27.000
+talk about the third way that we could possibly use dynamic music in our games. So.
+
+169
+00:08:27.000 --> 00:08:30.000
+at this instance it's going to be much longer term. timewise.
+
+170
+00:08:30.000 --> 00:08:33.000
+Yes. So. what are we thinking here. Mikey?
+
+171
+00:08:33.000 --> 00:08:36.000
+Again. I'm going to use RPG because it really works in this
+
+172
+00:08:36.000 --> 00:08:39.000
+context. So. if you imagine good and evil.
+
+173
+00:08:39.000 --> 00:08:42.000
+the more good you do in the game. perhaps the music itself
+
+174
+00:08:42.000 --> 00:08:45.000
+gets more angelic. so to speak. I don't know how that would
+
+175
+00:08:45.000 --> 00:08:48.000
+sound. you'd have to play about with your game itself.
+
+176
+00:08:48.000 --> 00:08:51.000
+but as you became bad. let's say if you stole stuff.
+
+177
+00:08:51.000 --> 00:08:54.000
+if you killed innocents. etc.. etc..  you would
+
+178
+00:08:54.000 --> 00:08:57.000
+end up with more devilish music.
+
+179
+00:08:57.000 --> 00:09:00.000
+The overall soundtrack changes the mood of the character...
+
+180
+00:09:00.000 --> 00:09:03.000
+Over a longer period. Yes. over a much longer period
+
+181
+00:09:03.000 --> 00:09:06.000
+of the game. In fact. you could script over the entire game.
+
+182
+00:09:06.000 --> 00:09:09.000
+OK. Then. you'd have. let's say. you'd have
+
+183
+00:09:09.000 --> 00:09:12.000
+five states. one being neutral. two pluses. and two
+
+184
+00:09:12.000 --> 00:09:15.000
+negatives. So. you're neutral or you're slightly good or your've very
+
+185
+00:09:15.000 --> 00:09:18.000
+good guy or you're slightly bad guy or really bad guy. Exactly. Yeah.
+
+186
+00:09:18.000 --> 00:09:21.000
+And you could have. for simplicity. five tracks
+
+187
+00:09:21.000 --> 00:09:24.000
+on each layer. and as every so
+
+188
+00:09:24.000 --> 00:09:27.000
+often I suppose you'd call... So. there's tracks on each layer. Let's just make sure it's
+
+189
+00:09:27.000 --> 00:09:30.000
+clear for the... like a playlist. Yeah. a playlist. So. we would pick a
+
+190
+00:09:30.000 --> 00:09:33.000
+neutral guy playlist of five. ten. fifteen songs.
+
+191
+00:09:33.000 --> 00:09:36.000
+If all the time the guy stays neutral. it just plays the songs back
+
+192
+00:09:36.000 --> 00:09:39.000
+to back. They fade down they fade up. like normal songs do. but
+
+193
+00:09:39.000 --> 00:09:42.000
+at the end of each song. perhaps. is a good time for a script
+
+194
+00:09:42.000 --> 00:09:45.000
+to say. let's check in at the character's good or badness level
+
+195
+00:09:45.000 --> 00:09:48.000
+and change lanes right? Yes. so you can go down or go up.
+
+196
+00:09:48.000 --> 00:09:51.000
+Switch into another playlist between songs. I think even
+
+197
+00:09:51.000 --> 00:09:54.000
+if they've been really really bad recently and their thing has gone
+
+198
+00:09:54.000 --> 00:09:57.000
+right down. you still don't jump two lanes. you still step down
+
+199
+00:09:57.000 --> 00:10:00.000
+and then step down again. otherwise it would be too
+
+200
+00:10:00.000 --> 00:10:03.000
+much of a sound change. Of a contrast for such a long
+
+201
+00:10:03.000 --> 00:10:06.000
+term play. That's a good point. So. you could say right I'm at level 0.
+
+202
+00:10:06.000 --> 00:10:09.000
+say we have -2. -1. 0. +1. +2. I'm at 0
+
+203
+00:10:09.000 --> 00:10:12.000
+I'm playing a track. but during that track the player has been
+
+204
+00:10:12.000 --> 00:10:15.000
+so evil that he's gone 0 to -2. but you just
+
+205
+00:10:15.000 --> 00:10:18.000
+say let's just move down 1. Write a little bit of script that says move
+
+206
+00:10:18.000 --> 00:10:21.000
+down one at a time. and then. when we check at the end of this song. if he's still
+
+207
+00:10:21.000 --> 00:10:24.000
+-2 well then we'll go down to the -2 sound. Yeah definitely. And the will give a
+
+208
+00:10:24.000 --> 00:10:27.000
+nice slow. long term sense of
+
+209
+00:10:27.000 --> 00:10:30.000
+a change in the mood. based on the character.
+
+210
+00:10:30.000 --> 00:10:33.000
+Fantastic! So. we would select those playlists that
+
+211
+00:10:33.000 --> 00:10:36.000
+work in their own right. so you could listen to
+
+212
+00:10:36.000 --> 00:10:39.000
++2 guy. super good guy. all day on a loop.
+
+213
+00:10:39.000 --> 00:10:42.000
+One great example of this is Oblivion.
+
+214
+00:10:42.000 --> 00:10:45.000
+I mean it doesn't do the good bad guy changes. but
+
+215
+00:10:45.000 --> 00:10:48.000
+when you're exploring the world it has very
+
+216
+00:10:48.000 --> 00:10:51.000
+gentle music. etc. When you're in a
+
+217
+00:10:51.000 --> 00:10:54.000
+fight. etc. it changes. but you could apply that
+
+218
+00:10:54.000 --> 00:10:57.000
+same methodology to the actual character themselves.
+
+219
+00:10:57.000 --> 00:11:00.000
+Just change that background music as you go.
+
+220
+00:11:00.000 --> 00:11:03.000
+So. there are three clear strategies for you guys. as to how to
+
+221
+00:11:03.000 --> 00:11:06.000
+think about implementing Dynamic Music in your game. So. I want you to pick
+
+222
+00:11:06.000 --> 00:11:09.000
+a game you're working on or you have worked on and go
+
+223
+00:11:09.000 --> 00:11:12.000
+with one of these strategies. Either put in some dynamic music
+
+224
+00:11:12.000 --> 00:11:15.000
+based on state. or put some
+
+225
+00:11:15.000 --> 00:11:18.000
+long term dynamic music based on the kind of mood of the
+
+226
+00:11:18.000 --> 00:11:21.000
+game. where the theme changes much more slowly over a period many
+
+227
+00:11:21.000 --> 00:11:24.000
+minutes. Please implement one of those. share what you've got in the discussions
+
+228
+00:11:24.000 --> 00:11:27.000
+against this video. And all that remains to say is
+
+229
+00:11:27.000 --> 00:11:30.000
+if you want more Mikey. and who wouldn't want more Mikey. [Laughs]
+
+230
+00:11:30.000 --> 00:11:33.000
+then. go check out the Complete Blender Creator course.
+
+231
+00:11:33.000 --> 00:11:36.000
+Over on Udemy it's udemy.com/blendertutorial
+
+232
+00:11:36.000 --> 00:11:39.000
+blendertutorial... www.udemy.com/blendertutorial
+
+233
+00:11:39.000 --> 00:11:42.000
+and that is how to make 3D assets in Blender.
+
+234
+00:11:42.000 --> 00:11:45.000
+And if you want to know more about what we're talkng about here. which is sound and music
+
+235
+00:11:45.000 --> 00:11:48.000
+of course. then I'm going to give you a link down here to a
+
+236
+00:11:48.000 --> 00:11:51.000
+Trello card on my Course Roadmap. Now. I have a card
+
+237
+00:11:51.000 --> 00:11:54.000
+on there for a music course. that I would co-author with Mikey. It's
+
+238
+00:11:54.000 --> 00:11:57.000
+not going to happen till 2016. quarter 2
+
+239
+00:11:57.000 --> 00:12:00.000
+quarter 3 at the earliest. but if you are interested in learning more
+
+240
+00:12:00.000 --> 00:12:03.000
+about dynamic music and actually building it into games. please vote
+
+241
+00:12:03.000 --> 00:12:06.000
+on that card. It may change names. as we come up with the idea. but just give it
+
+242
+00:12:06.000 --> 00:12:09.000
+a vote. Log into Trello. give it a vote. and thank you for
+
+243
+00:12:09.000 --> 00:12:12.000
+lisetning! I hope you've enjoyed this interview. and we'll see you soon! Take
+
+244
+00:12:12.000 --> 00:12:13.533
+care guys!
+

@@ -1,0 +1,718 @@
+﻿WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.700
+
+
+2
+00:00:03.700 --> 00:00:07.700
+So in the last video I left you to finish off the Defenders! So what other
+
+3
+00:00:07.700 --> 00:00:11.700
+Defenders do we have to think about? Well let's have a look in our Assets. The
+
+4
+00:00:11.700 --> 00:00:15.700
+Cactus. we've already done. The Fox is an Attacker. The Gnome
+
+5
+00:00:15.700 --> 00:00:19.700
+is the next Defender. so let's go ahead and make the Gnome! So we Create an Empty
+
+6
+00:00:19.700 --> 00:00:23.700
+GameObject. We call it Gnome. G n o m e. [Hums]
+
+7
+00:00:23.700 --> 00:00:27.700
+We give it a Animation Controller. an Animator rather.
+
+8
+00:00:27.700 --> 00:00:31.700
+which is the same thing. In the Gnome. I'm going to create an
+
+9
+00:00:31.700 --> 00:00:35.700
+Animator Controller. I'm going to call it
+
+10
+00:00:35.700 --> 00:00:39.700
+Gnome. underscore Gnome. Why underscore
+
+11
+00:00:39.700 --> 00:00:43.700
+you say? It floats to the front. Pop it on the Gnome. pop the Gnome in the
+
+12
+00:00:43.700 --> 00:00:47.700
+Defenders. and we're starting to see a pattern. I'm going to create an empty child.
+
+13
+00:00:47.700 --> 00:00:51.700
+I'm going to call it. guess what. Body. I'm going to go
+
+14
+00:00:51.700 --> 00:00:55.700
+find myself an idle frame of animation. and stick it
+
+15
+00:00:55.700 --> 00:00:59.700
+against the Sprite Renderer of the Body. so same pattern. The Gnome
+
+16
+00:00:59.700 --> 00:01:03.700
+has an Animator. it has a sub-object called a Body. it has a Sprite Renderer on it. The Sprite
+
+17
+00:01:03.700 --> 00:01:07.700
+Renderer has like a default sprite for positioning. and then. we
+
+18
+00:01:07.700 --> 00:01:11.700
+need to go in and do a couple of things with the Gnome. actually. One is I'm going to move
+
+19
+00:01:11.700 --> 00:01:15.700
+him down. I'm going to move him to a whole number. so he's on
+
+20
+00:01:15.700 --> 00:01:19.700
+grid. That's good! I'm going to go to the Body of the Gnome. So the Gnome is now
+
+21
+00:01:19.700 --> 00:01:23.700
+at 4. 2. but the Body of the Gnome... It doesn't matter where you put these. by the way. I'm just showing you`
+
+22
+00:01:23.700 --> 00:01:27.700
+the principles. The Body of the Gnome is a little bit big to my eye. so I'm going to go to the Scale Tool. and
+
+23
+00:01:27.700 --> 00:01:31.700
+just put the white bit in the middle. scale him down a little. Now. you're going to ask me how
+
+24
+00:01:31.700 --> 00:01:35.700
+do I turn him around? How do I make him face the other way? Well
+
+25
+00:01:35.700 --> 00:01:39.700
+what you do on the Body is. you make the X scale. look red is the X axis.
+
+26
+00:01:39.700 --> 00:01:43.700
+make it negative. Boom! And he turns around. and he looks pretty
+
+27
+00:01:43.700 --> 00:01:47.700
+good there! OK. so to recap. the Gnome is at 4. 2. precisely.
+
+28
+00:01:47.700 --> 00:01:51.700
+It's scale is OK as an Animator. but the Body has a negative
+
+29
+00:01:51.700 --> 00:01:55.700
+X scale. That's how I've turned him around! Pretty cool hey! OK.
+
+30
+00:01:55.700 --> 00:01:59.700
+so what do we need to do next? Well we need to make sure that the Gnome has its Animation Controller.
+
+31
+00:01:59.700 --> 00:02:03.700
+It does! Then. we need to start making the clips don't we? So we Add a Curve to the Gnome.
+
+32
+00:02:03.700 --> 00:02:07.700
+What shall I call it? Well I'm going to start prefixing these things with
+
+33
+00:02:07.700 --> 00:02:11.700
+the name of the object. just so that we don't have multiple animation clips in
+
+34
+00:02:11.700 --> 00:02:15.700
+our project. all with the same name like Idle. OK. so I'm just going to call it gnome
+
+35
+00:02:15.700 --> 00:02:19.700
+idle.
+
+36
+00:02:19.700 --> 00:02:23.700
+Boom there you go! It's the Body's Sprite Renderer
+
+37
+00:02:23.700 --> 00:02:27.700
+that we animate. It comes with a couple of default frames. we don't worry
+
+38
+00:02:27.700 --> 00:02:31.700
+ourselves about those. We grab the Gnome. we stick his frames in. it's all getting very
+
+39
+00:02:31.700 --> 00:02:35.700
+routine now. but some things in game development are just like this. So there's
+
+40
+00:02:35.700 --> 00:02:39.700
+the Gnome. he's got himself an idle state. Let's look at the Animator.
+
+41
+00:02:39.700 --> 00:02:43.700
+Gnome Idle. That's fine. and let's just see what it looks
+
+42
+00:02:43.700 --> 00:02:47.700
+like. Gnome Idle. I can't really see him there. so we'll zoom in. There he is. blinking away.
+
+43
+00:02:47.700 --> 00:02:51.700
+He's absolutely fine! Cool! Let's get the next state. before we worry about
+
+44
+00:02:51.700 --> 00:02:55.700
+how long we need to be in idle. So we're going to add a new clip.
+
+45
+00:02:55.700 --> 00:02:59.700
+I'm going to call it gnome
+
+46
+00:02:59.700 --> 00:03:03.700
+hop. I think when I looked at the frames of animation. it kind of looked like a hop. and
+
+47
+00:03:03.700 --> 00:03:07.700
+I named it hop here. Yeah. so gnome hop! We Add the Curve to the
+
+48
+00:03:07.700 --> 00:03:11.700
+Body. Remember the sub-objects. Sprite Renderer. Sprite. same old same old
+
+49
+00:03:11.700 --> 00:03:15.700
+I'm afraid. And let's go grab all these
+
+50
+00:03:15.700 --> 00:03:19.700
+hop frames. Yep. pop them in. Boom!
+
+51
+00:03:19.700 --> 00:03:23.700
+Delete whatever came there in the beginning. move all the rest to the left.
+
+52
+00:03:23.700 --> 00:03:27.700
+and there's hopping. OK. wonderful! So
+
+53
+00:03:27.700 --> 00:03:31.700
+this is at 60 frames a second. whereas the idle I think
+
+54
+00:03:31.700 --> 00:03:35.700
+was at 30. so I'll set them both to 60 before I worry about the timings.
+
+55
+00:03:35.700 --> 00:03:39.700
+OK. move the animation
+
+56
+00:03:39.700 --> 00:03:43.700
+all the way to the left. in both cases. Call idle and
+
+57
+00:03:43.700 --> 00:03:47.700
+hop. Alright. so now let's try and get the transition times going. So how long does
+
+58
+00:03:47.700 --> 00:03:51.700
+Idle last? Firstly. let's have a look in here.
+
+59
+00:03:51.700 --> 00:03:55.700
+Well let's just watch it.
+
+60
+00:03:55.700 --> 00:03:59.700
+Not very long at all. it's only lasting for 6 frames
+
+61
+00:03:59.700 --> 00:04:03.700
+and it's 30 frames a second. so it goes around that 5 times a
+
+62
+00:04:03.700 --> 00:04:07.700
+second. So when we make our transition. if we want 3 seconds then we'd
+
+63
+00:04:07.700 --> 00:04:11.700
+better go 5 times 3. which is up to 15. Let's just make sure that looks about right.
+
+64
+00:04:11.700 --> 00:04:15.700
+1.000. 2.000. 3.000.
+
+65
+00:04:15.700 --> 00:04:19.700
+and then into hopping. So let's look at this hopping animation a little bit more
+
+66
+00:04:19.700 --> 00:04:23.700
+closely. Idle is fine. he's just blinking his eyes. Hopping is going a little bit weird.
+
+67
+00:04:23.700 --> 00:04:27.700
+Look he just kind of does a tiny bit of a hop and then he stops for ages.
+
+68
+00:04:27.700 --> 00:04:31.700
+So let's go have a look at the hop animation.
+
+69
+00:04:31.700 --> 00:04:35.700
+So go to the Gnome. go to the hop. zoom out... Ah! I've got
+
+70
+00:04:35.700 --> 00:04:39.700
+an extra keyframe on the end! That was the two default keyframes it made! That one
+
+71
+00:04:39.700 --> 00:04:43.700
+on the end means he's waiting. before he does anything else. Let's try now!
+
+72
+00:04:43.700 --> 00:04:47.700
+So he's idle. idle. idle. Let's zoom in and then he hops
+
+73
+00:04:47.700 --> 00:04:51.700
+a little bit. And is it enough times? Well he's going to stay in
+
+74
+00:04:51.700 --> 00:04:55.700
+hop isn't he. because there's absolutely no reason for him to go back. So we make the transition
+
+75
+00:04:55.700 --> 00:04:59.700
+to go back. and then. we think how long? Well gnome hop.
+
+76
+00:04:59.700 --> 00:05:03.700
+how long does that last? It looks like it's lasting 11
+
+77
+00:05:03.700 --> 00:05:07.700
+frames. at 30 frames a second. So let's round terms
+
+78
+00:05:07.700 --> 00:05:11.700
+1/3 of a second. So if we want 3 seconds. then we're going to need to do about
+
+79
+00:05:11.700 --> 00:05:15.700
+9 cycles. So 9 on the exit time. let's see what happens!
+
+80
+00:05:15.700 --> 00:05:19.700
+It's about 3 seconds in the idle.
+
+81
+00:05:19.700 --> 00:05:23.700
+and he's not doing much in there. so maybe it didn't
+
+82
+00:05:23.700 --> 00:05:27.700
+save. Yeah. I have to try again. You must be not in play mode but in
+
+83
+00:05:27.700 --> 00:05:31.700
+9. Return. check your preview graph. make sure it actually gets the change.
+
+84
+00:05:31.700 --> 00:05:35.700
+and then. try again. Let's have a look at this guy a bit more
+
+85
+00:05:35.700 --> 00:05:39.700
+closely. He's blinking away and he's hopping away! Great! And he
+
+86
+00:05:39.700 --> 00:05:43.700
+should go over to blinking in a second. There you go! Awesome! So we now have
+
+87
+00:05:43.700 --> 00:05:47.700
+all of the Defenders that we want. right. Let's just check the Assets.
+
+88
+00:05:47.700 --> 00:05:51.700
+Oh no. we have a Gravestone! Final Defender. so let's take a look at the Gravestone!
+
+89
+00:05:51.700 --> 00:05:55.700
+OK. so let's do this fairly sharp time. because this is something
+
+90
+00:05:55.700 --> 00:05:59.700
+you've seen before. Grave Stone. two words. I'm going to put it
+
+91
+00:05:59.700 --> 00:06:03.700
+on grid at say 3. 2. or something. for now.
+
+92
+00:06:03.700 --> 00:06:07.700
+Let's give him an Animator. Done!
+
+93
+00:06:07.700 --> 00:06:11.700
+Let's make him an Animator. I'm doing this manually
+
+94
+00:06:11.700 --> 00:06:15.700
+each time. just to show you. or Animator Controller rather. show you
+
+95
+00:06:15.700 --> 00:06:19.700
+what it entails so that you understand it from the basics right.
+
+96
+00:06:19.700 --> 00:06:23.700
+_Grave Stone Animator
+
+97
+00:06:23.700 --> 00:06:27.700
+Controller. There you go! Now the Grave Stone Animator Controller needs to go on
+
+98
+00:06:27.700 --> 00:06:31.700
+there. Then. we need to make a Body sub-object again. create
+
+99
+00:06:31.700 --> 00:06:35.700
+an empty child. call it body. Give that a Sprite Renderer.
+
+100
+00:06:35.700 --> 00:06:39.700
+Yes. there are lots of shortcuts to this. but we just want to understand. really
+
+101
+00:06:39.700 --> 00:06:43.700
+burning. exactly how this works right. how all of these components relate.
+
+102
+00:06:43.700 --> 00:06:47.700
+It's just a single frame. so let's give it a single frame. Let's go look in the scene.
+
+103
+00:06:47.700 --> 00:06:51.700
+Where is it? It's there! Firstly. it's too big so scale it down. Now.
+
+104
+00:06:51.700 --> 00:06:55.700
+it's in I would say a slightly strange position. so using the W key I'm going to move it
+
+105
+00:06:55.700 --> 00:06:59.700
+up and across to roughly 1.2. And then. I'm going to set
+
+106
+00:06:59.700 --> 00:07:03.700
+it in the Inspector to precisely 1. 2. Then. I'm gong to go and take a
+
+107
+00:07:03.700 --> 00:07:07.700
+look and see how it seems to fit. That looks about OK to me. actually.
+
+108
+00:07:07.700 --> 00:07:11.700
+So he's sitting there. let's do the checks. It's got an Animator. it's got a Body.
+
+109
+00:07:11.700 --> 00:07:15.700
+the main item is perfectly on grid at 3.
+
+110
+00:07:15.700 --> 00:07:19.700
+2. The parent. that's really important. That's all awesome.
+
+111
+00:07:19.700 --> 00:07:23.700
+OK. so there you go! Now. this guy is going to need some animation.
+
+112
+00:07:23.700 --> 00:07:27.700
+He's going to need to do something like wobble or shake.
+
+113
+00:07:27.700 --> 00:07:31.700
+when he gets attacked. and the rest of the time. perhaps he should just sit
+
+114
+00:07:31.700 --> 00:07:35.700
+still doing nothing. So we're going to have Grave Stone Attacked and Grave Stone
+
+115
+00:07:35.700 --> 00:07:39.700
+Idle. Let's get to work on that. Also. Grave Stone. of course. needs to be in the Defenders. So
+
+116
+00:07:39.700 --> 00:07:43.700
+Defenders. good to go. Grave Stone. OK animation!
+
+117
+00:07:43.700 --> 00:07:47.700
+Add. well a Curve will do actually! Let's call it
+
+118
+00:07:47.700 --> 00:07:51.700
+gravestone idle.
+
+119
+00:07:51.700 --> 00:07:55.700
+That is going to do absolutely nothing. it's just going to
+
+120
+00:07:55.700 --> 00:07:59.700
+sit there alright. So it's just going to be a state against the Grave
+
+121
+00:07:59.700 --> 00:08:03.700
+Stone. called gravestone idle. OK.
+
+122
+00:08:03.700 --> 00:08:07.700
+so let's make the other curve. Now we're going to.
+
+123
+00:08:07.700 --> 00:08:11.700
+We're going to look at the Body. but instead of messing around with the sprite. we're going to
+
+124
+00:08:11.700 --> 00:08:15.700
+go to the transform position. OK. and what I'm going to do
+
+125
+00:08:15.700 --> 00:08:19.700
+is. about eery 1/2 a second I'm just going to move it. so I
+
+126
+00:08:19.700 --> 00:08:23.700
+don't know. something like this. Take a small fraction of a second. set yourself a
+
+127
+00:08:23.700 --> 00:08:27.700
+key frame. So we're in the Body position of the Grave Stone.
+
+128
+00:08:27.700 --> 00:08:31.700
+When you're in this red record mode. if you're not you hit the red button under
+
+129
+00:08:31.700 --> 00:08:35.700
+Scene. then go across and just move the Grave Stone a little.
+
+130
+00:08:35.700 --> 00:08:39.700
+OK. now try playing. You've just. Ah. there you go. you see what's happening?
+
+131
+00:08:39.700 --> 00:08:43.700
+This guy is just shaking back and forth. If we look at the animation. it's just because
+
+132
+00:08:43.700 --> 00:08:47.700
+it's passing from this position on the left. the position is 1. 2.
+
+133
+00:08:47.700 --> 00:08:51.700
+to a position of 1.06. 2. But using the record mode allowed
+
+134
+00:08:51.700 --> 00:08:55.700
+me to actually go into the scene and record that. So that works really well. look it's
+
+135
+00:08:55.700 --> 00:08:59.700
+just shaking away. OK. so that's fine. but of course.
+
+136
+00:08:59.700 --> 00:09:03.700
+what I've done here is I have set that against the idle. which
+
+137
+00:09:03.700 --> 00:09:07.700
+I shouldn't have done. So I could just rename the idle clip.
+
+138
+00:09:07.700 --> 00:09:11.700
+If you do something like that. you can just say GraveStone. what do we call it. attacked.
+
+139
+00:09:11.700 --> 00:09:15.700
+Yeah. it's being attacked. And then. I can make myself
+
+140
+00:09:15.700 --> 00:09:19.700
+another clip called. well
+
+141
+00:09:19.700 --> 00:09:23.700
+[Create New Clip]. gravestone idle.
+
+142
+00:09:23.700 --> 00:09:27.700
+And that is the one that is going to do nothing. and it's going to be the default state. So
+
+143
+00:09:27.700 --> 00:09:31.700
+which one's which? Gravestone idle 0. gravestone attacked? Let's have a look!
+
+144
+00:09:31.700 --> 00:09:35.700
+So if you click in the Animator tab. you see if I say click on gravestone
+
+145
+00:09:35.700 --> 00:09:39.700
+idle I can look here and it says gravestone attack. So that's the one I need to
+
+146
+00:09:39.700 --> 00:09:43.700
+change the name. Oops. attacked. And then. this guy
+
+147
+00:09:43.700 --> 00:09:47.700
+gravestone idle 0 should actually just be called gravestone idle. they should be swapped around.
+
+148
+00:09:47.700 --> 00:09:51.700
+I think it makes sense to go from left to right. So once these two are in
+
+149
+00:09:51.700 --> 00:09:55.700
+the right way. we can change the default. The default's currently on the right. so we right click and
+
+150
+00:09:55.700 --> 00:09:59.700
+say Set As Default. The orange moves to idle. Let's see how long it stays in idle.
+
+151
+00:09:59.700 --> 00:10:03.700
+OK a second or two. So now we can just
+
+152
+00:10:03.700 --> 00:10:07.700
+change the Exit Time. in this case. by just putting in the number of seconds. 3 seconds. Let's
+
+153
+00:10:07.700 --> 00:10:11.700
+check it in the preview. Yep. it looks right! because we have
+
+154
+00:10:11.700 --> 00:10:15.700
+no animation points. this Exit Time actually becomes a time in seconds; the
+
+155
+00:10:15.700 --> 00:10:19.700
+rest of the time. it's a number of cycles. So let's check that it stays in idle for 3
+
+156
+00:10:19.700 --> 00:10:23.700
+seconds. and then. it starts to go to attacked. So that's awesome!
+
+157
+00:10:23.700 --> 00:10:27.700
+So let's make our return state. Now. how long should
+
+158
+00:10:27.700 --> 00:10:31.700
+the return state take? So our thing here is
+
+159
+00:10:31.700 --> 00:10:35.700
+happening between 10 frames. There are 60 frames in a second. so it's a
+
+160
+00:10:35.700 --> 00:10:39.700
+1/6 of a second. If I want 3 seconds. we need 6. 12. 18.
+
+161
+00:10:39.700 --> 00:10:43.700
+18 cycles on here. You're welcome to change all these and mess around with them all
+
+162
+00:10:43.700 --> 00:10:47.700
+you like. I'm just trying to get a rough idea of how many cycles we need. in order to get back. So he
+
+163
+00:10:47.700 --> 00:10:51.700
+sits idle for 3 seconds. and then. he attacks for 18 cycles.
+
+164
+00:10:51.700 --> 00:10:55.700
+which is about 3 seconds. then he goes back. Awesome! All of our defenders are
+
+165
+00:10:55.700 --> 00:10:59.700
+now behaving themselves and switching between their states.
+
+166
+00:10:59.700 --> 00:11:03.700
+Is that right? Yep. the Cactus is right. but actually. let's just
+
+167
+00:11:03.700 --> 00:11:07.700
+make a quick change to the Cactus. He's facing the wrong way. and he's a bit big isn't he?
+
+168
+00:11:07.700 --> 00:11:11.700
+So I'm gong to go to the Cactus. to the Body sub-element.
+
+169
+00:11:11.700 --> 00:11:15.700
+I'm going to scale him down a little. bring him inside. There you go. that's
+
+170
+00:11:15.700 --> 00:11:19.700
+a little bit better! And then. the other thing I'm going to do on the Cactus is to switch him
+
+171
+00:11:19.700 --> 00:11:23.700
+around. Now. that's a micro challenge for you. Before the end of this video. if any of your Defenders
+
+172
+00:11:23.700 --> 00:11:27.700
+are facing the wrong way. I want you to remember. from what I said earlier. how to switch their position.
+
+173
+00:11:27.700 --> 00:11:31.700
+So go ahead. switch the position of the Cactus around now. and I'll be back in a second!
+
+174
+00:11:31.700 --> 00:11:35.700
+Welcome welcome! So remember it was putting a minus on
+
+175
+00:11:35.700 --> 00:11:39.700
+the X. Awesome! So now they really do. all of these Defenders. look
+
+176
+00:11:39.700 --> 00:11:43.700
+like they are cycling through their different states properly.
+
+177
+00:11:43.700 --> 00:11:47.700
+and we're setting up a nice little showcase. Why not take a screenshot of this and paste it into
+
+178
+00:11:47.700 --> 00:11:51.700
+the discussions and share it with your other students now. and I'll see you in a minute!
+
+179
+00:11:51.700 --> 00:11:53.033
+
+

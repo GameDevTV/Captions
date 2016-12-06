@@ -1,0 +1,474 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:07.620
+So hi. and welcome back! In this video
+we're going to be polishing our menu
+
+00:00:07.620 --> 00:00:11.840
+system a little bit further. So.
+we've got a menu system for our little
+
+00:00:11.840 --> 00:00:15.730
+Laser Defender game. but we have several things that are missing really. that
+
+00:00:15.730 --> 00:00:20.420
+would make the game feel a lot better. So
+firstly. is that we have no music in the
+
+00:00:20.420 --> 00:00:24.990
+game that's really suitable. We have
+taken a cross weaver.  pulled across the
+
+00:00:24.990 --> 00:00:28.710
+music from a different game. but it's not
+really suitable for this one. And
+
+00:00:28.710 --> 00:00:34.079
+secondly. it would be much nicer if we add some texture to the background
+
+00:00:34.079 --> 00:00:38.670
+of our many systems. right. When we go... When we start the game. right now we just have
+
+00:00:38.670 --> 00:00:42.390
+a black screen and it'll be nice to have
+something a little bit cooler in the
+
+00:00:42.390 --> 00:00:48.239
+background. So. let's go and talk about a
+little bit more about the music. So..
+
+00:00:48.239 --> 00:00:52.770
+we're actually going to be using some
+music from www.opengameart.org. by
+
+00:00:52.770 --> 00:00:57.969
+an artist called clear side. and he's
+licensed his music under Creative
+
+00:00:57.969 --> 00:01:02.059
+Commons. which means we are able to use it and share it with you. and in fact
+
+00:01:02.059 --> 00:01:09.030
+his four tracks that he's shared are available for free in the Acid Bundle at the
+
+00:01:09.030 --> 00:01:13.110
+beginning of this section. And what we
+really want isn't just to add music to
+
+00:01:13.110 --> 00:01:17.299
+our scene. we've already done that. so it would be really simple to just replace the music
+
+00:01:17.299 --> 00:01:21.000
+file by a different one. but actually we
+want to do something a little bit more.
+
+00:01:21.000 --> 00:01:24.799
+We want to change the music. so that every scene has its own music... it's own
+
+00:01:24.799 --> 00:01:28.330
+soundtrack. So how are we going to do that? Well. we're going to use the function called
+
+00:01:28.330 --> 00:01:33.950
+OnLevelWasLoaded(). and this OnLevelWasLoaded() function will let you get a
+
+00:01:33.950 --> 00:01:37.689
+message. whenever a level is loaded and
+then. you can start playing
+
+00:01:37.689 --> 00:01:42.500
+the appropriate track for that level. So
+awesome. let's get started with adding
+
+00:01:42.500 --> 00:01:47.740
+some music. So. where do I want to start? I've got the four tracks here. I've got
+
+00:01:47.740 --> 00:01:51.930
+my game here. While I'm going to start by
+thinking about what would it take for my
+
+00:01:51.930 --> 00:01:56.329
+music player to play the right music. So.
+we're going to start by removing
+
+00:01:56.329 --> 00:02:00.619
+the existing audio clip in our audio source. That's the clip that's playing by default.
+
+00:02:00.619 --> 00:02:04.869
+I'm going to say none. no clip will be
+playing by default. and I'm going to jump
+
+00:02:04.869 --> 00:02:09.979
+into my music player and see  how I can get the music files playing. when I want them
+
+00:02:09.979 --> 00:02:12.040
+to. Right now. the music player script
+
+00:02:12.040 --> 00:02:16.219
+only makes sure that the music player
+persists throughout scenes. so that the
+
+00:02:16.219 --> 00:02:21.170
+music can continuously play. Well. what I'm going to want to do is say. I've got three
+
+00:02:21.170 --> 00:02:26.359
+audio clips. Those are my three audio
+files. and I can define them as public
+
+00:02:26.359 --> 00:02:35.260
+AudioClip. And I'm going to go startClip.
+and then. I'm going to go for gameClip
+
+00:02:35.260 --> 00:02:44.400
+and endClip. So those are my three files. my three clip music clips. and I want to be able
+
+00:02:44.400 --> 00:02:49.349
+to play those depending on the level. So.
+how am I going to decide... firstly. how am I
+
+00:02:49.349 --> 00:02:52.340
+going to play any clip whatsoever?
+
+00:02:52.340 --> 00:02:56.060
+Well. the way to play clips is through an audio source. so I'm also going to need access
+
+00:02:56.060 --> 00:03:06.049
+to my audio source. So. let's create a
+private AudioSource. and I'm going to call
+
+00:03:06.049 --> 00:03:12.010
+it music. So now. I need to define what
+this music is. Those public audio clips
+
+00:03:12.010 --> 00:03:16.560
+I'm going to drag and drop into the Inspector. but what about this music thing... this audio source?
+
+00:03:16.560 --> 00:03:22.199
+What I'm going to... define it here. by grabbing the appropriate
+
+00:03:22.199 --> 00:03:26.349
+component from the object I'm attached to. So I'm attached to
+
+00:03:26.349 --> 00:03:30.530
+the music player object. and this music
+player object will have an audio source
+
+00:03:30.530 --> 00:03:39.569
+and I can simply grab it from my...
+self. basically my game object. So. here we go.
+
+00:03:39.569 --> 00:03:45.349
+now my music is an audio source. and
+what I can do next is play some music. So
+
+00:03:45.349 --> 00:03:51.269
+if I jump into now this OnLevelWasLoaded function. and lets
+
+00:03:51.269 --> 00:04:00.530
+try it now. We go void OnLevelWasLoaded. and it will take in an integer. which
+
+00:04:00.530 --> 00:04:04.960
+will be the level that has just been
+loaded. So now. we've got this OnLevelWasLoaded function.
+
+00:04:04.980 --> 00:04:08.380
+The first thing I'm actually going to do is I'm going to Debug.Log..
+
+00:04:08.389 --> 00:04:13.329
+and the reason for doing that is if
+I've miss typed my function. if I've
+
+00:04:13.329 --> 00:04:18.310
+got a problem with... I want to make sure... I want to not have to assume this thing is
+
+00:04:18.310 --> 00:04:20.829
+being called. I want to be able to prove
+it's being called.
+
+00:04:20.829 --> 00:04:28.090
+and the way to do that is to have a
+custom log message and go ("MusicPlayer:
+
+00:04:28.090 --> 00:04:32.340
+... spell that right.
+
+00:04:32.340 --> 00:04:40.830
+loaded level " +level); So now.
+every time I lower the level my music player will
+
+00:04:40.830 --> 00:04:44.580
+say hey. music player. I've received the
+message for loading levels. So what do I
+
+00:04:44.580 --> 00:04:48.229
+want to do whenever I load a level in the general case? Well. the first thing I want to do
+
+00:04:48.229 --> 00:04:51.909
+is stop the music... stop the existing music. We're in a new debt level. so I'm
+
+00:04:51.909 --> 00:04:56.319
+going to stop the existing music. That's the first thing I'm going to do. Then. I'm going
+
+00:04:56.319 --> 00:05:00.119
+to change the audio clip. and the way
+to change the audio clip is to go
+
+00:05:00.120 --> 00:05:07.800
+music.clip = startClip. For the moment.
+I'm just going to go with start clip. whenever we
+
+00:05:07.800 --> 00:05:11.770
+changed a level. and once I've done that
+I want to do... Most importantly.
+
+00:05:11.770 --> 00:05:17.419
+don't forget to stop the music from playing again. right. So now. that's the kind of logic
+
+00:05:17.419 --> 00:05:22.129
+and then. depending on which level we
+have. we're going to load a different audio clip. So
+
+00:05:22.129 --> 00:05:28.560
+let's put the logic in now. it's very simple.
+We can do if (level == 0) then. we load
+
+00:05:28.560 --> 00:05:36.370
+the startClip. and that's easy enough to
+do. And we can copy this logic for the
+
+00:05:36.370 --> 00:05:41.289
+different levels. Let's do level 1 and
+level 2. which are all the levels we have
+
+00:05:41.289 --> 00:05:47.300
+in our game. So level 1. what... music should I be playing? Well. thats going to be
+
+00:05:47.300 --> 00:05:49.039
+the game music game clip.
+
+00:05:49.039 --> 00:05:57.400
+What about level 2?  Well. that's going to be the end clip. So now. I've got the clips
+
+00:05:57.400 --> 00:06:04.409
+loading and playing. One thing left to do is I'm going to go music.loop is true. and
+
+00:06:04.409 --> 00:06:08.839
+that just tells the audio source that I
+want to loop this clip forever and ever.
+
+00:06:08.839 --> 00:06:15.940
+until I tell you otherwise. So. let's get started! Let's try this out! This is missing only one thing
+
+00:06:15.940 --> 00:06:19.700
+now and that is the sounds. We don't have the sounds. We've got gaping
+
+00:06:19.700 --> 00:06:24.680
+gaps in our music player script. which is
+missing the sounds that we want to show
+
+00:06:24.680 --> 00:06:29.990
+off and show to the player. So. to do that.
+I'm going to need to import some sounds.
+
+00:06:29.990 --> 00:06:34.300
+and I'm going to create a new special
+folder. in MySounds. which is going to be
+
+00:06:34.300 --> 00:06:41.640
+music. which is going to be reserved to only music. And then. I'm going to jump into my
+
+00:06:41.640 --> 00:06:47.350
+Finder. grab all the music files. I've already
+got them selected here. and those you'll
+
+00:06:47.350 --> 00:06:50.930
+find in the bundle... in the asset bundle at the beginning of this section...
+
+00:06:50.930 --> 00:06:55.540
+Drag them in. drop them in. and it will take a little bit of time for Unity to load
+
+00:06:55.540 --> 00:07:02.220
+everything and process all the files. but
+it will eventually get there. And done! So now.
+
+00:07:02.220 --> 00:07:07.080
+we've got all the files loaded. One thing
+to do is to convert all of them into 2D
+
+00:07:07.080 --> 00:07:11.780
+sounds. I don't want any 3D sounds. 3D sounds are great. when you've got objects in
+
+00:07:11.780 --> 00:07:16.690
+the game scene that make some sound. but this is all like. for example. lasers
+
+00:07:16.690 --> 00:07:21.700
+and beams and explosions. but that's not
+what I want. What I want here is just
+
+00:07:21.700 --> 00:07:25.420
+music... is just background music. for the
+player to enjoy while he's playing the
+
+00:07:25.420 --> 00:07:30.450
+game. to give a little bit of atmosphere.
+so I don't want them to be 3D sounds. So.
+
+00:07:30.450 --> 00:07:37.760
+I'm disabling all that and done. And
+obviously. disabling 3D will mean that
+
+00:07:37.760 --> 00:07:43.820
+Unity has to reprocess the file. which can
+once again take a little bit of time. Awesome!
+
+00:07:43.820 --> 00:07:48.570
+So now. we've got a bunch of tracks. we've got a music player missing some tracks. and
+
+00:07:48.570 --> 00:07:52.520
+obviously. you can choose whichever track you want for whatever... the
+
+00:07:52.520 --> 00:07:56.500
+start... the game... the end... And you can also choose your own clips. you don't have to
+
+00:07:56.500 --> 00:08:00.980
+use ours. In the same way you don't have
+to use our sprites. you can use your own.
+
+00:08:00.980 --> 00:08:07.580
+I'm going to be selecting. below the shift. for my start music.
+
+00:08:07.580 --> 00:08:18.449
+that's the Start Menu Music Simulator for my game clip and Coma for my end clip.
+
+00:08:18.449 --> 00:08:22.279
+So cool! Now. what happens if I press... Let's start on the Start menu. What
+
+00:08:22.279 --> 00:08:29.639
+happens if I press play? Nothing! I can't
+hear anything. Does it work when I press
+
+00:08:29.639 --> 00:08:34.300
+Start? Yes. it does! So. what's going on
+here? Why is it working for start. but
+
+00:08:34.300 --> 00:08:39.610
+then. not working for the first scene? And
+then. when we go back to the start. it
+
+00:08:39.610 --> 00:08:41.180
+starts sounding again.
+
+00:08:41.180 --> 00:08:46.660
+Well. that's because the first level... never calls OnLevelWasLoaded.
+
+00:08:46.660 --> 00:08:50.519
+So. let's jump back into our code in
+our music player. and what we're going to do is.  we're
+
+00:08:50.519 --> 00:08:55.410
+going to set a default clip to play.
+whenever we get started. and that's going
+
+00:08:55.410 --> 00:09:02.660
+to be music.clip... is going to be the
+startClip. and we're going to set
+
+00:09:02.660 --> 00:09:11.930
+that to loop. And to do loop. you do loop = true. and then. finally we're going to
+
+00:09:11.930 --> 00:09:19.300
+get that playing. Awesome! So now. we have our music playing. We should have music
+
+00:09:19.300 --> 00:09:26.110
+playing. when we press Start. And let's try it now. and we do indeed. The first
+
+00:09:26.110 --> 00:09:31.510
+moment you press play. you get some music sounding. So. cool! So. we now have music
+
+00:09:31.510 --> 00:09:36.050
+throughout our game. and every scene.
+every level in the game. has a different
+
+00:09:36.050 --> 00:09:41.290
+soundtrack. which is exactly what we
+wanted. So. what's next? Well. next is your turn.
+
+00:09:41.290 --> 00:09:47.709
+Next. is your turn to make...
+some texture... give some texture to the
+
+00:09:47.709 --> 00:09:51.769
+Start Menu's background. So... I
+suggest we add a star field;
+
+00:09:51.769 --> 00:09:53.720
+I mean. this is a game in space.
+
+00:09:53.769 --> 00:09:59.490
+Let's add a star field. and it'll prime
+the player to expect a star field in
+
+00:09:59.490 --> 00:10:03.319
+the game. as well. and it'll kind of tie all
+the different levels together. So.
+
+00:10:03.319 --> 00:10:06.399
+that's what I would suggest you do. So. pause the video now. add some background
+
+00:10:06.399 --> 00:10:11.490
+texture to your menus. either an image or
+a star field or something else. and feel
+
+00:10:11.490 --> 00:10:19.660
+free to copy and paste the particle
+system that you've got in the game scene.
+
+00:10:19.660 --> 00:10:27.240
+So. how did it go? I'm going to be very
+very cheeky and go into my scene. I'm
+
+00:10:27.240 --> 00:10:32.380
+not even going to modify my... I'll just make sure I save everything. I'm not even going to
+
+00:10:32.380 --> 00:10:35.200
+modify my star fields. I'm going to go grab
+them.
+
+00:10:35.200 --> 00:10:41.150
+copy them is Command and C or control and C. then. jump back into my Start Menu.
+
+00:10:41.150 --> 00:10:46.750
+and paste them in my hierarchy. Great and same for the Win Screen. I'm going to save my
+
+00:10:46.750 --> 00:10:51.530
+scene. and paste them in the hierarchy
+and save my scene again. So what happens now.
+
+00:10:51.530 --> 00:10:59.340
+when I'm on the Start Menu and I press
+play? Well. I have a star field in the background.
+
+00:10:59.340 --> 00:11:07.840
+Brilliant stuff. right? And one less thing
+we'd like to do is actually change
+
+00:11:07.840 --> 00:11:14.760
+the text. from You Beat Block Breaker to be You Were Defeated. Make sure the text
+
+00:11:14.760 --> 00:11:18.240
+matches the game. right. We don't want to talk about another game. in this text. So. You
+
+00:11:18.240 --> 00:11:24.820
+Were Defeated! And so that's great. we've got. You Were Defeated here. and we are done.
+
+00:11:24.820 --> 00:11:27.630
+We've got the menu systems good to go!
+
+00:11:27.630 --> 00:11:31.930
+That's it for this video! I hope you
+enjoyed it. and I will see you in another one!
+
+00:11:31.930 --> 00:11:33.480
+So it's bye for now!
+

@@ -1,0 +1,650 @@
+WEBVTT
+
+1
+00:00:03.000 --> 00:00:06.000
+Hey. after watching this video. you'll be able to respond to
+
+2
+00:00:06.000 --> 00:00:09.000
+a player's key presses. explain a bit more about what the Start
+
+3
+00:00:09.000 --> 00:00:12.000
+and Update methods do. and navigate the Google and Unity
+
+4
+00:00:12.000 --> 00:00:15.000
+docs. with a bit more confidence. So. let's dive in and take a look at it!
+
+5
+00:00:15.000 --> 00:00:18.000
+So. here we have our Console game. which currently
+
+6
+00:00:18.000 --> 00:00:21.000
+does nothing but log four things to the Console. so let's expand upon
+
+7
+00:00:21.000 --> 00:00:24.000
+on it! Into NumberWizard.cs Script.
+
+8
+00:00:24.000 --> 00:00:27.000
+Cool! So. let's just go to the bottom of our Start function. We're doing everything
+
+9
+00:00:27.000 --> 00:00:30.000
+in the Start function. for now.
+
+10
+00:00:30.000 --> 00:00:33.000
+The next thing we need the computer to do. once it's told you you're allow to
+
+11
+00:00:33.000 --> 00:00:36.000
+guess and think of a number between 1 and 1.000 rather.
+
+12
+00:00:36.000 --> 00:00:39.000
+is to make its first guess. So. let's go ahead with that! print
+
+13
+00:00:39.000 --> 00:00:42.000
+("Is the number
+
+14
+00:00:42.000 --> 00:00:45.000
+higher or lower than
+
+15
+00:00:45.000 --> 00:00:48.000
+500?");
+
+16
+00:00:48.000 --> 00:00:51.000
+OK. micro challenge
+
+17
+00:00:51.000 --> 00:00:54.000
+for you! Print another statement that says: Up arrow for higher.
+
+18
+00:00:54.000 --> 00:00:57.000
+down for lower. return for equals.
+
+19
+00:00:57.000 --> 00:01:00.000
+OK. go ahead and do that now.
+
+20
+00:01:00.000 --> 00:01:03.000
+It's not very
+
+21
+00:01:03.000 --> 00:01:06.000
+exciting. it's rather simple. ("Up
+
+22
+00:01:06.000 --> 00:01:09.000
+arrow for higher. down for
+
+23
+00:01:09.000 --> 00:01:12.000
+lower. return for
+
+24
+00:01:12.000 --> 00:01:15.000
+equal"); Fantastic!
+
+25
+00:01:15.000 --> 00:01:18.000
+Remember. this is good practice. getting your brackets and your quotes right!
+
+26
+00:01:18.000 --> 00:01:21.000
+Talking about getting your brackets and your quotes right. look at my
+
+27
+00:01:21.000 --> 00:01:24.000
+first statement here. I've noticed that the end bracket and
+
+28
+00:01:24.000 --> 00:01:27.000
+the quote are in orange. rather than black. and that means
+
+29
+00:01:27.000 --> 00:01:30.000
+the computer is still interpreting that as a string.
+
+30
+00:01:30.000 --> 00:01:33.000
+and the reason is. because I haven't told it to stop interpreting
+
+31
+00:01:33.000 --> 00:01:36.000
+it with a string. I missed my close
+
+32
+00:01:36.000 --> 00:01:39.000
+quote. Very naughty! OK. so
+
+33
+00:01:39.000 --> 00:01:42.000
+next thing we need to do is get some input. So. do you want to see the effect of that?
+
+34
+00:01:42.000 --> 00:01:45.000
+Well. let's see the effect of what we've done. It's not exciting but
+
+35
+00:01:45.000 --> 00:01:48.000
+it's something. Here you go. Is it higher or lower than 500?
+
+36
+00:01:48.000 --> 00:01:51.000
+And then. tell them what they need to do. This is called affordance.
+
+37
+00:01:51.000 --> 00:01:54.000
+"Up arrow for higher. down for lower. return
+
+38
+00:01:54.000 --> 00:01:57.000
+for equal". OK. you can't quite read it. but
+
+39
+00:01:57.000 --> 00:02:00.000
+if you were playing this for real. not that you would. it would be on
+
+40
+00:02:00.000 --> 00:02:03.000
+a slightly wider Console. Alright. I'll tell
+
+41
+00:02:03.000 --> 00:02:06.000
+you what we can do. We can actually fix that by just saying ("Up += higher.
+
+42
+00:02:06.000 --> 00:02:09.000
+down = lower. return
+
+43
+00:02:09.000 --> 00:02:12.000
+= equal"); just for fun. There you go!
+
+44
+00:02:12.000 --> 00:02:15.000
+How's that? Alright. let's go ahead and use the first
+
+45
+00:02:15.000 --> 00:02:18.000
+new function you're going to learn. which is Input. and that's how you're going to get
+
+46
+00:02:18.000 --> 00:02:21.000
+Input from the user. Now. how
+
+47
+00:02:21.000 --> 00:02:24.000
+are you going to find out about this thing. or how would you know it was Input. in the
+
+48
+00:02:24.000 --> 00:02:27.000
+first place? Let's answer the second question first. How would you know
+
+49
+00:02:27.000 --> 00:02:30.000
+it's Input. in the first place? Well.
+
+50
+00:02:30.000 --> 00:02:33.000
+What I would do is I would just say. Get keyboard input
+
+51
+00:02:33.000 --> 00:02:36.000
+unity. into Google. So. let me bring my Google window
+
+52
+00:02:36.000 --> 00:02:39.000
+across. and let's "get keyboard
+
+53
+00:02:39.000 --> 00:02:42.000
+input
+
+54
+00:02:42.000 --> 00:02:45.000
+unity". OK. here we go! There you go. and
+
+55
+00:02:45.000 --> 00:02:48.000
+it wouldn't be long looking down that. before you'd get the trail
+
+56
+00:02:48.000 --> 00:02:51.000
+of this input thing. Alright. in fact. we can
+
+57
+00:02:51.000 --> 00:02:54.000
+go straight here to scripting API. Input
+
+58
+00:02:54.000 --> 00:02:57.000
+.GetKeyDown. That would be one way of doing it. Another would be to know that
+
+59
+00:02:57.000 --> 00:03:00.000
+it's the command Input. and to go straight to the docs for that. Now
+
+60
+00:03:00.000 --> 00:03:03.000
+warning. super handy keyboard shortcut
+
+61
+00:03:03.000 --> 00:03:06.000
+coming up. although you may need to adjust your Keybindings
+
+62
+00:03:06.000 --> 00:03:09.000
+in MonoDevelop. Preferences here.
+
+63
+00:03:09.000 --> 00:03:12.000
+Alright. or maybe slightly differently on the PC. but here's a really
+
+64
+00:03:12.000 --> 00:03:15.000
+useful Keybinding. When you're on a command you want to know more about. hold down the
+
+65
+00:03:15.000 --> 00:03:18.000
+the Command key and press apostrophe. and it will search
+
+66
+00:03:18.000 --> 00:03:21.000
+the Unity docs for that command. It'll search the Scripting
+
+67
+00:03:21.000 --> 00:03:24.000
+API docs. There's two sets of docs. the Manual.
+
+68
+00:03:24.000 --> 00:03:27.000
+which is for basically anything you want to know the answer to when you're in the Unity
+
+69
+00:03:27.000 --> 00:03:30.000
+Editor. and the Scripting API. which is for
+
+70
+00:03:30.000 --> 00:03:33.000
+questions about scripting. Alright.
+
+71
+00:03:33.000 --> 00:03:36.000
+so this Input thing. here it is! Now. it's going to tell you lots of
+
+72
+00:03:36.000 --> 00:03:39.000
+stuff about Input. and one of the things it's going to tell you is that
+
+73
+00:03:39.000 --> 00:03:42.000
+you can GetKeyDown. I'm just going to jump down to it.
+
+74
+00:03:42.000 --> 00:03:45.000
+GetKeyDown. and that's the one we're going to use. OK.
+
+75
+00:03:45.000 --> 00:03:48.000
+Input.GetKeyDown. Now. if you
+
+76
+00:03:48.000 --> 00:03:51.000
+look down in their example. you see that inside the
+
+77
+00:03:51.000 --> 00:03:54.000
+Update function. not the Start function. they say this.
+
+78
+00:03:54.000 --> 00:03:57.000
+So. why don't we just copy their code for the moment. If that
+
+79
+00:03:57.000 --> 00:04:00.000
+do that. We're actually going to need to modify their code a little bit.
+
+80
+00:04:00.000 --> 00:04:03.000
+because I very naughtily missed some squiggly brackets.
+
+81
+00:04:03.000 --> 00:04:06.000
+but that's OK. we can fix that up!
+
+82
+00:04:06.000 --> 00:04:09.000
+So. over in here in Unity. not inside the Start function but
+
+83
+00:04:09.000 --> 00:04:12.000
+inside the Update function. Why inside the Update function?
+
+84
+00:04:12.000 --> 00:04:15.000
+Well. this is your first intro to Start and Update. Start only happens
+
+85
+00:04:15.000 --> 00:04:18.000
+once. at the beginning of the script. at the beginning of the program.
+
+86
+00:04:18.000 --> 00:04:21.000
+the beginning of the game. If you weren't holding that key down at the very
+
+87
+00:04:21.000 --> 00:04:24.000
+beginning. at the instance it checks. then it would miss it. So. it needs to be
+
+88
+00:04:24.000 --> 00:04:27.000
+an Update. which is called every frame. How many
+
+89
+00:04:27.000 --> 00:04:30.000
+frames? Well. it depends how many frames per second the game is running.
+
+90
+00:04:30.000 --> 00:04:33.000
+at that moment and it varies. It could be none or 1
+
+91
+00:04:33.000 --> 00:04:36.000
+or 50 or 1.000.
+
+92
+00:04:36.000 --> 00:04:39.000
+So. but anyway. every single time it gets a chance. every
+
+93
+00:04:39.000 --> 00:04:42.000
+frame it will check. So. here's our statement. What I don't like about
+
+94
+00:04:42.000 --> 00:04:45.000
+this statement is that it doesn't have the right curly bracket structure.
+
+95
+00:04:45.000 --> 00:04:48.000
+for my slightly obsessive nature. so I'm going to put the right curly
+
+96
+00:04:48.000 --> 00:04:51.000
+brackets in. And now. we need to modify this. so that
+
+97
+00:04:51.000 --> 00:04:54.000
+it works. not for
+
+98
+00:04:54.000 --> 00:04:57.000
+the Space Key but for
+
+99
+00:04:57.000 --> 00:05:00.000
+pushing the Up and the Down Arrows. what we're going to use. So.
+
+100
+00:05:00.000 --> 00:05:03.000
+take a look in the docs. and see if you can work out how to modify this.
+
+101
+00:05:03.000 --> 00:05:06.000
+so that it works for Up and Down Arrow.
+
+102
+00:05:06.000 --> 00:05:09.000
+And change this line here for print
+
+103
+00:05:09.000 --> 00:05:12.000
+("Up arrow
+
+104
+00:05:12.000 --> 00:05:15.000
+pressed"); OK. so don't get
+
+105
+00:05:15.000 --> 00:05:18.000
+confused with this Down here and the Up. This is a key going
+
+106
+00:05:18.000 --> 00:05:21.000
+down. now you're using your key into the keyboard. and this is the
+
+107
+00:05:21.000 --> 00:05:24.000
+Up arrow that you're pusing down. So. what I need you to do is change
+
+108
+00:05:24.000 --> 00:05:27.000
+this bit. inside the brackets. so that it responds
+
+109
+00:05:27.000 --> 00:05:30.000
+to an Up Arrow press and logs it out to the Console.
+
+110
+00:05:30.000 --> 00:05:33.000
+Try that as a challenge now and pause the video and come
+
+111
+00:05:33.000 --> 00:05:36.000
+back when you're done. Hey welcome back!
+
+112
+00:05:36.000 --> 00:05:39.000
+So. the thing that you need is this (KeyCode.UpArrow)
+
+113
+00:05:39.000 --> 00:05:42.000
+like this. So. what is
+
+114
+00:05:42.000 --> 00:05:45.000
+KeyCode.UpArrow? Well. what you need to know is the result of
+
+115
+00:05:45.000 --> 00:05:48.000
+what comes out of KeyCode.UpArrow is the
+
+116
+00:05:48.000 --> 00:05:51.000
+UpArrow keycode. OK. you can find that in the docs. I found
+
+117
+00:05:51.000 --> 00:05:54.000
+it by looking... I can't remember exactly where I did
+
+118
+00:05:54.000 --> 00:05:57.000
+find it? Here you go. I went to Input Manager.
+
+119
+00:05:57.000 --> 00:06:00.000
+I think? Hmm. where did it go?
+
+120
+00:06:00.000 --> 00:06:03.000
+Where did I go? In a second. I shall find it! It's
+
+121
+00:06:03.000 --> 00:06:06.000
+in here somewhere! So. I tell you what. I would
+
+122
+00:06:06.000 --> 00:06:09.000
+do a Google search for unity
+
+123
+00:06:09.000 --> 00:06:12.000
+up arrow
+
+124
+00:06:12.000 --> 00:06:15.000
+key or something like that. And then. you'll qute
+
+125
+00:06:15.000 --> 00:06:18.000
+quickly find. here you go. KeyCode.UpArrow in somebody's example
+
+126
+00:06:18.000 --> 00:06:21.000
+code. and it will come up several times. you'll find.
+
+127
+00:06:21.000 --> 00:06:24.000
+OK. so that's how I discovered what it was. just by a bit of
+
+128
+00:06:24.000 --> 00:06:27.000
+hunting and sniffing. You haven't seen an if statement yet. don't
+
+129
+00:06:27.000 --> 00:06:30.000
+worry about it too much. What you need to know is that what
+
+130
+00:06:30.000 --> 00:06:33.000
+is happening. inside the if statement. will only happen
+
+131
+00:06:33.000 --> 00:06:36.000
+if this condition is met. We'll talk about it at another time. Alright.
+
+132
+00:06:36.000 --> 00:06:39.000
+I have a challenge for you then. What we want you to do is.
+
+133
+00:06:39.000 --> 00:06:42.000
+I want you to do exactly the same for the Down Arrow.
+
+134
+00:06:42.000 --> 00:06:45.000
+Alright. so let's make another statement.
+
+135
+00:06:45.000 --> 00:06:48.000
+almost identical to this one. that works for the Down Arrow and
+
+136
+00:06:48.000 --> 00:06:51.000
+logs out to the Console. "Down arrow pressed". Please pause the video.
+
+137
+00:06:51.000 --> 00:06:54.000
+go ahead. and do that little challenge right now.
+
+138
+00:06:54.000 --> 00:06:57.000
+OK. welcome back! So. this is
+
+139
+00:06:57.000 --> 00:07:00.000
+a pretty simple challenge. It's just a cut and paste job. so copy that initial
+
+140
+00:07:00.000 --> 00:07:03.000
+code. and then. just paste down here.
+
+141
+00:07:03.000 --> 00:07:06.000
+And you're going to change Up Arrow for. you guessed it.
+
+142
+00:07:06.000 --> 00:07:09.000
+DownArrow! And you're going to change this to Down.
+
+143
+00:07:09.000 --> 00:07:12.000
+Fantastic! That is it! Let's just test all this and we
+
+144
+00:07:12.000 --> 00:07:15.000
+are done! So. back into Unity. after
+
+145
+00:07:15.000 --> 00:07:18.000
+having saved our script. Check here and check up
+
+146
+00:07:18.000 --> 00:07:21.000
+here. that you've saved. or just hit Command S. That's what I
+
+147
+00:07:21.000 --> 00:07:24.000
+tend to do. Dive into Unity. play it.
+
+148
+00:07:24.000 --> 00:07:27.000
+It's giving you the instructions. but as long as I've
+
+149
+00:07:27.000 --> 00:07:30.000
+clicked in the Game Window. by the way you had to have clicked in the Game Window.
+
+150
+00:07:30.000 --> 00:07:33.000
+Up Arrow says "Up arrow pressed". Down Arrow says. "Down arrow
+
+151
+00:07:33.000 --> 00:07:36.000
+pressed". Great! Fantastic! Now. you might
+
+152
+00:07:36.000 --> 00:07:39.000
+want to turn Collapsing on. on your Console. This way. it just logs every line
+
+153
+00:07:39.000 --> 00:07:42.000
+separately. The other little thing you've got here is the Collapse Button in
+
+154
+00:07:42.000 --> 00:07:45.000
+the Console. Underneath. you have
+
+155
+00:07:45.000 --> 00:07:48.000
+the button that says Collapse. and now. every time I go up and down. provided
+
+156
+00:07:48.000 --> 00:07:51.000
+I'm clicked in the Game Window. If I haven't selected the Game Window. it won't listen to the
+
+157
+00:07:51.000 --> 00:07:54.000
+keys. then you see the number
+
+158
+00:07:54.000 --> 00:07:57.000
+against the "Up arrow pressed" and "Down arrow pressed" increments.
+
+159
+00:07:57.000 --> 00:08:00.000
+to say I've just logged another line to the Console. that's identical
+
+160
+00:08:00.000 --> 00:08:03.000
+to something I've logged before. so I'm just going to collapse
+
+161
+00:08:03.000 --> 00:08:06.000
+that into a single line there. Either way. they both work.
+
+162
+00:08:06.000 --> 00:08:09.000
+Congratulations! See you soon!
+

@@ -1,0 +1,711 @@
+WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:08.559
+Welcome back. so thank you very much to
+Daryl Kempthorne who has posted in the
+
+00:00:08.559 --> 00:00:12.990
+discussions of the course while I was
+moving house but he's found a failing
+
+00:00:12.990 --> 00:00:17.490
+test. So he says that I think that in
+the last frame that if you roll a
+
+00:00:17.490 --> 00:00:22.300
+strike on bowl 19 and don't knock over
+all the pins on bowl 20 then we should have
+
+00:00:22.300 --> 00:00:27.130
+a tidy. It sounds right. At the moment
+we're getting a reset not a tidy
+
+00:00:27.130 --> 00:00:31.740
+Fantastic so I think that Daryl's failing test is something like this we
+
+00:00:31.740 --> 00:00:36.480
+come into the last frame we bowl a
+strike but then on bowl twenty we are not
+
+00:00:36.480 --> 00:00:40.129
+knocking down all of the pins and I
+think is quite rightly saying that it
+
+00:00:40.129 --> 00:00:46.090
+should be a tidy not a reset. so what I
+want you to do in a single challenge
+
+00:00:46.090 --> 00:00:53.000
+right now is to write test and make it
+write a test and make it pass. so red
+
+00:00:53.000 --> 00:00:56.610
+your gonna write the test for Daryl's failing
+condition which I'll leave on the screen
+
+00:00:56.610 --> 00:00:57.949
+in a moment
+
+00:00:57.949 --> 00:01:02.010
+green you're gonna write the code to
+make that test pass. and then you're going to
+
+00:01:02.010 --> 00:01:06.840
+refactor to make it pretty. So I'm gonna
+move over to Daryl's
+
+00:01:06.840 --> 00:01:11.970
+condition and then I want you to pause the
+video and try and write the test for
+
+00:01:11.970 --> 00:01:16.560
+this condition and then try and make
+the test pass this condition so go ahead
+
+00:01:16.560 --> 00:01:19.150
+pause the video and do that now
+
+00:01:19.150 --> 00:01:26.390
+OK welcome back. so the condition I'm
+going to use is the one on the slide I
+
+00:01:26.390 --> 00:01:31.979
+gave you so this slide here we're gonna
+set up 18 rolls of say one and
+
+00:01:31.979 --> 00:01:39.930
+then a strike and a 5. We'll see what we get.
+So back in our - I need to put a marker in my video here.
+
+00:01:39.930 --> 00:01:46.580
+I could have made a small mistake - it's ok.
+
+00:01:46.580 --> 00:01:51.730
+So back over in Unity we need to go to our
+editor folder remember because our tests are
+
+00:01:51.730 --> 00:01:56.950
+over in the editor folder and then bring
+up your action master test . cs script
+
+00:01:56.950 --> 00:02:03.000
+So we need to make a condition which is
+19 ones and then a 10 and then
+
+00:02:03.000 --> 00:02:13.370
+a 5. So let's just take this previous
+test. paste your code. increment the
+
+00:02:13.370 --> 00:02:23.030
+number. I'm going to credit Daryl so it's
+going to be a Daryl Bowl 20 test let me
+
+00:02:23.030 --> 00:02:41.820
+get 2. 4. 6. 8. 10. 12. 14. 16. 18. 18 loads of 1.
+let me check the slide now; and then a 10 and then a 5. So we get a
+
+00:02:41.820 --> 00:02:47.800
+strike there and then a five and then
+what we should be getting when we bowl a
+
+00:02:47.800 --> 00:02:51.620
+the five so the 5 goes down here. be
+careful where you put that the bowl that
+
+00:02:51.620 --> 00:02:55.910
+we want to interrogate the
+action on is here so we've got to this
+
+00:02:55.910 --> 00:03:06.350
+ten relating back to the slide that is
+here. this X in column 19 so that's bowl number
+
+00:03:06.350 --> 00:03:12.110
+19. and then bowl number 20
+becomes five so let's bowl 5 there and what it
+
+00:03:12.110 --> 00:03:17.530
+should be giving it is a tidy. OK. so
+that's the test let's go into unity. run
+
+00:03:17.530 --> 00:03:23.220
+the test. see what it says. Failed. Now let's
+just check it's failing for the right
+
+00:03:23.220 --> 00:03:27.060
+reason it was expecting a tidy and it's
+getting a reset so that's exactly the
+
+00:03:27.060 --> 00:03:31.440
+fail condition that Daryl suggested.
+So well done if you got that far you
+
+00:03:31.440 --> 00:03:36.360
+have written a test that matches a
+condition that is given in plain English
+
+00:03:36.360 --> 00:03:41.010
+that's very useful if for example one of
+your play testers says to you
+
+00:03:41.010 --> 00:03:45.680
+blah blah blah is happening if they give
+you a sufficiently specific example of
+
+00:03:45.680 --> 00:03:49.090
+what's going wrong you could always
+write a test to represent what they've
+
+00:03:49.090 --> 00:03:53.540
+said immediately which is pretty cool. So
+now your next job of course is to
+
+00:03:53.540 --> 00:03:59.060
+to make that test pass. Now Daryl
+actually gave us some code he gave us an
+
+00:03:59.060 --> 00:04:02.250
+example piece of code. he put that on
+PasteBin so what I'm gonna do is I'm
+
+00:04:02.250 --> 00:04:05.400
+gonna start off by using his code
+because he's gone to the trouble of
+
+00:04:05.400 --> 00:04:10.989
+writing it why not? So here it is in Paste
+bin and what he's done is he's made an
+
+00:04:10.989 --> 00:04:18.269
+extra check inside Bowl 20 that says if
+all pins are knocked down slightly
+
+00:04:18.269 --> 00:04:23.389
+differently worded then reset otherwise
+Bowl 21 is awarded and then he's got
+
+00:04:23.389 --> 00:04:28.530
+this method here that says AreAllPinsKnockedDown
+ well I would call that all pins are
+
+00:04:28.530 --> 00:04:33.660
+knocked down. So let's try it. it's slightly
+strange. it says that if bowl 19 + bowl 20
+
+00:04:33.660 --> 00:04:43.199
+mod 10 is zero. So to my eye that means that if
+bowl 19 + ball 20 equals 10 or 20 then we're going to end up with zero
+
+00:04:43.199 --> 00:04:47.039
+Well I'm not sure that's gonna get the perfect result
+in all cases but let's give it a go and
+
+00:04:47.039 --> 00:04:48.699
+see what happens now.
+
+00:04:48.699 --> 00:04:52.520
+Bearing in mind we only need to make
+this particular test pass. So let's take
+
+00:04:52.520 --> 00:04:57.889
+Daryl's code and pop it in and see what
+happens.
+
+00:04:57.889 --> 00:05:02.419
+so we need to go into unity of course and
+go and find your action master . cs
+
+00:05:02.419 --> 00:05:09.409
+script and then I'll put this helper
+method on the bottom that Daryl has
+
+00:05:09.409 --> 00:05:16.190
+given us but I will just rename Are All Pins
+Knocked Down to just All Pins Are Knowcked Down
+
+00:05:16.190 --> 00:05:22.110
+because it just works better for my
+brain and then we'll go up here where he
+
+00:05:22.110 --> 00:05:26.970
+has this code; we have this code here if
+bowl is greater than or equal to 19 and
+
+00:05:26.970 --> 00:05:39.099
+bowl 21 awarded Daryl is saying
+if bowl is 20 then do all this; he's got different
+
+00:05:39.099 --> 00:05:43.470
+logic here so we could just take all of this
+code and say well he thinks that this
+
+00:05:43.470 --> 00:05:48.110
+code is better for the last frame
+special case so that would be fine I
+
+00:05:48.110 --> 00:05:52.919
+mean I'm quite confident to paste that
+last frame special case in. leaving my
+
+00:05:52.919 --> 00:05:57.510
+comment where it was
+
+00:05:57.510 --> 00:06:05.150
+and of course renaming my method - his
+method to my method name bowl 21
+
+00:06:05.150 --> 00:06:11.660
+awarded I'm just gonna check that the
+indentation is right and it looks ok so
+
+00:06:11.660 --> 00:06:19.050
+it looks like a reasonably good code so
+a number of pins... I think we used pins so
+
+00:06:19.050 --> 00:06:22.980
+let's see if Daryl's code just
+slots in - slightly new technique for you
+
+00:06:22.980 --> 00:06:26.690
+here. just taking somebody else's code and
+popping it in this is where test driven
+
+00:06:26.690 --> 00:06:29.570
+developing really comes to its own
+because if Daryl's code works then all these
+
+00:06:29.570 --> 00:06:35.480
+previous tests should pass as well so
+I'm pretty confident in his solution
+
+00:06:35.480 --> 00:06:39.170
+even though it looks different to mine
+all the previous test just passed and his
+
+00:06:39.170 --> 00:06:43.660
+condition has passed so as long as we
+understand how his code works I'm pretty
+
+00:06:43.660 --> 00:06:48.660
+happy. Cool so that's good progress now
+the next question would be is that
+
+00:06:48.660 --> 00:06:54.670
+covering everything? Can I now in this in
+this to and fro of failing tests can we
+
+00:06:54.670 --> 00:07:00.980
+find a condition that his code fails in?
+Well let's take a look. how about this one here.
+
+00:07:00.980 --> 00:07:07.160
+How about if we were to bowl a strike
+and then a zero on bowl twenty I think
+
+00:07:07.160 --> 00:07:10.770
+that should give you a tidy myself
+because if you do a gutterball on Bowl
+
+00:07:10.770 --> 00:07:15.840
+20. then you just need to tidy you don't
+need to do a complete reset no new pins
+
+00:07:15.840 --> 00:07:21.080
+needed so let's try coding that
+condition in. Pretty much like the last
+
+00:07:21.080 --> 00:07:29.940
+one but bowl 20 is a 0. So I did a test
+script
+
+00:07:29.940 --> 00:07:33.550
+Test your code. I love cutting and pasting.
+Cutting and pasting works well with test
+
+00:07:33.550 --> 00:07:38.780
+driven development is not ideal in most
+situations but here it's good. Ben' s
+
+00:07:38.780 --> 00:07:47.070
+bowl 20 test and it's very similar to
+before but instead of bowling a 5 we're bowling a 0 and
+
+00:07:47.070 --> 00:07:52.520
+I think we should still get a tidy let's
+see what happens now; build your code over
+
+00:07:52.520 --> 00:07:57.750
+to unity let the tests run. wait for the
+whirligig down the bottom right ah Bens
+
+00:07:57.750 --> 00:08:01.760
+Bowl 20 test does not pass. Now I'm
+pretty sure that that should have passed
+
+00:08:01.760 --> 00:08:07.100
+so of course we need to fix that. What's
+going on? I think what's going on is
+
+00:08:07.100 --> 00:08:14.180
+when Daryl says well if bowl 19 and 20
+here mod 10 equals 0 I think that that
+
+00:08:14.180 --> 00:08:19.060
+the problem is that that's catching the
+case when 19 + 20 equals 10 so I think
+
+00:08:19.060 --> 00:08:25.440
+he needed just some simpler code that
+said if 19 + 20 equals 10
+
+00:08:25.440 --> 00:08:37.289
+then that's all pins are knocked down so let's think what
+that means. let's look at the slide if
+
+00:08:37.289 --> 00:08:44.140
+19 + 20 equals 10 it should be a
+tidy. how about if 19 + 20 was equal to 20?
+
+00:08:44.140 --> 00:08:54.220
+2 strikes then it should be a reset. So yeah
+if it's that the only special case is that
+
+00:08:54.220 --> 00:08:59.510
+all pins are knocked down in both bowls 19 and
+20 so actually I think I'm going to rename  this
+
+00:08:59.510 --> 00:09:11.130
+method to I dunno. 2 strikes last
+frame. something like that. and let's try
+
+00:09:11.130 --> 00:09:12.960
+that code. let's see how that goes
+
+00:09:12.960 --> 00:09:17.110
+so I'm excluding the case where bowl
+19 plus 20 equals 10 that I
+
+00:09:17.110 --> 00:09:20.450
+just put in that test let's see if that
+works for this test and all previous
+
+00:09:20.450 --> 00:09:28.690
+tests and it doesn't look I made a much
+older tests fail I was expecting a tidy
+
+00:09:28.690 --> 00:09:35.620
+beginning of reset on test 6. so let's go
+look at test 6 and see why I've broken test six
+
+00:09:35.620 --> 00:09:44.550
+check reset at spare in last frame so if
+we do this lot. then we bowl a 1 and a 9 we
+
+00:09:44.550 --> 00:09:48.839
+should be getting a reset. OK. so bowls
+number
+
+00:09:48.839 --> 00:10:07.030
+2. 4. 6 so that's Bowl 18. so bowl 19 + 20 equals 10
+in this case and
+
+00:10:07.030 --> 00:10:11.190
+yeah okay so we're not catching that
+case either so I can see the spirit of
+
+00:10:11.190 --> 00:10:14.270
+what Daryl was trying to do when he
+was saying let's take the sum of
+
+00:10:14.270 --> 00:10:19.880
+19 and 20 and a mod it with
+10 and say if that equals 0. if the remainder's
+
+00:10:19.880 --> 00:10:25.580
+0 then you get this previous
+tests passing the one that just failed
+
+00:10:25.580 --> 00:10:29.410
+number six will pass because it will
+catch the case where the two equal 10
+
+00:10:29.410 --> 00:10:34.850
+but my bowl 20 test still doesn't pass
+and I'm pretty confident that my
+
+00:10:34.850 --> 00:10:40.490
+test is a valid test. that if we bowl
+this sequence here 10 and then a zero
+
+00:10:40.490 --> 00:10:45.940
+that we should get a tidy so over to you
+how are you gonna write the code to make
+
+00:10:45.940 --> 00:10:57.210
+that work so pause the video and have a
+go at making that work right now please.
+
+00:10:57.210 --> 00:11:03.840
+OK. recording seems to be working so let's
+take a look at
+
+00:11:03.840 --> 00:11:07.720
+this back in action master we need to
+just code in the special case to start
+
+00:11:07.720 --> 00:11:13.420
+with. it doesn't matter if our code is ugly and
+the special case is where bowl number
+
+00:11:13.420 --> 00:11:17.430
+well. let's look at the slide it's always worth
+having a visual representation in front
+
+00:11:17.430 --> 00:11:22.640
+of you so bowl number 19 is
+a 10 but bowl number 20 isn't now
+
+00:11:22.640 --> 00:11:26.160
+the question is do we do this check
+before or after this two strikes last
+
+00:11:26.160 --> 00:11:32.850
+frame check? Well it's difficult to tell
+with that name two strikes last frame so
+
+00:11:32.850 --> 00:11:36.410
+let's rename it again until we get a
+name that really resonates at this
+
+00:11:36.410 --> 00:11:40.560
+method doesn't really tell you whether
+it's two strikes last frame it just
+
+00:11:40.560 --> 00:11:53.190
+tells you whether. well it it tells
+you whether bowl 19 + 20 is 10 or 20
+
+00:11:53.190 --> 00:11:58.360
+ridiculous method name but we'll go with
+that because it's clear so if bowl 19 + 20
+
+00:11:58.360 --> 00:12:03.120
+is 10 or 20 we may as well have put
+this code to be honest straight in here
+
+00:12:03.120 --> 00:12:07.800
+in fact you know what such a ridiculous
+method name that I'm actually just gonna
+
+00:12:07.800 --> 00:12:13.280
+put this code; I'm gonna refractor this code right
+up into the if statement 'cause that is
+
+00:12:13.280 --> 00:12:17.030
+a stupid method name. that's just too
+specific you may as well just write the
+
+00:12:17.030 --> 00:12:22.680
+code at that point right so if bowl - may as well just be explicit here - so if bowl 19 +
+
+00:12:22.680 --> 00:12:29.500
+bowl 20. the modulus equal 0 so there's no
+remainder now you can actually see what
+
+00:12:29.500 --> 00:12:35.710
+that does and of course we don't need
+this method down the bottom here anymore
+
+00:12:35.710 --> 00:12:39.060
+I'm only doing this so I can work out
+where to put my new if statement. above this
+
+00:12:39.060 --> 00:12:40.140
+or below it.
+
+00:12:40.140 --> 00:12:50.960
+OK. so we've got an unexpected symbol and
+that's because of a closed bracket. Great. so
+
+00:12:50.960 --> 00:12:55.400
+that compiles now. so we're saying let's
+recap where we were the condition we're
+
+00:12:55.400 --> 00:13:01.900
+looking to catch is when nineteen equals
+10 but twenty doesn't so this condition
+
+00:13:01.900 --> 00:13:04.550
+here would trigger for nineteen it was 10
+and 20 doesn't
+
+00:13:04.550 --> 00:13:11.670
+in the 20 equals 0 condition because bowl nineteen
+being 10 plus 20 being 0 would be 10 for this
+
+00:13:11.670 --> 00:13:13.490
+statement here
+
+00:13:13.490 --> 00:13:17.470
+Take a modulus with 10 you get zero so
+this will trigger wrongly we want to
+
+00:13:17.470 --> 00:13:21.120
+tidy so what we gonna do is we gonna put
+our new code above this so we're gonna
+
+00:13:21.120 --> 00:13:34.110
+say very explicitly - let's borrow this - if
+bowl 19 equals 10 and bowls 20 -1
+
+00:13:34.110 --> 00:13:44.480
+because arrays start at 0 is not equal to 10
+then we do a action dot tidy. This is my
+
+00:13:44.480 --> 00:13:49.370
+special case and then when you just put an
+else in front of the if and of course
+
+00:13:49.370 --> 00:13:56.470
+our closing brackets. So this is my
+special case. if 19 is ten and bowl 20
+
+00:13:56.470 --> 00:14:04.140
+isn't 10 return a tidy otherwise if
+bowl 19 + Bowl 20 is 10 yadda yadda we just
+
+00:14:04.140 --> 00:14:07.779
+want to make sure this works don't try
+and refactor now. we're just trying to
+
+00:14:07.779 --> 00:14:16.110
+make the test pass. so build your script go
+back into Unity see if test passes. It
+
+00:14:16.110 --> 00:14:23.060
+doesn't because it breaks test six so
+reset at spare in last frame now gets
+
+00:14:23.060 --> 00:14:28.329
+broken presumably because of my code
+here.
+
+00:14:28.329 --> 00:14:37.680
+Interesting. so how about we say that
+actually the special case is not that bowl
+
+00:14:37.680 --> 00:14:43.820
+20 equals 10 but very specifically that ball 20 equal s 0.
+let's try that. I'm not allowed to refactor
+
+00:14:43.820 --> 00:14:47.149
+here I'm just going to try and get the
+code working so that all the tests pass
+
+00:14:47.149 --> 00:14:55.160
+No so check reset at spare at
+last frame is still failing so let's see
+
+00:14:55.160 --> 00:14:58.610
+what the conditions of that test are. now
+it's quite common that you end up going
+
+00:14:58.610 --> 00:15:05.079
+back and having previous tests fail so
+we bowl a bunch of ones and then a one and a nine. so it's
+
+00:15:05.079 --> 00:15:10.860
+sending back a reset. We're expecting a reset
+but we're getting a tidy so it looks like
+
+00:15:10.860 --> 00:15:20.300
+our new code is returning a tidy in
+this case if bowl 19 = 10 and bowl 20 = 0 and that's not
+
+00:15:20.300 --> 00:15:24.620
+the test. This test says bowl 19 is 1. and
+
+00:15:24.620 --> 00:15:35.980
+bowl 20 is 9. OK that's interesting so
+why are we getting a tidy. Let's go look
+
+00:15:35.980 --> 00:15:41.530
+at the results again over here just
+re-run the test just to be sure. yes so
+
+00:15:41.530 --> 00:15:47.920
+test six is saying it's expecting a tidy
+but it's getting a reset so where could
+
+00:15:47.920 --> 00:15:59.340
+it be getting the reset from? Probably
+this condition here... does bowl 19 +bowl 20 in
+
+00:15:59.340 --> 00:16:06.400
+the case of test 6 equal 10 yes it does. you see
+so this special case that Daryl's
+
+00:16:06.400 --> 00:16:12.570
+written. I think it may be too general
+I think that we want to say if 19 +
+
+00:16:12.570 --> 00:16:25.090
+Bowl 20 equals 10. let's see how that goes. Great.
+now all tests passed. So we're saying
+
+00:16:25.090 --> 00:16:29.510
+we're saying the following then that
+makes all the tests pass I'm quite happy
+
+00:16:29.510 --> 00:16:40.140
+with that. if 19 is 10 and bowl
+20 is 0 then we tidy. otherwise if you
+
+00:16:40.140 --> 00:16:46.580
+add them together and they equal 10 we reset. OK
+I think that's ok and I'm not sure we
+
+00:16:46.580 --> 00:16:51.500
+can make it too much simpler than that.
+so I'm gonna go ahead and leave the code
+
+00:16:51.500 --> 00:16:55.270
+like that now if you can see refactor of
+this code that makes it even simpler
+
+00:16:55.270 --> 00:16:58.840
+sure go ahead and share in the
+discussions and furthermore if you can
+
+00:16:58.840 --> 00:17:00.100
+find any more
+
+00:17:00.100 --> 00:17:04.400
+tests that are going to fail go ahead and share in
+the discussions I want to involve the
+
+00:17:04.400 --> 00:17:08.380
+community in the production of this part
+of the course by the time you comment I
+
+00:17:08.380 --> 00:17:11.120
+will be further ahead with the course
+but I'll be sure to add any of these
+
+00:17:11.120 --> 00:17:15.080
+things and mop it up at the end. So for
+now this is my solution and all the
+
+00:17:15.080 --> 00:17:18.550
+tests are passing and in the next video
+we're going to start cracking on with
+
+00:17:18.550 --> 00:17:22.340
+making sure we get rid of these nasty
+buttons over here and getting the rest
+
+00:17:22.340 --> 00:17:24.240
+of the game working well. So see you soon
+
