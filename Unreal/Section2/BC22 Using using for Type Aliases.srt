@@ -1,579 +1,581 @@
+﻿WEBVTT
+
 1
-00:00:00,000 --> 00:00:04,000
-Hey hey! So, in this video we're going to be
+00:00:00.000 --> 00:00:04.000
+Hey hey! So. in this video we're going to be
 
 2
-00:00:04,000 --> 00:00:08,000
+00:00:04.000 --> 00:00:08.000
 using using for Type Aliases. The same keyword as we used
 
 3
-00:00:08,000 --> 00:00:12,000
-before in using namespace, but now, we're going to alias, i.e. give a different name to our
+00:00:08.000 --> 00:00:12.000
+before in using namespace. but now. we're going to alias. i.e. give a different name to our
 
 4
-00:00:12,000 --> 00:00:16,000
-types. And by the end of it, our code will be looking even more like Unreal,
+00:00:12.000 --> 00:00:16.000
+types. And by the end of it. our code will be looking even more like Unreal.
 
 5
-00:00:16,000 --> 00:00:20,000
+00:00:16.000 --> 00:00:20.000
 in that we'll be using int32's instead of integers
 
 6
-00:00:20,000 --> 00:00:24,000
-and we'll be using FStrings and FText, instead of standerd
+00:00:20.000 --> 00:00:24.000
+and we'll be using FStrings and FText. instead of standerd
 
 7
-00:00:24,000 --> 00:00:28,000
-strings. And our code is just getting closer and closer to what we're going to be using, when we
+00:00:24.000 --> 00:00:28.000
+strings. And our code is just getting closer and closer to what we're going to be using. when we
 
 8
-00:00:28,000 --> 00:00:29,933
-get inside Unreal. So, see you in there!
+00:00:28.000 --> 00:00:29.933
+get inside Unreal. So. see you in there!
 
 9
-00:00:29,933 --> 00:00:33,933
-So, I'm going to introduce you to something now, to help us get prepared for
+00:00:29.933 --> 00:00:33.933
+So. I'm going to introduce you to something now. to help us get prepared for
 
 10
-00:00:33,933 --> 00:00:37,933
-using Unreal. In Unreal, the recommendation in our coding standards is we
+00:00:33.933 --> 00:00:37.933
+using Unreal. In Unreal. the recommendation in our coding standards is we
 
 11
-00:00:37,933 --> 00:00:41,933
-don't use int for integers, and the reason for that is it depends on which platform
+00:00:37.933 --> 00:00:41.933
+don't use int for integers. and the reason for that is it depends on which platform
 
 12
-00:00:41,933 --> 00:00:45,933
-you're building to. I want to set you up for cross platform development, and if you
+00:00:41.933 --> 00:00:45.933
+you're building to. I want to set you up for cross platform development. and if you
 
 13
-00:00:45,933 --> 00:00:49,933
+00:00:45.933 --> 00:00:49.933
 were deploying on one hand to a phone and another hand to a 64
 
 14
-00:00:49,933 --> 00:00:53,933
-bit PC, for example, you may find that those machines implement int
+00:00:49.933 --> 00:00:53.933
+bit PC. for example. you may find that those machines implement int
 
 15
-00:00:53,933 --> 00:00:57,933
-differently. For example, it may be 32 or 64 bit, so what we want to
+00:00:53.933 --> 00:00:57.933
+differently. For example. it may be 32 or 64 bit. so what we want to
 
 16
-00:00:57,933 --> 00:01:01,933
-be is completely explicit about what we're doing. Now, in our code
+00:00:57.933 --> 00:01:01.933
+be is completely explicit about what we're doing. Now. in our code
 
 17
-00:01:01,933 --> 00:01:05,933
-here, we aren't inside Unreal and we're not using Unreal's API's,
+00:01:01.933 --> 00:01:05.933
+here. we aren't inside Unreal and we're not using Unreal's API's.
 
 18
-00:01:05,933 --> 00:01:09,933
-so it actually is immaterial, but we're going to do a simple text substitution.
+00:01:05.933 --> 00:01:09.933
+so it actually is immaterial. but we're going to do a simple text substitution.
 
 19
-00:01:09,933 --> 00:01:13,933
+00:01:09.933 --> 00:01:13.933
 Not a find and replace but we're going to use a using directive very much
 
 20
-00:01:13,933 --> 00:01:17,933
-like the using namespace we saw before, and then removed, to make
+00:01:13.933 --> 00:01:17.933
+like the using namespace we saw before. and then removed. to make
 
 21
-00:01:17,933 --> 00:01:21,933
-a sutsitution between int and int32. So,
+00:01:17.933 --> 00:01:21.933
+a sutsitution between int and int32. So.
 
 22
-00:01:21,933 --> 00:01:25,933
-we're going to do that after... You're going to do that, after I've
+00:01:21.933 --> 00:01:25.933
+we're going to do that after... You're going to do that. after I've
 
 23
-00:01:25,933 --> 00:01:29,933
-showed you the same substitution for strings. So, another thing in
+00:01:25.933 --> 00:01:29.933
+showed you the same substitution for strings. So. another thing in
 
 24
-00:01:29,933 --> 00:01:33,933
-Unreal is strings, and we have the concept of FString
+00:01:29.933 --> 00:01:33.933
+Unreal is strings. and we have the concept of FString
 
 25
-00:01:33,933 --> 00:01:37,933
-vs. FText Unreal. Now, if you do that Google
+00:01:33.933 --> 00:01:37.933
+vs. FText Unreal. Now. if you do that Google
 
 26
-00:01:37,933 --> 00:01:41,933
-search, "fstring vs. ftext", you'll find that it explains in there
+00:01:37.933 --> 00:01:41.933
+search. "fstring vs. ftext". you'll find that it explains in there
 
 27
-00:01:41,933 --> 00:01:45,933
-the difference between them. I'll summarize for you though, basically  an
+00:01:41.933 --> 00:01:45.933
+the difference between them. I'll summarize for you though. basically  an
 
 28
-00:01:45,933 --> 00:01:49,933
-FString is a mutable, i.e. changeable object that you can build and manipulate,
+00:01:45.933 --> 00:01:49.933
+FString is a mutable. i.e. changeable object that you can build and manipulate.
 
 29
-00:01:49,933 --> 00:01:53,933
-as you can see here. And FTEXt, which
+00:01:49.933 --> 00:01:53.933
+as you can see here. And FTEXt. which
 
 30
-00:01:53,933 --> 00:01:57,933
-we could search inside the documentation, is something that is pretty much
+00:01:53.933 --> 00:01:57.933
+we could search inside the documentation. is something that is pretty much
 
 31
-00:01:57,933 --> 00:02:01,933
+00:01:57.933 --> 00:02:01.933
 entirely used for user output.
 
 32
-00:02:01,933 --> 00:02:05,933
-So, what we're going to do is we're going to use FString
+00:02:01.933 --> 00:02:05.933
+So. what we're going to do is we're going to use FString
 
 33
-00:02:05,933 --> 00:02:09,933
-inside of our game class here,
+00:02:05.933 --> 00:02:09.933
+inside of our game class here.
 
 34
-00:02:09,933 --> 00:02:13,933
-and then, we're going to use FText inside of main.cpp but they're going to map to the same
+00:02:09.933 --> 00:02:13.933
+and then. we're going to use FText inside of main.cpp but they're going to map to the same
 
 35
-00:02:13,933 --> 00:02:17,933
-thing. So, let me do it, let's make this concrete! Let's get on with it! So, in main.cpp,
+00:02:13.933 --> 00:02:17.933
+thing. So. let me do it. let's make this concrete! Let's get on with it! So. in main.cpp.
 
 36
-00:02:17,933 --> 00:02:21,933
-after we do our includes, I want us to do the following using
+00:02:17.933 --> 00:02:21.933
+after we do our includes. I want us to do the following using
 
 37
-00:02:21,933 --> 00:02:25,933
+00:02:21.933 --> 00:02:25.933
 FText =
 
 38
-00:02:25,933 --> 00:02:29,933
+00:02:25.933 --> 00:02:29.933
 standard string. What that's going to do
 
 39
-00:02:29,933 --> 00:02:33,933
+00:02:29.933 --> 00:02:33.933
 is it's going to make a substitution between standard string and FText. OK.
 
 40
-00:02:33,933 --> 00:02:37,933
-And then, wherever we see standard string, I want to
+00:02:33.933 --> 00:02:37.933
+And then. wherever we see standard string. I want to
 
 41
-00:02:37,933 --> 00:02:41,933
-replace it with FText now. So, this is a find and replace operation,
+00:02:37.933 --> 00:02:41.933
+replace it with FText now. So. this is a find and replace operation.
 
 42
-00:02:41,933 --> 00:02:45,933
-so we do a Control H, we find
+00:02:41.933 --> 00:02:45.933
+so we do a Control H. we find
 
 43
-00:02:45,933 --> 00:02:49,933
+00:02:45.933 --> 00:02:49.933
 standard string and we replace it with FText. We skip over that first one
 
 44
-00:02:49,933 --> 00:02:53,933
-and then we replace all. Now, I think I've gone and replaced the top one.
+00:02:49.933 --> 00:02:53.933
+and then we replace all. Now. I think I've gone and replaced the top one.
 
 45
-00:02:53,933 --> 00:02:57,933
-I have, so let's just put that back.
+00:02:53.933 --> 00:02:57.933
+I have. so let's just put that back.
 
 46
-00:02:57,933 --> 00:03:01,933
-OK, now check the code compiles, and then, we'll look at the code and I'll
+00:02:57.933 --> 00:03:01.933
+OK. now check the code compiles. and then. we'll look at the code and I'll
 
 47
-00:03:01,933 --> 00:03:05,933
-recap why on Earth we're doing this! OK, so here we say using FText
+00:03:01.933 --> 00:03:05.933
+recap why on Earth we're doing this! OK. so here we say using FText
 
 48
-00:03:05,933 --> 00:03:09,933
-= standard string. And then, we look down and then
+00:03:05.933 --> 00:03:09.933
+= standard string. And then. we look down and then
 
 49
-00:03:09,933 --> 00:03:13,933
-wherever we were using standard string, before we were using FText. Now, not only is this easy to
+00:03:09.933 --> 00:03:13.933
+wherever we were using standard string. before we were using FText. Now. not only is this easy to
 
 50
-00:03:13,933 --> 00:03:17,933
-type than standard colon colon string, but it's the sort of thing we'll be using in Unreal.
+00:03:13.933 --> 00:03:17.933
+type than standard colon colon string. but it's the sort of thing we'll be using in Unreal.
 
 51
-00:03:17,933 --> 00:03:21,933
-Now remember, FText, when we get to Unreal, will be something you generally use for user
+00:03:17.933 --> 00:03:21.933
+Now remember. FText. when we get to Unreal. will be something you generally use for user
 
 52
-00:03:21,933 --> 00:03:25,933
-interaction, which is why we're using it in the main.cpp. Remember the
+00:03:21.933 --> 00:03:25.933
+interaction. which is why we're using it in the main.cpp. Remember the
 
 53
-00:03:25,933 --> 00:03:29,933
+00:03:25.933 --> 00:03:29.933
 main.cpp is basically the view controller for this whole
 
 54
-00:03:29,933 --> 00:03:33,933
-game. Now, I've said that, let's make the comment! Let's introduce this class! One way to do that
+00:03:29.933 --> 00:03:33.933
+game. Now. I've said that. let's make the comment! Let's introduce this class! One way to do that
 
 55
-00:03:33,933 --> 00:03:37,933
+00:03:33.933 --> 00:03:37.933
 is to use a star and a forward slash. That is a way of putting a
 
 56
-00:03:37,933 --> 00:03:41,933
+00:03:37.933 --> 00:03:41.933
 comment blocking. With star and forward slash we can write a lot more and
 
 57
-00:03:41,933 --> 00:03:45,933
-not have to keep writing forward slash forward slash. So, this I'm going to introduce
+00:03:41.933 --> 00:03:45.933
+not have to keep writing forward slash forward slash. So. this I'm going to introduce
 
 58
-00:03:45,933 --> 00:03:49,933
+00:03:45.933 --> 00:03:49.933
 the whole file. "This is the console
 
 59
-00:03:49,933 --> 00:03:53,933
-executable, that makes
+00:03:49.933 --> 00:03:53.933
+executable. that makes
 
 60
-00:03:53,933 --> 00:03:57,933
+00:03:53.933 --> 00:03:57.933
 use of
 
 61
-00:03:57,933 --> 00:04:01,933
+00:03:57.933 --> 00:04:01.933
 the BullCow class".
 
 62
-00:04:01,933 --> 00:04:05,933
+00:04:01.933 --> 00:04:05.933
 "This acts
 
 63
-00:04:05,933 --> 00:04:09,933
+00:04:05.933 --> 00:04:09.933
 as the view in a
 
 64
-00:04:09,933 --> 00:04:13,933
-MVC pattern", which we saw earlier,
+00:04:09.933 --> 00:04:13.933
+MVC pattern". which we saw earlier.
 
 65
-00:04:13,933 --> 00:04:17,933
+00:04:13.933 --> 00:04:17.933
 "and is responsible for
 
 66
-00:04:17,933 --> 00:04:21,933
+00:04:17.933 --> 00:04:21.933
 all user
 
 67
-00:04:21,933 --> 00:04:25,933
+00:04:21.933 --> 00:04:25.933
 interaction".
 
 68
-00:04:25,933 --> 00:04:29,933
+00:04:25.933 --> 00:04:29.933
 "For game logic see the
 
 69
-00:04:29,933 --> 00:04:33,933
+00:04:29.933 --> 00:04:33.933
 FBullCow
 
 70
-00:04:33,933 --> 00:04:37,933
-Game class." Now, I'm a little nervous typing FBullCowGame there,
+00:04:33.933 --> 00:04:37.933
+Game class." Now. I'm a little nervous typing FBullCowGame there.
 
 71
-00:04:37,933 --> 00:04:41,933
-because there's a chance that we change the name of the class and this changes, but it's exactly
+00:04:37.933 --> 00:04:41.933
+because there's a chance that we change the name of the class and this changes. but it's exactly
 
 72
-00:04:41,933 --> 00:04:45,933
-the same, so Find and Replace should find it. So, I've introduced my class here,
+00:04:41.933 --> 00:04:45.933
+the same. so Find and Replace should find it. So. I've introduced my class here.
 
 73
-00:04:45,933 --> 00:04:49,933
-I've reminded us that this is all just about view, and I've said that in
+00:04:45.933 --> 00:04:49.933
+I've reminded us that this is all just about view. and I've said that in
 
 74
-00:04:49,933 --> 00:04:53,933
+00:04:49.933 --> 00:04:53.933
 Unreal FText is generally the thing we're going to use for interaction with the
 
 75
-00:04:53,933 --> 00:04:57,933
-user. So now, I'm going to go and make the same substitution in our
+00:04:53.933 --> 00:04:57.933
+user. So now. I'm going to go and make the same substitution in our
 
 76
-00:04:57,933 --> 00:05:01,933
-class over here, but this time it's going to be slightly different. And then, I'll challenge
+00:04:57.933 --> 00:05:01.933
+class over here. but this time it's going to be slightly different. And then. I'll challenge
 
 77
-00:05:01,933 --> 00:05:05,933
-you to do all this in a moment, don't worry, with a different thing with the integer. Using
+00:05:01.933 --> 00:05:05.933
+you to do all this in a moment. don't worry. with a different thing with the integer. Using
 
 78
-00:05:05,933 --> 00:05:09,933
+00:05:05.933 --> 00:05:09.933
 FString = string; so
 
 79
-00:05:09,933 --> 00:05:13,933
+00:05:09.933 --> 00:05:13.933
 it's again both FString and FText are going to behave exactly
 
 80
-00:05:13,933 --> 00:05:17,933
-the same as string. By the way, I need to do standard, and this is
+00:05:13.933 --> 00:05:17.933
+the same as string. By the way. I need to do standard. and this is
 
 81
-00:05:17,933 --> 00:05:21,933
-just preparing ourselves for Unreal. The reason I keep typing these things wrong, by the way, is I can't actually
+00:05:17.933 --> 00:05:21.933
+just preparing ourselves for Unreal. The reason I keep typing these things wrong. by the way. is I can't actually
 
 82
-00:05:21,933 --> 00:05:25,933
-see my keyboard. I've got a whacking great microphone between me and the keyboard,
+00:05:21.933 --> 00:05:25.933
+see my keyboard. I've got a whacking great microphone between me and the keyboard.
 
 83
-00:05:25,933 --> 00:05:29,933
-and I'm so used to Mac that, here on a PC, I really sometimes struggle to hit
+00:05:25.933 --> 00:05:29.933
+and I'm so used to Mac that. here on a PC. I really sometimes struggle to hit
 
 84
-00:05:29,933 --> 00:05:33,933
-the right keys. But anyway, forgive me. So, where we find standard string, I'm going to do
+00:05:29.933 --> 00:05:33.933
+the right keys. But anyway. forgive me. So. where we find standard string. I'm going to do
 
 85
-00:05:33,933 --> 00:05:37,933
-a Find and Replace, for standard string. I'm going to replace it with FString.
+00:05:33.933 --> 00:05:37.933
+a Find and Replace. for standard string. I'm going to replace it with FString.
 
 86
-00:05:37,933 --> 00:05:41,933
-Now, I should be able to do that across the entire
+00:05:37.933 --> 00:05:41.933
+Now. I should be able to do that across the entire
 
 87
-00:05:41,933 --> 00:05:45,933
-project now, because I've done all of the standard strings inside of the main.cpp.
+00:05:41.933 --> 00:05:45.933
+project now. because I've done all of the standard strings inside of the main.cpp.
 
 88
-00:05:45,933 --> 00:05:49,933
-So, let's go and have a little preview of this. This one here, yes.
+00:05:45.933 --> 00:05:49.933
+So. let's go and have a little preview of this. This one here. yes.
 
 89
-00:05:49,933 --> 00:05:53,933
-Let's keep going! Standard string inside main.cpp. No, we skip
+00:05:49.933 --> 00:05:53.933
+Let's keep going! Standard string inside main.cpp. No. we skip
 
 90
-00:05:53,933 --> 00:05:57,933
+00:05:53.933 --> 00:05:57.933
 that one. That one
 
 91
-00:05:57,933 --> 00:06:01,933
-yep, I think actually that's it.
+00:05:57.933 --> 00:06:01.933
+yep. I think actually that's it.
 
 92
-00:06:01,933 --> 00:06:05,933
-OK, let's have a look! It's just replacing the right things.
+00:06:01.933 --> 00:06:05.933
+OK. let's have a look! It's just replacing the right things.
 
 93
-00:06:05,933 --> 00:06:09,933
-Yeah, oh something's gone wrong with my thinking! So, where
+00:06:05.933 --> 00:06:09.933
+Yeah. oh something's gone wrong with my thinking! So. where
 
 94
-00:06:09,933 --> 00:06:13,933
-do I find that? In the intro right, so it should be easy! If our code is well organized,
+00:06:09.933 --> 00:06:13.933
+do I find that? In the intro right. so it should be easy! If our code is well organized.
 
 95
-00:06:13,933 --> 00:06:17,933
-we should know where to go. ..."thinking of?" there we go! I must have messed it up, when we did
+00:06:13.933 --> 00:06:17.933
+we should know where to go. ..."thinking of?" there we go! I must have messed it up. when we did
 
 96
-00:06:17,933 --> 00:06:21,933
-WORD_LENGTH. So, what I've done here is I've used a substitution
+00:06:17.933 --> 00:06:21.933
+WORD_LENGTH. So. what I've done here is I've used a substitution
 
 97
-00:06:21,933 --> 00:06:25,933
-there, and that substitution just says that we're going to
+00:06:21.933 --> 00:06:25.933
+there. and that substitution just says that we're going to
 
 98
-00:06:25,933 --> 00:06:29,933
-use, inside the implementation, FStrings instead of standard string.
+00:06:25.933 --> 00:06:29.933
+use. inside the implementation. FStrings instead of standard string.
 
 99
-00:06:29,933 --> 00:06:33,933
-It looks nicer, it's also more compatible with Unreal. Alright, hopefully you get
+00:06:29.933 --> 00:06:33.933
+It looks nicer. it's also more compatible with Unreal. Alright. hopefully you get
 
 100
-00:06:33,933 --> 00:06:37,933
-why we're doing this. It's also a useful facility, by the way, better than using
+00:06:33.933 --> 00:06:37.933
+why we're doing this. It's also a useful facility. by the way. better than using
 
 101
-00:06:37,933 --> 00:06:41,933
-standard namespace, which brings in a whole bunch of substitutions like this. This is a very
+00:06:37.933 --> 00:06:41.933
+standard namespace. which brings in a whole bunch of substitutions like this. This is a very
 
 102
-00:06:41,933 --> 00:06:45,933
-explicit single substitution, it's much safer to use. Alright, let's get your challenge
+00:06:41.933 --> 00:06:45.933
+explicit single substitution. it's much safer to use. Alright. let's get your challenge
 
 103
-00:06:45,933 --> 00:06:49,933
-warmed up. So, I want you to substitute the integer type.
+00:06:45.933 --> 00:06:49.933
+warmed up. So. I want you to substitute the integer type.
 
 104
-00:06:49,933 --> 00:06:53,933
+00:06:49.933 --> 00:06:53.933
 Convert all integers to use the int32 alias.
 
 105
-00:06:53,933 --> 00:06:57,933
-Exclude int main(), as this is called by the Operating
+00:06:53.933 --> 00:06:57.933
+Exclude int main(). as this is called by the Operating
 
 106
-00:06:57,933 --> 00:07:01,933
-System and we don't want to confuse things. Explicitly substitute, at the top of the file
+00:06:57.933 --> 00:07:01.933
+System and we don't want to confuse things. Explicitly substitute. at the top of the file
 
 107
-00:07:01,933 --> 00:07:05,933
-not via includes, so if you need it in more than one file put it
+00:07:01.933 --> 00:07:05.933
+not via includes. so if you need it in more than one file put it
 
 108
-00:07:05,933 --> 00:07:09,933
-at the top of every file. Don't expect it to chain through includes, we've already talked about chains of
+00:07:05.933 --> 00:07:09.933
+at the top of every file. Don't expect it to chain through includes. we've already talked about chains of
 
 109
-00:07:09,933 --> 00:07:15,566
+00:07:09.933 --> 00:07:15.566
 includes. Test your code still runs and reads well.
 
 110
-00:07:15,566 --> 00:07:19,566
-OK, let's get this buttoned off! We're looking for int32, so I may as well just find
+00:07:15.566 --> 00:07:19.566
+OK. let's get this buttoned off! We're looking for int32. so I may as well just find
 
 111
-00:07:19,566 --> 00:07:23,566
-int32. So, int and it needs to be a whole word, not parts
+00:07:19.566 --> 00:07:23.566
+int32. So. int and it needs to be a whole word. not parts
 
 112
-00:07:23,566 --> 00:07:27,566
-of a word like interaction, so let's go find where we see int. Int main I said to
+00:07:23.566 --> 00:07:27.566
+of a word like interaction. so let's go find where we see int. Int main I said to
 
 113
-00:07:27,566 --> 00:07:31,566
-leave, everywhere else we need to make the substitution. So, int WORD_
+00:07:27.566 --> 00:07:31.566
+leave. everywhere else we need to make the substitution. So. int WORD_
 
 114
-00:07:31,566 --> 00:07:35,566
-LENGTH. So, in main.cpp we need to make the substitution, using
+00:07:31.566 --> 00:07:35.566
+LENGTH. So. in main.cpp we need to make the substitution. using
 
 115
-00:07:35,566 --> 00:07:39,566
-int32. Now, let me check that's exactly right from Unreal's
+00:07:35.566 --> 00:07:39.566
+int32. Now. let me check that's exactly right from Unreal's
 
 116
-00:07:39,566 --> 00:07:43,566
+00:07:39.566 --> 00:07:43.566
 coding standards. Is it int with a small i or not? Let's find out!
 
 117
-00:07:43,566 --> 00:07:47,566
-"unreal int32", look at their coding standards for example.
+00:07:43.566 --> 00:07:47.566
+"unreal int32". look at their coding standards for example.
 
 118
-00:07:47,566 --> 00:07:51,566
+00:07:47.566 --> 00:07:51.566
 Do a search for "int32" and it
 
 119
-00:07:51,566 --> 00:07:55,566
-is lower case like that. Good! Alright so, let's crack on!
+00:07:51.566 --> 00:07:55.566
+is lower case like that. Good! Alright so. let's crack on!
 
 120
-00:07:55,566 --> 00:07:59,566
-Equals int! Now, it's a primitive type, so we don't need the standard in front.
+00:07:55.566 --> 00:07:59.566
+Equals int! Now. it's a primitive type. so we don't need the standard in front.
 
 121
-00:07:59,566 --> 00:08:03,566
-OK, so now we go ahead and we do our Find and Replace on int. So,
+00:07:59.566 --> 00:08:03.566
+OK. so now we go ahead and we do our Find and Replace on int. So.
 
 122
-00:08:03,566 --> 00:08:07,566
-Control H, find int, substitute with int32, Look for Whole
+00:08:03.566 --> 00:08:07.566
+Control H. find int. substitute with int32. Look for Whole
 
 123
-00:08:07,566 --> 00:08:11,566
-Words inside the Current Project. Let's crack on! Not main, that one
+00:08:07.566 --> 00:08:11.566
+Words inside the Current Project. Let's crack on! Not main. that one
 
 124
-00:08:11,566 --> 00:08:15,566
-there let's change. These ones, yes change, change,
+00:08:11.566 --> 00:08:15.566
+there let's change. These ones. yes change. change.
 
 125
-00:08:15,566 --> 00:08:19,566
-change. No, we don't redefine the substitution
+00:08:15.566 --> 00:08:19.566
+change. No. we don't redefine the substitution
 
 126
-00:08:19,566 --> 00:08:23,566
-and that's across the entire project, actually. So, we haven't used int... Oh,
+00:08:19.566 --> 00:08:23.566
+and that's across the entire project. actually. So. we haven't used int... Oh.
 
 127
-00:08:23,566 --> 00:08:27,566
-we have used int over here. So, something about my Find and Replace didn't work,
+00:08:23.566 --> 00:08:27.566
+we have used int over here. So. something about my Find and Replace didn't work.
 
 128
-00:08:27,566 --> 00:08:31,566
-so let's go Entire Solution,
+00:08:27.566 --> 00:08:31.566
+so let's go Entire Solution.
 
 129
-00:08:31,566 --> 00:08:35,566
-int, int32, Whole Word, Entire
+00:08:31.566 --> 00:08:35.566
+int. int32. Whole Word. Entire
 
 130
-00:08:35,566 --> 00:08:39,566
-Solution. These guys need to be changed and these,
+00:08:35.566 --> 00:08:39.566
+Solution. These guys need to be changed and these.
 
 131
-00:08:39,566 --> 00:08:43,566
+00:08:39.566 --> 00:08:43.566
 and it's just a question for you now of changing
 
 132
-00:08:43,566 --> 00:08:47,566
-the right things. Not main, not the definition itself,
+00:08:43.566 --> 00:08:47.566
+the right things. Not main. not the definition itself.
 
 133
-00:08:47,566 --> 00:08:51,566
-that's it. So, the only things that should be left are the definition itself,
+00:08:47.566 --> 00:08:51.566
+that's it. So. the only things that should be left are the definition itself.
 
 134
-00:08:51,566 --> 00:08:55,566
-the using statement, and the main loop. You could change main, it would still work, but
+00:08:51.566 --> 00:08:55.566
+the using statement. and the main loop. You could change main. it would still work. but
 
 135
-00:08:55,566 --> 00:08:59,566
-as the system is expecting an int back, let's not mess around with it. OK, let's check our
+00:08:55.566 --> 00:08:59.566
+as the system is expecting an int back. let's not mess around with it. OK. let's check our
 
 136
-00:08:59,566 --> 00:09:03,566
-code still runs! So,
+00:08:59.566 --> 00:09:03.566
+code still runs! So.
 
 137
-00:09:03,566 --> 00:09:07,566
+00:09:03.566 --> 00:09:07.566
 it doesn't run! Let's look at the errors.
 
 138
-00:09:07,566 --> 00:09:11,566
+00:09:07.566 --> 00:09:11.566
 ...
 
 139
-00:09:11,566 --> 00:09:15,566
-Now, the problem I've got here is that this file does not have the substitution, so I need
+00:09:11.566 --> 00:09:15.566
+Now. the problem I've got here is that this file does not have the substitution. so I need
 
 140
-00:09:15,566 --> 00:09:19,566
-to go in, take the substitution, and as I said, explicitly put it in
+00:09:15.566 --> 00:09:19.566
+to go in. take the substitution. and as I said. explicitly put it in
 
 141
-00:09:19,566 --> 00:09:23,566
-each file that needs it. So, there we're using a substitution and
+00:09:19.566 --> 00:09:23.566
+each file that needs it. So. there we're using a substitution and
 
 142
-00:09:23,566 --> 00:09:27,566
-we probably are in here as well. Yes we are, so let's do it up
+00:09:23.566 --> 00:09:27.566
+we probably are in here as well. Yes we are. so let's do it up
 
 143
-00:09:27,566 --> 00:09:31,566
-at that top. Great, let's try again!
+00:09:27.566 --> 00:09:31.566
+at that top. Great. let's try again!
 
 144
-00:09:31,566 --> 00:09:35,566
-Fantastic, it runs! So, that worked! Substitutions
+00:09:31.566 --> 00:09:35.566
+Fantastic. it runs! So. that worked! Substitutions
 
 145
-00:09:35,566 --> 00:09:40,999
-are done, code is starting to look more and more Unreal, as we move on, and I'll see you soon!
+00:09:35.566 --> 00:09:40.999
+are done. code is starting to look more and more Unreal. as we move on. and I'll see you soon!

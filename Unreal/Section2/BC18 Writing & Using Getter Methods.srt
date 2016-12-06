@@ -1,539 +1,542 @@
+﻿WEBVTT
+
 1
-00:00:00,000 --> 00:00:05,233
-Hey hey! So, in this video we'll be writing
+00:00:00.000 --> 00:00:05.233
+Hey hey! So. in this video we'll be writing
 
 2
-00:00:05,233 --> 00:00:08,000
+00:00:05.233 --> 00:00:08.000
 and using getter methods. I'll tell you what a getter
 
 3
-00:00:08,000 --> 00:00:12,000
+00:00:08.000 --> 00:00:12.000
 method is. We'll explain why we never access these member variables that we
 
 4
-00:00:12,000 --> 00:00:16,000
-have over here, directly.
+00:00:12.000 --> 00:00:16.000
+have over here. directly.
 
 5
-00:00:16,000 --> 00:00:20,000
-We will initialize these member variables with these numbers on the end, and then,
+00:00:16.000 --> 00:00:20.000
+We will initialize these member variables with these numbers on the end. and then.
 
 6
-00:00:20,000 --> 00:00:24,000
+00:00:20.000 --> 00:00:24.000
 I will be showing you how to access things like the maximum
 
 7
-00:00:24,000 --> 00:00:28,000
-tries, using the GetMaxTries(). And we'll actually implement the GetMaxTries() getter,
+00:00:24.000 --> 00:00:28.000
+tries. using the GetMaxTries(). And we'll actually implement the GetMaxTries() getter.
 
 8
-00:00:28,000 --> 00:00:32,000
-so that we can, for a given game for example, get the tries, put it in an
+00:00:28.000 --> 00:00:32.000
+so that we can. for a given game for example. get the tries. put it in an
 
 9
-00:00:32,000 --> 00:00:36,000
-integer, and then tell the user which try number they're on. "Try 1. Enter your
+00:00:32.000 --> 00:00:36.000
+integer. and then tell the user which try number they're on. "Try 1. Enter your
 
 10
-00:00:36,000 --> 00:00:41,366
-guess:", etc. OK, so that's what we're going to be doing! Let's dive in and make it happen!
+00:00:36.000 --> 00:00:41.366
+guess:". etc. OK. so that's what we're going to be doing! Let's dive in and make it happen!
 
 11
-00:00:41,366 --> 00:00:45,366
-So, we want to start moving some of the things that we've
+00:00:41.366 --> 00:00:45.366
+So. we want to start moving some of the things that we've
 
 12
-00:00:45,366 --> 00:00:49,366
-got in the main.cpp, or at least this number of turns, into the
+00:00:45.366 --> 00:00:49.366
+got in the main.cpp. or at least this number of turns. into the
 
 13
-00:00:49,366 --> 00:00:53,366
-class, because look we've already got MyMaxTries! So any given instance
+00:00:49.366 --> 00:00:53.366
+class. because look we've already got MyMaxTries! So any given instance
 
 14
-00:00:53,366 --> 00:00:57,366
-of the game, like this Player1Game... Actually,  I'm going to rename it! Let's rename
+00:00:53.366 --> 00:00:57.366
+of the game. like this Player1Game... Actually.  I'm going to rename it! Let's rename
 
 15
-00:00:57,366 --> 00:01:01,366
-it just BCGame again. It's OK to change your mind about names, you must
+00:00:57.366 --> 00:01:01.366
+it just BCGame again. It's OK to change your mind about names. you must
 
 16
-00:01:01,366 --> 00:01:05,366
-feel comfortable with them. So, here's an instance of a game called BCGame, and that particular game
+00:01:01.366 --> 00:01:05.366
+feel comfortable with them. So. here's an instance of a game called BCGame. and that particular game
 
 17
-00:01:05,366 --> 00:01:09,366
+00:01:05.366 --> 00:01:09.366
 has a max tries. Look BCGame dot! And when we hit the
 
 18
-00:01:09,366 --> 00:01:13,366
-dot, look we get all the methods that we defined over here, and one
+00:01:09.366 --> 00:01:13.366
+dot. look we get all the methods that we defined over here. and one
 
 19
-00:01:13,366 --> 00:01:17,366
-of those it GetMaxTries(). So let's do that, GetMaxTries().
+00:01:13.366 --> 00:01:17.366
+of those it GetMaxTries(). So let's do that. GetMaxTries().
 
 20
-00:01:17,366 --> 00:01:21,366
-And that of course is what we're trying to talk about here, in terms of number
+00:01:17.366 --> 00:01:21.366
+And that of course is what we're trying to talk about here. in terms of number
 
 21
-00:01:21,366 --> 00:01:25,366
-of turns. So, is GetMaxTries() implemented
+00:01:21.366 --> 00:01:25.366
+of turns. So. is GetMaxTries() implemented
 
 22
-00:01:25,366 --> 00:01:29,366
-yet? Let's go have a look! Right-click it, you can Go To Definition. If you're confused about
+00:01:25.366 --> 00:01:29.366
+yet? Let's go have a look! Right-click it. you can Go To Definition. If you're confused about
 
 23
-00:01:29,366 --> 00:01:33,366
-definition and declaration, remember that definition is think about high definition
+00:01:29.366 --> 00:01:33.366
+definition and declaration. remember that definition is think about high definition
 
 24
-00:01:33,366 --> 00:01:37,366
-OK! It's more defined than something that is just declared, so it's the definition
+00:01:33.366 --> 00:01:37.366
+OK! It's more defined than something that is just declared. so it's the definition
 
 25
-00:01:37,366 --> 00:01:41,366
-we want to go to. The declaration would, of course, take us to the header file. The definition
+00:01:37.366 --> 00:01:41.366
+we want to go to. The declaration would. of course. take us to the header file. The definition
 
 26
-00:01:41,366 --> 00:01:45,366
-takes us to the .cpp. So from here, the methods of
+00:01:41.366 --> 00:01:45.366
+takes us to the .cpp. So from here. the methods of
 
 27
-00:01:45,366 --> 00:01:49,366
+00:01:45.366 --> 00:01:49.366
 this class are allowed to access it's private
 
 28
-00:01:49,366 --> 00:01:53,366
-parts, but nothing else from the outside is. So, from here I can
+00:01:49.366 --> 00:01:53.366
+parts. but nothing else from the outside is. So. from here I can
 
 29
-00:01:53,366 --> 00:01:57,366
-go Return, MyMaxTries, which is fine.
+00:01:53.366 --> 00:01:57.366
+go Return. MyMaxTries. which is fine.
 
 30
-00:01:57,366 --> 00:02:01,366
-So now, when I try doing this it should spit out the right
+00:01:57.366 --> 00:02:01.366
+So now. when I try doing this it should spit out the right
 
 31
-00:02:01,366 --> 00:02:05,366
+00:02:01.366 --> 00:02:05.366
 value! Let's try it! Let's just say int
 
 32
-00:02:05,366 --> 00:02:09,366
+00:02:05.366 --> 00:02:09.366
 MaxTries = BCGame.GetMaxTries(); Why am I doing
 
 33
-00:02:09,366 --> 00:02:13,366
+00:02:09.366 --> 00:02:13.366
 that? I'm just trying to make my life a bit simpler in here.
 
 34
-00:02:13,366 --> 00:02:17,366
+00:02:13.366 --> 00:02:17.366
 I'm going to put less than = to MaxTries and get rid of this constant.
 
 35
-00:02:17,366 --> 00:02:21,366
-So it is pretty clear what this does. It instantiates a new game,
+00:02:17.366 --> 00:02:21.366
+So it is pretty clear what this does. It instantiates a new game.
 
 36
-00:02:21,366 --> 00:02:25,366
-goes and finds out how many tries the game has got, and then, goes around a loop
+00:02:21.366 --> 00:02:25.366
+goes and finds out how many tries the game has got. and then. goes around a loop
 
 37
-00:02:25,366 --> 00:02:29,366
-based on the number of tries. Now temporarily, let's output the number of tries, because
+00:02:25.366 --> 00:02:29.366
+based on the number of tries. Now temporarily. let's output the number of tries. because
 
 38
-00:02:29,366 --> 00:02:33,366
+00:02:29.366 --> 00:02:33.366
 we may have an interesting effect here.
 
 39
-00:02:33,366 --> 00:02:37,366
+00:02:33.366 --> 00:02:37.366
 MaxTries end line.
 
 40
-00:02:37,366 --> 00:02:41,366
-So, we have written already something called a getter.
+00:02:37.366 --> 00:02:41.366
+So. we have written already something called a getter.
 
 41
-00:02:41,366 --> 00:02:45,366
-We're not using the standard namespace! Draght, why did I make that
+00:02:41.366 --> 00:02:45.366
+We're not using the standard namespace! Draght. why did I make that
 
 42
-00:02:45,366 --> 00:02:49,366
-decision? I think it's good to be able to work both ways. So, we're going to cout the MaxTries.
+00:02:45.366 --> 00:02:49.366
+decision? I think it's good to be able to work both ways. So. we're going to cout the MaxTries.
 
 43
-00:02:49,366 --> 00:02:53,366
-Let's have a look, see what happens! Oh,
+00:02:49.366 --> 00:02:53.366
+Let's have a look. see what happens! Oh.
 
 44
-00:02:53,366 --> 00:02:57,366
-minus 8 thousand! Oh wait, lots, billions or whatever it is!
+00:02:53.366 --> 00:02:57.366
+minus 8 thousand! Oh wait. lots. billions or whatever it is!
 
 45
-00:02:57,366 --> 00:03:01,366
-Wow, that's a funny number! Now, why is it a funny number? Why is this MaxTries
+00:02:57.366 --> 00:03:01.366
+Wow. that's a funny number! Now. why is it a funny number? Why is this MaxTries
 
 46
-00:03:01,366 --> 00:03:05,366
-so strange? The code is really simple, it's returning the MaxTries, because look we
+00:03:01.366 --> 00:03:05.366
+so strange? The code is really simple. it's returning the MaxTries. because look we
 
 47
-00:03:05,366 --> 00:03:09,366
-never initialize the MaxTries here, when we declare it. Now, for
+00:03:05.366 --> 00:03:09.366
+never initialize the MaxTries here. when we declare it. Now. for
 
 48
-00:03:09,366 --> 00:03:13,366
-now let's initialize it in here! Let's initialize MaxTries to 5,
+00:03:09.366 --> 00:03:13.366
+now let's initialize it in here! Let's initialize MaxTries to 5.
 
 49
-00:03:13,366 --> 00:03:17,366
-right where we declare it! Now this is appropriate, to initialize here
+00:03:13.366 --> 00:03:17.366
+right where we declare it! Now this is appropriate. to initialize here
 
 50
-00:03:17,366 --> 00:03:21,366
-is fine, but of course, you can't change it or you can't
+00:03:17.366 --> 00:03:21.366
+is fine. but of course. you can't change it or you can't
 
 51
-00:03:21,366 --> 00:03:25,366
+00:03:21.366 --> 00:03:25.366
 change the initialization of it at runtime. If in the future we want to make
 
 52
-00:03:25,366 --> 00:03:29,366
-another game or reset the game somehow, we may need to do this somewhere else in something called
+00:03:25.366 --> 00:03:29.366
+another game or reset the game somehow. we may need to do this somewhere else in something called
 
 53
-00:03:29,366 --> 00:03:33,366
-the constructor, but for now let's just do it here. Let's re-run! Control, F, 5.
+00:03:29.366 --> 00:03:33.366
+the constructor. but for now let's just do it here. Let's re-run! Control. F. 5.
 
 54
-00:03:33,366 --> 00:03:37,366
-Ah, that hasn't worked or has it? Now, this is
+00:03:33.366 --> 00:03:37.366
+Ah. that hasn't worked or has it? Now. this is
 
 55
-00:03:37,366 --> 00:03:41,366
+00:03:37.366 --> 00:03:41.366
 where I want to suggest you don't completely trust
 
 56
-00:03:41,366 --> 00:03:45,366
+00:03:41.366 --> 00:03:45.366
 compilers. Visual Studio is playing up here. I have definitely initialized.
 
 57
-00:03:45,366 --> 00:03:49,366
-I have definitely saved my header file alright, there's no star on it,
+00:03:45.366 --> 00:03:49.366
+I have definitely saved my header file alright. there's no star on it.
 
 58
-00:03:49,366 --> 00:03:53,366
-and it is not behaving! So to make it behave,
+00:03:49.366 --> 00:03:53.366
+and it is not behaving! So to make it behave.
 
 59
-00:03:53,366 --> 00:03:57,366
-it just hasn't noticed this change, it's just being silly. It turns out if I put
+00:03:53.366 --> 00:03:57.366
+it just hasn't noticed this change. it's just being silly. It turns out if I put
 
 60
-00:03:57,366 --> 00:04:01,366
-something up here, like a comment. Notice me I'm significant, like
+00:03:57.366 --> 00:04:01.366
+something up here. like a comment. Notice me I'm significant. like
 
 61
-00:04:01,366 --> 00:04:05,366
-that and then do Control, F, 5, again, then all is
+00:04:01.366 --> 00:04:05.366
+that and then do Control. F. 5. again. then all is
 
 62
-00:04:05,366 --> 00:04:09,366
-right with the world, we're back to 5 OK. So, you can either
+00:04:05.366 --> 00:04:09.366
+right with the world. we're back to 5 OK. So. you can either
 
 63
-00:04:09,366 --> 00:04:13,366
+00:04:09.366 --> 00:04:13.366
 hack around till you solve it or you could do this. You could go to Build
 
 64
-00:04:13,366 --> 00:04:17,366
-and Rebuild BullCowGame, rebuilding the project. You could rebuild the
+00:04:13.366 --> 00:04:17.366
+and Rebuild BullCowGame. rebuilding the project. You could rebuild the
 
 65
-00:04:17,366 --> 00:04:21,366
-entire solution, which would be all of the projects. We've only got one project, but
+00:04:17.366 --> 00:04:21.366
+entire solution. which would be all of the projects. We've only got one project. but
 
 66
-00:04:21,366 --> 00:04:25,366
-if you get into a situation we think that this really should have work, then I'm afraid,
+00:04:21.366 --> 00:04:25.366
+if you get into a situation we think that this really should have work. then I'm afraid.
 
 67
-00:04:25,366 --> 00:04:29,366
-sorry, even if you're a beginner you cannot always completely trust compilers. So, in a situation
+00:04:25.366 --> 00:04:29.366
+sorry. even if you're a beginner you cannot always completely trust compilers. So. in a situation
 
 68
-00:04:29,366 --> 00:04:33,366
-like that, trust your gut and say well rebuild the project to start with.
+00:04:29.366 --> 00:04:33.366
+like that. trust your gut and say well rebuild the project to start with.
 
 69
-00:04:33,366 --> 00:04:37,366
-And that will now work! 5 is the number of tries, OK!
+00:04:33.366 --> 00:04:37.366
+And that will now work! 5 is the number of tries. OK!
 
 70
-00:04:37,366 --> 00:04:41,366
-So, just before I throw you into a challenge, I want to set you up
+00:04:37.366 --> 00:04:41.366
+So. just before I throw you into a challenge. I want to set you up
 
 71
-00:04:41,366 --> 00:04:45,366
-to win! I'm going to, in a minute, ask you to do something very similar to this
+00:04:41.366 --> 00:04:45.366
+to win! I'm going to. in a minute. ask you to do something very similar to this
 
 72
-00:04:45,366 --> 00:04:49,366
+00:04:45.366 --> 00:04:49.366
 but inside the GetGuess() method. And I'm going to ask you to
 
 73
-00:04:49,366 --> 00:04:53,366
-put in, before the guess, the try number that we're currently on so people
+00:04:49.366 --> 00:04:53.366
+put in. before the guess. the try number that we're currently on so people
 
 74
-00:04:53,366 --> 00:04:57,366
-know how many more guesses they've got. So, that's all fine but
+00:04:53.366 --> 00:04:57.366
+know how many more guesses they've got. So. that's all fine but
 
 75
-00:04:57,366 --> 00:05:01,366
-you're going to be doing something very similar to this, but what I don't want you doing is creating a new game
+00:04:57.366 --> 00:05:01.366
+you're going to be doing something very similar to this. but what I don't want you doing is creating a new game
 
 76
-00:05:01,366 --> 00:05:05,366
-instance. So, I'm going to move this line in main.cpp
+00:05:01.366 --> 00:05:05.366
+instance. So. I'm going to move this line in main.cpp
 
 77
-00:05:05,366 --> 00:05:09,366
+00:05:05.366 --> 00:05:09.366
 under PlayGame(). I'm going to take that and put it right at the top of the method around
 
 78
-00:05:09,366 --> 00:05:13,366
-there. It doesn't really matter where it is, but the point is it's gone leftwards
+00:05:09.366 --> 00:05:13.366
+there. It doesn't really matter where it is. but the point is it's gone leftwards
 
 79
-00:05:13,366 --> 00:05:17,366
-one tab, it's at a higher scope. OK, it's available now
+00:05:13.366 --> 00:05:17.366
+one tab. it's at a higher scope. OK. it's available now
 
 80
-00:05:17,366 --> 00:05:21,366
-to all of these methods, it's not inside any particular method. It's not in that block, it's
+00:05:17.366 --> 00:05:21.366
+to all of these methods. it's not inside any particular method. It's not in that block. it's
 
 81
-00:05:21,366 --> 00:05:25,366
-not in this block anymore. So now, it's become more global. Now, global
+00:05:21.366 --> 00:05:25.366
+not in this block anymore. So now. it's become more global. Now. global
 
 82
-00:05:25,366 --> 00:05:29,366
+00:05:25.366 --> 00:05:29.366
 in general is a bad thing. Putting things in what we call a global scope is a bad
 
 83
-00:05:29,366 --> 00:05:33,366
-thing, but global access to this game instance
+00:05:29.366 --> 00:05:33.366
+thing. but global access to this game instance
 
 84
-00:05:33,366 --> 00:05:37,366
-is absolutely fine. We have a main() loop here, and this is the game
+00:05:33.366 --> 00:05:37.366
+is absolutely fine. We have a main() loop here. and this is the game
 
 85
-00:05:37,366 --> 00:05:41,366
-manager, if you like. And of course, it needs access to a game! We're going to have a single instance
+00:05:37.366 --> 00:05:41.366
+manager. if you like. And of course. it needs access to a game! We're going to have a single instance
 
 86
-00:05:41,366 --> 00:05:45,366
-of a game. We're going to keep resetting the same thing, rather than making new games, which
+00:05:41.366 --> 00:05:45.366
+of a game. We're going to keep resetting the same thing. rather than making new games. which
 
 87
-00:05:45,366 --> 00:05:49,366
-is going to reset the game. So, we do want access to it everywhere, that's fine! So,
+00:05:45.366 --> 00:05:49.366
+is going to reset the game. So. we do want access to it everywhere. that's fine! So.
 
 88
-00:05:49,366 --> 00:05:53,366
-there it is, and then, you get access to it in PlayGame(). Now, you will be able to get access to it
+00:05:49.366 --> 00:05:53.366
+there it is. and then. you get access to it in PlayGame(). Now. you will be able to get access to it
 
 89
-00:05:53,366 --> 00:05:57,366
-inside GetGuess() as well, so you better do something very similar to this. Cool! Let's
+00:05:53.366 --> 00:05:57.366
+inside GetGuess() as well. so you better do something very similar to this. Cool! Let's
 
 90
-00:05:57,366 --> 00:06:01,366
-dive into the challenge! So, I want you to implement GetCurrentTry().
+00:05:57.366 --> 00:06:01.366
+dive into the challenge! So. I want you to implement GetCurrentTry().
 
 91
-00:06:01,366 --> 00:06:05,366
-Initialize the value to 1 in the header file, for now. Check it works by
+00:06:01.366 --> 00:06:05.366
+Initialize the value to 1 in the header file. for now. Check it works by
 
 92
-00:06:05,366 --> 00:06:09,366
-printing the try from GetGuess(). For example, I want it to say "Try 1.
+00:06:05.366 --> 00:06:09.366
+printing the try from GetGuess(). For example. I want it to say "Try 1.
 
 93
-00:06:09,366 --> 00:06:13,366
-Enter your guess:". It doesn't need to update each guess, that's fine!
+00:06:09.366 --> 00:06:13.366
+Enter your guess:". It doesn't need to update each guess. that's fine!
 
 94
-00:06:13,366 --> 00:06:17,366
-Where 1 is the value of MyCurrentTry. So go ahead,
+00:06:13.366 --> 00:06:17.366
+Where 1 is the value of MyCurrentTry. So go ahead.
 
 95
-00:06:17,366 --> 00:06:21,366
-pause the video, and give that a go now.
+00:06:17.366 --> 00:06:21.366
+pause the video. and give that a go now.
 
 96
-00:06:21,366 --> 00:06:25,366
-OK welcome back! So, here we are in
+00:06:21.366 --> 00:06:25.366
+OK welcome back! So. here we are in
 
 97
-00:06:25,366 --> 00:06:29,366
+00:06:25.366 --> 00:06:29.366
 GetGuess(). We're going to need to do something with very similar. There's nothing wrong with cutting and pasting your code.
 
 98
-00:06:29,366 --> 00:06:33,366
-So, int CurrentTry...
+00:06:29.366 --> 00:06:33.366
+So. int CurrentTry...
 
 99
-00:06:33,366 --> 00:06:37,366
+00:06:33.366 --> 00:06:37.366
 Ooh.
 
 100
-00:06:37,366 --> 00:06:41,366
+00:06:37.366 --> 00:06:41.366
 = BCGame.GetCurrentTry();
 
 101
-00:06:41,366 --> 00:06:45,366
-OK, that's fine! So, we go off and get the CurrentTry()!
+00:06:41.366 --> 00:06:45.366
+OK. that's fine! So. we go off and get the CurrentTry()!
 
 102
-00:06:45,366 --> 00:06:49,366
-Now, straight away check that, that is implemented.
+00:06:45.366 --> 00:06:49.366
+Now. straight away check that. that is implemented.
 
 103
-00:06:49,366 --> 00:06:53,366
-GetCurrentTry is not, so you're going to need to return MyCurrentTry().
+00:06:49.366 --> 00:06:53.366
+GetCurrentTry is not. so you're going to need to return MyCurrentTry().
 
 104
-00:06:53,366 --> 00:06:57,366
+00:06:53.366 --> 00:06:57.366
 Great! Another thing you're going to need to do is go off and initialize it.
 
 105
-00:06:57,366 --> 00:07:01,366
-So, that was working backwards, let's try working forwards. When the
+00:06:57.366 --> 00:07:01.366
+So. that was working backwards. let's try working forwards. When the
 
 106
-00:07:01,366 --> 00:07:05,366
-game object was created, at the top of main.cpp here,
+00:07:01.366 --> 00:07:05.366
+game object was created. at the top of main.cpp here.
 
 107
-00:07:05,366 --> 00:07:09,366
-it gave itself two private member variables, MyCurrentTry and
+00:07:05.366 --> 00:07:09.366
+it gave itself two private member variables. MyCurrentTry and
 
 108
-00:07:09,366 --> 00:07:13,366
+00:07:09.366 --> 00:07:13.366
 MyMaxTries and initialized them to 1 and 5 respectively.
 
 109
-00:07:13,366 --> 00:07:17,366
-The implementation just says GetMaxTries() does that, GetCurrentTry() does that.
+00:07:13.366 --> 00:07:17.366
+The implementation just says GetMaxTries() does that. GetCurrentTry() does that.
 
 110
-00:07:17,366 --> 00:07:21,366
-Really simple! By the way, you'll often see getters written like this. Let's do that! It's just often
+00:07:17.366 --> 00:07:21.366
+Really simple! By the way. you'll often see getters written like this. Let's do that! It's just often
 
 111
-00:07:21,366 --> 00:07:25,366
-takes a load of the fluff out, and remembering that compilers
+00:07:21.366 --> 00:07:25.366
+takes a load of the fluff out. and remembering that compilers
 
 112
-00:07:25,366 --> 00:07:29,366
-ignore white space, apart from certain white space, obviously between keywords
+00:07:25.366 --> 00:07:29.366
+ignore white space. apart from certain white space. obviously between keywords
 
 113
-00:07:29,366 --> 00:07:33,366
-and inside strings, but most white space is ignored. So, there's something to be
+00:07:29.366 --> 00:07:33.366
+and inside strings. but most white space is ignored. So. there's something to be
 
 114
-00:07:33,366 --> 00:07:37,366
-said for this. In fact, there's something to be said for putting your two getters right at the top
+00:07:33.366 --> 00:07:37.366
+said for this. In fact. there's something to be said for putting your two getters right at the top
 
 115
-00:07:37,366 --> 00:07:41,366
-of the implementation. So, you've got your two getters and then you go into
+00:07:37.366 --> 00:07:41.366
+of the implementation. So. you've got your two getters and then you go into
 
 116
-00:07:41,366 --> 00:07:45,366
-all your methods. Alright, just a tidy up but that syntax is common, and I quite
+00:07:41.366 --> 00:07:45.366
+all your methods. Alright. just a tidy up but that syntax is common. and I quite
 
 117
-00:07:45,366 --> 00:07:49,366
-like it. So we, down here, have
+00:07:45.366 --> 00:07:49.366
+like it. So we. down here. have
 
 118
-00:07:49,366 --> 00:07:53,366
+00:07:49.366 --> 00:07:53.366
 gone and got our current try. There we go!
 
 119
-00:07:53,366 --> 00:07:57,366
-Now, what I want to do is just modify this to just say try,
+00:07:53.366 --> 00:07:57.366
+Now. what I want to do is just modify this to just say try.
 
 120
-00:07:57,366 --> 00:08:01,366
-and then, we're going to need to close the quotes,
+00:07:57.366 --> 00:08:01.366
+and then. we're going to need to close the quotes.
 
 121
-00:08:01,366 --> 00:08:05,366
-put in the current try,
+00:08:01.366 --> 00:08:05.366
+put in the current try.
 
 122
-00:08:05,366 --> 00:08:09,366
-and then do something like that, OK.
+00:08:05.366 --> 00:08:09.366
+and then do something like that. OK.
 
 123
-00:08:09,366 --> 00:08:13,366
-And a dot and a space. Try, grab the current try, and enter it. Let's try
+00:08:09.366 --> 00:08:13.366
+And a dot and a space. Try. grab the current try. and enter it. Let's try
 
 124
-00:08:13,366 --> 00:08:17,366
-and see what happens. Ah, "Try 1."
+00:08:13.366 --> 00:08:17.366
+and see what happens. Ah. "Try 1."
 
 125
-00:08:17,366 --> 00:08:21,366
+00:08:17.366 --> 00:08:21.366
 "Enter your guess:". "Try 1" "Try 1" "Try 1". Great! Do you want to play
 
 126
-00:08:21,366 --> 00:08:25,366
-again? No. Now, we're not yet updating the try, and that's
+00:08:21.366 --> 00:08:25.366
+again? No. Now. we're not yet updating the try. and that's
 
 127
-00:08:25,366 --> 00:08:29,366
+00:08:25.366 --> 00:08:29.366
 because that's a more advance thing we haven't even done yet. We haven't even got a SubmitGuess()
 
 128
-00:08:29,366 --> 00:08:33,366
-method, and it's the SubmitGuess() method that is going to be updating
+00:08:29.366 --> 00:08:33.366
+method. and it's the SubmitGuess() method that is going to be updating
 
 129
-00:08:33,366 --> 00:08:37,366
+00:08:33.366 --> 00:08:37.366
 that try for us. OK. We need to make sure we submit valid guesses. We're not going to
 
 130
-00:08:37,366 --> 00:08:41,366
-penalize people for putting rubbish in, when we finally check this input. So,
+00:08:37.366 --> 00:08:41.366
+penalize people for putting rubbish in. when we finally check this input. So.
 
 131
-00:08:41,366 --> 00:08:45,366
-this is all I wanted you to do. Well done getting this far! We've written a couple of getters now,
+00:08:41.366 --> 00:08:45.366
+this is all I wanted you to do. Well done getting this far! We've written a couple of getters now.
 
 132
-00:08:45,366 --> 00:08:49,366
-for the first time, and there they are implemented. And in the next video,
+00:08:45.366 --> 00:08:49.366
+for the first time. and there they are implemented. And in the next video.
 
 133
-00:08:49,366 --> 00:08:53,366
-we're going to talk about the keyword called const, which is going to protect us from
+00:08:49.366 --> 00:08:53.366
+we're going to talk about the keyword called const. which is going to protect us from
 
 134
-00:08:53,366 --> 00:08:57,366
-doing anything naughty inside these functions, that are supposed to just return values. We're going to make
+00:08:53.366 --> 00:08:57.366
+doing anything naughty inside these functions. that are supposed to just return values. We're going to make
 
 135
-00:08:57,366 --> 00:09:00,599
+00:08:57.366 --> 00:09:00.599
 sure that's enforced. See you soon!
+

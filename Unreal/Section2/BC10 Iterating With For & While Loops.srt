@@ -1,495 +1,497 @@
+﻿WEBVTT
+
 1
-00:00:00,000 --> 00:00:04,000
+00:00:00.000 --> 00:00:04.000
 ...
 
 2
-00:00:04,000 --> 00:00:08,000
-So in this video, we're going to talk about why we need loops, when to use
+00:00:04.000 --> 00:00:08.000
+So in this video. we're going to talk about why we need loops. when to use
 
 3
-00:00:08,000 --> 00:00:12,000
-for vs. while. We'll talk about the syntax of a for loop, and
+00:00:08.000 --> 00:00:12.000
+for vs. while. We'll talk about the syntax of a for loop. and
 
 4
-00:00:12,000 --> 00:00:16,000
-then we will write a loop to repeat the game, so that at the end of it we
+00:00:12.000 --> 00:00:16.000
+then we will write a loop to repeat the game. so that at the end of it we
 
 5
-00:00:16,000 --> 00:00:20,000
-can have five separate plays of the game, with a little
+00:00:16.000 --> 00:00:20.000
+can have five separate plays of the game. with a little
 
 6
-00:00:20,000 --> 00:00:24,000
-bit nicer spacing, without having to write
+00:00:20.000 --> 00:00:24.000
+bit nicer spacing. without having to write
 
 7
-00:00:24,000 --> 00:00:28,633
+00:00:24.000 --> 00:00:28.633
 our function call five times. So let's get on with it!
 
 8
-00:00:28,633 --> 00:00:32,633
-So, it's all very well writing something twice but three times is no
+00:00:28.633 --> 00:00:32.633
+So. it's all very well writing something twice but three times is no
 
 9
-00:00:32,633 --> 00:00:36,633
-good, and we want to have at least a handful of guesses.
+00:00:32.633 --> 00:00:36.633
+good. and we want to have at least a handful of guesses.
 
 10
-00:00:36,633 --> 00:00:40,633
-In fact, later on the number of guesses is going to depend upon the
+00:00:36.633 --> 00:00:40.633
+In fact. later on the number of guesses is going to depend upon the
 
 11
-00:00:40,633 --> 00:00:44,633
-size of the word, so we need to do something called looping. So, so
+00:00:40.633 --> 00:00:44.633
+size of the word. so we need to do something called looping. So. so
 
 12
-00:00:44,633 --> 00:00:48,633
-far everything we've done has been straight line code, effectively. It's just been
+00:00:44.633 --> 00:00:48.633
+far everything we've done has been straight line code. effectively. It's just been
 
 13
-00:00:48,633 --> 00:00:52,633
-straight line code in statements, whether or not they've been inside
+00:00:48.633 --> 00:00:52.633
+straight line code in statements. whether or not they've been inside
 
 14
-00:00:52,633 --> 00:00:56,633
-functions or not is just a way of organizing them, but it's just a straight sequence through.
+00:00:52.633 --> 00:00:56.633
+functions or not is just a way of organizing them. but it's just a straight sequence through.
 
 15
-00:00:56,633 --> 00:01:00,633
-So, we're introducing the second fundamental way of writing code now, which is
+00:00:56.633 --> 00:01:00.633
+So. we're introducing the second fundamental way of writing code now. which is
 
 16
-00:01:00,633 --> 00:01:04,633
+00:01:00.633 --> 00:01:04.633
 looping or called iteration. Between straight line code iteration and
 
 17
-00:01:04,633 --> 00:01:08,633
-branching or conditionals, we'll be able to do everything, and then
+00:01:04.633 --> 00:01:08.633
+branching or conditionals. we'll be able to do everything. and then
 
 18
-00:01:08,633 --> 00:01:12,633
-beyond that is just icing! Anyway, so this is the second one, is iteration!
+00:01:08.633 --> 00:01:12.633
+beyond that is just icing! Anyway. so this is the second one. is iteration!
 
 19
-00:01:12,633 --> 00:01:16,633
-Now, there are two types of loops. One is called for and one is called while. We're going to concern ourselves
+00:01:12.633 --> 00:01:16.633
+Now. there are two types of loops. One is called for and one is called while. We're going to concern ourselves
 
 20
-00:01:16,633 --> 00:01:20,633
-with for, for the moment. How do we know
+00:01:16.633 --> 00:01:20.633
+with for. for the moment. How do we know
 
 21
-00:01:20,633 --> 00:01:24,633
-when to use each? Well, they can both do exactly the same thing. They can be
+00:01:20.633 --> 00:01:24.633
+when to use each? Well. they can both do exactly the same thing. They can be
 
 22
-00:01:24,633 --> 00:01:28,633
-converted to one another. So, let's pick a standard to keep ourselves sane. I'm going to go with this.
+00:01:24.633 --> 00:01:28.633
+converted to one another. So. let's pick a standard to keep ourselves sane. I'm going to go with this.
 
 23
-00:01:28,633 --> 00:01:32,633
-When you know what you're in for, you know at compile time how many times it's going to
+00:01:28.633 --> 00:01:32.633
+When you know what you're in for. you know at compile time how many times it's going to
 
 24
-00:01:32,633 --> 00:01:36,633
-loop, and let's use for. And when you may be looping for a while,
+00:01:32.633 --> 00:01:36.633
+loop. and let's use for. And when you may be looping for a while.
 
 25
-00:01:36,633 --> 00:01:40,633
-i.e. your not sure how many times it will loop until the program actually runs, then we'll
+00:01:36.633 --> 00:01:40.633
+i.e. your not sure how many times it will loop until the program actually runs. then we'll
 
 26
-00:01:40,633 --> 00:01:44,633
-use a while loop. So, we're going to start off with this user input, using a for, and we will
+00:01:40.633 --> 00:01:44.633
+use a while loop. So. we're going to start off with this user input. using a for. and we will
 
 27
-00:01:44,633 --> 00:01:48,633
-actually convert it to a while, later in the section, when we start to deal
+00:01:44.633 --> 00:01:48.633
+actually convert it to a while. later in the section. when we start to deal
 
 28
-00:01:48,633 --> 00:01:52,633
-with handling incorrect user input, because they don't want to be
+00:01:48.633 --> 00:01:52.633
+with handling incorrect user input. because they don't want to be
 
 29
-00:01:52,633 --> 00:01:56,633
-consuming a turn or try if they put the wrong input. But for now, we're not
+00:01:52.633 --> 00:01:56.633
+consuming a turn or try if they put the wrong input. But for now. we're not
 
 30
-00:01:56,633 --> 00:02:00,633
-checking their input, we're not validating anything, we're just going to take five
+00:01:56.633 --> 00:02:00.633
+checking their input. we're not validating anything. we're just going to take five
 
 31
-00:02:00,633 --> 00:02:04,633
-guesses from them regardless, so we're going to use a for loop.
+00:02:00.633 --> 00:02:04.633
+guesses from them regardless. so we're going to use a for loop.
 
 32
-00:02:04,633 --> 00:02:08,633
-So, the syntax of a for loop is like this.
+00:02:04.633 --> 00:02:08.633
+So. the syntax of a for loop is like this.
 
 33
-00:02:08,633 --> 00:02:12,633
-for, open brackets, some initialization, condition,
+00:02:08.633 --> 00:02:12.633
+for. open brackets. some initialization. condition.
 
 34
-00:02:12,633 --> 00:02:16,633
-i.e. you create yourself a variable. In fact, let me put the whole lot on the
+00:02:12.633 --> 00:02:16.633
+i.e. you create yourself a variable. In fact. let me put the whole lot on the
 
 35
-00:02:16,633 --> 00:02:20,633
-screen, it's going to be a lot easier. So, the actual hard implementation is there at the
+00:02:16.633 --> 00:02:20.633
+screen. it's going to be a lot easier. So. the actual hard implementation is there at the
 
 36
-00:02:20,633 --> 00:02:24,633
-bottom, and the top is the pattern for it. The pattern comes from www.cplusplus.com.
+00:02:20.633 --> 00:02:24.633
+bottom. and the top is the pattern for it. The pattern comes from www.cplusplus.com.
 
 37
-00:02:24,633 --> 00:02:28,633
+00:02:24.633 --> 00:02:28.633
 It's actually not a particularly precise definition of how a for loop works.
 
 38
-00:02:28,633 --> 00:02:32,633
-You'll get a better one there at the Microsoft link. But anyway, let's talk through this guy.
+00:02:28.633 --> 00:02:32.633
+You'll get a better one there at the Microsoft link. But anyway. let's talk through this guy.
 
 39
-00:02:32,633 --> 00:02:36,633
-So, for some initialization, so i.e. I'm going to create
+00:02:32.633 --> 00:02:36.633
+So. for some initialization. so i.e. I'm going to create
 
 40
-00:02:36,633 --> 00:02:40,633
-an integer counter and I'm going to start it with a value of 1. So, for
+00:02:36.633 --> 00:02:40.633
+an integer counter and I'm going to start it with a value of 1. So. for
 
 41
-00:02:40,633 --> 00:02:44,633
-(int count = 1 for example. Semicolon, that's just how it works. Then,
+00:02:40.633 --> 00:02:44.633
+(int count = 1 for example. Semicolon. that's just how it works. Then.
 
 42
-00:02:44,633 --> 00:02:48,633
-the condition. So, the condition that you want to adhere to is that the count is less than
+00:02:44.633 --> 00:02:48.633
+the condition. So. the condition that you want to adhere to is that the count is less than
 
 43
-00:02:48,633 --> 00:02:52,633
-some limit, for example, which may be 5 in our case.
+00:02:48.633 --> 00:02:52.633
+some limit. for example. which may be 5 in our case.
 
 44
-00:02:52,633 --> 00:02:56,633
-Then, how do you increase the counter? Well, count++. count++ is
+00:02:52.633 --> 00:02:56.633
+Then. how do you increase the counter? Well. count++. count++ is
 
 45
-00:02:56,633 --> 00:03:00,633
-a shorthand way of saying count = count +1, it just adds one to the counter.
+00:02:56.633 --> 00:03:00.633
+a shorthand way of saying count = count +1. it just adds one to the counter.
 
 46
-00:03:00,633 --> 00:03:04,633
-And then, <the code you want to repeat>. Now, the other interesting thing about this is, they define it like
+00:03:00.633 --> 00:03:04.633
+And then. <the code you want to repeat>. Now. the other interesting thing about this is. they define it like
 
 47
-00:03:04,633 --> 00:03:08,633
-this statement, and I've put code blocks because generally we
+00:03:04.633 --> 00:03:08.633
+this statement. and I've put code blocks because generally we
 
 48
-00:03:08,633 --> 00:03:12,633
-repeat more than one thing. And actually, this whole thing between these curly braces is a
+00:03:08.633 --> 00:03:12.633
+repeat more than one thing. And actually. this whole thing between these curly braces is a
 
 49
-00:03:12,633 --> 00:03:16,633
-statement. Remember, we were saying before that another way of finishing off a statement
+00:03:12.633 --> 00:03:16.633
+statement. Remember. we were saying before that another way of finishing off a statement
 
 50
-00:03:16,633 --> 00:03:20,633
-is to close the curly braces, you see. So, just start to get into
+00:03:16.633 --> 00:03:20.633
+is to close the curly braces. you see. So. just start to get into
 
 51
-00:03:20,633 --> 00:03:24,633
+00:03:20.633 --> 00:03:24.633
 your mind that a single statement is basically logically
 
 52
-00:03:24,633 --> 00:03:28,633
-the same, as far as something like for is concerned, as a code block, i.e. a set of curly
+00:03:24.633 --> 00:03:28.633
+the same. as far as something like for is concerned. as a code block. i.e. a set of curly
 
 53
-00:03:28,633 --> 00:03:32,633
-braces. OK cool! So, given that you
+00:03:28.633 --> 00:03:32.633
+braces. OK cool! So. given that you
 
 54
-00:03:32,633 --> 00:03:36,633
-know the syntax of the for loop, I think you're ready to wrap these
+00:03:32.633 --> 00:03:36.633
+know the syntax of the for loop. I think you're ready to wrap these
 
 55
-00:03:36,633 --> 00:03:40,633
-guys in a for loop. So, why don't you give that a crack!
+00:03:36.633 --> 00:03:40.633
+guys in a for loop. So. why don't you give that a crack!
 
 56
-00:03:40,633 --> 00:03:44,633
-Here we go! Make the game take five guesses. You know what you've learned so far, to make the game
+00:03:40.633 --> 00:03:44.633
+Here we go! Make the game take five guesses. You know what you've learned so far. to make the game
 
 57
-00:03:44,633 --> 00:03:48,633
+00:03:44.633 --> 00:03:48.633
 take five guesses in a row. GetGuess() should appear as a function called only
 
 58
-00:03:48,633 --> 00:03:52,633
-once inside the for loop, so we don't just keep copying and pasting the code. And then,
+00:03:48.633 --> 00:03:52.633
+once inside the for loop. so we don't just keep copying and pasting the code. And then.
 
 59
-00:03:52,633 --> 00:03:56,633
-as a bonus, remember what I said about magic numbers?
+00:03:52.633 --> 00:03:56.633
+as a bonus. remember what I said about magic numbers?
 
 60
-00:03:56,633 --> 00:04:00,633
-OK pause the video, have a go at making this print out, and ask for five guesses and I'll see you soon!
+00:03:56.633 --> 00:04:00.633
+OK pause the video. have a go at making this print out. and ask for five guesses and I'll see you soon!
 
 61
-00:04:00,633 --> 00:04:04,633
-Oh, and be brave. Just before you come back and watch my solution, why not
+00:04:00.633 --> 00:04:04.633
+Oh. and be brave. Just before you come back and watch my solution. why not
 
 62
-00:04:04,633 --> 00:04:08,633
+00:04:04.633 --> 00:04:08.633
 take a screenshot and paste in the discussions the way you did it.
 
 63
-00:04:08,633 --> 00:04:12,633
-OK welcome back! So, let's take a look at how I'm going to do
+00:04:08.633 --> 00:04:12.633
+OK welcome back! So. let's take a look at how I'm going to do
 
 64
-00:04:12,633 --> 00:04:16,633
-this! I said we only need one of these, so for ().
+00:04:12.633 --> 00:04:16.633
+this! I said we only need one of these. so for ().
 
 65
-00:04:16,633 --> 00:04:20,633
-Now, the syntax! Let's immediately get all the structure in place.
+00:04:16.633 --> 00:04:20.633
+Now. the syntax! Let's immediately get all the structure in place.
 
 66
-00:04:20,633 --> 00:04:24,633
-There we go! OK! Now,
+00:04:20.633 --> 00:04:24.633
+There we go! OK! Now.
 
 67
-00:04:24,633 --> 00:04:28,633
-we can change the way that Visual Basic does this, by the way, but I'm going to start
+00:04:24.633 --> 00:04:28.633
+we can change the way that Visual Basic does this. by the way. but I'm going to start
 
 68
-00:04:28,633 --> 00:04:32,633
-working towards this standard with my braces. OK so, for (int
+00:04:28.633 --> 00:04:32.633
+working towards this standard with my braces. OK so. for (int
 
 69
-00:04:32,633 --> 00:04:36,633
-count). It's very common, by the way, to use i and i
+00:04:32.633 --> 00:04:36.633
+count). It's very common. by the way. to use i and i
 
 70
-00:04:36,633 --> 00:04:40,633
-or j or k , they're OK. Excuse the pun! They're OK
+00:04:36.633 --> 00:04:40.633
+or j or k . they're OK. Excuse the pun! They're OK
 
 71
-00:04:40,633 --> 00:04:44,633
-until you start getting confused, and then, you use something more complex. But for now, I'm going to use
+00:04:40.633 --> 00:04:44.633
+until you start getting confused. and then. you use something more complex. But for now. I'm going to use
 
 72
-00:04:44,633 --> 00:04:48,633
-count, because it's more descriptive. for (int count) = 1;
+00:04:44.633 --> 00:04:48.633
+count. because it's more descriptive. for (int count) = 1;
 
 73
-00:04:48,633 --> 00:04:52,633
-count is < less than or = to now 5,
+00:04:48.633 --> 00:04:52.633
+count is < less than or = to now 5.
 
 74
-00:04:52,633 --> 00:04:56,633
-but that's a magic number! We'll replace that in a minute! OK,
+00:04:52.633 --> 00:04:56.633
+but that's a magic number! We'll replace that in a minute! OK.
 
 75
-00:04:56,633 --> 00:05:00,633
-count++) Let's check it works, and then we'll deal with this magic number.
+00:04:56.633 --> 00:05:00.633
+count++) Let's check it works. and then we'll deal with this magic number.
 
 76
-00:05:00,633 --> 00:05:04,633
-Why is it a magic number? Well, because it's a number that's above 2 and it's in our code,
+00:05:00.633 --> 00:05:04.633
+Why is it a magic number? Well. because it's a number that's above 2 and it's in our code.
 
 77
-00:05:04,633 --> 00:05:08,633
-so it's a magic number. OK, let's have a look!
+00:05:04.633 --> 00:05:08.633
+so it's a magic number. OK. let's have a look!
 
 78
-00:05:08,633 --> 00:05:12,633
-It should ask us for 5 guesses. 1, 2,
+00:05:08.633 --> 00:05:12.633
+It should ask us for 5 guesses. 1. 2.
 
 79
-00:05:12,633 --> 00:05:16,633
-3, 4, 5, fantastic! Look I want to
+00:05:12.633 --> 00:05:16.633
+3. 4. 5. fantastic! Look I want to
 
 80
-00:05:16,633 --> 00:05:20,633
-space these guys out! I can't see what's going on! So, I'm going to GetGuess()
+00:05:16.633 --> 00:05:20.633
+space these guys out! I can't see what's going on! So. I'm going to GetGuess()
 
 81
-00:05:20,633 --> 00:05:24,633
-and PrintBack(). I'm also then going to cout and end line myself,
+00:05:20.633 --> 00:05:24.633
+and PrintBack(). I'm also then going to cout and end line myself.
 
 82
-00:05:24,633 --> 00:05:28,633
-after every one of those, just to space it out. 1, 2,
+00:05:24.633 --> 00:05:28.633
+after every one of those. just to space it out. 1. 2.
 
 83
-00:05:28,633 --> 00:05:32,633
-3, 4, fantastic! 5, we actually have some code running!
+00:05:28.633 --> 00:05:32.633
+3. 4. fantastic! 5. we actually have some code running!
 
 84
-00:05:32,633 --> 00:05:36,633
-Great! Now, don't like this magic number, naughty naughty! So, what are we going to do about
+00:05:32.633 --> 00:05:36.633
+Great! Now. don't like this magic number. naughty naughty! So. what are we going to do about
 
 85
-00:05:36,633 --> 00:05:40,633
-that! Well, what did we do about it before, is the question. Before, we defined a constant
+00:05:36.633 --> 00:05:40.633
+that! Well. what did we do about it before. is the question. Before. we defined a constant
 
 86
-00:05:40,633 --> 00:05:44,633
-expression of type integer, and we called it WORLD_LENGTH and made it 9. Well,
+00:05:40.633 --> 00:05:44.633
+expression of type integer. and we called it WORLD_LENGTH and made it 9. Well.
 
 87
-00:05:44,633 --> 00:05:48,633
-let's do a very similar thing here! What needs it? The for loop, so we might as well put it right above
+00:05:44.633 --> 00:05:48.633
+let's do a very similar thing here! What needs it? The for loop. so we might as well put it right above
 
 88
-00:05:48,633 --> 00:05:52,633
-the for loop. It's no longer called WORLD_LENGTH but it's... Hmmm, I don't know?
+00:05:48.633 --> 00:05:52.633
+the for loop. It's no longer called WORLD_LENGTH but it's... Hmmm. I don't know?
 
 89
-00:05:52,633 --> 00:05:56,633
-What do we call it? NUMBER_ OF_TURNS, something like that! Yeah!
+00:05:52.633 --> 00:05:56.633
+What do we call it? NUMBER_ OF_TURNS. something like that! Yeah!
 
 90
-00:05:56,633 --> 00:06:00,633
-It's long but you only have to type it once, remember, and it
+00:05:56.633 --> 00:06:00.633
+It's long but you only have to type it once. remember. and it
 
 91
-00:06:00,633 --> 00:06:04,633
-saves you typing a comment, doesn't it. Number of turns equals 5,
+00:06:00.633 --> 00:06:04.633
+saves you typing a comment. doesn't it. Number of turns equals 5.
 
 92
-00:06:04,633 --> 00:06:08,633
-and now, the reason I say you only have to write it once is because as soon as you start typing it again,
+00:06:04.633 --> 00:06:08.633
+and now. the reason I say you only have to write it once is because as soon as you start typing it again.
 
 93
-00:06:08,633 --> 00:06:12,633
-it autocompletes. Cool! So, we have a constant expression, because it's known at
+00:06:08.633 --> 00:06:12.633
+it autocompletes. Cool! So. we have a constant expression. because it's known at
 
 94
-00:06:12,633 --> 00:06:16,633
-compile time. It's an integer, number of turns five. There it is! So,
+00:06:12.633 --> 00:06:16.633
+compile time. It's an integer. number of turns five. There it is! So.
 
 95
-00:06:16,633 --> 00:06:21,600
-our main() thing prints the intro. Now, I need another comment. In fact, I'm a little naughty, I should have put a
+00:06:16.633 --> 00:06:21.600
+our main() thing prints the intro. Now. I need another comment. In fact. I'm a little naughty. I should have put a
 
 96
-00:06:21,600 --> 00:06:21,800
+00:06:21.600 --> 00:06:21.800
 ...
 
 97
-00:06:21,800 --> 00:06:21,833
+00:06:21.800 --> 00:06:21.833
 ...
 
 98
-00:06:21,833 --> 00:06:25,800
+00:06:21.833 --> 00:06:25.800
 comment before I even started writing anything but that's OK. Catch yourself and
 
 99
-00:06:25,800 --> 00:06:29,800
-just do it! So, "loop
+00:06:25.800 --> 00:06:29.800
+just do it! So. "loop
 
 100
-00:06:29,800 --> 00:06:33,800
+00:06:29.800 --> 00:06:33.800
 for the number of turns
 
 101
-00:06:33,800 --> 00:06:37,766
-asking for guesses". Now, it's not
+00:06:33.800 --> 00:06:37.766
+asking for guesses". Now. it's not
 
 102
-00:06:37,766 --> 00:06:41,800
-verified. It's not verifying any of these guesses or anything but that's fine! So, our main() method still
+00:06:37.766 --> 00:06:41.800
+verified. It's not verifying any of these guesses or anything but that's fine! So. our main() method still
 
 103
-00:06:41,800 --> 00:06:45,800
-looks digestible. If it gets any more complicated than this, we'll continue to refactor it out,
+00:06:41.800 --> 00:06:45.800
+looks digestible. If it gets any more complicated than this. we'll continue to refactor it out.
 
 104
-00:06:45,800 --> 00:06:49,800
-like we could take this lot out. OK, let's just check it works,
+00:06:45.800 --> 00:06:49.800
+like we could take this lot out. OK. let's just check it works.
 
 105
-00:06:49,800 --> 00:06:53,833
-or hit that key very loud. One, two, three,
+00:06:49.800 --> 00:06:53.833
+or hit that key very loud. One. two. three.
 
 106
-00:06:53,833 --> 00:06:57,833
-four. [Laughs] I can't spell four. Five, OK great!
+00:06:53.833 --> 00:06:57.833
+four. [Laughs] I can't spell four. Five. OK great!
 
 107
-00:06:57,833 --> 00:07:01,866
-When we get an extra space here, we'll worry about all that type of stuff later.
+00:06:57.833 --> 00:07:01.866
+When we get an extra space here. we'll worry about all that type of stuff later.
 
 108
-00:07:01,866 --> 00:07:05,833
-Great! So, we're doing pretty well! Let me just look through my code, before we leave this
+00:07:01.866 --> 00:07:05.833
+Great! So. we're doing pretty well! Let me just look through my code. before we leave this
 
 109
-00:07:05,833 --> 00:07:09,800
-video and make things consistent. So, we come in, we print the intro, we loop around,
+00:07:05.833 --> 00:07:09.800
+video and make things consistent. So. we come in. we print the intro. we loop around.
 
 110
-00:07:09,800 --> 00:07:13,800
-put an extra space in, which we actually don't even need
+00:07:09.800 --> 00:07:13.800
+put an extra space in. which we actually don't even need
 
 111
-00:07:13,800 --> 00:07:17,833
-anymore. I think I can get rid of it, because it's reliably going to print a space here.
+00:07:13.800 --> 00:07:17.833
+anymore. I think I can get rid of it. because it's reliably going to print a space here.
 
 112
-00:07:17,833 --> 00:07:21,800
-Then, the PrintIntro() is something that introduces the game.
+00:07:17.833 --> 00:07:21.800
+Then. the PrintIntro() is something that introduces the game.
 
 113
-00:07:21,800 --> 00:07:25,800
-I'm going to change to the syntax we're aiming for, with the braces like that.
+00:07:21.800 --> 00:07:25.800
+I'm going to change to the syntax we're aiming for. with the braces like that.
 
 114
-00:07:25,800 --> 00:07:29,766
-OK. OK, our code is looking alright! It's looking
+00:07:25.800 --> 00:07:29.766
+OK. OK. our code is looking alright! It's looking
 
 115
-00:07:29,766 --> 00:07:33,733
-alright! Fantastic! So, I don't really like the
+00:07:29.766 --> 00:07:33.733
+alright! Fantastic! So. I don't really like the
 
 116
-00:07:33,733 --> 00:07:37,733
-the way these comments work here, so I'm just going to put that comment back. It's fine to just
+00:07:33.733 --> 00:07:37.733
+the way these comments work here. so I'm just going to put that comment back. It's fine to just
 
 117
-00:07:37,733 --> 00:07:41,733
-keep fiddling with your code, until you like the look of it. We don't really need to explain this silly
+00:07:37.733 --> 00:07:41.733
+keep fiddling with your code. until you like the look of it. We don't really need to explain this silly
 
 118
-00:07:41,733 --> 00:07:45,733
-named method, especially if we're going to change it a bit later on.
+00:07:41.733 --> 00:07:45.733
+named method. especially if we're going to change it a bit later on.
 
 119
-00:07:45,733 --> 00:07:49,766
-PrintIntro() good! OK, so I'm looking at the code and making sure it's all indented sensibly,
+00:07:45.733 --> 00:07:49.766
+PrintIntro() good! OK. so I'm looking at the code and making sure it's all indented sensibly.
 
 120
-00:07:49,766 --> 00:07:53,733
-and that it just reads well and makes sense. Do that regularly, keep y our code
+00:07:49.766 --> 00:07:53.733
+and that it just reads well and makes sense. Do that regularly. keep y our code
 
 121
-00:07:53,733 --> 00:07:57,733
-tight and tidy. You want to be having plenty of mental bandwidth, for when things
+00:07:53.733 --> 00:07:57.733
+tight and tidy. You want to be having plenty of mental bandwidth. for when things
 
 122
-00:07:57,733 --> 00:08:01,766
-go wrong. You don't want to struggle to understand your own code. OK, final check of
+00:07:57.733 --> 00:08:01.766
+go wrong. You don't want to struggle to understand your own code. OK. final check of
 
 123
-00:08:01,766 --> 00:08:05,800
+00:08:01.766 --> 00:08:05.800
 running it! Great! See you in
 
 124
-00:08:05,800 --> 00:08:08,700
+00:08:05.800 --> 00:08:08.700
 the next video!

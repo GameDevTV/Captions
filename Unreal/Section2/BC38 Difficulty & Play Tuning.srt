@@ -1,0 +1,578 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Welcome to Difficulty
+
+2
+00:00:04.000 --> 00:00:08.000
+and Play Testing! In this video. we're going to create a facility
+
+3
+00:00:08.000 --> 00:00:12.000
+to map the length of the words to the maximum number of
+
+4
+00:00:12.000 --> 00:00:16.000
+tries. so that we can change our hidden word quickly and easily and have an appropriate number
+
+5
+00:00:16.000 --> 00:00:20.000
+of tries. And we're going to discover what that appropriate number of tries is
+
+6
+00:00:20.000 --> 00:00:24.000
+by doing some more play testing. and that is effectively what is called
+
+7
+00:00:24.000 --> 00:00:28.000
+play tuning. tuning the difficulty of our game. Now. why do we want to tune the difficulty
+
+8
+00:00:28.000 --> 00:00:32.000
+of our game? Well. if you do a Google image search for "flow channel". you'll get a bunch
+
+9
+00:00:32.000 --> 00:00:36.000
+of different results but most of them will be relevant. So. here's an example of the diagram! Let's
+
+10
+00:00:36.000 --> 00:00:40.000
+imagine we start off with a low challenge and a very low word length. If we just
+
+11
+00:00:40.000 --> 00:00:44.000
+increase the word length. without adjusting the number of tries.
+
+12
+00:00:44.000 --> 00:00:48.000
+then the game could get too difficult. If you had to say a three letter word with three tries
+
+13
+00:00:48.000 --> 00:00:52.000
+but then you went up to a ten letter word with only three tries. it would just create anxiety. it'd
+
+14
+00:00:52.000 --> 00:00:56.000
+be nearly impossible to play. Similarly. if we just increased the number of tries too
+
+15
+00:00:56.000 --> 00:01:00.000
+high. without increasing the word length. then we are going to just get a very
+
+16
+00:01:00.000 --> 00:01:04.000
+boring game. You don't need 100 tries to guess a 3 letter word.
+
+17
+00:01:04.000 --> 00:01:08.000
+So. the idea of the flow channel is you balance those two. So. as our word gets
+
+18
+00:01:08.000 --> 00:01:12.000
+longer the challenge goes up. Then. we need to also
+
+19
+00:01:12.000 --> 00:01:16.000
+increase the number of tries. so that as the player's skill goes up.
+
+20
+00:01:16.000 --> 00:01:20.000
+they can increase the word length. up at the challenge axis.
+
+21
+00:01:20.000 --> 00:01:24.000
+and still stay in flow. Otherwise. as their skills goes up
+
+22
+00:01:24.000 --> 00:01:28.000
+and they feel like increasing the word length. then the challenge won't actually
+
+23
+00:01:28.000 --> 00:01:32.000
+get any higher. or it'd get high too fast. if
+
+24
+00:01:32.000 --> 00:01:36.000
+the number of tries doesn't change. I hope that makes sense. It's relatively
+
+25
+00:01:36.000 --> 00:01:40.000
+simple. you just need to be careful about what's on each axis. The basic point is to
+
+26
+00:01:40.000 --> 00:01:43.100
+keep it fun. by keeping it challenging.
+
+27
+00:01:43.100 --> 00:01:47.100
+So. we are really on the home straight here. but there's one glaring omission
+
+28
+00:01:47.100 --> 00:01:51.100
+which is there is no difficulty tuning whatsoever. We
+
+29
+00:01:51.100 --> 00:01:55.100
+have a six letter isogram. in this case. and I've arbitrarily set my number of tries
+
+30
+00:01:55.100 --> 00:01:59.100
+to three. which is. of course. impossibly difficult. So. let's
+
+31
+00:01:59.100 --> 00:02:03.100
+implement a very simple system. so when we change the word we change the
+
+32
+00:02:03.100 --> 00:02:07.100
+number of tries. And I'm going to help you implement that now.
+
+33
+00:02:07.100 --> 00:02:11.100
+So. guess what we could use? We could use a map again. right!
+
+34
+00:02:11.100 --> 00:02:15.100
+So. how are we going to do that? Well. where would we code this?
+
+35
+00:02:15.100 --> 00:02:19.100
+Well. under GetMaxTries() would make sense. right. where we implement
+
+36
+00:02:19.100 --> 00:02:23.100
+GetMaxTries. which we declare here and then implement
+
+37
+00:02:23.100 --> 00:02:27.100
+right here. as a simple return. Why don't we make that a little
+
+38
+00:02:27.100 --> 00:02:31.333
+more complex and use another map. So. I'm going to move it down. just above the Reset() method.
+
+39
+00:02:31.333 --> 00:02:35.100
+just for simplicity. I'm going to remind myself that this thing at the top here
+
+40
+00:02:35.100 --> 00:02:39.100
+is the "default
+
+41
+00:02:39.100 --> 00:02:43.100
+constructor". because it's quite easy to say. why do we need that. let's get rid of it! No no. that is the
+
+42
+00:02:43.100 --> 00:02:47.100
+default constructor. it's called when the object is created. And here's the method.
+
+43
+00:02:47.100 --> 00:02:51.100
+So. rather than returning max tries. why don't we flesh this guy out a little bit.
+
+44
+00:02:51.100 --> 00:02:55.100
+How about we make another TMap. and how about it's of type
+
+45
+00:02:55.100 --> 00:02:59.100
+int32 to int32.
+
+46
+00:02:59.100 --> 00:03:03.100
+And we call it. something like. WordLength
+
+47
+00:03:03.100 --> 00:03:07.100
+ToMax
+
+48
+00:03:07.100 --> 00:03:11.100
+Tries; nice and descriptive. And we can actually use
+
+49
+00:03:11.100 --> 00:03:15.100
+something here called Braced Initializer Syntax. So. rather than
+
+50
+00:03:15.100 --> 00:03:19.100
+going through and doing inserts. there is a syntax in C++ which
+
+51
+00:03:19.100 --> 00:03:23.100
+uses braces to initialize. Now. you can actually use braces to
+
+52
+00:03:23.100 --> 00:03:27.100
+initialize this anywhere. You could. for example. instead of say int32 Max_Tries
+
+53
+00:03:27.100 --> 00:03:31.100
+= 3. you could say = braces 3. or you could
+
+54
+00:03:31.100 --> 00:03:35.100
+leave out the =. It's pretty redundant when it comes to single elements
+
+55
+00:03:35.100 --> 00:03:39.100
+like this. although it is considered by many to be good practice.
+
+56
+00:03:39.100 --> 00:03:43.100
+but when it comes to a collection of things like this. like a map
+
+57
+00:03:43.100 --> 00:03:47.100
+of the WordLength to the maximum tries.
+
+58
+00:03:47.100 --> 00:03:51.100
+this is going to be a really easy way to initialize this. Let me show you
+
+59
+00:03:51.100 --> 00:03:55.100
+how we do it! So. I'm going to start assuming that the
+
+60
+00:03:55.100 --> 00:03:59.100
+shortest word we have is say three. and I'm just going to give them all five
+
+61
+00:03:59.100 --> 00:04:03.100
+tries. because it's going to be your challenge to find a reasonable mapping. So. for a four
+
+62
+00:04:03.100 --> 00:04:07.100
+letter word we'll give them five tries and for a five letter word we'll give
+
+63
+00:04:07.100 --> 00:04:11.100
+them five tries and for a six letter word we'll give them five
+
+64
+00:04:11.100 --> 00:04:15.100
+tries. Very boring. of course. you wouldn't do this. but it's a starting
+
+65
+00:04:15.100 --> 00:04:19.100
+point. I'm trying to get the data structure in place. If you've got that in place.
+
+66
+00:04:19.100 --> 00:04:23.100
+that maps the WordLength to the MaxTries. WordLength Max
+
+67
+00:04:23.100 --> 00:04:27.100
+Tries. WordLength MaxTries. Then. you can. with a bit more consistent
+
+68
+00:04:27.100 --> 00:04:31.100
+spacing. very simply return this. of course.
+
+69
+00:04:31.100 --> 00:04:35.100
+We can just return now.
+
+70
+00:04:35.100 --> 00:04:39.100
+small r. WordLength
+
+71
+00:04:39.100 --> 00:04:43.100
+ToMaxTries. Remember. use square brackets to access the elements.
+
+72
+00:04:43.100 --> 00:04:47.100
+and then. we're going to call upon My
+
+73
+00:04:47.100 --> 00:04:51.100
+HiddenWord.length().
+
+74
+00:04:51.100 --> 00:04:55.100
+Can you see what we're doing there? We're passing in. we're accessing the element
+
+75
+00:04:55.100 --> 00:04:59.100
+by this first pair in the mapping.
+
+76
+00:04:59.100 --> 00:05:03.100
+by the WordLength. and it will return us this here. So now.
+
+77
+00:05:03.100 --> 00:05:07.100
+GetMaxTries does that. Fantastic! So. with a six letter word. well with
+
+78
+00:05:07.100 --> 00:05:11.100
+all of them we're expecting a return value of five tries.
+
+79
+00:05:11.100 --> 00:05:15.100
+which we get there. If I was to change this to 15 or something conspicuous.
+
+80
+00:05:15.100 --> 00:05:19.100
+as a test. then I get 15 tries!
+
+81
+00:05:19.100 --> 00:05:23.100
+And if I was to say go back down to a
+
+82
+00:05:23.100 --> 00:05:27.100
+five letter word. I like planet because it makes so many sub-words. plane and plan.
+
+83
+00:05:27.100 --> 00:05:31.100
+Here you go. 5! So. it does appear to be reading this properly. and it's a very simple method.
+
+84
+00:05:31.100 --> 00:05:35.100
+and. of course. what it means is we no longer need here to
+
+85
+00:05:35.100 --> 00:05:39.100
+have MyMaxTries. We just don't need that.
+
+86
+00:05:39.100 --> 00:05:43.100
+as data anymore. because the data is stored here right inside the method
+
+87
+00:05:43.100 --> 00:05:47.100
+that returns the number of tries. It's the only place we need it. so let's keep it
+
+88
+00:05:47.100 --> 00:05:51.100
+tight. right next to where we use it. and then. we never see it again and we never have access to it
+
+89
+00:05:51.100 --> 00:05:55.100
+again. So. similarly down here. we don't need a constant for MyMaxTries.
+
+90
+00:05:55.100 --> 00:05:59.100
+We don't even need that there. so we can just go
+
+91
+00:05:59.100 --> 00:06:03.100
+HIDDEN_WORD. HIDDEN_WORD. MyCurrentTry. that's the initialization.
+
+92
+00:06:03.100 --> 00:06:07.100
+All of the stuff about getting max tries is here. and we've
+
+93
+00:06:07.100 --> 00:06:11.100
+simplified our code. removing lines actually. whilst still
+
+94
+00:06:11.100 --> 00:06:15.100
+improving the functionality. So. pretty cool! What I want you to do now
+
+95
+00:06:15.100 --> 00:06:19.100
+is to. map your word length to your max tries. Populate your word length max tries
+
+96
+00:06:19.100 --> 00:06:23.100
+map. and write the code I just wrote. if you haven't done it already. Do more play
+
+97
+00:06:23.100 --> 00:06:27.100
+testing. to find the sweet spot for each word length. Ideally with a couple of different
+
+98
+00:06:27.100 --> 00:06:31.100
+people. What we want here is the word length
+
+99
+00:06:31.100 --> 00:06:35.100
+determines the difficulty of the game. and then. at a given word length. like five letters.
+
+100
+00:06:35.100 --> 00:06:39.100
+it's a fixed difficulty. In the next version of the game. in the next section.
+
+101
+00:06:39.100 --> 00:06:43.100
+we may add another dimension. so that at a given word length you can even choose the number of tries.
+
+102
+00:06:43.100 --> 00:06:47.100
+but for now. let's keep it simple. Do this for at least four to six letter words.
+
+103
+00:06:47.100 --> 00:06:51.100
+map at least four to six. I'm probably going to map three to seven letter words.
+
+104
+00:06:51.100 --> 00:06:55.100
+Optionally. but this is only a bonus option and only if you're really comfortable with what you're doing. let the
+
+105
+00:06:55.100 --> 00:06:59.100
+user select their word lengths. You could have a map of words. right?
+
+106
+00:06:59.100 --> 00:07:03.100
+You could say. if we have a four letter word it's this and a five letter word it's this and a six letter word it's the other.
+
+107
+00:07:03.100 --> 00:07:07.100
+But I'm not even going to show you the solution to that. so unless you're confident and you want to test it
+
+108
+00:07:07.100 --> 00:07:11.100
+yourself. by having it work then don't do it.
+
+109
+00:07:11.100 --> 00:07:15.100
+but if you want an extra challenge go ahead and do that and test it works yourself. It's using all existing
+
+110
+00:07:15.100 --> 00:07:19.100
+knowledge. So. see you in a moment!
+
+111
+00:07:19.100 --> 00:07:23.100
+Welcome back! So. through playing the game multiple times. all be it with my wife who's
+
+112
+00:07:23.100 --> 00:07:27.100
+quite good at these games. I came up with 4 tries is enough for a 3 letter word.
+
+113
+00:07:27.100 --> 00:07:31.100
+7 tries is enough for a 4 letter word. You need about 10
+
+114
+00:07:31.100 --> 00:07:35.100
+tries. I think. for a 5 letter word. Maybe 15
+
+115
+00:07:35.100 --> 00:07:39.100
+tries. when you get to a 6 letter word. and I think finally. we'll
+
+116
+00:07:39.100 --> 00:07:43.100
+just go for a 7 letter word. at which point I haven't spent a lot of time testing this one.
+
+117
+00:07:43.100 --> 00:07:47.100
+but I think 20 tries may be enough. So. here we have a map!
+
+118
+00:07:47.100 --> 00:07:51.100
+Great! And let's just check "plane". Well. let's just
+
+119
+00:07:51.100 --> 00:07:55.100
+work through "plan". PLA should come out at 3. I'm only going to test a couple of these.
+
+120
+00:07:55.100 --> 00:07:59.100
+4 rather. Yeah. 3 letter word gets 4 tries.
+
+121
+00:07:59.100 --> 00:08:03.100
+that's correct! And let's just go up a couple p l a n
+
+122
+00:08:03.100 --> 00:08:07.100
+e. that's 5. It should give me 10!
+
+123
+00:08:07.100 --> 00:08:11.100
+And it does. 10 tries! Let's also make sure that those 10 tries
+
+124
+00:08:11.100 --> 00:08:15.100
+work. so p l a n. I don't know. k or something. "plank"
+
+125
+00:08:15.100 --> 00:08:19.100
+"plank" "plank" "plank". I should have done this in the shorter one. I'm going to do
+
+126
+00:08:19.100 --> 00:08:23.100
+a shorter one. But frankly. is there any need? So. my
+
+127
+00:08:23.100 --> 00:08:27.100
+temptation there is to go and test that the game ends. but the game will end and I'm
+
+128
+00:08:27.100 --> 00:08:31.100
+going to stay confident in that. because we have only changed the
+
+129
+00:08:31.100 --> 00:08:35.100
+inside of GetMaxTries(). which still returns an int32 and all of the other logic hasn't
+
+130
+00:08:35.100 --> 00:08:39.100
+changed. So. I'm confident it'll work. and I'm not even going to test it. Is
+
+131
+00:08:39.100 --> 00:08:43.100
+that a good practice. isn't that? Is that a bad practice? Difficult to say right. because
+
+132
+00:08:43.100 --> 00:08:47.100
+we are very confident that we've only made a local change here.
+
+133
+00:08:47.100 --> 00:08:51.100
+In a commercial product. you may have automated tests in place. which would check this
+
+134
+00:08:51.100 --> 00:08:55.100
+for you. What is the correct kind of gut feel here?
+
+135
+00:08:55.100 --> 00:08:59.100
+The gut feel is. if you're in doubt check it. So. because that's what
+
+136
+00:08:59.100 --> 00:09:03.100
+I've said. I am going to go and check it now. but I'm going to go and check it with a three letter word and make sure
+
+137
+00:09:03.100 --> 00:09:07.100
+we only get four tries. p l a... No. p l d.
+
+138
+00:09:07.100 --> 00:09:11.100
+p l d. p l d. p l d. p l d.
+
+139
+00:09:11.100 --> 00:09:15.100
+and don't play again! Great! I'm going to leave this as
+
+140
+00:09:15.100 --> 00:09:19.100
+"plane" I think and that's enough! So. fantastic! We now have a difficulty
+
+141
+00:09:19.100 --> 00:09:23.100
+table or at least a way of selecting different word lengths. At least hard
+
+142
+00:09:23.100 --> 00:09:27.100
+coding different word lengths. As I said. it was a optional extra for you to ask the user for
+
+143
+00:09:27.100 --> 00:09:31.100
+word length. and you would have to create a couple more methods to map word lengths to
+
+144
+00:09:31.100 --> 00:09:35.100
+given words. So. well done. and I'll see you in a moment!
+
