@@ -1,0 +1,471 @@
+1
+00:00:00,300 --> 00:00:04,300
+Hi it's Michael again! Welcome to
+
+2
+00:00:04,300 --> 00:00:08,300
+Creating Collider Meshes! So in this video I will show you
+
+3
+00:00:08,300 --> 00:00:12,300
+how to control the number of vertices and we can do that
+
+4
+00:00:12,300 --> 00:00:16,300
+in a couple of ways. Firstly, we'll be creating a
+
+5
+00:00:16,300 --> 00:00:20,300
+Convex Hull, so the collision mesh works properly,
+
+6
+00:00:20,300 --> 00:00:24,300
+and we'll be introducing the Decimate modifier.
+
+7
+00:00:24,300 --> 00:00:27,866
+So let's hop straight on over into Blender!
+
+8
+00:00:27,866 --> 00:00:31,866
+So here we are in Blender! And the first thing to
+
+9
+00:00:31,866 --> 00:00:35,866
+realize is that what we're about to do is destructive.
+
+10
+00:00:35,866 --> 00:00:39,866
+So we've got a couple of options how to move forward. We can
+
+11
+00:00:39,866 --> 00:00:43,866
+either create a duplicate of our pin and then work on that
+
+12
+00:00:43,866 --> 00:00:47,866
+mesh, or we can create a whole new file. So in this
+
+13
+00:00:47,866 --> 00:00:51,866
+case, I'm going to create a whole new file just to keep things simple, so we don't
+
+14
+00:00:51,866 --> 00:00:55,866
+have multiple models in our scene. And
+
+15
+00:00:55,866 --> 00:00:59,866
+also, so when we look at the Info Pane, at the top here, we can
+
+16
+00:00:59,866 --> 00:01:03,866
+see the number of vertices and we can just read that out and know that we've met
+
+17
+00:01:03,866 --> 00:01:07,866
+our design requirements. So I'm going to go to File,
+
+18
+00:01:07,866 --> 00:01:11,866
+Save As, and I'm going to save it as
+
+19
+00:01:11,866 --> 00:01:15,866
+BowlingPinCollider! An imaginative name, as you can imagine!
+
+20
+00:01:15,866 --> 00:01:19,866
+So, at the top here, I can confirm that's the case, BowlingPinCollider!
+
+21
+00:01:19,866 --> 00:01:23,866
+Excellent! So the first thing I'm going to do is make sure this is simple, because when
+
+22
+00:01:23,866 --> 00:01:27,866
+Ben imports it or when we export it to any other package,
+
+23
+00:01:27,866 --> 00:01:31,866
+we need to make sure that we don't put in a load of other gumf as well,
+
+24
+00:01:31,866 --> 00:01:35,866
+So really, some of these things in the Outliner can go.
+
+25
+00:01:35,866 --> 00:01:39,866
+So we can get rid of the Camera, we don't really care about that, in this case.
+
+26
+00:01:39,866 --> 00:01:43,866
+The Lamp can also go and the Pin Outline can go.
+
+27
+00:01:43,866 --> 00:01:47,866
+Secondly, I'm not interested in any materials,
+
+28
+00:01:47,866 --> 00:01:51,866
+because this is literally a collision mesh, it's not going to be seen by anything, So, in this case,
+
+29
+00:01:51,866 --> 00:01:55,866
+I'm going to delete those two materials, and I'm going to check in this
+
+30
+00:01:55,866 --> 00:01:59,866
+here that they've got a 0 against them. Great, so we know
+
+31
+00:01:59,866 --> 00:02:03,866
+I've just reassigned it, so I'm going to get rid of that again. That means that,
+
+32
+00:02:03,866 --> 00:02:07,866
+on the save and reopen, those materials will go.
+
+33
+00:02:07,866 --> 00:02:11,866
+So now we've got our basic pin down. The first thing
+
+34
+00:02:11,866 --> 00:02:15,866
+we're going to do is actually make the whole of our shape,
+
+35
+00:02:15,866 --> 00:02:19,866
+our model here, convex. And we can do that in
+
+36
+00:02:19,866 --> 00:02:23,866
+two ways, and the first way is hopping over into Edit
+
+37
+00:02:23,866 --> 00:02:27,866
+Mode, selecting all of the model that we will
+
+38
+00:02:27,866 --> 00:02:31,866
+want to adjust, going to Mesh,
+
+39
+00:02:31,866 --> 00:02:35,866
+Vertices, and then, up here we have
+
+40
+00:02:35,866 --> 00:02:39,866
+Convex Hull. Now the other way of getting
+
+41
+00:02:39,866 --> 00:02:43,866
+to that point is, in the 3D window here, if we press the
+
+42
+00:02:43,866 --> 00:02:47,866
+spacebar, we... Oh, it looks like that was the last thing I searched for!
+
+43
+00:02:47,866 --> 00:02:51,866
+But we can type in here an action we want to perform, and
+
+44
+00:02:51,866 --> 00:02:55,866
+in this case, Convex Hull is in there and we can just press Enter. And it
+
+45
+00:02:55,866 --> 00:02:59,866
+makes our model convex immediately, so we've got no more
+
+46
+00:02:59,866 --> 00:03:03,866
+of the pin neck coming in. And we can take a quick
+
+47
+00:03:03,866 --> 00:03:07,866
+look at the number of vertices to see that it has dropped, and it's dropped
+
+48
+00:03:07,866 --> 00:03:11,866
+down to 482, so we're not quite at our
+
+49
+00:03:11,866 --> 00:03:15,866
+256 limit yet. So the next thing that we can do is start
+
+50
+00:03:15,866 --> 00:03:19,866
+simplifying our geometry. Now we could go in manually and start doing that, but there is
+
+51
+00:03:19,866 --> 00:03:23,866
+a tool called the Decimate Modifier that will do that for us.
+
+52
+00:03:23,866 --> 00:03:27,866
+So if we go over to our wrench over here or spanner,
+
+53
+00:03:27,866 --> 00:03:31,866
+we can Add a Modifier, and we have here,
+
+54
+00:03:31,866 --> 00:03:35,866
+on the second column, the Generate column, Decimate. Now,
+
+55
+00:03:35,866 --> 00:03:39,866
+if you click that and we start playing with the
+
+56
+00:03:39,866 --> 00:03:43,866
+Un-Subdivide, it's a nice one to look at because
+
+57
+00:03:43,866 --> 00:03:47,866
+it's easy to see and visualize how it breaks up our geometry.
+
+58
+00:03:47,866 --> 00:03:51,866
+And if we increase the Iterations, nothing happens!
+
+59
+00:03:51,866 --> 00:03:55,866
+Why does nothing happen? Well two fold, number one, we're not in
+
+60
+00:03:55,866 --> 00:03:59,866
+Object Mode, so let's hop back over into Object Mode! Oh, and that looks a bit
+
+61
+00:03:59,866 --> 00:04:03,866
+funny, so let's bring the Iterations back down to 0 again. So we've got our
+
+62
+00:04:03,866 --> 00:04:07,866
+basic pin shape here, once more. Now we do want to change the Shading
+
+63
+00:04:07,866 --> 00:04:11,866
+back to Flat and the reason for that is so we can see what's going on.
+
+64
+00:04:11,866 --> 00:04:15,866
+So we can see here, with iterations, we can increase that and
+
+65
+00:04:15,866 --> 00:04:19,866
+the model gets simpler and simpler. So what I'd like you
+
+66
+00:04:19,866 --> 00:04:22,733
+to do now is a little challenge.
+
+67
+00:04:22,733 --> 00:04:25,133
+I would like you to create our
+
+68
+00:04:25,133 --> 00:04:29,133
+collider mesh. So remember we've got a hard limit of 256
+
+69
+00:04:29,133 --> 00:04:33,133
+vertices. Ensure, if you've not done it already, that it is a convex
+
+70
+00:04:33,133 --> 00:04:37,133
+model, and finally, the base must be flat. There must be something
+
+71
+00:04:37,133 --> 00:04:41,133
+for it so it stands up. So hop into Blender
+
+72
+00:04:41,133 --> 00:04:45,133
+now, pause the video, and complete this task!
+
+73
+00:04:45,133 --> 00:04:49,133
+OK guys, welcome back! Let's hop
+
+74
+00:04:49,133 --> 00:04:52,100
+over into Blender and do those tasks!
+
+75
+00:04:52,100 --> 00:04:55,566
+So the first thing is deciding how many
+
+76
+00:04:55,566 --> 00:04:59,566
+Un-Subdivides we are going to do. So if we
+
+77
+00:04:59,566 --> 00:05:03,566
+increase our Iterations we can see that, at one point,
+
+78
+00:05:03,566 --> 00:05:07,566
+it becomes totally unusable. At
+
+79
+00:05:07,566 --> 00:05:11,566
+5 iterations that's complete garbage, so let's reduce
+
+80
+00:05:11,566 --> 00:05:15,566
+that and see what happens in the rest of them. So here I
+
+81
+00:05:15,566 --> 00:05:19,566
+think this looks like this maintains the original width really well. So
+
+82
+00:05:19,566 --> 00:05:23,566
+a 0 that's fine, we've got the original width. At
+
+83
+00:05:23,566 --> 00:05:27,566
+1 we've got the original width. At 2 we've still got the original width,
+
+84
+00:05:27,566 --> 00:05:31,566
+but it starts from 3 and above getting thinner.
+
+85
+00:05:31,566 --> 00:05:35,566
+Now that's not going to be any good if we've got a bowling ball hitting a
+
+86
+00:05:35,566 --> 00:05:39,566
+pin. In fact, the bowling ball would end up going inside the pin
+
+87
+00:05:39,566 --> 00:05:43,566
+and hitting the collider beneath the surface. So looking at this, I think
+
+88
+00:05:43,566 --> 00:05:47,566
+2 Iterations would be good! And let's see the number of Vertices that lowers to. That
+
+89
+00:05:47,566 --> 00:05:51,566
+lowers well inside our limit to 122.
+
+90
+00:05:51,566 --> 00:05:55,566
+And finally, I'm going to click Apply on this modifier,
+
+91
+00:05:55,566 --> 00:05:59,566
+so it changes our mesh and so this is now
+
+92
+00:05:59,566 --> 00:06:03,566
+the mesh we're working with. Excellent! So the next stage
+
+93
+00:06:03,566 --> 00:06:07,566
+is actually making this bottom flat. There's a couple of ways of
+
+94
+00:06:07,566 --> 00:06:11,566
+doing that, and I'm going to go in, I'm simply going to View it from the
+
+95
+00:06:11,566 --> 00:06:15,566
+Bottom. So View, Bottom, and I'm going to hop into
+
+96
+00:06:15,566 --> 00:06:19,566
+Edit Mode, so I can do some work. And let's zoom in! So we
+
+97
+00:06:19,566 --> 00:06:23,566
+have the bottom of our pin here, and it's really just this area here that
+
+98
+00:06:23,566 --> 00:06:27,566
+we need to be flat and we can double check that. So I'm going to go into
+
+99
+00:06:27,566 --> 00:06:31,566
+Edge Mode and select this edge loop inside
+
+100
+00:06:31,566 --> 00:06:35,566
+here. So remember, that's Alt and right-click to select
+
+101
+00:06:35,566 --> 00:06:39,566
+an edge loop. Then, I'm going to flip back over into Front
+
+102
+00:06:39,566 --> 00:06:43,566
+View and make sure that is the right edge to select.
+
+103
+00:06:43,566 --> 00:06:47,566
+Well let's go back into Front View and go down. So
+
+104
+00:06:47,566 --> 00:06:51,566
+here we have... Oh we can see there that it's certainly not flat, and I
+
+105
+00:06:51,566 --> 00:06:55,566
+think I can still do it? I deselected the edge loop there going around.
+
+106
+00:06:55,566 --> 00:06:59,566
+Excellent! So the final thing we can do there is,
+
+107
+00:06:59,566 --> 00:07:03,566
+if we open up our Properties Panel of the 3D Editor,
+
+108
+00:07:03,566 --> 00:07:07,566
+we can set the Z coordinates
+
+109
+00:07:07,566 --> 00:07:11,566
+to that entire edge loop to 0. So we're going to go in there,
+
+110
+00:07:11,566 --> 00:07:15,566
+making sure it's globally 0. And there we go,
+
+111
+00:07:15,566 --> 00:07:19,566
+that's totally flat. So that's going to make sure that's not going to rock or fall
+
+112
+00:07:19,566 --> 00:07:23,566
+over for Ben. So let's save this file now! I'm going to send it over
+
+113
+00:07:23,566 --> 00:07:27,566
+to Ben and make sure that it works as he expects it to.
+
+114
+00:07:28,266 --> 00:07:32,266
+Thank you, Mikey! So I've imported your much more compact mesh
+
+115
+00:07:32,266 --> 00:07:36,266
+here and added it to my pin. There you can see the
+
+116
+00:07:36,266 --> 00:07:40,266
+Convex lower poly mesh there, and I've given it a bouncy material.
+
+117
+00:07:40,266 --> 00:07:44,266
+Let's see what happens! Boing! Ha ha, much better!
+
+118
+00:07:44,266 --> 00:07:48,266
+Awesome! Now that's a game dev and an artist working well together! See you soon!

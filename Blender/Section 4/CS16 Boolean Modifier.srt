@@ -1,0 +1,559 @@
+1
+00:00:00,000 --> 00:00:04,000
+Welcome to the Boolean Modifier! In this video
+
+2
+00:00:04,000 --> 00:00:08,000
+we're going to experiment with a Boolean Modifier and understanding how it works!
+
+3
+00:00:08,000 --> 00:00:12,000
+We're going to understand how to apply it to our model,
+
+4
+00:00:12,000 --> 00:00:16,000
+learn that it can be used constructively and destructively.
+
+5
+00:00:16,000 --> 00:00:20,000
+It can and will work in Edit Mode, if you choose,
+
+6
+00:00:20,000 --> 00:00:24,000
+and also, it's real time and live, which is exciting, not all
+
+7
+00:00:24,000 --> 00:00:27,533
+modifiers are! So let's hop over, straight into Blender!
+
+8
+00:00:28,433 --> 00:00:32,433
+So before we start using this boolean modifier,
+
+9
+00:00:32,433 --> 00:00:36,433
+what we'll need to do is create another object in our scene. So
+
+10
+00:00:36,433 --> 00:00:40,433
+I'm going to place the 3D Cursor just somewhere random, over in space here,
+
+11
+00:00:40,433 --> 00:00:44,433
+and go and create us... I am in
+
+12
+00:00:44,433 --> 00:00:48,433
+Edit Mode, I will need to be in Object Mode, in this case. I know it works in Edit Mode,
+
+13
+00:00:48,433 --> 00:00:52,433
+but I do want to keep these separate to demonstrate. So
+
+14
+00:00:52,433 --> 00:00:56,433
+I'm going to hold down Shift and A and add a new Mesh of UV
+
+15
+00:00:56,433 --> 00:01:00,433
+Sphere. Now, I'm going to set the Segments here down
+
+16
+00:01:00,433 --> 00:01:04,433
+massively. They don't need to be quite so high, maybe 8 and 4.
+
+17
+00:01:04,433 --> 00:01:08,433
+That feels about right, 184, 8 and 4.
+
+18
+00:01:08,433 --> 00:01:12,433
+Ah, I'm going to increase it just a little! There we go! And
+
+19
+00:01:12,433 --> 00:01:16,433
+here, too! So we're going to move this now, so it's against our
+
+20
+00:01:16,433 --> 00:01:20,433
+bishop. Now, let's just push it in,
+
+21
+00:01:20,433 --> 00:01:24,433
+and eventually it will go close and close and close, and I'm just going to grab it and move
+
+22
+00:01:24,433 --> 00:01:28,433
+it down there. Excellent!
+
+23
+00:01:28,433 --> 00:01:31,633
+So now that it's in our model, we can decide how we want to work.
+
+24
+00:01:31,666 --> 00:01:35,666
+Leaving the sphere there, we're going to shift this over a little
+
+25
+00:01:35,666 --> 00:01:39,666
+and go to our little spanner or Modifier Icon, and we'll
+
+26
+00:01:39,666 --> 00:01:43,666
+add a modifier. And again, it's in this second column, the Generate column,
+
+27
+00:01:43,666 --> 00:01:47,666
+and it's Boolean, just there. Once we click that,
+
+28
+00:01:47,666 --> 00:01:51,666
+we have to select an object to apply it to.
+
+29
+00:01:51,666 --> 00:01:55,666
+Now, boolean operations can only apply to other mesh objects.
+
+30
+00:01:55,666 --> 00:01:59,666
+So, in this case, we've got this mesh object here, the LP
+
+31
+00:01:59,666 --> 00:02:03,666
+Bishop, so we're going to put that in there. OK,
+
+32
+00:02:03,666 --> 00:02:07,666
+so the first thing that this has done is, we've now removed
+
+33
+00:02:07,666 --> 00:02:11,666
+anything that's not within our bishop itself.
+
+34
+00:02:11,666 --> 00:02:15,666
+And we can demonstrate that by applying it and then just moving it back
+
+35
+00:02:15,666 --> 00:02:19,666
+out. You'll see that we're left with a surface of the
+
+36
+00:02:19,666 --> 00:02:23,666
+bishop cut away from here, so we've
+
+37
+00:02:23,666 --> 00:02:27,666
+still got our sphere on this side but not on that side. So let's plunk it back in and
+
+38
+00:02:27,666 --> 00:02:31,666
+do a couple of steps, so we can work on there. If we shift into Wireframe
+
+39
+00:02:31,666 --> 00:02:35,666
+Mode, this is quite exciting, we can see it as it passes through. So if we
+
+40
+00:02:35,666 --> 00:02:39,666
+set the object back to Low Poly Bishop, we can see what
+
+41
+00:02:39,666 --> 00:02:43,666
+will be left as we're moving through. Quite cool!
+
+42
+00:02:43,666 --> 00:02:47,666
+And that's with it set to the Operation as Intersect.
+
+43
+00:02:47,666 --> 00:02:51,666
+What else do we have? We have Difference and
+
+44
+00:02:51,666 --> 00:02:55,666
+Union! Well Union, as it sounds, combines the two
+
+45
+00:02:55,666 --> 00:02:59,666
+together, so if we then applied this, that would become
+
+46
+00:02:59,666 --> 00:03:03,666
+one mesh without... As you can see there's no sphere inside.
+
+47
+00:03:04,066 --> 00:03:06,233
+Now, the Difference does
+
+48
+00:03:06,233 --> 00:03:10,233
+the exact opposite! It's going to cut away
+
+49
+00:03:10,233 --> 00:03:14,233
+the bishop shape from the sphere, and we can
+
+50
+00:03:14,233 --> 00:03:18,233
+demonstrate that again in Wireframe Mode. We see there's nothing left of our sphere,
+
+51
+00:03:18,233 --> 00:03:22,233
+and if we Apply that and move the sphere away, we've taken
+
+52
+00:03:22,233 --> 00:03:26,233
+a chunk out of the sphere but the other way this time.
+
+53
+00:03:26,233 --> 00:03:30,233
+Well, in this case, if we want to cut a hole in... Let's see how it applies
+
+54
+00:03:30,233 --> 00:03:33,000
+back on the bishop! So let's set our
+
+55
+00:03:33,166 --> 00:03:37,166
+sphere back into the bishop itself and this time select
+
+56
+00:03:37,166 --> 00:03:41,166
+the Bishop first, and then, Add a Modifier of type
+
+57
+00:03:41,166 --> 00:03:45,166
+Boolean and select the Object as the Sphere.
+
+58
+00:03:45,166 --> 00:03:49,166
+Ah, so with Intersect, it's cut out of the sphere. So
+
+59
+00:03:49,166 --> 00:03:53,166
+that's the opposite way, that was the Difference when it was the other way around.
+
+60
+00:03:53,166 --> 00:03:57,166
+Excellent! And let's try Union!
+
+61
+00:03:57,166 --> 00:04:01,166
+Well that's hopefully going to look the same as it did before. Yes,
+
+62
+00:04:01,166 --> 00:04:05,166
+it becomes one, after the operation! And Difference,
+
+63
+00:04:05,166 --> 00:04:09,166
+well that, after it's applied,
+
+64
+00:04:09,166 --> 00:04:13,166
+will eat away at our model. That's brilliant! That's exactly what
+
+65
+00:04:13,166 --> 00:04:17,166
+we want to see! Well it looks kind of like a spaceship or a hole in there. Perhaps,
+
+66
+00:04:17,166 --> 00:04:21,166
+if you wanted to make a hole in the bottom of a tree to hide in. Who knows!
+
+67
+00:04:21,166 --> 00:04:25,166
+So that's the boolean operator! I'm not going to
+
+68
+00:04:25,166 --> 00:04:29,166
+undo those changes, because I don't want to ruin my bishop,
+
+69
+00:04:29,166 --> 00:04:33,166
+and I'm going to delete
+
+70
+00:04:33,166 --> 00:04:37,166
+that Sphere. Excellent! Zoom back out. Yep, everything's
+
+71
+00:04:37,166 --> 00:04:41,166
+intact, I've not modified our bishop at all. So
+
+72
+00:04:41,166 --> 00:04:43,166
+challenge time!
+
+73
+00:04:43,166 --> 00:04:45,300
+I would like you to cut a notch in the
+
+74
+00:04:45,300 --> 00:04:49,300
+bishop! So using a boolean modifier, cut a notch
+
+75
+00:04:49,300 --> 00:04:53,300
+from the bishop's hat, in the top. If you need to have a look at reference material, to
+
+76
+00:04:53,300 --> 00:04:57,300
+make sure its placement is good, then go ahead and do that. Pause
+
+77
+00:04:57,300 --> 00:05:01,300
+the video now and give that a go! OK
+
+78
+00:05:01,300 --> 00:05:05,300
+guys, welcome back! Let's go cut a notch in the bishop's hat!
+
+79
+00:05:06,166 --> 00:05:08,866
+Alright, so the first thing I want to do is
+
+80
+00:05:08,866 --> 00:05:12,866
+just generate something and think about where it's going through.
+
+81
+00:05:12,866 --> 00:05:16,866
+So I want to make my notch diagonal, and I also want to make it
+
+82
+00:05:16,866 --> 00:05:20,866
+slightly wedge shaped. So I'm going to create myself
+
+83
+00:05:20,866 --> 00:05:24,866
+a new Mesh object in Object Mode,
+
+84
+00:05:24,866 --> 00:05:28,866
+so it's separate. Excellent! I'm going to make it more wedge
+
+85
+00:05:28,866 --> 00:05:32,866
+shaped, as well. I don't care about the scale, at the moment, I can play about with
+
+86
+00:05:32,866 --> 00:05:36,866
+that at will. So I'm going to pop into Edit Mode, grab
+
+87
+00:05:36,866 --> 00:05:40,866
+an edge like this one, and just move it in to make
+
+88
+00:05:40,866 --> 00:05:44,866
+a wedge. It doesn't need to be quite that
+
+89
+00:05:44,866 --> 00:05:48,866
+angled. We definitely don't want it that big! Probably more like
+
+90
+00:05:48,866 --> 00:05:52,866
+that! And the final thing I think I want to do is just
+
+91
+00:05:52,866 --> 00:05:56,866
+round it off ever so slightly, not much, this is going to
+
+92
+00:05:56,866 --> 00:06:00,866
+spoil the geometry if I do that, maybe. Let's leave it like that and
+
+93
+00:06:00,866 --> 00:06:04,866
+see how that works! The next thing I want to do is move it closer
+
+94
+00:06:04,866 --> 00:06:08,866
+to my bishop itself. So I'm going to hop back over into
+
+95
+00:06:08,866 --> 00:06:12,866
+Object Mode, and move it about so it's almost in the right
+
+96
+00:06:12,866 --> 00:06:16,866
+place. I've still got snapping turned on, that could be useful in this case,
+
+97
+00:06:16,866 --> 00:06:20,866
+but not... Well it's close enough it's brought it to
+
+98
+00:06:20,866 --> 00:06:24,866
+our model. Let's pop it there and push it in.
+
+99
+00:06:24,866 --> 00:06:28,866
+We may need to scale this up and down as we go.
+
+100
+00:06:28,866 --> 00:06:32,866
+OK, that's looking good
+
+101
+00:06:32,866 --> 00:06:36,866
+there, however I want mine the other way
+
+102
+00:06:36,866 --> 00:06:40,866
+around. So I can just rotate that on
+
+103
+00:06:40,866 --> 00:06:44,866
+the Z axis by 180, and then, move it back here
+
+104
+00:06:44,866 --> 00:06:48,866
+in on the Y axis, back in. And that's
+
+105
+00:06:48,866 --> 00:06:52,866
+cutting in there and it looks a bit too deep a cut. I don't
+
+106
+00:06:52,866 --> 00:06:56,866
+really want to go beyond here, so I've got a couple of options there. In
+
+107
+00:06:56,866 --> 00:07:00,866
+this case, I'm going to scale that only on the X, Y...
+
+108
+00:07:00,866 --> 00:07:04,866
+Nope, only on the Z axis I think.
+
+109
+00:07:04,866 --> 00:07:08,866
+So scale on the Z axis, rather than going to Wireframe.
+
+110
+00:07:08,866 --> 00:07:12,866
+Oh, I might not have left myself enough space, I must remember
+
+111
+00:07:12,866 --> 00:07:16,866
+that. Excellent! I do need it to come out, so
+
+112
+00:07:16,866 --> 00:07:20,866
+about there. I'm going to lift that back up and push it back ever so slightly,
+
+113
+00:07:20,866 --> 00:07:24,866
+and I do need to scale it, probably on the X axis at this point, so let's do that now!
+
+114
+00:07:24,866 --> 00:07:28,866
+Scale on the X axis just to push it out. I'm going to whiz
+
+115
+00:07:28,866 --> 00:07:32,866
+around the model, yep, that's all the way through our model! I'm just going to pull it
+
+116
+00:07:32,866 --> 00:07:36,866
+up, ever so slightly more, because we're still around there. Do
+
+117
+00:07:36,866 --> 00:07:40,866
+I want to chop off any of this little bobble
+
+118
+00:07:40,866 --> 00:07:44,866
+on the top? Maybe? And In this case not, so I'm just going to
+
+119
+00:07:44,866 --> 00:07:48,866
+rotate it away, to play with it a little further, and pull it out. And
+
+120
+00:07:48,866 --> 00:07:52,866
+I've exhausted my artistic license, at this point! Alright, I now
+
+121
+00:07:52,866 --> 00:07:56,866
+need to apply this! So I'm going to select the bishop first,
+
+122
+00:07:56,866 --> 00:08:00,866
+and then, go to Add Modifier and Boolean.
+
+123
+00:08:00,866 --> 00:08:04,866
+I'm going to select the object that we're going to use, which is the Cube,
+
+124
+00:08:04,866 --> 00:08:08,866
+which is no longer a cube, and we don't want Intersect, we want Difference,
+
+125
+00:08:08,866 --> 00:08:12,866
+in this case. I'm going to Apply the Modifier, and
+
+126
+00:08:12,866 --> 00:08:16,866
+then, I've got two options. In this case I'm just going to hide the Cube, in case
+
+127
+00:08:16,866 --> 00:08:20,866
+it's not quite right. Oh, I like that lots! In fact,
+
+128
+00:08:20,866 --> 00:08:24,866
+I'd like it so much, I'm gong to do one final thing before I let that go.
+
+129
+00:08:24,866 --> 00:08:28,866
+I'm going to undo those changes and I'm
+
+130
+00:08:28,866 --> 00:08:32,866
+going to just adjust the Cube, ever so slightly. I'm going to rotate it
+
+131
+00:08:32,866 --> 00:08:36,866
+around the Y axis, so that our slice
+
+132
+00:08:36,866 --> 00:08:40,866
+comes through at a slight angle, which I think is going to
+
+133
+00:08:40,866 --> 00:08:44,866
+add a tiny bit of a dynamic to it and make it look that little bit better.
+
+134
+00:08:44,866 --> 00:08:48,866
+And I'm just going to move that back out so it's not touching. Alright, I'm
+
+135
+00:08:48,866 --> 00:08:52,866
+happy with that, so I'm going to Add my Modifier again, which is already there. In fact, all I need to
+
+136
+00:08:52,866 --> 00:08:56,866
+do now is Apply it! Excellent!
+
+137
+00:08:56,866 --> 00:09:00,866
+I'm going to hide my Cube in the Outliner and just check that out again!
+
+138
+00:09:00,866 --> 00:09:04,866
+Brilliant! I've got exactly the slant that I wanted in my
+
+139
+00:09:04,866 --> 00:09:08,866
+bishop's hat! How did you guys get on? Please share in the
+
+140
+00:09:08,866 --> 00:09:12,866
+discussions, and I will see you in the next lecture!
