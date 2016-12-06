@@ -1,0 +1,578 @@
+
+
+1
+00:00:00,000 --> 00:00:04,000
+Welcome to Empties in Blender! In this video we'll be
+
+2
+00:00:04,000 --> 00:00:08,000
+introducing the concept of an empty. Essentially, an
+
+3
+00:00:08,000 --> 00:00:12,000
+empty is a null object that has no geometry.
+
+4
+00:00:12,000 --> 00:00:16,000
+They can be used as a handle to control other objects,
+
+5
+00:00:16,000 --> 00:00:20,000
+used as a parent object for a group of
+
+6
+00:00:20,000 --> 00:00:24,000
+objects, and we'll be dealing with that shortly. They also have many other
+
+7
+00:00:24,000 --> 00:00:28,000
+uses that we won't dive into, right at this moment, but will when we need them
+
+8
+00:00:28,000 --> 00:00:31,966
+in the course. So let's hop over into Blender!
+
+9
+00:00:31,966 --> 00:00:34,366
+So let's open up a new file in Blender,
+
+10
+00:00:34,366 --> 00:00:38,366
+and we get the default cube in the scene. Now, I'm just going to get rid of that, because
+
+11
+00:00:38,366 --> 00:00:42,366
+I'm not going to use that at all, and let's create our first
+
+12
+00:00:42,366 --> 00:00:46,366
+empty. So you add an empty much like you would do
+
+13
+00:00:46,366 --> 00:00:50,366
+a mesh object, so you can use the Add Menu on the 3D Editor Header
+
+14
+00:00:50,366 --> 00:00:54,366
+or just go Shift and A. And well, that's
+
+15
+00:00:54,366 --> 00:00:58,366
+fortunate, my mouse was directly over it! So an Empty, and you can see there are eight
+
+16
+00:00:58,366 --> 00:01:02,366
+different types of empty. Now essentially, they all do a very
+
+17
+00:01:02,366 --> 00:01:06,366
+similar thing, but depending on the application that you are doing, you may want a different
+
+18
+00:01:06,366 --> 00:01:10,366
+shape or a different type of empty, just so it's more descriptive of
+
+19
+00:01:10,366 --> 00:01:14,366
+the type of control you're going to have. So for
+
+20
+00:01:14,366 --> 00:01:18,366
+instance, if you wanted Single Arrow, if it was a directional
+
+21
+00:01:18,366 --> 00:01:22,366
+control you were using, you can see here that this single arrow is
+
+22
+00:01:22,366 --> 00:01:26,366
+great! And we can scale it up, rotate it around, and we can say the
+
+23
+00:01:26,366 --> 00:01:30,366
+object is pointing that way. And then, when we move the arrow around,
+
+24
+00:01:30,366 --> 00:01:34,366
+we can control an object based upon its direction, very very
+
+25
+00:01:34,366 --> 00:01:38,366
+powerful. So there are lots of different options for your empty, but
+
+26
+00:01:38,366 --> 00:01:42,366
+essentially you go into the Add Menu and go ahead and
+
+27
+00:01:42,366 --> 00:01:46,366
+add an Empty. Now, you cannot create any geometry
+
+28
+00:01:46,366 --> 00:01:50,366
+from that, there's no editing them in that sense,
+
+29
+00:01:50,366 --> 00:01:54,366
+but you can use them later on to control lots of different things
+
+30
+00:01:54,366 --> 00:01:57,433
+and we'll be doing that very soon with our chess set.
+
+31
+00:01:57,433 --> 00:02:01,433
+Alright, so in the spirit of keeping it lean, we need to do some
+
+32
+00:02:01,433 --> 00:02:05,433
+things now! We need to append the bishop into our chess scene to see what it looks like, as
+
+33
+00:02:05,433 --> 00:02:09,433
+a whole. Check everything is in the right proportion,
+
+34
+00:02:09,433 --> 00:02:13,433
+and then, start filling up our board. We're going to create the white
+
+35
+00:02:13,433 --> 00:02:17,433
+pawns. Link duplicate our bishops and pawns. That's important,
+
+36
+00:02:17,433 --> 00:02:21,433
+rather than just duplicating, because we want it to apply across
+
+37
+00:02:21,433 --> 00:02:25,433
+any changes we make, we want them to apply across the bishops
+
+38
+00:02:25,433 --> 00:02:29,433
+that we made and the pawn, so we don't have to repeat ourselves. And then, we'll get on
+
+39
+00:02:29,433 --> 00:02:32,433
+to managing our models in this scene!
+
+40
+00:02:32,433 --> 00:02:34,400
+Let's hop over into Blender!
+
+41
+00:02:35,000 --> 00:02:39,000
+Alright, so we're done with this, for the moment! Let's go
+
+42
+00:02:39,000 --> 00:02:43,000
+and open up our chess scene! So it should be in my recents.
+
+43
+00:02:43,000 --> 00:02:47,000
+Yep, Chess Scene! And this is where we left it before,
+
+44
+00:02:47,000 --> 00:02:51,000
+so go ahead and open up your Chess Scene.blend now, where we brought
+
+45
+00:02:51,000 --> 00:02:55,000
+our primary white pawn in. Alright, let's go and
+
+46
+00:02:55,000 --> 00:02:59,000
+append our bishop. So we're going to go File,
+
+47
+00:02:59,000 --> 00:03:03,000
+Append, and go find your Low
+
+48
+00:03:03,000 --> 00:03:07,000
+Poly Bishop, and in Object, we want to select the
+
+49
+00:03:07,000 --> 00:03:11,000
+Low Poly Bishop. There we go, that's in our scene! Let's
+
+50
+00:03:11,000 --> 00:03:15,000
+just move that about. I'm going to constrain it to the X, Y axis, so it doesn't disappear
+
+51
+00:03:15,000 --> 00:03:19,000
+through the floor, by holding down Shift and Z. I'm just going to pop
+
+52
+00:03:19,000 --> 00:03:23,000
+it next to our pawn, zoom in a little, and have a look at it in context.
+
+53
+00:03:23,000 --> 00:03:27,000
+Excellent! That looks really good! OK,
+
+54
+00:03:27,000 --> 00:03:31,000
+so now we've got that in there! We need a duplicate of
+
+55
+00:03:31,000 --> 00:03:34,533
+this, and we need another seven duplicates of our pawn.
+
+56
+00:03:34,533 --> 00:03:37,100
+Now, before we go ahead and start
+
+57
+00:03:37,100 --> 00:03:41,100
+messing around with our pawns and duplicating them lots,
+
+58
+00:03:41,100 --> 00:03:45,100
+I want to show you a really neat trick! Well it's not really a trick, it's an
+
+59
+00:03:45,100 --> 00:03:49,100
+operation that will save you a load of time, later on when you're doing
+
+60
+00:03:49,100 --> 00:03:53,100
+very repetitive tasks where an array modifier
+
+61
+00:03:53,100 --> 00:03:57,100
+might not be of use to you. So for instance, if we wanted to duplicate
+
+62
+00:03:57,100 --> 00:04:01,100
+this pawn and it was a linked duplicate, of course, we'd do
+
+63
+00:04:01,100 --> 00:04:05,100
+Alt and D, and we have our pawn here.
+
+64
+00:04:05,100 --> 00:04:09,100
+Now, if I just lock that to the X, Y axis and just place it
+
+65
+00:04:09,100 --> 00:04:13,100
+down there, for instance. If I was more accurate, it would be
+
+66
+00:04:13,100 --> 00:04:17,100
+better, so I can look down here on the Vector
+
+67
+00:04:17,100 --> 00:04:21,100
+where it is, and probably 6 and
+
+68
+00:04:21,100 --> 00:04:25,100
+-6. There we go, smack bang in the middle of
+
+69
+00:04:25,100 --> 00:04:29,100
+that square now! If I simply hold down
+
+70
+00:04:29,100 --> 00:04:33,100
+Shift, at the same time as R, it repeats the
+
+71
+00:04:33,100 --> 00:04:37,100
+last operation. So Shift and R will lay down another
+
+72
+00:04:37,100 --> 00:04:41,100
+linked pawn, and again, we'll do another
+
+73
+00:04:41,100 --> 00:04:45,100
+linked pawn. And you can do that as many times as you like, it's a very powerful
+
+74
+00:04:45,100 --> 00:04:47,566
+operation.
+
+75
+00:04:47,566 --> 00:04:51,566
+OK guys, it's challenge time! I'd like you to fill
+
+76
+00:04:51,566 --> 00:04:55,566
+out the board! So remember to link duplicate the pawns
+
+77
+00:04:55,566 --> 00:04:59,566
+and two bishops, only making the white pieces,
+
+78
+00:04:59,566 --> 00:05:03,566
+at the moment. We'll do something, later on, to create all of the black ones. Now,
+
+79
+00:05:03,566 --> 00:05:07,566
+place them in the right starting position on the board. Now, you may
+
+80
+00:05:07,566 --> 00:05:11,566
+have to refer to reference material, in order to make sure the board's at the right
+
+81
+00:05:11,566 --> 00:05:15,566
+orientation for us. And then, finally create an empty
+
+82
+00:05:15,566 --> 00:05:19,566
+called white pieces. Pause the video now and give
+
+83
+00:05:19,566 --> 00:05:23,566
+that a go! OK guys, welcome back!
+
+84
+00:05:23,566 --> 00:05:26,666
+Let's hop straight back over into Blender!
+
+85
+00:05:27,066 --> 00:05:31,066
+Alright, so I've duplicated down here, and I don't want to
+
+86
+00:05:31,066 --> 00:05:35,066
+do that, in this case. So fortunately, I've got some undo buffer I can exploit.
+
+87
+00:05:35,066 --> 00:05:39,066
+Now, I know that this pawn was placed exactly
+
+88
+00:05:39,066 --> 00:05:43,066
+in the right place, so we're mucking about with it, I think. Let's just
+
+89
+00:05:43,066 --> 00:05:47,066
+go up here. No not quite, but I can
+
+90
+00:05:47,066 --> 00:05:51,066
+set it back to 0 and 0 here,
+
+91
+00:05:51,066 --> 00:05:55,066
+and then, it's right bang in the middle of the board. Then, I can turn on Snapping, because
+
+92
+00:05:55,066 --> 00:05:59,066
+we're using whole units, and I can move it to the right position here
+
+93
+00:05:59,066 --> 00:06:03,066
+and down a little so it's around here. Before I go any
+
+94
+00:06:03,066 --> 00:06:07,066
+further though, I know that, from reference material, that
+
+95
+00:06:07,066 --> 00:06:11,066
+the white side of the board has the black square in the left
+
+96
+00:06:11,066 --> 00:06:15,066
+corner and a white square in the right corner, so that
+
+97
+00:06:15,066 --> 00:06:19,066
+would be this way around or that way around. So
+
+98
+00:06:19,066 --> 00:06:23,066
+at the moment, I'm about to set it up playing across the wrong way on the board.
+
+99
+00:06:23,066 --> 00:06:27,066
+I'm going to move that down to there and across to here,
+
+100
+00:06:27,066 --> 00:06:31,066
+and that should be snack bang in the middle, whole numbers here, exactly what
+
+101
+00:06:31,066 --> 00:06:35,066
+I want to see over in the Transform. Alright, so the
+
+102
+00:06:35,066 --> 00:06:39,066
+next thing I want to do is Duplicate Linked, this pawn here.
+
+103
+00:06:39,066 --> 00:06:43,066
+So that's Alt and D, and there you go, he's linked. And I can
+
+104
+00:06:43,066 --> 00:06:44,466
+see that the Z is
+
+105
+00:06:44,833 --> 00:06:48,833
+changing, down in the lower-left, so I do want to lock the Z axis so it's not
+
+106
+00:06:48,833 --> 00:06:52,833
+moving, and I just want to place it there! Brilliant! Now, to do
+
+107
+00:06:52,833 --> 00:06:56,833
+the next step, I'm simply going to repeat that operation by holding down
+
+108
+00:06:56,833 --> 00:07:00,833
+Shift and R. OK, 1, 2, 3, 4,
+
+109
+00:07:00,833 --> 00:07:04,833
+5, 6. Perfect! Of course,
+
+110
+00:07:04,833 --> 00:07:08,833
+what we're looking at here is a couple of, in the Outliner here, there's
+
+111
+00:07:08,833 --> 00:07:12,833
+lots of corrections to do. So perhaps before I
+
+112
+00:07:12,833 --> 00:07:16,833
+do the repeating, I should have renamed it, so fortunately,
+
+113
+00:07:16,833 --> 00:07:20,833
+with the undo thing, we can do that relatively quickly. I'm just
+
+114
+00:07:20,833 --> 00:07:24,833
+going to name that White Pawn, for the moment, I'm going to rename it.
+
+115
+00:07:24,833 --> 00:07:28,833
+Then, I'm going to duplicate it, lock it to the Z axis, and move it across.
+
+116
+00:07:28,833 --> 00:07:32,833
+Then, I'm going to hold down Shift and R to repeat that process.
+
+117
+00:07:32,833 --> 00:07:36,833
+That's much better! All the way down to there.
+
+118
+00:07:36,833 --> 00:07:40,833
+Brilliant! And then finally, we can do the bishop again. Now, I'm not quite sure where
+
+119
+00:07:40,833 --> 00:07:44,833
+the bishop is, so again, I'm just going to lock it to whole numbers here. I'm going to type
+
+120
+00:07:44,833 --> 00:07:48,833
+in 0, 0, and 0 there.
+
+121
+00:07:48,833 --> 00:07:52,833
+That appeared above the board or I've managed to type 9, that's not very cleaver
+
+122
+00:07:52,833 --> 00:07:56,833
+of me, it's next to 0, of course. And there we go, so it's
+
+123
+00:07:56,833 --> 00:08:00,833
+0, 0, 0. Now, with Snapping turned on and Increments, we can move
+
+124
+00:08:00,833 --> 00:08:04,833
+that down and... Ooh, where does that go? It goes there, doesn't it?
+
+125
+00:08:04,833 --> 00:08:08,833
+Knight, rook, knight, bishop. That's fine! And goes
+
+126
+00:08:08,833 --> 00:08:12,833
+back one, and then, again, a linked duplicate,
+
+127
+00:08:12,833 --> 00:08:16,833
+locked to the Z axis, move it across to there, and
+
+128
+00:08:16,833 --> 00:08:20,833
+perfect! So that chess board's really coming on now with the pieces on it,
+
+129
+00:08:20,833 --> 00:08:24,833
+and we've got all of our stuff setup. Now, this hierarchy
+
+130
+00:08:24,833 --> 00:08:28,833
+along here is starting to get a bit messy. I wonder if there's something we can do about that?
+
+131
+00:08:29,133 --> 00:08:33,133
+And speaking about the hierarchy, I have noticed that I don't have an empty...
+
+132
+00:08:33,133 --> 00:08:37,133
+Yeah, ooh, I almost forgot that bit of the challenge! So of course, I need to go
+
+133
+00:08:37,133 --> 00:08:41,133
+to Add, Empty. Now, I've got a choice of empties here, and I'm not quite
+
+134
+00:08:41,133 --> 00:08:45,133
+sure which one I'm going to pick. I think, for the purpose of this, I am
+
+135
+00:08:45,133 --> 00:08:49,133
+simply going to pick a Plane Axis. It doesn't really matter,
+
+136
+00:08:49,133 --> 00:08:53,133
+it's not going to be much in the way of any use to us. And where
+
+137
+00:08:53,133 --> 00:08:57,133
+it's positioned, we can sort that out later. We do need to name it though,
+
+138
+00:08:57,133 --> 00:09:01,133
+so I'm going to rename that, and I'm going to name it White
+
+139
+00:09:01,133 --> 00:09:05,133
+Pieces. There we go! So that's all ready for us later on!
+
+140
+00:09:05,666 --> 00:09:09,666
+Now, we will deal with this hierarchy and organize this a bit
+
+141
+00:09:09,666 --> 00:09:13,666
+in the next couple of lectures, so don't worry about that for the moment. But what I would like
+
+142
+00:09:13,666 --> 00:09:17,666
+to see is how you guys are getting on, so please share your results, so far,
+
+143
+00:09:17,666 --> 00:09:21,666
+in the discussions, and I will see you in the next lecture! Take
+
+144
+00:09:21,666 --> 00:09:23,400
+care!
+

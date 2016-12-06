@@ -1,0 +1,630 @@
+
+
+1
+00:00:00,000 --> 00:00:02,633
+Welcome to Bridging Edge Loops!
+
+2
+00:00:03,000 --> 00:00:07,000
+So in this video we're going to be learning the power of bridging edge loops,
+
+3
+00:00:07,000 --> 00:00:11,000
+and then, oops, our pawn is lovely but has
+
+4
+00:00:11,000 --> 00:00:13,133
+too many polygons.
+
+5
+00:00:13,133 --> 00:00:15,366
+So just going back to our pawn
+
+6
+00:00:15,366 --> 00:00:19,366
+being lovely but has too many polygons, taking the lean principle I
+
+7
+00:00:19,366 --> 00:00:23,366
+pass my pawn straight on to Ben, so he can include it in a chess thing he's working
+
+8
+00:00:23,366 --> 00:00:27,366
+on. He's says oh, Mike, that's great, but I want it low
+
+9
+00:00:27,366 --> 00:00:31,366
+poly in style, not just in the polygon count itself.
+
+10
+00:00:31,366 --> 00:00:35,366
+So we're going to have to bring down our polygon count of our pawn, and a great
+
+11
+00:00:35,366 --> 00:00:39,366
+way of doing that is with bridging edge loops. So without further ado,
+
+12
+00:00:39,366 --> 00:00:42,733
+let's hop straight on over into Blender!
+
+13
+00:00:42,733 --> 00:00:46,733
+So the first thing I'm going to do here is just make our screen space a bit
+
+14
+00:00:46,733 --> 00:00:50,733
+bigger. I've noticed that, despite working with a tiny space, I'm making it even smaller
+
+15
+00:00:50,733 --> 00:00:54,733
+for myself. We don't need the timeline along the bottom, and I'm just going to drag that down
+
+16
+00:00:54,733 --> 00:00:58,733
+and out of the way. And I'm just going to get rid of the Tool Shelf and Properties Pane, so
+
+17
+00:00:58,733 --> 00:01:02,733
+we've got our pawn nice and big in the scene here,
+
+18
+00:01:02,733 --> 00:01:06,733
+on the screen. So this is a lovely pawn,
+
+19
+00:01:06,733 --> 00:01:10,733
+but Ben wants it lower poly. Now, I've already saved us the
+
+20
+00:01:10,733 --> 00:01:14,733
+pain of going through trying to decimate it, so we could use the Decimate
+
+21
+00:01:14,733 --> 00:01:18,733
+Modifier in here, and it doesn't matter which
+
+22
+00:01:18,733 --> 00:01:22,733
+one you do, eventually you get around and, I guess you want the Tool Shelf at this
+
+23
+00:01:22,733 --> 00:01:26,733
+point just to put flat shading on, so we can see what's happening to the
+
+24
+00:01:26,733 --> 00:01:30,733
+underlying geometry here. You can see quite
+
+25
+00:01:30,733 --> 00:01:34,733
+clearly that, either one of these you pick... I mean, Un-subdivide at least
+
+26
+00:01:34,733 --> 00:01:38,733
+tries to keep the over all thing. And yes, we do get kind of
+
+27
+00:01:38,733 --> 00:01:42,733
+low poly but the base starts becoming a bit weird and in
+
+28
+00:01:42,733 --> 00:01:46,733
+places, when we get down to a much lower level, and I
+
+29
+00:01:46,733 --> 00:01:50,733
+didn't like any of... That's kind of cool, I did kind of like that,
+
+30
+00:01:50,733 --> 00:01:54,733
+but at the same time, it's not going to be in keeping with any of the rest of
+
+31
+00:01:54,733 --> 00:01:58,733
+our pieces. So one of the best things we can do is bridging
+
+32
+00:01:58,733 --> 00:02:02,733
+edge loops. The first thing we need to do is hop on over into Edit Mode, so I'm just going to
+
+33
+00:02:02,733 --> 00:02:06,733
+undo that modifier I've got going there. So the way that this
+
+34
+00:02:06,733 --> 00:02:10,733
+works is, we can select each series of edge loops. So let's
+
+35
+00:02:10,733 --> 00:02:14,733
+do that now! I'm going to, basically, if we look at this one here we've got
+
+36
+00:02:14,733 --> 00:02:18,733
+1, 2, 3, 4, 5 edge loops, 7 in
+
+37
+00:02:18,733 --> 00:02:22,733
+total, but we're going to leave the top and bottoms ones because we need them, and
+
+38
+00:02:22,733 --> 00:02:26,733
+simply select those 5. So 1,
+
+39
+00:02:26,733 --> 00:02:30,733
+2, 3, 4, 5, and that's using
+
+40
+00:02:30,733 --> 00:02:34,733
+Alt and holding down Shift to add them. Alright,
+
+41
+00:02:34,733 --> 00:02:38,733
+and we simply go X and delete all of the vertices associated with
+
+42
+00:02:38,733 --> 00:02:42,733
+those edge loops, so it's nice and clean. Nothing at that top
+
+43
+00:02:42,733 --> 00:02:46,733
+and nothing at the bottom, which is great! So
+
+44
+00:02:46,733 --> 00:02:50,733
+now, we have a slight problem, it looks
+
+45
+00:02:50,733 --> 00:02:54,733
+like I selected an additional edge loop. Oh, that one was
+
+46
+00:02:54,733 --> 00:02:58,733
+already selected on our model! Be careful about that! So
+
+47
+00:02:58,733 --> 00:03:02,733
+let's just go in and reselect those 5.
+
+48
+00:03:02,733 --> 00:03:06,733
+So when I hopped into Edit Mode, that was actually the last edge that was there. So
+
+49
+00:03:06,733 --> 00:03:10,733
+X to delete and Vertices. Brilliant! So we've got this
+
+50
+00:03:10,733 --> 00:03:14,733
+great bit hole in our model. Now, I can't remember how many
+
+51
+00:03:14,733 --> 00:03:18,733
+segments there were here, but I think it's about 32, but there will be 32
+
+52
+00:03:18,733 --> 00:03:22,733
+vertices running around that circle and 32 running around this one. It
+
+53
+00:03:22,733 --> 00:03:26,733
+simply means that we can hold down Alt and select that
+
+54
+00:03:26,733 --> 00:03:30,733
+edge loop. Do the same with this top one, so holding down Shift
+
+55
+00:03:30,733 --> 00:03:34,733
+at the same time, so we select them both. Then, under the
+
+56
+00:03:34,733 --> 00:03:38,733
+Mesh menu, Edges and Bridge Edge
+
+57
+00:03:38,733 --> 00:03:42,733
+Loops, it will do that for us. Now, the great
+
+58
+00:03:42,733 --> 00:03:46,733
+thing about this, and this is really cool, so if we go down to this next section here
+
+59
+00:03:46,733 --> 00:03:50,733
+and go, well I don't want those two there and
+
+60
+00:03:50,733 --> 00:03:54,733
+just get rid of those. And this is going to leave some holes in our model but
+
+61
+00:03:54,733 --> 00:03:58,733
+bear with me. I don't want that one, so I'm literally picking,
+
+62
+00:03:58,733 --> 00:04:02,733
+kind of, control points, I suppose. I do want this edge here and I do want
+
+63
+00:04:02,733 --> 00:04:06,733
+the one underneath it, so I'm just going to delete that one off. Now, let's move
+
+64
+00:04:06,733 --> 00:04:10,733
+a bit further down on our model and zoom in. I want to keep that one
+
+65
+00:04:10,733 --> 00:04:14,733
+but I don't want those, so I'll get rid of those
+
+66
+00:04:14,733 --> 00:04:18,733
+to that point there, so I want to keep that. So I'll get rid of those,
+
+67
+00:04:18,733 --> 00:04:22,733
+as well, and then finally, I won't go any
+
+68
+00:04:22,733 --> 00:04:26,733
+further than that, I think you get the point here. Now, if I select the edge loops that are
+
+69
+00:04:26,733 --> 00:04:30,733
+remaining, so those four there, and
+
+70
+00:04:30,733 --> 00:04:34,733
+then, go Mesh, Edges, Bridge
+
+71
+00:04:34,733 --> 00:04:38,733
+Edge Loops, you'll see that it automatically bridges all of those loops,
+
+72
+00:04:38,733 --> 00:04:42,733
+so I don't have to do them individually. Now, arguably, looking at that, I can
+
+73
+00:04:42,733 --> 00:04:46,733
+almost get rid of that, but I think we need that to get the shape right.
+
+74
+00:04:46,866 --> 00:04:50,300
+It's challenge time! OK, I'd like you to
+
+75
+00:04:50,300 --> 00:04:54,300
+lower the base polygon count! So open up the base .blend
+
+76
+00:04:54,300 --> 00:04:58,300
+file and save it as a new file, base Low Polygon,
+
+77
+00:04:58,300 --> 00:05:02,300
+baseLP, something along those lines. Make sure you are
+
+78
+00:05:02,300 --> 00:05:06,300
+working on the new .blend file, before you continue, and cut
+
+79
+00:05:06,300 --> 00:05:10,300
+down the amount of geometry, all the way down to around 100 triangles.
+
+80
+00:05:10,300 --> 00:05:14,300
+That should get you a descent low poly base. Now,
+
+81
+00:05:14,300 --> 00:05:18,300
+keeping the circular shape, I'd like you to make sure that the
+
+82
+00:05:18,300 --> 00:05:22,300
+circle, looking from the top, has 8 edges, so it's essentially an octagon
+
+83
+00:05:22,300 --> 00:05:26,300
+around its base. OK, pause the video now,
+
+84
+00:05:26,300 --> 00:05:30,300
+and go and give that a go! OK guys,
+
+85
+00:05:30,300 --> 00:05:34,300
+welcome back! Let's hop straight on over into Blender!
+
+86
+00:05:34,533 --> 00:05:38,533
+OK, so we have our chess piece base open
+
+87
+00:05:38,533 --> 00:05:42,533
+here! Now, the first thing I'm going to do is just clean up my interface a little
+
+88
+00:05:42,533 --> 00:05:46,533
+around the edges here and just get rid of the Tool Shelf and properties,
+
+89
+00:05:46,533 --> 00:05:50,533
+just so I can see my base a little better. OK, so we
+
+90
+00:05:50,533 --> 00:05:54,533
+need to decide which set of edge loops we're
+
+91
+00:05:54,533 --> 00:05:58,533
+removing. Well, first of all, I'm going to go into Top
+
+92
+00:05:58,533 --> 00:06:02,533
+View. You don't have to go into Top View, it's just easier to
+
+93
+00:06:02,533 --> 00:06:06,533
+work with. And I want 8 of these, and I do want them to line up with
+
+94
+00:06:06,533 --> 00:06:10,533
+the X, Z axis, otherwise it can be a wee bit confusing. So
+
+95
+00:06:10,533 --> 00:06:14,533
+I want to keep that one, and 1, 2, 3, yeah!
+
+96
+00:06:14,533 --> 00:06:18,533
+So I want to delete every third edge loop, so I'm going to go 1,
+
+97
+00:06:18,533 --> 00:06:22,533
+hold down Shift and select those three, miss one and select another
+
+98
+00:06:22,533 --> 00:06:26,533
+three, and I'm simply going to repeat that around our entire
+
+99
+00:06:26,533 --> 00:06:30,533
+object. Now, this is a little tiresome, you may think, Oh, I could just go and
+
+100
+00:06:30,533 --> 00:06:34,533
+recreate it, but depending on the size of the model that you're working
+
+101
+00:06:34,533 --> 00:06:38,533
+with, that could also be a very gigantic task. At least,
+
+102
+00:06:38,533 --> 00:06:42,533
+now we've got all the proportions right and everything else. So I'm going to
+
+103
+00:06:42,533 --> 00:06:46,533
+press X now, and I'm going to delete Vertices. Now,
+
+104
+00:06:46,533 --> 00:06:50,533
+at this point in time, we just need to recreate it now using those.
+
+105
+00:06:50,533 --> 00:06:54,533
+I'm going to select everything, pressing the A Key,
+
+106
+00:06:54,533 --> 00:06:58,533
+and then, finally go to Mesh, Edges,
+
+107
+00:06:58,533 --> 00:07:02,533
+and Bridge Edge Loops. There's another really quick
+
+108
+00:07:02,533 --> 00:07:06,533
+way of doing this, we've covered it before. And since we're going to be doing Bridge
+
+109
+00:07:06,533 --> 00:07:10,533
+Edge Loops several times in a row, when we press space
+
+110
+00:07:10,533 --> 00:07:14,533
+if you start searching for Bridge Edge Loops, there we go,
+
+111
+00:07:14,533 --> 00:07:18,533
+I can just press Enter, at that point, and we can see that it leaves a gap.
+
+112
+00:07:18,533 --> 00:07:22,533
+So I'm just going to select that final edge loop there and this one here...
+
+113
+00:07:22,533 --> 00:07:26,533
+Whoah, then select the right one, that one there and that one there.
+
+114
+00:07:26,533 --> 00:07:30,533
+Brilliant! And this time, I can just hit Space again to bring up this search
+
+115
+00:07:30,533 --> 00:07:34,533
+and press Enter, straight away. Really powerful, being able to
+
+116
+00:07:34,533 --> 00:07:38,533
+do that, especially if you're doing a lot of repetitive tasks. OK, so
+
+117
+00:07:38,533 --> 00:07:42,533
+the final set of edge loops, that is 8 yeah, the final set of
+
+118
+00:07:42,533 --> 00:07:46,533
+edge loops is just to make sure this isn't quite so curvy. And usually,
+
+119
+00:07:46,533 --> 00:07:50,533
+the best way of doing that is, if we look at the profile running down
+
+120
+00:07:50,533 --> 00:07:54,533
+here, is to remove the ones in between the points of
+
+121
+00:07:54,533 --> 00:07:58,533
+inflection. So that would be this edge loop around the
+
+122
+00:07:58,533 --> 00:08:02,533
+top, not the very top one but that one there. Then, it's got a point here, then
+
+123
+00:08:02,533 --> 00:08:06,533
+these two can go, leaving that one. These two can go
+
+124
+00:08:06,533 --> 00:08:10,533
+here, leaving that one. Oh, I'm not holding down Shift,
+
+125
+00:08:10,533 --> 00:08:14,533
+for anybody watching! That was a bit silly of me! There we go, those are selected.
+
+126
+00:08:14,533 --> 00:08:18,533
+I want to keep that one, and these can go! Now, it's a
+
+127
+00:08:18,533 --> 00:08:22,533
+bit... I don't know which one of these to keep, I'm going to keep this very bottom
+
+128
+00:08:22,533 --> 00:08:26,533
+one, I think, and then, this and I'm going to keep
+
+129
+00:08:26,533 --> 00:08:30,533
+that coming out, so we've got it defined, coming back out
+
+130
+00:08:30,533 --> 00:08:34,533
+here. Then, get rid of these three but keeping an edge along
+
+131
+00:08:34,533 --> 00:08:38,533
+the bottom. OK, I think I'm happy with that! I'm going to press the
+
+132
+00:08:38,533 --> 00:08:42,533
+X Key and delete the Vertices. OK,
+
+133
+00:08:42,533 --> 00:08:46,533
+and the final thing to do is, I'm going to select everything and go
+
+134
+00:08:46,533 --> 00:08:50,533
+Mesh, Edges, and
+
+135
+00:08:50,533 --> 00:08:54,533
+Bridge Edge Loops. Of course, you could just use the Spacebar again and press Enter,
+
+136
+00:08:54,533 --> 00:08:58,533
+And that's looking pretty good, but I am actually going to just make
+
+137
+00:08:58,533 --> 00:09:02,533
+sure a couple of things are working. I'm going to fill in this top, using
+
+138
+00:09:02,533 --> 00:09:06,533
+the edge loop around the top and pressing F. I'm going to
+
+139
+00:09:06,533 --> 00:09:10,533
+rotate around to the bottom and select this
+
+140
+00:09:10,533 --> 00:09:14,533
+bottom one and do exactly the same there, fill in that face.
+
+141
+00:09:14,533 --> 00:09:18,533
+Now, the final thing I do want to do, because we've been playing about with the geometry here,
+
+142
+00:09:18,533 --> 00:09:22,533
+is just make sure there are no doubles. So I'm going to open up the Tool Shelf,
+
+143
+00:09:22,533 --> 00:09:26,533
+select everything, make sure I'm still in Edit Mode, scrolling down
+
+144
+00:09:26,533 --> 00:09:30,533
+and Remove Doubles. Ah, there's nothing there. And I'm also just going to
+
+145
+00:09:30,533 --> 00:09:34,533
+make sure the normals are correct. In that case, I'm going to use
+
+146
+00:09:34,533 --> 00:09:38,533
+Control and N, if you remember from earlier, and just make sure they're
+
+147
+00:09:38,533 --> 00:09:42,533
+outward facing for us. That's brilliant! The
+
+148
+00:09:42,533 --> 00:09:46,533
+final thing, that I could have done to begin with is but I decided to do at the end,
+
+149
+00:09:46,533 --> 00:09:50,533
+was go to File and Save
+
+150
+00:09:50,533 --> 00:09:54,533
+As, and I'm going to call mine LP Chess Piece Base.
+
+151
+00:09:54,533 --> 00:09:58,533
+Save As A Blender File. That's great! Let's just have a look at
+
+152
+00:09:58,533 --> 00:10:02,533
+our details we have here. So vertices, we've got
+
+153
+00:10:02,533 --> 00:10:06,533
+56 Edges. Faces there and Triangles, those are our
+
+154
+00:10:06,533 --> 00:10:10,533
+polygon counts; often, a lot of these just get divided up into
+
+155
+00:10:10,533 --> 00:10:14,533
+triangles anyway, is 108. So that's perfect,
+
+156
+00:10:14,533 --> 00:10:18,533
+that's met our specification. How did you guys get on?
+
+157
+00:10:18,533 --> 00:10:22,533
+Share in the discussions, and I will see you in the next lecture!
+

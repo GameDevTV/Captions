@@ -1,0 +1,594 @@
+
+
+1
+00:00:00,000 --> 00:00:02,300
+Hey
+
+2
+00:00:02,300 --> 00:00:06,300
+welcome back! So we're going to talk about Exporting Models with Materials now!
+
+3
+00:00:06,300 --> 00:00:10,300
+We think we've nearly got our pin finished, and in this used case,
+
+4
+00:00:10,300 --> 00:00:14,300
+it's going into a game engine. So let's carry on the process, let's get it finished!
+
+5
+00:00:14,300 --> 00:00:18,300
+Let's talk about how a .blend file may appear elsewhere, in this case,
+
+6
+00:00:18,300 --> 00:00:22,300
+in Unity, how to export as an .fbx file
+
+7
+00:00:22,300 --> 00:00:26,300
+with materials attached, why using a .blend file is
+
+8
+00:00:26,300 --> 00:00:30,300
+leaner if your target program will support it, briefly talk about smooth shading
+
+9
+00:00:30,300 --> 00:00:34,300
+and normals, you may have noticed that the pin is a little bit kind of blocky,
+
+10
+00:00:34,300 --> 00:00:38,300
+and then, I'll explain why we may want multiple levels of detail.
+
+11
+00:00:38,300 --> 00:00:42,300
+So let's just have a look! What's this about work
+
+12
+00:00:42,300 --> 00:00:46,300
+flow and leanness? Well the leanest thing we can possibly hope
+
+13
+00:00:46,300 --> 00:00:50,300
+for is that our target package live reads .blend
+
+14
+00:00:50,300 --> 00:00:54,300
+files. So Unity, for example, if you put the .blend file in the Unity assets,
+
+15
+00:00:54,300 --> 00:00:58,300
+it will read it live, and you change the Blender file and it changes immediately in Unity.
+
+16
+00:00:58,300 --> 00:01:02,300
+You may have a 3D printing software that does the same, you may have a different game engine,
+
+17
+00:01:02,300 --> 00:01:06,300
+whatever, so that's the ideal. The next best thing, if you can't do that,
+
+18
+00:01:06,300 --> 00:01:10,300
+is to save as a .blend file but just import into your target package.
+
+19
+00:01:10,300 --> 00:01:14,300
+So at least you've only got one thing to do every time you make a change to your model,
+
+20
+00:01:14,300 --> 00:01:18,300
+and then, you go to your target package and you do another import. And the trickiest thing,
+
+21
+00:01:18,300 --> 00:01:22,300
+that you may need to do, is to export from Blender every time you make a change,
+
+22
+00:01:22,300 --> 00:01:26,300
+as a .fbx, .stl, or whatever and then, import into your program. So
+
+23
+00:01:26,300 --> 00:01:30,300
+you've got lean, medium, and hard, it's a bit like burgers. OK, so let's take
+
+24
+00:01:30,300 --> 00:01:34,300
+a look at all this in practice! Here's our nice stripey, pinie, thingy, widget!
+
+25
+00:01:34,300 --> 00:01:38,300
+So what I'm going to do is, I'm going to crack open Unity for
+
+26
+00:01:38,300 --> 00:01:42,300
+you, which is a very popular game engine. Now it's free! If you want to go and download
+
+27
+00:01:42,300 --> 00:01:46,300
+it, from Unity's website, you're very welcome to, and you can
+
+28
+00:01:46,300 --> 00:01:50,300
+play with it. But this is a Blender course, so the purpose of me putting
+
+29
+00:01:50,300 --> 00:01:54,300
+Unity up here is, I want to show you the livest
+
+30
+00:01:54,300 --> 00:01:58,300
+and leanest possible way of dealing with a .blend file in another program.
+
+31
+00:01:58,300 --> 00:02:02,300
+So if we don't export, rather, but save a copy
+
+32
+00:02:02,300 --> 00:02:06,300
+of the bowling pin, right into the
+
+33
+00:02:06,300 --> 00:02:10,300
+Unity or your target program's appropriate
+
+34
+00:02:10,300 --> 00:02:14,300
+folder... Now, in the case of Unity, that is
+
+35
+00:02:14,300 --> 00:02:18,300
+the Assets folder. So I've put it in my target program's folder.
+
+36
+00:02:18,300 --> 00:02:22,300
+Now, Unity's very well behaved with this! What it does is, it notices something appeared
+
+37
+00:02:22,300 --> 00:02:26,300
+in this Asset folder, and I can just put it straight into Unity. Here it is,
+
+38
+00:02:26,300 --> 00:02:30,300
+there is your bowling pin in a game engine! Isn't that pretty cool! I'm going to move this
+
+39
+00:02:30,300 --> 00:02:34,300
+light out of the way, because it's very distracting. And there we go, congratulations we have
+
+40
+00:02:34,300 --> 00:02:38,300
+something in a different program! Now, the cool thing about working with a
+
+41
+00:02:38,300 --> 00:02:42,300
+program that works in my leanest paradigm, remember the top one here
+
+42
+00:02:42,300 --> 00:02:46,300
+the target package live reads the .blend file, is this. Look if I
+
+43
+00:02:46,300 --> 00:02:50,300
+go into Blender and I say go into Edit Mode and I go
+
+44
+00:02:50,300 --> 00:02:54,300
+grab maybe one of these faces and kind of yank it out like that, if I save
+
+45
+00:02:54,300 --> 00:02:58,300
+the .blend file, watch Unity! See it's immediately
+
+46
+00:02:58,300 --> 00:03:02,300
+changed in Unity! There it is, you see the pin has the thing in it, which I
+
+47
+00:03:02,300 --> 00:03:06,300
+think is very cool! Now I can undo that and resave, and Unity will
+
+48
+00:03:06,300 --> 00:03:10,300
+immediately noticed the difference. So that's the best possible workflow!
+
+49
+00:03:10,300 --> 00:03:14,300
+The next best workflow is that you need to kind of import into your target package but
+
+50
+00:03:14,300 --> 00:03:18,300
+it's still a .blend file. And the trickiest workflow is where you
+
+51
+00:03:18,300 --> 00:03:22,300
+need to go Export, as say an FBX.
+
+52
+00:03:22,300 --> 00:03:26,300
+Let's try that from Blender, go ahead and try exporting your pin as a .fbx, by the way.
+
+53
+00:03:26,300 --> 00:03:30,300
+And you could, say, stick it in your Downloads and call it BowlingPin. You can leave all the
+
+54
+00:03:30,300 --> 00:03:34,300
+settings default and then you have a .fbx file. Then, you have to go
+
+55
+00:03:34,300 --> 00:03:38,300
+over to your target package and let's delete everything that's here,
+
+56
+00:03:38,300 --> 00:03:42,300
+for now, and then, you go in your target package and you Import a New
+
+57
+00:03:42,300 --> 00:03:46,300
+Asset and you go find it [Laughs] and then you Import it, and eventually,
+
+58
+00:03:46,300 --> 00:03:50,300
+you end up in a very similar place. Now notice, when you import a .fbx it also
+
+59
+00:03:50,300 --> 00:03:54,300
+has a Materials folder, the Pin and the Stripe are preserved, and if I open
+
+60
+00:03:54,300 --> 00:03:58,300
+up this thing, it has the Camera, the Lamp, the Pin, the Pin mesh,
+
+61
+00:03:58,300 --> 00:04:02,300
+etc. And I can still pop this pin in my scene and it still behaves!
+
+62
+00:04:02,300 --> 00:04:06,300
+So either way is good, but of course, now if I make a change in Blender... Ooh, I want that
+
+63
+00:04:06,300 --> 00:04:10,300
+pin to look more like this! Saving it's no good! I have to Export it
+
+64
+00:04:10,300 --> 00:04:14,300
+as a .fbx again and then reimport it. You see how much more of a hassle
+
+65
+00:04:14,300 --> 00:04:18,300
+that is, than just actually saving the .blend file? Yep, much
+
+66
+00:04:18,300 --> 00:04:22,300
+more of a hassle! So I am going to work with the .blend file, because
+
+67
+00:04:22,300 --> 00:04:26,300
+it's a lot easier for me, over here in Unity. So
+
+68
+00:04:26,300 --> 00:04:30,300
+I save my .blend file, look at Unity, and it updates immediately.
+
+69
+00:04:30,300 --> 00:04:34,300
+Lovely! OK fantastic! So let's go back to the slides and talk about the other things!
+
+70
+00:04:34,300 --> 00:04:38,300
+So you've seen how a .blend file may appear elsewhere, you've seen
+
+71
+00:04:38,300 --> 00:04:42,300
+how to export as a .fbx, with materials it all just kind of happens, and you've seen that
+
+72
+00:04:42,300 --> 00:04:46,300
+using a .blend file is a much leaner way of doing things. Now, I want to talk about
+
+73
+00:04:46,300 --> 00:04:50,300
+smoothing and normals and then multiple levels of detail.
+
+74
+00:04:50,300 --> 00:04:54,300
+So here is our bowling pin in Blender! And
+
+75
+00:04:54,300 --> 00:04:58,300
+if we're in Edit Mode, remember that you can go down here in the Properties
+
+76
+00:04:58,300 --> 00:05:02,300
+Panel, and you can go somewhere and you can say, show me the normals. And
+
+77
+00:05:02,300 --> 00:05:06,300
+their Vertex Normals in Unity, so I'll show the Vertex Normals. There they are, they're little
+
+78
+00:05:06,300 --> 00:05:10,300
+hairs, and they are one per face. Another way to show it is sticking out
+
+79
+00:05:10,300 --> 00:05:14,300
+of the faces instead of the vertices, the same number of normals roughly.
+
+80
+00:05:14,300 --> 00:05:18,300
+So the problem with this pin is, both in Blender and over in Unity, it's
+
+81
+00:05:18,300 --> 00:05:22,300
+pretty rough, you see you can see every single cell. Now you may say, ooh I should turn the poly count
+
+82
+00:05:22,300 --> 00:05:26,300
+up, but hang on hold your horses, it's already got a lot of pollies. It's already got
+
+83
+00:05:26,300 --> 00:05:30,300
+what 1,680 triangles, which is plenty!
+
+84
+00:05:30,300 --> 00:05:34,300
+What we need is something called Smooth Shading, and back
+
+85
+00:05:34,300 --> 00:05:38,300
+in Object Mode, in Blender here,
+
+86
+00:05:38,300 --> 00:05:42,300
+you can go down under Tools and you can click on Shading, Smooth.
+
+87
+00:05:42,300 --> 00:05:46,300
+Look at that! It's really looking pretty smooth now!
+
+88
+00:05:46,300 --> 00:05:50,300
+And if you do that and you re-save it, re-save
+
+89
+00:05:50,300 --> 00:05:54,300
+the BowlingPin, the great thing is that those extra normals, which you'll
+
+90
+00:05:54,300 --> 00:05:58,300
+learn later help determine how the thing draws, they come into Unity
+
+91
+00:05:58,300 --> 00:06:02,300
+as well. The same number of polygons! It's amazing! If you don't believe me,
+
+92
+00:06:02,300 --> 00:06:06,300
+then look here in Unity. It tells you 1,680, or
+
+93
+00:06:06,300 --> 00:06:10,300
+look back in Blender, 1,680. But it's a trick of lighting
+
+94
+00:06:10,300 --> 00:06:14,300
+that's making this look smooth. In fact, I would even go as far as to say that Unity
+
+95
+00:06:14,300 --> 00:06:18,300
+is doing a better job of shading that than Blender. Maybe when we go to
+
+96
+00:06:18,300 --> 00:06:22,300
+the Rendered Mode in Blender... There you go, Blender's doing a pretty good job in Rendered Mode.
+
+97
+00:06:22,300 --> 00:06:26,300
+But Blender's preview, it's solid preview, is not quite as
+
+98
+00:06:26,300 --> 00:06:30,300
+good as Unity's rendering. But anyway, there you go! So
+
+99
+00:06:30,300 --> 00:06:34,300
+we don't need to up the poly count crazily. What
+
+100
+00:06:34,300 --> 00:06:38,300
+a lower poly model like this will not do for us is hide the fact that the
+
+101
+00:06:38,300 --> 00:06:42,300
+edges are still a bit like Max Headroom. [Laughs] You can still see the geometry
+
+102
+00:06:42,300 --> 00:06:46,300
+on the edges there, and that, of course, is exactly the same
+
+103
+00:06:46,300 --> 00:06:50,300
+deal in Blender. It doesn't matter how much smoothing you put on, you're going to see the
+
+104
+00:06:50,300 --> 00:06:54,300
+geometry at the top of the pin,
+
+105
+00:06:54,300 --> 00:06:58,300
+whether it's Flat or Shaded. You see the edge, the outline, the
+
+106
+00:06:58,300 --> 00:07:02,300
+occlusion of the background is going to be the same, but going from Smooth to Flat
+
+107
+00:07:02,300 --> 00:07:06,300
+really makes a difference to the visual appearance, especially with a good shader like the one
+
+108
+00:07:06,300 --> 00:07:10,300
+here in Unity, or when you actually render later in Blender. Cool!
+
+109
+00:07:10,300 --> 00:07:14,300
+So the final thing I want to talk about now is, how about I'm
+
+110
+00:07:14,300 --> 00:07:18,300
+in a game engine, I may want this pin to do something, right? We presumably would have a bowling
+
+111
+00:07:18,300 --> 00:07:22,300
+pin, because we want to make maybe a bowling game and we want to do
+
+112
+00:07:22,300 --> 00:07:26,300
+something with it. So I'm just going to make a floor, really quickly here
+
+113
+00:07:26,300 --> 00:07:27,733
+and just put it below the pin.
+
+114
+00:07:27,733 --> 00:07:30,566
+So I'm just giving the pin some physics now,
+
+115
+00:07:30,566 --> 00:07:34,566
+and if we play the game, the pin falls straight through the floor. That's no good!
+
+116
+00:07:34,566 --> 00:07:38,566
+So what I want to do is add something called a collider! Now, the purpose of
+
+117
+00:07:38,566 --> 00:07:42,566
+this is that you, as a designer, are going to have to help with this, because watch what happens!
+
+118
+00:07:42,566 --> 00:07:46,566
+If I now try and add something called a Mesh Collider to this and I
+
+119
+00:07:46,566 --> 00:07:50,566
+say, well what's the mesh, and I go and say well it's the pin, look what happens in
+
+120
+00:07:50,566 --> 00:07:54,566
+Unity when I try and run this! It's going to complain!
+
+121
+00:07:54,566 --> 00:07:58,566
+None-convex mesh colliders are not allowed! Now Mikey's going to talk to you
+
+122
+00:07:58,566 --> 00:08:02,566
+about what a convex-mesh is, but it basically means that none of it sticks inwards. The neck
+
+123
+00:08:02,566 --> 00:08:06,566
+of this pin is concave, and this game engine will not allow
+
+124
+00:08:06,566 --> 00:08:10,566
+concave, so Mikey's going to be showing you how to make convex meshes. So say I
+
+125
+00:08:10,566 --> 00:08:14,566
+say to Unity, OK make it convex, it will go I can't, because it's got more than
+
+126
+00:08:14,566 --> 00:08:18,566
+256 vertices, my brain hurts! It's got far too many vertices!
+
+127
+00:08:18,566 --> 00:08:22,566
+Look in Blender, the vertices are 870! So it just doesn't
+
+128
+00:08:22,566 --> 00:08:26,566
+work, it can't work, I can't make this work, I cannot make my pin collide with the floor, and I'm
+
+129
+00:08:26,566 --> 00:08:30,566
+now an irritated game designer. So I'm going to go back to Mikey and say,
+
+130
+00:08:30,566 --> 00:08:34,566
+Mikey, I want a lower poly, a less than 255
+
+131
+00:08:34,566 --> 00:08:38,566
+vertex collider, and the end
+
+132
+00:08:38,566 --> 00:08:42,566
+effect of that is going to be something like this. He's going to provide me with a different mesh.
+
+133
+00:08:42,566 --> 00:08:46,566
+I'm then going to bring that mesh in here and it is going to be
+
+134
+00:08:46,566 --> 00:08:50,566
+a green outline like this and it'll be kind of something like
+
+135
+00:08:50,566 --> 00:08:54,566
+that but it'll be more pin shaped, and when we've finished, what'll happen
+
+136
+00:08:54,566 --> 00:08:58,566
+is my pin will actually, if it starts with some Rotation,
+
+137
+00:08:58,566 --> 00:09:02,566
+it will actually land
+
+138
+00:09:02,566 --> 00:09:06,566
+and fall over but properly. You see that's just dodgy,
+
+139
+00:09:06,566 --> 00:09:10,566
+because whatever I do with just a cylinder, i.e. this part of the pin here
+
+140
+00:09:10,566 --> 00:09:14,566
+hits the ground properly or the neck does but not both. You see if I thin it down, it'll
+
+141
+00:09:14,566 --> 00:09:18,566
+go through the floor, etc. So our mission now, with Mikey,
+
+142
+00:09:18,566 --> 00:09:22,566
+is to make a mesh that is 255 vertices or
+
+143
+00:09:22,566 --> 00:09:26,566
+less, representing the same shape and scale as the pin,
+
+144
+00:09:26,566 --> 00:09:30,566
+but is also convex. It must
+
+145
+00:09:30,566 --> 00:09:34,566
+be a convex mesh, so from this tip of the pin to here it's going to have to be a
+
+146
+00:09:34,566 --> 00:09:38,566
+straight line, nothing going in. So that's what comes next, and I hope that was helpful,
+
+147
+00:09:38,566 --> 00:09:42,566
+as you can see the fate of your models when they arrive in things like Unity!
+
+148
+00:09:42,566 --> 00:09:44,866
+See you soon!
+
