@@ -1,0 +1,1113 @@
+Kind: captions
+Language: en
+
+00:00:00,000 --> 00:00:08,069
+Hey welcome back so you'll have noticed in
+that last video that we nearly got you
+
+00:00:08,069 --> 00:00:12,019
+all the way there but we didn't renew
+the pins so in this video we are going
+
+00:00:12,019 --> 00:00:17,160
+to talk about a few things we're gonna talk
+about a brief reminder of fixed time step
+
+00:00:17,160 --> 00:00:22,550
+we talk about bounciness and default
+materials issues of scale and its effect
+
+00:00:22,550 --> 00:00:27,210
+on the physics settings and then all of
+that to stop rigid bodies passing
+
+00:00:27,210 --> 00:00:32,550
+through each other, now what I mean well
+I know that when I try and instantiate
+
+00:00:32,550 --> 00:00:36,329
+my pins on the renew cycle they're going to fall straight through the floor and that's a
+
+00:00:36,329 --> 00:00:39,489
+pain but it's also a blessing in
+disguise because I want to use it as an
+
+00:00:39,489 --> 00:00:45,840
+opportunity to teach you a methodology
+for debugging common physics issues. So
+
+00:00:45,840 --> 00:00:47,399
+that's what it's all about
+
+00:00:47,399 --> 00:00:51,300
+so let's recap what's going on here we
+have a PinSetter and it has an animator
+
+00:00:51,300 --> 00:00:58,309
+attached to it and in its renew substate
+or its reset substate here it has a renew
+
+00:00:58,309 --> 00:01:04,769
+motion clip and that renew motion clip
+does very little, it simply calls a
+
+00:01:04,769 --> 00:01:08,450
+script called renew pins and of
+course renew Pins doesn't yet do
+
+00:01:08,450 --> 00:01:12,320
+anything because we're going to run out of time in
+the last video so let's make it do
+
+00:01:12,320 --> 00:01:16,630
+something the first thing to do is to go
+into scripts; the correct scripts not the
+
+00:01:16,630 --> 00:01:20,270
+imported scripts here you go and into your
+PinSetter and under renew pins we need
+
+00:01:20,270 --> 00:01:24,060
+to get hold firstly of the pin set so
+how do we do that? Well I'm going to
+
+00:01:24,060 --> 00:01:29,479
+publicly expose a GameObject at the top
+of my PinSetter.cs and I'm gonna
+
+00:01:29,479 --> 00:01:34,079
+call it pin set let's say. Now the moment
+you publicly expose something good idea
+
+00:01:34,079 --> 00:01:39,680
+to save it go to unity find the thing in
+question the PinSetter; find a prefab in
+
+00:01:39,680 --> 00:01:40,740
+question
+
+00:01:40,740 --> 00:01:45,060
+drag it across cool so the script now
+knows what it's going to instantiate it's going to
+
+00:01:45,060 --> 00:01:47,950
+instantiate this set of pins here but
+hang on
+
+00:01:47,950 --> 00:01:51,689
+not so far soldier before we do that
+let's just take a little look in the
+
+00:01:51,689 --> 00:01:56,610
+scene view; are we sure that these pins
+in the scene right now are the same as
+
+00:01:56,610 --> 00:02:00,619
+this prefab, well I'm not because they're not
+blue because they're not blue who said
+
+00:02:00,619 --> 00:02:05,090
+there's a prefab connection here there
+isn't a prefab connection so what do i
+
+00:02:05,090 --> 00:02:09,459
+do I don't like having data in two places
+which is the correct set of pins to use?
+
+00:02:09,459 --> 00:02:11,260
+well these guys down here
+
+00:02:11,260 --> 00:02:16,720
+are a little bit out of date if you look
+at them they may look fine but are they going to operate
+
+00:02:16,720 --> 00:02:21,120
+properly? Well I don't know, let's try dragging
+them in the scene and they look ok but I
+
+00:02:21,120 --> 00:02:24,629
+don't trust it anymore I don't trust
+this prefab anymore because I've been
+
+00:02:24,629 --> 00:02:28,239
+making changes to these pins here and the
+connections been broken I know that
+
+00:02:28,239 --> 00:02:34,329
+these pins operate OK so I'm gonna delete
+my pin set prefab I'm gonna re-prefab
+
+00:02:34,329 --> 00:02:38,440
+the pins from this scene because I trust
+that set of information. They've gone
+
+00:02:38,440 --> 00:02:43,180
+blue so now we have a pin prefab
+connections so any changes I make
+
+00:02:43,180 --> 00:02:48,209
+propagate and then I'm gonna re-drag
+this newly created pin set
+
+00:02:48,209 --> 00:02:53,450
+prefab over to the script Alright? So think
+about what you're doing with prefabs
+
+00:02:53,450 --> 00:02:57,030
+especially if you've been busily making
+changes to your pins and you're not
+
+00:02:57,030 --> 00:03:00,730
+connected to your prefab. You want to make
+changes in the prefab so that the change
+
+00:03:00,730 --> 00:03:05,030
+goes this way from down here in the
+pre-fab up to the specific instance not
+
+00:03:05,030 --> 00:03:09,120
+the other way. So there's a simple tip
+for you anyway the script has access now
+
+00:03:09,120 --> 00:03:13,030
+to that pin set so how are we going to
+instantiate? I mean it's quite simple we go
+
+00:03:13,030 --> 00:03:18,349
+instantiate we've done this plenty of
+times before in the course pinSet, like
+
+00:03:18,349 --> 00:03:23,919
+that and then where are we going to instantiate
+that pin set well let's check the docs
+
+00:03:23,919 --> 00:03:30,790
+for instantiate and see how we're gonna do
+this when the docs load we'll find a
+
+00:03:30,790 --> 00:03:35,629
+method called object.instantiate and
+here we could either just instantiate it and
+
+00:03:35,629 --> 00:03:39,280
+capture it or we can instantiate it at
+a particular position with a particular
+
+00:03:39,280 --> 00:03:45,160
+rotation let's use that method signature. 
+So I'm going to instantiate the pin set at a
+
+00:03:45,160 --> 00:03:53,440
+new Vector3 which sits where? Well at 0x, 1829
+centimetres in y because if we look in
+
+00:03:53,440 --> 00:03:59,150
+the scene that is where our pin assembly
+is and then 0 in z. Actually I've got
+
+00:03:59,150 --> 00:04:04,739
+that wrong it's 0 in Y and 1829 in z
+isn't it exactly the same as the
+
+00:04:04,739 --> 00:04:10,190
+inspector over here for the pin 00 1829
+and of course I need a rotation on the
+
+00:04:10,190 --> 00:04:15,049
+end of here as well which is a quaternion
+which we've still not dug into what a
+
+00:04:15,049 --> 00:04:16,910
+quaternion means and why we care
+
+00:04:16,910 --> 00:04:20,110
+and we're not going to for a while
+because we just don't need to know what
+
+00:04:20,110 --> 00:04:24,770
+we do need to know is that quarternion dot
+identity means no rotation cool let's
+
+00:04:24,770 --> 00:04:28,110
+see what happens let's try the renew
+cycle. I'll
+
+00:04:28,110 --> 00:04:32,240
+do a complete test, I'll bowl a ball if I can
+get my mouse movement right boom here it
+
+00:04:32,240 --> 00:04:34,040
+goes
+
+00:04:34,040 --> 00:04:40,440
+Oh my god that's slow, let's start again now what you
+might wanna do is create yourself some
+
+00:04:40,440 --> 00:04:44,380
+buttons that do some standard launches
+for you if you get fed up with firing it.
+
+00:04:44,380 --> 00:04:47,680
+The disadvantage of that of course is
+that by doing lots of non-standard
+
+00:04:47,680 --> 00:04:50,190
+launches you're creating lots of
+different test conditions for the game
+
+00:04:50,190 --> 00:04:51,950
+so pros and cons anyway
+
+00:04:51,950 --> 00:04:57,210
+9 pins they settle, they come back cool. We hit
+reset, go to the scene view let's watch
+
+00:04:57,210 --> 00:05:00,910
+what happens we swipe out the way
+successfully, fantastic, swiper goes back
+
+00:05:00,910 --> 00:05:03,070
+up, pins instantiate and straight through the floor.
+
+00:05:03,070 --> 00:05:09,050
+Oh bugger. Right so how do we debug
+something like that? Well there's lots of
+
+00:05:09,050 --> 00:05:11,640
+things we can consider here
+
+00:05:11,640 --> 00:05:17,100
+firstly maybe this is happening because
+they are instantiating not on the floor
+
+00:05:17,100 --> 00:05:19,380
+so maybe we go five centimeters off the
+floor
+
+00:05:19,380 --> 00:05:23,690
+maybe they're kind of embedded in the
+floor maybe the pins aren't all the same
+
+00:05:23,690 --> 00:05:26,720
+height or something that's, Oh, look,
+there's one so if you have a look down
+
+00:05:26,720 --> 00:05:31,180
+here you'll see that this pin set has
+one that is sitting below the floor maybe
+
+00:05:31,180 --> 00:05:35,320
+that's causing the problem. You see this one
+here which pin number is that offending
+
+00:05:35,320 --> 00:05:40,190
+pin number six so change it in the
+pre-fab look at pin number six in the
+
+00:05:40,190 --> 00:05:47,020
+pre-fab here it is and you see as a y
+value of minus something, naughty so now
+
+00:05:47,020 --> 00:05:50,140
+in this instance because I've changed a
+prefab of course the pins in the scene
+
+00:05:50,140 --> 00:05:55,070
+have changed so it's all good. Has that fixed the
+problem so we've raised the instantiated
+
+00:05:55,070 --> 00:05:59,390
+object up five centimeters and got rid
+of this rogue pin let's have a look and
+
+00:05:59,390 --> 00:06:04,900
+see what happens now I'm just gonna
+reset, I'm not gonna bother bowling the ball here we go. Now remember
+
+00:06:04,900 --> 00:06:09,730
+your first-person controls by the way, hold
+down the right mouse button and use WSAD
+
+00:06:09,730 --> 00:06:13,530
+anyway, they still fell straight through the
+floor so now let's use our trick of
+
+00:06:13,530 --> 00:06:17,140
+slowing down time let's hit reset and
+just at the crucial moment when they
+
+00:06:17,140 --> 00:06:22,780
+appear I'm gonna hit pause, boom there we
+go, and I'm going to zoom in. There you go
+
+00:06:22,780 --> 00:06:27,220
+Now they are instantiating off the floor.
+None of them are touching the floor everything
+
+00:06:27,220 --> 00:06:29,660
+looks hunky dory we step step step
+step step
+
+00:06:29,660 --> 00:06:33,510
+they start falling down and they go straight through the floor
+
+00:06:33,510 --> 00:06:40,660
+nasty so hypotheses. Well one would be
+that the pins are moving so fast even
+
+00:06:40,660 --> 00:06:43,590
+though they don't look they're moving
+like they're moving fast that they are
+
+00:06:43,590 --> 00:06:47,700
+passing through this floor collider
+because that can happen if you move
+
+00:06:47,700 --> 00:06:50,930
+more than the distance of the width of
+the floor in a frame that they look like
+
+00:06:50,930 --> 00:06:54,390
+they could have been then maybe it's
+passing through the floor so when you're
+
+00:06:54,390 --> 00:06:57,660
+debugging something like that just go
+nuts for a moment make the floor 50
+
+00:06:57,660 --> 00:07:01,980
+centimeters thick but of course you need
+to offset if you can do that by half it's
+
+00:07:01,980 --> 00:07:07,790
+width. So let's see if that helps for a start.
+We've made the collider thicker and
+
+00:07:07,790 --> 00:07:10,600
+there are other settings I'm going to show you in
+a minute that relate to this but let's
+
+00:07:10,600 --> 00:07:14,210
+just see if we can narrow down what the
+fundamental problem is. Is it to do with
+
+00:07:14,210 --> 00:07:19,470
+collider thickness reset and they still
+fall through the floor. Well I would be
+
+00:07:19,470 --> 00:07:23,030
+tempted to say well maybe that's the
+solution but maybe we just don't
+
+00:07:23,030 --> 00:07:28,440
+have a thick enough floor how about it it was two meters
+thick and then offet the mid-point so you
+
+00:07:28,440 --> 00:07:31,500
+know if you have a hunch that it's
+because the collider's not deep enough then
+
+00:07:31,500 --> 00:07:35,550
+go nuts make it really silly stupid deep
+and see what happens let's see what
+
+00:07:35,550 --> 00:07:41,420
+happens now, Do they still pass through?
+Yep they still pass through ok well
+
+00:07:41,420 --> 00:07:45,040
+maybe it's too narrow why would being
+narrow matter? Well who knows but let's just
+
+00:07:45,040 --> 00:07:52,020
+double the width and see what happens. Maybe the width has got
+something to do with it. These are the sorts
+
+00:07:52,020 --> 00:07:57,180
+of things you're going to want to do when you're
+trying to debug this stuff. Still passed
+
+00:07:57,180 --> 00:08:01,130
+through the floor. OK so at this point it's
+like well what the hell's going on so
+
+00:08:01,130 --> 00:08:03,340
+useful tip coming up
+
+00:08:03,340 --> 00:08:08,460
+Use a default material. Always have at
+least one default material. I want you to go
+
+00:08:08,460 --> 00:08:13,400
+to your assets folder and create yourself a
+new physics material. They call it
+
+00:08:13,400 --> 00:08:17,790
+physic material because they can't
+spell but physic material
+
+00:08:17,790 --> 00:08:21,610
+like that and we're just gonna call this
+default and then I want to make sure
+
+00:08:21,610 --> 00:08:27,310
+that all of our objects have some sort
+of material on them because for example
+
+00:08:27,310 --> 00:08:31,340
+by default things have no bounciness but
+nothing has no bounciness apart from
+
+00:08:31,340 --> 00:08:37,820
+maybe I dunno jelly or silly putty. No I mean
+that doesn't. I don't know what the hell
+
+00:08:37,820 --> 00:08:40,030
+do you drop it has no bounciness rubbish
+
+00:08:40,030 --> 00:08:44,330
+Let's give our default material maybe I
+don't know let's be indecisive about the
+
+00:08:44,330 --> 00:08:48,220
+dynamic and static friction halfway nought
+point five but definitely let's have some
+
+00:08:48,220 --> 00:08:53,100
+bounciness. So create a material called
+default and give it some bounciness of point one
+
+00:08:53,100 --> 00:08:58,080
+dynamic and static friction of point 5 let's
+say. Great now go into your project
+
+00:08:58,080 --> 00:09:02,620
+settings / edit and project settings and
+down to physics; spelt properly this time
+
+00:09:02,620 --> 00:09:08,240
+and in there you will have an option for
+default material set it to that default
+
+00:09:08,240 --> 00:09:13,370
+material. Great. That's important that means that any new
+thing that you create will have that
+
+00:09:13,370 --> 00:09:17,300
+default material but I said any new thing
+that you create, how about the bowling pins what
+
+00:09:17,300 --> 00:09:21,080
+material do they have? None so select all
+of the bowling pins inside the pre-fab
+
+00:09:21,080 --> 00:09:25,540
+not from the hierarchy from the prefab
+all of them and then go to the material
+
+00:09:25,540 --> 00:09:29,360
+and set it to the default physics
+material and finally do the same with the
+
+00:09:29,360 --> 00:09:33,660
+floor. Make sure that the floor has the
+default physics material. The default
+
+00:09:33,660 --> 00:09:37,710
+physics material will apply to any new
+object you create but it won't apply to
+
+00:09:37,710 --> 00:09:41,710
+any previous objects. So let's see if
+having some bounciness and some physics
+
+00:09:41,710 --> 00:09:47,330
+material has helped. One of these
+solutions eventually will fix it and
+
+00:09:47,330 --> 00:09:51,110
+then we'll peel back the onion. No, that
+didn't help but it is a very useful
+
+00:09:51,110 --> 00:09:54,700
+thing to know about the physics engine.
+So what next? Next thing you can look at
+
+00:09:54,700 --> 00:10:02,570
+is project settings and time, let's have
+a look in there
+
+00:10:02,570 --> 00:10:06,910
+So you have a fixed time step this is
+how rapidly the physics engine computes
+
+00:10:06,910 --> 00:10:10,860
+the physics that point nought two of a
+second; two milliseconds 20 milliseconds
+
+00:10:10,860 --> 00:10:15,610
+or fifty times a second. So how about if
+we made that twice as fast how about if we
+
+00:10:15,610 --> 00:10:19,580
+computed physics every point nought one or
+a hundred times a second let's have a
+
+00:10:19,580 --> 00:10:22,470
+look and see if that makes any difference
+sometimes you need to turn up the
+
+00:10:22,470 --> 00:10:26,580
+fidelity of your physics calculations as
+long as you've got performance to spare
+
+00:10:26,580 --> 00:10:27,770
+this is fine
+
+00:10:27,770 --> 00:10:30,550
+hasn't helped but I'm gonna leave it
+there I just want to show you this
+
+00:10:30,550 --> 00:10:36,560
+setting; really important it's how often
+physics are calculated. Cool, where else
+
+00:10:36,560 --> 00:10:40,580
+can we look for the problem well let's
+take a look in project settings / physics
+
+00:10:40,580 --> 00:10:46,590
+now. What have we got, we've got gravity we've made
+gravity stronger why because we have
+
+00:10:46,590 --> 00:10:52,750
+made our scale of our whole world abnormal
+the NVIDIA PhysX system underlying all
+
+00:10:52,750 --> 00:10:57,690
+this assumes that one world unit equals
+1 meter whereas we're using one world
+
+00:10:57,690 --> 00:11:02,630
+unit equals one centimeter so the
+effect that can have is it can change
+
+00:11:02,630 --> 00:11:09,060
+things like your gravity scale required
+we've turned up our world scale a
+
+00:11:09,060 --> 00:11:13,400
+hundred times so gravity should really
+be rather than, mine is -9.81 it should
+
+00:11:13,400 --> 00:11:19,430
+really be more like -981. Let's try
+-981. I think nothing's gonna
+
+00:11:19,430 --> 00:11:24,700
+work properly but let's just try it. The
+pins are much more aggressive in the way
+
+00:11:24,700 --> 00:11:30,280
+they fall and they still fall through
+the floor. OK but as we're rescaling I'm
+
+00:11:30,280 --> 00:11:34,660
+gonna leave my gravity at 981. How about
+the bounce threshold what's that all
+
+00:11:34,660 --> 00:11:39,830
+about? Well go to the Unity docs click on
+the little blue thing and see so
+
+00:11:39,830 --> 00:11:43,980
+two colliding objects with the relative
+velocity below this will not bounce well
+
+00:11:43,980 --> 00:11:49,960
+this was two m/s before and remember that we
+have moved to centimeter so try moving
+
+00:11:49,960 --> 00:11:54,550
+your bounce threshold a hundred times smaller, see if that's
+stopping the bounce and the passing
+
+00:11:54,550 --> 00:11:58,370
+through the floor you see the type of
+debugging we're doing here? There're significant
+
+00:11:58,370 --> 00:12:04,410
+consequences of rescaling your game I
+wanted to show you them. That didn't
+
+00:12:04,410 --> 00:12:07,620
+really help helped a little bit they
+paused for a second I think but it
+
+00:12:07,620 --> 00:12:08,370
+didn't help
+
+00:12:08,370 --> 00:12:13,090
+ok so what's the sleep then let's have a
+look at that while the Unity docs are
+
+00:12:13,090 --> 00:12:16,080
+a little out of date with Unity 5 but this has
+to do with the velocity below
+
+00:12:16,080 --> 00:12:21,480
+which objects go to sleep well if
+they're going to sleep at point
+
+00:12:21,480 --> 00:12:26,960
+nought, nought five of a meter a second
+previously we want them to go to sleep
+
+00:12:26,960 --> 00:12:30,730
+only if they go a hundred times slower
+than that because we're in centimeters
+
+00:12:30,730 --> 00:12:38,040
+so try that hundred times slower on the
+sleep threshold. Let's see if that's done it
+
+00:12:38,040 --> 00:12:44,580
+were they sleeping? No, didn't do it. OK let's
+persist default contact offset what's
+
+00:12:44,580 --> 00:12:48,430
+that all about well that's actually not
+listed in the docs but it is this thing
+
+00:12:48,430 --> 00:12:53,180
+it's the min penetration 
+penalty. How deep in meters
+
+00:12:53,180 --> 00:12:56,540
+in meters not centimeters are two
+objects allowed to penetrate before the
+
+00:12:56,540 --> 00:13:01,600
+collision solver pushes them apart well
+they're allowed to penetrate point nought
+
+00:13:01,600 --> 00:13:07,230
+one of a meter or in our game point one
+of a centimeter well that's not very
+
+00:13:07,230 --> 00:13:12,670
+far how far do we want them to actually
+penetrate maybe only point nought nought one
+
+00:13:12,670 --> 00:13:17,820
+of a centimetre again make it a hundred times
+smaller try that. That's the most
+
+00:13:17,820 --> 00:13:20,840
+hopeful so far that it's going to solve
+the problem because it's to do with
+
+00:13:20,840 --> 00:13:29,430
+object penetration oh they nearly sit on
+the floor but they're still not sitting
+
+00:13:29,430 --> 00:13:33,190
+on the floor so this sort of thing can
+happen you can end up completely at your
+
+00:13:33,190 --> 00:13:36,860
+wits end here trying to work out what
+the hell's going on. I've made the collider
+
+00:13:36,860 --> 00:13:42,350
+bigger, I've checked it's not a trigger. It's got a
+material on it I have gone into my pins I've
+
+00:13:42,350 --> 00:13:47,440
+made sure that they have colliders on
+them that the colliders are not triggers so that
+
+00:13:47,440 --> 00:13:52,810
+the physics works my RigidBodies have
+got some mass. They've got no drag, how about a little
+
+00:13:52,810 --> 00:13:57,360
+bit of drag a bit of non-angular drag
+it shouldn't make a difference but
+
+00:13:57,360 --> 00:14:01,430
+while we're at it remember to check all
+of your pins put little bit a drag on
+
+00:14:01,430 --> 00:14:06,400
+them let's see if that stops it. So the
+general methodology is we try
+
+00:14:06,400 --> 00:14:10,400
+looking through all of our properties
+making them sensible as we go and then
+
+00:14:10,400 --> 00:14:13,870
+seeing which one makes the difference.
+No the drag still hasn't made a
+
+00:14:13,870 --> 00:14:14,440
+difference
+
+00:14:14,440 --> 00:14:19,310
+OK so could it be something we're doing
+in the script could it be that maybe if
+
+00:14:19,310 --> 00:14:24,990
+we did it this way if we said GameObject
+new pins equals instantiate the pin set
+
+00:14:24,990 --> 00:14:26,010
+like that. Capturing
+
+00:14:26,010 --> 00:14:33,260
+the newly instantiated pin set as
+a... hang on... I just wrote perfectly good code and then deleted it
+
+00:14:33,260 --> 00:14:34,240
+two seconds
+
+00:14:34,240 --> 00:14:40,680
+capturing the newly instantiated 
+pin set as a variable like that and then
+
+00:14:40,680 --> 00:14:47,450
+said new pins.transform.position +=
+or something like that and then
+
+00:14:47,450 --> 00:14:52,610
+this Vector3. We don't have to do anything
+with its rotation so we capture it
+
+00:14:52,610 --> 00:14:57,800
+and then we move it up, well and across to
+1829 let's see how that works if we do
+
+00:14:57,800 --> 00:15:00,320
+it in two steps I don't see why that
+should make a difference particularly
+
+00:15:00,320 --> 00:15:05,150
+but with script execution order going on
+in the background and different fixed time
+
+00:15:05,150 --> 00:15:10,250
+steps and update Loops it might just
+make the difference now where're my pins
+
+00:15:10,250 --> 00:15:17,650
+where have they ended up they've ended
+up at 18:29 they are there but I don't
+
+00:15:17,650 --> 00:15:21,740
+see them that's very interesting so
+there's my pins clone where's that ended
+
+00:15:21,740 --> 00:15:26,920
+up its just ended up in the wrong position
+ok that's fine and that's because when I
+
+00:15:26,920 --> 00:15:33,060
+i didn't need to offset in the z
+actually because the very prefab itself
+
+00:15:33,060 --> 00:15:39,990
+has an offset built in to it I think so
+let's try that. Let's try starting again
+
+00:15:39,990 --> 00:15:47,520
+resetting and then we're using two separate
+lines of code. Nope they're still falling through
+
+00:15:47,520 --> 00:15:52,320
+the floor. So what do you do when you get
+to this stage of exasperation what
+
+00:15:52,320 --> 00:15:57,330
+other weapons do we have in our arsenal to try
+and stop these damn pins from passing
+
+00:15:57,330 --> 00:16:00,360
+through the floor? So at this stage I'm
+going to look back in my physics
+
+00:16:00,360 --> 00:16:06,590
+settings. I'm going to have a little look
+and say okay maybe of overcooked the
+
+00:16:06,590 --> 00:16:10,840
+gravity let's just make it back to -20 and
+leave all other changes in place let's
+
+00:16:10,840 --> 00:16:12,170
+see what happens now
+
+00:16:12,170 --> 00:16:15,140
+gravity scale is minus twenty now don't
+worry I'm gonna show you all the
+
+00:16:15,140 --> 00:16:18,980
+settings and recap with you before we
+move on once we found something that
+
+00:16:18,980 --> 00:16:24,190
+works so minus 20 isn't doing its not
+coming up with the goods the pins are
+
+00:16:24,190 --> 00:16:28,580
+still falling to the floor so how about
+we say well maybe it's a mathematical
+
+00:16:28,580 --> 00:16:32,580
+rounding error inside the physics engine
+itself? How about if we said let's increase
+
+00:16:32,580 --> 00:16:37,720
+the solver iteration count to maybe fifty
+that means it does 50 iterations before
+
+00:16:37,720 --> 00:16:38,950
+deciding it's solved a
+
+00:16:38,950 --> 00:16:46,740
+problem. Does that make a difference? No they
+still passed through. So continue to play
+
+00:16:46,740 --> 00:16:50,330
+with say the default contact offset
+move it by a couple of orders of magnitude
+
+00:16:50,330 --> 00:16:54,050
+at a time and see if that solves your
+problem because that's the most likely
+
+00:16:54,050 --> 00:17:00,380
+thing to be causing the problem here.
+This type of collider interaction. No
+
+00:17:00,380 --> 00:17:01,560
+that's still not happening
+
+00:17:01,560 --> 00:17:05,470
+ok so maybe we change the sleep threshold
+back so sometimes you have to cycle up
+
+00:17:05,470 --> 00:17:08,900
+and down and look through for these bugs you
+can try and reason your way out of it
+
+00:17:08,900 --> 00:17:11,880
+but if it's a bug in the physics engine
+which is to be determined then you're
+
+00:17:11,880 --> 00:17:14,110
+not gonna reason your way through it
+you're just going to have to keep
+
+00:17:14,110 --> 00:17:21,400
+iterating until you get this right so
+still not happening so let's go back to
+
+00:17:21,400 --> 00:17:27,190
+our script and let's look at dropping
+the pins from a greater height so when
+
+00:17:27,190 --> 00:17:31,150
+we renew the pins instead of coming from
+five centimeters let's come from 20
+
+00:17:31,150 --> 00:17:39,370
+centimetres above the deck see if that
+helps
+
+00:17:39,370 --> 00:17:43,660
+Keep moving, keep trying new things and
+that has helped
+
+00:17:43,660 --> 00:17:48,990
+So from 20 centimetres above the deck the
+pins I have enough velocity by the time
+
+00:17:48,990 --> 00:17:53,309
+they get to the deck to actually trigger
+the collision so this sounds like if we
+
+00:17:53,309 --> 00:17:57,480
+look at the physics settings out of play
+mode it sounds like a reasonable
+
+00:17:57,480 --> 00:18:02,910
+hypothesis here so it's to do with the
+sleep threshold potentially of the speed
+
+00:18:02,910 --> 00:18:06,470
+and it's saying that actually these guys
+will go to sleep if they're not moving
+
+00:18:06,470 --> 00:18:10,850
+fast enough but those settings didn't
+seem to solve the problem for us it
+
+00:18:10,850 --> 00:18:13,820
+seemed in this case we actually needed
+to just move them up further well they
+
+00:18:13,820 --> 00:18:18,100
+land ok so I'm happy with that for now
+bearing in mind that we are in future
+
+00:18:18,100 --> 00:18:21,380
+going to deal with tweaking all of the
+physics settings I'm happy with this
+
+00:18:21,380 --> 00:18:26,220
+solution that we're dropping them from
+30 centimetres I think in my case so
+
+00:18:26,220 --> 00:18:30,210
+that's fine but it is 20 centimetres in
+my case is one thing I want to deal with
+
+00:18:30,210 --> 00:18:33,040
+we don't want this floor this wide, at
+least we don't need to appear this wide
+
+00:18:33,040 --> 00:18:38,559
+so set your back to 105 make it a
+sensible depth visually maybe ten
+
+00:18:38,559 --> 00:18:43,450
+centimetres. OK so that floor looks
+kind of reasonable now now let's see
+
+00:18:43,450 --> 00:18:49,770
+what happens when we reset do we still
+have a reasonable behavior or do we have
+
+00:18:49,770 --> 00:18:54,240
+issues we have issues the pins fall of
+the edge so the solution to that is
+
+00:18:54,240 --> 00:18:57,740
+rather than having the collider directly
+on the floor
+
+00:18:57,740 --> 00:19:04,770
+take the box collider off your floor then add
+yourself a new game object child game
+
+00:19:04,770 --> 00:19:11,429
+object to the floor and call it collider
+but without the capitals; add yourself
+
+00:19:11,429 --> 00:19:16,000
+a box collider, like this, now you've
+got a box collider on the floor but you can
+
+00:19:16,000 --> 00:19:23,350
+now improve its width to say maybe 1.2
+or 1.3 times the size maybe even 1.5
+
+00:19:23,350 --> 00:19:27,510
+like that now this may muck up our
+gutter in future but for now we have a
+
+00:19:27,510 --> 00:19:32,080
+separate floor collider and let's put
+the default physics material on it and let's
+
+00:19:32,080 --> 00:19:37,000
+see what happens now the floor looks ok
+but because the actual collider is wider
+
+00:19:37,000 --> 00:19:42,240
+we should end up with the pins landing on
+the floor just fine. They almost do but the
+
+00:19:42,240 --> 00:19:45,960
+floor collider is not deep enough now and
+the floor collider doesn't need to only
+
+00:19:45,960 --> 00:19:48,870
+be one centimeter or however deep it can
+be a lot
+
+00:19:48,870 --> 00:19:52,830
+lot deeper so why not make it deeper. Now
+you've got a choice how you scale this, you can
+
+00:19:52,830 --> 00:19:56,900
+either scale it here or here I'm gonna
+scale it in the transform actually so I'm going to make it a
+
+00:19:56,900 --> 00:20:02,330
+hundred and fifty. I'm going to make it
+
+00:20:02,330 --> 00:20:06,960
+1.5 times as wide as the object above 
+the floor and then I'm just gonna make
+
+00:20:06,960 --> 00:20:10,800
+the depth say ten times and then the
+position
+
+00:20:10,800 --> 00:20:17,650
+minus 5 so it's offset correctly. It's actually
+minus 4.5 I think what you gotta do is
+
+00:20:17,650 --> 00:20:20,720
+work out where exactly where it needs to
+be position so that the depth of the
+
+00:20:20,720 --> 00:20:25,200
+floor works out... that's fine so get
+yourself a box that starts at the top of
+
+00:20:25,200 --> 00:20:28,250
+the floor and extends down far enough
+for the collision to definitely happen
+
+00:20:28,250 --> 00:20:33,000
+at the speed that the pins are moving
+when they hit the floor so that's how
+
+00:20:33,000 --> 00:20:38,240
+I've got my box set and they land fine
+finally we solved the problem so
+
+00:20:38,240 --> 00:20:42,650
+congratulations if you followed this
+through the project settings are used
+
+00:20:42,650 --> 00:20:45,910
+under physics were here take a look at
+the physic settings that's what's
+
+00:20:45,910 --> 00:20:50,040
+relevant that works for me should work
+for you too your challenge now in this
+
+00:20:50,040 --> 00:20:54,080
+video of course the final thing is that
+you need to get your pins renewing
+
+00:20:54,080 --> 00:20:58,070
+properly no passing through the floor no
+exploding outwards and and no other
+
+00:20:58,070 --> 00:21:01,950
+funny business so use all that you've
+learned in this video to get your pins
+
+00:21:01,950 --> 00:21:06,000
+working now so at least they don't fall
+through the floor and I'll see you in
+
+00:21:06,000 --> 00:21:06,320
+the next video
+

@@ -1,0 +1,550 @@
+Kind: captions
+Language: en
+
+00:00:00,690 --> 00:00:05,070
+In this video, we're going to be talking about
+Touchscreen Joystick Control. Now, I've been
+
+00:00:05,070 --> 00:00:09,209
+told off by a psychologist for saying things
+that are different to the words on the screen,
+
+00:00:09,209 --> 00:00:12,740
+so I'm doing it right now, because there are
+lots of words on the screen and I'm talking
+
+00:00:12,740 --> 00:00:16,330
+to you, and you don't know what to focus on.
+So, when I read the outcome from slides, in
+
+00:00:16,330 --> 00:00:21,360
+the future, I'm going to read them verbatim
+and I'd be interested in your response in
+
+00:00:21,360 --> 00:00:28,250
+the discussions, as to if that's easier. So,
+here we go. In this video, using the MobileSingleStickControl
+
+00:00:28,250 --> 00:00:34,399
+prefab, creating a button to trigger the replay,
+a little more about UI anchors, and building
+
+00:00:34,399 --> 00:00:39,760
+to Android and testing performance. Ah, there
+you go, I read it exactly as it said. So,
+
+00:00:39,760 --> 00:00:44,760
+here we are in the game. What I want to do
+firstly, is talk to you about this Mobile
+
+00:00:44,760 --> 00:00:49,909
+Single Stick Control prefab and how all that
+stuff works. So, if you dive into Standard
+
+00:00:49,909 --> 00:00:55,929
+Assets, CrossPlatformInput, and Prefabs, you
+should find this thing here, MobileSingle
+
+00:00:55,929 --> 00:01:01,999
+StickControl prefab. Drag that into your Hierarchy. Now,
+if your Build Settings are PC, like this, Mac,
+
+00:01:01,999 --> 00:01:06,260
+Linux, this won't actually put any User
+Interface or do anything to your game particularly.
+
+00:01:06,260 --> 00:01:12,090
+It will just sit there as a prefab. Here it
+is. So, one thing that these prefabs need,
+
+00:01:12,090 --> 00:01:16,410
+before they are going to work, is an Event
+Manager, so if you haven't already gotten
+
+00:01:16,410 --> 00:01:20,360
+an Event Manager add one. And if you have
+already got an Event Manager, then you can
+
+00:01:20,360 --> 00:01:23,990
+add one anyway. It just won't do anything.
+[Laughs] So, if you already have one, and
+
+00:01:23,990 --> 00:01:28,420
+you're trying out a second nothing happens.
+By Event Manager I mean Event System. So,
+
+00:01:28,420 --> 00:01:34,410
+this Event System, of course, processes input.
+So, with that Event System in place, what
+
+00:01:34,410 --> 00:01:39,300
+happens is if you switch your project to a
+Mobile Project, so in this case I'm going
+
+00:01:39,300 --> 00:01:45,880
+to switch mine over to Android now, and I'm going
+to switch platform. Then, that prefab contains
+
+00:01:45,880 --> 00:01:50,780
+some User Interface, it contains a little
+picture of a joystick and it contains a jump
+
+00:01:50,780 --> 00:01:54,320
+button. So, what we're going to do is, we're
+going to make the joystick work like the left
+
+00:01:54,320 --> 00:01:59,470
+stick of the game pad or the cursor keys,
+on the keyboard, and we're going to make the
+
+00:01:59,470 --> 00:02:04,390
+button, or one of the buttons at least, do
+the replay. I just want to show you how you
+
+00:02:04,390 --> 00:02:12,760
+would use off the shelf mobile control
+prefab like this, and it's pretty handy. OK,
+
+00:02:12,760 --> 00:02:16,780
+it's doing it. My switch platform takes a
+while. It's going to take a while on this
+
+00:02:16,780 --> 00:02:21,030
+project, because you've got all of these Standard
+Assets, and what it's having to do now is
+
+00:02:21,030 --> 00:02:26,920
+go through all of those Standard Assets and
+recompile all the images into formats that
+
+00:02:26,920 --> 00:02:30,810
+are appropriate for the target platform and
+to check that they're all the right type and
+
+00:02:30,810 --> 00:02:34,480
+that they're all OK for that platform. It's
+just got a lot of conversion work to do,
+
+00:02:34,480 --> 00:02:39,810
+but you only have to do it once each time you
+change target build platform. Another cleaver
+
+00:02:39,810 --> 00:02:46,209
+thing about this Mobile Single Stick Control
+thingy, is that if you switch back to Mac,
+
+00:02:46,209 --> 00:02:50,890
+PC, Linux this interface that has appeared
+here, this button and this joystick, they
+
+00:02:50,890 --> 00:02:55,510
+will disappear again, so they'll only appear
+when it's an appropriate platform. Pretty
+
+00:02:55,510 --> 00:02:59,430
+cool hey! So, we have this on the screen now,
+so the question becomes how do we make this
+
+00:02:59,430 --> 00:03:03,750
+actually control our game? Well, let's start
+by just trying it, without even doing anything.
+
+00:03:03,750 --> 00:03:09,319
+What happens? Ah well, it just works. [Laughs]
+And that's in this case that's because, if
+
+00:03:09,319 --> 00:03:13,040
+you look at this joystick, this MobileJoystick
+object in your Hierarchy and then, scroll
+
+00:03:13,040 --> 00:03:17,849
+down in the Inspector you can see that it's
+already mapping the horizontal movement of
+
+00:03:17,849 --> 00:03:24,500
+the joystick to the Horizontal Axis, the Axis
+named Horizontal in the Input Manager over
+
+00:03:24,500 --> 00:03:29,360
+here. OK, so that's why it's just working
+off the shelf, but you can remap that to
+
+00:03:29,360 --> 00:03:34,420
+do different things. Now, vertical movement,
+of course won't do anything, because we have
+
+00:03:34,420 --> 00:03:38,870
+no Vertical Axis responding to anything in
+the game,. at the moment. It looks like it's
+
+00:03:38,870 --> 00:03:41,980
+doing something, but that's only because I'm
+moving left and right horizontally. And
+
+00:03:41,980 --> 00:03:45,470
+what does this white button do, at the moment?
+What does this button do? Boing! It does the
+
+00:03:45,470 --> 00:03:49,650
+jump. Fantastic! So, the reason it does the
+jump... I'm just going to move it slightly,
+
+00:03:49,650 --> 00:03:55,020
+by they way, in the UI Configuration Mode,
+I'm going to go in here and just move this
+
+00:03:55,020 --> 00:04:00,599
+button around a little. So, when you move
+the button, look at all the different elements
+
+00:04:00,599 --> 00:04:04,900
+here. What am I moving? It's worth thinking
+about what's actually moving there.
+
+00:04:04,900 --> 00:04:10,489
+Well, it's the wrecked transform of the button,
+yeah of the text element of the button, so
+
+00:04:10,489 --> 00:04:14,400
+that's where it would say the word jump, if
+it did. So, you want to make sure, in the
+
+00:04:14,400 --> 00:04:18,650
+Hierarchy, you've go the right thing selected,
+so now I'm moving the entire button, but notice
+
+00:04:18,650 --> 00:04:22,010
+I'm not moving it's anchors, you see it's
+anchors have stayed where they are.
+
+00:04:22,010 --> 00:04:26,030
+So, I just want to talk to you very briefly about
+these anchors, that you can start to manipulate
+
+00:04:26,030 --> 00:04:30,690
+these manually, now that you know a bit more
+about Unity. Rather than using these presets,
+
+00:04:30,690 --> 00:04:34,930
+that just set these anchors anyway, you can
+grab these and say, well basically you're
+
+00:04:34,930 --> 00:04:39,870
+saying to this button, this is the area on
+the screen I want you to stay in, something
+
+00:04:39,870 --> 00:04:45,660
+like that. Yeah, so if you put it like that
+and then, you go over the canvass at the edge
+
+00:04:45,660 --> 00:04:52,090
+here and drag, you see it says the word Preview,
+and that's showing you how this button would
+
+00:04:52,090 --> 00:04:57,090
+re-scale, as you change the resolution of
+the device. Now, if you don't want that, say
+
+00:04:57,090 --> 00:05:01,280
+you don't want it to scale vertically, then
+you just bring the anchors together vertically
+
+00:05:01,280 --> 00:05:06,120
+like that, and then, it no longer scales vertically,
+it just anchors to that point. If you wanted
+
+00:05:06,120 --> 00:05:11,400
+it to anchor to a lower point and not re-scale,
+then again you would go to the anchors of
+
+00:05:11,400 --> 00:05:15,900
+the button, make sure you've got the right
+thing up, and you would grab them, it can
+
+00:05:15,900 --> 00:05:19,490
+be a bit tricky, and you'd move them. So,
+if you said, well I want it absolutely, you
+
+00:05:19,490 --> 00:05:25,100
+know, 10% of the way off the bottom of the
+screen here, but I don't want it to re-scale
+
+00:05:25,100 --> 00:05:29,310
+vertically then, it's all a little fiddly,
+but that's exactly what you can do with these
+
+00:05:29,310 --> 00:05:34,180
+anchors. So, you can say OK, don't re-scale vertically
+and sit 10% off the bottom of the screen,
+
+00:05:34,180 --> 00:05:39,600
+as indicated by the 10% you can just see at
+the bottom of the Scene Window.
+
+00:05:39,600 --> 00:05:45,550
+So, let's try that, let's do a preview by going left
+and right. It re-scales horizontally but it
+
+00:05:45,550 --> 00:05:48,470
+doesn't re-scale vertically. Now, if you want
+it to not re-scale horizontally, of course
+
+00:05:48,470 --> 00:05:53,110
+you bring the anchor points together horizontally.
+Cool! So, that's something about anchor points
+
+00:05:53,110 --> 00:05:56,850
+and also, about previewing the effects of
+screen shape changes without actually having
+
+00:05:56,850 --> 00:06:00,610
+to go into the Game View or even change the
+Game View. Fantastic! So, what I would like
+
+00:06:00,610 --> 00:06:04,090
+you to do is see if you can work out how to
+make this button, rather than jump for now,
+
+00:06:04,090 --> 00:06:09,810
+see if you can make it recreate the replay.
+So, I'm going to change its text to replay, and
+
+00:06:09,810 --> 00:06:14,780
+see if you can make it actually trigger
+the replay. Alright, so your challenge is,
+
+00:06:14,780 --> 00:06:18,570
+setup a Replay Button. Make a Replay Button,
+we've already got one, or make another one.
+
+00:06:18,570 --> 00:06:23,110
+Choose a relevant sprite, you may need to
+rotate the sprite, and test the button triggers
+
+00:06:23,110 --> 00:06:30,770
+the replay. Congratulations and welcome back!
+So sprite, firstly, let's just change the
+
+00:06:30,770 --> 00:06:35,570
+look of this button. Now, bear in mind that
+all buttons are just images with text elements
+
+00:06:35,570 --> 00:06:41,660
+subbed to them, so if you go to the jump button
+bit here, I'm going to rename it Replay, as
+
+00:06:41,660 --> 00:06:45,419
+an entity just so I know what I'm doing. And
+then, under the Source Image of the button,
+
+00:06:45,419 --> 00:06:50,050
+the top element not the text element, you
+go of course and choose yourself, from this
+
+00:06:50,050 --> 00:06:54,610
+little list that'll come up if we're lucky...
+If we click to the right of Source Image we
+
+00:06:54,610 --> 00:06:59,520
+should get, Select Sprites, come up on my
+other screen, and I'm going to use, I don't know,
+
+00:06:59,520 --> 00:07:04,050
+say that button there. Now, I said we
+may need to re-size it and re-shape it, that's
+
+00:07:04,050 --> 00:07:11,289
+true. I'm going to do that, and then, probably
+rotate it as well, through the... which axis?
+
+00:07:11,289 --> 00:07:16,139
+It's going to be Z, because it's sticking
+out the screen, by say 90 degrees. That's
+
+00:07:16,139 --> 00:07:21,970
+alright. Ooh OK, so I'm not going to mess
+around with this too much now. You don't want to watch
+
+00:07:21,970 --> 00:07:26,470
+me re-sizing and re-scaling things forever, so you get the idea. We've changed
+
+00:07:26,470 --> 00:07:29,979
+the button, you've done all this before. Now,
+the important thing is the button behavior.
+
+00:07:29,979 --> 00:07:33,900
+Where do we get the button behavior from?
+Again, it's on the button itself and then, we have
+
+00:07:33,900 --> 00:07:39,340
+an Event Handler here. And then, the question
+comes, well, what virtual button input name
+
+00:07:39,340 --> 00:07:44,880
+were we using for replay? Well, I've forgotten,
+so I'm going to go into the ReplaySystem,
+
+00:07:44,880 --> 00:07:52,860
+and I'm going to go down and have a look and
+see in the main loop. OK, it's not in the
+
+00:07:52,860 --> 00:07:57,640
+ReplaySystem. The ReplaySystem looks at the
+manager, so it's in the Manager Script.
+
+00:07:57,640 --> 00:08:01,740
+The Game Manager Script is where we change the
+state, and it's ("Fire1"). OK, so the Game
+
+00:08:01,740 --> 00:08:06,569
+Manager reads the Cross Platform Input Manager
+and looks for button ("Fire1") to say whether we're
+
+00:08:06,569 --> 00:08:11,680
+in replay or not. So, let's do that!
+Let's map the Replay Button, rather than it
+
+00:08:11,680 --> 00:08:20,600
+firing out to jump, let's make it send out
+to ("Fire1"). OK, try that. So, left and right, and then,
+
+00:08:20,600 --> 00:08:23,830
+if I... Here you go. Now, it's got
+the replay bug we talked about before,
+
+00:08:23,830 --> 00:08:27,060
+which I'm not going to show you how to solve, because
+I really think at this stage in the course,
+
+00:08:27,060 --> 00:08:29,819
+I'm not going to show you how to solve every
+single problem. The moment you start
+
+00:08:29,819 --> 00:08:33,529
+trying to make your own games, you are going to run
+into problems that nobody is there to help you...
+
+00:08:33,529 --> 00:08:35,860
+Well, there will be tons of people
+there to help, it's called everybody on
+
+00:08:35,860 --> 00:08:39,469
+the Internet and us friendly lot, but you
+do need to get used to solving problems yourself.
+
+00:08:39,469 --> 00:08:44,490
+But you can see that this button is doing the
+thing, there you go. So, the Replay Button
+
+00:08:44,490 --> 00:08:51,040
+is in place, which is pretty cool hey! So,
+we are basically there with what we wanted to
+
+00:08:51,040 --> 00:08:55,540
+do on this video. If you want to build
+this to Android, then where we've got it set,
+
+00:08:55,540 --> 00:08:59,649
+it's literally just a question of saying
+Build &amp; Run, with an Android attached, and
+
+00:08:59,649 --> 00:09:03,440
+if everything is set up properly on your environment.
+then this will send this game to the Android
+
+00:09:03,440 --> 00:09:09,250
+machine. And I have run it on my Android and
+it does perform just fine. Bear in mind, this
+
+00:09:09,250 --> 00:09:14,450
+bundle identifier is a very common error you'll
+get. No bundle identifier, set up. You change
+
+00:09:14,450 --> 00:09:20,360
+that in your Build Settings, so File, Build
+Settings, and then you need to come into Player
+
+00:09:20,360 --> 00:09:24,320
+Settings, which it's already presented you
+with on the right hand side over here. And
+
+00:09:24,320 --> 00:09:29,459
+it is the Bundle Identifier that you need
+to change, which is somewhere around here.
+
+00:09:29,459 --> 00:09:34,260
+Yeah! So, what it is, is it's a combination
+of the Default Company, which I say EmbraceIT
+
+00:09:34,260 --> 00:09:39,399
+and the Product Name. I'll just call it TwinStick.
+And those two things together should be all
+
+00:09:39,399 --> 00:09:46,720
+you need for the Bundle Identifier. Now, let's
+try it. The slightly irritating thing about
+
+00:09:46,720 --> 00:09:50,940
+this, is it doesn't complain about it until
+it's done a load of work, but it's OK because
+
+00:09:50,940 --> 00:09:55,149
+it remembers that work. You can see it's picked
+up from where I left it. Nope, it
+
+00:09:55,149 --> 00:10:00,660
+still doesn't like the Bundle Identifier, so somewhere in
+here I have to setup the Bundle Identifier.
+
+00:10:00,660 --> 00:10:08,870
+Where are we? Ah, the settings, here it is!
+It's under other settings, OK. So, com. and then,
+
+00:10:08,870 --> 00:10:15,200
+I'm just going to do EmbraceIT. You
+can put whatever you like, by the way .TwinStick.
+
+00:10:15,200 --> 00:10:21,640
+You just need to give it a feasible looking
+Bundle Identifier there. And I'm going to
+
+00:10:21,640 --> 00:10:24,910
+build again, and we'll be off to go. So, that's
+just a very common thing that you're going
+
+00:10:24,910 --> 00:10:29,170
+to come across is Bundle Identifier Issues.
+This where it says Save, I'm saving the build
+
+00:10:29,170 --> 00:10:34,170
+so that I don't have to rebuild it in the
+future. You can deploy the .apk file straight
+
+00:10:34,170 --> 00:10:38,990
+to the Android, by basically dragging it to
+the Android File Manager, if you want to in the future.
+
+00:10:38,990 --> 00:10:41,280
+So, we'll just let that build, and
+then, we'll wind up this video. Nothing else
+
+00:10:41,290 --> 00:10:45,870
+is going to happen, I'm just going to show
+that this builds to Android and that's it. In the next
+
+00:10:45,870 --> 00:10:49,220
+video, we're going to be looking
+at the next thing along, which is level unlocks,
+
+00:10:49,220 --> 00:10:53,890
+very briefly, to show you a really quick way
+of doing that with player prefs. So, it
+
+00:10:53,890 --> 00:10:58,470
+is now pushing the content to my device, so we're
+good to go. It's on the Android,
+
+00:10:58,470 --> 00:11:02,940
+it's running on the Android, and the touch button
+is working fine. So, see you soon.
+

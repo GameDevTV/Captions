@@ -1,0 +1,632 @@
+Kind: captions
+Language: en
+
+00:00:00,000 --> 00:00:07,490
+Hey hey! So, in this video we're going to be setting up player spawn points, we're going to fix a few
+
+00:00:07,490 --> 00:00:13,429
+dodgy trees, talk about staying object
+orientated, we'll set up player spawn
+
+00:00:13,429 --> 00:00:18,340
+points, in the Hierarchy, and then, we'll
+create a Player.cs script. So, let's go
+
+00:00:18,340 --> 00:00:20,910
+and take a little look at what we've got
+so far.
+
+00:00:20,910 --> 00:00:25,060
+First thing I noticed when moving around
+my scene is, I've got some dodgy trees here.
+
+00:00:25,060 --> 00:00:32,000
+Look at this, if I zoom in to these broad
+leaves they go a bit nuts. Look ah they've gone crazy. So, what's that about?
+
+00:00:32,009 --> 00:00:36,269
+Well, I don't know they've gone buggy.
+They've probably been auto placed too
+
+00:00:36,269 --> 00:00:37,409
+low or something like that,
+
+00:00:37,409 --> 00:00:41,460
+outside of their working parameters. Some
+of these trees are well well dodgy,
+
+00:00:41,469 --> 00:00:45,450
+to use a technical term. So, of course you
+can, just as a reminder, with the trees
+
+00:00:45,450 --> 00:00:49,260
+you can get your brush here, and you can
+hold down Shift and click and take away
+
+00:00:49,260 --> 00:00:53,430
+those trees. That's one way of fixing
+dodgy broadleaves that have gone out of
+
+00:00:53,430 --> 00:00:56,030
+control like that. So, you may want to
+check your terrain and see if you've got any
+
+00:00:56,030 --> 00:00:59,480
+broadleaves that are misbehaving. The other way, of course, you could do it if you
+
+00:00:59,480 --> 00:01:03,199
+wanted to, although it would break some of
+your work, is to go to the trees again
+
+00:01:03,199 --> 00:01:10,159
+and to just remove, well,  not remove necessarily the trees, but Mass Place Trees again, either
+
+00:01:10,159 --> 00:01:14,000
+one at a time or by having both of them and clicking Mass Place Trees. But if you
+
+00:01:14,000 --> 00:01:17,680
+uncheck Keep Existing Trees you'll get a whole new load of trees, but that will include
+
+00:01:17,680 --> 00:01:21,340
+trees in daft places like the bottom of river beds and stuff, so you'll have
+
+00:01:21,340 --> 00:01:23,930
+to go through and do that work again. I just
+wanted to show you that, in case you have
+
+00:01:23,930 --> 00:01:28,890
+the bug. Ok so, respawning, player respawning. I want the player to spawn in different
+
+00:01:28,890 --> 00:01:33,950
+places, but who's going to be responsible?
+What Game Objects are going to be responsible for this?
+
+00:01:33,950 --> 00:01:38,250
+In this project, I'm very keen to stick as
+object oriented as possible. The slight
+
+00:01:38,250 --> 00:01:43,490
+challenge with player respawning is it's a very non-physical idea. What should be
+
+00:01:43,490 --> 00:01:47,250
+responsible for respawning a player? We
+don't really have a concept of suddenly
+
+00:01:47,250 --> 00:01:50,990
+dying and being transported somewhere else. So, I'm going to start off by trying to do
+
+00:01:50,990 --> 00:01:55,470
+it on the player itself. We're actually going to make a player script, that we put on the player
+
+00:01:55,470 --> 00:02:01,640
+itself, and then, use that to transport
+itself back to a spawn point. So, I want to make
+
+00:02:01,640 --> 00:02:05,390
+this nice and robust. I want to make it so
+that you or a designer can easily add
+
+00:02:05,390 --> 00:02:08,750
+more spawn points. So, the way that I
+suggest we do it's like this, we create
+
+00:02:08,750 --> 00:02:10,200
+ourselves an empty GameObject,
+
+00:02:10,200 --> 00:02:19,140
+call it Spawn or Player Spawn Points,
+like that to be quite explicit, and then. I'm going
+
+00:02:19,140 --> 00:02:22,970
+to reset it's transform, because it doesn't have any obvious meaning. I'm just going to move a
+
+00:02:22,970 --> 00:02:27,269
+few things around in the Hierarchy, Terrain, Water Table, Player Spawn Points. It kind
+
+00:02:27,269 --> 00:02:30,689
+of makes sense, that order to me, doesn't
+change anything as you know by now.
+
+00:02:30,689 --> 00:02:34,019
+So, under Player Spawn Points I'm going to
+create child objects, and I'm going to call
+
+00:02:34,019 --> 00:02:43,260
+this Spawn Point, now I'm going to use (1) in brackets like that, you'll see why.
+
+00:02:43,260 --> 00:02:48,660
+Unity 5.1 auto numbers things like
+follows, if I have 1 in brackets and
+
+00:02:48,660 --> 00:02:52,860
+then do Command or Control + D to duplicate the spawn point, look what happens,
+
+00:02:52,860 --> 00:02:59,360
+I get Spawn Point 2, 3, 4, 5, which is great. Now, why am I not starting counting at zero? Just
+
+00:02:59,360 --> 00:03:04,190
+because I want to know how many spawn points I've actually got here. I could start
+
+00:03:04,190 --> 00:03:07,849
+counting at 0. If it offends you that I'm
+counting at 1 then, ok let's
+
+00:03:07,849 --> 00:03:12,280
+start counting at 0, it doesn't really make any difference. Then, this will
+
+00:03:12,280 --> 00:03:15,370
+count up like that. You've just got to
+remember now, it means you've got 6 spawn points.
+
+00:03:15,370 --> 00:03:18,959
+I'm going to go there, I'm going to go with a 0, do a U turn on you. So, let's imagine
+
+00:03:18,959 --> 00:03:22,310
+we've got a spawn point, let's see where
+this spawn point is in the scene,
+
+00:03:22,310 --> 00:03:30,510
+so basically the wrong place to be honest. 200 by 55 by 200, let's try that as a spawn point. And for each
+
+00:03:30,510 --> 00:03:33,720
+spawn point you need to make sure, using
+the Transform Tool, that it makes sense,
+
+00:03:33,720 --> 00:03:37,579
+that it's somewhere that the player
+could spawn. So, this one looks ok, Spawn
+
+00:03:37,579 --> 00:03:41,500
+Point (0). So, just go ahead and make yourself a few spawn points now. I'm going to duplicate that
+
+00:03:41,500 --> 00:03:45,900
+and just move a few around the map. One way to do that's to zoom right out here and say well,
+
+00:03:45,900 --> 00:03:49,040
+we could spawn in this corner. Again, check the spawn point isn't in a
+
+00:03:49,040 --> 00:03:52,840
+mountain, in a tree, whatever. Cool! I'm going to zoom out and just make maybe three.
+
+00:03:52,840 --> 00:03:55,870
+It doesn't matter how many, because the code is going to respond to how many spawn points
+
+00:03:55,870 --> 00:03:58,579
+you've got automatically, which is going
+to be really nice. You're going to write that
+
+00:03:58,579 --> 00:04:01,170
+code, of course. We don't let you get away
+without a challenge in a particular
+
+00:04:01,170 --> 00:04:05,730
+section or a particular video. So, there you
+go, got a few little spawn points set up
+
+00:04:05,730 --> 00:04:11,329
+now, and they're all childed to this Player
+Spawn Points object. So, what we're going to
+
+00:04:11,329 --> 00:04:17,100
+do is, we are going to get you to arrange for a
+
+00:04:17,100 --> 00:04:21,090
+respawn of the character. Now, it's going to be using a new script, which I'm
+
+00:04:21,090 --> 00:04:24,590
+going to put on the FPS Controller, which I
+may as well actually just rename to
+
+00:04:24,590 --> 00:04:31,110
+Player. And I'm going to call that script simply Player for now. Call a box a box. New
+
+00:04:31,110 --> 00:04:36,000
+script, Player. So, we have a Player Script,
+and then, I'm going to get you to write this
+
+00:04:36,000 --> 00:04:39,100
+script, so that it does the respawning we want to do. So, here's your
+
+00:04:39,100 --> 00:04:47,630
+challenge slide. So, go ahead and arrange
+random player spawning. Find all the
+
+00:04:47,630 --> 00:04:51,350
+Player Spawn Points that are children of
+that object we just created, randomly
+
+00:04:51,350 --> 00:04:55,850
+select one of them, write a respawn
+method inside there so that it can be
+
+00:04:55,850 --> 00:05:00,340
+called, and make it like a Boolean checkbox in the Inspector, against the Player Script, so
+
+00:05:00,340 --> 00:05:06,580
+that if you check it he or she or it respawns to any of the spawn points randomly. And then,
+
+00:05:06,580 --> 00:05:10,630
+that checkbox unchecks itself, so the
+checkbox works just like a button,
+
+00:05:10,630 --> 00:05:14,090
+in the Inspector, just to keep it simple. So, you check it, respawn somewhere, check it, respawn
+
+00:05:14,090 --> 00:05:17,020
+somewhere else, just so you can test your spawning. Now, when you try and find all
+
+00:05:17,020 --> 00:05:22,140
+those child or children spawn points, you might want that method I've linked you to at the bottom there, which
+
+00:05:22,140 --> 00:05:26,480
+is the GetComponentsInChildren method.
+Think that's going to be the main one you want
+
+00:05:26,480 --> 00:05:34,400
+to use, but it's up to you. Good luck and I'll
+see you in a minute! Fan-didally-ann-tastic!
+
+00:05:34,400 --> 00:05:39,230
+So welcome back! We want to now go ahead and get this code written. I procrastinate
+
+00:05:39,230 --> 00:05:42,290
+when I bring up some of the code on
+another screen, so that I can make sure
+
+00:05:42,290 --> 00:05:47,700
+that I know where I'm going with this.
+Fantastic! Here we go! So, what we're going to do is to
+
+00:05:47,700 --> 00:05:51,800
+firstly expose a transform, because it's the
+simplest thing we can expose... the
+
+00:05:51,800 --> 00:05:58,280
+least weighty object, and we're going to
+call that playersSpawnPoints;
+
+00:05:58,280 --> 00:06:06,320
+And this is simply the parent of the spawn points. Ok, so we expose that in the Inspector. Now, I like the
+
+00:06:06,330 --> 00:06:11,630
+habit of going straight over and
+connecting things. So, once it builds, you
+
+00:06:11,630 --> 00:06:15,820
+can get here and you can go Player Spawn
+Points, drag in there. Great! So, that's
+
+00:06:15,820 --> 00:06:20,950
+an easy way to get access to your
+Player Spawn Points, right. And I said we
+
+00:06:20,950 --> 00:06:26,360
+should also put in a quick boolean
+respawn checkbox, and start it being false.
+
+00:06:26,360 --> 00:06:28,740
+So, what that will mean is here we just
+have a...
+
+00:06:28,740 --> 00:06:32,750
+using a checkbox like a button, which is a
+bit dodgy, but we're going to want to click it,
+
+00:06:32,750 --> 00:06:37,740
+and then, it will immediately unclick but it will have walked your player to the right
+
+00:06:37,740 --> 00:06:44,310
+place. So, we start off by saying spawn
+points. Actually we need a private...
+
+00:06:44,310 --> 00:06:47,069
+We're going to need a private variable for the spawn points, aren't we of course. So, they were
+
+00:06:47,069 --> 00:06:53,849
+public members. Here we go, let's go for a private... private Transform array, isn't it?
+
+00:06:53,849 --> 00:06:59,460
+It's an array of Transform called the spawnPoints. Once we've got that, let's go
+
+00:06:59,470 --> 00:07:05,010
+find the spawn points. So, you look at the playerSpawnPoints transform, and then, you
+
+00:07:05,010 --> 00:07:12,900
+GetComponentsInChildren. And we're looking at this guy and we're getting components in
+
+00:07:12,909 --> 00:07:16,159
+the children, because that's all we've got. And how are we going to know what we're
+
+00:07:16,159 --> 00:07:19,840
+looking for, in terms of types of
+components? Well, the only type they have
+
+00:07:19,840 --> 00:07:24,620
+on them, the only script they have on them, the only class they have on them is a
+
+00:07:24,620 --> 00:07:29,860
+transform. So, we just go find the children
+
+00:07:29,860 --> 00:07:33,979
+transforms. Now, it's not entirely clear
+to me, whether when we do this it will
+
+00:07:33,979 --> 00:07:39,619
+also return the player spawn point
+itself, and we'll find out in a minute if it does. Cool!
+
+00:07:39,620 --> 00:07:45,980
+So, in fact, why don't we find out right now if it does. Why don't we just go print (spawn Points.Length);
+
+00:07:45,980 --> 00:07:52,340
+Ok, and see how many things
+come back. Are we getting three or four? Let's just
+
+00:07:52,349 --> 00:07:58,199
+take a look. Let's run... And it'll also make sure that our fetch is actually working for... So, it
+
+00:07:58,199 --> 00:08:01,639
+is taking in this Player Spawn Point and
+all of its children.
+
+00:08:01,639 --> 00:08:04,389
+Alright, so actually my numbering where I
+was saying well should we start numbering
+
+00:08:04,389 --> 00:08:08,900
+at 1 may have been more sensible,
+because actually Array Element 1 is
+
+00:08:08,900 --> 00:08:12,610
+going to correspond nicely then, because Array Element 0, from that find, will
+
+00:08:12,610 --> 00:08:18,030
+actually be this guy here, the parent, but
+whatever, the numbering you can change if
+
+00:08:18,030 --> 00:08:22,880
+you want to, to match the code. Sometimes, you don't know until you do it
+
+00:08:22,880 --> 00:08:27,389
+right? That's the lesson there. So, then I
+want to have a respawn method, so
+
+00:08:27,389 --> 00:08:32,370
+let's write the respawn method. We keep the update there for the Toggle Button. So, void
+
+00:08:32,370 --> 00:08:37,070
+Respawn, and we'll keep it private for
+the moment,
+
+00:08:37,070 --> 00:08:40,710
+because only the player is going to decide
+when it should respawn, so let's
+
+00:08:40,710 --> 00:08:42,870
+explicitly make it private.
+
+00:08:42,870 --> 00:08:50,640
+If I could spell properly, there you go. Fantastic! So, we're going to need some sort of randomizer. I'm just
+
+00:08:50,640 --> 00:08:55,320
+going to call it i for simplicity in index, and
+we just use Random.Range
+
+00:08:55,320 --> 00:08:58,300
+Now, when you type Random.Range, I'm
+
+00:08:58,310 --> 00:09:01,860
+sure you've noticed this by now in the course, but look you've got two signatures for
+
+00:09:01,860 --> 00:09:05,650
+this method. One takes in floats and
+returns a float, and if you use the Right Arrow on
+
+00:09:05,650 --> 00:09:09,970
+your keyboard, the Right Cursor Key, this
+one takes in integers and returns
+
+00:09:09,970 --> 00:09:14,840
+integers. I'm going to use the second
+signature, so I'm going to expect an
+
+00:09:14,840 --> 00:09:18,440
+integer back, which is what I'm saying
+there. And I'm going to go between one,
+
+00:09:18,440 --> 00:09:23,420
+because we just tested that it's array index 1 for the 1st child, array index 0 is
+
+00:09:23,420 --> 00:09:31,770
+the parent. And what's the top point? Well, it's spawn point. That's what we used above, I just
+
+00:09:31,770 --> 00:09:39,190
+deleted. The print statement, I just
+deleted, didn't I. Ah, there you go, spawnPoints.Length
+
+00:09:39,190 --> 00:09:45,840
+Ok! Now, is it length or length - 1? I think it's
+.Length, because if we look at the
+
+00:09:45,850 --> 00:09:49,250
+documentation for Random.Range I
+think you'll find that the top end of it
+
+00:09:49,250 --> 00:09:53,470
+is exclusive, rather than inclusive.
+So, there's just the silly little things
+
+00:09:53,470 --> 00:09:58,780
+you need to look at. If in doubt just do
+some testing and debugging. So, Random.Range
+
+00:09:58,780 --> 00:10:03,380
+Where is it, here? And if we look at the
+signature for the integer version, which
+
+00:10:03,390 --> 00:10:08,910
+is here, then exclusive maximum. Ok so,
+that's the sort of thing you need to
+
+00:10:08,910 --> 00:10:14,840
+keep an eye out for. Anyway, I digress, here we go.
+
+00:10:14,840 --> 00:10:18,930
+So, now we have an integer, which is a
+spawn point. So, I don't really like it
+
+00:10:18,930 --> 00:10:23,950
+being i, so why don't I just call it spawn
+point maybe. Spawn point, no because it gets
+
+00:10:23,950 --> 00:10:27,100
+too long, doesn't it?  Spawn point number is just too long. Let's start getting comfortable
+
+00:10:27,100 --> 00:10:31,090
+with slightly shorter things, when they're
+very short scope local variables...
+
+00:10:31,090 --> 00:10:35,030
+not going to use them for very long, why not use an i then. So, what we want to do in this
+
+00:10:35,030 --> 00:10:37,650
+case is, we want to set the transform
+position of the current object, which is
+
+00:10:37,650 --> 00:10:43,660
+the player, to one of the spawn points
+transforms. So, we go spawnPoints [i]
+
+00:10:43,660 --> 00:10:50,120
+taking a value between 1 and the one
+less than the length of the array, which is
+
+00:10:50,120 --> 00:10:55,900
+correct. .transform.position;
+So, that's what would happen on
+
+00:10:55,900 --> 00:11:00,260
+a respawn. So, let's give ourselves a very simple way of respawning every time we tick that button.
+
+00:11:00,260 --> 00:11:07,080
+So, I'm going to need a private variable... called
+
+00:11:07,089 --> 00:11:15,040
+boolean, and it's going to be lastToggle or
+something, and make that
+
+00:11:15,040 --> 00:11:21,740
+false. And this is just a really simple way
+of just saying if lastToggle doesn't
+
+00:11:21,740 --> 00:11:29,190
+= reSpawn So, lastToggle and reSpawn are
+equal in
+
+00:11:29,190 --> 00:11:32,770
+the beginning, because they're both false.
+But if they weren't equal for any reason
+
+00:11:32,770 --> 00:11:41,010
+and you've clicked the button, then go ahead and respawn. I'm having slight typing problems today.
+
+00:11:41,010 --> 00:11:48,930
+And when you finish respawning you then must set your respawn toggle box to false.
+
+00:11:48,930 --> 00:11:54,820
+Otherwise, if it's not the case that they are
+different then, they must be the same, in
+
+00:11:54,830 --> 00:12:04,070
+which case... What do we do?  We set the last toggle and we just update the last toggle to respawn.
+
+00:12:04,070 --> 00:12:12,279
+Ok so, simple little toggle there, so let's have a go, see if it works.
+
+00:12:12,279 --> 00:12:16,089
+Got these spawn points. We could stay out of the Scene View, once we're playing, it might be
+
+00:12:16,089 --> 00:12:21,729
+easier. So, when I go back to my Scene View, maybe get a slightly overhead view going on,
+
+00:12:21,729 --> 00:12:25,309
+that'll do, and make sure I can see my player with the Transform Tool.
+
+00:12:25,309 --> 00:12:34,989
+Ok cool, so if I click on the player and I go down and I click Respawn. Boom, boom, boom, boom!
+
+00:12:34,989 --> 00:12:39,880
+And one of three. Ok now, let's look from the player's eyes, make sure this works. I've respawned here, is this a
+
+00:12:39,890 --> 00:12:44,959
+valid spawn point? Sure is! Click it again, quite high in the air that one, but it works.
+
+00:12:44,959 --> 00:12:50,100
+We can always stop, go to Scene View, and choose how to modify. That one is ok. So, we're just randomly
+
+00:12:50,100 --> 00:12:53,800
+cycling through. So, the respawning is working! Pretty cool hey and pretty simple, and the
+
+00:12:53,800 --> 00:12:57,529
+player is fully responsible for all of
+that respawning.
+
+00:12:57,529 --> 00:13:01,519
+So, I think thats it. I think we've covered everything that we needed to in this video, so thanks
+
+00:13:01,519 --> 00:13:05,189
+for watching, and I hope that simple
+method for respawning the player to
+
+00:13:05,189 --> 00:13:08,670
+random locations, and crucially to random
+locations that you can add to as simply
+
+00:13:08,670 --> 00:13:13,779
+as this. Click on the spawn point,
+duplicate, move it to the new position,
+
+00:13:13,779 --> 00:13:20,949
+check the new position, and make sure it's not in the middle of nowhere like that. Boom!
+
+00:13:20,949 --> 00:13:24,170
+There you go, and then, you have another spawn point in your array. So, that's the beauty
+
+00:13:24,170 --> 00:13:27,259
+of doing it like that. When you find the
+children, you can just add spawn points
+
+00:13:27,259 --> 00:13:34,569
+all day and click through them. Ok cool! That was exciting, I landed slightly on the slant there. Why is that?
+
+00:13:34,569 --> 00:13:39,480
+Is one of these on a hill? So, just go through. If you've got a dodgy one, you can go
+
+00:13:39,480 --> 00:13:46,439
+through till you get to it. Now, go and see what's happening. What is happening here? This is my
+
+00:13:46,439 --> 00:13:50,479
+new spawn point, and there's something funny about it. I think it's just too low.
+
+00:13:50,480 --> 00:13:53,899
+I think I'm ending up in the ground. So,
+remember to make any changes to spawn
+
+00:13:53,899 --> 00:13:58,699
+points out of Play Mode. I think I was
+just spawning the player half into the
+
+00:13:58,699 --> 00:14:02,679
+ground. So, it is worth just checking
+through, it's quicker than play testing.
+
+00:14:02,680 --> 00:14:07,160
+That's why I made this check box, and just make sure that none of them look dodgy. Of course you've
+
+00:14:07,170 --> 00:14:11,860
+eventually got to get to all of them. Now, is this one ok, for instance? Let's take a look.
+
+00:14:11,860 --> 00:14:18,940
+It is actually, it's not quite... and we have
+another one of these dodgy growing trees, but we know how to fix them.. Cool! See you soon!
+

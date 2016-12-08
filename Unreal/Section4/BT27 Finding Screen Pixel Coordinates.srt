@@ -1,0 +1,837 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+So, Finding
+
+2
+00:00:04,000 --> 00:00:08,000
+Screen Pixel Coordinates is what we're up to in this video! By
+
+3
+00:00:08,000 --> 00:00:12,000
+the end of it, you will have the wonderful result that when we play the game it will
+
+4
+00:00:12,000 --> 00:00:16,000
+start logging out the number of pixels along the screen that white dot, aiming dot
+
+5
+00:00:16,000 --> 00:00:20,000
+is, and the number of pixels down the screen or the Viewport more specifically
+
+6
+00:00:20,000 --> 00:00:24,000
+that is. And we'll even tackle windows scaling issues and all sorts, so let's
+
+7
+00:00:24,000 --> 00:00:26,166
+go and get it done!
+
+8
+00:00:26,166 --> 00:00:30,166
+So, the next step in doing this job is going to be to,
+
+9
+00:00:30,166 --> 00:00:34,166
+what we call, de-project the position of a little dot on the screen into
+
+10
+00:00:34,166 --> 00:00:38,166
+world coordinates, and we want to know what direction we're looking in
+
+11
+00:00:38,166 --> 00:00:42,166
+when we look through that dot on the screen. So,
+
+12
+00:00:42,166 --> 00:00:46,166
+let's take a look at how we're going to do that! Start off in pseudocode. So in
+
+13
+00:00:46,166 --> 00:00:50,166
+the GetSightRayHitLocation(), this HitLocation = FVector(1.0);
+
+14
+00:00:50,166 --> 00:00:54,166
+That was purely for testing and so that we are
+
+15
+00:00:54,166 --> 00:00:58,166
+proving that we were changing the value. Remember we set a value here?
+
+16
+00:00:58,166 --> 00:01:02,166
+We pass a reference to it as an out parameter, it gets
+
+17
+00:01:02,166 --> 00:01:06,166
+changed inside this method, and then we print it out. OK, but now
+
+18
+00:01:06,166 --> 00:01:10,166
+what we want to do is, we want to know what actual direction we
+
+19
+00:01:10,166 --> 00:01:14,166
+are looking in, so we want to get to the point where we can put the  ("Look direction:
+
+20
+00:01:14,166 --> 00:01:18,166
+logged out here as the least to next step.
+
+21
+00:01:18,166 --> 00:01:22,166
+So, what are the steps for doing that? Well, the first thing we need to do is "// Find the
+
+22
+00:01:22,166 --> 00:01:26,166
+crosshair position" or
+
+23
+00:01:26,166 --> 00:01:30,166
+at least set the crosshair position. What else are we going to need to do? We're going to need to
+
+24
+00:01:30,166 --> 00:01:34,166
+"// De-project" is the term they use
+
+25
+00:01:34,166 --> 00:01:38,166
+the "screen position
+
+26
+00:01:38,166 --> 00:01:42,166
+of the cursor or crosshair
+
+27
+00:01:42,166 --> 00:01:46,166
+to a world direction" It's what they call a deep
+
+28
+00:01:46,166 --> 00:01:50,166
+projection. And then, we're going to "// Line-trace
+
+29
+00:01:50,166 --> 00:01:54,166
+through, along that" direction, which
+
+30
+00:01:54,166 --> 00:01:58,166
+we would call a "look direction,
+
+31
+00:01:58,166 --> 00:02:02,166
+and see what we hit" up to some
+
+32
+00:02:02,166 --> 00:02:06,166
+maximum range. Wow! OK, it's definitely worth thinking about
+
+33
+00:02:06,166 --> 00:02:10,166
+what the recipe is. Something like that! We're going to find out
+
+34
+00:02:10,166 --> 00:02:14,166
+what the crosshair's position is, de-project that position into world direction, and then line trace
+
+35
+00:02:14,166 --> 00:02:18,166
+along that and see what we end up hitting. So, it's going to take more than just this method, we're going to need
+
+36
+00:02:18,166 --> 00:02:22,166
+a couple more helper methods below but let's get started on it, and I
+
+37
+00:02:22,166 --> 00:02:26,166
+think I'll challenge you to do part of this, as part of this video of course.
+
+38
+00:02:26,166 --> 00:02:30,166
+So, let's just get you off the ground! We're going to have an int32,
+
+39
+00:02:30,166 --> 00:02:34,166
+a couple of int32's, so you can actually declare them on the same line. We're going to call it
+
+40
+00:02:34,166 --> 00:02:38,166
+sizeX, and SizeY. In fact,
+
+41
+00:02:38,166 --> 00:02:42,166
+we ought to be more explicit and call it Viewport
+
+42
+00:02:42,166 --> 00:02:46,166
+SizeX, and Viewport
+
+43
+00:02:46,166 --> 00:02:50,166
+SizeY. OK,
+
+44
+00:02:50,166 --> 00:02:54,166
+so what are they? Well, they are just going to be the size of the current Viewport,
+
+45
+00:02:54,166 --> 00:02:58,166
+i.e. when we're playing the game the Viewport that the game is running
+
+46
+00:02:58,166 --> 00:03:02,166
+in, the whole thing that's moving around as I move my mouse cursor, that is the
+
+47
+00:03:02,166 --> 00:03:06,166
+Viewport. OK, so how do we get that? Well, we have a method called GetViewportSize(),
+
+48
+00:03:06,166 --> 00:03:10,166
+and there it is. It's just
+
+49
+00:03:10,166 --> 00:03:14,166
+immediately available to us and it's going to use out parameters. Look you can see that
+
+50
+00:03:14,166 --> 00:03:18,166
+in the clue of the signature there, int32 &SizeX,
+
+51
+00:03:18,166 --> 00:03:22,166
+int32 &SizeY. I would prefer to see the ampersand bound
+
+52
+00:03:22,166 --> 00:03:26,166
+to the int32, to give us an idea that it's a reference to an
+
+53
+00:03:26,166 --> 00:03:30,166
+int32, but it's basically how
+
+54
+00:03:30,166 --> 00:03:34,166
+Unreal does it, so we'll just have no control over that. We'll just live with it, get used to the
+
+55
+00:03:34,166 --> 00:03:38,166
+ampersand being either side of the space. So, we're going to
+
+56
+00:03:38,166 --> 00:03:42,166
+pass in ViewportSizeX and ViewportSizeY and these are out parameters,
+
+57
+00:03:42,166 --> 00:03:46,166
+which is why I really want you to get used to them, because we have to use them because a lot of the engine
+
+58
+00:03:46,166 --> 00:03:50,166
+calls use out parameters. So, next we want a
+
+59
+00:03:50,166 --> 00:03:54,166
+way of the designer ideally specifying on the TankPlayer
+
+60
+00:03:54,166 --> 00:03:58,166
+Controller blueprint, where this reticle
+
+61
+00:03:58,166 --> 00:04:02,166
+or crosshair is. Now, we don't, I think, need to go as
+
+62
+00:04:02,166 --> 00:04:06,166
+far as actually reading the position of that dot from
+
+63
+00:04:06,166 --> 00:04:10,166
+the user interface. I think that that gets changed so little
+
+64
+00:04:10,166 --> 00:04:14,166
+that it doesn't matter if we have to change it into places, i.e. if we have to
+
+65
+00:04:14,166 --> 00:04:18,166
+actually go to the widget, move the dot around, then
+
+66
+00:04:18,166 --> 00:04:22,166
+come into the TankPlayerController blueprint and set some
+
+67
+00:04:22,166 --> 00:04:26,166
+sort of parameter for the position, the relative position
+
+68
+00:04:26,166 --> 00:04:30,166
+on the screen. I think that's OK, I'm generally against things being in two places, but two places are
+
+69
+00:04:30,166 --> 00:04:34,166
+OK, three isn't. Two is OK, especially when things don't change very often, it
+
+70
+00:04:34,166 --> 00:04:38,166
+will reduce the complexity of reading from the UI. So I think this would be
+
+71
+00:04:38,166 --> 00:04:42,166
+a great challenge, actually for you at this stage, is for you to
+
+72
+00:04:42,166 --> 00:04:46,166
+work out what the screen location is
+
+73
+00:04:46,166 --> 00:04:50,166
+based on the Viewport size and a
+
+74
+00:04:50,166 --> 00:04:54,166
+couple of parameters that you will make, so let me formalize that in a challenge
+
+75
+00:04:54,166 --> 00:04:55,800
+slide for you.
+
+76
+00:04:55,800 --> 00:04:59,800
+So, here goes your challenge, I hope it makes sense to you. I want you to create
+
+77
+00:04:59,800 --> 00:05:03,800
+a couple of private member variables, CrossHairXLocation
+
+78
+00:05:03,800 --> 00:05:07,800
+and set that to 0.5. That is to represent the fact that in our game the Crosshair
+
+79
+00:05:07,800 --> 00:05:11,800
+is halfway across the screen, it's the same convention as the UI anchors and the like,
+
+80
+00:05:11,800 --> 00:05:15,800
+so it's 50% of the way across the screen. I want you to create another
+
+81
+00:05:15,800 --> 00:05:19,800
+private member variable called CrossHairYLocation and set that to
+
+82
+00:05:19,800 --> 00:05:23,800
+0.33333. Now that's horrible but it's also fine because
+
+83
+00:05:23,800 --> 00:05:27,800
+we are accurate there to within 1 part in 100,000 or whatever,
+
+84
+00:05:27,800 --> 00:05:31,800
+and that is far less than the number of pixels you're going to have horizontally, so we're plenty accurate
+
+85
+00:05:31,800 --> 00:05:35,800
+enough. And this is exactly how things work when you set relative
+
+86
+00:05:35,800 --> 00:05:39,800
+numbers in the User Interface System, so it's consistent with that and
+
+87
+00:05:39,800 --> 00:05:43,800
+it's fine. So, have a CrossHairYLocation, and it's the distance down the screen so you can
+
+88
+00:05:43,800 --> 00:05:47,800
+see that we're starting from the top-left and that that dot is 0.33333. OK,
+
+89
+00:05:47,800 --> 00:05:51,800
+it goes on forever but that many decimal places is plenty of the way down the
+
+90
+00:05:51,800 --> 00:05:55,800
+screen. Alright, make them both EditAnywhere for Blueprint, so that
+
+91
+00:05:55,800 --> 00:05:59,800
+the designer can, if he decides to move his little white dot, him or her can
+
+92
+00:05:59,800 --> 00:06:03,800
+also change the position in code
+
+93
+00:06:03,800 --> 00:06:07,800
+or in at least a parameter. I want you to then calculate an FVector2D called Screen
+
+94
+00:06:07,800 --> 00:06:11,800
+Location. Now, it's actually very simple, it just involves a couple of multiplications,
+
+95
+00:06:11,800 --> 00:06:15,800
+but tying it all together is the bit that counts, so you're going to work out what the screen
+
+96
+00:06:15,800 --> 00:06:19,800
+location is in pixels. It'll be a pair of floats specifying the pixel
+
+97
+00:06:19,800 --> 00:06:23,800
+coordinates that we'll want to de-project later, and it will change as the
+
+98
+00:06:23,800 --> 00:06:27,800
+Viewport size changes. Not that that's likely to change, while there playing the game,
+
+99
+00:06:27,800 --> 00:06:31,800
+but you get the idea, it's flexible. So go ahead, pause the video and see if you can
+
+100
+00:06:31,800 --> 00:06:35,800
+make that work now.
+
+101
+00:06:35,800 --> 00:06:39,800
+So welcome back! Let's take a look at the code!
+
+102
+00:06:39,800 --> 00:06:43,800
+Make these member variables first. So, what did I say they were going to be called?
+
+103
+00:06:43,800 --> 00:06:47,800
+I have to look at the challenge slide. CrossHairXLocation was the first one, so it's
+
+104
+00:06:47,800 --> 00:06:51,800
+private so... Ooh, you know what I've done?! I've made all these puppies here public,
+
+105
+00:06:51,800 --> 00:06:55,800
+when actually they all need to be private, so there's a mistake I can correct.
+
+106
+00:06:55,800 --> 00:06:59,800
+Alright, so here we want a UPROPERTY ( Edit
+
+107
+00:06:59,800 --> 00:07:03,800
+Anywhere ). Spaces, no spaces,
+
+108
+00:07:03,800 --> 00:07:07,800
+don't really mind, I'm going to leave it without. And then it's going to be a float because
+
+109
+00:07:07,800 --> 00:07:11,800
+it's a fraction of a number, and it's going to be called Crosshair
+
+110
+00:07:11,800 --> 00:07:15,800
+XPosition I think. I keep forgetting what I asked you to call it
+
+111
+00:07:15,800 --> 00:07:19,800
+Location whatever. Location, OK
+
+112
+00:07:19,800 --> 00:07:23,800
+now make the 0.5 fine.
+
+113
+00:07:23,800 --> 00:07:27,800
+Indentation goes wrong because Visual Studio doesn't understand this macro.
+
+114
+00:07:27,800 --> 00:07:31,800
+OK, let's paste in for the Y location,
+
+115
+00:07:31,800 --> 00:07:35,800
+because it's almost identical, and give it about four decimal places
+
+116
+00:07:35,800 --> 00:07:39,800
+worth of 3's. Alright cool, I'm going to copy CrosshairXLocation
+
+117
+00:07:39,800 --> 00:07:43,800
+because we're about to use it. It'll save me retyping it and forgetting whether its location or
+
+118
+00:07:43,800 --> 00:07:47,800
+position once again. And let's think about what it's going to be. Well, we may as well use auto
+
+119
+00:07:47,800 --> 00:07:51,800
+because it'll come out in the wash, so ScreenLocation is what I asked you to create
+
+120
+00:07:51,800 --> 00:07:55,800
+and it's an FVector2D(), so hopefully you realize that you can
+
+121
+00:07:55,800 --> 00:07:59,800
+do this calculation directly in the constructor of the FVector2D.
+
+122
+00:07:59,800 --> 00:08:03,800
+So what do we start with? Well, we're going to start with ViewportSizeX,
+
+123
+00:08:03,800 --> 00:08:07,800
+if I can type,
+
+124
+00:08:07,800 --> 00:08:11,800
+and we're going to multiply that by the CrosshairXLocation. So,
+
+125
+00:08:11,800 --> 00:08:15,800
+whatever the X Viewport size is in pixels, let's call it 1,000 pixels wide. If the
+
+126
+00:08:15,800 --> 00:08:19,800
+CrosshairXLocation is 0.5, then we get a value here of 500
+
+127
+00:08:19,800 --> 00:08:23,800
+being returned for the X part of the FVector
+
+128
+00:08:23,800 --> 00:08:27,800
+2D. So, at pixel 500 is where the screen location is
+
+129
+00:08:27,800 --> 00:08:31,800
+in X, and then, we do exactly the same thing in Y. In fact, it's so exactly
+
+130
+00:08:31,800 --> 00:08:35,800
+I would recommend copying and pasting and then changing X's for
+
+131
+00:08:35,800 --> 00:08:39,800
+Y's to minimize the chance of boo boos. OK,
+
+132
+00:08:39,800 --> 00:08:43,800
+that's fine! Now, if you wish you can log this out, as long as we are actually
+
+133
+00:08:43,800 --> 00:08:47,800
+getting SightRayHitLocation every frame. Are we calling it? Yes,
+
+134
+00:08:47,800 --> 00:08:51,800
+GetSightRayHitLocation. Good! So, I think it would be good practice here to do a UE_LOG()
+
+135
+00:08:51,800 --> 00:08:55,800
+of what this is, so (LogTemp), otherwise we don't know we've done it right.
+
+136
+00:08:55,800 --> 00:08:59,800
+Warning and then we're going to have a TEXT macro, because we love them,
+
+137
+00:08:59,800 --> 00:09:03,800
+and I'm going to put some string in so that we don't get some horrible you shouldn't have
+
+138
+00:09:03,800 --> 00:09:07,800
+for parameters warning and also tells us what this is talking
+
+139
+00:09:07,800 --> 00:09:11,800
+about. So, ("ScreenLocation:  ")),
+
+140
+00:09:11,800 --> 00:09:15,800
+may as well use the exact variable name with a %s to say, expect to
+
+141
+00:09:15,800 --> 00:09:19,800
+find something that I can make into a string or display as a string, coming afterwards
+
+142
+00:09:19,800 --> 00:09:23,800
+and then comma and then we're just going to go ScreenLocation).
+
+143
+00:09:23,800 --> 00:09:27,800
+And of course, the type of this screen location is an FVector2D,
+
+144
+00:09:27,800 --> 00:09:31,800
+it must be because that's what we've constructed on the right-hand side. Alright, let's
+
+145
+00:09:31,800 --> 00:09:35,800
+have a look and see what we get. Oh, before I do it let's just
+
+146
+00:09:35,800 --> 00:09:39,800
+press this ("Look direction:  %s") log up here, so that we only get one thing
+
+147
+00:09:39,800 --> 00:09:43,800
+coming out. Now with a log that's down and deep in a function like this, rather than
+
+148
+00:09:43,800 --> 00:09:47,800
+near the top of your class and at a high level, you want to
+
+149
+00:09:47,800 --> 00:09:51,800
+get rid of that log pretty quickly, because we don't want deeply nested
+
+150
+00:09:51,800 --> 00:09:55,800
+sub-methods logging, because it just gets really confusing trying to get rid of logs
+
+151
+00:09:55,800 --> 00:09:59,800
+then. So, let's just wait for this to compile, see if it works. We should be
+
+152
+00:09:59,800 --> 00:10:03,800
+getting, well it depends on our Viewport size. What is my Viewport size here?
+
+153
+00:10:03,800 --> 00:10:07,800
+Well let's have a look. I could veri, You could verify it using something
+
+154
+00:10:07,800 --> 00:10:11,800
+like Snagit, you could take a screen-capture but it's probably you know 600 pixels, that sort of thing.
+
+155
+00:10:11,800 --> 00:10:15,800
+It will see if it's right. It'll be obvious if it's right. So
+
+156
+00:10:15,800 --> 00:10:19,800
+"note: see reference to function template instantiation" in TankPlayerController 52,
+
+157
+00:10:19,800 --> 00:10:23,800
+there's something wrong. So, maybe the first thing to do is just have a look and see
+
+158
+00:10:23,800 --> 00:10:27,800
+if you can see what's wrong with it. What is wrong with it is ScreenLocation
+
+159
+00:10:27,800 --> 00:10:31,800
+of course is an FVector2D, and what we need to do is something like a
+
+160
+00:10:31,800 --> 00:10:35,800
+ToString() on that. So, we do a ToString() method, and then, we
+
+161
+00:10:35,800 --> 00:10:39,800
+need to do a star in order to turn this string back into a
+
+162
+00:10:39,800 --> 00:10:43,800
+TChar*, that old chestnut. Let's try again!
+
+163
+00:10:43,800 --> 00:10:47,800
+Quite cryptic errors, I would say. That's not an error that, unless you've got some experience
+
+164
+00:10:47,800 --> 00:10:51,800
+which is why I'm showing you these types of errors, is too easy to
+
+165
+00:10:51,800 --> 00:10:55,800
+deal with, but don't get too caught up in those massive long complicated
+
+166
+00:10:55,800 --> 00:10:59,800
+errors. Just go back to your code, take a look at it, and say well you know,
+
+167
+00:10:59,800 --> 00:11:03,800
+the first look at it, what was wrong with it? Is there something
+
+168
+00:11:03,800 --> 00:11:07,800
+obviously wrong with it? And to me there was something obviously wrong with it. You don't need to go through and read every nuance
+
+169
+00:11:07,800 --> 00:11:11,800
+of that error message until your first couple of gut feels don't work; I
+
+170
+00:11:11,800 --> 00:11:15,800
+would suggest, otherwise the sheer time it takes to read the full width of the error message
+
+171
+00:11:15,800 --> 00:11:19,800
+makes it not worth it. But of course, don't leave it too long before you do read that error
+
+172
+00:11:19,800 --> 00:11:23,800
+message carefully, if you're still stuck. So let's play! Ah, here we go look!
+
+173
+00:11:23,800 --> 00:11:27,800
+402 by 179.4 blah blah blah. That sound very
+
+174
+00:11:27,800 --> 00:11:31,800
+feasible. I'm going to just load up Snagit so you know what I was talking about when I
+
+175
+00:11:31,800 --> 00:11:35,800
+mentioned Snagit earlier. I think I've got a keyboard shortcut setup for it. I have, I'm going to
+
+176
+00:11:35,800 --> 00:11:39,800
+screen-capture the middle portion of my screen there, which is the Viewport. This will
+
+177
+00:11:39,800 --> 00:11:43,800
+also highlight to you what the Viewport actually is. I'm going to look at the size
+
+178
+00:11:43,800 --> 00:11:47,800
+of that, if I can find where it stored it. Bless it.
+
+179
+00:11:47,800 --> 00:11:51,800
+And then, we can see here that this is roughly 1,000 by 677
+
+180
+00:11:51,800 --> 00:11:55,800
+pixels, this bit. I've got the pixels a little bit wrong,
+
+181
+00:11:55,800 --> 00:11:59,800
+I didn't cut it that carefully, so let's just see if we're getting roughly 500 and something by
+
+182
+00:11:59,800 --> 00:12:03,800
+350 something. So, we're not getting that, we're getting 400 by
+
+183
+00:12:03,800 --> 00:12:07,800
+179. So, the likely reason is because if I look at my
+
+184
+00:12:07,800 --> 00:12:11,800
+display settings, I've got 125% scaling
+
+185
+00:12:11,800 --> 00:12:15,800
+on my windows Display scaling, just to confuse things. So,
+
+186
+00:12:15,800 --> 00:12:19,800
+if we take this 402 in a calculator
+
+187
+00:12:19,800 --> 00:12:23,800
+and go 402
+
+188
+00:12:23,800 --> 00:12:27,800
+times 1.25, we get 502 pixels, almost exactly
+
+189
+00:12:27,800 --> 00:12:31,800
+what we'd expect. Let's try the same in the Y. 180 is good enough for
+
+190
+00:12:31,800 --> 00:12:35,800
+179 times 1.25. It gives us 225
+
+191
+00:12:35,800 --> 00:12:39,800
+in the Y, as if the total height of this thing was...
+
+192
+00:12:39,800 --> 00:12:43,800
+I've got to think about this a bit more carefully. 225 is the number of pixels.
+
+193
+00:12:43,800 --> 00:12:47,800
+Once we've changed, because of my strange screen scaling, from the top
+
+194
+00:12:47,800 --> 00:12:51,800
+of the screen to the dot which is a third of the way down. So, we need to multiply the 225
+
+195
+00:12:51,800 --> 00:12:55,800
+by 3, which gives you the 675 (laughs). Wow!
+
+196
+00:12:55,800 --> 00:12:59,800
+At last! And then, if we go back here and look, well it was 677. Sue me, it's only
+
+197
+00:12:59,800 --> 00:13:03,800
+2 pixels out. So, after a lot of combobulating, I think that's
+
+198
+00:13:03,800 --> 00:13:07,800
+the word I'll use, we have actually have got the right place. As I say, let me
+
+199
+00:13:07,800 --> 00:13:11,800
+reiterate, the reason it didn't come out exactly is because I have display
+
+200
+00:13:11,800 --> 00:13:15,800
+scaling going on, on my screen, to keep things visible for you guys. So,
+
+201
+00:13:15,800 --> 00:13:19,800
+the pixels ain't pixels, they don't map 1 to 1. Ahh, that
+
+202
+00:13:19,800 --> 00:13:23,800
+was all good fun! So, hopefully that makes sense. I'm just going to go in and remove
+
+203
+00:13:23,800 --> 00:13:27,800
+this log message, as I said we should do, and we actually have
+
+204
+00:13:27,800 --> 00:13:31,800
+done the first bit, which is "// Find the crosshair position in
+
+205
+00:13:31,800 --> 00:13:35,800
+pixel coordinates". And that's what
+
+206
+00:13:35,800 --> 00:13:39,800
+all this stuff here does, and that's what we've done by doing our
+
+207
+00:13:39,800 --> 00:13:43,800
+intermediate variable and compose an FVector etc. So, relatively simple
+
+208
+00:13:43,800 --> 00:13:47,800
+revisiony stuff for you, and I'll see you in the next lecture!
+
+209
+00:13:47,800 --> 00:13:48,900
+
+

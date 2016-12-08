@@ -1,0 +1,865 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+Welcome to 3rd Person
+
+2
+00:00:04,000 --> 00:00:08,000
+Camera Control! This is going to get fun! So, by the end of the video,
+
+3
+00:00:08,000 --> 00:00:12,000
+we will have a rudimentary but error prone
+
+4
+00:00:12,000 --> 00:00:16,000
+camera rotation system. We'll be able to move around the tank, we'll have some glitches, we'll have a common problem with
+
+5
+00:00:16,000 --> 00:00:20,000
+the camera ending up rotating like this, the horizon ending up not
+
+6
+00:00:20,000 --> 00:00:24,000
+horizontal, but this is good, this is a step towards the camera control we want. And because
+
+7
+00:00:24,000 --> 00:00:28,000
+of the flexibility of blueprint, we're going to be able to fix the hierarchy,
+
+8
+00:00:28,000 --> 00:00:32,000
+fix what we need, and swap a couple of elements out really quickly, after the video.
+
+9
+00:00:32,000 --> 00:00:36,000
+But for now, I want you to get this initial thing setup, a very simple system
+
+10
+00:00:36,000 --> 00:00:40,000
+and we will have camera control. So, let's go and see how it works!
+
+11
+00:00:40,000 --> 00:00:40,133
+
+
+12
+00:00:40,133 --> 00:00:44,133
+So, let's take a look at what's happening with the camera. I'm going to get the World Outliner up,
+
+13
+00:00:44,133 --> 00:00:48,133
+play the game, and see what's happening. If we de-possess, where's our camera? Well,
+
+14
+00:00:48,133 --> 00:00:52,133
+try at the origin of the tank, right underneath it. Where is it in
+
+15
+00:00:52,133 --> 00:00:56,133
+the world here? Do we have a camera in the world? We have a Player
+
+16
+00:00:56,133 --> 00:01:00,133
+CameraManager, and you can see that's where it is there. And it's a thing of type
+
+17
+00:01:00,133 --> 00:01:04,133
+PlayerCameraManager. OK, so what we want to do is we want to attach a
+
+18
+00:01:04,133 --> 00:01:08,133
+camera to the blueprint, the tank blueprint. So, let's go ahead and do that together
+
+19
+00:01:08,133 --> 00:01:12,133
+now. Open up your tank blueprint. And the naive way to do this, and we'll start by doing
+
+20
+00:01:12,133 --> 00:01:16,133
+this, is just to go and Add a Component, add a camera.
+
+21
+00:01:16,133 --> 00:01:20,133
+Then, we move the camera and position it up and behind the tank.
+
+22
+00:01:20,133 --> 00:01:24,133
+This is basically fine but there are some issues with it, which we'll see in a moment,
+
+23
+00:01:24,133 --> 00:01:28,133
+because it's going to be hard to rotate the camera, and also the camera's not going to
+
+24
+00:01:28,133 --> 00:01:32,133
+particularly, nicely follow the tank with a kind of
+
+25
+00:01:32,133 --> 00:01:36,133
+springy springy feel to it. But let's just see what this is like, if there is a camera
+
+26
+00:01:36,133 --> 00:01:40,133
+attached to the tank and then we play. You see what's happening? Now, it's found a
+
+27
+00:01:40,133 --> 00:01:44,133
+camera, so... Oops, excuse me! So, there we go, we're where we want to be
+
+28
+00:01:44,133 --> 00:01:48,133
+up and behind the tank. But we want some way of moving
+
+29
+00:01:48,133 --> 00:01:52,133
+the camera around. So, how are we going to do that? Well,
+
+30
+00:01:52,133 --> 00:01:56,133
+we can't just rotate the camera right, because that would do something really strange, if you think
+
+31
+00:01:56,133 --> 00:02:00,133
+about it. If we had some controls that just rotate the camera, we'd just be looking away from the tank.
+
+32
+00:02:00,133 --> 00:02:04,133
+We can indeed just move the tank, but we
+
+33
+00:02:04,133 --> 00:02:08,133
+don't want to rotate the tank randomly, because the tank rotation should be based on it's
+
+34
+00:02:08,133 --> 00:02:12,133
+movement right? So, we're going to have to
+
+35
+00:02:12,133 --> 00:02:16,133
+put the camera on an arm, and that's something called a spring arm,
+
+36
+00:02:16,133 --> 00:02:20,133
+and then rotate that spring arm. So, that's what we're going to be doing here!
+
+37
+00:02:20,133 --> 00:02:24,133
+So, let's start by adding a spring arm. Camera,
+
+38
+00:02:24,133 --> 00:02:28,133
+SpringArm; it's designed for cameras. We can just call it a
+
+39
+00:02:28,133 --> 00:02:32,133
+SpringArm, that's fine, but we want to child the Camera to it. So now, what's happening is you've
+
+40
+00:02:32,133 --> 00:02:36,133
+got this virtual SpringArm in the world, and if you rotate that, you see how the Camera goes
+
+41
+00:02:36,133 --> 00:02:40,133
+with it? OK, so let's just play the game and see what's happening with it
+
+42
+00:02:40,133 --> 00:02:44,133
+on the SpringArm. It'd be very similar. OK, that's fine! It's pointing a little bit
+
+43
+00:02:44,133 --> 00:02:48,133
+at the ground, so maybe come back a click.
+
+44
+00:02:48,133 --> 00:02:52,133
+Great! OK! Still not quite pointing in the right place.
+
+45
+00:02:52,133 --> 00:02:56,133
+So, there's two angles, or course, here. You've got how kind of high the camera
+
+46
+00:02:56,133 --> 00:03:00,133
+is, based on the rotation of the SpringArm. Imagine a line going from
+
+47
+00:03:00,133 --> 00:03:04,133
+the center of the tank out to the camera, but also you're still free to rotate the camera itself.
+
+48
+00:03:04,133 --> 00:03:08,133
+So just fiddle around with it, until you get a reasonable view. Something
+
+49
+00:03:08,133 --> 00:03:12,133
+like that isn't far off. OK, we can tweak that later.
+
+50
+00:03:12,133 --> 00:03:16,133
+But importantly now, what we want to be able to do is, we want to be able to rotate and move
+
+51
+00:03:16,133 --> 00:03:20,133
+this SpringArm, so when we look around, we want the camera to orbit around
+
+52
+00:03:20,133 --> 00:03:24,133
+the tank like that. So, we're going to setup this input
+
+53
+00:03:24,133 --> 00:03:28,133
+binding now. We're going to do it in Blueprint. Don't worry, this section have over 500 lines of juicy
+
+54
+00:03:28,133 --> 00:03:32,133
+C++ code to get into, but this is very simple. We're just going to
+
+55
+00:03:32,133 --> 00:03:36,133
+take an input axis and do a very simple manipulation of it, and
+
+56
+00:03:36,133 --> 00:03:40,133
+we're going to be referencing this SpringArm or perhaps a SpringArm container. We'll see in a moment.
+
+57
+00:03:40,133 --> 00:03:44,133
+So, because we're referencing input and we're referencing an actual asset in
+
+58
+00:03:44,133 --> 00:03:47,133
+the game, they're both candidates for using Blueprint. There's no point in
+
+59
+00:03:47,133 --> 00:03:52,133
+going from Blueprint to C++, back out to Blueprint. Let's just keep it all in Blueprint, in this case. So, let's
+
+60
+00:03:52,133 --> 00:03:56,133
+take ourselves to the Event Graph of the tank Blueprint.
+
+61
+00:03:56,133 --> 00:04:00,133
+By the way, the Event Graph is just one of potentially many Event Graphs.
+
+62
+00:04:00,133 --> 00:04:04,133
+So, here we have MyBlueprint tab, if you can find the MyBlueprint tab. If you
+
+63
+00:04:04,133 --> 00:04:08,133
+can't, then you can have a look on the Window menu, and you'll find MyBlueprint
+
+64
+00:04:08,133 --> 00:04:12,133
+there. And this MyBlueprint tab will show you all sorts of things, which we'll come to
+
+65
+00:04:12,133 --> 00:04:16,133
+discover in this section, but one of them is, the Event Graph is not the only place that we can add Blueprint
+
+66
+00:04:16,133 --> 00:04:20,133
+code, actual execution flow code,
+
+67
+00:04:20,133 --> 00:04:24,133
+to our tank. We could add another graph, so let's do that! Let's add another
+
+68
+00:04:24,133 --> 00:04:28,133
+graph called InputSetup, and that will work exactly like the Event Graph. In fact, it is an
+
+69
+00:04:28,133 --> 00:04:32,133
+Event Graph. It's just that you can't rename EventGraph; there has to be one thing called EventGraph,
+
+70
+00:04:32,133 --> 00:04:36,133
+and you can have as many other Event Graphs as you like.
+
+71
+00:04:36,133 --> 00:04:40,133
+The only thing is, you can't have a begin play on both, otherwise it wouldn't know where to start.
+
+72
+00:04:40,133 --> 00:04:44,133
+But we're not dealing with begin play, so let's put all our input into a separate graph from the
+
+73
+00:04:44,133 --> 00:04:48,133
+word go, just to organize them basically, just as an organizational tool.
+
+74
+00:04:48,133 --> 00:04:52,133
+Cool! So, I'm going to go ahead and do a tiny bit of input binding now. So we
+
+75
+00:04:52,133 --> 00:04:56,133
+go to our ProjectSettings, however you want to get to it. One way is the toolbar, ProjectSettings.
+
+76
+00:04:56,133 --> 00:05:00,133
+Just hide that tab, give myself some more room. Let's start setting
+
+77
+00:05:00,133 --> 00:05:04,133
+up some input. What have we already got input-wise? Nothing, we've got no
+
+78
+00:05:04,133 --> 00:05:08,133
+Action, no Axis. So your first question is, is this an Action or an Axis?
+
+79
+00:05:08,133 --> 00:05:12,133
+Let's see if we're going to move the camera. Well, it's an Axis isn't it? We're going to use say the right stick on a
+
+80
+00:05:12,133 --> 00:05:16,133
+gamepad or the mouse or something like that. So, let's start off
+
+81
+00:05:16,133 --> 00:05:20,133
+just with the mouse. Now, what are we going to call these
+
+82
+00:05:20,133 --> 00:05:24,133
+axes? Well, I'm going to call it AimAzimuth.
+
+83
+00:05:24,133 --> 00:05:28,133
+Now, what is AimAzimuth?
+
+84
+00:05:28,133 --> 00:05:32,133
+Well, if you pop over to Wikipedia and look for Horizontal Coordinate System, there
+
+85
+00:05:32,133 --> 00:05:36,133
+is a link in your notes. Then, we have Azimuth and
+
+86
+00:05:36,133 --> 00:05:40,133
+Altitude, or in the case of the tank, I'd prefer to call it Azimuth and Elevation.
+
+87
+00:05:40,133 --> 00:05:44,133
+That is what we are moving the camera in. Azimuth
+
+88
+00:05:44,133 --> 00:05:48,133
+means moving it around horizontally, looking at a different part of the sky
+
+89
+00:05:48,133 --> 00:05:52,133
+horizontally, and Elevation or Altitude means looking up and down. So, we're going to use an Azimuth
+
+90
+00:05:52,133 --> 00:05:56,133
+and Elevation model. OK, so we have Aim
+
+91
+00:05:56,133 --> 00:06:00,133
+Azimuth. Now, I'm not going to add the other one, this is going to be part of your challenge, but I am going to start
+
+92
+00:06:00,133 --> 00:06:04,133
+binding it to a couple of different things, I think. We're going to have the Mouse X axis,
+
+93
+00:06:04,133 --> 00:06:08,133
+and we're also going to have the... No, that's it actually. No no, actually
+
+94
+00:06:08,133 --> 00:06:12,133
+I'm going to use the Gamepad Right Thumbstick X-Axis. I'm going to give myself two
+
+95
+00:06:12,133 --> 00:06:16,133
+options, from the word. Now the scaling, this is something that the user may use to
+
+96
+00:06:16,133 --> 00:06:20,133
+control the sensitivity of their controls. We don't generally
+
+97
+00:06:20,133 --> 00:06:24,133
+want to change that. We want to set it at a sensible value, but we don't tweak it here.
+
+98
+00:06:24,133 --> 00:06:28,133
+This is really for a user to tweak later. Alright, so
+
+99
+00:06:28,133 --> 00:06:32,133
+we have two things that are leading to AimAzimuth.
+
+100
+00:06:32,133 --> 00:06:36,133
+OK great! Now, let's go to the tank blueprint, and
+
+101
+00:06:36,133 --> 00:06:40,133
+let's go find Azimuth. There you go! AimAzimuth, it's an event.
+
+102
+00:06:40,133 --> 00:06:44,133
+So, when that AimAzimuth input is triggered,
+
+103
+00:06:44,133 --> 00:06:48,133
+what are we going to do? Well, we're going to add a local rotation, so come
+
+104
+00:06:48,133 --> 00:06:52,133
+off the execution pin
+
+105
+00:06:52,133 --> 00:06:56,133
+and look for local rotation. Add
+
+106
+00:06:56,133 --> 00:07:00,133
+ActorLocalRotation, or just AddLocal
+
+107
+00:07:00,133 --> 00:07:04,133
+Rotation to the SpringArm. Here you go!
+
+108
+00:07:04,133 --> 00:07:08,133
+So, we're going to AddLocalRotation to a component, not the actor itself, because that's the
+
+109
+00:07:08,133 --> 00:07:12,133
+tank. Remember we're on the tank blueprint. So, out of all of these options, it's not
+
+110
+00:07:12,133 --> 00:07:16,133
+the actor because it's not the tank, it is the SpringArm. We're going to add a LocalRotation to the Spring
+
+111
+00:07:16,133 --> 00:07:20,133
+Arm. You see it's found the reference to the SpringArm, which is quite helpful for us,
+
+112
+00:07:20,133 --> 00:07:24,133
+OK. And then, we need to decide well, how much rotation do we
+
+113
+00:07:24,133 --> 00:07:28,133
+give to the SpringArm? Well, it's pretty much just
+
+114
+00:07:28,133 --> 00:07:32,133
+this axis value. The only problem with just piping this axis value in
+
+115
+00:07:32,133 --> 00:07:36,133
+is that it would then depend on the frame rate, right? Because in a particular
+
+116
+00:07:36,133 --> 00:07:40,133
+frame we would rotate a different amount, depending on how long the frame is. So, what we're going to
+
+117
+00:07:40,133 --> 00:07:44,133
+do is, we're going to get the World Delta Seconds. Get World Delta Seconds, that's going to
+
+118
+00:07:44,133 --> 00:07:48,133
+output how long the last frame was. We're going to multiply
+
+119
+00:07:48,133 --> 00:07:52,133
+so there's a float times float,
+
+120
+00:07:52,133 --> 00:07:56,133
+multiplication there. The Axis Value...
+
+121
+00:07:56,133 --> 00:08:00,133
+Oh now, I don't want to cross the nodes. It just looks ugly, so let's just mess around with that.
+
+122
+00:08:00,133 --> 00:08:04,133
+We're going to multiply the Axis Value that's coming out between 0 and 1,
+
+123
+00:08:04,133 --> 00:08:08,133
+with how long the previous frame was, and use that for our rotation.
+
+124
+00:08:08,133 --> 00:08:12,133
+But we need to split this struct, so if you just
+
+125
+00:08:12,133 --> 00:08:16,133
+right-click on Delta Rotation, you can
+
+126
+00:08:16,133 --> 00:08:20,133
+Split Struct Pin. And that allows us to pipe this into
+
+127
+00:08:20,133 --> 00:08:24,133
+the Yaw right? Azimuth is Yaw, in airplane
+
+128
+00:08:24,133 --> 00:08:28,133
+terms. So, I just stop all of the crossing of the nodes. It doesn't matter functionally, of course, these
+
+129
+00:08:28,133 --> 00:08:32,133
+nodes crossing, it just matters aesthetically. And that's
+
+130
+00:08:32,133 --> 00:08:36,133
+it, that is how we would setup the input control for the
+
+131
+00:08:36,133 --> 00:08:40,133
+axis. Let's try it! Let's compile the blueprint, come into the game, and
+
+132
+00:08:40,133 --> 00:08:44,133
+try just moving our mouse. Now, it is working, it's
+
+133
+00:08:44,133 --> 00:08:48,133
+just working very slowly, alright. So, how do we sort that out?
+
+134
+00:08:48,133 --> 00:08:52,133
+Well, that multiply pin here has the ability to
+
+135
+00:08:52,133 --> 00:08:56,133
+add another pin. We do that, and we put a fixed
+
+136
+00:08:56,133 --> 00:09:00,133
+100 in here. For example, so we've go the axis value
+
+137
+00:09:00,133 --> 00:09:04,133
+times how long the frame was times 100. Let's try that! We're just
+
+138
+00:09:04,133 --> 00:09:08,133
+increasing the speed. Now, the mouse X axis does exactly what we. It'll be
+
+139
+00:09:08,133 --> 00:09:12,133
+a bit glitchy, but we'll worry about this later. OK, and then the
+
+140
+00:09:12,133 --> 00:09:16,133
+right axis of my gamepad also does the same
+
+141
+00:09:16,133 --> 00:09:20,133
+thing. That's cool! So, I wonder why that's
+
+142
+00:09:20,133 --> 00:09:24,133
+snapping like that? We're getting a sudden snapping of our camera position.
+
+143
+00:09:24,133 --> 00:09:28,133
+Well, we'll take a look at that in the next
+
+144
+00:09:28,133 --> 00:09:32,133
+video, but what I want you to do now is a challenge. I want you to setup the AimElevation
+
+145
+00:09:32,133 --> 00:09:36,133
+for me. So, I want you to bind the AimElevation in blueprint
+
+146
+00:09:36,133 --> 00:09:40,133
+for me. Use the AimAzimuth as a template, setup the corresponding
+
+147
+00:09:40,133 --> 00:09:44,133
+binding for the elevation, and just test that it all works and make sure you really
+
+148
+00:09:44,133 --> 00:09:48,133
+understood what I just told you. So go ahead, pause the video, and work the same magic for the elevation
+
+149
+00:09:48,133 --> 00:09:52,133
+right now.
+
+150
+00:09:52,133 --> 00:09:56,133
+Welcome back! Let's take a look at how to make this work! So of course, the first thing that
+
+151
+00:09:56,133 --> 00:10:00,133
+we need to do is go into our Project Settings, into Input,
+
+152
+00:10:00,133 --> 00:10:04,133
+and then, we need to come down to the Axis Mappings and give ourselves a
+
+153
+00:10:04,133 --> 00:10:08,133
+similar one AimElevation, oops, with a few extra
+
+154
+00:10:08,133 --> 00:10:12,133
+letters there. [Laughs] It almost looks Scandinavian in its spelling, just then.
+
+155
+00:10:12,133 --> 00:10:16,133
+So, Mouse Y is one of our options, and Gamepad
+
+156
+00:10:16,133 --> 00:10:20,133
+Right Thumbstick Y Axis
+
+157
+00:10:20,133 --> 00:10:24,133
+is what we want. There you go! So, now we have an AimElevation. Remember copy and paste
+
+158
+00:10:24,133 --> 00:10:28,133
+is the safest way of using this, although we don't need to in the case of Blueprint
+
+159
+00:10:28,133 --> 00:10:32,133
+because we're going to reference it directly like this. Well, still paste! AimElevation,
+
+160
+00:10:32,133 --> 00:10:36,133
+make sure I'm getting the right thing. It's the event we want, not a function,
+
+161
+00:10:36,133 --> 00:10:40,133
+and then, we are simply going to do exactly the same thing. So
+
+162
+00:10:40,133 --> 00:10:44,133
+basically, because we're doing exactly the same thing, we can come off the Elevation
+
+163
+00:10:44,133 --> 00:10:48,133
+node, we can look for LocalRotation, AddLocalRotation to the
+
+164
+00:10:48,133 --> 00:10:52,133
+SpringArm. AddLocalRotation
+
+165
+00:10:52,133 --> 00:10:56,133
+to the SpringArm. That gives us most of what we wanted!
+
+166
+00:10:56,133 --> 00:11:00,133
+These nodes, we can just copy and paste.
+
+167
+00:11:00,133 --> 00:11:04,133
+Wire things up. Now split,
+
+168
+00:11:04,133 --> 00:11:08,133
+we need to split the struct here. Now,
+
+169
+00:11:08,133 --> 00:11:12,133
+which one did you opt to put it into? If we're doing Elevation, what are you doing? Are you pitching, yawing,
+
+170
+00:11:12,133 --> 00:11:16,133
+or rolling the camera? I think we're pitching the camera! We've still got that
+
+171
+00:11:16,133 --> 00:11:20,133
+100 multiplier, which should be appropriate. It should give us
+
+172
+00:11:20,133 --> 00:11:24,133
+a similar effect. Collapse that node down a little bit,
+
+173
+00:11:24,133 --> 00:11:28,133
+and I'll tidy this blueprint up at the end. Let's make sure it works before we tidy up, so I'll stop
+
+174
+00:11:28,133 --> 00:11:32,133
+tidying it. I'm obsessively tidying it! Come to the battleground, play the game,
+
+175
+00:11:32,133 --> 00:11:36,133
+and then, look the camera is moving around but its doing something really
+
+176
+00:11:36,133 --> 00:11:40,133
+strange OK and the reason for that
+
+177
+00:11:40,133 --> 00:11:44,133
+is because we need yet another level
+
+178
+00:11:44,133 --> 00:11:48,133
+of indirection here. We need to, not just be
+
+179
+00:11:48,133 --> 00:11:52,133
+rotating the SpringArm, because the rotations
+
+180
+00:11:52,133 --> 00:11:56,133
+are compounding. If we pan the SpringArm or move the SpringArm
+
+181
+00:11:56,133 --> 00:12:00,133
+in Azimuth and then elevate it and then move it in Azimuth again, then what we're ending up
+
+182
+00:12:00,133 --> 00:12:04,133
+with is we're ending up with the wrong end
+
+183
+00:12:04,133 --> 00:12:08,133
+result. So, let me show you that in action! Here's the SpringArm, for instance. If I take the Spring
+
+184
+00:12:08,133 --> 00:12:12,133
+Arm up like that and then around and then down, it's
+
+185
+00:12:12,133 --> 00:12:16,133
+going to start twisting. So, let's see how this looks! You
+
+186
+00:12:16,133 --> 00:12:20,133
+see how it's twisted? The horizon is no longer steady, and that's just
+
+187
+00:12:20,133 --> 00:12:24,133
+because of the way these rotations are adding together. They don't add together
+
+188
+00:12:24,133 --> 00:12:28,133
+in a way that is independent of the order you've done them in, with rotations of
+
+189
+00:12:28,133 --> 00:12:32,133
+course. So, what we want to do then is, we want to have
+
+190
+00:12:32,133 --> 00:12:36,133
+another object, and we'll put another object, a SpringArm container in
+
+191
+00:12:36,133 --> 00:12:40,133
+between in the next video. So, I'm just going to try and return my camera to where it
+
+192
+00:12:40,133 --> 00:12:44,133
+was. I think it was there? Let's try that
+
+193
+00:12:44,133 --> 00:12:48,133
+and make sure that we start in a sensible position. Yeah, and I'm going to accept that a
+
+194
+00:12:48,133 --> 00:12:52,133
+combination of movements is going to end up with this in a really strange position. So, we'll see
+
+195
+00:12:52,133 --> 00:12:56,133
+how to sort that out next, but at least, we have the bindings that we need. I'm going to just
+
+196
+00:12:56,133 --> 00:13:00,133
+go to the Input Setup tab again, tidy up my blueprint. I think that's a good habit,
+
+197
+00:13:00,133 --> 00:13:04,133
+once you know that it works. Don't waste your time beforehand, if you can possibly help it.
+
+198
+00:13:04,133 --> 00:13:08,133
+I know if you're tidy-minded like me you won't be able to help it, and if you're not tidy-minded, then you'll wonder what
+
+199
+00:13:08,133 --> 00:13:12,133
+I'm spending all the time on. And what I'm going to do here is, I'm going to highlight all
+
+200
+00:13:12,133 --> 00:13:16,133
+the nodes and push the C key, C for Comment on the keyboard, and I'm just
+
+201
+00:13:16,133 --> 00:13:20,133
+going to say exactly what this is. This is Camera Input
+
+202
+00:13:20,133 --> 00:13:24,133
+Binding, and then, that's it, we are done!
+
+203
+00:13:24,133 --> 00:13:28,133
+Let's save everything! Remember, to be using source controller.
+
+204
+00:13:28,133 --> 00:13:32,133
+I haven't showed you any commits going on recently, but I am,
+
+205
+00:13:32,133 --> 00:13:36,133
+once I've saved everything, going over to my Source Control System, or course, and then committing
+
+206
+00:13:36,133 --> 00:13:40,133
+using a commit name that matches the video name. And do remember also
+
+207
+00:13:40,133 --> 00:13:44,133
+that you can get to all of this code over on github.com forward slash
+
+208
+00:13:44,133 --> 00:13:48,133
+bentristem. You can navigate through to the Unreal Course, the
+
+209
+00:13:48,133 --> 00:13:52,133
+Battle Tank section, or you could directly go to github.com forwardslash UnrealCourse. And
+
+210
+00:13:52,133 --> 00:13:56,133
+then, you can choose the stick on the master branch, and if you look at the 14 commits,
+
+211
+00:13:56,133 --> 00:14:00,133
+you'll see that each one of these corresponds to a video. For each of those,
+
+212
+00:14:00,133 --> 00:14:04,133
+you could choose to go to that commit, and you would be able to download the files
+
+213
+00:14:04,133 --> 00:14:08,133
+if you want to. You can browse them, download them, clone them, whatever you like.
+
+214
+00:14:08,133 --> 00:14:12,133
+So you can get to the end state of every single video in the course, which is pretty handy.
+
+215
+00:14:12,133 --> 00:14:16,133
+Cool! So, I'm going to go ahead and commit this now, and I'll see you in the next video!
+
+216
+00:14:16,133 --> 00:14:16,233
+
+

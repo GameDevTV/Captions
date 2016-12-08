@@ -1,0 +1,725 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+So welcome to using Enum
+
+2
+00:00:04,000 --> 00:00:08,000
+(erations), Enumerations in Unreal Engine 4! What we're going to be doing,
+
+3
+00:00:08,000 --> 00:00:12,000
+by the end of this video, is wiring up something, which I think is quite nice, here in the blueprint. We're going
+
+4
+00:00:12,000 --> 00:00:16,000
+to have all of the colors that we want for various different tank aiming states, reloading, aiming,
+
+5
+00:00:16,000 --> 00:00:20,000
+and locked right here in the Designer, and the minimal amount of Blueprint we need.
+
+6
+00:00:20,000 --> 00:00:24,000
+And then over in the C++ we're going to create a firing state Enum.
+
+7
+00:00:24,000 --> 00:00:28,000
+Now creating Enums is a little different in UE4, we'll see how, and then we're going to use that
+
+8
+00:00:28,000 --> 00:00:32,000
+in an event driven way, to change the color of the aiming
+
+9
+00:00:32,000 --> 00:00:37,800
+reticle in front of us, automatically as the aiming component state changes. So that will be pretty fun!
+
+10
+00:00:37,800 --> 00:00:41,800
+So we talked about the idea that the TankAimingComponent could be in one of
+
+11
+00:00:41,800 --> 00:00:45,800
+three possible states. Those states are, firstly, we would start in
+
+12
+00:00:45,800 --> 00:00:49,800
+reloading, i.e. the cursor is red, and we are not able to fire right now because
+
+13
+00:00:49,800 --> 00:00:53,800
+the tank has not finished reloading. The moment it's finished reloading it would go to amber if the
+
+14
+00:00:53,800 --> 00:00:57,800
+barrel's moving or green if the barrel has stopped moving. So that's one of
+
+15
+00:00:57,800 --> 00:01:01,800
+three possible states. Reloading, aiming like
+
+16
+00:01:01,800 --> 00:01:05,800
+this where the barrel is moving, or the final
+
+17
+00:01:05,800 --> 00:01:09,800
+state is locked, which means it's loaded,
+
+18
+00:01:09,800 --> 00:01:13,800
+ready to go, and the barrel has stopped moving. So we've got
+
+19
+00:01:13,800 --> 00:01:17,800
+reloading, aiming, and locked. Alright now they are three different states
+
+20
+00:01:17,800 --> 00:01:21,800
+that the TankAimingComponent could be in. How do you
+
+21
+00:01:21,800 --> 00:01:25,800
+encode those sort of states? Well a meaningful way to encode these states is not
+
+22
+00:01:25,800 --> 00:01:29,800
+using numbers. Although behind the scenes it's going to be using numbers, we want to use an Enum.
+
+23
+00:01:29,800 --> 00:01:33,800
+Remember around lecture 35 we used an Enum in the Bull Cow game?
+
+24
+00:01:33,800 --> 00:01:37,800
+We're going to revisit using Enums. Now it's a little bit different in
+
+25
+00:01:37,800 --> 00:01:41,800
+Unreal. If we look at Unreal's coding standards
+
+26
+00:01:41,800 --> 00:01:45,800
+the way that we did it in the Bull Cow game... In fact, we should go and look at the way we did it
+
+27
+00:01:45,800 --> 00:01:49,800
+in the Bull Cow game, just for a second. That could be fun, just so we can see our code! I think I'll do it
+
+28
+00:01:49,800 --> 00:01:53,800
+the way that you would be able to do it, which is to go to Github and
+
+29
+00:01:53,800 --> 00:01:57,800
+then go to the Unreal course. So Github.com forward slash UnrealCourse. We go back
+
+30
+00:01:57,800 --> 00:02:01,800
+to BullCowGame. I'll just go look at the final code,
+
+31
+00:02:01,800 --> 00:02:05,800
+I think here. I think it's in FBullCowGame.h. And remember that we did this
+
+32
+00:02:05,800 --> 00:02:09,800
+Enum class, we made it a strongly typed Enum, and we called it EGuessStatus,
+
+33
+00:02:09,800 --> 00:02:13,800
+prefixed with E because it's an Unreal coding standard, and then we had all these different Guess
+
+34
+00:02:13,800 --> 00:02:17,800
+statuses. We're going to do something very much like this, but we're going to have three
+
+35
+00:02:17,800 --> 00:02:21,800
+statuses, which as I said are going to be reloading, aiming, and locked
+
+36
+00:02:21,800 --> 00:02:25,800
+alright, but you can't just do this in Unreal. Yes you'll put
+
+37
+00:02:25,800 --> 00:02:29,800
+your Enum class above the main class. So here in TankAimingComponent.h,
+
+38
+00:02:29,800 --> 00:02:33,800
+yes it will go in here or it could go above
+
+39
+00:02:33,800 --> 00:02:37,800
+here, but I'm going to put it here. In fact, no I'm not, I'm going to
+
+40
+00:02:37,800 --> 00:02:41,800
+put it above the forward declarations, because the forward declarations are, if you like, to do with
+
+41
+00:02:41,800 --> 00:02:45,800
+this class below it. That's where they're used. So I'm going to put my Enums here, "// Enum
+
+42
+00:02:45,800 --> 00:02:49,800
+for aiming state" is going to go here. But you can't just
+
+43
+00:02:49,800 --> 00:02:53,800
+put it in just like this, because there are two things you need to do that are different. Let's look at the Unreal coding
+
+44
+00:02:53,800 --> 00:02:57,800
+standards.
+
+45
+00:02:57,800 --> 00:03:01,800
+And if you go there to the Coding Standard, and this link is in your
+
+46
+00:03:01,800 --> 00:03:05,800
+resources for the lecture, and then you look for Strongly-Typed Enums you'll get this. You'll see
+
+47
+00:03:05,800 --> 00:03:09,800
+that the new way of doing things is like this. Very much like we did before but two changes. Number one,
+
+48
+00:03:09,800 --> 00:03:13,800
+you need to annotate with UENUM. This is
+
+49
+00:03:13,800 --> 00:03:17,800
+a preprocessor directive, for the Unreal Header Tool, and it just needs to
+
+50
+00:03:17,800 --> 00:03:21,800
+know that you're declaring an Enum here. It's to do with something called the reflection system, we don't need to go into that now.
+
+51
+00:03:21,800 --> 00:03:25,800
+Advanced people have got a link that will tell them a bit more about this UENUM()
+
+52
+00:03:25,800 --> 00:03:29,800
+type it uses behind the scenes, that's in resources. But for the rest of you, you just need know when you're declaring
+
+53
+00:03:29,800 --> 00:03:33,800
+an Enum you need to put UENUM(). And the other thing is, you need to tell it the underlying data type you
+
+54
+00:03:33,800 --> 00:03:37,800
+want that Enum to use. This is presumably for cross platform
+
+55
+00:03:37,800 --> 00:03:41,800
+independence and perhaps for performance reasons as well. Now it's using a
+
+56
+00:03:41,800 --> 00:03:45,800
+uint8 standard, which is fine. That's an 8 bit
+
+57
+00:03:45,800 --> 00:03:49,800
+integer, which means between 0 and 255. In other words, you have
+
+58
+00:03:49,800 --> 00:03:53,800
+256 different possible members you could put in your Enum, so that is plenty
+
+59
+00:03:53,800 --> 00:03:57,800
+for us. Alright, and then when you want to go ahead and actually use
+
+60
+00:03:57,800 --> 00:04:01,800
+the Enum, you of course use it in the same way as we did back in the Bull Cow
+
+61
+00:04:01,800 --> 00:04:05,800
+Game. And I'm going to leave that to you, as part of a challenge. So I want you to create an
+
+62
+00:04:05,800 --> 00:04:09,800
+Enum called EFiringStatus. Use the following pattern UENUM() and then
+
+63
+00:04:09,800 --> 00:04:13,800
+on the next line enum class and then EFiringStatus
+
+64
+00:04:13,800 --> 00:04:17,800
+: uint8, use uint8 that's fine for what we have.
+
+65
+00:04:17,800 --> 00:04:21,800
+Remember, of course, you can introduce new lines here and I encourage you to do so,
+
+66
+00:04:21,800 --> 00:04:25,800
+before the curly braces, and then we want, it doesn't matter which order, but locked
+
+67
+00:04:25,800 --> 00:04:29,800
+aiming and reloading. I'm going to go in the order of reloading, aiming, and locked because
+
+68
+00:04:29,800 --> 00:04:33,800
+that's kind of the order things happen in. Then, I want you to specify those three,
+
+69
+00:04:33,800 --> 00:04:37,800
+which we just talked about, and then create a private member variable inside
+
+70
+00:04:37,800 --> 00:04:41,800
+the TankAimingComponent and initialize it to the reloading
+
+71
+00:04:41,800 --> 00:04:45,800
+state. And then, don't connect it up in Blueprint,
+
+72
+00:04:45,800 --> 00:04:49,800
+ignore that. So initialize it to the reloading state and that's it! See if you can write this
+
+73
+00:04:49,800 --> 00:04:53,800
+and get it to compile. So go ahead, pause the video, and do that now.
+
+74
+00:04:53,800 --> 00:04:57,800
+OK welcome
+
+75
+00:04:57,800 --> 00:05:01,800
+back! Let's see how this works! So here we are, UENUM().
+
+76
+00:05:01,800 --> 00:05:05,800
+We've just got to do that first or it won't work. And then, what does it
+
+77
+00:05:05,800 --> 00:05:09,800
+say? "enum class" thingy. OK so enum class,
+
+78
+00:05:09,800 --> 00:05:13,800
+E because it's the coding standard. EFiringState:
+
+79
+00:05:13,800 --> 00:05:17,800
+and then it wants us to specify a uint8.
+
+80
+00:05:17,800 --> 00:05:21,800
+OK fantastic! And now we can come into
+
+81
+00:05:21,800 --> 00:05:25,800
+our curly braces and start saying what we want. Well I want Reloading,
+
+82
+00:05:25,800 --> 00:05:29,800
+Aiming,
+
+83
+00:05:29,800 --> 00:05:33,800
+and Locked. OK that I think is the declaration
+
+84
+00:05:33,800 --> 00:05:37,800
+of the ENUM. We have now EFiringState as a type,
+
+85
+00:05:37,800 --> 00:05:41,800
+so we can come down here into private and we can say...
+
+86
+00:05:41,800 --> 00:05:45,800
+Here...
+
+87
+00:05:45,800 --> 00:05:49,800
+FiringState... Actually, type is EFiringState
+
+88
+00:05:49,800 --> 00:05:53,800
+FiringState = and then you have to qualify it EFiringState: :
+
+89
+00:05:53,800 --> 00:05:57,800
+Reloading; So there you have
+
+90
+00:05:57,800 --> 00:06:01,800
+declared a variable, which is a variable of type EFiringState
+
+91
+00:06:01,800 --> 00:06:05,800
+which can only take the values of EFiringState, these guys up here. And we are
+
+92
+00:06:05,800 --> 00:06:09,800
+initializing it to Reloading. Let's go ahead and make sure this
+
+93
+00:06:09,800 --> 00:06:13,800
+compiles now, and then, I will show you some stuff in Blueprint if it compiles
+
+94
+00:06:13,800 --> 00:06:17,800
+and works. Because we're going to be able to very nicely access
+
+95
+00:06:17,800 --> 00:06:21,800
+that in Blueprint and then allow the designer part of ourselves to
+
+96
+00:06:21,800 --> 00:06:25,800
+assign colors to the different states in Blueprint, which is where you want to be doing it right?
+
+97
+00:06:25,800 --> 00:06:29,800
+And that's where we've got the nice color pickers and all the rest of it. So the compile is
+
+98
+00:06:29,800 --> 00:06:33,800
+complete. If we come into the tank PlayerUI blueprint... Now let's just take a
+
+99
+00:06:33,800 --> 00:06:37,800
+step back, remember that what we did is in the Tank Player Controller, that thing that
+
+100
+00:06:37,800 --> 00:06:41,800
+gels the tank that it's controlling to the Player UI.
+
+101
+00:06:41,800 --> 00:06:45,800
+We set this Blueprint Aiming Component Reference variable, a Blueprint variable...
+
+102
+00:06:45,800 --> 00:06:49,800
+[Laughs] blue plint... Hey Blueprint variable. Where is that variable?
+
+103
+00:06:49,800 --> 00:06:53,800
+It's in the Player UI blueprint, under the My Blueprint tab, and then, if you scroll
+
+104
+00:06:53,800 --> 00:06:57,800
+down under variables you get this BP Aiming Component Reference. Let's get that!
+
+105
+00:06:57,800 --> 00:07:01,800
+If you drag from that now, then well you're not going to
+
+106
+00:07:01,800 --> 00:07:05,800
+have actually this FiringState. Why not? Four marks if you can tell
+
+107
+00:07:05,800 --> 00:07:09,800
+why. So over here, what we need to do is make this FiringState available to the Blueprint!
+
+108
+00:07:09,800 --> 00:07:13,800
+There's two things we need to do for that. Firstly, we need to make it a UPROPERTY
+
+109
+00:07:13,800 --> 00:07:17,800
+and (BlueprintReadOnly) seems appropriate.
+
+110
+00:07:17,800 --> 00:07:21,800
+And then, we do need to give a Category, and I'm going to call it
+
+111
+00:07:21,800 --> 00:07:25,800
+"State"). That'll be fine! OK and
+
+112
+00:07:25,800 --> 00:07:29,800
+in quotes from now on remember. Now I'm going to move this up! Why am I moving it up? Because it needs to be
+
+113
+00:07:29,800 --> 00:07:33,800
+protected doesn't it? We are asking to access this
+
+114
+00:07:33,800 --> 00:07:37,800
+property from a subclass. What's the subclass? The subclass
+
+115
+00:07:37,800 --> 00:07:41,800
+is the TankAimingComponent blueprint. Remember that the parent is the
+
+116
+00:07:41,800 --> 00:07:45,800
+C++ class, so it needs to be in protected. And
+
+117
+00:07:45,800 --> 00:07:49,800
+if you want, you can put those out as a comment, and it needs to be a UPROPERTY. Let's go ahead and
+
+118
+00:07:49,800 --> 00:07:53,800
+recompile! Then, what we're hoping to find is that, when we
+
+119
+00:07:53,800 --> 00:07:57,800
+come off this BP Aiming Component that we will actually be able to find this
+
+120
+00:07:57,800 --> 00:08:01,800
+state. What's it called? It's called FiringState! So
+
+121
+00:08:01,800 --> 00:08:05,800
+once the compile is complete we come off here, we say Get Firing State.
+
+122
+00:08:05,800 --> 00:08:09,800
+Fantastic! Now what comes off the back of Get Firing State? It's an ENUM! Cool!
+
+123
+00:08:09,800 --> 00:08:13,800
+So with an ENUM look what we can do! One of the things we can do is select. Let's
+
+124
+00:08:13,800 --> 00:08:17,800
+choose Select. So we go from the AimingComponent, we find the FiringState,
+
+125
+00:08:17,800 --> 00:08:21,800
+because we've made it a UPROPERTY, and then, we go and find the ENUM. Look Reloading,
+
+126
+00:08:21,800 --> 00:08:25,800
+Aiming, Locked, that's all come through. Perfect! Now look what we can do! This is pretty cool!
+
+127
+00:08:25,800 --> 00:08:29,800
+We need to create a color. Now there are lots of ways you
+
+128
+00:08:29,800 --> 00:08:33,800
+can create colors here, but most of them require more than
+
+129
+00:08:33,800 --> 00:08:37,800
+one node. Even the Make Color doesn't require more than one node, but if it does if
+
+130
+00:08:37,800 --> 00:08:41,800
+you want a color picker, alright. So the node that I found that allows you to make a
+
+131
+00:08:41,800 --> 00:08:45,800
+color and have a color picker all in one is, simply to use the
+
+132
+00:08:45,800 --> 00:08:49,800
+Select Color node. So search for select color the American way, no U's in your color.
+
+133
+00:08:49,800 --> 00:08:53,800
+And then, what we're going to do is we're going to have three of these nodes. So I'm going to use...
+
+134
+00:08:53,800 --> 00:08:57,800
+I think I'm going to use B actually. This boolean here lets you pick
+
+135
+00:08:57,800 --> 00:09:01,800
+A, but it'll pick B by default, so let's use B for red.
+
+136
+00:09:01,800 --> 00:09:05,800
+Remember to slide
+
+137
+00:09:05,800 --> 00:09:09,800
+this up, which is your value in the H, S, V, the Hue, Saturation, and Value.
+
+138
+00:09:09,800 --> 00:09:13,800
+This slider is the Value, remember to slide that up. That is red,
+
+139
+00:09:13,800 --> 00:09:17,800
+and then that's what we should use for reloading. So we pick a red. We're not picking
+
+140
+00:09:17,800 --> 00:09:21,800
+A, we're picking B, and that's Reloading. Great! Now let's duplicate that and
+
+141
+00:09:21,800 --> 00:09:25,800
+pick the next color down. So Duplicate.
+
+142
+00:09:25,800 --> 00:09:29,800
+I'm going to make this one an amber, OK
+
+143
+00:09:29,800 --> 00:09:33,800
+picking B and that's going to be the Aiming.
+
+144
+00:09:33,800 --> 00:09:37,800
+OK and then finally, I'm going to paste this in again.
+
+145
+00:09:37,800 --> 00:09:41,800
+Copy and Paste, I use Control C and Control V there, in this case.
+
+146
+00:09:41,800 --> 00:09:45,800
+I'm going to pick a different color, a different color, a different color a green, not
+
+147
+00:09:45,800 --> 00:09:49,800
+too garish a green, and into Locked. So hopefully you can see what's
+
+148
+00:09:49,800 --> 00:09:53,800
+happening there. All of these nodes are not picking A, they're picking B by
+
+149
+00:09:53,800 --> 00:09:57,800
+default. That's why I'm choosing that, so we don't even have to tick these boxes. We
+
+150
+00:09:57,800 --> 00:10:01,800
+have the FiringState ENUM coming in from the Aiming Component,
+
+151
+00:10:01,800 --> 00:10:05,800
+and then, what we do with the Return Value, which is now a color,
+
+152
+00:10:05,800 --> 00:10:09,800
+because colors come in and colors go out, it's polymorphic, it can change with the
+
+153
+00:10:09,800 --> 00:10:13,800
+type. Then, we do this! It's event driven, we don't really care when this ENUM
+
+154
+00:10:13,800 --> 00:10:17,800
+changes, but when the ENUM does change, we want to change the color of the node.
+
+155
+00:10:17,800 --> 00:10:21,800
+Let's Compile and see. Now what did we initialize
+
+156
+00:10:21,800 --> 00:10:25,800
+to in the code? We initialize to Reloading. If we look over in the blueprint,
+
+157
+00:10:25,800 --> 00:10:29,800
+we would expect that to be red. So let's see if it is, let's play the game!
+
+158
+00:10:29,800 --> 00:10:33,800
+We get a crash, that's not super unusual with Unreal.
+
+159
+00:10:33,800 --> 00:10:37,800
+So I'm going to reload. Now sometimes that's because one of my categories...
+
+160
+00:10:37,800 --> 00:10:41,800
+When I make changes, sometimes that's because one of my categories in a recent bug is not
+
+161
+00:10:41,800 --> 00:10:45,800
+in quotes here. So we will, as we go through, make sure all our categories are in
+
+162
+00:10:45,800 --> 00:10:49,800
+quotes. You're welcome to stop the video and go and do that with all your category equals statements, if you like.
+
+163
+00:10:49,800 --> 00:10:53,800
+Restore my assets. See
+
+164
+00:10:53,800 --> 00:11:00,333
+what we've got in the graph. Now, unfortunately I didn't save, so I'm going to quickly put that back together.
+
+165
+00:11:00,333 --> 00:11:04,333
+OK let's try playing the game now that it's fixed!
+
+166
+00:11:04,333 --> 00:11:08,333
+Ah it's red! Perfect! So the final thing is just to check that that is actually coming through from the
+
+167
+00:11:08,333 --> 00:11:12,333
+code. We can't unfortunately just expose it and change it, because if you remember
+
+168
+00:11:12,333 --> 00:11:16,333
+the way, if we go to the tank blueprint, the way that we're doing this is an inherited component,
+
+169
+00:11:16,333 --> 00:11:20,333
+it has no details exposed. We're going to fix that soon, but for now,
+
+170
+00:11:20,333 --> 00:11:24,333
+let's just go back to the code for the sake of one short compile.
+
+171
+00:11:24,333 --> 00:11:28,333
+Change this state to, I don't know what do you want? Let's say
+
+172
+00:11:28,333 --> 00:11:32,333
+Aiming in the
+
+173
+00:11:32,333 --> 00:11:36,333
+declaration here, and then, let's go and recompile the code.
+
+174
+00:11:36,333 --> 00:11:40,333
+And all I'm going to do is just check that that comes through and that if we have
+
+175
+00:11:40,333 --> 00:11:44,333
+Aiming as a default. Is Aiming one that I set? Yep, Aiming!
+
+176
+00:11:44,333 --> 00:11:48,333
+Then, when we go through to the blueprint, we look at the color we're setting under Aiming.
+
+177
+00:11:48,333 --> 00:11:52,333
+It's amber, let's see if we end up amber. We do! Perfect!
+
+178
+00:11:52,333 --> 00:11:56,333
+So now we have the ability to change the reticle color, based on the
+
+179
+00:11:56,333 --> 00:12:00,333
+state of the Tank Aiming Component. So up next, we're going to give the Tank Aiming Component
+
+180
+00:12:00,333 --> 00:12:04,333
+a little bit more love, so that it is doing exactly what we want it to do.
+
+181
+00:12:04,333 --> 00:12:06,133
+
+

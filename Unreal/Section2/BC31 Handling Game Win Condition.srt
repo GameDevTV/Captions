@@ -1,0 +1,489 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+So, in this video we're
+
+2
+00:00:04,000 --> 00:00:08,000
+going to be handling the game win condition. By the end of it, you'll actually be able to put
+
+3
+00:00:08,000 --> 00:00:12,000
+a valid guess in, and it will say, do you want to play again?
+
+4
+00:00:12,000 --> 00:00:16,000
+And of course, eventually we'll also put in a well done, etc., but for now,
+
+5
+00:00:16,000 --> 00:00:20,000
+at least it's going to detect that you have won the game. Great news!
+
+6
+00:00:20,000 --> 00:00:20,300
+
+
+7
+00:00:20,300 --> 00:00:24,300
+So guys, we need a way of winning the game as I said, so let's
+
+8
+00:00:24,300 --> 00:00:28,300
+find a way to make that happen. We already have a method called IsGameWon()
+
+9
+00:00:28,300 --> 00:00:32,300
+and it's const, which is great, but if we look at the implementation or
+
+10
+00:00:32,300 --> 00:00:36,300
+another way of saying that is the definition of that, it just returns false. Now, it's going to be your challenge
+
+11
+00:00:36,300 --> 00:00:40,300
+to make this do the right thing, but for now, let's write the surrounding code, so that you'll know when you've
+
+12
+00:00:40,300 --> 00:00:44,300
+got it right. So, we said in this TODO, that we want to change it to a
+
+13
+00:00:44,300 --> 00:00:48,300
+while loop, so let's do that! But before we do, let's write in English what we want this
+
+14
+00:00:48,300 --> 00:00:52,300
+loop to do. Loop for the number of turns, asking for guesses, until...
+
+15
+00:00:52,300 --> 00:00:56,300
+Or just say "loop asking for guesses"
+
+16
+00:00:56,300 --> 00:01:00,300
+or "while the game is NOT
+
+17
+00:01:00,300 --> 00:01:04,300
+won", "and
+
+18
+00:01:04,300 --> 00:01:08,300
+there are still tries
+
+19
+00:01:08,300 --> 00:01:12,300
+remaining".
+
+20
+00:01:12,300 --> 00:01:16,300
+OK, so "loop asking for guess while the game is NOT won and there are still tries remaining".
+
+21
+00:01:16,300 --> 00:01:20,300
+So, let's do it! Let's write out this while loop!
+
+22
+00:01:20,300 --> 00:01:24,300
+while, now we're going to write it like
+
+23
+00:01:24,300 --> 00:01:28,300
+this. Now, we need to reference
+
+24
+00:01:28,300 --> 00:01:32,300
+the (!BCGame), or course, because we're not inside the class. While (!BCGame
+
+25
+00:01:32,300 --> 00:01:36,300
+.IsGameWon()) but while not (!BCGame.Is
+
+26
+00:01:36,300 --> 00:01:40,300
+GameWon() && )
+
+27
+00:01:40,300 --> 00:01:44,300
+Then, the second condition is
+
+28
+00:01:44,300 --> 00:01:48,300
+we need to ask what the current guess is. Now, how do we do that?
+
+29
+00:01:48,300 --> 00:01:52,300
+BCGame.GetCurrentTry()
+
+30
+00:01:52,300 --> 00:01:56,300
+is less than or equal to the max tries
+
+31
+00:01:56,300 --> 00:02:00,300
+that we declared just above. Now, the one thing about this is it's really easy
+
+32
+00:02:00,300 --> 00:02:04,300
+to miss the exclamation mark, which says not IsGameWon().
+
+33
+00:02:04,300 --> 00:02:08,300
+You could say, IsGameWon() == false.
+
+34
+00:02:08,300 --> 00:02:12,300
+That would be OK,
+
+35
+00:02:12,300 --> 00:02:16,300
+like so. It's a bit redundant and I'm actually not going to do it this
+
+36
+00:02:16,300 --> 00:02:20,300
+way, because I want you again to recode like the compiler does.
+
+37
+00:02:20,300 --> 00:02:24,300
+You need to spot these little things, because in other peoples' code, in Unreal's Boiler Plate
+
+38
+00:02:24,300 --> 00:02:28,300
+Code, and even in your code, you're going to have exclamation marks. So, I
+
+39
+00:02:28,300 --> 00:02:32,300
+said not one, up here. In fact, you may even want to move the
+
+40
+00:02:32,300 --> 00:02:36,300
+NOT right down, so that it's near the exclamation mark there,
+
+41
+00:02:36,300 --> 00:02:40,300
+OK in the comment, but you need to just be aware of that.
+
+42
+00:02:40,300 --> 00:02:44,300
+You need to see these. You can space it out, if you like, possibly
+
+43
+00:02:44,300 --> 00:02:48,300
+even as much as this, but I think that you just need to get
+
+44
+00:02:48,300 --> 00:02:52,300
+used to that, I'm afraid. There's not really any way around it, OK. You need to see these
+
+45
+00:02:52,300 --> 00:02:56,300
+exclamation marks. They totally invert the meaning of things, so
+
+46
+00:02:56,300 --> 00:03:00,300
+I will settle on that format right there. So,
+
+47
+00:03:00,300 --> 00:03:04,300
+while the game isn't won, do all this stuff. So, let's just
+
+48
+00:03:04,300 --> 00:03:08,300
+check our code still works, And even if we
+
+49
+00:03:08,300 --> 00:03:12,300
+win the game, of course, we can still carry on
+
+50
+00:03:12,300 --> 00:03:16,300
+because the IsGameWon() method is always
+
+51
+00:03:16,300 --> 00:03:20,300
+returning false, at the moment. So, that is going to be your
+
+52
+00:03:20,300 --> 00:03:24,300
+challenge! I want you to finish implementing the IsGameWon(), so that we actually know
+
+53
+00:03:24,300 --> 00:03:28,300
+when the game is won. So, this is how you're going to do it. Finish it
+
+54
+00:03:28,300 --> 00:03:32,300
+by defining the appropriate getter method. So, we've already declared it IsGame
+
+55
+00:03:32,300 --> 00:03:36,300
+Won(). I want you to define it. Create a private variable, as necessary,
+
+56
+00:03:36,300 --> 00:03:39,666
+prefixed with b. Remember, booleans are prefixed with b.
+
+57
+00:03:39,666 --> 00:03:43,666
+Set the private variable in SubmitValidGuess(),
+
+58
+00:03:43,666 --> 00:03:47,666
+as a hint, when the number of bulls equals the word length, we've won.
+
+59
+00:03:47,666 --> 00:03:51,666
+Test you can now actually win the game. So, go ahead, pause the video,
+
+60
+00:03:51,666 --> 00:03:54,266
+and have a go at this challenge now!
+
+61
+00:03:54,266 --> 00:03:58,266
+OK, welcome back! So, let's start by thinking
+
+62
+00:03:58,266 --> 00:04:02,266
+about what private member we need here. We need a bull. Unreal's
+
+63
+00:04:02,266 --> 00:04:06,266
+coding standard suggests we start bulls with a small b, so we'll do that. And then, we're going to
+
+64
+00:04:06,266 --> 00:04:10,266
+say bGameIsWon, as a simple boolean. OK, it's OK to be a boolean,
+
+65
+00:04:10,266 --> 00:04:14,266
+It's sufficiently simple to be a boolean. So, we have this bool called bGameIsWon.
+
+66
+00:04:14,266 --> 00:04:18,266
+So, then what does IsGameWon() do for us now?
+
+67
+00:04:18,266 --> 00:04:22,266
+Well, it's quite simple! Let's go and have a look at the implementation. The easiest way,
+
+68
+00:04:22,266 --> 00:04:26,266
+of course, is to right click on it. Just say Go To Definition. There it is!
+
+69
+00:04:26,266 --> 00:04:30,266
+Now firstly, it's pretty much a getter, so I'm going to move it to the top here
+
+70
+00:04:30,266 --> 00:04:34,266
+along with all the other getters. And it's actually so simple
+
+71
+00:04:34,266 --> 00:04:38,266
+that I'm going to put it in line. What are we returning?
+
+72
+00:04:38,266 --> 00:04:42,266
+We're, of course, simply returning bIsGameWon,
+
+73
+00:04:42,266 --> 00:04:46,266
+and it's nice and simple, that prefix; b says well we're looking for a boolean, and there are all the booleans.
+
+74
+00:04:46,266 --> 00:04:50,266
+Cool! Thanks Unreal for a sensible coding standard. OK,
+
+75
+00:04:50,266 --> 00:04:54,266
+so let's just bring this into one line, simply because it'll fit there,
+
+76
+00:04:54,266 --> 00:04:58,266
+and I'm just going to make consistent spacing. There you go! Also, in the header
+
+77
+00:04:58,266 --> 00:05:02,266
+I think it should probably sit up, right next to all the
+
+78
+00:05:02,266 --> 00:05:06,266
+constants together. There all getters right, so there we go! Great!
+
+79
+00:05:06,266 --> 00:05:10,266
+So, we've done that! We've implemented our method there, as a
+
+80
+00:05:10,266 --> 00:05:14,266
+really simple one line implementation. Now, we need to set this IsGameWon and
+
+81
+00:05:14,266 --> 00:05:18,266
+we're going to copy it into the Copy Buffer, and then, I'm going to go and decide where we
+
+82
+00:05:18,266 --> 00:05:22,266
+set it. Well, we're going to set it at the bottom of SubmitValidGuess.
+
+83
+00:05:22,266 --> 00:05:26,266
+Just before we return bulls and cows, we're going to ask ourselves the question,
+
+84
+00:05:26,266 --> 00:05:30,266
+is the game won or is the game not won. So,
+
+85
+00:05:30,266 --> 00:05:34,266
+if (BullCowCount.Bulls
+
+86
+00:05:34,266 --> 00:05:38,266
+== WordLength)
+
+87
+00:05:38,266 --> 00:05:42,266
+then the game is won!
+
+88
+00:05:42,266 --> 00:05:46,266
+So, paste that in.
+
+89
+00:05:46,266 --> 00:05:50,266
+Equals, we want an equals here, equals true. Otherwise,
+
+90
+00:05:50,266 --> 00:05:54,266
+any other condition it equals false.
+
+91
+00:05:54,266 --> 00:05:58,266
+Just copy that
+
+92
+00:05:58,266 --> 00:06:02,266
+line, paste it in, false, sort out our spacing.
+
+93
+00:06:02,266 --> 00:06:06,266
+
+
+94
+00:06:06,266 --> 00:06:10,266
+OK, so that's fine! Now have we initialized bIsGameWon
+
+95
+00:06:10,266 --> 00:06:14,266
+to false? It's all very well setting this value, but there's one more thing we need to do, which is in our
+
+96
+00:06:14,266 --> 00:06:18,266
+Reset() method, which is at the top of this function. We need to make
+
+97
+00:06:18,266 --> 00:06:22,266
+sure that it is actually set to false. So, MyCurrent
+
+98
+00:06:22,266 --> 00:06:26,266
+Try is 1, GameIsWon is false. So, I have a reset to false.
+
+99
+00:06:26,266 --> 00:06:30,266
+We submit our valid
+
+100
+00:06:30,266 --> 00:06:34,266
+guess, count our bulls and cows. At the bottom of this we say, OK, let's set
+
+101
+00:06:34,266 --> 00:06:38,266
+it to true, if the bull count is equal to the WordLength. If it's less than the WordLength or
+
+102
+00:06:38,266 --> 00:06:42,266
+it's not equal to the WordLength, then it's false. You could arguably say that it
+
+103
+00:06:42,266 --> 00:06:46,266
+would be better to say that the BullCowCount has to be less than or equal to
+
+104
+00:06:46,266 --> 00:06:50,266
+but equals is fine. It's the only condition, you should never have a bull count
+
+105
+00:06:50,266 --> 00:06:54,266
+longer than the word length, and it's only when it's equal to it that we have a valid win.
+
+106
+00:06:54,266 --> 00:06:58,266
+OK, so let's go! Let's have a look and see if this works! So, you put some rubbish
+
+107
+00:06:58,266 --> 00:07:02,266
+in, it asks you to put a sensible guess in, you put planes in, which isn't planet,
+
+108
+00:07:02,266 --> 00:07:06,266
+and it says "Try 2. Enter your guess". We're getting close to a working game here.
+
+109
+00:07:06,266 --> 00:07:10,266
+Planed, guess three! Planes,
+
+110
+00:07:10,266 --> 00:07:14,266
+planet, ahah! Bulls
+
+111
+00:07:14,266 --> 00:07:18,266
+6, would you like to play again, no, and we leave! Great! And let's make sure we
+
+112
+00:07:18,266 --> 00:07:22,266
+can play again. Planet, would you like to play again? Yes! We could
+
+113
+00:07:22,266 --> 00:07:26,266
+do with a space, before the introduction to the game, or probably put some ASCII art around this
+
+114
+00:07:26,266 --> 00:07:30,266
+later but it's working! That is good news! I'm actually going to put the space
+
+115
+00:07:30,266 --> 00:07:34,266
+in, before the welcome right now, because I'm otherwise what I call paying lip
+
+116
+00:07:34,266 --> 00:07:38,266
+service to the idea that we should do that. So, let's go and actually do that right
+
+117
+00:07:38,266 --> 00:07:42,266
+now. I'm going to put in, I think, two new lines before that, and just test
+
+118
+00:07:42,266 --> 00:07:46,266
+again. So OK, it starts off a bit down the screen. As I say, later we'll use ASCII art,
+
+119
+00:07:46,266 --> 00:07:50,266
+but for now, planet. Would I like to play again? Yes! And then, the new
+
+120
+00:07:50,266 --> 00:07:53,000
+game is relatively well spaced out.
+
+121
+00:07:53,000 --> 00:07:57,000
+That's great! So congratulations and I'll see you in the next video!
+
+122
+00:07:57,000 --> 00:07:58,466
+
+

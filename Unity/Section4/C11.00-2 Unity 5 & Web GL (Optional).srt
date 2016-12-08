@@ -1,0 +1,389 @@
+
+1
+00:00:05,300 --> 00:00:09,300
+Welcome I'm Sam! You may not have heard my voice before,
+
+2
+00:00:09,300 --> 00:00:13,300
+but I'm going to be in this lecture, showing you how to upgrade
+
+3
+00:00:13,300 --> 00:00:17,300
+the Number Wizard project to Unity 5. And we're going
+
+4
+00:00:17,300 --> 00:00:21,300
+to exploit this, to enable us to upload that as a Web GL
+
+5
+00:00:21,300 --> 00:00:25,300
+game, which means that you don't need to install plugins when
+
+6
+00:00:25,300 --> 00:00:29,300
+uploading it to Game Bucket. That means your family can try it without installing plugins! How great is that?!
+
+7
+00:00:29,300 --> 00:00:32,766
+So, let's see how we do that by jumping right in!
+
+8
+00:00:32,766 --> 00:00:36,766
+So, you'll notice that I have
+
+9
+00:00:36,766 --> 00:00:40,766
+these two versions of Unity again. Unity 4.7.1
+
+10
+00:00:40,766 --> 00:00:44,766
+and Unity 5.3.2. You can do this on
+
+11
+00:00:44,766 --> 00:00:48,766
+a PC or a Mac, just by renaming the folders before installing a new version of Unity,
+
+12
+00:00:48,766 --> 00:00:52,766
+that will ensure that you keep the old version rather than updating it in place.
+
+13
+00:00:52,766 --> 00:00:56,766
+So, we're going to open up Unity 5, and
+
+14
+00:00:56,766 --> 00:01:00,766
+use that to import our Number Wizard UI project.
+
+15
+00:01:00,766 --> 00:01:04,766
+So, I already have a bunch of projects open here, but I'm going to open a new
+
+16
+00:01:04,766 --> 00:01:08,766
+one, and I'm going to select the folder and hit Open.
+
+17
+00:01:08,766 --> 00:01:12,766
+Now, you'll notice that it pops up with this dialog box,
+
+18
+00:01:12,766 --> 00:01:16,766
+asking whether we want to upgrade with Unity's cleaver upgrading tool.
+
+19
+00:01:16,766 --> 00:01:20,766
+So, we're going to say yes to the Upgrade,
+
+20
+00:01:20,766 --> 00:01:24,766
+and let it go through its quick upgrade process.
+
+21
+00:01:24,766 --> 00:01:28,766
+It does some cleaver things, reaches into scripts and even changes the API's there,
+
+22
+00:01:28,766 --> 00:01:32,766
+in order to make your game fully compatible.
+
+23
+00:01:32,766 --> 00:01:36,766
+So, let's check that this works! We'll go into our Game scene
+
+24
+00:01:36,766 --> 00:01:40,766
+and then go and hit the play button.
+
+25
+00:01:40,766 --> 00:01:44,766
+OK, this does indeed seem to be working. Let me just increase
+
+26
+00:01:44,766 --> 00:01:48,766
+the size here. In fact, I'm just going to maximize this tab.
+
+27
+00:01:48,766 --> 00:01:52,766
+And here we go, we have
+
+28
+00:01:52,766 --> 00:01:56,766
+our UI and our buttons,
+
+29
+00:01:56,766 --> 00:02:00,766
+and as you can see, we can indeed
+
+30
+00:02:00,766 --> 00:02:04,766
+play the game as expected.
+
+31
+00:02:04,766 --> 00:02:08,766
+Now, I just want to show you one more thing, which is new in
+
+32
+00:02:08,766 --> 00:02:12,766
+Unity 5, and that's being able to export this to a Web
+
+33
+00:02:12,766 --> 00:02:16,766
+GL build. So, we're going to do a Build & Run,
+
+34
+00:02:16,766 --> 00:02:20,766
+and then, we're going to select, as
+
+35
+00:02:20,766 --> 00:02:24,766
+our platform, the WebGL platform.
+
+36
+00:02:24,766 --> 00:02:28,766
+And let's just hit Build,
+
+37
+00:02:28,766 --> 00:02:32,766
+and we're going to create a build directory here. So, I'm going to create a new
+
+38
+00:02:32,766 --> 00:02:36,766
+folder, Build like so.
+
+39
+00:02:36,766 --> 00:02:40,766
+And I'm going to call this Number
+
+40
+00:02:40,766 --> 00:02:44,766
+WizardUI, like so.
+
+41
+00:02:44,766 --> 00:02:48,766
+Hit save and then just let it run
+
+42
+00:02:48,766 --> 00:02:52,766
+through its build process, which will take about up to 5 minutes, depending
+
+43
+00:02:52,766 --> 00:02:56,766
+on how fast your machine is, but what this is doing is it's taking all of
+
+44
+00:02:56,766 --> 00:03:00,766
+the C#, turning it into an intermediate language,
+
+45
+00:03:00,766 --> 00:03:04,766
+In fact, the intermediate language is C++, and then, it's turning that intermediate
+
+46
+00:03:04,766 --> 00:03:08,766
+C++ into JavaScript, which is the language that can be run
+
+47
+00:03:08,766 --> 00:03:12,766
+in your web browser. And it uses all sorts of cool new
+
+48
+00:03:12,766 --> 00:03:16,766
+HTML 5 API's in your web browser, to allow you
+
+49
+00:03:16,766 --> 00:03:20,766
+to do 3D graphics without the need for any plugins.
+
+50
+00:03:20,766 --> 00:03:24,766
+So, you can run this in any browser that supports WebGL. Most modern browsers
+
+51
+00:03:24,766 --> 00:03:28,766
+do, unfortunately not on mobile, but a lot of modern
+
+52
+00:03:28,766 --> 00:03:32,766
+browsers on the desktop will. And it allows you to run these games
+
+53
+00:03:32,766 --> 00:03:36,766
+just by going to a webpage, without having to install the Unity Player plugin,
+
+54
+00:03:36,766 --> 00:03:40,766
+which can be a barrier for a lot of people who might want to try out your game.
+
+55
+00:03:40,766 --> 00:03:44,766
+So, this will allow you to share the game with your friends and family,
+
+56
+00:03:44,766 --> 00:03:48,766
+very very easily, just by uploading it to Game
+
+57
+00:03:48,766 --> 00:03:52,766
+Bucket and sharing on social media, and they won't have to install any plugins
+
+58
+00:03:52,766 --> 00:03:56,766
+in order to play your game. And you'll be able to show them
+
+59
+00:03:56,766 --> 00:04:00,766
+all the cool work you've been doing in this course!
+
+60
+00:04:00,766 --> 00:04:04,766
+As you can see, we're currently at the compiling
+
+61
+00:04:04,766 --> 00:04:08,766
+native code to JS, that means JavaScript,
+
+62
+00:04:08,766 --> 00:04:12,766
+and this is the last stage of the process. After
+
+63
+00:04:12,766 --> 00:04:16,766
+this is finished, you'll end up with a folder that we can zip and
+
+64
+00:04:16,766 --> 00:04:19,666
+upload to Game Bucket. So, once again it's
+
+65
+00:04:19,700 --> 00:04:23,666
+challenge time! We have a
+
+66
+00:04:23,666 --> 00:04:27,666
+challenge here to share your Web GL build with your
+
+67
+00:04:27,666 --> 00:04:31,666
+friends. So to do this, you're going to have to first check your game very
+
+68
+00:04:31,666 --> 00:04:35,666
+thoroughly, to make sure that the Number Wizard is working in exactly the same way you
+
+69
+00:04:35,666 --> 00:04:39,666
+want it to. Then, I'd like you to make a Web GL
+
+70
+00:04:39,666 --> 00:04:43,666
+build, just as I've showed you in this video with these instructions. And
+
+71
+00:04:43,666 --> 00:04:47,666
+finally, share this on Game Bucket and social
+
+72
+00:04:47,666 --> 00:04:51,666
+media, and I'm going to show you this after the break OK. So pause the video and have
+
+73
+00:04:51,666 --> 00:04:55,666
+a go!
+
+74
+00:04:55,666 --> 00:04:59,666
+OK, welcome back! Let's dive right back in and show you
+
+75
+00:04:59,666 --> 00:05:02,766
+how to share this on Game Bucket, if you have forgotten, a quick revision.
+
+76
+00:05:02,766 --> 00:05:06,766
+So, before the break I had left the build running, and now you can see that
+
+77
+00:05:06,766 --> 00:05:10,766
+this folder has popped up, my build folder containing my build.
+
+78
+00:05:10,766 --> 00:05:14,766
+So, all you have to do to upload this to Game Bucket is simply right-
+
+79
+00:05:14,766 --> 00:05:18,766
+click on this and compress it. On Windows it's a slightly different proceturre, but
+
+80
+00:05:18,766 --> 00:05:22,766
+what you want to do is create a .zip of this folder. And then,
+
+81
+00:05:22,766 --> 00:05:26,766
+we simply go over into our favorite web browser
+
+82
+00:05:26,766 --> 00:05:30,766
+and get our gamebucket.io opened,
+
+83
+00:05:30,766 --> 00:05:34,766
+and then, we simply want to upload. We can see
+
+84
+00:05:34,766 --> 00:05:38,766
+these are the simple instructions. We can upload. And we
+
+85
+00:05:38,766 --> 00:05:42,766
+will find the code that we're looking for.
+
+86
+00:05:42,766 --> 00:05:46,766
+[Sings] Da da da, da da da da da! That's my finding the code music!
+
+87
+00:05:46,766 --> 00:05:50,766
+And we select the .zip and hit open. It couldn't be
+
+88
+00:05:50,766 --> 00:05:54,766
+any more simple than that. We wait for that to upload and do the various
+
+89
+00:05:54,766 --> 00:05:58,766
+processing that needs to happen, and boom, you get a URL and a
+
+90
+00:05:58,766 --> 00:06:02,766
+page that looks exactly like this, and it will load,
+
+91
+00:06:02,766 --> 00:06:06,766
+if maybe a little bit slowly at first. It'll load into your game,
+
+92
+00:06:06,766 --> 00:06:10,766
+which you should be able to play in a web browser. There we go!
+
+93
+00:06:10,766 --> 00:06:14,766
+We have Number Wizard, and we can click Start, we can do Higher or Lower, etc.
+
+94
+00:06:14,766 --> 00:06:18,766
+And it all works as it does in your editor, but the difference
+
+95
+00:06:18,766 --> 00:06:22,766
+is this is happening without a plugin. You can tell because I'm in Chrome and Chrome doesn't have a
+
+96
+00:06:22,766 --> 00:06:26,766
+Unity Player plugin. Perfect! We'll see you
+
+97
+00:06:26,766 --> 00:06:29,433
+in the next video!
+

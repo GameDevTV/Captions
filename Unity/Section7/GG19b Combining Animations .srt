@@ -1,0 +1,1079 @@
+Kind: captions
+Language: en
+
+00:00:00,010 --> 00:00:07,670
+Before we start this video I 'd just like
+to warn you in advance and apologize
+
+00:00:07,670 --> 00:00:10,900
+that it's not going to be the easiest
+video to follow we're aware of that now
+
+00:00:10,900 --> 00:00:15,000
+and at some point we will change the
+video that takes a surprising amount of
+
+00:00:15,000 --> 00:00:19,369
+work to do so I'm gathering
+information from the community before I
+
+00:00:19,369 --> 00:00:23,230
+go ahead and do it. In the meantime
+please click over to the Resources tab
+
+00:00:23,230 --> 00:00:27,720
+that you can see here showing on the
+screen and the important thing to see is
+
+00:00:27,720 --> 00:00:32,780
+you put lots of support firstly, do know
+that you can download our project end
+
+00:00:32,780 --> 00:00:36,760
+state and that is our unity project you
+can download it open it up and look at
+
+00:00:36,760 --> 00:00:41,010
+all the items and see exactly how they're
+set up the other thing I want you to
+
+00:00:41,010 --> 00:00:46,229
+look at is under view external resources is 
+Elija's helpful post - now he really helpfully
+
+00:00:46,229 --> 00:00:49,729
+has gone through carefully and written
+some instructions for you, I'd suggest
+
+00:00:49,729 --> 00:00:53,449
+you read that overview that before
+you even start this video, so there's a
+
+00:00:53,449 --> 00:00:56,940
+link there to it in the discussions. It is in the
+discussions of this lecture but that
+
+00:00:56,940 --> 00:01:00,749
+link takes you straight to the post in case
+it gets buried, and also there's a slower
+
+00:01:00,749 --> 00:01:05,400
+version of the lecture from three
+minutes 43 when I speed up that's
+
+00:01:05,400 --> 00:01:05,740
+all
+
+00:01:05,740 --> 00:01:09,310
+at closer to normal speed on YouTube and
+there's a link for you there again in the
+
+00:01:09,310 --> 00:01:12,650
+external resources so do read the
+comments, do have a look around, do
+
+00:01:12,650 --> 00:01:15,670
+overview the video first perhaps, just
+watch the whole thing through without
+
+00:01:15,670 --> 00:01:19,690
+doing anything, that would probably be
+your best bet, watch it all through,
+
+00:01:19,690 --> 00:01:22,880
+read these comments then watch it
+through again and try and follow it and
+
+00:01:22,880 --> 00:01:26,220
+at some point I will replace the entire
+video in the meanwhile hopefully this
+
+00:01:26,220 --> 00:01:31,280
+will help a lot. So in this video we're
+going to discuss different ways of
+
+00:01:31,280 --> 00:01:35,690
+animating objects or at least a recap
+those ways; talk about different ways of
+
+00:01:35,690 --> 00:01:40,470
+moving transforms i.e. moving the object
+as a whole; options for combining these and
+
+00:01:40,470 --> 00:01:45,090
+then I would challenge you to animate
+everything. So over in unity I've just moved
+
+00:01:45,090 --> 00:01:49,090
+my star trophy under the lizard that's
+all I've done between videos, and if we
+
+00:01:49,090 --> 00:01:52,170
+remember we've got two different types
+of animation, very different at the moment,
+
+00:01:52,170 --> 00:01:57,430
+the lizard is frame-based sprite-sheet
+based and then the star trophy is bone
+
+00:01:57,430 --> 00:02:02,110
+based but neither of these actually move
+as a whole the lizard looks like he
+
+00:02:02,110 --> 00:02:05,400
+moves as a whole but he actually doesn't
+what's happening is it's a frame by frame
+
+00:02:05,400 --> 00:02:08,170
+animation, his transform doesn't move
+and the
+
+00:02:08,170 --> 00:02:12,800
+transform of the star trophy as a
+whole doesn't move. So how we gonna
+
+00:02:12,800 --> 00:02:18,319
+combine the movement into this and what
+are our options? So let's take a look at
+
+00:02:18,319 --> 00:02:21,630
+this table , you've got attackers
+defenders and the defenders projectiles
+
+00:02:21,630 --> 00:02:26,370
+- what they throw and the animation types
+and some notes. So the attackers they
+
+00:02:26,370 --> 00:02:32,080
+are all animated in my case by sprite
+sheet I'm gonna have a lizard and a fox
+
+00:02:32,080 --> 00:02:36,550
+all frame animated - and we're going to
+move their transforms, their center of
+
+00:02:36,550 --> 00:02:42,280
+gravity, that's the CG by script. So body
+animation by sprite sprite sheet, CG
+
+00:02:42,280 --> 00:02:47,910
+movement by script. The defenders - well
+the movement of the defenders
+
+00:02:47,910 --> 00:02:51,370
+themselves is both by sprite
+sheet and bones, so the Gnome for
+
+00:02:51,370 --> 00:02:55,630
+example, my garden gnome I'm gonna find from
+the Glitch assets, is being animated by
+
+00:02:55,630 --> 00:02:59,739
+sprite sheet only and then we've just
+been through the star trophy base that
+
+00:02:59,739 --> 00:03:05,209
+is being animated by bone animation and
+then they none of them actually move
+
+00:03:05,209 --> 00:03:09,200
+bodily, so none of the defenders - so
+there's no center of gravity movement
+
+00:03:09,200 --> 00:03:14,650
+and then defender projectiles, well... lots
+of ways we could do this. I'm actually
+
+00:03:14,650 --> 00:03:18,970
+going to use bone based animation to
+spin the projectiles in my case an axe
+
+00:03:18,970 --> 00:03:24,109
+and a courgette so that's going to be
+changing their position
+
+00:03:24,109 --> 00:03:29,350
+well actually their rotation and scale.
+We're going to not try and move their
+
+00:03:29,350 --> 00:03:36,650
+position from both animator and the
+script because that just causes
+
+00:03:36,650 --> 00:03:40,299
+confusion. It is possible but for now we
+don't want to do it, so I'm going to use
+
+00:03:40,299 --> 00:03:46,320
+script to move their transform center of
+gravity. Right so animate the transform
+
+00:03:46,320 --> 00:03:50,930
+position with the animator XOR - meaning
+one or the other but not both -
+
+00:03:50,930 --> 00:03:56,299
+script. That's the take-home from here. So
+your challenge is to animate all your
+
+00:03:56,299 --> 00:03:59,549
+characters. All characters and defenders
+animated but stationary, don't try and
+
+00:03:59,549 --> 00:04:05,180
+move their transforms. Use a mix of sprite
+and bone based animation, I want
+
+00:04:05,180 --> 00:04:10,019
+each one to cycle through their given
+animation states every three seconds. That
+
+00:04:10,019 --> 00:04:12,910
+will cause you a little bit of work that
+they'll have to undo later, but it's all
+
+00:04:12,910 --> 00:04:16,780
+great practice of the animation state
+controller.
+
+00:04:16,780 --> 00:04:19,940
+Put them in a showcase scene so all of your
+attackers and defenders are there in a
+
+00:04:19,940 --> 00:04:23,860
+scene, all standing on the spot mind you,
+and then share the scene on gamebucket.io
+
+00:04:23,860 --> 00:04:27,090
+with everybody else so they can see all
+your cool animations and all the sprites
+
+00:04:27,090 --> 00:04:31,780
+you've chosen. So that's your challenge.
+Now what I'm going to do is I'm gonna do
+
+00:04:31,780 --> 00:04:35,830
+all that for my game, but I'm going to
+speed the video up several times because
+
+00:04:35,830 --> 00:04:40,010
+you're gonna get bored stiff because
+everything I do now over the next 10 15
+
+00:04:40,010 --> 00:04:43,630
+minutes you've seen before. There's
+nothing new. so I'm going to go ahead and
+
+00:04:43,630 --> 00:04:47,180
+record that and then you're gonna hear me
+narrating over the top
+
+00:04:47,180 --> 00:04:50,900
+any new information or anything useful
+you wanna see; but have a go at doing it
+
+00:04:50,900 --> 00:04:56,730
+on your own first. If you get stuck, watch
+my narrated version with my assets if
+
+00:04:56,730 --> 00:04:59,360
+you want to follow me through on that
+you're welcome I would much prefer you
+
+00:04:59,360 --> 00:05:04,520
+create your own stuff so go ahead and
+have a go now, if you're stuck, watch mine
+
+00:05:04,520 --> 00:05:05,580
+then have a go again.
+
+00:05:05,580 --> 00:05:11,229
+OK so here we go video is sped up two
+and a half times so that you don't die
+
+00:05:11,229 --> 00:05:15,360
+of boredom. What I'm doing is what we
+discussed before I'm creating a body
+
+00:05:15,360 --> 00:05:19,180
+element here for the lizard's actual
+sprite so now we can position and
+
+00:05:19,180 --> 00:05:23,010
+scale and the lizard's body sprite
+independent of the transform of the
+
+00:05:23,010 --> 00:05:26,390
+lizard as a whole. So that means we can
+put him in the middle of a square while
+
+00:05:26,390 --> 00:05:30,800
+the lizard still sits perfectly, in this
+case at 5, 3. I just quickly turned my 3d
+
+00:05:30,800 --> 00:05:35,000
+gizmo size down there because the
+camera's getting in the way. Right, so next to
+
+00:05:35,000 --> 00:05:39,440
+tidy the hierarchy I'm creating an
+attackers and defenders GameObject just
+
+00:05:39,440 --> 00:05:43,320
+to tidy things into for now, I'm putting
+both my lizard and my star trophy in
+
+00:05:43,320 --> 00:05:46,979
+their appropriate game objects; provided
+that that attacker and defender game
+
+00:05:46,979 --> 00:05:51,740
+object had zero transforms that won't
+change a damn thing. Right, so the lizard
+
+00:05:51,740 --> 00:05:56,550
+currently has three animation states, the
+way that I am arranging for the
+
+00:05:56,550 --> 00:06:01,720
+animation state to last three seconds is
+to use the clip inspector on the right
+
+00:06:01,720 --> 00:06:05,950
+hand side to drag to 3 seconds, so we'll
+see that several times during this video
+
+00:06:05,950 --> 00:06:10,000
+what I'm doing here is exactly what I
+showed you before I making sure I'm
+
+00:06:10,000 --> 00:06:14,630
+adding the animation frames to the body
+sub-object that contains the sprite
+
+00:06:14,630 --> 00:06:20,850
+renderer. These things with yellow
+that I'm deleting are the animation clips
+
+00:06:20,850 --> 00:06:24,230
+where there is no longer a sprite render
+attached
+
+00:06:24,230 --> 00:06:28,470
+to the lizard itself, it has become
+attached to the body; so this is why
+
+00:06:28,470 --> 00:06:32,770
+I said to you I only want you to animate one
+attacker the way that I showed you, it's
+
+00:06:32,770 --> 00:06:36,310
+because I knew that you were gonna have
+to fix this attacker before then going
+
+00:06:36,310 --> 00:06:39,830
+on and creating all of your other
+attackers, actually in a previous version
+
+00:06:39,830 --> 00:06:43,810
+of this part of the course I got you to
+animate all of your attackers
+
+00:06:43,810 --> 00:06:47,460
+before then asking you to undo them and
+reanimate them and one of our students
+
+00:06:47,460 --> 00:06:51,540
+quite rightly said that's a pain in the
+butt and I fixed it, so that's what's
+
+00:06:51,540 --> 00:06:56,050
+going on here. So the fox, here he is,
+exactly the same deal he needs an
+
+00:06:56,050 --> 00:07:00,470
+independent body that contains the
+sprite; we want the Fox to be at a perfect
+
+00:07:00,470 --> 00:07:04,430
+transform because this an on-grid game;
+Dorry Robert your wife would hate that
+
+00:07:04,430 --> 00:07:10,740
+and what we want is to be able to have
+the transforms at perfect positions but
+
+00:07:10,740 --> 00:07:14,470
+the sprites to be different so I'm just
+going here to the Glitch garden
+
+00:07:14,470 --> 00:07:18,780
+download, this is the full download from
+the Glitch garden website also any assets I use
+
+00:07:18,780 --> 00:07:24,000
+of course will be in the course assets
+and I'm gonna go find myself the
+
+00:07:24,000 --> 00:07:30,130
+appropriate asset so in this case I got
+three of the Foxes animations, he has
+
+00:07:30,130 --> 00:07:35,770
+an eating animation, a jumping animation
+and a walking animation, so for each of
+
+00:07:35,770 --> 00:07:39,630
+these I need to work out what the sprite
+dimensions are so I'm going to do the
+
+00:07:39,630 --> 00:07:44,740
+calculation that I've shown you before - I'm
+going to divide the width of the sprite
+
+00:07:44,740 --> 00:07:49,630
+sheet by the number of horizontal
+sprites to get a hundred and fifty-three
+
+00:07:49,630 --> 00:07:54,080
+pixels per Fox and I'm going to do the
+same vertically; now not all sprite sheets are
+
+00:07:54,080 --> 00:07:59,050
+laid out like this but these Glitch garden
+assets are grid based sprite sheets and
+
+00:07:59,050 --> 00:08:03,260
+they're quite loosely packed but that's
+because for example the fox is jumping
+
+00:08:03,260 --> 00:08:07,070
+right and they want to keep things
+simple and have the Fox stay within his
+
+00:08:07,070 --> 00:08:12,880
+bounding box even when he jumps; so now
+that I've specified the multiple sprite
+
+00:08:12,880 --> 00:08:16,260
+I have lots and lots of frames against
+the fox, and then of course I'm gonna
+
+00:08:16,260 --> 00:08:20,820
+need to have an animation controller, I
+prefix those underscore Fox you see that
+
+00:08:20,820 --> 00:08:24,270
+at the bottom of the screen I do that so
+that it floats to the front of the folder.
+
+00:08:24,270 --> 00:08:30,090
+Just for simplicity; and now I go ahead and
+start creating the animation clips for
+
+00:08:30,090 --> 00:08:35,080
+the Fox now remember that does two
+things: it creates not only an animation
+
+00:08:35,080 --> 00:08:37,010
+state but it creates an animation curve
+
+00:08:37,010 --> 00:08:41,640
+I'm prefixing with Fox, you'll see why
+later because if you just say attack,
+
+00:08:41,640 --> 00:08:46,480
+jump etcetera i.e. the simplest possible
+name, then in your list of motion clips if you
+
+00:08:46,480 --> 00:08:50,610
+were to ever try and choose them in the
+inspector you will just see walk, walk, walk,
+
+00:08:50,610 --> 00:08:54,370
+jump, jump, jump, attack, attack, attack and
+you can't distinguish easily - or at all
+
+00:08:54,370 --> 00:09:00,450
+between the different characters, so I
+always prefix the animation states and
+
+00:09:00,450 --> 00:09:05,260
+hence the clips with the name of the
+animals so we have fox attack, fox jump,
+
+00:09:05,260 --> 00:09:09,620
+fox walk and then for each of these
+states I'm just making sure that I add
+
+00:09:09,620 --> 00:09:15,030
+the relevant animation frames; now what
+I've done here by mistake is I have
+
+00:09:15,030 --> 00:09:19,890
+added those frames to the fox itself
+which we have created a sprite renderer on
+
+00:09:19,890 --> 00:09:24,900
+the fox and I'm animating the wrong thing, I
+want to be animating the sprite renderer
+
+00:09:24,900 --> 00:09:29,180
+on the fox's body so I'll notice that
+mistake in a moment, in the meanwhile I'm
+
+00:09:29,180 --> 00:09:33,370
+busy working out what the transition
+times are - there you go, that was me deleting the
+
+00:09:33,370 --> 00:09:41,390
+excess sprite renderer and hence I need to
+remove the old broken yellow clip OK, so
+
+00:09:41,390 --> 00:09:44,660
+just be really careful about this -
+by the way the reason there I dragged
+
+00:09:44,660 --> 00:09:48,780
+the frames in and then dragged them left is
+because if you try and delete both of
+
+00:09:48,780 --> 00:09:52,500
+the existing frames that come in when
+you do this add body sprite renderer thing,
+
+00:09:52,500 --> 00:09:55,800
+those two frames that are sitting there, if
+you delete both of those then the whole clip
+
+00:09:55,800 --> 00:09:59,490
+goes cuz it's got no information in it, 
+so one easy way to sort that out is to
+
+00:09:59,490 --> 00:10:03,940
+select all the frames, drag them up and
+then to remove the first two frames
+
+00:10:03,940 --> 00:10:10,680
+afterwards. So, what I'm doing he was just
+saying let's assume that the next right
+
+00:10:10,680 --> 00:10:14,880
+sprite sheet uses exactly the same dimensions, and
+the Glitch garden assets do which is good news,
+
+00:10:14,880 --> 00:10:21,110
+so that I don't have to calculate it all
+again. So over in the transition
+
+00:10:21,110 --> 00:10:26,380
+inspector you can actually choose how
+long in time you want the cycle to go
+
+00:10:26,380 --> 00:10:29,360
+round and that's the easiest way to get
+to three seconds without doing any
+
+00:10:29,360 --> 00:10:33,620
+calculations just drag the sliders until
+you get to three seconds' worth of
+
+00:10:33,620 --> 00:10:36,700
+animation. Why are there two sliders? Because
+
+00:10:36,700 --> 00:10:42,360
+of blending and we'll see that in a bit.
+So again, all of these sprite sheets have
+
+00:10:42,360 --> 00:10:45,200
+the same dimensions
+
+00:10:45,200 --> 00:10:51,620
+and then I drag the frames to
+the left and off we go. Perfect, so now we
+
+00:10:51,620 --> 00:10:58,530
+have thirty frames a second is my choice
+for the fox and we have an animation for the fox. So
+
+00:10:58,530 --> 00:11:01,630
+now we're going to the Fox attack
+state; now you don't have to use the same
+
+00:11:01,630 --> 00:11:05,420
+sample rate for all different animation
+clips, there's nothing that says you have to
+
+00:11:05,420 --> 00:11:09,600
+do that unless your code for some reason
+is expecting it. so I'm using 15
+
+00:11:09,600 --> 00:11:13,850
+frames per second for some parts of the
+fox and lizard and 30 for another - that's absolutely
+
+00:11:13,850 --> 00:11:19,040
+fine; and again I'm using the transition
+inspector over here to drag the
+
+00:11:19,040 --> 00:11:24,290
+left-hand and right-hand side of that
+transition marker to 3 seconds; now there's a left and
+
+00:11:24,290 --> 00:11:27,680
+right because of blending, if there's a
+gap then it can actually spend time
+
+00:11:27,680 --> 00:11:32,040
+blending between two animation states. We're
+not gonna worry about that for now but it is
+
+00:11:32,040 --> 00:11:36,960
+pretty handy so here we go the lizard.. sorry
+the fox we're focused on here, he walks
+
+00:11:36,960 --> 00:11:41,020
+for three seconds, jumps for 3 seconds and
+attacks for three seconds. Of course it's
+
+00:11:41,020 --> 00:11:44,510
+just over a second at this current video
+speed. So I'm just gonna move the
+
+00:11:44,510 --> 00:11:48,300
+lizard to a more sensible place, move
+the fox, always set their transforms to
+
+00:11:48,300 --> 00:11:52,210
+perfectly round positions and make sure
+that you're moving the root object not
+
+00:11:52,210 --> 00:11:53,440
+the body sprite, yeah?
+
+00:11:53,440 --> 00:11:57,990
+Really important that the root objects
+are the things that you're moving, and
+
+00:11:57,990 --> 00:12:02,760
+that they're sitting at round numbers. So here
+I'm selecting all elements of the star
+
+00:12:02,760 --> 00:12:05,670
+trophy and then scaling them up and
+then moving the star trophy to a perfect
+
+00:12:05,670 --> 00:12:10,330
+position, then moving the sprite elements
+down so that all of our guys - our attackers
+
+00:12:10,330 --> 00:12:15,220
+and defenders sit on the grid; awesome, so now
+it's just a question of going through
+
+00:12:15,220 --> 00:12:16,640
+exactly the same thing -
+
+00:12:16,640 --> 00:12:21,770
+setting up all the root transforms for
+our defenders. So I just do that for a
+
+00:12:21,770 --> 00:12:29,820
+moment, the gnome, the star trophy...
+
+00:12:29,820 --> 00:12:33,890
+Takes me awhile to settle on whether I
+want to name the gravestone with or without a
+
+00:12:33,890 --> 00:12:39,050
+space so excuse the inconsistencies it
+is ok to name a GameObject in the
+
+00:12:39,050 --> 00:12:42,650
+hierarchy with a space, look at what
+Unity does, it does level canvas with a
+
+00:12:42,650 --> 00:12:46,380
+space but then it does event system
+without so if there's gonna be
+
+00:12:46,380 --> 00:12:49,630
+inconsistency anyway then I'm not too
+worried about it.
+
+00:12:49,630 --> 00:12:55,900
+Same deal for the defenders right, we're
+creating separate childed bodies
+
+00:12:55,900 --> 00:13:00,750
+to contain the sprite. It does actually make
+using the animator a little bit harder in some
+
+00:13:00,750 --> 00:13:05,140
+ways this, because of the way the
+animator by default sets up animations, but
+
+00:13:05,140 --> 00:13:10,340
+in our case because we're an on-grid
+game we need to do it so that... well anyway, I've
+
+00:13:10,340 --> 00:13:14,070
+gone on about the grid business
+enough, you get the idea, but it does make
+
+00:13:14,070 --> 00:13:18,140
+things a little harder. The animator's not
+really expecting you to do this with
+
+00:13:18,140 --> 00:13:23,740
+sprites. It's OK, it works better if we do. So
+the underscore in from of a cactus animation
+
+00:13:23,740 --> 00:13:30,340
+controller is there and then I'm going
+through and creating all my clips. Right so it's the
+
+00:13:30,340 --> 00:13:35,850
+same rote process each time. I'm going to start
+talking a little less now because I
+
+00:13:35,850 --> 00:13:39,250
+think you've got the idea, I'm just gonna
+look for instances where I do something
+
+00:13:39,250 --> 00:13:44,560
+new or novel. Like importing multiple sprite
+sheet at the same time, and immediately
+
+00:13:44,560 --> 00:13:51,270
+renaming those sprite sheets so that we
+know what they are, then I'm doing a calculation
+
+00:13:51,270 --> 00:13:54,820
+here, getting fed up with trying to
+remember the numbers so writing into a
+
+00:13:54,820 --> 00:14:00,460
+text editor, but then accidentally
+dividing horizontal by vertical or
+
+00:14:00,460 --> 00:14:05,090
+something like that so I think I've got
+the 126 right but not the 168 but that's
+
+00:14:05,090 --> 00:14:08,330
+ok. You know I'm sporting my mistake,
+fixing it out here - when I can hit the right
+
+00:14:08,330 --> 00:14:14,190
+keys and we finally get 157 by 126 for
+the cactus, which I put in here into
+
+00:14:14,190 --> 00:14:21,520
+the multiple sprite editor - Forgetting numbers
+again, there they go - 157, 126 slice looks
+
+00:14:21,520 --> 00:14:21,880
+good
+
+00:14:21,880 --> 00:14:25,590
+apply; now if you go straight to the
+second sprite sheet it would remember your
+
+00:14:25,590 --> 00:14:29,700
+settings, so why not just do all of your
+sprite sheets at the same time; so
+
+00:14:29,700 --> 00:14:33,960
+this is a better workflow, because it's quicker.
+
+00:14:33,960 --> 00:14:38,340
+Unfortunately you can't multi select them and slice
+them all at the same time, but do one go
+
+00:14:38,340 --> 00:14:43,850
+straight onto the next, you're good to go. An
+alternative way of creating states here
+
+00:14:43,850 --> 00:14:48,860
+is to create the states as I just have and
+pick the motion clip but you see without the
+
+00:14:48,860 --> 00:14:54,200
+prefix here you can't tell which object
+you're talking about, which is why I say cactus
+
+00:14:54,200 --> 00:15:00,400
+attack cactus idle, gnome attack etcetera.
+Same deal but in this case the the
+
+00:15:00,400 --> 00:15:04,180
+cactus does not have the last two frames
+- the last few frames there we don't want
+
+00:15:04,180 --> 00:15:07,560
+to use so it actually may feel a pain in
+the butt to have to select all the frames
+
+00:15:07,560 --> 00:15:10,290
+of your animation but in instances like
+this where you see the cactus at the
+
+00:15:10,290 --> 00:15:14,620
+bottom has missing frames, we need to do
+it because it's a grid sheet and some
+
+00:15:14,620 --> 00:15:20,010
+of the grid squares are not full, so it's
+actually important. So here I've made a -1 on
+
+00:15:20,010 --> 00:15:24,530
+the transforms to make the cactus turn
+around and then I'm rescaling him, and
+
+00:15:24,530 --> 00:15:29,120
+I'm doing all this on the cactus
+body. So the main cactus transform
+
+00:15:29,120 --> 00:15:32,310
+behaves exactly the same, and then the
+cactus body is flipped around in X minus
+
+00:15:32,310 --> 00:15:36,230
+one, it's a great trick with spreadsheets to
+turn them round, and then the same deal here
+
+00:15:36,230 --> 00:15:41,860
+I'm just making sure that I add my 
+transitions in, and that I make them
+
+00:15:41,860 --> 00:15:46,010
+last three seconds, and then again have
+to do each animation state. Again that sheet
+
+00:15:46,010 --> 00:15:49,830
+you're missing three - the last four Cactus
+attack, empty, you don't want them if you
+
+00:15:49,830 --> 00:15:53,340
+put them into the animation then you're
+going to end up with four frames where there
+
+00:15:53,340 --> 00:15:58,230
+is no cactus. What you're actually doing
+here by the way when you add in a sprite
+
+00:15:58,230 --> 00:16:01,930
+renderer clip is you're saying this is an
+event, you're adding a whole load of key frames,
+
+00:16:01,930 --> 00:16:02,680
+you see those
+
+00:16:02,680 --> 00:16:07,060
+triangular key frame things or diamond
+shaped frames? You're saying every
+
+00:16:07,060 --> 00:16:12,210
+30 times a second I want to change the
+sprite you could also be changing the
+
+00:16:12,210 --> 00:16:15,250
+position, or changing the opacity, or
+whatever else; you're actually changing the
+
+00:16:15,250 --> 00:16:24,089
+sprite, swapping it right out. That is what
+key frame animation is. Or at least flipbook animation.
+
+00:16:24,089 --> 00:16:29,809
+Using a keyframe for every single frame. So here's my gnome, looks lie I forgot the underscore, who cares I'll fix
+
+00:16:29,809 --> 00:16:37,930
+it later. Again prefixing the states with
+gnome so I can find it in a list of
+
+00:16:37,930 --> 00:16:47,129
+motion clips later easily. A general rule is to
+name things as simply and concisely and
+
+00:16:47,129 --> 00:16:52,559
+specifically as possible so if I could
+just name the animation state idle and
+
+00:16:52,559 --> 00:16:56,620
+establish that that is the gnome from
+the context then I would, because it's
+
+00:16:56,620 --> 00:17:01,459
+shorter, it's less typing, it's simpler and it's
+less likely to make a mistake like call the
+
+00:17:01,459 --> 00:17:04,829
+gnome's animation state the wrong
+character, but in this case I need it
+
+00:17:04,829 --> 00:17:08,980
+So again I'm reaching into the Glitch garden
+assets they are again provided in the
+
+00:17:08,980 --> 00:17:13,380
+course or go to the Glitch garden
+website, and when you go into there you
+
+00:17:13,380 --> 00:17:16,329
+can actually download all of their
+assets if you dig around a little
+
+00:17:16,329 --> 00:17:20,220
+bit and you'll get this full zip file that
+I have got, I'll also attach that zip
+
+00:17:20,220 --> 00:17:26,449
+file to the course assets. So you have all
+the Glitch garden assets even if they go away or the
+
+00:17:26,449 --> 00:17:31,799
+website goes away. So the only value
+really in selecting those frames
+
+00:17:31,799 --> 00:17:36,730
+individually is that you get to leave
+out any frames you don't want. Again
+
+00:17:36,730 --> 00:17:40,029
+sample rates can be inconsistent although
+your animator will probably - or your
+
+00:17:40,029 --> 00:17:43,490
+graphic designer will probably kill you if
+he has designed a animation to be 30
+
+00:17:43,490 --> 00:17:47,419
+frames per second and you go and play it
+at 60 or 15 or something like that, but
+
+00:17:47,419 --> 00:17:57,470
+I'm sure you'll survive. Well if he kills you you won't survive, but you get the idea. So here we are, that's the
+
+00:17:57,470 --> 00:17:59,970
+transition, goes round three times, so
+they gnome just transitions between
+
+00:17:59,970 --> 00:18:03,480
+idle and attacking
+
+00:18:03,480 --> 00:18:06,790
+Now I'm just making sure that the
+parent's at the right place, that the sprite
+
+00:18:06,790 --> 00:18:10,370
+itself has a negative X, again in
+the case of the gnome so remember this
+
+00:18:10,370 --> 00:18:14,840
+if you want to turn a sprite
+horizontally or vertically - to mirror it
+
+00:18:14,840 --> 00:18:19,290
+horizontally or vertically you make a
+negative scale. It can still be a non-integer scale
+
+00:18:19,290 --> 00:18:26,470
+like .6, this gnome is -.6 I think, his sprite, but negative
+will flip it around, a simple way to do it with a sprite.
+
+00:18:26,470 --> 00:18:35,200
+You can see why I'm speeding the video up now,
+in fact the pregnant pauses where I sip on
+
+00:18:35,200 --> 00:18:39,410
+a cup of tea because if you were watching this at
+single speed then this video would be
+
+00:18:39,410 --> 00:18:44,510
+well over half an hour long about 40
+minutes and I'll have commited a Udemy instructor
+
+00:18:44,510 --> 00:18:49,070
+sin by making such a long video and I
+would have probably killed you with boredom. So
+
+00:18:49,070 --> 00:18:52,250
+this is one of these things where
+there's not a huge amount more to learn,
+
+00:18:52,250 --> 00:18:56,230
+I just have to do the work of going
+through and adding all these animations
+
+00:18:56,230 --> 00:19:00,400
+states, so this is a good compromise this
+type of video you get to see everything
+
+00:19:00,400 --> 00:19:04,490
+if you really want to follow us through
+verbatim, you don't miss a trick
+
+00:19:04,490 --> 00:19:12,320
+as it were, but... you also get to survive
+the video. There's my geavestone, same deal if you
+
+00:19:12,320 --> 00:19:17,010
+hold down the right key, and you can see
+that on my key overlays that I put on, you can see
+
+00:19:17,010 --> 00:19:19,930
+me hunting for the right key, it's one of
+the ones in the bottom there, and then you
+
+00:19:19,930 --> 00:19:23,660
+can zoom in and out and that has the
+effect on the scale tool - if you click
+
+00:19:23,660 --> 00:19:26,260
+the little white bit I'm actually
+rescaling in both directions so you
+
+00:19:26,260 --> 00:19:33,120
+don't distort it. Literally the same
+thing but the gravestone is going to be
+
+00:19:33,120 --> 00:19:39,040
+animated not by frame but by bone based.
+So what I've done there is I've just moved
+
+00:19:39,040 --> 00:19:43,690
+its transform a little tiny bit and
+then it wobbles in the gravestone
+
+00:19:43,690 --> 00:19:50,150
+attacked state. So in idle it stays still and
+in the attack state it wobbles. Now I can
+
+00:19:50,150 --> 00:19:53,570
+see that I've left attacked as the
+default, which is wrong actually but I'm
+
+00:19:53,570 --> 00:19:55,590
+leaving it like that because that's
+where we're going to pick up in the next
+
+00:19:55,590 --> 00:19:59,980
+video. So the orange on your animation
+controller there is your default state, so
+
+00:19:59,980 --> 00:20:03,220
+when you play you're gonna have a
+wobbling stone even when it's not being
+
+00:20:03,220 --> 00:20:09,610
+attacked, but, no problem we can fix that
+later. We can fix anything later. That's it, it's all
+
+00:20:09,610 --> 00:20:11,940
+working that is the end result I want you to get to.
+
+00:20:11,940 --> 00:20:14,700
+So congratulations, and projectiles next...
+

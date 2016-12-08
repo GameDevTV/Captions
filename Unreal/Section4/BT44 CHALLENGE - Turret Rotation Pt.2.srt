@@ -1,0 +1,697 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+So welcome to
+
+2
+00:00:04,000 --> 00:00:08,000
+part 2 of the solution of this fun challenge. By the end of this video
+
+3
+00:00:08,000 --> 00:00:12,000
+we will have joy, because the tank will actually be auto-aiming
+
+4
+00:00:12,000 --> 00:00:16,000
+with ballistic corrections and stuffs towards the
+
+5
+00:00:16,000 --> 00:00:20,000
+enemy. And you can even see one of the AI tanks there, just starting to move its barrel
+
+6
+00:00:20,000 --> 00:00:24,000
+around. So, there's more to do on this, but it's a great starting point and let's get it done!
+
+7
+00:00:24,000 --> 00:00:24,966
+
+
+8
+00:00:24,966 --> 00:00:28,966
+So guys and girls, let's get the rest of this show on the
+
+9
+00:00:28,966 --> 00:00:32,966
+road shall we! Let's pop into the code and see what else needs to happen.
+
+10
+00:00:32,966 --> 00:00:36,966
+I think we should go as far as the TankTurret,
+
+11
+00:00:36,966 --> 00:00:40,966
+and taking inspiration from the TankBarrel, what do we need to do?
+
+12
+00:00:40,966 --> 00:00:44,966
+Well, we're going to need something like an Elevate method, but it's,
+
+13
+00:00:44,966 --> 00:00:48,966
+of course, going to be rotate, so why don't we just pop that in. We're going to
+
+14
+00:00:48,966 --> 00:00:52,966
+do the standard thing of doing a Find and Replace of Barrel
+
+15
+00:00:52,966 --> 00:00:56,966
+for Turret, in the selection.
+
+16
+00:00:56,966 --> 00:01:00,966
+And it's just that, it's
+
+17
+00:01:00,966 --> 00:01:04,966
+UTankTurret::Elevate. Now, it's not Elevate anymore, it's
+
+18
+00:01:04,966 --> 00:01:08,966
+Rotate at a given speed. I'm going to get rid of the comment for this one
+
+19
+00:01:08,966 --> 00:01:12,966
+I think. We just don't need it here. Relative speed should be clamped. Yes it should,
+
+20
+00:01:12,966 --> 00:01:16,966
+absolutely, because it needs to be between -1 and +1. OK,
+
+21
+00:01:16,966 --> 00:01:20,966
+so we want to get rid of anything to do with Elevation. So, it's Rotation
+
+22
+00:01:20,966 --> 00:01:24,966
+Change is RelativeSpeed times that. That's good!
+
+23
+00:01:24,966 --> 00:01:28,966
+RawNewRotation, in fact, I can do a Find and Replace on the
+
+24
+00:01:28,966 --> 00:01:32,966
+word Elevation, couldn't I! So, let's have a look for
+
+25
+00:01:32,966 --> 00:01:36,966
+Elevation, there's loads of those, and change it to Rotation.
+
+26
+00:01:36,966 --> 00:01:40,966
+Boom! Now, let's make sure it reads right! NewRotation is the Relative
+
+27
+00:01:40,966 --> 00:01:44,966
+Rotation.Pitch? Mmm That's not really true!
+
+28
+00:01:44,966 --> 00:01:48,966
+It's the RelativeRotation.Yaw now,
+
+29
+00:01:48,966 --> 00:01:52,966
+pluse the RotationChange. That sounds good! Now,
+
+30
+00:01:52,966 --> 00:01:56,966
+before I even carry on, I'm just going to put a comment here, just to mark where I am.
+
+31
+00:01:56,966 --> 00:02:00,966
+I don't like the fact that I can't see what's happening, because I've got all of these
+
+32
+00:02:00,966 --> 00:02:04,966
+IntelliSense errors, and they are because I haven't declared this over in
+
+33
+00:02:04,966 --> 00:02:08,966
+the TankTurret.h, so let me just go do that right now.
+
+34
+00:02:08,966 --> 00:02:12,966
+TankTurret.h, we're going to need
+
+35
+00:02:12,966 --> 00:02:16,966
+to declare that. Now, in the TankBarrel.h
+
+36
+00:02:16,966 --> 00:02:20,966
+what did we do? Did we put it in the private or the public? Because we should do the same
+
+37
+00:02:20,966 --> 00:02:24,966
+thing right? It needs to be public, so let's just take that bit,
+
+38
+00:02:24,966 --> 00:02:28,966
+and in the TankTurret.h, just pop in public.
+
+39
+00:02:28,966 --> 00:02:32,966
+It's the same comment about the maximum and the minimum. That's going to be a useful thing, if people
+
+40
+00:02:32,966 --> 00:02:36,966
+are using the method, and it's UTankTurret,
+
+41
+00:02:36,966 --> 00:02:40,966
+that's right, Rotate at a relative speed. Good!
+
+42
+00:02:40,966 --> 00:02:44,966
+So that should stop the IntelliSense complaining and
+
+43
+00:02:44,966 --> 00:02:48,966
+it does! Fantastic! So, let's keep reading! That's where I got to, that's where I put a marker.
+
+44
+00:02:48,966 --> 00:02:52,966
+So, the Rotation, we don't need to clamp the Rotation, so we're not going to bother
+
+45
+00:02:52,966 --> 00:02:56,966
+clamping the Rotation. In which case, we don't need to call it
+
+46
+00:02:56,966 --> 00:03:00,966
+RawNewRotation, we could just call it NewRotation or simply
+
+47
+00:03:00,966 --> 00:03:04,966
+Rotation. The only difference now is that the Rotation doesn't get
+
+48
+00:03:04,966 --> 00:03:08,966
+set as the Pitch value inside here, it gets set as the Yaw
+
+49
+00:03:08,966 --> 00:03:12,966
+value. So, we just, Mmm, what's the easiest way? Maybe just put a 0 in front.
+
+50
+00:03:12,966 --> 00:03:16,966
+So, we get the RotationChange, pass it into the
+
+51
+00:03:16,966 --> 00:03:20,966
+FRotator, and that should be good! Now, MaxDegreesPerSecond is complaining. Of
+
+52
+00:03:20,966 --> 00:03:24,966
+course it is, because if we look in the TankBarrel.h, we had ourselves
+
+53
+00:03:24,966 --> 00:03:28,966
+a nice Blueprint exposed MaxDegreesPerSecond of 5
+
+54
+00:03:28,966 --> 00:03:32,966
+on the Barrel. So, we're going to want a very similar thing on the Turret,
+
+55
+00:03:32,966 --> 00:03:36,966
+in the private section, because we don't want another method to be able to call this, another class
+
+56
+00:03:36,966 --> 00:03:40,966
+rather to be able to call this method. And there it is, so that's setup
+
+57
+00:03:40,966 --> 00:03:44,966
+a sensible default! Let's compile away and make sure this all works!
+
+58
+00:03:44,966 --> 00:03:48,966
+And indeed, that on the Tank
+
+59
+00:03:48,966 --> 00:03:52,966
+Turret, we have what we have on the TankBarrel. The Barrel has this Setup
+
+60
+00:03:52,966 --> 00:03:56,966
+with these three parameters. We should have a Setup section the Turret, in a moment,
+
+61
+00:03:56,966 --> 00:04:00,966
+with just one parameter for the maximum speed. Now, something's gone wrong,
+
+62
+00:04:00,966 --> 00:04:04,966
+I've missed a simple semicolon. Always doable, there you go!
+
+63
+00:04:04,966 --> 00:04:08,966
+You see how I use the compile time to do something else useful,
+
+64
+00:04:08,966 --> 00:04:12,966
+to take me somewhere else, prepare for something I'm going to do next, and that way
+
+65
+00:04:12,966 --> 00:04:16,966
+if the compile succeeds, I'm already where I want to be. There you go,
+
+66
+00:04:16,966 --> 00:04:20,966
+that's worked! And now the barrel, if I go to it, the Turret rather, , it has this
+
+67
+00:04:20,966 --> 00:04:24,966
+Max Degrees Per Second. We'll leave that at 5, that's all good. I'm going to ignore that,
+
+68
+00:04:24,966 --> 00:04:28,966
+that's an old Compile Failed log. Let's play the game, make sure it works. It
+
+69
+00:04:28,966 --> 00:04:32,966
+does, so the Barrel elevates, but of course, it doesn't rotate yet. So, why not?
+
+70
+00:04:32,966 --> 00:04:36,966
+Well, I think the simplest way to follow this through is, let's follow it through from the start
+
+71
+00:04:36,966 --> 00:04:40,966
+right. The TankPlayerController is the very beginning of all of this.
+
+72
+00:04:40,966 --> 00:04:44,966
+Does this have anything that talks about barrels, etc.?
+
+73
+00:04:44,966 --> 00:04:48,966
+No, so what do we do in the C++? Well, we
+
+74
+00:04:48,966 --> 00:04:52,966
+aim at every frame. And what we should
+
+75
+00:04:52,966 --> 00:04:56,966
+really be doing here is popping back to our stack, that I showed
+
+76
+00:04:56,966 --> 00:05:00,966
+you a few videos ago and saying, OK what happens? So, the
+
+77
+00:05:00,966 --> 00:05:04,966
+Player or AI Controller doesn't AimAt a HitLocation on the Tank, and
+
+78
+00:05:04,966 --> 00:05:08,966
+then, the Tank tells the Aiming Component to aim and then we call
+
+79
+00:05:08,966 --> 00:05:12,966
+the Barrel and, of course, there would be a corresponding call down to the Turret. So, we need to
+
+80
+00:05:12,966 --> 00:05:16,966
+start in the AimingComponent, that's where in the stack we want to be starting.
+
+81
+00:05:16,966 --> 00:05:20,966
+That's why it's useful to draw yourself a diagram sometimes. So, here's the
+
+82
+00:05:20,966 --> 00:05:24,966
+AimingComponent, and down at the bottom here, we have the concept of Barrel->Elevate.
+
+83
+00:05:24,966 --> 00:05:28,966
+Well, how about we have Turret! Now, do we even have a Turret on here? Well, I think we
+
+84
+00:05:28,966 --> 00:05:32,966
+put it in but let's check. Yep we do, great! So, we can say
+
+85
+00:05:32,966 --> 00:05:36,966
+Turret. Oops!
+
+86
+00:05:36,966 --> 00:05:40,966
+->Rotate go Turret! And it's going to be
+
+87
+00:05:40,966 --> 00:05:44,966
+the (DeltaRotator) that we calculated above,
+
+88
+00:05:44,966 --> 00:05:48,966
+.Yaw); See if this
+
+89
+00:05:48,966 --> 00:05:52,966
+works! I don't expect it to work perfectly, but I'm hoping that we will be pretty close.
+
+90
+00:05:52,966 --> 00:05:56,966
+So, let's just check that that Turret actually has an implementation of that
+
+91
+00:05:56,966 --> 00:06:00,966
+Yaw. It does and that's all good, so let's try it!
+
+92
+00:06:00,966 --> 00:06:04,966
+Let's have a go and see how we do!
+
+93
+00:06:04,966 --> 00:06:08,966
+So a pause while it
+
+94
+00:06:08,966 --> 00:06:12,966
+compiles! Oh
+
+95
+00:06:12,966 --> 00:06:16,966
+look! OK, I'm too excited about that, but thats really cool!
+
+96
+00:06:16,966 --> 00:06:20,966
+I think that ElevationSpeed is probably reasonable, but I don't think
+
+97
+00:06:20,966 --> 00:06:24,966
+that the Rotation is reasonable. So, what I'm going to do
+
+98
+00:06:24,966 --> 00:06:28,966
+is I'm going to go find a reasonable value here in the blueprint, so
+
+99
+00:06:28,966 --> 00:06:32,966
+I'm going to binary search for it. So, we've got 5 degrees, right? Well,
+
+100
+00:06:32,966 --> 00:06:36,966
+how about we go 45 degrees per second,
+
+101
+00:06:36,966 --> 00:06:40,966
+45 degrees per second remember. Compile that because it's quicker than compiling C++.
+
+102
+00:06:40,966 --> 00:06:44,966
+I would say that's crazy fast, so
+
+103
+00:06:44,966 --> 00:06:48,966
+let's chop in the middle. 5 + 45 is 50, divided by 2 is 25.
+
+104
+00:06:48,966 --> 00:06:52,966
+So, 25 is in the middle of the two. Let's try that figure!
+
+105
+00:06:52,966 --> 00:06:56,966
+Oh, still fast but you know
+
+106
+00:06:56,966 --> 00:07:00,966
+what it probably is OK. I don't really know how fast a tank moves, but that's probably
+
+107
+00:07:00,966 --> 00:07:04,966
+OK. I think that the Barrel maybe is quite a lot slower to go up and down, then it is
+
+108
+00:07:04,966 --> 00:07:08,966
+to go around and around. Yeah, I think that's OK! I think to bring it in
+
+109
+00:07:08,966 --> 00:07:12,966
+line, I'm going to tweak the speed of elevation on the Barrel,
+
+110
+00:07:12,966 --> 00:07:16,966
+to 10 degrees per second,
+
+111
+00:07:16,966 --> 00:07:20,966
+and then, try that!
+
+112
+00:07:20,966 --> 00:07:24,966
+Yeah, that's fine I think! I mean we can
+
+113
+00:07:24,966 --> 00:07:28,966
+play with this till the cows come home, but that's my new set of sensible defaults,
+
+114
+00:07:28,966 --> 00:07:32,966
+10 on the Barrel Degrees Per Second, 25 on the Turret. I'm going to
+
+115
+00:07:32,966 --> 00:07:36,966
+push those back to the C++, and then, I'm going to explain what that means.
+
+116
+00:07:36,966 --> 00:07:40,966
+10 here, Tank
+
+117
+00:07:40,966 --> 00:07:44,966
+Barrel.h.
+
+118
+00:07:44,966 --> 00:07:48,966
+Sorry that's 10, and the Turret.h
+
+119
+00:07:48,966 --> 00:07:52,966
+should be 25! OK, what I mean by this, by pushing
+
+120
+00:07:52,966 --> 00:07:56,966
+the values back to the C++ is, that if a designer comes along and puts another
+
+121
+00:07:56,966 --> 00:08:00,966
+tank into the scene, like Mmm so,
+
+122
+00:08:00,966 --> 00:08:04,966
+the question is what values does this guy now have? If we were to inspect
+
+123
+00:08:04,966 --> 00:08:08,966
+that Tank and then to look at his Turret and then say, well what's the
+
+124
+00:08:08,966 --> 00:08:12,966
+Degrees Per Second, it's going to come with a C++ default. That's the reason
+
+125
+00:08:12,966 --> 00:08:16,966
+that I am setting it in the C++. It is overridable on a tank by tank
+
+126
+00:08:16,966 --> 00:08:20,966
+basis, but I'm setting it over there O.K.. So, that's
+
+127
+00:08:20,966 --> 00:08:24,966
+what I'm doing. Where was that tank I just put in? Oh right there, let's get rid of it, because it'll be
+
+128
+00:08:24,966 --> 00:08:28,966
+confused with the player tank. Look we have success! We're aiming at that tank,
+
+129
+00:08:28,966 --> 00:08:32,966
+aiming at the hill, we're aiming high up the hill,
+
+130
+00:08:32,966 --> 00:08:36,966
+we're aiming potentially at the other tank. I think that we've got a pretty high
+
+131
+00:08:36,966 --> 00:08:40,966
+projectile speed. I think this would be more convincing if we were to go to
+
+132
+00:08:40,966 --> 00:08:44,966
+the Tank aiming, the tank itself rather, and then, go
+
+133
+00:08:44,966 --> 00:08:48,966
+to the LaunchSpeed and set it at say  Mmm maybe even 1,000. That's far
+
+134
+00:08:48,966 --> 00:08:52,966
+too slow, 1,000 centimeters per second, a 100 meters a second, about 250
+
+135
+00:08:52,966 --> 00:08:56,966
+miles an hour is too slow for a projectile. But let's just take a little
+
+136
+00:08:56,966 --> 00:09:00,966
+look and see how much more obvious it makes the
+
+137
+00:09:00,966 --> 00:09:04,966
+movement. You see what it's doing here, is it's saying well I can only get the projectile about that far away in the world,
+
+138
+00:09:04,966 --> 00:09:08,966
+and if I try and go any further it's going to ignore me, so that is
+
+139
+00:09:08,966 --> 00:09:12,966
+clearly far too little. We want to be able to fire out to about the periphery of
+
+140
+00:09:12,966 --> 00:09:16,966
+the world, so we need to binary search the projectile speed. Let's try
+
+141
+00:09:16,966 --> 00:09:20,966
+4,000. By binary search I mean, try a value, try another
+
+142
+00:09:20,966 --> 00:09:24,966
+value split it in half. So, one way to do it is just to go diagonally until it stops
+
+143
+00:09:24,966 --> 00:09:28,966
+bothering to update. That's OK! Actually, that's about
+
+144
+00:09:28,966 --> 00:09:32,966
+right, that 4,000! Yeah, it stops bothering
+
+145
+00:09:32,966 --> 00:09:36,966
+about on the boundary. So we can, from the middle of the play space, about get to the edge of it, which is
+
+146
+00:09:36,966 --> 00:09:40,966
+pretty cool because we don't want to be able to hit anywhere from anywhere, there wouldn't be any
+
+147
+00:09:40,966 --> 00:09:44,966
+point in moving then. So, we want to have to move towards the other tank, navigate some obstacles,
+
+148
+00:09:44,966 --> 00:09:48,966
+and then shoot. So, that is open to further tweaking later, but
+
+149
+00:09:48,966 --> 00:09:52,966
+4,000... Oops! There's a default launch speed, if I can leave it alone.
+
+150
+00:09:52,966 --> 00:09:56,966
+Here's a good starting point. I'll pop that into the Tank header file.
+
+151
+00:09:56,966 --> 00:10:00,966
+As a new default, rather than 10,000.
+
+152
+00:10:00,966 --> 00:10:04,966
+We had a TODO to find a sensible default, that's done!
+
+153
+00:10:04,966 --> 00:10:08,966
+While we're here, let's go to all of our TODO's. In Xcode you can just, rather than
+
+154
+00:10:08,966 --> 00:10:12,966
+going View Task List, you can just look for TODO's. We're still
+
+155
+00:10:12,966 --> 00:10:16,966
+asking the question whether or not the TankAimingComponent needs to Tick.
+
+156
+00:10:16,966 --> 00:10:20,966
+It probably doesn't, we don't have a Tick method in here. What I'm going to do is I'm going to say
+
+157
+00:10:20,966 --> 00:10:24,966
+false, and just test that the aiming works.
+
+158
+00:10:24,966 --> 00:10:28,966
+Let's test that the aiming works, before we remove the TODO. It's quite important how you handle
+
+159
+00:10:28,966 --> 00:10:32,966
+these minor things. If you delete the TODO first, then you may lose where you are; at least
+
+160
+00:10:32,966 --> 00:10:36,966
+we've got the TODO in here as a safety net.
+
+161
+00:10:36,966 --> 00:10:40,966
+Now, does it still work? Ah, it's not compiled. Come on
+
+162
+00:10:40,966 --> 00:10:44,966
+compiler, you can do it! So, without the TankAimingComponent Ticking, what happens?
+
+163
+00:10:44,966 --> 00:10:48,966
+It still works! And that's fine and that's because
+
+164
+00:10:48,966 --> 00:10:52,966
+this method is being constantly called from the PlayerController,
+
+165
+00:10:52,966 --> 00:10:56,966
+so there's no reason for the AimingComponent to Tick. So we can remove that
+
+166
+00:10:56,966 --> 00:11:00,966
+TODO, and then, we're nearly there. Let's just look at the other part
+
+167
+00:11:00,966 --> 00:11:04,966
+of the Task List: "report bug". Oh I did that! I did that yesterday! That was
+
+168
+00:11:04,966 --> 00:11:08,966
+reporting to the Unreal answers
+
+169
+00:11:08,966 --> 00:11:12,966
+place about this but. Now, there's a link to that on the previous
+
+170
+00:11:12,966 --> 00:11:16,966
+lecture, actually, on the lecture where I talked about
+
+171
+00:11:16,966 --> 00:11:20,966
+how to report bugs. So, that's all done, everything's cool! I'm going to save that!
+
+172
+00:11:20,966 --> 00:11:24,966
+I'm going to Save All on Unreal, making sure they get rid of all these stars,
+
+173
+00:11:24,966 --> 00:11:28,966
+and then, commit my work and we are done! Well done guys, let's move on to
+
+174
+00:11:28,966 --> 00:11:32,099
+something more exciting in the next video!
+

@@ -1,0 +1,1090 @@
+Kind: captions
+Language: en
+
+00:00:00,020 --> 00:00:08,470
+Welcome back, so it's about time we
+sorted out these defender animations,
+
+00:00:08,470 --> 00:00:12,350
+right now they're cycling through
+animation states with no regard for what
+
+00:00:12,350 --> 00:00:14,270
+else is going on around them,
+
+00:00:14,270 --> 00:00:18,480
+also the projectile animations are a
+mess, so we are now equipped to get this
+
+00:00:18,480 --> 00:00:23,650
+completely sorted. So in this video we
+are going to do the following: Number 1,
+
+00:00:23,650 --> 00:00:28,110
+I'm gonna show you three different approaches to
+projectile animation, we're going to
+
+00:00:28,110 --> 00:00:31,990
+separate the defenders from their
+projectile prefabs, animate projectiles
+
+00:00:31,990 --> 00:00:36,230
+using both script and the animator and
+that doesn't conflict with my previous
+
+00:00:36,230 --> 00:00:40,270
+rule cos we're gonna move the transform - the
+center of gravity - with the script and we're
+
+00:00:40,270 --> 00:00:44,730
+gonna move the rotation with the animator,
+and then we're going to fix up the defender
+
+00:00:44,730 --> 00:00:49,489
+animation states. So firstly imagine that you're
+gonna wanna do boomerangs; we're actually
+
+00:00:49,489 --> 00:00:53,110
+not gonna bother doing boomerangs, but
+imagine you wanted to go on an extend the
+
+00:00:53,110 --> 00:00:58,300
+game and have this courgette fly out to
+the far end lane and then come back again.
+
+00:00:58,329 --> 00:01:02,079
+Well, how could you do that in a 2D
+game like this or like a tower defense
+
+00:01:02,079 --> 00:01:06,090
+game based on grids? Well three
+fundamental ways that I can think of
+
+00:01:06,090 --> 00:01:11,229
+Number one you could have a different
+animation state for each start column, so
+
+00:01:11,229 --> 00:01:15,920
+imagine it's a parabolic flight or an out
+and return flight you could just have a
+
+00:01:15,920 --> 00:01:20,119
+different animation state for every start
+column, that would be ok for a limited
+
+00:01:20,119 --> 00:01:24,670
+number of columns and permutations;
+you could, number two create
+
+00:01:24,670 --> 00:01:28,719
+stroke modify the animation from scripts
+and kind of play with the animator from
+
+00:01:28,719 --> 00:01:32,779
+script modifying parameters - you could do
+that, quite difficult then to understand
+
+00:01:32,779 --> 00:01:36,139
+how it's going to behave at runtime, so
+it's not my favorite solution but it
+
+00:01:36,139 --> 00:01:40,189
+could be useful when you have something
+complex going on with the animation that
+
+00:01:40,189 --> 00:01:44,139
+you then just want to change a small
+parameter of from the script so it's an
+
+00:01:44,139 --> 00:01:45,020
+opportunity for you.
+
+00:01:45,020 --> 00:01:48,049
+Or number three you do all the
+translation from the script and that's
+
+00:01:48,049 --> 00:01:53,299
+actually how we're going to do our
+translation of our projectiles, is with
+
+00:01:53,299 --> 00:01:54,119
+number three.
+
+00:01:54,119 --> 00:02:00,719
+Alright, so how are we... how are we going to achieve
+all this? Well first let's get the prefabs
+
+00:02:00,719 --> 00:02:05,390
+separated, right now we have defender
+prefabs that have
+
+00:02:05,390 --> 00:02:12,800
+projectiles attached to them and then in
+the animator we are disabling those prefabs
+
+00:02:12,880 --> 00:02:19,860
+We're disabling the axe on the idle state for
+example, it's a great opportunity, yet you
+
+00:02:19,860 --> 00:02:23,850
+sometimes want to do that thing but we
+really want to treat the
+
+00:02:23,850 --> 00:02:27,360
+projectiles as completely separate game
+objects, once they're spawned they want to
+
+00:02:27,360 --> 00:02:31,040
+fly on their own, if the defender dies
+they need to continue on with their
+
+00:02:31,040 --> 00:02:35,420
+little lives; they want to have their own
+animators because they're going to do
+
+00:02:35,420 --> 00:02:39,739
+different things so we want to
+completely change this connection so
+
+00:02:39,739 --> 00:02:45,150
+what I'm gonna do quite quickly is now
+go through my gnome and my cactus, I'm
+
+00:02:45,150 --> 00:02:50,570
+going to remove these from the idle
+states I'm going to remove the curves that
+
+00:02:50,570 --> 00:02:55,010
+talk about disabling their projectiles,
+I'm going to stop trying to change the
+
+00:02:55,010 --> 00:02:59,560
+courgette's position, I'm also gonna do
+exactly the same on the gnome, I'm gonna say
+
+00:02:59,560 --> 00:03:05,269
+let's not bother making his axe
+inactive and also let's, in his attacking
+
+00:03:05,269 --> 00:03:10,140
+state, not bother trying to animate the
+axe; alright so that's stage one, freeing
+
+00:03:10,140 --> 00:03:15,720
+these guys from the tyranny of connected
+projectiles; so now I'm gonna move the
+
+00:03:15,720 --> 00:03:18,290
+projectiles into their own prefabs, gonna
+make a separate folder called
+
+00:03:18,290 --> 00:03:23,209
+projectiles - you can child is under the
+defenders folder if you want but I don't
+
+00:03:23,209 --> 00:03:29,370
+want three level of folders, that scares
+me; so I'm just gonna now create myself an empty
+
+00:03:29,370 --> 00:03:34,100
+GameObject at the top level called
+projectiles and later our script will expect
+
+00:03:34,100 --> 00:03:39,049
+this to be there; because it's just a
+holding object I'm going to reset it's
+
+00:03:39,049 --> 00:03:43,670
+transform, its position has no
+meaning so put it at the origin. Great, so
+
+00:03:43,670 --> 00:03:48,989
+now it's a relatively simple job to take
+the courgette and to prefab it into
+
+00:03:48,989 --> 00:03:53,930
+the projectile folder and to take
+the axe and prefab that into
+
+00:03:53,930 --> 00:04:00,060
+the projectiles folder like so, now we
+can actually remove the courgette and
+
+00:04:00,060 --> 00:04:04,329
+the axe from the gnome and the cactus
+respectively and update the prefabs,
+
+00:04:04,329 --> 00:04:10,700
+quite importantly, so the end result of
+this is that you no longer have axes or courgettes
+
+00:04:10,700 --> 00:04:16,500
+in your scene at all, although we will
+put them back in for testing in a little bit
+
+00:04:16,549 --> 00:04:20,500
+and that if you look at your prefabs for
+your defenders your cactus only has a
+
+00:04:20,500 --> 00:04:25,520
+body sprite and your gnome only has a body
+sprite; that's great. So we're on the way. Now
+
+00:04:25,520 --> 00:04:29,500
+let's pop a couple of projectiles
+into the scene after having reset their
+
+00:04:29,500 --> 00:04:33,530
+transforms - we don't want prefabbed
+projectiles to have any offset in their
+
+00:04:33,530 --> 00:04:36,909
+transforms - I'm gonna drop both an axe and
+a courgette into the scene, they
+
+00:04:36,909 --> 00:04:41,300
+arrive down the bottom here, let's put
+them somewhere random just to
+
+00:04:41,300 --> 00:04:45,819
+reiterate the idea that they're not
+actually being fired by these guys at
+
+00:04:45,819 --> 00:04:49,900
+the moment, they're just independent
+projectiles hanging around in the scene;
+
+00:04:49,900 --> 00:04:54,300
+there they are, now let's play the same
+trick with these projectiles as we did
+
+00:04:54,300 --> 00:05:00,550
+with the gnomes, and that is to create
+separate sub-objects, child objects, that
+
+00:05:00,550 --> 00:05:05,139
+hold their bodies or their sprites and the
+reason for that is we can then rotate
+
+00:05:05,139 --> 00:05:11,199
+the body in the animator without
+rotating the entire transform and that's
+
+00:05:11,199 --> 00:05:14,219
+going to be important because when you
+try and translate and rotate at the same
+
+00:05:14,219 --> 00:05:18,009
+time if you do that on the same object
+it's just going to go round in circles,
+
+00:05:18,009 --> 00:05:21,719
+cause if you tell it to go right and then
+go forward and go right and go forward,
+
+00:05:21,719 --> 00:05:25,830
+that's going round in a circle
+basically, so you'll see how that comes
+
+00:05:25,830 --> 00:05:29,020
+true when we animate this thing, let's just
+follow the same pattern as we did before
+
+00:05:29,020 --> 00:05:34,319
+let's have separate sub-objects for the
+bodies for the sprites. It's a bit weird to call it the
+
+00:05:34,319 --> 00:05:37,169
+body of a projectile, use a different
+word if you like, I'm just trying to be
+
+00:05:37,169 --> 00:05:42,659
+consistent here. So I'm just gonna rip
+off my sprite renderers here,
+
+00:05:42,659 --> 00:05:49,120
+copy and then remove the component and
+then stick it on the sub-objects, there it is for that
+
+00:05:49,120 --> 00:05:55,580
+one and then same on the courgette and we're well on the way; so copy and remove the courgette component.
+
+00:05:55,580 --> 00:06:01,639
+OK, fantastic so now these projectiles are set
+up very much into the same pattern as
+
+00:06:01,639 --> 00:06:06,069
+the defenders and the attackers, they're all
+following the same pattern now, much
+
+00:06:06,069 --> 00:06:09,080
+easier to get our head around. We couldn't
+have got to this point of course until
+
+00:06:09,080 --> 00:06:15,029
+we had ratified how we're going to use
+attackers and defenders. Ratified, what
+
+00:06:15,029 --> 00:06:17,930
+the hell does that mean? Brice pointed
+out yesterday that it's just one of those
+
+00:06:17,930 --> 00:06:22,389
+words, right? Anyway, I kinda know what it means, the dictionary kinda knows what it
+
+00:06:22,389 --> 00:06:25,110
+means, and it makes you sound
+really clever when you say it.
+
+00:06:25,110 --> 00:06:27,890
+So there they are, two projectiles sitting in
+the scene, of course for them to move
+
+00:06:27,890 --> 00:06:36,330
+they need to have a script on them, so
+let's do that. Let's call it projectile, and
+
+00:06:36,330 --> 00:06:42,420
+there's a script sitting on the courgette, let's
+add it to the axe as well, make sure you add
+
+00:06:42,420 --> 00:06:46,400
+it to the top level, not to the actual
+sprites; in this case I've added
+
+00:06:46,400 --> 00:06:49,770
+it accidentally to the sprite, so the
+courgette and the axe want a projectile
+
+00:06:49,770 --> 00:06:54,010
+script at their top level and it's a
+good time now to update the pre-fab so
+
+00:06:54,010 --> 00:06:59,940
+the courgette and the axe, so there
+they sit with their sprites in a
+
+00:06:59,940 --> 00:07:04,330
+separate object and both have got a projectile
+script. Cool so pop the projectile
+
+00:07:04,330 --> 00:07:09,540
+script away and let's make it work. So in
+this video we're only gonna make the
+
+00:07:09,540 --> 00:07:13,220
+projectiles move we're not going to
+worry about them dealing damage yet
+
+00:07:13,220 --> 00:07:15,430
+we're going to do that in a separate
+video; so all we need to do with
+
+00:07:15,430 --> 00:07:18,890
+projectiles right now is make them move.
+How do you make them move?
+
+00:07:18,890 --> 00:07:22,470
+We're not going to add physics to them,
+not in this game we're going to avoid physics
+
+00:07:22,470 --> 00:07:26,710
+altogether in this game - it's not
+necessary, even though the projectiles
+
+00:07:26,710 --> 00:07:31,060
+will need, and we may as well do it now
+they will need rigid bodies, because they
+
+00:07:31,060 --> 00:07:35,620
+need to have rigid bodies on them in order
+for them to be kinematic rigid body
+
+00:07:35,620 --> 00:07:39,820
+trigger colliders, which is the type of
+collider they were using. They do need to
+
+00:07:39,820 --> 00:07:42,650
+have rigid bodies on them for that
+purpose, and this is just to do with the way
+
+00:07:42,650 --> 00:07:46,730
+that unity processes collisions, we're
+going to click to say they're kinematic
+
+00:07:46,730 --> 00:07:51,180
+right, so both the courgette and the
+axe - all of your project - will have
+
+00:07:51,180 --> 00:07:55,990
+kinematic 2D rigid bodies on them, only
+because of what that does to the
+
+00:07:55,990 --> 00:08:00,150
+collider, in fact I'm going to move the component
+up next to the collider, so kind of
+
+00:08:00,150 --> 00:08:05,420
+remind me that the only reason I put that on
+there is to make the colliders on these
+
+00:08:05,420 --> 00:08:10,630
+guys work properly; right so we have
+these these box colliders sitting on
+
+00:08:10,630 --> 00:08:13,730
+there, now you may want to check the
+extents of your box colliders, lets worry about
+
+00:08:13,730 --> 00:08:17,680
+the box colliders when we worry about
+impacts and collisions OK? For now they're
+
+00:08:17,680 --> 00:08:22,440
+absolutely fine; so the question becomes
+how do you move these things through
+
+00:08:22,440 --> 00:08:26,760
+space when you're not using physics well
+you gonna write your own first tiny bit
+
+00:08:26,760 --> 00:08:28,720
+of a physics engine, it couldn't be
+simpler.
+
+00:08:28,720 --> 00:08:31,880
+This is basically Newton's first law,
+things carry on
+
+00:08:31,880 --> 00:08:37,580
+unless there's a reason not to, i.e. an un-balanced external force. So how do we do it? What do we need
+
+00:08:37,580 --> 00:08:44,210
+access to? Yada yada... well, you're going to need a speed right? So public float speed; It's going to be one of
+
+00:08:44,210 --> 00:08:47,130
+their properties another property they're gonna
+have later is damage, why not put it in
+
+00:08:47,130 --> 00:08:52,790
+straight away cool so when looking at a
+projectile now you will see that day
+
+00:08:52,790 --> 00:08:56,930
+projectile script asks for speed, let's
+give one of them a speed of 1, and let's
+
+00:08:56,930 --> 00:09:02,120
+give the other a speed of say... I don't know, two just
+for fun and let's give them both some damage when
+
+00:09:02,120 --> 00:09:07,270
+while we're here, 10 and... I don't know an axe has gotta do loads more damage hasn't it? 25; this is going to be
+
+00:09:07,270 --> 00:09:13,660
+about play tuning later. Update my prefabs
+and back to the script. Now, how do we
+
+00:09:13,660 --> 00:09:18,370
+make this move frame-by-frame? Well, if it
+was a physics-based game we'd be using
+
+00:09:18,370 --> 00:09:21,920
+something called fixed update but we're
+not, this is purely visual game so we're
+
+00:09:21,920 --> 00:09:25,140
+just going to make the calculations for
+the position based on the frame, the
+
+00:09:25,140 --> 00:09:28,700
+actual visual frame, so it goes in update
+that's the first hint for you and this
+
+00:09:28,700 --> 00:09:35,130
+is how we're gonna do it, relatively simple.
+Transform dot translate and then Vector3
+
+00:09:35,130 --> 00:09:39,690
+dot right, we can just get off the
+shelf as a right hand vector, times the
+
+00:09:39,690 --> 00:09:46,110
+speed times... guess what... time . yeah I
+heard you singing it time dot Delta time.
+
+00:09:46,110 --> 00:09:49,930
+So that's all we do every frame, we move
+it by its current speed and its speed is
+
+00:09:49,930 --> 00:09:52,890
+continuous, so let's try it
+
+00:09:52,890 --> 00:09:57,660
+click play and watch the two projectiles -
+hey there they go, one's going faster than
+
+00:09:57,660 --> 00:09:58,550
+the other.
+
+00:09:58,550 --> 00:10:02,430
+Perfect, that's great news now if you're
+interested in building your own physics
+
+00:10:02,430 --> 00:10:06,450
+engine from scratch and understanding it
+better, then click on my little face in Udemy,
+
+00:10:06,450 --> 00:10:11,640
+scroll down to my courses and you'll
+see game physics - extend unity 3d engine
+
+00:10:11,640 --> 00:10:17,370
+Unity 3d's physics engine, here it is
+at game physics, so Udemy.com/gamephysics,
+
+00:10:17,370 --> 00:10:21,050
+check out that course, people are loving
+it and I will take you through in detail
+
+00:10:21,050 --> 00:10:27,900
+how to make your own physics engine but
+for now that is a very very simple first step.
+
+00:10:27,920 --> 00:10:31,590
+OK, so there they go, the projectiles go
+flying off to the right, now we need to
+
+00:10:31,590 --> 00:10:34,000
+make them spin, so how do we make them spin?
+
+00:10:34,000 --> 00:10:38,240
+Well, they're gonna need their own
+animators, the projectiles OK? So
+
+00:10:38,240 --> 00:10:42,670
+previously we were conservative with our
+animators because we said we only need
+
+00:10:42,670 --> 00:10:46,340
+one animator at the top level component
+i.e. on the cactus or the gnome, but
+
+00:10:46,340 --> 00:10:50,570
+now that projectiles have their own life
+then we're going to give them their
+
+00:10:50,570 --> 00:10:55,900
+own animators; fantastic do they need
+different animations? I think it makes
+
+00:10:55,900 --> 00:10:58,990
+sense for them to have different
+animations, so I think I'll create a
+
+00:10:58,990 --> 00:11:04,310
+folder called projectiles and then
+inside the projectiles folder let's
+
+00:11:04,310 --> 00:11:10,420
+create a couple of different animations.
+One is going to be called axe flight
+
+00:11:10,420 --> 00:11:20,600
+and let's make the other one called
+courgette flight
+
+00:11:20,600 --> 00:11:25,860
+I'll just fix courgette over here so I've
+given you a hint on the naming of the
+
+00:11:25,860 --> 00:11:30,150
+clips I want you to finish this off now
+I want you to create the animation
+
+00:11:30,150 --> 00:11:34,050
+controllers that you need, we've just
+created clips for the axe and the courgette,
+
+00:11:34,050 --> 00:11:38,760
+I also want you to go into the
+animation controllers for all of the
+
+00:11:38,760 --> 00:11:42,450
+other defenders and sort them out in
+terms of their triggers and everything
+
+00:11:42,450 --> 00:11:47,720
+else so our gnome, his state machine wants
+to look sensible, he wants to be idle
+
+00:11:47,720 --> 00:11:51,780
+unless is attacking, we haven't got an is
+attacking etcetera, the same way as we
+
+00:11:51,780 --> 00:11:57,430
+did for the attackers alright? So the end
+result of this is going to be that in
+
+00:11:57,430 --> 00:12:04,390
+your scene you have two projectiles
+flying to the right as they are but
+
+00:12:04,390 --> 00:12:08,560
+rotating using the animator rotating the
+sprite - put the animator at the top level
+
+00:12:08,560 --> 00:12:12,180
+but rotate the subcomponent, the sprite, you've done that before and the other
+
+00:12:12,180 --> 00:12:15,460
+thing that I want to happen is I want
+all of these guys here on the left, the
+
+00:12:15,460 --> 00:12:20,890
+defenders to sit in their idle state
+unless you come into the animator here
+
+00:12:20,890 --> 00:12:25,660
+and in the parameter in the bool
+parameter is attacking - unless you tick it on;
+
+00:12:25,660 --> 00:12:30,620
+So there's is attacking, when you tick that on for
+any of the particular selected defenders
+
+00:12:30,620 --> 00:12:34,290
+I wanted them to go into an attacking state,
+don't worry about them spawning any
+
+00:12:34,290 --> 00:12:38,100
+projectiles for the moment, don't worry
+about multiple projectiles, we're just
+
+00:12:38,100 --> 00:12:41,580
+gonna have those single two projectiles
+going off to the right and spinning,
+
+00:12:41,580 --> 00:12:46,180
+that's that bit done, the other bit is
+the defenders they want to stay idle
+
+00:12:46,180 --> 00:12:50,580
+unless you click their is attacking
+parameter on and then they will start
+
+00:12:50,580 --> 00:12:55,680
+showing their attacking or agitated
+animation; so the slide for the challenge
+
+00:12:55,680 --> 00:13:01,900
+is here, sort out your defender animations.
+
+00:13:01,900 --> 00:13:07,360
+OK, welcome back so let's get that working
+let's start by just having the animation
+
+00:13:07,360 --> 00:13:11,950
+working for these projectiles so what
+are we missing on here?
+
+00:13:11,950 --> 00:13:16,630
+Well, I'm gonna need a animation
+controller for the projectile, so lots
+
+00:13:16,630 --> 00:13:22,269
+of ways of doing that, I can click on the
+on their axe and i can say well I need
+
+00:13:22,269 --> 00:13:26,990
+an animation controller so I will make one -
+create animation controller, there we go
+
+00:13:26,990 --> 00:13:34,160
+Going to call it underscore axe, then I'm going
+to create a new animation controller... you
+
+00:13:34,160 --> 00:13:37,079
+could potentially have one animation
+controller and share it, but I'm gonna have
+
+00:13:37,079 --> 00:13:44,959
+a separate animation controller for the
+axe and for the courgette; so they
+
+00:13:44,959 --> 00:13:47,950
+now have their own animation controllers,
+now it's the standard stuff, I'm just gonna
+
+00:13:47,950 --> 00:13:52,200
+whip through it quickly, so the animation
+controller gets attached to the axe,
+
+00:13:52,200 --> 00:13:56,870
+the animation controller gets attached to the courgette,
+we go into the axe's animation controller,
+
+00:13:56,870 --> 00:14:00,510
+it has a state, I already made a clip so
+I'm gonna make a new empty state called
+
+00:14:00,510 --> 00:14:06,160
+flight which makes sense, it's in flight,
+in fact it's its only state in this particular
+
+00:14:06,160 --> 00:14:11,529
+instance, now what's the curve? What's the
+motion rather for this thing? Well, we
+
+00:14:11,529 --> 00:14:16,899
+already have it right, it's courgette, it's courgette 
+flighr. Alright, so that's that one done, let's go
+
+00:14:16,899 --> 00:14:18,790
+to the axe...
+
+00:14:18,790 --> 00:14:22,570
+I'm mixing myself up, it's not the courgette
+flight, it's the axe flight; this is why, by the
+
+00:14:22,570 --> 00:14:26,399
+way, we prefix all the motions with the
+name of the object otherwise you just
+
+00:14:26,399 --> 00:14:30,459
+have flight flight flight, idle idle idle as
+you saw before; alright so there he is with
+
+00:14:30,459 --> 00:14:34,370
+his clip now, axe flight, what is it
+about the axe flight that we want to modify?
+
+00:14:34,370 --> 00:14:36,390
+Well, 30 frames a second
+
+00:14:36,390 --> 00:14:41,120
+sounds good to me, and then we want it
+to spin about every second, so we're going to add a
+
+00:14:41,120 --> 00:14:46,600
+curve, not working on the main object but
+working on the transform of
+
+00:14:46,600 --> 00:14:50,550
+the body, it's the body that has the sprite
+attached to it, we're going to rotate
+
+00:14:50,550 --> 00:14:53,940
+the transform of the body, that's
+important now I have it on my screen right
+
+00:14:53,940 --> 00:14:59,380
+now; okay and then you can actually get
+it to interpolate between these points
+
+00:14:59,380 --> 00:15:03,459
+automatically so it's by default put a
+key frame at one second, perhaps the
+
+00:15:03,459 --> 00:15:09,269
+rotation is minus three hundred and
+fifty nine degrees after one second... like that
+
+00:15:09,269 --> 00:15:14,410
+OK, now let's just try it, there it goes, see the axe spinning forward and then it stops?
+
+00:15:14,410 --> 00:15:22,120
+Why does it stop? Well, if you go to the
+axe flight motion it's not looping so we'll
+
+00:15:22,120 --> 00:15:26,410
+set it looping for the both of them and
+let's go to the courgette and get that
+
+00:15:26,410 --> 00:15:29,680
+sorted as well, so again the courgette
+state machine does not have a state right
+
+00:15:29,680 --> 00:15:34,069
+now; create an empty state. I'm doing these all manually
+just now to really rub it home how
+
+00:15:34,069 --> 00:15:38,850
+this works, how they all sit and
+interoperate. What is the motion for that?
+
+00:15:38,850 --> 00:15:54,480
+Well, it's courgette flight, right? So courgette has courgette flight, an axe has an axe flight, fantastic so the
+
+00:15:54,480 --> 00:15:57,589
+courgette flight, how's that going to look? Well let's
+make it similar but not precisely the
+
+00:15:57,589 --> 00:16:01,829
+same, again animating the transform of
+the body, its rotation, let's make the
+
+00:16:01,829 --> 00:16:10,860
+courgette go round faster, so in less than a
+second it's gonna do minus 359 degrees.
+
+00:16:10,860 --> 00:16:14,769
+why minus? Well, it just makes it spins
+the right way if there's such a thing as the
+
+00:16:14,769 --> 00:16:18,329
+right way, there's kind of a right way for the
+axe for doing the maximal damage, but I
+
+00:16:18,329 --> 00:16:21,410
+think the handles going to hit you before the blade
+but anyway, let's not think about axes hitting
+
+00:16:21,410 --> 00:16:25,430
+you; so that's working, that's that bit done,
+so let's move on to the next bit, the
+
+00:16:25,430 --> 00:16:29,480
+next and final bit here is getting the
+animation states for all the defenders, firstly  before I
+
+00:16:29,480 --> 00:16:34,959
+leave them let's re-apply the changes to
+our prefabs and now let's take a look at
+
+00:16:34,959 --> 00:16:40,089
+the cactus animation so what's the deal
+with his state machine? He needs an is
+
+00:16:40,089 --> 00:16:43,829
+attacking bool, right? Why a bool, because
+it's a continuous thing not a one-off,
+
+00:16:43,829 --> 00:16:48,949
+we use triggers for one-offs, how do we go
+from - in fact I said let's delete any
+
+00:16:48,949 --> 00:16:53,350
+transitions and start afresh because then
+the animations are neat; so there is a new
+
+00:16:53,350 --> 00:16:57,600
+transition but it's based on is attacking
+being true, this is very rote, I'm afraid,
+
+00:16:57,600 --> 00:17:02,800
+OK so that's when it goes from
+attacking to idle based on that, and the
+
+00:17:02,800 --> 00:17:05,890
+attack and Idle don't have anything
+superfluous in them, later on we'll be
+
+00:17:05,890 --> 00:17:11,230
+adding events into the attack so that
+they actually spawn weapons, but that's
+
+00:17:11,230 --> 00:17:15,569
+on its way let's just check this guy's
+working properly without maximize on
+
+00:17:15,569 --> 00:17:23,470
+play, so I'm going to click into the game
+now come on,
+
+00:17:23,470 --> 00:17:30,030
+maximize play is sticking on, OK there we
+go. That's better, now if I click is
+
+00:17:30,030 --> 00:17:36,630
+attacking on what happens? If you watch
+the cactus which is the thing that
+
+00:17:36,630 --> 00:17:40,929
+we're dealing with right now his is
+attacking state is fine and then he
+
+00:17:40,929 --> 00:17:44,100
+stops attacking, so that's his state
+management done I'm now very quickly
+
+00:17:44,100 --> 00:17:46,659
+gonna go through the other guys and do
+the same thing.
+
+00:17:46,659 --> 00:17:50,450
+Alright so I'm gonna apply my prefab for
+the cactus, move down to the next
+
+00:17:50,450 --> 00:17:55,960
+thing on the list which is the gnome, look at his state,
+I don't trust the current transition
+
+00:17:55,960 --> 00:18:00,679
+so I'm going to remove them, check that I've got an is
+attacking parameter which I do, make the
+
+00:18:00,679 --> 00:18:05,539
+transition to attack make the transition
+back set up the transitions so we go
+
+00:18:05,539 --> 00:18:09,770
+back when is attacking is false and
+forward when is attacking is true, oh man if
+
+00:18:09,770 --> 00:18:13,600
+you had a pound every time you did this or
+a dollar or whatever your currency is you'd be
+
+00:18:13,600 --> 00:18:17,720
+very rich because it can get a little
+bit tedious doing these things; alright
+
+00:18:17,720 --> 00:18:22,010
+so let's just check that, the next attacker
+
+00:18:22,010 --> 00:18:27,720
+there he goes, agitated gnome attacking gnome
+and not attacking gnome, fine so how about the
+
+00:18:27,720 --> 00:18:31,960
+star trophy is the final one; I'm gonna
+just apply the gnome by the way back to
+
+00:18:31,960 --> 00:18:40,679
+the pre-fab, check they all work OK, yep
+these are working; so how about his star
+
+00:18:40,679 --> 00:18:44,590
+trophy what's the deal with the star
+trophy and the gravestone? well the star
+
+00:18:44,590 --> 00:18:48,890
+trophy has an idle animation and a
+growing animation so I'm just gonna say
+
+00:18:48,890 --> 00:18:54,309
+I'm gonna use a trigger for growing the star
+because it grows a star as a kind
+
+00:18:54,309 --> 00:18:58,990
+of one off when the script's ready, so grow
+trigger for now, this is all kind of
+
+00:18:58,990 --> 00:19:03,190
+extra optional stuff. I'm actually gonna
+leave the state transitions out for now
+
+00:19:03,190 --> 00:19:08,690
+and just leave it idle and then what
+else do we need? We have a gravestone, so
+
+00:19:08,690 --> 00:19:16,750
+apply my start trophy back, go to the top
+gravestone and say to myself well what's
+
+00:19:16,750 --> 00:19:20,330
+my under attack and idle animation same
+deal exactly the same stuff I'm afraid
+
+00:19:20,330 --> 00:19:27,390
+so is attacking bool in this case
+because its continuous state, not just a
+
+00:19:27,390 --> 00:19:30,140
+single cycle, and you make your transitions
+
+00:19:30,140 --> 00:19:34,460
+Alright, we get the idea let's test it
+and let's also make sure that our
+
+00:19:34,460 --> 00:19:40,720
+prefabs have all been saved properly; so
+is attacking true, is attacking false
+
+00:19:40,720 --> 00:19:45,030
+that's all finished off, now
+
+00:19:45,030 --> 00:19:51,140
+prefab your gravestone, and the way to
+test that these prefabs have been
+
+00:19:51,140 --> 00:19:54,960
+saved properly, there's lots of ways of
+doing it but the simplest is just to drag
+
+00:19:54,960 --> 00:19:59,480
+the prefabs into the scene and make sure
+that the pre-fab themselves
+
+00:19:59,480 --> 00:20:03,220
+operate properly. So let's put a few
+defenders, one of each type of defender
+
+00:20:03,220 --> 00:20:07,960
+onto the scene - you have to be scene view not
+game view, it won't work - so you go into
+
+00:20:07,960 --> 00:20:14,740
+scene view, drop a cactus, a gnome,
+a gravestone and a star trophy and let's just
+
+00:20:14,740 --> 00:20:20,450
+check that they all behave properly. So we
+can now go through those things which
+
+00:20:20,450 --> 00:20:24,470
+are messily sitting at the top of the
+hierarchy and we can just click is
+
+00:20:24,470 --> 00:20:31,900
+attacking and make sure that the gnome
+works, the grave stone works apart from the
+
+00:20:31,900 --> 00:20:36,900
+grave stone is defaulting to the wrong thing, so
+we fix that by right clicking on it and
+
+00:20:36,900 --> 00:20:45,400
+saying set as default on idle, and then
+applying his prefab back... cactus... this cactus
+
+00:20:45,400 --> 00:20:52,410
+instance is behaving itself and then the
+star trophy, so it should be in idle by default and
+
+00:20:52,410 --> 00:20:56,150
+we're not putting the transitions in yet,
+great so they all are working fine. They're
+
+00:20:56,150 --> 00:20:59,910
+the sort of things you may have to do
+and we are good to go
+
+00:20:59,910 --> 00:21:04,060
+we have completed the challenge for this
+lesson. I guess the only thing to say is
+
+00:21:04,060 --> 00:21:11,630
+why is my cactus starting in an
+attack state? It's not because the
+
+00:21:11,630 --> 00:21:15,870
+default state is idle in orange here
+when you right-click, but because the
+
+00:21:15,870 --> 00:21:20,400
+is attacking parameter by default has
+been set to yes; hopefully that makes sense, so
+
+00:21:20,400 --> 00:21:23,390
+there's two ways you can end up starting
+in the wrong state; one is your default
+
+00:21:23,390 --> 00:21:26,400
+state and others you may have a
+parameter default.
+
+00:21:26,400 --> 00:21:30,160
+Anyway congratulations,  huge progress on this video and I'll see you soon.
+

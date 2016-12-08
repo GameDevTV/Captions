@@ -1,0 +1,646 @@
+Kind: captions
+Language: en
+
+00:00:00,000 --> 00:00:07,359
+Welcome back again fine people; so in
+this video we're going to be talking
+
+00:00:07,359 --> 00:00:12,170
+about refactoring your code; we'll touch
+on the single responsibility principle
+
+00:00:12,170 --> 00:00:16,660
+which is a part of a wider framework of
+SOLID which you can read all about
+
+00:00:16,660 --> 00:00:22,300
+through the Wikipedia article on single
+responsibility here and then by linking
+
+00:00:22,300 --> 00:00:28,990
+up to SOLID if you choose to over here. 
+So with single responsibility in mind
+
+00:00:28,990 --> 00:00:33,239
+let's go through now before we move on
+to the final phase of this game and do a
+
+00:00:33,239 --> 00:00:38,370
+little bit of refactoring. So firstly I
+want to just go to the main camera; I
+
+00:00:38,370 --> 00:00:41,910
+want to go to through all the game objects basically
+have a quick look at them and I also
+
+00:00:41,910 --> 00:00:45,219
+want to go through all the scripts and have a
+quick look at them so the main camera
+
+00:00:45,219 --> 00:00:49,070
+well one thing I'd like to do in the
+main camera set a different skybox on
+
+00:00:49,070 --> 00:00:53,710
+this main camera because I'm gonna make
+it like a space bowling game. So add a
+
+00:00:53,710 --> 00:00:58,350
+component to the main camera called a skybox
+and then under custom Sky box
+
+00:00:58,350 --> 00:01:02,870
+point it into your start pack that we
+gave you the beginning of the section
+
+00:01:02,870 --> 00:01:08,260
+and choose stars 1024. So now in game view
+you have a starry spacey bowling game
+
+00:01:08,260 --> 00:01:12,110
+which is what we're going to converge towards
+anything else about this main camera
+
+00:01:12,110 --> 00:01:15,909
+that needs tidying up right now I'm
+happy we have no disconnected objects so
+
+00:01:15,909 --> 00:01:20,040
+I'm gonna move on; top camera's working just
+fine as well. The Pinsetter, how's  that
+
+00:01:20,040 --> 00:01:24,880
+looking for us? Again i'm looking for any
+disconnected objects or anything in here
+
+00:01:24,880 --> 00:01:28,470
+this glaringly obviously wrong no fine, so
+move on
+
+00:01:28,470 --> 00:01:33,740
+lane so the lane has been restructured
+so that it has a floor and a separate
+
+00:01:33,740 --> 00:01:37,400
+collider under the floor just make sure
+that the top level of your floor and your
+
+00:01:37,400 --> 00:01:42,720
+collider are the same and that your collider is nice and deep and then as far as
+
+00:01:42,720 --> 00:01:47,040
+I'm concerned that is absolutely fine
+for now you may want to put a different
+
+00:01:47,040 --> 00:01:51,970
+physics material on this floor, so here I
+have a default physics material in fact
+
+00:01:51,970 --> 00:01:58,370
+I'm gonna make a folder for this right
+now
+
+00:01:58,370 --> 00:02:02,240
+physics materials and  put the default in it. You may want
+to separate floor material, if you do
+
+00:02:02,240 --> 00:02:05,630
+that you can attach it to the floor and
+play with the properties of the floor
+
+00:02:05,630 --> 00:02:09,180
+material I'm gonna leave that to you to
+make it more or less slippery or however
+
+00:02:09,180 --> 00:02:11,330
+you want it but that's looking fine
+
+00:02:11,330 --> 00:02:16,720
+the directional light is inside the lane
+that's a little bit spooky a little bit
+
+00:02:16,720 --> 00:02:21,360
+strange so we goona be happy with that? Or shall we pull it out? I'm gonna pull it out right to the
+
+00:02:21,360 --> 00:02:25,400
+top and also do we want three levels of
+hierarchy we don't really need it we
+
+00:02:25,400 --> 00:02:29,850
+can just call this collider floor
+collider and it doesn't need to be sub to
+
+00:02:29,850 --> 00:02:30,240
+it
+
+00:02:30,240 --> 00:02:34,750
+ok so you can see how it's very easy to
+reflect your hierarchy. Looking better
+
+00:02:34,750 --> 00:02:38,800
+the UI canvas is all fine and working
+fine; the pins good one thing to check
+
+00:02:38,800 --> 00:02:42,400
+with the pins is are they still connected
+your prefabs here they're blue so they
+
+00:02:42,400 --> 00:02:45,610
+should be that's good we have an event
+system the event system is part of the
+
+00:02:45,610 --> 00:02:50,370
+UI, I'm gonna put that above the UI just to remind me that it's part of the UI and then the ball itself
+
+00:02:50,370 --> 00:02:55,320
+is connected to a prefab. Good so no
+problems that are glaringly obvious over
+
+00:02:55,320 --> 00:02:59,780
+there now let's look at our scripts and
+think about refactoring. Ball, what is the
+
+00:02:59,780 --> 00:03:04,010
+ball doing for us and is it singularly
+responsible for being a ball? Well it has
+
+00:03:04,010 --> 00:03:07,110
+a launch velocity which kind of makes
+sense and it has a Boolean, a public
+
+00:03:07,110 --> 00:03:10,470
+Boolean that talks about whether it's in
+play so these are both properties of the
+
+00:03:10,470 --> 00:03:14,840
+ball and I'm happy enough with that. Then
+it has some private methods less
+
+00:03:14,840 --> 00:03:19,190
+important that they are right but the
+question is are these things
+
+00:03:19,190 --> 00:03:24,920
+sensible helper variables or private
+variables and for the class? Well, I
+
+00:03:24,920 --> 00:03:27,239
+think they are we its start position,
+
+00:03:27,239 --> 00:03:30,430
+access to its RigidBody and access to
+its AudioSource so all perfectly reasonable.
+
+00:03:30,430 --> 00:03:34,360
+So let's zoom out a little bit again in
+our mind and think what are the public
+
+00:03:34,360 --> 00:03:37,660
+methods of this guy now? I don't really
+care what happens in start it just
+
+00:03:37,660 --> 00:03:40,820
+does some set up stuff but is it
+reasonable to say there's a public
+
+00:03:40,820 --> 00:03:45,850
+method to launch a ball with a velocity
+and a public method to reset the ball. I
+
+00:03:45,850 --> 00:03:50,470
+think it is so I think the ball class at
+the moment looks reasonable so I'm happy
+
+00:03:50,470 --> 00:03:53,260
+with it I don't need to move any code
+around let's move on and look at the
+
+00:03:53,260 --> 00:03:58,160
+camera controller. It's incredibly simple
+you point it to a ball, it privately keeps
+
+00:03:58,160 --> 00:04:02,459
+track of an offset and it keeps the
+camera behind the ball until you get to
+
+00:04:02,459 --> 00:04:08,250
+1829 which is the end position. You could
+publicly expose this 1829 as a stock
+
+00:04:08,250 --> 00:04:10,860
+position if you wanted to I'm hard
+coding it in
+
+00:04:10,860 --> 00:04:15,130
+in this case I'm happy enough with the
+camera control script. DragLlaunch. So
+
+00:04:15,130 --> 00:04:20,660
+DragLaunch is specifically for balls so
+indeed it requires the ball component
+
+00:04:20,660 --> 00:04:24,910
+so I might want to rename DragLaunch tp
+BallDragLaunch just so it's super
+
+00:04:24,910 --> 00:04:28,800
+clear that it won't work on other things
+it's very much a specialist script to
+
+00:04:28,800 --> 00:04:34,200
+talk to Balls. It has no public
+members and does it need all of
+
+00:04:34,200 --> 00:04:39,400
+these private members, are they sensible, well I
+think they are, that's all fine and again
+
+00:04:39,400 --> 00:04:43,260
+I have no issues with this. Let's look at
+your public methods is it reasonable for
+
+00:04:43,260 --> 00:04:48,210
+a drag script to have a move start?
+
+00:04:48,210 --> 00:04:52,669
+Well yes that's what these buttons do
+remember at the start here we start
+
+00:04:52,669 --> 00:04:55,870
+playing the game these left and right
+buttons nudge left and right move
+
+00:04:55,870 --> 00:05:01,480
+start reasonable. Then we have a public
+drag start method so what's that about
+
+00:05:01,480 --> 00:05:05,050
+where's that being called from? Well that's
+going to be called because of a mouse
+
+00:05:05,050 --> 00:05:11,110
+event from the UI and I think that that's fine
+that there's a drag start and a drag end and
+
+00:05:11,110 --> 00:05:14,000
+then the drag end is responsible for
+actually launching the ball so I think
+
+00:05:14,000 --> 00:05:19,440
+this is ok a BallDragLaunch script is
+responsible for drag launching a ball.I
+
+00:05:19,440 --> 00:05:26,380
+think that's reasonable so no changes
+needed there. Pin. Now is this Pin
+
+00:05:26,380 --> 00:05:30,970
+thing reasonable. Is it reasonable to
+have a standing threshold for a pin I
+
+00:05:30,970 --> 00:05:35,120
+think so, it's to do with the geometry of
+the pin it's a property of the pin the
+
+00:05:35,120 --> 00:05:39,229
+distance to raise the pin it's a moot point
+whether this should go here with the pin
+
+00:05:39,229 --> 00:05:43,620
+or the Pinsetter. You could argue it should
+be the pin because it depends how big the
+
+00:05:43,620 --> 00:05:46,820
+pin is, you could argue should be with the 
+Pinsetter because it's a property of how
+
+00:05:46,820 --> 00:05:51,660
+the Pinsetter operates, so I'm leaving
+here for now and then we have a private
+
+00:05:51,660 --> 00:05:56,040
+RigidBody. So now let's look at your
+public methods, we have an isStanding we
+
+00:05:56,040 --> 00:05:59,410
+can ask a pin if it's standing, I think
+that's fine we can raise it if it's
+
+00:05:59,410 --> 00:06:04,210
+standing and we can lower it from the
+outside reasonable architecture. Good so so
+
+00:06:04,210 --> 00:06:08,210
+far we're just confirming that our
+architecture makes sense. Pinsetter lot of
+
+00:06:08,210 --> 00:06:12,800
+public properties are they all sensible?
+This last standing count being minus one
+
+00:06:12,800 --> 00:06:14,400
+that's the ugliest bit of arco
+
+00:06:14,400 --> 00:06:19,220
+but it's nice and concise and I'm gonna
+leave it like this for now but I accept
+
+00:06:19,220 --> 00:06:23,509
+that this is not great what the hell
+does minus one mean good question you
+
+00:06:23,509 --> 00:06:27,110
+could use different data structures but
+you'd end up writing more code to make
+
+00:06:27,110 --> 00:06:30,960
+it read nicer so you'd have more code
+that reads more nicely the trick is
+
+00:06:30,960 --> 00:06:35,020
+that the less code the better so I'm
+going to leave that. The Pinsetter needs to
+
+00:06:35,020 --> 00:06:39,090
+update the standing display it needs to
+know the distance to raise now we have a
+
+00:06:39,090 --> 00:06:43,460
+duplication. This is talking about a
+distance to raise in here and the pin is
+
+00:06:43,460 --> 00:06:48,930
+talking about the distance to raise as
+well so I'm not happy having distance to
+
+00:06:48,930 --> 00:06:53,919
+raise in both the Pinsetter and the pin. 
+so my first question would be do we use
+
+00:06:53,919 --> 00:06:56,120
+it in Pinsetter? Find it,
+
+00:06:56,120 --> 00:07:01,740
+where's the second instance, we don't use
+it anymore we've already refactored it out.
+
+00:07:01,740 --> 00:07:07,229
+Raise pins only by distance to raise, so
+we can take that comment away and we can
+
+00:07:07,229 --> 00:07:11,490
+take the distance to raise away from the
+Pinsetter OK so it's one place or the
+
+00:07:11,490 --> 00:07:16,669
+other it's in pins. Awesome, does it need the pin
+set yes it needs to know what is going
+
+00:07:16,669 --> 00:07:21,000
+to reinstantiate. Okay and then privately
+it has some variables, we won't worry about that
+
+00:07:21,000 --> 00:07:25,150
+if it works. What are the public methods would
+be my next question raising pins is that a
+
+00:07:25,150 --> 00:07:29,470
+Pinsetter's job yes lowering them is that it's job, yes renewing them yes. Check
+
+00:07:29,470 --> 00:07:31,689
+standing
+
+00:07:31,689 --> 00:07:36,769
+maybe, counting them it's basically
+counting the number of pins, so is check
+
+00:07:36,769 --> 00:07:38,879
+standing a good name?
+
+00:07:38,879 --> 00:07:43,469
+Well what is it actually doing? It's
+counting it's updating the standing count
+
+00:07:43,469 --> 00:07:51,059
+that's what this method actually does. So,
+but it also goes in and does something
+
+00:07:51,059 --> 00:07:56,719
+with the pins being settled you see so
+this this is the first bit of
+
+00:07:56,719 --> 00:08:01,439
+code that is slippery. I don't really
+like the way this reads because it does
+
+00:08:01,439 --> 00:08:05,939
+more than just check standing doesn't it? It
+updates the standing count and if
+
+00:08:05,939 --> 00:08:11,639
+they've settled it deals with the pins
+having settled so you couldtry, let's
+
+00:08:11,639 --> 00:08:17,429
+try renaming, use the refactor tool. Check
+standing, check standing what do we call it
+
+00:08:17,429 --> 00:08:27,419
+update standing count, update standing
+count and settle that's a massive
+
+00:08:27,419 --> 00:08:31,579
+method name but at least it tells you
+more about what it does. I'm gonna leave
+
+00:08:31,579 --> 00:08:34,669
+it like that for now just  the
+idea is you need to know exactly what it
+
+00:08:34,669 --> 00:08:38,379
+does, so is it reasonable for Pinsetter to
+update the standing count and settle the
+
+00:08:38,379 --> 00:08:44,059
+pins yes ok and that's a private method
+so we're less worried about it in a way the
+
+00:08:44,059 --> 00:08:47,300
+reason we're more concerned about public
+methods and public variables is because
+
+00:08:47,300 --> 00:08:51,600
+that's the API into this class; what you
+can see from the outside is it's it's
+
+00:08:51,600 --> 00:08:55,569
+variables here and its methods and then
+the dirty way that you actually get the
+
+00:08:55,569 --> 00:09:00,579
+job done is less important but still
+important than the fact that the
+
+00:09:00,579 --> 00:09:06,529
+communication between things is correct
+so I think all of this looks ok the Pinsetter
+
+00:09:06,529 --> 00:09:11,339
+is doing some stuff with collisions
+here which strictly our shredders really
+
+00:09:11,339 --> 00:09:15,589
+a shredders job how we could have a
+separate game object called a shredder and
+
+00:09:15,589 --> 00:09:20,980
+then make that do the destruction here
+if you wanted to. For the sake of showing
+
+00:09:20,980 --> 00:09:24,629
+you how to refactor let's just pull this
+bit out of Pinsetter into a shredder
+
+00:09:24,629 --> 00:09:28,410
+script and then I'm gonna leave you to
+go through all of your code and make
+
+00:09:28,410 --> 00:09:31,879
+sure that you're happy with it's
+structure. So what I'm gonna do is I'm
+
+00:09:31,879 --> 00:09:37,490
+gonna go to the pin setter over here and
+I'm gonna say well okay that's fine but
+
+00:09:37,490 --> 00:09:42,720
+it's also going to act as a shredder. So let's add
+a new component called shredder
+
+00:09:42,720 --> 00:09:47,410
+you don't need a different; you don't necessarily need a
+different collider but we need a different
+
+00:09:47,410 --> 00:09:51,990
+behavior. Put the shredder script in
+there and then let's go to the Pinsetter
+
+00:09:51,990 --> 00:09:58,850
+and pull out this code here which
+purely shreds things. OK, and then put that
+
+00:09:58,850 --> 00:10:07,180
+in your newly found shredder script and
+make sure that it works so back to the
+
+00:10:07,180 --> 00:10:13,120
+Pinsetter OnTriggerEnter is very much a Pinsetter
+job because this has to do with
+
+00:10:13,120 --> 00:10:16,560
+keeping track of whether the ball enters
+the box and updating the standing
+
+00:10:16,560 --> 00:10:21,420
+display but the shredding was very much
+nothing to do with the Pinsetter so now
+
+00:10:21,420 --> 00:10:28,129
+this Pinsetter box collider and the game
+object has a shredder component to it let's just
+
+00:10:28,129 --> 00:10:32,189
+check that things work now that we've
+done all this this refactor so go into
+
+00:10:32,189 --> 00:10:42,000
+your game, bowl your bowl. So on the ball the problem
+is that we have renamed our script from
+
+00:10:42,000 --> 00:10:46,220
+ball from DragLaunch to BallDragLaunch so we need
+to reconnect that script one of the
+
+00:10:46,220 --> 00:10:50,370
+dangers of refactoring which is why it's important to
+test regularly. Now you'll also probably
+
+00:10:50,370 --> 00:10:54,399
+find that your touch input panel is now
+no longer properly connected, so you need
+
+00:10:54,399 --> 00:11:07,640
+to go and find your DragStart method
+and your DragEnd Methods. OK
+
+00:11:07,640 --> 00:11:11,580
+Fantastic now that that's all reconnected
+let's just make sure that all these
+
+00:11:11,580 --> 00:11:16,850
+changes still result in a working game
+particularly at the dragging and
+
+00:11:16,850 --> 00:11:21,680
+launching and that the pins actually get
+shredded when they leave this box so
+
+00:11:21,680 --> 00:11:25,080
+watch your pin disappearing off the side
+and make sure it gets shredded, there you go,
+
+00:11:25,080 --> 00:11:29,380
+that's working and then reset let's
+check that the reset cycle works properly so
+
+00:11:29,380 --> 00:11:34,660
+they get swiped out the way and
+reinstantiated and then drop down. Great, so that's
+
+00:11:34,660 --> 00:11:40,170
+working much more nicely for us now so
+that's the spirit of the refactoring
+
+00:11:40,170 --> 00:11:43,780
+making sure that each item is singularly
+responsible for what it is doing of
+
+00:11:43,780 --> 00:11:47,220
+course your challenge now becomes to
+save your current working state on your
+
+00:11:47,220 --> 00:11:52,990
+game go through all of your methods add
+your comments in when you add comments
+
+00:11:52,990 --> 00:11:55,930
+it's so that you're explaining why
+you're doing something not what you're
+
+00:11:55,930 --> 00:12:00,710
+doing what you're doing should be
+completely clear from the code. Move code
+
+00:12:00,710 --> 00:12:04,790
+between classes if required like we did
+with the shredder and regularly as you're
+
+00:12:04,790 --> 00:12:09,610
+doing this test that everything works. So
+I've already done mine, I want you now
+
+00:12:09,610 --> 00:12:12,770
+to go and refactor your code to your
+satisfaction so you know that if you
+
+00:12:12,770 --> 00:12:16,650
+came back in six to nine months you
+could still follow your own work. So go
+
+00:12:16,650 --> 00:12:21,230
+ahead and do that now; and I will
+see you in the next video because this
+
+00:12:21,230 --> 00:12:23,350
+one is over. See ya!
+

@@ -1,0 +1,861 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+Hey so I'm calling this video
+
+2
+00:00:04,000 --> 00:00:08,000
+Radial Forces & Caching! It'll be pretty clear why, by the end of it, and
+
+3
+00:00:08,000 --> 00:00:12,000
+by the end of it you'll have this result, is that you can have
+
+4
+00:00:12,000 --> 00:00:18,933
+the other tank fire a projectile at you or vice versa, of course. And you will knock each other for 6. So I'll see you in there!
+
+5
+00:00:18,933 --> 00:00:22,933
+So let's take stock and ask that question, what's least fun about this game? Well
+
+6
+00:00:22,933 --> 00:00:26,933
+being able to fire that often and having 200 rounds is a bit crazy on a tank.
+
+7
+00:00:26,933 --> 00:00:30,933
+So I'm going to go to the TankAimingComponent to give myself a 2 second reload
+
+8
+00:00:30,933 --> 00:00:34,933
+time and 20 rounds, just to make that more sensible. Alright, let's
+
+9
+00:00:34,933 --> 00:00:38,933
+put an enemy tank back in the scene and play the game. I'll depossess
+
+10
+00:00:38,933 --> 00:00:42,933
+and use F11 and F8 to depossess and then F11 to go full
+
+11
+00:00:42,933 --> 00:00:46,933
+screen. OK what happens when the explosion hits us? OK, well it's OK.
+
+12
+00:00:46,933 --> 00:00:50,933
+Firstly, the tank isn't moving, let's make that our first focus. We've also got
+
+13
+00:00:50,933 --> 00:00:54,933
+these balls stacking up and that's no good, and also we want
+
+14
+00:00:54,933 --> 00:00:58,933
+to turn off the brown balls and we want to get rid of this smoke. But let's focus on
+
+15
+00:00:58,933 --> 00:01:02,933
+adding a force, so that we actually knock my tank out of
+
+16
+00:01:02,933 --> 00:01:06,933
+the way. So how are we going to do that? Well let's go and look at the projectile and
+
+17
+00:01:06,933 --> 00:01:10,933
+see, in the blueprint, what we have if we search for components
+
+18
+00:01:10,933 --> 00:01:14,933
+that relate to force. And we have this thing here called a Radial Force. "Used
+
+19
+00:01:14,933 --> 00:01:18,933
+to emit a Radial Force or impulse that can effect physics objects and or destructible
+
+20
+00:01:18,933 --> 00:01:22,933
+objects." Well I think we all get a sense of what a force is, it's something that causes an acceleration.
+
+21
+00:01:22,933 --> 00:01:26,933
+But what is an impulse? Well you can go on Wikipedia and look up an impulse.
+
+22
+00:01:26,933 --> 00:01:30,933
+You'll get a bit of math. It tells you that it's the integral of F dt, which means it is the
+
+23
+00:01:30,933 --> 00:01:34,933
+area under the force time graph. If you do a
+
+24
+00:01:34,933 --> 00:01:38,933
+Google Image search for "impulse force graph", you'll see that you've got an idea of seconds or
+
+25
+00:01:38,933 --> 00:01:42,933
+milliseconds and then an amount of force. An explosion would be something like this.
+
+26
+00:01:42,933 --> 00:01:46,933
+A force would rapidly rise, while the air pressure rises, and then it would drop off.
+
+27
+00:01:46,933 --> 00:01:50,933
+And what an impulse is is it's the area under that curve.
+
+28
+00:01:50,933 --> 00:01:54,933
+So what this add radial force, as an impulse allows you to
+
+29
+00:01:54,933 --> 00:01:58,933
+do is do exactly that, add a fixed impulse. It could be 100
+
+30
+00:01:58,933 --> 00:02:02,933
+million newtons for 1 second or it could be 10 times
+
+31
+00:02:02,933 --> 00:02:06,933
+smaller force for 10 times longer or 10 times bigger force for 10 times less time, as
+
+32
+00:02:06,933 --> 00:02:10,933
+long as the area, as long as the multiple of those two is equivalent.
+
+33
+00:02:10,933 --> 00:02:14,933
+OK. So the way we're
+
+34
+00:02:14,933 --> 00:02:18,933
+going to add that is as we've added all the other things in the Projectile. Let's go to the Projectile
+
+35
+00:02:18,933 --> 00:02:22,933
+header file, and let's make ourselves the appropriate type to start with.
+
+36
+00:02:22,933 --> 00:02:26,933
+So let's barrow the code for the, well let's barrow the annotation
+
+37
+00:02:26,933 --> 00:02:30,933
+UPROPERTY, and then, it's going to be a
+
+38
+00:02:30,933 --> 00:02:34,933
+U, let's see if we can find it, URadialForceComponent. That was easy to find, it has the same name
+
+39
+00:02:34,933 --> 00:02:38,933
+as in the blueprint. It's a pointer. I'm going to call it
+
+40
+00:02:38,933 --> 00:02:42,933
+an ExplosionForce,
+
+41
+00:02:42,933 --> 00:02:46,933
+and we're going to be good boys and girls and
+
+42
+00:02:46,933 --> 00:02:50,933
+initialize it to the null pointer like that. Fantastic! Alright, so we now have a local variable to store the
+
+43
+00:02:50,933 --> 00:02:54,933
+ExplosionForce! Now let's go and actually add the ExplosionForce
+
+44
+00:02:54,933 --> 00:02:58,933
+as a default subobject. So ExplosionForce = Create
+
+45
+00:02:58,933 --> 00:03:02,933
+DefaultSubobject URadial
+
+46
+00:03:02,933 --> 00:03:06,933
+ForceComponent.
+
+47
+00:03:06,933 --> 00:03:10,933
+And then, let's just give it a simple name. (FName)
+
+48
+00:03:10,933 --> 00:03:14,933
+with a capital N, and I'm just going to call it
+
+49
+00:03:14,933 --> 00:03:18,933
+("Explosion Force")). So let's not bother with AttachTo
+
+50
+00:03:18,933 --> 00:03:22,933
+Component, for the moment. We've done it with the LaunchBlast, we haven't done it with ProjectileMovement, we have
+
+51
+00:03:22,933 --> 00:03:26,933
+done it with the ImpactBlast. Let's see if it's necessary. So let's go ahead and
+
+52
+00:03:26,933 --> 00:03:30,933
+compile our code and take a look at the Projectile Blueprint,
+
+53
+00:03:30,933 --> 00:03:34,933
+when we do so, and see what happens. In fact, while I'm compiling my code, let's be
+
+54
+00:03:34,933 --> 00:03:38,933
+nice to you and show you my code changes. That's the header file code changes there,
+
+55
+00:03:38,933 --> 00:03:42,933
+and the C++ code changes are there. Remember you can always go to github.com/Ben
+
+56
+00:03:42,933 --> 00:03:46,933
+Tristem, navigate to Unreal, find the section, and get
+
+57
+00:03:46,933 --> 00:03:50,933
+the code. Alright, so how is that compiled? And that's the question, it looks like
+
+58
+00:03:50,933 --> 00:03:54,933
+it may have done. Compile succeeded! I'm just going to
+
+59
+00:03:54,933 --> 00:03:58,933
+Save All. I've got a lot of stars here. I don't like stars, stars mean unsaved work that could get lost if
+
+60
+00:03:58,933 --> 00:04:02,933
+Unreal crashed. Would it crash? But in case it does! Now let's look at the
+
+61
+00:04:02,933 --> 00:04:06,933
+Projectile! ExplosionForce, there we go! CollisionMesh, Launch
+
+62
+00:04:06,933 --> 00:04:10,933
+Blast, ImpactBlast, ExplosionForce, and ProjectileMovement
+
+63
+00:04:10,933 --> 00:04:14,933
+are all sitting there. OK great! So
+
+64
+00:04:14,933 --> 00:04:18,933
+there's the ExplosionForce! Now how do we know how much ExplosionForce to set on this?
+
+65
+00:04:18,933 --> 00:04:22,933
+Well to start we need a Radius, 2 meters, OK. Maybe we'll go to 5 meters, our
+
+66
+00:04:22,933 --> 00:04:26,933
+tanks are 7 meters long. And then, this talks about the Falloff, so it's a constant
+
+67
+00:04:26,933 --> 00:04:30,933
+falloff, in this case, after 5 meters there is no force. So there's going to be a 5 meter blast
+
+68
+00:04:30,933 --> 00:04:34,933
+area. Now how much Impulse Strength do we need? Well remember
+
+69
+00:04:34,933 --> 00:04:38,933
+what the definition is, it's the force times the time. It's more subtle than that,
+
+70
+00:04:38,933 --> 00:04:42,933
+because it's actually an integral under a curve, but let's imagine it's a constant force, for a minute,
+
+71
+00:04:42,933 --> 00:04:46,933
+a square curve like this one down here. How would we even get an
+
+72
+00:04:46,933 --> 00:04:50,933
+idea as to how much impulse we need to give here. Well one very easy
+
+73
+00:04:50,933 --> 00:04:54,933
+way to get an idea is to go look at the tracks, and see how much force we have Driving
+
+74
+00:04:54,933 --> 00:04:58,933
+Force-wise. We have 1, 2, 3, 4, 5, 6, 0's
+
+75
+00:04:58,933 --> 00:05:02,933
+and a 40, so we have 40 million Newtons. So how
+
+76
+00:05:02,933 --> 00:05:06,933
+about, with our Projectile Impulse here, we imagine
+
+77
+00:05:06,933 --> 00:05:10,933
+that we apply, I don't know, 100 million Newtons, the same
+
+78
+00:05:10,933 --> 00:05:14,933
+force as both tank tracks driving plus a bit, and
+
+79
+00:05:14,933 --> 00:05:18,933
+we apply that for say 1 second, the duration of the explosion, then we get 100 million.
+
+80
+00:05:18,933 --> 00:05:22,933
+Let's try it, because it's 100 Million times 1 second. So 100,
+
+81
+00:05:22,933 --> 00:05:26,933
+1, 2, 3, 4, 5, 6. OK there you go!
+
+82
+00:05:26,933 --> 00:05:30,933
+Let's try that as a starting Impulse Strength. Now Unreal crashed!
+
+83
+00:05:30,933 --> 00:05:34,933
+Luckily I'd saved everything, so we shouldn't lose any work. Again,
+
+84
+00:05:34,933 --> 00:05:38,933
+a single crash like that not that unusual, when you're changing blueprints.
+
+85
+00:05:38,933 --> 00:05:42,933
+Let's go and restore everything, have a look
+
+86
+00:05:42,933 --> 00:05:46,933
+over here at the ExplosionForce, turn the Radius back,
+
+87
+00:05:46,933 --> 00:05:50,933
+and then, set this guy back to 100 Million,
+
+88
+00:05:50,933 --> 00:05:54,933
+trying not to curse, because of the crash.
+
+89
+00:05:54,933 --> 00:05:58,933
+OK fantastic, let's compile that! Now let's play the game!
+
+90
+00:05:58,933 --> 00:06:02,933
+So I've applied this explosion force as
+
+91
+00:06:02,933 --> 00:06:06,933
+on the object, but we need to code for that explosion force to actually do
+
+92
+00:06:06,933 --> 00:06:10,933
+something. So the way that you do that is you come into
+
+93
+00:06:10,933 --> 00:06:14,933
+where the actual hit happens here, and you say ExplosionForce,
+
+94
+00:06:14,933 --> 00:06:18,933
+and then you go through the arrow pointer,
+
+95
+00:06:18,933 --> 00:06:22,933
+and you FireImpulse. There's no parameters on that, but you just fire the impulse that's
+
+96
+00:06:22,933 --> 00:06:26,933
+been setup in the component. In our case, I've overridden that in
+
+97
+00:06:26,933 --> 00:06:30,933
+Blueprint. Let's just try going ahead and recompiling!
+
+98
+00:06:30,933 --> 00:06:34,933
+Then, we should get a force firing off, when
+
+99
+00:06:34,933 --> 00:06:38,933
+the explosion, component, hits the tank. So
+
+100
+00:06:38,933 --> 00:06:42,933
+let's go and see if that works or if it doesn't work.
+
+101
+00:06:42,933 --> 00:06:46,933
+So it fires, it hits, but the tank's not
+
+102
+00:06:46,933 --> 00:06:50,933
+moving. OK, so we could doubt the size of our impulse.
+
+103
+00:06:50,933 --> 00:06:54,933
+It would be very reasonable to doubt that impulse and say it should be bigger, but it's not
+
+104
+00:06:54,933 --> 00:06:58,933
+actually the size of the impulse that's causing the problem. I'm actually leading you down a path here
+
+105
+00:06:58,933 --> 00:07:02,933
+on purpose. There is a problem already here on the screen, but
+
+106
+00:07:02,933 --> 00:07:06,933
+it's going to lead to some very interesting debugging attitude and behavior. So
+
+107
+00:07:06,933 --> 00:07:10,933
+what I'm going to do now is turn up that Radius to say
+
+108
+00:07:10,933 --> 00:07:14,933
+1,000 meters, so 1,00000. If I turn up the
+
+109
+00:07:14,933 --> 00:07:18,933
+Radius to 1,000, it shouldn't need to be 1,000, but look at this,
+
+110
+00:07:18,933 --> 00:07:22,933
+I think it will work now! Then, you're going to have
+
+111
+00:07:22,933 --> 00:07:26,933
+a challenge to work out why. Hmm,
+
+112
+00:07:26,933 --> 00:07:30,933
+now the tank goes flying backwards! OK now let's look at that a little bit more carefully.
+
+113
+00:07:30,933 --> 00:07:34,933
+If I just get into the tank here and move. If I
+
+114
+00:07:34,933 --> 00:07:38,933
+can move before he shoots me again, I just... Look at this! What's quite
+
+115
+00:07:38,933 --> 00:07:42,933
+interesting is me and the other tank are both heading backwards, when that
+
+116
+00:07:42,933 --> 00:07:46,933
+Impulse Force goes off. So what is going on here? And that's your job,
+
+117
+00:07:46,933 --> 00:07:50,933
+that's your job is to work out what is going on, in this case. Let me get you to the
+
+118
+00:07:50,933 --> 00:07:54,933
+challenge slide. Find the bug, basically, is what you need to do,
+
+119
+00:07:54,933 --> 00:07:58,933
+because it's a really interesting bug. It's not actually a bug, as such, we're just
+
+120
+00:07:58,933 --> 00:08:02,933
+slightly misusing the engine but it is important. So why is this behavior happening? Try
+
+121
+00:08:02,933 --> 00:08:06,933
+inspecting the projectile at runtime. Pause the game, depossess, inspect the projectile,
+
+122
+00:08:06,933 --> 00:08:10,933
+look at all its components, particularly the ExplosionForce one, see
+
+123
+00:08:10,933 --> 00:08:14,933
+if you can find out what's going wrong. If you can, write a single line of code; it's a line
+
+124
+00:08:14,933 --> 00:08:18,933
+we've already written in the C++ files,
+
+125
+00:08:18,933 --> 00:08:22,933
+and see if you can solve the problem. Share the solution and your approach to the problem, in the discussions.
+
+126
+00:08:22,933 --> 00:08:26,933
+Spend a little bit of time scratching your head, because this is the sort of thing you might come across in your own
+
+127
+00:08:26,933 --> 00:08:30,933
+use of the engine, and I want you to be prepared, both in terms of the skills
+
+128
+00:08:30,933 --> 00:08:34,933
+to debug but also in terms of the attitude. Take a positive attitude to this, say I can
+
+129
+00:08:34,933 --> 00:08:38,933
+solve this! This is solvable! So go ahead, pause the video, and take a look now!
+
+130
+00:08:38,933 --> 00:08:42,933
+OK welcome back!
+
+131
+00:08:42,933 --> 00:08:46,933
+So let's just play the game. F8 to depossess.
+
+132
+00:08:46,933 --> 00:08:50,933
+I'm going to move to the side. When the projectile is in flight I'm going to pause it, I'm going to
+
+133
+00:08:50,933 --> 00:08:54,933
+click on it. Let's take a look at it! What's funny about this projectile? Well
+
+134
+00:08:54,933 --> 00:08:58,933
+there it is in the world, sitting and doing its thing. Let's just look through the
+
+135
+00:08:58,933 --> 00:09:02,933
+components, fine. Now, ExplosionForce, look where the
+
+136
+00:09:02,933 --> 00:09:06,933
+projectile itself is. Look at the location in the world, you can see the
+
+137
+00:09:06,933 --> 00:09:10,933
+indicator there and the CollsionMesh and the  LaunchBlast and the ImpactBlast,
+
+138
+00:09:10,933 --> 00:09:14,933
+all going along with it. But where's the ExplosionForce? Err, there it is!
+
+139
+00:09:14,933 --> 00:09:18,933
+It's at the root of the game, it's a... Well I don't know
+
+140
+00:09:18,933 --> 00:09:22,933
+actually if it is exactly at the root, but that probably is actually
+
+141
+00:09:22,933 --> 00:09:26,933
+relative to the tank. Yeah, that's probably at 0, 0, 0 position in the world. If
+
+142
+00:09:26,933 --> 00:09:30,933
+you want to be sure, of course, you can come to Modes, you can add yourself a
+
+143
+00:09:30,933 --> 00:09:34,933
+cube to the world. I would scale it 10, 10, 10, or you
+
+144
+00:09:34,933 --> 00:09:38,933
+could have just used the padlock to do that. Reset it to the origin. Actually yeah,
+
+145
+00:09:38,933 --> 00:09:42,933
+you can see it is. So the ExplosionForce is ending up at the world's
+
+146
+00:09:42,933 --> 00:09:46,933
+origin. Why is that? Let me show you another thing that's weird about
+
+147
+00:09:46,933 --> 00:09:50,933
+the ExplosionForce. Look at the ImpactBlast and the LaunchBlast. I did
+
+148
+00:09:50,933 --> 00:09:54,933
+that around the wrong way but you get the idea. Look at its Transform, it has a Location, Rotation, and Scale. Look at
+
+149
+00:09:54,933 --> 00:09:58,933
+the Transform on the ExplosionForce, it only has a Scale,
+
+150
+00:09:58,933 --> 00:10:02,933
+no Rotation or Location. It's knocked
+
+151
+00:10:02,933 --> 00:10:06,933
+out, to use a technical term. Now, this is why, congratulations if you
+
+152
+00:10:06,933 --> 00:10:10,933
+found this, because we didn't bother to AttachedToComponent.
+
+153
+00:10:10,933 --> 00:10:14,933
+OK so I'm going to grab that line. In fact, we don't need to update to the new
+
+154
+00:10:14,933 --> 00:10:18,933
+API, because we've done that. We do need to Attach, if we don't Attach it will look
+
+155
+00:10:18,933 --> 00:10:22,933
+like it is attached to the CollisionMesh but it ain't working, so we
+
+156
+00:10:22,933 --> 00:10:26,933
+need to put this AttachToComponent line in. OK. And because I've done it
+
+157
+00:10:26,933 --> 00:10:30,933
+there, I'm also going to do it on the... Actually, we don't need it on the ProjectileMovement,
+
+158
+00:10:30,933 --> 00:10:34,933
+because if you look at the ProjectileMovement it sits differently, it doesn't
+
+159
+00:10:34,933 --> 00:10:38,933
+sit as a child of the CollisionMesh. It doesn't need to go along with the CollisionMesh, it can just
+
+160
+00:10:38,933 --> 00:10:42,933
+stay in the world with the ProjectileLaunch. So we don't need to bother with that, but we certainly do
+
+161
+00:10:42,933 --> 00:10:46,933
+with this ExplosionForce. So let's go ahead, compile
+
+162
+00:10:46,933 --> 00:10:50,933
+the code. Then, I'll Save All as
+
+163
+00:10:50,933 --> 00:10:54,933
+well. I can do that now. I want to get rid of my stars, stars are a bad thing, and as I say, it's work that could easily
+
+164
+00:10:54,933 --> 00:10:58,933
+get lost. And isn't that an interesting strange bug right, that
+
+165
+00:10:58,933 --> 00:11:02,933
+the only symptom was that that transform wasn't working. Let's have a look here! Explosion
+
+166
+00:11:02,933 --> 00:11:06,933
+Force now. ExplosionForce now, actually, still
+
+167
+00:11:06,933 --> 00:11:10,933
+doesn't have a sensible looking transform, and this is now probably because of caching.
+
+168
+00:11:10,933 --> 00:11:14,933
+Unreal Engine tends to cache things, often for performance, too much for it's own good
+
+169
+00:11:14,933 --> 00:11:18,933
+I would say, and you can end up with these types of problems, where that
+
+170
+00:11:18,933 --> 00:11:22,933
+change should've made it work properly but it isn't. So let's take a look ,
+
+171
+00:11:22,933 --> 00:11:26,933
+now if that's helped. If it hasn't, we have to do what? What do we do if this hasn't helped?
+
+172
+00:11:26,933 --> 00:11:30,933
+We have to refresh the intermediate files, don't we?
+
+173
+00:11:30,933 --> 00:11:34,933
+So look, that hasn't helped! I can recompile the blueprint.
+
+174
+00:11:34,933 --> 00:11:38,933
+I'm definitely... Ah OK, another problem! I said I'm
+
+175
+00:11:38,933 --> 00:11:42,933
+definitely attaching the right component. That's easy to do, you barrow the code but you
+
+176
+00:11:42,933 --> 00:11:46,933
+use the wrong thing. OK, so that can give you a problem as well, it needs to be the
+
+177
+00:11:46,933 --> 00:11:50,933
+ExplosionForce that attaches. That was my fault, in this case, but that's a different
+
+178
+00:11:50,933 --> 00:11:54,933
+issue, right. The reason it didn't attach is
+
+179
+00:11:54,933 --> 00:11:58,933
+because I used the wrong variable name there, which you could have done the first
+
+180
+00:11:58,933 --> 00:12:02,933
+time around, by the way. You may have done that, had you just automatically come in
+
+181
+00:12:02,933 --> 00:12:06,933
+and copied that line. This is the problem with copying and pasting lines, but it doesn't
+
+182
+00:12:06,933 --> 00:12:10,933
+remove from the underlying problem that if you
+
+183
+00:12:10,933 --> 00:12:14,933
+don't attach, either by using the wrong variable name here or by not having
+
+184
+00:12:14,933 --> 00:12:18,933
+the line altogether, like we didn't have in the beginning. Then, it looks like it's attached
+
+185
+00:12:18,933 --> 00:12:22,933
+but it doesn't act like it's attached. OK, so now
+
+186
+00:12:22,933 --> 00:12:26,933
+this is interesting. If we recompile now, looking at the explosion force,
+
+187
+00:12:26,933 --> 00:12:30,933
+if I've written this code properly, AttachToComponent, you would hope
+
+188
+00:12:30,933 --> 00:12:34,933
+that when I look at this ExplosionForceComponent that it has its
+
+189
+00:12:34,933 --> 00:12:38,933
+Transform working. It doesn't! Let's try reclosing and reloading
+
+190
+00:12:38,933 --> 00:12:42,933
+Unreal. Does that do it? It
+
+191
+00:12:42,933 --> 00:12:46,933
+may not do it. So we're going around this cycle twice here, because I want to
+
+192
+00:12:46,933 --> 00:12:50,933
+bring home the fact that not only do we have to attach
+
+193
+00:12:50,933 --> 00:12:54,933
+these things but it can also cache the state. Look now it's back, just by
+
+194
+00:12:54,933 --> 00:12:58,933
+closing and reloading Unreal. You see how
+
+195
+00:12:58,933 --> 00:13:02,933
+difficult to diagnose that can be. Now that this ExplosionForce has a reasonable looking
+
+196
+00:13:02,933 --> 00:13:06,933
+Transform, I suspect we'll be able to turn the Radius back down to 5 meters,
+
+197
+00:13:06,933 --> 00:13:10,933
+because now the Explosion force won't be acting from the middle of
+
+198
+00:13:10,933 --> 00:13:14,933
+the world anymore, It'll be... Ooh, what's going on with my camera? Hang on a second.
+
+199
+00:13:14,933 --> 00:13:18,933
+OK that's better!
+
+200
+00:13:18,933 --> 00:13:22,933
+I suspect it won't be acting from the middle of the world anymore but it'll be acting where
+
+201
+00:13:22,933 --> 00:13:26,933
+we want it to. So that missed me and that hit me sideways.
+
+202
+00:13:26,933 --> 00:13:30,933
+You see what's happening there? Great! So very interesting problem.
+
+203
+00:13:30,933 --> 00:13:34,933
+It's showing you the problems with caching in Unreal, so remember some things are cached.
+
+204
+00:13:34,933 --> 00:13:38,933
+Even though I changed that variable name back and recompiled, it
+
+205
+00:13:38,933 --> 00:13:42,933
+still didn't have the correct transform. And yes, you need, when
+
+206
+00:13:42,933 --> 00:13:46,933
+you actually want your hierarchy to look like this, you absolutely have to AttachTo,
+
+207
+00:13:46,933 --> 00:13:50,933
+otherwise it will look like it's attached and it won't be. The thing to watch out for
+
+208
+00:13:50,933 --> 00:13:54,933
+is that all of your components have proper, that this is a proper
+
+209
+00:13:54,933 --> 00:13:58,933
+Transform for the root component, but any subcomponents need to
+
+210
+00:13:58,933 --> 00:14:02,933
+also, apart from just having a scale, have to have a relative Location and
+
+211
+00:14:02,933 --> 00:14:06,933
+Rotation, compared to that root component. So flick through them, keep your eye here,
+
+212
+00:14:06,933 --> 00:14:10,933
+on the right-hand side of the screen under the Transform OK. Really valuable stuff, that'll get you out of
+
+213
+00:14:10,933 --> 00:14:14,933
+lots of trouble in the future, in Unreal. So I'm just going to close the engine right now. Actually I
+
+214
+00:14:14,933 --> 00:14:18,933
+won't close it, but I'll leave it there, save everything, and I will see you in the next video!
+
+215
+00:14:18,933 --> 00:14:20,566
+
+

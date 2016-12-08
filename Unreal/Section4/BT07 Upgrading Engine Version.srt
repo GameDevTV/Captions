@@ -1,0 +1,353 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+So, it had
+
+2
+00:00:04,000 --> 00:00:08,000
+to happen eventually, it's time to upgrade our engine version, this time, mid-section! We're
+
+3
+00:00:08,000 --> 00:00:12,000
+going to go to version 4.11. Now, in the online slides you'll see 4.7 on all
+
+4
+00:00:12,000 --> 00:00:16,000
+the slides, because I've changed the template, but of course, it's only version 4.11 I was using
+
+5
+00:00:16,000 --> 00:00:20,000
+from here but the differences are minor. We haven't done anything in this section yet that
+
+6
+00:00:20,000 --> 00:00:24,000
+makes any difference. So, in this video, Epic Games Launcher helps
+
+7
+00:00:24,000 --> 00:00:28,000
+you manage versions of the engine. It's pretty good at that, so we'll briefly see that!
+
+8
+00:00:28,000 --> 00:00:32,000
+Before you do anything, for you to remember to commit your project or take a
+
+9
+00:00:32,000 --> 00:00:36,000
+backup of your project first. Then, you can do a convert in place, which means that we
+
+10
+00:00:36,000 --> 00:00:40,000
+don't create a copy of the project, because you've got a backup, that is your copy.
+
+11
+00:00:40,000 --> 00:00:44,000
+And then, we're going to check our project runs OK in the new version, and then, close everything and
+
+12
+00:00:44,000 --> 00:00:49,533
+recommit. I'll also show you how to tag a commit in Github, so let's dive in and do it!
+
+13
+00:00:49,533 --> 00:00:53,533
+Unreal 4.11 has dropped, and one of the features amongst
+
+14
+00:00:53,533 --> 00:00:57,533
+many... By the way, if you want to know what's in there it's in your slides, but you could also just
+
+15
+00:00:57,533 --> 00:01:01,533
+go Unreal 4.11 and look for
+
+16
+00:01:01,533 --> 00:01:05,533
+this here, Unreal blog Unreal Engine 4.11 Released! There's
+
+17
+00:01:05,533 --> 00:01:09,533
+lots and lots of improvement. Most of them are runtime improvements, but it also has some improvements
+
+18
+00:01:09,533 --> 00:01:13,533
+relating to the speed of lighting builds, and as we're doing quite a lot of lighting builds,
+
+19
+00:01:13,533 --> 00:01:17,533
+inside the landscape creation, let's go ahead and upgrade
+
+20
+00:01:17,533 --> 00:01:21,533
+to 4.11. So, you come into your Epic Games... Oops, into your Epic
+
+21
+00:01:21,533 --> 00:01:25,533
+Games Launcher. You'll probably see a little 1 here. And if you don't already have
+
+22
+00:01:25,533 --> 00:01:29,533
+4.11 here then you click Add Versions, and the thing that comes up will allow you to choose
+
+23
+00:01:29,533 --> 00:01:33,533
+4.11. I already have it, so I can just go ahead and install. I'm going to go
+
+24
+00:01:33,533 --> 00:01:37,533
+with the Starter Content and the templates and Feature Packs, in my case,
+
+25
+00:01:37,533 --> 00:01:41,533
+because I want all the latest stuff. So, once you click
+
+26
+00:01:41,533 --> 00:01:45,533
+install, you're going to have to wait for it to download. If you're wondering what the progress is, you can read it here,
+
+27
+00:01:45,533 --> 00:01:49,533
+but you can also see that little black bar filling up. So, let's just let that finish and install
+
+28
+00:01:49,533 --> 00:01:52,733
+now, before we move over and upgrade our project.
+
+29
+00:01:52,733 --> 00:01:56,733
+OK, so now that download is done! Let's go ahead and click Launch!
+
+30
+00:01:56,733 --> 00:02:00,733
+It's going to open version 4.11. It may take a little while longer than usual,
+
+31
+00:02:00,733 --> 00:02:04,733
+and it's going to ask you which project you want to open. Now, before we go any further, go to
+
+32
+00:02:04,733 --> 00:02:08,733
+Source Control and make sure you have a commit
+
+33
+00:02:08,733 --> 00:02:12,733
+for your project, because we're going to want to make sure that if it
+
+34
+00:02:12,733 --> 00:02:16,733
+breaks anything that we can go backwards. Now, Unreal manages that for you. You can,
+
+35
+00:02:16,733 --> 00:02:20,733
+when you say Open, just say Open a Copy, which will make a copy of the game.
+
+36
+00:02:20,733 --> 00:02:24,733
+We've already got a copy, we've got a previous commit right, so I'm going to look for the thing
+
+37
+00:02:24,733 --> 00:02:28,733
+that says Upgrade in Place. So, let's try under More Options.
+
+38
+00:02:28,733 --> 00:02:32,733
+Here you go, Convert in-place! So, I'm going to use Convert in-place, which means it's actually
+
+39
+00:02:32,733 --> 00:02:36,733
+going to change my project file, and over in the Source Control,
+
+40
+00:02:36,733 --> 00:02:40,733
+we'll start to see those changes come through. There you go, it's started to detect them! Let's watch it, just for
+
+41
+00:02:40,733 --> 00:02:44,733
+the fun! So, the uproject itself, it's made a small change inside that text
+
+42
+00:02:44,733 --> 00:02:48,733
+file there, saying that the engine association is now 4.11. It's quite
+
+43
+00:02:48,733 --> 00:02:52,733
+cool! We can see the exact things that it's actually going through and changing. Now, what's it doing?
+
+44
+00:02:52,733 --> 00:02:56,733
+Let's take a look. Too busy to tell us right now. [Laughs] There you
+
+45
+00:02:56,733 --> 00:03:00,733
+go! It's compiling some C++ source code. OK, what else has changed?
+
+46
+00:03:00,733 --> 00:03:04,733
+We'll probably know once the actual game opens. So, here we are,
+
+47
+00:03:04,733 --> 00:03:08,733
+our battle ground in 4.11! Let's just have a look around, just make sure everything is superficially
+
+48
+00:03:08,733 --> 00:03:12,733
+works OK. It does seem to, that's good news!
+
+49
+00:03:12,733 --> 00:03:16,733
+Alright, let's take a look at Source Control, and it looks like, actually, the only thing that changed
+
+50
+00:03:16,733 --> 00:03:20,733
+was the engine association. Nothing else appears to have changed. I would be slightly
+
+51
+00:03:20,733 --> 00:03:24,733
+more comfortable, if I actually opened my source code and recompiled that or
+
+52
+00:03:24,733 --> 00:03:28,733
+just simply click Compile inside Unreal. And let's see if...
+
+53
+00:03:28,733 --> 00:03:32,733
+Yep, that seems to have compiled. There is no source code that we've written, of course. So that's it,
+
+54
+00:03:32,733 --> 00:03:36,733
+super simple! Let's crack on with the landscaping now!
+
+55
+00:03:36,733 --> 00:03:40,733
+So, here we are! What we need to do is to create ourselves a
+
+56
+00:03:40,733 --> 00:03:44,733
+special type of material first, in order to be able to produce
+
+57
+00:03:44,733 --> 00:03:48,733
+the landscape paint. Now, I'm going to just
+
+58
+00:03:48,733 --> 00:03:52,733
+do this for you, and then, I'll put you into a challenge where you can go ahead and do it. You can follow
+
+59
+00:03:52,733 --> 00:03:56,733
+me through if you wish, but again, I'm going to give you the opportunity to do it all for yourself, inside the
+
+60
+00:03:56,733 --> 00:04:00,733
+challenge. Now, something slightly strange has happened with all my panes here, in Unreal
+
+61
+00:04:00,733 --> 00:04:04,733
+4.11. I'm just going to kind of regroup things, so that
+
+62
+00:04:04,733 --> 00:04:08,733
+they are a bit more manageable on such a small, low screen
+
+63
+00:04:08,733 --> 00:04:15,233
+resolution. So, the Content Browser, I'm going to put it all up here. There you go! I've got my, kind of, basic screen layout back!
+
+64
+00:04:15,233 --> 00:04:19,233
+OK, so once you're convinced you're back where you were and everything is right with
+
+65
+00:04:19,233 --> 00:04:23,233
+the world, just close Unreal, and close Visual Studio, if you haven't already.
+
+66
+00:04:23,233 --> 00:04:23,500
+
+
+67
+00:04:23,500 --> 00:04:27,500
+So, I'm actually going to do the commit with you this time, because I want to show you now to use tags
+
+68
+00:04:27,500 --> 00:04:31,500
+briefly. This is a good time to introduce it, so I'm going to go and get my file
+
+69
+00:04:31,500 --> 00:04:35,500
+name, over here, and I'm going to come back to the Source Control.
+
+70
+00:04:35,500 --> 00:04:39,500
+Try and get focus back. I'm going to Commit just as normal,
+
+71
+00:04:39,500 --> 00:04:43,500
+pushing up to the web. That's fine! Or I'll leave the push, for now actually, because I want the tag to go with it.
+
+72
+00:04:43,500 --> 00:04:47,500
+OK, so I've made a normal commit, but what I want to do now
+
+73
+00:04:47,500 --> 00:04:51,500
+is I want to click on Tag here. And then,
+
+74
+00:04:51,500 --> 00:04:55,500
+I'm not going to show you how to do this on the command line, because you probably already know
+
+75
+00:04:55,500 --> 00:04:59,500
+if you know how to use the command line. So, I'm just going to put tag v.4.11
+
+76
+00:04:59,500 --> 00:05:03,500
+and then, I'm going to tag a specific commit, i.e. this commit, not
+
+77
+00:05:03,500 --> 00:05:07,500
+a whole branch. So, what that's going to do, when I choose the commit
+
+78
+00:05:07,500 --> 00:05:11,500
+the top commit and then put 4.11 on it, it's just going to put this neat little tag here,
+
+79
+00:05:11,500 --> 00:05:15,500
+and tags will come up on the left. And then, what will happen as more commits come into this line,
+
+80
+00:05:15,500 --> 00:05:19,500
+the 4.11 tag will stay there, provided I've tagged a specific commit,
+
+81
+00:05:19,500 --> 00:05:23,500
+and that just reminds me when I upgraded to 4.11. I mean,
+
+82
+00:05:23,500 --> 00:05:27,500
+it's quite clear from the name of the lecture, in this case, but I just wanted
+
+83
+00:05:27,500 --> 00:05:31,500
+to show you how to use tags. So, that's it! In case you haven't already done it, your challenge is to upgrade your
+
+84
+00:05:31,500 --> 00:05:35,500
+project, go through the upgrade process I just showed you, ensure the new project runs
+
+85
+00:05:35,500 --> 00:05:39,500
+OK, and then, commit the changes and optionally tag the specific commit
+
+86
+00:05:39,500 --> 00:05:43,500
+with 4.11 or something similar. So, go ahead and do that now. Recap
+
+87
+00:05:43,500 --> 00:05:47,500
+the video if you need to, and I will see you in the next video!
+
+88
+00:05:47,500 --> 00:05:48,600
+
+

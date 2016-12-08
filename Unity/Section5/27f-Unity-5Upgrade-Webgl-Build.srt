@@ -1,0 +1,357 @@
+
+1
+00:00:00,000 --> 00:00:03,000
+Hi, so in this optional video, I'm going
+
+2
+00:00:03,000 --> 00:00:06,000
+to upgrade Block Breaker to Unity 5. So,
+
+3
+00:00:06,000 --> 00:00:09,000
+if you have Unity 5 installed, then you can
+
+4
+00:00:09,000 --> 00:00:12,000
+go ahead and upgrade the project to Unity 5, and then, I'm going
+
+5
+00:00:12,000 --> 00:00:15,000
+to do a Web GL buiild. So, when
+
+6
+00:00:15,000 --> 00:00:18,000
+you try and open Block Breaker,
+
+7
+00:00:18,000 --> 00:00:21,000
+in Unity 5, you're going to get this message that's saying: "The project contains scripts
+
+8
+00:00:21,000 --> 00:00:24,000
+and or assemblies that use obsolete API's". That sounds
+
+9
+00:00:24,000 --> 00:00:27,000
+a bit jargony, there are some changes in Unity 5. I'll
+
+10
+00:00:27,000 --> 00:00:30,000
+show you them, once we have actually made the upgrade.
+
+11
+00:00:30,000 --> 00:00:33,000
+So, before you do it, please do make
+
+12
+00:00:33,000 --> 00:00:36,000
+a .zip of your Unity Folder. Close your project, make a .zip,
+
+13
+00:00:36,000 --> 00:00:39,000
+or if you're using version control, take a commit and do make
+
+14
+00:00:39,000 --> 00:00:42,000
+that backup first, and then, go ahead. It won't break
+
+15
+00:00:42,000 --> 00:00:45,000
+it by the way, but if you want to be able to go back to Unity 4,
+
+16
+00:00:45,000 --> 00:00:48,000
+you need to make the backup. OK, so then what you do is you
+
+17
+00:00:48,000 --> 00:00:51,000
+click the button, and it will, in a moment, open up like so.
+
+18
+00:00:51,000 --> 00:00:54,000
+Now, here is Block Breaker in Unity 5. Let's go
+
+19
+00:00:54,000 --> 00:00:57,000
+to our Start Menu Scene. And as you can see it looks
+
+20
+00:00:57,000 --> 00:01:00,000
+largely the same. Let's try playing it. The music is
+
+21
+00:01:00,000 --> 00:01:03,000
+working. And is the game working?
+
+22
+00:01:03,000 --> 00:01:06,000
+[Boing Sound Effects in Background] Yep, my daughter's sound effects.
+
+23
+00:01:06,000 --> 00:01:09,000
+It's all working just fine. Now, there are some times
+
+24
+00:01:09,000 --> 00:01:12,000
+some things that are a little different in Unity 5. Like for
+
+25
+00:01:12,000 --> 00:01:15,000
+example, when you have a UI, then the
+
+26
+00:01:15,000 --> 00:01:18,000
+vertical order of things in this UI
+
+27
+00:01:18,000 --> 00:01:21,000
+Hierarchy can change what renders on top of what, but that's not
+
+28
+00:01:21,000 --> 00:01:24,000
+causing us a problem here. Let's just check both the Start
+
+29
+00:01:24,000 --> 00:01:27,000
+Menu and the Win Screen for that, and the
+
+30
+00:01:27,000 --> 00:01:30,000
+Lose Screen, all looks OK. So, the thing that you'll
+
+31
+00:01:30,000 --> 00:01:33,000
+notice that's actually changed is all just to do with
+
+32
+00:01:33,000 --> 00:01:36,000
+these scripts. There's been some minor changes to the
+
+33
+00:01:36,000 --> 00:01:39,000
+scripts. Let me show you. This is my Version Control System, but let's take
+
+34
+00:01:39,000 --> 00:01:42,000
+an example of, say the ball, and what
+
+35
+00:01:42,000 --> 00:01:45,000
+it's done for us is, instead of being able to just say
+
+36
+00:01:45,000 --> 00:01:48,000
+ribidbody2D. we now have to say,
+
+37
+00:01:48,000 --> 00:01:51,000
+GetComponent, angle brackets, Rigid
+
+38
+00:01:51,000 --> 00:01:54,000
+2D, and then, normal brackets dot.
+
+39
+00:01:54,000 --> 00:01:57,000
+So, that's the bit in the middle there, this GetComponent
+
+40
+00:01:57,000 --> 00:02:00,000
+and that goes for other things as well, like AudioSources  rather
+
+41
+00:02:00,000 --> 00:02:03,000
+than just saying AudioSource.Play when you say GetComponent
+
+42
+00:02:03,000 --> 00:02:06,000
+AudioSource.Play. So, basically
+
+43
+00:02:06,000 --> 00:02:09,000
+Unity has fire walled all of these different components, so the we actually
+
+44
+00:02:09,000 --> 00:02:12,000
+have to make an explicit get for them but that's fine.
+
+45
+00:02:12,000 --> 00:02:15,000
+That's a very minor change and it will actually do it for you, you can see
+
+46
+00:02:15,000 --> 00:02:18,000
+it everywhere, GetComponent. So, it's made those changes
+
+47
+00:02:18,000 --> 00:02:21,000
+for you. Great! So, what I want to show you briefly
+
+48
+00:02:21,000 --> 00:02:24,000
+now, is how to do a Web GL Build. Game Bucket
+
+49
+00:02:24,000 --> 00:02:27,000
+is all ready for a Web GL Build, so you just come to File, Build Settings,
+
+50
+00:02:27,000 --> 00:02:30,000
+here. Now, if you're in Unity
+
+51
+00:02:30,000 --> 00:02:33,000
+5 there's a new option, WebGL Preview there,
+
+52
+00:02:33,000 --> 00:02:36,000
+so we switch the platform to that.
+
+53
+00:02:36,000 --> 00:02:39,000
+And then, you'll see at the top, this is also
+
+54
+00:02:39,000 --> 00:02:42,000
+a difference in Unity 5, after the project name you get Web GL
+
+55
+00:02:42,000 --> 00:02:45,000
+as the platform name and then, personal is the edition of
+
+56
+00:02:45,000 --> 00:02:48,000
+[Fumbles Words & Laughs] Udemy, Udemy, Unity, Unity,
+
+57
+00:02:48,000 --> 00:02:51,000
+and then, we build and run. And it's going to say, where do you want me
+
+58
+00:02:51,000 --> 00:02:54,000
+to go? Well, I'm put it, say in my downloads,
+
+59
+00:02:54,000 --> 00:02:57,000
+for example.
+
+60
+00:02:57,000 --> 00:03:00,000
+[Typing Sound]
+
+61
+00:03:00,000 --> 00:03:03,000
+And there we go! If you compile it, and you'll get a file that
+
+62
+00:03:03,000 --> 00:03:06,000
+you can put in Game Bucket, in the same way as you put your other projects
+
+63
+00:03:06,000 --> 00:03:09,000
+in there, or as I showed you earlier in this section, and you
+
+64
+00:03:09,000 --> 00:03:12,000
+will be able to host your game. The difference with the Web GL
+
+65
+00:03:12,000 --> 00:03:15,000
+Build, of course, is that you do not need
+
+66
+00:03:15,000 --> 00:03:18,000
+or the player does not need to have the Unity Plugin. It
+
+67
+00:03:18,000 --> 00:03:21,000
+works purely off HTML 5, which most all
+
+68
+00:03:21,000 --> 00:03:24,000
+modern browsers support. So,
+
+69
+00:03:24,000 --> 00:03:27,000
+after a while you should notice your browser open like this.
+
+70
+00:03:27,000 --> 00:03:30,000
+You will be able to play the game in a web browser, but this is a
+
+71
+00:03:30,000 --> 00:03:33,000
+locally hosted version of your game here, and you
+
+72
+00:03:33,000 --> 00:03:36,000
+can see that it says Unity Web GL, at the bottom. And you can make it full
+
+73
+00:03:36,000 --> 00:03:39,000
+screen, and it runs beautifully, without using a Unity
+
+74
+00:03:39,000 --> 00:03:42,000
+Plugin, which is great. So, how do we get this
+
+75
+00:03:42,000 --> 00:03:45,000
+up to Game Bucket. Well, what you want to do
+
+76
+00:03:45,000 --> 00:03:48,000
+is look in the folder that you stored your project
+
+77
+00:03:48,000 --> 00:03:51,000
+in. So, in this case it was Web GL Build in my Downloads.
+
+78
+00:03:51,000 --> 00:03:54,000
+Just zip up that entire folder, just compress it. Now, you
+
+79
+00:03:54,000 --> 00:03:57,000
+can do that in Windows or Mac in a similar way.
+
+80
+00:03:57,000 --> 00:04:00,000
+Compress it like so, and then, once you have the
+
+81
+00:04:00,000 --> 00:04:03,000
+.zip file, you simply upload that .zip file
+
+82
+00:04:03,000 --> 00:04:06,000
+to Game Bucket. And It'll take a little while but when it's finished you'll
+
+83
+00:04:06,000 --> 00:04:09,000
+get something like this, you'll just get your game hosted inside Game Bucket.
+
+84
+00:04:09,000 --> 00:04:12,000
+You can take that URL, check it in an incognito
+
+85
+00:04:12,000 --> 00:04:15,000
+browser tab like this, just to simulate you not
+
+86
+00:04:15,000 --> 00:04:18,000
+being logged in, and then, you'll know that if you share that with your friends,
+
+87
+00:04:18,000 --> 00:04:21,000
+that this is exactly what they'll see. And they don't need a
+
+88
+00:04:21,000 --> 00:04:24,000
+Unity Plugin. So, there you go! Web GL Build and Unity
+
+89
+00:04:24,000 --> 00:04:25,966
+5. See you soon!
+

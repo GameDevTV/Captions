@@ -1,0 +1,693 @@
+
+1
+00:00:03,000 --> 00:00:06,000
+Hey, welcome back! So, the focus of this
+
+2
+00:00:06,000 --> 00:00:09,000
+video is setting up your Play Space.
+
+3
+00:00:09,000 --> 00:00:12,000
+So, one of the first things we need to decide is
+
+4
+00:00:12,000 --> 00:00:15,000
+what size is this Play Space? Well, if we go to Google,
+
+5
+00:00:15,000 --> 00:00:18,000
+and I mentioned before the iPad Air resolution
+
+6
+00:00:18,000 --> 00:00:21,000
+just is an example target resolution,
+
+7
+00:00:21,000 --> 00:00:24,000
+also will fit OK on the web, if we downscale.
+
+8
+00:00:24,000 --> 00:00:27,000
+So, let's look at that. 2048 x
+
+9
+00:00:27,000 --> 00:00:30,000
+1536. My first question is what's the
+
+10
+00:00:30,000 --> 00:00:33,000
+Aspect Ratio of that? Have a look. It's 1.333
+
+11
+00:00:33,000 --> 00:00:36,000
+33333. OK, what you'll notice is it's actually
+
+12
+00:00:36,000 --> 00:00:39,000
+the same as 800 x 600.
+
+13
+00:00:39,000 --> 00:00:42,000
+It's also 1.3 reoccurring.
+
+14
+00:00:42,000 --> 00:00:45,000
+So, 800 by 600 is compatible with that much higher
+
+15
+00:00:45,000 --> 00:00:48,000
+a resolution. And in fact, when you download your course
+
+16
+00:00:48,000 --> 00:00:51,000
+assets, you'll find that the Block Breaker Assets
+
+17
+00:00:51,000 --> 00:00:54,000
+Sprites Folder contains two background images.
+
+18
+00:00:54,000 --> 00:00:57,000
+This guy here, who's an angry looking robot
+
+19
+00:00:57,000 --> 00:01:00,000
+or something, which we're going to use for Level 1, and then,
+
+20
+00:01:00,000 --> 00:01:03,000
+I've just chosen arbitrarily another one, which is 800
+
+21
+00:01:03,000 --> 00:01:06,000
+x 600. This one is a train track, and it just doesn't matter really, you
+
+22
+00:01:06,000 --> 00:01:09,000
+choose your own images. But they're both 800 by 600.
+
+23
+00:01:09,000 --> 00:01:12,000
+So, first job is to get the background image into Unity,
+
+24
+00:01:12,000 --> 00:01:15,000
+so just simply drag into your
+
+25
+00:01:15,000 --> 00:01:18,000
+Sprites Folder and there it is.
+
+26
+00:01:18,000 --> 00:01:21,000
+Once it's in your Sprites Folder, it's just an image, it's simply that.
+
+27
+00:01:21,000 --> 00:01:24,000
+We have to think a little bit about our
+
+28
+00:01:24,000 --> 00:01:27,000
+Pixels per unit up here, because
+
+29
+00:01:27,000 --> 00:01:30,000
+we're going to have 16 blocks wide, as
+
+30
+00:01:30,000 --> 00:01:33,000
+a total overall game space. And
+
+31
+00:01:33,000 --> 00:01:36,000
+we have an image, that is 800
+
+32
+00:01:36,000 --> 00:01:39,000
+Pixels wide, so we want 800 Pixels
+
+33
+00:01:39,000 --> 00:01:42,000
+to map to 16 World Units,
+
+34
+00:01:42,000 --> 00:01:45,000
+because we're going to go for one World Unit per block. World
+
+35
+00:01:45,000 --> 00:01:48,000
+Units, for those of you who don't know, are the position in
+
+36
+00:01:48,000 --> 00:01:51,000
+Unity's game space. They're what you see in the
+
+37
+00:01:51,000 --> 00:01:54,000
+transform, over in the Inspector, in the X and
+
+38
+00:01:54,000 --> 00:01:57,000
+Y. They're held as a floating point value and they are
+
+39
+00:01:57,000 --> 00:02:00,000
+relative to some arbitrary origin, in the middle
+
+40
+00:02:00,000 --> 00:02:03,000
+of the Unity World Space. So, this is about
+
+41
+00:02:03,000 --> 00:02:06,000
+how a certain image in Pixels is
+
+42
+00:02:06,000 --> 00:02:09,000
+actually going to be scaled and displayed in the World Space.
+
+43
+00:02:09,000 --> 00:02:12,000
+So, the Pixels
+
+44
+00:02:12,000 --> 00:02:15,000
+per World Unit we need is 50. Let's try it and see what happens.
+
+45
+00:02:15,000 --> 00:02:18,000
+So, we go for 50 in here
+
+46
+00:02:18,000 --> 00:02:21,000
+and Apply. Now, drop your Level
+
+47
+00:02:21,000 --> 00:02:24,000
+1 background on,
+
+48
+00:02:24,000 --> 00:02:27,000
+like so.
+
+49
+00:02:27,000 --> 00:02:30,000
+[background Noise]
+
+50
+00:02:30,000 --> 00:02:33,000
+There it is! Once you've zoomed in, there is your Level 1 background. If you
+
+51
+00:02:33,000 --> 00:02:36,000
+double click on it in the Hierarchy, then you will see
+
+52
+00:02:36,000 --> 00:02:39,000
+it on the screen. Now, the question is, how big is that thing?
+
+53
+00:02:39,000 --> 00:02:42,000
+On here, let's reset its transform first, so click on the cob
+
+54
+00:02:42,000 --> 00:02:45,000
+and reset. So, now the Level 1 background is at
+
+55
+00:02:45,000 --> 00:02:48,000
+the very bottom left of the screen. Let's find
+
+56
+00:02:48,000 --> 00:02:51,000
+out how big it is. One way of doing this, for example, would be to
+
+57
+00:02:51,000 --> 00:02:54,000
+grab the Main Camera, and while you've got the Main Camera
+
+58
+00:02:54,000 --> 00:02:57,000
+open, I just want you to check that the Projection Mode
+
+59
+00:02:57,000 --> 00:03:00,000
+here on the right hand side is Orthographic
+
+60
+00:03:00,000 --> 00:03:03,000
+rather than Perspective. An Orthographic
+
+61
+00:03:03,000 --> 00:03:06,000
+Camera does not take account of how far away
+
+62
+00:03:06,000 --> 00:03:09,000
+an object is from it, at all.
+
+63
+00:03:09,000 --> 00:03:12,000
+Whereas a Perspective Camera does. So, it's important for this project
+
+64
+00:03:12,000 --> 00:03:15,000
+that we're set up with an Orthographic Camera.
+
+65
+00:03:15,000 --> 00:03:18,000
+Also, while you've got the camera open, I'd like you to check the
+
+66
+00:03:18,000 --> 00:03:21,000
+Z position of the background image, up at the top right
+
+67
+00:03:21,000 --> 00:03:24,000
+here. It needs to be in the negative Z, which is
+
+68
+00:03:24,000 --> 00:03:27,000
+away from you, otherwise it won't be visible to the
+
+69
+00:03:27,000 --> 00:03:30,000
+camera. So, it doesn't matter what distance it's at, because it's an
+
+70
+00:03:30,000 --> 00:03:33,000
+Orthographic perspective-less camera, but it does
+
+71
+00:03:33,000 --> 00:03:36,000
+need to be away from the camera, in the negative Z direction.
+
+72
+00:03:36,000 --> 00:03:39,000
+OK, so to measure the width
+
+73
+00:03:39,000 --> 00:03:42,000
+of this Play Space, we move the camera firstly to the left
+
+74
+00:03:42,000 --> 00:03:45,000
+and have a look at the X position,
+
+75
+00:03:45,000 --> 00:03:48,000
+and then, move the camera to the right hand side
+
+76
+00:03:48,000 --> 00:03:51,000
+and you see it's plus 8. Great! So, the image is
+
+77
+00:03:51,000 --> 00:03:54,000
+16 World Units wide, which is great. I'm going to
+
+78
+00:03:54,000 --> 00:03:57,000
+rename this, just Background,
+
+79
+00:03:57,000 --> 00:04:00,000
+and I'm going to stick it up right
+
+80
+00:04:00,000 --> 00:04:03,000
+below the Main Camera, just for neatness.
+
+81
+00:04:03,000 --> 00:04:06,000
+Fantastic! So, we have a background that is 16 World Units wide.
+
+82
+00:04:06,000 --> 00:04:09,000
+The next thing we want to do, I think, is alpha
+
+83
+00:04:09,000 --> 00:04:12,000
+that background down, which means make it a little bit transparent,
+
+84
+00:04:12,000 --> 00:04:15,000
+try and make it a little more subtle. So, click on your Color Picker,
+
+85
+00:04:15,000 --> 00:04:18,000
+and you can leave it at white, so that
+
+86
+00:04:18,000 --> 00:04:21,000
+it doesn't tint the background but you can drag the alpha down,
+
+87
+00:04:21,000 --> 00:04:24,000
+so that it just becomes more dim. I'm going to go for
+
+88
+00:04:24,000 --> 00:04:27,000
+something like that. Just pick something that you like.
+
+89
+00:04:27,000 --> 00:04:30,000
+That's great! So, we have a subtle background. Now, what's this
+
+90
+00:04:30,000 --> 00:04:33,000
+thing on here, this annoying thing? That's just its
+
+91
+00:04:33,000 --> 00:04:36,000
+transform. That is just
+
+92
+00:04:36,000 --> 00:04:39,000
+where its Anchor Point is. So if we click
+
+93
+00:04:39,000 --> 00:04:42,000
+on our Background image and go to the Sprite
+
+94
+00:04:42,000 --> 00:04:45,000
+Editor, it would be better if the Pivot Point of
+
+95
+00:04:45,000 --> 00:04:48,000
+this image was at the bottom left. So, you can either
+
+96
+00:04:48,000 --> 00:04:51,000
+drag to the bottom left, being sure it's snapped, or choose here
+
+97
+00:04:51,000 --> 00:04:54,000
+and Apply.
+
+98
+00:04:54,000 --> 00:04:57,000
+So, now when you click on your Background, you have
+
+99
+00:04:57,000 --> 00:05:00,000
+your Transform Tool down a the bottom left like that, which is much more...
+
+100
+00:05:00,000 --> 00:05:03,000
+Please if for any reason your transform
+
+101
+00:05:03,000 --> 00:05:06,000
+is showing in the middle of your image, like this,
+
+102
+00:05:06,000 --> 00:05:09,000
+then it's this button up at the top left here. You have
+
+103
+00:05:09,000 --> 00:05:12,000
+Center and Global. You may have clicked it across
+
+104
+00:05:12,000 --> 00:05:15,000
+the center, at some point, so you just click it back to
+
+105
+00:05:15,000 --> 00:05:18,000
+Pivot, on the left hand side, and you will then see the
+
+106
+00:05:18,000 --> 00:05:21,000
+transform, at the Pivot Point rather than in the center
+
+107
+00:05:21,000 --> 00:05:24,000
+of the object. So, the object is the Background,
+
+108
+00:05:24,000 --> 00:05:27,000
+this is showing the Center, this is now showing the Pivot.
+
+109
+00:05:27,000 --> 00:05:30,000
+So, that's just a little gotcha! Let's adjust
+
+110
+00:05:30,000 --> 00:05:33,000
+the camera, so it's roughly the right
+
+111
+00:05:33,000 --> 00:05:36,000
+size for the play space. Now, you'll notice, you cannot change the
+
+112
+00:05:36,000 --> 00:05:39,000
+Aspect Ratio of the camera, at the moment. Why not?
+
+113
+00:05:39,000 --> 00:05:42,000
+Because it's determined by the current size of this Game
+
+114
+00:05:42,000 --> 00:05:45,000
+Window. If I was to bring my Inspector
+
+115
+00:05:45,000 --> 00:05:48,000
+in and make the Game Window more square, look back on the scene,
+
+116
+00:05:48,000 --> 00:05:51,000
+you see it's more square, so that's actually a problem.
+
+117
+00:05:51,000 --> 00:05:54,000
+We don't want the Camera Aspect Ratio to change,
+
+118
+00:05:54,000 --> 00:05:57,000
+as we mess around in Unity, so let's lock the
+
+119
+00:05:57,000 --> 00:06:00,000
+Aspect Ratio of the Game Window now. Click on Game.
+
+120
+00:06:00,000 --> 00:06:03,000
+At the top left, you'll see a drop-down that says
+
+121
+00:06:03,000 --> 00:06:06,000
+Free Aspect. Well, we don't want Free Aspect,
+
+122
+00:06:06,000 --> 00:06:09,000
+we want an Aspect Ratio of 4:3,
+
+123
+00:06:09,000 --> 00:06:12,000
+which is the same a 1.33333 to 1.
+
+124
+00:06:12,000 --> 00:06:15,000
+There you go! Fantastic! So, now that is locked, so whatever happens
+
+125
+00:06:15,000 --> 00:06:18,000
+here, now when we start moving our things around and re-sizing
+
+126
+00:06:18,000 --> 00:06:21,000
+the Game Window, the aspect of it is locked. So, that's a very useful tool.
+
+127
+00:06:24,000 --> 00:06:27,000
+Alright, so next we need to get the camera to be exactly
+
+128
+00:06:27,000 --> 00:06:30,000
+the same size as the background. How are you going to do that? Well,
+
+129
+00:06:30,000 --> 00:06:33,000
+this is where you need to understand a little bit about what this camera size
+
+130
+00:06:33,000 --> 00:06:36,000
+means. It's currently, on my screen, set to 7.5.
+
+131
+00:06:36,000 --> 00:06:39,000
+What does that mean? Well, it's 7.5 World Units
+
+132
+00:06:39,000 --> 00:06:42,000
+from the center here to the top of the camera.
+
+133
+00:06:42,000 --> 00:06:45,000
+It's half the height of the Camera Viewport.
+
+134
+00:06:45,000 --> 00:06:48,000
+So, we need a bit of math again. If our
+
+135
+00:06:48,000 --> 00:06:51,000
+Play Space is 16 wide,
+
+136
+00:06:51,000 --> 00:06:54,000
+and we have an Aspect Ratio of 4:3,
+
+137
+00:06:54,000 --> 00:06:57,000
+then how high is it? Well, we have to do
+
+138
+00:06:57,000 --> 00:07:00,000
+16 divided by 4
+
+139
+00:07:00,000 --> 00:07:03,000
+times 3, which tells us the Play Space should be
+
+140
+00:07:03,000 --> 00:07:06,000
+12 World Units high. Which means
+
+141
+00:07:06,000 --> 00:07:09,000
+that the camera setting should be a size of 6, half of that.
+
+142
+00:07:09,000 --> 00:07:12,000
+There you go, perfect! Nearly perfect!
+
+143
+00:07:12,000 --> 00:07:15,000
+If you set the transform to 8, 6, rather than to 8, 6 point
+
+144
+00:07:15,000 --> 00:07:18,000
+1, now the camera is perfectly aligned. Look!
+
+145
+00:07:18,000 --> 00:07:21,000
+Background image, you can see
+
+146
+00:07:21,000 --> 00:07:24,000
+the image, it has not kind of gizmos around the outside of it.
+
+147
+00:07:24,000 --> 00:07:27,000
+The Main Camera sits perfectly
+
+148
+00:07:27,000 --> 00:07:30,000
+over the top of it. Great job! So,
+
+149
+00:07:30,000 --> 00:07:33,000
+that's it! Now, let's just click play and see what happens.
+
+150
+00:07:36,000 --> 00:07:39,000
+Well, we see the background, and it's perfectly sitting inside the
+
+151
+00:07:39,000 --> 00:07:42,000
+camera, and if we detach our Game Tab, then
+
+152
+00:07:42,000 --> 00:07:45,000
+that is all just working fine,
+
+153
+00:07:45,000 --> 00:07:48,000
+But the Game Over Button is being a bit weird, it only shows
+
+154
+00:07:48,000 --> 00:07:51,000
+in some circumstances, so let's
+
+155
+00:07:51,000 --> 00:07:54,000
+just fix that so we can always see it. And the reason is that, when we've
+
+156
+00:07:54,000 --> 00:07:57,000
+fixed the Aspect Ratio of the Game,
+
+157
+00:07:57,000 --> 00:08:00,000
+our button disappeared off. So, just stick it
+
+158
+00:08:00,000 --> 00:08:03,000
+back in the window. And this is a Screen Space
+
+159
+00:08:03,000 --> 00:08:06,000
+Overlay, remember. I've specifically left it like this with our
+
+160
+00:08:06,000 --> 00:08:09,000
+background, tiny in the bottom, to show you that a
+
+161
+00:08:09,000 --> 00:08:12,000
+Screen Space Overlay just
+
+162
+00:08:12,000 --> 00:08:15,000
+is relative to the screen, and it doesn't care how big
+
+163
+00:08:15,000 --> 00:08:18,000
+your actual background and other assets are. So, now
+
+164
+00:08:18,000 --> 00:08:21,000
+where we see this button, inside the Screen Space Overlay, is where
+
+165
+00:08:21,000 --> 00:08:24,000
+we will see it when we click the play. Yeah.
+
+166
+00:08:24,000 --> 00:08:27,000
+It just overlays over the top. We're going to ditch all that stuff soon
+
+167
+00:08:27,000 --> 00:08:30,000
+anyway, but for now look, you've done great! If we focus back
+
+168
+00:08:30,000 --> 00:08:33,000
+on our background, we have a background positioned
+
+169
+00:08:33,000 --> 00:08:36,000
+at the Origin. Just check that. We have its
+
+170
+00:08:36,000 --> 00:08:39,000
+Pivot Point, at the bottom left, which is sensible,
+
+171
+00:08:39,000 --> 00:08:42,000
+and we have a camera that is precisely
+
+172
+00:08:42,000 --> 00:08:45,000
+coincident with what we see there.
+
+173
+00:08:45,000 --> 00:08:48,000
+So, cool! See you soon!
+

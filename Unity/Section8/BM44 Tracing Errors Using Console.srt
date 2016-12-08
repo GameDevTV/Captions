@@ -1,0 +1,715 @@
+Kind: captions
+Language: en
+
+00:00:00,000 --> 00:00:06,359
+Welcome back, so in this meaty video we're going to
+talk about protecting yourself from
+
+00:00:06,359 --> 00:00:09,710
+bugs. We will break your whole game,
+
+00:00:09,710 --> 00:00:14,090
+trace the bug we create via the console,
+then discuss how we handle undefined
+
+00:00:14,090 --> 00:00:15,610
+states and discuss isola...
+
+00:00:15,610 --> 00:00:20,240
+isolating even and fixing bugs so let's
+make an architectural decision,
+
+00:00:20,240 --> 00:00:24,460
+score master already passes back there
+in yellow a list of frames to game
+
+00:00:24,460 --> 00:00:30,070
+manager so the simplest and most logical
+thing to pass from game manager onto the
+
+00:00:30,070 --> 00:00:33,920
+score display at the top right is the
+list of frames and the list of pins and
+
+00:00:33,920 --> 00:00:37,940
+then let score display handle the rest. Now
+in the case of the list of frames that's
+
+00:00:37,940 --> 00:00:41,530
+trivial, it just puts them in the right boxes
+in the case of the list of pins score
+
+00:00:41,530 --> 00:00:45,780
+displays got a similar amount of work to
+do as score master or action master
+
+00:00:45,780 --> 00:00:51,000
+because it could be anywhere between 13
+and 21 different pin falls, so it's gotta
+
+00:00:51,000 --> 00:00:54,820
+work out where to leave spaces an what
+boxes to put it in, but before we solve that
+
+00:00:54,820 --> 00:01:00,039
+problem, let's see what would happen if
+we got that method wrong in score display
+
+00:01:00,039 --> 00:01:03,809
+and how badly it could break the game, so I
+want you to add a method to score to
+
+00:01:03,809 --> 00:01:08,700
+school display dot cs, use the signature
+there public void fill roll card, takes
+
+00:01:08,700 --> 00:01:13,380
+in a list of integers of roles as we
+just discussed. Call the message... method from
+
+00:01:13,380 --> 00:01:17,250
+game manager before ball dot reset, you'll
+obviously need to go and find your score
+
+00:01:17,250 --> 00:01:22,600
+display and all that type of stuff at the start
+and then make it error, for example in your
+
+00:01:22,600 --> 00:01:26,850
+score display dot cs in your fill
+roll card method, just say rolls bracket
+
+00:01:26,850 --> 00:01:31,210
+minus one for example, try and access an
+invalid element of the array or anything
+
+00:01:31,210 --> 00:01:35,530
+to error out and then see what happens
+and run the game see how badly broken the
+
+00:01:35,530 --> 00:01:39,290
+whole execution flow of the game is and
+then we'll work out why and learn some
+
+00:01:39,290 --> 00:01:43,000
+really useful tools, so see you in a second
+
+00:01:43,000 --> 00:01:45,000
+Cool, welcome back, so let's let's go ahead and
+
+00:01:45,020 --> 00:01:49,490
+break our game. So in score display
+we said we were gonna make a method called
+
+00:01:49,490 --> 00:01:54,700
+public, cos we need to call it from
+outside void fill roll card and then it takes
+
+00:01:54,700 --> 00:02:00,079
+in a list which we don't have access to
+so we do now as we have the generic
+
+00:02:00,079 --> 00:02:08,810
+namespace a list of integers call rolls.
+Fine, and then imagine that we make a
+
+00:02:08,810 --> 00:02:12,980
+mistake in the production of this method,
+it's not beyond belief that we could do
+
+00:02:12,980 --> 00:02:13,440
+that
+
+00:02:13,440 --> 00:02:18,190
+and that we try and index rolls minus one
+equals one; it's just an invalid index,
+
+00:02:18,190 --> 00:02:21,850
+could easily happen in a loop right that
+we end up calling an invalid array index
+
+00:02:21,850 --> 00:02:27,390
+and imagine worse that this only happens
+one in a thousand games, there's only a few
+
+00:02:27,390 --> 00:02:31,120
+handfuls of games that that happens in
+imagine you missed it in your tests even if
+
+00:02:31,120 --> 00:02:34,620
+you built this using test driven
+development imagine you missed it, and out there
+
+00:02:34,620 --> 00:02:38,830
+in your shipped game occasionally this
+bug happens although of course it can
+
+00:02:38,830 --> 00:02:42,390
+happen every time now because we're forcing
+it to happen. So there they are, they're playing
+
+00:02:42,390 --> 00:02:47,840
+away, all looks OK on the surface when they
+start then they bowl... doesn't matter what
+
+00:02:47,840 --> 00:02:53,370
+you do actually because whatever you do
+we're gonna get problems if we make the
+
+00:02:53,370 --> 00:02:58,340
+call, so no problems here, why? Because we
+haven't yet called this fill roll card so
+
+00:02:58,340 --> 00:03:02,360
+your other bit of coding is over here in game
+manager, we need access to a private
+
+00:03:02,360 --> 00:03:06,630
+score display which is fair enough
+
+00:03:06,630 --> 00:03:09,940
+architecturally I'm happy that the game
+manager has access to a score display
+
+00:03:09,940 --> 00:03:14,730
+and I said before Ball reset I wanted to
+call the method so I need to find the
+
+00:03:14,730 --> 00:03:20,800
+instance score display equals GameObject
+dot find object of type score display
+
+00:03:20,800 --> 00:03:25,960
+This old chestnut again
+
+00:03:25,960 --> 00:03:29,270
+and then down here we're just going to
+call the instance, score display dot
+
+00:03:29,270 --> 00:03:35,010
+fill roll card and we're gonna instantly
+try and pass in the rolls list. OK, so now
+
+00:03:35,010 --> 00:03:44,990
+that you're actually making the call to
+sorry, it's called pin fall isn't it here. Sorry, I'm passing
+
+00:03:44,990 --> 00:03:49,040
+the wrong thing in again fill roll
+card of course takes in the entire list
+
+00:03:49,040 --> 00:03:54,360
+not this one pin fall but it takes in the
+entire list up here called bowls. ok so third
+
+00:03:54,360 --> 00:03:58,650
+time lucky and it should compile. OK,
+let's take a look let's run the games see
+
+00:03:58,650 --> 00:04:05,460
+what'sgonna happen. Off it goes to the side, doesn't matter
+what you do because once you've done
+
+00:04:05,460 --> 00:04:11,920
+whatever you're gonna do... messy, you get an
+argument is out of range 19 times and
+
+00:04:11,920 --> 00:04:15,810
+then it's telling us it doesn't know how
+to handle the endgame hundreds of times
+
+00:04:15,810 --> 00:04:21,900
+and then the Swiper if we look at it
+over here is just constantly acting on
+
+00:04:21,900 --> 00:04:26,910
+the balls or at least it's doing it
+several times, what a mess. What a mess,
+
+00:04:26,910 --> 00:04:29,990
+and the games broken right we can't read
+you can't play again, we don't
+
+00:04:29,990 --> 00:04:34,940
+have access to the ball, it's in outer
+space... very very broken, so that's fine
+
+00:04:34,940 --> 00:04:38,500
+I'm taking you here on purpose. Why am I
+taking you down into this buggy state?
+
+00:04:38,500 --> 00:04:41,690
+Because it's going to happen to you in
+fact Elija left a fantastic review
+
+00:04:41,690 --> 00:04:47,200
+recently and one of the things he said
+in this review is here don't expect
+
+00:04:47,200 --> 00:04:50,950
+hand-holding tour of immaculate code
+fortress, expect to be dragged repeatedly
+
+00:04:50,950 --> 00:04:53,510
+through the mud. Just remember they're in
+the mud with you until you learn to walk.
+
+00:04:53,510 --> 00:04:57,510
+So that's what I'm doing, I'm dragging you
+through the mud here I made this error in
+
+00:04:57,510 --> 00:05:02,500
+the prototyping of this section and it's
+very valuable to learn how to deal with
+
+00:05:02,500 --> 00:05:06,670
+this sort of circumstance so what I
+want you to do now, I'm going to show you
+
+00:05:06,670 --> 00:05:09,680
+a quick tool and then I want you to try
+and trace this error. The tool I'm gonna
+
+00:05:09,680 --> 00:05:13,390
+show you is to pause the game when the
+error happens, or stop it either one
+
+00:05:13,390 --> 00:05:18,100
+probably better to pause it coz you
+can then resume, and then you can look in
+
+00:05:18,100 --> 00:05:21,190
+the console you click on an error like
+this argument is out of range and then
+
+00:05:21,190 --> 00:05:24,220
+if you look below you've got the entire
+trace know you read this trace from
+
+00:05:24,220 --> 00:05:25,250
+bottom to top
+
+00:05:25,250 --> 00:05:30,610
+Pin Counter line 24 Called Pin Counter line
+52 called Pin Counter line... etc.
+
+00:05:30,610 --> 00:05:35,430
+Yeah? You read bottom to top, the same for the other
+error. So what I want you to do now is write out
+
+00:05:35,430 --> 00:05:36,870
+for me on a piece of paper
+
+00:05:36,870 --> 00:05:40,750
+at least five bullet points as to what
+is going wrong here; I want you to make
+
+00:05:40,750 --> 00:05:44,940
+sure you can understand what's going on.
+Use the console trace I've just shown you, write
+
+00:05:44,940 --> 00:05:48,630
+five-plus bullet points as to what's
+going on and then think about how you
+
+00:05:48,630 --> 00:05:53,440
+may fix it - don't fix it - but let's just
+think about how we may fix it and the main
+
+00:05:53,440 --> 00:05:56,960
+purpose here is for you to get good at
+understanding what's going wrong, tracing things
+
+00:05:56,960 --> 00:06:05,230
+go ahead, pause the video, spend a while on that and try and reason what the hell is happening.
+
+00:06:05,230 --> 00:06:11,550
+ok welcome back so let's work out what's
+going on so firstly we had 19 argument
+
+00:06:11,550 --> 00:06:14,400
+out of ranges, now if I un-collapse the
+console I can check that these were
+
+00:06:14,400 --> 00:06:18,520
+indeed were all at the beginning, they were. Now
+nineteen is sounding quite close to the
+
+00:06:18,520 --> 00:06:24,230
+number of frames we've got well bowls
+rather we've got so its sounding like
+
+00:06:24,230 --> 00:06:29,960
+something happens like 19, 20 ish times and
+then after that it's getting an endgame
+
+00:06:29,960 --> 00:06:33,660
+OK, so let's start with the very first
+error. Let's look at it
+
+00:06:33,660 --> 00:06:42,790
+Pin Counter line 24 it's called, OK go and let's look at Pin Counter line 24 every update, we're in an update
+
+00:06:42,790 --> 00:06:46,400
+loop here, every frame which is going to be
+probably responsible for the number of
+
+00:06:46,400 --> 00:06:47,660
+bugs we've got here
+
+00:06:47,660 --> 00:06:51,180
+errors we've got here, every frame it says if
+the ball is out of play which it is we
+
+00:06:51,180 --> 00:06:54,840
+update the standing count and settle, ok let's
+go back to unity. It says we now jump to
+
+00:06:54,840 --> 00:07:02,020
+line 52 ok 52. Pins have settled. Cos it gets
+into this method and remember nothing
+
+00:07:02,020 --> 00:07:05,530
+went wrong until after 3 seconds and
+then suddenly the looping went nuts. So
+
+00:07:05,530 --> 00:07:08,450
+the pins have settled is being called.
+OK, then what happens?
+
+00:07:08,450 --> 00:07:13,360
+Line 62 here we go. We get into Pins have
+settled, it does this stuff and it calls game
+
+00:07:13,360 --> 00:07:17,740
+manager dot bowl. OK and then where
+does it go? Then it goes into game
+
+00:07:17,740 --> 00:07:22,520
+manager but does it ever come out of game
+manager, well because there's a bug I
+
+00:07:22,520 --> 00:07:28,350
+don't think it does lets verify that
+guess, so Debug.Log "I never get here" so
+
+00:07:28,350 --> 00:07:32,300
+putting a log statement in to say if
+you assuming it never gets here because
+
+00:07:32,300 --> 00:07:36,200
+it calls game manager dot bowl and that
+goes wrong, we made it go wrong
+
+00:07:36,200 --> 00:07:40,990
+remember game manager dot bowl calls
+score master fill roll card which errors
+
+00:07:40,990 --> 00:07:45,940
+out I'm suspecting it never gets here
+so that it never updates our standing
+
+00:07:45,940 --> 00:07:48,260
+count, and the ball never goes out of
+play,
+
+00:07:48,260 --> 00:07:52,020
+and that loop just perpetuates cause when
+we get back up here then it says if
+
+00:07:52,020 --> 00:07:58,220
+the ball's out of play well the ball is
+still out of play because it never sets it
+
+00:07:58,220 --> 00:08:00,530
+to false because it never gets here
+
+00:08:00,530 --> 00:08:04,970
+OK let's test our hypothesis, run the
+game with that Debug statement in, get
+
+00:08:04,970 --> 00:08:10,940
+back to your error state and then watch
+the console. OK now you can collapse the
+
+00:08:10,940 --> 00:08:15,040
+console and you'll see that you don't have a I
+never get here line it just never gets
+
+00:08:15,040 --> 00:08:21,110
+to this line. OK, so that's what is going on.
+So it goes wrong at this point, the pin
+
+00:08:21,110 --> 00:08:27,270
+counter script every update gets this
+far and then bails out ok but it also
+
+00:08:27,270 --> 00:08:30,440
+every update calls gamea manager. So what
+happens to game manager and what game
+
+00:08:30,440 --> 00:08:35,700
+manager comes through and it gets this
+far it calls score display fill roll card
+
+00:08:35,700 --> 00:08:40,840
+and bails out lets verify that in the
+trace game manager goes to line 26 which
+
+00:08:40,840 --> 00:08:48,900
+is here the one I've got highlighted, and then it goes
+in to score display line 22 which is here,
+
+00:08:48,900 --> 00:08:53,850
+and it's score display line 22 where you get
+a few other things go wrong
+
+00:08:53,850 --> 00:09:00,690
+ending in an argument out of range ok so
+think about the execution flow all these
+
+00:09:00,690 --> 00:09:02,430
+scripts remember occur in...
+
+00:09:02,430 --> 00:09:08,880
+well you know how the execution order
+loops work from earlier in the course, so the
+
+00:09:08,880 --> 00:09:15,500
+pin counter is executing as far as its
+update loop runs and it executes as far as
+
+00:09:15,500 --> 00:09:20,360
+this line, doesn't go past it so now the
+execution flow has got into game manager.
+
+00:09:20,360 --> 00:09:25,550
+So we get to game manager, we get to this game
+this line but we never reset the ball so
+
+00:09:25,550 --> 00:09:28,820
+that's why the ball isn't getting reset.
+You could move, and I suggest you do move
+
+00:09:28,820 --> 00:09:32,810
+the ball reset up to the top of bowl so
+go ahead and do that now, move the ball
+
+00:09:32,810 --> 00:09:36,910
+reset to the top of bowl in your bowl method
+and let's just see how that affects
+
+00:09:36,910 --> 00:09:41,070
+things. I think we get a roughly similar
+problem but at least the problem; at least we'll
+
+00:09:41,070 --> 00:09:47,130
+reset the ball while the problem happens; that
+doesn't make it any better but here
+
+00:09:47,130 --> 00:09:50,290
+we go, so now we got the ball back here,
+we're still getting the same errors but
+
+00:09:50,290 --> 00:09:55,200
+the reset has happened before the problem
+ocurred. So the problem is that this line here in
+
+00:09:55,200 --> 00:10:00,160
+bowl is erroring out, and just keeps
+looping
+
+00:10:00,160 --> 00:10:03,940
+and it keeps looping for the reason I said,
+all the way back to pin counter is the
+
+00:10:03,940 --> 00:10:08,240
+problem; so we need to make sure that
+when pin counter calls game manager
+
+00:10:08,240 --> 00:10:14,899
+dot bowl that the execution flow
+continues and this doesn't error out so
+
+00:10:14,899 --> 00:10:18,540
+how did you get on with that? This is
+what I've written down from my list of
+
+00:10:18,540 --> 00:10:23,550
+bugs once the ball has entered pin counter
+it loops, every frame it calls game manager
+
+00:10:23,550 --> 00:10:29,040
+dot bowl; pins have settled method never completes,
+ball out of play stays true, hence the infinite loop
+
+00:10:29,040 --> 00:10:34,310
+and game manager's pin fall list fills up
+leading to the end game so that nineteen
+
+00:10:34,310 --> 00:10:39,970
+Bowl thing you get here is because then
+after nineteen bowls of whatever we did
+
+00:10:39,970 --> 00:10:44,110
+say zero in this case the action master is
+starting to say well it's the end of the
+
+00:10:44,110 --> 00:10:47,800
+game now so that's why you get
+nineteen of these and then a load of
+
+00:10:47,800 --> 00:10:53,310
+logs. OK so what I want to talk about briefly is
+not fixing it, but I just wanna talk
+
+00:10:53,310 --> 00:10:56,769
+briefly about how we handle our game
+when it goes into an undefined state
+
+00:10:56,769 --> 00:11:00,490
+obviously these architecturally nasty and
+we've got a little bit of spaghettification
+
+00:11:00,490 --> 00:11:05,490
+going on in that we have the
+pin counter calling into the game
+
+00:11:05,490 --> 00:11:08,920
+manager rather than the other way around
+but the purpose of this is to
+
+00:11:08,920 --> 00:11:12,290
+demonstrate how we can isolate problems
+in our code like this. Now it may be
+
+00:11:12,290 --> 00:11:15,139
+tempting if you know about things like
+try / catch which we're going to cover
+
+00:11:15,139 --> 00:11:19,300
+next, it may be tempting to try and wrap
+the offending lines in something like a
+
+00:11:19,300 --> 00:11:23,120
+try catch, and that's okay in some
+circumstances, you could wrap this line
+
+00:11:23,120 --> 00:11:26,889
+in a try catch and you'll see that that
+would allow the execution to continue
+
+00:11:26,889 --> 00:11:33,759
+but there're different types of error, so
+let's just talk about that for a minute.
+
+00:11:33,759 --> 00:11:38,480
+Your game is going into an undefined state
+now. Imagine this only happened one in a
+
+00:11:38,480 --> 00:11:43,790
+thousand games and it's a shipped game out
+on a console and only some scores do this. So
+
+00:11:43,790 --> 00:11:48,360
+you've got the option of failing hard
+versus failing soft and reporting errors,
+
+00:11:48,360 --> 00:11:51,750
+so some games will do little have
+little problems or glitches and they'll just
+
+00:11:51,750 --> 00:11:55,910
+report an error maybe back to the
+developer and then you will just fix it
+
+00:11:55,910 --> 00:11:59,279
+and maybe some users will never notice.
+There are other types of failure where
+
+00:11:59,279 --> 00:12:02,180
+you just go oh my god, I'm going into an
+undefined state like this, we'd better just
+
+00:12:02,180 --> 00:12:07,129
+kill the game; and that's a pretty nasty
+error for a user, the game just quits, but
+
+00:12:07,129 --> 00:12:10,459
+all games have bugs in them it's just a
+question of the consequences of those
+
+00:12:10,459 --> 00:12:12,930
+bugs and getting through quality control
+is just getting the
+
+00:12:12,930 --> 00:12:17,790
+number of bugs down. So we need to decide
+for this score business, you know, how are
+
+00:12:17,790 --> 00:12:20,820
+we going to deal with it? We can't do
+that until we fully identify the error
+
+00:12:20,820 --> 00:12:24,720
+and got some handle on how often it's
+going to happen. So at this stage we know
+
+00:12:24,720 --> 00:12:27,440
+that it's going to happen every time
+because we've made it happen every time.
+
+00:12:27,440 --> 00:12:33,040
+So we really need to just eliminate the
+error; but if we'd identified an error after
+
+00:12:33,040 --> 00:12:37,510
+shipping that only happens one in a
+thousand times then obviously you still
+
+00:12:37,510 --> 00:12:41,510
+need to fix the error but we want to try
+to make the architecture such that we
+
+00:12:41,510 --> 00:12:45,300
+prevent show-stopping issues from
+happening, so that's what we're gonna do in
+
+00:12:45,300 --> 00:12:49,240
+the next video we're going to talk about
+the try catch loop and how we could use
+
+00:12:49,240 --> 00:12:53,130
+that to say okay this area is happening,
+it's only happening occasionally, let's
+
+00:12:53,130 --> 00:12:57,070
+carry on with our development while
+somebody else fixes that
+
+00:12:57,070 --> 00:12:59,920
+problem and isolates that problem.
+
+00:12:59,920 --> 00:13:04,660
+OK so that's where we've got to do with
+it, and we're gonna move on in a moment
+
+00:13:04,660 --> 00:13:09,270
+and sort it let me just refactor something while
+we're here; this is too many lines pin seter
+
+00:13:09,270 --> 00:13:12,770
+perform action next action all of
+this bumf from the line above, look I could just
+
+00:13:12,770 --> 00:13:19,380
+take that and just stick it in there
+couldn't I? OK, so just do a bit of a refactor
+
+00:13:19,380 --> 00:13:24,050
+there just for tidiness. Alright,
+and then in the next video we'll talk about
+
+00:13:24,050 --> 00:13:26,420
+catching and dealing with this error. See you soon.
+

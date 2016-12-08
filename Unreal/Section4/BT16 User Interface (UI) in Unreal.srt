@@ -1,0 +1,533 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+In this video
+
+2
+00:00:04,000 --> 00:00:08,000
+we're going to take another major step towards being able to make a real game, which is you're going to start to
+
+3
+00:00:08,000 --> 00:00:12,000
+touch the User Interface System in Unreal which will be great!
+
+4
+00:00:12,000 --> 00:00:16,000
+What we're going to do with that is very simple actually... I don't know if you can see it even, but there's a
+
+5
+00:00:16,000 --> 00:00:20,000
+little tiny white dot, about a 1/3 of the way down the screen and in the middle; it's kind of
+
+6
+00:00:20,000 --> 00:00:24,000
+over the enemy tank right now, that's our aiming reticle. So, we're going to make
+
+7
+00:00:24,000 --> 00:00:28,000
+a Player UI Widget and a Tank Player Controller that's going to spawn that widget,
+
+8
+00:00:28,000 --> 00:00:32,000
+and then, the magic will happen! So, let's see how it's done!
+
+9
+00:00:32,000 --> 00:00:32,800
+
+
+10
+00:00:32,800 --> 00:00:36,800
+So, what we want to create is a little dot
+
+11
+00:00:36,800 --> 00:00:40,800
+in the screen, about a 1/3 of the way down the screen and right in the middle.
+
+12
+00:00:40,800 --> 00:00:44,800
+So, about where the enemy tank is in our Viewport now, something like that,
+
+13
+00:00:44,800 --> 00:00:48,800
+and that becomes our aim point. The simplest way to do that is to
+
+14
+00:00:48,800 --> 00:00:52,800
+use User Interface, something called a Widget Blueprint, and we're going
+
+15
+00:00:52,800 --> 00:00:56,800
+to be needing that anyway to display our ammo and to create our Start Menu later. So, let's get
+
+16
+00:00:56,800 --> 00:01:00,800
+into Widget Blueprints and User Interface! Just before I do, I'm going
+
+17
+00:01:00,800 --> 00:01:04,800
+to delete my high poly model of the ground. You could proceed with high
+
+18
+00:01:04,800 --> 00:01:08,800
+poly modeling, it's just taking a lot more time and the focus of this section is more on
+
+19
+00:01:08,800 --> 00:01:12,800
+control systems. So, I'm going to delete that high poly landscape, and
+
+20
+00:01:12,800 --> 00:01:16,800
+I'm also just going to move the FlatLand material into the BattleGround sharedassets, just to tidy up.
+
+21
+00:01:16,800 --> 00:01:20,800
+It's as simple as that. Finally, I have a _Levels folder here, but I haven't
+
+22
+00:01:20,800 --> 00:01:24,800
+used it, underscore Levels. Why underscore? Simply because it floats to the top.
+
+23
+00:01:24,800 --> 00:01:28,800
+It's quite common that we want to choose our level. Later, we'll want to have a start scene in here, too.
+
+24
+00:01:28,800 --> 00:01:32,800
+And if you underscore levels, it floats to the top of the list, as simple as that. Alright,
+
+25
+00:01:32,800 --> 00:01:36,800
+so how are we going to do this? Well, we want to make ourselves
+
+26
+00:01:36,800 --> 00:01:40,800
+our first Widget Blueprint. So, in the Content tab you go to Add New, look for Widget,
+
+27
+00:01:40,800 --> 00:01:44,800
+or just scroll down for it, and User Interface,
+
+28
+00:01:44,800 --> 00:01:48,800
+Widget Blueprint. That's what we want! Talk about Slate, that's a more advanced
+
+29
+00:01:48,800 --> 00:01:52,800
+tool for User Interface. We're just going to be
+
+30
+00:01:52,800 --> 00:01:56,800
+messing around with the Widget Blueprint for now. Alright, let's call it
+
+31
+00:01:56,800 --> 00:02:00,800
+Player
+
+32
+00:02:00,800 --> 00:02:04,800
+UI, for example. OK, because it's going to be the player's User Interface that we're designing
+
+33
+00:02:04,800 --> 00:02:08,800
+here. Fantastic! So, let's go into the Widget Blueprint. A whole new
+
+34
+00:02:08,800 --> 00:02:12,800
+load of tools for you! Unreal's great like this, it's got so many tools hiding away!
+
+35
+00:02:12,800 --> 00:02:16,800
+So, I'm just going to get rid of the Animation Timeline, at the bottom, and the Animations tab, we
+
+36
+00:02:16,800 --> 00:02:20,800
+simply don't need those and just keep things nice and simple.
+
+37
+00:02:20,800 --> 00:02:24,800
+OK, so for the sake of what we're doing here, we actually just need an
+
+38
+00:02:24,800 --> 00:02:28,800
+image. That's all we need, just a very simple couple of white
+
+39
+00:02:28,800 --> 00:02:32,800
+pixels, to be honest. So, what we're going to do is just add an image,
+
+40
+00:02:32,800 --> 00:02:36,800
+drop it in the scene. Now, the first thing we need to get right is the anchoring.
+
+41
+00:02:36,800 --> 00:02:40,800
+We want to make sure it's always anchored to a position that is
+
+42
+00:02:40,800 --> 00:02:44,800
+1/2 way along the screen and exactly a 1/3 of the way down the screen.
+
+43
+00:02:44,800 --> 00:02:48,800
+And the way we're doing things at the moment, if you just drop the image in, the anchor
+
+44
+00:02:48,800 --> 00:02:52,800
+point is at the top-left. Let's see what happens if you change screen size. You see
+
+45
+00:02:52,800 --> 00:02:56,800
+how it's anchored a fixed number of pixels away from the top left? That's no use
+
+46
+00:02:56,800 --> 00:03:00,800
+to us. So, the first thing we want to do is change this anchor point. Now, the
+
+47
+00:03:00,800 --> 00:03:04,800
+simplest way to make sure that this image is always at 50% of the way
+
+48
+00:03:04,800 --> 00:03:08,800
+across horizontally and a 1/3 of the way down vertically is just
+
+49
+00:03:08,800 --> 00:03:12,800
+literally to drag the anchor point there. There you go! So, add 50% horizontally,
+
+50
+00:03:12,800 --> 00:03:16,800
+33.3%, exactly 1/3, vertically. So then,
+
+51
+00:03:16,800 --> 00:03:20,800
+this is where it's going to stay anchored to. Look what happens now, if we change the screen size. That option
+
+52
+00:03:20,800 --> 00:03:24,800
+is at the top-right. You see how it's always a
+
+53
+00:03:24,800 --> 00:03:28,800
+1/3 of the way down the screen and 1/2 way
+
+54
+00:03:28,800 --> 00:03:32,800
+across the screen OK. So, I'm just going to go 19" monitor. It
+
+55
+00:03:32,800 --> 00:03:36,800
+doesn't really matter, we're going to be focusing on a 16:9 ratio. I just wanted to show you that, that's going to
+
+56
+00:03:36,800 --> 00:03:40,800
+stay there regardless. OK, so next question. Where
+
+57
+00:03:40,800 --> 00:03:44,800
+is this block compared to that pivot point? Well, that's
+
+58
+00:03:44,800 --> 00:03:48,800
+these positions on the right-hand side, or not necessarily, it depends where you've got your Details
+
+59
+00:03:48,800 --> 00:03:52,800
+tab. But in your Details tab, under the Slot section, you can see Position,
+
+60
+00:03:52,800 --> 00:03:56,800
+and if you reset these positions in X and Y
+
+61
+00:03:56,800 --> 00:04:00,800
+and also the Size. I think maybe 5 pixels will be enough in X and Y.
+
+62
+00:04:00,800 --> 00:04:04,800
+Then, we've got a 5 by 5 pixel blop, but it's not
+
+63
+00:04:04,800 --> 00:04:08,800
+quite sitting in the middle of the anchor point, and the reason for that is the alignment needs to be
+
+64
+00:04:08,800 --> 00:04:12,800
+0.5 0.5. OK, you can see
+
+65
+00:04:12,800 --> 00:04:16,800
+that if the Alignment was 0 0, then it's the top-left of
+
+66
+00:04:16,800 --> 00:04:20,800
+the image that sits on the anchor point, but we want 0.5, which means half way across
+
+67
+00:04:20,800 --> 00:04:24,800
+horizontally and halfway up vertically, that's where we want it!
+
+68
+00:04:24,800 --> 00:04:28,800
+So, if we zoom all the way out now, what we've got is a little dot that regardless of
+
+69
+00:04:28,800 --> 00:04:32,800
+the screen size and shape is going to be a 1/3 of the way down
+
+70
+00:04:32,800 --> 00:04:36,800
+and 1/2 way across. Cool, nice and simple! So,
+
+71
+00:04:36,800 --> 00:04:40,800
+I'm just going to call this image something different. Let's call it Aim
+
+72
+00:04:40,800 --> 00:04:44,800
+Point, like that, and compile
+
+73
+00:04:44,800 --> 00:04:48,800
+the Player UI Widget and that is the start. We have a
+
+74
+00:04:48,800 --> 00:04:52,833
+Player UI Widget. Now, don't be disappointed that when you play your game it doesn't show,
+
+75
+00:04:52,833 --> 00:04:56,800
+that's because we haven't yet setup the blueprint to make that show, which is
+
+76
+00:04:56,800 --> 00:05:00,800
+what we need to do next. So, it's at this point we want to think about what
+
+77
+00:05:00,800 --> 00:05:04,800
+entity is responsible for showing the Player UI. Well, you could say it's
+
+78
+00:05:04,800 --> 00:05:08,800
+the tank, because it's always there when we're possessing the tank, but how about if we
+
+79
+00:05:08,800 --> 00:05:12,800
+de-possess the tank, i.e. our tank gets blown up, for example. What would
+
+80
+00:05:12,800 --> 00:05:16,800
+happen if we weren't actually possessing the tank? Should we still be showing our
+
+81
+00:05:16,800 --> 00:05:20,800
+UI? I think we should. Fundamentally, it's the Player Controller
+
+82
+00:05:20,800 --> 00:05:24,800
+that is responsible for showing the Player UI, or that's the choice we're making
+
+83
+00:05:24,800 --> 00:05:30,800
+in this section. And we don't have a Player Controller yet, so let's go ahead and make ourselves a new blueprint class.
+
+84
+00:05:30,800 --> 00:05:34,800
+So, as we're making a Player Controller, the type of the blueprint we're going to use is a
+
+85
+00:05:34,800 --> 00:05:38,800
+Player Controller. It's an Actor responsible for controlling a
+
+86
+00:05:38,800 --> 00:05:42,800
+Pawn used by the Player. That Pawn is the tank and we are the Player.
+
+87
+00:05:42,800 --> 00:05:46,800
+So, there you go, let's make that new blueprint! Let's call it Player
+
+88
+00:05:46,800 --> 00:05:50,800
+Controller or TankPlayer?
+
+89
+00:05:50,800 --> 00:05:54,800
+Controller I think, dot underscore BP.
+
+90
+00:05:54,800 --> 00:05:58,800
+Why TankPlayerController? Because we are possibly going to have Tank
+
+91
+00:05:58,800 --> 00:06:02,800
+AIController later, when we get to the point of having AI tanks.
+
+92
+00:06:02,800 --> 00:06:06,800
+Great! So, in the TankPlayerController, that is where we're going
+
+93
+00:06:06,800 --> 00:06:10,800
+to setup the User Interface. So, I'm going to show you how to do that, and then, I'm going to
+
+94
+00:06:10,800 --> 00:06:14,800
+allow you, as a challenge, to do the last little bit. So, if we go to the Event
+
+95
+00:06:14,800 --> 00:06:18,800
+Graph of your newly formed Tank Player Controller blueprint.
+
+96
+00:06:18,800 --> 00:06:22,800
+I'm going to delete the tick for the moment; it's the BeginPlay that we're interested in.
+
+97
+00:06:22,800 --> 00:06:26,800
+OK, so there's the BeginPlay node. So drag an execution pin
+
+98
+00:06:26,800 --> 00:06:30,800
+from your BeginPlay to get things going and search
+
+99
+00:06:30,800 --> 00:06:34,800
+for widget. One of the things we can do is under the User Interface section, which makes sense,
+
+100
+00:06:34,800 --> 00:06:38,800
+we create a widget. So, let's do that! Let's ditch this tab at the bottom.
+
+101
+00:06:38,800 --> 00:06:42,800
+So, we are going to create a widget. Now, what's the widget class? We've made it,
+
+102
+00:06:42,800 --> 00:06:46,800
+it's the Player UI class. We don't need
+
+103
+00:06:46,800 --> 00:06:50,800
+to worry about an owning player, for the moment. That's going to default
+
+104
+00:06:50,800 --> 00:06:54,800
+to us because we're going to be the Tank Player Controller. What we do
+
+105
+00:06:54,800 --> 00:06:58,800
+need to do, once we've created the widget, is we then need to add it to the Viewport. So, if
+
+106
+00:06:58,800 --> 00:07:02,800
+you drag off the execution node,
+
+107
+00:07:02,800 --> 00:07:06,800
+search for Add to Viewport, then that's what we're trying to do.
+
+108
+00:07:06,800 --> 00:07:10,800
+Now, it needs to know what to add to the Viewport, and that will be a reference
+
+109
+00:07:10,800 --> 00:07:14,800
+to the widget we just created. OK, so let
+
+110
+00:07:14,800 --> 00:07:18,800
+me just explain that a little bit more. The Player UI that we're working in here is,
+
+111
+00:07:18,800 --> 00:07:22,800
+if you look at it and you hover over it, it is a (Widget Blueprint). It is a blueprint
+
+112
+00:07:22,800 --> 00:07:26,800
+for making a UI Widget. What we're doing in the
+
+113
+00:07:26,800 --> 00:07:30,800
+Player Controller is saying, OK go ahead and create an instance of a UI Widget
+
+114
+00:07:30,800 --> 00:07:34,800
+from that template, which we've specified here, and once you've
+
+115
+00:07:34,800 --> 00:07:38,800
+got a reference to it, use that to add that widget to
+
+116
+00:07:38,800 --> 00:07:42,800
+the Viewport. OK, so we're nearly there! We're nearly there! If you compile
+
+117
+00:07:42,800 --> 00:07:46,800
+that blueprint in play, you're going to find, unfortunately, that little dot still doesn't show
+
+118
+00:07:46,800 --> 00:07:50,800
+up because there's one final thing we need to do, and I'm going to give you the satisfaction
+
+119
+00:07:50,800 --> 00:07:54,800
+of doing it. So, I want you to set the Player Controller. Find the game mode blueprint
+
+120
+00:07:54,800 --> 00:07:58,800
+for this level. We've already visited that in this section.
+
+121
+00:07:58,800 --> 00:08:02,800
+Set the Player Controller to be our new blueprint class, and then, test that the
+
+122
+00:08:02,800 --> 00:08:06,800
+aiming dot indeed shows up now. So go ahead, pause the video, and do that
+
+123
+00:08:06,800 --> 00:08:10,800
+last bit yourself.
+
+124
+00:08:10,800 --> 00:08:14,800
+OK, welcome
+
+125
+00:08:14,800 --> 00:08:18,800
+back! So, this is relatively simple, one option is the Blueprints menu. As long as we're in
+
+126
+00:08:18,800 --> 00:08:22,800
+this level, we'll see Edit BattleTankGameMode_BP.
+
+127
+00:08:22,800 --> 00:08:26,800
+We go into that and then, under here where it says Player Controller
+
+128
+00:08:26,800 --> 00:08:30,800
+Class we choose the TankPlayerController_BP, compile the class,
+
+129
+00:08:30,800 --> 00:08:34,800
+and play the game. And you see the little white dot in about the right place?
+
+130
+00:08:34,800 --> 00:08:38,800
+Pretty cool! There you go! So, now we have an aiming UI
+
+131
+00:08:38,800 --> 00:08:42,800
+widget, and we have used User Interface in Unreal, which will set us up for creating
+
+132
+00:08:42,800 --> 00:08:46,800
+Start Menus and all sorts of other fun! So, see you soon!
+
+133
+00:08:46,800 --> 00:08:48,566
+
+

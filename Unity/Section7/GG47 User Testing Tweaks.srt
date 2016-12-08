@@ -1,0 +1,1029 @@
+
+1
+00:00:03,000 --> 00:00:06,000
+Welcome back! So, as a
+
+2
+00:00:06,000 --> 00:00:09,000
+result of playing on the mobile, there's a couple of tweaks
+
+3
+00:00:09,000 --> 00:00:12,000
+we can make. So, in this video, we're going to make a simplification,
+
+4
+00:00:12,000 --> 00:00:15,000
+by removing a script
+
+5
+00:00:15,000 --> 00:00:18,000
+altogether. It's just something that Marco spotted. Thanks for that,
+
+6
+00:00:18,000 --> 00:00:21,000
+Marco! Number 2, we're going to destroy tagged objects,
+
+7
+00:00:21,000 --> 00:00:24,000
+when our win condition comes up. So, at the moment
+
+8
+00:00:24,000 --> 00:00:27,000
+that "You Win" text appears in front of,
+
+9
+00:00:27,000 --> 00:00:30,000
+sorry behind the defenders, and that looks really bad,
+
+10
+00:00:30,000 --> 00:00:33,000
+but we also have another "You Win" issue, which is that my
+
+11
+00:00:33,000 --> 00:00:36,000
+wife tells me that it looks a bit strange that the
+
+12
+00:00:36,000 --> 00:00:39,000
+attackers and defenders keep moving, when we win.
+
+13
+00:00:39,000 --> 00:00:42,000
+So, we can solve all of that, by just destroying all
+
+14
+00:00:42,000 --> 00:00:45,000
+of the game objects, when we win, and we'll
+
+15
+00:00:45,000 --> 00:00:48,000
+learn about tags as well. And we'll add a simple
+
+16
+00:00:48,000 --> 00:00:51,000
+Stop Button to the game, so that people can actually get out of it
+
+17
+00:00:51,000 --> 00:00:54,000
+if they want to. Cool! So firstly, let's make the
+
+18
+00:00:54,000 --> 00:00:57,000
+simplification to the Music System. So, if you
+
+19
+00:00:57,000 --> 00:01:00,000
+remember over in our Start Scene, we've got this Scripts object
+
+20
+00:01:00,000 --> 00:01:03,000
+with this start SetStartVolume script, attached
+
+21
+00:01:03,000 --> 00:01:06,000
+to it, which is quite a long script
+
+22
+00:01:06,000 --> 00:01:09,000
+does a load of stuff. Let's get rid of it! We don't need it at all! OK,
+
+23
+00:01:09,000 --> 00:01:12,000
+all we need is this line here. PlayerPrefsManager.GetMaster
+
+24
+00:01:12,000 --> 00:01:15,000
+Volume(); so, I'm going to copy that, and then,
+
+25
+00:01:15,000 --> 00:01:18,000
+I'm going to boldly delete, not only the Scripts object
+
+26
+00:01:18,000 --> 00:01:21,000
+on the Start Menu, but if we go into the Scripts
+
+27
+00:01:21,000 --> 00:01:24,000
+Folder, I'm also going to delete the actual script, which is called
+
+28
+00:01:24,000 --> 00:01:27,000
+SetStartVolume. And then, if you go
+
+29
+00:01:27,000 --> 00:01:30,000
+into your MusicManager, in the Start of the Music
+
+30
+00:01:30,000 --> 00:01:33,000
+Manager, you can simply in there go
+
+31
+00:01:33,000 --> 00:01:36,000
+audioSource
+
+32
+00:01:36,000 --> 00:01:39,000
+.volume
+
+33
+00:01:39,000 --> 00:01:42,000
+= PlayerPrefsManager.Get
+
+34
+00:01:42,000 --> 00:01:45,000
+MasterVolume(); and as a
+
+35
+00:01:45,000 --> 00:01:48,000
+recap, what that's doing is it is ensuring that when we
+
+36
+00:01:48,000 --> 00:01:51,000
+start the game,
+
+37
+00:01:51,000 --> 00:01:54,000
+we get the Splash Screen with it's default level sound,
+
+38
+00:01:54,000 --> 00:01:57,000
+and then, we want on this scene the volume to be loaded. And it
+
+39
+00:01:57,000 --> 00:02:00,000
+is! If I set my volume down, to a quarter,
+
+40
+00:02:00,000 --> 00:02:03,000
+and then play again from the Splash Screen,
+
+41
+00:02:03,000 --> 00:02:06,000
+we can confirm that, that
+
+42
+00:02:06,000 --> 00:02:09,000
+Start method is indeed setting the volume
+
+43
+00:02:09,000 --> 00:02:12,000
+from the Player Prefs. Fantastic! So, that item is done!
+
+44
+00:02:12,000 --> 00:02:15,000
+Thanks, Marco! Number 2, we want to destroy all tagged
+
+45
+00:02:15,000 --> 00:02:18,000
+objects on Win condition. So, what I mean by
+
+46
+00:02:18,000 --> 00:02:21,000
+that is, at the end of the game, when we win,
+
+47
+00:02:21,000 --> 00:02:24,000
+I want everything that is tagged with
+
+48
+00:02:24,000 --> 00:02:27,000
+destroy to disappear immediately,
+
+49
+00:02:27,000 --> 00:02:30,000
+before the "You Won!" comes up over the top. I want all the play
+
+50
+00:02:30,000 --> 00:02:33,000
+space to clear, so how are we going to achieve that?
+
+51
+00:02:33,000 --> 00:02:36,000
+Well, let's create a tag and stick it on
+
+52
+00:02:36,000 --> 00:02:39,000
+the appropriate defenders, etc. So, say I stick this
+
+53
+00:02:39,000 --> 00:02:42,000
+tag on just the cactus and the gnome, for now.
+
+54
+00:02:42,000 --> 00:02:45,000
+So, select the cactus and gnome or a couple of your
+
+55
+00:02:45,000 --> 00:02:48,000
+defenders, for testing purposes. Go over
+
+56
+00:02:48,000 --> 00:02:51,000
+into the Inspector and click on Tag
+
+57
+00:02:51,000 --> 00:02:54,000
+and then Add Tag.
+
+58
+00:02:54,000 --> 00:02:57,000
+Fantastic! So then, once we've done
+
+59
+00:02:57,000 --> 00:03:00,000
+that, we're going to create ourselves a new tag
+
+60
+00:03:00,000 --> 00:03:03,000
+called DestroyOnWin. So, I've got a mess
+
+61
+00:03:03,000 --> 00:03:06,000
+here, I don't need this win, I just need a single sized
+
+62
+00:03:06,000 --> 00:03:09,000
+tag array, Destroy
+
+63
+00:03:09,000 --> 00:03:12,000
+OnWin. I recommend you copy that, so that
+
+64
+00:03:12,000 --> 00:03:15,000
+we paste it perfectly into the script later on.
+
+65
+00:03:15,000 --> 00:03:18,000
+So, that's creating the tag, but you still need to
+
+66
+00:03:18,000 --> 00:03:21,000
+apply it to the cactus and gnome, so you can multi-select
+
+67
+00:03:21,000 --> 00:03:24,000
+and then Apply DestroyOnWin. I'm only doing those
+
+68
+00:03:24,000 --> 00:03:27,000
+two for now, just for testing.
+
+69
+00:03:27,000 --> 00:03:30,000
+OK, so where are we going to make this destroy
+
+70
+00:03:30,000 --> 00:03:33,000
+OnWinBehavior happen? Well, it's going to happen over
+
+71
+00:03:33,000 --> 00:03:36,000
+on the Game Timer, because that's the thing
+
+72
+00:03:36,000 --> 00:03:39,000
+that actually does the win. So, I'm going to get you
+
+73
+00:03:39,000 --> 00:03:42,000
+started, and then, once you're started I'm going to
+
+74
+00:03:42,000 --> 00:03:45,000
+leave it to you to do the meat
+
+75
+00:03:45,000 --> 00:03:48,000
+of this thing. It's pretty simple. So,
+
+76
+00:03:48,000 --> 00:03:51,000
+what happens in this method? This Update is getting to
+
+77
+00:03:51,000 --> 00:03:54,000
+big, so it basically updates the slider, every frame,
+
+78
+00:03:54,000 --> 00:03:57,000
+and then, it says if the time's up
+
+79
+00:03:57,000 --> 00:04:00,000
+then do something. When it's the time up
+
+80
+00:04:00,000 --> 00:04:03,000
+and it's the end of the level, do something. So, I'm going to refactor
+
+81
+00:04:03,000 --> 00:04:06,000
+out this body of this Update, because it's gotten too big.
+
+82
+00:04:06,000 --> 00:04:09,000
+So, I'm going to highlight it all, refactor, extract
+
+83
+00:04:09,000 --> 00:04:12,000
+method, bring it down, and then
+
+84
+00:04:12,000 --> 00:04:15,000
+call it Handle
+
+85
+00:04:15,000 --> 00:04:18,000
+WinCondition ();
+
+86
+00:04:18,000 --> 00:04:21,000
+so that operates exactly the same, it's just much clearer to read
+
+87
+00:04:21,000 --> 00:04:24,000
+what's happening in Update. Now, HandleWinCondition () does everything else.
+
+88
+00:04:24,000 --> 00:04:27,000
+So, what I want to do is immediately
+
+89
+00:04:27,000 --> 00:04:30,000
+that the WinCondition happens, I want to do one more thing, which is
+
+90
+00:04:30,000 --> 00:04:33,000
+DestroyAllTagged
+
+91
+00:04:33,000 --> 00:04:36,000
+Objects();
+
+92
+00:04:36,000 --> 00:04:39,000
+OK, and that's a method, which you're going to write in a second.
+
+93
+00:04:39,000 --> 00:04:42,000
+So, here's the signature for it, void DestroyAllTagged
+
+94
+00:04:42,000 --> 00:04:45,000
+Objects(), and what I want that method to
+
+95
+00:04:45,000 --> 00:04:48,000
+do is to just go through and destroy all objects
+
+96
+00:04:48,000 --> 00:04:51,000
+with a tag. And let's put this in the comments.
+
+97
+00:04:51,000 --> 00:04:54,000
+"// Destroys all objects
+
+98
+00:04:54,000 --> 00:04:57,000
+with". Now, we need to go and get
+
+99
+00:04:57,000 --> 00:05:00,000
+the tag name again, because I've overwritten it,
+
+100
+00:05:00,000 --> 00:05:03,000
+into one of your objects, into the defenders
+
+101
+00:05:03,000 --> 00:05:06,000
+into the Tag Menu, destroyOnWin. And it's really
+
+102
+00:05:06,000 --> 00:05:09,000
+important to get that capitalization right.
+
+103
+00:05:09,000 --> 00:05:12,000
+OK, so "// Destroys all objects with
+
+104
+00:05:12,000 --> 00:05:15,000
+destroyOnWin tag". So, that's what I want you to write.
+
+105
+00:05:15,000 --> 00:05:18,000
+I want you to write a method, that goes and finds all those objects
+
+106
+00:05:18,000 --> 00:05:21,000
+hits right through them and destroys them. Here's your challenge slide!
+
+107
+00:05:24,000 --> 00:05:27,000
+You can test by setting on all but
+
+108
+00:05:27,000 --> 00:05:30,000
+one defender type, so what I'm saying there is, you could put down maybe a gnome
+
+109
+00:05:30,000 --> 00:05:33,000
+and a cactus and a gravestone, and you should see at the end of that level that, just the
+
+110
+00:05:33,000 --> 00:05:36,000
+gnome and the cactus disappear but the gravestone stays.
+
+111
+00:05:36,000 --> 00:05:39,000
+If you want a stepping stone, to make sure it's not destroying
+
+112
+00:05:39,000 --> 00:05:42,000
+absolutely everything. And then, tag everything,
+
+113
+00:05:42,000 --> 00:05:45,000
+all your defenders, attackers, and projectiles, everything
+
+114
+00:05:45,000 --> 00:05:48,000
+that you want to destroy at the end of the level when you win, and then
+
+115
+00:05:48,000 --> 00:05:51,000
+test by playing it. So go ahead, pause the video do that challenge
+
+116
+00:05:51,000 --> 00:05:54,000
+now!
+
+117
+00:05:54,000 --> 00:05:57,000
+Cool welcome back! So, let's
+
+118
+00:05:57,000 --> 00:06:00,000
+get this done! It isn't too tricky, really!
+
+119
+00:06:00,000 --> 00:06:03,000
+So, we need a GameObject array. Why not an object
+
+120
+00:06:03,000 --> 00:06:06,000
+array? Well, you could use an object, but
+
+121
+00:06:06,000 --> 00:06:09,000
+we may have problems with finding
+
+122
+00:06:09,000 --> 00:06:12,000
+appropriate methods to find objects and with destroying objects. So, Game
+
+123
+00:06:12,000 --> 00:06:15,000
+Object is the correct level to work at.
+
+124
+00:06:15,000 --> 00:06:18,000
+So, if we call this Game
+
+125
+00:06:18,000 --> 00:06:21,000
+Object array taggedObjectArray, then how do we
+
+126
+00:06:21,000 --> 00:06:24,000
+find it? Well, it's GameObject.find.
+
+127
+00:06:24,000 --> 00:06:27,000
+And then, I'm going to introduce you to a new one here. FindGame
+
+128
+00:06:27,000 --> 00:06:30,000
+ObjectsWithTag, and if you look at the method for that, it
+
+129
+00:06:30,000 --> 00:06:33,000
+returns a GameObject array, which is just what we want.
+
+130
+00:06:33,000 --> 00:06:36,000
+Then, as a string, we give it this ("destroyOnWin")
+
+131
+00:06:36,000 --> 00:06:39,000
+string. Fantastic! So now, we have an array of GameObjects.
+
+132
+00:06:39,000 --> 00:06:42,000
+So, it's now literally a question of just iterating over
+
+133
+00:06:42,000 --> 00:06:45,000
+to them. Foreach, then just kind of speak
+
+134
+00:06:45,000 --> 00:06:48,000
+in English. I would
+
+135
+00:06:48,000 --> 00:06:51,000
+consider iterating over Objects
+
+136
+00:06:51,000 --> 00:06:54,000
+other than GameObjects here, but I think either will work.
+
+137
+00:06:54,000 --> 00:06:57,000
+Let's start with GameObjects for simplicity and see if it works.
+
+138
+00:06:57,000 --> 00:07:00,000
+For each (GameObjectTagged
+
+139
+00:07:00,000 --> 00:07:03,000
+Object in taggedObjectArray,
+
+140
+00:07:03,000 --> 00:07:06,000
+what are we going to do? Well, we're simply going to
+
+141
+00:07:06,000 --> 00:07:09,000
+Destroy (taggedObject);
+
+142
+00:07:09,000 --> 00:07:12,000
+Alright, let's try it!
+
+143
+00:07:12,000 --> 00:07:15,000
+So, I may need to go to my Level Canvas
+
+144
+00:07:15,000 --> 00:07:18,000
+and my Game Timer. I'll just show you that code again,
+
+145
+00:07:18,000 --> 00:07:21,000
+for a second. That's my final code, I know I flicked off it
+
+146
+00:07:21,000 --> 00:07:24,000
+a bit too quick. So, this is my solution,
+
+147
+00:07:24,000 --> 00:07:27,000
+let's try it. OK, so the Game Timer I'm going to set
+
+148
+00:07:27,000 --> 00:07:30,000
+down to say 6 seconds, for a minute, just to check it.
+
+149
+00:07:30,000 --> 00:07:33,000
+Let's try running, putting these
+
+150
+00:07:33,000 --> 00:07:36,000
+guys down, and seeing if they get destroyed.
+
+151
+00:07:36,000 --> 00:07:39,000
+"YOU WON!" and off they go!
+
+152
+00:07:39,000 --> 00:07:42,000
+Perfect! So, that's working really well.
+
+153
+00:07:42,000 --> 00:07:45,000
+OK fantastic! So, that's the method we need.
+
+154
+00:07:45,000 --> 00:07:48,000
+I just need to now go ahead and tag and prefab everything
+
+155
+00:07:48,000 --> 00:07:51,000
+correctly, so let's do that! Let's go into our prefabs.
+
+156
+00:07:51,000 --> 00:07:54,000
+All of our Defenders, tag them with destroyOnWin,
+
+157
+00:07:54,000 --> 00:07:57,000
+all of our Attackers, tag them with destroyOnWin,
+
+158
+00:07:57,000 --> 00:08:00,000
+and all of your Projectiles, tag with destroy
+
+159
+00:08:00,000 --> 00:08:03,000
+OnWin. Remember to leave your game timer as something sensible,
+
+160
+00:08:03,000 --> 00:08:06,000
+100 works really well with the Glitch Garden
+
+161
+00:08:06,000 --> 00:08:09,000
+music I chose. After three levels the music just about stops.
+
+162
+00:08:09,000 --> 00:08:12,000
+The final thing you need to do is, re-prefab...
+
+163
+00:08:12,000 --> 00:08:15,000
+No you don't, that's fine! You've effected the
+
+164
+00:08:15,000 --> 00:08:18,000
+prefabs directly, so that's fine. That's working really,
+
+165
+00:08:18,000 --> 00:08:21,000
+really well. If you want to check it you're welcome to, but I'm
+
+166
+00:08:21,000 --> 00:08:24,000
+confident that, that logic will work. So, what's the last thing we
+
+167
+00:08:24,000 --> 00:08:27,000
+going to be doing?
+
+168
+00:08:27,000 --> 00:08:30,000
+Add a simple Stop Button to the game. So, what I'm thinking
+
+169
+00:08:30,000 --> 00:08:33,000
+is maybe down at the bottom right somewhere. Remember, inside the iPad
+
+170
+00:08:33,000 --> 00:08:36,000
+Safe Play Area, so perhaps here
+
+171
+00:08:36,000 --> 00:08:39,000
+where my mouse is pointing right now, just
+
+172
+00:08:39,000 --> 00:08:42,000
+there. Put a Stop Button. I've got
+
+173
+00:08:42,000 --> 00:08:45,000
+a Stop Image in the Course Assets, which you can get access to,
+
+174
+00:08:45,000 --> 00:08:48,000
+and what I want you to do is make it yourself. The Stop Button wants to simply
+
+175
+00:08:48,000 --> 00:08:51,000
+take them back to the Start Scene. And for extra credit,
+
+176
+00:08:51,000 --> 00:08:54,000
+it would put a popup, allowing them to continue or
+
+177
+00:08:54,000 --> 00:08:57,000
+not. So, have a go at just making a simple Stop Button
+
+178
+00:08:57,000 --> 00:09:00,000
+now, that takes people back to the Start Scene.
+
+179
+00:09:00,000 --> 00:09:03,000
+OK, so hopefully this
+
+180
+00:09:03,000 --> 00:09:06,000
+is a relatively simple job. Let's give it a go! I'm going to import an asset.
+
+181
+00:09:06,000 --> 00:09:09,000
+You can go and get this from anywhere, by the way. Just go to Google Images and
+
+182
+00:09:09,000 --> 00:09:12,000
+search for a stop sign. This is really not a particularly cleaver image.
+
+183
+00:09:12,000 --> 00:09:15,000
+We don't need Mip Maps on it. Where are we going to
+
+184
+00:09:15,000 --> 00:09:18,000
+put it? I'm going to put it in the Buttons Prefab. There's already
+
+185
+00:09:18,000 --> 00:09:21,000
+a Buttons Prefab here and a Buttons Canvas Element,
+
+186
+00:09:21,000 --> 00:09:24,000
+and within that, I'm going to create a UI image.
+
+187
+00:09:24,000 --> 00:09:27,000
+I'm going to give that image the
+
+188
+00:09:27,000 --> 00:09:30,000
+sprite, which is the stop sign. It must be assigned as a sprite.
+
+189
+00:09:30,000 --> 00:09:33,000
+It's massive, at the moment! Arguably bigger than we need
+
+190
+00:09:33,000 --> 00:09:36,000
+but that's OK. In the UI Editor Mode,
+
+191
+00:09:36,000 --> 00:09:39,000
+I'm going to squeeze that right down holding down Shift as I do,
+
+192
+00:09:39,000 --> 00:09:42,000
+so that it resizes without changing its proportions.
+
+193
+00:09:42,000 --> 00:09:45,000
+You may have to do this a couple of times to get it down
+
+194
+00:09:45,000 --> 00:09:48,000
+to the size you need. I'm
+
+195
+00:09:48,000 --> 00:09:51,000
+going to pop mine right down, in the bottom here.
+
+196
+00:09:54,000 --> 00:09:57,000
+Don't be afraid to zoom right in, so you can see what
+
+197
+00:09:57,000 --> 00:10:00,000
+you're doing in these instances, and then,
+
+198
+00:10:00,000 --> 00:10:03,000
+it's just a question of resizing it right down
+
+199
+00:10:03,000 --> 00:10:06,000
+and popping it somewhere like that. Perfect! OK,
+
+200
+00:10:06,000 --> 00:10:09,000
+so what else are you going to need on this button, in order for it to respond to
+
+201
+00:10:09,000 --> 00:10:12,000
+mouse presses? Well, I'm going to give it a sensible
+
+202
+00:10:12,000 --> 00:10:15,000
+name, Stop. But you're going to need a collider on it, right?
+
+203
+00:10:15,000 --> 00:10:18,000
+So, a Box Collider 2D would do absolutely fine
+
+204
+00:10:18,000 --> 00:10:21,000
+and it can be a trigger. The final thing we're going to need is a script
+
+205
+00:10:21,000 --> 00:10:24,000
+to handle a click. So, I'm just going to call it StopButton
+
+206
+00:10:24,000 --> 00:10:27,000
+very cryptically. Put it in this
+
+207
+00:10:27,000 --> 00:10:30,000
+Scripts Folder, and then,
+
+208
+00:10:30,000 --> 00:10:33,000
+go edit that Stop Button Script. And that
+
+209
+00:10:33,000 --> 00:10:36,000
+Stop Button Script is simply going to say the following:
+
+210
+00:10:36,000 --> 00:10:39,000
+void OnMouseDown(),
+
+211
+00:10:39,000 --> 00:10:42,000
+and then now, we need to load level.
+
+212
+00:10:42,000 --> 00:10:45,000
+We're going to load the Start Scene. Let's get the exact name
+
+213
+00:10:45,000 --> 00:10:48,000
+of it 01a Start, as a string.
+
+214
+00:10:48,000 --> 00:10:51,000
+LevelManager, remember it's a
+
+215
+00:10:51,000 --> 00:10:54,000
+static, so we don't even need to worry about whether it's here
+
+216
+00:10:54,000 --> 00:10:57,000
+or do we? Well, let's try it! LevelManager dot...
+
+217
+00:10:57,000 --> 00:11:00,000
+You see, we need to be careful about which Level
+
+218
+00:11:00,000 --> 00:11:03,000
+Manager is which. This is a type LevelManager now,
+
+219
+00:11:03,000 --> 00:11:06,000
+but we do need to find an instance of the Level
+
+220
+00:11:06,000 --> 00:11:09,000
+Manager, so we are going to have to do that at the Start.
+
+221
+00:11:09,000 --> 00:11:12,000
+Have a think about a script that already does this, finding
+
+222
+00:11:12,000 --> 00:11:15,000
+the LevelManager, like the LoseCollider. It already
+
+223
+00:11:15,000 --> 00:11:18,000
+does the private LevelManger levelManger; levelManger =
+
+224
+00:11:18,000 --> 00:11:21,000
+GameObject.FindObjectOfType, so copy
+
+225
+00:11:21,000 --> 00:11:24,000
+that. Why not get a leg up? Paste that in to
+
+226
+00:11:24,000 --> 00:11:27,000
+your Stop Button. And then,
+
+227
+00:11:27,000 --> 00:11:30,000
+you can use the instance of the LevelManger. Here he is,
+
+228
+00:11:30,000 --> 00:11:33,000
+.LoadLevel, and now we just give it that
+
+229
+00:11:33,000 --> 00:11:36,000
+string name. Oops, not that string name, but
+
+230
+00:11:36,000 --> 00:11:39,000
+the Start Menu string.
+
+231
+00:11:39,000 --> 00:11:42,000
+And that's it! Let's have a go!
+
+232
+00:11:42,000 --> 00:11:45,000
+Let's check that, that Stop Button works, and then all we have to do is prefab it.
+
+233
+00:11:45,000 --> 00:11:48,000
+Stop and it takes you back here! OK, it's pretty
+
+234
+00:11:48,000 --> 00:11:51,000
+jarring, and it would be better if you want to do the extra credit of having a popup
+
+235
+00:11:51,000 --> 00:11:54,000
+screen, but I think we could refine this game forever
+
+236
+00:11:54,000 --> 00:11:57,000
+and never get on with the rest of the course or courses. So,
+
+237
+00:11:57,000 --> 00:12:00,000
+I think that this is a great position to stop. It's a playable fun game
+
+238
+00:12:00,000 --> 00:12:03,000
+now. All we have to do is apply this Buttons Prefab
+
+239
+00:12:03,000 --> 00:12:06,000
+back, so apply that to the prefab.
+
+240
+00:12:06,000 --> 00:12:09,000
+Click on Buttons in your Hierarchy, and apply in the Inspector,
+
+241
+00:12:09,000 --> 00:12:12,000
+at the top right. Go to your prefabs and check that the button
+
+242
+00:12:12,000 --> 00:12:15,000
+contains a Stop Element. It does! Go to your other scenes,
+
+243
+00:12:15,000 --> 00:12:18,000
+all of your other levels, and make sure
+
+244
+00:12:18,000 --> 00:12:21,000
+that under Buttons, click on Buttons and click Revert and that will
+
+245
+00:12:21,000 --> 00:12:24,000
+take you back to the prefab. And do the
+
+246
+00:12:24,000 --> 00:12:27,000
+same in the other level, if you need to. You don't in this one, because the prefab
+
+247
+00:12:27,000 --> 00:12:30,000
+connection was maintained. So now, all of your levels
+
+248
+00:12:30,000 --> 00:12:33,000
+have this Stop Button in them, and you are good to
+
+249
+00:12:33,000 --> 00:12:36,000
+go. So congratulations! You really have finished
+
+250
+00:12:36,000 --> 00:12:39,000
+Glitch Garden now. I really look forward to seeing what you
+
+251
+00:12:39,000 --> 00:12:42,000
+come up with, seeing what assets you find or create
+
+252
+00:12:42,000 --> 00:12:45,000
+and what you can make. I look forward to all your tweaks. We get
+
+253
+00:12:45,000 --> 00:12:48,000
+so excited by what you guys share! Please build to
+
+254
+00:12:48,000 --> 00:12:51,000
+the web now, zip it up, stick it on Game Bucket, and share
+
+255
+00:12:51,000 --> 00:12:54,000
+share it in the community and share it on the Facebook group. So,
+
+256
+00:12:54,000 --> 00:12:57,000
+thank you very much for being our student, on this section and in this course,
+
+257
+00:12:57,000 --> 00:12:59,733
+and we'll see you soon!
+

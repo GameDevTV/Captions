@@ -1,0 +1,662 @@
+Kind: captions
+Language: en
+
+00:00:04,690 --> 00:00:08,630
+Hey welcome back! So, now we're going to use
+the Unity Engine for the first time. We're
+
+00:00:08,630 --> 00:00:14,100
+going to be adding 2D User Interface Text.
+So, we're going to start off by adding a UI
+
+00:00:14,100 --> 00:00:18,590
+Text Element into our scene. I'll show you
+how to set the Camera Background Color, it'll
+
+00:00:18,590 --> 00:00:23,360
+default to blue it needs to be black or it
+would look better black. We'll then move and
+
+00:00:23,360 --> 00:00:28,890
+scale our text and go on to show you how to
+programmatically change it, before challenging
+
+00:00:28,890 --> 00:00:35,140
+you two ways. Firstly, to change the text
+only on key presses, using if statements,
+
+00:00:35,140 --> 00:00:40,050
+that you should already know about, and secondly,
+to add and scale the image we've given you
+
+00:00:40,050 --> 00:00:47,199
+or an image of your choice. So, let's dive
+in and take a look. The first thing we need
+
+00:00:47,199 --> 00:00:53,069
+to do is get a UI Text Element into our scene,
+so this is probably the first time you've
+
+00:00:53,069 --> 00:00:58,370
+ever seen the Scene View in Unity. There's
+a few things that I need to just make sure.
+
+00:00:58,370 --> 00:01:04,049
+Firstly, I want to make sure you're in 2D
+Scene View, so on the Scene Tab, if you click
+
+00:01:04,049 --> 00:01:10,150
+2D or 3D. 3D will give you a different gizmo,
+at the top right. It'll look 3 dimensional,
+
+00:01:10,150 --> 00:01:14,580
+and you will just better see perspective,
+whereas when you click 2D and the button is
+
+00:01:14,580 --> 00:01:20,190
+depressed, this gizmo will actually disappear
+and you'll just see a grid system, which you
+
+00:01:20,190 --> 00:01:24,350
+can zoom in and out with the mouse and a camera
+in the middle of it. So, we want you in 2D,
+
+00:01:24,350 --> 00:01:29,740
+because we're going to be doing a 2D game
+here. Fantastic! So, let's add our Text Element.
+
+00:01:29,740 --> 00:01:38,140
+We go to Text Object. Sorry, Game Object Menu,
+UI, and then, text, so that's Game Object,
+
+00:01:38,140 --> 00:01:44,210
+UI, Text. And that's what we want to add,
+let's do that. Now, look what happens when
+
+00:01:44,210 --> 00:01:50,110
+we add the UI Text, lots of crazy things happen.
+You get let's start at the top, you get something
+
+00:01:50,110 --> 00:01:54,120
+called a Canvas, in your Hierarchy on the
+left, and inside of that you get the Text
+
+00:01:54,120 --> 00:01:58,590
+Element you asked for. And you also get something
+called an Event System. Now, leave that Event
+
+00:01:58,590 --> 00:02:02,330
+System there, we're not going to be making
+use of it in this game, but it does need to
+
+00:02:02,330 --> 00:02:08,259
+be there, so just leave it. The Canvas is
+just for organizing all your objects, and
+
+00:02:08,259 --> 00:02:11,120
+then, the Text Element is the thing we're
+interested in, so that's where we're going
+
+00:02:11,120 --> 00:02:16,990
+to focus. Now, at the bottom of your Inspector,
+you may see Layout Properties. You can get
+
+00:02:16,990 --> 00:02:21,460
+rid of that by just clicking. So, the other
+thing I want you to check, quickly before
+
+00:02:21,460 --> 00:02:25,490
+we look at the Canvas, is up at the top right.
+You have a Layers Drop Down, just click on
+
+00:02:25,490 --> 00:02:31,380
+that, and make sure that this little UI eye
+is actually an eye. You'll notice the white
+
+00:02:31,380 --> 00:02:35,130
+Canvas that you can just see, appears and
+disappears. Another way to do it is just to
+
+00:02:35,130 --> 00:02:40,060
+make sure everything is ticked, so we want
+everything except for nothing, ticked in the
+
+00:02:40,060 --> 00:02:42,870
+Layers. If you click Nothing, you wouldn't
+see anything. If you click Everything, you
+
+00:02:42,870 --> 00:02:47,310
+see everything. The important thing is that
+this UI Layer, that we've just added, is visible.
+
+00:02:47,310 --> 00:02:52,680
+The other thing to know, in your scene view,
+is that we're very zoomed in at the moment.
+
+00:02:52,680 --> 00:02:56,740
+You've got a white outline, depending on your
+zoom level, which indicates your Text Box.
+
+00:02:56,740 --> 00:03:00,760
+Now, there are several ways to get the Text
+Box filling the screen. One is to click into
+
+00:03:00,760 --> 00:03:05,340
+the scene and to roll the mouse wheel forward,
+if you have a mouse wheel, zooming out until
+
+00:03:05,340 --> 00:03:10,910
+you get too it. Another way would be to double
+click on the word Text, and that will go straight
+
+00:03:10,910 --> 00:03:16,250
+to the Text Element or double click on the
+Canvas, will go to the entire Canvas. So,
+
+00:03:16,250 --> 00:03:20,590
+what's a Canvas? What's a Text Element? Well,
+the Canvas is where we're going to be operating.
+
+00:03:20,590 --> 00:03:24,420
+Our entire game is going to be inside a User
+Interface Canvas, so I'm going to fill the
+
+00:03:24,420 --> 00:03:29,190
+screen with that, and the Text Element is
+actually, in my case, sitting outside here.
+
+00:03:29,190 --> 00:03:34,090
+So, I want to move that Text Element into
+the Canvas, just grab it and drag it. Now,
+
+00:03:34,090 --> 00:03:38,920
+there are a couple of different tools that
+could do that. One is this Transform Tool,
+
+00:03:38,920 --> 00:03:44,319
+the second tool at the top left of Unity,
+which could be selected with the W Key or
+
+00:03:44,319 --> 00:03:48,890
+by just clicking on it, and you could then
+grab the blue box and drag this in. Another
+
+00:03:48,890 --> 00:03:54,930
+way that you can move it is to use the UI
+Element Tool, which is accessible through
+
+00:03:54,930 --> 00:04:01,760
+the T Key, and then, you can also then just
+drag. As we're doing UI stuff, it's probably
+
+00:04:01,760 --> 00:04:07,540
+better to get in the habit of using the UI
+Tool here. Fantastic! OK! So, let's just recap
+
+00:04:07,540 --> 00:04:11,090
+what we're doing. We're trying to add some
+text to the scene. So, what I told you we
+
+00:04:11,090 --> 00:04:17,090
+would do is add UI Text, we've done that.
+Secondly, setting the Camera Background Color.
+
+00:04:17,090 --> 00:04:23,090
+Well, let's do that now. So, if we were to
+run the game now, look what happens. We get
+
+00:04:23,090 --> 00:04:29,169
+a Game View that says New Text, it's fuzzy
+text and it's on a blue background. Now, we
+
+00:04:29,169 --> 00:04:33,280
+want this to be on a black background. Why
+is the background blue? It doesn't look blue,
+
+00:04:33,280 --> 00:04:41,070
+over in the Scene View. It's because we're
+getting the color of the text, the background,
+
+00:04:41,070 --> 00:04:46,540
+the background of everything, from the camera,
+so if we were to click on the Camera, you'll
+
+00:04:46,540 --> 00:04:51,470
+see that it has a blue background color to
+it, at the moment. Now, remember if you're
+
+00:04:51,470 --> 00:04:55,419
+going to make a change to this background
+color, you want to do it when your not in
+
+00:04:55,419 --> 00:05:00,050
+Play Mode. That's the purpose of this red
+tint. Let me show you why. If I change that
+
+00:05:00,050 --> 00:05:05,000
+to black in Play Mode, and then, stop look
+what happens. The moment I stop playing, it
+
+00:05:05,000 --> 00:05:11,350
+goes back to blue, so this is why we must
+make permanent changes outside of Play Mode.
+
+00:05:11,350 --> 00:05:17,020
+And then, we want to be able to change the
+text, by a program, so let's move our text
+
+00:05:17,020 --> 00:05:22,440
+box and resize it. Now, you'll only be able
+to resize it if you're sufficiently well zoomed
+
+00:05:22,440 --> 00:05:28,720
+in, so use the Right Mouse Button to drag
+around, zoom into your Text Box, until you
+
+00:05:28,720 --> 00:05:33,070
+get little blue handles, and then, grab those
+handles. Now, as the thing gets bigger, you'll
+
+00:05:33,070 --> 00:05:37,590
+better see the handles at increasing zoom
+sizes. And what I want you to do is set the
+
+00:05:37,590 --> 00:05:44,550
+Text Box, so that it fills, about two thirds
+vertically, of the screen like that, and so
+
+00:05:44,550 --> 00:05:48,979
+that it's centered. And you'll see it's centered,
+because you'll get the blue snapping action,
+
+00:05:48,979 --> 00:05:53,460
+when it's centered like that. Alright, so
+now you have a Text Box in here, and I'm just
+
+00:05:53,460 --> 00:05:59,830
+going to type, for the moment, some rubbish
+in here. Lorem 2, there we go Now, why is
+
+00:05:59,830 --> 00:06:05,060
+this text so ugly? It's partly because the
+font size is far too small, so we'd need to
+
+00:06:05,060 --> 00:06:11,190
+turn the font size up, by going into the
+Inspector and dragging up the Font Size, and
+
+00:06:11,190 --> 00:06:15,400
+that will make your text look a lot prettier.
+Let's look in the Game View. That's getting
+
+00:06:15,400 --> 00:06:20,410
+much better, so it's still not particularly
+readable and that's to do with the colors
+
+00:06:20,410 --> 00:06:25,520
+that we have on the text but it's much better
+than it was before. So, let's just try setting
+
+00:06:25,520 --> 00:06:31,449
+our Text Color to white, so you do that in
+the Inspector by going Inspector Text Script,
+
+00:06:31,449 --> 00:06:36,770
+and then, down to Color, under paragraph and
+make it white, in your color picker. Now,
+
+00:06:36,770 --> 00:06:40,610
+that's much better. So, we have white text,
+in the bottom of the box there. So, how are
+
+00:06:40,610 --> 00:06:45,970
+we doing on our objectives for the video?
+We've added text. We've set the Camera Background
+
+00:06:45,970 --> 00:06:51,460
+Color, in Edit Mode not Play Mode. We've moved
+and scaled our text around, do have a play
+
+00:06:51,460 --> 00:06:55,990
+with that with the UI elements there, get
+used to moving that around. The final thing
+
+00:06:55,990 --> 00:07:01,699
+we need to do is programmatically change the
+text on here, so how are we going to do that?
+
+00:07:01,699 --> 00:07:06,620
+Well, we're going to need a script to do that,
+so here's our text. Where do you think we're
+
+00:07:06,620 --> 00:07:11,860
+going to add a script that changes text? Well,
+to me it makes sense to add that on the text
+
+00:07:11,860 --> 00:07:17,580
+itself. So, go to the bottom of the Inspector,
+when selected on Text, and Add a Component,
+
+00:07:17,580 --> 00:07:24,780
+New Script, and I would say TextController
+like that, with a capital T and a capital
+
+00:07:24,780 --> 00:07:30,960
+C and no space. OK, that's because it is a
+class, we always call all scripts or classes
+
+00:07:30,960 --> 00:07:36,389
+capital T capital, letter at the start. OK,
+so we have a TextController Script. Where's
+
+00:07:36,389 --> 00:07:41,639
+it gone? It's in our Assets Folder. So, what
+we need to do is work out how we're going
+
+00:07:41,639 --> 00:07:49,050
+to get access to this text, so let's go into
+our script and let's take a look. So, this
+
+00:07:49,050 --> 00:07:55,120
+script currently doesn't have any access,
+direct simple access, to the text. The way
+
+00:07:55,120 --> 00:07:59,600
+that we're going to make it do that, is we're
+going to do something called publicly exposing
+
+00:07:59,600 --> 00:08:08,550
+the text. So, public Text text; OK. You're
+going to need to add that line at the top
+
+00:08:08,550 --> 00:08:13,039
+of your TextController class, above your Start
+function at the same level. That's going to
+
+00:08:13,039 --> 00:08:20,960
+make a variable called text of type Text,
+available to all the methods inside the TextController.
+
+00:08:20,960 --> 00:08:26,500
+Don't worry about what this class stuff means,
+at the moment. Now, our text here should be
+
+00:08:26,500 --> 00:08:35,389
+a different color, and the reason it's not
+is we actually need to say using UnityEngine.U at the top hereI;
+
+00:08:35,389 --> 00:08:40,820
+and then, save. OK, and when we do that, every
+time we do anything to do with Unity UI we're
+
+00:08:40,820 --> 00:08:44,730
+going to have to put this line in at the top,
+to bring in the User Interface information.
+
+00:08:44,730 --> 00:08:49,880
+The text here has gone blue, which it means
+it's recognized text. If I hadn't of put this
+
+00:08:49,880 --> 00:08:55,480
+using UnityEngine.UI line in, look what happens,
+the text is red. So, when your text is red,
+
+00:08:55,480 --> 00:09:01,330
+you put UnityEngine.UI, the text goes blue,
+it's recognized, and we're in good shape.
+
+00:09:01,330 --> 00:09:06,070
+So, what we want to do on the Start here is
+just make sure we've got access to the text.
+
+00:09:06,070 --> 00:09:12,360
+And how do we do that? Well, it's simply text.text,
+as it happens, = "Hello world"; Let's try
+
+00:09:12,360 --> 00:09:17,890
+that with a semicolon on the end of the statement,
+save our script remember, and go back to Unity.
+
+00:09:17,890 --> 00:09:23,950
+We have this placeholder Lorem text in here,
+now let's run, and what happens when we run?
+
+00:09:23,950 --> 00:09:30,260
+Nothing. "Object reference not set to an instance
+of an object". What's going on there? Well,
+
+00:09:30,260 --> 00:09:34,810
+let's revisit the script. At the top here,
+we said public Text text; Now, I told you
+
+00:09:34,810 --> 00:09:40,310
+that that's making a variable that is available
+to all of these methods, of type Text called
+
+00:09:40,310 --> 00:09:47,610
+text. The problem is, where is it coming from?
+To make the attachment between this text object
+
+00:09:47,610 --> 00:09:54,140
+here and the actual text, we're going to bring
+in, we have to do a slightly strange thing,
+
+00:09:54,140 --> 00:09:59,320
+in the Inspector. Go to the bottom of your
+Inspector, and you'll see that the TextController
+
+00:09:59,320 --> 00:10:04,130
+Script, at the bottom here, is asking for
+text. Well, just drag from your Hierarchy
+
+00:10:04,130 --> 00:10:08,269
+the Text Element onto that. Now, there are
+much more elegant ways of accessing this,
+
+00:10:08,269 --> 00:10:12,330
+which we'll talk about later, but for now,
+I want you to get used to exposing things
+
+00:10:12,330 --> 00:10:17,580
+when you need to and connecting them like
+this, so we drag our text on there. Now, let's
+
+00:10:17,580 --> 00:10:24,839
+try running. "Hello world!" Great! So, let's
+recap how far we've got. We have programmatically
+
+00:10:24,839 --> 00:10:31,810
+changed text. OK, next thing is we're going
+to change text, only when we press a key.
+
+00:10:31,810 --> 00:10:39,779
+Now, you have looked at if statements previously,
+so what I want you to do is change or put
+
+00:10:39,779 --> 00:10:45,040
+in here an if statement, in the Update function,
+so that it starts by saying "Hello world",
+
+00:10:45,040 --> 00:10:53,540
+but if I press the Space Key, let's say then
+it's going to change to Space Key pressed.
+
+00:10:53,540 --> 00:10:58,670
+OK. So, I want you to put an if statement
+around this command. I'm going to say text.text
+
+00:10:58,670 --> 00:11:06,230
+= "Space key pressed"; This is going to be
+set every frame, so right now if I run, we
+
+00:11:06,230 --> 00:11:09,910
+won't see the "Hello world", because it goes
+away immediately and keeps getting replaced
+
+00:11:09,910 --> 00:11:14,170
+every single frame, with "Space key pressed."
+OK, so what I want to happen is for "Space
+
+00:11:14,170 --> 00:11:21,260
+key pressed' not to come up until you press
+the Space Key, using an if statement around
+
+00:11:21,260 --> 00:11:32,750
+line 16. So, I'll put the challenge definition
+on the screen for you. There are some hints.
+
+00:11:32,750 --> 00:11:35,300
+We're not actually starting with the text
+blank, we're starting with "Hello world",
+
+00:11:35,300 --> 00:11:39,450
+but that's OK and we're going to change to
+"Key pressed", when we press the Space Key.
+
+00:11:39,450 --> 00:11:49,149
+So, go ahead and do that challenge now. Pause
+the video. OK, how did you get on? Let me
+
+00:11:49,149 --> 00:11:54,240
+show you how I'm going to do that simple challenge.
+What we do is we come back in here and we
+
+00:11:54,240 --> 00:12:00,850
+say if and then the brackets. Now, I like
+to do all my brackets to start with, the brackets
+
+00:12:00,850 --> 00:12:05,910
+are like that remember; if is a statement,
+it takes in a condition, and it has a code
+
+00:12:05,910 --> 00:12:10,180
+block. I'm going to put the code I only want
+to execute with the if happens inside the
+
+00:12:10,180 --> 00:12:19,420
+code block, and then, I'm going to write my
+condition, which is (Input.GetKeyDown and
+
+00:12:19,420 --> 00:12:25,760
+then (KeyCode.Space)) That's how we're going
+to be doing that. Make sure you have as many
+
+00:12:25,760 --> 00:12:32,079
+closing circular brackets as you do opening.
+Save your script and let's try now. What we
+
+00:12:32,079 --> 00:12:38,579
+hope will happen, is when we first run, it
+says "Hello world!", when I hit Space it changes
+
+00:12:38,579 --> 00:12:43,850
+to "Space key pressed!". Fantastic! Congratulations!
+Let's look back at the script, make sure we
+
+00:12:43,850 --> 00:12:49,820
+understand how that works. This whole script
+gets called, because it's a script on an object
+
+00:12:49,820 --> 00:12:54,529
+in the game, so that's what is going to happen.&nbsp;It's
+hanging off the Text Object. At the Start
+
+00:12:54,529 --> 00:12:59,660
+of the game, it sets the text to "Hello world",
+and then, every single frame it asks the question,
+
+00:12:59,660 --> 00:13:03,800
+have we currently got the Space Key down?
+If not, it does nothing it skips right over
+
+00:13:03,800 --> 00:13:09,760
+this code block right down to here. If we
+have got the Space Key down, then it changes
+
+00:13:09,760 --> 00:13:15,360
+the text to "Space key pressed". OK, as a
+final challenge for you I want you to get
+
+00:13:15,360 --> 00:13:20,750
+this image onto the Canvas and then, scale
+it appropriately. Now, I'm going to have to
+
+00:13:20,750 --> 00:13:25,950
+tell you how to do that. You could just drag
+it on, but if you just drag it on it's going
+
+00:13:25,950 --> 00:13:30,430
+to become the wrong type of thing, and you
+can tell that because the Transform is not
+
+00:13:30,430 --> 00:13:37,430
+the same as the Text, which is a Wrecked Transform. So that's not how to do it.
+You're going to need to go Game Object, UI,
+
+00:13:37,430 --> 00:13:42,800
+Image, so let's do that. Then, the image comes
+under the Canvas, and then, what I want you
+
+00:13:42,800 --> 00:13:49,510
+to do is replace this white image with this
+Prison Word Sprite here. OK, so I want you
+
+00:13:49,510 --> 00:13:54,730
+to drag the Prison Word Sprite, this thing
+here, onto that, and then I want you to resize
+
+00:13:54,730 --> 00:14:00,220
+it so it looks decent, using the UI Element
+Tool, so that it's taking up about a third
+
+00:14:00,220 --> 00:14:04,990
+of the screen, at the top and it kind of looks
+the right proportions. So, in summary what
+
+00:14:04,990 --> 00:14:11,300
+I want you to do is add an image to the Canvass,
+scale it to around 1/3 of the height, center
+
+00:14:11,300 --> 00:14:15,139
+it on the Canvas, ensure the background of
+the image is transparent, if you're using
+
+00:14:15,139 --> 00:14:24,459
+the image we supply it will be, and then,
+make sure your game runs. So, how did you
+
+00:14:24,459 --> 00:14:29,180
+get on? Hopefully you've managed to do that.
+This is how I did it. I just simply stuck
+
+00:14:29,180 --> 00:14:33,709
+the image on, and I'm going to grab it, drag
+it, until it looks about right, move it till
+
+00:14:33,709 --> 00:14:40,769
+it snaps to the center, and then, just click
+play to make sure my game is running. How
+
+00:14:40,769 --> 00:14:45,139
+do I know the background is transparent? Well,
+try putting it over the text for a minute.
+
+00:14:45,139 --> 00:14:48,170
+You can see the background of the image we
+supplied. Well, you can see it here in the
+
+00:14:48,170 --> 00:14:53,350
+Scene View is transparent, because we can
+see the text behind. So, fantastic! You've
+
+00:14:53,350 --> 00:14:57,860
+had a very good video here, I believe. You've
+learned a lot, and hopefully you're a lot
+
+00:14:57,860 --> 00:15:03,589
+more confident with UI Elements now. Here's
+what we learned, and I look forward to seeing
+
+00:15:03,589 --> 00:15:04,820
+you in a future video.
+

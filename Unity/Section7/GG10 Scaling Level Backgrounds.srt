@@ -1,0 +1,394 @@
+
+00:00:04,339 --> 00:00:09,449 align:middle line:90%
+Hey guys, welcome back. So in this video we're
+going to set up our actual levels. So what
+
+00:00:09,449 --> 00:00:14,320 align:middle line:90%
+we have at the moment is just a win button
+and a lose button loosely slapped down but
+
+00:00:14,320 --> 00:00:18,869 align:middle line:90%
+we need to think about the canvas for our
+actual levels. So if you remember our splash
+
+00:00:18,869 --> 00:00:25,000 align:middle line:90%
+screen, that was a canvas of screen match
+mode type shrink if you look at the canvas
+
+00:00:25,000 --> 00:00:29,789 align:middle line:90%
+scaler of your canvas on your splash screen
+it's screen match mode is shrink, which means
+
+00:00:29,789 --> 00:00:34,180 align:middle line:90%
+that the canvas shrinks as teh game window
+changes size.
+
+00:00:34,180 --> 00:00:40,100 align:middle line:90%
+That has the following effect: it means that
+when your aspect ratio gets squarer, so say
+
+00:00:40,100 --> 00:00:45,230 align:middle line:90%
+we go from the 16:9 the big box you can see
+down to the 4:3, the iPad style resolution
+
+00:00:45,230 --> 00:00:50,550 align:middle line:90%
+we lose the edges, and we talked about the
+edges being a quiet zone, and that being OK
+
+00:00:50,550 --> 00:00:54,270 align:middle line:90%
+on this image, because there's nothing particularly
+interesting happening and you don't really
+
+00:00:54,270 --> 00:00:58,430 align:middle line:90%
+notice you've lost it; but this is what we
+want for our game as well. We actually want
+
+00:00:58,430 --> 00:01:04,180 align:middle line:90%
+for our level to have all the important gameplay
+elements in the centre here, and then anything
+
+00:01:04,180 --> 00:01:07,969 align:middle line:90%
+that's irrelevant to the gameplay on the the
+outside.
+
+00:01:07,969 --> 00:01:12,630 align:middle line:90%
+So firstly, we're going to need a grass texture
+so let's go and grab ourselves a grass texture.
+
+00:01:12,630 --> 00:01:16,909 align:middle line:90%
+It's in the asset pack for this section, I
+found it on the web, made a little bit of
+
+00:01:16,909 --> 00:01:22,479 align:middle line:90%
+a modification to it and there it is. So pop
+your grass tile into your images folder but
+
+00:01:22,479 --> 00:01:28,359 align:middle line:90%
+crucially set your sprite mode - sorry the
+texture type to texture up here in the inspector,
+
+00:01:28,359 --> 00:01:33,929 align:middle line:90%
+not to a sprite; because we want this thing
+to repeat. So all the other default options
+
+00:01:33,929 --> 00:01:36,369 align:middle line:84%
+should be fine, and click apply.
+
+00:01:36,369 --> 00:01:40,429 align:middle line:90%
+So now you actually have a texture in here
+rather than a sprite. Fantastic. I think that
+
+00:01:40,429 --> 00:01:45,109 align:middle line:90%
+this is the first time that you've probably
+used a texture. Now lets go into the level
+
+00:01:45,109 --> 00:01:50,909 align:middle line:90%
+one scene. Now, what do we want to add to
+use this? Well, click on the canvas and add
+
+00:01:50,909 --> 00:01:56,469 align:middle line:90%
+yourself a UI raw image rather than an image.
+What's the difference? Well, you can click
+
+00:01:56,469 --> 00:02:00,489 align:middle line:90%
+on the book and it will tell you, take you
+to the docs, but basically it takes in a texture.
+
+00:02:00,489 --> 00:02:04,889 align:middle line:90%
+That's the main thing, and it's better for
+static images.
+
+00:02:04,889 --> 00:02:10,590 align:middle line:90%
+So if you pop the grass texture on there then
+look what we have a little grass element.
+
+00:02:10,590 --> 00:02:14,030 align:middle line:90%
+Now before I do anything else I'm going to
+reset the rect transform for this guy, we
+
+00:02:14,030 --> 00:02:19,430 align:middle line:90%
+had so much trouble before; and I'm also going
+to set the width and height to 1600... and
+
+00:02:19,430 --> 00:02:25,829 align:middle line:90%
+not 16 million, or whatever that is. 1600,
+struggling because the microphone is between
+
+00:02:25,829 --> 00:02:29,950 align:middle line:90%
+my face and the keyboard. There you go. 1600
+by 900, great.
+
+00:02:29,950 --> 00:02:35,420 align:middle line:90%
+So that is our target size, that's fine, raw
+image is not particularly useful, let's call
+
+00:02:35,420 --> 00:02:40,069 align:middle line:90%
+it grass, just grass and I'm going to put
+it at the top of our canvas hierarchy so it's
+
+00:02:40,069 --> 00:02:45,930 align:middle line:90%
+behind the text. Now that it's where it is
+we can see that our text is no longer on the
+
+00:02:45,930 --> 00:02:51,560 align:middle line:90%
+playing field so let's bring it in, let's
+bring it even further remember that at 4:3
+
+00:02:51,560 --> 00:02:55,829 align:middle line:90%
+we still want t be able to see it. How do
+we check that? Well we go over to game, we
+
+00:02:55,829 --> 00:03:01,620 align:middle line:90%
+set the aspect to 4:3 and make sure that we
+can still see these things. Fine.
+
+00:03:01,620 --> 00:03:06,480 align:middle line:90%
+Alright so where's the canvas mode here? It's
+on expand, we want it on shrink. Set it to
+
+00:03:06,480 --> 00:03:15,579 align:middle line:90%
+shrink. Better. Now, as you go from 4:3 to
+16:9 you just lose the edges you see? So,
+
+00:03:15,579 --> 00:03:20,469 align:middle line:90%
+finally we need to tweak in the win condition
+and the lose condition. Now if you want to
+
+00:03:20,469 --> 00:03:24,390 align:middle line:90%
+see them together you can detach your game
+and have it next to the scene like this, you
+
+00:03:24,390 --> 00:03:28,749 align:middle line:90%
+may have a lot more room on your screen. I'm
+very small here because of the screen resolution
+
+00:03:28,749 --> 00:03:29,909 align:middle line:84%
+that I'm using for recording.
+
+00:03:29,909 --> 00:03:35,920 align:middle line:90%
+Great, so now we can see the direct effect.
+Great so as our aspect ratio for our device
+
+00:03:35,920 --> 00:03:43,680 align:middle line:90%
+gets wider, and it introduces more information
+left and right but the core of the game is
+
+00:03:43,680 --> 00:03:51,889 align:middle line:90%
+4:3 is what we're going to be targetting.
+So in the rest of the video we are going to:
+
+00:03:51,889 --> 00:03:56,319 align:middle line:90%
+well, we've covered the screen match mode.
+We've covered the raw image and grass texture,
+
+00:03:56,319 --> 00:04:01,099 align:middle line:90%
+I've talked to you about quiet zones so now
+I want you to set up the level with prefabs.
+
+00:04:01,099 --> 00:04:09,060 align:middle line:90%
+So I need you to scale, find out how to scale
+that; or tile rather, that grass texture image
+
+00:04:09,060 --> 00:04:13,930 align:middle line:90%
+so that we have at least five rows and nine
+columns at 4:3.
+
+00:04:13,930 --> 00:04:18,180 align:middle line:90%
+Make it fill the screen, we've kind of done
+that, then once you're happy with your canvas,
+
+00:04:18,180 --> 00:04:24,130 align:middle line:90%
+once you're happy that you've got at least
+five rows and nine columns at 4:3 I want you
+
+00:04:24,130 --> 00:04:29,419 align:middle line:90%
+to prefab the whole canvas and then replace
+the canvasses on all three levels with the
+
+00:04:29,419 --> 00:04:33,720 align:middle line:90%
+prefabbed version. Now if we need to update
+this first later then we can, by just changing
+
+00:04:33,720 --> 00:04:38,970 align:middle line:90%
+the prefab. Just check that it all scales
+properly with the game window and flows through.
+
+00:04:38,970 --> 00:04:41,400 align:middle line:84%
+Have a go at that now.
+
+00:04:41,400 --> 00:04:48,770 align:middle line:90%
+Great, so the option that you're looking for
+to make this grass scale is here. Let me just
+
+00:04:48,770 --> 00:04:56,699 align:middle line:90%
+go back to default layout. OK fine. Get my
+canvas focussed and this is the option you're
+
+00:04:56,699 --> 00:05:00,500 align:middle line:90%
+looking for, go into the canvas, into the
+grass and then it's width height here. You
+
+00:05:00,500 --> 00:05:06,710 align:middle line:90%
+can adjust these until you get what you need.
+We need nine columns at 4:3. So actually maybe
+
+00:05:06,710 --> 00:05:17,580 align:middle line:90%
+I am better with my game detached so that
+I can see what I'm getting. Aspect 4:3 and
+
+00:05:17,580 --> 00:05:22,470 align:middle line:90%
+keep changing the width until you get the
+nine columns you're after 1, 2, 3, 4, 5, 6,
+
+00:05:22,470 --> 00:05:28,990 align:middle line:90%
+7, 8, 9 there's the nine at six we get nine
+that's OK we may want to change that later,
+
+00:05:28,990 --> 00:05:33,360 align:middle line:90%
+no we need five high, we've only got three
+high, so let's see where we go there.
+
+00:05:33,360 --> 00:05:43,430 align:middle line:90%
+1, 2, 3, 4, 5, 6 high, so maybe 3... 5 that's
+OK there. Alright, that's OK, and we've still
+
+00:05:43,430 --> 00:05:46,520 align:middle line:90%
+got room along the bottom and the top for
+a little bit of user interface so we have
+
+00:05:46,520 --> 00:05:53,410 align:middle line:90%
+our nine by five and a little bit of space
+top and bottom for user interface. So that's
+
+00:05:53,410 --> 00:06:00,699 align:middle line:90%
+fine I've got UV rect settings of six and
+three there. That's absolutely fine, that's
+
+00:06:00,699 --> 00:06:04,900 align:middle line:90%
+good news. So, what next? Well, the next thing
+I'm seeing that I don't really like is that
+
+00:06:04,900 --> 00:06:09,050 align:middle line:90%
+there's a slight break in this texture, can
+you see that there's a little horizontal line?
+
+00:06:09,050 --> 00:06:11,389 align:middle line:84%
+just a little thin horizontal line?
+
+00:06:11,389 --> 00:06:15,699 align:middle line:90%
+Well that's because my image has got a little
+bit of mess on the bottom of it. If you go
+
+00:06:15,699 --> 00:06:20,169 align:middle line:90%
+into your favourite image editing program
+- I'm going to use Preview but you might want
+
+00:06:20,169 --> 00:06:27,120 align:middle line:90%
+to use GIMP or some other PC program. All
+I want you to do in your image is simply crop
+
+00:06:27,120 --> 00:06:32,039 align:middle line:90%
+the bottom pixel. The bottom single pixel
+off that image. I'm leaving it this way rather
+
+00:06:32,039 --> 00:06:34,610 align:middle line:90%
+than giving you a perfect image because this
+is exactly the sort of thing you're going
+
+00:06:34,610 --> 00:06:39,909 align:middle line:90%
+to need to do, I wanted you to see the effect
+of having a slightly dodgy image.
+
+00:06:39,909 --> 00:06:48,319 align:middle line:90%
+OK, so if you do that and you reimport that
+image into Unity... actually it's already
+
+00:06:48,319 --> 00:06:52,080 align:middle line:90%
+updated, which is good. You may not need to
+reimport depending on where you make your
+
+00:06:52,080 --> 00:06:56,889 align:middle line:90%
+edit. If you've right-clicked on it and revealed,
+or shown your file then it'll immediately
+
+00:06:56,889 --> 00:07:00,060 align:middle line:90%
+update look you see we don't have this problem
+any more because we've taken this bottom pixel
+
+00:07:00,060 --> 00:07:05,479 align:middle line:90%
+off OK? And that grass playspace is looking
+pretty cool now. Right, now I want to prefab
+
+00:07:05,479 --> 00:07:10,180 align:middle line:90%
+the canvas - the whole canvas is basically
+set up how we want it. Prefab it, give it
+
+00:07:10,180 --> 00:07:17,319 align:middle line:90%
+a more meaningful name. Level Canvas. Right,
+fantastic, and then what we finally want to
+
+00:07:17,319 --> 00:07:21,759 align:middle line:90%
+do is go through the levels and make sure
+that all levels don't use this dodgy old canvas
+
+00:07:21,759 --> 00:07:31,050 align:middle line:90%
+they had but they use a nice, prefabbed level
+canvas. Spelt correctly, and the great thing
+
+00:07:31,050 --> 00:07:34,870 align:middle line:90%
+about prefabs is that they'll all update when
+we make a change.
+
+00:07:34,870 --> 00:07:38,580 align:middle line:90%
+So later when we inevitably decide that we
+want to tweak our level canvas we only need
+
+00:07:38,580 --> 00:07:49,580 align:middle line:90%
+to tweak the prefab. There it is, just try
+renaming it again. Canvas... pefect. Alright,
+
+00:07:49,580 --> 00:07:55,810 align:middle line:90%
+so now, if we look through our scenes, start
+from the start screen. In fact we can't start
+
+00:07:55,810 --> 00:08:00,439 align:middle line:90%
+from the start scene, we must start from splash
+so our persistent music comes through properly,
+
+00:08:00,439 --> 00:08:08,280 align:middle line:90%
+if we play the game we get to here, lose condition
+you moose, rather than lose, back to start
+
+00:08:08,280 --> 00:08:12,699 align:middle line:90%
+play game, win condition so that's all fine
+and then if we just have a quick preview through
+
+00:08:12,699 --> 00:08:18,229 align:middle line:90%
+our levels, level one level two, level three,
+all our level canvasses are prefabbed so we're
+
+00:08:18,229 --> 00:08:19,860 align:middle line:84%
+in a great state here.
+
+00:08:19,860 --> 00:08:26,009 align:middle line:90%
+Just check that when you detach your win scene
+that it works for aspect ratios from 4:3 through
+
+00:08:26,009 --> 00:08:31,919 align:middle line:90%
+3:2 all the way up to 16:9; and it does. So
+we now have a play space that's just begging
+
+00:08:31,919 --> 00:08:36,710 align:middle line:90%
+for us to start sticking some animals and
+some plants and just creating a battleground
+
+00:08:36,710 --> 00:08:41,000 align:middle line:90%
+here. so congratulations on getting this far,
+the final thing we're going to do in the next
+
+00:08:41,000 --> 00:08:46,030 align:middle line:90%
+video is take a look at making the options
+screen actually do something and talk to the
+
+00:08:46,030 --> 00:08:51,030 align:middle line:84%
+player prefabs. See you soon.

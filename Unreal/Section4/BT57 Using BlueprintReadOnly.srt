@@ -1,0 +1,773 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+So in this video we're going to
+
+2
+00:00:04,000 --> 00:00:08,000
+find out about Using BlueprintReadOnly to expose C++
+
+3
+00:00:08,000 --> 00:00:12,000
+properties to Blueprint. What we'll be able to do then is
+
+4
+00:00:12,000 --> 00:00:16,000
+find a TankMovementComponent pointer, like this, and then, call a method directly
+
+5
+00:00:16,000 --> 00:00:20,000
+from our axes. And this means that, when we play the game,
+
+6
+00:00:20,000 --> 00:00:24,000
+I'll be able to push the left stick forward and back, and I will be able to get through the TankMovmentComponent
+
+7
+00:00:24,000 --> 00:00:28,000
+a value as to the vertical position of that stick. So let's go and see how that works!
+
+8
+00:00:28,000 --> 00:00:28,500
+
+
+9
+00:00:28,500 --> 00:00:32,500
+So we have our architecture, what we want to do now is wire it up.
+
+10
+00:00:32,500 --> 00:00:36,500
+Ultimately, we're going to have the tank blueprint in the Input section,
+
+11
+00:00:36,500 --> 00:00:40,500
+in here. In fact, while I'm here, why don't I comment this as the
+
+12
+00:00:40,500 --> 00:00:44,500
+Input or Movement Input Binding,
+
+13
+00:00:44,500 --> 00:00:48,500
+like so. On the left-hand side of the tank blueprint I'm just making
+
+14
+00:00:48,500 --> 00:00:52,500
+it clear what we're doing. What I want to do is, I want to add down here what a
+
+15
+00:00:52,500 --> 00:00:56,500
+binding from a new input, which is going to be the left stick moving back and
+
+16
+00:00:56,500 --> 00:01:00,500
+forward. For IntendMoveForward. Then, that's going to call a method inside
+
+17
+00:01:00,500 --> 00:01:04,500
+the TankMovementComponent, called IntendMoveForward(). In fact, all of this is
+
+18
+00:01:04,500 --> 00:01:08,500
+going to work very much like the TankAimingComponent, including the way that the Movement
+
+19
+00:01:08,500 --> 00:01:12,500
+Component is going to end up here on the Tank.
+
+20
+00:01:12,500 --> 00:01:16,500
+So over in our TankMovementComponent, let's create ourselves a new method!
+
+21
+00:01:16,500 --> 00:01:20,500
+I'm going to make this method a void method called IntendMove
+
+22
+00:01:20,500 --> 00:01:24,500
+Forward(). Now that is going to communicate the movement
+
+23
+00:01:24,500 --> 00:01:28,500
+desire, the question is what does it take in? Well it should take a float, because it's going to be between
+
+24
+00:01:28,500 --> 00:01:32,500
+-1 and +1, and I'm going to call that float the throw which is the
+
+25
+00:01:32,500 --> 00:01:36,500
+control throw, it's how far forward or back the control is moved.
+
+26
+00:01:36,500 --> 00:01:40,500
+OK, it's going to be in the public section. Oops, [Laughs] in the public section because
+
+27
+00:01:40,500 --> 00:01:44,500
+it's a very top level requirement of the TankMovementComponent, you can tell it to
+
+28
+00:01:44,500 --> 00:01:48,500
+Intend to MoveForward. Fantastic! Now the next question is, how do I decorate
+
+29
+00:01:48,500 --> 00:01:52,500
+this? Well I'm actually going to leave that to you, because we're going to want it to end up in the blueprint. It's
+
+30
+00:01:52,500 --> 00:01:56,500
+going to be several steps to make this end up, properly, in the blueprint,
+
+31
+00:01:56,500 --> 00:02:00,500
+and I'm going to give the more advanced of you a fairly good challenge in trying to
+
+32
+00:02:00,500 --> 00:02:04,500
+make that happen, but in the meanwhile, let's just flesh out the implementation
+
+33
+00:02:04,500 --> 00:02:08,500
+of IntendMoveForward. So I'm going to grab the class name
+
+34
+00:02:08,500 --> 00:02:12,500
+over here and just decorate away.
+
+35
+00:02:12,500 --> 00:02:16,500
+OK, now what I'm going to do is go get the log entry that
+
+36
+00:02:16,500 --> 00:02:20,500
+must be somewhere else in the project, and I'm just going to move
+
+37
+00:02:20,500 --> 00:02:24,500
+it around. Not this one! In fact, we don't need this one anymore. In the TankPlayerController.cpp,
+
+38
+00:02:24,500 --> 00:02:28,500
+in the BeginPlay, we don't need to be doing any of this
+
+39
+00:02:28,500 --> 00:02:32,500
+stuff about whether things are attached or not. The attachment seems to be working, so we
+
+40
+00:02:32,500 --> 00:02:36,500
+can get rid of the UE_LOG. And then, I'm going to move the UE_LOG from the
+
+41
+00:02:36,500 --> 00:02:40,500
+TankTrack.cpp's SetThrottle method. I'm just going to take
+
+42
+00:02:40,500 --> 00:02:44,500
+that and pop it here in the implementation of this IntendMove
+
+43
+00:02:44,500 --> 00:02:48,500
+Forward. I'm going to ditch the name and just say
+
+44
+00:02:48,500 --> 00:02:52,500
+something like "Intend
+
+45
+00:02:52,500 --> 00:02:56,500
+move forward throw:
+
+46
+00:02:56,500 --> 00:03:00,500
+%f" to format the float), and
+
+47
+00:03:00,500 --> 00:03:04,500
+Throw. So what I'm hoping is we will be able to get to the point
+
+48
+00:03:04,500 --> 00:03:08,500
+where this IntendMoveForward() method is called, and it's going to
+
+49
+00:03:08,500 --> 00:03:12,500
+be called directly off an Input Binding, which we'll make
+
+50
+00:03:12,500 --> 00:03:16,500
+straight into IntendMoveForward. The point is, right now, if you compile, let's go ahead and compile
+
+51
+00:03:16,500 --> 00:03:20,500
+before I put in a challenge. You'll find that there are several steps you need to go
+
+52
+00:03:20,500 --> 00:03:24,500
+for or through to actually make this IntendMoveForward method appear
+
+53
+00:03:24,500 --> 00:03:28,500
+here. It's not just a single step. Now I'm going to give you a recipe, in the challenge slide, as how to
+
+54
+00:03:28,500 --> 00:03:32,500
+to do it, and I want you to really think and look at the Tank.cpp and Tank.h and think
+
+55
+00:03:32,500 --> 00:03:36,500
+about how this TankAimingComponent got added and what we did. And then, there's one
+
+56
+00:03:36,500 --> 00:03:40,500
+extra step, which as I get to say, I will give you the hint inside the
+
+57
+00:03:40,500 --> 00:03:44,500
+challenge slide. But what I'm saying is that, right now, this IntendMoveForward is not
+
+58
+00:03:44,500 --> 00:03:48,500
+here, we don't even have a MovementComponent. Alright, so that's what we're going to
+
+59
+00:03:48,500 --> 00:03:52,500
+want to do. Let's give you the challenge! This is a challenge slightly more for people who are very
+
+60
+00:03:52,500 --> 00:03:56,500
+comfortable with the course so far. If you're struggling a little bit, this challenge may
+
+61
+00:03:56,500 --> 00:04:00,500
+be too much, all in one go, but get as much of it done as you can. And then, this just gives the more
+
+62
+00:04:00,500 --> 00:04:04,500
+advanced people an opportunity to push themselves and the less advanced people an opportunity to do
+
+63
+00:04:04,500 --> 00:04:08,500
+some of it but not necessarily all of it. So let's get to the challenge!
+
+64
+00:04:08,500 --> 00:04:12,500
+OK, what I want you to do is bind some input for forward and backward.
+
+65
+00:04:12,500 --> 00:04:16,500
+That's relatively simple, it's actually just one axis, it's the Left
+
+66
+00:04:16,500 --> 00:04:20,500
+Thumb-Stick Y axis. So it's a single binding, call it move
+
+67
+00:04:20,500 --> 00:04:24,500
+forward if you like. Make the method BlueprintCallable.
+
+68
+00:04:24,500 --> 00:04:28,500
+So this IntendMoveForward() method, that we've just declared and defined,
+
+69
+00:04:28,500 --> 00:04:32,500
+I just want you to make it BlueprintCallable. Then,
+
+70
+00:04:32,500 --> 00:04:36,500
+you need to make the TankMovementComponent a default on the tank.
+
+71
+00:04:36,500 --> 00:04:40,500
+It needs to add itself to the tank, in the tank's constructor, automatically
+
+72
+00:04:40,500 --> 00:04:44,500
+as a sub-object, just like we add the AimingComponent.
+
+73
+00:04:44,500 --> 00:04:48,500
+Then, you need to make a protected variable on the tank, to store the pointer to
+
+74
+00:04:48,500 --> 00:04:52,500
+that movement component, in the Protected section. And
+
+75
+00:04:52,500 --> 00:04:56,500
+finally, and this is the bit that will make it visible in the blueprint, is that you need to make that protected
+
+76
+00:04:56,500 --> 00:05:00,500
+pointer in the tank's header file, BlueprintReadOnly.
+
+77
+00:05:00,500 --> 00:05:04,500
+And nearly all of this you've done before, the BlueprintReadOnly bit
+
+78
+00:05:04,500 --> 00:05:08,500
+you've not used before. I will give you another hint which is... Oh, by the way,
+
+79
+00:05:08,500 --> 00:05:12,500
+you will know that  you've succeeded the challenge, because when you've pushed
+
+80
+00:05:12,500 --> 00:05:16,500
+the left stick forward or back or if you've mapped in to the keyboard, same thing, you'll get + and -1
+
+81
+00:05:16,500 --> 00:05:20,500
+coming out from that log. Now a couple of resources for you,
+
+82
+00:05:20,500 --> 00:05:24,500
+they're not brilliant. The top one is better, number 2 is better. Number
+
+83
+00:05:24,500 --> 00:05:28,500
+one is just the community site, which is awesome! But number 2 is a blog
+
+84
+00:05:28,500 --> 00:05:32,500
+about creating C++ variables for use in Blueprint, worth a look, and then, there's
+
+85
+00:05:32,500 --> 00:05:36,500
+also a link to BlueprintCallable in the docs, that's in your slides for you. There's your challenge!
+
+86
+00:05:36,500 --> 00:05:40,500
+Oops, no it's not! There's your challenge! Go ahead, pause the
+
+87
+00:05:40,500 --> 00:05:44,500
+video, and have a go at that now!
+
+88
+00:05:44,500 --> 00:05:48,500
+
+
+89
+00:05:48,500 --> 00:05:52,500
+OK welcome back! Let's go through this one step at a time! So I said bind some input
+
+90
+00:05:52,500 --> 00:05:56,500
+for forward and backward, so let's bind some input for forward and backward.
+
+91
+00:05:56,500 --> 00:06:00,500
+That would be in the Project Settings, it will be under Input, and
+
+92
+00:06:00,500 --> 00:06:04,500
+we will have... If I want to leave the Project Settings up on the screen as a tab!
+
+93
+00:06:04,500 --> 00:06:08,500
+And then, we're going to have an Axis Mapping, I'm going to call it Move
+
+94
+00:06:08,500 --> 00:06:12,500
+Forward, and I'm going to bind it
+
+95
+00:06:12,500 --> 00:06:16,500
+to the gamepad's Left Thumb-Stick Y axis, with a scale
+
+96
+00:06:16,500 --> 00:06:20,500
+of 1. Great! So in the tank blueprint, we should
+
+97
+00:06:20,500 --> 00:06:24,500
+now have, if we search for "forward", a MoveForward event. So
+
+98
+00:06:24,500 --> 00:06:28,500
+that is that event fired, with an output value of Axis value, when I
+
+99
+00:06:28,500 --> 00:06:32,500
+move the stick forward. Very straightforward stuff so far. OK, now we need to get the Movement
+
+100
+00:06:32,500 --> 00:06:36,500
+Component adding itself to the tank. So I'm going to Save everything, as we're going to be messing around with pointers,
+
+101
+00:06:36,500 --> 00:06:40,500
+because Unreal does have a habit of crashing when we do that. Let's go look at the tank
+
+102
+00:06:40,500 --> 00:06:44,500
+and see how it does it. Well firstly, the tank
+
+103
+00:06:44,500 --> 00:06:48,500
+has this idea of a TankAimingComponent,
+
+104
+00:06:48,500 --> 00:06:52,500
+so we're going to need to do the same thing with a UTankMovementComponent,
+
+105
+00:06:52,500 --> 00:06:56,500
+somewhere to store the pointer.
+
+106
+00:06:56,500 --> 00:07:00,500
+Yeah, so UTankMovementComponent. I'm going to copy the word Movement
+
+107
+00:07:00,500 --> 00:07:04,500
+because that's what's different. Now, is it going to know what  a UTankMovementComponent
+
+108
+00:07:04,500 --> 00:07:08,500
+is? No. So what I'm going to do is I'm just going to
+
+109
+00:07:08,500 --> 00:07:12,500
+forward declare that Movement
+
+110
+00:07:12,500 --> 00:07:16,500
+Component, just so that this guy here knows what it is. In a moment, VisualStudio will catch
+
+111
+00:07:16,500 --> 00:07:20,500
+up, and it'll go OK, well I've got a forward declaration, an empty class, I can at least
+
+112
+00:07:20,500 --> 00:07:24,500
+deal with the name MovementComponent. And then, over in the Tank implementation
+
+113
+00:07:24,500 --> 00:07:28,500
+file, we're actually going to need to #include
+
+114
+00:07:28,500 --> 00:07:32,500
+"TankMovement
+
+115
+00:07:32,500 --> 00:07:36,500
+Component.h".
+
+116
+00:07:36,500 --> 00:07:40,500
+OK, just like we included the TankAimingComponent. Then, right here,
+
+117
+00:07:40,500 --> 00:07:44,500
+just like we added a default sub-object for the
+
+118
+00:07:44,500 --> 00:07:48,500
+TankAimingComponent, we're going to do the same thing for the TankMovement
+
+119
+00:07:48,500 --> 00:07:52,500
+Component. Again, copying Movement,
+
+120
+00:07:52,500 --> 00:07:56,500
+replacing Aiming with Movement everywhere
+
+121
+00:07:56,500 --> 00:08:00,500
+we see it. OK, let's test just that for now!
+
+122
+00:08:00,500 --> 00:08:04,500
+Let's go ahead and Compile our code!
+
+123
+00:08:04,500 --> 00:08:08,500
+I'll leave the code on the screen for you. So we've just done exactly the same thing as we did before,
+
+124
+00:08:08,500 --> 00:08:12,500
+we've just done DefaultSubobject of the MovementComponent. What I'm hoping when this compiles,
+
+125
+00:08:12,500 --> 00:08:16,500
+if this compiles, is that on the left-hand side here, the tank blueprint or at least
+
+126
+00:08:16,500 --> 00:08:20,500
+wherever your Component list is.. Components list. You see we have
+
+127
+00:08:20,500 --> 00:08:24,500
+a crash and that's not uncommon. What I'm hoping is that the TankMovingComponent will move
+
+128
+00:08:24,500 --> 00:08:28,500
+in here. So this is basically because we made a fairly fundamental
+
+129
+00:08:28,500 --> 00:08:32,500
+change to that blueprint and Unreal just throws a wobbly in
+
+130
+00:08:32,500 --> 00:08:36,500
+those instances, but you're saving regularly and you're not worried about these
+
+131
+00:08:36,500 --> 00:08:40,500
+things right, it happens occasionally. So here's the tank blueprint! Now look
+
+132
+00:08:40,500 --> 00:08:44,500
+on the left, Tank Movement Component. Fantastic! So how do we get this
+
+133
+00:08:44,500 --> 00:08:48,500
+IntendMoveForward() method? Let's look for it again. Still not there!
+
+134
+00:08:48,500 --> 00:08:52,500
+Can I grab a reference to the Movement Component? No! "Can't
+
+135
+00:08:52,500 --> 00:08:56,500
+find corresponding variable (Make sure component has been assigned to one)". Now listen, don't go
+
+136
+00:08:56,500 --> 00:09:00,500
+off to the blueprint and start trying to add variables, there is a variables section under the My Blueprint
+
+137
+00:09:00,500 --> 00:09:04,500
+menu, which you can also get to from the windows here. Please don't go off and try and add variables,
+
+138
+00:09:04,500 --> 00:09:08,500
+it's not how we want to do it, that's not going to work. Even if it does work, it's messy!
+
+139
+00:09:08,500 --> 00:09:12,500
+What we want to do is we want, on the Tank.h,
+
+140
+00:09:12,500 --> 00:09:16,500
+where we made ourselves a TankMovementComponent,
+
+141
+00:09:16,500 --> 00:09:20,500
+what we never did was say well OK this is a UPROPERTY,
+
+142
+00:09:20,500 --> 00:09:24,500
+and the minimum oops, property.. and the minimum that we want this
+
+143
+00:09:24,500 --> 00:09:28,500
+to be is (BlueprintReadOnly). So that's the new
+
+144
+00:09:28,500 --> 00:09:32,500
+thing that you've got, you can make a property of a C++ method readable
+
+145
+00:09:32,500 --> 00:09:36,500
+from blueprint. Just that change, making the TankMovementComponent pointer
+
+146
+00:09:36,500 --> 00:09:40,500
+(BlueprintReadOnly) should, fingers crossed let's go ahead,
+
+147
+00:09:40,500 --> 00:09:44,500
+should allow us to drag a reference from the
+
+148
+00:09:44,500 --> 00:09:48,500
+Movement Component. Not the Aiming Component, because look at the Aiming Component, it does not have such an annotation,
+
+149
+00:09:48,500 --> 00:09:52,500
+but it should allow us to drag a reference for the Movement Component right
+
+150
+00:09:52,500 --> 00:09:56,500
+here into the blueprint. Wonderful! And
+
+151
+00:09:56,500 --> 00:10:00,500
+then, from that Movement Component we can drag off, and now we should have a
+
+152
+00:10:00,500 --> 00:10:04,500
+contextual menu, which will allow us to say forward
+
+153
+00:10:04,500 --> 00:10:08,500
+or intend. OK, so
+
+154
+00:10:08,500 --> 00:10:12,500
+not quite, I can't quite do IntendMoveForward off of the TankComponent. Why not?
+
+155
+00:10:12,500 --> 00:10:16,500
+Let's have a look at this! And that's simply because I haven't decorated
+
+156
+00:10:16,500 --> 00:10:20,500
+IntendMoveForward with the relevant BlueprintCallable.
+
+157
+00:10:20,500 --> 00:10:24,500
+So it's a UFUNCTION, I know that because it's a
+
+158
+00:10:24,500 --> 00:10:28,500
+function. (BlueprintCallable)
+
+159
+00:10:28,500 --> 00:10:32,500
+and I'm going to say Category
+
+160
+00:10:32,500 --> 00:10:36,500
+= just a type to keep things together, Input).
+
+161
+00:10:36,500 --> 00:10:40,500
+I'm going to recompile and then I'm going to remove, I'm going to comment
+
+162
+00:10:40,500 --> 00:10:44,500
+out, in a minute, this in the Tank.h,
+
+163
+00:10:44,500 --> 00:10:48,500
+this (BlueprintReadOnly), because I don't think at this stage you'll be convinced that that's what made the
+
+164
+00:10:48,500 --> 00:10:52,500
+difference, because I hadn't yet put in the annotation here
+
+165
+00:10:52,500 --> 00:10:56,500
+which makes the whole method BlueprintCallable. So one step at a time, let's prove this works now.
+
+166
+00:10:56,500 --> 00:11:00,500
+If I now come off the TankMovementComponent,
+
+167
+00:11:00,500 --> 00:11:04,500
+I do have an IntendMoveForward. Alright, So let's delete the TankMovementComponent,
+
+168
+00:11:04,500 --> 00:11:08,500
+just to convince you of something. I want to go to the Tank.h,
+
+169
+00:11:08,500 --> 00:11:12,500
+I want to comment out this BlueprintReadOnly.
+
+170
+00:11:12,500 --> 00:11:16,500
+Oops sorry! In the Tank.h I'm commenting out the BlueprintRead
+
+171
+00:11:16,500 --> 00:11:20,500
+Only, that's right! Let's compile again! As this is the subject
+
+172
+00:11:20,500 --> 00:11:24,500
+to the lecture, I think it's quite important that you get what the effect of this is.
+
+173
+00:11:24,500 --> 00:11:28,500
+BlueprintCallable, of course, has made that method callable, but the problem is we can't
+
+174
+00:11:28,500 --> 00:11:32,500
+easily find the method. Let's see, let's just get the thing. OK let's look for the
+
+175
+00:11:32,500 --> 00:11:36,500
+method. We don't have the Intend method.
+
+176
+00:11:36,500 --> 00:11:40,500
+Try and drag the Movement Component in. We can't! Alright, so we can't get to this Intend
+
+177
+00:11:40,500 --> 00:11:44,500
+method. The key that unlocks all of this is making the
+
+178
+00:11:44,500 --> 00:11:48,500
+pointer to the TankMovementComponent BlueprintReadOnly. When that's the case and we
+
+179
+00:11:48,500 --> 00:11:52,500
+recompile, then suddenly instead of can't move the
+
+180
+00:11:52,500 --> 00:11:56,500
+Movement Component in which I'm getting now, as soon as the recompilation happens,
+
+181
+00:11:56,500 --> 00:12:00,500
+I will be able to drag a reference to the Movement Component. Once
+
+182
+00:12:00,500 --> 00:12:04,500
+I've got that reference I can come off it, and I can find
+
+183
+00:12:04,500 --> 00:12:08,500
+the IntendMoveForward method, only because we have
+
+184
+00:12:08,500 --> 00:12:12,500
+said that it's BlueprintCallable. Alright, so there it is!
+
+185
+00:12:12,500 --> 00:12:16,500
+Now you just wire it in! You wire the execution flow and the value flow,
+
+186
+00:12:16,500 --> 00:12:20,500
+compile your blueprint, I'm going to save everything,
+
+187
+00:12:20,500 --> 00:12:24,500
+play the game. Watch the console very carefully. I'm moving the left stick on my trackpad, look
+
+188
+00:12:24,500 --> 00:12:28,500
+between -1 and +1. Fantastic!
+
+189
+00:12:28,500 --> 00:12:32,500
+Lots to chew on there, but we have now got ourselves
+
+190
+00:12:32,500 --> 00:12:36,500
+a enriched tank blueprint, with a tank movement component
+
+191
+00:12:36,500 --> 00:12:40,500
+and the data that we need, to be able to drive the tank forward, coming through from
+
+192
+00:12:40,500 --> 00:12:44,500
+our control system. So congratulations, a big pat on the back, and I'll see you soon!
+
+193
+00:12:44,500 --> 00:12:46,166
+
+

@@ -1,0 +1,362 @@
+Kind: captions
+Language: en
+
+00:00:00,000 --> 00:00:09,210
+Hello, and welcome back!. In this video,
+we're going to be looking at how to
+
+00:00:09,210 --> 00:00:13,280
+detect the enemies have been destroyed.
+So we need to know when all the enemies
+
+00:00:13,280 --> 00:00:18,789
+are dead, so that we can add in the
+other enemies to a new formation or to
+
+00:00:18,789 --> 00:00:22,660
+add enemies to the formation that's now
+empty. We're to going to use the
+
+00:00:22,660 --> 00:00:28,619
+childCount property of a transform on
+the positions. So basically, a childCount
+
+00:00:28,619 --> 00:00:33,280
+shows you how many objects are inside a given object, and the transform has that
+
+00:00:33,280 --> 00:00:37,540
+property. And an empty position, so we've created those position objects with an
+
+00:00:37,540 --> 00:00:42,590
+enemy inside. When their position is empty, we have a dead enemy, and then,
+
+00:00:42,590 --> 00:00:47,590
+when that happens when we have an empty array of positions, all the positions are empty,
+
+00:00:47,590 --> 00:00:52,100
+we're going to respawn the enemies
+when they are empty. So how are we going to do that?
+
+00:00:52,100 --> 00:00:56,600
+Well, we're going to go for transform.childCount, and we will be looping over
+
+00:00:56,600 --> 00:01:01,820
+every position. Then, we'll show you how to loop over every object inside another
+
+00:01:01,820 --> 00:01:06,570
+object, in the hierarchy, and we'll kind of
+encapsulate all that information in the
+
+00:01:06,570 --> 00:01:08,390
+AllMembersAreDead()
+
+00:01:08,390 --> 00:01:15,150
+method. So, let's get started! So if I jump
+into my Unity editor, we can see what we
+
+00:01:15,150 --> 00:01:21,780
+have already. If I press play, we see that
+the enemies are currently here, they can be
+
+00:01:21,780 --> 00:01:25,439
+shot down, I could shoot them down, and
+they should be able to shoot me down as
+
+00:01:25,439 --> 00:01:31,210
+well. If I take enough hits, I'm going to die.
+I'm trying to get hit it's actually harder,
+
+00:01:31,210 --> 00:01:36,090
+here we go, and then I die. So what I want to do is have the enemies respawn, recycle,
+
+00:01:36,090 --> 00:01:39,100
+when I've killed them all, which they don't
+currently do. So the first thing I'm
+
+00:01:39,100 --> 00:01:42,930
+going to do, is I'm going to go to my enemy formation, and the enemy formation has an
+
+00:01:42,930 --> 00:01:46,850
+enemy formation controller... a formation
+controller script. So in this formation
+
+00:01:46,850 --> 00:01:53,610
+controller script, in my update function, I'm going to check for all the enemies being
+
+00:01:53,610 --> 00:01:57,360
+dead, and the way I'm going to do that is I'm going to call the AllMembersDead() method.
+
+00:01:57,360 --> 00:02:06,950
+So if AllMembersDead,
+
+00:02:06,950 --> 00:02:19,270
+then, I want to log something out to the console. Debug.Log ("Empty formation");
+
+00:02:19,270 --> 00:02:23,620
+There we go. So now, I need to write this all members are dead
+
+00:02:23,630 --> 00:02:28,480
+function. So AllMembersDead is going to
+be a Boolean function, it'll return true or
+
+00:02:28,480 --> 00:02:38,690
+false, that's bool and AllMembersDead. Here we go, and now, I need to look inside
+
+00:02:38,690 --> 00:02:41,420
+the formation for every position, so
+let's remind ourselves really what the
+
+00:02:41,420 --> 00:02:46,269
+structure of the formation is. If we jump back into Unity, we have an enemy formation, and inside
+
+00:02:46,269 --> 00:02:50,920
+the enemy formation we have a bunch of
+positions. And when we press play, pause
+
+00:02:50,920 --> 00:02:54,950
+the game, we can see that every position
+has an enemy inside of it. So what we need
+
+00:02:54,950 --> 00:02:59,380
+to do is, we need to loop over every
+position in the formation and check
+
+00:02:59,380 --> 00:03:05,620
+whether the position has a child... has an enemy. So let's jump back into our code, and we
+
+00:03:05,620 --> 00:03:21,739
+can do that this way. So foreach(Transform child
+
+00:03:21,739 --> 00:03:30,750
+PositionGameObject, which is what we're iterating over. Already, we're grabbing the transform
+
+00:03:30,750 --> 00:03:37,139
+component with these... in transform{}. Now, that's going to seem a little weird, but what we have
+
+00:03:37,139 --> 00:03:41,209
+here is my transform. The formation
+controller is attached to the formation
+
+00:03:41,209 --> 00:03:45,910
+GameObject. If we take another look at
+our Unity, we can see that if we click on the
+
+00:03:45,910 --> 00:03:49,120
+formation controller it's actually
+attached... the formation controller
+
+00:03:49,120 --> 00:03:53,139
+script is actually attached to the enemy
+formation GameObject. So if we jump back
+
+00:03:53,139 --> 00:04:00,269
+the transform of the formation... enemy
+formations... the transform of the enemy
+
+00:04:00,269 --> 00:04:04,989
+formation is going to be what we iterate
+over, what we loop over, to get all the
+
+00:04:04,989 --> 00:04:10,019
+position. So it's a bit weird that the
+transforms are what keeps the child's
+
+00:04:10,019 --> 00:04:13,900
+and the parent of, you know when you
+structure your hierarchy, is done through
+
+00:04:13,900 --> 00:04:17,250
+the transform, but that's just how it is. So that's what we're doing, we're going over
+
+00:04:17,250 --> 00:04:24,659
+every child position in the transform of
+the formation. So in there, now, we've got
+
+00:04:24,659 --> 00:04:28,270
+the child formation childPositionGameObject...
+
+00:04:28,270 --> 00:04:34,310
+childPositionGameObject... We can grab the childCount, and that's going to tell us how
+
+00:04:34,310 --> 00:04:39,430
+many GameObjects that has. So, if I go for AllMembersAreDead; if I did, say
+
+00:04:39,430 --> 00:04:42,560
+transform.childCount, at this level here.
+
+00:04:42,560 --> 00:04:50,580
+transform.childCount. We're expecting
+this to be, let's take a look at the game,
+
+00:04:50,580 --> 00:04:55,979
+123456. We have six positions, we're
+expecting this transform.childCount
+
+00:04:55,979 --> 00:05:01,760
+to be six, right, and then, for the child
+that's going to be one of the positions,
+
+00:05:01,760 --> 00:05:07,099
+inside the position. We're expecting the childCount to be either 0,
+
+00:05:07,099 --> 00:05:11,330
+which means a dead enemy, or 1, which
+means a live enemy. So, what we want to say is,
+
+00:05:11,330 --> 00:05:18,010
+if all members are dead what we are
+actually expecting is if childCount.position...
+
+00:05:18,010 --> 00:05:21,700
+So if the child count of my position, if there is an enemy, is
+
+00:05:21,700 --> 00:05:27,129
+greater than 0, we return false, right,
+
+00:05:27,129 --> 00:05:32,589
+because if there's any position with a
+child in it, that means that we have at least
+
+00:05:32,589 --> 00:05:37,129
+one live enemy, which means that not all
+members are dead. And then, if we go
+
+00:05:37,129 --> 00:05:43,889
+through every single object in our list,
+so every position in our formation and
+
+00:05:43,889 --> 00:05:48,589
+there are no children, or basically we'll get to the bottom of this loop so we'll
+
+00:05:48,589 --> 00:05:52,879
+go through that for each. And then...
+we'll reach the end and then at the
+
+00:05:52,879 --> 00:05:59,269
+end we go return true; every member is dead, and that's how you check if all enemies are
+
+00:05:59,269 --> 00:06:05,279
+dead or not. So let's see whether that
+works in the game. So if I stop that, stop
+
+00:06:05,279 --> 00:06:10,069
+playing, play again. Then, I'm going to have to kill my enemies. I really should make
+
+00:06:10,069 --> 00:06:14,459
+that job easier for me, make them have
+really low health, but yeah, especially
+
+00:06:14,459 --> 00:06:24,529
+especially if they kill me first, right! [Laughs] So, there we go! Let's try and kill all the enemies, here we go. And then, we look at the console, and we
+
+00:06:24,529 --> 00:06:29,189
+should be able to see an empty formation. So, that's exactly what we're expecting, and
+
+00:06:29,189 --> 00:06:32,959
+note that counts... the empty formation count keeps going up because we're doing it
+
+00:06:32,959 --> 00:06:37,550
+every update. That's ok for now. Later on, we'll trigger an action that stops the
+
+00:06:37,550 --> 00:06:41,399
+formation from being empty, but for now, we're just checking that the formation is empty
+
+00:06:41,399 --> 00:06:47,419
+and logging it out to the console on every update. Ok, so in fact, what we do next
+
+00:06:47,419 --> 00:06:52,399
+is for you to respawn the enemies, when
+the formation is empty. We already have
+
+00:06:52,399 --> 00:06:56,289
+the enemy respawn code, that's all in the
+start method of the formation
+
+00:06:56,289 --> 00:07:00,249
+controller. So what I want you to do now
+is grab that code, turn it into a
+
+00:07:00,249 --> 00:07:05,740
+function, and then call that method
+both in the start and in the...
+
+00:07:05,740 --> 00:07:09,800
+whenever the enemy formation is empty. So go do that now.
+
+00:07:09,800 --> 00:07:14,240
+So pause the video and try and create the respawn functionality when
+
+00:07:14,240 --> 00:07:20,710
+all enemies are dead, and I will see you very soon.
+
+00:07:20,710 --> 00:07:25,000
+So how did it go? Let's take a look at
+how we would add the enemy spawning to
+
+00:07:25,000 --> 00:07:31,030
+our code. So if I jump back into Unity, I can grab the formation controller code, and I've
+
+00:07:31,030 --> 00:07:34,080
+got this AllMembersDead function. And what I want to do is extract the
+
+00:07:34,080 --> 00:07:39,080
+functionality that spawns every enemy
+into its own function, so let me create it
+
+00:07:39,080 --> 00:07:43,090
+here. And I'm going to call it a void
+function, because we return nothing, and
+
+00:07:43,090 --> 00:07:47,820
+it's going to be SpawnEnemies(){}. Here we go.
+
+00:07:47,820 --> 00:07:53,970
+So now, we've got spawn enemies. I can extract this for each loop, take it out, and put it in
+
+00:07:53,970 --> 00:07:59,750
+spawn enemies, and then, call spawn
+enemies from my formation controller start
+
+00:07:59,750 --> 00:08:05,570
+function. Here we go. And I can also do the same when all my members are dead. So
+
+00:08:05,570 --> 00:08:10,490
+empty formation and then spawn enemies, and now, the behavior should be that
+
+00:08:10,490 --> 00:08:13,200
+whenever I kill all my enemies
+
+00:08:13,200 --> 00:08:17,940
+they immediately respawn together. So let's take a look at the game and see whether our
+
+00:08:17,940 --> 00:08:24,730
+expected outcome is really what happens. So I'm going to try very hard not to die. I'm
+
+00:08:24,730 --> 00:08:28,080
+killing a bunch of enemies, and when I
+kill this guy, we should see that they
+
+00:08:28,080 --> 00:08:33,200
+all come back at once. And that's exactly what we see. So that's it!
+
+00:08:33,200 --> 00:08:39,280
+That is how we spawn our enemies, once
+they've all been destroyed. So, well done for
+
+00:08:39,280 --> 00:08:43,620
+making it this far! This video was quite short. Hopefully you'll understand how it's quite
+
+00:08:43,620 --> 00:08:47,990
+useful to use the Transform.childCount property, because that tells you how
+
+00:08:47,990 --> 00:08:51,220
+many things are inside of it in the
+hierarchy and how we're using it
+
+00:08:51,220 --> 00:08:56,320
+currently to check that all the enemies
+are dead. So that's it! I will see you in
+
+00:08:56,320 --> 00:08:57,640
+the next video! Bye for now.
+

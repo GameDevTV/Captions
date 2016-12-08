@@ -1,0 +1,741 @@
+
+1
+00:00:03,000 --> 00:00:06,000
+So welcome back! As you can see,
+
+2
+00:00:06,000 --> 00:00:09,000
+we have no way of losing right now apart from clicking
+
+3
+00:00:09,000 --> 00:00:12,000
+this button down here. Our attackers, rather, are
+
+4
+00:00:12,000 --> 00:00:15,000
+just disappearing off the left of the screen and completely
+
+5
+00:00:15,000 --> 00:00:18,000
+taking over our Garden, our life, without
+
+6
+00:00:18,000 --> 00:00:21,000
+any regard. So, we need a simple lose condition
+
+7
+00:00:21,000 --> 00:00:24,000
+and handling. So, let's go ahead and do that! What we're going to do in this video
+
+8
+00:00:24,000 --> 00:00:27,000
+is, number one, remove the Lose Test
+
+9
+00:00:27,000 --> 00:00:30,000
+Button or the Lose Condition Button. We are going to
+
+10
+00:00:30,000 --> 00:00:33,000
+create a lose collider, setup lose triggering and
+
+11
+00:00:33,000 --> 00:00:36,000
+transition, into the next level
+
+12
+00:00:36,000 --> 00:00:39,000
+or the Lose Level at least 30b lose,
+
+13
+00:00:39,000 --> 00:00:42,000
+and improve the Lose Screen itself. I've got a couple of gripes with it.
+
+14
+00:00:42,000 --> 00:00:45,000
+Now look, before we go on and I start showing
+
+15
+00:00:45,000 --> 00:00:48,000
+you how to do this, I would like you to consider stopping the video
+
+16
+00:00:48,000 --> 00:00:51,000
+now even and doing this entire video on your own,
+
+17
+00:00:51,000 --> 00:00:54,000
+because you've done lose colliders before I
+
+18
+00:00:54,000 --> 00:00:57,000
+think you can do all of this. So, if you feel ready, stop the
+
+19
+00:00:57,000 --> 00:01:00,000
+video now, and get the whole automatic loading
+
+20
+00:01:00,000 --> 00:01:03,000
+of the Lose Screen organized. If you don't
+
+21
+00:01:03,000 --> 00:01:06,000
+feel ready, keep watching and you'll have a smaller challenge midway
+
+22
+00:01:06,000 --> 00:01:09,000
+through this video. OK,
+
+23
+00:01:09,000 --> 00:01:12,000
+so whether or not you're still watching, I'm going to show you how I'm thinking of
+
+24
+00:01:12,000 --> 00:01:15,000
+doing it. So, here's our scene. We already have
+
+25
+00:01:15,000 --> 00:01:18,000
+something very similar. I always think, do we already have something
+
+26
+00:01:18,000 --> 00:01:21,000
+in the game that we could copy, to save ourselves time? Well, we kind of
+
+27
+00:01:21,000 --> 00:01:24,000
+do. There's our shredder, you see it on the right hand side here.
+
+28
+00:01:24,000 --> 00:01:27,000
+It has practically everything we need, a Box Collider and
+
+29
+00:01:27,000 --> 00:01:30,000
+well a Box Collider. So, I'm going to duplicate it,
+
+30
+00:01:30,000 --> 00:01:33,000
+in this case, just as an example. I'm going to leave it
+
+31
+00:01:33,000 --> 00:01:36,000
+as it is and just call it a Lose Collider.
+
+32
+00:01:36,000 --> 00:01:39,000
+I'm going to give it a different script,
+
+33
+00:01:39,000 --> 00:01:42,000
+so I'm going to remove that Shredder Script, because clearly it's not a shredder,
+
+34
+00:01:42,000 --> 00:01:45,000
+and I'm going to give it a new script
+
+35
+00:01:45,000 --> 00:01:48,000
+called Lose Collider.
+
+36
+00:01:48,000 --> 00:01:51,000
+I normally call my scripts the same thing as the
+
+37
+00:01:51,000 --> 00:01:54,000
+object, because it's the behavior of the object. It needs to be moved
+
+38
+00:01:54,000 --> 00:01:57,000
+across, across to the left hand side. I'm going to use the red arrow,
+
+39
+00:01:57,000 --> 00:02:00,000
+because it'll take it to the right place, and I think that if they've got
+
+40
+00:02:00,000 --> 00:02:03,000
+about there we've lost right. If they
+
+41
+00:02:03,000 --> 00:02:06,000
+get that far we're done for.
+
+42
+00:02:06,000 --> 00:02:09,000
+Why leave it this thick? Don't have to but being
+
+43
+00:02:09,000 --> 00:02:12,000
+that wide means, if they were traveling really fast, there's not chance of them
+
+44
+00:02:12,000 --> 00:02:15,000
+passing through it on a single frame, because if you do have a frame
+
+45
+00:02:15,000 --> 00:02:18,000
+here and then a frame here, then you'll never detect the lose condition.
+
+46
+00:02:18,000 --> 00:02:21,000
+Cool! So, we have a Lose Collider Script! Let's take a look
+
+47
+00:02:21,000 --> 00:02:24,000
+at that Lose Collider Script.
+
+48
+00:02:24,000 --> 00:02:27,000
+Now, it's a trigger, so the method that I need to call,
+
+49
+00:02:27,000 --> 00:02:30,000
+when the lose condition actually happens, is
+
+50
+00:02:30,000 --> 00:02:33,000
+OnTriggerEnter2D. So, let's
+
+51
+00:02:33,000 --> 00:02:36,000
+just make sure that happens, and set you up with the peripheral
+
+52
+00:02:36,000 --> 00:02:39,000
+information you're going to need and then we'll set you
+
+53
+00:02:39,000 --> 00:02:42,000
+straight into the challenge. So, void OnTriggerEnter.
+
+54
+00:02:42,000 --> 00:02:45,000
+Now, you have to spell
+
+55
+00:02:45,000 --> 00:02:48,000
+these properly, because you get no Autocomplete on these messages.
+
+56
+00:02:48,000 --> 00:02:51,000
+Now, do we need to gather any information from what you're
+
+57
+00:02:51,000 --> 00:02:54,000
+colliding with? Not in this case, so I can actually leave no parameters,
+
+58
+00:02:54,000 --> 00:02:57,000
+and I can prove this is working by just...
+
+59
+00:02:57,000 --> 00:03:00,000
+I'm just going to say lose, actually.
+
+60
+00:03:00,000 --> 00:03:03,000
+So, I'm just going to check this works, before we
+
+61
+00:03:03,000 --> 00:03:06,000
+throw you into the challenge. Tidy up the script,
+
+62
+00:03:06,000 --> 00:03:09,000
+and then, get to the lose
+
+63
+00:03:09,000 --> 00:03:12,000
+condition. Let the defenders arrive on the left hand
+
+64
+00:03:12,000 --> 00:03:15,000
+side. Make sure we get a log entry saying, lose condition.
+
+65
+00:03:15,000 --> 00:03:18,000
+Then, at least we know
+
+66
+00:03:18,000 --> 00:03:21,000
+that method is being called here,
+
+67
+00:03:21,000 --> 00:03:24,000
+and then, I'm going to challenge you to finish this off.
+
+68
+00:03:24,000 --> 00:03:27,000
+So, I'm going to
+
+69
+00:03:27,000 --> 00:03:30,000
+grab this dude and help him along his way.
+
+70
+00:03:30,000 --> 00:03:33,000
+If I can, if I can get to him in time. It's going to be quicker to wait. You
+
+71
+00:03:33,000 --> 00:03:36,000
+can move the transform of things, while they are actually moving.
+
+72
+00:03:36,000 --> 00:03:39,000
+If you want to by the way, you could grab a lizard and drag him
+
+73
+00:03:39,000 --> 00:03:42,000
+across. Lose Collider, to my eye that Lose Collider trigger went
+
+74
+00:03:42,000 --> 00:03:45,000
+off before he hit the Lose Collider.
+
+75
+00:03:45,000 --> 00:03:48,000
+So, I need to just check the position of that Lose Collider.
+
+76
+00:03:48,000 --> 00:03:51,000
+Maybe it didn't? Maybe that was just
+
+77
+00:03:51,000 --> 00:03:54,000
+my imagination? I'm going to assume it was my imagination
+
+78
+00:03:54,000 --> 00:03:57,000
+and carry on! So, here's your challenge for this
+
+79
+00:03:57,000 --> 00:04:00,000
+video then! You need to, in the Lose Collider.cs
+
+80
+00:04:00,000 --> 00:04:03,000
+class, find the LevelManager by script would be better
+
+81
+00:04:03,000 --> 00:04:06,000
+than dragging it in. So, use a private LevelManager Level Manager.
+
+82
+00:04:06,000 --> 00:04:09,000
+Then, go ahead and find it in the Start.
+
+83
+00:04:09,000 --> 00:04:12,000
+Use the OnTriggerEnter2D method to detect the loss
+
+84
+00:04:12,000 --> 00:04:15,000
+condition, and then, call Level
+
+85
+00:04:15,000 --> 00:04:18,000
+Manager.LoadLevel on the ("03b Lose"); level,
+
+86
+00:04:18,000 --> 00:04:21,000
+and make sure that it actually works, that you can actually lose the game.
+
+87
+00:04:21,000 --> 00:04:24,000
+So, go ahead, pause the video, and do that
+
+88
+00:04:24,000 --> 00:04:27,000
+now!
+
+89
+00:04:27,000 --> 00:04:30,000
+How long do I wait? [Laugh] That'll do! You're back!
+
+90
+00:04:30,000 --> 00:04:33,000
+Fantastic! So, let's make this guy happen! Let's get into this
+
+91
+00:04:33,000 --> 00:04:36,000
+Lose Collider Script here!
+
+92
+00:04:36,000 --> 00:04:39,000
+So, I said we needed LevelManager, but want to do it in
+
+93
+00:04:39,000 --> 00:04:42,000
+script, so I wire it together in script like this: private LevelManager
+
+94
+00:04:42,000 --> 00:04:45,000
+levelManager. So, it's of type LevelManager, it's called levelManager,
+
+95
+00:04:45,000 --> 00:04:48,000
+with a small l. On the Start, we go and find it.
+
+96
+00:04:48,000 --> 00:04:51,000
+This is becoming very wrote, we do this a a lot. GameObject.Find
+
+97
+00:04:51,000 --> 00:04:54,000
+ObjectOfType. Not Objects
+
+98
+00:04:54,000 --> 00:04:57,000
+but Object. There's only one of them in this level, I hope there is.
+
+99
+00:05:00,000 --> 00:05:03,000
+There you go! It's a method, so it needs the squigglies,
+
+100
+00:05:03,000 --> 00:05:06,000
+then semicolon. Fantastic! We're not going to do anything on Update,
+
+101
+00:05:06,000 --> 00:05:09,000
+on this. So, all we're going to do here
+
+102
+00:05:09,000 --> 00:05:12,000
+is levelManager
+
+103
+00:05:12,000 --> 00:05:15,000
+.Loadlevel. And we need to
+
+104
+00:05:15,000 --> 00:05:18,000
+give it a name. Now, we need to make sure we did the name properly.
+
+105
+00:05:18,000 --> 00:05:21,000
+I think it's ("03b_Lose"), but I'm going to go check that string
+
+106
+00:05:21,000 --> 00:05:24,000
+value, because anything that's a string is not going
+
+107
+00:05:24,000 --> 00:05:27,000
+to get changed by the Refactor Tool if we ever
+
+108
+00:05:27,000 --> 00:05:30,000
+use it. So, this is a little bit dangerous, in a way,
+
+109
+00:05:30,000 --> 00:05:33,000
+because if you decided to rename your level, the lose condition won't
+
+110
+00:05:33,000 --> 00:05:36,000
+work. So, what we might want to do is check the docs
+
+111
+00:05:36,000 --> 00:05:39,000
+for LoadLevel, and see if it's going to tell us
+
+112
+00:05:39,000 --> 00:05:42,000
+why return...
+
+113
+00:05:42,000 --> 00:05:45,000
+It doesn't tell us whether it's successful or not, by return.
+
+114
+00:05:45,000 --> 00:05:48,000
+So, if you wanted to put a catch condition in here
+
+115
+00:05:48,000 --> 00:05:51,000
+you would need to say, if there's a
+
+116
+00:05:51,000 --> 00:05:54,000
+level loading or write some script around this to say,
+
+117
+00:05:54,000 --> 00:05:57,000
+if I call ("03b Lose") and it doesn't exist, maybe I want to
+
+118
+00:05:57,000 --> 00:06:00,000
+report an error. I'm not going to bother with that for now, I'm just going to
+
+119
+00:06:00,000 --> 00:06:03,000
+check that 03b is the correct scene
+
+120
+00:06:03,000 --> 00:06:06,000
+name. But do understand that if your designer came in and
+
+121
+00:06:06,000 --> 00:06:09,000
+innocently changed the ("03b Lose") to something else,
+
+122
+00:06:09,000 --> 00:06:12,000
+that this piece of script will fall over, and it's an exercise
+
+123
+00:06:12,000 --> 00:06:15,000
+for the reader to guard against that, if you want to,
+
+124
+00:06:15,000 --> 00:06:18,000
+by simply seeing whether the level was loaded or not.
+
+125
+00:06:18,000 --> 00:06:21,000
+But I'm going to leave it at this. Let's try and see how that
+
+126
+00:06:21,000 --> 00:06:24,000
+goes. I'd like to keep this video brief, partly because I want to go to lunch and partly
+
+127
+00:06:24,000 --> 00:06:27,000
+because you've had a lot of long videos lately. So, let's
+
+128
+00:06:27,000 --> 00:06:30,000
+see what happens when Mr. Fox gets to the left hand side.
+
+129
+00:06:33,000 --> 00:06:36,000
+They're really fast, these foxes! This game is going to be
+
+130
+00:06:36,000 --> 00:06:39,000
+mental compared to Plants Versus Zombies! OK,
+
+131
+00:06:39,000 --> 00:06:42,000
+so what's happening here is, we don't actually have a Level
+
+132
+00:06:42,000 --> 00:06:45,000
+Manager in the scene at all. If we remind ourselves that the
+
+133
+00:06:45,000 --> 00:06:48,000
+Splash Screen does have a Level Manager on it, it's a prefab,
+
+134
+00:06:48,000 --> 00:06:51,000
+you can see it's blue and it's autoloading the next
+
+135
+00:06:51,000 --> 00:06:54,000
+level, after three seconds. The Start Scene,
+
+136
+00:06:54,000 --> 00:06:57,000
+while we do not persist the LevelManager from the
+
+137
+00:06:57,000 --> 00:07:00,000
+Splash Screen to the Start Scene, let's see it not persisting.
+
+138
+00:07:00,000 --> 00:07:03,000
+There's the Splash Screen with it's LevelManager! We end up in Start,
+
+139
+00:07:03,000 --> 00:07:06,000
+and there is no LevelManager in here and yet we can change level. How come?
+
+140
+00:07:06,000 --> 00:07:09,000
+The reason we can change level in this scene is,
+
+141
+00:07:09,000 --> 00:07:12,000
+if we look at it, the UI buttons that do all the level
+
+142
+00:07:12,000 --> 00:07:15,000
+changing, like the Play Game Button is
+
+143
+00:07:15,000 --> 00:07:18,000
+connected to the LevelManager Prefab. You see it there?
+
+144
+00:07:18,000 --> 00:07:21,000
+If we click that little Explore Icon,
+
+145
+00:07:21,000 --> 00:07:24,000
+under the OnClick event of the button, you see it's
+
+146
+00:07:24,000 --> 00:07:27,000
+connected to the LevelManager Prefab, so the prefab is always available.
+
+147
+00:07:27,000 --> 00:07:30,000
+So, what we haven't done yet, simply because we haven't
+
+148
+00:07:30,000 --> 00:07:33,000
+needed to, is in our level 2 here in our actual
+
+149
+00:07:33,000 --> 00:07:36,000
+level, or level 1 rather, there is no LevelManager Prefab.
+
+150
+00:07:36,000 --> 00:07:39,000
+We need to drop it in and that's fine, because we're likely
+
+151
+00:07:39,000 --> 00:07:42,000
+to need to drop all of these things in, when we create a new level.
+
+152
+00:07:42,000 --> 00:07:45,000
+So, give yourself a LevelManager, that's going to help!
+
+153
+00:07:45,000 --> 00:07:48,000
+Not autoloading on the next level, and now, when
+
+154
+00:07:48,000 --> 00:07:51,000
+we look for a LevelManager, in this scene, it should exist. Let's
+
+155
+00:07:51,000 --> 00:07:54,000
+see what happens! Here you go, the Console is logging Level
+
+156
+00:07:54,000 --> 00:07:57,000
+Manager (LevelManager).
+
+157
+00:07:57,000 --> 00:08:00,000
+It's telling us that Level Autoload is disabled. Good!
+
+158
+00:08:00,000 --> 00:08:03,000
+And the game wouldn't be much fun, if we were autoloading.
+
+159
+00:08:03,000 --> 00:08:06,000
+And now, the enemies come in, and I'm confident that now
+
+160
+00:08:06,000 --> 00:08:09,000
+that we've found the LevelManager, that we will actually get
+
+161
+00:08:09,000 --> 00:08:12,000
+the behavior that we want. Please
+
+162
+00:08:12,000 --> 00:08:15,000
+I want to go for lunch!
+
+163
+00:08:15,000 --> 00:08:18,000
+There he goes, you lose! Fantastic!
+
+164
+00:08:18,000 --> 00:08:21,000
+So, the final thing to do here is, I just don't like the look of that
+
+165
+00:08:21,000 --> 00:08:24,000
+Lose Scene. The only thing that jars me on it
+
+166
+00:08:24,000 --> 00:08:27,000
+is that the Start and the Quit is...
+
+167
+00:08:27,000 --> 00:08:30,000
+Firstly, I don't want to say Start, I think I want to say Start Again,
+
+168
+00:08:30,000 --> 00:08:33,000
+which means I need to use the UI Tool to make
+
+169
+00:08:33,000 --> 00:08:36,000
+my text a little wider.
+
+170
+00:08:36,000 --> 00:08:39,000
+There we go! And then, I want it to just be lower.
+
+171
+00:08:39,000 --> 00:08:42,000
+And I will just say
+
+172
+00:08:42,000 --> 00:08:45,000
+Lose! You Moose is crazy! A bit of
+
+173
+00:08:45,000 --> 00:08:48,000
+fur for a while, wasn't it? But "You Lose!"
+
+174
+00:08:48,000 --> 00:08:51,000
+OK, so "You Lose!", "Start Again",
+
+175
+00:08:51,000 --> 00:08:54,000
+and "Quit", nice and clear. Fine, I've made all the changes
+
+176
+00:08:54,000 --> 00:08:57,000
+I need to make, so hopefully you managed to do this whole
+
+177
+00:08:57,000 --> 00:09:00,000
+video on your own! It's relatively simple. Just as a quick
+
+178
+00:09:00,000 --> 00:09:03,000
+recap, all we did here is we
+
+179
+00:09:03,000 --> 00:09:06,000
+didn't touch the LevelManager, actually. We didn't change the LevelManager at all,
+
+180
+00:09:06,000 --> 00:09:09,000
+we just went and found it in the LoseCollider,
+
+181
+00:09:09,000 --> 00:09:12,000
+well made space for it. I declared it at the top,
+
+182
+00:09:12,000 --> 00:09:15,000
+found it in the Start, I don't need to print it anymore,
+
+183
+00:09:15,000 --> 00:09:18,000
+and then we simply call loadlevel  on (03b)
+
+184
+00:09:18,000 --> 00:09:21,000
+lose, nice and simple. So congratulations
+
+185
+00:09:21,000 --> 00:09:23,733
+and I shall see you soon!
+

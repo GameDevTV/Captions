@@ -1,0 +1,481 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+So, welcome
+
+2
+00:00:04,000 --> 00:00:08,000
+to Debugging Game Issues! This is a little bit different to debugging
+
+3
+00:00:08,000 --> 00:00:12,000
+code issues, cause our particular bug we're seeing, with our drifting
+
+4
+00:00:12,000 --> 00:00:16,000
+Pawn, is not actually caused directly by a code issue, so a slightly different
+
+5
+00:00:16,000 --> 00:00:20,000
+approach when it's an engine editor side issue. So, in this video
+
+6
+00:00:20,000 --> 00:00:24,000
+firstly, I want to ask you are you using Source Control yet? Are you using SourceTree,
+
+7
+00:00:24,000 --> 00:00:28,000
+GitHub, some sort of Source Control? If not, then I would really urge you to start now,
+
+8
+00:00:28,000 --> 00:00:32,000
+even if you just zip up your project after each
+
+9
+00:00:32,000 --> 00:00:36,000
+video. The problem with doing that, of course, is you end up with a massive amount of data, because every time
+
+10
+00:00:36,000 --> 00:00:40,000
+you zip up your project, it's going to get bigger and bigger. You could delete all the
+
+11
+00:00:40,000 --> 00:00:44,000
+derived files we've talked about, binaries, build, intermediate, saved, etc.
+
+12
+00:00:44,000 --> 00:00:48,000
+and then, just zip that up if you wanted to. But please
+
+13
+00:00:48,000 --> 00:00:52,000
+do the difficult thing, and you know, I've heard somebody say that if you do what's easy life will be
+
+14
+00:00:52,000 --> 00:00:56,000
+hard and if you do what's hard life will be easy, paradoxically. So, consider
+
+15
+00:00:56,000 --> 00:01:00,000
+getting into Source Control, if you're not already. Sorry to lecture you if you already are. So,
+
+16
+00:01:00,000 --> 00:01:04,000
+once you're using Source Control you can use binary search. You
+
+17
+00:01:04,000 --> 00:01:08,000
+can binary search commits pretty fast. So what I mean by that is, even if you've got
+
+18
+00:01:08,000 --> 00:01:12,000
+1,024 commits, remember that 2 to the power of 10 is 1,024.
+
+19
+00:01:12,000 --> 00:01:16,000
+So, as I'll show you in a second, even if you had 1,000 commits, you could
+
+20
+00:01:16,000 --> 00:01:20,000
+chop that search space in half, just 10 times
+
+21
+00:01:20,000 --> 00:01:24,000
+and get down to the commit where the problem started, if that's what we want to be able to do,
+
+22
+00:01:24,000 --> 00:01:28,000
+as I've just said. So, think about what's changed and what the
+
+23
+00:01:28,000 --> 00:01:32,000
+possible side-effects are of what changed and what could be causing the problem,
+
+24
+00:01:32,000 --> 00:01:36,000
+and remember that you can eject with F8 during gameplay.
+
+25
+00:01:36,000 --> 00:01:40,000
+So let me just show you this Source Control business, show you about ejecting,
+
+26
+00:01:40,000 --> 00:01:44,000
+and then, we will challenge you to go and find the solution to this
+
+27
+00:01:44,000 --> 00:01:48,000
+problem. So, let's recap what the problem is. The problem is that some of the time, when
+
+28
+00:01:48,000 --> 00:01:52,000
+we say pick up the table and let go, look we're kind of drifting around now.
+
+29
+00:01:52,000 --> 00:01:56,000
+What's going on with that drift? Now, remember you can hit F8
+
+30
+00:01:56,000 --> 00:02:00,000
+and F8 will take you out of the body of the
+
+31
+00:02:00,000 --> 00:02:04,000
+Default Pawn. Now, I'm not going to look back at it, because that will show you the solution which you're going to do in a moment.
+
+32
+00:02:04,000 --> 00:02:08,000
+But remember you can use F8, which is the same, by the way, as
+
+33
+00:02:08,000 --> 00:02:12,000
+clicking Eject. But of course, once you've come into the game window and
+
+34
+00:02:12,000 --> 00:02:16,000
+you've started using your mouse, you can no longer click that Eject Button right. You can't
+
+35
+00:02:16,000 --> 00:02:20,000
+look up at it, so you have to hit the F8 Key. The other thing I wanted to just
+
+36
+00:02:20,000 --> 00:02:24,000
+recap was what I was talking about with the Source Controls. So, here I've got 35 commits. Let's call
+
+37
+00:02:24,000 --> 00:02:28,000
+it 32 for the lectures. Now, 2 to the power of 5 is 32,
+
+38
+00:02:28,000 --> 00:02:32,000
+which means that even if I didn't know at all, even from the beginning of the
+
+39
+00:02:32,000 --> 00:02:36,000
+project where this problem started; I could go well, let's do a round 16
+
+40
+00:02:36,000 --> 00:02:40,000
+about half way through, check out there, see if the problem exists there,
+
+41
+00:02:40,000 --> 00:02:44,000
+if it does then it happened before that and if it doesn't it happened after that. Let's
+
+42
+00:02:44,000 --> 00:02:48,000
+imagine it happened after 16. Well then, we go well let's go half way between 16 and 32 about
+
+43
+00:02:48,000 --> 00:02:52,000
+here somewhere. Is the problem existent there? Say maybe no.
+
+44
+00:02:52,000 --> 00:02:56,000
+OK, so it happened later. Is it existent there? Yes! OK, so it happened half
+
+45
+00:02:56,000 --> 00:03:00,000
+way between there and there, and you can see you really quickly can hone in on
+
+46
+00:03:00,000 --> 00:03:04,000
+the place where the problem started. Then, you can start to think, well what changed between
+
+47
+00:03:04,000 --> 00:03:08,000
+these two videos or between these two commit stages, in your case.
+
+48
+00:03:08,000 --> 00:03:12,000
+And you can say, oh well I changed the door asset or I changed the, you know, something.
+
+49
+00:03:12,000 --> 00:03:16,000
+And you can see that, actually, a few videos ago... I don't know quite where
+
+50
+00:03:16,000 --> 00:03:20,000
+it was. We change something about the Default Pawn,
+
+51
+00:03:20,000 --> 00:03:24,000
+I think it may have been pretty recent. I think it was in the last video? Yeah! It's something
+
+52
+00:03:24,000 --> 00:03:28,000
+changed on the Default Pawn, unfortunately we can't see what. So, your
+
+53
+00:03:28,000 --> 00:03:32,000
+challenge is to find and eliminate this drifting bug. I'm using the word drifting because the other
+
+54
+00:03:32,000 --> 00:03:36,000
+word would solve it for you. When did it come in? Well, it looks like in the last video or the last
+
+55
+00:03:36,000 --> 00:03:40,000
+few. What feature did we recently enable, of the Default Pawn?
+
+56
+00:03:40,000 --> 00:03:44,000
+Go look at the Default Pawn blueprint, and then, have a
+
+57
+00:03:44,000 --> 00:03:48,000
+look under the Details Tab at both the Pawn itself, the root object, but also the
+
+58
+00:03:48,000 --> 00:03:52,000
+collision object, the collision component. How did the Pawn
+
+59
+00:03:52,000 --> 00:03:56,000
+look when ejected? Look back at it, see what it's doing.
+
+60
+00:03:56,000 --> 00:04:00,000
+I'm going to give you a couple of hints. One hint is, by the way,
+
+61
+00:04:00,000 --> 00:04:04,000
+if you don't want the hints pause now and go and solve the problem. If you do want the hints, then hint number 1
+
+62
+00:04:04,000 --> 00:04:08,000
+is enabling physics caused the issue. That's what caused it.
+
+63
+00:04:08,000 --> 00:04:12,000
+And if you want more hints... Then go ahead and try and solve it yourself first, before
+
+64
+00:04:12,000 --> 00:04:16,000
+listening to the second hint. Go and pause! Go do it do it do it!
+
+65
+00:04:16,000 --> 00:04:20,000
+In case you need more help and you want to solve this challenge, go
+
+66
+00:04:20,000 --> 00:04:24,000
+to the Collision Component of the default pawn blueprint, and then look at the Constraints section
+
+67
+00:04:24,000 --> 00:04:28,000
+and under Details and then Physics and that will give you something that you can tick
+
+68
+00:04:28,000 --> 00:04:32,000
+or three things you can tick, which will stop the problem. So go ahead, see if you can get rid of the drifting
+
+69
+00:04:32,000 --> 00:04:36,000
+bug. OK
+
+70
+00:04:36,000 --> 00:04:40,000
+welcome back! How did you get on solving that problem? Well, according to drifting
+
+71
+00:04:40,000 --> 00:04:44,000
+bug, but as we can see when we eject and look back at the Pawn, F8
+
+72
+00:04:44,000 --> 00:04:48,000
+it's not really a drifting bug, it's more of a... Hang on, I need to
+
+73
+00:04:48,000 --> 00:04:52,000
+cause the bug in the first place. So, pick the chair up, do that,
+
+74
+00:04:52,000 --> 00:04:56,000
+we're drifting, but we're actually rolling.
+
+75
+00:04:56,000 --> 00:05:00,000
+There you go, you can see it rolling around. It's just a Physics
+
+76
+00:05:00,000 --> 00:05:04,000
+Engine quirk this. The floor is actually flat but it's just rolling, and
+
+77
+00:05:04,000 --> 00:05:08,000
+if we look at the Default Pawn blueprint...
+
+78
+00:05:08,000 --> 00:05:12,000
+Which how can I get to that? I can just edit it here, that's one way!
+
+79
+00:05:12,000 --> 00:05:16,000
+And then, I go to the Collision Component and then I go down to Physics. You can see
+
+80
+00:05:16,000 --> 00:05:20,000
+that there's no Angular Damping, there's no drag force against the rolling,
+
+81
+00:05:20,000 --> 00:05:24,000
+so once it starts rolling it carries on forever. Alright, now you
+
+82
+00:05:24,000 --> 00:05:28,533
+can't actually edit the Default Pawn while the game is running like this, so I need to stop.
+
+83
+00:05:28,533 --> 00:05:32,000
+Now, of course, I can't see the Default Pawn so we go find it from our
+
+84
+00:05:32,000 --> 00:05:36,000
+Content Browser, come down to the Collision Component
+
+85
+00:05:36,000 --> 00:05:40,000
+because that's the thing that has Physics enabled, and I could put Angular Damping on it,
+
+86
+00:05:40,000 --> 00:05:44,000
+and it would stop rolling quicker. So if I put say 7 units of Angular
+
+87
+00:05:44,000 --> 00:05:48,000
+Damping, Play, pick this up,
+
+88
+00:05:48,000 --> 00:05:52,000
+go drop it down, Eject, and look
+
+89
+00:05:52,000 --> 00:05:56,000
+back before it stops, you'll see that it is rolling but then it comes to a halt. But this has
+
+90
+00:05:56,000 --> 00:06:00,000
+still not solved the root cause, has it? It's still weird that it's rolling. By the way, you might wonder
+
+91
+00:06:00,000 --> 00:06:04,000
+why this is rolling and yet our view
+
+92
+00:06:04,000 --> 00:06:08,000
+is not tumbling around. That's because even though it's rolling, it's staying upright and
+
+93
+00:06:08,000 --> 00:06:12,000
+we have, if you look in that blueprint, if I could find it again, we
+
+94
+00:06:12,000 --> 00:06:16,000
+have the root component of the Default Pawn, we have this Camera Base Eye Height.
+
+95
+00:06:16,000 --> 00:06:20,000
+So what's happening is, that the camera is effectively sitting
+
+96
+00:06:20,000 --> 00:06:24,000
+above the Pawn. We'll just minimize that this time, so
+
+97
+00:06:24,000 --> 00:06:28,000
+Play F8. What's happening is
+
+98
+00:06:28,000 --> 00:06:32,000
+that the Pawn is staying upright, even when it's rolling, and then the camera is sitting up here somewhere, just above
+
+99
+00:06:32,000 --> 00:06:36,000
+it. Alright, so that's why we're not tumbling. it's because the Pawn isn't actually...
+
+100
+00:06:36,000 --> 00:06:40,000
+The Pawn MeshObject is rotating but the
+
+101
+00:06:40,000 --> 00:06:44,000
+pawn base object, as you can see here, the CollisionComponent
+
+102
+00:06:44,000 --> 00:06:48,000
+object and it's MeshComponent are rolling, but the base Pawn
+
+103
+00:06:48,000 --> 00:06:52,000
+is not and the camera is hanging off the base
+
+104
+00:06:52,000 --> 00:06:56,000
+Default Pawn here. OK, that's why you don't see a view tumbling. Now, the
+
+105
+00:06:56,000 --> 00:07:00,000
+solution is CollisionComponent. What you do is you come down under Constraints. So, Collision
+
+106
+00:07:00,000 --> 00:07:04,000
+Component, Details, Physics, Constraints, and you can just lock the rotation in X,
+
+107
+00:07:04,000 --> 00:07:08,000
+Y, and Z. And it's really handy that, and sometimes you want to log just
+
+108
+00:07:08,000 --> 00:07:12,000
+in one or two axes. So, if you lock that rotation now and play, then we kind
+
+109
+00:07:12,000 --> 00:07:16,000
+of go relatively to the root cause of it. We want to keep Physics on.
+
+110
+00:07:16,000 --> 00:07:20,000
+So, now we can have Physics on and the problem has gone away. So there you go!
+
+111
+00:07:20,000 --> 00:07:24,000
+Well done to those of you who spotted that, that was really good news! And
+
+112
+00:07:24,000 --> 00:07:28,000
+that's a general approach to solving those types of problems. Work out
+
+113
+00:07:28,000 --> 00:07:32,000
+where they started and what the side effects could be. Don't be afraid to use Binary Search,
+
+114
+00:07:32,000 --> 00:07:36,000
+and please get into your Source Control. So, I'm going to save everything
+
+115
+00:07:36,000 --> 00:07:40,000
+and lead by example here, go over to Source Control, and then,
+
+116
+00:07:40,000 --> 00:07:44,000
+I'm just going to commit those changes. Basically, I've only made a change to the Pawn
+
+117
+00:07:44,000 --> 00:07:48,000
+asset. We can't see that change because it's a binary asset. We can't see the details
+
+118
+00:07:48,000 --> 00:07:52,000
+in it, but I staged that, of course, as usual. And then, I will Commit using the current lecture
+
+119
+00:07:52,000 --> 00:07:56,000
+name. So, go ahead, commit your work, and I'll see you in the next video!
+
+120
+00:07:56,000 --> 00:07:58,200
+
+

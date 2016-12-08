@@ -1,0 +1,565 @@
+Kind: captions
+Language: en
+
+00:00:00,000 --> 00:00:08,429
+Hello, and welcome back! In this video we're going to be looking at how to create a
+
+00:00:08,429 --> 00:00:13,370
+starfield. Now, why are we going to do that?
+Well, because right now, our game looks a little
+
+00:00:13,370 --> 00:00:18,820
+barren. We've got a blank emptiness
+behind the enemy ships. We've got
+
+00:00:18,820 --> 00:00:21,970
+nothing in the background, to give it a
+little bit more depth. So we're going to add a
+
+00:00:21,970 --> 00:00:25,599
+starfield. Give it some sort of parallax effect, to give the impression
+
+00:00:25,599 --> 00:00:30,099
+of depth, and we are going to be using
+the Particle System from Unity, to do
+
+00:00:30,099 --> 00:00:34,090
+this. So, what's a Particle System? Well, a Particle System is an object that Unity
+
+00:00:34,090 --> 00:00:37,540
+provides you with, and it is very
+versatile, to create all sorts of
+
+00:00:37,540 --> 00:00:42,280
+interesting effects, from trails, from
+smoke coming out of fires, from the fire
+
+00:00:42,280 --> 00:00:44,649
+itself to things like...
+
+00:00:44,649 --> 00:00:49,520
+blood splatters,  when an orc hits your
+warrior with an axe. So, that's what we're
+
+00:00:49,520 --> 00:00:52,960
+going to be using, and we're going to
+position the particles so they are moving
+
+00:00:52,960 --> 00:00:56,690
+like stars would, if we were moving forward, very fast. And we're going to start
+
+00:00:56,690 --> 00:01:02,489
+tuning the Particle System, to make it
+look great. So let's get on with that! Let's
+
+00:01:02,489 --> 00:01:05,970
+get started, and let's try and put a
+Particle System in. So, right now, the
+
+00:01:05,970 --> 00:01:11,030
+game looks a little bit barren, as I
+mentioned, just black. How do we add a
+
+00:01:11,030 --> 00:01:16,390
+Particle System? Well, you go into the
+Hierarchy, right click, and go Add a
+
+00:01:16,390 --> 00:01:21,060
+Particle System. And we're going to change this name of the Particle System, to be Starfield,
+
+00:01:21,060 --> 00:01:24,440
+and we're going to call it one, because we're actually going to have two starfields,
+
+00:01:24,450 --> 00:01:29,020
+in the end. I've got my starfield, what am I going to do to it?
+
+00:01:29,020 --> 00:01:32,439
+Well, let me select it, and you'll see
+that when it's selected it's
+
+00:01:32,439 --> 00:01:36,299
+simulated... It's simulating. So whenever
+you've got it selected, the particle
+
+00:01:36,299 --> 00:01:41,079
+system will actually be running, and you
+can stop and pause and do all sorts of
+
+00:01:41,079 --> 00:01:45,479
+things here, with the box dust created in the scene view, to change what the Particle
+
+00:01:45,480 --> 00:01:49,440
+System is doing, what time you're simulating it for. What we want to do is actually
+
+00:01:49,440 --> 00:01:54,040
+change it, so it looks like stars moving
+down. So, the first thing we're going to do is,
+
+00:01:54,040 --> 00:01:59,060
+we're going to change its shape. If we
+zoom out, we can take a look, and we can see that the
+
+00:01:59,060 --> 00:02:03,070
+Particle System is like a cone, really.
+That's not quite what we want. We really
+
+00:02:03,070 --> 00:02:08,849
+want a field of stars moving down, so
+let's turn that into a box first, So, I
+
+00:02:08,849 --> 00:02:10,649
+select my star field,
+
+00:02:10,649 --> 00:02:15,060
+and then, I go into my shape. There's lots
+and lots of options in the Inspector, but I'm going to
+
+00:02:15,060 --> 00:02:20,540
+concentrate on the shape. I'm going to turn
+that into a box. So, now it's a box system,
+
+00:02:20,540 --> 00:02:26,280
+and if we... zoom back in, we can see there's a box here. And really, we've
+
+00:02:26,280 --> 00:02:32,900
+got this Particle System, and it's really too small, right now. So, we're going to make it
+
+00:02:32,900 --> 00:02:36,409
+much bigger, and the way we're going to do
+that is, we're going to change the X
+
+00:02:36,409 --> 00:02:41,950
+value of the box, to be something like
+20. So, that way it's a much wider Particle
+
+00:02:41,950 --> 00:02:46,450
+System, as you can see, and it'll cover
+the entire play space. If it's not,
+
+00:02:46,450 --> 00:02:51,500
+let's try it, now. Let's go back into our game,
+and it's not quite covering everything
+
+00:02:51,500 --> 00:03:01,250
+yet, or is it? Well, how about we check the main camera, and the particle system. Not quite
+
+00:03:01,250 --> 00:03:04,489
+covering everything, and it's a little
+bit off-center. So we'll put it in the center,
+
+00:03:04,489 --> 00:03:11,480
+and we'll turn it into box width of 30, so it covers the entire width of the game.
+
+00:03:11,480 --> 00:03:16,489
+So brilliant! Now, if I jump back into my game, the Particle System covers everything. So
+
+00:03:16,489 --> 00:03:20,359
+let's go back into our scene and see what
+we can do. Firstly, let's change the
+
+00:03:20,359 --> 00:03:24,400
+the rotation of that Particle System,
+it's really in the wrong angle. We want
+
+00:03:24,400 --> 00:03:28,799
+the particles to move down, so just change
+the X rotation by 180
+
+00:03:28,799 --> 00:03:32,870
+degrees, so that the particles are moving
+down. And now, we don't want it to be in the
+
+00:03:32,870 --> 00:03:37,569
+middle of the scene, we want it to start at the top. So I'm going to move it up and
+
+00:03:37,569 --> 00:03:41,510
+now, we have a scrolling starfield. Now,
+let's take a look at what it looks like
+
+00:03:41,510 --> 00:03:47,169
+in the game. If I press play, what do we have? And there we go, we've got snow coming
+
+00:03:47,169 --> 00:03:51,669
+down. So, what's the first problem here? I
+mean the stars look a bit weird, and all sorts of
+
+00:03:51,669 --> 00:03:55,220
+things, so I can identify two problems,
+besides just the look and feel of
+
+00:03:55,220 --> 00:03:59,120
+the Particle System, itself. The first one
+is, the Particle System is currently
+
+00:03:59,120 --> 00:04:02,879
+above the enemies, which is not what we
+want. We really want it to be
+
+00:04:02,879 --> 00:04:05,989
+something in the background, we don't want it to be in front of the enemies, so we've got that
+
+00:04:05,989 --> 00:04:10,459
+to fix, and the second issue is, it only
+starts after a little while. It kind of
+
+00:04:10,459 --> 00:04:15,440
+starts; It needs a little bit of time to warm up. That is not good enough, we don't want
+
+00:04:15,440 --> 00:04:19,000
+that. We actually want the Particle
+System to already be there, as soon as we
+
+00:04:19,000 --> 00:04:23,420
+start the game. So let's get these two issues sorted, which is A,
+
+00:04:23,420 --> 00:04:28,020
+it's the wrong layer it's above the enemies, and 2 we need it to be
+
+00:04:28,020 --> 00:04:33,270
+ready and running already, when we start the game. So, let's fix the first one, we go
+
+00:04:33,270 --> 00:04:37,260
+back into our scene, we've got the starfield. I'm just going to change the Z layer of my
+
+00:04:37,260 --> 00:04:43,220
+starfield, to be something like five, and this will put it below. Let's have a look
+
+00:04:43,220 --> 00:04:50,870
+at it in 3D. You can see it now, it's
+actually behind the enemy...
+
+00:04:50,870 --> 00:04:56,130
+positions. So let me switch back to 2D mode, so now if I press play
+
+00:04:56,130 --> 00:05:00,770
+the particles will be below the enemies.
+Let's check that that is actually... appear...
+
+00:05:00,770 --> 00:05:05,500
+happening. Yep, that's exactly what's
+happening. So cool! Now, the particles
+
+00:05:05,500 --> 00:05:09,700
+are below the enemies. Let's fix the fact that it only takes a little time to get started, and
+
+00:05:09,700 --> 00:05:14,300
+that is a single option in the Inspector
+and that is the pre-warm option. If we
+
+00:05:14,300 --> 00:05:18,390
+take the pre-warm option and then, press
+play. We'll see that the Particle System
+
+00:05:18,390 --> 00:05:22,780
+is ready to go, as soon as the game
+starts, which is the behavior we want. So,
+
+00:05:22,780 --> 00:05:28,120
+brilliant! So, now we are going to be
+playing around, a little bit, with the tuning. Really, the
+
+00:05:28,120 --> 00:05:32,800
+first thing I want to do is change the
+star size. The stars are much too big, so
+
+00:05:32,800 --> 00:05:38,180
+let's go 0.2 or something, and that looks a lot more like stars. If we
+
+00:05:38,180 --> 00:05:41,740
+have a look at it in the game, that's
+more like a starfield than the other one
+
+00:05:41,740 --> 00:05:45,020
+was. So, that's already a good scrolling
+starfield. I think there's not quite
+
+00:05:45,020 --> 00:05:49,490
+enough there; I think there should be more,
+so let's add a little more particles.
+
+00:05:49,490 --> 00:05:58,370
+Let's go for the Max Particle and say
+jump to 5,000. Cool! And we want to change
+
+00:05:58,370 --> 00:06:02,650
+the Emission Rate, so we can have more particles. The rate is 10 by time.
+
+00:06:02,650 --> 00:06:08,070
+Let's change that to say 30. Here we
+go! Now, that's more like it! A lot more
+
+00:06:08,070 --> 00:06:13,790
+particles here, and they are moving quite
+quickly. I think we're going to keep it like that.
+
+00:06:13,790 --> 00:06:17,240
+I think we're absolutely going to keep it
+like this, that's a good scrolling
+
+00:06:17,240 --> 00:06:23,310
+starfield. So now, it's your turn. It's
+your turn to get started with exploring
+
+00:06:23,310 --> 00:06:29,270
+Particle Systems. This is what I want you
+to do, I want you to explore Particle
+
+00:06:29,270 --> 00:06:35,100
+Systems. Spend some time, pause the video, and spend some time trying to
+
+00:06:35,100 --> 00:06:39,420
+use Particle Systems to build different
+stuff, right. Build different things, It
+
+00:06:39,420 --> 00:06:42,460
+doesn't really matter what. I just want you to play around with the options of the
+
+00:06:42,460 --> 00:06:45,310
+Particle System, get familiar with all
+the different things.
+
+00:06:45,310 --> 00:06:50,470
+Try stuff out, have a 3D scene maybe and
+try stuff out in there, or try and
+
+00:06:50,470 --> 00:06:53,590
+create a thruster effect, that you can
+attach to one of the ships at the back
+
+00:06:53,590 --> 00:06:57,860
+or something like that. So, try and play
+with Particle Systems. So, I'll see you when
+
+00:06:57,860 --> 00:07:04,270
+you've had a little play around, with
+Particle Systems. So now, you've played
+
+00:07:04,270 --> 00:07:09,130
+around with a particle system, we can move on to the second part, which is turning this
+
+00:07:09,130 --> 00:07:13,970
+into a game that has a sense of depth,
+right. If we play it right now, it still
+
+00:07:13,970 --> 00:07:19,170
+feels flat, and it feels flat, because
+really while we still have...
+
+00:07:19,170 --> 00:07:23,580
+we have two layers, we have the enemy, and player, and the stars, it still doesn't
+
+00:07:23,580 --> 00:07:27,600
+feel like there's a lot of depth to the
+background. So, what we're going to do to add depth
+
+00:07:27,600 --> 00:07:34,680
+is use something called parallax. So, parallax is the idea that as you move, things in the distance
+
+00:07:34,690 --> 00:07:38,820
+seem to move less than things that are
+close to you. Now, that completely makes sense, right.
+
+00:07:38,820 --> 00:07:44,630
+Imagine yourself riding a bicycle, next
+to a very tall fence, the chains of the
+
+00:07:44,630 --> 00:07:48,480
+fence seem to scroll by you very very
+quickly, but the building behind the
+
+00:07:48,480 --> 00:07:52,060
+fence doesn't move very fast, in
+comparison. So, it's a really good technique
+
+00:07:52,060 --> 00:07:58,000
+to give an artificial sense of depth,
+and the relative speed of the two is
+
+00:07:58,000 --> 00:08:01,200
+going to be what gives you this
+impression that things are moving, that
+
+00:08:01,200 --> 00:08:05,160
+you've got a depth in your background, even though you don't really. So let's jump
+
+00:08:05,160 --> 00:08:11,280
+back. So, what we're going to do now is, because remember even though we're in the... even though
+
+00:08:11,280 --> 00:08:15,760
+we're in... we can use 3D positioning, our
+camera mode, if we select the camera,
+
+00:08:15,760 --> 00:08:21,430
+is not a perspective camera, so it won't show depth. It's orthographic, which means it's
+
+00:08:21,430 --> 00:08:25,640
+just a projection, so it means we won't see depths of things, even if the camera
+
+00:08:25,640 --> 00:08:31,390
+is rotated. So, the Z position is just
+about layering things within our view. So,
+
+00:08:31,390 --> 00:08:34,330
+the next thing we're going to do is build a
+second Particle System, and I'm going to
+
+00:08:34,330 --> 00:08:39,360
+clone the first, using Control D, and then,
+rename it Particle 2
+
+00:08:39,360 --> 00:08:47,200
+Starfield 2. And I'm going to move Starfield 2 a little bit further back, so it's...
+
+00:08:47,200 --> 00:08:53,250
+the stars themselves, the sprites won't layer over each other, so let me call
+
+00:08:53,250 --> 00:08:58,310
+it say 6. And also, I'm going to change the
+speed, and that's the only thing I'm
+
+00:08:58,310 --> 00:09:02,779
+going to do is change the speed of
+these particles, right. So, the start speed is 5,
+
+00:09:02,779 --> 00:09:10,620
+and I'm going to do 2.5 and see what that
+gives us. We're hoping for a change of
+
+00:09:10,620 --> 00:09:16,290
+space, which we can clearly see, but now, we have a problem. Let's press play. You can
+
+00:09:16,290 --> 00:09:20,740
+see that the second layer of particles stops halfway through our scene, that's not
+
+00:09:20,740 --> 00:09:25,260
+good. Let's fix that. So, we jump back; we've got a second particle system. We're going to
+
+00:09:25,260 --> 00:09:31,130
+change the lifetime of the particles, so
+the start lifetime, instead of being 5
+
+00:09:31,130 --> 00:09:35,329
+it's going to be 10, and you can see now
+it's all the way back. So, if we press play,
+
+00:09:35,329 --> 00:09:41,750
+now, what do we get? Well, now it feels
+like there's depth! I'm still not so sure about
+
+00:09:41,750 --> 00:09:46,720
+that, because I think the background particles are too bright, so lets dim them a little bit,
+
+00:09:46,720 --> 00:09:52,430
+right. Let's go back to our background system, the second starfield, and dim them
+
+00:09:52,430 --> 00:09:58,000
+a little bit. So, what I want to do is change
+the Alpha, so it's about half way around, and
+
+00:09:58,000 --> 00:10:06,279
+then, try again. Here we go, now, the stars
+in the background are darker dimmer to
+
+00:10:06,279 --> 00:10:11,250
+show that they're further away, and now,
+we've got a Particle System that looks
+
+00:10:11,250 --> 00:10:17,029
+like we're scrolling through it. So now,
+it's your turn! I want you to take a
+
+00:10:17,029 --> 00:10:20,459
+little time and play around with your
+Particle Systems, in the background, until
+
+00:10:20,459 --> 00:10:25,019
+they are awesome. So, play tune until awesomeness! So, that means play
+
+00:10:25,019 --> 00:10:28,240
+around with the shape, play around with the size, play around with the colors, until you've got a
+
+00:10:28,240 --> 00:10:31,279
+background that you really like, that
+feels like you're rushing through space,
+
+00:10:31,279 --> 00:10:35,480
+shooting enemies down, rather than just
+scrolling past a bunch of stars. So,
+
+00:10:35,480 --> 00:10:39,589
+this is what I want you to do, now. Pause
+the video and play tune, until your Particle
+
+00:10:39,589 --> 00:10:48,269
+System feels awesome, and I will show you, when you get back, an example of what I did in that time.
+
+00:10:48,270 --> 00:10:53,770
+So, welcome back! I hope you've got a cool
+background! Here's what I turned up with, in the
+
+00:10:53,770 --> 00:10:58,730
+meantime. So, this is what I did. If I
+press... If I get the game playing again,
+
+00:10:58,730 --> 00:11:06,990
+let me show you the effect. You can see
+the stars rushing past me, and they're
+
+00:11:06,990 --> 00:11:11,720
+kind of spreading as they get nearer, to
+give us a really good sense of depth. We still have
+
+00:11:11,720 --> 00:11:17,090
+a little bit of a problem with the stars
+blinking off, at random time, but that's something
+
+00:11:17,090 --> 00:11:22,230
+we can sort out later. In fact, let me figure out why that is. It's quite a big
+
+00:11:22,230 --> 00:11:26,800
+Particle System, really, and just to show you what I mean, I've actually changed the type
+
+00:11:26,800 --> 00:11:33,470
+of Particle Systems from normal to
+boxes. So, from boxes rather to cones. So, instead of
+
+00:11:33,470 --> 00:11:36,140
+being boxes, now, I've got a cone Particle Systems, and you can see the
+
+00:11:36,140 --> 00:11:42,080
+different shape and size of the Particle
+Systems here, the two starfields to, give
+
+00:11:42,080 --> 00:11:48,080
+us this depth effect. So, I'm going to change my particle lifetime for the first one to
+
+00:11:48,080 --> 00:11:53,950
+be much longer, in fact, and hopefully
+that will stop our blinking out problem.
+
+00:11:53,950 --> 00:12:00,740
+Here we go, now, we've got a particle system of stars that rush past us in a great
+
+00:12:00,740 --> 00:12:03,480
+effect. So, play around with stuff! Play
+around with it!
+
+00:12:03,480 --> 00:12:06,160
+Have a look at what you can get. I'm
+sure you can get a much nicer looking
+
+00:12:06,160 --> 00:12:09,050
+Particle System than this, so I'm
+looking forward to what you can come up
+
+00:12:09,050 --> 00:12:13,570
+with and share on the forums. So, that's
+it for the Particle System, the introduction
+
+00:12:13,570 --> 00:12:18,160
+to Particle Systems. I hope you've
+enjoyed it, and I will see you in another video!
+
+00:12:18,160 --> 00:12:19,220
+Bye, for now.
+

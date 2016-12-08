@@ -1,0 +1,861 @@
+
+1
+00:00:03,000 --> 00:00:06,000
+Hey welcome back! So, we've done some great things here
+
+2
+00:00:06,000 --> 00:00:09,000
+with our prefabs and our ability to rapidly knock
+
+3
+00:00:09,000 --> 00:00:12,000
+out new levels. We have some things to
+
+4
+00:00:12,000 --> 00:00:15,000
+sort out, with regards to scene loading. For a start, when
+
+5
+00:00:15,000 --> 00:00:18,000
+we lose the game, it's currently going to a
+
+6
+00:00:18,000 --> 00:00:21,000
+Win Screen. It says "You beat Block Breaker",
+
+7
+00:00:21,000 --> 00:00:24,000
+you see and we haven't. We just
+
+8
+00:00:24,000 --> 00:00:27,000
+lost, so what are we going to do this level? Level?
+
+9
+00:00:27,000 --> 00:00:30,000
+Video even? We are going to
+
+10
+00:00:30,000 --> 00:00:33,000
+create a Loose Scene and modify our LooseCollider
+
+11
+00:00:33,000 --> 00:00:36,000
+to point to it. We're going to make a new method,
+
+12
+00:00:36,000 --> 00:00:39,000
+in the LevelManager, called LoadNextLevel(), so that
+
+13
+00:00:39,000 --> 00:00:42,000
+we don't have to have the very boring job of telling every
+
+14
+00:00:42,000 --> 00:00:45,000
+level what the next level is. We will add all our levels
+
+15
+00:00:45,000 --> 00:00:48,000
+to the Project Build Settings, Modify our Block.cs
+
+16
+00:00:48,000 --> 00:00:51,000
+to simulate winning, because at the moment we can't win
+
+17
+00:00:51,000 --> 00:00:54,000
+because we can't destroy all of the bricks yet, and then, test that
+
+18
+00:00:54,000 --> 00:00:57,000
+it all works. Cool! So, how are we going to
+
+19
+00:00:57,000 --> 00:01:00,000
+do this? That cool was very high pitched, wasn't it? Never mind.
+
+20
+00:01:00,000 --> 00:01:03,000
+Cool! So, let's do it! Firstly, we have
+
+21
+00:01:03,000 --> 00:01:06,000
+the Win Screen. As I say, it's not really a Win Screen, so
+
+22
+00:01:06,000 --> 00:01:09,000
+let's duplicate it, let's make oursevles
+
+23
+00:01:09,000 --> 00:01:12,000
+something called a Loose Screen.
+
+24
+00:01:15,000 --> 00:01:18,000
+Screen, scene, level. OK,
+
+25
+00:01:18,000 --> 00:01:21,000
+and where it says, "You beat Block Breaker". Well,
+
+26
+00:01:21,000 --> 00:01:24,000
+we don't want it to say "You beat Block Breaker".
+
+27
+00:01:24,000 --> 00:01:27,000
+We want it to say, "You
+
+28
+00:01:27,000 --> 00:01:30,000
+Lost!", as simple as that. So, that
+
+29
+00:01:30,000 --> 00:01:33,000
+is the Loose Screen. Now, another simple script
+
+30
+00:01:33,000 --> 00:01:36,000
+change. We need to think, what is responsible for
+
+31
+00:01:36,000 --> 00:01:39,000
+the Loose Condition? It's the LooseCollider! So, instead
+
+32
+00:01:39,000 --> 00:01:42,000
+of loading the Win Screen, it wants to load the ("Loose Screen");
+
+33
+00:01:42,000 --> 00:01:45,000
+and that's going to do the same, regardless of the level.
+
+34
+00:01:45,000 --> 00:01:48,000
+So, let's try that! If we are on Level_01
+
+35
+00:01:48,000 --> 00:01:51,000
+and we lose,
+
+36
+00:01:51,000 --> 00:01:54,000
+and what happens? Nothing
+
+37
+00:01:54,000 --> 00:01:57,000
+because we haven't added to our Build Settings, so that's
+
+38
+00:01:57,000 --> 00:02:00,000
+going to be a very very common error. The moment you
+
+39
+00:02:00,000 --> 00:02:03,000
+add a new scene, if you want it to be in the game, you're going to
+
+40
+00:02:03,000 --> 00:02:06,000
+need to add it to your Build Settings. So, let's go into the Build Settings.
+
+41
+00:02:06,000 --> 00:02:09,000
+I'm going to delete everything that's there and
+
+42
+00:02:09,000 --> 00:02:12,000
+put all of the scenes in the Build Settings, and while
+
+43
+00:02:12,000 --> 00:02:15,000
+we're here, let's bring the Start Menu to the top.
+
+44
+00:02:15,000 --> 00:02:18,000
+You may need to bring Level_01 below it, you may not
+
+45
+00:02:18,000 --> 00:02:21,000
+be able to drag it to the top. And then, what we want
+
+46
+00:02:21,000 --> 00:02:24,000
+to be able to happen is as follows. We want to go from the Start
+
+47
+00:02:24,000 --> 00:02:27,000
+Menu to Level_01. If we win, onto Level_02,
+
+48
+00:02:27,000 --> 00:02:30,000
+if we win onto Level_03,
+
+49
+00:02:30,000 --> 00:02:33,000
+and through all of the levels, however many we have, until eventually
+
+50
+00:02:33,000 --> 00:02:36,000
+you go to the Win Screen that says you conquered the game. If at any
+
+51
+00:02:36,000 --> 00:02:39,000
+point you lose, you want to leap frog straight down
+
+52
+00:02:39,000 --> 00:02:42,000
+to Loose Screen. So, that's the behavior we want.
+
+53
+00:02:42,000 --> 00:02:45,000
+If you look on the right hand side of the Build Settings we've actually
+
+54
+00:02:45,000 --> 00:02:48,000
+got a number starting at 0, which is a level index.
+
+55
+00:02:48,000 --> 00:02:51,000
+We start with level index 0, then 1, then 2,
+
+56
+00:02:51,000 --> 00:02:54,000
+then 3. Shortly, we're going to make very good use of that.
+
+57
+00:02:54,000 --> 00:02:57,000
+We're going to just increment the level index, every time we win.
+
+58
+00:02:57,000 --> 00:03:00,000
+But for now, let's just look at the Loose Condition and make sure that's
+
+59
+00:03:00,000 --> 00:03:03,000
+working. So, Level_01, run,
+
+60
+00:03:03,000 --> 00:03:06,000
+lose, "You Lost!". Great!
+
+61
+00:03:06,000 --> 00:03:09,000
+Just test it from Level_02, it should work exactly the same.
+
+62
+00:03:09,000 --> 00:03:12,000
+Great! So, let's recap why that's working!
+
+63
+00:03:12,000 --> 00:03:15,000
+It's working because in the Play Space,
+
+64
+00:03:15,000 --> 00:03:18,000
+we have a Loose Collider. On the Loose Collider we have
+
+65
+00:03:18,000 --> 00:03:21,000
+a script. It's the same script on all Loose Colliders, and they
+
+66
+00:03:21,000 --> 00:03:24,000
+always load the Loose Scene. Fantastic!
+
+67
+00:03:24,000 --> 00:03:27,000
+So, what we need to do now is simulate winning,
+
+68
+00:03:27,000 --> 00:03:30,000
+because we haven't actually built in the win
+
+69
+00:03:30,000 --> 00:03:33,000
+functionality yet. By the way, you may think the order in which
+
+70
+00:03:33,000 --> 00:03:36,000
+we're teaching this section is strange. Why can't we destroy
+
+71
+00:03:36,000 --> 00:03:39,000
+blocks? Why can't we win yet? Well, what I want to do
+
+72
+00:03:39,000 --> 00:03:42,000
+is, I want to prove that if we structure our game
+
+73
+00:03:42,000 --> 00:03:45,000
+properly, in quotes, then adding functionality
+
+74
+00:03:45,000 --> 00:03:48,000
+like the ability to destroy blocks will be possible
+
+75
+00:03:48,000 --> 00:03:51,000
+even though we've created multiple levels. That's what's going to be really cool!
+
+76
+00:03:51,000 --> 00:03:54,000
+We're going to actually create block destructibility,
+
+77
+00:03:54,000 --> 00:03:57,000
+after we've made a few levels. So,
+
+78
+00:03:57,000 --> 00:04:00,000
+you don't necessarily have to get all of your game mechanic completely
+
+79
+00:04:00,000 --> 00:04:03,000
+nailed, before you start building out levels. It's a
+
+80
+00:04:03,000 --> 00:04:06,000
+intermingled process right. The process of
+
+81
+00:04:06,000 --> 00:04:09,000
+creating levels may give you an idea about a new mechanic, and
+
+82
+00:04:09,000 --> 00:04:12,000
+the process of creating game mechanics may give you ideas
+
+83
+00:04:12,000 --> 00:04:15,000
+about levels and scenes, so they work together!
+
+84
+00:04:15,000 --> 00:04:18,000
+So, what would a natural way of
+
+85
+00:04:18,000 --> 00:04:21,000
+simulating a win be? Well, let's put it in the very script
+
+86
+00:04:21,000 --> 00:04:24,000
+we're going to end up with, which is on the Brick.
+
+87
+00:04:24,000 --> 00:04:27,000
+And what's going to happen is after some time on the collision
+
+88
+00:04:27,000 --> 00:04:30,000
+of a brick we are going to detect a win,
+
+89
+00:04:30,000 --> 00:04:33,000
+a destruction of the brick, and then, we're going to detect
+
+90
+00:04:33,000 --> 00:04:36,000
+that it's the final brick and we're going to somehow
+
+91
+00:04:36,000 --> 00:04:39,000
+win. So for now, I'm just going to create a new function
+
+92
+00:04:39,000 --> 00:04:42,000
+called SimulateWin(); OK, I'm just going to call that.
+
+93
+00:04:42,000 --> 00:04:45,000
+And then, I'm going to describe what I'm doing with a comment,
+
+94
+00:04:45,000 --> 00:04:48,000
+and I'm going to put TODO. TODO is a special comment that comes up bold.
+
+95
+00:04:48,000 --> 00:04:51,000
+And you could always do a search across your files for all of your TODO's.
+
+96
+00:04:51,000 --> 00:04:54,000
+"TODO Remove this method
+
+97
+00:04:54,000 --> 00:04:57,000
+once we can
+
+98
+00:04:57,000 --> 00:05:00,000
+actually win!". OK!
+
+99
+00:05:00,000 --> 00:05:03,000
+Now, let's define void, it doesn't need anything to come back.
+
+100
+00:05:03,000 --> 00:05:06,000
+SimulateWin(), checking that the red goes away,
+
+101
+00:05:06,000 --> 00:05:09,000
+when we do this.
+
+102
+00:05:09,000 --> 00:05:12,000
+There you go! So,
+
+103
+00:05:12,000 --> 00:05:15,000
+what are we going to do? Well, we're going to Level
+
+104
+00:05:15,000 --> 00:05:18,000
+Manager.LoadLevel, when we win,
+
+105
+00:05:18,000 --> 00:05:21,000
+but load which level? Well, and also well don't have a
+
+106
+00:05:21,000 --> 00:05:24,000
+LevelManager, so there's two things we need to do here.
+
+107
+00:05:24,000 --> 00:05:27,000
+Firstly, we need to create a LevelManager that is available
+
+108
+00:05:27,000 --> 00:05:30,000
+to the Brick. So, I'm going to let you
+
+109
+00:05:30,000 --> 00:05:33,000
+do that, as a challenge. We've done it a couple of times now. I want you to make
+
+110
+00:05:33,000 --> 00:05:36,000
+a private LevelManager at the top, and in the Start, find
+
+111
+00:05:36,000 --> 00:05:39,000
+it using FindObjectOfType. So, go
+
+112
+00:05:39,000 --> 00:05:42,000
+ahead and, as a micro challenge, do that now.
+
+113
+00:05:45,000 --> 00:05:48,000
+OK, so we have a private LevelManager
+
+114
+00:05:48,000 --> 00:05:51,000
+levelManager;
+
+115
+00:05:51,000 --> 00:05:54,000
+And then, on the Start, we find it in the scene.
+
+116
+00:05:54,000 --> 00:05:57,000
+levelManager = GameObject.Find
+
+117
+00:05:57,000 --> 00:06:00,000
+ObjectOfType
+
+118
+00:06:00,000 --> 00:06:03,000
+Left chevron LevelManager right chevron. It's a method,
+
+119
+00:06:03,000 --> 00:06:06,000
+so it needs brackets and everything needs a semicolon,
+
+120
+00:06:06,000 --> 00:06:09,000
+on pain of death. OK, so what we want
+
+121
+00:06:09,000 --> 00:06:12,000
+to call is LevelManager dot. Not with a capital L but
+
+122
+00:06:12,000 --> 00:06:15,000
+with a small l, it's the instance. We've got
+
+123
+00:06:15,000 --> 00:06:18,000
+this LoadLevel thing, but I don't want to be laboriously
+
+124
+00:06:18,000 --> 00:06:21,000
+going through and telling every level what the next level is, so
+
+125
+00:06:21,000 --> 00:06:24,000
+I want a new method called LoadNext
+
+126
+00:06:24,000 --> 00:06:27,000
+Level. It doesn't exist yet. But that's o.k.
+
+127
+00:06:27,000 --> 00:06:30,000
+That's wishful thinking, it's red. Let's go ahead and
+
+128
+00:06:30,000 --> 00:06:33,000
+make this levelManager.LoadNextLevel
+
+129
+00:06:33,000 --> 00:06:36,000
+method. Into your
+
+130
+00:06:36,000 --> 00:06:39,000
+Sprites, Scripts even.
+
+131
+00:06:39,000 --> 00:06:42,000
+Into the LevelManager. Let's make a new method called
+
+132
+00:06:42,000 --> 00:06:45,000
+public LoadNext
+
+133
+00:06:45,000 --> 00:06:48,000
+Level(). It doesn't need any information, so no
+
+134
+00:06:48,000 --> 00:06:51,000
+parameters coming in. Now, what are
+
+135
+00:06:51,000 --> 00:06:54,000
+we going to do? Well, here's a useful thing. Application
+
+136
+00:06:54,000 --> 00:06:57,000
+.LoadLevel()
+
+137
+00:06:57,000 --> 00:07:00,000
+OK. And then, what level
+
+138
+00:07:00,000 --> 00:07:03,000
+are we going to load? Well, we could pass a level index in. Let's look at
+
+139
+00:07:03,000 --> 00:07:06,000
+the docs for it for a second.
+
+140
+00:07:06,000 --> 00:07:09,000
+A couple of ways
+
+141
+00:07:09,000 --> 00:07:12,000
+it works. There are two signatures for this method.
+
+142
+00:07:12,000 --> 00:07:15,000
+One is, you pass an integer index in, which I showed you in the
+
+143
+00:07:15,000 --> 00:07:18,000
+Build Settings, and the other is, you pass in a string. We're going
+
+144
+00:07:18,000 --> 00:07:21,000
+to use the index, and where
+
+145
+00:07:21,000 --> 00:07:24,000
+are we going to get the index from? Well, this is the cool thing! We can just go
+
+146
+00:07:24,000 --> 00:07:27,000
+(Application
+
+147
+00:07:27,000 --> 00:07:30,000
+.loadedLevel. There you go,
+
+148
+00:07:30,000 --> 00:07:33,000
+and it returns an integer
+
+149
+00:07:33,000 --> 00:07:36,000
++ 1); Hah, now that's pretty
+
+150
+00:07:36,000 --> 00:07:39,000
+cool, right! Now, LevelManager.Load
+
+151
+00:07:39,000 --> 00:07:42,000
+NextLevel will automatically
+
+152
+00:07:42,000 --> 00:07:45,000
+load the next level in the sequence.
+
+153
+00:07:45,000 --> 00:07:48,000
+What's this
+
+154
+00:07:48,000 --> 00:07:51,000
+error about him, when I did the build? "Class, struct, or interface method
+
+155
+00:07:51,000 --> 00:07:54,000
+must have a return type". Of course, we're missing void
+
+156
+00:07:54,000 --> 00:07:57,000
+OK. So, public void LoadNext
+
+157
+00:07:57,000 --> 00:08:00,000
+Level(). What that's going to do
+
+158
+00:08:00,000 --> 00:08:03,000
+is it's going to load whatever is the next level
+
+159
+00:08:03,000 --> 00:08:06,000
+in our Build Settings here. Boom boom boom boom!
+
+160
+00:08:06,000 --> 00:08:09,000
+So, Start Menu is going to explicitly
+
+161
+00:08:09,000 --> 00:08:12,000
+load Level_01, and then,
+
+162
+00:08:12,000 --> 00:08:15,000
+the rest of these, when we win, are going to use
+
+163
+00:08:15,000 --> 00:08:18,000
+the SimulateWin() method to just load the next level,
+
+164
+00:08:18,000 --> 00:08:21,000
+until we get to the Win Screen. Let's see if it works!
+
+165
+00:08:21,000 --> 00:08:24,000
+By the way, if you go back into
+
+166
+00:08:24,000 --> 00:08:27,000
+your Brick, this LoadNextLevel is no longer red, because it
+
+167
+00:08:27,000 --> 00:08:30,000
+exists. Alright, let's try it!
+
+168
+00:08:30,000 --> 00:08:33,000
+So, here we are! Actually, we'd better know which scene we're on.
+
+169
+00:08:33,000 --> 00:08:36,000
+Let's start at the Start, right. Start Menu,
+
+170
+00:08:36,000 --> 00:08:39,000
+Start Button.
+
+171
+00:08:39,000 --> 00:08:42,000
+As soon as we hit the brick we win. Let's try losing
+
+172
+00:08:42,000 --> 00:08:45,000
+on this second level. "You Lost!" Great! Play
+
+173
+00:08:45,000 --> 00:08:48,000
+Again! Hit a brick, "You Win!"
+
+174
+00:08:48,000 --> 00:08:51,000
+Hit a brick, "You Win!"
+
+175
+00:08:51,000 --> 00:08:54,000
+Can't win here, because there are no bricks. We lose!
+
+176
+00:08:54,000 --> 00:08:57,000
+Great! OK, just to finish that off
+
+177
+00:08:57,000 --> 00:09:00,000
+on Level_03, let's pop a single brick in.
+
+178
+00:09:00,000 --> 00:09:03,000
+There it is, so that you can win!
+
+179
+00:09:03,000 --> 00:09:06,000
+Just move it
+
+180
+00:09:06,000 --> 00:09:09,000
+a little bit,
+
+181
+00:09:12,000 --> 00:09:15,000
+...so it's easy to hit. I'm holding down Control. You always want everything
+
+182
+00:09:15,000 --> 00:09:18,000
+on grid. Level_03 "You
+
+183
+00:09:18,000 --> 00:09:21,000
+beat Block Breaker!" Fantastic! Let's just look at the whole flow
+
+184
+00:09:21,000 --> 00:09:24,000
+again, with Maximize on Play, just so it looks
+
+185
+00:09:24,000 --> 00:09:27,000
+right. Maximize on Play will only
+
+186
+00:09:27,000 --> 00:09:30,000
+take effect when you play a fresh game,
+
+187
+00:09:30,000 --> 00:09:33,000
+and you want to be starting from your Start Menu,
+
+188
+00:09:33,000 --> 00:09:36,000
+of course. Saving
+
+189
+00:09:36,000 --> 00:09:39,000
+scenes as you go. OK, let's
+
+190
+00:09:39,000 --> 00:09:42,000
+start! Win!
+
+191
+00:09:42,000 --> 00:09:45,000
+Win! Win! We beat Block Breaker!
+
+192
+00:09:45,000 --> 00:09:48,000
+Win! Now, let's lose here,
+
+193
+00:09:48,000 --> 00:09:51,000
+by not hitting a brick. Ha ha, "You lost!"
+
+194
+00:09:51,000 --> 00:09:54,000
+Perfect! Awesome awesome job! So,
+
+195
+00:09:54,000 --> 00:09:57,000
+I hope that all made sense to you. Let's just look at the slide as a recap.
+
+196
+00:10:00,000 --> 00:10:03,000
+We have created a Loose Scene and modified our
+
+197
+00:10:03,000 --> 00:10:06,000
+LooseCollider, so that it goes there rather than the Win Scene.
+
+198
+00:10:06,000 --> 00:10:09,000
+We've added a very handy new method to our LevelManager, called Load
+
+199
+00:10:09,000 --> 00:10:12,000
+NextLevel, which increments up to the next level index,
+
+200
+00:10:12,000 --> 00:10:15,000
+so that the soul place that we define our level
+
+201
+00:10:15,000 --> 00:10:18,000
+holder is in the Build Settings. We have to put things in Build
+
+202
+00:10:18,000 --> 00:10:21,000
+Settings anyway, in order for them to be loadable, so why
+
+203
+00:10:21,000 --> 00:10:24,000
+not have that as the place that we income the logical
+
+204
+00:10:24,000 --> 00:10:27,000
+order of the levels. Cool hey, all in one place! I love
+
+205
+00:10:27,000 --> 00:10:30,000
+it when you can have a single place for information and
+
+206
+00:10:30,000 --> 00:10:33,000
+everything in that single place. It's great!
+
+207
+00:10:33,000 --> 00:10:36,000
+Add all of our levels to the project Build Settings. Well, we did that,
+
+208
+00:10:36,000 --> 00:10:39,000
+of course. We added a SimulateWin() method to the
+
+209
+00:10:39,000 --> 00:10:42,000
+block. Later, the block will be responsible for detecting
+
+210
+00:10:42,000 --> 00:10:45,000
+the win condition, i.e., all the destructible blocks are gone out
+
+211
+00:10:45,000 --> 00:10:48,000
+of the level. And we will replace that method later, but it's
+
+212
+00:10:48,000 --> 00:10:51,000
+the great way of testing the process and better
+
+213
+00:10:51,000 --> 00:10:54,000
+than sticking an ugly button in the level. And we tested it all
+
+214
+00:10:54,000 --> 00:10:57,000
+and it worked just great! So congratulations and
+
+215
+00:10:57,000 --> 00:10:58,500
+I'll see you soon!
+

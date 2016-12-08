@@ -1,0 +1,397 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+So welcome to Particle Bounding
+
+2
+00:00:04,000 --> 00:00:08,000
+Boxes! What we're going to be doing, in this video, is getting rid of the horrible problem where our smoke
+
+3
+00:00:08,000 --> 00:00:12,000
+trails disappear, when you look at them at a sideways angle, and make sure that they
+
+4
+00:00:12,000 --> 00:00:15,233
+show all the way around like this. So let's go and see how that's done!
+
+5
+00:00:15,233 --> 00:00:19,233
+So this should be a relatively simple and short video. What we're going to be
+
+6
+00:00:19,233 --> 00:00:23,233
+doing is, looking at the fact that it if you fire a lot of these smoke
+
+7
+00:00:23,233 --> 00:00:27,233
+effects into the scene and then rotate your camera watch what happens. You see them disappearing. They're
+
+8
+00:00:27,233 --> 00:00:31,233
+still there in the world, but as I rotate the camera, at about 45
+
+9
+00:00:31,233 --> 00:00:35,233
+degrees off the camera, they disappear. That's not much fun, that looks kind of
+
+10
+00:00:35,233 --> 00:00:39,233
+silly, so what are we going to do about that. Well firstly, what's the root cause of it? Let's
+
+11
+00:00:39,233 --> 00:00:43,233
+go into the Tank Particle System, for a start.
+
+12
+00:00:43,233 --> 00:00:47,233
+I'm sorry, the Projectile Particle System, the Launch Blast Particle
+
+13
+00:00:47,233 --> 00:00:51,233
+System. Let's go into that! And if you scroll your Emitters
+
+14
+00:00:51,233 --> 00:00:55,233
+across and then click in the black space, just to make sure we're on the properties of
+
+15
+00:00:55,233 --> 00:00:59,233
+the Particle System itself, not any of the particular emitters.
+
+16
+00:00:59,233 --> 00:01:03,233
+If you scroll down here, I'll give a bit more space. Then one of the things you'll
+
+17
+00:01:03,233 --> 00:01:07,233
+see is that under the Bounds section, Use Fixed Relative Bounding, and in
+
+18
+00:01:07,233 --> 00:01:11,233
+fact, you can visualize these bounds, this zone in which the
+
+19
+00:01:11,233 --> 00:01:15,233
+particle systems are displayed, by clicking on this Bounds button
+
+20
+00:01:15,233 --> 00:01:19,233
+here. And you can even click the down arrow and say, Set Fixed
+
+21
+00:01:19,233 --> 00:01:23,233
+Bounds and that will show you, if you've got the bounds on, the zone in
+
+22
+00:01:23,233 --> 00:01:27,233
+which, provided that both the camera and the particle system are in that area,
+
+23
+00:01:27,233 --> 00:01:31,233
+then they will render. And if you see here, it actually
+
+24
+00:01:31,233 --> 00:01:35,233
+tells you the values. The problem is that, in our game, when we start moving the camera off
+
+25
+00:01:35,233 --> 00:01:39,233
+to the side, like this, we are getting outside of these bounding
+
+26
+00:01:39,233 --> 00:01:43,233
+boxes. Now it's not entirely intuitive how that's happening, it does look more
+
+27
+00:01:43,233 --> 00:01:47,233
+like it's a problem to do with billboarding, i.e. to do with these textures
+
+28
+00:01:47,233 --> 00:01:51,233
+facing the camera, but it isn't that, that's what I call a red herring. It is just
+
+29
+00:01:51,233 --> 00:01:55,233
+about the bounding box sizes. What it turns out we need, because we have a particle system
+
+30
+00:01:55,233 --> 00:01:59,233
+that spans a very large scale in our game, because
+
+31
+00:01:59,233 --> 00:02:03,233
+the same particle system is leaving smoke over a very long distance in the game.
+
+32
+00:02:03,233 --> 00:02:07,233
+In those circumstance and in those circumstances only, you don't want to Use
+
+33
+00:02:07,233 --> 00:02:11,233
+Fixed Bounding Boxes, you want to turn that setting off. And what
+
+34
+00:02:11,233 --> 00:02:15,233
+that will do is, it will recalculate the bounding boxes every frame. Now that will have a performance
+
+35
+00:02:15,233 --> 00:02:19,233
+hit, it may or may not be noticeable in your system. We'll test that in a minute, in fact, it's going to be
+
+36
+00:02:19,233 --> 00:02:23,233
+part of your challenge. But if you turn off this Use Fixed Relative Bounding Boxes,
+
+37
+00:02:23,233 --> 00:02:27,233
+it's going to, as I say, calculate the visibility requirements every
+
+38
+00:02:27,233 --> 00:02:31,233
+single frame. Now, It's going to warn you that you have a particle system
+
+39
+00:02:31,233 --> 00:02:35,233
+with no bounding box and it contains a GPU Emitter. What's a GPU Emitter?
+
+40
+00:02:35,233 --> 00:02:39,233
+The Sparks are the GPU Emitter, they're very subtle, they'er hardly
+
+41
+00:02:39,233 --> 00:02:43,233
+any part of the effect, and we can actually just remove that altogether. You
+
+42
+00:02:43,233 --> 00:02:47,233
+can see that it's a GPU Emitter, because it says GPU Sprites here. What that is,
+
+43
+00:02:47,233 --> 00:02:51,233
+by the way, is if you right-click in the Emitter it's the TypeData is of
+
+44
+00:02:51,233 --> 00:02:55,233
+type ?GPU Sprites, and this means that this particular effect is
+
+45
+00:02:55,233 --> 00:02:59,233
+rendered on the GPU and it's rendered on the GPU using an optimization based
+
+46
+00:02:59,233 --> 00:03:03,233
+on scene depth, because GPU's basically can only do things
+
+47
+00:03:03,233 --> 00:03:07,233
+in parallel. And one way to make these types of GPU
+
+48
+00:03:07,233 --> 00:03:11,233
+sprites very fast is to allow the GPU to do it, and different calls
+
+49
+00:03:11,233 --> 00:03:15,233
+on the GPU can do different parts of the scene but it can only do that if it's all based on scene
+
+50
+00:03:15,233 --> 00:03:19,233
+depth and that messes up when we start coming to this wide angle. You can see it's already
+
+51
+00:03:19,233 --> 00:03:23,233
+fixed, because I've toggled that setting, I can go all the way around now. So
+
+52
+00:03:23,233 --> 00:03:27,233
+what we're not allowed to do is have variable bounding boxes and a GPU emitter, but we don't
+
+53
+00:03:27,233 --> 00:03:31,233
+need the Sparks, so I'm going to go ahead and just delete the emitter altogether.
+
+54
+00:03:31,233 --> 00:03:35,233
+So right-click on your Sparks, delete it altogether. It'll hardly make any difference to the
+
+55
+00:03:35,233 --> 00:03:39,233
+visual appearance of your smoke trails, but it will stop
+
+56
+00:03:39,233 --> 00:03:43,233
+the warning and make sure we don't get serious performance glitches. So there it is,
+
+57
+00:03:43,233 --> 00:03:47,233
+that is the problem solved! So what I want you to do is, remember that you can go to Show
+
+58
+00:03:47,233 --> 00:03:51,233
+FPS here, from this down arrow at the top-left of your viewport,
+
+59
+00:03:51,233 --> 00:03:55,233
+and I want you to do the following. I want you to go ahead and test your performance impact. Measure your
+
+60
+00:03:55,233 --> 00:03:59,233
+Frames Per Second, with 20 smoke trails visible.
+
+61
+00:03:59,233 --> 00:04:03,233
+Turn on dynamic bounding boxes, like I just did. Measure again, see
+
+62
+00:04:03,233 --> 00:04:07,233
+if there's a change in the FPS, and share your results with the community. If you don't get any change and
+
+63
+00:04:07,233 --> 00:04:11,233
+you don't get anything interesting at 20 smoke trails, then maybe turn it up to 100 if you
+
+64
+00:04:11,233 --> 00:04:15,233
+can click that fast, 100 rounds in the tank. And just see if you can detect
+
+65
+00:04:15,233 --> 00:04:19,233
+how much difference it's making on your system, and then, share with us over on the community site, community.gamedev.tv,
+
+66
+00:04:19,233 --> 00:04:23,233
+what sort of impact this is having, this change in settings, on your
+
+67
+00:04:23,233 --> 00:04:27,233
+machine. I'll be very interested to see!
+
+68
+00:04:27,233 --> 00:04:31,233
+OK welcome back! So there is a small
+
+69
+00:04:31,233 --> 00:04:35,233
+resolution to this challenge. I'm just going to turn on my FPS. I am going to
+
+70
+00:04:35,233 --> 00:04:39,233
+do what I suggested you do, which is you go down... In fact, I'm going to collapse these other guys down.
+
+71
+00:04:39,233 --> 00:04:43,233
+So I can quickly get to this, I'm going to Use a Fixed Bounding Box, which should be of higher performance,
+
+72
+00:04:43,233 --> 00:04:47,233
+because it does not need to recalculate anything every frame. I'm going to fire off 20
+
+73
+00:04:47,233 --> 00:04:51,233
+of these guys, make sure they're all on the screen, and I'm just capped at 120
+
+74
+00:04:51,233 --> 00:04:55,233
+frames a second. So I'm on a, what am I on? An Intel i7
+
+75
+00:04:55,233 --> 00:04:59,233
+4 gigahertz quad core, with a GTX 980 (Graphics Card). So that's
+
+76
+00:04:59,233 --> 00:05:03,233
+the performance benchmark there. I'm going to suggest
+
+77
+00:05:03,233 --> 00:05:07,233
+that it's capped at 120 frames per second, therefore I'm not going to see any
+
+78
+00:05:07,233 --> 00:05:11,233
+change. So I'm going to need more projectiles, I'm going to go to 200 projectiles, and
+
+79
+00:05:11,233 --> 00:05:15,233
+I'm even going to turn down my minimum reload time.
+
+80
+00:05:15,233 --> 00:05:19,233
+I'm not even sure I can click a mouse that fast, but it'll allow me to launch these really fast. But let's put a
+
+81
+00:05:19,233 --> 00:05:23,233
+lot of these guys in the scene, see if I can get the frame rate to drop.
+
+82
+00:05:23,233 --> 00:05:27,233
+It's pretty stubbornly sitting there at 120. You don't want to go too fast, sideways
+
+83
+00:05:27,233 --> 00:05:31,233
+with the camera, because then they're not rendering, but it isn't effecting my frame rates.
+
+84
+00:05:31,233 --> 00:05:35,233
+On my system the answer here is that it doesn't [Laughs] really make any difference how many of these
+
+85
+00:05:35,233 --> 00:05:39,233
+things are on the screen, it's not dropping the frame rate.
+
+86
+00:05:39,233 --> 00:05:43,233
+So now let's try going into using dynamic bounding boxes with
+
+87
+00:05:43,233 --> 00:05:47,233
+that many particles. Let's see if we now get a drop in frame rate! I'll even up the screen
+
+88
+00:05:47,233 --> 00:05:51,233
+resolution, by going to full screen. No, you see, even with these
+
+89
+00:05:51,233 --> 00:05:55,233
+dynamic bounding boxes, provided I don't accidentally click on Explorer, I've got full
+
+90
+00:05:55,233 --> 00:05:59,233
+three dimensional view of these things, and yet I'm still...
+
+91
+00:05:59,233 --> 00:06:03,233
+I know as long as I keep my mouse in the game window, I'm still not getting a drop in frame rate.
+
+92
+00:06:03,233 --> 00:06:07,233
+So on my system, anyway, it makes absolutely no difference, which is a very
+
+93
+00:06:07,233 --> 00:06:11,233
+cursory proof to me that that's absolutely fine to be using in this game.
+
+94
+00:06:11,233 --> 00:06:15,233
+In this instance, we can use dynamic bounding boxes and still tolerate the performance hit that we're
+
+95
+00:06:15,233 --> 00:06:19,233
+getting. So I'll be interested to see how it works for you! That's all I've really got to say on this
+
+96
+00:06:19,233 --> 00:06:23,233
+video. That is a solution to a common problem. I have also in your slides...
+
+97
+00:06:23,233 --> 00:06:27,233
+By the way, I've given you a slide that shows you how to do this, it's on the next slide there.
+
+98
+00:06:27,233 --> 00:06:31,233
+It says, click here to make sure that you are in the general particle system properties. Go down
+
+99
+00:06:31,233 --> 00:06:37,333
+to Bounds and click that. OK fantastic! Well done and I'll see you in the next video!
+

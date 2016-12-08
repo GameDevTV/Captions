@@ -1,0 +1,1189 @@
+
+1
+00:00:03,000 --> 00:00:06,000
+OK welcome back! So,
+
+2
+00:00:06,000 --> 00:00:09,000
+it's time to get our StarDisplay actually
+
+3
+00:00:09,000 --> 00:00:12,000
+reducing now, when we place defenders. So
+
+4
+00:00:12,000 --> 00:00:15,000
+firstly, I'm going to put my StarDisplay Script neatly away into
+
+5
+00:00:15,000 --> 00:00:18,000
+the folder and open up the script.
+
+6
+00:00:18,000 --> 00:00:21,000
+So currently, we have an AddStars method. We do
+
+7
+00:00:21,000 --> 00:00:24,000
+have a UsedStars method, but nothing is doing it yet.
+
+8
+00:00:24,000 --> 00:00:27,000
+We need to make some changes here, to make sure that the Defender
+
+9
+00:00:27,000 --> 00:00:30,000
+Spawner will only spawn, when there's enough stars
+
+10
+00:00:30,000 --> 00:00:33,000
+available. So as a summary, in this video what we're going to
+
+11
+00:00:33,000 --> 00:00:36,000
+be doing is
+
+12
+00:00:36,000 --> 00:00:39,000
+assigning a star cost to every defender.
+
+13
+00:00:39,000 --> 00:00:42,000
+Preventing placement until you can afford to place a defender.
+
+14
+00:00:42,000 --> 00:00:45,000
+We'll spend stars when the defenders are placed.
+
+15
+00:00:45,000 --> 00:00:48,000
+Use an enumeration to pass meaning,
+
+16
+00:00:48,000 --> 00:00:51,000
+rather than just Bools around. That'll make sense when we get there.
+
+17
+00:00:51,000 --> 00:00:54,000
+And a bit of rough play tuning. Cool! So, let's
+
+18
+00:00:54,000 --> 00:00:57,000
+go take a look! One of the first things we need to do is
+
+19
+00:00:57,000 --> 00:01:00,000
+embellish our Defender Script. At the moment, our Defender Script
+
+20
+00:01:00,000 --> 00:01:03,000
+is very simple and very thin and does almost nothing.
+
+21
+00:01:03,000 --> 00:01:06,000
+What we want to do is add the ability to tell
+
+22
+00:01:06,000 --> 00:01:09,000
+each defender how many stars it costs.
+
+23
+00:01:09,000 --> 00:01:12,000
+So I think a sensible way to do that would just be
+
+24
+00:01:12,000 --> 00:01:15,000
+to put a starCost variable over on the Defender.
+
+25
+00:01:15,000 --> 00:01:18,000
+So, we can make it public. I think that's safe enough. It's an integer,
+
+26
+00:01:18,000 --> 00:01:21,000
+because we can count it. And it's a starCost and I'm going to
+
+27
+00:01:21,000 --> 00:01:24,000
+default into 100. So now, the defenders
+
+28
+00:01:24,000 --> 00:01:27,000
+have a default cast of 100. Of course, defender
+
+29
+00:01:27,000 --> 00:01:30,000
+by defender, we can change that. If we go over into Unity, look at our
+
+30
+00:01:30,000 --> 00:01:33,000
+Prefabs for our Defenders.
+
+31
+00:01:33,000 --> 00:01:36,000
+If we look at any of them now, we will see they all have a Star
+
+32
+00:01:36,000 --> 00:01:39,000
+Cost, but of course, we can override that later on, when we
+
+33
+00:01:39,000 --> 00:01:42,000
+come to play tuning. Fantastic! That's good!
+
+34
+00:01:42,000 --> 00:01:45,000
+So, what other modifications do we need
+
+35
+00:01:45,000 --> 00:01:48,000
+to make to a defender, in order to start spending money. Well, actually nothing
+
+36
+00:01:48,000 --> 00:01:51,000
+at this stage. So, that's great! We've got the first
+
+37
+00:01:51,000 --> 00:01:54,000
+bit. Now, we need to do something with our
+
+38
+00:01:54,000 --> 00:01:57,000
+Start Display. Our Star Display is going to need to have the ability
+
+39
+00:01:57,000 --> 00:02:00,000
+to debit. So, let's go over
+
+40
+00:02:00,000 --> 00:02:03,000
+to the Star Display Script, after saving Defenders, and take
+
+41
+00:02:03,000 --> 00:02:06,000
+a look. So, what is the
+
+42
+00:02:06,000 --> 00:02:09,000
+messaging going to be between the Defender
+
+43
+00:02:09,000 --> 00:02:12,000
+Spawner, when it tries to place, and the Star
+
+44
+00:02:12,000 --> 00:02:15,000
+Display? How are we going to manage that? The thing that
+
+45
+00:02:15,000 --> 00:02:18,000
+we particularly need to manage is this UseStars.
+
+46
+00:02:18,000 --> 00:02:21,000
+What happens if the DefenderSpawner requests
+
+47
+00:02:21,000 --> 00:02:24,000
+more or less stars than are available?
+
+48
+00:02:24,000 --> 00:02:27,000
+We need to pass some meaning back, with this Use
+
+49
+00:02:27,000 --> 00:02:30,000
+Stars. And rather than just passing nothing back,
+
+50
+00:02:30,000 --> 00:02:33,000
+we need to somehow succeed or fail.
+
+51
+00:02:33,000 --> 00:02:36,000
+Now, you could have the Defender spawner say, use stars
+
+52
+00:02:36,000 --> 00:02:39,000
+20, and if there were 10 stars available, for instance,
+
+53
+00:02:39,000 --> 00:02:42,000
+then what would happen? Well, you could pass back false,
+
+54
+00:02:42,000 --> 00:02:45,000
+but I don't really like how that's going to read in the DefenderSpawner.
+
+55
+00:02:45,000 --> 00:02:48,000
+I want to pass back some actual meaning. If we are
+
+56
+00:02:48,000 --> 00:02:51,000
+wrapping up the idea that there are or aren't
+
+57
+00:02:51,000 --> 00:02:54,000
+enough stars, in a Boolean, it's not sufficiently
+
+58
+00:02:54,000 --> 00:02:57,000
+explicit for me. So, one way around
+
+59
+00:02:57,000 --> 00:03:00,000
+this is to actually create an enum, and then, we can use
+
+60
+00:03:00,000 --> 00:03:03,000
+that enum to pass something more
+
+61
+00:03:03,000 --> 00:03:06,000
+meaningful back. So, let's try this! Let's have a public
+
+62
+00:03:06,000 --> 00:03:09,000
+enum, public enum Status,
+
+63
+00:03:09,000 --> 00:03:12,000
+and then, the elements of this enum... I'm going
+
+64
+00:03:12,000 --> 00:03:15,000
+to use capitals, because they're kind of constants, and let's have
+
+65
+00:03:15,000 --> 00:03:18,000
+success or failure. So,
+
+66
+00:03:18,000 --> 00:03:21,000
+the possibilities, when we try and take money out
+
+67
+00:03:21,000 --> 00:03:24,000
+of the account, are either success or failure.
+
+68
+00:03:24,000 --> 00:03:27,000
+Hopefully that makes sense. Also,
+
+69
+00:03:27,000 --> 00:03:30,000
+we want an initial amount of money in the bank. It's going to make
+
+70
+00:03:30,000 --> 00:03:33,000
+life a little bit easier. So, let's start with 100 units of
+
+71
+00:03:33,000 --> 00:03:36,000
+sun or stars in the bank, and then, we've got this
+
+72
+00:03:36,000 --> 00:03:39,000
+private enum Status SUCCESS or FAILURE.
+
+73
+00:03:39,000 --> 00:03:42,000
+So then down here, when we look at actually using
+
+74
+00:03:42,000 --> 00:03:45,000
+the stars, we need to make a
+
+75
+00:03:45,000 --> 00:03:48,000
+modification to it. We need to say... Oops!
+
+76
+00:03:48,000 --> 00:03:51,000
+My track pad's a little sensitive over there. We need to
+
+77
+00:03:51,000 --> 00:03:54,000
+say if the number of
+
+78
+00:03:54,000 --> 00:03:57,000
+stars is greater than or equal to the amount we have...
+
+79
+00:03:57,000 --> 00:04:00,000
+So there's an amount at the top here,
+
+80
+00:04:00,000 --> 00:04:03,000
+being passed in. So, if
+
+81
+00:04:03,000 --> 00:04:06,000
+the amount of stars available is greater
+
+82
+00:04:06,000 --> 00:04:09,000
+or equal to the amount that we are requesting, then what do we do?
+
+83
+00:04:09,000 --> 00:04:12,000
+Well then, we debit the amount, we
+
+84
+00:04:12,000 --> 00:04:15,000
+update the display, and importantly we're going to
+
+85
+00:04:15,000 --> 00:04:18,000
+return
+
+86
+00:04:18,000 --> 00:04:21,000
+Status dot. Now, because it's a numeration, we
+
+87
+00:04:21,000 --> 00:04:24,000
+can choose SUCCESS OR FAILURE. So, that's at SUCCESS
+
+88
+00:04:24,000 --> 00:04:27,000
+condition. Now, of course the return type of
+
+89
+00:04:27,000 --> 00:04:30,000
+this method is no longer void but it's actually Status. So, you
+
+90
+00:04:30,000 --> 00:04:33,000
+can return your enum as a Status.
+
+91
+00:04:33,000 --> 00:04:36,000
+Fantastic! OK, so
+
+92
+00:04:36,000 --> 00:04:39,000
+what else could happen? If there were not enough stars
+
+93
+00:04:39,000 --> 00:04:42,000
+to actually do what we need to do, what are we going to return?
+
+94
+00:04:42,000 --> 00:04:45,000
+Well, we've just returned
+
+95
+00:04:45,000 --> 00:04:48,000
+Status
+
+96
+00:04:48,000 --> 00:04:51,000
+.FAILURE. Now, we can put it like
+
+97
+00:04:51,000 --> 00:04:54,000
+this, in an if statement, if we want, let's just make sure it builds.
+
+98
+00:04:54,000 --> 00:04:57,000
+Or we can say, because we're returning out of the if here,
+
+99
+00:04:57,000 --> 00:05:00,000
+we could actually save some code a little bit hardly anything.
+
+100
+00:05:00,000 --> 00:05:03,000
+We could get rid of the else part and just return straight back
+
+101
+00:05:03,000 --> 00:05:06,000
+below the if statement like that, without those brackets,
+
+102
+00:05:06,000 --> 00:05:09,000
+because it will only get to this line, if this statement
+
+103
+00:05:09,000 --> 00:05:12,000
+does not operate. Otherwise, it will jump right out of the whole
+
+104
+00:05:12,000 --> 00:05:15,000
+UseStars method, once it returns SUCCESS.
+
+105
+00:05:15,000 --> 00:05:18,000
+So, this means when we call UseStars,
+
+106
+00:05:18,000 --> 00:05:21,000
+it's actually going to return this, yes that worked you've got enough
+
+107
+00:05:21,000 --> 00:05:24,000
+and I've debited them, or it's going to return a FAILURE.
+
+108
+00:05:24,000 --> 00:05:27,000
+Alright, so now
+
+109
+00:05:27,000 --> 00:05:30,000
+comes the fun bit, and this is the bit where you get to do some work over at
+
+110
+00:05:30,000 --> 00:05:33,000
+the DefenderSpawner. Now, we need to modify our
+
+111
+00:05:33,000 --> 00:05:36,000
+DefenderSpawner, so that we can determine
+
+112
+00:05:36,000 --> 00:05:39,000
+whether or not we've got enough money to actually place things. And if we
+
+113
+00:05:39,000 --> 00:05:42,000
+haven't got enough money to place things, then we need to
+
+114
+00:05:42,000 --> 00:05:45,000
+somehow let the user know or just
+
+115
+00:05:45,000 --> 00:05:48,000
+at least do nothing. So, where about in this
+
+116
+00:05:48,000 --> 00:05:51,000
+method are we going to be making that change? That's the question.
+
+117
+00:05:51,000 --> 00:05:54,000
+And what else does this method need access to?
+
+118
+00:05:54,000 --> 00:05:57,000
+Well, it's going to need access to the Star
+
+119
+00:05:57,000 --> 00:06:00,000
+Display. It needs to look at the StarDisplay controller,
+
+120
+00:06:00,000 --> 00:06:03,000
+who has track of the
+
+121
+00:06:03,000 --> 00:06:06,000
+number of stars available and be able to ask it questions.
+
+122
+00:06:06,000 --> 00:06:09,000
+So, let's get hold of that. Let's do it privately. We don't need to access it
+
+123
+00:06:09,000 --> 00:06:12,000
+from the outside: private StarDisplay starDisplay;
+
+124
+00:06:15,000 --> 00:06:18,000
+There we go! And then, on the Start let's find
+
+125
+00:06:18,000 --> 00:06:21,000
+StarDisplay. You go ahead and do that. I'm going to wait a second, so you get a chance
+
+126
+00:06:21,000 --> 00:06:24,000
+to have a go yourself. It's just like the line above.
+
+127
+00:06:24,000 --> 00:06:27,000
+starDisplay = GameObject.Find
+
+128
+00:06:27,000 --> 00:06:30,000
+ObjectOfType though, because it's much
+
+129
+00:06:30,000 --> 00:06:33,000
+stronger than using the name. Why would you use name, and why would you use
+
+130
+00:06:33,000 --> 00:06:36,000
+type? Well,
+
+131
+00:06:36,000 --> 00:06:39,000
+it depends. Use the strongest thing you can. We're defining
+
+132
+00:06:39,000 --> 00:06:42,000
+Defenders by the word ("Defenders") here, because it is,
+
+133
+00:06:42,000 --> 00:06:45,000
+on the left hand side, just an empty GameObject in the Hierarchy,
+
+134
+00:06:45,000 --> 00:06:48,000
+and it doesn't have any other types. We haven't added any other
+
+135
+00:06:48,000 --> 00:06:51,000
+components. But in this case, when we're trying to find the Star
+
+136
+00:06:51,000 --> 00:06:54,000
+Display, which is nestled away here.
+
+137
+00:06:54,000 --> 00:06:57,000
+This Stars Display here, it actually has a script attached
+
+138
+00:06:57,000 --> 00:07:00,000
+to it, and a script is a much more weighty thing. We're much less likely
+
+139
+00:07:00,000 --> 00:07:03,000
+to accidentally change the name of the script and not
+
+140
+00:07:03,000 --> 00:07:06,000
+have this type in here change, so strings are dangerous.
+
+141
+00:07:06,000 --> 00:07:09,000
+These Defenders, if I change Defenders over here in the Hierarchy,
+
+142
+00:07:09,000 --> 00:07:12,000
+this script will no longer work. It won't find
+
+143
+00:07:12,000 --> 00:07:15,000
+Defenders, to child the new Defenders to, but if I change the name of
+
+144
+00:07:15,000 --> 00:07:18,000
+the script, down here this Star Display, then this
+
+145
+00:07:18,000 --> 00:07:21,000
+up code will update, if I use the Refactor Tool.
+
+146
+00:07:21,000 --> 00:07:24,000
+OK, so always use the FindObjectsOfType, if that
+
+147
+00:07:24,000 --> 00:07:27,000
+makes sense. So, we're going to find the things of type StarDisplay.
+
+148
+00:07:27,000 --> 00:07:30,000
+There's only one of them. Great! So now,
+
+149
+00:07:30,000 --> 00:07:33,000
+we have access to the Star
+
+150
+00:07:33,000 --> 00:07:36,000
+Display. Question comes now, how are are going to
+
+151
+00:07:36,000 --> 00:07:39,000
+actually make a decision somewhere around the MouseDown,
+
+152
+00:07:39,000 --> 00:07:42,000
+to decide whether or not we can afford
+
+153
+00:07:42,000 --> 00:07:45,000
+using that enum that's coming back from
+
+154
+00:07:45,000 --> 00:07:48,000
+the StarDisplay SUCCESS or FAILURE. So basically,
+
+155
+00:07:48,000 --> 00:07:51,000
+we try and spend the money, we try and use the stars,
+
+156
+00:07:51,000 --> 00:07:54,000
+based on the cost of the Defender. If it's successful,
+
+157
+00:07:54,000 --> 00:07:57,000
+we go ahead and place. If it fails, we don't
+
+158
+00:07:57,000 --> 00:08:00,000
+place. So, that's going to be your challenge, is to finish off the
+
+159
+00:08:00,000 --> 00:08:03,000
+changes to DefenderSpawner. You're going to have to do some refactoring.
+
+160
+00:08:03,000 --> 00:08:06,000
+So here it is! Spawn
+
+161
+00:08:06,000 --> 00:08:09,000
+and use stars, if you can afford it. Otherwise, just log ("Insufficient
+
+162
+00:08:09,000 --> 00:08:12,000
+stars"), and then, test that it works
+
+163
+00:08:12,000 --> 00:08:15,000
+properly. Go ahead pause the video,
+
+164
+00:08:15,000 --> 00:08:18,000
+and try and get spending of stars working alongside,
+
+165
+00:08:18,000 --> 00:08:21,000
+now.
+
+166
+00:08:24,000 --> 00:08:27,000
+OK, first thing I would do before trying to modify this script is,
+
+167
+00:08:27,000 --> 00:08:30,000
+to try and make it a little bit more readable. So, I'm going to factor
+
+168
+00:08:30,000 --> 00:08:33,000
+out these bottom three lines here, which are
+
+169
+00:08:33,000 --> 00:08:36,000
+basically just to do with spawning the defender, right.
+
+170
+00:08:36,000 --> 00:08:39,000
+So, OnMouseDown doesn't read very well yet. Let's try
+
+171
+00:08:39,000 --> 00:08:42,000
+refactoring, down just below,
+
+172
+00:08:42,000 --> 00:08:45,000
+and just call it SpawnDefender.
+
+173
+00:08:45,000 --> 00:08:48,000
+Now, it's actually given us
+
+174
+00:08:48,000 --> 00:08:51,000
+a method with two parameters. The position,
+
+175
+00:08:51,000 --> 00:08:54,000
+the rounded position we want to spawn it at and the defender itself.
+
+176
+00:08:54,000 --> 00:08:57,000
+That's absolutely fine, that's great use of the Refactor
+
+177
+00:08:57,000 --> 00:09:00,000
+Tool. So now, this OnMouseDown reads a bit better,
+
+178
+00:09:00,000 --> 00:09:03,000
+right. We calculate the world position of the mouse click.
+
+179
+00:09:03,000 --> 00:09:06,000
+We round it.
+
+180
+00:09:06,000 --> 00:09:09,000
+We decide what our defender we're going to spawn is, based on the
+
+181
+00:09:09,000 --> 00:09:12,000
+static Button.selectedDefender; Remember over in Button?
+
+182
+00:09:12,000 --> 00:09:15,000
+We have a static selectedDefender;
+
+183
+00:09:15,000 --> 00:09:18,000
+What that is, is it's the class level keeping
+
+184
+00:09:18,000 --> 00:09:21,000
+track of which of these four buttons is pressed here.
+
+185
+00:09:21,000 --> 00:09:24,000
+So, that's absolutely fine!
+
+186
+00:09:24,000 --> 00:09:27,000
+Then, we go ahead and spawn the Defender.
+
+187
+00:09:27,000 --> 00:09:30,000
+So now, all that remains is for us to wrap a little bit of
+
+188
+00:09:30,000 --> 00:09:33,000
+logic around this SpawnDefender. We don't always want to
+
+189
+00:09:33,000 --> 00:09:36,000
+do it. What we want to say is, if (starDisplay
+
+190
+00:09:36,000 --> 00:09:39,000
+.UseStars
+
+191
+00:09:39,000 --> 00:09:42,000
+(defenderCost).
+
+192
+00:09:42,000 --> 00:09:45,000
+Now, what's the defenderCost? Well, I don't know.
+
+193
+00:09:45,000 --> 00:09:48,000
+We'll work that out in a moment. That's something that we just don't have
+
+194
+00:09:48,000 --> 00:09:51,000
+yet, but let's just get the logic sorted.
+
+195
+00:09:57,000 --> 00:10:00,000
+OK, so
+
+196
+00:10:00,000 --> 00:10:03,000
+what am I saying there? if
+
+197
+00:10:03,000 --> 00:10:06,000
+when we call the Use
+
+198
+00:10:06,000 --> 00:10:09,000
+Stars method, on the StarDisplay... So, we say to the StarDisplay, let's
+
+199
+00:10:09,000 --> 00:10:12,000
+use a certain number of stars.
+
+200
+00:10:12,000 --> 00:10:15,000
+We don't have that yet, we haven't found that. I'll put that in, in a moment.
+
+201
+00:10:15,000 --> 00:10:18,000
+But if the result of that function
+
+202
+00:10:18,000 --> 00:10:21,000
+call is this
+
+203
+00:10:21,000 --> 00:10:24,000
+SUCCESS enum, StarDisplay
+
+204
+00:10:24,000 --> 00:10:27,000
+.Status.SUCCESS. You see we've made a public enum,
+
+205
+00:10:27,000 --> 00:10:30,000
+over in StarDisplay. if
+
+206
+00:10:30,000 --> 00:10:33,000
+that is SUCCESS, then we spawn the Defender.
+
+207
+00:10:39,000 --> 00:10:42,000
+Otherwise, what do we do? Well, I just said that we
+
+208
+00:10:42,000 --> 00:10:45,000
+need to log.
+
+209
+00:10:45,000 --> 00:10:48,000
+("Insufficient stars
+
+210
+00:10:48,000 --> 00:10:51,000
+to spawn");
+
+211
+00:10:51,000 --> 00:10:54,000
+Alright, so that's
+
+212
+00:10:54,000 --> 00:10:57,000
+where we're using the enum. Now, of course we need to determine what this defender cost
+
+213
+00:10:57,000 --> 00:11:00,000
+is, so let's just go ahead and find the defender cost. Where are we
+
+214
+00:11:00,000 --> 00:11:03,000
+going to get that from? It's an integer,
+
+215
+00:11:03,000 --> 00:11:06,000
+int defenderCost = right defender,
+
+216
+00:11:06,000 --> 00:11:09,000
+which we've found. We found it here, just above.
+
+217
+00:11:09,000 --> 00:11:12,000
+Dot what? Where is this defender
+
+218
+00:11:12,000 --> 00:11:15,000
+cost? Well it's on the Defender Script, right. The Defender is a GameObject,
+
+219
+00:11:15,000 --> 00:11:18,000
+so we need to GetComponent
+
+220
+00:11:18,000 --> 00:11:21,000
+&lt;Defender&gt;
+
+221
+00:11:21,000 --> 00:11:24,000
+of type Defender. It's a method so it needs the brackets (),
+
+222
+00:11:24,000 --> 00:11:27,000
+.starCost;
+
+223
+00:11:27,000 --> 00:11:30,000
+If we do that, now we have the defenderCost
+
+224
+00:11:30,000 --> 00:11:33,000
+in number of stars here. We call the method, starDisplay.UseStars.
+
+225
+00:11:33,000 --> 00:11:36,000
+For instance, it may be 10. If
+
+226
+00:11:36,000 --> 00:11:39,000
+we succeed, if the StarDisplay says OK
+
+227
+00:11:39,000 --> 00:11:42,000
+you've got enough return SUCCESS. Then, we carry on
+
+228
+00:11:42,000 --> 00:11:45,000
+and spawn. If we don't, we Log ("Insufficient stars to spawn");
+
+229
+00:11:45,000 --> 00:11:48,000
+And by doing this, we're passing proper
+
+230
+00:11:48,000 --> 00:11:51,000
+meaning back, from StarDisplay to the DefenderSpawner.
+
+231
+00:11:51,000 --> 00:11:54,000
+You could make this method a Bool,
+
+232
+00:11:54,000 --> 00:11:57,000
+and then, this would just read, if UseStars
+
+233
+00:11:57,000 --> 00:12:00,000
+blah, otherwise return an ERROR. But it's
+
+234
+00:12:00,000 --> 00:12:03,000
+a bit weird to just say, if StarDisplay.UseStars.
+
+235
+00:12:03,000 --> 00:12:06,000
+What do you mean if? I mean, we're making an assumption that
+
+236
+00:12:06,000 --> 00:12:09,000
+true means it succeeded and false means it didn't. That may be OK,
+
+237
+00:12:09,000 --> 00:12:12,000
+but it's really hard to name this UseStars
+
+238
+00:12:12,000 --> 00:12:15,000
+method properly, if you use that type of
+
+239
+00:12:15,000 --> 00:12:18,000
+Boolean. You certainly don't want to pass a string back,
+
+240
+00:12:18,000 --> 00:12:21,000
+so to me it makes sense. It's just another
+
+241
+00:12:21,000 --> 00:12:24,000
+tool in your armory, to pass an enum back right.
+
+242
+00:12:24,000 --> 00:12:27,000
+So, that's what we're doing here. Let's test and see if this works.
+
+243
+00:12:30,000 --> 00:12:33,000
+Hit play. Now, I thought I'd
+
+244
+00:12:33,000 --> 00:12:36,000
+set myself 100 in the bank, to start with. So, where's the Star
+
+245
+00:12:36,000 --> 00:12:39,000
+Display? int stars = 100! What's
+
+246
+00:12:39,000 --> 00:12:42,000
+probably happening is that, the Inspector value of
+
+247
+00:12:42,000 --> 00:12:45,000
+that is probably overriding
+
+248
+00:12:45,000 --> 00:12:48,000
+or the Text is overriding.
+
+249
+00:12:48,000 --> 00:12:51,000
+Hmm, I think what I need to do on the Star
+
+250
+00:12:51,000 --> 00:12:54,000
+Display is just say stars = 100;
+
+251
+00:12:54,000 --> 00:12:57,000
+Let's try that.
+
+252
+00:12:57,000 --> 00:13:00,000
+I just want something to spend, at the beginning.
+
+253
+00:13:00,000 --> 00:13:03,000
+Still not coming out, so why are we not getting anything in here?
+
+254
+00:13:03,000 --> 00:13:06,000
+Why are the stars not updating, on the Start?
+
+255
+00:13:06,000 --> 00:13:09,000
+I know I've got 0 in here as the Text, but
+
+256
+00:13:09,000 --> 00:13:12,000
+the problem is that we're never updating the display at the
+
+257
+00:13:12,000 --> 00:13:15,000
+top here. OK, the Update
+
+258
+00:13:15,000 --> 00:13:18,000
+Display(); method, and we probably don't then need stars =
+
+259
+00:13:18,000 --> 00:13:21,000
+100. We just weren't updating the display before.
+
+260
+00:13:21,000 --> 00:13:24,000
+There you go! So, we don't need stars = 100, because
+
+261
+00:13:24,000 --> 00:13:27,000
+the variable is properly initialized at the top. We do need to call Update
+
+262
+00:13:27,000 --> 00:13:30,000
+Display(); straight on the Start. Alright, let's take a look!
+
+263
+00:13:30,000 --> 00:13:33,000
+What are the use cases here? Firstly, we need to be able to spend,
+
+264
+00:13:33,000 --> 00:13:36,000
+so OK that was expensive! That defender
+
+265
+00:13:36,000 --> 00:13:39,000
+was too expensive! Let's set the cost of all the defenders to
+
+266
+00:13:39,000 --> 00:13:42,000
+10, for now. So, I'm selecting all
+
+267
+00:13:42,000 --> 00:13:45,000
+of the prefabs and setting their Defender Script StarCost at 10.
+
+268
+00:13:45,000 --> 00:13:48,000
+Let's try 10
+
+269
+00:13:48,000 --> 00:13:51,000
+and ahh! That's good! Now, let's put some producers down.
+
+270
+00:13:51,000 --> 00:13:54,000
+Now, my stones
+
+271
+00:13:54,000 --> 00:13:57,000
+are permanently in the Agitated state. We can sort that out
+
+272
+00:13:57,000 --> 00:14:00,000
+later, but let's just make sure that our
+
+273
+00:14:00,000 --> 00:14:03,000
+spending is working. Yes, this is more like it!
+
+274
+00:14:03,000 --> 00:14:06,000
+So, sun is being produced and sun is being
+
+275
+00:14:06,000 --> 00:14:09,000
+spent. Awesome! So, take a look back
+
+276
+00:14:09,000 --> 00:14:12,000
+over the code, make sure you understand how this
+
+277
+00:14:12,000 --> 00:14:15,000
+works and why. Let's see what scripts we've actually touched.
+
+278
+00:14:15,000 --> 00:14:18,000
+We haven't touched Buttons. We only briefly touched Defender,
+
+279
+00:14:18,000 --> 00:14:21,000
+to introduce a starCost, which is the
+
+280
+00:14:21,000 --> 00:14:24,000
+obvious place for it to live. It's the Defender that costs a certain number of stars.
+
+281
+00:14:24,000 --> 00:14:27,000
+We then left that script alone. We went over to StarDisplay,
+
+282
+00:14:27,000 --> 00:14:30,000
+and we did a couple of things. We made an enum,
+
+283
+00:14:30,000 --> 00:14:33,000
+a public enum for SUCCESS or FAILURE. And then, we
+
+284
+00:14:33,000 --> 00:14:36,000
+used that in the UseStars method to say, well
+
+285
+00:14:36,000 --> 00:14:39,000
+return SUCCESS, if there are enough stars
+
+286
+00:14:39,000 --> 00:14:42,000
+for the amount being requested, and return FAILURE if
+
+287
+00:14:42,000 --> 00:14:45,000
+there aren't. And then, in the DefenderSpawner we
+
+288
+00:14:45,000 --> 00:14:48,000
+factored out the SpawnDefender code here. Very
+
+289
+00:14:48,000 --> 00:14:51,000
+simple method. And we said if
+
+290
+00:14:51,000 --> 00:14:54,000
+our UseStars method is successful, spawn the
+
+291
+00:14:54,000 --> 00:14:57,000
+defender, otherwise put ("Insufficient stars to spawn");
+
+292
+00:14:57,000 --> 00:15:00,000
+So, let's make sure that, that ("Insufficient stars to spawn")
+
+293
+00:15:00,000 --> 00:15:03,000
+log is happening. Let's just spend everything!
+
+294
+00:15:03,000 --> 00:15:06,000
+It's difficult, with this much sun production! No, I
+
+295
+00:15:06,000 --> 00:15:09,000
+almost can't do it! Ah, I have done it! Here you go! ("Insufficient
+
+296
+00:15:09,000 --> 00:15:12,000
+stars to spawn") is being logged. So that completes the challenge,
+
+297
+00:15:12,000 --> 00:15:15,000
+that completes the video, and congratulations on getting this far!
+

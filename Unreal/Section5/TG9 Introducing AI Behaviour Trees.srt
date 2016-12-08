@@ -1,0 +1,537 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+Hi
+
+2
+00:00:04,000 --> 00:00:08,000
+and welcome to Introducing AI Behaviour Trees! In this video we're going to make this
+
+3
+00:00:08,000 --> 00:00:12,000
+thing a Behavior Tree, which determines the actions that our AI
+
+4
+00:00:12,000 --> 00:00:16,000
+is going to take, so that our ThirdPersonCharacter has the foundations
+
+5
+00:00:16,000 --> 00:00:20,000
+ready to actually make him move and follow us and all that sort of thing.
+
+6
+00:00:20,000 --> 00:00:24,000
+We'll be writing a tiny bit of blueprint and making a
+
+7
+00:00:24,000 --> 00:00:27,200
+simple introduction to Behavior Trees! So I'll see you in there!
+
+8
+00:00:27,200 --> 00:00:31,200
+OK, so it's time to give our AI character some behavior, and to
+
+9
+00:00:31,200 --> 00:00:35,200
+do that we use something called a Behavior Tree, in Unreal. So let's go ahead and
+
+10
+00:00:35,200 --> 00:00:39,200
+add a Behavior Tree now. In your Content Browser Add New, scroll
+
+11
+00:00:39,200 --> 00:00:43,200
+down helpfully to the Artificial Intelligence section. And there are two things, we'll be
+
+12
+00:00:43,200 --> 00:00:47,200
+covering black boards in a minute, but for now, let's just go ahead with a Behavior
+
+13
+00:00:47,200 --> 00:00:51,200
+Tree. And it's going to come here into whichever folder its
+
+14
+00:00:51,200 --> 00:00:55,200
+in. We can over over it, once it's created, to see. It's in the Blueprints folder!
+
+15
+00:00:55,200 --> 00:00:59,200
+And of course, you can use F2 to rename it. So this is just going to be called
+
+16
+00:00:59,200 --> 00:01:03,200
+a patrolling behavior, for now, so I'll just simply call it Patrol.
+
+17
+00:01:03,200 --> 00:01:07,200
+OK, so what is a Behavior Tree? Let's to into it and take a look at it! It
+
+18
+00:01:07,200 --> 00:01:11,200
+starts off with a ROOT node, and from there, we can go ahead and go through a sequence
+
+19
+00:01:11,200 --> 00:01:15,200
+of actions or we can select what action to do next, based on
+
+20
+00:01:15,200 --> 00:01:19,200
+what's going on. So the Behavior Tree is going to be our way of mapping out how
+
+21
+00:01:19,200 --> 00:01:23,200
+obvious AI behavior should work. Now the first thing is to do something super
+
+22
+00:01:23,200 --> 00:01:27,200
+simple. We just want the AI to move to a specified point.
+
+23
+00:01:27,200 --> 00:01:31,200
+So how would you specify that point? Well that's what the other side of
+
+24
+00:01:31,200 --> 00:01:35,200
+Behavior Trees is, it's called Blackboards. So you'll see grayed out, at the top-right at the moment,
+
+25
+00:01:35,200 --> 00:01:39,200
+Blackboard, and you'll see Blackboard Asset and you'll see there are none to choose.
+
+26
+00:01:39,200 --> 00:01:43,200
+What a Blackboard does is it holds the data for a particular
+
+27
+00:01:43,200 --> 00:01:47,200
+instance of the AI, so a particular guard's next waypoint,
+
+28
+00:01:47,200 --> 00:01:51,200
+for example or a particular guard's alert status.
+
+29
+00:01:51,200 --> 00:01:55,200
+Has he seen the player? Is he hiding? Is he scared? Is he agro, as they call it? Whatever.
+
+30
+00:01:55,200 --> 00:01:59,200
+That's what you put on the Blackboard. So let's go ahead and make a Blackboard, as well! That's
+
+31
+00:01:59,200 --> 00:02:03,200
+over here. And we go ahead and say Add New, down to Artificial Intelligence,
+
+32
+00:02:03,200 --> 00:02:07,200
+and Blackboard. And what we can call this is, we can just call it
+
+33
+00:02:07,200 --> 00:02:11,200
+PatrolData, something like that, just to remind us what
+
+34
+00:02:11,200 --> 00:02:15,200
+it is. You're not allowed spaces, so PatrolData there. Back at the Patrol
+
+35
+00:02:15,200 --> 00:02:19,200
+Behavior Tree, you'll now be able to choose your Blackboard asset as PatrolData.
+
+36
+00:02:19,200 --> 00:02:23,200
+So now you've associated the Behavior Tree with that Blackboard. What
+
+37
+00:02:23,200 --> 00:02:27,200
+that's saying is that this is the execution flow in
+
+38
+00:02:27,200 --> 00:02:31,200
+the Behavior Tree, this is the methods if you like from the programming standpoint, and
+
+39
+00:02:31,200 --> 00:02:35,200
+Blackboard is the data, the private member variables.
+
+40
+00:02:35,200 --> 00:02:39,200
+OK fantastic! So that is that! Parent here we won't worry about. We're not going to
+
+41
+00:02:39,200 --> 00:02:43,200
+have child Blackboards yet, we just don't need the complexity. Great! So
+
+42
+00:02:43,200 --> 00:02:47,200
+that's all very well! We'll come back to Behavior Trees in just a little bit, because
+
+43
+00:02:47,200 --> 00:02:51,200
+right now, there's no reason for this ThirdPersonCharacter to take any notice
+
+44
+00:02:51,200 --> 00:02:55,200
+of the fact we've just created a Patrol Behavior Tree. So our job now
+
+45
+00:02:55,200 --> 00:02:59,200
+is to connect those two together. So let's, firstly, just play the game
+
+46
+00:02:59,200 --> 00:03:03,200
+and take a look in the World Outliner and let's see if we can
+
+47
+00:03:03,200 --> 00:03:07,200
+find an AIController in here. And there is one! In fact,
+
+48
+00:03:07,200 --> 00:03:11,200
+if I depossess and then click on this AIController or simply search
+
+49
+00:03:11,200 --> 00:03:15,200
+for it in the World Outliner and click on it, you can see that it's in the same position
+
+50
+00:03:15,200 --> 00:03:19,200
+as the ThirdPersonCharacter. It doesn't have to be, it could be
+
+51
+00:03:19,200 --> 00:03:23,200
+somewhere else in the world, but it makes sense to keep it there and that's where it comes as default. So
+
+52
+00:03:23,200 --> 00:03:27,200
+the ThirdPersonCharacter that we brought in has already got an
+
+53
+00:03:27,200 --> 00:03:31,200
+animation on it, it's already got a skeletal mesh, it's already got movement components, it's already
+
+54
+00:03:31,200 --> 00:03:35,200
+also got an AI Controller associated with it. The challenge is, right now,
+
+55
+00:03:35,200 --> 00:03:39,200
+that that AI Controller doesn't know what Behavior Tree to run, so it isn't
+
+56
+00:03:39,200 --> 00:03:43,200
+running currently any Behavior Tree. So what we're going to do is, we're
+
+57
+00:03:43,200 --> 00:03:47,200
+going to sort that out, and the way you sort that out is over in Blueprint. So before
+
+58
+00:03:47,200 --> 00:03:51,200
+we sort it out in Blueprint and I show you how to do that, I'm going to mention two resources.
+
+59
+00:03:51,200 --> 00:03:55,200
+Firstly, I have in the resources of this lecture, this is my behind
+
+60
+00:03:55,200 --> 00:03:59,200
+the scenes thing, but in the resources here, I have given you a link to Unreal's
+
+61
+00:03:59,200 --> 00:04:03,200
+docs about setting up the AI Controller. That looks like this, and it's part of a
+
+62
+00:04:03,200 --> 00:04:07,200
+series on this. I'm taking you through all of this but this gives you some further reading.
+
+63
+00:04:07,200 --> 00:04:11,200
+And the other thing is that I want you actually to do a challenge. I want you
+
+64
+00:04:11,200 --> 00:04:15,200
+to get the NPC the None Player Character, None
+
+65
+00:04:15,200 --> 00:04:19,200
+Player Character which is the Third Person that we've put in,
+
+66
+00:04:19,200 --> 00:04:23,200
+AI blueprint working. We can call it that, for now. It looks a bit ugly but it works
+
+67
+00:04:23,200 --> 00:04:27,200
+fine. I want you to create a new Blueprint class. Remember we can reparent
+
+68
+00:04:27,200 --> 00:04:31,200
+that Blueprint class to C++ later, if we need to. Make
+
+69
+00:04:31,200 --> 00:04:35,200
+it the default class for the placed AI. This is something you did
+
+70
+00:04:35,200 --> 00:04:39,200
+previously in Battle Tank, so I want you to recap this. Just make this new Blueprint class
+
+71
+00:04:39,200 --> 00:04:43,200
+the default class, and to prove it's working, go into the blueprint and then in
+
+72
+00:04:43,200 --> 00:04:47,200
+Begin Play just print to say, hey you know I'm working. So we want that AI
+
+73
+00:04:47,200 --> 00:04:51,200
+Controller to run its blueprint and to print out to say it's working. Then, I'll show you
+
+74
+00:04:51,200 --> 00:04:55,200
+the last bits to actually link up the Behavior Tree. So go ahead, pause the video,
+
+75
+00:04:55,200 --> 00:04:59,200
+and just get a new class working now! Remember it
+
+76
+00:04:59,200 --> 00:05:03,200
+needs to be a child of the AI Controller class.
+
+77
+00:05:03,200 --> 00:05:07,200
+OK welcome back!
+
+78
+00:05:07,200 --> 00:05:11,200
+Not too tricky, hopefully for you, at this stage in the course. So we're going to make a new Blueprint
+
+79
+00:05:11,200 --> 00:05:15,200
+class here. We're going to base it on, under All Classes, "ai controller",
+
+80
+00:05:15,200 --> 00:05:19,200
+like that, and then, we're just going to call it... I'm going to call it
+
+81
+00:05:19,200 --> 00:05:23,200
+what I said we were going to call it, which is NPC_
+
+82
+00:05:23,200 --> 00:05:27,200
+AI_BP (Blueprint), like that. It's all capitals just because it's all acronym.
+
+83
+00:05:27,200 --> 00:05:31,200
+And there you go, you have this class here sitting here doing very little right now,
+
+84
+00:05:31,200 --> 00:05:35,200
+but that's absolutely fine! So, in its Event Graph what we're going to do is go
+
+85
+00:05:35,200 --> 00:05:39,200
+to BeginPlay, and we're just going to print using the Blueprint print.
+
+86
+00:05:39,200 --> 00:05:43,200
+We'll be using a bit more Blueprint in this section, by the way, at least to prototype things in the first place,
+
+87
+00:05:43,200 --> 00:05:47,200
+and we're just going to see NPC AI Reporting
+
+88
+00:05:47,200 --> 00:05:51,200
+for Duty, or something like that. Now we can expand
+
+89
+00:05:51,200 --> 00:05:55,200
+out and make sure this is going to both the screen and the log, if we wish, and
+
+90
+00:05:55,200 --> 00:05:59,200
+then, compile that blueprint! And of course, if we play it right now nothing will happen! Why not?
+
+91
+00:05:59,200 --> 00:06:03,200
+Because the other part of the challenge, of course, for you is, you've got to work out how to
+
+92
+00:06:03,200 --> 00:06:07,200
+associate that with the AI Controller. How are you going to do that? Well,
+
+93
+00:06:07,200 --> 00:06:11,200
+If you look at the blueprint for this ThirdPersonCharacter,
+
+94
+00:06:11,200 --> 00:06:15,200
+then on the right-hand side here it says, Auto Possess AI for anything that's
+
+95
+00:06:15,200 --> 00:06:19,200
+placed in the world. So every time you place a ThirdPersonCharacter in the world, it will Auto Posses it with
+
+96
+00:06:19,200 --> 00:06:23,200
+AI, but currently, it's using the standard AI Controller class. What we want
+
+97
+00:06:23,200 --> 00:06:27,200
+is this NPC_AI_BP (Blueprint) class. Uh huh, let's
+
+98
+00:06:27,200 --> 00:06:31,200
+compile that and play the game! NPC_AI
+
+99
+00:06:31,200 --> 00:06:35,200
+reporting for duty! Did you see what we did there? We told the ThirdPersonCharacter
+
+100
+00:06:35,200 --> 00:06:39,200
+blueprint what AI Controller class to use by default,
+
+101
+00:06:39,200 --> 00:06:43,200
+and then, in that AI Controller class, on BeginPlay, we printed some stuff out. Let me just get rid of
+
+102
+00:06:43,200 --> 00:06:47,200
+this funny comment box here. There you go! So to associate
+
+103
+00:06:47,200 --> 00:06:51,200
+this AI Controller with that particular Behavior Tree, we're going to get rid of
+
+104
+00:06:51,200 --> 00:06:55,200
+the Print String, come off of BeginPlay, and just look for Behavior Tree.
+
+105
+00:06:55,200 --> 00:06:59,200
+And we're going to say run a Behavior Tree, straight away on BeginPlay run a Behavior Tree. Which
+
+106
+00:06:59,200 --> 00:07:03,200
+Behavior Tree? Well the Patrol Behavior Tree. Great! So hopefully
+
+107
+00:07:03,200 --> 00:07:07,200
+that's working. If we play the game, we won't see any evidence it's working. The print statement has
+
+108
+00:07:07,200 --> 00:07:11,200
+gone away, and in theory, this guy is running his Behavior Tree. How would we know? Well you can actually
+
+109
+00:07:11,200 --> 00:07:15,200
+go into the Patrol Data Behavior Tree, and you can actually see this ROOT
+
+110
+00:07:15,200 --> 00:07:19,200
+node is highlighted here now. So that's a good sign, it means it is actually running
+
+111
+00:07:19,200 --> 00:07:23,200
+this Behavior Tree. So let's just finish this off by making it do something.
+
+112
+00:07:23,200 --> 00:07:27,200
+And we can use to start with, for example, a Selector. What a Selector
+
+113
+00:07:27,200 --> 00:07:31,200
+does is it just executes all the children nodes from left to right, until one of us
+
+114
+00:07:31,200 --> 00:07:35,200
+succeeds and then it stops working. So we're going to pick one
+
+115
+00:07:35,200 --> 00:07:39,200
+child node, and let's just have it say Move To somewhere.
+
+116
+00:07:39,200 --> 00:07:43,200
+Now this is where we need Blackboard, which I will make the subject
+
+117
+00:07:43,200 --> 00:07:47,200
+of the next lecture. It cannot move to just any old position, it can only move to
+
+118
+00:07:47,200 --> 00:07:51,200
+a Blackboard key, which is where the data comes in. So you see the
+
+119
+00:07:51,200 --> 00:07:55,200
+execution flow is here. You start, you execute these children nodes left to right, we may have
+
+120
+00:07:55,200 --> 00:07:59,200
+another node here, and then, you move to a particular place but it needs data now, and data
+
+121
+00:07:59,200 --> 00:08:03,200
+is a subject of Blackboards, which I'll introduce in the next video. Let me just show you once
+
+122
+00:08:03,200 --> 00:08:07,200
+more that you want to get your project to this stage, which is that you click play.
+
+123
+00:08:07,200 --> 00:08:11,200
+If you then go to the Patrol Behavior Tree, you can see it's working.
+
+124
+00:08:11,200 --> 00:08:15,200
+It's gone through ROOT to the Selector,
+
+125
+00:08:15,200 --> 00:08:19,200
+and it's trying to do this Move To, that is what this is indicating. It's not going to
+
+126
+00:08:19,200 --> 00:08:23,200
+work, because it has an invalid piece of data, which we'll sort out next. So
+
+127
+00:08:23,200 --> 00:08:27,200
+congratulations on getting this far, and I'll see you in the next video! Just before I
+
+128
+00:08:27,200 --> 00:08:31,200
+leave, there's one final warning! When you try and submit to Source Control, using the
+
+129
+00:08:31,200 --> 00:08:35,200
+Unreal tool, even if you've saved everything first, it's going to say there's nothing
+
+130
+00:08:35,200 --> 00:08:39,200
+to submit, and that's because everything we just did in that video was creating
+
+131
+00:08:39,200 --> 00:08:43,200
+new assets and the source control only seems to be tracking, at the moment, with Git
+
+132
+00:08:43,200 --> 00:08:47,200
+changes to existing files. So if you go and look over on SourceTree,
+
+133
+00:08:47,200 --> 00:08:51,200
+you'll find that it has found the change to the map and these other assets. So just make your
+
+134
+00:08:51,200 --> 00:08:54,433
+Commit here in SourceTree.
+

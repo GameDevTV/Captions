@@ -1,0 +1,407 @@
+Kind: captions
+Language: en
+
+00:00:00,000 --> 00:00:08,929
+So hello, and welcome back. In this video
+we're going to be looking at how to add
+
+00:00:08,929 --> 00:00:14,799
+enemies to our scenes, spawn an enemy, because we've got a player ship. If we take a
+
+00:00:14,799 --> 00:00:19,970
+look at our game right now, we have a
+player ship we can control, but we have
+
+00:00:19,970 --> 00:00:26,199
+no enemy on the play space. So I think
+it's time we added some. So what are the first
+
+00:00:26,199 --> 00:00:29,660
+things we going to do? Well, we're going
+to create an enemy prefab. Create
+
+00:00:29,660 --> 00:00:32,989
+a spawner that will generate an enemy at
+runtime or created an enemy when it
+
+00:00:32,989 --> 00:00:38,390
+starts, and that's pretty much it. And in
+fact, your first job is to create the
+
+00:00:38,390 --> 00:00:43,590
+prefab. So go and dig into the bundled
+artists download you got at the
+
+00:00:43,590 --> 00:00:49,000
+beginning of this section, and make me an enemy prefab. So that will be whatever
+
+00:00:49,000 --> 00:00:54,710
+ship you choose, whatever enemy ship
+you'll choose as a prefab, that I can
+
+00:00:54,710 --> 00:00:59,890
+dump into my game and use later. So
+do that now. Pause the video and create
+
+00:00:59,890 --> 00:01:07,470
+an enemy prefab.
+
+00:01:07,470 --> 00:01:13,360
+So how about that enemy? How did it go? I'm going to create my enemy
+
+00:01:13,360 --> 00:01:20,690
+prefab just about now. So the first thing I'm going to do... I'm going to grab import assets so [Humming]
+
+00:01:20,690 --> 00:01:28,890
+I want to grab my new enemy sprite,
+which I'm going to get from my assets. I can
+
+00:01:28,890 --> 00:01:35,060
+look at that in the right repository. I
+have got all my assets loaded in a
+
+00:01:35,060 --> 00:01:38,820
+special repository down here.
+
+00:01:38,820 --> 00:01:43,119
+My bundle of assets, in space shooter redux.
+
+00:01:43,119 --> 00:01:48,700
+I go to my PNG folder, and which
+enemy do I want? I've got an enemies folder. I think the
+
+00:01:48,700 --> 00:01:53,100
+look of the black... the enemy black too looks quite threatening. I kind of like
+
+00:01:53,100 --> 00:02:00,750
+that one. So that's going to be my enemy. And to bring it into our game, what do I do?  I drag
+
+00:02:00,750 --> 00:02:03,810
+and drop it into my assets, and here
+we go.
+
+00:02:03,810 --> 00:02:08,060
+It's come in. It's come in as a sprite,
+which is what I had needed. Which is
+
+00:02:08,060 --> 00:02:14,110
+exactly what I want. I drop into my game,
+and I've got an enemy. I'm going to rename it, this
+
+00:02:14,110 --> 00:02:22,920
+dude, instead of enemy black 2, Enemy, to make it very clear. No confusion. And I want
+
+00:02:22,920 --> 00:02:27,700
+that as a prefab. Drag it back, and I've
+now got a prefab. I'm going to do some
+
+00:02:27,700 --> 00:02:31,000
+organization now. I think it's getting a
+little bit messy. I'm going to show you an
+
+00:02:31,000 --> 00:02:35,510
+alternative way of ordering your folders
+around. I'm going to create a new folder,
+
+00:02:35,510 --> 00:02:41,580
+which is named Entities; if I can spell that
+right. If you haven't thought... if you
+
+00:02:41,580 --> 00:02:45,600
+haven't figured it out, yet my spelling
+is pretty bad. I'm going to create a new
+
+00:02:45,600 --> 00:02:53,280
+folder inside Entities, which is my Enemy. And I'm also going to create a folder
+
+00:02:53,280 --> 00:02:59,110
+inside my Entities, which is going to be
+my Player. So that's just an alternative
+
+00:02:59,110 --> 00:03:07,680
+way of organizing your CEO assets, and I've got to grab everything that's to do with
+
+00:03:07,680 --> 00:03:13,260
+my enemy. So that's my enemy prefab and my enemy sprite and everything else, and I'm going to put them
+
+00:03:13,260 --> 00:03:20,460
+in my Enemy folder.  And I'm going to do the same with stuff that's to do with my player. I'm just gonna
+
+00:03:20,460 --> 00:03:25,040
+grab all of that and put it in my
+player folder.
+
+00:03:25,040 --> 00:03:27,900
+Here we go! Cool! So now, we have an Entities folder,
+
+00:03:27,900 --> 00:03:33,820
+with a player and an enemy. I've got my enemy prefab. So how about we get an enemy
+
+00:03:33,820 --> 00:03:37,280
+spawning at the beginning of the game?
+Create an enemy, an enemy spawner.
+
+00:03:37,280 --> 00:03:41,880
+What's the first thing I'm going to do? Well, I'm going to create an empty game object. So in
+
+00:03:41,890 --> 00:03:46,100
+my empty game object, I'm going to rename this guy. I'm going to rename him
+
+00:03:46,100 --> 00:03:54,130
+to enemies or Enemy Formation, which is a way of saying that's the enemy that's now going
+
+00:03:54,130 --> 00:04:00,330
+to attack me. And so my enemy formation, we want at the beginning of this game. We don't want
+
+00:04:00,330 --> 00:04:03,850
+an enemy in the actual play space. I can delete that one. Remember, it accepts delete because
+
+00:04:03,850 --> 00:04:08,170
+it's a prefab and you can tell because
+it's blue. So I'm grabbing my enemy and I'm
+
+00:04:08,170 --> 00:04:11,120
+deleting it, and I've got an enemy formation and the first thing I want to
+
+00:04:11,120 --> 00:04:15,750
+happen in my game, is an enemy arrives at the enemy formation. So let's check out
+
+00:04:15,750 --> 00:04:17,860
+where the enemy formation is. Well its at
+
+00:04:17,860 --> 00:04:23,680
+00. That looks about right to my eye, to compare to my here ship, so that sounds
+
+00:04:23,680 --> 00:04:28,010
+ok. And I want to export an enemy
+so I'm just going to create a new component
+
+00:04:28,010 --> 00:04:38,460
+called EnemySpawner. It's a script. It's a
+C# script. Create and Add. And I'm
+
+00:04:38,460 --> 00:04:42,860
+going to spawn an enemy at runtime. The
+first... the only thing I want to do
+
+00:04:42,860 --> 00:04:48,420
+is create an enemy. No auto-save has been found for this file. Wow, what is going on!
+
+00:04:48,420 --> 00:04:54,000
+Well, I don't know I [Mumbles] use original file. That sounds about right. So here we go,
+
+00:04:54,000 --> 00:04:59,400
+we've got an enemy spawner. On start I want to create a new enemy. So what I'm going to do...
+
+00:04:59,410 --> 00:05:06,110
+use to create my enemy, is the Instantiate function, and this Instantiate function... If I can
+
+00:05:06,110 --> 00:05:11,230
+spell it. Here we go, Instantiate. The first
+thing it takes, and you can check it out
+
+00:05:11,230 --> 00:05:16,590
+by opening the parent, is an object. And
+I'm going to take in an enemy
+
+00:05:16,590 --> 00:05:18,840
+prefab object,
+
+00:05:18,840 --> 00:05:23,840
+which I don't have yet. I don't have that
+defined... what that is or where that is.
+
+00:05:23,840 --> 00:05:28,420
+I'm going to take a position and a quaternion. Now, you don't need to worry too much.
+
+00:05:28,430 --> 00:05:34,660
+about what a quaternion is. It's basically about the rotation of the thing, but we don't
+
+00:05:34,660 --> 00:05:38,470
+need to worry about that too much.
+The vector 3 position is going to be a
+
+00:05:38,470 --> 00:05:48,350
+new Vector3, not vector 2, and I'm
+going to put it at the origin and my
+
+00:05:48,350 --> 00:05:56,260
+quaternion I can put in, Quaternion.identity
+And that will not have any rotational
+
+00:05:56,260 --> 00:06:03,010
+effect. So what's this enemy prefab? Well,
+I'm going to pass that into my editor,
+
+00:06:03,010 --> 00:06:10,630
+through my editors, through drag-and-drop. So I want a public GameObject enemyPrefab.
+
+00:06:10,630 --> 00:06:22,250
+Right! Awesome! So now I've got this enemy prefab. I can save it; save my script.
+
+00:06:22,250 --> 00:06:26,160
+And no special characters coming randomly, because I'm typing the wrong thing on
+
+00:06:26,160 --> 00:06:32,860
+my keyboard. So I've  got my enemy prefab. I go back into my editor, and that should
+
+00:06:32,870 --> 00:06:38,419
+appear shortly. And then I can drag
+and drop my enemy prefab into my script,
+
+00:06:38,419 --> 00:06:43,750
+and on start i should see that. When I
+play the game right now, there's nothing
+
+00:06:43,750 --> 00:06:49,400
+there, but when I press play, drum roll,
+yeah an enemy appears. Brilliant! So now, we've
+
+00:06:49,400 --> 00:06:53,889
+got an enemy coming up in our scene.
+Hopefully you managed to create the
+
+00:06:53,889 --> 00:06:58,700
+prefab yourself. You've got so far, we
+are asked to get the enemy appearing on
+
+00:06:58,700 --> 00:07:02,630
+start. I want to make sure that, instead
+of being at the top level here, my
+
+00:07:02,630 --> 00:07:07,570
+enemy is under my enemy formation. Enemies are in a formation, and I want to keep my
+
+00:07:07,570 --> 00:07:15,580
+scene hierarchy tidy, and so to do that
+I'm going to change my scripts. So stop the play..
+
+00:07:15,580 --> 00:07:23,840
+Jump back into my script. So I'm going to get my enemy, I wanted to be under enemy
+
+00:07:23,849 --> 00:07:28,110
+spawner. So under the enemy formation,
+remember the enemy spawner script is
+
+00:07:28,110 --> 00:07:29,800
+attached to the enemy formation.
+
+00:07:29,800 --> 00:07:33,979
+So the transform I've got access to,
+within my enemy spawner, is the
+
+00:07:33,979 --> 00:07:40,039
+transform of my enemy formation, and so
+what I want to do is make sure that the
+
+00:07:40,039 --> 00:07:45,530
+enemy gets instantiated inside the enemy
+formation and to do that I once have... What
+
+00:07:45,530 --> 00:07:52,669
+I can do is get my enemy out of
+instantiate. So I want a GameObject
+
+00:07:52,669 --> 00:07:57,159
+enemy, and that's the actual enemy that
+we've just created here using instantiate.
+
+00:07:57,159 --> 00:08:06,569
+And I have to here type, as GameObject,
+because what comes out of instantiate is
+
+00:08:06,569 --> 00:08:09,870
+actually an object and not a GameObject. So we need to tell it,
+
+00:08:09,870 --> 00:08:13,629
+hey dude, this instantiate function is a
+returning object. But actually I'm just going
+
+00:08:13,629 --> 00:08:17,900
+to consider it a GameObject, and this is
+what this as GameObject does. And the
+
+00:08:17,900 --> 00:08:21,500
+syntax highlighting will catch up with
+us I promise.
+
+00:08:21,500 --> 00:08:28,250
+Space sheep [Laughs]. Here we go, the syntax highlighting has caught up with us now.
+
+00:08:28,250 --> 00:08:36,010
+So transform, to change the enemy's
+parent in the scene... in the scene graph.
+
+00:08:36,010 --> 00:08:37,329
+Right, we can do
+
+00:08:37,329 --> 00:08:45,480
+enemy.transform, and it has a dot
+parent property and we can set this to
+
+00:08:45,480 --> 00:08:51,470
+be equal to our transform. So that's
+the transform of whatever this enemy
+
+00:08:51,470 --> 00:08:56,920
+spawner script is attached to. In our
+case that would be the enemy formation.
+
+00:08:56,920 --> 00:09:02,220
+So if we save it now, and we jump back
+into our scene and press play, we should
+
+00:09:02,220 --> 00:09:07,589
+see that the enemy is spawned within
+the enemy formation, neatly keeping
+
+00:09:07,589 --> 00:09:13,660
+everything in its place. We've got an enemy formation and an enemy clone there. So brilliant! What
+
+00:09:13,660 --> 00:09:17,660
+have we done? Let's take a look at what
+we've done so far. Have we've built a spawner
+
+00:09:17,660 --> 00:09:25,020
+that is attached to a GameObject and
+that as a reference to an enemy prefab,
+
+00:09:25,020 --> 00:09:29,630
+which it uses inside instantiate, so the
+beginning of instantiate we pattern the
+
+00:09:29,630 --> 00:09:33,790
+enemy prefab and create a new enemy? Yes, we have. We have built a spawner that takes in an enemy
+
+00:09:33,790 --> 00:09:38,500
+prefab and creates it. Have we made sure that the new enemy we've just
+
+00:09:38,500 --> 00:09:40,630
+created from the prefab template
+
+00:09:40,630 --> 00:09:46,170
+is childed properly to a GameObject, so
+that we keep our scene tidy and we know
+
+00:09:46,170 --> 00:09:50,690
+where all the enemies are? Yes, indeed, we have. We've used the transform.parent
+
+00:09:50,690 --> 00:09:56,470
+property to make sure that the enemy has
+a parent of the enemy formation. So
+
+00:09:56,470 --> 00:10:02,560
+that's it for now, in this video. We've now
+happily created a spawner that will create
+
+00:10:02,560 --> 00:10:08,440
+one enemy at the start of the game. We'll
+be expanding on this a lot in other
+
+00:10:08,440 --> 00:10:13,250
+videos, but for now, we've got this far.
+It's a great starting point, so well done,
+
+00:10:13,250 --> 00:10:15,400
+and I'll see you later! Bye for now!
+

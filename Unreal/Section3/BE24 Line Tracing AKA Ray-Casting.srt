@@ -1,0 +1,621 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+So, welcome to
+
+2
+00:00:04,000 --> 00:00:08,000
+Line Tracking also known as Ray-Casting. In this video,
+
+3
+00:00:08,000 --> 00:00:12,000
+I'm going to explain that line tracking, also known as ray casting, is a very useful tool in game development,
+
+4
+00:00:12,000 --> 00:00:16,000
+used for all sorts of things from laser trip wires to predicting
+
+5
+00:00:16,000 --> 00:00:20,000
+paths of bullets, to what we're going to use it for, which is reaching out and working out what we can grab
+
+6
+00:00:20,000 --> 00:00:24,000
+and pick up. So, imagine we shine a virtual laser into the world. That's the essence
+
+7
+00:00:24,000 --> 00:00:28,000
+of what we're doing here, and we've got the ability to interrogate what's actually been
+
+8
+00:00:28,000 --> 00:00:32,000
+hit. We can use different view modes, in the engine, to visualize
+
+9
+00:00:32,000 --> 00:00:36,000
+what we would actually end up intercepting with, and that's really cool, and you'll see that in a moment.
+
+10
+00:00:36,000 --> 00:00:40,000
+And we will be simply simulating physics on
+
+11
+00:00:40,000 --> 00:00:44,000
+objects that we want to be able to lift, and by setting simulate physics, we are going to be
+
+12
+00:00:44,000 --> 00:00:48,000
+setting the object channel, which is what the ray cast is going to use
+
+13
+00:00:48,000 --> 00:00:52,000
+to ignore things like floors, walls, and doors, and to focus on the things that we want to
+
+14
+00:00:52,000 --> 00:00:56,000
+be able to lift, like tables, chairs, and the like. So, let's dive in and see
+
+15
+00:00:56,000 --> 00:01:00,000
+how it works. By the end of the video, you'll be doing things like visualizing your world from a
+
+16
+00:01:00,000 --> 00:01:04,000
+collision viewpoint like this, and you'll also have read a very helpful blog post
+
+17
+00:01:04,000 --> 00:01:07,200
+from Unreal, that will help you understand this stuff.
+
+18
+00:01:07,200 --> 00:01:11,200
+So this debug trace we've drawn is just to help us
+
+19
+00:01:11,200 --> 00:01:15,200
+visualize what's going on, but the system is not actually doing a line trace
+
+20
+00:01:15,200 --> 00:01:19,200
+or ray cast yet, that's a completely different thing. By the way,
+
+21
+00:01:19,200 --> 00:01:23,200
+this debug trace will still exist if you hit launch rather than play.
+
+22
+00:01:23,200 --> 00:01:27,200
+What hitting launch will do is actually make a version for your platform, your Mac, your
+
+23
+00:01:27,200 --> 00:01:31,200
+PC, and it'll make an executable. It is a good idea to actually
+
+24
+00:01:31,200 --> 00:01:35,200
+build and run the game properly like this. This is an actual PC app now,
+
+25
+00:01:35,200 --> 00:01:39,200
+a 64 bit PC app. And you'll see we've still got this debug trace there,
+
+26
+00:01:39,200 --> 00:01:43,200
+we've also got some warnings about the lighting, because we didn't rebuild the lighting. So,
+
+27
+00:01:43,200 --> 00:01:47,200
+it does stay there, even when you're not inside the editor, but it isn't
+
+28
+00:01:47,200 --> 00:01:51,200
+actually... By the way, to get out it's Alt + F + 4 on the PC or Command
+
+29
+00:01:51,200 --> 00:01:55,200
+and W on a Mac. But it isn't actually a ray cast, we
+
+30
+00:01:55,200 --> 00:01:59,200
+can't actually query to say what it's hitting, it's not intercepting anything, etc. So,
+
+31
+00:01:59,200 --> 00:02:03,200
+what we need to do is think about how we're actually going to line
+
+32
+00:02:03,200 --> 00:02:07,200
+trace in the world. Before I show you lots of cool things, I want you to  just do something which is
+
+33
+00:02:07,200 --> 00:02:11,200
+to go and read Unreal's blog post here, about collision filtering,
+
+34
+00:02:11,200 --> 00:02:15,200
+and I want you to, when you read it, realize that the same rules apply
+
+35
+00:02:15,200 --> 00:02:19,200
+to the line tracing that we're going to be doing and share your understanding
+
+36
+00:02:19,200 --> 00:02:23,200
+of collision filtering in the discussions for us. I'll just click the blog so you
+
+37
+00:02:23,200 --> 00:02:27,200
+can see you're going to the right place. When you arrive, it
+
+38
+00:02:27,200 --> 00:02:31,200
+should look something like this. My broadband is on the go slow this evening. There you go, that's what you're looking for! So,
+
+39
+00:02:31,200 --> 00:02:35,200
+go ahead, pause the video, take a quick read of this now!
+
+40
+00:02:35,200 --> 00:02:39,200
+Cool welcome back! So, this world
+
+41
+00:02:39,200 --> 00:02:43,200
+here, on the left hand side, you're seeing the visibility geometry, the visible
+
+42
+00:02:43,200 --> 00:02:47,200
+geometry of the world all the complex geometry. On the right, you've got a very simplified version
+
+43
+00:02:47,200 --> 00:02:51,200
+which is used for collision and for line tracing in the world. Now,
+
+44
+00:02:51,200 --> 00:02:55,200
+back in Unreal look at this, we can actually do this. What we
+
+45
+00:02:55,200 --> 00:02:59,200
+can do is we can click on the top-left of our 3D Viewport, where it
+
+46
+00:02:59,200 --> 00:03:03,200
+is lit, and click on there and you get a load of view modes. One of those is Player
+
+47
+00:03:03,200 --> 00:03:07,200
+Collision. That immediately shows us a couple of problems, the light
+
+48
+00:03:07,200 --> 00:03:11,200
+cyan stuff here is static meshes. Now, the chair, of course,
+
+49
+00:03:11,200 --> 00:03:15,200
+should be moveable. So, if you click on the chair, click on details, and go
+
+50
+00:03:15,200 --> 00:03:19,200
+over to Moveable there under the transform, we've not made the chair
+
+51
+00:03:19,200 --> 00:03:23,200
+moveable because we want it to be moveable. The other problem that it shows up is that the doors
+
+52
+00:03:23,200 --> 00:03:27,233
+are not collidable with. And actually, if I play my game in
+
+53
+00:03:27,233 --> 00:03:31,200
+normal lit view, I can pass straight through the doors right now.
+
+54
+00:03:31,200 --> 00:03:35,200
+There you go! So,
+
+55
+00:03:35,200 --> 00:03:39,200
+why can I pass through the doors? Well, this is actually a version control problem. Do you remember
+
+56
+00:03:39,200 --> 00:03:43,200
+that we used to ignore the starter content? And if you look at a door and right-click
+
+57
+00:03:43,200 --> 00:03:47,200
+and go Edit SM_Door, my door doesn't
+
+58
+00:03:47,200 --> 00:03:51,200
+have its collision mesh on it anymore, so make sure your door does. If it doesn't,
+
+59
+00:03:51,200 --> 00:03:55,200
+add another Box Collider on and save. And when you
+
+60
+00:03:55,200 --> 00:03:59,200
+save that, you'll notice from the source control, if we look at what's different right
+
+61
+00:03:59,200 --> 00:04:03,200
+now... Just wait a second, here you go! ...that there's a door asset
+
+62
+00:04:03,200 --> 00:04:07,200
+file here, it's the only thing I've changed in this video, and it's stored in the starter content
+
+63
+00:04:07,200 --> 00:04:11,200
+folder. We used to ignore the starter content, so what happened is we lost those changes,
+
+64
+00:04:11,200 --> 00:04:15,200
+we lost track of those changes. If at this stage you think, well
+
+65
+00:04:15,200 --> 00:04:19,200
+actually what are we tracking and what aren't we tracking in source control? Then, just go
+
+66
+00:04:19,200 --> 00:04:23,200
+ahead and take a look all the way back here at
+
+67
+00:04:23,200 --> 00:04:27,200
+your .getignore, and remind yourself what you're ignoring. We're happy ignoring these
+
+68
+00:04:27,200 --> 00:04:31,200
+folders, we talked about those earlier. We are still ignoring Textures and
+
+69
+00:04:31,200 --> 00:04:35,200
+HDRI. They're the only things we're ignoring in the starter content.
+
+70
+00:04:35,200 --> 00:04:39,200
+So, still if you change anything in these folders, any of your Textures or HDRI stuff,
+
+71
+00:04:39,200 --> 00:04:43,200
+it will get forgotten but everything else will be remembered now. So, always keep in
+
+72
+00:04:43,200 --> 00:04:47,200
+touch with what you're ignoring. We're ignoring those things, of course, because they're huge remember.
+
+73
+00:04:47,200 --> 00:04:51,200
+OK, so here we are! We've read that blog, we've got some
+
+74
+00:04:51,200 --> 00:04:55,200
+idea that this world has visability
+
+75
+00:04:55,200 --> 00:04:59,200
+that can be looked at two ways. You can either look at it from a collision point of view, which is showing
+
+76
+00:04:59,200 --> 00:05:03,200
+us the trigger volume here, the static meshes here, and now the dynamic things
+
+77
+00:05:03,200 --> 00:05:07,200
+which are both the door and the chair. Or you can look at things from a Visability
+
+78
+00:05:07,200 --> 00:05:11,200
+Collision viewpoint. Now, if you click on that, you're not seeing the only
+
+79
+00:05:11,200 --> 00:05:15,200
+thing that really changes in detail is the chair. It goes from a very blocky
+
+80
+00:05:15,200 --> 00:05:19,200
+collider volume, like that, to that. Now, we can
+
+81
+00:05:19,200 --> 00:05:23,200
+actually decide, when we line trace in the world, whether we want to take notice of
+
+82
+00:05:23,200 --> 00:05:27,200
+all these details of this geometry or not, and in our case we don't. It's fine to just
+
+83
+00:05:27,200 --> 00:05:31,200
+say that the little red line that we're going to have from our pawn is intersecting
+
+84
+00:05:31,200 --> 00:05:35,200
+anyway in this collision geometry. That's good enough as a line trace
+
+85
+00:05:35,200 --> 00:05:39,200
+hit. So this is a cool view, and it allows us to see
+
+86
+00:05:39,200 --> 00:05:43,200
+the world from the viewpoint of how the collisions and the line traces are going to work.
+
+87
+00:05:43,200 --> 00:05:47,200
+The question comes, if I bring a new item into the
+
+88
+00:05:47,200 --> 00:05:51,200
+world... So, I go to Content Browser... I didn't mean to close that tab, by the way.
+
+89
+00:05:51,200 --> 00:05:55,200
+I just clicked the wrong thing. ...and Props and say I bring in a
+
+90
+00:05:55,200 --> 00:05:59,200
+table, like this, and drop it in, and it quite nicely defaults to
+
+91
+00:05:59,200 --> 00:06:03,200
+the floor. There it is! Now, it look really funny in this view, of course,
+
+92
+00:06:03,200 --> 00:06:07,200
+but if I go back to the standard view, for which there is a shortcut. It's Alt 4, let me do that!
+
+93
+00:06:07,200 --> 00:06:11,200
+Alt 4. Then, the table is there sitting on
+
+94
+00:06:11,200 --> 00:06:15,200
+the floor, but from a collision point of view, at the moment, this is just a static
+
+95
+00:06:15,200 --> 00:06:19,200
+piece of scenery. And what I want to be able to do is to make the life as easy as
+
+96
+00:06:19,200 --> 00:06:23,200
+possible for us, when we come to rapid level building, so that we
+
+97
+00:06:23,200 --> 00:06:27,200
+can very quickly, ideally in a single click, tell the system that this chair isn't just scenery
+
+98
+00:06:27,200 --> 00:06:31,200
+and that it's moveable. And the very most meaningful way to do that is to
+
+99
+00:06:31,200 --> 00:06:35,200
+click on the table rather, come down to under Physics,
+
+100
+00:06:35,200 --> 00:06:39,200
+and you just click Simulate Physics and immediately blow that. It's asking
+
+101
+00:06:39,200 --> 00:06:43,200
+for the mass in kilograms. You could say 15 kilos, for example.
+
+102
+00:06:43,200 --> 00:06:47,200
+By doing that a few things change. It becomes moveable, which makes sense if it's
+
+103
+00:06:47,200 --> 00:06:51,200
+physics objects, but also under Collision here, we have Collision Presets
+
+104
+00:06:51,200 --> 00:06:55,200
+and it's set it to PhysicsActor. And the object type
+
+105
+00:06:55,200 --> 00:06:59,200
+has actually changed, but there's a little bit of a bug in the Editor, which means we have to click off the object
+
+106
+00:06:59,200 --> 00:07:03,200
+and back on it to get to see what the new object types is. So, the
+
+107
+00:07:03,200 --> 00:07:07,200
+Object Type becomes PhysicsBody. OK, so from the
+
+108
+00:07:07,200 --> 00:07:11,200
+article you read, it talked about two types of filtering. One was filtering by the type of
+
+109
+00:07:11,200 --> 00:07:15,200
+line trace, which we're not doing here, and the other is sorting by the type of object.
+
+110
+00:07:15,200 --> 00:07:19,200
+And we're going to do that, we're going to filter by the type of object. We're going to
+
+111
+00:07:19,200 --> 00:07:23,200
+say that the types of things that we can pick up are any physics objects,
+
+112
+00:07:23,200 --> 00:07:27,200
+PhysicsBody object types. So you click on the door, it's not, it's a WorldStatic,
+
+113
+00:07:27,200 --> 00:07:31,200
+and the walls are WorldStatic and the floor is WorldStatic and the trigger volume
+
+114
+00:07:31,200 --> 00:07:35,200
+has some sort of collision type. What is it? It's WorldDynamic. But the only
+
+115
+00:07:35,200 --> 00:07:39,200
+things that have the collision type PhysicsBody are the chair
+
+116
+00:07:39,200 --> 00:07:43,200
+and the table. Now, why doesn't the chair have
+
+117
+00:07:43,200 --> 00:07:47,200
+that correct type? Because we haven't yet simulated physics on the chair. We click
+
+118
+00:07:47,200 --> 00:07:51,200
+Simulate Physics, give it a sensible mass immediately, and that's all you're going to have to change!
+
+119
+00:07:51,200 --> 00:07:55,200
+Super simple for the designer! And we can even give ourselves a limit
+
+120
+00:07:55,200 --> 00:07:59,200
+to how heavy a thing we can lift. So, for example, we can come in and
+
+121
+00:07:59,200 --> 00:08:03,200
+we could stick a light on the wall right. There it is, let me just
+
+122
+00:08:03,200 --> 00:08:07,200
+see it in Alt 4. In this view, move the light up a little bit.
+
+123
+00:08:07,200 --> 00:08:11,200
+Now, I can decide, do I want that to be moveable or now? If I don't,
+
+124
+00:08:11,200 --> 00:08:15,200
+I just leave it as it is and that is a piece of scenery. If I want
+
+125
+00:08:15,200 --> 00:08:19,200
+to be able to move the light, I can set physics on it and set a mass. Now, in this view
+
+126
+00:08:19,200 --> 00:08:23,200
+things that are cyan are just static and we cannot lift.
+
+127
+00:08:23,200 --> 00:08:27,200
+Things that are purple here, or magenta rather, are
+
+128
+00:08:27,200 --> 00:08:31,200
+dynamic objects but we also can't lift them. We can only lift the green things,
+
+129
+00:08:31,200 --> 00:08:35,200
+which are the physics objects. Also, we have a green thing here, which is
+
+130
+00:08:35,200 --> 00:08:39,200
+a completely different type of thing, a trigger volume just happens to use the same color, but it associates
+
+131
+00:08:39,200 --> 00:08:43,200
+visually quite nicely. These are the things that we could lift and put down over here.
+
+132
+00:08:43,200 --> 00:08:47,200
+I really like it, it's a really simple way of doing it. So, we're going to use Object
+
+133
+00:08:47,200 --> 00:08:51,200
+Channel Filtering, and all we need to do to tag an object to be something
+
+134
+00:08:51,200 --> 00:08:55,200
+that we want to be able to grab, as I said, is to just simulate physics
+
+135
+00:08:55,200 --> 00:08:59,200
+and while you're there give it a mass. That will in turn set the object type to PhysicsBody,
+
+136
+00:08:59,200 --> 00:09:03,200
+provided you click on and off again to fix the editor bug, and it's that
+
+137
+00:09:03,200 --> 00:09:07,200
+PhysicsBody object type that we're going to use to filter. That's one of many
+
+138
+00:09:07,200 --> 00:09:11,200
+object types, that we can set under Project Settings,
+
+139
+00:09:11,200 --> 00:09:15,200
+Collision, and then Object Channels. We've got a bunch of
+
+140
+00:09:15,200 --> 00:09:19,200
+Default Object Channels. You can add more Object Channels here, but that just gives you more work
+
+141
+00:09:19,200 --> 00:09:23,200
+to do. Why not take advantage of the fact that when you simulate physics, you automatically become
+
+142
+00:09:23,200 --> 00:09:27,200
+a PhysicsActor that automatically has a PhysicsBody object type.
+
+143
+00:09:27,200 --> 00:09:31,200
+OK, by the way, all these presets are also accessible
+
+144
+00:09:31,200 --> 00:09:35,200
+under Project Settings, Collision, if you really care you can go to Preset,
+
+145
+00:09:35,200 --> 00:09:39,200
+and you can see all of these here. Well, not all of them, only the ones that are exposed
+
+146
+00:09:39,200 --> 00:09:43,200
+and actually the PhysicsActor is not one of those that is exposed. So, we
+
+147
+00:09:43,200 --> 00:09:47,200
+don't need to worry about that. We just need to know that by putting physics on, we are
+
+148
+00:09:47,200 --> 00:09:51,200
+making the thing respond to the Physics Engine, number one, which is fun. So, if I
+
+149
+00:09:51,200 --> 00:09:55,200
+bang into things, it's not going to work with the Pawn, but later one they'll move.
+
+150
+00:09:55,200 --> 00:09:59,200
+Number two, they have a mass which you could use later to determine a limit to how much we can
+
+151
+00:09:59,200 --> 00:10:03,200
+lift, and number three, they set a collision preset that means we have a Physics
+
+152
+00:10:03,200 --> 00:10:07,200
+Body, which we can use for filtering so that we don't try and lift walls, floors,
+
+153
+00:10:07,200 --> 00:10:11,200
+ceilings, or doors. So, that's that! I'll see you in the next video, when we actually
+
+154
+00:10:11,200 --> 00:10:15,200
+start doing some line tracing.
+
+155
+00:10:15,200 --> 00:10:15,866
+
+

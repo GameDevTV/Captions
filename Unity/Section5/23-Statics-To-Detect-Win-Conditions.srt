@@ -1,0 +1,1113 @@
+
+1
+00:00:03,000 --> 00:00:06,000
+Hey guys! So, we're doing pretty well here.
+
+2
+00:00:06,000 --> 00:00:09,000
+What we want to do now is create a situation,
+
+3
+00:00:09,000 --> 00:00:12,000
+where we can actually win a level, when we've cleared all the bricks.
+
+4
+00:00:12,000 --> 00:00:15,000
+So, we can lose OK, but what we can't do
+
+5
+00:00:15,000 --> 00:00:18,000
+yet is win. So for example, if I go to Level
+
+6
+00:00:18,000 --> 00:00:21,000
+3 and maybe I'm going to ditch the red brick,
+
+7
+00:00:21,000 --> 00:00:24,000
+and put in just a single yellow
+
+8
+00:00:24,000 --> 00:00:27,000
+brick, like so.
+
+9
+00:00:27,000 --> 00:00:30,000
+Look, if I clear the level at the moment, well then
+
+10
+00:00:30,000 --> 00:00:33,000
+I'm here in perpetuity,
+
+11
+00:00:33,000 --> 00:00:36,000
+banging all around an empty space and I just cannot win.
+
+12
+00:00:36,000 --> 00:00:39,000
+So, it turns out that working out how to detect
+
+13
+00:00:39,000 --> 00:00:42,000
+the win conditions does take a little bit of thinking about
+
+14
+00:00:42,000 --> 00:00:45,000
+and that's what we're going to cover in this lecture. We'll talk about why loading levels
+
+15
+00:00:45,000 --> 00:00:48,000
+could be problematic. How a static
+
+16
+00:00:48,000 --> 00:00:51,000
+brick variable can help us. We're gong to keep track
+
+17
+00:00:51,000 --> 00:00:54,000
+of the number of breakable bricks in the level, using that static brick
+
+18
+00:00:54,000 --> 00:00:57,000
+variable. We're going to make a simple brick destroyed
+
+19
+00:00:57,000 --> 00:01:00,000
+message. It sounds scary but it's just a method. It's only a message,
+
+20
+00:01:00,000 --> 00:01:03,000
+because of the way we're using it. And we're going to
+
+21
+00:01:03,000 --> 00:01:06,000
+test, including what happens if two bricks get
+
+22
+00:01:06,000 --> 00:01:09,000
+destroyed, at once. Let me show you what I mean by that.
+
+23
+00:01:09,000 --> 00:01:12,000
+So, if I bring a second brick down, it turns out
+
+24
+00:01:12,000 --> 00:01:15,000
+that if you get your paddle in exactly the right place... Oh, that was
+
+25
+00:01:15,000 --> 00:01:18,000
+lucky! ...then you take out two bricks at once.
+
+26
+00:01:18,000 --> 00:01:21,000
+So, the challenge we have is,
+
+27
+00:01:21,000 --> 00:01:24,000
+we've got to be careful about who's responsible for
+
+28
+00:01:24,000 --> 00:01:27,000
+what here. Who should be responsible, as in
+
+29
+00:01:27,000 --> 00:01:30,000
+which object or which script should be responsible for
+
+30
+00:01:30,000 --> 00:01:33,000
+loading levels, in your opinion? Just take a look at the list of scripts.
+
+31
+00:01:33,000 --> 00:01:36,000
+Well, hopefully it's obvious right? Given
+
+32
+00:01:36,000 --> 00:01:39,000
+the names of the scripts, the Level Manager should actually
+
+33
+00:01:39,000 --> 00:01:42,000
+do the level loading, and it should even do the detection of
+
+34
+00:01:42,000 --> 00:01:45,000
+when the level loading should happen. Alright,
+
+35
+00:01:45,000 --> 00:01:48,000
+so which of these object would be responsible for
+
+36
+00:01:48,000 --> 00:01:51,000
+keeping track of the number of breakable bricks?
+
+37
+00:01:51,000 --> 00:01:54,000
+Well, a little bit more moot, but it seems
+
+38
+00:01:54,000 --> 00:01:57,000
+to me to make sense, that the Brick Object keeps track
+
+39
+00:01:57,000 --> 00:02:00,000
+of the number of breakable bricks. And this is where we're going to
+
+40
+00:02:00,000 --> 00:02:03,000
+introduce a static brick variable.
+
+41
+00:02:03,000 --> 00:02:06,000
+What that means is, there's going to be a single number,
+
+42
+00:02:06,000 --> 00:02:09,000
+on the brick template, that keeps track
+
+43
+00:02:09,000 --> 00:02:12,000
+of its children, and it's going to kind of count in and
+
+44
+00:02:12,000 --> 00:02:15,000
+count out every time a breakable child is created,
+
+45
+00:02:15,000 --> 00:02:18,000
+so that the Brick Object
+
+46
+00:02:18,000 --> 00:02:21,000
+knows about, it's actually the brick class,
+
+47
+00:02:21,000 --> 00:02:24,000
+the template knows how many breakable children do I
+
+48
+00:02:24,000 --> 00:02:27,000
+have at any one time. That seems fair.
+
+49
+00:02:27,000 --> 00:02:30,000
+And the things that cause challenges here are that
+
+50
+00:02:30,000 --> 00:02:33,000
+destroy game object takes some time to
+
+51
+00:02:33,000 --> 00:02:36,000
+happen. So, if we are in Brick
+
+52
+00:02:36,000 --> 00:02:39,000
+script, and we destroy a game object here,
+
+53
+00:02:39,000 --> 00:02:42,000
+it just takes a little bit of time. So, if we start trying
+
+54
+00:02:42,000 --> 00:02:45,000
+to load levels and things here and count bricks here,
+
+55
+00:02:45,000 --> 00:02:48,000
+we end up with a problem. We could for instance, try
+
+56
+00:02:48,000 --> 00:02:51,000
+counting all the objects that have the
+
+57
+00:02:51,000 --> 00:02:54,000
+breakable tag, but when you do that it's not so obvious,
+
+58
+00:02:54,000 --> 00:02:57,000
+because of timing issues.
+
+59
+00:02:57,000 --> 00:03:00,000
+The other thing that's an even bigger timing issue is, the fact that
+
+60
+00:03:00,000 --> 00:03:03,000
+Application.LoadLevel actually takes quite a long time to
+
+61
+00:03:03,000 --> 00:03:06,000
+happen. So, I've looked around
+
+62
+00:03:06,000 --> 00:03:09,000
+this and worked with Brice on it, and we've come up with a solution
+
+63
+00:03:09,000 --> 00:03:12,000
+that we think is the simplest possible but no simpler.
+
+64
+00:03:12,000 --> 00:03:15,000
+So, Einstein would be happy! So, let's...
+
+65
+00:03:15,000 --> 00:03:18,000
+The first thing I would like you to do as a challenge, to revise
+
+66
+00:03:18,000 --> 00:03:21,000
+what we talked about with statics before is, go into your Brick.cs script
+
+67
+00:03:21,000 --> 00:03:24,000
+and I want you to
+
+68
+00:03:24,000 --> 00:03:27,000
+add a static breakable count variable.
+
+69
+00:03:27,000 --> 00:03:30,000
+Choose the appropriate type of float and integer
+
+70
+00:03:30,000 --> 00:03:33,000
+or bool; declare it in the right place
+
+71
+00:03:33,000 --> 00:03:36,000
+in your Bricks.cs script. Initialize
+
+72
+00:03:36,000 --> 00:03:39,000
+it to 0 and then test by
+
+73
+00:03:39,000 --> 00:03:42,000
+playing and logging the number to the Console.
+
+74
+00:03:42,000 --> 00:03:45,000
+You won't be able to see this variable in the Inspector,
+
+75
+00:03:45,000 --> 00:03:48,000
+even if you make it public, because it's a static.
+
+76
+00:03:48,000 --> 00:03:51,000
+And then, as you break bricks, you want to see that number counting
+
+77
+00:03:51,000 --> 00:03:54,000
+down, and that will be your proof that you've done this
+
+78
+00:03:54,000 --> 00:03:57,000
+right. So, pause the video, do that now, and
+
+79
+00:03:57,000 --> 00:04:00,000
+when you come back, I'll show you how I did it.
+
+80
+00:04:00,000 --> 00:04:03,000
+You are pausing the video right? You're not just waiting for me to show you?
+
+81
+00:04:03,000 --> 00:04:06,000
+Yeah, I knew you were! Cool! OK, so here
+
+82
+00:04:06,000 --> 00:04:09,000
+we go! Let's talk about how we do this.
+
+83
+00:04:09,000 --> 00:04:12,000
+So, we're in Bricks, and we need a public because we want to be able
+
+84
+00:04:12,000 --> 00:04:15,000
+to see it in the Inspector and because we want
+
+85
+00:04:15,000 --> 00:04:18,000
+later the Level Manager to have access to it. So we want a public,
+
+86
+00:04:18,000 --> 00:04:21,000
+static is the keyword you need next,
+
+87
+00:04:21,000 --> 00:04:24,000
+and it's small S and we've
+
+88
+00:04:24,000 --> 00:04:27,000
+seen this in previous videos. It's an integer because you can
+
+89
+00:04:27,000 --> 00:04:30,000
+count it on your fingers basically. And if you can count it on your fingers,
+
+90
+00:04:30,000 --> 00:04:33,000
+or if you had lots of fingers, as an integer.
+
+91
+00:04:33,000 --> 00:04:36,000
+Brick count and then I said you can initialize it as well,
+
+92
+00:04:36,000 --> 00:04:39,000
+so far, with a semicolon on the end, that is a declaration. We have
+
+93
+00:04:39,000 --> 00:04:42,000
+declared it, we've made some memory space for it. Now,
+
+94
+00:04:42,000 --> 00:04:45,000
+initializing it, you can either do it in Start, you can say brickCount equals 0,
+
+95
+00:04:45,000 --> 00:04:48,000
+or actually in this case, you can also do it straight up here.
+
+96
+00:04:48,000 --> 00:04:51,000
+OK cool! So, we have our static variable
+
+97
+00:04:51,000 --> 00:04:54,000
+here, it's available to all our methods. That's a
+
+98
+00:04:54,000 --> 00:04:57,000
+Start. Now, the next thing we need to do is,
+
+99
+00:04:57,000 --> 00:05:00,000
+think about increasing and decreasing
+
+100
+00:05:00,000 --> 00:05:03,000
+this static variable, every time a breakable
+
+101
+00:05:03,000 --> 00:05:06,000
+brick is created or destroyed.
+
+102
+00:05:06,000 --> 00:05:09,000
+So, we already have a boolean somewhere, is Breakable,
+
+103
+00:05:09,000 --> 00:05:12,000
+down at the bottom here on line 24, on my script, on your
+
+104
+00:05:12,000 --> 00:05:15,000
+OnCollisionEnter2D. We're actually going to want to use this
+
+105
+00:05:15,000 --> 00:05:18,000
+across the entire class, across all these methods, so I'm
+
+106
+00:05:18,000 --> 00:05:21,000
+going to take it out of here altogether,
+
+107
+00:05:21,000 --> 00:05:24,000
+and I'm going to put the definition of it up here, as
+
+108
+00:05:24,000 --> 00:05:27,000
+a private bool isBreakable...
+
+109
+00:05:27,000 --> 00:05:30,000
+...private bool isBreakable. I'm
+
+110
+00:05:30,000 --> 00:05:33,000
+just going to declare it there, and then, I'm going
+
+111
+00:05:33,000 --> 00:05:36,000
+to initialize it, here in the
+
+112
+00:05:36,000 --> 00:05:39,000
+Start. So, I'm going to say
+
+113
+00:05:39,000 --> 00:05:42,000
+isBreakable.
+
+114
+00:05:42,000 --> 00:05:45,000
+When the brick first comes into existence,
+
+115
+00:05:45,000 --> 00:05:48,000
+when this particular brick, whether it's breakable or not, we don't know at this
+
+116
+00:05:48,000 --> 00:05:51,000
+stage, but if it is
+
+117
+00:05:51,000 --> 00:05:54,000
+tagged with "Breakable", then this particular instance of a brick
+
+118
+00:05:54,000 --> 00:05:57,000
+has this boolean: Is variable set to true? And
+
+119
+00:05:57,000 --> 00:06:00,000
+that's what that's going to do. Now, this is where we increment,
+
+120
+00:06:00,000 --> 00:06:03,000
+this is where we're going to keep track
+
+121
+00:06:03,000 --> 00:06:06,000
+of breakable bricks.
+
+122
+00:06:09,000 --> 00:06:12,000
+We're going to say if (isBreakable), which reads
+
+123
+00:06:12,000 --> 00:06:15,000
+really nicely. Hint, if things read
+
+124
+00:06:15,000 --> 00:06:18,000
+really nicely it's normally a good thing. No guarantee it's going to work
+
+125
+00:06:18,000 --> 00:06:21,000
+right, of course, but it's normally a good thing. So, if
+
+126
+00:06:21,000 --> 00:06:24,000
+isBreakable brickCount equals
+
+127
+00:06:24,000 --> 00:06:27,000
+brickCount plus 1 or ++.
+
+128
+00:06:27,000 --> 00:06:30,000
+Now, look back to the challenge definition.
+
+129
+00:06:30,000 --> 00:06:33,000
+I asked you to create a variable called breakable
+
+130
+00:06:33,000 --> 00:06:36,000
+Count, and I'm using brickCount. Well, big deal but let's
+
+131
+00:06:36,000 --> 00:06:39,000
+use the right thing; breakable
+
+132
+00:06:39,000 --> 00:06:42,000
+Count, breakable
+
+133
+00:06:42,000 --> 00:06:45,000
+Count. It's just a bit clearer. So, breakableCount ++
+
+134
+00:06:45,000 --> 00:06:48,000
+is a shorthand way of incrementing the
+
+135
+00:06:48,000 --> 00:06:51,000
+breakableCount by one. So, each brick, when it comes into
+
+136
+00:06:51,000 --> 00:06:54,000
+existence it says, am I breakable and if I am
+
+137
+00:06:54,000 --> 00:06:57,000
+increment the static. There's only one of these integers in the entire
+
+138
+00:06:57,000 --> 00:07:00,000
+game. There's only one of these, it's on the template;
+
+139
+00:07:00,000 --> 00:07:03,000
+it's saying OK, there is another breakable brick in
+
+140
+00:07:03,000 --> 00:07:06,000
+the scene. That's what that's doing.
+
+141
+00:07:06,000 --> 00:07:09,000
+So, that's fantastic! But for every time we increment it, we
+
+142
+00:07:09,000 --> 00:07:12,000
+also need somewhere that we're going to decrement it. So, where are we
+
+143
+00:07:12,000 --> 00:07:15,000
+going to decrease it? Well, we're going to decrease it
+
+144
+00:07:15,000 --> 00:07:18,000
+immediately before
+
+145
+00:07:18,000 --> 00:07:21,000
+we destroy it, OK.
+
+146
+00:07:21,000 --> 00:07:24,000
+So, where is that? It's going to be
+
+147
+00:07:24,000 --> 00:07:27,000
+if the times hits greater than = to the max hits, we're going to go
+
+148
+00:07:27,000 --> 00:07:30,000
+breakableCount --,
+
+149
+00:07:30,000 --> 00:07:33,000
+which is another shorthand. So, we decrease it
+
+150
+00:07:33,000 --> 00:07:36,000
+just before we destroy it. So, let's go over
+
+151
+00:07:36,000 --> 00:07:39,000
+into the game. I'm going to use a very simple level to
+
+152
+00:07:39,000 --> 00:07:42,000
+start with. I'm going to look at
+
+153
+00:07:42,000 --> 00:07:45,000
+any brick actually, as it happens. You'll notice that whichever
+
+154
+00:07:45,000 --> 00:07:48,000
+brick we click on, the Brick Script
+
+155
+00:07:48,000 --> 00:07:51,000
+is there but the static is not being exposed in the
+
+156
+00:07:51,000 --> 00:07:54,000
+Inspector. So you're going to have to work
+
+157
+00:07:54,000 --> 00:07:57,000
+around that issue and find some other way of logging
+
+158
+00:07:57,000 --> 00:08:00,000
+out the count. So, go back into
+
+159
+00:08:00,000 --> 00:08:03,000
+your Brick Script and I'm going to
+
+160
+00:08:03,000 --> 00:08:06,000
+just put it here: print (breakableCount); underneath
+
+161
+00:08:06,000 --> 00:08:09,000
+the increment, and then, I'm going to copy that
+
+162
+00:08:09,000 --> 00:08:12,000
+and do the same thing under
+
+163
+00:08:12,000 --> 00:08:15,000
+the decrement there. Paste in print
+
+164
+00:08:15,000 --> 00:08:18,000
+(breakableCount). OK, so what
+
+165
+00:08:18,000 --> 00:08:21,000
+we're doing here is we're saying, here look this publicly exposed
+
+166
+00:08:21,000 --> 00:08:24,000
+static does not get exposed in the Inspector.
+
+167
+00:08:24,000 --> 00:08:27,000
+So, maybe that's just to save confusion,
+
+168
+00:08:27,000 --> 00:08:30,000
+because every object would have the same number on
+
+169
+00:08:30,000 --> 00:08:33,000
+here, so it's not about the object, it's about the
+
+170
+00:08:33,000 --> 00:08:36,000
+class. So, it wouldn't kind of make sense, if you flicked through the Inspector.
+
+171
+00:08:36,000 --> 00:08:39,000
+It would be a bit confusing if every object had the same value, so they just
+
+172
+00:08:39,000 --> 00:08:42,000
+don't show it, and we're going to show it by putting it in the
+
+173
+00:08:42,000 --> 00:08:45,000
+Console. So, once you save your script now, you can see in the Console,
+
+174
+00:08:45,000 --> 00:08:48,000
+down at the bottom left, 2 and then 1.
+
+175
+00:08:48,000 --> 00:08:51,000
+And that went very quickly, but you can look at your Console history
+
+176
+00:08:51,000 --> 00:08:54,000
+and that's awesome! It works! Just quickly, if you want to check
+
+177
+00:08:54,000 --> 00:08:57,000
+that against a bigger level, you're welcome to. I'm
+
+178
+00:08:57,000 --> 00:09:00,000
+confident it's going to work, so I'm not going to bother. So,
+
+179
+00:09:00,000 --> 00:09:03,000
+as a recap. What we've done is we've talked about
+
+180
+00:09:03,000 --> 00:09:06,000
+loading levels being problematic. We've added a static
+
+181
+00:09:06,000 --> 00:09:09,000
+class level variable, called Brick. We have kept track
+
+182
+00:09:09,000 --> 00:09:12,000
+of these breakable bricks in the level. Now, we're going to
+
+183
+00:09:12,000 --> 00:09:15,000
+make a simple brick destroyed message. So,
+
+184
+00:09:15,000 --> 00:09:18,000
+what does that mean? Well, what we want to
+
+185
+00:09:18,000 --> 00:09:21,000
+do now is we want to message the Level Manager to
+
+186
+00:09:21,000 --> 00:09:24,000
+say, a brick has been destroyed, you decide
+
+187
+00:09:24,000 --> 00:09:27,000
+whether we're going to load a next level.
+
+188
+00:09:27,000 --> 00:09:30,000
+Yeah, we don't want to check it every single frame, and it definitely wants to be the
+
+189
+00:09:30,000 --> 00:09:33,000
+Level Manager that makes this decision. So, it's going to
+
+190
+00:09:33,000 --> 00:09:36,000
+have a public void Brick
+
+191
+00:09:36,000 --> 00:09:39,000
+Destroyed ()
+
+192
+00:09:39,000 --> 00:09:42,000
+message. Now, what's it mean that it's a message? Well nothing, it's just a method.
+
+193
+00:09:42,000 --> 00:09:45,000
+We're calling it a message, because it's kind of passing information to
+
+194
+00:09:45,000 --> 00:09:48,000
+the Level Manager. It's a pretty subtle difference in this
+
+195
+00:09:48,000 --> 00:09:51,000
+case, so don't worry about it. Sometimes we'll use the word message,
+
+196
+00:09:51,000 --> 00:09:54,000
+when we are passing information on to somewhere else for that
+
+197
+00:09:54,000 --> 00:09:57,000
+other thing to take responsibility for what to do with
+
+198
+00:09:57,000 --> 00:10:00,000
+it. So, it's up to Level Manager how to respond to this.
+
+199
+00:10:00,000 --> 00:10:03,000
+So, what Level Manager needs to do is, every time a brick is destroyed it
+
+200
+00:10:03,000 --> 00:10:06,000
+needs to ask a question. It needs to say
+
+201
+00:10:06,000 --> 00:10:09,000
+if, and I'm going to leave it for
+
+202
+00:10:09,000 --> 00:10:12,000
+the moment, if I'm going to put a comment in. Basically,
+
+203
+00:10:12,000 --> 00:10:15,000
+if this is the last brick,
+
+204
+00:10:15,000 --> 00:10:18,000
+or if last brick
+
+205
+00:10:18,000 --> 00:10:21,000
+destroyed. It's fine to write English
+
+206
+00:10:21,000 --> 00:10:24,000
+first in comments, and then, work out how you're going to do
+
+207
+00:10:24,000 --> 00:10:27,000
+it. Alright, because the important thing is right now you're thinking about the
+
+208
+00:10:27,000 --> 00:10:30,000
+logic. So, if the last brick was
+
+209
+00:10:30,000 --> 00:10:33,000
+destroyed, OK in there, then, what are
+
+210
+00:10:33,000 --> 00:10:36,000
+we going to do? Well, we are going to
+
+211
+00:10:36,000 --> 00:10:39,000
+simply load next level, and we don't need Level
+
+212
+00:10:39,000 --> 00:10:42,000
+Manager dot or anything, because we're in Level Manager.
+
+213
+00:10:42,000 --> 00:10:45,000
+So, if the last brick was destroyed, we load the next level. How do we
+
+214
+00:10:45,000 --> 00:10:48,000
+access that brick static from here?
+
+215
+00:10:48,000 --> 00:10:51,000
+So, there's an interesting question for you. Well, you don't
+
+216
+00:10:51,000 --> 00:10:54,000
+actually need to expose the brick or anything else. It turns out that, that
+
+217
+00:10:54,000 --> 00:10:57,000
+brick static is available to all other classes and all other
+
+218
+00:10:57,000 --> 00:11:00,000
+methods. You just need to use capital B,
+
+219
+00:11:00,000 --> 00:11:03,000
+it's a static method of brick. (Brick.
+
+220
+00:11:03,000 --> 00:11:06,000
+breakableCount) is what you're looking for. If it's
+
+221
+00:11:06,000 --> 00:11:09,000
+less than or = to 0, then we load the
+
+222
+00:11:09,000 --> 00:11:12,000
+next level. Why less than? Again, we guarding against
+
+223
+00:11:12,000 --> 00:11:15,000
+accidentally getting in a situation, where we have a negative
+
+224
+00:11:15,000 --> 00:11:18,000
+brick count. We certainly, if we have a negative brick count, want to load the
+
+225
+00:11:18,000 --> 00:11:21,000
+next level. So, it's just being careful, in case we've got a double
+
+226
+00:11:21,000 --> 00:11:24,000
+decrement somewhere, and we missed the 0 condition. Now, we're going to
+
+227
+00:11:24,000 --> 00:11:27,000
+catch it the next time. So, this is the message
+
+228
+00:11:27,000 --> 00:11:30,000
+inside Level Manager. Now, what Brick.cs
+
+229
+00:11:30,000 --> 00:11:33,000
+wants to do is just call that, every time
+
+230
+00:11:33,000 --> 00:11:36,000
+a brick is destroyed. So, I'm going to get rid of my print statement
+
+231
+00:11:36,000 --> 00:11:39,000
+here, and I'm simply going
+
+232
+00:11:39,000 --> 00:11:42,000
+to say, down here,
+
+233
+00:11:42,000 --> 00:11:45,000
+if the brick has had it
+
+234
+00:11:45,000 --> 00:11:48,000
+basically, then we decrement the breakable count. That's
+
+235
+00:11:48,000 --> 00:11:51,000
+fine but what we're also going to do is levelManager,
+
+236
+00:11:51,000 --> 00:11:54,000
+which is already exposed in here, .BrickDestroyed. I'm just going to
+
+237
+00:11:54,000 --> 00:11:57,000
+message it OK,
+
+238
+00:11:57,000 --> 00:12:00,000
+to say that, that brick has been destroyed. Now, this message and
+
+239
+00:12:00,000 --> 00:12:03,000
+this condition only gets checked when  brick is destroyed, which is pretty efficient.
+
+240
+00:12:03,000 --> 00:12:06,000
+You can't really do it any other time.
+
+241
+00:12:06,000 --> 00:12:09,000
+You know every time a brick is destroyed, someone's got to say well, was that the last one?
+
+242
+00:12:09,000 --> 00:12:12,000
+So, this is a pretty cool way of doing it! Let's try it and
+
+243
+00:12:12,000 --> 00:12:15,000
+see if it works! Firstly, for one
+
+244
+00:12:15,000 --> 00:12:18,000
+brick at a time. One, two, "You beat Block Breaker!".
+
+245
+00:12:18,000 --> 00:12:21,000
+Great! Now bear in mind, the reason your text is looking cut
+
+246
+00:12:21,000 --> 00:12:24,000
+is because your game window is not a
+
+247
+00:12:24,000 --> 00:12:27,000
+800 by 600 right. If you make it big enough, it'll be fine.
+
+248
+00:12:27,000 --> 00:12:30,000
+So, I'm doing that on purpose, because I want you to understand why
+
+249
+00:12:30,000 --> 00:12:33,000
+what you see here in this preview, is tied to the current
+
+250
+00:12:33,000 --> 00:12:36,000
+size of your game window. So,
+
+251
+00:12:36,000 --> 00:12:39,000
+let's go again!
+
+252
+00:12:39,000 --> 00:12:42,000
+Let's take a look back in this scene, back into my
+
+253
+00:12:42,000 --> 00:12:45,000
+contrive, little simple scene. You can have your own simple scene.
+
+254
+00:12:45,000 --> 00:12:48,000
+Now, let's check the condition
+
+255
+00:12:48,000 --> 00:12:51,000
+where both blocks get killed, at the same time.
+
+256
+00:12:51,000 --> 00:12:54,000
+Cool! That worked! Now, trust me there's lots
+
+257
+00:12:54,000 --> 00:12:57,000
+of ways you can try and do this, where that wouldn't work. Alright,
+
+258
+00:12:57,000 --> 00:13:00,000
+just trust me on that. Now, let's try another situation, which
+
+259
+00:13:00,000 --> 00:13:03,000
+is where you have an invincible brick in the scene, as well. Let's try!
+
+260
+00:13:03,000 --> 00:13:06,000
+One brick at a time, one, two. "You beat Block Breaker!".
+
+261
+00:13:06,000 --> 00:13:09,000
+Great! How about if we broke both bricks, and there's an invincible
+
+262
+00:13:09,000 --> 00:13:12,000
+brick in the scene? Does that work? Yes
+
+263
+00:13:12,000 --> 00:13:15,000
+perfect! They are all situations in which I had a
+
+264
+00:13:15,000 --> 00:13:18,000
+nightmare, when trying to decide exactly how to do
+
+265
+00:13:18,000 --> 00:13:21,000
+this for you, in the simplest way. And thanks to Brice's input, we've come
+
+266
+00:13:21,000 --> 00:13:24,000
+up with, what I hope you agree is, an elegant solution.
+
+267
+00:13:24,000 --> 00:13:27,000
+You could have just tried this on all the other levels, it will
+
+268
+00:13:27,000 --> 00:13:30,000
+work just fine. The other thing to do is to check your lose
+
+269
+00:13:30,000 --> 00:13:33,000
+condition. So boom, you lost!
+
+270
+00:13:33,000 --> 00:13:36,000
+OK awesome! So congratulations! I'm going to give you a
+
+271
+00:13:36,000 --> 00:13:39,000
+final recap, because there were lots of things in here.
+
+272
+00:13:39,000 --> 00:13:42,000
+That's what we've done! Let it sink in.
+
+273
+00:13:42,000 --> 00:13:45,000
+Start thinking about when statics
+
+274
+00:13:45,000 --> 00:13:48,000
+may be appropriate. Basically, when there's only ever going
+
+275
+00:13:48,000 --> 00:13:51,000
+to be one of these things, like one number of
+
+276
+00:13:51,000 --> 00:13:54,000
+breakable bricks, one in the entire
+
+277
+00:13:54,000 --> 00:13:57,000
+game, and that makes complete logical sense and this
+
+278
+00:13:57,000 --> 00:14:00,000
+is a good place to use statics. Congrats and see you soon!
+

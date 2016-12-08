@@ -1,0 +1,829 @@
+
+1
+00:00:00,000 --> 00:00:02,800
+
+
+2
+00:00:02,800 --> 00:00:06,800
+So hey and welcome to Using the Reference Viewer! The purpose of this video actually is
+
+3
+00:00:06,800 --> 00:00:10,800
+to delete our starter content from our project altogether
+
+4
+00:00:10,800 --> 00:00:14,800
+and to bring the Starter Content folder out of the .gitignore,
+
+5
+00:00:14,800 --> 00:00:18,800
+so that we have all of our starter content type material
+
+6
+00:00:18,800 --> 00:00:22,800
+tracked by source control, when we do choose to use it. So we simply won't have start content at all
+
+7
+00:00:22,800 --> 00:00:26,800
+at the end, and everything in our content will be properly tracked by source control,
+
+8
+00:00:26,800 --> 00:00:30,800
+paving the way for us to use projectiles properly, being sure that we're
+
+9
+00:00:30,800 --> 00:00:36,600
+starting from the actual starter content without any modifications. So I'll see you in there!
+
+10
+00:00:36,600 --> 00:00:40,600
+So our mission here is to get rid of the Starter Content folder, because it's
+
+11
+00:00:40,600 --> 00:00:44,600
+not currently tracked under source control. Remember in our .gitignore we were
+
+12
+00:00:44,600 --> 00:00:48,600
+ingoring it, and therefore, any changes we make to it are not being tracked and that's dangerous.
+
+13
+00:00:48,600 --> 00:00:52,600
+I, in particular, have caused a problem, if I just show you. If
+
+14
+00:00:52,600 --> 00:00:56,600
+we look in the Starter Content and then we go to particles, this
+
+15
+00:00:56,600 --> 00:01:00,600
+P_Explosion that comes in the starter content, don't worry about how it works
+
+16
+00:01:00,600 --> 00:01:04,600
+for now. But I have edited it offline between videos, and I have
+
+17
+00:01:04,600 --> 00:01:08,600
+added an extra Smoke emitter and that's going to cause problems.
+
+18
+00:01:08,600 --> 00:01:12,600
+So that's symptomatic of an overall issue that we're not tracking changes in starter
+
+19
+00:01:12,600 --> 00:01:16,600
+content. Now we've chosen not to because starter content is large. If you have a
+
+20
+00:01:16,600 --> 00:01:20,600
+look at StarterContent's properties, you'll see that it's 600 megabytes.
+
+21
+00:01:20,600 --> 00:01:24,600
+We don't want to put all that under source control, especially as I if I use TreeSize.
+
+22
+00:01:24,600 --> 00:01:28,600
+You'll see that most of it is textures and most of these we never use. So the skill
+
+23
+00:01:28,600 --> 00:01:32,600
+I want to show you is using the Reference Viewer and using Unreal's Reference Checking
+
+24
+00:01:32,600 --> 00:01:36,600
+to work out how we can delete stuff and move stuff, without losing any
+
+25
+00:01:36,600 --> 00:01:40,600
+references, anything important. So let's see the process for
+
+26
+00:01:40,600 --> 00:01:44,600
+doing that. If we just try and... Firstly, let's backup this
+
+27
+00:01:44,600 --> 00:01:48,600
+StarterContent, before we do anything else. So I'd suggest you close Unreal, go to your
+
+28
+00:01:48,600 --> 00:01:52,600
+file system, go find your BattleTank folder, and go into
+
+29
+00:01:52,600 --> 00:01:56,600
+Content, StarterContent, right-click it, send it to a .zip file,
+
+30
+00:01:56,600 --> 00:02:00,600
+and pop it on your Desktop. I've already done that to save time. And just
+
+31
+00:02:00,600 --> 00:02:04,600
+take it completely out of the folder OK, and that way you've got a backup of your StarterContent, because
+
+32
+00:02:04,600 --> 00:02:08,600
+remember it's not being tracked under source control. That should make you a little bit nervous.
+
+33
+00:02:08,600 --> 00:02:12,600
+I'm going to close VisualStudio, because it's nothing to do with this video, and let's go back
+
+34
+00:02:12,600 --> 00:02:16,600
+into Unreal, which is somewhere around here.
+
+35
+00:02:16,600 --> 00:02:20,600
+Here we go! Perfect! So what I'm going to do is get you going on this, show you the
+
+36
+00:02:20,600 --> 00:02:24,600
+ideas, a couple of tips and tricks, and then, I'm going to leave it to you to go and manage, to delete your starter content
+
+37
+00:02:24,600 --> 00:02:28,600
+folder. So now that we have a backup, we can just try and delete it. Right-click on StarterContent,
+
+38
+00:02:28,600 --> 00:02:32,600
+in the Content browser, and Delete. It's not just going to delete it. I know that the
+
+39
+00:02:32,600 --> 00:02:36,600
+ceiling of the sky uses a cube and that the grass is painted on the
+
+40
+00:02:36,600 --> 00:02:40,600
+landscape and there's dirt on the hills, and you may have used other starter content stuff as
+
+41
+00:02:40,600 --> 00:02:44,600
+well, but this system will now go ahead and check for references and dependencies
+
+42
+00:02:44,600 --> 00:02:48,600
+and it'll warn us before it deletes anything, which is quite cool! There you go! So if
+
+43
+00:02:48,600 --> 00:02:52,600
+we start with this, Metal_Rust. I happen to know that that's used by this
+
+44
+00:02:52,600 --> 00:02:56,600
+Mortar. So this is the asset that's using the referenced assets,
+
+45
+00:02:56,600 --> 00:03:00,600
+and then, the referenced asset, in this case, is the rust. The flat land is going to be
+
+46
+00:03:00,600 --> 00:03:04,600
+using grass and gravel, and then, we've got glass on the ceiling
+
+47
+00:03:04,600 --> 00:03:08,600
+and we have a cube as well on that ceiling.
+
+48
+00:03:08,600 --> 00:03:12,600
+And then, I'm not seeing much else in the list. No I think that's it! Well we can get rid of the glass
+
+49
+00:03:12,600 --> 00:03:16,600
+and the cube very easily, because that is all about this sky
+
+50
+00:03:16,600 --> 00:03:20,600
+glass here. We don't need that. If I just delete that from the scene completely,
+
+51
+00:03:20,600 --> 00:03:24,600
+then we should have solved at least those reference issues. Let's go ahead and
+
+52
+00:03:24,600 --> 00:03:28,600
+rerun the delete. Before you rerun the delete, you want to be saving everything, just
+
+53
+00:03:28,600 --> 00:03:32,600
+to make sure that it's caught up with you. So go ahead and rerun the delete, and this time it
+
+54
+00:03:32,600 --> 00:03:36,600
+should find less things that are dependent on the StarterContent
+
+55
+00:03:36,600 --> 00:03:40,600
+folder, that's what it's looking for. It's ignoring self references within the Starter
+
+56
+00:03:40,600 --> 00:03:44,600
+Content Folder. For instance, if a particle system requires a texture
+
+57
+00:03:44,600 --> 00:03:48,600
+and they're both in the StarterContent. That won't be reported here, that's a good thing, that keeps it simple
+
+58
+00:03:48,600 --> 00:03:52,600
+for us. OK, so what do we have now? We have
+
+59
+00:03:52,600 --> 00:03:56,600
+Rust, Grass, and Gravel, it seems like they're the only things. Yeah!
+
+60
+00:03:56,600 --> 00:04:00,600
+And between them, they're used on the Mortar, the FlatLand, and the BattleGround.
+
+61
+00:04:00,600 --> 00:04:04,600
+Let's start with the Mortar, and I'll leave you to do the landscape texture
+
+62
+00:04:04,600 --> 00:04:08,600
+or the landscape or roughness thing and then the BattleGround itself. The general
+
+63
+00:04:08,600 --> 00:04:12,600
+principle is this, let's look at the Rust, for a start!
+
+64
+00:04:12,600 --> 00:04:16,600
+Let's find "rust" within the StarterContent. M_Metal_Rust, there it is! If you
+
+65
+00:04:16,600 --> 00:04:20,600
+right-click it and say Reference Viewer, it will show you
+
+66
+00:04:20,600 --> 00:04:24,600
+not only what depends on rust, so the Mortar and the Starter map, don't
+
+67
+00:04:24,600 --> 00:04:28,600
+care about the Starter map, but the Mortar depends on Rust. And then Rust, what does that
+
+68
+00:04:28,600 --> 00:04:32,600
+depend on? All these things on the right here, there's up to 15 it's rendering, you can choose that here.
+
+69
+00:04:32,600 --> 00:04:36,600
+So the Rust itself depends on all
+
+70
+00:04:36,600 --> 00:04:40,600
+these things. Some of these are in the starter content. These three, the MacroVariation,
+
+71
+00:04:40,600 --> 00:04:44,600
+which makes the rust look different over a larger scale, the color of the rust itself, and then, the normal
+
+72
+00:04:44,600 --> 00:04:48,600
+map, which gives it bumpiness, are all in the StarterContent. So
+
+73
+00:04:48,600 --> 00:04:52,600
+if you want to get all of these out, as well as the asset itself, you right-click and say Find
+
+74
+00:04:52,600 --> 00:04:56,600
+in Content Browser. And you go back to your Content Browser and it will have highlighted
+
+75
+00:04:56,600 --> 00:05:00,600
+these textures that Rust depends on. Now you can move those
+
+76
+00:05:00,600 --> 00:05:04,600
+into the Mortar folder. We'd also better move Rust
+
+77
+00:05:04,600 --> 00:05:08,600
+itself. Where is Rust itself? It seems not to be here, but that's probably because I'm looking in the
+
+78
+00:05:08,600 --> 00:05:12,600
+wrong folder. There you go, Rust is in the Materials folder. Let's move over to the
+
+79
+00:05:12,600 --> 00:05:16,600
+Mortar, too. Great! Now if we go back to the
+
+80
+00:05:16,600 --> 00:05:20,600
+Starter Content and look for Rust, it seems to have all gone, which is good news! It's all inside
+
+81
+00:05:20,600 --> 00:05:24,600
+the Mortar folder, along with all the other bits. OK, so if we do a Save
+
+82
+00:05:24,600 --> 00:05:28,600
+All, and then, we go ahead and
+
+83
+00:05:28,600 --> 00:05:32,600
+try and delete the StarterContent, we should be working through the list now and
+
+84
+00:05:32,600 --> 00:05:36,600
+getting rid of things that depend on starter content. Ultimately, as I said, what we'll do once we've
+
+85
+00:05:36,600 --> 00:05:40,600
+managed to get rid of starter content is remove it from source control and live a happy life, with
+
+86
+00:05:40,600 --> 00:05:44,600
+everything in our project properly tracked, apart from all the derived files, of course.
+
+87
+00:05:44,600 --> 00:05:48,600
+So let's just let this search finish, and then I'll throw you into a challenge!
+
+88
+00:05:48,600 --> 00:05:52,600
+So what have we got? We've just got Grass and Gravel
+
+89
+00:05:52,600 --> 00:05:56,600
+now. The Mortar still seems to be dependent upon something.
+
+90
+00:05:56,600 --> 00:06:00,600
+Could it be this reference further down the list? Let's have a look! Metal_Rust!
+
+91
+00:06:00,600 --> 00:06:04,600
+OK, let's just deal with these object redirectors. So there is
+
+92
+00:06:04,600 --> 00:06:08,600
+one more thing left. Let me show you what happened. When we
+
+93
+00:06:08,600 --> 00:06:12,600
+moved the Rust material, from the StarterContent's
+
+94
+00:06:12,600 --> 00:06:16,600
+Materials folder into the Mortar, this guy here, look what it did. You can't
+
+95
+00:06:16,600 --> 00:06:20,600
+see it unless you go to Filters, Other Filters,
+
+96
+00:06:20,600 --> 00:06:24,600
+and then show Redirectors,
+
+97
+00:06:24,600 --> 00:06:28,600
+they're like aliases. If you do that you'll find, through a search maybe
+
+98
+00:06:28,600 --> 00:06:32,600
+use this, that we have a Rust Redirector in the Materials folder.
+
+99
+00:06:32,600 --> 00:06:36,600
+And that was just Unreal's way of making sure that there's a bridge, over to the Rust's
+
+100
+00:06:36,600 --> 00:06:40,600
+new location, in case it's needed, but we're trying to get rid of the StarterContent
+
+101
+00:06:40,600 --> 00:06:44,600
+folder. So we can get rid of that redirector like this, right-click the Materials folder and Fix
+
+102
+00:06:44,600 --> 00:06:48,600
+Up Redirectors. It says that it "Finds references to all redirectors in the selected
+
+103
+00:06:48,600 --> 00:06:52,600
+folders and resaves them if possible", and "deletes any redirectors
+
+104
+00:06:52,600 --> 00:06:56,600
+that had all their references fixed." Perfect, so we do that! Now,
+
+105
+00:06:56,600 --> 00:07:00,600
+there are not redirectors, which means that if we now try and delete
+
+106
+00:07:00,600 --> 00:07:04,600
+starter content... This is a pretty common gotcha, that there redirectors
+
+107
+00:07:04,600 --> 00:07:08,600
+can confuse you, and you may not be able to see the redirectors, but remember you turn on the Filters,
+
+108
+00:07:08,600 --> 00:07:12,600
+Other, Show Redirectors, and then, you get to see those aliases.
+
+109
+00:07:12,600 --> 00:07:16,600
+Now we're going to do a search again, and we should
+
+110
+00:07:16,600 --> 00:07:20,600
+only have two assets that depend on anything in there, those two. And it's the Grass and
+
+111
+00:07:20,600 --> 00:07:24,600
+Gravel and anything that the Grass and Gravel require that we need to
+
+112
+00:07:24,600 --> 00:07:28,600
+move out now. And guess what, who's going to do that? You are! So make sure
+
+113
+00:07:28,600 --> 00:07:32,600
+you've backed up your folder as a .zip file, try deleting your starter content, move all referenced
+
+114
+00:07:32,600 --> 00:07:36,600
+assets out or delete relevant objects, and then eventually delete the Starter
+
+115
+00:07:36,600 --> 00:07:40,600
+Content folder, close and reopen the Editor, and test everything works,
+
+116
+00:07:40,600 --> 00:07:44,600
+and then, when you've done that, share your nice new tidy folder structure, as an image
+
+117
+00:07:44,600 --> 00:07:48,600
+or some other how, in our discussions over on the community site and I'll see you in a minute.
+
+118
+00:07:48,600 --> 00:07:52,600
+
+
+119
+00:07:52,600 --> 00:07:56,600
+OK welcome back! So I am going to just observe this. I think it's Grass and Gravel
+
+120
+00:07:56,600 --> 00:08:00,600
+are the only things left, so I'm going to go and find Grass and Gravel
+
+121
+00:08:00,600 --> 00:08:04,600
+inside the StarterContent. Let's start with the Grass! M
+
+122
+00:08:04,600 --> 00:08:08,600
+_Ground_Grass. There are actually three things. Now the
+
+123
+00:08:08,600 --> 00:08:12,600
+Ground_Grass is the thing in question, I think, or was it the texture?
+
+124
+00:08:12,600 --> 00:08:16,600
+Hmm, good question, I will just go back and have a look. I don't remember
+
+125
+00:08:16,600 --> 00:08:20,600
+which type of grass it was. If these searches take a long time, you could
+
+126
+00:08:20,600 --> 00:08:24,600
+always use something like SnagIt, a screen capture tool, to grab
+
+127
+00:08:24,600 --> 00:08:28,600
+the result of the search, and then, go in one big pass through, deal with everything
+
+128
+00:08:28,600 --> 00:08:32,600
+and then only run the search infrequently, because it's quite a slow dependency search.
+
+129
+00:08:32,600 --> 00:08:36,600
+So I could come here with SnagIt, I have a keyboard shortcut for that.
+
+130
+00:08:36,600 --> 00:08:40,600
+And have I got SnagIt open somewhere? I should have.
+
+131
+00:08:40,600 --> 00:08:44,600
+And I can come and snapshot that, and then I can see exactly that it's T_Ground
+
+132
+00:08:44,600 --> 00:08:48,600
+_Gras and T_Ground_Gravel, it's the textures. So we start
+
+133
+00:08:48,600 --> 00:08:52,600
+from T_Ground_Grass. We look at the Reference Viewer for that and we see
+
+134
+00:08:52,600 --> 00:08:56,600
+what it depends on. Well ostensibly it doesn't depend on anything. That's interesting!
+
+135
+00:08:56,600 --> 00:09:00,600
+So I should...
+
+136
+00:09:00,600 --> 00:09:04,600
+T_Ground_Grass_D, I'm not trusting that entirely. What are the references
+
+137
+00:09:04,600 --> 00:09:08,600
+for the others? Grass, yeah Grass depends on all
+
+138
+00:09:08,600 --> 00:09:12,600
+this stuff, you see, in the StarterContent. If you're going to use
+
+139
+00:09:12,600 --> 00:09:16,600
+Grass, which we have been doing as a material on our
+
+140
+00:09:16,600 --> 00:09:20,600
+landscape we're going to need to take all this stuff with it, the Perlin_Noise, the MacroVariation, and all that.
+
+141
+00:09:20,600 --> 00:09:24,600
+So again, we can find it in the Content Browser, move all this stuff into the BattleGround
+
+142
+00:09:24,600 --> 00:09:28,600
+folder, and then, I'm going to go back to my
+
+143
+00:09:28,600 --> 00:09:32,600
+screenshot, if I can find it in here, and see what else we had. We also had
+
+144
+00:09:32,600 --> 00:09:36,600
+the Gravel, so I'm going to look for Gravel.
+
+145
+00:09:36,600 --> 00:09:40,600
+T_Ground_Gravel, I'm going to look at its references.
+
+146
+00:09:40,600 --> 00:09:44,600
+Let's try the other one.
+
+147
+00:09:44,600 --> 00:09:48,600
+Yeah, I think most of them have gone across, so I just
+
+148
+00:09:48,600 --> 00:09:52,600
+need to move both bits that relate to the Gravel into
+
+149
+00:09:52,600 --> 00:09:56,600
+the BattleGround folder. And that should be
+
+150
+00:09:56,600 --> 00:10:00,600
+pretty much it! Let's go ahead and save everything, rerun the deletion
+
+151
+00:10:00,600 --> 00:10:04,600
+script, and see if we've got all
+
+152
+00:10:04,600 --> 00:10:08,600
+our dependencies out of the StarterContent folder. It'll be a big sigh of relief when we have, we can
+
+153
+00:10:08,600 --> 00:10:12,600
+finally finally get rid of it, close Unreal, remove it from source control,
+
+154
+00:10:12,600 --> 00:10:16,600
+and we'll be happy happy bunnies in the safety of no more mess-ups, due to changes
+
+155
+00:10:16,600 --> 00:10:20,600
+in starter content. So we still have some things,
+
+156
+00:10:20,600 --> 00:10:24,600
+both on the FlatLand asset. What have we got? T_Ground_Gravel_D. OK, it's just object
+
+157
+00:10:24,600 --> 00:10:28,600
+redirectors. All of these problems now are redirectors, so we can right-
+
+158
+00:10:28,600 --> 00:10:32,600
+click, fix up redirectors in folder. I think that will do it recursively,
+
+159
+00:10:32,600 --> 00:10:36,600
+through the subfolders, I think I saw it do it just then. So now, if I delete the
+
+160
+00:10:36,600 --> 00:10:40,600
+starter content, finally with the redirectors gone, we should be in a
+
+161
+00:10:40,600 --> 00:10:44,600
+position where we have not starter content and all of our stuff is nicely
+
+162
+00:10:44,600 --> 00:10:48,600
+put away with the assets that need them, like the Rust with the Mortar,
+
+163
+00:10:48,600 --> 00:10:52,600
+etc. Now you may want to separate your assets out differently, as your project gets bigger,
+
+164
+00:10:52,600 --> 00:10:56,600
+but this is a great start! Yeah, this is the thing we want to get to, Pending Deleted
+
+165
+00:10:56,600 --> 00:11:00,600
+Assets. So let's delete all that! So I'm loading
+
+166
+00:11:00,600 --> 00:11:04,600
+everything, deleting it, and no more folder that's
+
+167
+00:11:04,600 --> 00:11:08,600
+talking about starter content. Great! I'm going to get rid of this filter. I'm going
+
+168
+00:11:08,600 --> 00:11:12,600
+to do what I suggested you do, which is close and then reopen the Editor.
+
+169
+00:11:12,600 --> 00:11:16,600
+Then, I've got a tiny bit of source control work to do and then we are done!
+
+170
+00:11:16,600 --> 00:11:20,600
+So I reopen the Editor. Now has starter content come back? It has!
+
+171
+00:11:20,600 --> 00:11:24,600
+So what i'm going to do is, just close the Editor, go to Content, and delete off the disk
+
+172
+00:11:24,600 --> 00:11:28,600
+the StarterContent folder, and then, reload Unreal.
+
+173
+00:11:28,600 --> 00:11:32,600
+You need to do that with Unreal closed,
+
+174
+00:11:32,600 --> 00:11:36,600
+and there, it is no longer there. It's all very well it no longer being there. Don't
+
+175
+00:11:36,600 --> 00:11:40,600
+celebrate yet, make sure that your game runs. [Laughs] I deleted a folder! Oh, I broke my game!
+
+176
+00:11:40,600 --> 00:11:44,600
+Not so clever. So everything appears to be OK, and we've done it quite
+
+177
+00:11:44,600 --> 00:11:48,600
+carefully. That's good news! So close Unreal, close VisualStudio.
+
+178
+00:11:48,600 --> 00:11:52,600
+Let's open up our .gitignore file. Now there are two .gitignore files in my project,
+
+179
+00:11:52,600 --> 00:11:56,600
+anyway one's at the root here of the project, and that has in it
+
+180
+00:11:56,600 --> 00:12:00,600
+a couple of things, it has BattleTank.VC.VC.opendb and
+
+181
+00:12:00,600 --> 00:12:04,600
+the .vs folder, so let's keep that on the left. And if I go
+
+182
+00:12:04,600 --> 00:12:08,600
+into BattleTank, I've got another .gitignore, which is the one we're going to keep, which has all this stuff in it.
+
+183
+00:12:08,600 --> 00:12:12,600
+But it doesn't have the BattleTank.VC.VC.opendb, so I'm going to move that
+
+184
+00:12:12,600 --> 00:12:16,600
+into there, and I'm going to move the .vs/, so we ignore
+
+185
+00:12:16,600 --> 00:12:20,600
+everything in the hidden .vs folder, like that. I'm going to save this
+
+186
+00:12:20,600 --> 00:12:24,600
+.gitignore on the right, so I've just added those things. I'm also going to get rid of the
+
+187
+00:12:24,600 --> 00:12:28,600
+StarterContent removal at the bottom. So what we're doing in our main
+
+188
+00:12:28,600 --> 00:12:32,600
+.gitignore is, we're consolidating two .gitignore files together, and we are
+
+189
+00:12:32,600 --> 00:12:36,600
+making it start tracking starter content and we're putting these things in,
+
+190
+00:12:36,600 --> 00:12:40,600
+so that we can delete this other .gitignore. Let's just
+
+191
+00:12:40,600 --> 00:12:44,600
+save it all, and I'll show you the changes, because .gitignores themselves, of course, are subject
+
+192
+00:12:44,600 --> 00:12:48,600
+to version control. Let's have a look at what the changes are, after I stage all this.
+
+193
+00:12:48,600 --> 00:12:52,600
+The following things are 10
+
+194
+00:12:52,600 --> 00:12:56,600
+megabytes or larger. That's OK I'm going to live with that, I don't think they're too huge.
+
+195
+00:12:56,600 --> 00:13:00,600
+I'm going to stage the .gitignore, and then, you can see the changes I made to the
+
+196
+00:13:00,600 --> 00:13:04,600
+.gitignore. The one in
+
+197
+00:13:04,600 --> 00:13:08,600
+the BattleTank folder has just had these two things added to it
+
+198
+00:13:08,600 --> 00:13:12,600
+and the StarterContent taken out, and the .gitignore, that's in the top level here, I'm going to
+
+199
+00:13:12,600 --> 00:13:16,600
+delete because I don't need it. I only want one .gitignore. Some instances you
+
+200
+00:13:16,600 --> 00:13:20,600
+want more than one, in this case I don't. So when this catch's up, it should notice that I
+
+201
+00:13:20,600 --> 00:13:24,600
+deleted the other .gitignore. There it is! Stage that deletion and we're good to
+
+202
+00:13:24,600 --> 00:13:28,600
+go! So we've deleted a .gitignore, moved a bunch of assets. They look like pluses
+
+203
+00:13:28,600 --> 00:13:32,600
+in here, because they've come under folders that are now tracked by source control.
+
+204
+00:13:32,600 --> 00:13:36,600
+We've modified that main .gitignore and we are in a good
+
+205
+00:13:36,600 --> 00:13:40,600
+position here. So let's go ahead, commit our work, and carry on with
+
+206
+00:13:40,600 --> 00:13:44,600
+starter content properly tracked under source control!
+
+207
+00:13:44,600 --> 00:13:44,933
+
+

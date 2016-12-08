@@ -1,0 +1,1101 @@
+
+1
+00:00:03,000 --> 00:00:06,000
+Hey welcome back! So,
+
+2
+00:00:06,000 --> 00:00:09,000
+it feels like time for some play testing to me. So, we could go
+
+3
+00:00:09,000 --> 00:00:12,000
+through, by hand, and play all these levels,
+
+4
+00:00:12,000 --> 00:00:15,000
+and obviously, if our game was that fun we
+
+5
+00:00:15,000 --> 00:00:18,000
+would. But having just built it, I'm not sure
+
+6
+00:00:18,000 --> 00:00:21,000
+I want to sit here and break all of these blocks, it could take some time.
+
+7
+00:00:21,000 --> 00:00:24,000
+And also, I want to test the stability
+
+8
+00:00:24,000 --> 00:00:27,000
+of later levels at
+
+9
+00:00:27,000 --> 00:00:30,000
+high speeds. So, one way to do this is
+
+10
+00:00:30,000 --> 00:00:33,000
+to make the machine automatically move the paddle
+
+11
+00:00:33,000 --> 00:00:36,000
+under the ball, so that if
+
+12
+00:00:36,000 --> 00:00:39,000
+the game gets faster and faster or if we just want it to play test
+
+13
+00:00:39,000 --> 00:00:42,000
+itself it can do that. So, that's a pretty cool idea!
+
+14
+00:00:42,000 --> 00:00:45,000
+It's actually a very simple idea as well. If we go into our Paddle Script,
+
+15
+00:00:45,000 --> 00:00:48,000
+what we can do on every update
+
+16
+00:00:48,000 --> 00:00:51,000
+is look at what it's already doing first. Let's
+
+17
+00:00:51,000 --> 00:00:54,000
+consolidate what it's already doing. Well, it's
+
+18
+00:00:54,000 --> 00:00:57,000
+just moving the paddle, in response to the mouse.
+
+19
+00:00:57,000 --> 00:01:00,000
+So, let's start by factoring that out. void
+
+20
+00:01:00,000 --> 00:01:03,000
+MoveWithMouse ()
+
+21
+00:01:03,000 --> 00:01:06,000
+and then, there we go!
+
+22
+00:01:12,000 --> 00:01:15,000
+And what
+
+23
+00:01:15,000 --> 00:01:18,000
+we can do is take this code out of here, paste it into MoveWithMouse.
+
+24
+00:01:18,000 --> 00:01:21,000
+Maybe we don't need so many lines in it anymore?
+
+25
+00:01:21,000 --> 00:01:24,000
+And we can say, on every frame, we just Move
+
+26
+00:01:24,000 --> 00:01:27,000
+WithMouse. Well, that's
+
+27
+00:01:27,000 --> 00:01:30,000
+fine and boring and we haven't really done anything, but what we
+
+28
+00:01:30,000 --> 00:01:33,000
+could do now is, we could say well let's have a check box against the paddle.
+
+29
+00:01:33,000 --> 00:01:36,000
+And let's make a public
+
+30
+00:01:36,000 --> 00:01:39,000
+auto play, so it's a boolean. It's either auto playing it
+
+31
+00:01:39,000 --> 00:01:42,000
+or not. autoPlay =
+
+32
+00:01:42,000 --> 00:01:45,000
+false; So, by default it doesn't autoPlay.
+
+33
+00:01:45,000 --> 00:01:48,000
+Alright, let's get rid of this Start method, we don't need that.
+
+34
+00:01:48,000 --> 00:01:51,000
+Cool! Alright, so then what we
+
+35
+00:01:51,000 --> 00:01:54,000
+do, and here's a challenge for you! I want you to put an if statement in that
+
+36
+00:01:54,000 --> 00:01:57,000
+says, if autoPlay is false, then
+
+37
+00:01:57,000 --> 00:02:00,000
+MoveWithMouse, otherwise just do nothing
+
+38
+00:02:00,000 --> 00:02:03,000
+for now. So, go ahead and do that!
+
+39
+00:02:03,000 --> 00:02:06,000
+OK, so if
+
+40
+00:02:06,000 --> 00:02:09,000
+not (!autoPlay or another way you could have done
+
+41
+00:02:09,000 --> 00:02:12,000
+it is said, if autoPlay ==
+
+42
+00:02:12,000 --> 00:02:15,000
+false, then we're going to MoveWithMouse.
+
+43
+00:02:15,000 --> 00:02:18,000
+OK, so that's fine!
+
+44
+00:02:18,000 --> 00:02:21,000
+Just be sure we just test and make sure the game still runs. So far, we should
+
+45
+00:02:21,000 --> 00:02:24,000
+have done absolutely nothing, apart
+
+46
+00:02:24,000 --> 00:02:27,000
+from... Let me show you something! Let's not maximize on play,
+
+47
+00:02:27,000 --> 00:02:30,000
+let's go into the game,
+
+48
+00:02:30,000 --> 00:02:33,000
+let's click on the paddle,
+
+49
+00:02:33,000 --> 00:02:36,000
+and look, you've got an Auto Play Checkbox!
+
+50
+00:02:36,000 --> 00:02:39,000
+So, if Auto Play is unchecked the paddle moves,
+
+51
+00:02:39,000 --> 00:02:42,000
+if it's checked the paddle doesn't move, OK.
+
+52
+00:02:42,000 --> 00:02:45,000
+So, that's a start! Now we need, when Auto Play is enabled,
+
+53
+00:02:45,000 --> 00:02:48,000
+then what do we do? else we...
+
+54
+00:02:48,000 --> 00:02:51,000
+Well, let's write a wishful function, one that doesn't
+
+55
+00:02:51,000 --> 00:02:54,000
+exist yet. autoPlay
+
+56
+00:02:54,000 --> 00:02:57,000
+OK Cool!
+
+57
+00:02:57,000 --> 00:03:00,000
+I'm going to use a capital a for method. Now,
+
+58
+00:03:00,000 --> 00:03:03,000
+autoPlay is read because it doesn't exist. So, how is autoPlay going to work? Well,
+
+59
+00:03:03,000 --> 00:03:06,000
+it doesn't need to return anything,
+
+60
+00:03:06,000 --> 00:03:09,000
+it doesn't need to take anything, but it does need to do something
+
+61
+00:03:09,000 --> 00:03:12,000
+so what's it going to do? Well,
+
+62
+00:03:12,000 --> 00:03:15,000
+good question! It's going to
+
+63
+00:03:15,000 --> 00:03:18,000
+simply move the mouse to the
+
+64
+00:03:18,000 --> 00:03:21,000
+position, to the Y position of the ball, so this means the
+
+65
+00:03:21,000 --> 00:03:24,000
+paddle now is going to need to see the ball. Now, we could either drag
+
+66
+00:03:24,000 --> 00:03:27,000
+the ball in or we could find the ball
+
+67
+00:03:27,000 --> 00:03:30,000
+in the Start method, using the GameObject.Find
+
+68
+00:03:30,000 --> 00:03:33,000
+and that's what I want to do. So, I'm going to say private
+
+69
+00:03:33,000 --> 00:03:36,000
+Ball
+
+70
+00:03:36,000 --> 00:03:39,000
+ball; OK, now what I want you to do is put the Start
+
+71
+00:03:39,000 --> 00:03:42,000
+method back in, and then, use Game
+
+72
+00:03:42,000 --> 00:03:45,000
+Object.FindObject
+
+73
+00:03:45,000 --> 00:03:48,000
+OfType to find that Ball and assign
+
+74
+00:03:48,000 --> 00:03:51,000
+it to this ball variable. OK, so
+
+75
+00:03:51,000 --> 00:03:54,000
+pause the video and make the Start method find the ball in the scene, so
+
+76
+00:03:54,000 --> 00:03:57,000
+we don't need to drag it into the Inspector.
+
+77
+00:03:57,000 --> 00:04:00,000
+OK, so it's void Start (). I want you to rewrite this
+
+78
+00:04:00,000 --> 00:04:03,000
+so you start feeling confident in removing these things and putting them
+
+79
+00:04:03,000 --> 00:04:06,000
+back in if you need to. ball = Game
+
+80
+00:04:06,000 --> 00:04:09,000
+Object.FindObjectOfType
+
+81
+00:04:09,000 --> 00:04:12,000
+and then, now let's look at the docs for that!
+
+82
+00:04:12,000 --> 00:04:15,000
+What does it want?
+
+83
+00:04:15,000 --> 00:04:18,000
+It wants type of GUI
+
+84
+00:04:18,000 --> 00:04:21,000
+Texture. That's one way of doing it, you can do type of. Again,
+
+85
+00:04:21,000 --> 00:04:24,000
+I always tend to do it the way that's more consistent with the other things
+
+86
+00:04:24,000 --> 00:04:27,000
+that it does, which is &lt;Ball&gt; like that, and then just some brackets.
+
+87
+00:04:27,000 --> 00:04:30,000
+OK, so we've found the Ball, with any luck,
+
+88
+00:04:30,000 --> 00:04:33,000
+in the scene. If we're not sure that we have, we
+
+89
+00:04:33,000 --> 00:04:36,000
+just print (ball); We need the ball because we
+
+90
+00:04:36,000 --> 00:04:39,000
+need to know it's coordinates. Let's check that we are finding
+
+91
+00:04:39,000 --> 00:04:42,000
+the ball.
+
+92
+00:04:42,000 --> 00:04:45,000
+Ball (Ball), if you look in the Console, it's found a Ball! Great!
+
+93
+00:04:45,000 --> 00:04:48,000
+So, that's good! Pretty boring but it's good! So, this is
+
+94
+00:04:48,000 --> 00:04:51,000
+where the magic happens. What we want to do in simple
+
+95
+00:04:51,000 --> 00:04:54,000
+terms is, we say paddle... Well, why don't we
+
+96
+00:04:54,000 --> 00:04:57,000
+copy what we've done with MoveWithMouse, actually, because most of it's
+
+97
+00:04:57,000 --> 00:05:00,000
+going to be the same. So, we need a Vector3
+
+98
+00:05:00,000 --> 00:05:03,000
+paddle position. Yes, local to this method now,
+
+99
+00:05:03,000 --> 00:05:06,000
+different to this one. Here's a new Vector3,
+
+100
+00:05:06,000 --> 00:05:09,000
+starting at 0.5 and the
+
+101
+00:05:09,000 --> 00:05:12,000
+transform position in the Y. So, we're keeping the
+
+102
+00:05:12,000 --> 00:05:15,000
+Y position of the paddle. We are starting
+
+103
+00:05:15,000 --> 00:05:18,000
+at 0.5, but it doesn't really matter where we
+
+104
+00:05:18,000 --> 00:05:21,000
+start, and then, 0f in the
+
+105
+00:05:21,000 --> 00:05:24,000
+Z. That doesn't matter either! OK, now we don't
+
+106
+00:05:24,000 --> 00:05:27,000
+care about the mouse position. What we do care about
+
+107
+00:05:27,000 --> 00:05:30,000
+is the ball position,
+
+108
+00:05:30,000 --> 00:05:33,000
+= ball.transform.position;
+
+109
+00:05:33,000 --> 00:05:36,000
+Alright, so now
+
+110
+00:05:36,000 --> 00:05:39,000
+every frame we move the paddle's X position to
+
+111
+00:05:39,000 --> 00:05:42,000
+the (ballPos.x
+
+112
+00:05:42,000 --> 00:05:45,000
+clamping it
+
+113
+00:05:45,000 --> 00:05:48,000
+between... Now, it doesn't like this .x.
+
+114
+00:05:48,000 --> 00:05:51,000
+float ballPos... Sorry, I want a Vector3
+
+115
+00:05:51,000 --> 00:05:54,000
+ballPos is
+
+116
+00:05:54,000 --> 00:05:57,000
+the ball's transform. And then, we say let's move
+
+117
+00:05:57,000 --> 00:06:00,000
+the paddle to the ball's x position, not letting it go
+
+118
+00:06:00,000 --> 00:06:03,000
+outside of these bounds, which it kind of shouldn't anyway.
+
+119
+00:06:03,000 --> 00:06:06,000
+This .transform.position = paddlePos; because we
+
+120
+00:06:06,000 --> 00:06:09,000
+built up this paddlePos vector exactly as before. So, we're doing almost
+
+121
+00:06:09,000 --> 00:06:12,000
+the same thing as we did with MoveWithMouse. Let's try
+
+122
+00:06:12,000 --> 00:06:15,000
+it! Let's see what happens!
+
+123
+00:06:15,000 --> 00:06:18,000
+So, this is
+
+124
+00:06:18,000 --> 00:06:21,000
+me manual playing. If I pause the game, click on
+
+125
+00:06:21,000 --> 00:06:24,000
+the Paddle, and check Auto Play, let's see if it
+
+126
+00:06:24,000 --> 00:06:27,000
+works! Ah, look at that!
+
+127
+00:06:27,000 --> 00:06:30,000
+Watch what's happening there! So,
+
+128
+00:06:30,000 --> 00:06:33,000
+pretty cool hey! It's very simple, the system
+
+129
+00:06:33,000 --> 00:06:36,000
+is just settting the X position of the paddle
+
+130
+00:06:36,000 --> 00:06:39,000
+to be precisely the same as the X position of the ball.
+
+131
+00:06:39,000 --> 00:06:42,000
+This should, in principle, mean that it
+
+132
+00:06:42,000 --> 00:06:45,000
+misses, because it's a machine and it's
+
+133
+00:06:45,000 --> 00:06:48,000
+pretty fast. There are some instances in which
+
+134
+00:06:48,000 --> 00:06:51,000
+this could fail to do with the speed of the physics
+
+135
+00:06:51,000 --> 00:06:54,000
+calculations, etc. But for now, let's see how it
+
+136
+00:06:54,000 --> 00:06:57,000
+does at play testing this level for us. In fact, it should
+
+137
+00:06:57,000 --> 00:07:00,000
+play test the entire game for us. So, I'm
+
+138
+00:07:00,000 --> 00:07:03,000
+sitting here with my arms crossed, hoping this will work.
+
+139
+00:07:03,000 --> 00:07:06,000
+Now, this is nearly a boring loop, but because we've
+
+140
+00:07:06,000 --> 00:07:09,000
+got our special Random.Range code in this
+
+141
+00:07:09,000 --> 00:07:12,000
+boring loop should not persist. At some
+
+142
+00:07:12,000 --> 00:07:15,000
+point, we should get out of it. There we are! And
+
+143
+00:07:15,000 --> 00:07:18,000
+again, it's trying to get in a boring loop, but we have code that's preventing
+
+144
+00:07:18,000 --> 00:07:21,000
+that. There you go! And there's a really kind of weird bounce there!
+
+145
+00:07:21,000 --> 00:07:24,000
+So, this is
+
+146
+00:07:24,000 --> 00:07:27,000
+roughly what a human player would have to do.
+
+147
+00:07:27,000 --> 00:07:30,000
+You may look at this and think, how about if I want to knock the ball
+
+148
+00:07:30,000 --> 00:07:33,000
+off to more of an angle? Well, you could actually
+
+149
+00:07:33,000 --> 00:07:36,000
+change the collider shape on your paddle,
+
+150
+00:07:36,000 --> 00:07:39,000
+as a bit of extra credit, so that it has
+
+151
+00:07:39,000 --> 00:07:42,000
+some little kind of edges on it so that you can
+
+152
+00:07:42,000 --> 00:07:45,000
+actually hit the ball more off to the side.
+
+153
+00:07:45,000 --> 00:07:48,000
+If you're interested in knowing how to do that, then let me know
+
+154
+00:07:48,000 --> 00:07:51,000
+in the discussions, and I will consider posting a bonus
+
+155
+00:07:51,000 --> 00:07:54,000
+video, to show you how to make those fine tunings.
+
+156
+00:07:54,000 --> 00:07:57,000
+So, what I'm going to do is let it
+
+157
+00:07:57,000 --> 00:08:00,000
+play itself, and then, I'll speed up the video so we can watch the auto
+
+158
+00:08:00,000 --> 00:08:03,000
+play, hopefully running through all of the levels. So,
+
+159
+00:08:03,000 --> 00:08:06,000
+enjoy watching that, yeah, and see you
+
+160
+00:08:06,000 --> 00:08:09,000
+a moment!
+
+161
+00:08:12,000 --> 00:08:15,000
+I quite like the fact
+
+162
+00:08:15,000 --> 00:08:18,000
+it gets faster as the level goes on, because it kind of
+
+163
+00:08:18,000 --> 00:08:21,000
+gives you a time limit, in a way, to get the
+
+164
+00:08:21,000 --> 00:08:24,000
+level cleared, because the longer you leave it the harder the game gets.
+
+165
+00:08:24,000 --> 00:08:27,000
+So, that's a little bit of a mergent, a knid of unplanned
+
+166
+00:08:27,000 --> 00:08:30,000
+behavior. Another option would be that we could introduce lives
+
+167
+00:08:30,000 --> 00:08:33,000
+into the level. A score
+
+168
+00:08:33,000 --> 00:08:36,000
+seems a little bit contrived in this game, because
+
+169
+00:08:36,000 --> 00:08:39,000
+unless you involve time in the score,
+
+170
+00:08:39,000 --> 00:08:42,000
+if you just have a score based on the bricks, of coarse
+
+171
+00:08:42,000 --> 00:08:45,000
+you're always going to score the same for every level, which is a bit rubbish.
+
+172
+00:08:45,000 --> 00:08:48,000
+So, you could introduce a score system that involves time,
+
+173
+00:08:48,000 --> 00:08:51,000
+but I really think this game is just a completionism game. It's
+
+174
+00:08:51,000 --> 00:08:54,000
+about actually getting to the end of the level and
+
+175
+00:08:54,000 --> 00:08:57,000
+clearing the bricks and having the patience and tenacity to do that.
+
+176
+00:09:00,000 --> 00:09:03,000
+When you get to another level, you are
+
+177
+00:09:03,000 --> 00:09:06,000
+going to need to go back to the paddle and set Auto
+
+178
+00:09:06,000 --> 00:09:09,000
+Play on, and then, just
+
+179
+00:09:09,000 --> 00:09:12,000
+launch the ball.
+
+180
+00:09:15,000 --> 00:09:18,000
+OK, so that last level is pretty incomplete,
+
+181
+00:09:18,000 --> 00:09:21,000
+so I think we've seen enough of it there, actually. When I see a
+
+182
+00:09:21,000 --> 00:09:24,000
+level looking like that, I'm going to either remove
+
+183
+00:09:24,000 --> 00:09:27,000
+the level or embellish the level. So, I think what I'm going
+
+184
+00:09:27,000 --> 00:09:30,000
+to do is quickly embellish the level. So, I will start with
+
+185
+00:09:30,000 --> 00:09:33,000
+all of the bricks, that are nicely laid out in Level_02.
+
+186
+00:09:33,000 --> 00:09:36,000
+I'm going to delete my bricks in Level_03
+
+187
+00:09:36,000 --> 00:09:39,000
+here, because they're pretty ugly. I'm going to paste in Level_02's
+
+188
+00:09:39,000 --> 00:09:42,000
+bricks, and then, inside
+
+189
+00:09:42,000 --> 00:09:45,000
+the bricks I'm going to start looking at
+
+190
+00:09:45,000 --> 00:09:48,000
+maybe replacing a few of these, with invincible
+
+191
+00:09:48,000 --> 00:09:51,000
+bricks. So for example, what I could is go into the yellow
+
+192
+00:09:51,000 --> 00:09:54,000
+here, and replace maybe,
+
+193
+00:09:54,000 --> 00:09:57,000
+I don't know, let's say this one, those
+
+194
+00:09:57,000 --> 00:10:00,000
+two. Maybe that one and that one.
+
+195
+00:10:00,000 --> 00:10:03,000
+So, just replace a handful of these with something
+
+196
+00:10:03,000 --> 00:10:06,000
+else and that's how I'm going to do it. So, I'm going to drop
+
+197
+00:10:06,000 --> 00:10:09,000
+my thing into here, Bricks, and then I'll have
+
+198
+00:10:09,000 --> 00:10:12,000
+invincible on grid and then I'll start
+
+199
+00:10:12,000 --> 00:10:15,000
+duplicating them. And this already
+
+200
+00:10:15,000 --> 00:10:18,000
+will make the level a little bit more interesting.
+
+201
+00:10:18,000 --> 00:10:21,000
+And you can get a lot more imaginative than I am on this!
+
+202
+00:10:21,000 --> 00:10:24,000
+The other thing you might want to do is use a different background image again.
+
+203
+00:10:24,000 --> 00:10:27,000
+It's not very nice to have the same background image for every level.
+
+204
+00:10:27,000 --> 00:10:30,000
+So, the way you could do that its just say,
+
+205
+00:10:30,000 --> 00:10:33,000
+I don't know, background, for instance, would be very boring.
+
+206
+00:10:33,000 --> 00:10:36,000
+Images, Search Tools, Usage rights,
+
+207
+00:10:36,000 --> 00:10:39,000
+"Labeled for reuse with modification".
+
+208
+00:10:39,000 --> 00:10:42,000
+Size, Larger than 640 x 480.
+
+209
+00:10:42,000 --> 00:10:45,000
+Ideally, we want one that is just 800 by 600.
+
+210
+00:10:45,000 --> 00:10:48,000
+That would be easiest, if there is one that's
+
+211
+00:10:48,000 --> 00:10:51,000
+suitable. So, you have a quick flick through.
+
+212
+00:10:51,000 --> 00:10:54,000
+If you can't find one that's the right size, straight off the cuff,
+
+213
+00:10:54,000 --> 00:10:57,000
+then you just modify one or you go and make
+
+214
+00:10:57,000 --> 00:11:00,000
+one or you get artistic or whatever. I'm going to spend
+
+215
+00:11:00,000 --> 00:11:03,000
+another few seconds looking to see if there's an 800 by 600 image that's
+
+216
+00:11:03,000 --> 00:11:06,000
+suitable here. I'm looking for it more based
+
+217
+00:11:06,000 --> 00:11:09,000
+on size than I am based on whether it's an
+
+218
+00:11:09,000 --> 00:11:12,000
+interesting image. So, now let's see if we can do an
+
+219
+00:11:12,000 --> 00:11:15,000
+800 x 600
+
+220
+00:11:15,000 --> 00:11:18,000
+search, like that.
+
+221
+00:11:18,000 --> 00:11:21,000
+Ah, there you go! So, we could have another one from Wikipedia!
+
+222
+00:11:21,000 --> 00:11:24,000
+So, we could view that image, Save Image As.
+
+223
+00:11:24,000 --> 00:11:27,000
+Stick it in our downloads, if you like. That's
+
+224
+00:11:27,000 --> 00:11:30,000
+fine! but then, when you get to Unity, you need to be
+
+225
+00:11:30,000 --> 00:11:33,000
+going to your Sprites,
+
+226
+00:11:33,000 --> 00:11:36,000
+importing a new asset from
+
+227
+00:11:36,000 --> 00:11:39,000
+wherever it was, which is here.
+
+228
+00:11:39,000 --> 00:11:42,000
+I'm going to call it,
+
+229
+00:11:42,000 --> 00:11:45,000
+Level_03 bg,
+
+230
+00:11:45,000 --> 00:11:48,000
+like so, and then, on Level_03 I just want
+
+231
+00:11:48,000 --> 00:11:51,000
+to go to the Play Space, Background,
+
+232
+00:11:51,000 --> 00:11:54,000
+Sprite, and
+
+233
+00:11:54,000 --> 00:11:57,000
+make it Level_03 bg like that. Now, why is it down
+
+234
+00:11:57,000 --> 00:12:00,000
+on the bottom left? Why is this not working? If you ever want to
+
+235
+00:12:00,000 --> 00:12:03,000
+change your image, what do we need to do?
+
+236
+00:12:03,000 --> 00:12:06,000
+Yeah, you need to go to the Sprite Editor and do two things. One thing is, you
+
+237
+00:12:06,000 --> 00:12:09,000
+need to make the Pixels Per World Unit the same as the other images,
+
+238
+00:12:09,000 --> 00:12:12,000
+which I think is 50 actually. Yes 50!
+
+239
+00:12:12,000 --> 00:12:15,000
+And that will get the scaling right, but now, why is it in the wrong place?
+
+240
+00:12:15,000 --> 00:12:18,000
+Well, it's in the wrong place because the Pivot
+
+241
+00:12:18,000 --> 00:12:21,000
+point for the others is at the bottom left.
+
+242
+00:12:21,000 --> 00:12:24,000
+OK, so change the Pivot point, Apply, and exit.
+
+243
+00:12:24,000 --> 00:12:27,000
+And now, we have a different looking level!
+
+244
+00:12:27,000 --> 00:12:30,000
+OK, so now we have another unique
+
+245
+00:12:30,000 --> 00:12:33,000
+level. Cool! So, play testing has
+
+246
+00:12:33,000 --> 00:12:36,000
+worked pretty well! Auto play testing works well! And
+
+247
+00:12:36,000 --> 00:12:39,000
+we've gone all the way through the loop of the game. I didn't quite let it get to the
+
+248
+00:12:39,000 --> 00:12:42,000
+end, because the moment I saw a mankey scene,
+
+249
+00:12:42,000 --> 00:12:45,000
+I felt compelled to do something about it. I wanted
+
+250
+00:12:45,000 --> 00:12:48,000
+to feel that in Level_03 my bricks were organized
+
+251
+00:12:48,000 --> 00:12:51,000
+properly. In fact, they're still not! I want my Invincible bricks under
+
+252
+00:12:51,000 --> 00:12:54,000
+my Bricks Hierarchy, something like that.
+
+253
+00:12:54,000 --> 00:12:57,000
+And it's looking all a lot nicer now. So, we have this
+
+254
+00:12:57,000 --> 00:13:00,000
+level here, with a robot and two brick types.
+
+255
+00:13:00,000 --> 00:13:03,000
+Oh no! We have an invincible in Level_01! I'm going to take that out actually.
+
+256
+00:13:03,000 --> 00:13:06,000
+That's a bit of an odd one. So, no invincible
+
+257
+00:13:06,000 --> 00:13:09,000
+in Level_01. Introduce the complexity of
+
+258
+00:13:09,000 --> 00:13:12,000
+the red bricks in Level_02, different background. Level_03
+
+259
+00:13:12,000 --> 00:13:15,000
+introduces a third type, the invincible brick, and then, we
+
+260
+00:13:15,000 --> 00:13:18,000
+have a Win Screen and a Loose Screen. So awesome! Automated play
+
+261
+00:13:18,000 --> 00:13:21,000
+testing! We have a check box on the Paddle that allows
+
+262
+00:13:21,000 --> 00:13:24,000
+us to auto play!
+
+263
+00:13:24,000 --> 00:13:27,000
+We're in pretty good shape here, really now, to be thinking about
+
+264
+00:13:27,000 --> 00:13:30,000
+building our own version of this
+
+265
+00:13:30,000 --> 00:13:33,000
+to the web. So, I want you to get really creative with your levels. Build as
+
+266
+00:13:33,000 --> 00:13:36,000
+many levels as you want. Make sure your build
+
+267
+00:13:36,000 --> 00:13:39,000
+order here is... Not there, sorry!
+
+268
+00:13:39,000 --> 00:13:42,000
+...under your project, there! Your build
+
+269
+00:13:42,000 --> 00:13:45,000
+order, project Build Settings. File, Build Settings.
+
+270
+00:13:45,000 --> 00:13:48,000
+Make sure you start with your Start Menu, then, go through your levels
+
+271
+00:13:48,000 --> 00:13:51,000
+in order. Then the Win Screen, because remember, when you pass from Level_03
+
+272
+00:13:51,000 --> 00:13:54,000
+onto the next level you want it to be the Win Screen, and then,
+
+273
+00:13:54,000 --> 00:13:57,000
+the LooseCollider will leap frog us to the Loose Screen if
+
+274
+00:13:57,000 --> 00:14:00,000
+that happens. So cool! Congratulations on that bit, and I'll
+
+275
+00:14:00,000 --> 00:14:03,000
+see you soon!
+

@@ -1,0 +1,645 @@
+
+1
+00:00:00,000 --> 00:00:01,666
+
+
+2
+00:00:01,666 --> 00:00:05,666
+So in this video we will Unify Player & AI
+
+3
+00:00:05,666 --> 00:00:09,666
+Aiming! What that means is that we will end up with the top section of this diagram
+
+4
+00:00:09,666 --> 00:00:13,666
+finished so that, regardless of whether it's the player or the AI possessing the
+
+5
+00:00:13,666 --> 00:00:17,666
+tank, they will call the same AimAt method. And then, what that will mean is that we can
+
+6
+00:00:17,666 --> 00:00:21,666
+actually log out these three AI tanks are aiming at me, my player,
+
+7
+00:00:21,666 --> 00:00:25,666
+the player position, and we are aiming at, well whatever we fancy really. So,
+
+8
+00:00:25,666 --> 00:00:27,700
+let's dive in and get it going!
+
+9
+00:00:27,700 --> 00:00:31,700
+Okie cokie! So, we are ready to get
+
+10
+00:00:31,700 --> 00:00:35,700
+this whole top section working. We have a Tank AI Controller, it's going to be pretty
+
+11
+00:00:35,700 --> 00:00:39,700
+easy to organize, excuse me, to aim at the player. We have a Tank Player
+
+12
+00:00:39,700 --> 00:00:43,700
+Controller and we have just spent loads of effort making sure we know what this
+
+13
+00:00:43,700 --> 00:00:47,700
+world-space is here. So, in either case we're going to aim at a particular
+
+14
+00:00:47,700 --> 00:00:51,700
+world-space, whether it's the player's world-space or whether it's the world-space that the crosshair
+
+15
+00:00:51,700 --> 00:00:55,700
+is pointing at. And we're going to send that to the tank, and there's going to be an
+
+16
+00:00:55,700 --> 00:00:59,700
+AimAt method, as we can see here on the tank. So, the first thing to do
+
+17
+00:00:59,700 --> 00:01:03,700
+is to make that AimAt method on the tank. That's pretty simple, if you want a mini challenge for yourself,
+
+18
+00:01:03,700 --> 00:01:07,700
+go ahead and do it now. I'm going to just do it anyway.
+
+19
+00:01:07,700 --> 00:01:11,700
+By the way, all these things should have been private in here, because they don't need to be public.
+
+20
+00:01:11,700 --> 00:01:15,700
+So, for the first time now, I'm going to make a public section, and ask
+
+21
+00:01:15,700 --> 00:01:19,700
+myself the question, is it reasonable for a tank to have a public
+
+22
+00:01:19,700 --> 00:01:23,700
+method called AimAt? I think it is! The public part
+
+23
+00:01:23,700 --> 00:01:27,700
+of these classes is the most important thing, it's the contract, it's the external
+
+24
+00:01:27,700 --> 00:01:31,700
+view of the tank. But I think it's perfectly reasonable to have a void AimAt
+
+25
+00:01:31,700 --> 00:01:35,700
+(FVector HitLocation).
+
+26
+00:01:35,700 --> 00:01:39,700
+In this case, we kind of mean the location of the thing we want to hit, but it is also
+
+27
+00:01:39,700 --> 00:01:43,700
+the HitLocation, formally from the line trace that we did
+
+28
+00:01:43,700 --> 00:01:47,700
+in the TankPlayerController, because we are wanting to hit the
+
+29
+00:01:47,700 --> 00:01:51,700
+thing that our line trace hits. So, AimAt (FVector HitLocation);
+
+30
+00:01:51,700 --> 00:01:55,700
+Cool! Let's go ahead and implement that inside the tank.
+
+31
+00:01:55,700 --> 00:01:59,700
+I think I'll do it down here. We need an
+
+32
+00:01:59,700 --> 00:02:03,700
+ATank:: qualify the class,
+
+33
+00:02:03,700 --> 00:02:07,700
+and then, we come in here. Now, we're not actually going to do the aiming
+
+34
+00:02:07,700 --> 00:02:11,700
+now, so what I'm going to do is I'm just going to take the log entry from
+
+35
+00:02:11,700 --> 00:02:15,700
+here and from the TankPlayerController.cpp,
+
+36
+00:02:15,700 --> 00:02:19,700
+and I'm going to replace... Well, let me put it in where it wants to go, so I don't
+
+37
+00:02:19,700 --> 00:02:23,700
+lose my copy buffer. So I'm going to pop it in there. I'm going to make the call here though
+
+38
+00:02:23,700 --> 00:02:27,700
+from the TankPlayerCo?ntroller. So, instead of the TODO that
+
+39
+00:02:27,700 --> 00:02:31,700
+tells ControlledTank to aim at this point, we want to GetControlledTank
+
+40
+00:02:31,700 --> 00:02:35,700
+and we have protected that access
+
+41
+00:02:35,700 --> 00:02:39,700
+here. And then, we want to say AimAt
+
+42
+00:02:39,700 --> 00:02:43,700
+and then we want to say (HitLocation). OK, so we're just going to
+
+43
+00:02:43,700 --> 00:02:47,700
+pass it from the TankPlayerController through to the tank. So, in terms of our
+
+44
+00:02:47,700 --> 00:02:51,700
+fancy diagram, that is this right-hand side here. We're aiming at the thing
+
+45
+00:02:51,700 --> 00:02:55,700
+the crosshair is pointing at, and this is where it finally gets called. So, over on the tank we're
+
+46
+00:02:55,700 --> 00:02:59,700
+going to want to log this out. Now, I'm going to want to log a little bit more than this. I'm going to want to know
+
+47
+00:02:59,700 --> 00:03:03,700
+which tank is aiming at what, so I'm going to say something like this.
+
+48
+00:03:03,700 --> 00:03:07,700
+("%s aiming at %s") OK. And
+
+49
+00:03:07,700 --> 00:03:11,700
+then, we're going to insert into here the tank name. So, auto
+
+50
+00:03:11,700 --> 00:03:15,700
+TankName =... Now, what
+
+51
+00:03:15,700 --> 00:03:19,700
+is TankName? So, let's be clear on this, OurTank
+
+52
+00:03:19,700 --> 00:03:23,700
+Name. So this is the current name of the current tank, which is
+
+53
+00:03:23,700 --> 00:03:27,700
+just GetName(); Now, if we look at GetName(), we can tell the type by looking;
+
+54
+00:03:27,700 --> 00:03:31,700
+auto comes out as an FString already, so we just need to say
+
+55
+00:03:31,700 --> 00:03:35,700
+, *OurTankName, *HitLocation. So it's
+
+56
+00:03:35,700 --> 00:03:39,700
+going to say the tank name is aiming at whatever the HitLocation that's been passed in at. So,
+
+57
+00:03:39,700 --> 00:03:43,700
+we're just reporting, at this layer down here the Tank, what
+
+58
+00:03:43,700 --> 00:03:47,700
+I'm receiving. And we're going to do this both for the Tank Player Controller, which we've just done, and
+
+59
+00:03:47,700 --> 00:03:51,700
+for the Tank AI Controller, which you've guessed it, you're going to be [laughs] doing. So,
+
+60
+00:03:51,700 --> 00:03:55,700
+we want you to get the Tank AI reporting the aim. Just before we go into that though,
+
+61
+00:03:55,700 --> 00:03:59,700
+I want to just check that it works, that what I've setup for you
+
+62
+00:03:59,700 --> 00:04:03,700
+works for the PlayerController, and also, that'll give you an idea as to what the
+
+63
+00:04:03,700 --> 00:04:07,700
+correct output is, if you get this challenge right. So, just compile what
+
+64
+00:04:07,700 --> 00:04:11,700
+I just did up. And what did I just do, in case it all flicked by your eyes too quickly?
+
+65
+00:04:11,700 --> 00:04:15,700
+I made an AimAt event inside the Tank.cpp, and inside the
+
+66
+00:04:15,700 --> 00:04:19,700
+TankPlayerController we did this, GetControlledTank() ->AimAt(HitLocation). So that's what
+
+67
+00:04:19,700 --> 00:04:23,700
+we did. Now, did we compile? I think we did! Play!
+
+68
+00:04:23,700 --> 00:04:27,700
+Cool look! So that's that same Amap, but it's fully qualifying a tank
+
+69
+00:04:27,700 --> 00:04:31,700
+name. If I de-possess or Shift F1 to get the mouse out, I can
+
+70
+00:04:31,700 --> 00:04:35,700
+see that we are, if I click on us, Tank_BP_C_32.
+
+71
+00:04:35,700 --> 00:04:39,700
+So it's just fully qualifying what we are aiming at, and then, it's giving us a world-space location.
+
+72
+00:04:39,700 --> 00:04:43,700
+What I want to happen in your challenge is, I want every frame, I want 3 logs or 4 logs,
+
+73
+00:04:43,700 --> 00:04:47,700
+you know however many AI tanks you have plus 1; i.e. each of these
+
+74
+00:04:47,700 --> 00:04:51,700
+AI Tanks is going to say me, i.e. Tank_BP2_183
+
+75
+00:04:51,700 --> 00:04:55,700
+aiming at and then my location, i.e. the player location.
+
+76
+00:04:55,700 --> 00:04:59,700
+And so, all three of my tanks will report the same aim location; so
+
+77
+00:04:59,700 --> 00:05:03,700
+every frame we'll get 4 logs, the 3 AI tanks aiming at the same place, and then,
+
+78
+00:05:03,700 --> 00:05:07,700
+1 other, which is this tank aiming at whatever the mouse is pointing at or the
+
+79
+00:05:07,700 --> 00:05:11,700
+cursor is pointing at. So hopefully that makes sense. I shall formalize it in a challenge slide.
+
+80
+00:05:11,700 --> 00:05:15,700
+Add a Tick() method into the TankAIController class,
+
+81
+00:05:15,700 --> 00:05:19,700
+you should be able to do that by now. Call Tank -> AimAT() every single frame.
+
+82
+00:05:19,700 --> 00:05:23,700
+You're going to need to get the Player Tank as
+
+83
+00:05:23,700 --> 00:05:27,700
+well, and make sure you protect that access, protect the pointer.
+
+84
+00:05:27,700 --> 00:05:31,700
+And you should get 3 logs per frame. Actually you should get 4 logs per frame, 3 from the
+
+85
+00:05:31,700 --> 00:05:35,700
+AI and 1 from the Player. So go ahead, pause the video, and see
+
+86
+00:05:35,700 --> 00:05:39,700
+if you can get that done now, by the way. By the way, why did I say that? I didn't
+
+87
+00:05:39,700 --> 00:05:43,700
+need to say that. Anyway you can't hear this because the video is paused! Wait, you probably can,
+
+88
+00:05:43,700 --> 00:05:47,700
+because you probably just un-paused it. Anyway, did you do the challenge? This is the important thing. All the learning happens
+
+89
+00:05:47,700 --> 00:05:51,700
+when you do the challenge, so please really give it a go.
+
+90
+00:05:51,700 --> 00:05:55,700
+If you can't do it, it's the trying that's going to help as well.
+
+91
+00:05:55,700 --> 00:05:59,700
+OK wicked! Let's go and show you how I would tackle
+
+92
+00:05:59,700 --> 00:06:03,700
+this! So, the issue here is over on
+
+93
+00:06:03,700 --> 00:06:07,700
+the TankPlayerAIController, the Tank
+
+94
+00:06:07,700 --> 00:06:11,700
+AIController. We need to get a tick into the tank, AI controller is the first thing. I think
+
+95
+00:06:11,700 --> 00:06:15,700
+I'll start in the header file actually. So private, yep that's right! BeginPlay(), so
+
+96
+00:06:15,700 --> 00:06:19,700
+virtual void Tick
+
+97
+00:06:19,700 --> 00:06:23,700
+(float DeltaTime) and now again you could see this from the Tank.h
+
+98
+00:06:23,700 --> 00:06:27,700
+if you wanted to, or DeltaSeconds.
+
+99
+00:06:27,700 --> 00:06:31,700
+Actually, it doesn't matter what you name the parameter here in the header file.
+
+100
+00:06:31,700 --> 00:06:35,700
+override; because we want to make sure that we're definitely overriding a super class
+
+101
+00:06:35,700 --> 00:06:39,700
+method. And then, let's copy all that, or I could be bold
+
+102
+00:06:39,700 --> 00:06:43,700
+and copy it from the Tank.cpp. There it is!
+
+103
+00:06:43,700 --> 00:06:47,700
+"// Called every frame". Pop that into the TankAI
+
+104
+00:06:47,700 --> 00:06:51,700
+Controller. It's the AI Controller that we now want to tick. If you're going to copy
+
+105
+00:06:51,700 --> 00:06:55,700
+from another class, remember to change the class name here.
+
+106
+00:06:55,700 --> 00:06:59,700
+Remember to call Super, which we have done now. Then,
+
+107
+00:06:59,700 --> 00:07:03,700
+we want to think about what we're doing. Well, the first thing we want to do is say, do we have a
+
+108
+00:07:03,700 --> 00:07:07,700
+Player Tank, so we need to say if (GetPlayerTank))
+
+109
+00:07:07,700 --> 00:07:11,700
+If we don't have a Player Tank, then we don't want to do anything this frame. It makes no sense to do
+
+110
+00:07:11,700 --> 00:07:15,700
+anything without a Player Tank for the AI Controller. It's kind of a lemon, unless there's
+
+111
+00:07:15,700 --> 00:07:19,700
+a tank to aim at. So in general, in pseudocode, what are we going to do every single
+
+112
+00:07:19,700 --> 00:07:23,700
+tick? There's an important important bit of code here. What are we going to "//Move towards
+
+113
+00:07:23,700 --> 00:07:27,700
+the player". We can't do that yet, so we leave it as a comment. We could do it as a TODO though,
+
+114
+00:07:27,700 --> 00:07:31,700
+because it's something we're going to actually add later. We're then going to
+
+115
+00:07:31,700 --> 00:07:35,700
+aim at the player. Well, let's just write it as pseudocode for the moment. "// Aim
+
+116
+00:07:35,700 --> 00:07:39,700
+at the player", or "// Aim towards the player".
+
+117
+00:07:39,700 --> 00:07:43,700
+Start aiming towards the player. And the third thing we would do is "//Fire
+
+118
+00:07:43,700 --> 00:07:47,700
+if ready". What we're interested in is this "// Aim towards
+
+119
+00:07:47,700 --> 00:07:51,700
+the player" bit. So, how do we do that? Well,
+
+120
+00:07:51,700 --> 00:07:55,700
+we're going to GetControlledTank. Remember it's the ControlledTank , not the PlayerTank,
+
+121
+00:07:55,700 --> 00:07:59,700
+because, if we look at the architecture, the AI
+
+122
+00:07:59,700 --> 00:08:03,700
+Controller is possessing this Tank here. So, we're inside this AI
+
+123
+00:08:03,700 --> 00:08:07,700
+Controller saying get me the ControlledTank. So, it's the Tank that the AI Controller is possessing
+
+124
+00:08:07,700 --> 00:08:11,700
+we're interested in. Get the ControlledTank, and once you've got the ControlledTank, it will now
+
+125
+00:08:11,700 --> 00:08:15,700
+have an ->AimAt() method on it, won't it, regardless of whether it's a player's tank or not. And then, what
+
+126
+00:08:15,700 --> 00:08:19,700
+are we going to aim at? Well, we need to Get the PlayerTank
+
+127
+00:08:19,700 --> 00:08:23,700
+and then, we need to just get the location.
+
+128
+00:08:23,700 --> 00:08:27,700
+Get
+
+129
+00:08:27,700 --> 00:08:31,700
+ActorLocation should do it. There you go! Does that make
+
+130
+00:08:31,700 --> 00:08:35,700
+sense? We tell the ControlledTank to AimAt the player's location,
+
+131
+00:08:35,700 --> 00:08:39,700
+in English. Cool! Let's try it, let's see what happens!
+
+132
+00:08:39,700 --> 00:08:43,700
+
+
+133
+00:08:43,700 --> 00:08:47,700
+Compile complete! Ooh, look at that, lots of stuff in the log! Let's pause it, take a look
+
+134
+00:08:47,700 --> 00:08:51,700
+and make sure this log stuff makes sense. So, Tank_BP_569. I can
+
+135
+00:08:51,700 --> 00:08:55,700
+see that here, it's aiming at 0, 0, 107. Is that where we are?
+
+136
+00:08:55,700 --> 00:08:59,700
+Yeah! It's going to be where our tank is, I believe.
+
+137
+00:08:59,700 --> 00:09:03,700
+Um, which tank are we? We're none of them, because we're not playing anymore,
+
+138
+00:09:03,700 --> 00:09:07,700
+but it is where we would have been. It's pretty much exactly where we started, at roughly
+
+139
+00:09:07,700 --> 00:09:11,700
+the origin. OK, the PlayerStart point is at  240,
+
+140
+00:09:11,700 --> 00:09:15,700
+and the actual origin of our tank, when it spawns, if we de-possess is
+
+141
+00:09:15,700 --> 00:09:19,700
+probably slightly different. Which one are we? We're this one here, 0-ish 0-ish
+
+142
+00:09:19,700 --> 00:09:23,700
+107. It's good enough! There's a little bit of collision physics or the way this land
+
+143
+00:09:23,700 --> 00:09:27,700
+is moving it. So, this tank, this AI tank
+
+144
+00:09:27,700 --> 00:09:31,700
+is aiming at us. In fact, all of the AI tanks are aiming at
+
+145
+00:09:31,700 --> 00:09:35,700
+us, and the only anomaly is this Tank_BP_C_35,
+
+146
+00:09:35,700 --> 00:09:39,700
+which was the player tank and that value will keep changing. So, if we look at this,
+
+147
+00:09:39,700 --> 00:09:43,700
+most of those values should be stable. You can just about see it as they flick past, and then, as we
+
+148
+00:09:43,700 --> 00:09:47,700
+move the viewpoint around, the player is reporting a different position. Great!
+
+149
+00:09:47,700 --> 00:09:51,700
+So that means that everything is working through a unified interface.
+
+150
+00:09:51,700 --> 00:09:55,700
+The Tank, regardless of whether it's controlled by, who it's possessed by,
+
+151
+00:09:55,700 --> 00:09:59,700
+an AI or a Player, is on equal grounds. They're both calling the same AimAt
+
+152
+00:09:59,700 --> 00:10:03,700
+method, and everything that happens from there on in will be the same for the Player's
+
+153
+00:10:03,700 --> 00:10:07,700
+tank and the AI tank, meaning that the AI cannot cheat and cannot get an advantage.
+
+154
+00:10:07,700 --> 00:10:11,700
+And we don't have to duplicate any code, we don't have to play-test or
+
+155
+00:10:11,700 --> 00:10:15,700
+balance the tank's behavior against the player's behavior, anything like that.
+
+156
+00:10:15,700 --> 00:10:19,700
+It's really equitable, the tank and the player's tanks will
+
+157
+00:10:19,700 --> 00:10:23,700
+move and aim in the same way, because they're using the same API, the same AimAt
+
+158
+00:10:23,700 --> 00:10:27,700
+call. So that's it, that's pretty cool! I think I'll just leave a bit of code on the screen for you, just
+
+159
+00:10:27,700 --> 00:10:31,700
+for fun, and anything else you need to do, just rewind and take a look
+
+160
+00:10:31,700 --> 00:10:35,700
+at it. So, see you soon, and well done!
+
+161
+00:10:35,700 --> 00:10:36,800
+
+

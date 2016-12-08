@@ -1,0 +1,619 @@
+Kind: captions
+Language: en
+
+00:00:00,000 --> 00:00:08,990
+Hi, and welcome back! In this video we're
+going to be creating our enemy formation,
+
+00:00:08,990 --> 00:00:15,650
+using position objects to define how our
+enemies are going to form together, to
+
+00:00:15,650 --> 00:00:19,520
+attack the player in our little Laser
+Defender game. We'll also show you how to
+
+00:00:19,520 --> 00:00:23,840
+use the OnDrawGizmos() function to show
+the positions, which are virtual objects,
+
+00:00:23,840 --> 00:00:27,640
+you know that don't already have a
+physical embodiment in your editor,
+
+00:00:27,640 --> 00:00:30,320
+while you're editing, so you know what
+you're changing and what you're moving around.
+
+00:00:30,320 --> 00:00:36,270
+So great stuff, we're going to start with
+creating our position, and that's just going
+
+00:00:36,270 --> 00:00:40,190
+to be an empty GameObject added to enemy formation, so the formation is a set of
+
+00:00:40,190 --> 00:00:45,980
+positions within the formation, and then
+we'll show those formations for you. So
+
+00:00:45,980 --> 00:00:50,710
+let's do that now. If we jump into our
+editor, let's remind ourselves of the
+
+00:00:50,710 --> 00:00:55,440
+game we're working with. We have our
+spaceship and when we have the enemy
+
+00:00:55,440 --> 00:00:59,129
+formation, which has an enemy spawner
+script which automatically creates an
+
+00:00:59,129 --> 00:01:02,899
+enemy, when you press Start, and then we
+start the game and we can see the enemy
+
+00:01:02,899 --> 00:01:07,960
+on the screen and we can move left and
+right and obviously our movement is
+
+00:01:07,960 --> 00:01:13,229
+clamped to the side so that we don't go
+out of bounds. So great stuff! So what are we
+
+00:01:13,229 --> 00:01:14,000
+going to do next?
+
+00:01:14,000 --> 00:01:18,830
+Well, I'm going to create an enemy
+position inside my formation, and that's just like
+
+00:01:18,830 --> 00:01:23,299
+creating an empty GameObject here within
+my enemy formation. I'm going to rename that
+
+00:01:23,299 --> 00:01:30,829
+dude, Position, and that's going to be one
+of my position objects, within my
+
+00:01:30,829 --> 00:01:36,350
+enemy formation. Now, I'm
+going to do it a little trick here, which is
+
+00:01:36,350 --> 00:01:42,220
+using the OnDrawGizmos function, to reveal that position to us. So right now, we
+
+00:01:42,220 --> 00:01:45,520
+can see this position here. That's the
+thing I'm moving here, but if I select
+
+00:01:45,520 --> 00:01:48,640
+anything else in the play space of my player, the position immediately
+
+00:01:48,640 --> 00:01:53,470
+disappears. Now, that's not where we want our enemy positions. We don't know
+
+00:01:53,470 --> 00:01:58,570
+yet. So we want to show that position to
+us while we're editing, and to do
+
+00:01:58,570 --> 00:02:03,259
+that, we're going to use OnDrawGizmos and that's going to be in a script. A new, script,
+
+00:02:03,259 --> 00:02:04,560
+which I'm just going call it
+
+00:02:04,560 --> 00:02:09,280
+Position, and this  position script, if we
+edit it
+
+00:02:09,280 --> 00:02:15,040
+will have... and MonoDevelop is just
+waking up, so be patient with it.
+
+00:02:15,040 --> 00:02:22,670
+Here we go! So MonoDevelop will have a very simple script. We're not going to have anything on
+
+00:02:22,670 --> 00:02:26,370
+start. We're not going to have anything on the update. The only thing we're actually
+
+00:02:26,370 --> 00:02:36,860
+going to have is a void OnDrawGizmos function. And now what are gizmos,
+
+00:02:36,860 --> 00:02:41,440
+you're saying? We've got gizmos!
+What are gizmos? Well, if we jump back into
+
+00:02:41,440 --> 00:02:47,120
+our editor, we can see what gizmos are.
+If you click the little gizmos drop down in
+
+00:02:47,120 --> 00:02:50,870
+your scene view. you'll see that there's
+a bunch of different gizmos here,
+
+00:02:50,870 --> 00:02:56,760
+shown to you in the editor. One of the
+most obvious ones is the camera gizmo. If you
+
+00:02:56,760 --> 00:03:00,989
+un-tick that box, you'll see the
+camera gizmo is no longer here, and when
+
+00:03:00,989 --> 00:03:04,500
+you press on the camera, it's just the
+position and no longer the cursor. So you
+
+00:03:04,500 --> 00:03:10,290
+can show all this stuff, so for example you can switch off the camera icon, as well as
+
+00:03:10,290 --> 00:03:13,470
+hide the camera gizmo. And you can see
+the difference in what happens, when I
+
+00:03:13,470 --> 00:03:17,950
+click Yes or No for the camera gizmo and what happens when I click Yes or No for the
+
+00:03:17,950 --> 00:03:24,110
+camera icon, as well. So those gizmos are
+basically useful things within your game,
+
+00:03:24,110 --> 00:03:28,910
+that are attached to objects within
+your game, that are shown in the editor
+
+00:03:28,910 --> 00:03:33,190
+but not in the game itself. And that's to
+help you as a game developer, as an
+
+00:03:33,190 --> 00:03:38,310
+engineer to design the game better; to
+be able to say if you have way points, for
+
+00:03:38,310 --> 00:03:41,780
+example those things are completely
+invisible to the player but the enemy AI
+
+00:03:41,780 --> 00:03:46,079
+will be taking them into account, and you
+want to be able to manipulate them and
+
+00:03:46,079 --> 00:03:49,519
+move them around. And that's what gizmos
+are for, to show you things you want to
+
+00:03:49,519 --> 00:03:52,829
+see as an editor and a game developer but
+that you don't want to see in the game,
+
+00:03:52,829 --> 00:03:59,609
+basically. So, OnDrawGizmos is where all the magic happens. Let me jump back into
+
+00:03:59,609 --> 00:04:06,660
+OnDrawGizmos, and I jump into MonoDevelop. So this is the function that you need to do something
+
+00:04:06,660 --> 00:04:11,720
+in to draw the gizmos, and I'm going to
+call Gizmos, and you've got this in the
+
+00:04:11,720 --> 00:04:20,180
+autocomplete. Dot! I'm going to draw a sphere, a wire sphere... Draw a wire sphere, and it'll ask
+
+00:04:20,180 --> 00:04:22,389
+for two things, the vector 3 center,
+
+00:04:22,389 --> 00:04:28,029
+which is a position for the center of my
+gizmo's sphere and the radius of the sphere.
+
+00:04:28,029 --> 00:04:36,239
+So my center for my gizmo is actually going be the origin of my object, the actual
+
+00:04:36,439 --> 00:04:42,529
+position object, and the radius, I'm just
+going to leave to 1 for now. And if I save
+
+00:04:42,529 --> 00:04:47,330
+that script and then jump back into my
+Unity editor, you'll be able to see that my
+
+00:04:47,330 --> 00:04:52,460
+position gizmo now has a sphere around it. Can you see that's sphere? And so now, that lets us
+
+00:04:52,460 --> 00:04:57,729
+show the actual position, even when we
+don't have it selected. When I select the
+
+00:04:57,729 --> 00:05:04,020
+player, for example, or I select the camera,
+the sphere is still showing in the
+
+00:05:04,020 --> 00:05:08,940
+scene view, but it will not show in the game view. So what's next? We've got this position.
+
+00:05:08,940 --> 00:05:14,260
+Well, its challenge time! It's challenge
+time! It's now your job to turn this
+
+00:05:14,270 --> 00:05:19,080
+position I've just created, and then
+you'll just create, into a prefab.
+
+00:05:19,080 --> 00:05:22,520
+and then use the prefab to create a
+bunch of different positions within the
+
+00:05:22,520 --> 00:05:27,029
+enemy formation. Now, be creative about
+how they're laid out. These positions
+
+00:05:27,029 --> 00:05:33,560
+are how your enemies are going to be
+forming up as a squad of enemies to hound
+
+00:05:33,560 --> 00:05:39,620
+the player, to attack the player. So take
+some time now to kind of create, let's say,
+
+00:05:39,620 --> 00:05:44,199
+a W pattern or something interesting from
+how the enemies are going to form up. So pause the
+
+00:05:44,199 --> 00:05:48,979
+video now, turn the position to a prefab,
+and then use the position
+
+00:05:48,979 --> 00:06:00,520
+prefab to add several positions into the
+enemy formation.
+
+00:06:00,540 --> 00:06:08,820
+Cool! Let's get our positions
+turned into a prefab. So the first thing
+
+00:06:08,820 --> 00:06:13,319
+I'm going do is I'm going to grab my
+position from my hierarchy, drag it into
+
+00:06:13,319 --> 00:06:18,120
+my assets, and turn it into a position
+prefab. Now, I've got this enemy spawner,
+
+00:06:18,120 --> 00:06:21,879
+position position prefab. All those
+things really belong into the enemy
+
+00:06:21,879 --> 00:06:26,370
+formation entity. So I'm going to create a
+new folder within an entity, which is going
+
+00:06:26,370 --> 00:06:35,199
+to be a... my Enemy Formation folder, and all the stuff about the enemy formation, I'm
+
+00:06:35,199 --> 00:06:41,050
+going to drag and drop in there. So I'm
+grabbing all my things, and you can use
+
+00:06:41,050 --> 00:06:46,530
+command or control click, to select
+multiple items, and I'm dropping them in
+
+00:06:46,530 --> 00:06:50,500
+my Enemy Formation. So that's great! So I've got the enemy formation. I've got the position.
+
+00:06:50,500 --> 00:06:55,780
+Let's have a look at it in the scene. Let
+me add a couple more positions for my enemies.
+
+00:06:55,780 --> 00:07:00,340
+This is where they're going to be. I'm going to create a pattern. You can also duplicate
+
+00:07:00,360 --> 00:07:06,759
+an object, and don't forget to put them in the enemy position GameObject. You can also
+
+00:07:06,759 --> 00:07:10,960
+duplicate an object, if you've got it
+selected, by typing Control + D or Command + D
+
+00:07:10,960 --> 00:07:15,909
+on a Mac. And you can see another
+position has been created, and how about
+
+00:07:15,909 --> 00:07:24,740
+something like that. I think that Is a
+good formation, that will attack my player,
+
+00:07:24,740 --> 00:07:29,639
+and it'll looked quite interesting. I can
+always move him about a little bit. Here
+
+00:07:29,639 --> 00:07:33,460
+we go. So that's my formation. I've got a formation of six enemies hounding the
+
+00:07:33,460 --> 00:07:39,319
+player, in this manner. So now I've got my
+positions. I want to spawn an enemy on
+
+00:07:39,319 --> 00:07:42,180
+top of every position. That kind of makes
+sense now, doesn't it?
+
+00:07:42,180 --> 00:07:46,669
+So let's jump back into our code. Here we go.  So we've got our new spawner. Right now it's not doing
+
+00:07:46,669 --> 00:07:50,680
+much, except spawning a single enemy.
+What I want to do is spawn an enemy on top of
+
+00:07:50,680 --> 00:07:57,300
+every position. So how am I going to do that? How do I get the child objects of the...
+
+00:07:57,300 --> 00:08:02,219
+the formation... the enemy formation from my code?
+
+00:08:02,219 --> 00:08:07,949
+Well, the way I'm going to do that is to use the transform objects. So every game object
+
+00:08:07,949 --> 00:08:10,470
+you've got has a transform, so that's...
+
+00:08:10,470 --> 00:08:15,540
+You can access that transform via this.
+We've seen it before when we've moved...
+
+00:08:15,540 --> 00:08:21,450
+For example, above here we set the
+parent of the enemy to be our transform,
+
+00:08:21,450 --> 00:08:26,220
+so that's the transform of the enemy
+formation. But what we can also do with our
+
+00:08:26,220 --> 00:08:31,710
+transform, so that's the transform of the enemy formation, is to go over it for every child,
+
+00:08:31,710 --> 00:08:38,280
+and the way to do that is for each. And
+our children are actually going to be
+
+00:08:38,280 --> 00:08:44,920
+transforms too... transformed too. We're
+considering them to be transforms. For
+
+00:08:44,920 --> 00:08:53,270
+every transformed child in, myself, my
+transform, I want to do something. So you
+
+00:08:53,270 --> 00:08:59,390
+might not have met this, for each, looping
+construct before, but that lets you go...
+
+00:08:59,390 --> 00:09:07,630
+Well, it's calling at the docks right now for
+us. So it's for every item in the
+
+00:09:07,630 --> 00:09:11,910
+transform, for the expression. You're
+going to be able to... Your going to have a loop of
+
+00:09:11,910 --> 00:09:18,210
+every item in a collection, essentially.
+So if we... if we want to spawn an enemy, we
+
+00:09:18,210 --> 00:09:23,490
+already have the code to spawn enemies
+just above us. We can grab that code and
+
+00:09:23,490 --> 00:09:30,510
+move it into the loop instead. So we delete it, and put it in our loop, and tidy this up a
+
+00:09:30,510 --> 00:09:35,460
+little bit. And now, I'm instantiating
+an enemy, for every child transform
+
+00:09:35,460 --> 00:09:41,100
+in myself. So those are going to be my
+positions, and I want to re-parent my
+
+00:09:41,100 --> 00:09:46,670
+enemy to the child itself.
+So instead of putting the parent of the
+
+00:09:46,670 --> 00:09:50,650
+enemy to be myself, I want
+the parent of the enemy to be the
+
+00:09:50,650 --> 00:09:56,580
+child. So the actual outcome you want, if
+we take a look at our Unity editor, is for
+
+00:09:56,580 --> 00:10:02,830
+enemy prefabs to be spawned underneath a given position, within a position. So you
+
+00:10:02,830 --> 00:10:06,650
+can see that. We've got the position here, and we've got an enemy inside the position itself.
+
+00:10:06,650 --> 00:10:11,520
+That's what we want. That's the
+behavior we want. So let me take out my
+
+00:10:11,520 --> 00:10:18,050
+enemy. And do I still have six positions? Yep! And why... So why did the the enemy come up?
+
+00:10:18,050 --> 00:10:21,490
+Take a look at what happens when I bring
+the enemy to that position. Look at the
+
+00:10:21,490 --> 00:10:23,080
+enemy. It's not on top of the position,
+
+00:10:23,080 --> 00:10:29,320
+and the reason for that is, it has a
+non-zero X and Y transfer value. And now it's
+
+00:10:29,320 --> 00:10:33,320
+on top of the position. So let's double check that our enemy... Yep! If we have a look at
+
+00:10:33,320 --> 00:10:38,030
+our enemy prefab, for some reason I
+reverted it back to something to be
+
+00:10:38,030 --> 00:10:43,440
+non-zero. I want my enemy prefab to not
+have a position by default.
+
+00:10:43,440 --> 00:10:48,120
+Cool! So now, when I put an enemy prefab on top of a position, on any position here,
+
+00:10:48,120 --> 00:10:50,680
+it should be on top of the position,
+which is great. That's exactly what we
+
+00:10:50,680 --> 00:10:56,920
+want. So that's the behavior we want. So let me remove the enemy I've got here, jump back into the
+
+00:10:56,920 --> 00:11:01,660
+code, and do that in code this time. So I
+want the parent of the enemy of the
+
+00:11:01,660 --> 00:11:05,190
+spawn to be the child, instead of myself.
+
+00:11:05,190 --> 00:11:10,090
+Remember this is being called from the
+formation and not from the position. So
+
+00:11:10,090 --> 00:11:15,180
+if I save that now and I jumped back into
+my game, I should be able to just press
+
+00:11:15,180 --> 00:11:18,620
+play and see what happens.
+
+00:11:18,620 --> 00:11:27,460
+Hmmm.. Not quite what we were expecting. Why have we got an enemy here, but none in...
+
+00:11:27,460 --> 00:11:31,780
+any other place? Well, if we take a look
+at the... hierarchy, we
+
+00:11:31,780 --> 00:11:35,910
+can actually see that enemies have been
+spawned absolutely everywhere, and really,
+
+00:11:35,910 --> 00:11:40,090
+they're just only being spawned, if we have
+a look at the hierarchy again, on top of each
+
+00:11:40,090 --> 00:11:44,850
+other. That's the problem. So if I select this one, it's still the same enemy.
+
+00:11:44,850 --> 00:11:50,200
+They're all spawned at 000. So why is
+that? What's going on here? Why are we getting
+
+00:11:50,200 --> 00:11:54,180
+enemies spawned in the wrong place? Well, if we take a look at our code again. So let's
+
+00:11:54,180 --> 00:11:59,690
+pause the game, and jump into our code. We can see that here, we are instituting an
+
+00:11:59,690 --> 00:12:07,740
+enemy at 000, which is the absolute 00.
+That's the game space's 000. So really we we want
+
+00:12:07,740 --> 00:12:15,550
+to instantiate enemies on top of their
+actual parent objects, because once we
+
+00:12:15,550 --> 00:12:20,450
+re-parent the enemy, which is what we do in
+line 11 just down here, when we re-parent the enemy.
+
+00:12:20,450 --> 00:12:26,060
+That will change the relative position or
+change compared to be relative to the
+
+00:12:26,070 --> 00:12:30,560
+parent now. So really we want to change that. So instead of spawning at the origin
+
+00:12:30,560 --> 00:12:35,910
+of the games space, essentially the entire game space, we're going to spawn them at
+
+00:12:35,910 --> 00:12:43,590
+the child's position. So that's going to
+be child.transform.position, and
+
+00:12:43,590 --> 00:12:49,560
+now if we jump back into our game, they
+should let me jump back into Unity. And
+
+00:12:49,560 --> 00:12:54,720
+if we press play again, we can see that
+all the enemies have been spawned at the right... at
+
+00:12:54,720 --> 00:12:57,210
+their right position. So that's great!
+
+00:12:57,210 --> 00:13:01,930
+We've got enemies spawning in the right
+positions. We should be quite pleased
+
+00:13:01,930 --> 00:13:05,160
+with that. We've got the beginnings of
+the game. They look quite menacing,
+
+00:13:05,160 --> 00:13:12,070
+attacking the player in this formation, and so we are finished with this video, so
+
+00:13:12,070 --> 00:13:16,840
+far. So let's take a look at what we've
+done. Let's do a little recap of what we've
+
+00:13:16,840 --> 00:13:22,000
+just done. We have looped every child
+object within a given game object,
+
+00:13:22,000 --> 00:13:28,300
+and thats by looking at the full reach
+transform of our transform, which is how
+
+00:13:28,300 --> 00:13:33,190
+you... the hierarchy of objects in the
+scene is represented in code, that's
+
+00:13:33,190 --> 00:13:36,700
+through the transforms and their
+children. We've grabbed the transform to
+
+00:13:36,700 --> 00:13:40,910
+position our enemy, and then we spawned
+an enemy on top of every position we had
+
+00:13:40,910 --> 00:13:46,000
+within our formation. So great stuff! Just to give an overview of the
+
+00:13:46,000 --> 00:13:50,420
+entire video, we've now got an enemy
+formation, which we can see with our eyes
+
+00:13:50,420 --> 00:13:56,590
+in the editor. You can't see with your ears , so that was a little bit redundant, but we see it in
+
+00:13:56,590 --> 00:14:02,240
+the editor by using the gizmos. We've got
+a position prefab, and we've got it so
+
+00:14:02,240 --> 00:14:07,480
+that we can spawn multiple enemies in a formation. So well done for getting this
+
+00:14:07,480 --> 00:14:12,420
+far! Well done for watching, and hopefully you can see how we'll be turning this little
+
+00:14:12,420 --> 00:14:15,870
+formation into a lot more menacing
+formation of enemies that start shooting
+
+00:14:15,870 --> 00:14:20,910
+the player in another video. But that's
+all for now. Thank you for watching! I'll see you later! Bye.
+

@@ -1,0 +1,579 @@
+Kind: captions
+Language: en
+
+00:00:00,010 --> 00:00:09,330
+Hey and welcome back, so our game is now
+crying out for our attackers to be
+
+00:00:09,330 --> 00:00:13,470
+moving. I think that's the next most
+important thing. We also want to
+
+00:00:13,470 --> 00:00:18,430
+understand how we move things from
+script when we also have animations
+
+00:00:18,430 --> 00:00:21,960
+involved so that we can decide how we're
+going to deal with these inconsistent
+
+00:00:21,960 --> 00:00:26,460
+speeds of our projectiles and the courgette
+disappearing halfway through the
+
+00:00:26,460 --> 00:00:33,319
+animation here; so in this video we are
+going to create an attacker dot cs
+
+00:00:33,319 --> 00:00:36,829
+component, I'll explain why we're going to
+use a component model rather than
+
+00:00:36,829 --> 00:00:41,749
+inheritance and then we''l tune our
+animation to avoid moonwalking. What do I
+
+00:00:41,749 --> 00:00:44,659
+mean by moonwalking? You'll see in a
+moment.
+
+00:00:44,659 --> 00:00:49,870
+Alright so basically we have these guys,
+these attackers and let's talk
+
+00:00:49,870 --> 00:00:54,039
+to them - about them rather at the pre-fab
+level. We have a fox and a lizard at the
+
+00:00:54,039 --> 00:00:59,929
+moment. Now we could create separate Fox
+and lizard scripts and then copy and
+
+00:00:59,929 --> 00:01:04,210
+paste code between them that's common and
+then decide what to factor out,
+
+00:01:04,210 --> 00:01:08,580
+refactor or factorise out, that's
+absolutely fine. Another approach would
+
+00:01:08,580 --> 00:01:12,090
+be to say straight away we know they're
+both attackers, so why don't we add an
+
+00:01:12,090 --> 00:01:17,120
+attacker script to both of them, put all
+the common behavior in there and then
+
+00:01:17,120 --> 00:01:21,920
+anything we need to do that's specific to a
+particular attacker, maybe we create
+
+00:01:21,920 --> 00:01:26,630
+another script, maybe we just put like a
+checkbox on the attacker script like can
+
+00:01:26,630 --> 00:01:31,050
+jump for example on the Fox. So let's see
+how we go let's start off with a with a
+
+00:01:31,050 --> 00:01:36,880
+methodology of creating an attacker's
+component right? So I'm going to call it
+
+00:01:36,880 --> 00:01:43,460
+attacker. There it is, attacker script sitting
+there on the lizard and let's also add
+
+00:01:43,460 --> 00:01:49,610
+it to the Fox attacker... now cos I'm tidy
+and neat I'm gonna stick that straight in
+
+00:01:49,610 --> 00:01:56,040
+my scripts folder and I'm going to open
+the wrong script, it doesn't matter cos we
+
+00:01:56,040 --> 00:02:00,970
+gotta wait for mono to load anyway. So
+once Mono has loaded I will grab the
+
+00:02:00,970 --> 00:02:05,500
+attacker script... come on Mono, you can
+do it hey here we go, attacker. So
+
+00:02:05,500 --> 00:02:09,560
+currently attacker does the sum total of
+absolutely nothing, which is fine.
+
+00:02:09,560 --> 00:02:13,720
+So the first thing I want to be able to do is get
+the center of gravity of these guys
+
+00:02:13,720 --> 00:02:17,420
+moving and don't be put off by center of
+gravity, by that I just mean their transform.
+
+00:02:17,420 --> 00:02:21,920
+I'm using the word centre of gravity
+because they actually animate now and
+
+00:02:21,920 --> 00:02:25,370
+they move around in fact strictly it's
+not the center of gravity, it's the center
+
+00:02:25,370 --> 00:02:29,720
+of the animation, strictly speaking what
+we gonna be moving is the pivot point of
+
+00:02:29,720 --> 00:02:35,370
+the animation if we look here say at the
+jump frames in the sprite editor you'll
+
+00:02:35,370 --> 00:02:39,050
+see that they all have that circular
+pivot point in the middle so it's
+
+00:02:39,050 --> 00:02:43,150
+actually that that we're going to be moving, at
+least for now. We don't really want to
+
+00:02:43,150 --> 00:02:46,680
+get involved in changing the pivot
+point for every frame of an animation,
+
+00:02:46,680 --> 00:02:49,640
+you could do that in the long term, you
+could come in and say let's put this
+
+00:02:49,640 --> 00:02:53,720
+at his centre of gravity on every single
+frame and that'd be a different way of
+
+00:02:53,720 --> 00:02:57,349
+dealing with it, perfectly valid as well
+but I don't think that that's what I
+
+00:02:57,349 --> 00:03:01,319
+want to be doing here. So gonna leave the
+animations and the pivot points as they
+
+00:03:01,319 --> 00:03:05,650
+are and just move the whole transform
+and what will happen is that that whole
+
+00:03:05,650 --> 00:03:11,660
+sprite block will move. OK, so how are we going to
+do it? Well, it is relatively simple, I'm going to show
+
+00:03:11,660 --> 00:03:16,190
+you a new annotation. We want a public
+speed and we can just go public float
+
+00:03:16,190 --> 00:03:21,660
+walk speed like that and that will work
+fine and over in the inspector then all
+
+00:03:21,660 --> 00:03:27,730
+attackers when we get back to the
+prefabs will have a walk speed; but what
+
+00:03:27,730 --> 00:03:31,170
+range is reasonable to set the walk
+speed in and how do I set it? Well I can
+
+00:03:31,170 --> 00:03:34,410
+drag left and right like this by just
+clicking on walks speed and dragging but let me
+
+00:03:34,410 --> 00:03:38,569
+show you useful annotation, it goes like
+this... goes a little something like this, you go
+
+00:03:38,569 --> 00:03:42,130
+range and you open some brackets and
+close some brackets and close some square
+
+00:03:42,130 --> 00:03:48,519
+brackets and whatever you put in here,
+say minus one float to 1.5 float - if you
+
+00:03:48,519 --> 00:03:50,799
+put that immediately above or if you
+wish
+
+00:03:50,799 --> 00:03:55,230
+in front of that definition either of
+these will do, the white space doesn't
+
+00:03:55,230 --> 00:04:01,910
+matter then watch what happens over in
+the inspector... here you go, so no you've got a
+
+00:04:01,910 --> 00:04:06,090
+range of minus one to 1.5 so just an
+alternative for you, it can be a great
+
+00:04:06,090 --> 00:04:10,079
+interface to your designer that basically
+saying to them hey set a range in this
+
+00:04:10,079 --> 00:04:15,730
+in this area they can type minus three
+but when they try and do it look what happens
+
+00:04:15,730 --> 00:04:19,660
+as soon as you hit return it just defaults
+to -1, so it basically puts a minimum and a
+
+00:04:19,660 --> 00:04:23,810
+maximum allowed value. If you don't have
+a separate designer, well you're your own
+
+00:04:23,810 --> 00:04:27,110
+separate designer this is a great
+discipline to get into that as a programmer
+
+00:04:27,110 --> 00:04:30,350
+you think about what makes sense to
+change in the inspector.
+
+00:04:30,350 --> 00:04:33,830
+Cool, so we have a walk speed, then the question
+comes how we're going to update the
+
+00:04:33,830 --> 00:04:37,780
+position of the guy every frame; well this
+is relatively simple stuff now for you
+
+00:04:37,780 --> 00:04:41,670
+guys at this stage in the course, it's
+not too tricky I'm gonna show you some
+
+00:04:41,670 --> 00:04:46,260
+slightly different ways of doing it just
+to give you some alternatives so what we're
+
+00:04:46,260 --> 00:04:50,650
+gonna do here is just say transform dot
+translate... we haven't done that before
+
+00:04:50,650 --> 00:04:56,660
+you can look it up in the docs if you
+want but rather than us creating a new
+
+00:04:56,660 --> 00:05:00,580
+vector and passing it in and all that business
+this transform dot translate simply
+
+00:05:00,580 --> 00:05:05,520
+moves the transform in the direction
+of the translation, alright so that's
+
+00:05:05,520 --> 00:05:08,660
+gonna make life a bit easier, and we can
+also use something like this: Vector3 dot
+
+00:05:08,660 --> 00:05:12,870
+left which is going to be left on our
+screen if we've used the coordinate
+
+00:05:12,870 --> 00:05:17,750
+system that we've used; or put
+differently if we find an attacker and
+
+00:05:17,750 --> 00:05:23,690
+have a look at our coordinates you can
+see that it is in the negative X direction
+
+00:05:23,690 --> 00:05:28,790
+that's what left means, right so we can say
+translate vector three dot
+
+00:05:28,790 --> 00:05:32,310
+left now that's fine that's the
+direction what's the...
+
+00:05:32,310 --> 00:05:38,580
+how far? Well distance is speed times time;
+so what's the time? What am I gonna put
+
+00:05:38,580 --> 00:05:41,300
+in here because it's in the update it's going to
+depend on the frame rate, we've seen this
+
+00:05:41,300 --> 00:05:50,140
+lots of times - time dot Delta time. OK,
+fantastic so we're basically saying
+
+00:05:50,140 --> 00:05:56,830
+distance equal speed times time here, and this
+is just a unit vector pointing to the
+
+00:05:56,830 --> 00:06:00,640
+left so it doesn't affect the speed at
+all its just telling us which direction
+
+00:06:00,640 --> 00:06:04,120
+we want to be going in. Cool, so that
+would do the translation, let's try it - we hit
+
+00:06:04,120 --> 00:06:11,980
+play - there we go, the fox is walking; and
+where's the lizard? Well let's click on the actual
+
+00:06:11,980 --> 00:06:18,580
+lizard, give him a speed, and if he has a
+positive walk speed off he goes. OK. there
+
+00:06:18,580 --> 00:06:20,660
+he goes, perfect.
+
+00:06:20,660 --> 00:06:26,600
+So that is how you set the speed, the
+movement of the transform as a
+
+00:06:26,600 --> 00:06:30,770
+whole from script and this is a useful
+annotation in here that allows you
+
+00:06:30,770 --> 00:06:34,980
+to drag in the inspector. So what I want
+you to go ahead and do now then is to
+
+00:06:34,980 --> 00:06:39,290
+just tune the walk speed for both of
+these guys, the Fox and the lizard or
+
+00:06:39,290 --> 00:06:43,760
+whatever attackers you have, find the
+ideal speed for each attacker and save
+
+00:06:43,760 --> 00:06:49,820
+the speed values back to the prefabs.
+So what I mean by moonwalking briefly
+
+00:06:49,820 --> 00:06:58,690
+before you go into that is as follows
+If I then zoom into say the lizard when
+
+00:06:58,690 --> 00:07:02,400
+he's doing his walk bit we want his
+feet to not look like they're slipping,
+
+00:07:02,400 --> 00:07:06,550
+right now he's walking too fast and
+right now he's walking too slow, so it's
+
+00:07:06,550 --> 00:07:09,940
+a question of tuning it so that he
+walks with grip rather than kind of
+
+00:07:09,940 --> 00:07:16,510
+sliding, that's the idea. So pause the video, go ahead
+and save your ideal walk speeds and work out
+
+00:07:16,510 --> 00:07:19,680
+how to save those back to the prefabs
+you can test you got it right by
+
+00:07:19,680 --> 00:07:24,550
+dropping new guys into the scene and
+they should continuously move to the
+
+00:07:24,550 --> 00:07:28,500
+left at walk speed. That's obviously
+going to look strange for the appear
+
+00:07:28,500 --> 00:07:34,560
+animation and for various other animations
+but one step at a time.
+
+00:07:34,560 --> 00:07:38,590
+OK cool so I'm just gonna start with the
+with this guy with a lizard what I'm
+
+00:07:38,590 --> 00:07:42,440
+gonna do with the lizard for the minute is
+I'm just gonna fix him into one animation
+
+00:07:42,440 --> 00:07:47,130
+state because I don't want to be having
+to constantly see him transition out of
+
+00:07:47,130 --> 00:07:52,330
+that animation state so I can go to my
+animation layout which has got all the
+
+00:07:52,330 --> 00:07:58,000
+things I need, lizard animation, lizard
+going to appearing I could just suppress
+
+00:07:58,000 --> 00:08:02,860
+that; I could mute that at the moment yeah?
+So I can click mute up here in the inspector
+
+00:08:02,860 --> 00:08:08,270
+and then if we watch the lizard he now
+won't come out of appearing, so obviously
+
+00:08:08,270 --> 00:08:12,460
+I'm muting the wrong thing there, what I need
+to be muting is the walking to
+
+00:08:12,460 --> 00:08:19,210
+attacking so he will appear and then
+start walking but then he will never
+
+00:08:19,210 --> 00:08:22,850
+leave the walking state which is what I
+want. Great, so now I'm going to zoom into
+
+00:08:22,850 --> 00:08:32,279
+the scene view - there he is - scroll around a little 
+bit and fiddle with the walk speed. Now, bear
+
+00:08:32,279 --> 00:08:36,050
+in mind whatever changes I make to
+this now will not be saved back to the
+
+00:08:36,050 --> 00:08:43,030
+prefab at the moment, which is fine, so just kind of 
+do this by eye, what looks right, and if you wanna
+
+00:08:43,030 --> 00:08:45,500
+get him to the back the reason I gave you a
+negative walk speed is because we can kind of
+
+00:08:45,500 --> 00:08:49,510
+reset him, it's kind of fun isn't it? If you like that
+sort of thing. OK, so you get the idea,
+
+00:08:49,510 --> 00:08:54,700
+what I'm doing is just getting the
+walk spees so it looks reasonable it doesn't look
+
+00:08:54,700 --> 00:08:58,870
+like he's slipping there, let's just give him a walk speed
+of one. Simple, now of course you haven't saved
+
+00:08:58,870 --> 00:09:03,460
+that so you could either copy the
+component here, stop playing in which
+
+00:09:03,460 --> 00:09:08,280
+case it'll disappear and then paste
+component values - that's fine so you've
+
+00:09:08,280 --> 00:09:11,500
+got it on this particular instance of
+the lizard but if you look at your
+
+00:09:11,500 --> 00:09:17,950
+prefab lizard he still has a walk speed of zero,
+so the way that you get it from the
+
+00:09:17,950 --> 00:09:23,000
+instance to the pre-fab is either set the
+pre-fab manually or you can click Apply
+
+00:09:23,000 --> 00:09:26,280
+here the walk speed is no longer bold cos
+it's no different from the pre-fab
+
+00:09:26,280 --> 00:09:30,209
+click on the pre-fab and you'll see his walk
+speed is one. The final test I said was
+
+00:09:30,209 --> 00:09:33,390
+to drag a lizard prefab into the scene
+and see if he starts walking how we
+
+00:09:33,390 --> 00:09:40,540
+expect so let's try it, let's drag
+a new lizard into the scene
+
+00:09:40,540 --> 00:09:43,620
+There he is, walking just fine
+
+00:09:43,620 --> 00:09:47,840
+OK cool, just gonna quickly do the same
+thing for the fox then, so go into the
+
+00:09:47,840 --> 00:09:52,960
+animator for the fox, we want him to
+walk but want him to not leave the
+
+00:09:52,960 --> 00:09:57,620
+walking state so we mute that transition for now,
+we take a look and make sure he's
+
+00:09:57,620 --> 00:10:04,140
+walking, zoom into him, get your screen
+set up so that you can see what's going
+
+00:10:04,140 --> 00:10:14,620
+on and then adjust the walk speed - I'm going to go
+in to scene view because I can see a bit better,
+
+00:10:14,620 --> 00:10:18,050
+Just reset him - this is really looking like moon-walking now as he goes backwards, pretty
+
+00:10:18,050 --> 00:10:23,760
+cool... alright so we just want his feet to
+kind of stick to the ground, that's OK
+
+00:10:23,760 --> 00:10:37,290
+.46. Shall I say .45 just to satisfy my obsession
+with round numbers? Just check he looks
+
+00:10:37,290 --> 00:10:44,830
+alright, just bring him back. Drag him
+back by his transform, it's kind of fun. I
+
+00:10:44,830 --> 00:10:50,290
+think that's not okay now I think he's
+now, no he's sliding forward so I'm gonna
+
+00:10:50,290 --> 00:10:55,070
+stick with non-round numbers. Come on
+fox, back you come, let's have a look at
+
+00:10:55,070 --> 00:11:00,950
+your walking. Mate. Yeah I think about point
+four is about right, I'm determined to a
+
+00:11:00,950 --> 00:11:06,870
+round number aren't I? No getting round it. So point
+four, again I can copy component if I want to, stop
+
+00:11:06,870 --> 00:11:12,740
+running paste component values and then
+apply back to the prefab, and if I
+
+00:11:12,740 --> 00:11:16,300
+really want to drop a new fox in I
+could but I'm sure that the prefab has
+
+00:11:16,300 --> 00:11:20,380
+updated, in fact look we can see it there.
+Perfect, so that is it. We have managed to
+
+00:11:20,380 --> 00:11:24,030
+now get the guys moving at the right
+speed different speeds between the two
+
+00:11:24,030 --> 00:11:30,350
+attackers and they are now walking
+properly. So congratulations on that bit,
+
+00:11:30,350 --> 00:11:33,990
+the lizard is much faster than the fox,
+that's his strength but the fox's
+
+00:11:33,990 --> 00:11:37,680
+strength is he can slyly jump over
+gravestones which we'll deal with shortly.
+
+00:11:37,680 --> 00:11:39,760
+So, see you soon.
+

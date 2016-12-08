@@ -1,0 +1,281 @@
+
+1
+00:00:03,000 --> 00:00:06,000
+So, hi and welcome to this video,
+
+2
+00:00:06,000 --> 00:00:09,000
+in which, we're going to talk to you about Statics and Singletons.
+
+3
+00:00:09,000 --> 00:00:12,000
+So, let's first talk about Statics. Statics
+
+4
+00:00:12,000 --> 00:00:15,000
+are proper variables that are properties of
+
+5
+00:00:15,000 --> 00:00:18,000
+classes and not instances. What does that mean? Well,
+
+6
+00:00:18,000 --> 00:00:21,000
+you've already met Static Variables.
+
+7
+00:00:21,000 --> 00:00:24,000
+In the course, we've got Mathf.PI, so,
+
+8
+00:00:24,000 --> 00:00:27,000
+Ben, talk a little bit more about Mathf.PI and how it's the
+
+9
+00:00:27,000 --> 00:00:30,000
+property of math instead of an instance
+
+10
+00:00:30,000 --> 00:00:33,000
+of math. Sure so this is your class, right, this is our template,
+
+11
+00:00:33,000 --> 00:00:36,000
+that makes instances, so if we're
+
+12
+00:00:36,000 --> 00:00:39,000
+going to make an instance of anything a ball, a music player,
+
+13
+00:00:39,000 --> 00:00:42,000
+a GameObject whatever, then that's this little guy comes out of the
+
+14
+00:00:42,000 --> 00:00:45,000
+mold and goes and lives it's life, as an instance coming out
+
+15
+00:00:45,000 --> 00:00:48,000
+of this mold. It may make a different instance, with a different property.
+
+16
+00:00:48,000 --> 00:00:51,000
+Math f is a class
+
+17
+00:00:51,000 --> 00:00:54,000
+that has methods on it, like .Clamp
+
+18
+00:00:54,000 --> 00:00:57,000
+and dot, all sorts of different things, and one of the things it has is
+
+19
+00:00:57,000 --> 00:01:00,000
+a property called .PI. And because PI is PI,
+
+20
+00:01:00,000 --> 00:01:03,000
+whoever asked the question, it doesn't make sense to store PI on
+
+21
+00:01:03,000 --> 00:01:06,000
+these little guys, onto these instances of our mass. We have a
+
+22
+00:01:06,000 --> 00:01:09,000
+static class, and Pi is just in one place, sitting here,
+
+23
+00:01:09,000 --> 00:01:12,000
+on the template itself. So basically,
+
+24
+00:01:12,000 --> 00:01:15,000
+Static Variables are variables that
+
+25
+00:01:15,000 --> 00:01:18,000
+are attached to the mold, to the class itself.
+
+26
+00:01:18,000 --> 00:01:21,000
+And if one of these guys wants to know about PI, these
+
+27
+00:01:21,000 --> 00:01:24,000
+instances, the children of this class, can
+
+28
+00:01:24,000 --> 00:01:27,000
+say PI. From outside,
+
+29
+00:01:27,000 --> 00:01:30,000
+if this guy was not created from this mold but is created over
+
+30
+00:01:30,000 --> 00:01:33,000
+here as a child, let's say of a different class, he needs to say
+
+31
+00:01:33,000 --> 00:01:36,000
+Mathf.PI. And you don't need an
+
+32
+00:01:36,000 --> 00:01:39,000
+instance, any of these Mathf type instances, anywhere in the
+
+33
+00:01:39,000 --> 00:01:42,000
+scene. This guy can still say Mathf.PI, and
+
+34
+00:01:42,000 --> 00:01:45,000
+you can access that anywhere. So, that's what a static is,
+
+35
+00:01:45,000 --> 00:01:48,000
+pretty handy. And we actually go and
+
+36
+00:01:48,000 --> 00:01:51,000
+use statics to create something that's called a
+
+37
+00:01:51,000 --> 00:01:54,000
+Singleton. Now, what is a Singleton. Well, a Singleton
+
+38
+00:01:54,000 --> 00:01:57,000
+is the idea that you have a single instance
+
+39
+00:01:57,000 --> 00:02:00,000
+of a particular object. So now, we've got
+
+40
+00:02:00,000 --> 00:02:03,000
+this mold, that can create any number of objects,
+
+41
+00:02:03,000 --> 00:02:06,000
+but we want it to create only one and that is
+
+42
+00:02:06,000 --> 00:02:09,000
+called a Singleton, when you only have one instance of an object. In our case,
+
+43
+00:02:09,000 --> 00:02:12,000
+we're going to be using the music player. Here it is! We've got a
+
+44
+00:02:12,000 --> 00:02:15,000
+MusicPlayer class and we have a static
+
+45
+00:02:15,000 --> 00:02:18,000
+variable, that's how we implement the Singleton pattern. We use
+
+46
+00:02:18,000 --> 00:02:21,000
+the static variable called Instance, and remember this is a
+
+47
+00:02:21,000 --> 00:02:24,000
+property of the class. And we're basically saying,
+
+48
+00:02:24,000 --> 00:02:27,000
+this is the one instance of MusicPlayer, we don't ever
+
+49
+00:02:27,000 --> 00:02:30,000
+want another one. So, when you create the first MusicPlayer,
+
+50
+00:02:30,000 --> 00:02:33,000
+here he is, so this red guy is the first MusicPlayer.
+
+51
+00:02:33,000 --> 00:02:36,000
+So, you put it in the mold, take it out of the mold, and you get a MusicPlayer.
+
+52
+00:02:36,000 --> 00:02:39,000
+And I've got the MusicPlayer here, and then, I'm going to set
+
+53
+00:02:39,000 --> 00:02:42,000
+that instance variable, that Instance,
+
+54
+00:02:42,000 --> 00:02:45,000
+the static variable named Instance,
+
+55
+00:02:45,000 --> 00:02:48,000
+to point to my red block. And now, when
+
+56
+00:02:48,000 --> 00:02:51,000
+I create the next one, it comes along and says,
+
+57
+00:02:51,000 --> 00:02:54,000
+what is the .Instance? It says, if Instance.
+
+58
+00:02:54,000 --> 00:02:57,000
+Now, if the Instance is null, then it must have been the
+
+59
+00:02:57,000 --> 00:03:00,000
+first one, and it would have claimed, just as Brice is showing you,
+
+60
+00:03:00,000 --> 00:03:03,000
+that the second time Instance is not null. And because
+
+61
+00:03:03,000 --> 00:03:06,000
+Instance isn't null, it must be something, it's pointing to that guy,
+
+62
+00:03:06,000 --> 00:03:09,000
+and that guy is responsible for the music management, so you don't
+
+63
+00:03:09,000 --> 00:03:12,000
+need to be. So, this music manager, that spawns in the scene, destroys
+
+64
+00:03:12,000 --> 00:03:15,000
+itself. Bye bye! And if in another scene or another
+
+65
+00:03:15,000 --> 00:03:18,000
+area, you've got another music manager that tries to create
+
+66
+00:03:18,000 --> 00:03:21,000
+itself, it goes, if Instance. Well, we do have an instance,
+
+67
+00:03:21,000 --> 00:03:24,000
+it's still the red one, so I destroy myself.
+
+68
+00:03:24,000 --> 00:03:27,000
+And that's how you use the Singleton pattern, using
+
+69
+00:03:27,000 --> 00:03:30,000
+static variables in Unity. Hope it's
+
+70
+00:03:30,000 --> 00:03:32,400
+clearer. Bye.
+

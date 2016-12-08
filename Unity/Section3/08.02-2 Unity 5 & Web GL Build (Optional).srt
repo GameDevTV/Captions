@@ -1,0 +1,321 @@
+
+1
+00:00:04,466 --> 00:00:08,466
+Hi, I'm Sam and you may not have heard from me before, but I'm
+
+2
+00:00:08,466 --> 00:00:12,466
+helping you out with upgrading the Text 101 project
+
+3
+00:00:12,466 --> 00:00:16,466
+to Unity 5. I'm going to be showing you how to do that in
+
+4
+00:00:16,466 --> 00:00:20,466
+this lecture, and I'm also going to be showing you about the cool new build
+
+5
+00:00:20,466 --> 00:00:24,466
+target that we have in Unity 5, which is Web GL, and that is here.
+
+6
+00:00:24,466 --> 00:00:28,466
+It basically allows you to run your games in a browser, without any plugins
+
+7
+00:00:28,466 --> 00:00:32,466
+installed. OK, so let's have a go at that and dive right in!
+
+8
+00:00:32,466 --> 00:00:36,466
+So, the first thing you'll notice here is that I have two versions of Unity
+
+9
+00:00:36,466 --> 00:00:40,466
+installed. This is relatively straightforward to do, even on a PC.
+
+10
+00:00:40,466 --> 00:00:44,466
+What we need to really do is rename this folder, before
+
+11
+00:00:44,466 --> 00:00:48,466
+installing. And the default folder, where you installed, is called Unity,
+
+12
+00:00:48,466 --> 00:00:52,466
+and then, you can rename that folder too, so you can keep track of which versions
+
+13
+00:00:52,466 --> 00:00:56,466
+of Unity you have. This is great if you are going through sections
+
+14
+00:00:56,466 --> 00:01:00,466
+which are on Unity 4, then you want to stay in Unity 4 so that you're on the same
+
+15
+00:01:00,466 --> 00:01:04,466
+version as Ben. Otherwise, if you want to
+
+16
+00:01:04,466 --> 00:01:08,466
+try and upgrade things into Unity 5, you want this Unity 5 version as well.
+
+17
+00:01:08,466 --> 00:01:12,466
+So, that's what we're going to be using today. I'm going to fire that up!
+
+18
+00:01:12,466 --> 00:01:16,466
+As you can see, this screen looks a little bit different from Unity 4, and
+
+19
+00:01:16,466 --> 00:01:20,466
+if we go to open our project, if you don't
+
+20
+00:01:20,466 --> 00:01:24,466
+already have it open, we can go and find that folder. Hit Open
+
+21
+00:01:24,466 --> 00:01:28,466
+and what it's going to do is, it's going to prompt us to upgrade.
+
+22
+00:01:28,466 --> 00:01:32,466
+Now, this is a very cleaver little tool that will even reach into your code
+
+23
+00:01:32,466 --> 00:01:36,466
+and change that as necessary, refactor that as necessary, in order
+
+24
+00:01:36,466 --> 00:01:40,466
+to make the API work. There are some things that it can't do, but
+
+25
+00:01:40,466 --> 00:01:44,466
+for the most part, it will actually be able to do a good job of upgrading your project
+
+26
+00:01:44,466 --> 00:01:48,466
+for you. So, let's hit that button and see what happens, and then, I'll
+
+27
+00:01:48,466 --> 00:01:52,466
+walk you through some of the changes that it has made to the
+
+28
+00:01:52,466 --> 00:01:56,466
+project folder. OK, so as you can see, everything seems to be working. If
+
+29
+00:01:56,466 --> 00:02:00,466
+we open up the Game scene and hit play, it's
+
+30
+00:02:00,466 --> 00:02:04,466
+indeed exactly the same game as we left it. Now, I'm going to
+
+31
+00:02:04,466 --> 00:02:08,466
+go into an app called SourceTree, which is
+
+32
+00:02:08,466 --> 00:02:12,466
+here, and SourceTree basically just
+
+33
+00:02:12,466 --> 00:02:16,466
+keeps track of changes to my files in the project. So,
+
+34
+00:02:16,466 --> 00:02:20,466
+here are the changes, since we've done the upgrade, and you can see them in this little
+
+35
+00:02:20,466 --> 00:02:24,466
+area over here. No code changes,
+
+36
+00:02:24,466 --> 00:02:28,466
+none of these are code files. There are a few, these question mark files are new files,
+
+37
+00:02:28,466 --> 00:02:32,466
+and basically, they are
+
+38
+00:02:32,466 --> 00:02:36,466
+things like well Clusterinput, we're not really interested in. Project
+
+39
+00:02:36,466 --> 00:02:40,466
+Version is quite interesting, because now this file tracks which
+
+40
+00:02:40,466 --> 00:02:44,466
+version you were using when you created this project. Unity adds and
+
+41
+00:02:44,466 --> 00:02:48,466
+connects our new services by Unity, and then, obviously the project settings have
+
+42
+00:02:48,466 --> 00:02:52,466
+changed in format slightly and that's what's been upgraded there. But
+
+43
+00:02:52,466 --> 00:02:56,466
+not really very much to speak of, and certainly no code changes. We'll
+
+44
+00:02:56,466 --> 00:03:00,466
+be seeing code changes in later sections, but in this one very
+
+45
+00:03:00,466 --> 00:03:04,466
+simple game, very simple upgrade process as well.
+
+46
+00:03:04,900 --> 00:03:08,900
+So, let's take a look at one of the really cool new features, that is available
+
+47
+00:03:08,900 --> 00:03:12,900
+in Unity 5. So, I'm going to switch over to Unity,
+
+48
+00:03:12,900 --> 00:03:16,900
+and then, I'm going to go to File, Build & Run.
+
+49
+00:03:16,900 --> 00:03:20,900
+In fact, I'm going to go to Build Settings, rather, and
+
+50
+00:03:20,900 --> 00:03:24,900
+I'm going to go to select the WebGL
+
+51
+00:03:24,900 --> 00:03:28,900
+platform. Now, this is new, you won't have had this in Unity 4,
+
+52
+00:03:28,900 --> 00:03:32,900
+but what this does is, essentially like the Web Payer but allows you to run it without
+
+53
+00:03:32,900 --> 00:03:36,900
+installing plugins, so it does it entirely using web technology,
+
+54
+00:03:36,900 --> 00:03:40,900
+the new WebGL technology in fact. So, if we select this
+
+55
+00:03:40,900 --> 00:03:44,900
+as our build platform, and then, we hit Build And Run,
+
+56
+00:03:44,900 --> 00:03:48,900
+we want to create a build folder here. So, I'm going to create a new folder,
+
+57
+00:03:48,900 --> 00:03:52,900
+call it Build, and in here I'm just going to give it the
+
+58
+00:03:52,900 --> 00:03:56,900
+name of Text101, simple.
+
+59
+00:03:56,900 --> 00:04:00,900
+Save that and it's just going to go through the build
+
+60
+00:04:00,900 --> 00:04:04,900
+process very quickly. And it's very cleaver, it's going to be compiling down to Java
+
+61
+00:04:04,900 --> 00:04:08,900
+script, which is the language of the web, and once that's done, it
+
+62
+00:04:08,900 --> 00:04:12,900
+should pop up a browser window for us to play our game in.
+
+63
+00:04:14,333 --> 00:04:18,333
+As you can see now, it's actually compiling that C++ code that it was just generating
+
+64
+00:04:18,333 --> 00:04:22,333
+into Java script, as I said, and after this step,
+
+65
+00:04:22,333 --> 00:04:26,333
+it should be done. Now, how long this takes is going to depend
+
+66
+00:04:26,333 --> 00:04:30,333
+very much on the speed of your computer, but it shouldn't take longer than about
+
+67
+00:04:30,333 --> 00:04:32,766
+5 minutes in general.
+
+68
+00:04:32,766 --> 00:04:36,766
+And this is the result! A webpage just pops up
+
+69
+00:04:36,766 --> 00:04:40,766
+and allows us to play the prison game, just like
+
+70
+00:04:40,766 --> 00:04:44,766
+this, right there in our web browser. And there is no plugin installed
+
+71
+00:04:44,766 --> 00:04:48,766
+here. I don't have a plugin installed, like Ben does, so you can know for sure that
+
+72
+00:04:48,766 --> 00:04:52,333
+this is just using standard web technologies.
+
+73
+00:04:52,333 --> 00:04:55,633
+OK, now it is your turn to
+
+74
+00:04:55,633 --> 00:04:59,633
+create this Web GL build and share it with your friends. I'd like you to
+
+75
+00:04:59,633 --> 00:05:03,633
+check your game in Unity 5 very carefully. Make sure there are no bugs that
+
+76
+00:05:03,633 --> 00:05:07,633
+have been introduced by the upgrade process. Then, I'd like you to make
+
+77
+00:05:07,633 --> 00:05:11,633
+a Web GL build, just as I've shown you, using these
+
+78
+00:05:11,633 --> 00:05:15,633
+instructions and share that build on social media for your
+
+79
+00:05:15,633 --> 00:05:19,633
+friends. OK, so you can pause the video, have a go at this, and
+
+80
+00:05:19,633 --> 00:05:23,633
+when you're done, it is time to move on to the next video.
+

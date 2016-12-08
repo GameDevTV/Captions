@@ -1,0 +1,525 @@
+
+1
+00:00:03,000 --> 00:00:06,000
+So far, our ball is
+
+2
+00:00:06,000 --> 00:00:09,000
+falling and hitting our paddle but not
+
+3
+00:00:09,000 --> 00:00:12,000
+bouncing. So, how are we going to make it bounce? Well,
+
+4
+00:00:12,000 --> 00:00:15,000
+that's where physics materials come in.
+
+5
+00:00:15,000 --> 00:00:18,000
+Physics has an S on the end, Unity doesn't seem to realize that, as you'll
+
+6
+00:00:18,000 --> 00:00:21,000
+see. So, the physics material is used to adjust
+
+7
+00:00:21,000 --> 00:00:24,000
+friction and bouncing effects, of colliding objects.
+
+8
+00:00:24,000 --> 00:00:27,000
+Let's take a look at their documentation for it.
+
+9
+00:00:27,000 --> 00:00:30,000
+Here we go, you see they call it "Physics Material", you'll see that in
+
+10
+00:00:30,000 --> 00:00:33,000
+various places, but this shows you something
+
+11
+00:00:33,000 --> 00:00:36,000
+about Physics Material. So, let's go to
+
+12
+00:00:36,000 --> 00:00:39,000
+Unity and make this happen.
+
+13
+00:00:39,000 --> 00:00:42,000
+The first thing we're going to need to do is create ourselves a folder,
+
+14
+00:00:42,000 --> 00:00:45,000
+called materials. Now, later we
+
+15
+00:00:45,000 --> 00:00:48,000
+may call these type of folder Physics Materials, because there are
+
+16
+00:00:48,000 --> 00:00:51,000
+other types of materials, like Rendering Materials, but for now,
+
+17
+00:00:51,000 --> 00:00:54,000
+let's just call it materials for simplicity. And in there, let's
+
+18
+00:00:54,000 --> 00:00:57,000
+create a, not a Physics Material actually,
+
+19
+00:00:57,000 --> 00:01:00,000
+because that would be 3D, most things are 3D
+
+20
+00:01:00,000 --> 00:01:03,000
+by default, but a 2D Physics2D
+
+21
+00:01:03,000 --> 00:01:06,000
+Material. Physics2D Material. So, create one of those
+
+22
+00:01:06,000 --> 00:01:09,000
+and simply call it Ball, because it's the ball's
+
+23
+00:01:09,000 --> 00:01:12,000
+material. Let's take a look at it, it's got a friction of point
+
+24
+00:01:12,000 --> 00:01:15,000
+4. Well, actually we're going to set the friction to 0. We don't want
+
+25
+00:01:15,000 --> 00:01:18,000
+the ball to have any friction. What is the friction? Well,
+
+26
+00:01:18,000 --> 00:01:21,000
+Click the Blue Book. The Blue Book will
+
+27
+00:01:21,000 --> 00:01:24,000
+open the manual page for the Physics 2D Material,
+
+28
+00:01:24,000 --> 00:01:27,000
+very helpfully, and tell you what the friction is. Coefficient friction
+
+29
+00:01:27,000 --> 00:01:30,000
+for this collider, but we're not worrying about that. We're going to set that to
+
+30
+00:01:30,000 --> 00:01:33,000
+0, we don't need any friction on the ball, but what we do need is a Bounciness.
+
+31
+00:01:33,000 --> 00:01:36,000
+Now, what's the range of Bounciness? Click on the word
+
+32
+00:01:36,000 --> 00:01:39,000
+and drag left and right, you'll see we can set it between 0 and 1.
+
+33
+00:01:39,000 --> 00:01:42,000
+Great! If I click play now, nothing is going to happen.
+
+34
+00:01:42,000 --> 00:01:45,000
+Why? Well, because it's all very
+
+35
+00:01:45,000 --> 00:01:48,000
+well making the material, but we have not attached that material to the ball.
+
+36
+00:01:48,000 --> 00:01:51,000
+So, click on your ball, look under the Inspector,
+
+37
+00:01:51,000 --> 00:01:54,000
+under the Circle Collider 2D Section, and you'll see that it's asking
+
+38
+00:01:54,000 --> 00:01:57,000
+for a material. Drag the ball on there.
+
+39
+00:01:57,000 --> 00:02:00,000
+Now, let's play!
+
+40
+00:02:00,000 --> 00:02:03,000
+Boing, boing,
+
+41
+00:02:03,000 --> 00:02:06,000
+cool! Now look! Look how high the ball is bouncing! It's bouncing up at
+
+42
+00:02:06,000 --> 00:02:09,000
+exactly the same point every time. It has something
+
+43
+00:02:09,000 --> 00:02:12,000
+called a Coefficient of Restitution, which is the Bounciness of
+
+44
+00:02:12,000 --> 00:02:15,000
+1, that means it is perfectly bouncy.
+
+45
+00:02:15,000 --> 00:02:18,000
+We're also seeing another interesting fact here.
+
+46
+00:02:18,000 --> 00:02:21,000
+You see the ball is slightly interfering with the background. That's because
+
+47
+00:02:21,000 --> 00:02:24,000
+the ball and the background are at exactly the same
+
+48
+00:02:24,000 --> 00:02:27,000
+depth, and they're actually perfectly coincident with each
+
+49
+00:02:27,000 --> 00:02:30,000
+other. I'd like to push the background down a little bit,
+
+50
+00:02:30,000 --> 00:02:33,000
+to stop that effect, before exploring
+
+51
+00:02:33,000 --> 00:02:36,000
+this bouncing a little farther. So, go back
+
+52
+00:02:36,000 --> 00:02:39,000
+into your Scene View. Now, just for a moment, click 2D for
+
+53
+00:02:39,000 --> 00:02:42,000
+me and make it 3D, and then,
+
+54
+00:02:42,000 --> 00:02:45,000
+it'll spin around. I'm not sure exactly the orientation you'll have, you can
+
+55
+00:02:45,000 --> 00:02:48,000
+use the right mouse button to change. Just look, the camera
+
+56
+00:02:48,000 --> 00:02:51,000
+is over here, so if you move around, I'm
+
+57
+00:02:51,000 --> 00:02:54,000
+holding my Middle Mouse Button down now, and then, use the Right
+
+58
+00:02:54,000 --> 00:02:57,000
+Mouse Button to manipulate your position, you'll get the idea
+
+59
+00:02:57,000 --> 00:03:00,000
+that we have a camera over here. And then, we have a
+
+60
+00:03:00,000 --> 00:03:03,000
+background, at a Z depth of 0, and a
+
+61
+00:03:03,000 --> 00:03:06,000
+ball, also at a Z depth of 0.
+
+62
+00:03:06,000 --> 00:03:09,000
+So, why don't we push the background back a little bit, just give it a Z
+
+63
+00:03:09,000 --> 00:03:12,000
+depth of just say 1 World Unit. OK, so it's
+
+64
+00:03:12,000 --> 00:03:15,000
+behind the ball now. You'll find that when we play
+
+65
+00:03:15,000 --> 00:03:18,000
+now, the ball will just look that much more clear, and it
+
+66
+00:03:18,000 --> 00:03:21,000
+won't interfere with the background so much. And that's
+
+67
+00:03:21,000 --> 00:03:24,000
+because it's now in front of the background.
+
+68
+00:03:24,000 --> 00:03:27,000
+Alright, so we've just pushed the background away a tiny
+
+69
+00:03:27,000 --> 00:03:30,000
+bit, so it doesn't interfere with the ball. Great! So, back
+
+70
+00:03:30,000 --> 00:03:33,000
+over in the Scene View, let's take a look at the effect of changing
+
+71
+00:03:33,000 --> 00:03:36,000
+the Bounciness now, on the ball. So,
+
+72
+00:03:36,000 --> 00:03:39,000
+what is this Bounciness figure firstly? Click the Blue Book.
+
+73
+00:03:39,000 --> 00:03:42,000
+It'll take you back to Unity's manual page here,
+
+74
+00:03:42,000 --> 00:03:45,000
+and it tells you that the Bounciness is the degree to which
+
+75
+00:03:45,000 --> 00:03:48,000
+collisions rebound from the surface. "A Value 0 indicates no
+
+76
+00:03:48,000 --> 00:03:51,000
+bounce". Whereas a value of 1 indicates a perfect bounce with no loss
+
+77
+00:03:51,000 --> 00:03:54,000
+of energy. OK, so
+
+78
+00:03:54,000 --> 00:03:57,000
+said differently, I've got a slide here that explains exactly the
+
+79
+00:03:57,000 --> 00:04:00,000
+same thing. 0 no energy
+
+80
+00:04:00,000 --> 00:04:03,000
+conserved in the collision. Well, let's see that
+
+81
+00:04:03,000 --> 00:04:06,000
+happening.
+
+82
+00:04:06,000 --> 00:04:09,000
+If we set a Bounciness of 0, the game needs to be not running when you do
+
+83
+00:04:09,000 --> 00:04:12,000
+this by the way. Watch what happens.
+
+84
+00:04:12,000 --> 00:04:15,000
+No kinetic energy is conserved in that
+
+85
+00:04:15,000 --> 00:04:18,000
+collision. OK, and then the next thing it says is that a value of
+
+86
+00:04:18,000 --> 00:04:21,000
+1 means 100% of the energy is conserved in the collision.
+
+87
+00:04:21,000 --> 00:04:24,000
+Well, we've seen that happening. So,
+
+88
+00:04:24,000 --> 00:04:27,000
+it starts off with no kinetic energy. You'll probably remember this
+
+89
+00:04:27,000 --> 00:04:30,000
+from school. It has a certain amount of gravitational
+
+90
+00:04:30,000 --> 00:04:33,000
+potential energy relative to the paddle, and then,
+
+91
+00:04:33,000 --> 00:04:36,000
+as the game runs, that kinetic energy is converted
+
+92
+00:04:36,000 --> 00:04:39,000
+from the gravitational
+
+93
+00:04:39,000 --> 00:04:42,000
+potential energy and it keeps bouncing to the same height.
+
+94
+00:04:42,000 --> 00:04:45,000
+So, that's what it means by, all of the energy is conserved, it'll never decay,
+
+95
+00:04:45,000 --> 00:04:48,000
+the bouncing. Now, the question
+
+96
+00:04:48,000 --> 00:04:51,000
+is what would happen if I set the Bounciness to 0.5?
+
+97
+00:04:51,000 --> 00:04:54,000
+If it leaves the paddle with half the
+
+98
+00:04:54,000 --> 00:04:57,000
+energy it hit, then because kinetic energy is a half M
+
+99
+00:04:57,000 --> 00:05:00,000
+V squared, it's going to be going up to
+
+100
+00:05:00,000 --> 00:05:03,000
+only 1/4 of its height.
+
+101
+00:05:03,000 --> 00:05:06,000
+So, if you want it to bounce to half the height,
+
+102
+00:05:06,000 --> 00:05:09,000
+you're going to need to take the square root of the height you want it to bounce to, each
+
+103
+00:05:09,000 --> 00:05:12,000
+bounce. So, if you want it to bounce to 0.5 of it's previous
+
+104
+00:05:12,000 --> 00:05:15,000
+height, you're going to need 0.707 roughly. Let's
+
+105
+00:05:15,000 --> 00:05:18,000
+try that, a Bounciness of 0.707.
+
+106
+00:05:18,000 --> 00:05:21,000
+If that math is right, then it'll bounce to about here, in the
+
+107
+00:05:21,000 --> 00:05:24,000
+middle of the guys chest, on that triangle. Let's
+
+108
+00:05:24,000 --> 00:05:27,000
+try, expecting it to bounce to here and it does.
+
+109
+00:05:27,000 --> 00:05:30,000
+You see, every time it bounces to half the height.
+
+110
+00:05:30,000 --> 00:05:33,000
+In our game, of course, we want the ball to continue bouncing
+
+111
+00:05:33,000 --> 00:05:36,000
+forever. So, we want a Bounciness of 1,
+
+112
+00:05:36,000 --> 00:05:39,000
+in our case. So, don't worry about the details of
+
+113
+00:05:39,000 --> 00:05:42,000
+choosing bounciness, I just want to show you how you would
+
+114
+00:05:42,000 --> 00:05:45,000
+get in a Bounciness that you want, if you wanted to.
+
+115
+00:05:45,000 --> 00:05:48,000
+Now, if you do want to know more about the physics, of course, then pop
+
+116
+00:05:48,000 --> 00:05:51,000
+over to my little face here, take a look at the other
+
+117
+00:05:51,000 --> 00:05:54,000
+courses I've got. One of them is Game Physics - Extend
+
+118
+00:05:54,000 --> 00:05:57,000
+Unity 3D's Physics Engine, and in there I'm going to take you through
+
+119
+00:05:57,000 --> 00:06:00,000
+step by step, how to build your own Physics Engine.
+
+120
+00:06:00,000 --> 00:06:03,000
+You'll be in a much better position to understand things
+
+121
+00:06:03,000 --> 00:06:06,000
+like how this thing bounces, how high it bounces, how
+
+122
+00:06:06,000 --> 00:06:09,000
+energy is conserved, etc. So, take a look
+
+123
+00:06:09,000 --> 00:06:12,000
+in Physics 101. It's a course I'm really passionate about, I really
+
+124
+00:06:12,000 --> 00:06:15,000
+enjoyed putting it together, and the feedback that I'm getting already is really
+
+125
+00:06:15,000 --> 00:06:18,000
+cool. Run it! So, here we go, let's try the Bounciness
+
+126
+00:06:18,000 --> 00:06:21,000
+of 1 again, and it will just keep bouncing, which
+
+127
+00:06:21,000 --> 00:06:24,000
+is precisely what we want here. We want energy to be conserved
+
+128
+00:06:24,000 --> 00:06:27,000
+whenever the ball hits anything. So, congratulations!
+
+129
+00:06:27,000 --> 00:06:30,000
+We have a ball bouncing on a paddle. It's a bit more visible,
+
+130
+00:06:30,000 --> 00:06:33,000
+the ball now. And I shall see you
+
+131
+00:06:33,000 --> 00:06:35,000
+shortly.
+

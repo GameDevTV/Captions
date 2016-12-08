@@ -1,0 +1,1169 @@
+
+1
+00:00:06,000 --> 00:00:09,000
+Hi and welcome back! In this video, we're going to do a lot of
+
+2
+00:00:09,000 --> 00:00:12,000
+tidy up. We're going to make a quick change to the logic in the
+
+3
+00:00:12,000 --> 00:00:15,000
+Spawner.cs file. We're going to adjust the
+
+4
+00:00:15,000 --> 00:00:18,000
+colliders, so that our attackers actually hit our defenders.
+
+5
+00:00:18,000 --> 00:00:21,000
+We're going to fix the gravestone animation
+
+6
+00:00:21,000 --> 00:00:24,000
+transitions, so that they are in their under attack state,
+
+7
+00:00:24,000 --> 00:00:27,000
+at the right times. And then, we're going to make sure that all our
+
+8
+00:00:27,000 --> 00:00:30,000
+work is properly prefabbed, so we can create other levels.
+
+9
+00:00:30,000 --> 00:00:33,000
+So, first thing is to look at this
+
+10
+00:00:33,000 --> 00:00:36,000
+Spawner.cs Script and see what is up
+
+11
+00:00:36,000 --> 00:00:39,000
+with it. Nothing wrong
+
+12
+00:00:39,000 --> 00:00:42,000
+with it, it works, but look at the logic at the bottom here. I
+
+13
+00:00:42,000 --> 00:00:45,000
+ought to be sent to code prison for writing that, because all of
+
+14
+00:00:45,000 --> 00:00:48,000
+that can be written in a single line. Can you see what the single line could
+
+15
+00:00:48,000 --> 00:00:51,000
+be? Well, this return
+
+16
+00:00:51,000 --> 00:00:54,000
+true, we're never going to reach return true right, because
+
+17
+00:00:54,000 --> 00:00:57,000
+these two are jointly exhaustive. It's tempting to say
+
+18
+00:00:57,000 --> 00:01:00,000
+mutually exclusive, but I get told off by philosophers when I say that.
+
+19
+00:01:00,000 --> 00:01:03,000
+So, they're jointly exhaustive, between them they cover everything,
+
+20
+00:01:03,000 --> 00:01:06,000
+but this return true is completely unnecessary. Also, you'll
+
+21
+00:01:06,000 --> 00:01:09,000
+notice that this thing in brackets, either evaluates to
+
+22
+00:01:09,000 --> 00:01:12,000
+true or false, so why don't we just return it.
+
+23
+00:01:12,000 --> 00:01:15,000
+Return, I like to use brackets. You don't have to but I prefer to,
+
+24
+00:01:15,000 --> 00:01:18,000
+for my logic statement, and just need a semicolon.
+
+25
+00:01:18,000 --> 00:01:21,000
+How's that? return
+
+26
+00:01:21,000 --> 00:01:24,000
+Random.value is less than threshold.
+
+27
+00:01:24,000 --> 00:01:27,000
+It may not read quite as clear, but it's certainly a lot more
+
+28
+00:01:27,000 --> 00:01:30,000
+compact, and I wanted to give you this option where you just return something
+
+29
+00:01:30,000 --> 00:01:33,000
+that evaluates to a Boolean. Let's make sure it works, before
+
+30
+00:01:33,000 --> 00:01:36,000
+I get too excited about my new plan. Always check your plan,
+
+31
+00:01:36,000 --> 00:01:39,000
+because it may seem like a cunning plan, at the time, but may not
+
+32
+00:01:39,000 --> 00:01:42,000
+work. So, I've lost so quickly
+
+33
+00:01:42,000 --> 00:01:45,000
+because of the game time. So, I'm going to change my
+
+34
+00:01:45,000 --> 00:01:48,000
+game time, right now, into Level Canvas, onto your
+
+35
+00:01:48,000 --> 00:01:51,000
+slider. Now, I don't think slider is a good name, I think it's not
+
+36
+00:01:51,000 --> 00:01:54,000
+descriptive enough. Something like Game Timer would make
+
+37
+00:01:54,000 --> 00:01:57,000
+more sense, so I'm renaming my Slider object to
+
+38
+00:01:57,000 --> 00:02:00,000
+Game Timer. I'm also going to, on its script,
+
+39
+00:02:00,000 --> 00:02:03,000
+change the default time for this level,
+
+40
+00:02:03,000 --> 00:02:06,000
+because it's far far too short. So, where's the script?
+
+41
+00:02:06,000 --> 00:02:09,000
+Here it is! Level Seconds, and I'm going to go for 100 seconds.
+
+42
+00:02:09,000 --> 00:02:12,000
+Now, we're going to have a sensible time. So, let's just check
+
+43
+00:02:12,000 --> 00:02:15,000
+nothings broken.
+
+44
+00:02:15,000 --> 00:02:18,000
+Let's keep going!
+
+45
+00:02:18,000 --> 00:02:21,000
+So, hopefully we are now continuing
+
+46
+00:02:21,000 --> 00:02:24,000
+to record, and I'm just playing to make sure stuff is working.
+
+47
+00:02:24,000 --> 00:02:27,000
+So, we have a countdown timer, counting down
+
+48
+00:02:27,000 --> 00:02:30,000
+here, and hopefully, in a moment, some
+
+49
+00:02:30,000 --> 00:02:33,000
+spawning is going to happen. Here we go! This is just check that, that code
+
+50
+00:02:33,000 --> 00:02:36,000
+changer made to the Spawner. And we've go the parenting, and everything is working
+
+51
+00:02:36,000 --> 00:02:39,000
+hunky dory! Fantastic! On to the slide, let's
+
+52
+00:02:39,000 --> 00:02:42,000
+see what the next thing to do is. Adjust
+
+53
+00:02:42,000 --> 00:02:45,000
+the colliders, so attackers hit defenders. Right,
+
+54
+00:02:45,000 --> 00:02:48,000
+very true. If we look at the game, as it is,
+
+55
+00:02:48,000 --> 00:02:51,000
+and we place down some stones, for
+
+56
+00:02:51,000 --> 00:02:54,000
+example. Now, they're not working! My Defender Prefab Button is not
+
+57
+00:02:54,000 --> 00:02:57,000
+assigned, so let me just fix my buttons. It's simply
+
+58
+00:02:57,000 --> 00:03:00,000
+a question that the buttons do not have the
+
+59
+00:03:00,000 --> 00:03:03,000
+appropriate prefabs linked to them. The Gnome here is just missing
+
+60
+00:03:03,000 --> 00:03:06,000
+the Gnome, so let's connect to the Gnome.
+
+61
+00:03:06,000 --> 00:03:09,000
+The Stone is probably missing the Stone. I don't know when
+
+62
+00:03:09,000 --> 00:03:12,000
+these got disconnected, but if you see something like that, just reconnect
+
+63
+00:03:12,000 --> 00:03:15,000
+it. And then, for future, let's also make sure
+
+64
+00:03:15,000 --> 00:03:18,000
+that we have it prefabbed right. There's your Star
+
+65
+00:03:18,000 --> 00:03:21,000
+Trophy! So, all the buttons, it would make sense to prefab
+
+66
+00:03:21,000 --> 00:03:24,000
+the buttons. Now, some time I created a Buttons Folder, but we've never used it.
+
+67
+00:03:24,000 --> 00:03:27,000
+So, I'm going to delete the Buttons Folder under Prefabs,
+
+68
+00:03:27,000 --> 00:03:30,000
+and just prefabs the button's
+
+69
+00:03:30,000 --> 00:03:33,000
+GameObject, which will then come with a bunch of Sub-objects,
+
+70
+00:03:33,000 --> 00:03:36,000
+so they're all blue now. Eventually, we want to prefab practically everything.
+
+71
+00:03:36,000 --> 00:03:39,000
+See the Level Canvas, for example, that's not
+
+72
+00:03:39,000 --> 00:03:42,000
+prefabbed either. There is a prefab for it,
+
+73
+00:03:42,000 --> 00:03:45,000
+but it's disconnected, because it's black, so let's
+
+74
+00:03:45,000 --> 00:03:48,000
+delete the Level Canvas Prefab and re-prefab
+
+75
+00:03:48,000 --> 00:03:51,000
+our Level Canvas. This is better, I want practically
+
+76
+00:03:51,000 --> 00:03:54,000
+everything to be blue. I don't
+
+77
+00:03:54,000 --> 00:03:57,000
+need my placeholder Defenders and Spawners, that are created at run time,
+
+78
+00:03:57,000 --> 00:04:00,000
+to be blue, but everything else I pretty much
+
+79
+00:04:00,000 --> 00:04:03,000
+want blue. Fantastic! So, let's see if it works now and get onto this
+
+80
+00:04:03,000 --> 00:04:06,000
+issue of... Yeah that's cool!
+
+81
+00:04:06,000 --> 00:04:09,000
+Just going to check all my Defenders.
+
+82
+00:04:09,000 --> 00:04:12,000
+Fantastic! So, what I want to do is wait till somebody comes along and hits this
+
+83
+00:04:12,000 --> 00:04:15,000
+gravestone, and make sure they're actually colliding with
+
+84
+00:04:15,000 --> 00:04:18,000
+the gravestone. The gravestone animation is wrong, at the moment. That's
+
+85
+00:04:18,000 --> 00:04:21,000
+because it's animation state is just not correct right
+
+86
+00:04:21,000 --> 00:04:24,000
+now. It is
+
+87
+00:04:24,000 --> 00:04:27,000
+just sitting in the Under Attack state, but we'll deal with that in a minute.
+
+88
+00:04:27,000 --> 00:04:30,000
+For now, what I'm interested in is, if we were to pause and look
+
+89
+00:04:30,000 --> 00:04:33,000
+at this lizard up here, we will find
+
+90
+00:04:33,000 --> 00:04:36,000
+that he's not quite touching the gravestone.
+
+91
+00:04:36,000 --> 00:04:39,000
+In fact, he's doing quite a good job, right now.
+
+92
+00:04:39,000 --> 00:04:42,000
+Yeah, he's doing an OK job! Let's take a look at our lizards.
+
+93
+00:04:42,000 --> 00:04:45,000
+And his
+
+94
+00:04:45,000 --> 00:04:48,000
+collider and let's look at the gravestone as well.
+
+95
+00:04:48,000 --> 00:04:51,000
+So, there's the gravestone's collider
+
+96
+00:04:51,000 --> 00:04:54,000
+and then, here is the lizard's collider and then there's the
+
+97
+00:04:54,000 --> 00:04:57,000
+lizard behind him. Let's see what happens when this lizard behind comes in.
+
+98
+00:04:57,000 --> 00:05:00,000
+He stops there, you see. That's
+
+99
+00:05:00,000 --> 00:05:03,000
+the problem, he's stopping short because of his collider. So,
+
+100
+00:05:03,000 --> 00:05:06,000
+all we need to do is move the lizard's collider. So, stop the
+
+101
+00:05:06,000 --> 00:05:09,000
+game, go to your prefab,
+
+102
+00:05:09,000 --> 00:05:12,000
+in my case, and just make sure that for all your
+
+103
+00:05:12,000 --> 00:05:15,000
+characters, their colliders lead
+
+104
+00:05:15,000 --> 00:05:18,000
+to a believable sort of behavior. I know it's going to be about a
+
+105
+00:05:18,000 --> 00:05:21,000
+third of a block across, just from I.
+
+106
+00:05:21,000 --> 00:05:24,000
+So, let's just check that this guy appropriately
+
+107
+00:05:24,000 --> 00:05:27,000
+stops, when he get to the... Yeah, he
+
+108
+00:05:27,000 --> 00:05:30,000
+does, but he chews the back of it and I prefer that he chews the front
+
+109
+00:05:30,000 --> 00:05:33,000
+of it. So, we simply bring the lizard,
+
+110
+00:05:33,000 --> 00:05:36,000
+on his body the sprite itself, we
+
+111
+00:05:36,000 --> 00:05:39,000
+take the Order in Layer to 2. And now, the lizard will be in
+
+112
+00:05:39,000 --> 00:05:42,000
+front of the stone. So, let's just check that the lizard,
+
+113
+00:05:42,000 --> 00:05:45,000
+impacting the stone, looks good now!
+
+114
+00:05:51,000 --> 00:05:54,000
+There he is! And if we look at it, in the Scene View, we can see he's
+
+115
+00:05:54,000 --> 00:05:57,000
+actually making contact with the stone and making it wobble.
+
+116
+00:05:57,000 --> 00:06:00,000
+As extra credit, you might want to add a particle effect or something like that.
+
+117
+00:06:00,000 --> 00:06:03,000
+Fantastic! Now, let's sort out the third thing on
+
+118
+00:06:03,000 --> 00:06:06,000
+our list, which is that the... I'm going to
+
+119
+00:06:06,000 --> 00:06:09,000
+check the list. [Laughs] Yeah, the gravestone animation transitions. We need to make
+
+120
+00:06:09,000 --> 00:06:12,000
+sure that they are working properly. So, what's up with this gravestone
+
+121
+00:06:12,000 --> 00:06:15,000
+right now? It's complete rubbish right now.
+
+122
+00:06:15,000 --> 00:06:18,000
+So, let's have a gravestone, in the scene,
+
+123
+00:06:18,000 --> 00:06:21,000
+and inspect it and look at its Animator. Now, what's going on
+
+124
+00:06:21,000 --> 00:06:24,000
+with this particular gravestone? It's in the Under Attack state, all the
+
+125
+00:06:24,000 --> 00:06:27,000
+time. Why? Well, in my case, it's because I just got
+
+126
+00:06:27,000 --> 00:06:30,000
+my transition logic wrong. I've got Is Attacking False,
+
+127
+00:06:30,000 --> 00:06:33,000
+is taking me to Is Attacking, which is around the wrong way.
+
+128
+00:06:33,000 --> 00:06:36,000
+But actually, I don't want to be using a ball here at all. I'm going to want
+
+129
+00:06:36,000 --> 00:06:39,000
+to use a trigger. So, the general architecture
+
+130
+00:06:39,000 --> 00:06:42,000
+is going to be as follows. When the
+
+131
+00:06:42,000 --> 00:06:45,000
+attacker hits the defender's collider,
+
+132
+00:06:45,000 --> 00:06:48,000
+it's going to continually call the OnTriggerStay2D
+
+133
+00:06:48,000 --> 00:06:51,000
+message. While that's happening, I
+
+134
+00:06:51,000 --> 00:06:54,000
+want to keep pushing a trigger into the Attack state. In fact, I'm going to
+
+135
+00:06:54,000 --> 00:06:57,000
+swap Idle and Attack around. So, all the time the collision is happening,
+
+136
+00:06:57,000 --> 00:07:00,000
+I want this transition to happen, from Idle to Attack,
+
+137
+00:07:00,000 --> 00:07:03,000
+and then, I want it to automatically, at the
+
+138
+00:07:03,000 --> 00:07:06,000
+end of the current Attack animation, go back to Idle.
+
+139
+00:07:06,000 --> 00:07:09,000
+And of course, if we continue to push it, because the collisions keep happening
+
+140
+00:07:09,000 --> 00:07:12,000
+or stay in Attack until a collision stops happening.
+
+141
+00:07:12,000 --> 00:07:15,000
+So, how do we make all that work? We're going to remove the
+
+142
+00:07:15,000 --> 00:07:18,000
+Is Attacking parameter
+
+143
+00:07:18,000 --> 00:07:21,000
+altogether and add a trigger.
+
+144
+00:07:21,000 --> 00:07:24,000
+And I'm going to call it under
+
+145
+00:07:24,000 --> 00:07:27,000
+Attack trigger. I like to use the word trigger, so it's really clear
+
+146
+00:07:27,000 --> 00:07:30,000
+in the Inspector down here, in the Parameter Inspector, that it's a trigger
+
+147
+00:07:30,000 --> 00:07:33,000
+because it looks just like a Bool.
+
+148
+00:07:33,000 --> 00:07:36,000
+And what I want to happen is, Idle is the default state, that
+
+149
+00:07:36,000 --> 00:07:39,000
+is the orange. I want to go into Under Attack based
+
+150
+00:07:39,000 --> 00:07:42,000
+on the trigger, but I want to come out based on a single
+
+151
+00:07:42,000 --> 00:07:45,000
+cycle, an exit time of one loop.
+
+152
+00:07:45,000 --> 00:07:48,000
+and I leave both of these transitions as Atomic, so
+
+153
+00:07:48,000 --> 00:07:51,000
+the animation is complete. We can test it, actually,
+
+154
+00:07:51,000 --> 00:07:54,000
+before we go and wire up the code,
+
+155
+00:07:54,000 --> 00:07:57,000
+like this. In fact, the code may fail. Let's just look.
+
+156
+00:07:57,000 --> 00:08:00,000
+The code is OK, which slightly surprises me,
+
+157
+00:08:00,000 --> 00:08:03,000
+because I thought that we called that already but maybe we didn't.
+
+158
+00:08:03,000 --> 00:08:06,000
+So, place yourself a defender down
+
+159
+00:08:06,000 --> 00:08:09,000
+and inspect it, and of course, it's
+
+160
+00:08:09,000 --> 00:08:12,000
+not working. Why not? Why does it keep going
+
+161
+00:08:12,000 --> 00:08:15,000
+into this Under Attack state?
+
+162
+00:08:15,000 --> 00:08:18,000
+Good question! Maybe the code has actually renamed itself.
+
+163
+00:08:18,000 --> 00:08:21,000
+Let's go and look at the script, for the stone
+
+164
+00:08:21,000 --> 00:08:24,000
+and see what we've got. Absolutely nothing, so it's not
+
+165
+00:08:24,000 --> 00:08:27,000
+the stone. So, before we code anything, we need to work
+
+166
+00:08:27,000 --> 00:08:30,000
+out why this guy is
+
+167
+00:08:30,000 --> 00:08:33,000
+flitting between states. Even though in his
+
+168
+00:08:33,000 --> 00:08:36,000
+Animator we have a Default state here and a Transition
+
+169
+00:08:36,000 --> 00:08:39,000
+condition of the Under Attack trigger, is not true right now.
+
+170
+00:08:39,000 --> 00:08:42,000
+If I set it to True, it stays in Idle.
+
+171
+00:08:42,000 --> 00:08:45,000
+See that's a bit weird,
+
+172
+00:08:45,000 --> 00:08:48,000
+it's doing the inverse to what you'd expect.
+
+173
+00:08:48,000 --> 00:08:51,000
+So, let's
+
+174
+00:08:51,000 --> 00:08:54,000
+Reset this condition, in case there's some bug.
+
+175
+00:08:54,000 --> 00:08:57,000
+Idle is the default state.
+
+176
+00:08:57,000 --> 00:09:00,000
+It would change to the Under Attack state, when the
+
+177
+00:09:00,000 --> 00:09:03,000
+trigger happens, presumably when it's true,
+
+178
+00:09:03,000 --> 00:09:06,000
+and then, it will come back after one cycle.
+
+179
+00:09:06,000 --> 00:09:09,000
+That all sounds sensible. So, what I need to do is go to Mono
+
+180
+00:09:09,000 --> 00:09:12,000
+and I need to do a search
+
+181
+00:09:12,000 --> 00:09:15,000
+to Find in Files, here,
+
+182
+00:09:15,000 --> 00:09:18,000
+and I'm going to look for Under Attack,
+
+183
+00:09:18,000 --> 00:09:21,000
+in the whole solution.
+
+184
+00:09:21,000 --> 00:09:24,000
+And it's not there, so it's not code doing this.
+
+185
+00:09:24,000 --> 00:09:27,000
+So, let's just look again.
+
+186
+00:09:27,000 --> 00:09:30,000
+There you go! It's behaving now! Just some
+
+187
+00:09:30,000 --> 00:09:33,000
+weird bug. So, I had to just cycle the transition
+
+188
+00:09:33,000 --> 00:09:36,000
+in the Animator. So, if I now turn that on,
+
+189
+00:09:36,000 --> 00:09:39,000
+it goes into that state, but it comes off
+
+190
+00:09:39,000 --> 00:09:42,000
+again. But the OnTriggerStay would have the effect of what I'm
+
+191
+00:09:42,000 --> 00:09:45,000
+doing. It'll keep clicking on Attack Trigger and it should work. So, let's
+
+192
+00:09:45,000 --> 00:09:48,000
+go and give it a go! Into the Stone Script,
+
+193
+00:09:48,000 --> 00:09:51,000
+and it's no longer only being used as a
+
+194
+00:09:51,000 --> 00:09:54,000
+tag, wer'e actually going to put some behavior in the Stone Script. And
+
+195
+00:09:54,000 --> 00:09:57,000
+you can see it coming, can't you? I'm not going to show you how to do this bit.
+
+196
+00:09:57,000 --> 00:10:00,000
+OK, so here's your challenge. Write the Stone.cs
+
+197
+00:10:00,000 --> 00:10:03,000
+Script. When the Attacker is actually colliding
+
+198
+00:10:03,000 --> 00:10:06,000
+with the Defender, I want you to continuously set the Under Attacker trigger.
+
+199
+00:10:06,000 --> 00:10:09,000
+You're going to need to find the Animator, of course.
+
+200
+00:10:09,000 --> 00:10:12,000
+Ensure the projectiles don't trigger this.
+
+201
+00:10:12,000 --> 00:10:15,000
+Check the animation transition happens
+
+202
+00:10:15,000 --> 00:10:18,000
+as expected. And
+
+203
+00:10:18,000 --> 00:10:21,000
+here's a hint: Use OnTriggerStay2D ().
+
+204
+00:10:21,000 --> 00:10:24,000
+So, that's the message you're going to want to intercept,
+
+205
+00:10:24,000 --> 00:10:27,000
+inside the Stone.cs. So, have a go at that now! And
+
+206
+00:10:27,000 --> 00:10:30,000
+see if you can get it so that, when foxes
+
+207
+00:10:30,000 --> 00:10:33,000
+jump over the stones or lizards meet the stones in my game,
+
+208
+00:10:33,000 --> 00:10:36,000
+the stone starts wobbling, and when
+
+209
+00:10:36,000 --> 00:10:39,000
+they're no longer under attack, they stand still, or whatever
+
+210
+00:10:39,000 --> 00:10:42,000
+the equivalent is in your game. Fantastic! So, how are we
+
+211
+00:10:42,000 --> 00:10:45,000
+going to make this happen? One of the first things
+
+212
+00:10:45,000 --> 00:10:48,000
+we're going to need is a private access to an
+
+213
+00:10:48,000 --> 00:10:51,000
+Animator.
+
+214
+00:10:51,000 --> 00:10:54,000
+And as we've done many a time,
+
+215
+00:10:54,000 --> 00:10:57,000
+we need to go find that Animator, which should be relatively simple.
+
+216
+00:10:57,000 --> 00:11:00,000
+Well, now where is the Animator? We're on the Stone.
+
+217
+00:11:00,000 --> 00:11:03,000
+What method do I use to find the Animator?
+
+218
+00:11:03,000 --> 00:11:06,000
+Well, if we look at a Stone Prefab,
+
+219
+00:11:06,000 --> 00:11:09,000
+the script that we're writing is at the same level,
+
+220
+00:11:09,000 --> 00:11:12,000
+it's on the same GameObject as the Animator, so it's a Get
+
+221
+00:11:12,000 --> 00:11:15,000
+Component call we need here.
+
+222
+00:11:15,000 --> 00:11:18,000
+Of type Animator,
+
+223
+00:11:18,000 --> 00:11:21,000
+method, end line. OK cool! So, we
+
+224
+00:11:21,000 --> 00:11:24,000
+have access to an Animator. Now, it's a question of the
+
+225
+00:11:24,000 --> 00:11:27,000
+logic. What is the logic by which we decide
+
+226
+00:11:27,000 --> 00:11:30,000
+what state we need to be in? So, it's going to be done every frame. We're going
+
+227
+00:11:30,000 --> 00:11:33,000
+to need to query, every single frame. And then, how are we going to
+
+228
+00:11:33,000 --> 00:11:36,000
+do it? Well, we've done this before. When did we do it before? I
+
+229
+00:11:36,000 --> 00:11:39,000
+believe it was for the projectiles. They need to decide
+
+230
+00:11:39,000 --> 00:11:42,000
+what they're banging into right.
+
+231
+00:11:42,000 --> 00:11:45,000
+Let's take a look at the Projectile Script. Here we go! And in fact, it's
+
+232
+00:11:45,000 --> 00:11:48,000
+exactly this line, where we say Attacker
+
+233
+00:11:48,000 --> 00:11:51,000
+attacker = collider.gameObject.GetComponent&lt;Attacker&gt;();
+
+234
+00:11:51,000 --> 00:11:54,000
+So, these two lines are pretty much exactly
+
+235
+00:11:54,000 --> 00:11:57,000
+what are going to want
+
+236
+00:11:57,000 --> 00:12:00,000
+to have working, alright. It's just that we're going to be using OnTrigger
+
+237
+00:12:00,000 --> 00:12:03,000
+Stay, rather than OnTriggerEnter. So,
+
+238
+00:12:03,000 --> 00:12:06,000
+let's get the body of it
+
+239
+00:12:06,000 --> 00:12:09,000
+there. Instead of OnTriggerEnter it's OnTriggerStay2D.
+
+240
+00:12:09,000 --> 00:12:12,000
+So, all the time that the collision is happening,
+
+241
+00:12:12,000 --> 00:12:15,000
+we find whether or not it's an attacker. We
+
+242
+00:12:15,000 --> 00:12:18,000
+say, if it's an (attacker), otherwise it would be null.
+
+243
+00:12:18,000 --> 00:12:21,000
+Then, what are we going to do? Well, we go animator.set
+
+244
+00:12:21,000 --> 00:12:24,000
+Trigger. Remember, this only takes one parameter,
+
+245
+00:12:24,000 --> 00:12:27,000
+and it's called ("underAttack
+
+246
+00:12:27,000 --> 00:12:30,000
+trigger"); Now, is that spelling
+
+247
+00:12:30,000 --> 00:12:33,000
+perfect? Let's go over to Unity,
+
+248
+00:12:33,000 --> 00:12:36,000
+and let's check the
+
+249
+00:12:36,000 --> 00:12:39,000
+Prefab for the Defender.
+
+250
+00:12:39,000 --> 00:12:42,000
+So, Animator, underAttack trigger.
+
+251
+00:12:42,000 --> 00:12:45,000
+If you're not sure, copy and paste it. Make sure you
+
+252
+00:12:45,000 --> 00:12:48,000
+don't get it wrong right. OK,
+
+253
+00:12:48,000 --> 00:12:51,000
+so if it's an attacker we're collding with, then set
+
+254
+00:12:51,000 --> 00:12:54,000
+the trigger, otherwise do nothing.
+
+255
+00:12:54,000 --> 00:12:57,000
+Maybe that alone would do it? Let's try!
+
+256
+00:12:57,000 --> 00:13:00,000
+Let's place some defenders.
+
+257
+00:13:00,000 --> 00:13:03,000
+Yes, some defenders! A whole line of the stones.
+
+258
+00:13:03,000 --> 00:13:06,000
+Watch this guy, he's shaking! Awesome! And this guy is shaking!
+
+259
+00:13:06,000 --> 00:13:09,000
+Now, we just need to make sure that
+
+260
+00:13:09,000 --> 00:13:12,000
+when the stone dies that it disappears,
+
+261
+00:13:12,000 --> 00:13:15,000
+and also whether the fox triggers an attack.
+
+262
+00:13:15,000 --> 00:13:18,000
+Well, that's a game design decision. I don't really mind whether
+
+263
+00:13:18,000 --> 00:13:21,000
+the fox does or doesn't No, I need to stop this fox,
+
+264
+00:13:21,000 --> 00:13:24,000
+because otherwise, the game is going to end before we get to find out what
+
+265
+00:13:24,000 --> 00:13:27,000
+happens to our stones. I think the top stone should
+
+266
+00:13:27,000 --> 00:13:30,000
+die before anything else, because
+
+267
+00:13:30,000 --> 00:13:33,000
+it's being
+
+268
+00:13:33,000 --> 00:13:36,000
+chewed by at least two guys right now.
+
+269
+00:13:36,000 --> 00:13:39,000
+Come on stone! You can always just go...
+
+270
+00:13:39,000 --> 00:13:42,000
+When you're play testing like this, you can always just go in and artificially
+
+271
+00:13:42,000 --> 00:13:45,000
+remove their
+
+272
+00:13:45,000 --> 00:13:48,000
+health. You can just
+
+273
+00:13:48,000 --> 00:13:51,000
+reduce the health. OK, didn't really test anything, because the stone disappeared.
+
+274
+00:13:51,000 --> 00:13:54,000
+Everything is working fine, but our other question is,
+
+275
+00:13:54,000 --> 00:13:57,000
+what happens if the
+
+276
+00:13:57,000 --> 00:14:00,000
+attacker dies,
+
+277
+00:14:00,000 --> 00:14:03,000
+before the defender disappears? So, let's put
+
+278
+00:14:03,000 --> 00:14:06,000
+several guns in this lane. This is why I'm doing all of this before play tuning.
+
+279
+00:14:06,000 --> 00:14:09,000
+It would actually be difficult during play tuning. And
+
+280
+00:14:09,000 --> 00:14:12,000
+let's see what happens to this bottom stone here.
+
+281
+00:14:12,000 --> 00:14:15,000
+Does it? Yes, it stops! Perfect! Final thing, do these projectiles
+
+282
+00:14:15,000 --> 00:14:18,000
+trigger the stone? No! Why not? Well, because the code
+
+283
+00:14:18,000 --> 00:14:21,000
+just says, if it's an attacker, otherwise it never sets this trigger,
+
+284
+00:14:21,000 --> 00:14:24,000
+and then, then Animator is taking care of the rest.
+
+285
+00:14:24,000 --> 00:14:27,000
+OnTrigger it's going into the Attack state. After one animation
+
+286
+00:14:27,000 --> 00:14:30,000
+it comes back, but if we continually trigger this, it
+
+287
+00:14:30,000 --> 00:14:33,000
+appears to stay in the Attack state. So, that's it! We have completed
+
+288
+00:14:33,000 --> 00:14:36,000
+the challenge as we wanted,
+
+289
+00:14:36,000 --> 00:14:39,000
+basically. Fumbled mouth. So congratulations!
+
+290
+00:14:39,000 --> 00:14:42,000
+We've done all the tidy up that I want to do, at this stage, and the game is
+
+291
+00:14:42,000 --> 00:14:45,000
+basically working. We just need to play tune it, which is what's up
+
+292
+00:14:45,000 --> 00:14:48,000
+next. See you soon!
+

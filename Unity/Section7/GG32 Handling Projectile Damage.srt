@@ -1,0 +1,320 @@
+Kind: captions
+Language: en
+
+00:00:00,010 --> 00:00:09,400
+Hey welcome back so this is a pure
+challenge video. I want you to code for
+
+00:00:09,400 --> 00:00:14,360
+projectile damage. It's relatively simple, it
+uses the same concepts as before
+
+00:00:14,360 --> 00:00:17,930
+Basically make projectiles damage
+anything that has both an attacker and a
+
+00:00:17,930 --> 00:00:23,690
+health on it. Set up a play space and
+start tuning the damage and health
+
+00:00:23,690 --> 00:00:29,050
+levels and we'll play tune again later once we
+can spawn both enemies and defenders.
+
+00:00:29,050 --> 00:00:35,400
+So go ahead and see if you can get those
+damn projectors damaging the attackers.
+
+00:00:35,400 --> 00:00:39,699
+OK welcome back let's look at how we're
+gonna do it. So which script do you think
+
+00:00:39,699 --> 00:00:43,889
+it's gonna be in? Which script did you do it on?
+Well it makes sense to work on the projectile
+
+00:00:43,889 --> 00:00:51,190
+script right? OK so where? What method?
+Well it's the on trigger enter 2D; you are
+
+00:00:51,190 --> 00:00:54,859
+remembering all 2Ds right? Without that
+it's going to get slippery, and we're
+
+00:00:54,859 --> 00:01:00,579
+going to need the collider so let's put
+in the parameters, there it is great. So
+
+00:01:00,579 --> 00:01:02,859
+what we do on there? Well we need to know
+
+00:01:02,859 --> 00:01:06,660
+firstly about the attacker and the health as
+I said, so let's be very specific,  let's
+
+00:01:06,660 --> 00:01:13,040
+use the attacker type
+attacker attacker equals collider dot
+
+00:01:13,040 --> 00:01:17,740
+game object,so we go from the collider of the
+thing that's hitting the project - or the
+
+00:01:17,740 --> 00:01:21,270
+projectile is hitting to the game
+object; from the GameObject we get the
+
+00:01:21,270 --> 00:01:28,150
+component of type attacker, if there is
+one which we'll ask in a minute; and then we do
+
+00:01:28,150 --> 00:01:32,050
+a very same thing with the health. If you
+didn't do the full
+
+00:01:32,050 --> 00:01:35,510
+challenge then is a good
+opportunity for you to do at
+
+00:01:35,510 --> 00:01:39,580
+least a mini challenge which is just
+finish this line before I do. It's gonna be
+
+00:01:39,580 --> 00:01:52,940
+exactly the same pattern as above. There we go
+OK great so we now have the attacker
+
+00:01:52,940 --> 00:01:55,690
+and te health component - well if they exist
+
+00:01:55,690 --> 00:01:59,940
+off the thing that the the projectile is
+colliding wit, so what could it be
+
+00:01:59,940 --> 00:02:02,720
+colliding with? It could be colliding
+with an another projectile, well
+
+00:02:02,720 --> 00:02:06,730
+would that have attacker and health on
+it? No; it could be colliding
+
+00:02:06,730 --> 00:02:10,330
+with a defender would that
+have attacker and health on it?
+
+00:02:10,330 --> 00:02:15,180
+No. Could it be colliding with an attacker? Well yes, and all attackers have health, and if
+
+00:02:15,180 --> 00:02:18,910
+they don't we're not going to damage
+them anyway. So the if statement is
+
+00:02:18,910 --> 00:02:27,600
+simply if attacker and health. Even in a
+physics-based game you may want to use
+
+00:02:27,600 --> 00:02:32,860
+this method of filtering by actual game; by script, by class, by
+
+00:02:32,860 --> 00:02:36,920
+component by wheat have you wanna call
+it. It's a pretty strong way of doing things.
+
+00:02:36,920 --> 00:02:41,930
+So what we gonna do if that's the case?
+So we're gonna health dot deal damage; how
+
+00:02:41,930 --> 00:02:47,560
+much? Well we have damage available, it's the
+damage that the projectile does. So we're
+
+00:02:47,560 --> 00:02:51,380
+going to deal this projectile's amount of
+damage and then we're going to destroy
+
+00:02:51,380 --> 00:02:55,800
+what are we gonna destroy? The projectile, right?
+
+00:02:55,800 --> 00:03:00,239
+The projectile is responsible for
+destroying itself so GameObject looks
+
+00:03:00,239 --> 00:03:04,500
+through the current script which is
+projectile dot cs and destroys the very
+
+00:03:04,500 --> 00:03:11,360
+game object it's attached to. Cool, let's
+see if it works
+
+00:03:11,360 --> 00:03:24,070
+So somewhere I've missed a void; OK the name health
+does not exist in the current context
+
+00:03:24,070 --> 00:03:31,140
+that's just coz I spelled it wrong. The name
+health, I really don't spell health right
+
+00:03:31,140 --> 00:03:38,590
+do I? H-E-A-LTH. OK health dot deal damage, there we
+go. So hopefully compilation errors are
+
+00:03:38,590 --> 00:03:46,850
+gone and we can run and watch the damage
+being done by the projectiles now. So how
+
+00:03:46,850 --> 00:03:50,580
+would we know? Well let's take a look at
+that liard for example, is that lizard
+
+00:03:50,580 --> 00:03:56,750
+being damaged? So if we zoom out, click on the
+lizard, you have to go to himself rather than
+
+00:03:56,750 --> 00:04:01,690
+his sprite as I've said before, well he's gone
+so presumably he was taking damage. In
+
+00:04:01,690 --> 00:04:07,300
+fact also you can see that the fox
+disappears, so the fox jumps over the stone,
+
+00:04:07,300 --> 00:04:14,280
+gets twatted by an axe a few times and then
+dies. Great, so that's fine in fact I'm
+
+00:04:14,280 --> 00:04:18,390
+not going to mess around with the play
+tuning now because seemed not too far
+
+00:04:18,390 --> 00:04:22,910
+off the mark actually so I'm gonna leave
+it at that. Bear in mind that you can go
+
+00:04:22,910 --> 00:04:27,350
+into any of your projectiles, your axe,
+your courgette, any of your projectiles,
+
+00:04:27,350 --> 00:04:31,250
+you can change the amount of damage they
+do, you can change how fast they fly, you
+
+00:04:31,250 --> 00:04:35,900
+can also for all of your attackers to
+help change the tuning you can change
+
+00:04:35,900 --> 00:04:41,090
+how much health they have and then that
+will change the balance of play for you
+
+00:04:41,090 --> 00:04:44,340
+currently the stone has got a huge
+amount of health, arguably too much
+
+00:04:44,340 --> 00:04:49,729
+that's the one thing I will change. Give it
+maybe two hundred and we really want to
+
+00:04:49,729 --> 00:04:54,430
+play tune this properly once we have the
+ability to spawn objects, but quite a
+
+00:04:54,430 --> 00:04:58,419
+good bit of progress here we have
+attackers coming in, responding
+
+00:04:58,419 --> 00:05:03,060
+differently depending on their behavior,
+projectiles disappearing either when
+
+00:05:03,060 --> 00:05:06,800
+they hit an attacker or when they go off
+the screen, have a bit of a collision issue,
+
+00:05:06,800 --> 00:05:11,140
+not really sure about when these things
+are colliding so let's just take a quick
+
+00:05:11,140 --> 00:05:15,669
+look at the colliders on the projectiles
+How are you gonna do that? You're gonna need a
+
+00:05:15,669 --> 00:05:19,740
+projectile in the scene to look at it so
+I'll just stick it in the bottom.
+
+00:05:19,740 --> 00:05:28,020
+So let's just take a look at this axe. where's
+it's box collider? There it is
+
+00:05:28,020 --> 00:05:32,139
+why is it sitting like that? Well it
+depends what animation state it's in
+
+00:05:32,139 --> 00:05:37,120
+right? So if we look at that axe as it
+goes through the air, well one of the exes
+
+00:05:37,120 --> 00:05:41,530
+you could see what was happening there
+you see? The collider's ahead of it, that's why
+
+00:05:41,530 --> 00:05:45,650
+it appears to be doing damage before it
+actually hits the object in question, so
+
+00:05:45,650 --> 00:05:50,720
+that's easy enough to sort out, go to the
+axe focus on it, just go to your box
+
+00:05:50,720 --> 00:05:55,069
+collider of course and move its center.
+Something more like that would be
+
+00:05:55,069 --> 00:05:57,830
+appropriate and the same kind of deal
+with the courgette, let's look at the
+
+00:05:57,830 --> 00:06:01,970
+courgette and say is that a good collider?
+It's alright but is it the right size? Not
+
+00:06:01,970 --> 00:06:06,199
+really, so let's just pull it down a
+little bit, and that's because the system
+
+00:06:06,199 --> 00:06:09,940
+fitted it to the size of the courgette
+before we made its sprite smaller, but we
+
+00:06:09,940 --> 00:06:15,300
+now have independent control over the size of the box collider and the sprite which is fine
+
+00:06:15,380 --> 00:06:19,130
+OK let's take a look at it now, you're gonna have a
+couple of rogue projectiles in the scene
+
+00:06:19,130 --> 00:06:24,310
+and just make sure that the things look
+like they're actually hitting the
+
+00:06:24,310 --> 00:06:27,469
+objects - yeah that doesn't look far off.
+Great you can always tune all these
+
+00:06:27,469 --> 00:06:30,490
+colliders to your heart's content but
+we've achieved what we wanted to achieve
+
+00:06:30,490 --> 00:06:34,330
+which is we now have projectiles dealing
+damage, so if you did all that on your own
+
+00:06:34,330 --> 00:06:37,969
+congratulations, if you didn't and you needed
+some help no problem, I hope you've learned a lot
+
+00:06:37,969 --> 00:06:38,759
+and I shall see you soon.
+

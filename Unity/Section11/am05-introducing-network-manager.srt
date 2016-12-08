@@ -1,0 +1,613 @@
+
+1
+00:00:03,000 --> 00:00:06,000
+Hey, welcome back guys!
+
+2
+00:00:06,000 --> 00:00:09,000
+So, in this video I'm going to introduce you to the concept of a
+
+3
+00:00:09,000 --> 00:00:12,000
+stack of API's in networking. We will
+
+4
+00:00:12,000 --> 00:00:15,000
+have a quick look at Unity's Network Stack, find out where to get
+
+5
+00:00:15,000 --> 00:00:18,000
+started with networking, and by the end we will have a very simple Network
+
+6
+00:00:18,000 --> 00:00:21,000
+Manager, in our scene, and an ugly Player prefab
+
+7
+00:00:21,000 --> 00:00:24,000
+and we will be able to start playing and actually launch a
+
+8
+00:00:24,000 --> 00:00:27,000
+host and have our player spawn. So, that's the objective of this video!
+
+9
+00:00:27,000 --> 00:00:30,000
+So, as with a lot of things in life, a good place to
+
+10
+00:00:30,000 --> 00:00:33,000
+start is with a simple Google search. So, here we go!
+
+11
+00:00:33,000 --> 00:00:36,000
+I've searched for Unity Networking. Oh, by the way, you can use
+
+12
+00:00:36,000 --> 00:00:39,000
+whatever search engine you choose, I'm not particularly partial to Google.
+
+13
+00:00:39,000 --> 00:00:42,000
+You could use one to of the other major search engines. [Laughs]
+
+14
+00:00:42,000 --> 00:00:45,000
+Anyway, so here you go, "Unity - Manual: Multiplayer
+
+15
+00:00:45,000 --> 00:00:48,000
+Networking". So quick overview basically suggests
+
+16
+00:00:48,000 --> 00:00:51,000
+that you can do it on multiple platforms, which is one of its strengths.
+
+17
+00:00:51,000 --> 00:00:54,000
+If we then dive into Networking Overview, at this
+
+18
+00:00:54,000 --> 00:00:57,000
+URL up here, UNetOverview,
+
+19
+00:00:57,000 --> 00:01:00,000
+you'll see "Users making a Multiplayer game"... "should start with NetworkManager
+
+20
+00:01:00,000 --> 00:01:03,000
+and the High Level API." Alright, well there's a couple of hints there.
+
+21
+00:01:03,000 --> 00:01:06,000
+Let's open those two up, NetworkManager and High Level API.
+
+22
+00:01:06,000 --> 00:01:09,000
+So, NetworkManager has got a lot of information
+
+23
+00:01:09,000 --> 00:01:12,000
+about it, and it's a component you can add and we'll look at that in a moment.
+
+24
+00:01:12,000 --> 00:01:15,000
+And then, the High Level API, I just want to
+
+25
+00:01:15,000 --> 00:01:18,000
+show you this diagram. So, I want to explain the concept of a
+
+26
+00:01:18,000 --> 00:01:21,000
+stack. What's happening here is all these different layers, from the physical
+
+27
+00:01:21,000 --> 00:01:24,000
+kind of transport layer, at the very bottom, as to how
+
+28
+00:01:24,000 --> 00:01:27,000
+the packets are sent and received through. The network,
+
+29
+00:01:27,000 --> 00:01:30,000
+all the way through Connection and Clients and Identities and scenes, right
+
+30
+00:01:30,000 --> 00:01:33,000
+up to NetworkTransform, which allows you to
+
+31
+00:01:33,000 --> 00:01:36,000
+lock the transform of two different itmes in the game and move them together
+
+32
+00:01:36,000 --> 00:01:39,000
+and to sync animations over the network, etc.
+
+33
+00:01:39,000 --> 00:01:42,000
+There's a whole load of different layers that all talk
+
+34
+00:01:42,000 --> 00:01:45,000
+to each other, so that's a stack, a stack of layers. And we'll actually be
+
+35
+00:01:45,000 --> 00:01:48,000
+diving in at various different levels of this stack. We won't be
+
+36
+00:01:48,000 --> 00:01:51,000
+concerning ourselves with this bottom layer here or even really too much
+
+37
+00:01:51,000 --> 00:01:54,000
+with the connection layer, but we will be talking about NetworkIdentity and
+
+38
+00:01:54,000 --> 00:01:57,000
+NetworkManager and a few others. So, there's an
+
+39
+00:01:57,000 --> 00:02:00,000
+overview of how it all stacks together. The question
+
+40
+00:02:00,000 --> 00:02:03,000
+is, back in Unity, how do we even start? Well, I want
+
+41
+00:02:03,000 --> 00:02:06,000
+you to have a go at starting, now that I've given you a very strong hint as to
+
+42
+00:02:06,000 --> 00:02:09,000
+where to start. I want you to do the following. Add
+
+43
+00:02:09,000 --> 00:02:12,000
+an empty game object, positioned anywhere.
+
+44
+00:02:12,000 --> 00:02:15,000
+Add a Network Manager component. Also, add a Network
+
+45
+00:02:15,000 --> 00:02:18,000
+Manager HUD component, temporarily. And
+
+46
+00:02:18,000 --> 00:02:21,000
+then take a look around those components and see if you can get the game
+
+47
+00:02:21,000 --> 00:02:24,000
+to run, without errors. You will have to do one or two things, just
+
+48
+00:02:24,000 --> 00:02:27,000
+be guided by the errors until you can get the game to just run.
+
+49
+00:02:27,000 --> 00:02:30,000
+It wouldn't do anything, it would just be able to keep sitting there, but see if you can get it to run without
+
+50
+00:02:30,000 --> 00:02:33,000
+errors. So, pause the video and have a go at doing this early bit
+
+51
+00:02:33,000 --> 00:02:36,000
+yourself now.
+
+52
+00:02:36,000 --> 00:02:39,000
+So welcome back! I'm going to
+
+53
+00:02:39,000 --> 00:02:42,000
+crack on with exactly that! So, an empty GameObject goes into the
+
+54
+00:02:42,000 --> 00:02:45,000
+scene. I'm going to put it at Y = 100, just to get it
+
+55
+00:02:45,000 --> 00:02:48,000
+well up in the air, out of the way, so that the transform gizmo,
+
+56
+00:02:48,000 --> 00:02:51,000
+these little arrows, don't get in my way.
+
+57
+00:02:51,000 --> 00:02:54,000
+Fantastic! So now, it actually turns out that if you put a NetworkManager
+
+58
+00:02:54,000 --> 00:02:57,000
+HUD on that it has a dependency of a Network
+
+59
+00:02:57,000 --> 00:03:00,000
+Manager. Let's collapse those down. So, I've added the HUD
+
+60
+00:03:00,000 --> 00:03:03,000
+and you'll see what that does, in a moment. And that has a dependency of a NetworkManager.
+
+61
+00:03:03,000 --> 00:03:06,000
+So, let me just show you what the HUD does, so you're not wondering. If we
+
+62
+00:03:06,000 --> 00:03:09,000
+play, I think it's actually using the old UI
+
+63
+00:03:09,000 --> 00:03:12,000
+or GUI methods to draw these pretty ugly
+
+64
+00:03:12,000 --> 00:03:15,000
+buttons, and we're not going to use these for long, because
+
+65
+00:03:15,000 --> 00:03:18,000
+I want you to know how to make these method calls yourself,
+
+66
+00:03:18,000 --> 00:03:21,000
+because if you don't then well you're stuck with these ugly buttons, which we don't want.
+
+67
+00:03:21,000 --> 00:03:24,000
+So, that's what the HUD does if we
+
+68
+00:03:24,000 --> 00:03:27,000
+disable the HUD. Then, when you play, you just get nothing whatsoever
+
+69
+00:03:27,000 --> 00:03:30,000
+it's just as if nothing exists.
+
+70
+00:03:30,000 --> 00:03:33,000
+Alright! So, if you play the game, then
+
+71
+00:03:33,000 --> 00:03:36,000
+it works fine and you may not have had any errors. Now,
+
+72
+00:03:36,000 --> 00:03:39,000
+if you'd have gone and said, I want to be a LAN Host,
+
+73
+00:03:39,000 --> 00:03:42,000
+which means that you are both being a player and a
+
+74
+00:03:42,000 --> 00:03:45,000
+Server, then you will bet these errors. The Player prefab is
+
+75
+00:03:45,000 --> 00:03:48,000
+empty, on the NetworkManager. Please setup a Player Prefab
+
+76
+00:03:48,000 --> 00:03:51,000
+Object. OK cool, so let's do that! Firstly, I'm going to
+
+77
+00:03:51,000 --> 00:03:54,000
+name
+
+78
+00:03:54,000 --> 00:03:57,000
+Network Manager to Network
+
+79
+00:03:57,000 --> 00:04:00,000
+Manager, and then, I'm going to create another empty object.
+
+80
+00:04:00,000 --> 00:04:03,000
+I'm going to call it Player,
+
+81
+00:04:03,000 --> 00:04:06,000
+and it really has to have
+
+82
+00:04:06,000 --> 00:04:09,000
+nothing on it at the moment, it just needs to be a
+
+83
+00:04:09,000 --> 00:04:12,000
+prefab. So, let's move the Player just
+
+84
+00:04:12,000 --> 00:04:15,000
+a little bit, say in Z, just so it's in a different position.
+
+85
+00:04:15,000 --> 00:04:18,000
+And I think just for
+
+86
+00:04:18,000 --> 00:04:21,000
+simplicity I will add, from scratch, a
+
+87
+00:04:21,000 --> 00:04:24,000
+Cylinder, so I need a Mesh Filter,
+
+88
+00:04:24,000 --> 00:04:27,000
+and then, I'm going to make a Cylinder Mesh on it. This is
+
+89
+00:04:27,000 --> 00:04:30,000
+a slightly strange way to build up a Cylinder. I'm just showing you that you can do it from
+
+90
+00:04:30,000 --> 00:04:33,000
+scratch like this. And a Mesh Renderer,
+
+91
+00:04:33,000 --> 00:04:36,000
+OK, and then, we've got a basic Player there. He's
+
+92
+00:04:36,000 --> 00:04:39,000
+orange, he's ugly, that's fine! So, the point
+
+93
+00:04:39,000 --> 00:04:42,000
+that we needed is we needed a Player prefab, so of course, you
+
+94
+00:04:42,000 --> 00:04:45,000
+prefab that Player and now we have a Player prefab. So
+
+95
+00:04:45,000 --> 00:04:48,000
+finally, let's go look at the NetworkManager, briefly! Don't
+
+96
+00:04:48,000 --> 00:04:51,000
+destroy on load, that means it'll persist through to another scene. It's running
+
+97
+00:04:51,000 --> 00:04:54,000
+in the background. That's what we want! Well, I won't go through the details of the
+
+98
+00:04:54,000 --> 00:04:57,000
+rest of these, for the moment. Bear in mind, that we are going to need to change
+
+99
+00:04:57,000 --> 00:05:00,000
+Network Address later, when we come to talk to another machine. You'll leave it as Local
+
+100
+00:05:00,000 --> 00:05:03,000
+Host, if you're running against a build, and you will change it
+
+101
+00:05:03,000 --> 00:05:06,000
+to the IP Address of the other machine, if you're doing it that way.
+
+102
+00:05:06,000 --> 00:05:09,000
+So, what we do need though is a Player prefab, to stop that error
+
+103
+00:05:09,000 --> 00:05:12,000
+message. So now, when you try and drag the Player
+
+104
+00:05:12,000 --> 00:05:15,000
+prefab, what do we get? We get "playerPrefab must have
+
+105
+00:05:15,000 --> 00:05:18,000
+a Networkidentity." So, this is where we bring in the
+
+106
+00:05:18,000 --> 00:05:21,000
+concept of Network Identity. So, the Network Manager
+
+107
+00:05:21,000 --> 00:05:24,000
+must have a Player to spawn, when the game starts, right,
+
+108
+00:05:24,000 --> 00:05:27,000
+and all objects that we're going to use
+
+109
+00:05:27,000 --> 00:05:30,000
+in the multiplayer game, that are going to communicate over the network, must have a Network
+
+110
+00:05:30,000 --> 00:05:33,000
+Identity. And if we add
+
+111
+00:05:33,000 --> 00:05:36,000
+that component, we won't worry about what
+
+112
+00:05:36,000 --> 00:05:39,000
+the options are, for the moment, but that gives this thing an ID,
+
+113
+00:05:39,000 --> 00:05:42,000
+that the Networking System can use, alright. Now of course,
+
+114
+00:05:42,000 --> 00:05:45,000
+I've added it to the instance, I haven't applied it back to the prefab. So
+
+115
+00:05:45,000 --> 00:05:48,000
+now, I have applied it back to the prefab, and we can check that in the
+
+116
+00:05:48,000 --> 00:05:51,000
+Prefab. So, what we're doing is just adding a
+
+117
+00:05:51,000 --> 00:05:54,000
+simple object, that must have at least a Network Identity
+
+118
+00:05:54,000 --> 00:05:57,000
+on it, to the Player prefab.
+
+119
+00:05:57,000 --> 00:06:00,000
+Ah hah! And this is an old error, let's try running!
+
+120
+00:06:00,000 --> 00:06:03,000
+Here we go but we don't know that it's working yet, because
+
+121
+00:06:03,000 --> 00:06:06,000
+we haven't tried to create a Server or a Host. So, I'm going to make a Host.
+
+122
+00:06:06,000 --> 00:06:09,000
+There you go! Now, what's happened here
+
+123
+00:06:09,000 --> 00:06:12,000
+is it's actually made a new Player at
+
+124
+00:06:12,000 --> 00:06:15,000
+the central position. So, we have our Player prefab, that we left in the scene, and
+
+125
+00:06:15,000 --> 00:06:18,000
+a new one right over the cube
+
+126
+00:06:18,000 --> 00:06:21,000
+there. So, because the Player is going to be spawned
+
+127
+00:06:21,000 --> 00:06:24,000
+for us, when we start playing, we don't actually need
+
+128
+00:06:24,000 --> 00:06:27,000
+the Player instance to be in
+
+129
+00:06:27,000 --> 00:06:30,000
+the scene, from the beginning. So, we can remove that now, so
+
+130
+00:06:30,000 --> 00:06:33,000
+all we've got is a scene that has a cube in it, just so that it's got something
+
+131
+00:06:33,000 --> 00:06:36,000
+in it, and NetworkManager,
+
+132
+00:06:36,000 --> 00:06:39,000
+which is going to sit there and persist and provide us with some
+
+133
+00:06:39,000 --> 00:06:42,000
+Heads Up Display HUD, to control it.
+
+134
+00:06:42,000 --> 00:06:45,000
+And then, a Player prefab is linked into
+
+135
+00:06:45,000 --> 00:06:48,000
+that, so that when we play the game, then
+
+136
+00:06:48,000 --> 00:06:51,000
+you launch a Host, the Player gets spawned.
+
+137
+00:06:51,000 --> 00:06:54,000
+Also, if you play the game and launch as a
+
+138
+00:06:54,000 --> 00:06:57,000
+Server, the Player does not get spawned, because servers don't
+
+139
+00:06:57,000 --> 00:07:00,000
+have any players in them right, they are just pure Servers.
+
+140
+00:07:00,000 --> 00:07:03,000
+And if we launch as a Client,
+
+141
+00:07:03,000 --> 00:07:06,000
+then what's going to happen? Nothing! So, we'll
+
+142
+00:07:06,000 --> 00:07:09,000
+see later, why when you try and launch as a Client,
+
+143
+00:07:09,000 --> 00:07:12,000
+we don't get a Player appearing. OK, we're only
+
+144
+00:07:12,000 --> 00:07:15,000
+going to get a Player appearing when there's a Host, because
+
+145
+00:07:15,000 --> 00:07:18,000
+in simple terms, you can't have the Player or the Client without
+
+146
+00:07:18,000 --> 00:07:21,000
+a server. So, a Host is a Server plus a
+
+147
+00:07:21,000 --> 00:07:24,000
+Client, these two together. So, that's why the only thing
+
+148
+00:07:24,000 --> 00:07:27,000
+that currently works is clicking Host, Server comes up,
+
+149
+00:07:27,000 --> 00:07:30,000
+the Player gets spawned, and we're good to go.
+
+150
+00:07:30,000 --> 00:07:33,000
+Alright, so that's fantastic! In the next video I'm going to show you how
+
+151
+00:07:33,000 --> 00:07:36,000
+to make the API calls that these
+
+152
+00:07:36,000 --> 00:07:39,000
+buttons make, yourself OK, so that we don't rely on this
+
+153
+00:07:39,000 --> 00:07:42,000
+hidden functionality. Let's start breaking down how this stuff works!
+

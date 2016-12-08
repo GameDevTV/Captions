@@ -1,0 +1,425 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+So, welcome
+
+2
+00:00:04,000 --> 00:00:08,000
+to Inherit Game Mode Blueprint! In this video, we're going to inherit a Game
+
+3
+00:00:08,000 --> 00:00:12,000
+Mode Blueprint, from a Game Mode. So, I'm going to
+
+4
+00:00:12,000 --> 00:00:16,000
+explain, right now, that hard coding means assets are actually written into
+
+5
+00:00:16,000 --> 00:00:20,000
+the code. It would mean that we refer to something by its name and file path, in the
+
+6
+00:00:20,000 --> 00:00:24,000
+code, and the problem with that is that it's pretty hard to
+
+7
+00:00:24,000 --> 00:00:28,000
+track changes, so the DefaultPawn_BP is an asset. We want to be able to rename that if
+
+8
+00:00:28,000 --> 00:00:32,000
+necessary, without worrying about updating all our code, as I've said there.
+
+9
+00:00:32,000 --> 00:00:36,000
+So, it's convenient to use Blueprint for this purpose, and what we're going to be doing
+
+10
+00:00:36,000 --> 00:00:40,000
+is extending the C++ Game Mode that our project
+
+11
+00:00:40,000 --> 00:00:44,000
+came with. By the way, why did it come with C++ Game Mode? Because, when we set
+
+12
+00:00:44,000 --> 00:00:48,000
+the game up, we chose C++ game in the very beginning right,, and that gives us
+
+13
+00:00:48,000 --> 00:00:52,000
+C++ Game Mode, which we always want, because you can always just extend nothing with Blueprint,
+
+14
+00:00:52,000 --> 00:00:56,000
+at least you've got the C++ there if you want it. Once you've started with Blueprint, you can't
+
+15
+00:00:56,000 --> 00:01:00,000
+quite as easily add C++ before it, you have to inherit
+
+16
+00:01:00,000 --> 00:01:04,000
+from C++ to Blueprint, and we will then ultimately be
+
+17
+00:01:04,000 --> 00:01:08,000
+selecting on your DefaultPawn. So, by the end of it, what'll happen if we play if I
+
+18
+00:01:08,000 --> 00:01:12,000
+play and... Oops, here we go! If I play and then
+
+19
+00:01:12,000 --> 00:01:16,000
+eject myself and then look at the pawn, a couple of things about it. Firstly, on
+
+20
+00:01:16,000 --> 00:01:20,000
+details, we have a Grabber component there coming by default, which is cool. And also,
+
+21
+00:01:20,000 --> 00:01:25,566
+we're proving that our code is getting called, because we have "Grabber reporting for duty!" So, let's see how all that works!
+
+22
+00:01:25,566 --> 00:01:29,566
+So, welcome back! The first thing I'm going to do is tidy up this pawn that I instantiated,
+
+23
+00:01:29,566 --> 00:01:33,566
+that's sitting here. It doesn't need to be sitting on my floor, so I'm going to delete that and just check
+
+24
+00:01:33,566 --> 00:01:37,566
+where we are. We're in a situation where the DefaultPawn is still
+
+25
+00:01:37,566 --> 00:01:41,566
+spawning, but at least, in our Content Browser, we have access to a Blueprint
+
+26
+00:01:41,566 --> 00:01:45,566
+default pawn and what we need to be able to do is actually set it under Maps & Modes.
+
+27
+00:01:45,566 --> 00:01:49,566
+And I'm repeating myself here, but this is important stuff! So,
+
+28
+00:01:49,566 --> 00:01:53,566
+first thing we're going to need is a blueprinted Building Escape Game Mode. So, our Building Escape
+
+29
+00:01:53,566 --> 00:01:57,566
+Game Mode, at the moment, is a C++ class right, it's here! And yes,
+
+30
+00:01:57,566 --> 00:02:01,566
+we can add behavior to that, and if it's going to be more natural to add it in code, we'll do that,
+
+31
+00:02:01,566 --> 00:02:04,933
+but what we want to do is inherit a blueprint from there.
+
+32
+00:02:04,933 --> 00:02:09,566
+So, it's going to be a blueprint, based on the BuildingEscapeGame
+
+33
+00:02:09,566 --> 00:02:13,566
+.cpp, GameMode.cpp. Alright, in
+
+34
+00:02:13,566 --> 00:02:17,566
+very much the same way, that if we go into our content we look at our DefaultPawn,
+
+35
+00:02:17,566 --> 00:02:21,566
+if you see me hover over that you see how it says Parent
+
+36
+00:02:21,566 --> 00:02:25,566
+Class Default Pawn. So, it's actually got a parent class already,
+
+37
+00:02:25,566 --> 00:02:29,566
+it's just that it's not inside our code. It's actually in...
+
+38
+00:02:29,566 --> 00:02:33,566
+Well, let's go into Visual Studio and see where it's getting that from. It's not solution
+
+39
+00:02:33,566 --> 00:02:37,566
+files that we have written. It is going to be right inside the
+
+40
+00:02:37,566 --> 00:02:41,566
+engine, OK, and you're going to have to dig right in to see where
+
+41
+00:02:41,566 --> 00:02:45,566
+"defaultpawn" is. Let's do a little search in
+
+42
+00:02:45,566 --> 00:02:49,566
+here. DefaultPawn
+
+43
+00:02:49,566 --> 00:02:53,566
+.cpp, there's an example of it. So, it's in the engine files, we don't want to mess with
+
+44
+00:02:53,566 --> 00:02:57,566
+those, right. So, that's why we're inheriting from the DefaultPawn
+
+45
+00:02:57,566 --> 00:03:01,566
+as a blueprint. We could also inherit from the DefaultPawn
+
+46
+00:03:01,566 --> 00:03:05,566
+as a C++ file and extend its behavior, but we're using Blueprint. So, we're going to do
+
+47
+00:03:05,566 --> 00:03:09,566
+exactly the same thing for the Game Mode, so I want
+
+48
+00:03:09,566 --> 00:03:13,566
+you to do that. Actually, I think you can work it out with what we've learned so far! So, make a Game Mode Blueprint,
+
+49
+00:03:13,566 --> 00:03:17,566
+find the C++ Game Mode in the Content Browser, create a Blueprint class
+
+50
+00:03:17,566 --> 00:03:21,566
+derived, inheriting from it. Set this as the Default GameMode in
+
+51
+00:03:21,566 --> 00:03:25,566
+Settings, Project Settings, Maps & Modes, and make sure
+
+52
+00:03:25,566 --> 00:03:29,566
+the game still runs the same what it did before. So, go ahead, pause the video,
+
+53
+00:03:29,566 --> 00:03:33,566
+and see if you can make the game run off your Game Mode Blueprint now!
+
+54
+00:03:33,566 --> 00:03:37,566
+OK, welcome back! So, this is how
+
+55
+00:03:37,566 --> 00:03:41,566
+I think we do it. We go find our C++ Game Mode, which is here, right-click.
+
+56
+00:03:41,566 --> 00:03:45,566
+Create Blueprint class based on BuildingEscapeGameMode. Cool!
+
+57
+00:03:45,566 --> 00:03:49,566
+Now, what are we going to call it? Well, I'm going to give you a convention, which we used before,
+
+58
+00:03:49,566 --> 00:03:53,566
+which is just a suffix with BP not cp, to say it's
+
+59
+00:03:53,566 --> 00:03:57,566
+a blueprint. Create Blueprint Class! Wicked! There it is, there's the Blueprint Inspector
+
+60
+00:03:57,566 --> 00:04:01,566
+and one of the cool things in here, and you can do it right away actually, is we can
+
+61
+00:04:01,566 --> 00:04:05,566
+set... Now, the Default Pawn Class, search for p a w n, to the
+
+62
+00:04:05,566 --> 00:04:09,566
+Blueprinted one that we made. Cool hey, Compile!
+
+63
+00:04:09,566 --> 00:04:13,566
+Remember, I said when you change a blueprint you click compile?
+
+64
+00:04:13,566 --> 00:04:17,566
+Nearly there, Settings, Project Settings,
+
+65
+00:04:17,566 --> 00:04:21,566
+Maps & Modes, Default GameMode,
+
+66
+00:04:21,566 --> 00:04:25,566
+pick our blueprint, close. See what happens when we play!
+
+67
+00:04:25,566 --> 00:04:29,566
+Now, how do we know if that's worked? Well,
+
+68
+00:04:29,566 --> 00:04:33,566
+we can play and eject ourselves and have a look at the blueprint.
+
+69
+00:04:33,566 --> 00:04:37,566
+Is this the one we're looking for? Click on it, look at Details.
+
+70
+00:04:37,566 --> 00:04:41,566
+Grabber, it's got a Grabber on it! Woo hoo! So,
+
+71
+00:04:41,566 --> 00:04:45,566
+we have changed the Game Mode to our own one. We have changed the Default Pawn
+
+72
+00:04:45,566 --> 00:04:49,566
+and now we've got a Grabber. Why don't we go ahead and just make that Grabber like
+
+73
+00:04:49,566 --> 00:04:53,566
+report for duty right. So, we Play, we Eject, we take a look at our own
+
+74
+00:04:53,566 --> 00:04:57,566
+body, we find the Grabber, we Open Grabber.h.
+
+75
+00:04:57,566 --> 00:05:01,566
+And then, I'm going to go and
+
+76
+00:05:01,566 --> 00:05:05,566
+find an existing UE log entry, because I don't want to have to worry about remembering
+
+77
+00:05:05,566 --> 00:05:09,566
+the syntax, although occasionally I'll challenge myself to remember the syntax but there it is!
+
+78
+00:05:09,566 --> 00:05:13,566
+OK, going to go to Grabber.h! Go find Grabber.cpp
+
+79
+00:05:13,566 --> 00:05:17,566
+actually, because I need the implementation. And what I'm going
+
+80
+00:05:17,566 --> 00:05:21,566
+to do in here is, just on BeginPlay(), I'm going to do this, I'm going to say
+
+81
+00:05:21,566 --> 00:05:25,566
+without any of these funny format parameters, I'm simply going to say
+
+82
+00:05:25,566 --> 00:05:29,566
+("Grabber reporting for
+
+83
+00:05:29,566 --> 00:05:33,566
+duty!"); OK, and then
+
+84
+00:05:33,566 --> 00:05:37,566
+match the brackets. Let's immediately build this because I get quite nervous about macros,
+
+85
+00:05:37,566 --> 00:05:41,566
+because if we do get them wrong then it's nearly impossible to fix.
+
+86
+00:05:41,566 --> 00:05:45,566
+Because the error message that you get from macros
+
+87
+00:05:45,566 --> 00:05:49,566
+stink or they're inadequate
+
+88
+00:05:49,566 --> 00:05:53,566
+to easily fix the problem. So, here we go, it's built,
+
+89
+00:05:53,566 --> 00:05:57,566
+which is fantastic! If we now go over, play the game again,
+
+90
+00:05:57,566 --> 00:06:01,566
+and look, we can see down, oops, here in
+
+91
+00:06:01,566 --> 00:06:05,566
+Output Log: "Grabber reporting for duty!". I think we've achieved what we want to in this
+
+92
+00:06:05,566 --> 00:06:09,566
+video, we have made a Grabber actually appear and report.
+
+93
+00:06:09,566 --> 00:06:13,566
+So, what we can do, moving forward now, is to start to actually write the functionality
+
+94
+00:06:13,566 --> 00:06:17,566
+into this Grabber file. We'll have a Grabber.h, which I'm going to
+
+95
+00:06:17,566 --> 00:06:21,566
+arrange on the left-hand side, which basically is just
+
+96
+00:06:21,566 --> 00:06:25,566
+boiler plate code, at the moment. We have a constructor,
+
+97
+00:06:25,566 --> 00:06:29,566
+it has prefixed it with U because that's Unreal's coding convention. We have a Begin
+
+98
+00:06:29,566 --> 00:06:33,566
+Play() and a TickComponent, and then, in Grabber.cpp it's
+
+99
+00:06:33,566 --> 00:06:37,566
+saying yes that it's ticking here. And, by the way, as a simple
+
+100
+00:06:37,566 --> 00:06:41,566
+tip, if you ever have any components that don't need to tick, i.e. that don't need to do everything every
+
+101
+00:06:41,566 --> 00:06:45,566
+tick, then we would disable that for performance, but we're going to let this guy tick,
+
+102
+00:06:45,566 --> 00:06:49,566
+which means that this TickComponent() method will be called by the engine every single frame.
+
+103
+00:06:49,566 --> 00:06:53,566
+OK, we've logged out that we're beginning play, and what we're going to do down here
+
+104
+00:06:53,566 --> 00:06:57,566
+is to start thinking about the very structure of how our grabber is going to work. So, in the
+
+105
+00:06:57,566 --> 00:07:01,566
+next video, we'll pseudocode that up and then start
+
+106
+00:07:01,566 --> 00:07:05,566
+actually making it happen! So, see you there!
+

@@ -1,0 +1,453 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+Hey, so welcome to
+
+2
+00:00:04,000 --> 00:00:08,000
+Modifying the Default Pawn Actor! In this video, we'll talk about why Blueprint
+
+3
+00:00:08,000 --> 00:00:12,000
+is helpful. I'll tell you right now, Blueprint is helpful when you are making
+
+4
+00:00:12,000 --> 00:00:16,000
+templates of assets, because
+
+5
+00:00:16,000 --> 00:00:20,000
+it's very visual, it's very clear in the Editor what you're changing, and you're preventing yourself from
+
+6
+00:00:20,000 --> 00:00:24,000
+hard coding changes and assets into actual C++ code, which means that
+
+7
+00:00:24,000 --> 00:00:28,000
+if you want to change the name of an asset, for example, then the editor will track those changes.
+
+8
+00:00:28,000 --> 00:00:32,000
+I'll show you how to make a Blueprint from the Default Pawn.
+
+9
+00:00:32,000 --> 00:00:36,000
+Note this Blueprint class inherits from the Default
+
+10
+00:00:36,000 --> 00:00:40,000
+Pawn. So, Blueprint class is based on the C++ class, it is a
+
+11
+00:00:40,000 --> 00:00:44,000
+relationship. Blueprint is like a
+
+12
+00:00:44,000 --> 00:00:48,000
+template. As I said before, it's like it sounds, it's a plan for building something.
+
+13
+00:00:48,000 --> 00:00:52,000
+And you can make an instance in the scene of a given Blueprint template,
+
+14
+00:00:52,000 --> 00:00:56,000
+we'll be doing that, and we will explore instantiating from Blueprint,
+
+15
+00:00:56,000 --> 00:01:00,000
+which is exactly what I just said. It's creating an instance, it's instantiating
+
+16
+00:01:00,000 --> 00:01:04,000
+and then modifying the thing that's in the scene and seeing that, that doesn't change the Blueprint.
+
+17
+00:01:04,000 --> 00:01:08,000
+So, the blueprint is a template, basically. So, let's dive in and see all of this happen!
+
+18
+00:01:08,000 --> 00:01:08,400
+
+
+19
+00:01:08,400 --> 00:01:12,400
+So, let's see how we're going to get a handle on this Default Pawn. Remember,
+
+20
+00:01:12,400 --> 00:01:16,400
+that when we start the game and we eject ourselves, the Player Controller,
+
+21
+00:01:16,400 --> 00:01:20,400
+from the Pawn Body there, there it is, that this pawn that's being
+
+22
+00:01:20,400 --> 00:01:24,400
+spawned into the world, which is available in the World Outliner here as Default Pawn 1,
+
+23
+00:01:24,400 --> 00:01:28,400
+is being specified by the GameMode under Project Settings,
+
+24
+00:01:28,400 --> 00:01:32,400
+Maps & Modes, and then, if you go into the detail of the GameMode,
+
+25
+00:01:32,400 --> 00:01:36,400
+it's here. It's grayed out because this is a
+
+26
+00:01:36,400 --> 00:01:40,400
+C++ GameMode and you'd have to specify this in code. We're going to make a
+
+27
+00:01:40,400 --> 00:01:44,400
+Blueprint version, so that we can specify it here in the Editor later, but
+
+28
+00:01:44,400 --> 00:01:48,400
+for now, what we want to do is better see how we can modify the pawn. So, how do we do that?
+
+29
+00:01:48,400 --> 00:01:52,400
+Well, so with the game running, click on your Default Pawn that has spawned.
+
+30
+00:01:52,400 --> 00:01:56,400
+Go to the Blueprints Menu and say,
+
+31
+00:01:56,400 --> 00:02:00,400
+Convert Selected Actor to Blueprint Class.
+
+32
+00:02:00,400 --> 00:02:04,400
+OK, you'll get a name. I'm going to call it DefaultPawn
+
+33
+00:02:04,400 --> 00:02:08,400
+_BP, for our blueprint
+
+34
+00:02:08,400 --> 00:02:12,400
+Default Pawn. There you go, that is done! OK, let's just close
+
+35
+00:02:12,400 --> 00:02:16,400
+the Blueprint Editor, for the moment, and stop to see what we've done. So,
+
+36
+00:02:16,400 --> 00:02:20,400
+with the game stopped and under Content your new DefaultPawn blueprint
+
+37
+00:02:20,400 --> 00:02:24,400
+available, note that you can drag it into the world, and it's just a copy, just
+
+38
+00:02:24,400 --> 00:02:28,400
+the blueprint of the very pawn that was being spawned,
+
+39
+00:02:28,400 --> 00:02:32,400
+because we based it on the existing Default Pawn. So, if we double-
+
+40
+00:02:32,400 --> 00:02:36,400
+click it, look up here at the top-right. Parent class Default
+
+41
+00:02:36,400 --> 00:02:40,400
+Pawn, OK. So, this is no different to the
+
+42
+00:02:40,400 --> 00:02:44,400
+other Default Pawn, but the crucial thing is we can change this now. We can actually make changes
+
+43
+00:02:44,400 --> 00:02:48,400
+to the Default Pawn, so double-click. If you get this screen, which is only showing
+
+44
+00:02:48,400 --> 00:02:52,400
+the Class Defaults Tab, you can click Open Full Blueprint
+
+45
+00:02:52,400 --> 00:02:56,400
+Editor, and that will then open this, which has the default tabs on the right but
+
+46
+00:02:56,400 --> 00:03:00,400
+we have various other things. Now, we don't need to worry ourselves about Event Graph or
+
+47
+00:03:00,400 --> 00:03:04,400
+Construction Script windows yet, but, in the Viewport, you'll see the Default
+
+48
+00:03:04,400 --> 00:03:08,400
+Pawn and you'll see that you can manipulate it. You could rescale it, for example, using the
+
+49
+00:03:08,400 --> 00:03:12,400
+R Key, and that's exactly what I want you to do now. I want
+
+50
+00:03:12,400 --> 00:03:16,400
+you to try making a Rugby Ball Pawn! Modify the Default Pawn somehow,
+
+51
+00:03:16,400 --> 00:03:20,400
+i.e. as in not that it's a mystery how, I've just shown you how, but
+
+52
+00:03:20,400 --> 00:03:24,400
+change it somehow. For example, scaling on one axis. Create an instance,
+
+53
+00:03:24,400 --> 00:03:28,400
+once you've done that, by dragging it into the world. So, close the Blueprint Editor and then
+
+54
+00:03:28,400 --> 00:03:32,400
+drake your Default Pawn Blueprint, like I did a moment ago,
+
+55
+00:03:32,400 --> 00:03:36,400
+from your Content Browser and drop it into the world, and see how
+
+56
+00:03:36,400 --> 00:03:40,400
+modifying the instance... So, go into your world, modify
+
+57
+00:03:40,400 --> 00:03:44,400
+the thing, the instance of this Default Pawn you've created, and note that it
+
+58
+00:03:44,400 --> 00:03:48,400
+doesn't change the blueprint. OK. And then, when you finish, just
+
+59
+00:03:48,400 --> 00:03:52,400
+revert whatever change you made to the Default Pawn. So, I know the instructions are
+
+60
+00:03:52,400 --> 00:03:56,400
+not absolutely step by step and that's on purpose, because how are you going to get any good
+
+61
+00:03:56,400 --> 00:04:00,400
+at manipulating the Unreal Engine, if you don't work things out for yourself. So, go ahead, pause
+
+62
+00:04:00,400 --> 00:04:04,400
+the video, and see if you can make sense of that now!
+
+63
+00:04:04,400 --> 00:04:08,400
+OK, welcome back! So, let's just take a look! Here he is! I'm going to scale
+
+64
+00:04:08,400 --> 00:04:12,400
+the pawn there. Now, the bit you may have noticed
+
+65
+00:04:12,400 --> 00:04:16,400
+is, you need to click Compile. If you just click Save or you just exit let's try it, let's see what
+
+66
+00:04:16,400 --> 00:04:20,400
+happens. There it is! There's the Default Pawn! Let's drag it in, you see
+
+67
+00:04:20,400 --> 00:04:24,400
+the new version that I just dragged in has not taken on those changes.
+
+68
+00:04:24,400 --> 00:04:28,400
+I'm going to delete with the delete key. Let's go back to here and see what the minimum we can do
+
+69
+00:04:28,400 --> 00:04:32,400
+How about saving the blueprint, does that work? Drag it in. Yes, saving the
+
+70
+00:04:32,400 --> 00:04:36,400
+blueprint does! OK, the reason the blueprint doesn't need to compile
+
+71
+00:04:36,400 --> 00:04:40,400
+is because there's nothing compile worthy going on, it's just a scale.
+
+72
+00:04:40,400 --> 00:04:44,400
+But in general terms, what you're going to want to do, when you edit a blueprint, is just
+
+73
+00:04:44,400 --> 00:04:48,400
+click Compile, which will also save it and leave. So, I didn't tell you that,
+
+74
+00:04:48,400 --> 00:04:52,400
+hopefully you discovered it for yourself. There you go! So dragging from Default Pawn, in the
+
+75
+00:04:52,400 --> 00:04:56,400
+Content Browser into the world, makes an instance of that Default Pawn. There's
+
+76
+00:04:56,400 --> 00:05:00,400
+two of them. Now, imagine that I scale one of these guys or rotate
+
+77
+00:05:00,400 --> 00:05:04,400
+it, like this. Now, we have two instances, right. One is just a
+
+78
+00:05:04,400 --> 00:05:08,400
+rugby ball, one's a rugby ball on its side, but if you look at the Default Pawn
+
+79
+00:05:08,400 --> 00:05:12,400
+itself, in the Viewport, of course it hasn't changed, it hasn't rotated.
+
+80
+00:05:12,400 --> 00:05:16,400
+The changes do not get written back. There is a way of writing them back from the world, but, for now, let's
+
+81
+00:05:16,400 --> 00:05:20,400
+keep things simple. I just want you to understand that you change the Default Pawn here. You can
+
+82
+00:05:20,400 --> 00:05:24,400
+add components to it, which is what we're going to do now, and that's going to be super handy,
+
+83
+00:05:24,400 --> 00:05:28,400
+and you can also make various other changes. So, first thing I'm going to do is scale back. OK, so
+
+84
+00:05:28,400 --> 00:05:32,400
+here is my Default Pawn, I scaled it on the Z axis,
+
+85
+00:05:32,400 --> 00:05:36,400
+and I'm just going to put it back to where it was, like that. OK, Compile
+
+86
+00:05:36,400 --> 00:05:40,400
+and close and just check by dragging one in, that it looks normal again. It does!
+
+87
+00:05:40,400 --> 00:05:44,400
+Cool! Going to get rid of all of these weird Default Pawns in the scene.
+
+88
+00:05:44,400 --> 00:05:48,400
+And now, we're going to talk about adding a component! So, create yourself a
+
+89
+00:05:48,400 --> 00:05:52,400
+new C++ class, called Grabber, but it's an Actor
+
+90
+00:05:52,400 --> 00:05:56,400
+Component, because it's going to go on the pawn and the pawn is an Actor. OK, it's a reusable
+
+91
+00:05:56,400 --> 00:06:00,400
+component! Just call it Grabber.
+
+92
+00:06:00,400 --> 00:06:04,400
+There it is! So, another one of these nice reusable components, like our Position
+
+93
+00:06:04,400 --> 00:06:08,400
+Reporter and various other things that we have in the Door Open script.
+
+94
+00:06:08,400 --> 00:06:12,400
+And let's just let that compile,
+
+95
+00:06:12,400 --> 00:06:16,400
+because until it's compiled, we won't be able to actually add it to anything.
+
+96
+00:06:16,400 --> 00:06:20,400
+Well, we may be able to, but let's just let it finish compelling. It doesn't take too long on my machine.
+
+97
+00:06:20,400 --> 00:06:24,400
+So, there you go! Let's open up an empty
+
+98
+00:06:24,400 --> 00:06:28,400
+component here, with all the boiler plate code that we've seen before. OK, so back
+
+99
+00:06:28,400 --> 00:06:32,400
+in Unreal, we now have a Grabber code here you see. Grabber (C++ Class) under
+
+100
+00:06:32,400 --> 00:06:36,400
+your Content Browser, C++ Classes, and then the name of the game.
+
+101
+00:06:36,400 --> 00:06:40,400
+Crucially, what we can do now is we can go back to Content and our Default Pawn.
+
+102
+00:06:40,400 --> 00:06:44,400
+We can add a Component to it, scroll down to Custom components,
+
+103
+00:06:44,400 --> 00:06:48,400
+and add the Grabber. Compile
+
+104
+00:06:48,400 --> 00:06:52,400
+and then just exit. Now, when we drop the Default Pawn in the scene, there it is! It looks very similar
+
+105
+00:06:52,400 --> 00:06:56,400
+but when you inspect it, it actually will have a Grabber on it. Pretty cool hey!
+
+106
+00:06:56,400 --> 00:07:00,400
+So, this is the reusable object that we are now going to use as a
+
+107
+00:07:00,400 --> 00:07:04,400
+template, to replace the one that the GameMode inserts when we play.
+
+108
+00:07:04,400 --> 00:07:08,400
+Remember, when we play, currently if we were to play and then eject immediately,
+
+109
+00:07:08,400 --> 00:07:12,400
+the one that it creates here does not have
+
+110
+00:07:12,400 --> 00:07:16,400
+the Grabber on it, and the one that we put in does have a Grabber Component. So what we need
+
+111
+00:07:16,400 --> 00:07:20,400
+to do next is, look at changing the blueprint for the Game
+
+112
+00:07:20,400 --> 00:07:24,400
+Mode, because it is the GameMode that determines what the Default Pawn is.
+
+113
+00:07:24,400 --> 00:07:28,166
+So, there you go, I hope that made sense, and I'll see you soon!
+

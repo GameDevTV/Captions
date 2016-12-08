@@ -1,0 +1,741 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+OK, so welcome to
+
+2
+00:00:04,000 --> 00:00:08,000
+Landscape Setup & Scaling. What we're going to be doing in this video is looking at the
+
+3
+00:00:08,000 --> 00:00:12,000
+impact of scale on our landscapes, and eventually building ourselves a 1 by 1 kilometer
+
+4
+00:00:12,000 --> 00:00:16,000
+terrain like this, that's going to have detail down to the
+
+5
+00:00:16,000 --> 00:00:20,000
+half meter scale in it. And the lighting will be built so that it looks
+
+6
+00:00:20,000 --> 00:00:24,000
+clean like this, and we'll be making sure that we can preview at a reasonable
+
+7
+00:00:24,000 --> 00:00:28,000
+performance, including using something called a Light Mass Importance Volume,
+
+8
+00:00:28,000 --> 00:00:32,000
+which you can see in the middle here, which is just a little hack to get the lighting to build faster.
+
+9
+00:00:32,000 --> 00:00:34,966
+So, let's dive in and talk about terrain scale!
+
+10
+00:00:34,966 --> 00:00:38,966
+So, we really want to think about the scale of the landscape now. So, I'm going to demonstrate
+
+11
+00:00:38,966 --> 00:00:42,966
+a few things with some dramatic different scales, so you can see the effect,
+
+12
+00:00:42,966 --> 00:00:46,966
+and then, I'll put you into a challenge where you can generate your landscape. So, just watch along for now, and I'll
+
+13
+00:00:46,966 --> 00:00:50,966
+explain my thinking. So, what's going on? What are we seeing on the screen? We're seeing little squares.
+
+14
+00:00:50,966 --> 00:00:54,966
+Now these little squares are called quads. They're quads because they have four vertices,
+
+15
+00:00:54,966 --> 00:00:58,966
+and they happen to be squares at this point. Although, as soon as we start deforming the terrain, they
+
+16
+00:00:58,966 --> 00:01:02,966
+actually deviate from squares. We'll see that in a moment. The scale
+
+17
+00:01:02,966 --> 00:01:06,966
+relates to the size of those squares. If I made that 1,000 in the X,
+
+18
+00:01:06,966 --> 00:01:10,966
+it will automatically change the Y, by the way, because it wants to keep the
+
+19
+00:01:10,966 --> 00:01:14,966
+quads square, rather than long rectangles. Now the terrain is
+
+20
+00:01:14,966 --> 00:01:18,966
+ten times larger. So, what this is saying to us is,
+
+21
+00:01:18,966 --> 00:01:22,966
+we have a section size of 63 by 63
+
+22
+00:01:22,966 --> 00:01:26,966
+quads. So, if I was to turn that down to 7 by 7, you could see it, the 7
+
+23
+00:01:26,966 --> 00:01:30,966
+by 7 in each section. OK, a section is
+
+24
+00:01:30,966 --> 00:01:34,966
+also known as a component, so
+
+25
+00:01:34,966 --> 00:01:38,966
+the component, there are 8 by 8 components at the moment just like a chess
+
+26
+00:01:38,966 --> 00:01:42,966
+board, if you look along. The large squares are 8 by 8, so there are 64 large squares,
+
+27
+00:01:42,966 --> 00:01:46,966
+each of which has 49 or 7 by 7 inside.
+
+28
+00:01:46,966 --> 00:01:50,966
+So, how big is the terrain overall? Well, the scale is what sets
+
+29
+00:01:50,966 --> 00:01:54,966
+that. Again, if I set that down to 100, it gets ten times smaller. At 1,000
+
+30
+00:01:54,966 --> 00:01:58,966
+it gets ten times larger. At 1,000 we're saying, it's 1,000 centimeters
+
+31
+00:01:58,966 --> 00:02:02,966
+per quad, so it is
+
+32
+00:02:02,966 --> 00:02:06,966
+10 meters per quad. Alright, now you don't have to do the calculation yourself.
+
+33
+00:02:06,966 --> 00:02:10,966
+The 7 by 7 or the 7 by 8 is 57 here.
+
+34
+00:02:10,966 --> 00:02:14,966
+There's an off by one error but it's close enough. So, it's 57
+
+35
+00:02:14,966 --> 00:02:18,966
+by 57 squares, each square of which is 10 meters
+
+36
+00:02:18,966 --> 00:02:22,966
+or 1,000 centimeters. So, it's 570 by 570 meters
+
+37
+00:02:22,966 --> 00:02:26,966
+this terrain. Let's try creating it at this scale and see what the impact is!
+
+38
+00:02:26,966 --> 00:02:30,966
+So, I'm going to create it at this scale, and then, I'm going to just do some stuff with the brush.
+
+39
+00:02:30,966 --> 00:02:34,966
+OK, then we're just going to go into the world by playing and have a look.
+
+40
+00:02:34,966 --> 00:02:38,966
+Now, these squares on the floor are 10 by 10 meters, 33
+
+41
+00:02:38,966 --> 00:02:42,966
+by 33 feet, and that is the maximum resolution to which we can
+
+42
+00:02:42,966 --> 00:02:46,966
+adjust the terrain. So, if we look around very closely...
+
+43
+00:02:46,966 --> 00:02:50,966
+By the way, these strange effects we get in between the big lines, that's just the fact that the lighting
+
+44
+00:02:50,966 --> 00:02:54,966
+hasn't been built. So, if we look these are the quads, you can see them here.
+
+45
+00:02:54,966 --> 00:02:58,966
+What it is, when it's deformed, is it is four vertices. Let me just go to
+
+46
+00:02:58,966 --> 00:03:02,966
+a different tool. You can see in the square in front of me, that there's four
+
+47
+00:03:02,966 --> 00:03:06,966
+vertices, but they're bent in the middle. So it's two triangles. Basically a quad is
+
+48
+00:03:06,966 --> 00:03:10,966
+two triangles, and that's how it meshes them all together.
+
+49
+00:03:10,966 --> 00:03:14,966
+Now, if we're 10 by 10 size blocks, then it gives a very jagged outlook
+
+50
+00:03:14,966 --> 00:03:18,966
+to all of the terrain, because the maximum or the minimum size at which we
+
+51
+00:03:18,966 --> 00:03:22,966
+can adjust anything is these 10 by 10 blocks. The most that we can do is kind of pull up the middle of one of these
+
+52
+00:03:22,966 --> 00:03:26,966
+10 by 10 blocks, to create a sharp effect like you see in some of
+
+53
+00:03:26,966 --> 00:03:30,966
+these quads, if you know what you're looking for. Here a lot of them are flat, called Planer Quads.
+
+54
+00:03:30,966 --> 00:03:34,966
+Like here, these guys are flat, and then, these quads are bent down the middle.
+
+55
+00:03:34,966 --> 00:03:38,966
+It's a little bit tricky to see, but if you look closely, you'll see that there are
+
+56
+00:03:38,966 --> 00:03:42,966
+two triangles butted up against each other. Alright, so that's one extreme! I'm going to delete that
+
+57
+00:03:42,966 --> 00:03:46,966
+landscape. The disadvantage of that is, we can't quite get enough detail
+
+58
+00:03:46,966 --> 00:03:50,966
+in our landscape, and our hill outlines look very jagged.
+
+59
+00:03:50,966 --> 00:03:54,966
+So, let's go right down to another extreme, and just say, well how about we have 10 centimeter quads!
+
+60
+00:03:54,966 --> 00:03:58,966
+What's the problem with that? Well, one of the problems with that is that your landscape ends up
+
+61
+00:03:58,966 --> 00:04:02,966
+very very small, and you need a lot of sections and a lot of
+
+62
+00:04:02,966 --> 00:04:06,966
+quads per section to even get a reasonable sized landscape. Now, we have a landscape which
+
+63
+00:04:06,966 --> 00:04:10,966
+has an overall resolution of about 2,000 by 2,000. 2,000 by
+
+64
+00:04:10,966 --> 00:04:14,966
+2,000 what? 10 centimeter blocks. So, it's 200 by 200
+
+65
+00:04:14,966 --> 00:04:18,966
+meters only. Now, let's create it!
+
+66
+00:04:18,966 --> 00:04:22,966
+Sculpt it a little bit with a much smaller tool this time, because it's related to the
+
+67
+00:04:22,966 --> 00:04:26,966
+size of these quads. I'm getting really fast action on this
+
+68
+00:04:26,966 --> 00:04:30,966
+now. You can kind of see that this is not exactly the
+
+69
+00:04:30,966 --> 00:04:34,966
+scale that the tool is setup for. Now, if I go in and have a look at it,
+
+70
+00:04:34,966 --> 00:04:38,966
+what we see is look at this amount of detail! It's huge, because
+
+71
+00:04:38,966 --> 00:04:42,966
+each of these little squares is only 10 by 10 centimeters. It's almost too
+
+72
+00:04:42,966 --> 00:04:46,966
+much, you're almost getting artifacts or noise from it. Now, the advantage is
+
+73
+00:04:46,966 --> 00:04:50,966
+massively more detail. Look how smooth the hill outlines are! The disadvantage
+
+74
+00:04:50,966 --> 00:04:54,966
+is, you're actually going to hit a maximum terrain size like this! Let me show you!
+
+75
+00:04:54,966 --> 00:04:58,966
+If we delete the landscape, and let's go back and say, OK we're going to mandate
+
+76
+00:04:58,966 --> 00:05:02,966
+a 10 by 10 centimeter and we're going to hit Fill World. How big does it get? Well,
+
+77
+00:05:02,966 --> 00:05:06,966
+it's already as big as it can get. The maximum number of components we can have is 32 by 32.
+
+78
+00:05:06,966 --> 00:05:10,966
+OK, so that's what Fill World does, it just maximizes the number of components.
+
+79
+00:05:10,966 --> 00:05:14,966
+You could turn the selection size up in quads, and that would make the world
+
+80
+00:05:14,966 --> 00:05:18,966
+effectively larger, until you get to that 8196 by 8196
+
+81
+00:05:18,966 --> 00:05:22,966
+maximum OK. But that's 8,000 by 8,000
+
+82
+00:05:22,966 --> 00:05:26,966
+10 centimeter blocks, so only 800 by 800 meters. It's not even a
+
+83
+00:05:26,966 --> 00:05:30,966
+kilometer square and we've hit Unreal's maximum. So this
+
+84
+00:05:30,966 --> 00:05:34,966
+is one of the principle reasons you don't want to use such a small tile size, is you're not going to be able to
+
+85
+00:05:34,966 --> 00:05:38,100
+make a reasonably large city scale terrain like that.
+
+86
+00:05:38,100 --> 00:05:42,100
+So, just before I challenge you to create a terrain of a specific
+
+87
+00:05:42,100 --> 00:05:46,100
+size, I just want to show you a handy trick, which is, of course, that you could place in the scene
+
+88
+00:05:46,100 --> 00:05:50,100
+a cube for example. Now, if we
+
+89
+00:05:50,100 --> 00:05:54,100
+just drop that in the scene, set it to the origin,
+
+90
+00:05:54,100 --> 00:05:58,100
+go look at it, and then, say to ourselves, well how big is this cube? Well, they
+
+91
+00:05:58,100 --> 00:06:02,100
+are 1 by 1 meter, as standard,100 by 100 centimeters.
+
+92
+00:06:02,100 --> 00:06:06,100
+So if I scale this cube to say 1,000 on the X
+
+93
+00:06:06,100 --> 00:06:10,100
+axis and maybe 10 meters wide, then we have a kilometer
+
+94
+00:06:10,100 --> 00:06:14,100
+long cube. I could zoom out to see that, and back at the
+
+95
+00:06:14,100 --> 00:06:18,100
+landscape creation tool, you can still see this cube if I
+
+96
+00:06:18,100 --> 00:06:22,100
+zoom out. Remember that when you're trying to move around in the
+
+97
+00:06:22,100 --> 00:06:26,100
+W, S, A, D regime while holding the Right Mouse Button, you can use the
+
+98
+00:06:26,100 --> 00:06:30,733
+Mouse Wheel to change the speed that you move, so rolling the Mouse Wheel up or down will change your movements.
+
+99
+00:06:30,733 --> 00:06:34,100
+So here we see this 1 kilometer by 10 meter
+
+100
+00:06:34,100 --> 00:06:38,100
+long rod, and then, we can corroborate that with the fact that the landscape
+
+101
+00:06:38,100 --> 00:06:42,100
+is 8,000 by 8,000, 10 by 10 centimeter blocks. So, the landscape
+
+102
+00:06:42,100 --> 00:06:46,100
+is 800 meters and the rod is 1,000. So, that look about right.
+
+103
+00:06:46,100 --> 00:06:50,100
+OK, so that's quite a cool way of helping you scale. Alright, your challenge!
+
+104
+00:06:50,100 --> 00:06:54,100
+The way that you'll bring all of this together and really understand how the scale relates
+
+105
+00:06:54,100 --> 00:06:58,100
+to the overall resolution, etc. is by trying to get a specific landscape
+
+106
+00:06:58,100 --> 00:07:02,100
+to a specific spec that I'm going to give you, so I want you to create your own landscape.
+
+107
+00:07:02,100 --> 00:07:06,100
+Make it about 1,000 meters square. I say about because
+
+108
+00:07:06,100 --> 00:07:10,100
+we're dealing with powers of 2 here. Make each quad half a
+
+109
+00:07:10,100 --> 00:07:14,100
+meter in size. We're going to go for a compromise, a little bit more detail than we would have at
+
+110
+00:07:14,100 --> 00:07:18,100
+a 1 meter size. Use 8 by 8, that is
+
+111
+00:07:18,100 --> 00:07:22,100
+64 components, like a chess board, and go ahead and see if you can make the
+
+112
+00:07:22,100 --> 00:07:26,100
+terrain of those specifications right now.
+
+113
+00:07:26,100 --> 00:07:30,100
+OK, welcome back!
+
+114
+00:07:30,100 --> 00:07:34,100
+So let's take a look! So, we're going for 1,000 meters in half meter
+
+115
+00:07:34,100 --> 00:07:38,100
+quads, with an 8 by 8. OK, so we can set the 8 by 8 straight away, so
+
+116
+00:07:38,100 --> 00:07:42,100
+we're constraining ourselves to that. We want 50 centimeter quads,
+
+117
+00:07:42,100 --> 00:07:46,100
+so there you go! You might ask, what do you do about the Z scale? It's not super important, it doesn't
+
+118
+00:07:46,100 --> 00:07:50,100
+change the way that the terrain sculpting tools work, so
+
+119
+00:07:50,100 --> 00:07:54,100
+you can leave the Z scale at the default, if you wish.
+
+120
+00:07:54,100 --> 00:07:58,100
+Right so, how big is this terrain? Well, we want a kilometer. It's actually the
+
+121
+00:07:58,100 --> 00:08:02,100
+right size right now, because we've got 2,000 things at half a meter. So that
+
+122
+00:08:02,100 --> 00:08:06,100
+is a kilometer by a kilometer. Remember that you can look at this rod.
+
+123
+00:08:06,100 --> 00:08:10,100
+Now the rod is still here, but it is a little bit hidden,
+
+124
+00:08:10,100 --> 00:08:14,100
+so if I could just drop the terrain down. There you go! You can see it's about a
+
+125
+00:08:14,100 --> 00:08:18,100
+kilometer now. Alright, so you want to leave your terrain
+
+126
+00:08:18,100 --> 00:08:22,100
+with those settings that I've got on the screen there. You're going to end up needing a section size of 255
+
+127
+00:08:22,100 --> 00:08:26,100
+by 255 quads.
+
+128
+00:08:26,100 --> 00:08:30,100
+One section per component is fine, that's a
+
+129
+00:08:30,100 --> 00:08:34,100
+further optimization we don't need to worry about, for the moment, to do with how the level of detail handling works,
+
+130
+00:08:34,100 --> 00:08:38,100
+and let's just create that terrain! Great, so we have a
+
+131
+00:08:38,100 --> 00:08:42,100
+terrain! Now, I'm going to delete my funny rod measuring tool thing,
+
+132
+00:08:42,100 --> 00:08:46,100
+Cube it's called. I don't need it. This
+
+133
+00:08:46,100 --> 00:08:50,100
+weird effect we're getting here is a lighting effect, and
+
+134
+00:08:50,100 --> 00:08:54,100
+you may right now, depending on your machine, be having performance issues,
+
+135
+00:08:54,100 --> 00:08:58,100
+so let me just show you something. If you go to Settings and
+
+136
+00:08:58,100 --> 00:09:02,100
+then you can come down here to Engine Scalability Settings,
+
+137
+00:09:02,100 --> 00:09:06,100
+and if you're having performance issues, you can choose Low or Medium or
+
+138
+00:09:06,100 --> 00:09:10,100
+High, Epic, or Auto. Auto may work for you, and that will determine
+
+139
+00:09:10,100 --> 00:09:14,100
+what this ends up looking like and how fast your editor operates, alright,
+
+140
+00:09:14,100 --> 00:09:18,100
+so bear that in mind. Now, these issues here will go away if we do
+
+141
+00:09:18,100 --> 00:09:22,100
+a lighting build, so we want the lighting quality to be just down at Preview for now.
+
+142
+00:09:22,100 --> 00:09:26,100
+And if we build the lighting, it's going to take away these funny issues
+
+143
+00:09:26,100 --> 00:09:30,100
+between the sections, once it's finished. But I suspect that building this lighting may
+
+144
+00:09:30,100 --> 00:09:34,100
+give us a warning that we've got too large of a scene to be
+
+145
+00:09:34,100 --> 00:09:38,100
+doing what they call indirect or bounce lighting, without something called a Light
+
+146
+00:09:38,100 --> 00:09:42,100
+Mass Volume, which you may have come across if you've been exploring volumes here.
+
+147
+00:09:42,100 --> 00:09:46,100
+There's something called a Lightmass Importance Volume there. So, we may get a
+
+148
+00:09:46,100 --> 00:09:50,100
+warning, in a moment, that we need to use a Lightmass Importance Volume, because otherwise,
+
+149
+00:09:50,100 --> 00:09:54,100
+it's trying to do indirect or bounce lighting over such a large area that lighting building
+
+150
+00:09:54,100 --> 00:09:58,100
+is going to take forever. And it actually turns out that we don't really
+
+151
+00:09:58,100 --> 00:10:02,100
+need bounce lighting across our entire scene. We could arguably turn it off entirely
+
+152
+00:10:02,100 --> 00:10:06,100
+or put just a very small importance volume, which will
+
+153
+00:10:06,100 --> 00:10:10,100
+mean that only a tiny part of our scene actually has very detailed
+
+154
+00:10:10,100 --> 00:10:14,100
+bounce lighting. Let me show you their webpage, while my lighting builds.
+
+155
+00:10:14,100 --> 00:10:18,100
+You can read about it here just by clicking. I'll show you where I clicked. You go to
+
+156
+00:10:18,100 --> 00:10:22,100
+the Modes, Place, Volumes, Lightmass Importance, and click the question
+
+157
+00:10:22,100 --> 00:10:26,100
+mark, and that will come down here and show you that typically you have a massive terrain
+
+158
+00:10:26,100 --> 00:10:30,100
+they show around the outside the grid but only a tiny scene where the lighting needs to be calculated
+
+159
+00:10:30,100 --> 00:10:34,100
+fully and properly. So, we could do that! One way to speed
+
+160
+00:10:34,100 --> 00:10:38,100
+up our building time would be to just cancel the light building.
+
+161
+00:10:38,100 --> 00:10:42,100
+It actually is saying, "No importance volume found", the scene is massive, yada yada.
+
+162
+00:10:42,100 --> 00:10:46,100
+We could, for the moment, just in the middle of our scene... I'll just reset the position
+
+163
+00:10:46,100 --> 00:10:50,100
+of it, pop a Lightmass Importance Volume there, just a tiny one. Then,
+
+164
+00:10:50,100 --> 00:10:54,100
+you'll find that when you go to build the lighting that the whole
+
+165
+00:10:54,100 --> 00:10:58,100
+process of building the lighting will be a lot quicker, because it's saying well I'm going to ignore indirect
+
+166
+00:10:58,100 --> 00:11:02,100
+light bounces beyond 1, anywhere apart from in this tiny little volume.
+
+167
+00:11:02,100 --> 00:11:06,100
+And it may not look like it's quicker at first, but I think you'll find that it'll quickly
+
+168
+00:11:06,100 --> 00:11:10,100
+whip through. Remember before, I was chatting away for probably a minute and it only got to 50%
+
+169
+00:11:10,100 --> 00:11:14,100
+on my machine. This time I suspect it'll be a lot quicker than that, once it gets going.
+
+170
+00:11:14,100 --> 00:11:18,100
+So a couple of tips on speed optimization for you here,
+
+171
+00:11:18,100 --> 00:11:22,100
+if your machine is struggling with these larger terrains. Remember our goal here is to try and make a city
+
+172
+00:11:22,100 --> 00:11:26,100
+scale terrain, and so we are pushing a little bit. That's quite a
+
+173
+00:11:26,100 --> 00:11:31,800
+large area to be playing in, but it's perfectly appropriate for a tank game. So that's what we want to be doing.
+
+174
+00:11:31,800 --> 00:11:35,800
+So, we're coming to the end of the lighting build now. Actually, it still took
+
+175
+00:11:35,800 --> 00:11:39,800
+quite a while, but you'll see that all the components or sections have now
+
+176
+00:11:39,800 --> 00:11:43,800
+disappeared, and it's one homogenous terrain and I can now wonder around on it and
+
+177
+00:11:43,800 --> 00:11:47,800
+it looks fine. You shouldn't find that where you've put that Lightmass Volume is going to create any significant differences.
+
+178
+00:11:47,800 --> 00:11:51,800
+We'll worry about further terrain optimization later. What I'd like you to do is just
+
+179
+00:11:51,800 --> 00:11:55,800
+share with us whether this terrain is giving you reasonable performance.
+
+180
+00:11:55,800 --> 00:11:59,800
+One more objective way to do that is to go to the top of your viewport and click Show FPS
+
+181
+00:11:59,800 --> 00:12:03,800
+and play the game. So that you can see that here, my 1 by 1
+
+182
+00:12:03,800 --> 00:12:07,800
+kilometer, unmodified terrain is holding 120 frames a
+
+183
+00:12:07,800 --> 00:12:11,800
+second. I'll be interested to hear what your frame rates are, at this stage. Please post that in
+
+184
+00:12:11,800 --> 00:12:15,800
+the questions, and I will see you soon.
+
+185
+00:12:15,800 --> 00:12:15,866
+
+

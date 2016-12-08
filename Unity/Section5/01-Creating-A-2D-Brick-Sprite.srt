@@ -1,0 +1,741 @@
+
+1
+00:00:06,000 --> 00:00:09,000
+Hey! So, let's get stuck into Block Breaker! So, it's going to look
+
+2
+00:00:09,000 --> 00:00:12,000
+something like this, by the time we've finished. What are we going to do
+
+3
+00:00:12,000 --> 00:00:15,000
+this lecture? Well, let's take a look! We're going to
+
+4
+00:00:15,000 --> 00:00:18,000
+research the brick sizes. Plan our game space.
+
+5
+00:00:18,000 --> 00:00:21,000
+We're going to find an appropriate image, edit up
+
+6
+00:00:21,000 --> 00:00:24,000
+our sprites, and then, create a new Unity project and
+
+7
+00:00:24,000 --> 00:00:27,000
+import our three sprites, our Whole Brick.
+
+8
+00:00:27,000 --> 00:00:30,000
+And then, we're also going to have a Left Hand Brick
+
+9
+00:00:30,000 --> 00:00:33,000
+and a Right Hand Brick. If we look at a picture of a brick
+
+10
+00:00:33,000 --> 00:00:36,000
+wall, what do we get?
+
+11
+00:00:36,000 --> 00:00:39,000
+I'm going to go for Images.
+
+12
+00:00:39,000 --> 00:00:42,000
+I'm going to go for Search Tools,
+
+13
+00:00:42,000 --> 00:00:45,000
+Labeled for Reuse with Modification,
+
+14
+00:00:45,000 --> 00:00:48,000
+and then, look at one of these images. So, that is entirely
+
+15
+00:00:48,000 --> 00:00:51,000
+whole bricks. That's obviously an insulated double skinned wall,
+
+16
+00:00:51,000 --> 00:00:54,000
+but if you look at old fashioned walls, like this, then they have
+
+17
+00:00:54,000 --> 00:00:57,000
+whole bricks and half bricks. This one over here may be a
+
+18
+00:00:57,000 --> 00:01:00,000
+better example. Whole brick, half brick, whole brick, half
+
+19
+00:01:00,000 --> 00:01:03,000
+brick, and these half bricks are actually laying side on.
+
+20
+00:01:03,000 --> 00:01:06,000
+We're going to want both of these, because if you want to build
+
+21
+00:01:06,000 --> 00:01:09,000
+any sort of wall, actually, you need half bricks, because
+
+22
+00:01:09,000 --> 00:01:12,000
+otherwise how do you finish it? You don't want to stack whole
+
+23
+00:01:12,000 --> 00:01:15,000
+bricks on top of each other, it's not as strong. So, we're going
+
+24
+00:01:15,000 --> 00:01:18,000
+to need some half bricks, so our mission is to make whole bricks and
+
+25
+00:01:18,000 --> 00:01:21,000
+half bricks. Decide what size we want, and then how big
+
+26
+00:01:21,000 --> 00:01:24,000
+out game space is going to be.
+
+27
+00:01:24,000 --> 00:01:27,000
+So, let's take a look at some examples of like previous
+
+28
+00:01:27,000 --> 00:01:30,000
+Arkanoid games. How many blocks wide are they? 1, 2, 3, 4,
+
+29
+00:01:30,000 --> 00:01:33,000
+5, 6, 7, 8. So, I think that's going to be 16
+
+30
+00:01:33,000 --> 00:01:36,000
+or 15 blocks wide. In that example,
+
+31
+00:01:36,000 --> 00:01:39,000
+look at a different one. This one here will do.
+
+32
+00:01:39,000 --> 00:01:42,000
+1, 2, 3, 4, 5, 6, 7, 8.
+
+33
+00:01:42,000 --> 00:01:45,000
+I think that's going to be 15 blocks wide. So, 15
+
+34
+00:01:45,000 --> 00:01:48,000
+or 16 blocks wide is quite nice,
+
+35
+00:01:48,000 --> 00:01:51,000
+as far as I'm concerned. So,
+
+36
+00:01:51,000 --> 00:01:54,000
+finding the right image. Typical
+
+37
+00:01:54,000 --> 00:01:57,000
+Arkanoid had about 14, 15, 16 blocks.
+
+38
+00:01:57,000 --> 00:02:00,000
+There's a Wikipedia article on
+
+39
+00:02:00,000 --> 00:02:03,000
+brick images, if you care, you can look up brick sizes on
+
+40
+00:02:03,000 --> 00:02:06,000
+Wikipedia and find out what countries have
+
+41
+00:02:06,000 --> 00:02:09,000
+different brick sizes. I'm going to pull up
+
+42
+00:02:09,000 --> 00:02:12,000
+for about an aspect ratio of
+
+43
+00:02:12,000 --> 00:02:15,000
+128 by 40 pixels. So,
+
+44
+00:02:15,000 --> 00:02:18,000
+it gives me a 3.2 aspect ratio.
+
+45
+00:02:18,000 --> 00:02:21,000
+And it turns out that if you go 128 pixels
+
+46
+00:02:21,000 --> 00:02:24,000
+wide, then 16 blocks wide
+
+47
+00:02:24,000 --> 00:02:27,000
+is the same as an iPad Air screen, 2048.
+
+48
+00:02:27,000 --> 00:02:30,000
+There's a little star there, because actually I'm going to need
+
+49
+00:02:30,000 --> 00:02:33,000
+128 by 41 or it doesn't work properly, in the grid
+
+50
+00:02:33,000 --> 00:02:36,000
+system, when we get to Unity. So, your mission is
+
+51
+00:02:36,000 --> 00:02:39,000
+to go to Google,
+
+52
+00:02:39,000 --> 00:02:42,000
+type in Brick Wall, and then, look for an appropriate
+
+53
+00:02:42,000 --> 00:02:45,000
+brick wall image. Now, what's an appropriate image? Well, I said
+
+54
+00:02:45,000 --> 00:02:48,000
+that on the next slide, actually. I've used
+
+55
+00:02:48,000 --> 00:02:51,000
+Google Images, I filtered for "reuse with modification",
+
+56
+00:02:51,000 --> 00:02:54,000
+and I'm looking for a brick that has some texture,
+
+57
+00:02:54,000 --> 00:02:57,000
+that is even and that is taken from straight
+
+58
+00:02:57,000 --> 00:03:00,000
+on. And then, I'm going to crop that out to
+
+59
+00:03:00,000 --> 00:03:03,000
+128 by 41, so let's take a look! This
+
+60
+00:03:03,000 --> 00:03:06,000
+wall is even. It's taken from pretty much straight
+
+61
+00:03:06,000 --> 00:03:09,000
+on, although to my eye it's going down hill. It is going down hill,
+
+62
+00:03:09,000 --> 00:03:12,000
+to the left, so that's not ideal. But it's got no
+
+63
+00:03:12,000 --> 00:03:15,000
+texture. The bricks have no texture, so they're rubbish. These ones,
+
+64
+00:03:15,000 --> 00:03:18,000
+plenty of texture, plenty of character, but they're too uneven
+
+65
+00:03:18,000 --> 00:03:21,000
+to work in a gird system. This one here,
+
+66
+00:03:21,000 --> 00:03:24,000
+probably going to work. That type of thing would be fine. So,
+
+67
+00:03:24,000 --> 00:03:27,000
+if that one is going to work, let me show you how I would
+
+68
+00:03:27,000 --> 00:03:30,000
+doing it. View the image and save it,
+
+69
+00:03:30,000 --> 00:03:33,000
+somewhere. That's fine! Now, when you open
+
+70
+00:03:33,000 --> 00:03:36,000
+that image, I'm just using Preview on a Mac, it's going to come up like this.
+
+71
+00:03:36,000 --> 00:03:39,000
+And what I've done is I've just zoomed
+
+72
+00:03:39,000 --> 00:03:42,000
+in, found a brick that's
+
+73
+00:03:42,000 --> 00:03:45,000
+barely even and got some texture, and chopped it out like so,
+
+74
+00:03:45,000 --> 00:03:48,000
+taking about half the mortar on
+
+75
+00:03:48,000 --> 00:03:51,000
+either side, top and bottom, and then,
+
+76
+00:03:51,000 --> 00:03:54,000
+cropping the brick out like so. So, that's stage
+
+77
+00:03:54,000 --> 00:03:57,000
+1. The next stage is to Desaturate the brick, so
+
+78
+00:03:57,000 --> 00:04:00,000
+whatever tool you're using, turn the Saturation right down,
+
+79
+00:04:00,000 --> 00:04:03,000
+so that you can recolor the brick very easily, in the
+
+80
+00:04:03,000 --> 00:04:06,000
+program later. And now, it's just too dark, we want a
+
+81
+00:04:06,000 --> 00:04:09,000
+light brick. So, turn your Exposure up
+
+82
+00:04:09,000 --> 00:04:12,000
+with the appropriate Contrast, so there's not too much
+
+83
+00:04:12,000 --> 00:04:15,000
+detail. That's too much texture and that's too little
+
+84
+00:04:15,000 --> 00:04:18,000
+texture. So, you get some middle amount of texture.
+
+85
+00:04:18,000 --> 00:04:21,000
+And then, you might want to fiddle with the image a little bit, so
+
+86
+00:04:21,000 --> 00:04:24,000
+the mortar around the outside is a little more clear. Here we've got a
+
+87
+00:04:24,000 --> 00:04:27,000
+shadow, which looks funny. So, I've done this
+
+88
+00:04:27,000 --> 00:04:30,000
+already, and I've come up with this full brick pattern for me, which
+
+89
+00:04:30,000 --> 00:04:33,000
+seems to tesselate well with other bricks. The mortar isn't perfect
+
+90
+00:04:33,000 --> 00:04:36,000
+white and that's good, it makes it look more natural,
+
+91
+00:04:36,000 --> 00:04:39,000
+but it's got pretty clear mortar around the edges and it's precisely,
+
+92
+00:04:39,000 --> 00:04:42,000
+sizewise,
+
+93
+00:04:42,000 --> 00:04:45,000
+128 pixels wide
+
+94
+00:04:45,000 --> 00:04:48,000
+by 41 high. Excuse the weird 41.
+
+95
+00:04:48,000 --> 00:04:51,000
+Why 41 instead of 40? I actually don't know
+
+96
+00:04:51,000 --> 00:04:54,000
+why that works out. I was aiming for
+
+97
+00:04:54,000 --> 00:04:57,000
+128 divided by 40, which gives you a nice even 3.2
+
+98
+00:04:57,000 --> 00:05:00,000
+aspect ratio. You'll see why that matters
+
+99
+00:05:00,000 --> 00:05:03,000
+in Unity later. For some reason, we need an extra pixel. So, for the sharp
+
+100
+00:05:03,000 --> 00:05:06,000
+students, maybe when we get to that bit you can write
+
+101
+00:05:06,000 --> 00:05:09,000
+on the discussions and tell my why. I don't know why.
+
+102
+00:05:09,000 --> 00:05:12,000
+So, the next thing we need to do, once we've got an entire brick like this,
+
+103
+00:05:12,000 --> 00:05:15,000
+a whole brick is... Let's just look at the slides.
+
+104
+00:05:15,000 --> 00:05:18,000
+So, we desaturate
+
+105
+00:05:18,000 --> 00:05:21,000
+it so we can change its color later and we have.
+
+106
+00:05:21,000 --> 00:05:24,000
+The texture makes the bricks look better. You'll see that when we
+
+107
+00:05:24,000 --> 00:05:27,000
+get them into Unity. We want to create
+
+108
+00:05:27,000 --> 00:05:30,000
+new images for left and right bricks, so I showed you
+
+109
+00:05:30,000 --> 00:05:33,000
+left and right bricks. Let's now show you how we do new
+
+110
+00:05:33,000 --> 00:05:36,000
+images for those. So, what I've done is I've just cropped
+
+111
+00:05:36,000 --> 00:05:39,000
+at precisely 64 by 41 pixels.
+
+112
+00:05:39,000 --> 00:05:42,000
+There, half of it, copy that,
+
+113
+00:05:42,000 --> 00:05:45,000
+and make a new image from the clip board.
+
+114
+00:05:45,000 --> 00:05:48,000
+And what you get here is something that's nearly what we need.
+
+115
+00:05:48,000 --> 00:05:51,000
+That's nearly a right brick. The problem is, if you put this
+
+116
+00:05:51,000 --> 00:05:54,000
+right brick against another brick, it's going to look horrible because it's got no mortar
+
+117
+00:05:54,000 --> 00:05:57,000
+on the left. So, a very easy way to get mortar on the left
+
+118
+00:05:57,000 --> 00:06:00,000
+is to copy the mortar that's already there,
+
+119
+00:06:00,000 --> 00:06:03,000
+two pixels of it just two pixels,
+
+120
+00:06:03,000 --> 00:06:06,000
+copy and paste it back onto the image, and just put it on the left hand side.
+
+121
+00:06:06,000 --> 00:06:09,000
+And that actually works out really well! That is now
+
+122
+00:06:09,000 --> 00:06:12,000
+a pretty good right hand half brick. So, what I want you to do is
+
+123
+00:06:12,000 --> 00:06:15,000
+save yourself a right hand half brick, that's my one,
+
+124
+00:06:15,000 --> 00:06:18,000
+and a left hand half brick
+
+125
+00:06:18,000 --> 00:06:21,000
+and a full brick. So, the full brick is 128 by
+
+126
+00:06:21,000 --> 00:06:24,000
+41. Obviously the left brick is 64 by 41,
+
+127
+00:06:24,000 --> 00:06:27,000
+and the right brick will be the same dimensions.
+
+128
+00:06:27,000 --> 00:06:30,000
+So, save all three of those, which is a great
+
+129
+00:06:30,000 --> 00:06:33,000
+start, and ensure the mortar looks
+
+130
+00:06:33,000 --> 00:06:36,000
+half descent. You can always adjust these later OK,
+
+131
+00:06:36,000 --> 00:06:39,000
+so you don't have to get these looking right just now. How do you know
+
+132
+00:06:39,000 --> 00:06:42,000
+what looking right means, until you start placing
+
+133
+00:06:42,000 --> 00:06:45,000
+blocks next to each other. So, don't stress, just get your first version of you
+
+134
+00:06:45,000 --> 00:06:48,000
+images, and then, once they're in Unity
+
+135
+00:06:48,000 --> 00:06:51,000
+you can adjust them very easily and they will instantly update.
+
+136
+00:06:51,000 --> 00:06:54,000
+So next, we're going to create a new project and
+
+137
+00:06:54,000 --> 00:06:57,000
+import our bricks. So, we're going to go into
+
+138
+00:06:57,000 --> 00:07:00,000
+Unity. Here's a challenge for you! Just go into Unity, create a new project,
+
+139
+00:07:00,000 --> 00:07:03,000
+call it Block Breaker, and then, I want you to import all three
+
+140
+00:07:03,000 --> 00:07:06,000
+brick images into a folder called Sprites.
+
+141
+00:07:06,000 --> 00:07:09,000
+And then, save your scene as Level_01,
+
+142
+00:07:09,000 --> 00:07:12,000
+in Scenes. So, go ahead and do
+
+143
+00:07:12,000 --> 00:07:15,000
+what's on the screen now. Pause the video and come back when
+
+144
+00:07:15,000 --> 00:07:18,000
+you've done that, and I'll show you how I did it.
+
+145
+00:07:18,000 --> 00:07:21,000
+Alright, none of this is rocket science. Let's get over
+
+146
+00:07:21,000 --> 00:07:24,000
+to Unity. If you're anything like me, you'll still
+
+147
+00:07:24,000 --> 00:07:27,000
+have Number Wizard UI opened. You may not, it doesn't matter.
+
+148
+00:07:27,000 --> 00:07:30,000
+The point is we're going to create a new project. It's a
+
+149
+00:07:30,000 --> 00:07:33,000
+2D project.
+
+150
+00:07:33,000 --> 00:07:36,000
+We decide where we want it. In my case, in my
+
+151
+00:07:36,000 --> 00:07:39,000
+repositories. I'm going to create a new folder called Block
+
+152
+00:07:39,000 --> 00:07:42,000
+Breaker. This will then go at the same level as all of these. I'm
+
+153
+00:07:42,000 --> 00:07:45,000
+selected on Repos, I'm calling it Block Breaker,
+
+154
+00:07:45,000 --> 00:07:48,000
+and it'll go at this level. No packages,
+
+155
+00:07:48,000 --> 00:07:51,000
+2D, Create Project.
+
+156
+00:07:51,000 --> 00:07:54,000
+Unity will restart.
+
+157
+00:07:54,000 --> 00:07:57,000
+Fantastic! Now, I want to go and get my images, so where are they?
+
+158
+00:07:57,000 --> 00:08:00,000
+In my case, they're in my Finder, and
+
+159
+00:08:00,000 --> 00:08:03,000
+that's a good question.
+
+160
+00:08:03,000 --> 00:08:06,000
+You will find them, from the downloads, I have them in
+
+161
+00:08:06,000 --> 00:08:09,000
+my prototype here,
+
+162
+00:08:09,000 --> 00:08:12,000
+Sprites. And I want the right brick, the
+
+163
+00:08:12,000 --> 00:08:15,000
+left brick, and the full brick, and I want to bring those into
+
+164
+00:08:15,000 --> 00:08:18,000
+Unity. Fine! Then,
+
+165
+00:08:18,000 --> 00:08:21,000
+you're going to create yourself a folder and call it Sprites.
+
+166
+00:08:21,000 --> 00:08:24,000
+Pop them in, to be neat from the beginning.
+
+167
+00:08:24,000 --> 00:08:27,000
+Make a new folder.
+
+168
+00:08:27,000 --> 00:08:30,000
+I call mine underscore Scenes, because
+
+169
+00:08:30,000 --> 00:08:33,000
+_Scenes is a folder we're going to access very frequently,
+
+170
+00:08:33,000 --> 00:08:36,000
+and scenes, sprites, and scripts end up looking so
+
+171
+00:08:36,000 --> 00:08:39,000
+similar that this is a great way of keeping them separate.
+
+172
+00:08:39,000 --> 00:08:42,000
+The final thing to do is just save, because we have an untitled scene.
+
+173
+00:08:42,000 --> 00:08:45,000
+So, you save, File and Save. What are
+
+174
+00:08:45,000 --> 00:08:48,000
+we going to call it? Well, I'm going to call mine Level_01, the first level.
+
+175
+00:08:48,000 --> 00:08:51,000
+The very final thing is, you put Level_01
+
+176
+00:08:51,000 --> 00:08:54,000
+into the _Scenes Folder, and there we go, we have
+
+177
+00:08:54,000 --> 00:08:57,000
+_Scenes with Level_01 in it.
+
+178
+00:08:57,000 --> 00:09:00,000
+We have Sprites
+
+179
+00:09:00,000 --> 00:09:03,000
+with our three sprites in it, our whole
+
+180
+00:09:03,000 --> 00:09:06,000
+brick, our left brick, and our right brick,
+
+181
+00:09:06,000 --> 00:09:09,000
+and we're good to go! We can save the scene.
+
+182
+00:09:09,000 --> 00:09:12,000
+It's already done! Save the project if we like, and
+
+183
+00:09:12,000 --> 00:09:15,000
+we're in good shape! So congratulations, you have
+
+184
+00:09:15,000 --> 00:09:18,000
+done everything that we needed to do, and we are ready to start
+
+185
+00:09:18,000 --> 00:09:20,833
+building blocks!
+

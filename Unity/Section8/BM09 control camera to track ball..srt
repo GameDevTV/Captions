@@ -1,0 +1,409 @@
+
+00:00:00,000 --> 00:00:08,220 align:middle line:90%
+Hi, welcome back. In this video we're going
+to use the camera to track the ball down the
+
+00:00:08,220 --> 00:00:13,830 align:middle line:90%
+lane. We're going to create a CameraControll.cs
+script for the main camera, or rather you
+
+00:00:13,830 --> 00:00:17,320 align:middle line:90%
+are; we're going to make the camera track
+the ball down the lane, and then stop when
+
+00:00:17,320 --> 00:00:22,199 align:middle line:90%
+it gets close to the head pin. So let's move
+over into Unity and see what I mean by that.
+
+00:00:22,199 --> 00:00:26,410 align:middle line:90%
+So we've got our ball sitting here, and at
+the moment in the game view the camera is
+
+00:00:26,410 --> 00:00:30,869 align:middle line:90%
+at a fixed distance from this ball, but it
+just stays there when we push the ball, and
+
+00:00:30,869 --> 00:00:34,270 align:middle line:90%
+not a great experience because we can't really
+see what's going on.
+
+00:00:34,270 --> 00:00:38,040 align:middle line:90%
+So what I'm going to do is create a camera
+control script against the camera. So go ahead
+
+00:00:38,040 --> 00:00:42,960 align:middle line:90%
+and do that now, click on your main camera
+and add a new script simply called camera
+
+00:00:42,960 --> 00:00:50,460 align:middle line:90%
+control; and you add that script. Fantastic,
+so let's go into the camera control script
+
+00:00:50,460 --> 00:00:57,789 align:middle line:90%
+and think about how it's going to attain a
+fixed offset from this ball. So Monodevelop's
+
+00:00:57,789 --> 00:01:04,869 align:middle line:90%
+loading in the background right now - and
+here it is. Fantastic so I need to just open
+
+00:01:04,869 --> 00:01:10,250 align:middle line:84%
+my camera control here it comes.
+
+00:01:10,250 --> 00:01:13,180 align:middle line:90%
+There it is, OK so the first thing the camera
+control script is going to need to do when
+
+00:01:13,180 --> 00:01:16,670 align:middle line:90%
+it's created is it's going to have to have
+a concept of a ball so I'm going to give you
+
+00:01:16,670 --> 00:01:20,200 align:middle line:90%
+the outline of this script and I'm going to
+ask you to actually write it so we're going
+
+00:01:20,200 --> 00:01:24,380 align:middle line:90%
+to need a public Ball ball that we'll drag
+in to the camera control. Because I've written
+
+00:01:24,380 --> 00:01:27,220 align:middle line:90%
+that line I'm going to go ahead and write
+that immediately. Well looking at the main
+
+00:01:27,220 --> 00:01:31,180 align:middle line:90%
+camera now it's saying well what do you want
+me to track? What ball do you want me to track?
+
+00:01:31,180 --> 00:01:32,049 align:middle line:84%
+So I'll give it a ball.
+
+00:01:32,049 --> 00:01:36,890 align:middle line:90%
+Fantastic. Another little hint for you is
+that it's privately going to need to know
+
+00:01:36,890 --> 00:01:45,170 align:middle line:90%
+about an offset so it's going to be a Vector3
+Offset between the ball and the camera; and
+
+00:01:45,170 --> 00:01:50,790 align:middle line:90%
+then it needs to find that at the start, and
+then obtain that offset by moving the transform
+
+00:01:50,790 --> 00:01:56,930 align:middle line:90%
+of the camera relative to the ball's transform
+every frame. So I've given you enough hints
+
+00:01:56,930 --> 00:02:01,719 align:middle line:90%
+there, I think that at this stage in the course
+that you are able to do this. The final thing
+
+00:02:01,719 --> 00:02:04,250 align:middle line:90%
+that you are going to need to do is stop it
+when it gets to the head pin, so here's your
+
+00:02:04,250 --> 00:02:07,969 align:middle line:84%
+challenge: Write the rest of CameraControl.cs
+
+00:02:07,969 --> 00:02:13,849 align:middle line:90%
+Keep the camera a fixed offset from the ball.
+Use an if statement in your Update loop to
+
+00:02:13,849 --> 00:02:20,000 align:middle line:90%
+stop the camera at the headpin - i.e. 1829
+- and just test that it works. Go ahead, pause
+
+00:02:20,000 --> 00:02:27,750 align:middle line:90%
+the video, and have a go at that challenge
+now. So let's take a look at how we're going
+
+00:02:27,750 --> 00:02:32,300 align:middle line:90%
+to do that. Just before we do we need to consider
+how we're going to calculate this offset vector.
+
+00:02:32,300 --> 00:02:37,670 align:middle line:90%
+So, what we want to do every frame is take
+in the ball's transform which is in bold because
+
+00:02:37,670 --> 00:02:43,730 align:middle line:90%
+it's a vector, and add in the offset so ball
++ offset becomes the camera's position.
+
+00:02:43,730 --> 00:02:47,660 align:middle line:90%
+So a bit of maths for you, we subtract ball
+from both sides, we wish that we would have
+
+00:02:47,660 --> 00:02:52,390 align:middle line:90%
+listened in those algebra lessons so if you
+take ball from both sides of that you get
+
+00:02:52,390 --> 00:02:56,450 align:middle line:90%
+camera - ball and you can see that in the
+little arrow, imagine that the ball was moving
+
+00:02:56,450 --> 00:03:00,450 align:middle line:90%
+to the right you have an offset vector which
+tells you how far away we want to keep the
+
+00:03:00,450 --> 00:03:05,989 align:middle line:90%
+camera from the ball, and in future just basically
+remember that offsets work as head minus tail
+
+00:03:05,989 --> 00:03:10,050 align:middle line:90%
+so camera minus ball gives you the offset
+that you need. Or do the maths like I just
+
+00:03:10,050 --> 00:03:10,459 align:middle line:84%
+have.
+
+00:03:10,459 --> 00:03:14,360 align:middle line:90%
+Say what you want, ball+offset = camera and
+work it through. Fantastic, so what we need
+
+00:03:14,360 --> 00:03:19,590 align:middle line:90%
+to remember for now is that the offset is
+calculated as camera - ball. So, let's go
+
+00:03:19,590 --> 00:03:24,330 align:middle line:90%
+ahead right into the monodevelop where we
+were and make all this happen. So what we
+
+00:03:24,330 --> 00:03:29,129 align:middle line:90%
+do in the start just once in the beginning
+is we capture the current offset between the
+
+00:03:29,129 --> 00:03:34,819 align:middle line:90%
+camera and the ball where we are starting
+from; i.e. this offset here at the very beginning.
+
+00:03:34,819 --> 00:03:42,510 align:middle line:90%
+So let's capture that, offset = camera but
+it's not camera that was just what I used
+
+00:03:42,510 --> 00:03:47,390 align:middle line:90%
+in the slide, it's the camera's transform
+but we're on the camera so it's simply transform.
+
+00:03:47,390 --> 00:03:55,019 align:middle line:84%
+Position minus ball.transform.position.
+
+00:03:55,019 --> 00:03:59,599 align:middle line:90%
+OK so there's our offset vector, we capture
+that once at the start, now what we do every
+
+00:03:59,599 --> 00:04:08,269 align:middle line:90%
+frame is we say well we want to set the position
+of camera.transform.position equals balls.transform.position
+
+00:04:08,269 --> 00:04:13,030 align:middle line:90%
+plus this offset that doesn't change. Because
+we captures it once at the start and it doesn't
+
+00:04:13,030 --> 00:04:19,269 align:middle line:90%
+change. Now let's take a look at the effect
+of that, click play. OK I think that I clicked
+
+00:04:19,269 --> 00:04:23,580 align:middle line:90%
+play twice there. Boom look at that the ball
+lands, OK It's going a bit slow and I know
+
+00:04:23,580 --> 00:04:26,860 align:middle line:90%
+that the football texture's a bit dodgy but
+we'll change that later. The good thing about
+
+00:04:26,860 --> 00:04:31,090 align:middle line:90%
+the football texture is that we can see what's
+going on so look, the camera, it works, right?
+
+00:04:31,090 --> 00:04:34,870 align:middle line:90%
+So what is a little bit strange is that the
+ball climbs up, or tries to climb up over
+
+00:04:34,870 --> 00:04:36,070 align:middle line:84%
+that pin.
+
+00:04:36,070 --> 00:04:41,009 align:middle line:90%
+So it's going to be a little bit hard to organise
+the stopping camera stopping element of that
+
+00:04:41,009 --> 00:04:44,880 align:middle line:90%
+script if it's going to keep hitting that
+pin right? So what can we do about that for
+
+00:04:44,880 --> 00:04:48,530 align:middle line:90%
+testing purposes? Well we could fire the ball
+off to the side a little bit. If you look
+
+00:04:48,530 --> 00:04:53,850 align:middle line:90%
+at our ball script at the moment it has no
+x velocity; what is our launch speed well
+
+00:04:53,850 --> 00:05:00,000 align:middle line:90%
+let's take a look, we have a launch speed
+currently of two hundred units in the z direction,
+
+00:05:00,000 --> 00:05:06,160 align:middle line:90%
+so what you could do temporarily is change
+your launch speed in your ball.cs from a float
+
+00:05:06,160 --> 00:05:13,509 align:middle line:90%
+to a Vector3 and change it from speed because
+speed is not a Vector3, speed is a scalar.
+
+00:05:13,509 --> 00:05:18,870 align:middle line:90%
+So we need to say launch velocity now and
+then instead of constructing a new Vector3
+
+00:05:18,870 --> 00:05:23,949 align:middle line:90%
+here we are just saying that the ball's velocity
+on start is the launch velocity. Now over
+
+00:05:23,949 --> 00:05:28,039 align:middle line:90%
+in the inspector; hang on let me just go back
+a little bit and digest that. I've changed
+
+00:05:28,039 --> 00:05:34,180 align:middle line:90%
+the float for the launch speed into a vector
+velocity and just changed it for that velocity
+
+00:05:34,180 --> 00:05:38,699 align:middle line:90%
+vector down here in the start. That means
+that in the inspector we have the opportunity
+
+00:05:38,699 --> 00:05:43,229 align:middle line:90%
+to say to the ball in more detail how we want
+it to travel; not only 200 in the z but what
+
+00:05:43,229 --> 00:05:46,639 align:middle line:90%
+would happen if it travelled 20 in the x?
+Well it should go flying off to the right
+
+00:05:46,639 --> 00:05:51,990 align:middle line:90%
+now and it does. OK so that's fine, now we
+want it to get towards the position of the
+
+00:05:51,990 --> 00:05:53,919 align:middle line:84%
+pins and then the camera needs to stop.
+
+00:05:53,919 --> 00:05:58,340 align:middle line:90%
+So a little bit tricky if it falls of the
+edge, so maybe we just move 2 to the right
+
+00:05:58,340 --> 00:06:04,330 align:middle line:90%
+- just enough to not hit the headpin. So adjust
+your launch x velocity, in fact stuff this
+
+00:06:04,330 --> 00:06:08,620 align:middle line:90%
+I'm going to adjust the y velocity as well;
+the z rather because it's too slow for me.
+
+00:06:08,620 --> 00:06:13,590 align:middle line:90%
+OK try this. Boom much faster, takes a while
+to land, goes down, it's going to hit one
+
+00:06:13,590 --> 00:06:16,199 align:middle line:90%
+of these pins and do something really weird
+but the important thing is that we need to
+
+00:06:16,199 --> 00:06:22,139 align:middle line:90%
+stop the camera at that z position, remember
+the challenge? So how are we going to do that?
+
+00:06:22,139 --> 00:06:26,940 align:middle line:90%
+Well, in the camera control script we are
+currently always just updating the camera's
+
+00:06:26,940 --> 00:06:27,930 align:middle line:84%
+position.
+
+00:06:27,930 --> 00:06:35,669 align:middle line:90%
+How about if we said if, and then we need
+to talk about the transform of the camera
+
+00:06:35,669 --> 00:06:42,919 align:middle line:90%
+not being more than 1825 so if transform.position
+is less than or equal to 1825, 1829 I can't
+
+00:06:42,919 --> 00:06:52,180 align:middle line:90%
+remember. What was the position of the head
+pin? 1829 cm. 18.29 metres. So if the transform.position
+
+00:06:52,180 --> 00:06:57,690 align:middle line:90%
+of the camera is less than or equal to 1829
+cm which means in English, and it's good to
+
+00:06:57,690 --> 00:07:08,250 align:middle line:90%
+put a comment in here, in front of head pin,
+then make that update every frame otherwise
+
+00:07:08,250 --> 00:07:12,460 align:middle line:90%
+just simply do nothing, we don't need to say
+do nothing, let's see what happens if we put
+
+00:07:12,460 --> 00:07:15,060 align:middle line:84%
+that condition in.
+
+00:07:15,060 --> 00:07:22,030 align:middle line:90%
+OK so I've done a booboo and that's because
+we need transform.position.z we can't just
+
+00:07:22,030 --> 00:07:26,720 align:middle line:90%
+say that the 3 dimensional vector is less
+than or equal to 1829, that doesn't make any
+
+00:07:26,720 --> 00:07:31,720 align:middle line:90%
+sense, we need a .z on there and we'd better
+put an f for float on the 1829 because we
+
+00:07:31,720 --> 00:07:35,849 align:middle line:90%
+can be damn sure that the z position's going
+to be a float. Let's see if that builds; control
+
+00:07:35,849 --> 00:07:40,569 align:middle line:90%
+or splodge b, I'll put my keyboard shortcuts
+up so ctrl or splodge b like that, does a
+
+00:07:40,569 --> 00:07:44,210 align:middle line:90%
+build, build successful that's encouraging,
+the real proof of the pudding is will it run
+
+00:07:44,210 --> 00:07:49,460 align:middle line:84%
+in Unity. So it's running, and now what happens?
+
+00:07:49,460 --> 00:07:55,110 align:middle line:90%
+The camera completely fails to stop does it?
+No the camera has stopped. It has stopped
+
+00:07:55,110 --> 00:08:00,370 align:middle line:90%
+right there. Now where's the camera stopped?
+Go and inspect it. It has stopped at z = 1829
+
+00:08:00,370 --> 00:08:04,610 align:middle line:90%
+so let's go and watch that from another perspective
+- go into the scene view and click on your
+
+00:08:04,610 --> 00:08:11,759 align:middle line:90%
+camera and watch its z position up here in
+the inspector and it stops around about 1829.
+
+00:08:11,759 --> 00:08:16,590 align:middle line:90%
+It's a little tiny bit over just because of
+rounding and the amount that it moves per
+
+00:08:16,590 --> 00:08:21,330 align:middle line:90%
+frame. So if' you've got some code that looks
+something like this then congratulations because
+
+00:08:21,330 --> 00:08:25,990 align:middle line:90%
+you have managed to achieve that challenge
+and you've got 3 dimensional control over
+
+00:08:25,990 --> 00:08:30,389 align:middle line:90%
+your camera; you'll regularly be doing these
+type of offset things in 3D so well done,
+
+00:08:30,389 --> 00:08:34,169 align:middle line:90%
+and if you needed a little help great that's
+absolutely fine too. So congratulations and
+
+00:08:34,169 --> 00:08:39,169 align:middle line:84%
+I'll see you in the next video.

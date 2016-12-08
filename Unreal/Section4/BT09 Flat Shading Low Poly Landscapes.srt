@@ -1,0 +1,757 @@
+
+1
+00:00:00,000 --> 00:00:03,433
+
+
+2
+00:00:03,433 --> 00:00:08,000
+So, welcome to Flat Shading Low Poly Landscapes! What we're going to do in this video
+
+3
+00:00:08,000 --> 00:00:12,000
+is quite a lot actually, and you don't need to understand all of the details.
+
+4
+00:00:12,000 --> 00:00:16,000
+We will revisit some of these things later. This would be five or six videos, if we go into too
+
+5
+00:00:16,000 --> 00:00:20,000
+much detail. But the end result will be, I will show you how to make a landscape with a lot lower
+
+6
+00:00:20,000 --> 00:00:24,000
+geometric detail like this, where you can actually come in and
+
+7
+00:00:24,000 --> 00:00:28,000
+paint on the landscape, in very simple flat colors,
+
+8
+00:00:28,000 --> 00:00:32,000
+like your grass here or your dirt. And where we create
+
+9
+00:00:32,000 --> 00:00:36,000
+a very special type of material which uses this collection of
+
+10
+00:00:36,000 --> 00:00:40,000
+nodes, which I'll briefly explain but not go into a huge amount of detail about how it works,
+
+11
+00:00:40,000 --> 00:00:44,000
+to make the terrain flat shade, which is what's giving this effect here where
+
+12
+00:00:44,000 --> 00:00:48,000
+each of these faces are looking like flat faces.
+
+13
+00:00:48,000 --> 00:00:52,000
+OK, that's the magic source is what we do in here with these nodes. So, let's dive in
+
+14
+00:00:52,000 --> 00:00:56,000
+and show you how to create the option for a low poly terrain, if that's your preference.
+
+15
+00:00:56,000 --> 00:00:56,400
+
+
+16
+00:00:56,400 --> 00:01:00,400
+So, before you make your decision, whether you want to pursue the high poly
+
+17
+00:01:00,400 --> 00:01:04,400
+route or the low poly route, I just want to talk about the implications. One of the things
+
+18
+00:01:04,400 --> 00:01:08,400
+is that Unreal's tools are actually really powerful and will help you make a very photo
+
+19
+00:01:08,400 --> 00:01:12,400
+real looking external landscape, with only a few more hours work than we've done so far.
+
+20
+00:01:12,400 --> 00:01:16,400
+The disadvantage of that is that, you've just set the bar for the rest of your game.
+
+21
+00:01:16,400 --> 00:01:20,400
+Now suddenly, if a player sees the scenery is that realistic, they're probably going to expect
+
+22
+00:01:20,400 --> 00:01:24,400
+everything else they see to be realistic. There are ways around this.
+
+23
+00:01:24,400 --> 00:01:28,400
+Think of games like The Vanishing of Ethan Carter, for example,
+
+24
+00:01:28,400 --> 00:01:32,400
+or Everybody's Gone to the Rapture. Those type of games are absolutely beautiful
+
+25
+00:01:32,400 --> 00:01:36,400
+environments, but there's very little interactivity. You see, if you want a
+
+26
+00:01:36,400 --> 00:01:40,400
+photo real environment with photo real characters, like GTA 5
+
+27
+00:01:40,400 --> 00:01:44,400
+type thing, you're talking about spending 1,000 man years of effort
+
+28
+00:01:44,400 --> 00:01:48,400
+to produce it, and a lot of that goes into the art, sound, stroytelling,
+
+29
+00:01:48,400 --> 00:01:52,400
+etc. etc. So, be careful how high you set the bar. Some people may choose
+
+30
+00:01:52,400 --> 00:01:56,400
+to set a low poly bar for all of their assets, and
+
+31
+00:01:56,400 --> 00:02:00,400
+then, you can really focus on the core gameplay. So, let's see how we would make this low poly.
+
+32
+00:02:00,400 --> 00:02:04,400
+What we're going to do is just go to the World Outliner and
+
+33
+00:02:04,400 --> 00:02:08,400
+delete the landscape. Now, if you choose, by the way, to stick with high poly,
+
+34
+00:02:08,400 --> 00:02:12,400
+as I said just don't do this, just watch this through out of interest, and in the challenge you can use
+
+35
+00:02:12,400 --> 00:02:16,400
+the time, instead of making a low poly landscape, you can use that time to tweak your existing
+
+36
+00:02:16,400 --> 00:02:20,400
+landscape. But I'm going to go ahead and nuke my landscape, bravely, and I'm going to make a new one.
+
+37
+00:02:20,400 --> 00:02:24,400
+Now, this new one, the difference is going to be that the X and the Y scale are going to be
+
+38
+00:02:24,400 --> 00:02:28,400
+1,000 centimeters or 10 meters. So, these quads are 10 meter
+
+39
+00:02:28,400 --> 00:02:32,400
+quads now, what's what make it low poly. Now, 500 loads of 10
+
+40
+00:02:32,400 --> 00:02:36,400
+meters is a bit too big, this is a 5 by 5 kilometer terrain right now.
+
+41
+00:02:36,400 --> 00:02:40,400
+So, I'm going to drop the number of quads and the number of components,
+
+42
+00:02:40,400 --> 00:02:44,400
+till we get to 106 by 106, so that's 1.06 kilometers
+
+43
+00:02:44,400 --> 00:02:48,400
+on either side. Same sort of scale as before with much less
+
+44
+00:02:48,400 --> 00:02:52,400
+quad density, much lower density of information that we can put in,
+
+45
+00:02:52,400 --> 00:02:56,400
+in terms of the shape of the terrain. So that's it, there's our new terrain
+
+46
+00:02:56,400 --> 00:03:00,400
+layout! Now, let's go start in just a small region, and I'll
+
+47
+00:03:00,400 --> 00:03:04,400
+show you how to do the low poly stuff. And if you're going down this route, I'll give you plenty of time in the challenge.
+
+48
+00:03:04,400 --> 00:03:08,400
+Same stuff, we model, we pull up, and if I'm going to do it from a slightly lower
+
+49
+00:03:08,400 --> 00:03:12,400
+viewpoint. Now, it's not actually super apparent how
+
+50
+00:03:12,400 --> 00:03:16,400
+kind of low poly this is, right now, because this preview mesh that we have
+
+51
+00:03:16,400 --> 00:03:20,400
+here is actually what we call smooth shaded right now, which means that the
+
+52
+00:03:20,400 --> 00:03:24,400
+lighting is treating this surface as if it's smooth. What we're going to have to
+
+53
+00:03:24,400 --> 00:03:28,400
+do is try and force the system to start shading this landscape, as
+
+54
+00:03:28,400 --> 00:03:32,400
+if everything is flat, and that's a little bit trickier than we may
+
+55
+00:03:32,400 --> 00:03:36,400
+hope and I'll show you how to do it right now. So, here is a piece of
+
+56
+00:03:36,400 --> 00:03:40,400
+landscape. We can imagine putting mountains around the rest, but let's show you how to get to the shading that we want.
+
+57
+00:03:40,400 --> 00:03:44,400
+What we do is make ourselves a new
+
+58
+00:03:44,400 --> 00:03:48,400
+material. I'm just going to call it Flat,
+
+59
+00:03:48,400 --> 00:03:52,400
+FlatLand. OK, so I've got a material called FlatLand. Remember
+
+60
+00:03:52,400 --> 00:03:56,400
+with a landscape material, the first thing you want to do is scroll down to Usage and say Used
+
+61
+00:03:56,400 --> 00:04:00,400
+with Landscape, as we did before. Fantastic! Now, this is where the voodoo
+
+62
+00:04:00,400 --> 00:04:04,400
+starts coming in. How on earth are we going to make this
+
+63
+00:04:04,400 --> 00:04:08,400
+multi-colored? Well, firstly we're going to play the same trick as we did
+
+64
+00:04:08,400 --> 00:04:12,400
+before, with the base colors. In fact, you could have duplicated your landscape,
+
+65
+00:04:12,400 --> 00:04:16,400
+that's another way of doing it. Let's do that actually. Let me just, rather than
+
+66
+00:04:16,400 --> 00:04:20,400
+making FlatLand like this, let's duplicate Landscape and then
+
+67
+00:04:20,400 --> 00:04:24,400
+call it FlandLand. OK, there's an alternative for you.
+
+68
+00:04:24,400 --> 00:04:28,400
+If you go into that, of course, it'll already have these two colors, OK,
+
+69
+00:04:28,400 --> 00:04:32,400
+and it's already setup as a landscape texture. So, let's try using this
+
+70
+00:04:32,400 --> 00:04:36,400
+one, this FlatLand texture on this new landscape. So,
+
+71
+00:04:36,400 --> 00:04:40,400
+there's the landscape, enter details, choose FlatLand. Now we
+
+72
+00:04:40,400 --> 00:04:44,400
+need to go ahead and paint, of course, so popping over to there.
+
+73
+00:04:44,400 --> 00:04:48,400
+Now, of course, your paint... You won't be able to see what's going on with this painting, until your shaders
+
+74
+00:04:48,400 --> 00:04:52,400
+have finished compiling. So, let's just give those a moment to finish compiling.
+
+75
+00:04:52,400 --> 00:04:56,400
+And we're going to need to make ourselves new
+
+76
+00:04:56,400 --> 00:05:00,400
+layer information. You see it's saying there's no layer information assigned? So, let's go ahead
+
+77
+00:05:00,400 --> 00:05:04,400
+and make new layer information layers. Now,
+
+78
+00:05:04,400 --> 00:05:08,400
+sometimes it can get stuck in a dialog here, so we may need to just select elsewhere. There
+
+79
+00:05:08,400 --> 00:05:12,400
+we go! So, Grass_LayerInfo_Flat
+
+80
+00:05:12,400 --> 00:05:16,400
+is what I'm going to call this one, and this is the map
+
+81
+00:05:16,400 --> 00:05:20,400
+of where the grass is and then Dirt_LayerInfo_Flat.
+
+82
+00:05:20,400 --> 00:05:25,366
+Cool! Now we have the layers, we're able to start
+
+83
+00:05:25,366 --> 00:05:28,400
+painting the grass, and here it goes! So, there's the grass on the low lands,
+
+84
+00:05:28,400 --> 00:05:32,400
+here in front of me, fine, and then, the dirt and we could worry about snow
+
+85
+00:05:32,400 --> 00:05:36,400
+a little bit later. Now, if this happens to you, it all just goes wrong like this. This is just because the shaders
+
+86
+00:05:36,400 --> 00:05:40,400
+need to recompile, so bear with it for a second and it will come back
+
+87
+00:05:40,400 --> 00:05:44,400
+in a second. OK, here we go! Now, you want the Tool Strength to be  very high, so you don't end up with
+
+88
+00:05:44,400 --> 00:05:48,400
+a mix of two different things. And you can see that OK, sure,
+
+89
+00:05:48,400 --> 00:05:52,400
+it's low poly, but it doesn't really look low poly. This is not what we mean by low poly,
+
+90
+00:05:52,400 --> 00:05:56,400
+and the reason is, the way the shader is shading this stuff
+
+91
+00:05:56,400 --> 00:06:00,400
+smoothly. So, how are we going to make it shade non-smoothly? Now that we've got a
+
+92
+00:06:00,400 --> 00:06:04,400
+landscape like this, let me show you. I'm going to go back. Have I got it open? No.
+
+93
+00:06:04,400 --> 00:06:08,400
+I'm going to go back to my Content and
+
+94
+00:06:08,400 --> 00:06:12,400
+then back to the root, FlatLand. What we're going to need to do is something a bit
+
+95
+00:06:12,400 --> 00:06:16,400
+cleaver, with the normals. Normals are little lines the affectively stick out
+
+96
+00:06:16,400 --> 00:06:20,400
+of the surface of the vertices. They stick out of each of the vertices on the
+
+97
+00:06:20,400 --> 00:06:24,400
+landscape, and they tell the shader how light should interact with that
+
+98
+00:06:24,400 --> 00:06:28,400
+surface. What we need to do is, we need to make all of the
+
+99
+00:06:28,400 --> 00:06:32,400
+normals, for a given flat face, point in the same direction. So,
+
+100
+00:06:32,400 --> 00:06:36,400
+if we were to, instead of being in lit mode here, if we were to go in say
+
+101
+00:06:36,400 --> 00:06:40,400
+Wireframe mode... I'm just going to suppress the Sky Sphere
+
+102
+00:06:40,400 --> 00:06:44,400
+for a moment. There you go! These are the quads, you can see them. What's
+
+103
+00:06:44,400 --> 00:06:48,400
+happening is that little normals are sticking out of all of these vertices
+
+104
+00:06:48,400 --> 00:06:52,400
+at an angle, that's kind of the average of all the faces around it. Little
+
+105
+00:06:52,400 --> 00:06:56,400
+hairs are effectively sticking out. And then, what the shader is doing is, if I've got a normal sticking
+
+106
+00:06:56,400 --> 00:07:00,400
+out of this vertex up into the air and another one sticking out down here, the
+
+107
+00:07:00,400 --> 00:07:04,400
+shader is interpolating all along the line, so that it
+
+108
+00:07:04,400 --> 00:07:08,400
+assumes that you didn't actually want this thing to be as rigid as it is, that you want it to appear
+
+109
+00:07:08,400 --> 00:07:12,400
+smooth. So, it interpolates in between and we get this overly
+
+110
+00:07:12,400 --> 00:07:16,400
+smooth result. We're going to have to force all
+
+111
+00:07:16,400 --> 00:07:20,400
+normals, that are on the same face, to point in the same direction,
+
+112
+00:07:20,400 --> 00:07:24,400
+so that this entire triangle, for example, that I'm highlighting now,
+
+113
+00:07:24,400 --> 00:07:28,400
+has exactly the same angle to the light, rather than having little
+
+114
+00:07:28,400 --> 00:07:32,400
+hairs that stick out, in a very organic way. Imagine that the
+
+115
+00:07:32,400 --> 00:07:36,400
+mesh here is like the skin of an animal and that their normals are hairs sticking on the skin,
+
+116
+00:07:36,400 --> 00:07:40,400
+and those normals tell the light how to interact with it. You can find out a lot more about normals
+
+117
+00:07:40,400 --> 00:07:44,400
+by just searching, for example, on Google.
+
+118
+00:07:44,400 --> 00:07:48,400
+And here, there's a picture of normals there, from Autodesk. These are
+
+119
+00:07:48,400 --> 00:07:52,400
+face normals. We're actually using vertex normals inside
+
+120
+00:07:52,400 --> 00:07:56,400
+Unreal, which is more like this sphere here. You see each vertex has a little hair sticking
+
+121
+00:07:56,400 --> 00:08:00,400
+out. What we're wanting is, each pixel wants to be treated
+
+122
+00:08:00,400 --> 00:08:04,400
+as if every normal points in the same direction, let me show you. This is quite advanced, so if you just want to
+
+123
+00:08:04,400 --> 00:08:08,400
+use this technology rather than fully understand it for now, that's absolutely fine.
+
+124
+00:08:08,400 --> 00:08:12,400
+So, what we're going to do is go and find ourselves,
+
+125
+00:08:12,400 --> 00:08:16,400
+from the Coordinates dropdown, there's a node called WorldPosition
+
+126
+00:08:16,400 --> 00:08:20,400
+OK, and what that's going to tell us is, it's going to give us a map
+
+127
+00:08:20,400 --> 00:08:24,400
+of the WorldPosition from our viewpoint. Now it doesn't actually matter whether it's the
+
+128
+00:08:24,400 --> 00:08:28,400
+Absolute World Position or the Camera Relative World Position, but it gives a
+
+129
+00:08:28,400 --> 00:08:32,400
+vector to the surface at every point. That's the point from where we're
+
+130
+00:08:32,400 --> 00:08:36,400
+standing. Let me carry on, then explain in context how this works, alright.
+
+131
+00:08:36,400 --> 00:08:40,400
+Now, this is where it gets really weird. We're going to use a couple of features that we can
+
+132
+00:08:40,400 --> 00:08:44,400
+pull off the shader, called DDX and DDY,
+
+133
+00:08:44,400 --> 00:08:48,400
+and these are partial differentials in X and Y, which is quite mathematical.
+
+134
+00:08:48,400 --> 00:08:52,400
+But what we're saying here, by taking a differential in X and Y,
+
+135
+00:08:52,400 --> 00:08:56,400
+is we're saying when we look at this landscape, as we're doing now...
+
+136
+00:08:56,400 --> 00:09:00,400
+Let's put it into Wireframe. We want
+
+137
+00:09:00,400 --> 00:09:04,400
+to say find me places where the change
+
+138
+00:09:04,400 --> 00:09:08,400
+of slope, or whether slope in X and Y it doesn't really matter whether
+
+139
+00:09:08,400 --> 00:09:12,400
+X and Y is the world space X and Y or screen space, but in two dimensions,
+
+140
+00:09:12,400 --> 00:09:16,400
+the slope is not changing basically. We only want to change the shading
+
+141
+00:09:16,400 --> 00:09:20,400
+at an edge, when the slope of the face changes. So, we're finding
+
+142
+00:09:20,400 --> 00:09:24,400
+the slope of the face or the slope of the thing we're looking at, in two dimensions here with this
+
+143
+00:09:24,400 --> 00:09:28,400
+DDX and DDY. Then, we're going to do something called a
+
+144
+00:09:28,400 --> 00:09:32,400
+maths CrossProduct between the two,
+
+145
+00:09:32,400 --> 00:09:36,400
+and what that does is, it makes us a little vector, effectively makes us a face normal. It
+
+146
+00:09:36,400 --> 00:09:40,400
+makes a bunch of lines stick out of the face at 90 degrees,
+
+147
+00:09:40,400 --> 00:09:44,400
+one for each pixel, and we pump that into the normal. Now that is not
+
+148
+00:09:44,400 --> 00:09:48,400
+intuitive. It's the sort of solution you'll find on the web, but no one will explain exactly how it works.
+
+149
+00:09:48,400 --> 00:09:52,400
+We're going to have to do this in a spiral way. I could sit and teach you about
+
+150
+00:09:52,400 --> 00:09:56,400
+CrossProducts and Partial Differentials, and we'd be here another 10 hours before you've got all
+
+151
+00:09:56,400 --> 00:10:00,400
+the requisite knowledge. So, the point of this set of nodes here,
+
+152
+00:10:00,400 --> 00:10:04,400
+that I've just made, is to force all
+
+153
+00:10:04,400 --> 00:10:08,400
+of the pixels to be rendered the same until you get to a change of face. That's the idea. Let's
+
+154
+00:10:08,400 --> 00:10:12,400
+see it in practice. we're overriding the normal vectors
+
+155
+00:10:12,400 --> 00:10:16,400
+for the pixels of our terrain.
+
+156
+00:10:16,400 --> 00:10:20,400
+So, you click Save, once it's finished saving you can come out of it, but then, you're
+
+157
+00:10:20,400 --> 00:10:24,400
+going to have to wait until you can see the effect.
+
+158
+00:10:24,400 --> 00:10:28,400
+
+
+159
+00:10:28,400 --> 00:10:32,400
+So, here is the preview again! Ah, you see now that's doing exactly what we want.
+
+160
+00:10:32,400 --> 00:10:36,400
+The blending is a little bit weird in places but that is what we're after.
+
+161
+00:10:36,400 --> 00:10:40,400
+OK, and then given that, you can even just come back to the landscape tools
+
+162
+00:10:40,400 --> 00:10:44,566
+and we can just take the dirt, paint the dirt where we want it, and
+
+163
+00:10:44,566 --> 00:10:48,400
+we can paint the grass where we want it. And we can raise and lower the terrain and all
+
+164
+00:10:48,400 --> 00:10:52,400
+the things that we've been doing before. Sculpt,
+
+165
+00:10:52,400 --> 00:10:56,400
+Circle Brush, nice large brush you see, and we're actually
+
+166
+00:10:56,400 --> 00:11:00,400
+generating a low poly terrain. Now, we get some blending between the different cells,
+
+167
+00:11:00,400 --> 00:11:04,400
+so the green and the gray blend into each other,
+
+168
+00:11:04,400 --> 00:11:08,400
+but that's absolutely fine, that's pretty manageable.
+
+169
+00:11:08,400 --> 00:11:12,400
+So, back to paint, for example, come here and put some dirt up here, and
+
+170
+00:11:12,400 --> 00:11:16,400
+you see that's working, so we have a low poly terrain setup. So what I'm going to leave on the
+
+171
+00:11:16,400 --> 00:11:20,400
+screen is this node setup for you. This we will
+
+172
+00:11:20,400 --> 00:11:24,400
+revisit this type of stuff, as and when necessary, but just
+
+173
+00:11:24,400 --> 00:11:28,400
+bear in mind we are detecting flatness basically and forcing
+
+174
+00:11:28,400 --> 00:11:32,400
+faces to shade flat, because unfortunately with a landscape type
+
+175
+00:11:32,400 --> 00:11:36,400
+material there's no simple button we can click to say render this flat or certainly nothing that
+
+176
+00:11:36,400 --> 00:11:40,400
+I know of. You could add in a third color here. You would just add in another vector
+
+177
+00:11:40,400 --> 00:11:44,400
+parameter, which you would put in, say snow, and then, you would have three colors.
+
+178
+00:11:44,400 --> 00:11:48,400
+So, that's what I want you to do! I want you to choose your final landscape style! Decide which
+
+179
+00:11:48,400 --> 00:11:52,400
+route you want to pursue. If it's high poly, then use this time to tweak the existing terrain
+
+180
+00:11:52,400 --> 00:11:56,400
+you've got. I'm going to pursue high poly, I think, through the rest of the course, because
+
+181
+00:11:56,400 --> 00:12:00,400
+that's been the consensus. I want to show you, in the upcoming iteration of
+
+182
+00:12:00,400 --> 00:12:04,400
+terrain, I want to show you how to use Height Maps and import those sort of things. So, ultimately
+
+183
+00:12:04,400 --> 00:12:08,400
+I'm showing you both techniques. But if you decide low poly, then create your initial landscape like
+
+184
+00:12:08,400 --> 00:12:12,400
+I just did. Remember to leave a flat area in the middle of that landscape,
+
+185
+00:12:12,400 --> 00:12:16,400
+and then, share the result with the rest of us so we can see, either on
+
+186
+00:12:16,400 --> 00:12:20,400
+Facebook or in the Questions and Answers, what you've done, because we'll be really interested to see your
+
+187
+00:12:20,400 --> 00:12:24,400
+low poly result. I'm not going to flesh my low poly terrain out anymore, as I say,
+
+188
+00:12:24,400 --> 00:12:28,400
+because on the next iteration, I'm going to show you how to import a Height Map, as a third
+
+189
+00:12:28,400 --> 00:12:31,966
+alternative to terrain generation.
+

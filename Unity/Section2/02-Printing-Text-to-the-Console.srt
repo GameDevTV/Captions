@@ -1,0 +1,597 @@
+
+1
+00:00:03,000 --> 00:00:06,000
+OK, so here we are inside
+
+2
+00:00:06,000 --> 00:00:09,000
+Unity, for the first time. It's quite a complex interface, so
+
+3
+00:00:09,000 --> 00:00:12,000
+this first game is going to be specifically designed to only
+
+4
+00:00:12,000 --> 00:00:15,000
+use the Console. So, if you don't
+
+5
+00:00:15,000 --> 00:00:18,000
+see what I see, then go to the top right of Unity,
+
+6
+00:00:18,000 --> 00:00:21,000
+and then, click the drop-down, which is the Layout Drop-Down, and just go to
+
+7
+00:00:21,000 --> 00:00:24,000
+Default, so that it ends up looking like this. And then, I want you to
+
+8
+00:00:24,000 --> 00:00:27,000
+find the Console. Now, there are a few ways to find the Console. One way is you can go to
+
+9
+00:00:27,000 --> 00:00:30,000
+the Window drop down and then look for
+
+10
+00:00:30,000 --> 00:00:33,000
+Console, which is at the very bottom on a Mac. And it will
+
+11
+00:00:33,000 --> 00:00:36,000
+flip over to Console, or you just look for Console, which is in the bottom
+
+12
+00:00:36,000 --> 00:00:39,000
+section of the screen, next to project. Alright, let me talk
+
+13
+00:00:39,000 --> 00:00:42,000
+you through the Console just a little bit. So, what do we have here?
+
+14
+00:00:42,000 --> 00:00:45,000
+We have an ability to clear lines off the Console. The Console,
+
+15
+00:00:45,000 --> 00:00:48,000
+by the way, is just going to be full of lines of text, and our entire game
+
+16
+00:00:48,000 --> 00:00:51,000
+is going to be running in this Console, just for this project.
+
+17
+00:00:51,000 --> 00:00:54,000
+And the purpose is, we don't want your to be confused by all
+
+18
+00:00:54,000 --> 00:00:57,000
+this other complexity of Unity.
+
+19
+00:00:57,000 --> 00:01:00,000
+Of course, if you're already highly experienced with Unity, you can completely skip this
+
+20
+00:01:00,000 --> 00:01:03,000
+section and just move straight on to the next one, but for a beginner, I would really
+
+21
+00:01:03,000 --> 00:01:06,000
+strongly suggest you start here, because we're also covering programming basics,
+
+22
+00:01:06,000 --> 00:01:09,000
+a lot of really really important programming fundamentals in this
+
+23
+00:01:09,000 --> 00:01:12,000
+section. So, back to the Console! You can clear it, you
+
+24
+00:01:12,000 --> 00:01:15,000
+can collapse it, we'll talk about that later. So, all of these bits don't
+
+25
+00:01:15,000 --> 00:01:18,000
+worry about. The bits you do need to be a little bit aware of, especially before we move
+
+26
+00:01:18,000 --> 00:01:21,000
+the Console, is theres top right three buttons. This
+
+27
+00:01:21,000 --> 00:01:24,000
+one turns on and off logs to the Console, which we'll be making.
+
+28
+00:01:24,000 --> 00:01:27,000
+This one turns on and off errors or warnings, rather, the
+
+29
+00:01:27,000 --> 00:01:30,000
+middle one warning triangles. And then, the final one,
+
+30
+00:01:30,000 --> 00:01:33,000
+the stop sign is for errors, you turn on and off. They're turned on
+
+31
+00:01:33,000 --> 00:01:36,000
+when they're depressed in and slightly lighter. OK, so
+
+32
+00:01:36,000 --> 00:01:39,000
+a bit of a gotcha, in case you've actually clicked that off be careful.
+
+33
+00:01:39,000 --> 00:01:42,000
+Alright, that's that! So, what I want you to do is to move the
+
+34
+00:01:42,000 --> 00:01:45,000
+Console. We'll be looking at
+
+35
+00:01:45,000 --> 00:01:48,000
+moving windows around, in a more advance way later, but I want you to move
+
+36
+00:01:48,000 --> 00:01:51,000
+the Console over to the right hand side like this.
+
+37
+00:01:51,000 --> 00:01:54,000
+Alright, so just grab hold of it and drag it
+
+38
+00:01:54,000 --> 00:01:57,000
+to the right hand side. And what that's going to mean is, we can then
+
+39
+00:01:57,000 --> 00:02:00,000
+put MonoDevelop right over the rest of all of this stuff, so that we're
+
+40
+00:02:00,000 --> 00:02:03,000
+just dealing with the Console and MonoDevelop itself. You can
+
+41
+00:02:03,000 --> 00:02:06,000
+grab the divider between the scene or the game and the
+
+42
+00:02:06,000 --> 00:02:09,000
+Console on the right here. Just drag if you want and you can
+
+43
+00:02:09,000 --> 00:02:12,000
+adjust things, but you just need a bit of Console on the right hand side.
+
+44
+00:02:12,000 --> 00:02:15,000
+OK, now before we leave the Unity Editor,
+
+45
+00:02:15,000 --> 00:02:18,000
+I just want to delete the Main Camera in the Hierarchy. So, look for the Hierarchy
+
+46
+00:02:18,000 --> 00:02:21,000
+on the left, Main Camera, and I either go to Edit and Delete
+
+47
+00:02:21,000 --> 00:02:24,000
+or Right click and Delete, because we just don't need it for this
+
+48
+00:02:24,000 --> 00:02:27,000
+project. OK, next we're going to create an empty GameObject,
+
+49
+00:02:27,000 --> 00:02:30,000
+because in order for our script to run it needs to
+
+50
+00:02:30,000 --> 00:02:33,000
+be attached to a GameObject. So, we're going to go
+
+51
+00:02:33,000 --> 00:02:36,000
+to Game Object, Create Empty, from the Game Object
+
+52
+00:02:36,000 --> 00:02:39,000
+Menu, and I want to rename this GameObject Number Wizard, capital
+
+53
+00:02:39,000 --> 00:02:42,000
+N capital W and you can leave no space if you wish.
+
+54
+00:02:42,000 --> 00:02:45,000
+That's fine! This is called Pascal Case, it means all
+
+55
+00:02:45,000 --> 00:02:48,000
+the kind of components of the word have uppercase, so NumberWizard
+
+56
+00:02:48,000 --> 00:02:51,000
+like that! Alright So, that's
+
+57
+00:02:51,000 --> 00:02:54,000
+an empty GameObject. How are you going to add a script to it? A couple of different ways! You can
+
+58
+00:02:54,000 --> 00:02:57,000
+go to Inspector, Add Component, New Script.
+
+59
+00:02:57,000 --> 00:03:00,000
+Let's do it that way! And then,
+
+60
+00:03:00,000 --> 00:03:03,000
+type NumberWizard. The same component
+
+61
+00:03:03,000 --> 00:03:06,000
+name as the GameObject name in this case, which will
+
+62
+00:03:06,000 --> 00:03:09,000
+normally be the case, but you can add multiple scripts or components
+
+63
+00:03:09,000 --> 00:03:12,000
+to the same GameObject. So now, we have a NumberWizard Script!
+
+64
+00:03:12,000 --> 00:03:15,000
+It's sitting in the base of Assets. Let's be tidy, from the start, and put it
+
+65
+00:03:15,000 --> 00:03:18,000
+in a folder called Scripts, because that's how we're going to go on.
+
+66
+00:03:18,000 --> 00:03:21,000
+So, I've made a folder by right clicking down in Assets, going to Create,
+
+67
+00:03:21,000 --> 00:03:24,000
+and then, Folder. Call it Scripts and then drag
+
+68
+00:03:24,000 --> 00:03:27,000
+NumberWizard into it. Fantastic! Alright, this
+
+69
+00:03:27,000 --> 00:03:30,000
+other thing here, Main, it's the scene or the level used
+
+70
+00:03:30,000 --> 00:03:33,000
+interchangeably. It's also at the top of your screen up here, Main.
+
+71
+00:03:33,000 --> 00:03:36,000
+We need some sort of scene or a level. We need at least
+
+72
+00:03:36,000 --> 00:03:39,000
+one level for the game to run, so that needs to be there. That's just fine!
+
+73
+00:03:39,000 --> 00:03:42,000
+Alright, so we've created our NumberWizard Script, let's
+
+74
+00:03:42,000 --> 00:03:45,000
+go into it! Now, just quickly rearrange
+
+75
+00:03:45,000 --> 00:03:48,000
+your MonoDevelop. Move it to the left hand side of your screen, so
+
+76
+00:03:48,000 --> 00:03:51,000
+that you can see ideally both Mono... If any funny tool boxes come
+
+77
+00:03:51,000 --> 00:03:54,000
+up in Mono, just close them. So, you can see both Mono
+
+78
+00:03:54,000 --> 00:03:57,000
+and the Console. So, click on your Console in Unity.
+
+79
+00:03:57,000 --> 00:04:00,000
+Command or Alt Tab, back to MonoDevelop, and just
+
+80
+00:04:00,000 --> 00:04:03,000
+jiggle between them, until you can see as much Console as possible.
+
+81
+00:04:03,000 --> 00:04:06,000
+You might have a much bigger screen resolution than me. I'm actually on a really
+
+82
+00:04:06,000 --> 00:04:09,000
+big monitor here, but I've got the screen resolution
+
+83
+00:04:09,000 --> 00:04:12,000
+really low for you guys, so you can see the text really clearly.
+
+84
+00:04:12,000 --> 00:04:15,000
+So, this is the situation we want to end up with, just with the Console visible
+
+85
+00:04:15,000 --> 00:04:18,000
+on the right and the code visible on the left. Fantastic!
+
+86
+00:04:18,000 --> 00:04:21,000
+We're going to write our first bit of code right now! Let's do it!
+
+87
+00:04:21,000 --> 00:04:24,000
+So, we're going to go inside of the Start function. For now, we're only going to focus
+
+88
+00:04:24,000 --> 00:04:27,000
+on what's going inside the Start function.
+
+89
+00:04:27,000 --> 00:04:30,000
+We're using that because we know it's going to run, it runs at the very beginning
+
+90
+00:04:30,000 --> 00:04:33,000
+when the game first runs. Don't worry about any of the rest of the stuff out
+
+91
+00:04:33,000 --> 00:04:36,000
+here, we're going to keep our context where the cursor is for now.
+
+92
+00:04:36,000 --> 00:04:39,000
+Later on, we will zoom out and zoom out until you understand
+
+93
+00:04:39,000 --> 00:04:42,000
+absolutely everything that is on this screen, but for now, let's
+
+94
+00:04:42,000 --> 00:04:45,000
+focus here. Cool! So, we're going to use a statement called print.
+
+95
+00:04:45,000 --> 00:04:48,000
+Old as the houses! print ("Welcome
+
+96
+00:04:48,000 --> 00:04:51,000
+to Number Wizard"); and just do that!
+
+97
+00:04:51,000 --> 00:04:54,000
+And you can do same! print ("Welcome to Number Wizard"); Now, look
+
+98
+00:04:54,000 --> 00:04:57,000
+there's some syntax, there's some language, here, and the computer is super
+
+99
+00:04:57,000 --> 00:05:00,000
+fussy about how we type this. So,
+
+100
+00:05:00,000 --> 00:05:03,000
+this is a
+
+101
+00:05:03,000 --> 00:05:06,000
+string inside print. It's a string because it's in quotes.
+
+102
+00:05:06,000 --> 00:05:09,000
+OK, that'll come clear in a moment. And then,
+
+103
+00:05:09,000 --> 00:05:12,000
+the brackets indicate that print
+
+104
+00:05:12,000 --> 00:05:15,000
+requires some parameters. It requires some input, so print is a
+
+105
+00:05:15,000 --> 00:05:18,000
+function or a method, that requires something inside
+
+106
+00:05:18,000 --> 00:05:21,000
+its brackets, and what that requires is a string. And then,
+
+107
+00:05:21,000 --> 00:05:24,000
+on the end of every single line in C# we need a
+
+108
+00:05:24,000 --> 00:05:27,000
+semicolon. Without a semicolon,
+
+109
+00:05:27,000 --> 00:05:30,000
+it doesn't know the line has ended. It just ignores white space.
+
+110
+00:05:30,000 --> 00:05:33,000
+Alright, let's stop chatting and get on with seeing what this does!
+
+111
+00:05:33,000 --> 00:05:36,000
+Now, it's not saved yet! You know it's not saved for
+
+112
+00:05:36,000 --> 00:05:39,000
+two reasons. One, the circle up here.
+
+113
+00:05:39,000 --> 00:05:42,000
+Here's a circle, when I save watch what happens to the circle.
+
+114
+00:05:42,000 --> 00:05:45,000
+It turns to a cross. Now, you would be closing the tab. Previously it was telling
+
+115
+00:05:45,000 --> 00:05:48,000
+you, you could close me, but I'm not saved yet. Alright, the other
+
+116
+00:05:48,000 --> 00:05:51,000
+way you can tell is, if I make another change, you get a star on the
+
+117
+00:05:51,000 --> 00:05:54,000
+end of the file name there. Alright, there
+
+118
+00:05:54,000 --> 00:05:57,000
+being at the very top of the screen, next to where it says NumberWizard.cs.
+
+119
+00:05:57,000 --> 00:06:00,000
+Alright, great so make sure your script is saved, go back to Unity
+
+120
+00:06:00,000 --> 00:06:03,000
+and run it! Now, what you should be seeing over here is
+
+121
+00:06:03,000 --> 00:06:06,000
+Welcome to Number Wizard! and then a load of other bumf. Under every line, you're going to get
+
+122
+00:06:06,000 --> 00:06:09,000
+bumf, which is telling you where this log has come from.
+
+123
+00:06:09,000 --> 00:06:12,000
+It's come from UnityEngine.MonoBehavior. Again, if you can still
+
+124
+00:06:12,000 --> 00:06:15,000
+see it on your screen, make sure this little bubble is turned on. The bubble that enables
+
+125
+00:06:15,000 --> 00:06:18,000
+logs. If you don't, you won't see anything alright.
+
+126
+00:06:18,000 --> 00:06:21,000
+If you have a 1 but you can't see anything, it's because that is turned off.
+
+127
+00:06:21,000 --> 00:06:24,000
+OK, so that is that! We have
+
+128
+00:06:24,000 --> 00:06:27,000
+printed Welcome to Number Wizard. Fantastic! OK, so I've
+
+129
+00:06:27,000 --> 00:06:30,000
+got a challenge for you now which is, I want you to print another line,
+
+130
+00:06:30,000 --> 00:06:33,000
+without my help. And this is your first mini challenge!
+
+131
+00:06:33,000 --> 00:06:36,000
+During a mini challenge, I'm going to tell you what result I want, and then,
+
+132
+00:06:36,000 --> 00:06:39,000
+I want you to do it. Pause the video, so that you can make your own mistakes,
+
+133
+00:06:39,000 --> 00:06:42,000
+do your own learning, and then, unpause the video when it's time
+
+134
+00:06:42,000 --> 00:06:45,000
+to check your answer against what I've done.
+
+135
+00:06:45,000 --> 00:06:48,000
+So, here we go! I want you to just put another print statement
+
+136
+00:06:48,000 --> 00:06:51,000
+immediately underneath, that says Pick a number in your head, but don't
+
+137
+00:06:51,000 --> 00:06:54,000
+tell me". Alright, simple as that! Really easy challenge
+
+138
+00:06:54,000 --> 00:06:57,000
+for the first video. Go for it! Pause the video now.
+
+139
+00:06:57,000 --> 00:07:00,000
+OK, welcome back! So,
+
+140
+00:07:00,000 --> 00:07:03,000
+this is how I did it! I'm just going print ("Pick a number
+
+141
+00:07:03,000 --> 00:07:06,000
+in your head, but
+
+142
+00:07:06,000 --> 00:07:09,000
+don't tell me"); OK!
+
+143
+00:07:09,000 --> 00:07:12,000
+And then, close the bracket and add a semicolon on the end
+
+144
+00:07:12,000 --> 00:07:15,000
+of every line. Congratulations, a super simple video
+
+145
+00:07:15,000 --> 00:07:18,000
+but you're into scripting! Make sure it works by saving,
+
+146
+00:07:18,000 --> 00:07:21,000
+going to Unity, and running! Now, if
+
+147
+00:07:21,000 --> 00:07:24,000
+it was already running, you're going to need to stop it running and click
+
+148
+00:07:24,000 --> 00:07:27,000
+play again. There you go, now you get your two logs! "Welcome to Number Wizard".
+
+149
+00:07:27,000 --> 00:07:30,000
+Pick a number but don't tell me. Fantastic! Well done! See you in the next video!
+

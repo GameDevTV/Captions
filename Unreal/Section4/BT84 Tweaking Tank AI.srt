@@ -1,0 +1,737 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+Hey, and welcome to Tweaking Tank AI!
+
+2
+00:00:04,000 --> 00:00:08,000
+What we're going to do in this video is to simply prevent the tanks
+
+3
+00:00:08,000 --> 00:00:12,000
+from firing, the AI tanks from firing, until they're locked. And we're also
+
+4
+00:00:12,000 --> 00:00:16,000
+going to prevent them from getting any closer than about 80 meters away,
+
+5
+00:00:16,000 --> 00:00:21,733
+so that they get to about 80 meters and then blow us out the water. [Laughs] OK! See you soon!
+
+6
+00:00:21,733 --> 00:00:25,733
+OK so let's get into improving a few things about this aiming. The
+
+7
+00:00:25,733 --> 00:00:29,733
+first thing you'll notice is that these AI tanks, they
+
+8
+00:00:29,733 --> 00:00:33,733
+fire off their weapons before they're actually locked, so let's start by
+
+9
+00:00:33,733 --> 00:00:37,733
+sorting that out. So ohh, it's gone a bit funny hasn't it?!
+
+10
+00:00:37,733 --> 00:00:41,733
+Oh, you know what I've done there, by the way, oh I've hit the
+
+11
+00:00:41,733 --> 00:00:45,733
+top-left key on the keyboard, above the Tab under the Escape and that
+
+12
+00:00:45,733 --> 00:00:49,733
+brings up the game console, which you may be familiar with from some Unreal game.
+
+13
+00:00:49,733 --> 00:00:53,733
+OK, so what we want to do then is, in the TankAIController
+
+14
+00:00:53,733 --> 00:00:57,733
+and the .cpp, instead of just firing,
+
+15
+00:00:57,733 --> 00:01:01,733
+what we want to do in pseudocode is say if... And then,
+
+16
+00:01:01,733 --> 00:01:05,733
+what is the state? The AimingComponent header file. Yeah,
+
+17
+00:01:05,733 --> 00:01:09,733
+if Aiming or Locked only is what we want, so let's just pseudocode that
+
+18
+00:01:09,733 --> 00:01:13,733
+in the tank... "// If aiming or locked"
+
+19
+00:01:13,733 --> 00:01:17,733
+then fire is what we want to do. OK, so how are we going to do that? Well we need to
+
+20
+00:01:17,733 --> 00:01:21,733
+be able to get this state from the AimingComponent
+
+21
+00:01:21,733 --> 00:01:25,733
+and, at the moment, we don't have a way doing that. Now don't just make this FiringState
+
+22
+00:01:25,733 --> 00:01:29,733
+public, that's naughty, because that would allow other classes to set the FiringState, and as
+
+23
+00:01:29,733 --> 00:01:33,733
+your project gets bigger that means you're likely to end up doing that by mistake. What we want to do is make
+
+24
+00:01:33,733 --> 00:01:37,733
+a nice safe void... Ah, not void! Very easy to
+
+25
+00:01:37,733 --> 00:01:41,733
+type void, isn't it? We want a method that returns the FiringState, so the return
+
+26
+00:01:41,733 --> 00:01:45,733
+type is EFiringState, and then, it's GetFiringState()
+
+27
+00:01:45,733 --> 00:01:49,733
+and then const because we don't want it changing any of the member variables, we're
+
+28
+00:01:49,733 --> 00:01:53,733
+just getting the FiringState. Let's go ahead and implement that. I'm going to use VisualStudio's
+
+29
+00:01:53,733 --> 00:01:57,733
+Create Definition tool, but if you're in Xcode then it's very easy to
+
+30
+00:01:57,733 --> 00:02:01,733
+just go and write this over in the TankAimingComponent.cpp file.
+
+31
+00:02:01,733 --> 00:02:05,733
+So I'm just going to make sure that it's done it right. It kind of [Laughs] hasn't, it's
+
+32
+00:02:05,733 --> 00:02:09,733
+saying return an EFiringState() as a method. That's a bit weird, and it's not
+
+33
+00:02:09,733 --> 00:02:13,733
+EFiringState, it's FiringState. Remember the member variable in question
+
+34
+00:02:13,733 --> 00:02:17,733
+in the header file here is FiringState, so the implementation...
+
+35
+00:02:17,733 --> 00:02:21,733
+This is confusing for you Xcode guys, by the way. We're looking into the TankAiming
+
+36
+00:02:21,733 --> 00:02:25,733
+Conponent.cpp here, we can't just go to the TankAimingComponent. Here it is, there's a getter! In fact,
+
+37
+00:02:25,733 --> 00:02:29,733
+I'm going to move that getter further up the class, because I think it should be
+
+38
+00:02:29,733 --> 00:02:33,733
+probably, something like, after, it doesn't really matter, after Tick, something
+
+39
+00:02:33,733 --> 00:02:37,733
+like that. OK, so it's a very simple const method
+
+40
+00:02:37,733 --> 00:02:41,733
+that returns the FiringState. Now that we've got that getter method,
+
+41
+00:02:41,733 --> 00:02:45,733
+in the TankAIController, we can ask this question, "// if aim or locked".
+
+42
+00:02:45,733 --> 00:02:49,733
+We can actually ask it in code, if (Aiming
+
+43
+00:02:49,733 --> 00:02:53,733
+Component, because that's the thing that knows. GetFiringState()
+
+44
+00:02:53,733 --> 00:02:57,733
+== EFiringState
+
+45
+00:02:57,733 --> 00:03:01,733
+:: because it's a static.
+
+46
+00:03:01,733 --> 00:03:05,733
+In this case, it's an enum but it's known at compile time. that's when you use your colon
+
+47
+00:03:05,733 --> 00:03:09,733
+colons. If it's Locked, that's the only time, actually, we want
+
+48
+00:03:09,733 --> 00:03:13,733
+this AI tank to fire, and we'll worry about limiting the firing rate later.
+
+49
+00:03:13,733 --> 00:03:17,733
+Does that make sense? Let's have a go! We're simply saying to the AI
+
+50
+00:03:17,733 --> 00:03:21,733
+tanks, don't fire until you're locked, you crazy fools! Now let's see if they
+
+51
+00:03:21,733 --> 00:03:25,733
+actually get locked. This is going to depend somewhat on the
+
+52
+00:03:25,733 --> 00:03:29,733
+AcceptanceRadius, that we have in the TankAimingComponent. Do you remember this
+
+53
+00:03:29,733 --> 00:03:33,733
+here? This AcceptanceRadius is very small. It may be that they never quite get locked, but
+
+54
+00:03:33,733 --> 00:03:37,733
+let's see what happens. I'm going to go F11, go down the hill a little bit,
+
+55
+00:03:37,733 --> 00:03:41,733
+to where I can see them. Boom! Yeah oh, they definitely got
+
+56
+00:03:41,733 --> 00:03:45,733
+locked. [Laughs] O.K. No worries about them getting locked! But what they are doing
+
+57
+00:03:45,733 --> 00:03:49,733
+is getting, I think, too close. They're kind of crazy cheeky close, right now!
+
+58
+00:03:49,733 --> 00:03:53,733
+So are they aiming the right way? Let's just check that. They do appear to be.
+
+59
+00:03:53,733 --> 00:03:57,733
+Is this guy going to shoot me? He's not locked.
+
+60
+00:03:57,733 --> 00:04:01,733
+He doesn't want to think that he's locked either. You know why this probably is? It's probably because they're
+
+61
+00:04:01,733 --> 00:04:05,733
+trying to aim at the bottom half of... Remember that the only thing they can aim at, at the moment, is the
+
+62
+00:04:05,733 --> 00:04:09,733
+tank route i.e. it's origin, and they probably couldn't quite
+
+63
+00:04:09,733 --> 00:04:13,733
+get their barrels low enough but the point is, they shouldn't be getting that close in the first place.
+
+64
+00:04:13,733 --> 00:04:17,733
+So that's what we're going to tackle now, in the second half of the video. So,
+
+65
+00:04:17,733 --> 00:04:21,733
+so far, as a recap, what we have done is we have
+
+66
+00:04:21,733 --> 00:04:25,733
+written a getter and then implemented it, which was super simple on the TankAimingComponent and
+
+67
+00:04:25,733 --> 00:04:29,733
+then, just said to the AI Controller, only fire when locked. Very very simple, it
+
+68
+00:04:29,733 --> 00:04:33,733
+reads almost like English. Now we're going to look at the AcceptanceRadius. So
+
+69
+00:04:33,733 --> 00:04:37,733
+not that but in the... Where is the AcceptanceRadius? It'll be in the Tank
+
+70
+00:04:37,733 --> 00:04:41,733
+AIController. We have an AcceptanceRadius here.
+
+71
+00:04:41,733 --> 00:04:45,733
+If you go to the header file of the TankAIController,
+
+72
+00:04:45,733 --> 00:04:49,733
+remember the AcceptanceRadius is how close the tank AI can get. Well what I want to
+
+73
+00:04:49,733 --> 00:04:53,733
+do is, I want to expose this to a blueprint, but we don't even have a blueprint for it, at the moment,
+
+74
+00:04:53,733 --> 00:04:57,733
+so you're going to do it. Here's your challenge! I want you to make a blueprint of the TankAI
+
+75
+00:04:57,733 --> 00:05:01,733
+Controller class. See if you can remember how to do that, over in the Editor. Then, I want you
+
+76
+00:05:01,733 --> 00:05:05,733
+to expose AcceptanceRadius as EditAnywhere,
+
+77
+00:05:05,733 --> 00:05:09,733
+at least for now. You could make it edit default only, but let's go EditAnywhere to start
+
+78
+00:05:09,733 --> 00:05:13,733
+with. You'll see why. Code your default AcceptanceRadius, once you find it. So
+
+79
+00:05:13,733 --> 00:05:17,733
+explore it in the Editor. You may want to depossess the tank, play around with some AcceptanceRadiuses, see
+
+80
+00:05:17,733 --> 00:05:21,733
+how many meters. Remember that it's got two extra 0's on it, so 7,000 would mean
+
+81
+00:05:21,733 --> 00:05:25,733
+70 meters. And then, put the default back into C++, place your AI
+
+82
+00:05:25,733 --> 00:05:29,733
+tanks in the world, and remember that if you do place your AI tanks for your
+
+83
+00:05:29,733 --> 00:05:33,733
+player outside the Navmesh, then you may need to refresh your Navmesh.
+
+84
+00:05:33,733 --> 00:05:37,733
+Currently, my Navmesh is only a subset of the whole terrain, so I'll probably expand that out as well,
+
+85
+00:05:37,733 --> 00:05:41,733
+because if you go off the Navmesh, things will stop moving. OK, so pause the video and have a go at that
+
+86
+00:05:41,733 --> 00:05:45,733
+challenge now!
+
+87
+00:05:45,733 --> 00:05:47,333
+
+
+88
+00:05:47,333 --> 00:05:51,333
+OK guys, let's get this done! This will be
+
+89
+00:05:51,333 --> 00:05:55,333
+a bit of fun, sort of. OK, so how do we do it? We go to the C++
+
+90
+00:05:55,333 --> 00:05:59,333
+Classes folder, of our Content browser.  We go find
+
+91
+00:05:59,333 --> 00:06:03,333
+ourselves the Tank AI Controller, right-click it, and then, say Create Blueprint class based on
+
+92
+00:06:03,333 --> 00:06:07,333
+Tank AIController. There it is! So I'm going to call it TankAIController_
+
+93
+00:06:07,333 --> 00:06:11,333
+BP, because that's how we like to name things and create it. There it is!
+
+94
+00:06:11,333 --> 00:06:15,333
+Now, just straight away, I'm going to put it in the Blueprints folder, just to keep the other one that's in there
+
+95
+00:06:15,333 --> 00:06:19,333
+company and to be tidy. So here it is! It doesn't do anything, it doesn't need to do anything
+
+96
+00:06:19,333 --> 00:06:23,333
+yet, but we are going to expose a property. So let's go ahead and do that! I'm going to move, of
+
+97
+00:06:23,333 --> 00:06:27,333
+course, this AcceptanceRadius, into the protected section of the class. Why?
+
+98
+00:06:27,333 --> 00:06:31,333
+Because the blueprint is a... Hold on, I can't talk and type at the same
+
+99
+00:06:31,333 --> 00:06:35,333
+time. I can usually but I can't right now. The blueprint
+
+100
+00:06:35,333 --> 00:06:39,333
+is a child class of the C++ class. In fact, you can
+
+101
+00:06:39,333 --> 00:06:43,333
+see that in the blueprint. It says Parent Class is the Tank AIController. So
+
+102
+00:06:43,333 --> 00:06:47,333
+that's exactly what protected means, it means the children can read it. So let's make this a
+
+103
+00:06:47,333 --> 00:06:51,333
+UPROPERTY(EditAnywhere) for now.
+
+104
+00:06:51,333 --> 00:06:55,333
+And then, I'm going to go
+
+105
+00:06:55,333 --> 00:06:59,333
+category = "Setup" in strings. And
+
+106
+00:06:59,333 --> 00:07:03,333
+I'm going to make a note, straight away, that "// Consider DefaultsEdit
+
+107
+00:07:03,333 --> 00:07:07,333
+Only". EditDefaultsOnly. If I actually put the word
+
+108
+00:07:07,333 --> 00:07:11,333
+exactly like that, then I could always copy and paste it later. That's the handy thing about writing the actual
+
+109
+00:07:11,333 --> 00:07:15,333
+code there, but you wouldn't normally write full coding comments. The whole point of comments
+
+110
+00:07:15,333 --> 00:07:19,333
+is that you can use English. But in this case, if I'm saying I might change this code for this
+
+111
+00:07:19,333 --> 00:07:23,333
+code, then it make sense to put it so that I could copy and paste it later. OK
+
+112
+00:07:23,333 --> 00:07:27,333
+so that's now exposed. Let's go have a little compile and
+
+113
+00:07:27,333 --> 00:07:31,333
+watch the TankAIController blueprint, as we do so. And what I'm
+
+114
+00:07:31,333 --> 00:07:35,333
+hoping will happen, I could collapse some of these categories down, is a Setup category will magically
+
+115
+00:07:35,333 --> 00:07:39,333
+appear in here, and we will be, there you go, able to set an Acceptance
+
+116
+00:07:39,333 --> 00:07:43,333
+Radius. So let's try an AcceptanceRadius of 150
+
+117
+00:07:43,333 --> 00:07:47,333
+meters. Compile, play. I love how fast you can compile blueprints, of course.
+
+118
+00:07:47,333 --> 00:07:51,333
+And let's make ourselves larger and see
+
+119
+00:07:51,333 --> 00:07:55,333
+how far away that is. Now they're not
+
+120
+00:07:55,333 --> 00:07:59,333
+moving. Yeah, they're coming towards us. I don't know, difficult to say! Difficult to
+
+121
+00:07:59,333 --> 00:08:03,333
+say, when they're shooting the daylights out of us like this. So why don't we
+
+122
+00:08:03,333 --> 00:08:07,333
+make it nearly impossible for them to shoot us, just temporarily, or we could even
+
+123
+00:08:07,333 --> 00:08:11,333
+take the TankAimingComponent off. The problem with that is, it's a little bit
+
+124
+00:08:11,333 --> 00:08:15,333
+tricky to do. So what's the easiest way of disabling this thing?
+
+125
+00:08:15,333 --> 00:08:19,333
+Well one thing would be to give them a pitiful launch speed of maybe 10 but remember what you
+
+126
+00:08:19,333 --> 00:08:23,333
+had first. I think it was 20,000. So
+
+127
+00:08:23,333 --> 00:08:27,333
+OK, let's try again! The point here is that I want to be able to see how
+
+128
+00:08:27,333 --> 00:08:31,333
+close they can get, and I can't do that all the time that they are shooting
+
+129
+00:08:31,333 --> 00:08:35,333
+me. So what you can do with this Edit...
+
+130
+00:08:35,333 --> 00:08:39,333
+Hmm, it doesn't seem to be holding there? They seem to be pretty close, so let's just
+
+131
+00:08:39,333 --> 00:08:43,333
+depossess with F8, click on this tank... Although, remember
+
+132
+00:08:43,333 --> 00:08:47,333
+it's not the tank that's controlling this, it's AIController, which must be that
+
+133
+00:08:47,333 --> 00:08:51,333
+one. That AIController went for the left tank and that one for the right tank. the AIController hasn't moved
+
+134
+00:08:51,333 --> 00:08:55,333
+in the world. But if you look at the AIController, then you can see the Acceptance
+
+135
+00:08:55,333 --> 00:08:59,333
+Radius, down there, is 3,000 on that one. So what you're going to have to do
+
+136
+00:08:59,333 --> 00:09:03,333
+is to tweak these things, actually, at runtime. So let's try
+
+137
+00:09:03,333 --> 00:09:07,333
+150,000. Then, I can repossess my tank, get back into
+
+138
+00:09:07,333 --> 00:09:11,333
+it, and then, drive off and see at what point does that tank,
+
+139
+00:09:11,333 --> 00:09:15,333
+whose AIController I just edited, start chasing us.
+
+140
+00:09:15,333 --> 00:09:19,333
+Keep going.
+
+141
+00:09:19,333 --> 00:09:23,333
+It doesn't seem to be chasing me
+
+142
+00:09:23,333 --> 00:09:27,333
+at all. What's wrong with him? Oh yes he is, there he is! OK, so the point is, that's too far away!
+
+143
+00:09:27,333 --> 00:09:31,333
+So I can go F8, I can click on this, I can pause the game even, click on the
+
+144
+00:09:31,333 --> 00:09:35,333
+controller in question, that one there. Try 80
+
+145
+00:09:35,333 --> 00:09:39,333
+meters, 8000,
+
+146
+00:09:39,333 --> 00:09:43,333
+and then, I could resume the game and see if 80 meters
+
+147
+00:09:43,333 --> 00:09:47,333
+looks reasonable. Now remember, they won't necessarily stop exactly where you ask them to,
+
+148
+00:09:47,333 --> 00:09:51,333
+because they are going to overshoot, right, especially if they're going that fast.
+
+149
+00:09:51,333 --> 00:09:55,333
+So another way of seeing is, I move away from him and see when he starts moving.
+
+150
+00:09:55,333 --> 00:09:59,333
+Is this a reasonable place for the tank to get to? Yeah, that's
+
+151
+00:09:59,333 --> 00:10:03,333
+probably about right for the enemy tank. We want it to stop around there and
+
+152
+00:10:03,333 --> 00:10:07,333
+shoot at us. Cool! So we have our value, that's how we discovered our value!
+
+153
+00:10:07,333 --> 00:10:11,333
+So it's not 150 meters but it's
+
+154
+00:10:11,333 --> 00:10:15,333
+80 meters. So now we can make things simpler again. We can go back to the C++, we can
+
+155
+00:10:15,333 --> 00:10:19,333
+code this in here, 80 meters. I will change it to EditDefault
+
+156
+00:10:19,333 --> 00:10:23,333
+Only and recompile. And then, what you'll
+
+157
+00:10:23,333 --> 00:10:27,333
+find will happen with EditDefaultOnly is that the actual instance of the
+
+158
+00:10:27,333 --> 00:10:31,333
+AIController will no longer have that value on it, and the only place that you'll be able to
+
+159
+00:10:31,333 --> 00:10:35,333
+change it is in a sensible place, which is the TankAIController's AcceptanceRadius over here.
+
+160
+00:10:35,333 --> 00:10:39,333
+OK, so let's have a look!
+
+161
+00:10:39,333 --> 00:10:43,333
+In fact, we've still got that as 150, so that's going to override the blueprint,
+
+162
+00:10:43,333 --> 00:10:47,333
+so I'm going to set it to 80 in here as well. The point of the C++ value
+
+163
+00:10:47,333 --> 00:10:51,333
+is that, if we make a new TankAIController blueprint,
+
+164
+00:10:51,333 --> 00:10:55,333
+then that's the value it's going to default to, so we want to
+
+165
+00:10:55,333 --> 00:10:59,333
+put the value in here that we want, right. So C++
+
+166
+00:10:59,333 --> 00:11:03,333
+determines what the default in this box is, and then, this box determines what actually
+
+167
+00:11:03,333 --> 00:11:07,333
+happens in the game play, if that makes sense. So 80 meters is what we're going for.
+
+168
+00:11:07,333 --> 00:11:11,333
+And we'll just save everything,
+
+169
+00:11:11,333 --> 00:11:15,333
+play the game, make sure it's OK, and then, hopefully we
+
+170
+00:11:15,333 --> 00:11:19,333
+have made the improvements we want to, which is that they don't fire until they're locked
+
+171
+00:11:19,333 --> 00:11:23,333
+and that they stop about 80 meters away. Cool! I just need to re-enable the
+
+172
+00:11:23,333 --> 00:11:27,333
+tank's firing. So instead of being at a launch at 4,000,
+
+173
+00:11:27,333 --> 00:11:31,333
+let's put it back to 10 meters per second. Let's put it back under the
+
+174
+00:11:31,333 --> 00:11:35,333
+TankAimingComponent of the tank blueprint, to 4,000,
+
+175
+00:11:35,333 --> 00:11:39,333
+which is 40 meters a second which is about 100 miles an hour. It's pretty slow,
+
+176
+00:11:39,333 --> 00:11:43,333
+actually, for a projectile, of course, but that's fine for now, while we're still using these beach balls. We'll
+
+177
+00:11:43,333 --> 00:11:47,333
+create our projectiles shortly. Let's just see how this is! Can I shoot them? It's difficult
+
+178
+00:11:47,333 --> 00:11:51,333
+actually. Ahh, I missed, of course, because the projectile's so slow, but they can certainly shoot me,
+
+179
+00:11:51,333 --> 00:11:55,333
+and they don't crowd me, they don't get too close. So I'm much happier with that, and I
+
+180
+00:11:55,333 --> 00:11:59,333
+will see you in the next video! If you're
+
+181
+00:11:59,333 --> 00:12:03,333
+still with me, then I just want to leave the code changes on the screen for you. That is the Tank
+
+182
+00:12:03,333 --> 00:12:07,333
+AIController C++. The AimingComponent is just
+
+183
+00:12:07,333 --> 00:12:11,333
+the getter, and remember you can always go to GitHub to get the code state. So
+
+184
+00:12:11,333 --> 00:12:14,133
+I will see you soon!
+

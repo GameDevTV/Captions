@@ -1,0 +1,685 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+Hi and welcome to
+
+2
+00:00:04,000 --> 00:00:08,000
+BlueprintImplementableEvent! What we're going to do in this video is make one of these things,
+
+3
+00:00:08,000 --> 00:00:12,000
+a BlueprintImplementableEvent, and it's going to allow us to create an
+
+4
+00:00:12,000 --> 00:00:16,000
+event in Blueprint that tells Blueprint when to create the UI
+
+5
+00:00:16,000 --> 00:00:20,000
+for the crosshair, once the AimingComponent has been found. We'll also talk slightly more
+
+6
+00:00:20,000 --> 00:00:23,400
+widely about the architecture of the project. So I'll see you in there!
+
+7
+00:00:23,400 --> 00:00:27,400
+What we want to do is have an event, not BeginPlay() but another event of our own called
+
+8
+00:00:27,400 --> 00:00:31,400
+FoundAimingComponent, and that is going to also
+
+9
+00:00:31,400 --> 00:00:35,400
+pass out a variable, which is going to be the AimingComponent, and then, that's going to trigger the creation of
+
+10
+00:00:35,400 --> 00:00:39,400
+the UI and the setting of the Blueprint Reference. Let's summarize that!
+
+11
+00:00:39,400 --> 00:00:43,400
+We want to expose a C++ function to Blueprint. We also want to pass
+
+12
+00:00:43,400 --> 00:00:47,400
+out a parameter into Blueprint, the AimingComponent Reference.
+
+13
+00:00:47,400 --> 00:00:51,400
+Multicast delegates only work for actors, so we've used
+
+14
+00:00:51,400 --> 00:00:55,400
+multicast delegates for this before, in Building Escape, but they only work for actors.
+
+15
+00:00:55,400 --> 00:00:59,400
+They don't work for components like this, we're not going to be able to expose them to Blueprint how we want. So
+
+16
+00:00:59,400 --> 00:01:03,400
+as we're using a component, we're going to use a UFUNCTION called (Blueprint
+
+17
+00:01:03,400 --> 00:01:07,400
+ImplementableEvent). It's actually somewhat
+
+18
+00:01:07,400 --> 00:01:11,400
+easier to use, and strangely, you don't even need to define the function in question. Let's
+
+19
+00:01:11,400 --> 00:01:15,400
+look at this and see how it works! So I'll do the C++ with you, and then, you can
+
+20
+00:01:15,400 --> 00:01:19,400
+go ahead and do the wiring up in Blueprint. So let's start
+
+21
+00:01:19,400 --> 00:01:23,400
+at... Well let's start at the top of the class actually! Look our copyright notice isn't filled out, so let's just
+
+22
+00:01:23,400 --> 00:01:27,400
+do that. Whenever I touch a class now I want to clean it up, so I want to fill
+
+23
+00:01:27,400 --> 00:01:31,400
+out my copyright notice. I'm going to write what this class is about, " * Responsible
+
+24
+00:01:31,400 --> 00:01:35,400
+for helping the player
+
+25
+00:01:35,400 --> 00:01:39,400
+aim." There's a bit of a question mark over whether this is
+
+26
+00:01:39,400 --> 00:01:43,400
+all that the TankPlayerController does but let's worry about that later. As long as we put something, we can
+
+27
+00:01:43,400 --> 00:01:47,400
+read it and critique it later. Let's get down to the meat and veggies of this bit, which is
+
+28
+00:01:47,400 --> 00:01:51,400
+in protected. Why protected? Because the place we're going to use this event
+
+29
+00:01:51,400 --> 00:01:55,400
+is in a Blueprint, that is a subclass of the TankPlayerController. Indeed
+
+30
+00:01:55,400 --> 00:01:59,400
+you can click Tank Player Controller to go straight back to it, so it's protected. Now it's UFUNCTION
+
+31
+00:01:59,400 --> 00:02:03,400
+oh dear...
+
+32
+00:02:03,400 --> 00:02:07,400
+OK and then it's (Blueprint), now spell it carefully.
+
+33
+00:02:07,400 --> 00:02:11,400
+ImplementableEvent. I think that's
+
+34
+00:02:11,400 --> 00:02:15,400
+correct. I'm going to say the Category, and we're always going to use a category now,
+
+35
+00:02:15,400 --> 00:02:19,400
+just to reinforce the habit = "Setup").
+
+36
+00:02:19,400 --> 00:02:23,400
+OK, so that's the annotation! Then what we're going to have is a method called something like,
+
+37
+00:02:23,400 --> 00:02:27,400
+or it's going to be a void nothing needs to come back. FoundAiming
+
+38
+00:02:27,400 --> 00:02:31,400
+Component and it's going to pass out
+
+39
+00:02:31,400 --> 00:02:35,400
+a (UTankAiming
+
+40
+00:02:35,400 --> 00:02:39,400
+Component* pointer called Aiming
+
+41
+00:02:39,400 --> 00:02:43,400
+CompRef);
+
+42
+00:02:43,400 --> 00:02:47,400
+OK, so that's fine! It's a bit weird that this
+
+43
+00:02:47,400 --> 00:02:51,400
+thing is going to be an event that comes out in Blueprint and yet it's a parameter,
+
+44
+00:02:51,400 --> 00:02:55,400
+but this is just the way we define it. Now we've used UTankTankAimingComponent pointer. Whether or not that
+
+45
+00:02:55,400 --> 00:02:59,400
+works, it may even work because of the niceties of this macro, we want to do a
+
+46
+00:02:59,400 --> 00:03:03,400
+forward declaration. As soon as you start using a type in a header file, you need to put a forward declaration
+
+47
+00:03:03,400 --> 00:03:07,400
+in, and yeah, that should be it. Let's
+
+48
+00:03:07,400 --> 00:03:11,400
+make sure that we can compile this. Now you might say, how will
+
+49
+00:03:11,400 --> 00:03:15,400
+this compile when there is no implementation of this found AimingComponent
+
+50
+00:03:15,400 --> 00:03:19,400
+method. We actually don't need to implement it with this macro
+
+51
+00:03:19,400 --> 00:03:23,400
+in place. So let's see if it compiles! We've got a problem in the compilation.
+
+52
+00:03:23,400 --> 00:03:27,400
+Unrecognized Tank type UTankTankAimingComponent. That's
+
+53
+00:03:27,400 --> 00:03:31,400
+why. So let's try it again! Now
+
+54
+00:03:31,400 --> 00:03:35,400
+by the way, while that's compiling, if you want to know what happens to your code
+
+55
+00:03:35,400 --> 00:03:39,400
+after the Header Tool gets to it, you can look if you
+
+56
+00:03:39,400 --> 00:03:43,400
+want, it'll scare you, but you can look at the generated files. So you'll find TankAiming
+
+57
+00:03:43,400 --> 00:03:47,400
+Component... Are we on that? No TankPlayerController
+
+58
+00:03:47,400 --> 00:03:51,400
+.generated.h, and that will show you what your
+
+59
+00:03:51,400 --> 00:03:55,400
+file looks like, just before it gets compiled, after the Unreal Header Tool and the macros have
+
+60
+00:03:55,400 --> 00:03:59,400
+been expanded. So I wouldn't bother, but it's there if you want to wonder
+
+61
+00:03:59,400 --> 00:04:03,400
+about how that works. Now has this compiled?! Yes it has compiled, the game still plays!
+
+62
+00:04:03,400 --> 00:04:07,400
+That's very strange right, because we have not implemented this FoundAimingComponent.
+
+63
+00:04:07,400 --> 00:04:11,400
+Oh well! OK, so let's go over to the blueprint
+
+64
+00:04:11,400 --> 00:04:15,400
+and let's go and find it. Look Event Found
+
+65
+00:04:15,400 --> 00:04:19,400
+Aiming Component. There it is, and it's passing out the Aiming Component reference. That
+
+66
+00:04:19,400 --> 00:04:23,400
+is cool! OK, good good! Now before I hand it over to you, we need
+
+67
+00:04:23,400 --> 00:04:27,400
+to go to the TankPlayerController.cpp file, and we actually need
+
+68
+00:04:27,400 --> 00:04:31,400
+to, at some point, broadcast on this event. Now the way you do that is not with
+
+69
+00:04:31,400 --> 00:04:35,400
+the broadcast key word, it's a little bit different. What you do is you just call FoundAimingComponent
+
+70
+00:04:35,400 --> 00:04:39,400
+with the (AimingComponent)
+
+71
+00:04:39,400 --> 00:04:43,400
+and that's it. What we should do later is put, well...
+
+72
+00:04:43,400 --> 00:04:47,400
+Actually we better do it now, get some protection around it yeah, and also [laughs] we need to find the
+
+73
+00:04:47,400 --> 00:04:51,400
+(AimingComponent). So let's go find this AimingComponent! This is a slightly different piece of work for you.
+
+74
+00:04:51,400 --> 00:04:55,400
+Auto aiming Component. Now the way we can find it, we actually don't
+
+75
+00:04:55,400 --> 00:04:59,400
+need, in the future, to keep an AimingComponent pointer here on the tank,
+
+76
+00:04:59,400 --> 00:05:03,400
+and you'll see why, because what we can do is Unreal provides this functionality for us.
+
+77
+00:05:03,400 --> 00:05:07,400
+We can say auto AimingComponent = GetControlledTank(),
+
+78
+00:05:07,400 --> 00:05:11,400
+and then we can look through the ControlledTank and say, FindComponent
+
+79
+00:05:11,400 --> 00:05:15,400
+ByClass UTank
+
+80
+00:05:15,400 --> 00:05:19,400
+AimingComponent, in a generics format like that.
+
+81
+00:05:19,400 --> 00:05:23,400
+Now what that's going is very much what we did here. Get Controlled Tank, Get Components by
+
+82
+00:05:23,400 --> 00:05:27,400
+Class. In Blueprint returns an array and we get the first one. Over here in C++,
+
+83
+00:05:27,400 --> 00:05:31,400
+it's exactly the same thing, but it returns a single component, not components;
+
+84
+00:05:31,400 --> 00:05:35,400
+in this case, we assume that we have one. Then, we can say if
+
+85
+00:05:35,400 --> 00:05:39,400
+we have an (AimingComponent)... Not auto component! [Laughs] Look at me. If
+
+86
+00:05:39,400 --> 00:05:43,400
+we have an (AimingComponent), then, in fact,
+
+87
+00:05:43,400 --> 00:05:47,400
+with my version of VisualStudio I can do that, which is highlight the line and hit the
+
+88
+00:05:47,400 --> 00:05:51,400
+left chevron or left curly brace. Otherwise, what do you
+
+89
+00:05:51,400 --> 00:05:55,400
+do if you don't have an AimingComponent? Well I think we should log something out. By the BeginPlay(),
+
+90
+00:05:55,400 --> 00:05:59,400
+we really should have an AimingComponent, because of what we talked about before
+
+91
+00:05:59,400 --> 00:06:03,400
+in the previous lecture here. The Tank's
+
+92
+00:06:03,400 --> 00:06:07,400
+constructor and it's AimingComponent's constructor should already have run in the constructors.
+
+93
+00:06:07,400 --> 00:06:11,400
+So by the time we get over here, into the PlayerController
+
+94
+00:06:11,400 --> 00:06:15,400
+blueprint on BeginPlay(), we should already have this Aiming
+
+95
+00:06:15,400 --> 00:06:19,400
+Component added to the Tank, and if we find it this way by finding ComponentByClass it should be there.
+
+96
+00:06:19,400 --> 00:06:23,400
+If it's not there, then we probably want to log out a warning that says
+
+97
+00:06:23,400 --> 00:06:27,400
+something like ("Player controller can't
+
+98
+00:06:27,400 --> 00:06:31,400
+find aiming component at the Begin
+
+99
+00:06:31,400 --> 00:06:35,400
+Play")), something like that. Alright, so that's the code I've written
+
+100
+00:06:35,400 --> 00:06:39,400
+there! Now I've misspelled GetControlledTank,
+
+101
+00:06:39,400 --> 00:06:43,400
+otherwise I think it looks OK. Yep, so that's the new code, is what I've
+
+102
+00:06:43,400 --> 00:06:47,400
+highlighted. Let's see if it'll compile! Go back to the code, while it's compiling,
+
+103
+00:06:47,400 --> 00:06:51,400
+so you can see what's going on. Hopefully you can see what we're doing there. We're finding the AimingComponent
+
+104
+00:06:51,400 --> 00:06:55,400
+a different way from the PlayerController, we're looking through the tank to the AimingComponent,
+
+105
+00:06:55,400 --> 00:06:59,400
+and this could be a better architecture, looking forward, for the AimingComponent and the MovementComponent.
+
+106
+00:06:59,400 --> 00:07:03,400
+Perhaps the tank itself needs to do almost nothing and we just look through it as a
+
+107
+00:07:03,400 --> 00:07:07,400
+placeholder object, that would be a pure component based architecture.
+
+108
+00:07:07,400 --> 00:07:11,400
+So that reload, that compile has failed,
+
+109
+00:07:11,400 --> 00:07:15,400
+in the .cpp line 11.
+
+110
+00:07:15,400 --> 00:07:19,400
+Let's read the error message,
+
+111
+00:07:19,400 --> 00:07:23,400
+
+
+112
+00:07:23,400 --> 00:07:27,400
+template OK. So the class that I'm specifying must be a... OK
+
+113
+00:07:27,400 --> 00:07:31,400
+I see what's going on. So I've used UTankAimingComponent there, but it
+
+114
+00:07:31,400 --> 00:07:35,400
+doesn't know anything about that, so we need to #include
+
+115
+00:07:35,400 --> 00:07:39,400
+the "TankAimingComponent.h".
+
+116
+00:07:39,400 --> 00:07:43,400
+It's a bit of an obscure message
+
+117
+00:07:43,400 --> 00:07:47,400
+for the fact that I haven't included the TankAimingComponent but that's the sort of stuff you're
+
+118
+00:07:47,400 --> 00:07:51,400
+going to get out of the Unreal compiler. So just kind of repass the message, if you
+
+119
+00:07:51,400 --> 00:07:55,400
+can, and think, well what could be going wrong here. OK, so
+
+120
+00:07:55,400 --> 00:07:59,400
+the compile is complete and we can play and it works! OK fantastic! So what
+
+121
+00:07:59,400 --> 00:08:03,400
+I want you to do now is to re-wire this blueprint, to make sure you've understood what we've done. So let's get
+
+122
+00:08:03,400 --> 00:08:07,400
+through to that, go to the TankPlayerController blueprint,
+
+123
+00:08:07,400 --> 00:08:11,400
+use the event to trigger the UI Creation. So instead of the BeginPlay(), we're going to use the event
+
+124
+00:08:11,400 --> 00:08:15,400
+we just made. Also use the passed reference to set that blueprint variable, on the right-hand
+
+125
+00:08:15,400 --> 00:08:19,400
+side of the blueprint, and test that the crosshair color now tracks the
+
+126
+00:08:19,400 --> 00:08:23,400
+Enum state, that was set in the declaration of the Enum. OK and
+
+127
+00:08:23,400 --> 00:08:27,400
+you might want to change it and recompile just to check. So go ahead, pause the video, and see if that's all
+
+128
+00:08:27,400 --> 00:08:31,400
+working now.
+
+129
+00:08:31,400 --> 00:08:35,400
+Okey dokey welcome back! So we don't need the BeginPlay event. We don't need any of this code up here,
+
+130
+00:08:35,400 --> 00:08:39,400
+this is exactly the sort of thing we don't want to be seeing in Blueprint, only very basic asset
+
+131
+00:08:39,400 --> 00:08:43,400
+referencing and UI component creation. So
+
+132
+00:08:43,400 --> 00:08:47,400
+now we've got something along these lines. I'm going to get rid of the Details tab. Zoom in so you can see what's going on
+
+133
+00:08:47,400 --> 00:08:51,400
+a little bit. Great, so we have this AimingComponent. What
+
+134
+00:08:51,400 --> 00:08:55,400
+we want to do, once we find that, is
+
+135
+00:08:55,400 --> 00:08:59,400
+we want to trigger the UI creation, so actually I do need it to be on the left-hand side.
+
+136
+00:08:59,400 --> 00:09:03,400
+So now, when the AimingComponent is found on BeginPlay, we create
+
+137
+00:09:03,400 --> 00:09:07,400
+the UI, and then, we pass the Aiming Component reference over here to this
+
+138
+00:09:07,400 --> 00:09:11,400
+blueprint variable. There's not really any way to make this perfectly neat,
+
+139
+00:09:11,400 --> 00:09:15,400
+so I think I'll just leave it like that, it's pretty clear what's going on.
+
+140
+00:09:15,400 --> 00:09:19,400
+We create the Blueprint Widget, add it to the viewport,
+
+141
+00:09:19,400 --> 00:09:23,400
+we have to pass a reference. But we're also going to need a reference to this widget, so that we
+
+142
+00:09:23,400 --> 00:09:27,400
+know the target of this Blueprint Aiming Component reference, so that
+
+143
+00:09:27,400 --> 00:09:31,400
+when we get over here into the blueprint, Player UI blueprint,
+
+144
+00:09:31,400 --> 00:09:35,400
+this Aiming Component reference is set. OK, let's compile
+
+145
+00:09:35,400 --> 00:09:39,400
+this guy up! Play the game, it's green
+
+146
+00:09:39,400 --> 00:09:43,400
+now. OK, now let's check that's right! So green would be an Enum value of
+
+147
+00:09:43,400 --> 00:09:47,400
+Locked. Let's go and look at the place that this is initialized, which is in the TankAimingComponent
+
+148
+00:09:47,400 --> 00:09:51,400
+header file. Locked, that's great! And you could change that and convince yourself
+
+149
+00:09:51,400 --> 00:09:55,400
+that if you change the default firing state, that the UI now reflects it. Now this
+
+150
+00:09:55,400 --> 00:09:59,400
+is a much much nicer architecture we've got ourselves here, and we're ready
+
+151
+00:09:59,400 --> 00:10:03,400
+to make the UI state change in the AimingComponent. The only thing is, I
+
+152
+00:10:03,400 --> 00:10:07,400
+would say right now is that the aiming is not happening. So
+
+153
+00:10:07,400 --> 00:10:11,400
+we have sorted out our UI, what we need to think about next is
+
+154
+00:10:11,400 --> 00:10:15,400
+how are we going to get an AimingComponent reference
+
+155
+00:10:15,400 --> 00:10:19,400
+working inside the Tank. Remember we still, in the Tank.cpp constructor,
+
+156
+00:10:19,400 --> 00:10:23,400
+we remove the default sub-object, we added
+
+157
+00:10:23,400 --> 00:10:27,400
+the AimingComponent to the tank in Blueprint here, and yet the
+
+158
+00:10:27,400 --> 00:10:31,400
+tank still doesn't have a concept of its AimingComponent. So we're going to turn this
+
+159
+00:10:31,400 --> 00:10:35,400
+architecture inside out, actually, and we're going to remove the
+
+160
+00:10:35,400 --> 00:10:39,400
+AimingComponent references from the Tank and make things work a different
+
+161
+00:10:39,400 --> 00:10:43,400
+way, so that you're going to talk direct to the component. It's going to be another way of
+
+162
+00:10:43,400 --> 00:10:47,400
+doing things. I want you to see it this way, because you'll see this way done, and you may choose to do things this way,
+
+163
+00:10:47,400 --> 00:10:51,400
+but I also want to show you another way. This part of the project really puts pressure on
+
+164
+00:10:51,400 --> 00:10:55,400
+our architecture, so I hope you'll excuse me taking you down this route. It's quite important
+
+165
+00:10:55,400 --> 00:10:59,400
+that you see these ways of adjusting and inverting your architecture and inverting your dependancies.
+
+166
+00:10:59,400 --> 00:11:03,400
+I already have a prototype that's running for this game, I posted that to Facebook months ago
+
+167
+00:11:03,400 --> 00:11:07,400
+or weeks ago, but I do not want to give you a completely sterile journey,
+
+168
+00:11:07,400 --> 00:11:11,400
+because if I do that when you get yourself stuck architecturally you're not
+
+169
+00:11:11,400 --> 00:11:15,400
+going to have the experience to pull yourself out of it. So let's look froward to
+
+170
+00:11:15,400 --> 00:11:19,400
+continuing to refactor and improve our architecture and look at the consequences of doing
+
+171
+00:11:19,400 --> 00:11:21,666
+that. So I'll see you in the next video!
+

@@ -1,0 +1,529 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+So, welcome back!
+
+2
+00:00:04,000 --> 00:00:08,000
+Hopefully you've got your Version Control System all setup and working nicely. If
+
+3
+00:00:08,000 --> 00:00:12,000
+that's out of your depth, then please just do a little bit of your own research and ask in the discussions.
+
+4
+00:00:12,000 --> 00:00:16,000
+And I'm pretty confident that you can get SourceTree installed. Once you have it installed,
+
+5
+00:00:16,000 --> 00:00:20,000
+or your favorite Version Control System, then pick up from there! So, we're
+
+6
+00:00:20,000 --> 00:00:24,000
+going to be talking about ignoring Unreal derived files, so in this video,
+
+7
+00:00:24,000 --> 00:00:28,000
+I want to explain that derived files can be easily rebuilt.
+
+8
+00:00:28,000 --> 00:00:32,000
+Derived files are things that the system uses to speed up, for example, the opening
+
+9
+00:00:32,000 --> 00:00:36,000
+of Unreal or the playing of the game, but they could be rebuilt.
+
+10
+00:00:36,000 --> 00:00:40,000
+Other files, like the code you write or assets you create from scratch or level layout,
+
+11
+00:00:40,000 --> 00:00:44,000
+etc., they can't be easily rebuilt. That's the real value, that's the gold you're creating
+
+12
+00:00:44,000 --> 00:00:48,000
+and we don't want to lose that! So, we want to ignore most derived
+
+13
+00:00:48,000 --> 00:00:52,000
+files, for the sake of version control,
+
+14
+00:00:52,000 --> 00:00:56,000
+and the question is, which folder to ignore in version control.
+
+15
+00:00:56,000 --> 00:01:00,000
+We basically don't want to add everything to version control, it will slow
+
+16
+00:01:00,000 --> 00:01:04,000
+it down and it will make things complicated. If you
+
+17
+00:01:04,000 --> 00:01:08,000
+exclude things automatically, in certain folders, then everything will be faster,
+
+18
+00:01:08,000 --> 00:01:12,000
+your databases will be smaller, you'll take up less disk space, and everything will just
+
+19
+00:01:12,000 --> 00:01:16,000
+be a lot simpler. So, we'll end up showing your our starting
+
+20
+00:01:16,000 --> 00:01:20,000
+.gitignore file for Unreal and how we're going to configure that. And if you're using a different
+
+21
+00:01:20,000 --> 00:01:24,000
+Version Control System, pretty much the same file should work.
+
+22
+00:01:24,000 --> 00:01:28,000
+OK cool! So, what are the derived folders in Unreal,
+
+23
+00:01:28,000 --> 00:01:32,000
+and what does it even mean? Well, I'll come back to this slide in a moment. Let's just look at it! Here
+
+24
+00:01:32,000 --> 00:01:36,000
+we are at the Unreal Launcher. This may look a tiny bit different to your, because I
+
+25
+00:01:36,000 --> 00:01:40,000
+think last time we looked at the Unreal we were back at 4.10.1
+
+26
+00:01:40,000 --> 00:01:44,000
+or a lower version, but get yourself up to date. There's a button up here somewhere that'll let you update the
+
+27
+00:01:44,000 --> 00:01:48,000
+version. You want to be on 4.10.2 or higher, and you'll also
+
+28
+00:01:48,000 --> 00:01:52,000
+notice that I've got a vault down here with some things I've been experimenting with. You can
+
+29
+00:01:52,000 --> 00:01:56,000
+get these from the Market Place and the Learn Tab. You can go ahead and get some of these projects,
+
+30
+00:01:56,000 --> 00:02:00,000
+if you wanted to, but otherwise, this should be pretty familiar. What we want to do is just launch
+
+31
+00:02:00,000 --> 00:02:04,000
+the engine. So, we're in the Epic Games Launcher launching, for the
+
+32
+00:02:04,000 --> 00:02:08,000
+first time in earnest, the Unreal Editor. I'm actually going to start setting up our
+
+33
+00:02:08,000 --> 00:02:12,000
+folders and our everything now, and we'll get the version control issues sorted, so that from
+
+34
+00:02:12,000 --> 00:02:16,000
+now on we can start being grownups and using version control. So, we're going to make a new
+
+35
+00:02:16,000 --> 00:02:20,000
+project for this game. It's going to be a C++, Basic Code project, With
+
+36
+00:02:20,000 --> 00:02:24,000
+Starter Content. So, C++, Basic Code, With Starter Content.
+
+37
+00:02:24,000 --> 00:02:28,000
+Now, where am I going to store this guy? Inside my repos
+
+38
+00:02:28,000 --> 00:02:32,000
+folder sure. The interesting thing is, in Unreal you can't start with numbers.
+
+39
+00:02:32,000 --> 00:02:36,000
+I actually want to start with a number. Project names can't begin with a number, they
+
+40
+00:02:36,000 --> 00:02:40,000
+must begin with an alphanumeric character. So, I go over to my repos here,
+
+41
+00:02:40,000 --> 00:02:44,000
+what I'm going to do is make a folder and call it
+
+42
+00:02:44,000 --> 00:02:48,000
+03_BuildingEscape, like that, and then,
+
+43
+00:02:48,000 --> 00:02:52,000
+back in Unreal I'm going to point it to that directory, repos,
+
+44
+00:02:52,000 --> 00:02:56,000
+03_BuildingEscape. And then, inside that I'm going to
+
+45
+00:02:56,000 --> 00:03:00,000
+create a new one called BuildingEscape, I think. OK, so
+
+46
+00:03:00,000 --> 00:03:04,000
+everything is happy! So, we get a subfolder, which is absolutely fine! So, let's go ahead and create that folder
+
+47
+00:03:04,000 --> 00:03:08,000
+now. Now when it comes to version control, you are OK to
+
+48
+00:03:08,000 --> 00:03:12,000
+either create a repository folder, which you can do in SourceTree, I'll show you in a
+
+49
+00:03:12,000 --> 00:03:16,000
+moment, or just to create your game folder like this. It really doesn't matter which order you do that in
+
+50
+00:03:16,000 --> 00:03:20,000
+yet. It will matter before you make your first, what we call, commit,
+
+51
+00:03:20,000 --> 00:03:24,000
+because we want to make sure we're ignoring the right things, and these .gitignore
+
+52
+00:03:24,000 --> 00:03:28,000
+files, that tell the system what to ignore, only take a count of
+
+53
+00:03:28,000 --> 00:03:32,000
+new stuff, not stuff that's already being tracked, so that'll all come
+
+54
+00:03:32,000 --> 00:03:36,000
+clear in a second. While this builds, let's take a look at what it's building. Here's our Building
+
+55
+00:03:36,000 --> 00:03:40,000
+Escape, here's the subfolder we made. Now, have a look at this subfolder.
+
+56
+00:03:40,000 --> 00:03:44,000
+What I'm going to do is ignore Visual Studio for a minute. I'm actually going to go up a level and I'm going
+
+57
+00:03:44,000 --> 00:03:48,000
+to use TreeSize Free, to map what's being built. If you don't
+
+58
+00:03:48,000 --> 00:03:52,000
+have tree size or a similar tool, then you can just take a look here for
+
+59
+00:03:52,000 --> 00:03:56,000
+"treesize" and treesize here. Jam-
+
+60
+00:03:56,000 --> 00:04:00,000
+Software, OK that's an example of a tool. Let's take a look at it! TreeSize Free!
+
+61
+00:04:00,000 --> 00:04:04,000
+What has Unreal just built? Well, 1.4
+
+62
+00:04:04,000 --> 00:04:08,000
+Gig of stuff! 734 Megabytes in something called Intermediates,
+
+63
+00:04:08,000 --> 00:04:12,000
+600 Megabytes in content, basically, all that is the starter content we selected,
+
+64
+00:04:12,000 --> 00:04:16,000
+and then, it's got Binaries and various other things. So, we need to decide
+
+65
+00:04:16,000 --> 00:04:20,000
+what we're going to be storing here and keeping track of and what we're not. Alright, so let
+
+66
+00:04:20,000 --> 00:04:24,000
+me show you a cool thing! The cool thing, this is Unreal, it's done a load of
+
+67
+00:04:24,000 --> 00:04:28,000
+building to increase the speed that it opens. I'm going to close it.The same applies
+
+68
+00:04:28,000 --> 00:04:32,000
+to Visual Studio, by the way. If we actually build the project there in Visual Studio
+
+69
+00:04:32,000 --> 00:04:36,000
+and go and look at our folders, you'll see here,
+
+70
+00:04:36,000 --> 00:04:40,000
+BuildingEscape.VC.db. You see that guy there? And that's also
+
+71
+00:04:40,000 --> 00:04:44,000
+going to swell up and grow in size, and that's another one of these derived
+
+72
+00:04:44,000 --> 00:04:48,000
+files. So, if you were to do a Google search
+
+73
+00:04:48,000 --> 00:04:52,000
+for "unreal directory structure",
+
+74
+00:04:52,000 --> 00:04:56,000
+for example, to try and make sense of all this, what do we get?
+
+75
+00:04:56,000 --> 00:05:00,000
+I'm going to give you the short answer, but I want to make sure you know where to go and get the detailed answer.
+
+76
+00:05:00,000 --> 00:05:04,000
+The detailed answer is in the Unreal Directory structure. Let me explain what all of these folders
+
+77
+00:05:04,000 --> 00:05:08,000
+do here, OK. I'm going to do my best to explain it for you now.
+
+78
+00:05:08,000 --> 00:05:12,000
+What you need to know, at this stage, is the Binaries,
+
+79
+00:05:12,000 --> 00:05:16,000
+the Build, the Intermediate, and the Saved folders
+
+80
+00:05:16,000 --> 00:05:20,000
+do not need to be kept. With Unreal closed, Unreal Engine
+
+81
+00:05:20,000 --> 00:05:24,000
+itself, not the launcher we don't care about the launcher, but if the engine is closed you can safely delete
+
+82
+00:05:24,000 --> 00:05:28,000
+all four of those folder. I'm going to prove it, I'm going to do it, while Visual Studio is fiddling around!
+
+83
+00:05:28,000 --> 00:05:32,000
+Then, I'm going to go back and reopen the BuildingEscape project.
+
+84
+00:05:32,000 --> 00:05:36,000
+And watch what happens! The following modules are missing, these .dll's, Dynamic Link Libraries.
+
+85
+00:05:36,000 --> 00:05:40,000
+Would you like to rebuild them? Yes, please. And as we start to rebuild them,
+
+86
+00:05:40,000 --> 00:05:44,000
+it starts to put back in our Intermediate, and you'll see it building other folders.
+
+87
+00:05:44,000 --> 00:05:48,000
+So, what are these folders? It's in your slides, if you're ever not sure. You're derived folder
+
+88
+00:05:48,000 --> 00:05:52,000
+in Unreal are Binaries, Build, DerivedDataCache,
+
+89
+00:05:52,000 --> 00:05:56,000
+if you see it, Intermediate, and Saved. They're the folders we want
+
+90
+00:05:56,000 --> 00:06:00,000
+to get rid of. For a full list, there's that link back to the directory structure
+
+91
+00:06:00,000 --> 00:06:04,000
+that I showed you. OK, so
+
+92
+00:06:04,000 --> 00:06:08,000
+the other thing that happens and that we need to get rid of is these Visual Studio files. If
+
+93
+00:06:08,000 --> 00:06:12,000
+I close Visual Studio now, you'll see that we have a database file that's
+
+94
+00:06:12,000 --> 00:06:16,000
+243 Megabytes large! Now, the good thing about that is,
+
+95
+00:06:16,000 --> 00:06:20,000
+if we reopen... Sorry, I didn't mean to open Unreal then. If we reopen the
+
+96
+00:06:20,000 --> 00:06:24,000
+Visual Studio solution, that you're familiar with from the previous section,
+
+97
+00:06:24,000 --> 00:06:28,000
+it opens very quickly and it's ready to go. The bad thing is, it's taking up
+
+98
+00:06:28,000 --> 00:06:32,000
+243 Meg. So, this is another derived file, so this in summary is what
+
+99
+00:06:32,000 --> 00:06:36,000
+you can delete, these guys. OK, Binaries, Build, Intermediate, Saved,
+
+100
+00:06:36,000 --> 00:06:40,000
+and this VC.db file. So,
+
+101
+00:06:40,000 --> 00:06:44,000
+how do we add this to version control and then ignore
+
+102
+00:06:44,000 --> 00:06:48,000
+these files. I'm going to make that the subject of the next video, so if you're an expert on
+
+103
+00:06:48,000 --> 00:06:52,000
+version control, then this is very simple for you. You just make a .gitignore
+
+104
+00:06:52,000 --> 00:06:56,000
+ignoring these folders. If you're not, I'm going to do a quick primer video for those who aren't, to show people
+
+105
+00:06:56,000 --> 00:07:00,000
+how to ignore files, when they need to. You don't have to get this absolutely right, from the beginning,
+
+106
+00:07:00,000 --> 00:07:04,000
+but we do want to make a good start, so that we don't start tracking all these
+
+107
+00:07:04,000 --> 00:07:08,000
+massive folders. Look, by the way, at the difference in size
+
+108
+00:07:08,000 --> 00:07:12,000
+when we delete these folders. Let me take a look at
+
+109
+00:07:12,000 --> 00:07:16,000
+the size of this folder now.
+
+110
+00:07:16,000 --> 00:07:20,000
+1.56 Gig. Alright, let me go in, making sure that both
+
+111
+00:07:20,000 --> 00:07:24,000
+the Unreal Engine and
+
+112
+00:07:24,000 --> 00:07:28,000
+Visual Studio are closed. We don't want to be deleting files when they are closed. Let's delete Binaries,
+
+113
+00:07:28,000 --> 00:07:32,000
+Build, Intermediate, and Saved. I don't mind repeating myself on this, because these are the things you want
+
+114
+00:07:32,000 --> 00:07:36,000
+to start getting your eye full. And the Visual Studio database file.
+
+115
+00:07:36,000 --> 00:07:40,000
+Now, let's go back and see how big this folder is!
+
+116
+00:07:40,000 --> 00:07:44,000
+Now, it's only 621 Meg, and remember that nearly all of
+
+117
+00:07:44,000 --> 00:07:48,000
+that is under Content, StarterContent, which is basically
+
+118
+00:07:48,000 --> 00:07:52,000
+all of it. So, actually our project is pretty much empty, which is what you'd expect, because we haven't added
+
+119
+00:07:52,000 --> 00:07:56,000
+any value yet! We haven't been in the Unreal Editor doing anything! A really good
+
+120
+00:07:56,000 --> 00:08:00,000
+question to ask yourself is, have I really created that much data? Have I,
+
+121
+00:08:00,000 --> 00:08:04,000
+sitting at the mouse and keyboard, really created hundreds of megabytes of data? And the answer is no,
+
+122
+00:08:04,000 --> 00:08:08,000
+you haven't had time to make that much real data! There may be a load of derived
+
+123
+00:08:08,000 --> 00:08:12,000
+data or data like this StarterContent, which we might not want to exclude,
+
+124
+00:08:12,000 --> 00:08:16,000
+which is available from elsewhere, but we haven't made anything yet.
+
+125
+00:08:16,000 --> 00:08:20,000
+We haven't created any value, therefore there's nothing to store
+
+126
+00:08:20,000 --> 00:08:24,000
+that we can't recreate later. I hope that point kind of comes across. If you're using a microphone,
+
+127
+00:08:24,000 --> 00:08:28,000
+like I am now, or a camera or a video camera, then yes you might be creating many
+
+128
+00:08:28,000 --> 00:08:32,000
+megabytes of data, but if you're just sitting at a computer pushing buttons, you're generally
+
+129
+00:08:32,000 --> 00:08:36,000
+not creating data that fast or new meaning that fast.
+
+130
+00:08:36,000 --> 00:08:40,000
+OK, hopefully that's got the point across for this video, and I look forward to seeing you in the next
+
+131
+00:08:40,000 --> 00:08:44,000
+video, where we'll actually setup our .gitignore and be ready to start making a game!
+
+132
+00:08:44,000 --> 00:08:45,633
+
+

@@ -1,0 +1,760 @@
+
+00:00:00,000 --> 00:00:09,570 align:middle line:90%
+Hey hey hey welcome back. So now we're going
+to talk about working around nested prefabs.
+
+00:00:09,570 --> 00:00:14,610 align:middle line:90%
+Why are we going to talk about that? Well,
+let's take a look. So we have this animation
+
+00:00:14,610 --> 00:00:20,020 align:middle line:90%
+happening right now, remember the swiper comes
+down and wipes away all of the pins which
+
+00:00:20,020 --> 00:00:25,060 align:middle line:90%
+could include pins that have fallen over and
+some of the pins could have been standing;
+
+00:00:25,060 --> 00:00:31,060 align:middle line:90%
+and you know half way through a bowling game
+you want to clear away pins doing a tidy;
+
+00:00:31,060 --> 00:00:35,570 align:middle line:90%
+clear away pins that have fallen over but
+lift up pins that are still standing. Now
+
+00:00:35,570 --> 00:00:38,700 align:middle line:90%
+at the moment this system is just going to
+swipe everything out of the way.
+
+00:00:38,700 --> 00:00:44,579 align:middle line:90%
+So there are two approaches for differentiating
+between pins that are still standing and pins
+
+00:00:44,579 --> 00:00:48,870 align:middle line:90%
+that aren’t. One would be to bring some
+physical object down into the scene. Some
+
+00:00:48,870 --> 00:00:54,280 align:middle line:90%
+sort of rig that attaches just like a pinsetter
+in a bowling game that attaches to the top
+
+00:00:54,280 --> 00:01:00,239 align:middle line:90%
+of the pins and lifts that ones that are still
+standing up. That's an option, but we're going
+
+00:01:00,239 --> 00:01:04,869 align:middle line:90%
+to need to count the number of pins anyway
+using code for the scoring, so we may as well
+
+00:01:04,869 --> 00:01:10,430 align:middle line:90%
+write some code to detect the pins that are
+standing. So the first bit of code needs to
+
+00:01:10,430 --> 00:01:15,030 align:middle line:90%
+sit on the pin itself. It's a bit of code
+that determines for a given pin whether it's
+
+00:01:15,030 --> 00:01:17,570 align:middle line:84%
+vertical or not vertical.
+
+00:01:17,570 --> 00:01:22,150 align:middle line:90%
+So this point brings us to talking about prefabs
+because take a look at this. Click on prefabs
+
+00:01:22,150 --> 00:01:30,470 align:middle line:90%
+in your assets, and maybe open up pins in
+your hierarchy. Now stop the game playing,
+
+00:01:30,470 --> 00:01:34,090 align:middle line:90%
+the reason that you can't see any pins right
+now is that they've all fallen off to infinity.
+
+00:01:34,090 --> 00:01:38,990 align:middle line:90%
+Perfect. So there's your assembly of pins
+and it’s full of ten pins but they’re
+
+00:01:38,990 --> 00:01:45,560 align:middle line:90%
+not your bowling pin prefab. We have a pins
+assembly here full of pins and then we have
+
+00:01:45,560 --> 00:01:52,409 align:middle line:90%
+a bowling pin prefab and these guys unfortunately
+are now nested prefabs. They are not this
+
+00:01:52,409 --> 00:01:56,590 align:middle line:90%
+bowling pin prefab inside of there, in fact
+you can prove that by just deleting your actual
+
+00:01:56,590 --> 00:01:59,000 align:middle line:84%
+bowling pin prefab. Yep, delete it.
+
+00:01:59,000 --> 00:02:03,670 align:middle line:90%
+Why? Because we never want two places for
+things. Look if you went in to what you thought
+
+00:02:03,670 --> 00:02:08,890 align:middle line:90%
+was the sole place for the mass of the bowling
+pin and maybe made it 10 kg here look inside
+
+00:02:08,890 --> 00:02:15,470 align:middle line:90%
+the pin assembly, still 1.53, this guy is
+not linked to these guys, delete it. OK, you
+
+00:02:15,470 --> 00:02:19,459 align:middle line:90%
+got the point. Now that that's deleted how
+do we add something common to all of these
+
+00:02:19,459 --> 00:02:23,640 align:middle line:90%
+pins? Well, there are lots of solutions to
+nested prefabs but in this case we've only
+
+00:02:23,640 --> 00:02:29,280 align:middle line:90%
+got 10 pins so a simple solution is this.
+Select all pins in a pin assembly. We're not
+
+00:02:29,280 --> 00:02:34,300 align:middle line:90%
+selecting the guys up here because these are
+linked to this prefab assembly, so we want
+
+00:02:34,300 --> 00:02:39,510 align:middle line:90%
+to select the thing in assets and then add
+a new script - call it pin. Simple as that.
+
+00:02:39,510 --> 00:02:45,230 align:middle line:90%
+Now every one of these guys has a pin script
+on it now, and that's a valid way to do it
+
+00:02:45,230 --> 00:02:49,200 align:middle line:90%
+when you only have 10 things. Just remember
+in future that if you want to change the mass
+
+00:02:49,200 --> 00:02:53,450 align:middle line:90%
+or drag or any of the properties of the pins
+you need to change all of them by selecting
+
+00:02:53,450 --> 00:02:59,940 align:middle line:90%
+all of them, you cannot simply do it by changing
+a prefab I'm afraid. OK, now we have a pin
+
+00:02:59,940 --> 00:03:04,750 align:middle line:90%
+script available let's look at what we're
+going to be doing in this lecture. We've talked
+
+00:03:04,750 --> 00:03:09,349 align:middle line:90%
+about how unity does not support nested prefabs.
+I've warned you that the pins in the pins
+
+00:03:09,349 --> 00:03:15,489 align:middle line:90%
+assembly are unlinked. Now, we're going to
+add, well we have already added a pin.cs script
+
+00:03:15,489 --> 00:03:17,140 align:middle line:84%
+to the right places.
+
+00:03:17,140 --> 00:03:22,190 align:middle line:90%
+So we need to talk about a method called transform.euler
+angles which we're going to use to determine
+
+00:03:22,190 --> 00:03:26,400 align:middle line:90%
+if the pins are upright, then we’re going
+to write the necessary code to determine that
+
+00:03:26,400 --> 00:03:31,629 align:middle line:90%
+the pins are standing. Cool, so I'll start
+you off on this script, on this journey, and
+
+00:03:31,629 --> 00:03:37,120 align:middle line:90%
+then you can finish off yourself. So back
+in Unity let's go into that pin script, which
+
+00:03:37,120 --> 00:03:44,040 align:middle line:90%
+is the same script on all of the pins inside
+the pin assembly. So the pin script is like
+
+00:03:44,040 --> 00:03:49,180 align:middle line:90%
+a prefab, it's a script that you only have
+to edit ion one place, there's silver lining
+
+00:03:49,180 --> 00:03:57,760 align:middle line:90%
+in this no nested prefab mess. OK, so here
+we go. We have now the pin.cs script and what
+
+00:03:57,760 --> 00:04:02,269 align:middle line:90%
+we're going to want to do here is make this
+have a couple of methods and a couple of properties.
+
+00:04:02,269 --> 00:04:03,920 align:middle line:84%
+So let me show you what your challenge is.
+
+00:04:03,920 --> 00:04:08,510 align:middle line:90%
+So your challenge is to detect if the pins
+are standing; I want you to add a public float
+
+00:04:08,510 --> 00:04:14,760 align:middle line:90%
+standing threshold to this pins.cs that's
+going to be a floating point number in degrees
+
+00:04:14,760 --> 00:04:20,229 align:middle line:90%
+of our threshold beyond which if they're further
+away from the vertical than that then they're
+
+00:04:20,229 --> 00:04:25,530 align:middle line:90%
+no longer standing. We want a method called
+public bool that's going to return true if
+
+00:04:25,530 --> 00:04:31,600 align:middle line:90%
+the transform is rotated less from the threshold
+than vertical and it returns false otherwise.
+
+00:04:31,600 --> 00:04:37,000 align:middle line:90%
+You get the idea? We have a property that
+the designer can tweak to do with the standing
+
+00:04:37,000 --> 00:04:41,009 align:middle line:90%
+threshold - how upright they need to be 0
+and then we have a method that we can call
+
+00:04:41,009 --> 00:04:43,889 align:middle line:84%
+from the outside that asks if the pin is standing.
+
+00:04:43,889 --> 00:04:47,470 align:middle line:90%
+So go ahead, pause the video and see if you
+can write this code right now especially given
+
+00:04:47,470 --> 00:04:57,000 align:middle line:90%
+the hint that I gave you about the transform.eulerangles.
+OK welcome back, let's take a look at how
+
+00:04:57,000 --> 00:05:01,710 align:middle line:90%
+to get this done then. So into your pin script,
+so firstly I told you how to do the first
+
+00:05:01,710 --> 00:05:05,889 align:middle line:90%
+bit, I absolutely gave it to you on a plate,
+we said that it was going to be public float
+
+00:05:05,889 --> 00:05:14,389 align:middle line:90%
+standing threshold. Perfect, now do you give
+this a value now, good question? If you do
+
+00:05:14,389 --> 00:05:17,930 align:middle line:90%
+give it a value here like three degrees then
+that’s a good starting point for your designer
+
+00:05:17,930 --> 00:05:21,560 align:middle line:90%
+but remember that anything that is done in
+the inspector over-rides this and that can
+
+00:05:21,560 --> 00:05:22,560 align:middle line:84%
+be confusing.
+
+00:05:22,560 --> 00:05:28,090 align:middle line:90%
+Let's take a look. Go into one of the pins
+and because it' linked to the pin prefab array
+
+00:05:28,090 --> 00:05:31,550 align:middle line:90%
+you will find that it does have a script on
+it and it has a standing threshold of three.
+
+00:05:31,550 --> 00:05:35,729 align:middle line:90%
+Another warning for you here, if you were
+to change say this pin’s threshold to five
+
+00:05:35,729 --> 00:05:40,590 align:middle line:90%
+a couple of things - it goes bold, it's different
+to the standard value - to the prefab value
+
+00:05:40,590 --> 00:05:43,690 align:middle line:90%
+- doesn't mean that it's different to the
+script value, it's different to the value
+
+00:05:43,690 --> 00:05:48,949 align:middle line:90%
+here in this prefab but of course pin 6 is
+still 3 degrees, and all of the pins in here
+
+00:05:48,949 --> 00:05:53,690 align:middle line:90%
+are still at 3 degrees. So slightly awkwardly
+for your designer or for you with your designer
+
+00:05:53,690 --> 00:05:56,370 align:middle line:90%
+hat on what you really need to be doing is
+selecting all of these and if you need to
+
+00:05:56,370 --> 00:05:59,110 align:middle line:84%
+change it to say 5 degrees then do it there.
+
+00:05:59,110 --> 00:06:04,610 align:middle line:90%
+Now all of these guys will be 5 degrees. OK
+but bear in mind the one you change before
+
+00:06:04,610 --> 00:06:09,550 align:middle line:90%
+is bold you're going to need to revert it
+back to the prefab if you want it to always
+
+00:06:09,550 --> 00:06:13,550 align:middle line:90%
+keep the same value. So this is a bit messy
+now, we need to make sure that anything that
+
+00:06:13,550 --> 00:06:18,090 align:middle line:90%
+we change about pins we need to change by
+selecting all of the pins in the prefab array,
+
+00:06:18,090 --> 00:06:23,840 align:middle line:90%
+and remember that this 5 degree is what over-write
+whatever's in your code. But having a sensible
+
+00:06:23,840 --> 00:06:29,580 align:middle line:90%
+starting point is probably a good idea for
+your designer. Great, OK, so the next thing
+
+00:06:29,580 --> 00:06:30,789 align:middle line:90%
+that we're going to do is to write a method,
+alright?
+
+00:06:30,789 --> 00:06:37,580 align:middle line:90%
+and we gave you the signature of that method
+so let's just get on and write it. It's going
+
+00:06:37,580 --> 00:06:40,550 align:middle line:90%
+to be called public, because we want to be
+able to call it from the outside, bool because
+
+00:06:40,550 --> 00:06:47,050 align:middle line:90%
+it returns a Boolean, IsStanding capitalised
+like this because we're good and like to write
+
+00:06:47,050 --> 00:06:53,580 align:middle line:90%
+nice code. So, how are we going to do this?
+Well, firstly we need to get some simple representation
+
+00:06:53,580 --> 00:07:00,560 align:middle line:90%
+of the rotation of the pin so how are we going
+to do that? Well, why don't we try printing
+
+00:07:00,560 --> 00:07:05,960 align:middle line:90%
+transform.rotation for a start? For a given
+pin alright?
+
+00:07:05,960 --> 00:07:10,630 align:middle line:90%
+Now it’s going to print it for all of these
+pins so that’s going to create a bit of
+
+00:07:10,630 --> 00:07:16,090 align:middle line:90%
+a mess for you in your console but that’s
+OK for now we can do things about that in
+
+00:07:16,090 --> 00:07:20,180 align:middle line:90%
+a minute. Look, we have an error. Not all
+code paths return a value. So now because
+
+00:07:20,180 --> 00:07:24,509 align:middle line:90%
+it's is a method of signature bool, we need
+to return something so let’s just return
+
+00:07:24,509 --> 00:07:31,539 align:middle line:90%
+true. Click play, let's look at the console
+what do we get out. Absolutely nothing so
+
+00:07:31,539 --> 00:07:35,449 align:middle line:90%
+why are we getting nothing out? Good question,
+because we're never calling the IsStanding
+
+00:07:35,449 --> 00:07:39,729 align:middle line:90%
+method so if you call it from update or even
+so we don't make a mess just call it from
+
+00:07:39,729 --> 00:07:44,520 align:middle line:90%
+start. Here we go, so call isStanding pops
+up here, prints out the rotation.
+
+00:07:44,520 --> 00:07:52,509 align:middle line:90%
+Let's look at it, what do we get, Oh, we get
+a 0,0,0 thingy. Ok, well you'd think that
+
+00:07:52,509 --> 00:07:56,870 align:middle line:90%
+that's OK wouldn't you? But, let's take a
+look at a pin, let's rotate it by a known
+
+00:07:56,870 --> 00:08:03,870 align:middle line:90%
+amount by say the z axis, say 5 degrees OK,
+so that's rotated 5 degrees in z, pin number
+
+00:08:03,870 --> 00:08:10,819 align:middle line:90%
+one. Now let's play the game. Let's find the
+odd one out, and you'll notice that there
+
+00:08:10,819 --> 00:08:14,139 align:middle line:90%
+is no odd one out, how come’s that? Now
+let's make sure that we're looking at the
+
+00:08:14,139 --> 00:08:20,970 align:middle line:90%
+right pins, so what you can do here of course
+is just prefix name pin which will tell you
+
+00:08:20,970 --> 00:08:24,479 align:middle line:90%
+the name of the object plus the transform,
+let's try that, so now we get the name of
+
+00:08:24,479 --> 00:08:29,629 align:middle line:90%
+the pin in front; bowling pin one, hmm yet
+I'm sure that at the start, if we look at
+
+00:08:29,629 --> 00:08:32,500 align:middle line:84%
+it carefully, if we pause and play.
+
+00:08:32,500 --> 00:08:36,640 align:middle line:90%
+Look at bowling pin one, it's definitely got
+some rotation in the z axis, 5 degrees, there
+
+00:08:36,640 --> 00:08:41,519 align:middle line:90%
+it is; and yet it's printed here to say it
+has no rotation, why what's going on there?
+
+00:08:41,519 --> 00:08:45,339 align:middle line:90%
+Well, if you were to look at the docs of rotation
+you would find that rotation is stored as
+
+00:08:45,339 --> 00:08:49,670 align:middle line:90%
+something called a quaternion and they are
+horrible complex number based thingies that
+
+00:08:49,670 --> 00:08:53,130 align:middle line:90%
+we don't need to dig into the details of right
+now. What I can tell you is that there's a
+
+00:08:53,130 --> 00:08:59,950 align:middle line:90%
+nice method called eulerAngles that looks
+like that .eulerAngles and that will turn
+
+00:08:59,950 --> 00:09:03,130 align:middle line:90%
+it into a comprehensible vector. Let's try
+again.
+
+00:09:03,130 --> 00:09:12,029 align:middle line:90%
+Play, pause and look, 0,0,5 x, y, z, 5 degree
+rotation was the offset we gave this pin,
+
+00:09:12,029 --> 00:09:17,910 align:middle line:90%
+there it is matching that. OK? Perfect, so
+just to convince you, if we tilted it say
+
+00:09:17,910 --> 00:09:26,430 align:middle line:90%
+30 degrees in the x axis and played and paused
+there it is, 30x, 0y, 0z perfect, so that's
+
+00:09:26,430 --> 00:09:32,140 align:middle line:90%
+the method that we need. dot eulerAngles is
+what we need here, so that gives us the rotation
+
+00:09:32,140 --> 00:09:37,480 align:middle line:90%
+in comprehensible angles of our pin. So why
+not just capture that? That's a useful thing
+
+00:09:37,480 --> 00:09:43,070 align:middle line:90%
+to have in a variable. Vector3 and then what
+shall we call it? Let's call it something
+
+00:09:43,070 --> 00:09:49,040 align:middle line:90%
+like rotation in Euler or it could be just
+rotation but just to stress the point I'll
+
+00:09:49,040 --> 00:09:53,980 align:middle line:90%
+call it rotation in Euler equals that thing
+there, OK which we just discovered by logging
+
+00:09:53,980 --> 00:09:58,910 align:middle line:90%
+and we know we're happy. OK now we have some
+more code to write.
+
+00:09:58,910 --> 00:10:04,050 align:middle line:90%
+Let's think about what the departure point
+from x and the departure from vertical in
+
+00:10:04,050 --> 00:10:08,459 align:middle line:90%
+z is, why x and z go ahead and look at the
+pin again, it's the x axis that is this way,
+
+00:10:08,459 --> 00:10:14,230 align:middle line:90%
+sorry the z axis is that tilt there and the
+x axis is this tilt here, we're not interested
+
+00:10:14,230 --> 00:10:20,930 align:middle line:90%
+in rotation around the y axis, pins only fall
+over when they go into x or z. OK, so we need
+
+00:10:20,930 --> 00:10:26,649 align:middle line:90%
+x and z's departure from the vertical. So
+what is the departure in x? So let's go float,
+
+00:10:26,649 --> 00:10:36,750 align:middle line:90%
+tiltInX now what does that equal? Well let’s
+just try saying rotationInEuler.x and see
+
+00:10:36,750 --> 00:10:45,560 align:middle line:90%
+how that goes, and while we're here let's
+boldly do the same thing for z, and why don't
+
+00:10:45,560 --> 00:10:52,690 align:middle line:90%
+we just print tiltInX plus - concatenate the
+two together - plus tiltInZ.
+
+00:10:52,690 --> 00:11:04,459 align:middle line:90%
+OK let's see what we get out of this. 0,0,0,
+fine which is what you'd expect because none
+
+00:11:04,459 --> 00:11:09,600 align:middle line:90%
+of these pins are tilted, let's tilt this,
+what is this, 8 in x and 12ish in z let's
+
+00:11:09,600 --> 00:11:21,160 align:middle line:90%
+see what we get now.
+Now what it's doing is a literal plus here
+
+00:11:21,160 --> 00:11:25,120 align:middle line:90%
+coming out of this tilt in x and tilt in y
+are actually floats, so we're getting a literal
+
+00:11:25,120 --> 00:11:31,570 align:middle line:90%
+plus going on here so if we actually put a
+string in the middle of this then now this
+
+00:11:31,570 --> 00:11:36,260 align:middle line:90%
+whole operator should evaluate to a string,
+let's see what happens there.
+
+00:11:36,260 --> 00:11:48,570 align:middle line:90%
+Better, we get 351.5 degrees and 347.2 degrees.
+So what's all that about? Well, we've departed
+
+00:11:48,570 --> 00:11:55,320 align:middle line:90%
+from the - well there's it's rotation, it's
+just said that rotating a negative in the
+
+00:11:55,320 --> 00:12:06,690 align:middle line:90%
+x, so like saying that 8 degrees rotation
+in x is a bit like the same as -352 in x Ok
+
+00:12:06,690 --> 00:12:15,310 align:middle line:90%
+so if we say 10 and 20 let's see what result
+we get. 10 and 20 yeah? So that's fine, we
+
+00:12:15,310 --> 00:12:21,339 align:middle line:90%
+are now reading its departure from vertical
+and because my pins are vertically orientated
+
+00:12:21,339 --> 00:12:26,550 align:middle line:90%
+when they are at 0,0,0 transform rotation
+then these figures are correct that’s cool.
+
+00:12:26,550 --> 00:12:34,200 align:middle line:90%
+We have our tiltInX and tiltInY, so but how
+about if it were tilted the other way? Well,
+
+00:12:34,200 --> 00:12:38,339 align:middle line:90%
+how about if it was tilted negative like this?
+Then we're going to have a negative tilt but
+
+00:12:38,339 --> 00:12:43,480 align:middle line:90%
+we don't care which way it's tilted, any tilt's
+a tilt. So what you can use is something called
+
+00:12:43,480 --> 00:12:48,790 align:middle line:90%
+Mathf.abs like this and what that will do
+for you is it will return the absolute value.
+
+00:12:48,790 --> 00:12:58,230 align:middle line:90%
+So minus 3 becomes the same as 3. OK? If I
+can spell Mathf properly. Perfect, so now
+
+00:12:58,230 --> 00:13:02,570 align:middle line:90%
+we have a couple of values if we watch them
+where even if it's tilted in the negative
+
+00:13:02,570 --> 00:13:09,370 align:middle line:90%
+x look at the value we get out, we get 348.53
+in this case, which is a bit odd so let's
+
+00:13:09,370 --> 00:13:18,370 align:middle line:90%
+go minus 10 instead, see what we get now.
+350, you see how 350 degrees, i.e. ten less
+
+00:13:18,370 --> 00:13:29,110 align:middle line:90%
+than 360 is the same as -10 so that may catch
+us out but that's OK 350 is still a huge tilt,
+
+00:13:29,110 --> 00:13:32,620 align:middle line:90%
+what I think we need to do is look at the
+logic next and then debug from there. So we're
+
+00:13:32,620 --> 00:13:38,360 align:middle line:90%
+basically saying that if the tiltInX is less
+than the tilt threshold, or the standingThreshold
+
+00:13:38,360 --> 00:13:51,480 align:middle line:90%
+&&which is a logical and, the tiltInZ is less
+than the standingThreshold; my autocomplete
+
+00:13:51,480 --> 00:13:58,920 align:middle line:90%
+has temporarily given up, then we would return
+true, i.e. the pin is standing, else we return
+
+00:13:58,920 --> 00:14:03,279 align:middle line:84%
+false.
+
+00:14:03,279 --> 00:14:10,370 align:middle line:90%
+Now every frame let's just print for a given
+pin whether it's standing or not. So print
+
+00:14:10,370 --> 00:14:16,589 align:middle line:90%
+name plus isStanding and that should evaluate
+to a string plus a Boolean which will then
+
+00:14:16,589 --> 00:14:25,570 align:middle line:90%
+print out as a string. i.e. true or false,
+let's try it. I have a build error, so where
+
+00:14:25,570 --> 00:14:41,060 align:middle line:90%
+is my build error, let's take a look. Standing
+threshold, so I spelt standingThreshold so
+
+00:14:41,060 --> 00:14:45,560 align:middle line:90%
+now when we run, and we've corrected all of
+our errors you can see now at the start pin
+
+00:14:45,560 --> 00:14:49,889 align:middle line:90%
+one was not considered to be standing but
+the rest of them were which is ideal, it's
+
+00:14:49,889 --> 00:14:50,310 align:middle line:84%
+great.
+
+00:14:50,310 --> 00:14:56,360 align:middle line:90%
+So I'm going to go ahead and leave pin one
+standing upright now at the start, and then
+
+00:14:56,360 --> 00:15:01,470 align:middle line:90%
+what I'm going to do is just change this call
+to IsStanding from the start to update so
+
+00:15:01,470 --> 00:15:06,579 align:middle line:90%
+that it updates every frame; so there we are
+we're calling IsStanding every update, let's
+
+00:15:06,579 --> 00:15:14,529 align:middle line:90%
+see what happens. If I collapse the console
+what's happening? See, we're getting a load
+
+00:15:14,529 --> 00:15:19,610 align:middle line:90%
+of changes now, that's good. So that's encouraging,
+we're starting off with all of the pins logging
+
+00:15:19,610 --> 00:15:24,610 align:middle line:90%
+here to IsStanding is true and very quickly
+we're starting to get some of them logging
+
+00:15:24,610 --> 00:15:29,180 align:middle line:90%
+as false and eventually all of them are logging
+out to the false and all of the true lines
+
+00:15:29,180 --> 00:15:29,759 align:middle line:84%
+are stopped.
+
+00:15:29,759 --> 00:15:34,940 align:middle line:90%
+So that looks pretty encouraging to me. Let's
+also try bowling the ball down the lane, a
+
+00:15:34,940 --> 00:15:40,449 align:middle line:90%
+little bit, now if you want that swiper to
+stop by the way then you just go in to your
+
+00:15:40,449 --> 00:15:48,420 align:middle line:90%
+animator for your lane swiper, and this transition
+here just turn has exit time off then it will
+
+00:15:48,420 --> 00:15:54,779 align:middle line:90%
+no longer do that. So it sits in idle the
+whole time. So let's see, where's the console?
+
+00:15:54,779 --> 00:15:57,740 align:middle line:90%
+If by the way you want to see this console
+more clearly you could always just bring it
+
+00:15:57,740 --> 00:16:03,079 align:middle line:90%
+over on the right here, or you can see the
+full height of it; and if you clear the console
+
+00:16:03,079 --> 00:16:08,709 align:middle line:90%
+and play, and leave it on collapse, we get
+quite a clear indication.
+
+00:16:08,709 --> 00:16:13,060 align:middle line:90%
+We had a few pins briefly saying that they
+were out of threshold for some reason but
+
+00:16:13,060 --> 00:16:18,820 align:middle line:90%
+now they're all settled down to correct and
+true, and standing, now let's try firing the
+
+00:16:18,820 --> 00:16:26,019 align:middle line:90%
+ball, see if I can actually get a hit, Oh
+at least hit one, there you go so which pin
+
+00:16:26,019 --> 00:16:29,540 align:middle line:90%
+number was that? That was pin number ten.
+Which is no longer logging true, it's now
+
+00:16:29,540 --> 00:16:33,930 align:middle line:90%
+logging false. Great. It looks on the surface
+like the standing code is working. Let's take
+
+00:16:33,930 --> 00:16:38,910 align:middle line:90%
+a look at it, make sure we understand it,
+we grab the EulerAngles, we grab the absolute
+
+00:16:38,910 --> 00:16:44,120 align:middle line:90%
+value of their rotation in x and z and then
+we say that if the absolute value is less
+
+00:16:44,120 --> 00:16:47,089 align:middle line:90%
+than the threshold, whatever it's set to,
+remembering that that's over-ridden in the
+
+00:16:47,089 --> 00:16:50,209 align:middle line:84%
+inspector, then the thing is no longer standing.
+
+00:16:50,209 --> 00:16:52,790 align:middle line:90%
+Final thing that I'm going to do is to make
+sure that it's the same for all of them in
+
+00:16:52,790 --> 00:16:57,540 align:middle line:90%
+the inspector, to be absolutely sure you need
+to select all of your pins, set the value
+
+00:16:57,540 --> 00:17:01,769 align:middle line:90%
+here, but that doesn't guarantee it because
+your actual instantiated pins here in the
+
+00:17:01,769 --> 00:17:07,030 align:middle line:90%
+scene in your case, the ones that started
+here, may have a different value. Later we
+
+00:17:07,030 --> 00:17:10,789 align:middle line:90%
+won't have pins in the scene in the start,
+we will always instantiate them. Then we know
+
+00:17:10,789 --> 00:17:14,959 align:middle line:90%
+that we're getting the fresh values off these
+prefabs but otherwise you may need to go through
+
+00:17:14,959 --> 00:17:17,720 align:middle line:90%
+here and check your standing threshold in
+the hierarchy.
+
+00:17:17,720 --> 00:17:21,549 align:middle line:90%
+Cool, so quite a complex lecture but I hope
+that you understand why, how we can detect
+
+00:17:21,549 --> 00:17:26,549 align:middle line:90%
+these pins standing vertically now and see
+you soon.

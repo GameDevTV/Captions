@@ -1,0 +1,882 @@
+Kind: captions
+Language: en
+
+00:00:00,000 --> 00:00:08,290
+So welcome back, it's time to wire up our
+action master to the rest of our game
+
+00:00:08,290 --> 00:00:12,280
+regardless of whether we think we're
+completely finished with the action
+
+00:00:12,280 --> 00:00:18,300
+master testing we can still wire it to
+the rest of the game because the API the
+
+00:00:18,300 --> 00:00:21,539
+interface between the action master and
+the rest of the game isn't going to
+
+00:00:21,539 --> 00:00:26,119
+change its a very simple API is just
+that bowl method. So we're going to
+
+00:00:26,119 --> 00:00:31,060
+connect PinSetter.cs to action
+master.cs; refactor PinSetter.cs
+
+00:00:31,060 --> 00:00:36,510
+to report pinfall; currently it
+reports the number of standing pins it
+
+00:00:36,510 --> 00:00:40,250
+doesn't actually know how many pins have
+fallen connect PinSetter.cs
+
+00:00:40,250 --> 00:00:45,489
+to the animator aswell; remove the
+tidy and reset test buttons and ensure
+
+00:00:45,489 --> 00:00:50,940
+our game controls itself now. So the
+first thing to do is to refactor PinSettter.cs
+
+00:00:50,940 --> 00:00:54,930
+so that it understands the
+concept of the pinfall that it's going
+
+00:00:54,930 --> 00:00:59,879
+to need to call the bowl method, so work
+out how to do that you're going to need
+
+00:00:59,879 --> 00:01:05,909
+to help PinSetter.cs 
+understand how many pins have fallen in
+
+00:01:05,909 --> 00:01:08,840
+a given bowl rather than just how many
+are standing at the end
+
+00:01:08,840 --> 00:01:14,530
+go ahead, pause the video, see if you can take on
+that challenge yourself. OK, welcome
+
+00:01:14,530 --> 00:01:18,840
+back so this is how I'm gonna take that
+on I'm gonna suggest that in PinSetter
+
+00:01:18,840 --> 00:01:25,850
+we need to have some concept of last
+settled count and what does that start as? 10
+
+00:01:25,850 --> 00:01:30,630
+So  in the beginning our last settled count
+is 10 pins because we have 10 pins just
+
+00:01:30,630 --> 00:01:34,130
+standing there with the very very
+beginning of the game, after that it's up
+
+00:01:34,130 --> 00:01:38,689
+to the code below to maintain the state
+of that variable. So when do we update
+
+00:01:38,689 --> 00:01:42,710
+last settled count and what is last settled
+count? Well you do it when the pins
+
+00:01:42,710 --> 00:01:46,790
+have settled right right here at the top
+of pins have settled we need to think
+
+00:01:46,790 --> 00:01:54,970
+about updating this last settled count
+so what is going to be the code for that?
+
+00:01:54,970 --> 00:01:58,730
+Well we need to ultimately end up with a
+pinfall, so let's make an integer for
+
+00:01:58,730 --> 00:02:05,180
+PinFall and that will be the last
+settled count minus we'll do a count
+
+00:02:05,180 --> 00:02:10,119
+standing right now. So imagine we've
+knocked down one pin, we count nine pins
+
+00:02:10,119 --> 00:02:17,920
+standing so 10-9 is one so our PinFall is
+one. We knocked down one pin makes sense
+
+00:02:17,920 --> 00:02:22,180
+then we need to update this last settled
+count, that's the time to do it, so the last settled
+
+00:02:22,180 --> 00:02:27,400
+count simply equals the count standing.
+OK we're calling count standing twice, who
+
+00:02:27,400 --> 00:02:29,150
+cares it's pretty quick
+
+00:02:29,150 --> 00:02:34,300
+OK so that's it really in terms of
+getting a last settled count variable
+
+00:02:34,300 --> 00:02:39,920
+that actually works do we want to make
+sure that works I think we do print last
+
+00:02:39,920 --> 00:02:44,810
+settled count. Now I think we've actually
+possibly got too many print statements
+
+00:02:44,810 --> 00:02:48,910
+going on now so I'm going to look for
+print in my code and also debug.Log
+
+00:02:48,910 --> 00:02:51,570
+as we seem to use them pretty interchangeably
+
+00:02:51,570 --> 00:02:55,810
+I hit too many keys tehre, that was fun. OK let's try again
+
+00:02:55,810 --> 00:03:02,530
+debug log raising pins yeah we don't
+need raising pins anymore what else don't
+
+00:03:02,530 --> 00:03:08,050
+we need? Just one of renewing pins, don't need that. Just trying to keep my log tidy.
+
+00:03:08,050 --> 00:03:15,239
+Ok, cool so when they settled we gonna print
+or I'll use Debug.Log, doesn't really make much difference
+
+00:03:15,239 --> 00:03:19,470
+last settled down let's make sure it
+works firstly back into unity see if
+
+00:03:19,470 --> 00:03:27,110
+that concept works. So let's bowl a ball, see what we get.
+
+00:03:27,110 --> 00:03:35,580
+Clonk. How many have we
+knocked down? Actually don't want to knock all
+
+00:03:35,580 --> 00:03:42,100
+of them down. What did we get? One, that's not right
+that's not right that's the number of
+
+00:03:42,100 --> 00:03:47,110
+standing pins OK I'm going to get rid of the resetting ball debug log, I missed that and try and
+
+00:03:47,110 --> 00:03:50,110
+work out what's wrong with our code so
+where did this one come from it came
+
+00:03:50,110 --> 00:03:56,880
+from this line debug.Log settlecount
+I'm logginf the long thing, I should be logging PinFall. OK so I want
+
+00:03:56,880 --> 00:04:03,400
+to see what the pinfall is not the last
+settled count. Try again, so one actually
+
+00:04:03,400 --> 00:04:06,840
+was the last settled count at that point in the code that's
+correct. That
+
+00:04:06,840 --> 00:04:13,700
+was the last count of the settled pins. Which is kind of
+what last settled count means. wow I'm too good at
+
+00:04:13,700 --> 00:04:19,430
+getting strikes. So anyway we should get a
+pinfall of 10 we do. okay so, let's just start
+
+00:04:19,430 --> 00:04:25,720
+again and bowl another another bowl;
+and actually we could of course use test
+
+00:04:25,720 --> 00:04:28,860
+driven development for this as well
+
+00:04:28,860 --> 00:04:32,000
+if you wanted to but we're not doing
+that right now just to keep things
+
+00:04:32,000 --> 00:04:35,280
+simple keep one set of tests going at a
+time and then I'm going to restrict the
+
+00:04:35,280 --> 00:04:39,639
+test to making sure that the scoring
+and the reset and the action master all work
+
+00:04:39,639 --> 00:04:40,250
+properly
+
+00:04:40,250 --> 00:04:46,039
+Let's just do one more kind of playtesting
+test. Everything's a bit weird and slow
+
+00:04:46,039 --> 00:04:49,469
+I'm gonna leave my game like this I
+quite like it being spacey like this you
+
+00:04:49,469 --> 00:04:53,620
+might want to change all your physics
+parameters. So are they gonna settle let's see
+
+00:04:53,620 --> 00:04:59,259
+them settle, it should settle on 3, 3 and it
+was a pinfall of seven cool so we now
+
+00:04:59,259 --> 00:05:03,860
+know the PinFall which is helpful so why
+don't we try and find out what the
+
+00:05:03,860 --> 00:05:07,949
+action is going to be for that we're
+gonna need an action master. Privately we
+
+00:05:07,949 --> 00:05:12,550
+need  an action master, it's a base class and
+we're going to call it am for action
+
+00:05:12,550 --> 00:05:19,310
+master so we've got ourselves in action
+master available now so we may as well
+
+00:05:19,310 --> 00:05:22,750
+go straight ahead when we when the pin
+settle and rather that just logging the
+
+00:05:22,750 --> 00:05:29,569
+pinfall we could log action master lower
+the instance dot bowl and then the PinFall
+
+00:05:29,569 --> 00:05:36,550
+and see what we get back; and we should
+be very close now, what have I done wrong?
+
+00:05:36,550 --> 00:05:40,339
+Missing closing bracket - we should be
+very close now to a situation where the
+
+00:05:40,339 --> 00:05:44,690
+machine can actually control itself but
+let's just take one step at a time and
+
+00:05:44,690 --> 00:05:52,259
+try actually instantiating an action
+master and calling it, see what we get. So If I was to
+
+00:05:52,259 --> 00:05:57,529
+Bowl this is whatever that's going to
+end up being... gonna be a nothing or a 9 I'm
+
+00:05:57,529 --> 00:06:05,159
+guessing it's gonna be a 9. Well a 1. So I bowled
+1, I should get a tidy here and I get an
+
+00:06:05,159 --> 00:06:08,000
+object reference not set to an instance
+of an object
+
+00:06:08,000 --> 00:06:13,000
+What's wrong? So it doesn't understand
+this action master and that's because I
+
+00:06:13,000 --> 00:06:19,819
+never actually create a new action
+master I need to construct an action
+
+00:06:19,819 --> 00:06:24,009
+master so when I declare it up here I
+define it but I don't declare it I need
+
+00:06:24,009 --> 00:06:29,289
+to say new action master with some curly
+brackets and that will use a default
+
+00:06:29,289 --> 00:06:33,110
+constructor for action master we don't
+actually specify any constructor in here
+
+00:06:33,110 --> 00:06:36,680
+but we also just don't need to. So you
+need when you declare; when you define
+
+00:06:36,680 --> 00:06:40,289
+it to add on this, to make a
+declaration and to actually create
+
+00:06:40,289 --> 00:06:44,770
+an Action Master. Let's try again now that we
+are actually creating an instance of an
+
+00:06:44,770 --> 00:06:55,180
+action master. previously we declared it but we did
+not actually instantiate it, let's see what
+
+00:06:55,180 --> 00:06:55,960
+happens now
+
+00:06:55,960 --> 00:07:00,279
+tidy perfect, we're getting a tidy back. So
+let's rig it up, let's rig this guy up
+
+00:07:00,279 --> 00:07:03,349
+to the animator which means we need
+access to the animator
+
+00:07:03,349 --> 00:07:12,319
+so let's go find an animator private
+animator animator. OK so let's go find
+
+00:07:12,319 --> 00:07:16,979
+the animator in start, simple enough
+actually why don't you do some of this?
+
+00:07:16,979 --> 00:07:19,809
+why don't we give you a bit more of a challenge
+to do rather than just watching me
+
+00:07:19,809 --> 00:07:24,169
+coding/ Why don't you connect the PinSetter
+to the animator? You thought you were going to get away
+
+00:07:24,169 --> 00:07:28,889
+with a free ride then, just watching me
+code doesn't teach you very much at all.
+
+00:07:28,889 --> 00:07:32,599
+You doing it does so connect PinSetter to
+animated, get PinSetter directly
+
+00:07:32,599 --> 00:07:36,949
+triggering the animator, check it works
+and remove the UI test buttons. Let's go
+
+00:07:36,949 --> 00:07:44,449
+ahead and get this guy finished. OK
+welcome back so where was I? I was
+
+00:07:44,449 --> 00:07:51,289
+finding an animator animator equals
+get component, what am I gonna say? Animator.
+
+00:07:51,289 --> 00:07:55,009
+Simple enough, it's a method it needs the squigglies, we're good to go.
+
+00:07:55,009 --> 00:08:00,180
+OK so once we have an animator, then down
+in our pins have settled we don't need
+
+00:08:00,180 --> 00:08:04,699
+to log this out any more. We get the
+pinfall and the last settled count and
+
+00:08:04,699 --> 00:08:11,069
+then something else is gonna happen in
+here. So we want firstly to capture the
+
+00:08:11,069 --> 00:08:16,749
+action so it's an action master dot action
+that's the enum, or the type, so this is
+
+00:08:16,749 --> 00:08:20,680
+the type action master dot action and
+we're going to call it action
+
+00:08:20,680 --> 00:08:23,999
+equals and then we make the single
+method call in this in this pins have
+
+00:08:23,999 --> 00:08:31,459
+settled method action master dot bowl
+pinfall, just like the Print statement. So
+
+00:08:31,459 --> 00:08:35,539
+now this action will contain the result
+of action master; what actionmaster thinks
+
+00:08:35,539 --> 00:08:36,889
+we should do next.
+
+00:08:36,889 --> 00:08:41,250
+Do we need to log this? You could
+log it if you wanted to, I think it
+
+00:08:41,250 --> 00:08:44,240
+would not do any harm to log it again
+even though I just removed that log entry
+
+00:08:44,240 --> 00:08:49,449
+Debug.Log the actual action so this is
+gonna behave just like it did a moment
+
+00:08:49,449 --> 00:08:53,279
+ago but we have access now to a variable
+called action that we can start doing iffy
+
+00:08:53,279 --> 00:08:59,060
+things with. Not iffy but iffy - you know what I mean.
+Action if action equals action master dot
+
+00:08:59,060 --> 00:09:07,399
+action tdot tidy - capital A for faction
+master because we're talking about the
+
+00:09:07,399 --> 00:09:12,939
+enum that is a type declared in action
+master. So action master dot action dot tidy
+
+00:09:12,939 --> 00:09:19,130
+what do we do if we have a tidy? Well you
+want to go to the animator that we just
+
+00:09:19,130 --> 00:09:25,540
+found, we want to set the trigger and it
+wants to be the tidy trigger right? Now
+
+00:09:25,540 --> 00:09:28,490
+if you're not sure what the name of the
+trigger was remember where to find it in
+
+00:09:28,490 --> 00:09:33,860
+Unity, you go to the PinSetter you probably
+bring out your animation layout if
+
+00:09:33,860 --> 00:09:37,920
+you've got one if you haven't then you're
+gonna need to add in an animator
+
+00:09:37,920 --> 00:09:50,309
+or animation rather easily confused window
+and then you click on there and
+
+00:09:50,309 --> 00:09:55,399
+then we look at the triggers which will
+be parameters tidy trigger reset trigger
+
+00:09:55,399 --> 00:10:01,540
+oK so that's right you need to click the
+animator and then you look and you see
+
+00:10:01,540 --> 00:10:05,769
+your triggers under the parameters there
+so it's tidy trigger and reset trigger. So if
+
+00:10:05,769 --> 00:10:09,589
+we get a tidy back we trigger tidy well
+let's try it. Let's try and bowl something
+
+00:10:09,589 --> 00:10:14,370
+that makes a tidy happen shall we?
+So that is... well, hitting
+
+00:10:14,370 --> 00:10:19,660
+1 pin would do it. We also need to deal
+with gutter balls, we need to deal with gutter
+
+00:10:19,660 --> 00:10:25,410
+balls in a moment. OK, I hit a pin so I
+won't deal with a gutter ball right now, so we
+
+00:10:25,410 --> 00:10:28,940
+get a one and then what do we get? A tidy
+and there goes the machine we didn't
+
+00:10:28,940 --> 00:10:32,960
+have to hit the tidy button. That's pretty
+cool in fact it means we can delete the
+
+00:10:32,960 --> 00:10:36,580
+tidy button right now because I think
+that's the only instance in which we
+
+00:10:36,580 --> 00:10:41,930
+well if we get a tidy it's doing it for
+us we don't need to hit the button so
+
+00:10:41,930 --> 00:10:44,930
+there goes the tidy button, what's next well
+let's get the rest of this finished
+
+00:10:44,930 --> 00:10:48,940
+off, it's relatively simple now. We just
+need to enumerate through the different
+
+00:10:48,940 --> 00:10:53,500
+possible actions so else if and then
+we're going to have a very similar
+
+00:10:53,500 --> 00:10:59,660
+statement I like to write my braces all
+first and I know they're right; and then if
+
+00:10:59,660 --> 00:11:04,170
+the action equals action master dot
+what will we go for next, end turn? It doesn't
+
+00:11:04,170 --> 00:11:08,920
+really matter really, let's just deal with the
+end turn next. What are you gonna do on an end
+
+00:11:08,920 --> 00:11:14,390
+turn? Well actually as far as the PinSetter's
+concerned we just need to trigger a
+
+00:11:14,390 --> 00:11:21,990
+reset don't we? For now we don't have any more
+nuanced system than that. In fact I'll
+
+00:11:21,990 --> 00:11:26,730
+probably restrict this game to a single
+player game anyway and leave you as a
+
+00:11:26,730 --> 00:11:30,180
+challenge to make it multiplayer. It's just
+extra coding you don't need to watch
+
+00:11:30,180 --> 00:11:35,980
+So if you have an end then you do a reset
+trigger now we can copy this else if here
+
+00:11:35,980 --> 00:11:44,690
+I'll just copy that differently if you copy
+an else if correctly like that, there you go
+
+00:11:44,690 --> 00:11:48,550
+then you can just paste it so what else have we got?
+We've got a possible reset coming
+
+00:11:48,550 --> 00:11:51,700
+back, what do you do with a reset? You
+also do a reset you could have used an
+
+00:11:51,700 --> 00:11:55,990
+or there but I'm not using an or, and
+then the final thing that you might get
+
+00:11:55,990 --> 00:11:59,900
+back is an end game and we don't
+actually know how to handle an end game
+
+00:11:59,900 --> 00:12:03,660
+yet so what we gonna do if we don't know
+how to handle an end game? Why don't we
+
+00:12:03,660 --> 00:12:15,000
+throw new unity exception" don't know how
+to handle end game yet" and then we have
+
+00:12:15,000 --> 00:12:19,059
+an exception with a badly spelled No
+
+00:12:19,059 --> 00:12:26,829
+oK so that's that lets take a look at
+how this actually pans out now. So let's
+
+00:12:26,829 --> 00:12:34,449
+boldly remove this reset button, and make
+sure you remove it
+
+00:12:34,449 --> 00:12:43,939
+not in play mode, rookie error. OK let's have a go.
+Kind of doing play testing as you go here
+
+00:12:43,939 --> 00:12:52,269
+Gutter ball now, what happens? Tidy yeah that's
+correct, no PinFall, we don't really know what
+
+00:12:52,269 --> 00:12:54,719
+the PinFall is. Let's find out what the
+PinFall is, I'm just gonna go back into
+
+00:12:54,719 --> 00:13:01,129
+my code and log out the PinFall, so
+where we debug log action why don't we
+
+00:13:01,129 --> 00:13:14,819
+also put the PinFall
+
+00:13:14,819 --> 00:13:24,519
+Cool. So I'm just logging out the pinfall and the
+action just for fun really. OK let's try it,
+
+00:13:24,519 --> 00:13:33,669
+a bit of play testing as we go... what have we got? Pinfall 10 tidy is what I'd expect, oh end turn rather.
+
+00:13:33,669 --> 00:13:37,019
+yeah that's right, look at that cool; and
+the machines doing a reset down the bottom
+
+00:13:37,019 --> 00:13:41,029
+there and it's the end of the turn but
+it's a single player game for now so let's
+
+00:13:41,029 --> 00:13:47,389
+play again. So you're doing some
+play testing as you go, it's perfectly
+
+00:13:47,389 --> 00:13:49,029
+valid, good time to do it
+
+00:13:49,029 --> 00:13:59,910
+knocked one pin down - it's very much space bowling isn't it? Look at that, pinfall 0, invalid pins, Unity exception error
+
+00:13:59,910 --> 00:14:07,589
+So we get an exception error first when
+we try and call the bowl, so where does
+
+00:14:07,589 --> 00:14:12,669
+this happen? Here probably and then we
+log the PinFall, so I'm just gonna move this
+
+00:14:12,669 --> 00:14:17,169
+log statement up just above the action
+master in case it ever happens again but
+
+00:14:17,169 --> 00:14:24,600
+before... no we can't move it above because we don't
+know the Pinfall at this point yes the
+
+00:14:24,600 --> 00:14:28,459
+action at this point but the point is
+what's going on here we're getting a
+
+00:14:28,459 --> 00:14:35,639
+PinFall of 0 we didn't have a PinFall of 0
+so ok perhaps this is because we're
+
+00:14:35,639 --> 00:14:39,819
+calling count standing twice and maybe
+one of his pins was wobbling. It's a bit
+
+00:14:39,819 --> 00:14:43,369
+dangerous to call count standing twice
+so why don't I just do a little bit of a
+
+00:14:43,369 --> 00:14:52,839
+refactor here, so why don't I say int standing
+equals count standing and then actually
+
+00:14:52,839 --> 00:15:00,759
+use that variable thee - simple, simple
+change but then we're not calling count
+
+00:15:00,759 --> 00:15:05,379
+standing twice at two very slightly
+different times during which the pins
+
+00:15:05,379 --> 00:15:09,470
+may have wobbled around their center and
+maybe standing in one instance and not
+
+00:15:09,470 --> 00:15:12,540
+standing in another let's see if that's
+the problem
+
+00:15:12,540 --> 00:15:17,030
+It's gonna be difficult to test of course and
+not something we can super easily write a
+
+00:15:17,030 --> 00:15:21,580
+test for because this is to do with physics
+probably probably, it may have some more
+
+00:15:21,580 --> 00:15:23,290
+systematic error let's find out.
+
+00:15:23,290 --> 00:15:28,550
+So here we've knocked down what, 5 pins
+something like that so we should get a
+
+00:15:28,550 --> 00:15:41,950
+PinFall 5 tidy which we do, tidies the
+pins, now let's see what we have, it would be nice to knock one down
+
+00:15:41,950 --> 00:15:46,590
+with this, are we gonna clip this guy in the end?
+
+00:15:46,590 --> 00:15:54,830
+Missed. Pinfall 0, End turn. Yeah, 5, 0 tidy end turn. That's working nicely. I'm going to  keep playing for a
+
+00:15:54,830 --> 00:15:59,670
+moment, see if I see if I can find any
+bugs in this, because basically we're
+
+00:15:59,670 --> 00:16:04,300
+done if this works then we are done in
+terms of the control of the machine the
+
+00:16:04,300 --> 00:16:08,140
+final thing we need to do is change up
+our UI and get scoring working. Oh look,
+
+00:16:08,140 --> 00:16:08,850
+hold on
+
+00:16:08,850 --> 00:16:17,250
+pinfall one yet I see four pins standing,
+definitely wasn't a pinfall of one there.
+
+00:16:17,250 --> 00:16:21,430
+Something is going wrong with the way
+that this pin fall is calculated. So one
+
+00:16:21,430 --> 00:16:27,990
+of my ways of tackling this will be to
+temporarily make public the last settled
+
+00:16:27,990 --> 00:16:35,110
+count and I'll put in a TODO to make private
+again and what I'm going to do is I'm
+
+00:16:35,110 --> 00:16:43,330
+gonna play the game looking at the
+PinSetter's last settled count over here in
+
+00:16:43,330 --> 00:16:47,370
+the inspector here. So let's start afresh,
+keep an eye on the last settled count,
+
+00:16:47,370 --> 00:16:50,950
+make sure that's right because
+something is going wrong with this PinFall
+
+00:16:50,950 --> 00:16:57,970
+and the last settled count. Now this is
+where, once you've done test driven
+
+00:16:57,970 --> 00:17:01,170
+development this is where you really
+start to appreciate it because having to
+
+00:17:01,170 --> 00:17:05,310
+get the right test conditions to
+form the bug here is a pain in the butt
+
+00:17:05,310 --> 00:17:20,540
+right so Pinfall of 0, last settled count is 10
+that sounds right to me. Lsat settled count is still 10, it hasn't updated
+
+00:17:20,540 --> 00:17:27,250
+yet so PinFall of 6 and last settled
+count of four, and now you see of course
+
+00:17:27,250 --> 00:17:31,600
+the last settled count should be 10 now so
+this is where we're gonna get our problem
+
+00:17:31,600 --> 00:17:36,450
+we're not resetting the last settled
+count when we do a reset, let's try it. That's
+
+00:17:36,450 --> 00:17:42,820
+going to be the problem. Now I bet we'll
+have a weird issue. Yep we have a weird
+
+00:17:42,820 --> 00:17:47,190
+issue. OK that's not particularly
+surprising it's because we're not, as I say,
+
+00:17:47,190 --> 00:17:50,940
+we're not resetting the last settled count.
+So you see the approach there was to
+
+00:17:50,940 --> 00:17:55,700
+expose in the inspector the thing that
+you suspect is causing the problem and
+
+00:17:55,700 --> 00:18:00,880
+then to make sure that you can see it's
+value live so whenever we do a
+
+00:18:00,880 --> 00:18:09,550
+reset in the animator we need to set the
+last settled count back to 10. So here we
+
+00:18:09,550 --> 00:18:21,440
+just need to say last settled count equals 10
+and the same here and you could refactor
+
+00:18:21,440 --> 00:18:27,470
+this so that you don't repeat code but
+it's fine So now whilst we still have that
+
+00:18:27,470 --> 00:18:33,450
+variable exposed let's just play again and
+make sure that the second frame behaves
+
+00:18:33,450 --> 00:18:39,470
+properly, last settled count is 10 it was
+set by the declaration at the top, we get
+
+00:18:39,470 --> 00:18:46,790
+a pinfall of 7 and we should have a tidy
+at this stage; beautiful I love this
+
+00:18:46,790 --> 00:18:53,290
+machine working on its own it feels kind
+of exciting ok now I missed which is
+
+00:18:53,290 --> 00:18:55,480
+fine it's a perfectly valid bowl
+
+00:18:55,480 --> 00:19:00,340
+so I missed, I get a zero so PinFall 0, end
+turn yeah that looks right, swipes away
+
+00:19:00,340 --> 00:19:04,470
+the pins really cool, feels like it's got a
+mind of its own it knows the rules of
+
+00:19:04,470 --> 00:19:09,760
+bowling. So all that hard work that we did which I
+think was hard work with the with the
+
+00:19:09,760 --> 00:19:14,160
+test driven development of the action
+master starting to pay off; we're still
+
+00:19:14,160 --> 00:19:17,170
+not guaranteed the action masters working
+perfectly but this gives us a load of
+
+00:19:17,170 --> 00:19:22,540
+other opportunities to test it; so yeah we
+dropped 7 pins there the last settled count is.. sorry 3
+
+00:19:22,540 --> 00:19:30,070
+pins last settled count is 7, try and hit a... I
+did actually want to hit something but at this point
+
+00:19:30,070 --> 00:19:34,140
+okay now this has set up perfectly for
+the next video, at this point I've gone
+
+00:19:34,140 --> 00:19:39,680
+off a gutter ball before I hit my
+collider box at the end, remember we
+
+00:19:39,680 --> 00:19:43,110
+have this PinSetter collider, what
+happened here is my ball went off the
+
+00:19:43,110 --> 00:19:47,080
+side of the track before hitting this
+collider and it's now lost in space, if I
+
+00:19:47,080 --> 00:19:51,510
+click on the ball it's somewhere deep deep
+deep down below the play space falling
+
+00:19:51,510 --> 00:19:56,420
+away forever so let's sort that out in
+the next video, and yeah, I'll see you there
+

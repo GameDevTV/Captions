@@ -1,0 +1,621 @@
+
+1
+00:00:00,000 --> 00:00:04,000
+Hey hey!
+
+2
+00:00:04,000 --> 00:00:08,000
+So, in this video, we're going to use GetOwner() to find the
+
+3
+00:00:08,000 --> 00:00:12,000
+component's owner. So, this script that's going to be reporting position,
+
+4
+00:00:12,000 --> 00:00:16,000
+we're going to use GetOwner() to find out what object that's on. We're going to find
+
+5
+00:00:16,000 --> 00:00:20,000
+out that *AActor is pointer to an actor, and a pointer is a whole
+
+6
+00:00:20,000 --> 00:00:24,000
+new concept, which we'll start to get used to and will fully define here.
+
+7
+00:00:24,000 --> 00:00:28,000
+Use that operator there to access methods through pointers,
+
+8
+00:00:28,000 --> 00:00:32,000
+that's instead of the dot operator. We will use GetName() to find
+
+9
+00:00:32,000 --> 00:00:36,000
+the object's actual name. We're going to use %s as a format
+
+10
+00:00:36,000 --> 00:00:40,000
+operator for strings, which is again a brand new thing, and finally
+
+11
+00:00:40,000 --> 00:00:44,000
+we're going to see how to use star to dereference pointers. And all of that's going to come
+
+12
+00:00:44,000 --> 00:00:48,000
+tougher to allow us to, inside Unreal, have the
+
+13
+00:00:48,000 --> 00:00:52,000
+code report here, the actual object that it's on. So, let's dive in and see
+
+14
+00:00:52,000 --> 00:00:53,700
+how that's going to work!
+
+15
+00:00:53,700 --> 00:00:57,700
+So, I don't know about you, but I'm getting a bit bored of starting this scene looking
+
+16
+00:00:57,700 --> 00:01:01,700
+in the wrong direction. So, what I'm going to do is just go into the 3D Viewport
+
+17
+00:01:01,700 --> 00:01:05,700
+here and click on the Player Start
+
+18
+00:01:05,700 --> 00:01:09,700
+Object, which is here. You'll see just a capsule there. And then, I'm going to move
+
+19
+00:01:09,700 --> 00:01:13,700
+it so that it's facing my objects, and you want to just do the same for yours, so that it's
+
+20
+00:01:13,700 --> 00:01:17,700
+facing all the objects in your scene. And then, I'm going to hit the
+
+21
+00:01:17,700 --> 00:01:21,700
+E Key on the keyboard, in order to
+
+22
+00:01:21,700 --> 00:01:25,566
+rotate that around, in my case 180 degrees,
+
+23
+00:01:25,566 --> 00:01:29,700
+so that the blue arrow is pointing toward your scene. Just have a look, click
+
+24
+00:01:29,700 --> 00:01:33,700
+play, there you go! So, we're starting facing our objects now!
+
+25
+00:01:33,700 --> 00:01:37,700
+OK, that's the simple tweak. Alright, so the challenge we've got here
+
+26
+00:01:37,700 --> 00:01:41,700
+is that the position reporting component is on
+
+27
+00:01:41,700 --> 00:01:45,700
+both of these objects, but it's saying the word chair on both. What I want to do is to actually read
+
+28
+00:01:45,700 --> 00:01:49,700
+the name of the objects, as per the actual
+
+29
+00:01:49,700 --> 00:01:53,700
+World Outliner. I'm going to actually add the World Outliner from Window, World Outliner.
+
+30
+00:01:53,700 --> 00:01:57,700
+Pop it over here with the rest of these windows, to save
+
+31
+00:01:57,700 --> 00:02:01,700
+screen space, and then, you can see that these things are called SM_Chair and SM_Rock. Actually, if you
+
+32
+00:02:01,700 --> 00:02:05,700
+hover over them, you'll see that they've got another number appended on the end. SM_Chair
+
+33
+00:02:05,700 --> 00:02:09,700
+_5 and SM_Rock_8. It just depends how many
+
+34
+00:02:09,700 --> 00:02:13,700
+iterations of these things the engine thinks it's had, so don't worry too much about
+
+35
+00:02:13,700 --> 00:02:17,700
+those, but it's actual name may just have an extra number on the back.
+
+36
+00:02:17,700 --> 00:02:21,700
+OK, so let's go ahead and edit this code!
+
+37
+00:02:21,700 --> 00:02:25,700
+So, click on either of them. You can go to PositionReport.h, right-click, and say Open
+
+38
+00:02:25,700 --> 00:02:29,700
+PositionReport.h, like that, on my screen, and that's going to be a very easy way
+
+39
+00:02:29,700 --> 00:02:33,700
+to pop over to Visual Studio. It'll go to the Header File but we want to go to the
+
+40
+00:02:33,700 --> 00:02:37,700
+Implementation file, and it's here we want to learn how to read the name of the object.
+
+41
+00:02:37,700 --> 00:02:41,700
+So, a bunch of new juicy C++ concepts in here!
+
+42
+00:02:41,700 --> 00:02:45,700
+The method that we're going to need is GetOwner(). OK, so you
+
+43
+00:02:45,700 --> 00:02:49,700
+start typing GetOwner(), you'll get that. Now, when you hover, it says it's a
+
+44
+00:02:49,700 --> 00:02:53,700
+public : Actor *. Ooh, what's the star?
+
+45
+00:02:53,700 --> 00:02:57,700
+New component colon colon get owner const. OK, so that's a
+
+46
+00:02:57,700 --> 00:03:01,700
+little unusual. It's going to return an AActor, i.e. an
+
+47
+00:03:01,700 --> 00:03:05,700
+Actor. AActor because Actor is derived from Actor, it's part
+
+48
+00:03:05,700 --> 00:03:09,700
+of the Actor class. So, Unreal's naming convention is that if it's derived from the
+
+49
+00:03:09,700 --> 00:03:13,700
+Actor class, then it starts with A, so AActor *.
+
+50
+00:03:13,700 --> 00:03:17,700
+Now, the star means a pointer, so it's actually going to return. This
+
+51
+00:03:17,700 --> 00:03:21,700
+method, the method is called GetOwner(), but it's fully
+
+52
+00:03:21,700 --> 00:03:25,700
+qualified here. Oh, I forgot to do that. Hang on, let me just hover over GetOwner() again.
+
+53
+00:03:25,700 --> 00:03:29,700
+GetOwner(), hover.
+
+54
+00:03:29,700 --> 00:03:33,700
+OK, so the
+
+55
+00:03:33,700 --> 00:03:37,700
+method name is GetOwner() but it's fully qualified with the class name there, which is UActorComponent,
+
+56
+00:03:37,700 --> 00:03:41,700
+but it's going to return a pointer to an Actor. I actually prefer
+
+57
+00:03:41,700 --> 00:03:45,700
+to pout the star with the Actor, and Unreal's coding convention is that you put the star, the
+
+58
+00:03:45,700 --> 00:03:49,700
+pointer, with the Actor. What is a pointer? Well, I'm going to go over
+
+59
+00:03:49,700 --> 00:03:53,700
+pointers several, many many times in this course. So for now, all you really need to know
+
+60
+00:03:53,700 --> 00:03:57,700
+is that a pointer is a memory address, it's telling the
+
+61
+00:03:57,700 --> 00:04:01,700
+system where to go to find the actual value. So, there's two types of things really.
+
+62
+00:04:01,700 --> 00:04:05,700
+There's an actual value stored in memory, where you are right now, and then, there's
+
+63
+00:04:05,700 --> 00:04:09,700
+a pointer to go somewhere else. And we use a lot of pointers in Unreal,
+
+64
+00:04:09,700 --> 00:04:13,700
+because if you have very large object, imagine you have a big terrain or also a big
+
+65
+00:04:13,700 --> 00:04:17,700
+building in your game and you're hurtling down the road, you don't want to be moving these huge
+
+66
+00:04:17,700 --> 00:04:21,700
+pieces of memory around, you just want to deal with the by reference
+
+67
+00:04:21,700 --> 00:04:25,700
+or by pointer. Now, there's a difference between a reference and a pointer, but it's subtle and we won't
+
+68
+00:04:25,700 --> 00:04:29,700
+get into that just now. But what I want you to notice here, it's a constant, it's a
+
+69
+00:04:29,700 --> 00:04:33,700
+getter. We've seen all that before, the only thing we haven't seen is the star. OK,
+
+70
+00:04:33,700 --> 00:04:37,700
+because we've got a star, because it's a pointer to a method,
+
+71
+00:04:37,700 --> 00:04:41,700
+we need to not use dot. Dot will not work to go and get the properties
+
+72
+00:04:41,700 --> 00:04:45,700
+off that. OK, what we need to do is go minus
+
+73
+00:04:45,700 --> 00:04:49,700
+dash like that, and this is the equivalent to dot,
+
+74
+00:04:49,700 --> 00:04:53,700
+but we use the minus dash operator, like that, when we are looking
+
+75
+00:04:53,700 --> 00:04:57,700
+through a pointer. OK, you're just going to have to get used to that.
+
+76
+00:04:57,700 --> 00:05:01,700
+It's very good because it helps us know where we are. OK, now I'm going to type
+
+77
+00:05:01,700 --> 00:05:05,700
+the word name, and that'll help me find GetName(). Now, what does that return? It
+
+78
+00:05:05,700 --> 00:05:09,700
+returns an FString, not a pointer to an FString but an actual FString.
+
+79
+00:05:09,700 --> 00:05:13,700
+And then, you've got a class that it comes from, but
+
+80
+00:05:13,700 --> 00:05:17,700
+the name of the method is GetName() const, so it's another getter. So, I'm going
+
+81
+00:05:17,700 --> 00:05:21,700
+to click GetName, put the brackets in, and at this
+
+82
+00:05:21,700 --> 00:05:25,700
+point when I hover, I'm seeing that what I get out of this whole thing is an
+
+83
+00:05:25,700 --> 00:05:29,700
+FString. Now, we've seen FStrings before. Remember you had FText, which we don't
+
+84
+00:05:29,700 --> 00:05:33,700
+generally use, when we're presenting things to the user, and FStrings, which are mutable
+
+85
+00:05:33,700 --> 00:05:37,700
+or changeable objects that we use behind the scenes. So, this is an FString
+
+86
+00:05:37,700 --> 00:05:41,700
+coming back. How are we going to get this FString out to the screen? Well,
+
+87
+00:05:41,700 --> 00:05:45,700
+I'm going to define... In fact, I'm going to challenge you to simply define a
+
+88
+00:05:45,700 --> 00:05:49,700
+variable called ObjectName() of type FString,
+
+89
+00:05:49,700 --> 00:05:53,700
+and then, finish this line that we're on off. Ohh, we're on
+
+90
+00:05:53,700 --> 00:05:57,700
+off. [Laughs] So, I want you to create a variable to type FString and finish off this line.
+
+91
+00:05:57,700 --> 00:06:02,233
+Go ahead, pause the video, and do that now!
+
+92
+00:06:02,233 --> 00:06:05,700
+OK welcome back! So, no challenge slide there, just
+
+93
+00:06:05,700 --> 00:06:09,700
+to keep you on your toes. What we're going to do is FString,
+
+94
+00:06:09,700 --> 00:06:13,700
+ObjectName = that, and then, of course we need our
+
+95
+00:06:13,700 --> 00:06:17,700
+trusty semicolon. So, with any luck this will be storing the object
+
+96
+00:06:17,700 --> 00:06:21,700
+name as an FString in this variable. The question comes now, how do we
+
+97
+00:06:21,700 --> 00:06:25,700
+actually get this into this output. Well, it's a little
+
+98
+00:06:25,700 --> 00:06:29,700
+subtle. Again, Unreal doesn't make our lives too easy!
+
+99
+00:06:29,700 --> 00:06:33,700
+We need to use something called a format operator.
+
+100
+00:06:33,700 --> 00:06:37,700
+Now, you can find the documentation for all of this in the same place that I linked
+
+101
+00:06:37,700 --> 00:06:41,700
+you to before. If I just go into the slide deck and look back here,
+
+102
+00:06:41,700 --> 00:06:45,700
+where I gave you in the previous video a link to this
+
+103
+00:06:45,700 --> 00:06:49,700
+blog about printing messages to yourself. If you look down this, you'll
+
+104
+00:06:49,700 --> 00:06:53,600
+find an example of using these format operators, I believes in here.
+
+105
+00:06:53,600 --> 00:06:54,866
+So, this is the pattern we're going to use.
+
+106
+00:06:54,866 --> 00:06:58,866
+Now, there's a note here that strings are wanted as
+
+107
+00:06:58,866 --> 00:07:02,866
+T plus Char *, we say, but TChar* by the
+
+108
+00:07:02,866 --> 00:07:06,866
+log, so use *FString(). Oh, we're just beginning! What's going on here, more complexity?
+
+109
+00:07:06,866 --> 00:07:10,866
+OK, so we've done something like this! We said GetOwner
+
+110
+00:07:10,866 --> 00:07:11,966
+GetName, and that gave us an FString. What we need to do is put a star in front, which
+
+111
+00:07:11,966 --> 00:07:15,966
+what we need to do is put a star in front of this. Now bear in mind
+
+112
+00:07:15,966 --> 00:07:19,966
+This is not dereferencing, which you'll learn about later, because we're inside a macro
+
+113
+00:07:19,966 --> 00:07:23,966
+here, this is something called an overloaded operator. That means
+
+114
+00:07:23,966 --> 00:07:27,966
+C++ has been told to do something different with a * in this instance.
+
+115
+00:07:27,966 --> 00:07:31,966
+It has an effect that's a bit like de-referencing, in it allows this macro to get
+
+116
+00:07:31,966 --> 00:07:35,966
+to the characters of the string that we need. So that's enough said for now, there's a
+
+117
+00:07:35,966 --> 00:07:39,966
+video coming up later about pointers and references. But for now just understand
+
+118
+00:07:39,966 --> 00:07:42,633
+that if you're trying to use a string you need a star in front of it.
+
+119
+00:07:42,633 --> 00:07:47,600
+So let's bring all that together and see how that's going to work. So, we have an FString here,
+
+120
+00:07:47,600 --> 00:07:51,300
+which is a dynamically sizable string. It's a pointer to a place
+
+121
+00:07:51,300 --> 00:07:55,300
+in memory that contains that. We'll go through pointers in more detail later. Let's
+
+122
+00:07:55,300 --> 00:07:59,300
+just make it work! ("Position report for, and I'm going to put
+
+123
+00:07:59,300 --> 00:08:03,300
+%s, which is where I want the chair to go. I'm going to come outside of those brackets,
+
+124
+00:08:03,300 --> 00:08:07,300
+put a comma, and now I'm going to say
+
+125
+00:08:07,300 --> 00:08:11,300
+*ObjectName); If I don't say star, I'm going to get a strange error.
+
+126
+00:08:11,300 --> 00:08:15,300
+You want to see the error? Let's see the error! Let's build it, because it's better you see this
+
+127
+00:08:15,300 --> 00:08:19,300
+error, so that you recognize in the future. No success! What's
+
+128
+00:08:19,300 --> 00:08:23,300
+wrong? It's complaining, where's the line? Ah, you see it's pretty
+
+129
+00:08:23,300 --> 00:08:27,300
+nasty, because the lines of these errors,
+
+130
+00:08:27,300 --> 00:08:31,300
+none of them are actually about this file here, and that is because
+
+131
+00:08:31,300 --> 00:08:35,300
+these macros, used in the most general sense are
+
+132
+00:08:35,300 --> 00:08:39,300
+causing the problems. OK, so you're just going to have to be
+
+133
+00:08:39,300 --> 00:08:43,300
+careful here, when you do a log, that you give it a dereference pointer
+
+134
+00:08:43,300 --> 00:08:47,300
+like that, because it's pretty hard to debug. OK, so let's
+
+135
+00:08:47,300 --> 00:08:51,300
+go ahead and let it run! That's built now! Now, let's go back to Unreal
+
+136
+00:08:51,300 --> 00:08:55,300
+and play. Ah hah! Position report for SM_Chair_
+
+137
+00:08:55,300 --> 00:08:59,300
+5. There are those underscores I was talking about and position report for SM_
+
+138
+00:08:59,300 --> 00:09:03,300
+Rock_8. Success! We've managed to get C++ to tell us what the
+
+139
+00:09:03,300 --> 00:09:07,300
+name of the objects are, according to their names here in the World
+
+140
+00:09:07,300 --> 00:09:11,300
+Outliner, with their fully qualified names with the instance number on the end.
+
+141
+00:09:11,300 --> 00:09:15,300
+Alright, so that is pretty cool! Let's just have a quick recap of the code!
+
+142
+00:09:15,300 --> 00:09:19,300
+What we did is, we got owner but that is a pointer.
+
+143
+00:09:19,300 --> 00:09:23,300
+If we look at GetOwner() here, that returns a pointer to an
+
+144
+00:09:23,300 --> 00:09:27,300
+Actor, AActor *. I like to put the star before the space
+
+145
+00:09:27,300 --> 00:09:31,300
+but you can do either, it returns a point to an Actor.
+
+146
+00:09:31,300 --> 00:09:35,300
+Then, we looked through that pointer to go and get to the GetName() method,
+
+147
+00:09:35,300 --> 00:09:39,300
+which returned a FString.
+
+148
+00:09:39,300 --> 00:09:43,300
+And then, we put that into something called ObjectName, and then we
+
+149
+00:09:43,300 --> 00:09:47,300
+specified ObjectName over here with a star and we used
+
+150
+00:09:47,300 --> 00:09:51,300
+%s which is a format operator. So, a lot of stuff in there! We're going to reuse this
+
+151
+00:09:51,300 --> 00:09:55,300
+again and again and again. But that is your pattern, it's in the docs,
+
+152
+00:09:55,300 --> 00:09:59,300
+and good luck enjoy! And I'd like to hear in the discussions whether you're
+
+153
+00:09:59,300 --> 00:10:03,300
+completely bamboozled, whether that's simple because you're a C++ pro, or
+
+154
+00:10:03,300 --> 00:10:07,300
+what your reaction to that is! See you soon!
+
+155
+00:10:07,300 --> 00:10:08,533
+
+

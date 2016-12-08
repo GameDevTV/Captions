@@ -1,0 +1,517 @@
+
+1
+00:00:03,000 --> 00:00:06,000
+Hey guys! So, in this video, we're going to
+
+2
+00:00:06,000 --> 00:00:09,000
+talk through Unity's Network System concepts,
+
+3
+00:00:09,000 --> 00:00:12,000
+ask ourselves what's not fun about the current game, you can't even really call it
+
+4
+00:00:12,000 --> 00:00:15,000
+a game at this stage, and then, I'm going to challenge you to make a basic game
+
+5
+00:00:15,000 --> 00:00:18,000
+from here. So, let's start off by having a
+
+6
+00:00:18,000 --> 00:00:21,000
+recap of what we're doing with the Network System concepts. So, you click that link,
+
+7
+00:00:21,000 --> 00:00:24,000
+you come to this page. So firstly,
+
+8
+00:00:24,000 --> 00:00:27,000
+we covered the concept of a Server and Host.
+
+9
+00:00:27,000 --> 00:00:30,000
+So, remember that your Host contains the
+
+10
+00:00:30,000 --> 00:00:33,000
+Local Client and the Server. Now, you could make a single
+
+11
+00:00:33,000 --> 00:00:36,000
+player game like this. If you're going to have a game that's both multiplayer
+
+12
+00:00:36,000 --> 00:00:39,000
+and single player, this architecture of just running the
+
+13
+00:00:39,000 --> 00:00:42,000
+Server locally is just fine, there's not too much of a performance
+
+14
+00:00:42,000 --> 00:00:45,000
+overhead of this. So, you can structure your
+
+15
+00:00:45,000 --> 00:00:48,000
+whole game like this, that you always have a Server running.
+
+16
+00:00:48,000 --> 00:00:51,000
+So, that's what happens when we spin up a Host. And then,
+
+17
+00:00:51,000 --> 00:00:54,000
+we've also had a couple of remote clients haven't we? One was my
+
+18
+00:00:54,000 --> 00:00:57,000
+PC, over the Local Area Network, and the other was a
+
+19
+00:00:57,000 --> 00:01:00,000
+local build on the same computer, all
+
+20
+00:01:00,000 --> 00:01:03,000
+plugging into the Host, actually really plugging into the Server.
+
+21
+00:01:03,000 --> 00:01:06,000
+So, there's that, hopefully that was clear for you.
+
+22
+00:01:06,000 --> 00:01:09,000
+And there's a lot more information on this page, obviously, I'm not going to
+
+23
+00:01:09,000 --> 00:01:12,000
+read it out to you, you can look for yourself. So, then
+
+24
+00:01:12,000 --> 00:01:15,000
+the next concept was about Local Player Authority and players.
+
+25
+00:01:15,000 --> 00:01:18,000
+So, there's a box kind of
+
+26
+00:01:18,000 --> 00:01:21,000
+drawn around by the Client 1 and the Server, which together,
+
+27
+00:01:21,000 --> 00:01:24,000
+as per here, make the Host. So, Server and Local
+
+28
+00:01:24,000 --> 00:01:27,000
+Client, in this diagram, relate to Server and Client 1.
+
+29
+00:01:27,000 --> 00:01:30,000
+So, Player 1's transform changes are
+
+30
+00:01:30,000 --> 00:01:33,000
+sent up to the Server and then propagate down to
+
+31
+00:01:33,000 --> 00:01:36,000
+Client 2. And then of course for Client 2,
+
+32
+00:01:36,000 --> 00:01:39,000
+Player 2 is set as the local player, and it
+
+33
+00:01:39,000 --> 00:01:42,000
+has authority, which means that changes made on Client 2 get
+
+34
+00:01:42,000 --> 00:01:45,000
+sent to the Server and then back down. We also had in our
+
+35
+00:01:45,000 --> 00:01:48,000
+scene a cube, which represents an enemy and
+
+36
+00:01:48,000 --> 00:01:51,000
+that doesn't have any Local Player Authority, and all
+
+37
+00:01:51,000 --> 00:01:54,000
+that happens there is that when the Server moves this
+
+38
+00:01:54,000 --> 00:01:57,000
+Enemy, or the cube, then the transform
+
+39
+00:01:57,000 --> 00:02:00,000
+component, the Network Transform Component,
+
+40
+00:02:00,000 --> 00:02:03,000
+pushes that change down to both of the Clients.
+
+41
+00:02:03,000 --> 00:02:06,000
+So, hopefully this diagram now is a little bit clearer in as
+
+42
+00:02:06,000 --> 00:02:09,000
+to who controls what. So, Player 1 has Local Player Authority,
+
+43
+00:02:09,000 --> 00:02:12,000
+here, Player 2 here, and the Enemy up on the Server.
+
+44
+00:02:12,000 --> 00:02:15,000
+Again, some good information on this page. Don't let
+
+45
+00:02:15,000 --> 00:02:18,000
+yourselves get too confused by it, but reading through Unity's
+
+46
+00:02:18,000 --> 00:02:21,000
+Networking over High Level API is a good idea,
+
+47
+00:02:21,000 --> 00:02:24,000
+in conjunction with doing the course, because it's going to help you.
+
+48
+00:02:24,000 --> 00:02:27,000
+understand. So, where can we go from here with this
+
+49
+00:02:27,000 --> 00:02:30,000
+game and this section. Well, one of our students,
+
+50
+00:02:30,000 --> 00:02:33,000
+Marco Vale, has very kindly provided us with this
+
+51
+00:02:33,000 --> 00:02:36,000
+fantastic ship! Look he's created this, modeled it,
+
+52
+00:02:36,000 --> 00:02:39,000
+and animated it, and there are also several animation states.
+
+53
+00:02:39,000 --> 00:02:42,000
+Now, I left the cube in the just for posterity, but what I've
+
+54
+00:02:42,000 --> 00:02:45,000
+done here, as just an example for you, is I've grabbed a Sky-
+
+55
+00:02:45,000 --> 00:02:48,000
+box from the Assets Store. I've just said
+
+56
+00:02:48,000 --> 00:02:51,000
+Skybox, and I've gone to Assets Store and looked
+
+57
+00:02:51,000 --> 00:02:54,000
+for a free Skybox.
+
+58
+00:02:54,000 --> 00:02:57,000
+Maybe you need one word, and I think the one I'm using
+
+59
+00:02:57,000 --> 00:03:00,000
+is WispySkybox, over here. So, I've imported a
+
+60
+00:03:00,000 --> 00:03:03,000
+free Skybox, which makes things look prettier. Now, I'm
+
+61
+00:03:03,000 --> 00:03:06,000
+for water using the same water as we used in Zombie Runner, which is the
+
+62
+00:03:06,000 --> 00:03:09,000
+Water Pro Daytime Asset, from the Standard Environmental Pack.
+
+63
+00:03:09,000 --> 00:03:12,000
+And then, that gives you reflection and refraction, not that there's
+
+64
+00:03:12,000 --> 00:03:15,000
+anything to refract from under the water. And then,
+
+65
+00:03:15,000 --> 00:03:18,000
+we have an Animation Machine, we have a Skybox,
+
+66
+00:03:18,000 --> 00:03:21,000
+and then, you can decide what are you going to do with the game from here. Are we going to have a
+
+67
+00:03:21,000 --> 00:03:24,000
+Top-Down Perspective, like this? And maybe be
+
+68
+00:03:24,000 --> 00:03:27,000
+right up in the sky and point and click around, to make these ships
+
+69
+00:03:27,000 --> 00:03:30,000
+move, or do you want more of a First Person Perspective? So,
+
+70
+00:03:30,000 --> 00:03:33,000
+before I go any further, and indeed if I go any
+
+71
+00:03:33,000 --> 00:03:36,000
+further, I want you to have a good go at using all of the knowledge you have,
+
+72
+00:03:36,000 --> 00:03:39,000
+from the courses so far, to now go and make
+
+73
+00:03:39,000 --> 00:03:42,000
+this work, because really this is the end of the course and you
+
+74
+00:03:42,000 --> 00:03:45,000
+are very able to produce a
+
+75
+00:03:45,000 --> 00:03:48,000
+huge amount yourself, and I want you to get confidence in that. So, we've
+
+76
+00:03:48,000 --> 00:03:51,000
+broken the back of the difficulties of Multi-Player,
+
+77
+00:03:51,000 --> 00:03:54,000
+and you can see the process by which you go through and
+
+78
+00:03:54,000 --> 00:03:57,000
+work out, well how do I get the next thing working,
+
+79
+00:03:57,000 --> 00:04:00,000
+you know? You're going to find that when you go to your
+
+80
+00:04:00,000 --> 00:04:03,000
+player and you start typing network in here,
+
+81
+00:04:03,000 --> 00:04:06,000
+some of these things are deprecated and it will say so if they are,
+
+82
+00:04:06,000 --> 00:04:09,000
+and some of them aren't, like Network Animator, for example.
+
+83
+00:04:09,000 --> 00:04:12,000
+So, you're going to need to use a few
+
+84
+00:04:12,000 --> 00:04:15,000
+more components, to transmit things like Animations
+
+85
+00:04:15,000 --> 00:04:18,000
+State, and if you want to do things like
+
+86
+00:04:18,000 --> 00:04:21,000
+match making, which we're not going to cover in
+
+87
+00:04:21,000 --> 00:04:24,000
+this course, because it's too advanced, then you're going to need a
+
+88
+00:04:24,000 --> 00:04:27,000
+Network Matchmaking System, which is against the Network Manager
+
+89
+00:04:27,000 --> 00:04:30,000
+but again, too much for this course. So,
+
+90
+00:04:30,000 --> 00:04:33,000
+most of what you need is there. You will run across other multi player
+
+91
+00:04:33,000 --> 00:04:36,000
+challenges. My challenge to you really is to
+
+92
+00:04:36,000 --> 00:04:39,000
+make a basic game, use everything you've learned in the course so
+
+93
+00:04:39,000 --> 00:04:42,000
+far. Incorporate some player assets, use Marco's
+
+94
+00:04:42,000 --> 00:04:45,000
+please credit him, say thanks to him on Twitter.
+
+95
+00:04:45,000 --> 00:04:48,000
+Now, the name of his Twitter Handle by the way, you go to
+
+96
+00:04:48,000 --> 00:04:51,000
+the video at the start of this section,
+
+97
+00:04:51,000 --> 00:04:54,000
+the first video the Intro Assets and Notes, and then, you download
+
+98
+00:04:54,000 --> 00:04:57,000
+his package and what you'll end up with is
+
+99
+00:04:57,000 --> 00:05:00,000
+this thing called Ship and Sea here.
+
+100
+00:05:00,000 --> 00:05:03,000
+And if you double click Ship and Sea, you'll have a folder
+
+101
+00:05:03,000 --> 00:05:06,000
+that opens up, because we need a subfolder anyway, called Thanks to @MarcoVale
+
+102
+00:05:06,000 --> 00:05:09,000
+Kaz. Please thank him on Twitter for providing it. And then you can go
+
+103
+00:05:09,000 --> 00:05:12,000
+in there and open the Ship and Sea package, as usual.
+
+104
+00:05:12,000 --> 00:05:15,000
+Now, there's nothing particularly unusual inside that
+
+105
+00:05:15,000 --> 00:05:18,000
+asset pack. Let's just have a quick look at it,
+
+106
+00:05:18,000 --> 00:05:21,000
+it has animations, it has
+
+107
+00:05:21,000 --> 00:05:24,000
+prefabs for the sea and the ship now. I
+
+108
+00:05:24,000 --> 00:05:27,000
+would prefer to use Unity's Standard Assets
+
+109
+00:05:27,000 --> 00:05:30,000
+for the water, just because it's a little prettier and it's reflective, but
+
+110
+00:05:30,000 --> 00:05:33,000
+Marco has a very great and high performing solution in there, as well, just by
+
+111
+00:05:33,000 --> 00:05:36,000
+scrolling some textures. So, you've got that, you've got an Animation Control,
+
+112
+00:05:36,000 --> 00:05:39,000
+you've got serious animation states. So, you
+
+113
+00:05:39,000 --> 00:05:42,000
+should be able to put all that together, create some simple game play.
+
+114
+00:05:42,000 --> 00:05:45,000
+Again, you've learned kind of point and click type game play,
+
+115
+00:05:45,000 --> 00:05:48,000
+from Glitch Garden;
+
+116
+00:05:48,000 --> 00:05:51,000
+you've learned, I think all the basics you need. See what
+
+117
+00:05:51,000 --> 00:05:54,000
+multiplayer challenges you've face, share the challenges that you face
+
+118
+00:05:54,000 --> 00:05:57,000
+in making your game, in the discussion. And when there's
+
+119
+00:05:57,000 --> 00:06:00,000
+a reasonable amount of challenges built up, and I've got a picture of
+
+120
+00:06:00,000 --> 00:06:03,000
+what you're struggling with, that will tell me what the gap in this course is,
+
+121
+00:06:03,000 --> 00:06:06,000
+and of course, I'm committed to the long term development of this course, as you've
+
+122
+00:06:06,000 --> 00:06:09,000
+seen I have to constantly revise it. So, as I start to see people's
+
+123
+00:06:09,000 --> 00:06:12,000
+challenges build up and players make it... uh players! [Laughs] ...students make
+
+124
+00:06:12,000 --> 00:06:15,000
+it through to the end of the course, I will start to consider making
+
+125
+00:06:15,000 --> 00:06:18,000
+further content to help you solve those issues, but I want to
+
+126
+00:06:18,000 --> 00:06:21,000
+be solving the real issues you're having. So, go ahead and make a basic game,
+
+127
+00:06:21,000 --> 00:06:24,000
+share what you can, get stuck when you get stuck, tell us in the
+
+128
+00:06:24,000 --> 00:06:27,000
+discussions, and let's move onwards and upwards! So,
+
+129
+00:06:27,000 --> 00:06:30,000
+see you soon guys!
+

@@ -1,0 +1,773 @@
+
+1
+00:00:00,000 --> 00:00:03,700
+
+
+2
+00:00:03,700 --> 00:00:07,700
+OK guys, welcome back! So, we're going to do
+
+3
+00:00:07,700 --> 00:00:11,700
+a bit of consolidating and tidying up. I've done one sneaky little thing
+
+4
+00:00:11,700 --> 00:00:15,700
+between videos, which I just moved a few red blocks just to make a
+
+5
+00:00:15,700 --> 00:00:19,700
+more complete looking Level_02, but you know really want to start being
+
+6
+00:00:19,700 --> 00:00:23,700
+creative with your levels now. So,
+
+7
+00:00:23,700 --> 00:00:27,700
+what I want to look at is we have both a Max Hits
+
+8
+00:00:27,700 --> 00:00:31,700
+variable and an array of Hit Sprites, and I think that's
+
+9
+00:00:31,700 --> 00:00:35,700
+messy. I don't want both of those things because the
+
+10
+00:00:35,700 --> 00:00:39,700
+maximum hits is always going to be the number of Hit Sprites plus 1, so why don't we
+
+11
+00:00:39,700 --> 00:00:43,700
+think about working with an artist. Imagine you're working with
+
+12
+00:00:43,700 --> 00:00:47,700
+a separate artist. You don't want them to have to think about changing these two
+
+13
+00:00:47,700 --> 00:00:51,700
+things. So, if they decide they want three stages of hits for a
+
+14
+00:00:51,700 --> 00:00:55,700
+brick, well maybe give them that free will and take it from
+
+15
+00:00:55,700 --> 00:00:59,700
+the size of the hit array. so, let's go into our Brick and
+
+16
+00:00:59,700 --> 00:01:03,700
+just say to ourselves, well we can keep the API
+
+17
+00:01:03,700 --> 00:01:07,700
+if you like, the application programming interface or the interface um
+
+18
+00:01:07,700 --> 00:01:11,700
+the same as it was but i.e.
+
+19
+00:01:11,700 --> 00:01:15,700
+we can continue to use the word maxHits, but
+
+20
+00:01:15,700 --> 00:01:19,700
+we can infer what that maxHit thing is
+
+21
+00:01:19,700 --> 00:01:23,700
+from the size of our sprite array.
+
+22
+00:01:23,700 --> 00:01:27,700
+OK, so it's simply
+
+23
+00:01:27,700 --> 00:01:31,700
+and we need to do it, by the way, every time that we
+
+24
+00:01:31,700 --> 00:01:35,700
+hit. It's simply maxHits =... Now, what
+
+25
+00:01:35,700 --> 00:01:39,700
+does it equal? Well, it's the hitSprites dot you'll see
+
+26
+00:01:39,700 --> 00:01:43,700
+Length. OK, so if
+
+27
+00:01:43,700 --> 00:01:47,700
+there are no hitSprites, then what's the
+
+28
+00:01:47,700 --> 00:01:51,700
+maximum number of hits? Well, it would be a
+
+29
+00:01:51,700 --> 00:01:55,700
+Length of 0, so maxHits would be 0. Well that's wrong! So,
+
+30
+00:01:55,700 --> 00:01:59,700
+it needs to be + 1 as we said. Let's look in the Inspector!
+
+31
+00:01:59,700 --> 00:02:03,700
+Let's look at a prefab, say
+
+32
+00:02:03,700 --> 00:02:07,700
+a two hit. The size of this array is 1, so the
+
+33
+00:02:07,700 --> 00:02:11,700
+maxHits is 2. The size of this hit array is 2, so the maxHits is 3. So,
+
+34
+00:02:11,700 --> 00:02:15,700
+maxHits is always Size +1 or hitSprites.Length
+
+35
+00:02:15,700 --> 00:02:19,700
++1. So now we no longer need to publicly
+
+36
+00:02:19,700 --> 00:02:23,700
+expose maxHits. In fact, does it even need to be at the top?
+
+37
+00:02:23,700 --> 00:02:27,700
+So, let's start by making it private and then bringing
+
+38
+00:02:27,700 --> 00:02:31,700
+it down with the rest of the private variables, like so. Now,
+
+39
+00:02:31,700 --> 00:02:35,700
+just check the scope. If you search for maxHits, you'll
+
+40
+00:02:35,700 --> 00:02:39,700
+start to see where it appears. Well it appears in the OnCollisionEnter2D method
+
+41
+00:02:39,700 --> 00:02:43,700
+twice, and it's actually the only place it appears at the moment.
+
+42
+00:02:43,700 --> 00:02:47,700
+So, if that's the only place we're using maxHits, why don't we
+
+43
+00:02:47,700 --> 00:02:51,700
+take it down even further and just declare it right here. int maxHits;
+
+44
+00:02:51,700 --> 00:02:55,700
+= hitSprites.Length + 1; Now, we can get rid of it
+
+45
+00:02:55,700 --> 00:02:59,700
+in the header. No point of it having the scope of all of these methods if we're only going to use
+
+46
+00:02:59,700 --> 00:03:03,700
+it in this method. Now sure, you could just say timeHit greater and equal
+
+47
+00:03:03,700 --> 00:03:07,700
+to hitSprites plus length plus 1, if you want to do that simplification
+
+48
+00:03:07,700 --> 00:03:11,700
+that's fine. I'm just leaving maxHits in because it's just sort of
+
+49
+00:03:11,700 --> 00:03:15,700
+self documenting code. So, let's go back to Unity,
+
+50
+00:03:15,700 --> 00:03:19,700
+and you'll notice now that the Max Hits disappears in the
+
+51
+00:03:19,700 --> 00:03:23,700
+Inspector and that the number of hits a brick can take is determined only
+
+52
+00:03:23,700 --> 00:03:27,700
+by how many hit sprites we actually attach. Can you see the
+
+53
+00:03:27,700 --> 00:03:31,700
+beauty of that, the simplicity of only having that information in one
+
+54
+00:03:31,700 --> 00:03:35,700
+place? Well, before we get too excited about it let's make sure it works!
+
+55
+00:03:35,700 --> 00:03:39,700
+So, it's working for the yellow bricks. Let's see if it works for
+
+56
+00:03:39,700 --> 00:03:43,700
+other bricks. I'm actually going to restart and send it into the top,
+
+57
+00:03:43,700 --> 00:03:47,700
+if I can get the angle right. There we go! So, 1, 2...
+
+58
+00:03:47,700 --> 00:03:51,700
+It seems to be, certainly the red bricks are taking too
+
+59
+00:03:51,700 --> 00:03:55,700
+levels of damage without any problem. I'd better be over on my guard, over on the left here, ready for it to come
+
+60
+00:03:55,700 --> 00:03:59,700
+out of the hole. OK that's cool! So now, I just want to see that a
+
+61
+00:03:59,700 --> 00:04:03,700
+green brick works properly. I'm sure it will, because the logic is very
+
+62
+00:04:03,700 --> 00:04:07,700
+simple. Let's just have a quick look. There's a green
+
+63
+00:04:07,700 --> 00:04:11,700
+brick being hit once, and at the moment, I don't have a lot of scope
+
+64
+00:04:11,700 --> 00:04:15,700
+to make the ball bounce in any strange ways. Here you go! Look the red bricks are being hit.
+
+65
+00:04:15,700 --> 00:04:19,700
+Green brick and this all appears to be
+
+66
+00:04:19,700 --> 00:04:23,700
+working just fine. Fantastic! Alright, so the next
+
+67
+00:04:23,700 --> 00:04:27,700
+thing to think about is, what happens if I don't bother with a sprite?
+
+68
+00:04:27,700 --> 00:04:31,700
+Imagine I accidentally or my designer accidentally didn't attach a sprite
+
+69
+00:04:31,700 --> 00:04:35,700
+down here or made his array the wrong size. Well, let's
+
+70
+00:04:35,700 --> 00:04:39,700
+see what happens! Does the program handle it or does it error?
+
+71
+00:04:39,700 --> 00:04:43,700
+The sprite just disappears! Now, pause the game.
+
+72
+00:04:43,700 --> 00:04:47,700
+Has it actually gone? Well, let's look at our top row and scroll...
+
+73
+00:04:47,700 --> 00:04:51,700
+I think we've got a different name for it? Reds! And scroll across...
+
+74
+00:04:51,700 --> 00:04:55,700
+Ah look, what's going on here? We have a 3 hit brick that is actually
+
+75
+00:04:55,700 --> 00:04:59,700
+still there, will still collide off it, and
+
+76
+00:04:59,700 --> 00:05:03,700
+it has a color of red, etc. but it has no
+
+77
+00:05:03,700 --> 00:05:07,700
+sprite. So, that brick is still there, it's sprite has disappeared,
+
+78
+00:05:07,700 --> 00:05:11,700
+and what's happened in the script is, when we got down
+
+79
+00:05:11,700 --> 00:05:15,700
+here and it asked to load the sprite, that sprite of sprite index
+
+80
+00:05:15,700 --> 00:05:19,700
+0 did not exist, because look we've deleted it, Element 0.
+
+81
+00:05:19,700 --> 00:05:23,700
+It didn't exist and it hasn't given us any error, or if it has, I didn't see them.
+
+82
+00:05:23,700 --> 00:05:27,700
+No I didn't see anything. It's just failed to load it all together,
+
+83
+00:05:27,700 --> 00:05:31,700
+so that's not very gracious failing, as far as I'm concerned.
+
+84
+00:05:31,700 --> 00:05:35,700
+I don't really like that, so
+
+85
+00:05:35,700 --> 00:05:39,700
+we need to have a better way of handling the fact that
+
+86
+00:05:39,700 --> 00:05:43,700
+this sprite doesn't exist, just disappearing and still
+
+87
+00:05:43,700 --> 00:05:47,500
+having a collider is pretty nasty really.
+
+88
+00:05:47,500 --> 00:05:51,500
+So, we could go crazy here with guard conditions and lots of things.
+
+89
+00:05:51,500 --> 00:05:55,500
+I mean the real key is the communication between you and whoever's designing the level,
+
+90
+00:05:55,500 --> 00:05:59,500
+which includes between you and you, but for a start, let's just do at
+
+91
+00:05:59,500 --> 00:06:03,500
+least this. Let's just say that if this
+
+92
+00:06:03,500 --> 00:06:07,500
+exists, if we can find a sprite at that index,
+
+93
+00:06:07,500 --> 00:06:11,500
+then load the sprite, otherwise,
+
+94
+00:06:11,500 --> 00:06:15,500
+just leave it how it is. Let's see what behavior that leads to!
+
+95
+00:06:15,500 --> 00:06:19,500
+I'm just putting it in an if statement. This hitSprites[spriteIndex]; will return
+
+96
+00:06:19,500 --> 00:06:23,500
+null or false rather, if there is no sprite there.
+
+97
+00:06:23,500 --> 00:06:27,500
+Now, let's see what happens now! So, remember before
+
+98
+00:06:27,500 --> 00:06:31,500
+our red brick was disappearing
+
+99
+00:06:31,500 --> 00:06:35,500
+but staying... I'm just trying to get this up the side here.
+
+100
+00:06:35,500 --> 00:06:39,500
+Ah wee! OK, now what it's doing now is it's
+
+101
+00:06:39,500 --> 00:06:43,500
+not loading the single hit sprite. OK that's not ideal and it's weird,
+
+102
+00:06:43,500 --> 00:06:47,500
+and it's quite obviously weird actually, it's just odd behavior. So,
+
+103
+00:06:47,500 --> 00:06:51,500
+this is a much better failure path. At least it's not making an invisible brick
+
+104
+00:06:51,500 --> 00:06:55,500
+that we... There you go! And then the second stage is working! So, that's
+
+105
+00:06:55,500 --> 00:06:59,500
+much much better! So, I'm going to go back to the 3 hit prefab and
+
+106
+00:06:59,500 --> 00:07:03,500
+just fix it by putting it's 1 hit sprite back in.
+
+107
+00:07:03,500 --> 00:07:07,500
+And I'm just going to recap in the code for you what we did. We just put in an if condition
+
+108
+00:07:07,500 --> 00:07:11,500
+around the sprite loading, to say that if when
+
+109
+00:07:11,500 --> 00:07:15,500
+we lookup the sprite, that's this current [spriteIndex], we have
+
+110
+00:07:15,500 --> 00:07:19,500
+nothing, this will return false, and it just doesn't change the sprite.
+
+111
+00:07:19,500 --> 00:07:23,500
+Much better, much more graceful way for that to fail,
+
+112
+00:07:23,500 --> 00:07:27,500
+as far as I'm concerned. So, we're in much much better shape
+
+113
+00:07:27,500 --> 00:07:31,500
+here now. We really can extend this game nicely now, we
+
+114
+00:07:31,500 --> 00:07:35,500
+can go ahead and build out levels. We could add to our
+
+115
+00:07:35,500 --> 00:07:39,500
+bricks array here, more stages of decay
+
+116
+00:07:39,500 --> 00:07:43,500
+for the brick if you wanted to. You don't, no longer need to worry
+
+117
+00:07:43,500 --> 00:07:47,500
+about whether you've got the
+
+118
+00:07:47,500 --> 00:07:51,500
+Max Hits set right. One thing that would make sense is, these bricks aren't really
+
+119
+00:07:51,500 --> 00:07:55,500
+1, 2, 3 hit anymore. That's not really what defines
+
+120
+00:07:55,500 --> 00:07:59,500
+them. The number of hits is defined by the amount of sprites we've attached.
+
+121
+00:07:59,500 --> 00:08:03,500
+So, why don't we go ahead and just rename it yellow,
+
+122
+00:08:03,500 --> 00:08:07,500
+green, and red.
+
+123
+00:08:07,500 --> 00:08:11,500
+These are the sort of things you need to think about, the naming of these things
+
+124
+00:08:11,500 --> 00:08:15,500
+OK. Yellow, green, and red. That's fine! OK now, they
+
+125
+00:08:15,500 --> 00:08:19,500
+don't sit next to each other, and you could complain about that or put it in a
+
+126
+00:08:19,500 --> 00:08:23,500
+subfolder, but at least if I come along now and say to the red brick, well
+
+127
+00:08:23,500 --> 00:08:27,500
+actually I want another stage of decay, by sticking in another
+
+128
+00:08:27,500 --> 00:08:31,500
+sprite, then at least it's not wrong, the name isn't wrong. Of course, the name is
+
+129
+00:08:31,500 --> 00:08:35,500
+wrong for the color then, so if I change the color I need to change the name.
+
+130
+00:08:35,500 --> 00:08:39,500
+So naming is actually a more important thing than you can imagine. You may
+
+131
+00:08:39,500 --> 00:08:43,500
+want to just given these actually kind of silly names, Berty and Johnny
+
+132
+00:08:43,500 --> 00:08:47,500
+and Katy, but don't infer anything about either the color
+
+133
+00:08:47,500 --> 00:08:51,500
+or the number of hits. Ah but just think about naming. I'm going to name
+
+134
+00:08:51,500 --> 00:08:55,500
+my blocks yellow, green, and red, and they're going to have
+
+135
+00:08:55,500 --> 00:08:59,500
+no hits, no break, no damage, one, you know
+
+136
+00:08:59,500 --> 00:09:03,500
+they die on the first hit; one hit and two hits
+
+137
+00:09:03,500 --> 00:09:07,500
+respectively, that's just my choice. So that's all consolidated,
+
+138
+00:09:07,500 --> 00:09:10,233
+it's all looking pretty good and pretty solid now.
+
+139
+00:09:10,233 --> 00:09:14,233
+There's just one more thing we need to cover, which is the idea of an unbreakable
+
+140
+00:09:14,233 --> 00:09:18,233
+block. So, how would we make an unbreakable block? Well,
+
+141
+00:09:18,233 --> 00:09:22,233
+we're going to need a tag, I think, here; a tag for breakable
+
+142
+00:09:22,233 --> 00:09:26,233
+blocks would be really handy. If you click on one of your block prefabs
+
+143
+00:09:26,233 --> 00:09:30,233
+and then go to the Inspector at the top, you'll see tagged
+
+144
+00:09:30,233 --> 00:09:34,233
+and untagged will probably be selected. Go ahead and Add
+
+145
+00:09:34,233 --> 00:09:38,233
+Tag and under Element 0 there's
+
+146
+00:09:38,233 --> 00:09:42,233
+just going to be a single tag called breakable. It's a positive
+
+147
+00:09:42,233 --> 00:09:46,233
+condition, this block is breakable. Now,
+
+148
+00:09:46,233 --> 00:09:50,233
+select all of your breakable blocks, in my case red, green, and yellow,
+
+149
+00:09:50,233 --> 00:09:54,233
+and give them the tag Breakable, like I'm showing
+
+150
+00:09:54,233 --> 00:09:58,233
+on the screen. Inspector, Tag, Breakable. Tick that
+
+151
+00:09:58,233 --> 00:10:02,233
+and now they all have the Breakable tag! Great news!
+
+152
+00:10:02,233 --> 00:10:06,233
+So that can act independently of the color or
+
+153
+00:10:06,233 --> 00:10:10,233
+the number of hit states they have, and what I want
+
+154
+00:10:10,233 --> 00:10:14,233
+to do now is go ahead and make an unbreakable block, looking like
+
+155
+00:10:14,233 --> 00:10:18,233
+the paddle. So, you can try this as a quick challenge. Clone the yellow
+
+156
+00:10:18,233 --> 00:10:22,233
+block from Edit and Duplicate, set
+
+157
+00:10:22,233 --> 00:10:26,233
+its color to white, and then just simply set it as unbreakable,
+
+158
+00:10:26,233 --> 00:10:30,233
+i.e. remove the Breakable tag. Go ahead and do that now.
+
+159
+00:10:30,233 --> 00:10:34,233
+OK, so I'm duplicating the yellow and
+
+160
+00:10:34,233 --> 00:10:38,233
+I'm going to call it invincible.
+
+161
+00:10:38,233 --> 00:10:42,233
+There it is! I'm going to set the color to white, if my color picker
+
+162
+00:10:42,233 --> 00:10:46,233
+will behave. OK, fine
+
+163
+00:10:46,233 --> 00:10:50,233
+and I'm then going to remove the Breakable tag
+
+164
+00:10:50,233 --> 00:10:54,233
+Invincible. Cool! So now we have our blocks
+
+165
+00:10:54,233 --> 00:10:58,233
+tagged as breakable or not. So, pop back into your
+
+166
+00:10:58,233 --> 00:11:02,233
+brick script really quickly, and we are going to just
+
+167
+00:11:02,233 --> 00:11:06,233
+decide whether or not a block is breakable up
+
+168
+00:11:06,233 --> 00:11:10,233
+here. OnCollisionEnter2D, what I want to do
+
+169
+00:11:10,233 --> 00:11:14,233
+is I want to make this a clearer method by separating out a new thing
+
+170
+00:11:14,233 --> 00:11:18,233
+that says HandleHits
+
+171
+00:11:18,233 --> 00:11:22,233
+and it says method, and I'm just going to put all the code
+
+172
+00:11:22,233 --> 00:11:26,233
+that we've currently got OnCollisionEnter2D into here
+
+173
+00:11:26,233 --> 00:11:30,233
+and call it from OnCollisionEnter2D. You'll see
+
+174
+00:11:30,233 --> 00:11:34,233
+why I'm doing that in a minute. It simplifies OnCollisionEnter2D and now I can come
+
+175
+00:11:34,233 --> 00:11:38,233
+along and say, well there's a boolean a yes or no and it's called
+
+176
+00:11:38,233 --> 00:11:42,233
+isBreakable, and it = to some condition
+
+177
+00:11:42,233 --> 00:11:46,233
+which I'm going to put in brackets. And the condition is that
+
+178
+00:11:46,233 --> 00:11:50,233
+(this, which is this current block, .tag ==
+
+179
+00:11:50,233 --> 00:11:54,233
+because it's a comparison "Breakable"); So,
+
+180
+00:11:54,233 --> 00:11:58,233
+the block is breakable if the tag says it's breakable, and then, if
+
+181
+00:11:58,233 --> 00:12:02,233
+(isBreakable) then
+
+182
+00:12:02,233 --> 00:12:06,233
+you handle the hits for now, otherwise
+
+183
+00:12:06,233 --> 00:12:10,233
+you don't, simple as that. So, you only handle the hits if it's
+
+184
+00:12:10,233 --> 00:12:14,233
+breakable. OK, so that's the code we want
+
+185
+00:12:14,233 --> 00:12:18,233
+to change to. Separating out this method just makes it all read easier.
+
+186
+00:12:18,233 --> 00:12:22,233
+Let's go back to Unity, put an unbreakable block in
+
+187
+00:12:22,233 --> 00:12:26,233
+the scene quickly, the Invincible block somewhere in the scene, and let's just test.
+
+188
+00:12:26,233 --> 00:12:30,233
+So, Invincible should just do nothing, and the rest of the blocks
+
+189
+00:12:30,233 --> 00:12:34,233
+act as normal. Perfect! So
+
+190
+00:12:34,233 --> 00:12:38,233
+congratulations, you've learned a huge amount about a block's breakability,
+
+191
+00:12:38,233 --> 00:12:42,233
+etc. and we have consolidated where we are
+
+192
+00:12:42,233 --> 00:12:46,233
+and we are ready to move on. So, pat yourself on the back and
+
+193
+00:12:46,233 --> 00:12:48,199
+see you soon!
+
