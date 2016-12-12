@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section8/BM07 Import pin from blender.srt
 ï»¿WEBVTT
 
 00:00:04.779 --> 00:00:10.080 align:middle line:90%
@@ -953,4 +954,960 @@ looking like a bowling lane and we have a
 
 00:19:52.030 --> 00:19:57.030 align:middle line:90%
 master game object so perfect! Well done looking
+=======
+
+00:00:04,779 --> 00:00:10,080 align:middle line:90%
+Hi and welcome back. So in this video were
+going to be importing a bowling pin from Blender,
+
+00:00:10,080 --> 00:00:16,330 align:middle line:90%
+learn about render and collider meshes, create
+a pin prefab, and lay out all of our ten bowling
+
+00:00:16,330 --> 00:00:21,920 align:middle line:90%
+pins on the floor according to the GDD. So
+you can find out more about Blender at www.CompleteBlenderCreator.com,
+
+00:00:21,920 --> 00:00:28,640 align:middle line:90%
+I've teamed up with an old friend and 3D artist
+Michael Bridges to bring a huge course similar
+
+00:00:28,640 --> 00:00:33,250 align:middle line:90%
+to this one to you called the Complete Blender
+Creator because it's such an important skill
+
+00:00:33,250 --> 00:00:37,500 align:middle line:90%
+now that we're moving into 3D to be able to
+manipulate meshes, so go out and take a look
+
+00:00:37,500 --> 00:00:39,559 align:middle line:84%
+at www.CompleteBlenderCreator.com.
+
+00:00:39,559 --> 00:00:44,290 align:middle line:90%
+So, that's the challenge that we're going
+to be doing a little later but for now let's
+
+00:00:44,290 --> 00:00:48,750 align:middle line:90%
+just take a look around. In your start pack,
+if you haven't already got your start pack
+
+00:00:48,750 --> 00:00:52,980 align:middle line:90%
+for instance if you created your own floor
+then go and get it now; import package / custom
+
+00:00:52,980 --> 00:00:58,829 align:middle line:90%
+package and then navigate your way to your
+BowlMaster assets at the beginning of this
+
+00:00:58,829 --> 00:01:02,539 align:middle line:90%
+section and there's a Unity section there
+that you can import. In there you'll find
+
+00:01:02,539 --> 00:01:06,720 align:middle line:90%
+Blender imports and there's a bowling pin.
+Try just dragging that bowling pin from your
+
+00:01:06,720 --> 00:01:10,369 align:middle line:90%
+Blender imports to the scene. It's going to
+look a bit weird to start with and I'll explain
+
+00:01:10,369 --> 00:01:10,920 align:middle line:84%
+why in a moment.
+
+00:01:10,920 --> 00:01:16,540 align:middle line:90%
+Drag it in and drop it, look at this default
+shadowing in Unity 5, by default. That's really
+
+00:01:16,540 --> 00:01:20,970 align:middle line:90%
+cool. So, what do we do when we drop a new
+3D asset in? Well, firstly we need to make
+
+00:01:20,970 --> 00:01:26,439 align:middle line:90%
+sure that it looks right. Now because Blender
+and Unity play together nicely, and this bowling
+
+00:01:26,439 --> 00:01:32,720 align:middle line:90%
+pin has been set up nicely or fairly nicely
+over in Blender, we can actually get the two
+
+00:01:32,720 --> 00:01:36,140 align:middle line:90%
+to play together very easily. So what have
+we got here? We have a bowling pin and what
+
+00:01:36,140 --> 00:01:40,880 align:middle line:90%
+is it? Well it's a transform and an animator
+for now. Well we don't really need an animator
+
+00:01:40,880 --> 00:01:43,320 align:middle line:84%
+so we could remove that component.
+
+00:01:43,320 --> 00:01:49,509 align:middle line:90%
+Then let's look in and see what the subcomponents
+are. Well we have a pin collider. So we have
+
+00:01:49,509 --> 00:01:53,750 align:middle line:90%
+a collider mesh and that's the funny purple
+things you're seeing there and then we have
+
+00:01:53,750 --> 00:01:58,020 align:middle line:90%
+a renderer on that collider mesh we don't
+need that. So the collider mesh is the mesh
+
+00:01:58,020 --> 00:02:03,020 align:middle line:90%
+that's going to be responsible for calculating
+how this pin interacts with other pins. So
+
+00:02:03,020 --> 00:02:09,780 align:middle line:90%
+you can remove the renderer mesh from the
+collider sub-object. You'll understand all
+
+00:02:09,780 --> 00:02:15,110 align:middle line:90%
+this a bit better in a bit, but basically
+we just need a coarse collider mesh on there,
+
+00:02:15,110 --> 00:02:21,569 align:middle line:90%
+and when we add a collider itself, let's do
+that now, add a mesh collider.
+
+00:02:21,569 --> 00:02:26,440 align:middle line:90%
+There you go, so you're looking at the bowling
+pin its pin collider sub-component and add
+
+00:02:26,440 --> 00:02:33,900 align:middle line:90%
+a component called a mesh collider. There
+it is. So that mesh is of a lower detail than
+
+00:02:33,900 --> 00:02:37,400 align:middle line:90%
+the render mesh. So if you zoom in to the
+pin by rolling in as we showed you then look
+
+00:02:37,400 --> 00:02:42,069 align:middle line:90%
+at the triangles in the render mesh, in the
+blue here compared to all the triangles in
+
+00:02:42,069 --> 00:02:47,730 align:middle line:90%
+the collider mesh; a much more coarse mesh
+and there's a good reason for that. In order
+
+00:02:47,730 --> 00:02:53,910 align:middle line:90%
+to make the pin interact and bounce off other
+pins the mesh needs to be something called
+
+00:02:53,910 --> 00:03:00,610 align:middle line:90%
+convex which means that it has no concave
+elements like this curve here like the waistline
+
+00:03:00,610 --> 00:03:02,120 align:middle line:84%
+of the pin.
+
+00:03:02,120 --> 00:03:07,430 align:middle line:90%
+If it's not convex then this pin will not
+be able to hit other pins it's a performance
+
+00:03:07,430 --> 00:03:12,650 align:middle line:90%
+optimisation element of Unity. So we need
+to click convex. So on your bowling pin pin
+
+00:03:12,650 --> 00:03:19,150 align:middle line:90%
+collider your mesh collider element click
+convex and it'll immediately become convex
+
+00:03:19,150 --> 00:03:24,209 align:middle line:90%
+like that, which is great. You wouldn't be
+able to do that with the render mesh because
+
+00:03:24,209 --> 00:03:28,860 align:middle line:90%
+if you look at the documentation for a mesh
+collider and then look up convex - there you
+
+00:03:28,860 --> 00:03:32,580 align:middle line:90%
+go convex - if enabled then mesh collider
+will collide with other mesh colliders, we
+
+00:03:32,580 --> 00:03:36,790 align:middle line:90%
+need that, we need pins to collide with pins
+but they are limited to 255 triangles.
+
+00:03:36,790 --> 00:03:42,349 align:middle line:90%
+SO Michael has kindly when he made this bowling
+pin made us two separate meshes - one to make
+
+00:03:42,349 --> 00:03:46,599 align:middle line:90%
+it look prettier, which is the render mesh,
+and then another for the collider mesh that
+
+00:03:46,599 --> 00:03:50,760 align:middle line:90%
+we are now making convex. So the end state
+of your collider should be no renderer - we
+
+00:03:50,760 --> 00:03:55,750 align:middle line:90%
+don't need to render the collider, we don't
+need to see it; convex and looking something
+
+00:03:55,750 --> 00:04:00,510 align:middle line:90%
+like that. Now it's not perfect, it's not
+going to collide exactly like pins do because
+
+00:04:00,510 --> 00:04:06,500 align:middle line:90%
+it's going to act like it's impacting things
+even right out here to the sides of the mesh
+
+00:04:06,500 --> 00:04:11,290 align:middle line:90%
+but that's the limitation that we have with
+Unity and convex meshes; and then if you look
+
+00:04:11,290 --> 00:04:13,019 align:middle line:84%
+at the rendered that's doing fine.
+
+00:04:13,019 --> 00:04:17,600 align:middle line:90%
+Now you'll notice that again because the asset
+was set up nicely in Blender to import it's
+
+00:04:17,600 --> 00:04:21,910 align:middle line:90%
+got several things on it. It has a mesh and
+then a mesh renderer but then it has also
+
+00:04:21,910 --> 00:04:26,610 align:middle line:90%
+populated this materials array with two different
+materials now, we have a material for the
+
+00:04:26,610 --> 00:04:32,110 align:middle line:90%
+majority of the pin which is white, which
+you can see here, under material element zero,
+
+00:04:32,110 --> 00:04:36,550 align:middle line:90%
+pin body, and then material element one which
+is pin stripe. Now if you're wondering where
+
+00:04:36,550 --> 00:04:40,940 align:middle line:90%
+those materials exist well they're in this
+materials subfolder automatically and they
+
+00:04:40,940 --> 00:04:46,060 align:middle line:90%
+are just plain red and white albedo materials
+just like the floor, but just plain white
+
+00:04:46,060 --> 00:04:47,100 align:middle line:84%
+and red.
+
+00:04:47,100 --> 00:04:50,810 align:middle line:90%
+OK the other things that you'll see in this
+Blender object when you expand it out with
+
+00:04:50,810 --> 00:04:56,900 align:middle line:90%
+the little triangle is a default take here
+which is to do with animation and also a bowling
+
+00:04:56,900 --> 00:05:00,699 align:middle line:90%
+pin avatar again also used for animation.
+They come across by default; we don't need
+
+00:05:00,699 --> 00:05:06,800 align:middle line:90%
+to use them. Fantastic so we have a single
+pin which is great news. Let's go and put
+
+00:05:06,800 --> 00:05:12,600 align:middle line:90%
+the single pin where it should be now. If
+I remember rightly it's in the middle x, y
+
+00:05:12,600 --> 00:05:16,460 align:middle line:90%
+well I believe should be 0, right on the floor
+let's just check that this is going to depend
+
+00:05:16,460 --> 00:05:21,380 align:middle line:90%
+on the pivot point of your 3D object. Yep
+that's on the floor. Now if you're adventurous
+
+00:05:21,380 --> 00:05:25,310 align:middle line:90%
+and you want to have a play with this pin
+your second customisation point for this game
+
+00:05:25,310 --> 00:05:29,180 align:middle line:90%
+after you've made us a different and much
+more interesting lane is to double click on
+
+00:05:29,180 --> 00:05:34,300 align:middle line:90%
+your bowling pin if you've got Blender installed,
+get into Blender, and to modify this pin and
+
+00:05:34,300 --> 00:05:35,650 align:middle line:84%
+to make it your own.
+
+00:05:35,650 --> 00:05:40,080 align:middle line:90%
+Now Blender can be a bit of a face full to
+get used to and that is exactly why we have
+
+00:05:40,080 --> 00:05:44,449 align:middle line:90%
+created this course. You have issues in here
+with this interface and how to get a handle
+
+00:05:44,449 --> 00:05:49,050 align:middle line:90%
+on it, I find it really tricky but that's
+why we're making a course on it. Anyway try
+
+00:05:49,050 --> 00:05:53,740 align:middle line:90%
+and find another bowling pin or modify this
+bowling pin if you can at least change the
+
+00:05:53,740 --> 00:05:59,020 align:middle line:90%
+colours of these stripes, that is simple to
+do, right you just go into the pin render
+
+00:05:59,020 --> 00:06:04,080 align:middle line:90%
+material here and you could go to the stripe
+material and you could go into here and you
+
+00:06:04,080 --> 00:06:05,789 align:middle line:84%
+could change it to let's say a blue stripe.
+
+00:06:05,789 --> 00:06:10,210 align:middle line:90%
+Alright? So at least customise the colours,
+if you really want to get detailed you could
+
+00:06:10,210 --> 00:06:15,400 align:middle line:90%
+go into here and you could start putting a
+texture onto the pin itself and have a play
+
+00:06:15,400 --> 00:06:18,830 align:middle line:90%
+around with all of how that works and the
+pin properties. Great opportunity for you
+
+00:06:18,830 --> 00:06:25,229 align:middle line:90%
+to create and explore and make a mess. OK,
+so we have a pin. It lives at 0, 0 and then
+
+00:06:25,229 --> 00:06:32,400 align:middle line:90%
+1829 was the position of the head pin I believe
+from the document. Let's go focus down on
+
+00:06:32,400 --> 00:06:39,130 align:middle line:90%
+that pin. OK so the z position is negative
+and that's fine, we can have all of our z
+
+00:06:39,130 --> 00:06:43,850 align:middle line:90%
+positions in the negative, or, you can switch
+your play space around so you need to decide
+
+00:06:43,850 --> 00:06:48,990 align:middle line:90%
+now do you want to be dealing with negative
+z's or do you want to have positive z's from
+
+00:06:48,990 --> 00:06:50,349 align:middle line:84%
+the line that you launch?
+
+00:06:50,349 --> 00:06:56,099 align:middle line:90%
+Well I want to be dealing with positives,
+so let's move our floor, so firstly I'm going
+
+00:06:56,099 --> 00:06:59,630 align:middle line:90%
+to rename my floor object so it's more clear
+what it is, I'm going to move my bowling pin
+
+00:06:59,630 --> 00:07:04,280 align:middle line:90%
+to the bottom just for tidiness and now we
+need to look at where this floor object is,
+
+00:07:04,280 --> 00:07:09,470 align:middle line:90%
+well it's 20m long but it centres in the middle
+here. What I actually want to do is move it
+
+00:07:09,470 --> 00:07:15,490 align:middle line:90%
+out in the z like that so the line that you
+launch your ball from is right at the origin
+
+00:07:15,490 --> 00:07:23,030 align:middle line:90%
+here. So we need to be minus a thousand centimetres
+here and the effect that that has if we put
+
+00:07:23,030 --> 00:07:28,460 align:middle line:90%
+a reference cube in - game object / 3D / cube
+and then reset that cube, remember that this
+
+00:07:28,460 --> 00:07:30,020 align:middle line:84%
+is a one by one centimetre cube.
+
+00:07:30,020 --> 00:07:34,080 align:middle line:90%
+Where is it? Well let's take a look - its
+right there, it's one hundredth of the width
+
+00:07:34,080 --> 00:07:38,639 align:middle line:90%
+of the play space and it's right at the bowling
+launch line. Perfect. The other thing that
+
+00:07:38,639 --> 00:07:42,810 align:middle line:90%
+we can do with this reference cube of course,
+being one centimetre tall is to move it up
+
+00:07:42,810 --> 00:07:48,550 align:middle line:90%
+one centimetre like that and then to move
+it to 1829 in the z direction, so that it's
+
+00:07:48,550 --> 00:07:53,910 align:middle line:90%
+sitting right next to the pin. Now it's moved
+in positive z, look at this little gizmo at
+
+00:07:53,910 --> 00:07:58,879 align:middle line:90%
+the top here, and our playspace disappears
+into negative z so you need to be careful
+
+00:07:58,879 --> 00:08:00,349 align:middle line:84%
+with your positives and negatives.
+
+00:08:00,349 --> 00:08:04,360 align:middle line:90%
+I think that the whole game would be a lot
+easier to manage if the playspace, i.e. the
+
+00:08:04,360 --> 00:08:11,490 align:middle line:90%
+floor, went not into negative z but into positive
+z. So these are the sort of fiddling around
+
+00:08:11,490 --> 00:08:14,919 align:middle line:90%
+that you're going to have to do. OK what have
+we got now? We've got a bowling pin that shouldn't
+
+00:08:14,919 --> 00:08:20,090 align:middle line:90%
+be at 1829 negative but positive, we're just
+flipping our entire playspace around. Where's
+
+00:08:20,090 --> 00:08:25,009 align:middle line:90%
+the camera? Well, it's kind of in the wrong
+place now but that's fine, we can go to the
+
+00:08:25,009 --> 00:08:30,199 align:middle line:90%
+end of the playspace, this is a good chance
+for you to navigate, or we could either go
+
+00:08:30,199 --> 00:08:36,680 align:middle line:90%
+to the end of the playspace, spin around,
+and then align the camera with the view, or
+
+00:08:36,680 --> 00:08:38,570 align:middle line:84%
+we could do this from the inspector.
+
+00:08:38,570 --> 00:08:43,659 align:middle line:90%
+We could say that we want the camera to be
+at y = 5, that was fine before, it could be
+
+00:08:43,659 --> 00:08:50,420 align:middle line:90%
+at x = 0, right in the middle of the lane,
+and then at z = 0, and then where's the camera?
+
+00:08:50,420 --> 00:08:55,480 align:middle line:90%
+Well let's just take a look at it in the scene
+view. Do a bit of moving around with the right
+
+00:08:55,480 --> 00:08:59,480 align:middle line:90%
+mouse button, click on the camera to visualise
+it, there it is. So the problem with it right
+
+00:08:59,480 --> 00:09:04,399 align:middle line:90%
+now is its rotation around the y axis. How
+do you know that? Well look at these axis
+
+00:09:04,399 --> 00:09:08,649 align:middle line:90%
+indicators here, it's the y axis that we need
+to spin it around, 180 degrees, there you
+
+00:09:08,649 --> 00:09:12,640 align:middle line:90%
+go; and the camera preview looks about right,
+and actually it's great, we're looking down
+
+00:09:12,640 --> 00:09:14,120 align:middle line:84%
+the lane.
+
+00:09:14,120 --> 00:09:20,040 align:middle line:90%
+So now the position of our camera, if we set
+it to 0 z, is right at the launch point of
+
+00:09:20,040 --> 00:09:24,649 align:middle line:90%
+the lane. We can't see the pins at the end
+now, why not? Well because the camera viewport
+
+00:09:24,649 --> 00:09:30,500 align:middle line:90%
+is too wide. We need to zoom our camera in
+a little bit. Click on the camera again, maybe
+
+00:09:30,500 --> 00:09:33,820 align:middle line:90%
+go into game view so that you can see what
+you're doing, and just turn the field of view
+
+00:09:33,820 --> 00:09:38,240 align:middle line:90%
+of the camera down, OK? And then again you're
+going to have to adjust it a little bit until
+
+00:09:38,240 --> 00:09:41,920 align:middle line:90%
+you can actually see what's going on. So get
+used to manipulating these objects, move the
+
+00:09:41,920 --> 00:09:48,279 align:middle line:90%
+camera viewpoint up; now what's wrong? Well
+the camera has a far point clipping plane
+
+00:09:48,279 --> 00:09:53,730 align:middle line:90%
+of a thousand which is how far it can see.
+Why don't we say 2,500? There you go.
+
+00:09:53,730 --> 00:09:58,980 align:middle line:90%
+Now it can see out to 25 metres distance,
+and you can see that reflected here; you see
+
+00:09:58,980 --> 00:10:03,680 align:middle line:90%
+as I move this far point, you see it moving?
+So beyond that things aren't rendered for
+
+00:10:03,680 --> 00:10:07,140 align:middle line:84%
+this camera, it's like the fog of war.
+
+00:10:07,140 --> 00:10:12,300 align:middle line:90%
+So if your camera is sitting now at the start
+point, basically at the origin but lifted
+
+00:10:12,300 --> 00:10:16,279 align:middle line:90%
+up a little bit by 25 cm off the deck - maybe
+we should go higher than that, maybe we should
+
+00:10:16,279 --> 00:10:21,399 align:middle line:90%
+go 150 cm off the deck, more like a human
+height. Sounds like a good idea but it just
+
+00:10:21,399 --> 00:10:24,930 align:middle line:90%
+doesn't look right with this zoomed in camera
+so I'm going to put it back down to where
+
+00:10:24,930 --> 00:10:28,790 align:middle line:90%
+it was. You see sometimes you just have to
+be non-realistic and just play with things.
+
+00:10:28,790 --> 00:10:32,279 align:middle line:90%
+Is it right in the middle x-wise? No it could
+be, that'll be fine. Probably more boring
+
+00:10:32,279 --> 00:10:36,440 align:middle line:90%
+if it is, and we could play with the camera
+more later. You get the idea, we want it at
+
+00:10:36,440 --> 00:10:40,910 align:middle line:90%
+the origin, looking down the lane, the lane
+wants to extend from the origin, i.e. 0,0,0
+
+00:10:40,910 --> 00:10:46,649 align:middle line:90%
+all the way down, 20 metres in the positive
+z direction as indicated here, the floor is
+
+00:10:46,649 --> 00:10:51,640 align:middle line:90%
+at 0,0,1000 because it's 20 metres long, it
+has to be offset by a thousand.
+
+00:10:51,640 --> 00:10:55,700 align:middle line:90%
+Where's this reference cube? It’s right
+down here, actually inside the pin at the
+
+00:10:55,700 --> 00:11:02,050 align:middle line:90%
+moment, so let’s go to the translate tool
+which is up here, and just move it next to
+
+00:11:02,050 --> 00:11:07,720 align:middle line:90%
+the pin now it needs to be at y = 1, there
+you go, and now you can check and see is this
+
+00:11:07,720 --> 00:11:11,310 align:middle line:90%
+guy roughly the right size? Well how big was
+the pin supposed to be? Well twenty something
+
+00:11:11,310 --> 00:11:20,310 align:middle line:90%
+centimetres right? So why not scale your cube
+20 cm and move it up 10cm? And that's 20cm
+
+00:11:20,310 --> 00:11:25,450 align:middle line:90%
+so you can check against your game design
+document how big your pin should be and just
+
+00:11:25,450 --> 00:11:27,730 align:middle line:90%
+use physical objects as measuring sticks if
+you want.
+
+00:11:27,730 --> 00:11:33,540 align:middle line:90%
+Somewhere here we have a pin specification,
+here you go. It should be 38 cm tall. So over
+
+00:11:33,540 --> 00:11:40,220 align:middle line:90%
+in Unity if we set the y scale to 38 half
+of that's going to be under the floor, so
+
+00:11:40,220 --> 00:11:46,100 align:middle line:90%
+we need to move it up by 15 _4 or half of
+38 which is 19 so it sits perfectly on the
+
+00:11:46,100 --> 00:11:50,950 align:middle line:90%
+ground, you see right there and you see that
+is the height of the pin or thereabouts. So
+
+00:11:50,950 --> 00:11:54,540 align:middle line:90%
+great, measuring stick. That's what I used
+the cube for. Just to get a handle on what
+
+00:11:54,540 --> 00:11:58,620 align:middle line:90%
+this space is. Remember we're choosing for
+our units to mean centimetres, they have no
+
+00:11:58,620 --> 00:11:59,800 align:middle line:84%
+meaning until we give them one.
+
+00:11:59,800 --> 00:12:07,029 align:middle line:90%
+Great, so we have the pin in, let's take you
+onto your challenge right now. So I want you
+
+00:12:07,029 --> 00:12:13,310 align:middle line:90%
+to find your own pin, or modify the pin if
+you want to, otherwise use ours from the assets,
+
+00:12:13,310 --> 00:12:18,060 align:middle line:90%
+ensure that the dimensions match, or are close
+to the GDD, test that the pin sits on the
+
+00:12:18,060 --> 00:12:24,510 align:middle line:90%
+lane properly like we have there and set up
+all ten pins according to the game design
+
+00:12:24,510 --> 00:12:28,600 align:middle line:90%
+document that means lay them out and that's
+a bit of a hassle but it only needs to be
+
+00:12:28,600 --> 00:12:36,920 align:middle line:90%
+done once because we'll prefab the pin set
+up. So go ahead, get all that done and I will
+
+00:12:36,920 --> 00:12:39,600 align:middle line:84%
+see you in a moment.
+
+00:12:39,600 --> 00:12:42,839 align:middle line:90%
+Cool welcome back, so now it's just a question
+of firstly I just need to make sure that the
+
+00:12:42,839 --> 00:12:46,850 align:middle line:90%
+pin actually collides with the floor, so that
+it will let me play the game here, and the
+
+00:12:46,850 --> 00:12:52,399 align:middle line:90%
+pin well, it probably does collide with the
+floor but there's no gravity on it yet. We'll
+
+00:12:52,399 --> 00:12:56,459 align:middle line:90%
+deal with the physics of the pin in a little
+bit but for now all I needed you to do was
+
+00:12:56,459 --> 00:13:00,839 align:middle line:90%
+to make sure that they sit on the floor graphically.
+If you've been a little more advanced and
+
+00:13:00,839 --> 00:13:06,540 align:middle line:90%
+already added a rigidbdy to the pin and noticed
+that it falls to the floor then extra bonus,
+
+00:13:06,540 --> 00:13:09,670 align:middle line:90%
+but let's cover the physics of the pin in
+a separate video.
+
+00:13:09,670 --> 00:13:15,570 align:middle line:90%
+Cool, so for now we need to just replicate
+these pins in such a way that they match the
+
+00:13:15,570 --> 00:13:19,950 align:middle line:90%
+game design document for the pin layout. So
+that's at the beginning of this section, you
+
+00:13:19,950 --> 00:13:28,550 align:middle line:90%
+have this document here and we have a 30.48cm
+spacing between them sideways and a 52.71
+
+00:13:28,550 --> 00:13:33,880 align:middle line:90%
+spacing this way. That's a bit weird. So how
+are we going to do that? Well I like to have
+
+00:13:33,880 --> 00:13:41,399 align:middle line:90%
+an empty parent object called pins, and it's
+good practice to pop that at the origin. Or,
+
+00:13:41,399 --> 00:13:45,470 align:middle line:90%
+to pop it at the position of the head pin
+actually, which is what I'm going to do. 1829
+
+00:13:45,470 --> 00:13:48,449 align:middle line:84%
+so it's here, the game object is there.
+
+00:13:48,449 --> 00:13:54,980 align:middle line:90%
+Then when I move the bowling pin into it,
+it's offset the head pin is not offset at
+
+00:13:54,980 --> 00:14:00,279 align:middle line:90%
+all from the pins object so the pins object
+is relative to that headpin. Now it's just
+
+00:14:00,279 --> 00:14:04,380 align:middle line:90%
+a question of duplicating the pin, and actually
+what would be useful because it's going to
+
+00:14:04,380 --> 00:14:08,110 align:middle line:90%
+auto-number the pins for you is why not delete
+that first one and just duplicate like this
+
+00:14:08,110 --> 00:14:16,550 align:middle line:90%
+- 2, and then bring it back put it roughly
+in place, duplicate splodge d, 3, again command
+
+00:14:16,550 --> 00:14:21,850 align:middle line:90%
+or control d, you see the idea here and we
+can just duplicate these pins out moving them
+
+00:14:21,850 --> 00:14:26,279 align:middle line:90%
+into roughly the right position I suggest
+is a good idea. Careful about using this box
+
+00:14:26,279 --> 00:14:29,949 align:middle line:90%
+translator as it'll move it in 3 dimensions
+and that will be confusing. So it's probably
+
+00:14:29,949 --> 00:14:34,230 align:middle line:90%
+easier just to use your red and your blue
+handles; and also remember that you can move
+
+00:14:34,230 --> 00:14:39,060 align:middle line:90%
+your viewpoint, don't fight in a 3D view if
+you don't need to be; and now you could actually
+
+00:14:39,060 --> 00:14:44,040 align:middle line:90%
+label these exactly as they should be so if
+this is pin 1, 2 and 3 as we look from above,
+
+00:14:44,040 --> 00:14:51,740 align:middle line:90%
+why not spin it around, get above it and then
+make sure we're doing pin 1, 2 you see two
+
+00:14:51,740 --> 00:14:55,100 align:middle line:90%
+and three are round the wrong way as such
+so let's just get them right.
+
+00:14:55,100 --> 00:15:03,810 align:middle line:90%
+1, 2, 3, and then 4, 5 is inside four at the
+moment because of the way that I duplicated
+
+00:15:03,810 --> 00:15:11,079 align:middle line:90%
+it, we're just going to do a rough layout
+to start with, then six and the beauty of
+
+00:15:11,079 --> 00:15:15,310 align:middle line:90%
+duplicating these after deleting the first
+pin is that they auto-number, isn't that easy.
+
+00:15:15,310 --> 00:15:21,870 align:middle line:90%
+Seven, eight and I suggest immediately that
+you duplicate them that you move the new object
+
+00:15:21,870 --> 00:15:26,040 align:middle line:90%
+out so it doesn't end up too confused, and
+there you go we have a set of pins. Now they're
+
+00:15:26,040 --> 00:15:31,630 align:middle line:90%
+not lined up perfectly, and that's not surprising
+because we haven’t yet actually inspected
+
+00:15:31,630 --> 00:15:33,009 align:middle line:84%
+them to line them up perfectly.
+
+00:15:33,009 --> 00:15:36,560 align:middle line:90%
+So how are we going to do that? How are we
+going to make sure that the pins are in exactly
+
+00:15:36,560 --> 00:15:40,389 align:middle line:90%
+the right positions? Well you just need to
+go through and do a little bit of calculation,
+
+00:15:40,389 --> 00:15:44,959 align:middle line:90%
+so if it's - looking at this vertical dimension
+looking from pin 3 to 9 that's going to be
+
+00:15:44,959 --> 00:15:49,029 align:middle line:90%
+the same as the dimension from pin 1 to 5
+so let's start there with number one; and
+
+00:15:49,029 --> 00:15:56,690 align:middle line:90%
+we need to make sure that the dimension 9
+to 3 or 3 to 9 is 52.71 cm, let's remember
+
+00:15:56,690 --> 00:16:04,070 align:middle line:90%
+52.71 so we need pin 5 to be 52.71 cm back
+from pin 0.
+
+00:16:04,070 --> 00:16:08,970 align:middle line:90%
+So pin 0 is at 0, 0, 0 relative to the pin
+array, which is a nice, that's the head pin
+
+00:16:08,970 --> 00:16:15,899 align:middle line:90%
+so that makes sense. Pin 5 we want to be at
+x = 0, y = 0 because we want it sitting on
+
+00:16:15,899 --> 00:16:22,990 align:middle line:90%
+the floor but 52.71 back. Now to me that looks
+like that's too far back but no but it's OK,
+
+00:16:22,990 --> 00:16:28,430 align:middle line:90%
+it's just a bigger gap than we expect. This
+pin has ended up all the way back here. That
+
+00:16:28,430 --> 00:16:33,220 align:middle line:90%
+seems like it's a long way back to me, in
+fact that is too long a way back for sure.
+
+00:16:33,220 --> 00:16:39,199 align:middle line:90%
+Let's just take a look where pin 2 would be,
+that would put pin 2 maybe it is OK?
+
+00:16:39,199 --> 00:16:45,690 align:middle line:90%
+Pin 2 there, pin 3 here, yeah maybe that's
+fine. So pin 4 would come down here, see a
+
+00:16:45,690 --> 00:16:51,170 align:middle line:90%
+messy business of just laying out the pins
+roughly right in the first place and then
+
+00:16:51,170 --> 00:16:55,209 align:middle line:90%
+we just have to move the back layer of pins
+all the way back and you could actually multi-select
+
+00:16:55,209 --> 00:17:01,610 align:middle line:90%
+those to do that by holding down command.
+OK, so maybe they are that spaced out. It
+
+00:17:01,610 --> 00:17:05,870 align:middle line:90%
+feels a little bit odd, looks a little bit
+odd, but let's make sure that it works. Pin
+
+00:17:05,870 --> 00:17:12,990 align:middle line:90%
+1 is at 0, 0, 0, pin 5 is the first one that
+we have a handle on is at 0,0,52.71. That's
+
+00:17:12,990 --> 00:17:15,199 align:middle line:84%
+what it says, let's just keep going then.
+
+00:17:15,199 --> 00:17:22,730 align:middle line:90%
+So we have 30.48cm sideways between two pins.
+So that means we have 15.24cm is half of that,
+
+00:17:22,730 --> 00:17:29,240 align:middle line:90%
+right? So that's where this guy needs to be,
+pin 2 needs to be at -15.24 going half the
+
+00:17:29,240 --> 00:17:34,720 align:middle line:90%
+distance sideways and then how far back? Well
+half of 52.71 now we're stretching my mental
+
+00:17:34,720 --> 00:17:40,200 align:middle line:90%
+calculations a little bit so let's just use
+a calculator. 26.355 you may as well copy
+
+00:17:40,200 --> 00:17:46,370 align:middle line:90%
+that from your calculator to be precise, and
+just pop it in here. There you go. So it's
+
+00:17:46,370 --> 00:17:53,220 align:middle line:90%
+pretty obvious now what pin number 3 is going
+to be, it's going to be the same type of thing
+
+00:17:53,220 --> 00:17:56,990 align:middle line:90%
+as number 2 but with the opposite x co-ordinate
+so 15.24.
+
+00:17:56,990 --> 00:18:03,160 align:middle line:90%
+OK look, now I'm not going to bore you by
+going through and showing you the final layout
+
+00:18:03,160 --> 00:18:09,330 align:middle line:90%
+of these pins so I'm just going to cut to
+the end result where I've applied the same
+
+00:18:09,330 --> 00:18:14,809 align:middle line:90%
+calculation to make sure that all these pins
+are in the perfect positions. So a couple
+
+00:18:14,809 --> 00:18:21,669 align:middle line:90%
+more tips to help you with this, I've laid
+out most of my pins I just want to show you
+
+00:18:21,669 --> 00:18:27,830 align:middle line:90%
+two more options, one is don't be afraid to
+delete pins if you find that it's going to
+
+00:18:27,830 --> 00:18:33,660 align:middle line:90%
+be easier just to duplicate like that perhaps
+and then move this guy across maybe to 15.2,
+
+00:18:33,660 --> 00:18:35,370 align:middle line:84%
+that's one option for you.
+
+00:18:35,370 --> 00:18:42,220 align:middle line:90%
+The other thing that you can do if you have
+a rough set pin like this pin number ten here,
+
+00:18:42,220 --> 00:18:48,049 align:middle line:90%
+let's imagine that it's in a weird position
+like so, and you say well it's pretty much
+
+00:18:48,049 --> 00:18:53,870 align:middle line:90%
+the same position as this guy, he's just the
+opposite x component, what you could do is
+
+00:18:53,870 --> 00:19:00,039 align:middle line:90%
+go to the transform of say pin 7 or whichever
+one, copy the component, that copies the whole
+
+00:19:00,039 --> 00:19:05,490 align:middle line:90%
+transform component, click on the destination
+pin and paste component values and it will
+
+00:19:05,490 --> 00:19:10,179 align:middle line:90%
+snap right on the top of this guy and then
+if you remove the negative then that's another
+
+00:19:10,179 --> 00:19:11,130 align:middle line:84%
+way of doing it.
+
+00:19:11,130 --> 00:19:14,289 align:middle line:90%
+Now if you still think that this looks weird
+then you can change your camera from perspective
+
+00:19:14,289 --> 00:19:19,100 align:middle line:90%
+to isometric. Now perspective is obviously
+how we see the world, isometric is like a
+
+00:19:19,100 --> 00:19:23,360 align:middle line:90%
+camera at infinity and now there is no perspective,
+and actually from this point of view it's
+
+00:19:23,360 --> 00:19:28,880 align:middle line:90%
+all looking a lot more sensible in the perspective
+view and maybe down here they look too spread
+
+00:19:28,880 --> 00:19:33,340 align:middle line:90%
+out but we're just so used to seeing bins
+from down here that it just doesn't match
+
+00:19:33,340 --> 00:19:38,590 align:middle line:90%
+our intuition. It looks a lot better down
+here right? Again isometric here looks weird
+
+00:19:38,590 --> 00:19:43,270 align:middle line:90%
+but perspective here looks right, and isometric
+from above looks right as well.
+
+00:19:43,270 --> 00:19:47,780 align:middle line:90%
+So congratulations! All our pins are laid
+out beautifully in the play space and if we
+
+00:19:47,780 --> 00:19:52,030 align:middle line:90%
+look at our game camera you can see something
+looking like a bowling lane and we have a
+
+00:19:52,030 --> 00:19:57,030 align:middle line:90%
+master game object so perfect! Well done looking
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section8/BM07 Import pin from blender.srt
 this far and I'll see you soon.

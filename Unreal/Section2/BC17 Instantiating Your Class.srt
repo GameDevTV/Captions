@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿WEBVTT
 
 1
@@ -415,3 +416,421 @@ that thing to what we want it to be. that our cars come off the production line 
 104
 00:06:54.033 --> 00:07:00.133
 and all their lights off. OK. so look forward to seeing you there where we'll work on constructors!
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+...
+
+2
+00:00:04,000 --> 00:00:08,000
+So, welcome to Instantiating Your Class! We're going to take the small but important
+
+3
+00:00:08,000 --> 00:00:12,000
+step of actually bringing an instance of the
+
+4
+00:00:12,000 --> 00:00:16,000
+class that you just created to life, so if the class is like a factory then instance is
+
+5
+00:00:16,000 --> 00:00:21,600
+like one of the cars rolling off the production line. So, let's go ahead explore that now!
+
+6
+00:00:21,600 --> 00:00:25,600
+So now that we have this fancy class thing we've created, or
+
+7
+00:00:25,600 --> 00:00:29,600
+user defined type called Bull Cow Game, how do we use it?
+
+8
+00:00:29,600 --> 00:00:33,600
+Well firstly, let's see how we've been using existing types that have been
+
+9
+00:00:33,600 --> 00:00:37,600
+defined. If we scroll down, in main.cpp, to GetGuess(),
+
+10
+00:00:37,600 --> 00:00:41,600
+you can see this line here. This says there is a
+
+11
+00:00:41,600 --> 00:00:45,600
+type called string. OK, they've not used a capital and stuff,
+
+12
+00:00:45,600 --> 00:00:49,600
+but it's still a type and it's user defined and somebody else has defined it for us.
+
+13
+00:00:49,600 --> 00:00:53,600
+It happens to be wrapped up in a namespace. That's just like a folder, so it's in a folder called
+
+14
+00:00:53,600 --> 00:00:57,600
+Standard, if you like, but it's called string. And
+
+15
+00:00:57,600 --> 00:01:01,600
+this is the type, Guess is the name of the variable we're going to be creating, and we're
+
+16
+00:01:01,600 --> 00:01:05,600
+initializing it to a value of a blank string. You actually, strictly speaking, don't
+
+17
+00:01:05,600 --> 00:01:09,600
+need to do that, but it's a good habit given that we're not entirely sure
+
+18
+00:01:09,600 --> 00:01:13,600
+how this would create itself. So, how are we going to get
+
+19
+00:01:13,600 --> 00:01:17,600
+access to our own type. Well, we're going to do something like this. It's not going to
+
+20
+00:01:17,600 --> 00:01:21,600
+work right now, but I'm just going to show you what we're going to do. We're going to go something like FBullCowGame,
+
+21
+00:01:21,600 --> 00:01:25,600
+because that's the name of our class, just like string here was the name of the
+
+22
+00:01:25,600 --> 00:01:29,600
+class. This is the template, the mold if you like, that
+
+23
+00:01:29,600 --> 00:01:33,600
+this thing is going to come out of, and we're going to call the actual thing something like Bull Cow Game.
+
+24
+00:01:33,600 --> 00:01:37,600
+And that's just like our Guess, that's our variable, and that word,
+
+25
+00:01:37,600 --> 00:01:41,600
+once we've done the necessary steps, that would make a new variable called
+
+26
+00:01:41,600 --> 00:01:45,600
+BCGame, which is actually a game instance. It's a bigger thing, conceptually,
+
+27
+00:01:45,600 --> 00:01:49,600
+than just a string guess and that would be that, and then, we
+
+28
+00:01:49,600 --> 00:01:53,600
+can't just initialize it trivially like this, because it's not a string, it's not a
+
+29
+00:01:53,600 --> 00:01:57,600
+number, so we'll talk about initialization in a minute, too, i.e. how do we give it
+
+30
+00:01:57,600 --> 00:02:01,600
+an initial a starting value? What properties is it born with? But this is
+
+31
+00:02:01,600 --> 00:02:05,600
+what we're aiming for! So, why does this not work at the moment? Well,
+
+32
+00:02:05,600 --> 00:02:09,600
+the reason that doesn't work, at the moment, is because we haven't imported the
+
+33
+00:02:09,600 --> 00:02:13,600
+library. So, I'm just going to delete that line, I've made no changes to the code at this stage.
+
+34
+00:02:13,600 --> 00:02:17,600
+At the top of main.cpp what we need to be doing is, and I want you to do this,
+
+35
+00:02:17,600 --> 00:02:21,600
+#include. OK, so we do #include. Now, we use quotes
+
+36
+00:02:21,600 --> 00:02:25,600
+because it's not a system thing, this is something we've made  ourselves, and look it very happily says ooh,
+
+37
+00:02:25,600 --> 00:02:29,600
+in this project or solution there's something called "FCowBullGame.h".
+
+38
+00:02:29,600 --> 00:02:33,600
+Let's use that! Great! So now, we have included
+
+39
+00:02:33,600 --> 00:02:37,600
+our own header file, OK. And the compiler is cleaver enough, by the way,
+
+40
+00:02:37,600 --> 00:02:41,600
+to know that if we're including this header file, that because all this implementation
+
+41
+00:02:41,600 --> 00:02:45,600
+here refers back to the header file through this
+
+42
+00:02:45,600 --> 00:02:49,600
+and through these little prefixes, which we'll explore when we come to actually write methods,
+
+43
+00:02:49,600 --> 00:02:53,600
+it knows that by including the head file it knows where to go to find this code
+
+44
+00:02:53,600 --> 00:02:57,600
+we've written. Bear in mind, there's nothing scary about the header file. Remember, you
+
+45
+00:02:57,600 --> 00:03:01,600
+could copy and paste what's in this header file, cut it completely
+
+46
+00:03:01,600 --> 00:03:05,600
+if you wanted, stick it at the top up here, and it's the same as a #include.
+
+47
+00:03:05,600 --> 00:03:09,600
+#include literally means copy and paste. It's nothing
+
+48
+00:03:09,600 --> 00:03:13,600
+more cleaver than that really. There's a few other things the compiler might do, which we can
+
+49
+00:03:13,600 --> 00:03:17,600
+see later but that's it basically. Cool! So, once we've
+
+50
+00:03:17,600 --> 00:03:21,600
+#include "FBullCowGame.h", we can now actually start to get
+
+51
+00:03:21,600 --> 00:03:25,600
+access to it, so let's try this. Where are we first going to need the
+
+52
+00:03:25,600 --> 00:03:29,600
+BullCowGame? Well, when we play the game, one of the first things we're going to need to do before
+
+53
+00:03:29,600 --> 00:03:32,666
+we play the game is to actually have a game to play.
+
+54
+00:03:32,666 --> 00:03:36,666
+So now, I want you to create a BCGame instance, but don't panic, it's simpler
+
+55
+00:03:36,666 --> 00:03:40,666
+than it sounds. It's just like you've been making strings or integers or any other variable
+
+56
+00:03:40,666 --> 00:03:44,666
+declaration. This is just a user defined type, remember. It's just a big box full of
+
+57
+00:03:44,666 --> 00:03:48,666
+cleaver stuff. So, make it the first line of PlayGame(), for now.
+
+58
+00:03:48,666 --> 00:03:52,666
+Declare a new object called BCGame, make it of type "FBullCowGame",
+
+59
+00:03:52,666 --> 00:03:56,666
+don't worry about initializing it yet, and make sure your code
+
+60
+00:03:56,666 --> 00:04:02,033
+still runs when you're finished. That will be the proof that it's all worked. So, pause the video, have a go at that, and we'll show you how in a sec.
+
+61
+00:04:02,033 --> 00:04:06,033
+So, we're going to create the FBullCowGame BCGame;
+
+62
+00:04:06,033 --> 00:04:10,033
+and then, when I hit semicolon watch what happens!
+
+63
+00:04:10,033 --> 00:04:14,033
+You see it recognizes this is a class, and then, that
+
+64
+00:04:14,033 --> 00:04:18,033
+becomes our variable. This is actually an instance
+
+65
+00:04:18,033 --> 00:04:22,033
+of this game. So, this is the template and then out of that mold we
+
+66
+00:04:22,033 --> 00:04:26,033
+create a game, OK. So, that is our
+
+67
+00:04:26,033 --> 00:04:30,033
+first instantiation. So instantiate.
+
+68
+00:04:30,033 --> 00:04:34,033
+So, what does instantiate mean? It means create an instance of...
+
+69
+00:04:34,033 --> 00:04:38,033
+Yeah, instantiate a new game or make
+
+70
+00:04:38,033 --> 00:04:42,033
+an instance of a new game. And there it is, it's a game! It's a big lump! It's much more
+
+71
+00:04:42,033 --> 00:04:46,033
+complex than just a string or an integer, but it's exactly the same as this guy here, that
+
+72
+00:04:46,033 --> 00:04:50,033
+just says you know make me a guess, make me a string rather, called Guess
+
+73
+00:04:50,033 --> 00:04:54,033
+and then, it goes off and initializes it. Now, we do
+
+74
+00:04:54,033 --> 00:04:58,033
+need to talk about initializing. So we have made a game, right. That's fine!
+
+75
+00:04:58,033 --> 00:05:02,033
+Now, what properties does that game have?
+
+76
+00:05:02,033 --> 00:05:06,033
+It has some state, it's born with some
+
+77
+00:05:06,033 --> 00:05:10,033
+stuff, right. For example, later on we're going to be saying that each
+
+78
+00:05:10,033 --> 00:05:14,033
+game has a current try and a maximum tries.
+
+79
+00:05:14,033 --> 00:05:18,033
+What has this game been born with? We don't know, we haven't explicitly said.
+
+80
+00:05:18,033 --> 00:05:22,033
+We just don't know what these properties of the game, the current
+
+81
+00:05:22,033 --> 00:05:26,033
+try and maximum try if you even have them, we don't know what those values are and that's a
+
+82
+00:05:26,033 --> 00:05:30,033
+problem. This thing, at the moment is initialized, we don't know what state it's in.
+
+83
+00:05:30,033 --> 00:05:34,033
+Yeah, we know it's of game, but it's like making a car and saying well I don't know if it's
+
+84
+00:05:34,033 --> 00:05:38,033
+coming out of the factory with the headlights on or with the headlights off or with the blinkers going or with the wipers
+
+85
+00:05:38,033 --> 00:05:42,033
+going or with the engine on? You know, if you make cars and the factory is this
+
+86
+00:05:42,033 --> 00:05:46,033
+thing here and each of the cars is this. You know, see I might make another game right now.
+
+87
+00:05:46,033 --> 00:05:50,033
+I might say, BCGame there, and then, I might make another one. And
+
+88
+00:05:50,033 --> 00:05:54,033
+I might make it BCGame2 or Player2Game
+
+89
+00:05:54,033 --> 00:05:58,033
+you now, and this may be Player1Game. So, we've actually got
+
+90
+00:05:58,033 --> 00:06:02,033
+two games running at the same time, and it can keep track of them because they're completely separate.
+
+91
+00:06:02,033 --> 00:06:06,033
+They've got their own, well they will when we start fleshing this out, have their own
+
+92
+00:06:06,033 --> 00:06:10,033
+properties. You know the current turn that they're on, and
+
+93
+00:06:10,033 --> 00:06:14,033
+you know with the status of the game, whether the game is won or not, will be independent
+
+94
+00:06:14,033 --> 00:06:18,033
+for each of these two things. These are like two cars coming off of a production line, from the same mold,
+
+95
+00:06:18,033 --> 00:06:22,033
+but we need to be sure they all come off the production line in
+
+96
+00:06:22,033 --> 00:06:26,033
+the same state. You know, headlights off, wipers not working, etc.
+
+97
+00:06:26,033 --> 00:06:30,033
+So, that is the job of something called a constructor. When
+
+98
+00:06:30,033 --> 00:06:34,033
+we create a new game like this, what the code is going to do
+
+99
+00:06:34,033 --> 00:06:38,033
+is it's going to go over here and it's going to say we don't have a constructor.
+
+100
+00:06:38,033 --> 00:06:42,033
+So, the topic of the next video is going to be constructors. It's going to be to say,
+
+101
+00:06:42,033 --> 00:06:46,033
+how do we make sure that when our mold creates a new one of these things, whatever our
+
+102
+00:06:46,033 --> 00:06:50,033
+thing is in our case a game, that we set the state of
+
+103
+00:06:50,033 --> 00:06:54,033
+that thing to what we want it to be, that our cars come off the production line with all their wipers off
+
+104
+00:06:54,033 --> 00:07:00,133
+and all their lights off. OK, so look forward to seeing you there where we'll work on constructors!
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1

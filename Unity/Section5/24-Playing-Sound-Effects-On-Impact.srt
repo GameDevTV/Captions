@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section5/24-Playing-Sound-Effects-On-Impact.srt
 WEBVTT
 
 1
@@ -721,3 +722,727 @@ it in more detail and solve the issue. if the issue ever comes up.
 00:12:00.000 --> 00:12:03.766
 So congratulations. great video. and I'll see you soon!
 
+=======
+
+1
+00:00:04,000 --> 00:00:08,000
+Hey guys, I don't know about you but I'm starting to feel our game could do with some sound.
+
+2
+00:00:08,000 --> 00:00:12,000
+So if you look, it's got some music, but I'm
+
+3
+00:00:12,000 --> 00:00:16,000
+thinking of a different type of sound. I'm thinking of
+
+4
+00:00:16,000 --> 00:00:20,000
+some boings and some crashes and stuff. Now, you're welcome
+
+5
+00:00:20,000 --> 00:00:24,000
+to record these sounds yourself. Use any program that you can use, like Audacity
+
+6
+00:00:24,000 --> 00:00:28,000
+would be one or sound recorder, whatever you can get your hands on.
+
+7
+00:00:28,000 --> 00:00:32,000
+If you look in the Course Assets, which is a
+
+8
+00:00:32,000 --> 00:00:36,000
+lecture at the beginning of the section, you will find that we have given
+
+9
+00:00:36,000 --> 00:00:40,000
+you a download. Let me show you what it looks like. I go to
+
+10
+00:00:40,000 --> 00:00:44,000
+my folder, which is here: blocker-
+
+11
+00:00:44,000 --> 00:00:48,000
+breaker-assets v.3 is the one I'm going to be using, .zip. And if you expand that
+
+12
+00:00:48,000 --> 00:00:52,000
+under Sounds, you'll have already found the background noise. You've got boing and crack.
+
+13
+00:00:52,000 --> 00:00:56,000
+Now, these are my daughter doing boing and crack and they're quite funny, so we're just going to...
+
+14
+00:00:56,000 --> 00:01:00,000
+I'm going to use those, you can replace them with whatever you like. They don't have to be
+
+15
+00:01:00,000 --> 00:01:04,000
+.ogg format, they can be .mp3 or any other format that you find that
+
+16
+00:01:04,000 --> 00:01:08,000
+Unity supports. So, drag them into your Sounds folder,
+
+17
+00:01:08,000 --> 00:01:12,000
+so that Unity has at least got access to them. Let's make neither of
+
+18
+00:01:12,000 --> 00:01:16,000
+them a 3D sound. You're going to have to do this one at a time, so
+
+19
+00:01:16,000 --> 00:01:20,000
+click on the track, click into the Inspector under
+
+20
+00:01:20,000 --> 00:01:24,000
+3D Sound, turn it off because we're in a 2D game, and then, click Apply and it
+
+21
+00:01:24,000 --> 00:01:28,000
+may take a second just to process that. So, all of our sound clips now are non
+
+22
+00:01:28,000 --> 00:01:32,000
+3D. Cool! They're the only settings we need to think about. So what we're going to
+
+23
+00:01:32,000 --> 00:01:36,000
+be doing, in this lecture, is we're going to use audio.Play() to play the boing
+
+24
+00:01:36,000 --> 00:01:40,000
+sound, and then, we're going to talk about why a different method called Audio
+
+25
+00:01:40,000 --> 00:01:44,000
+Source.PlayClipAtPoint is useful. Then, we're going to use that one
+
+26
+00:01:44,000 --> 00:01:48,000
+for playing the crack sound, and then, we're going to demonstrate and test and stuff.
+
+27
+00:01:48,000 --> 00:01:52,000
+Cool! So, let's start with the simple one, the ball. The ball just needs to say
+
+28
+00:01:52,000 --> 00:01:56,000
+boing every single time it hits something.
+
+29
+00:01:56,000 --> 00:02:00,000
+So, where have you played music before? You've played music in the MusicPlayer before,
+
+30
+00:02:00,000 --> 00:02:04,000
+but we actually didn't do anything in script, if you look in here. If you look at the
+
+31
+00:02:04,000 --> 00:02:08,000
+MusicPlayer, yes it's a MusicPlayer, but the only reason it plays
+
+32
+00:02:08,000 --> 00:02:12,000
+music is because, if you look at the object in the game scene,
+
+33
+00:02:12,000 --> 00:02:16,000
+which is only on your start scene, then it
+
+34
+00:02:16,000 --> 00:02:20,000
+Plays on Awake. So, it's only playing repeating, looping music on
+
+35
+00:02:20,000 --> 00:02:24,000
+the basis that it's Playing on Awake. I actually haven't got it on loop at
+
+36
+00:02:24,000 --> 00:02:28,000
+the moment. If you find your music runs out too soon, you're welcome to put it on loop.
+
+37
+00:02:28,000 --> 00:02:32,000
+So that's one way to play sounds, but on awake is only appropriate
+
+38
+00:02:32,000 --> 00:02:36,000
+for something like background music. We're actually going to need to play music or sound even
+
+39
+00:02:36,000 --> 00:02:40,000
+from script, programmatically. So, let's start with a simple one,
+
+40
+00:02:40,000 --> 00:02:44,000
+which is the ball. Click on the Ball in the prefabs, and what you
+
+41
+00:02:44,000 --> 00:02:48,000
+need to be doing here is adding a component. And that component
+
+42
+00:02:48,000 --> 00:02:52,000
+is a Audio Source.
+
+43
+00:02:52,000 --> 00:02:56,000
+Let's take a look at that! Fantastic! We do not want to Play on Awake, in this
+
+44
+00:02:56,000 --> 00:03:00,000
+case. We don't want the ball to make a boing sound when
+
+45
+00:03:00,000 --> 00:03:04,000
+the game starts, but we do need to attach the Audio Clip to
+
+46
+00:03:04,000 --> 00:03:08,000
+it, so that you can click on this little circle next to the Audio Clip, choose boing.
+
+47
+00:03:08,000 --> 00:03:12,000
+It says it's a 2D sound. If it doesn't then you go to your clip to change it,
+
+48
+00:03:12,000 --> 00:03:16,000
+that's fine, and that all looks OK for now, that's great!
+
+49
+00:03:16,000 --> 00:03:20,000
+So, at the moment, if you played nothing will happen,
+
+50
+00:03:20,000 --> 00:03:24,000
+because the final bit is we need to go into the Ball
+
+51
+00:03:24,000 --> 00:03:28,000
+script, and we need to say audio.play.
+
+52
+00:03:28,000 --> 00:03:32,000
+And you could test it just by putting it in here, audio.play. It's a good
+
+53
+00:03:32,000 --> 00:03:36,000
+idea to break all problems down into small problems like this. 
+so Just check this
+
+54
+00:03:36,000 --> 00:03:40,000
+plays on start. Let's try that with
+
+55
+00:03:40,000 --> 00:03:44,000
+any of the scenes, that have a ball in them.
+
+56
+00:03:44,000 --> 00:03:48,000
+[Sound Effect] Boing! [Laughs] There she goes, good old Lucy! So that works
+
+57
+00:03:48,000 --> 00:03:52,000
+but we don't want it here. We want it only happen on collision or
+
+58
+00:03:52,000 --> 00:03:56,000
+is it on trigger mm hmm? So, this is what you've got to work out. What I want you
+
+59
+00:03:56,000 --> 00:04:00,000
+to do now is to, as a challenge, I want you to work out whether
+
+60
+00:04:00,000 --> 00:04:04,000
+you need to be putting this in the OnCollisionEnter
+
+61
+00:04:04,000 --> 00:04:08,000
+or in the OnTriggerEnter2D() method. Write the method
+
+62
+00:04:08,000 --> 00:04:12,000
+signature into bool.cs and then use the play audio
+
+63
+00:04:12,000 --> 00:04:16,000
+in the appropriate method. So just go ahead look at Unity's
+
+64
+00:04:16,000 --> 00:04:20,000
+docs about collisions, if you need to, and decide whether these are collisions or triggers, when the ball
+
+65
+00:04:20,000 --> 00:04:24,000
+hits both the bricks and the wall.
+
+66
+00:04:24,000 --> 00:04:28,000
+Hey welcome back! So,
+
+67
+00:04:28,000 --> 00:04:32,000
+is it a collision or is it a trigger? Have you decided? Well, let's
+
+68
+00:04:32,000 --> 00:04:36,000
+take a look back at the slide that we had about collisions, that we showed you.
+
+69
+00:04:36,000 --> 00:04:40,000
+The ball is a physics object and it's moving
+
+70
+00:04:40,000 --> 00:04:44,000
+and it's not a trigger, so it's a Rigidbody Collider. And when it hits the walls,
+
+71
+00:04:44,000 --> 00:04:48,000
+it's hitting a Static Collider and when it hits the bricks it's hitting a Static Collider, so it's a collision
+
+72
+00:04:48,000 --> 00:04:52,000
+we're dealing with. Alright, hopefully that makes sense.
+
+73
+00:04:52,000 --> 00:04:56,000
+So, what we want to do is, in the Ball script, we want to write the method.
+
+74
+00:04:56,000 --> 00:05:00,000
+Now, be careful with your brackets. Look, click next to the curly bracket and you'll see which one
+
+75
+00:05:00,000 --> 00:05:04,000
+it relates to. You see that? So, this one here is
+
+76
+00:05:04,000 --> 00:05:08,000
+the closing brace of the Update() method. I want to go under that but not
+
+77
+00:05:08,000 --> 00:05:12,000
+outside of the whole class description. Hopefully that makes sense,
+
+78
+00:05:12,000 --> 00:05:16,000
+just get used to the indentation. So, void OnCollision
+
+79
+00:05:16,000 --> 00:05:20,000
+Enter2D. Don't miss your 2D! And what it's going to pass in
+
+80
+00:05:20,000 --> 00:05:24,000
+is a, not a Collider2D, but a Collision
+
+81
+00:05:24,000 --> 00:05:28,000
+2D because it's a Collision. We're going to call it Collision!
+
+82
+00:05:28,000 --> 00:05:32,000
+That's fine! Now, none of that matters, it's just that you need to be in this method for it to trigger at the right
+
+83
+00:05:32,000 --> 00:05:36,000
+time, and what you want to say is what we did before. audio.Play();
+
+84
+00:05:36,000 --> 00:05:40,000
+like so. Let's try it!
+
+85
+00:05:40,000 --> 00:05:44,000
+[Sound Effect] Boing! [Background Music]
+
+86
+00:05:44,000 --> 00:05:48,000
+[Sound Effect] Boing! Boing! Boing!
+
+87
+00:05:48,000 --> 00:05:52,000
+[Sound Effect] Boing! Boing! Boing!
+
+88
+00:05:52,000 --> 00:05:56,000
+Hmm, sort of working. A couple of issues. Firstly, it went
+
+89
+00:05:56,000 --> 00:06:00,000
+boing right at the very beginning. Why does it go boing right at
+
+90
+00:06:00,000 --> 00:06:04,000
+the beginning? Well, because we haven't told it not
+
+91
+00:06:04,000 --> 00:06:08,000
+to when it collides, when the ball starts off colliding with the
+
+92
+00:06:08,000 --> 00:06:12,000
+paddle, ahh you see. So, what we want to do here is we want to
+
+93
+00:06:12,000 --> 00:06:16,000
+guard against that by saying, only do this if the game is started.
+
+94
+00:06:16,000 --> 00:06:20,000
+So, here's a simple mini challenge, I won't even put a slide up for you. I want you to put an if statement around this
+
+95
+00:06:20,000 --> 00:06:24,000
+audio.Play(); that simply says if the game is started,
+
+96
+00:06:24,000 --> 00:06:28,000
+use the instance variable we have up here, hasStarted.
+
+97
+00:06:28,000 --> 00:06:32,000
+Cool! OK, hopefully you've got that it's pretty much as simple as this.
+
+98
+00:06:32,000 --> 00:06:36,000
+if (hasStarted) then audio.Play();
+
+99
+00:06:36,000 --> 00:06:40,000
+otherwise do nothing. Now let's try it!
+
+100
+00:06:40,000 --> 00:06:44,000
+No boing on start, that's good!
+
+101
+00:06:44,000 --> 00:06:48,000
+[Sound Effects & Background Music] But if you watch this bit carefully, you'll notice
+
+102
+00:06:48,000 --> 00:06:52,000
+the boing sound is only happening if the brick isn't destroyed.
+
+103
+00:06:52,000 --> 00:06:56,000
+Though in cases where the brick is destroyed, the boing sound is not coming out,
+
+104
+00:06:56,000 --> 00:07:00,000
+so why is that? Well, it's simply because the brick is being
+
+105
+00:07:00,000 --> 00:07:04,000
+destroyed before it has a chance to make the boing sound. If you're taking this
+
+106
+00:07:04,000 --> 00:07:08,000
+part of the course in Unity 5 and following the compiler's suggestions to change your code,
+
+107
+00:07:08,000 --> 00:07:12,000
+you might find slightly different behavior, in which case you'll need to work around that. But I do recommend
+
+108
+00:07:12,000 --> 00:07:16,000
+you stay with Unity 4.6 for this section. Remember, we're going to get to Unity 5 when we
+
+109
+00:07:16,000 --> 00:07:20,000
+need to, which is in Bowl Master. Cool, so let's move straight on now
+
+110
+00:07:20,000 --> 00:07:24,000
+and recap the beginning of the lecture, where we said we're going to use Audio
+
+111
+00:07:24,000 --> 00:07:28,000
+Source.PlayClipAtPoint for the crack sound.
+
+112
+00:07:28,000 --> 00:07:32,000
+Why, what's all that about? Well, it's because of exactly this problem! We're
+
+113
+00:07:32,000 --> 00:07:36,000
+going to have the brick make the crack sound, because ultimately it's the brick that makes the sound,
+
+114
+00:07:36,000 --> 00:07:40,000
+but when the brick is destroyed,
+
+115
+00:07:40,000 --> 00:07:44,000
+it can no longer play the sound and that's a problem.
+
+116
+00:07:44,000 --> 00:07:48,000
+So, how are we going to deal with that? Well, there's a great tool called Play
+
+117
+00:07:48,000 --> 00:07:52,000
+ClipAtPoint. You have to pass the AudioClip
+
+118
+00:07:52,000 --> 00:07:56,000
+into the brick, in order to do this, so let's start off
+
+119
+00:07:56,000 --> 00:08:00,000
+by publicly exposing an AudioClip, over here in the Brick.css.
+
+120
+00:08:00,000 --> 00:08:04,000
+And I'm going to do that above the sprite. public...
+
+121
+00:08:04,000 --> 00:08:08,000
+And you'll see how it works in a minute, for now, let's just get the AudioClip in.
+
+122
+00:08:08,000 --> 00:08:12,000
+AudioClip, I'm going to call it
+
+123
+00:08:12,000 --> 00:08:16,000
+crack; actually, just crack sound. There you go, Perfect! Now, when do you want
+
+124
+00:08:16,000 --> 00:08:20,000
+to play this crack sound? Well, firstly go attach it, go into Unity, get to
+
+125
+00:08:20,000 --> 00:08:24,000
+your Brick prefab...
+
+126
+00:08:24,000 --> 00:08:28,000
+You're going to actually need to do this for all of your bricks, and
+
+127
+00:08:28,000 --> 00:08:32,000
+look they're asking for crack sounds. So, select all of your bricks together, with a
+
+128
+00:08:32,000 --> 00:08:36,000
+multi-select holding down Control or Command. Go to your sounds, find your crack,
+
+129
+00:08:36,000 --> 00:08:40,000
+and stick it in. So, at this point, I'd like to clarify that the crack sound
+
+130
+00:08:40,000 --> 00:08:44,000
+is just the sound my daughter made, and it's not really a crack sound,
+
+131
+00:08:44,000 --> 00:08:48,000
+it's a sound of the brick being hit. So, I want this sound to play
+
+132
+00:08:48,000 --> 00:08:52,000
+every single time the brick is hit, so it can cause a little bit of
+
+133
+00:08:52,000 --> 00:08:56,000
+confusion for people. So, I'm inserting this to explain to you that crack is
+
+134
+00:08:56,000 --> 00:09:00,000
+being used every time the brick is hit and every time it takes damage, not just for
+
+135
+00:09:00,000 --> 00:09:04,000
+when it's finally destroyed, in my case. You could of course, as a challenge to yourself
+
+136
+00:09:04,000 --> 00:09:08,000
+towards the end of this section, arrange for a different sound once the brick is
+
+137
+00:09:08,000 --> 00:09:12,000
+destroyed, but I will leave that to you. OK cool! So, we have the
+
+138
+00:09:12,000 --> 00:09:16,000
+crack sound built in there now. When do we want to make that sound? Well, we make the sound
+
+139
+00:09:16,000 --> 00:09:20,000
+when we hit the brick. So, down here
+
+140
+00:09:20,000 --> 00:09:24,000
+we have OnCollisionEnter2D. We say if it's
+
+141
+00:09:24,000 --> 00:09:28,000
+breakable then handle the hits, but when do
+
+142
+00:09:28,000 --> 00:09:32,000
+we play the audio. Well, actually we always play the audio. So
+
+143
+00:09:32,000 --> 00:09:36,000
+if we just went audio.Play() and attached the AudioSource, it would not work
+
+144
+00:09:36,000 --> 00:09:40,000
+because what would happen is the audio may
+
+145
+00:09:40,000 --> 00:09:44,000
+start playing, but the moment the LevelManager notices that
+
+146
+00:09:44,000 --> 00:09:48,000
+at the moment the brick is destroyed rather, the audio will stop playing. OK, as soon
+
+147
+00:09:48,000 --> 00:09:52,000
+as it's destroyed down here it would stop playing. No good, we don't want that! So, what we want
+
+148
+00:09:52,000 --> 00:09:56,000
+to do is use this cool method, which is AudioSource
+
+149
+00:09:56,000 --> 00:10:00,000
+down here somewhere in our list, .PlayClipAtPoint. You'll
+
+150
+00:10:00,000 --> 00:10:04,000
+see what that does in a minute, by example. ...(crack,
+
+151
+00:10:04,000 --> 00:10:08,000
+which we just brought in, and we're going to play it at, just for simplicity,
+
+152
+00:10:08,000 --> 00:10:12,000
+transform.position); which is the position of the brick.
+
+153
+00:10:12,000 --> 00:10:16,000
+Now, look you have to see this to understand how it works. I've got my Game
+
+154
+00:10:16,000 --> 00:10:20,000
+Window right next to my scene, so you can watch this happening. See that,
+
+155
+00:10:20,000 --> 00:10:24,000
+let's see what happens!
+
+156
+00:10:24,000 --> 00:10:28,000
+Now, what I want you to do is look, next time I play this, at the
+
+157
+00:10:28,000 --> 00:10:32,000
+left-hand window, the Scene Window, and watch for little icons, the little
+
+158
+00:10:32,000 --> 00:10:36,000
+gizmos. If you can't see then, turn up the size of your 3D Gizmos
+
+159
+00:10:36,000 --> 00:10:40,000
+like this. Make sure your 3D Gizmos are big enough, and
+
+160
+00:10:40,000 --> 00:10:44,000
+watch them in the left-hand window as the ball bounces around.
+
+161
+00:10:44,000 --> 00:10:48,000
+[Crack Sound Effect]
+
+162
+00:10:48,000 --> 00:10:52,000
+You see what happened there! Every time it bounced,
+
+163
+00:10:52,000 --> 00:10:56,000
+an AudioClip was spawned where the brick was, and the
+
+164
+00:10:56,000 --> 00:11:00,000
+brick is allowed to disappear. That is the sensible way to do it. You do not want to
+
+165
+00:11:00,000 --> 00:11:04,000
+delay the disappearance of the brick, that would be weird. If the brick is destroyed while the Audio
+
+166
+00:11:04,000 --> 00:11:08,000
+Clip is playing, the AudioClip will stop playing. This allows us to say, hang on,
+
+167
+00:11:08,000 --> 00:11:12,000
+the brick doesn't need to be there for sound to play! So, we put an Audio
+
+168
+00:11:12,000 --> 00:11:16,000
+Source where the brick was! Wicked! It's a really really cool method!
+
+169
+00:11:16,000 --> 00:11:20,000
+So, that's AudioClip.PlayClipAtSource! I'm just going to turn down my Gizmo
+
+170
+00:11:20,000 --> 00:11:24,000
+size a little bit, because it's a bit rude as it is. And just a quick recap
+
+171
+00:11:24,000 --> 00:11:28,000
+for us, we've done a really cool job! So, we played the boing sound!
+
+172
+00:11:28,000 --> 00:11:32,000
+We got some weird stuff going on where it didn't play when a brick's destroyed.
+
+173
+00:11:32,000 --> 00:11:36,000
+It turned out to be pretty useful, actually, because we wanted it to play a different
+
+174
+00:11:36,000 --> 00:11:40,000
+clip when the brick is destroyed, which was the crack sound, and we used PlayClipAt
+
+175
+00:11:40,000 --> 00:11:44,000
+Point for that. We also left a comment in our code so that
+
+176
+00:11:44,000 --> 00:11:48,000
+should this issue with the sound not playing here,
+
+177
+00:11:48,000 --> 00:11:52,000
+in the bool.cs, ever come and bite us in the bottom, we have
+
+178
+00:11:52,000 --> 00:11:56,000
+a comment that will remind us of the experience. Then, we could dig into
+
+179
+00:11:56,000 --> 00:12:00,000
+it in more detail and solve the issue, if the issue ever comes up.
+
+180
+00:12:00,000 --> 00:12:03,766
+So congratulations, great video, and I'll see you soon!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section5/24-Playing-Sound-Effects-On-Impact.srt

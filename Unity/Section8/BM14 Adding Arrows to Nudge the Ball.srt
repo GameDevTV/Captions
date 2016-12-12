@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section8/BM14 Adding Arrows to Nudge the Ball.srt
 ï»¿WEBVTT
 
 00:00:00.000 --> 00:00:08.400 align:middle line:90%
@@ -760,3 +761,766 @@ many Boolean flags. we'll show you lots of
 
 00:15:31.519 --> 00:15:36.519 align:middle line:84%
 other options later. OK. cool. see you soon.
+=======
+
+00:00:00,000 --> 00:00:08,400 align:middle line:90%
+Welcome back, so now we're going to add some
+arrows so we can nudge the start position
+
+00:00:08,400 --> 00:00:12,969 align:middle line:90%
+of the ball. We'll add another UI panel at
+the bottom of the screen; ensure that this
+
+00:00:12,969 --> 00:00:18,140 align:middle line:90%
+panel occludes the touch input panel, so that
+we are either moving left or right or we are
+
+00:00:18,140 --> 00:00:22,130 align:middle line:90%
+starting our drag so there's no confusion;
+add two arrows for moving the ball left and
+
+00:00:22,130 --> 00:00:28,279 align:middle line:90%
+right and write a simple method to allow this
+moving of the ball only at the start. So let's
+
+00:00:28,279 --> 00:00:32,579 align:middle line:90%
+start off with this UI panel, I'll get you
+going and then I'd like you to tweak it and
+
+00:00:32,579 --> 00:00:33,320 align:middle line:84%
+finish it.
+
+00:00:33,320 --> 00:00:37,340 align:middle line:90%
+So to reinforce our learning here around these
+panels, I'm going to put another panel here
+
+00:00:37,340 --> 00:00:42,579 align:middle line:90%
+at the bottom. So let's take a look here at
+our UI. First I'm noticing that my left hand
+
+00:00:42,579 --> 00:00:47,550 align:middle line:90%
+panel here is not snapped into the space here
+so if I just drag I can snap to the bottom
+
+00:00:47,550 --> 00:00:52,079 align:middle line:90%
+like that that's great. So while I'm here
+this would be a good time to make sure that
+
+00:00:52,079 --> 00:00:56,920 align:middle line:90%
+both panels are the same width, so let's say
+a hundred and eighty pixels, and if you see
+
+00:00:56,920 --> 00:01:01,559 align:middle line:90%
+a really weird figure like this, something
+with an e minus six that means ten to the
+
+00:01:01,559 --> 00:01:08,400 align:middle line:90%
+minus six; 0.000006 that's tiny. Basically
+that means zero so set it to zero, same as
+
+00:01:08,400 --> 00:01:09,350 align:middle line:84%
+the top position.
+
+00:01:09,350 --> 00:01:12,810 align:middle line:90%
+Now if it won't actually snap to zero that's
+fine but I just want to let you know what
+
+00:01:12,810 --> 00:01:18,090 align:middle line:90%
+this e means in here. It's a tiny number,
+it's called standard form. So 180 pixels,
+
+00:01:18,090 --> 00:01:23,799 align:middle line:90%
+0, that's fine, and let's again snap that
+to the right. Alright, so we're ready to put
+
+00:01:23,799 --> 00:01:30,820 align:middle line:90%
+another panel in here. So UI canvas, gameobject,
+UI and panel, that's what we're trying to
+
+00:01:30,820 --> 00:01:35,670 align:middle line:90%
+do right there like that and there comes a
+big panel. Now as long as you're in this UI
+
+00:01:35,670 --> 00:01:39,549 align:middle line:90%
+edit mode or the 't' key you're going to be
+able to move and snap this UI panel to the
+
+00:01:39,549 --> 00:01:40,210 align:middle line:84%
+bottom here.
+
+00:01:40,210 --> 00:01:45,950 align:middle line:90%
+I love the way that the UI system works, so
+let's double click on it. That'll focus it
+
+00:01:45,950 --> 00:01:49,970 align:middle line:90%
+and we'll be able to take a little more of
+a look. So great, we have that panel there
+
+00:01:49,970 --> 00:01:56,420 align:middle line:90%
+let's call it arrows and now the order in
+the hierarchy we will talk about in a minute.
+
+00:01:56,420 --> 00:02:00,070 align:middle line:90%
+I'm going to put it under touch input but
+this is going to affect what gets clicked
+
+00:02:00,070 --> 00:02:05,850 align:middle line:90%
+first so let's get the rest of that general
+structure right and then we'll worry about
+
+00:02:05,850 --> 00:02:10,830 align:middle line:90%
+that. So if you look in your assets pack in
+your start pack then you will find that I
+
+00:02:10,830 --> 00:02:15,410 align:middle line:90%
+have updated the start pack recently and you
+will find that if you go to Import package
+
+00:02:15,410 --> 00:02:23,540 align:middle line:90%
+/ custom package and then point it to the
+start pack then anything that's not already
+
+00:02:23,540 --> 00:02:25,599 align:middle line:90%
+in it will show up like this and there'll
+be an arrow.png.
+
+00:02:25,599 --> 00:02:32,230 align:middle line:90%
+So go ahead and import that arrow from the
+start pack and then if you look at that arrow
+
+00:02:32,230 --> 00:02:36,650 align:middle line:90%
+let's take a look, how's it come in has it
+come in as a sprite or a texture for you?
+
+00:02:36,650 --> 00:02:41,720 align:middle line:90%
+Well whatever it has come in as we want it
+to be a sprite 2D and UI sprite under the
+
+00:02:41,720 --> 00:02:47,209 align:middle line:90%
+texture type. So just set that there, that's
+great. Now so we have arrows, what we want
+
+00:02:47,209 --> 00:02:53,440 align:middle line:90%
+to do on the arrows panel is have two images,
+left and right, maybe here and here for these
+
+00:02:53,440 --> 00:02:59,959 align:middle line:90%
+two different arrows. So create a sub-object,
+gameobject / UI / image like that and if it
+
+00:02:59,959 --> 00:03:06,489 align:middle line:90%
+doesn't already sub itself to arrows then
+drag it under arrows. Call one of them right
+
+00:03:06,489 --> 00:03:10,819 align:middle line:90%
+and then the image itself you can see it here,
+it has the wrong sprite so give it the arrow
+
+00:03:10,819 --> 00:03:12,720 align:middle line:84%
+sprite.
+
+00:03:12,720 --> 00:03:18,280 align:middle line:90%
+We're nearly there, we need this to be inside
+this panel and sensibly sized so let's double
+
+00:03:18,280 --> 00:03:24,209 align:middle line:90%
+click to focus on it, careful of the pivot
+point drag the right thing, the whole thing
+
+00:03:24,209 --> 00:03:28,239 align:middle line:90%
+that's it. We're actually going to put mine
+around here now, in terms of positioning these
+
+00:03:28,239 --> 00:03:32,760 align:middle line:90%
+arrows left and right if you click on them
+and hold down shift as it says here there's
+
+00:03:32,760 --> 00:03:37,459 align:middle line:90%
+set pivot we want the pivot to be central
+because that way this position in x if you
+
+00:03:37,459 --> 00:03:42,010 align:middle line:90%
+look in the inspector is the number of pixels
+from this centre point. So let's say it's
+
+00:03:42,010 --> 00:03:45,680 align:middle line:90%
+50 pixels from the centre point, something
+like that.
+
+00:03:45,680 --> 00:03:49,129 align:middle line:90%
+That means that when we put the left arrow
+in which I'm going to do by duplicating the
+
+00:03:49,129 --> 00:03:56,000 align:middle line:90%
+right arrow and calling one left - now as
+a hint we can use a negative x scale - a scale
+
+00:03:56,000 --> 00:04:00,569 align:middle line:90%
+of minus 1 like we did in glitch garden to
+turn that arrow around then we rough drag
+
+00:04:00,569 --> 00:04:05,090 align:middle line:90%
+it to where we want it to be; but because
+our pivot point is central we can actually
+
+00:04:05,090 --> 00:04:09,720 align:middle line:90%
+precisely position it by just saying minus
+fifty there. I hope that that makes sense.
+
+00:04:09,720 --> 00:04:12,280 align:middle line:90%
+The final thing that we can do with both the
+left and the right element there is make them
+
+00:04:12,280 --> 00:04:13,290 align:middle line:84%
+scale like this.
+
+00:04:13,290 --> 00:04:19,019 align:middle line:90%
+Stretch in both x and y and the effect that
+that will have is to, when you click play
+
+00:04:19,019 --> 00:04:24,590 align:middle line:90%
+and look at this game window, let's maximise
+on play actually, we want to make sure that
+
+00:04:24,590 --> 00:04:28,500 align:middle line:90%
+this bottom panel is behaving itself so as
+far as I'm concerned that is not behaving
+
+00:04:28,500 --> 00:04:32,520 align:middle line:90%
+itself right now, you see how big these arrows
+are and how this bottom panel is the wrong
+
+00:04:32,520 --> 00:04:37,800 align:middle line:90%
+size? There you go, started behaving now,
+but this is going to be your challenge. I'm
+
+00:04:37,800 --> 00:04:41,530 align:middle line:90%
+going to do it after the challenge, but your
+challenge is to finish off setting up the
+
+00:04:41,530 --> 00:04:44,759 align:middle line:90%
+UI panel because again, no good just watching
+me right?
+
+00:04:44,759 --> 00:04:51,830 align:middle line:90%
+So get the arrows panel finished. Get scaling
+how you want it; set anchor and pivot points.
+
+00:04:51,830 --> 00:04:57,889 align:middle line:90%
+Wire up to a method in the drag start script
+called move start to a particular place so
+
+00:04:57,889 --> 00:05:03,180 align:middle line:90%
+the signature is MoveStart(float xNudge) and
+that method in DragStart.cs should only log
+
+00:05:03,180 --> 00:05:08,900 align:middle line:90%
+to the console for now the position that you
+are going to be moving to. Don't actually
+
+00:05:08,900 --> 00:05:14,110 align:middle line:90%
+do anything else with it and then ensure that
+this doesn't conflict with your swipe gesture
+
+00:05:14,110 --> 00:05:19,110 align:middle line:90%
+when you click on an arrow you should be logging
+MoveStart right or MoveStart left.
+
+00:05:19,110 --> 00:05:21,720 align:middle line:90%
+So before you do that challenge just let me
+show you what I mean by that; we're going
+
+00:05:21,720 --> 00:05:27,220 align:middle line:90%
+to have an event system, again on our arrows
+panel, and then; sorry on each of our left
+
+00:05:27,220 --> 00:05:32,039 align:middle line:90%
+and right arrows we're going to have a new
+event system, remember how we had that before,
+
+00:05:32,039 --> 00:05:38,039 align:middle line:90%
+event trigger and then that's going to call
+a method on drag start - on the ball and set
+
+00:05:38,039 --> 00:05:42,139 align:middle line:90%
+an amount to nudge left or right, maybe positive
+five on the right arrow and negative five
+
+00:05:42,139 --> 00:05:45,830 align:middle line:90%
+on the left arrow or something, that's what
+I mean by that. That's what I want you to
+
+00:05:45,830 --> 00:05:50,250 align:middle line:90%
+finish setting up now, is the arrows panel,
+but without actually writing the rest of the
+
+00:05:50,250 --> 00:05:54,430 align:middle line:90%
+MoveStart method. Pause the video, have ago
+at that now, and see if you can get it logging
+
+00:05:54,430 --> 00:06:01,229 align:middle line:90%
+out plus five and minus five when you click
+the arrows.
+
+00:06:01,229 --> 00:06:06,410 align:middle line:90%
+OK welcome back, so let's take a look at what's
+up with this panel. So back in the scene view
+
+00:06:06,410 --> 00:06:11,090 align:middle line:90%
+firstly the arrows panel itself, how is it
+stretching and scaling versus how do we want
+
+00:06:11,090 --> 00:06:16,090 align:middle line:90%
+it to stretch and scale? Well I think that
+we want it to be tied to the bottom of the
+
+00:06:16,090 --> 00:06:20,590 align:middle line:90%
+screen and stretching like so, you see this
+one here? I think that that's the stretching
+
+00:06:20,590 --> 00:06:28,160 align:middle line:90%
+mode that we want, let's take a look. Now
+the panel is looking half sensible. The panel
+
+00:06:28,160 --> 00:06:32,919 align:middle line:90%
+itself is fine, you see the panel working
+nicely? What aren’t working nicely right
+
+00:06:32,919 --> 00:06:34,949 align:middle line:84%
+now are the arrows inside that panel.
+
+00:06:34,949 --> 00:06:40,009 align:middle line:90%
+So they look OK at this scale, just about,
+but they don't look so clever at other scales.
+
+00:06:40,009 --> 00:06:44,500 align:middle line:90%
+So what's going on with our arrows? It's just
+a question of working out what their scaling
+
+00:06:44,500 --> 00:06:49,759 align:middle line:90%
+rules are. So we had them stretching, but
+is stretching doing the trick? Is that working
+
+00:06:49,759 --> 00:06:54,220 align:middle line:90%
+how we want them to? Maybe not, maybe they
+just need to be relative to the centre. It's
+
+00:06:54,220 --> 00:06:58,650 align:middle line:90%
+a question of experimenting with these things.
+Before I fine adjust them let's take a look
+
+00:06:58,650 --> 00:07:03,940 align:middle line:90%
+at that and see if that behaves better; yeah
+I would say that that is better.
+
+00:07:03,940 --> 00:07:08,560 align:middle line:90%
+Yeah so the arrows just need a fine adjustment
+of size and shape. So we've settled on an
+
+00:07:08,560 --> 00:07:14,210 align:middle line:90%
+anchor of centre for the left and right arrows.
+So I'm just going to resize these arrows a
+
+00:07:14,210 --> 00:07:19,750 align:middle line:90%
+little bit like this, I may as well remember
+the width and the height, or I can just copy
+
+00:07:19,750 --> 00:07:24,669 align:middle line:90%
+the component values once I'm happy with it
+so I could put this one here for example,
+
+00:07:24,669 --> 00:07:31,000 align:middle line:90%
+copy component I could go to the left arrow,
+paste component values, when I do that of
+
+00:07:31,000 --> 00:07:33,800 align:middle line:90%
+course it's going to sit right on top of this
+component arrow so I need to make the two
+
+00:07:33,800 --> 00:07:39,259 align:middle line:90%
+changes. Minus one for the x scale to switch
+it round, and then of course the x position
+
+00:07:39,259 --> 00:07:41,830 align:middle line:84%
+also needs to be minus compared to the centre.
+
+00:07:41,830 --> 00:07:47,610 align:middle line:90%
+So there's an example of how you get perfectly
+positioned thingies. Cool so now on our ball
+
+00:07:47,610 --> 00:07:53,199 align:middle line:90%
+remember we have a DragLaunch script. I said
+we wanted a new method called move start so
+
+00:07:53,199 --> 00:07:58,069 align:middle line:90%
+public void MoveStart (float amount) now it's
+not going to do the move for now, it's just
+
+00:07:58,069 --> 00:08:06,250 align:middle line:90%
+going to Debug.Log ball moved and then add
+in the amount. That's what I said we should
+
+00:08:06,250 --> 00:08:10,090 align:middle line:90%
+do in the challenge. SO you make a public
+void MoveStart taking in a number of pixels
+
+00:08:10,090 --> 00:08:17,949 align:middle line:90%
+to move which means that our right arrow can
+have added to it an event trigger just like
+
+00:08:17,949 --> 00:08:19,740 align:middle line:84%
+we did before;
+
+00:08:19,740 --> 00:08:29,169 align:middle line:90%
+and when we say pointer down it's going to
+look at the ball, find its DragLaunch method
+
+00:08:29,169 --> 00:08:33,300 align:middle line:90%
+and call MoveStart with, say, five pixels
+right. Fantastic, now we do the same thing
+
+00:08:33,300 --> 00:08:38,959 align:middle line:90%
+with the left. Now we could just copy this
+component again, paste the component onto
+
+00:08:38,959 --> 00:08:45,810 align:middle line:90%
+the left arrow and just set the drag movement
+to minus five. Let's see what happens now.
+
+00:08:45,810 --> 00:08:48,779 align:middle line:90%
+A couple of things that we need to check.
+Firstly is that clicking down here doesn't
+
+00:08:48,779 --> 00:08:55,640 align:middle line:90%
+start the drag, good it doesn't and secondly
+is ball moved five and ball moved minus five.
+
+00:08:55,640 --> 00:09:00,269 align:middle line:90%
+That works. Now, one word of warning, if your
+arrows element was above your touch input
+
+00:09:00,269 --> 00:09:02,370 align:middle line:84%
+element in the canvas now look what happens.
+
+00:09:02,370 --> 00:09:11,730 align:middle line:90%
+You see? It's preferentially, it's assuming
+you're clicking the arrows element so you
+
+00:09:11,730 --> 00:09:17,040 align:middle line:90%
+actually want the thing that you want above
+above in the hierarchy. So the arrows want
+
+00:09:17,040 --> 00:09:21,870 align:middle line:90%
+to sit over the touch input so slightly confusingly
+it's below it in the hierarchy, that's just
+
+00:09:21,870 --> 00:09:26,839 align:middle line:90%
+the default way that it sorts. So it'll be
+read from the bottom up this list if you like.
+
+00:09:26,839 --> 00:09:30,459 align:middle line:90%
+So there's no 3 dimensional functionality
+of that, you can't see it in 3D - well you
+
+00:09:30,459 --> 00:09:35,360 align:middle line:90%
+could move things around in 3D but the reliable
+way is to get the hierarchy order correct.
+
+00:09:35,360 --> 00:09:37,990 align:middle line:84%
+So now we can g plus five and minus five.
+
+00:09:37,990 --> 00:09:41,470 align:middle line:90%
+Fantastic I hope that makes sense, we now
+have a signal that allows us to nudge our
+
+00:09:41,470 --> 00:09:47,760 align:middle line:90%
+ball and a nicely scaling UI - that's another
+challenge for you; get the start position
+
+00:09:47,760 --> 00:09:51,910 align:middle line:90%
+working. Approach it however you like but
+the goal is to be able to drag or nudge the
+
+00:09:51,910 --> 00:09:56,529 align:middle line:90%
+ball left and right; only allow moving before
+the ball is launched so we're going to have
+
+00:09:56,529 --> 00:10:01,339 align:middle line:90%
+to have some indication - some flag - to say
+that the ball is not launched or is in play;
+
+00:10:01,339 --> 00:10:05,420 align:middle line:90%
+and clamp the ball within the lane width,
+so when we click those arrows left and right
+
+00:10:05,420 --> 00:10:08,560 align:middle line:90%
+we want to make sure that that ball can't
+leave the lane.
+
+00:10:08,560 --> 00:10:16,300 align:middle line:90%
+So go ahead, pause the video, and get the
+rest of that working now. OK welcome back.
+
+00:10:16,300 --> 00:10:21,339 align:middle line:90%
+So we've done quite well. We've got DragLaunch
+here, we know how much we're moving it so
+
+00:10:21,339 --> 00:10:26,519 align:middle line:90%
+why don't we go ahead and do it? Ball.transform
+now there's a useful method here called translate
+
+00:10:26,519 --> 00:10:35,390 align:middle line:90%
+and then we can say new Vector3 amount comma
+zero comma zero; and if you look up that method
+
+00:10:35,390 --> 00:10:40,390 align:middle line:90%
+in Unity's docs you'll see that it just translates
+this transform without making an intermediate
+
+00:10:40,390 --> 00:10:44,589 align:middle line:90%
+method or intermediate variable. So let's
+take a look and see if this works.
+
+00:10:44,589 --> 00:10:49,640 align:middle line:90%
+There you go. Now you might want to change
+those five pixels to something else but that's
+
+00:10:49,640 --> 00:10:53,610 align:middle line:90%
+fine now. If we try dragging from here nothing
+happens, if we drag from off that bottom bar
+
+00:10:53,610 --> 00:10:58,550 align:middle line:90%
+it works but we can nudge while we're in play
+which is no good. So we need to supress the
+
+00:10:58,550 --> 00:11:05,860 align:middle line:90%
+nudging when we are in play. Now, this is
+where we have to think about responsibility.
+
+00:11:05,860 --> 00:11:09,200 align:middle line:90%
+Who is responsible? Which object? Is it the
+ball or the DragLaunch that's responsible
+
+00:11:09,200 --> 00:11:14,149 align:middle line:90%
+for knowing whether the ball is in play? Well
+I would suggest that it's a private property
+
+00:11:14,149 --> 00:11:19,370 align:middle line:90%
+of the ball called inPlay and at start it
+is false.
+
+00:11:19,370 --> 00:11:26,350 align:middle line:90%
+OK, or you could make it a public property
+of inPlay and query it here so you have a
+
+00:11:26,350 --> 00:11:31,130 align:middle line:90%
+few decisions about how you talk to each other;
+you either make this MoveStart method - you
+
+00:11:31,130 --> 00:11:37,190 align:middle line:90%
+could put it onto the ball and say is it OK
+for something to move the ball? Well I would
+
+00:11:37,190 --> 00:11:43,040 align:middle line:90%
+say actually that it is OK to have a public
+MoveStart on the ball; it's kind of a moveStart
+
+00:11:43,040 --> 00:11:47,540 align:middle line:90%
+request because the ball is going to ignore
+it if it's in play. So that might be the simplest
+
+00:11:47,540 --> 00:11:52,339 align:middle line:90%
+thing rather than having component to component
+communication is that our UI talks directly
+
+00:11:52,339 --> 00:11:54,519 align:middle line:84%
+to the ball, that we change our mind.
+
+00:11:54,519 --> 00:11:57,820 align:middle line:90%
+Another option is that our DragLaunch calls
+a method on the ball but that's a little bit
+
+00:11:57,820 --> 00:12:02,889 align:middle line:90%
+around the houses. Another option is that
+we have a public ball in play that we can
+
+00:12:02,889 --> 00:12:07,790 align:middle line:90%
+read from the DragLaunch script. I don't know
+which way you want to do it, it's really the
+
+00:12:07,790 --> 00:12:11,620 align:middle line:90%
+flick of a coin, there are consequences to
+doing it each way; want to make sure that
+
+00:12:11,620 --> 00:12:16,829 align:middle line:90%
+things are singularly responsible for what
+they are doing, but I think that as the DragLaunch
+
+00:12:16,829 --> 00:12:22,540 align:middle line:90%
+script already launches the ball I think that
+there's no harm in it also moving the start
+
+00:12:22,540 --> 00:12:22,910 align:middle line:84%
+position.
+
+00:12:22,910 --> 00:12:29,180 align:middle line:90%
+So I'm going to go down the public ball inPlay
+= false route. So now from the outside of
+
+00:12:29,180 --> 00:12:33,639 align:middle line:90%
+the ball we can see if it's in play or not
+which I think it reasonable. We started off
+
+00:12:33,639 --> 00:12:38,589 align:middle line:90%
+as not in play and then of course on launch
+the first thing that we do is say in Play
+
+00:12:38,589 --> 00:12:43,730 align:middle line:90%
+= true. Now on a subsequent launch we'll have
+to add more code to this but let's see how
+
+00:12:43,730 --> 00:12:49,579 align:middle line:90%
+it goes, we can always refactor later. The
+key here now is that on DragLaunch we only
+
+00:12:49,579 --> 00:12:57,389 align:middle line:90%
+do this if not in play. Now I always put a
+space after my exclamation mark because it's
+
+00:12:57,389 --> 00:13:00,040 align:middle line:84%
+really hard to see an exclamation mark otherwise.
+
+00:13:00,040 --> 00:13:04,889 align:middle line:90%
+The other way that you could write this is
+if inPlay == false but that's a bit of a weird
+
+00:13:04,889 --> 00:13:11,170 align:middle line:90%
+thing to do but it reads more clearly, you
+can actually see that I'm saying if it's not
+
+00:13:11,170 --> 00:13:14,690 align:middle line:90%
+in play. So I think in this case that I'm
+going to do that but bear in mind you would
+
+00:13:14,690 --> 00:13:20,970 align:middle line:90%
+normally just go exclamation mark in play
+like that. But you see that that's very easy
+
+00:13:20,970 --> 00:13:25,240 align:middle line:90%
+to miss that exclamation mark even if we put
+a space, even if we put two spaces. Two spaces
+
+00:13:25,240 --> 00:13:30,010 align:middle line:90%
+does it, if not in play. You get the idea,
+there are two options. That or ball.inPlay
+
+00:13:30,010 --> 00:13:32,470 align:middle line:90%
+== false. I'm going to stick with this for
+now.
+
+00:13:32,470 --> 00:13:38,139 align:middle line:90%
+There's always lots of ways of doing things.
+So only if the ball is not in play do we do
+
+00:13:38,139 --> 00:13:42,910 align:middle line:90%
+this. Let's see if that's helped. Now we can
+nudge but if we flick and then try and do
+
+00:13:42,910 --> 00:13:47,279 align:middle line:90%
+it... well OK my flick was a bit weird then,
+let's just do a standard kind of flick down
+
+00:13:47,279 --> 00:13:53,769 align:middle line:90%
+there and then try and nudge and it won't.
+Perfect! So a lot of talking, a lot of doing
+
+00:13:53,769 --> 00:13:58,920 align:middle line:90%
+but look we've got extra UI elements now that
+automatically scale as the screen space changes
+
+00:13:58,920 --> 00:14:04,079 align:middle line:90%
+and, you know not perfectly but there's a
+finite size of these arrows, if the screen
+
+00:14:04,079 --> 00:14:07,089 align:middle line:90%
+space is too small then obviously it's going
+to break down but it works pretty well.
+
+00:14:07,089 --> 00:14:11,250 align:middle line:90%
+We've got the idea of all of these elements
+kind of sticking together, and we have a simple
+
+00:14:11,250 --> 00:14:15,310 align:middle line:90%
+way of moving the ball left and right. Now
+you may have said why don't we drag the ball?
+
+00:14:15,310 --> 00:14:20,060 align:middle line:90%
+Well you can only do one type of drag. You're
+either dragging the ball to launch it or you're
+
+00:14:20,060 --> 00:14:25,510 align:middle line:90%
+dragging it to move it. If you have two types
+of drags then that's really confusing. So
+
+00:14:25,510 --> 00:14:29,089 align:middle line:90%
+you could drag maybe with two fingers but
+why make it that complicated? I think in this
+
+00:14:29,089 --> 00:14:34,459 align:middle line:90%
+instance, you know in a real bowling lane
+you kind of stand or you start on a particular
+
+00:14:34,459 --> 00:14:38,389 align:middle line:90%
+marker with your feet, so setting this as
+a kind of one off is fine;
+
+00:14:38,389 --> 00:14:43,120 align:middle line:90%
+and then all the skill is in dragging in the
+correct way. Now bear in mind that this touch
+
+00:14:43,120 --> 00:14:46,760 align:middle line:90%
+system right now is nothing to do with the
+lane. If I start here and I want it to go
+
+00:14:46,760 --> 00:14:51,260 align:middle line:90%
+straight down the lane or slightly right I
+have to say go from here to just slightly
+
+00:14:51,260 --> 00:14:56,149 align:middle line:90%
+right of that above so I need to do something
+like that. So it's actually pretty skill based
+
+00:14:56,149 --> 00:15:01,329 align:middle line:90%
+which I quite like. So there you go, we have
+the full control system that we need for the
+
+00:15:01,329 --> 00:15:06,709 align:middle line:90%
+ball at the moment except spin, and we'll
+deal with spin in a subsequent video. So congratulations
+
+00:15:06,709 --> 00:15:08,589 align:middle line:84%
+on getting this far, if you did all the challenges.
+
+00:15:08,589 --> 00:15:13,329 align:middle line:90%
+I hope that the code makes sense for you,
+we've decided to leave the movement in DragLaunch
+
+00:15:13,329 --> 00:15:17,160 align:middle line:90%
+just because it's already responsible for
+everything to do with dragging and launching
+
+00:15:17,160 --> 00:15:21,570 align:middle line:90%
+the ball and the only change that we've made
+to the ball is a public Boolean to say that
+
+00:15:21,570 --> 00:15:26,220 align:middle line:90%
+it's in play or not. As a general note Boolean
+flags like this mean that there's a design
+
+00:15:26,220 --> 00:15:31,519 align:middle line:90%
+issue so use them carefully, don't use too
+many Boolean flags, we'll show you lots of
+
+00:15:31,519 --> 00:15:36,519 align:middle line:84%
+other options later. OK, cool, see you soon.
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section8/BM14 Adding Arrows to Nudge the Ball.srt

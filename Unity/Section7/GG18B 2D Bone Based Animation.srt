@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section7/GG18B 2D Bone Based Animation.srt
 WEBVTT
 Kind: captions
 Language: en
@@ -814,3 +815,820 @@ movement and childing in a little bit
 more detail before you then go off and
 do all of the animation. See you soon.
 
+=======
+Kind: captions
+Language: en
+
+00:00:00,010 --> 00:00:09,500
+So in this video we're actually gonna get our bone
+animation working, we're going to make
+
+00:00:09,500 --> 00:00:14,210
+the top of the sunflower rotate left and
+right so let's get on with it. We have it
+
+00:00:14,210 --> 00:00:19,949
+in two pieces already, what we need to do
+is set up the animator appropriately. So
+
+00:00:19,949 --> 00:00:24,980
+here we have the trophy top and base.
+What I'm gonna do is I'm going to add an
+
+00:00:24,980 --> 00:00:31,400
+animator to the root object, to the
+star trophy itself, because it can
+
+00:00:31,400 --> 00:00:36,989
+actually reach in and independently control
+the top and the base. OK so we don't have
+
+00:00:36,989 --> 00:00:40,519
+an animation controller yet, so let's build
+this up from scratch to reinforce
+
+00:00:40,519 --> 00:00:44,280
+everything. I'm gonna make a new
+animation folder called Star Trophy, it's just
+
+00:00:44,280 --> 00:00:51,690
+my way of organizing. I'm gonna pop the
+trophy cut in there and then I'm gonna
+
+00:00:51,690 --> 00:00:58,559
+create myself an animation controller
+cuz we gonna need one of them right? I've put
+
+00:00:58,559 --> 00:01:04,050
+an underscore because I like it to be
+at the start of the folder so it always plays at the
+
+00:01:04,050 --> 00:01:08,020
+start of the folder there and then when we go
+ahead and look at this star trophy, where
+
+00:01:08,020 --> 00:01:12,550
+it says animation controller in the
+inspector animator controller we give it
+
+00:01:12,550 --> 00:01:16,210
+the new one we've created so we can build
+it up bit by bit.
+
+00:01:16,210 --> 00:01:20,740
+Drop it in there and now we have an
+animation controller, fantastic. So let's
+
+00:01:20,740 --> 00:01:24,170
+go into the animator and create
+ourselves a new clip which will create
+
+00:01:24,170 --> 00:01:29,790
+both a animation clip and a animation
+state and then we'll be able to actually start
+
+00:01:29,790 --> 00:01:33,850
+sticking things in. So let's have an idle
+state first, what does the star trophy do when
+
+00:01:33,850 --> 00:01:38,520
+it's idle? So there's are idle state, how
+many samples the second? Well it doesn't
+
+00:01:38,520 --> 00:01:41,760
+have to be consistent with everything
+else, let's maybe go for 30 samples that second
+
+00:01:41,760 --> 00:01:47,680
+Actually it doesn't matter, this has to do
+with the fidelity of your animation. So
+
+00:01:47,680 --> 00:01:51,450
+what I want to do is I want to add curve.
+Now when you add the curve look
+
+00:01:51,450 --> 00:01:57,150
+carefully transform and animator are here
+and then top and base are slightly
+
+00:01:57,150 --> 00:02:00,560
+indented, they kind of don't look indented
+because they're missing their symbols
+
+00:02:00,560 --> 00:02:05,550
+but they are the transform applies to
+the star trophy itself; whereas the top,
+
+00:02:05,550 --> 00:02:10,849
+you can independently control the
+transform of the top and of the base, so you see
+
+00:02:10,849 --> 00:02:11,810
+how that works?
+
+00:02:11,810 --> 00:02:15,080
+The star trophy's transform, the top's
+transform and the base's reflects the
+
+00:02:15,080 --> 00:02:21,400
+layout of the hierarchy. So in our case
+it's the top's transform that we want to
+
+00:02:21,400 --> 00:02:27,630
+rotate so add that in top transform
+rotation. That gives us control over the
+
+00:02:27,630 --> 00:02:34,099
+rotation of the top. So if we start off with
+just something going at one second let's
+
+00:02:34,099 --> 00:02:39,550
+just try rotating it at one second to...
+I don't know, minus 8 point
+
+00:02:39,550 --> 00:02:43,410
+77032 how's that for an arbitrary number
+
+00:02:43,410 --> 00:02:49,660
+degrees to the left or right, let's see
+what happens there. Now you're gonna need to
+
+00:02:49,660 --> 00:02:54,130
+focus on your - there you go, look actually
+it's to the right so sue me there it
+
+00:02:54,130 --> 00:02:58,170
+goes and it just but it just snaps back.
+If you look at the animator and then you
+
+00:02:58,170 --> 00:03:02,019
+click on your star trophy you see how it's in
+the idle state but its snapping back to
+
+00:03:02,019 --> 00:03:05,610
+the middle but it's working right. So
+that's pretty cool,
+
+00:03:05,610 --> 00:03:09,130
+another way you could have set that
+value is to use the record functionality
+
+00:03:09,130 --> 00:03:13,400
+here and then to go off into the scene
+and actually make the rotation but we
+
+00:03:13,400 --> 00:03:17,410
+can kind of see what's going on now
+so if I zoom out, if I say that it's
+
+00:03:17,410 --> 00:03:22,730
+rotated minus eight degrees after
+this amount of time, after 30
+
+00:03:22,730 --> 00:03:27,170
+frames, then what am I going to do to get it back to the
+center? Well I'm gonna need to put
+
+00:03:27,170 --> 00:03:31,780
+another key frame in which is this
+button here, a little diamond and
+
+00:03:31,780 --> 00:03:35,459
+I'm going to need to put that in at an
+appropriate time, and an appropriate time would be
+
+00:03:35,459 --> 00:03:41,810
+60 frames right? Exactly twice as long, I
+want a key frame where the rotation is
+
+00:03:41,810 --> 00:03:50,260
+zero. Try that. Now let's see what happens as it
+loops around. There it goes and at least it goes back to
+
+00:03:50,260 --> 00:03:53,950
+the middle and then bounces. So here's a
+micro challenge for you, I want you to
+
+00:03:53,950 --> 00:03:59,010
+add in another two keyframes after this in
+time so that it not only wobbles to the
+
+00:03:59,010 --> 00:04:03,340
+right and back but it also wobbles to the
+left and back to the centre, so we get a
+
+00:04:03,340 --> 00:04:07,850
+smooth swaying motion. Go ahead and have
+a go at making that smooth swaying motion
+
+00:04:07,850 --> 00:04:11,690
+yourself right now.
+
+00:04:11,690 --> 00:04:15,590
+So to get that full rotation working
+what we need to do is say well if it's
+
+00:04:15,590 --> 00:04:20,690
+minus a point seven degrees rotation
+around the Z axis at 30 frames well then
+
+00:04:20,690 --> 00:04:28,000
+let's go to ninety frames there, click a
+new keyframe and then put exactly the
+
+00:04:28,000 --> 00:04:32,670
+opposite in, so one way of doing that by
+the way is to click on the frame that
+
+00:04:32,670 --> 00:04:37,110
+you want a copy from, you could go copy
+component, and then you can go to the
+
+00:04:37,110 --> 00:04:41,230
+target frame and then paste component
+values. Of course you'd have to make the
+
+00:04:41,230 --> 00:04:46,560
+negative into a positive. So let's try
+that; it's nearly there but of course we need
+
+00:04:46,560 --> 00:04:49,650
+to return to centre, so when we look at
+the sunflower it's nearly gonna be there but
+
+00:04:49,650 --> 00:04:54,720
+it's gonna snap and I've accidentally
+done something to the base, It's all about that
+
+00:04:54,720 --> 00:04:59,050
+bass, 'bout that bass. So... what have I done
+now? I've done something with the Star Trophy
+
+00:04:59,050 --> 00:05:02,890
+position by mistake. If you do that, get
+an extra curve just delete it, simple.
+
+00:05:02,890 --> 00:05:07,970
+So let's look at the rotation now just
+at the top again. Now what's happening?
+
+00:05:07,970 --> 00:05:12,910
+You see, interesting. Now you're seeing
+compound animation. You're seeing both
+
+00:05:12,910 --> 00:05:18,720
+the whole star trophy and its base being
+animated at the same time... and it's top
+
+00:05:18,720 --> 00:05:22,680
+being animated at the same time. It's fine,
+but it's not what we want right. So again
+
+00:05:22,680 --> 00:05:26,550
+we take out the star trophy animation
+line; it's a different line to the top
+
+00:05:26,550 --> 00:05:30,919
+rotation, that is a completely separate
+animation curve. OK so take that one
+
+00:05:30,919 --> 00:05:37,650
+out and now we're just down to the base
+which goes from zero to minus 8.7, to zero, to
+
+00:05:37,650 --> 00:05:44,050
+plus 8.7 or it would do had
+we pasted onto the right thing. Now all
+
+00:05:44,050 --> 00:05:47,270
+of those mistakes have very useful so you see
+the sort of common things that can
+
+00:05:47,270 --> 00:05:51,500
+happen if you apply your curve to the
+wrong object. Nearly there, it's just
+
+00:05:51,500 --> 00:05:55,560
+snapping at the end of the animation and
+I think you know why, congratulations if
+
+00:05:55,560 --> 00:05:59,340
+you did manage to do this yourself by
+the way so a hundred and twenty frames in
+
+00:05:59,340 --> 00:06:06,130
+we just need to reset to zero. Let's just
+check it works, sometimes with this you
+
+00:06:06,130 --> 00:06:11,470
+need to reset to like 359 instead of 0 or
+something to stop glitching; or to get the
+
+00:06:11,470 --> 00:06:16,430
+direction right but this is fine look, here
+we go it rocks. I mean it literally rocks and it rocks
+
+00:06:16,430 --> 00:06:17,790
+you get the idea
+
+00:06:17,790 --> 00:06:21,330
+so we have an idle state so the other
+state that we may want to produce for
+
+00:06:21,330 --> 00:06:26,370
+this would be a little star who starts
+in the middle and then expands over time
+
+00:06:26,370 --> 00:06:30,400
+and then pops off and goes up to the top
+so let me show you that quickly and then
+
+00:06:30,400 --> 00:06:33,490
+I'm going to go into fast motion and
+animate all my characters because you
+
+00:06:33,490 --> 00:06:37,450
+now have, or you will have all the
+fundamentals you need so let's go find a
+
+00:06:37,450 --> 00:06:46,650
+star. Here we go, star dot PNG  there... So I'm gonna
+make a new game object here I 'm gonna make a
+
+00:06:46,650 --> 00:06:49,920
+new child object for the star trophy and just call it star
+
+00:06:49,920 --> 00:06:58,870
+Alright, so there it is then I'm gonna
+give that star a sprite renderer and
+
+00:06:58,870 --> 00:07:02,150
+attach it or I could have just dragged the star straight to the star trophy and it would have done all of
+
+00:07:02,150 --> 00:07:07,510
+that for me. There it is, the challenge is of course
+this order, this sort order, this sort
+
+00:07:07,510 --> 00:07:10,780
+order business having to constantly set
+the sort order - pain in the butt as far as I'm
+
+00:07:10,780 --> 00:07:15,230
+concerned, why don't we take our level
+canvas and just - if you look at it in 3d
+
+00:07:15,230 --> 00:07:19,160
+take the whole level canvas - just move
+the guy back a little bit, let's just say
+
+00:07:19,160 --> 00:07:23,680
+give you some positive z. So .5 in the Z direction
+
+00:07:23,680 --> 00:07:28,600
+OK so just move the level canvas back
+away from the camera, so that's setting the
+
+00:07:28,600 --> 00:07:33,230
+level canvas's position in Z to
+nought point five. Now if we had
+
+00:07:33,230 --> 00:07:36,830
+accidentally with our star not bothered
+to set the order in layer to one,  left it at zero it'd
+
+00:07:36,830 --> 00:07:42,480
+still show, handy tip eh? And it can save you a ton
+of time again. As it happens we still do
+
+00:07:42,480 --> 00:07:46,950
+need order in layer, in fact we need two, because
+we want the star to be on the top this
+
+00:07:46,950 --> 00:07:51,570
+time we actually do want it on top of an
+existing sprite use the sprite renderer or
+
+00:07:51,570 --> 00:07:55,690
+order in layer to order sprite parts on
+top of each other.
+
+00:07:55,690 --> 00:07:59,540
+Don't use it to try and get the sprite
+itself above the background, because
+
+00:07:59,540 --> 00:08:04,070
+that's just a hassle having to do that
+every time. We want by default when you
+
+00:08:04,070 --> 00:08:07,650
+drop a sprite down on the background for
+it just to work, right? It makes sense to
+
+00:08:07,650 --> 00:08:13,700
+me and then if you want to if you want
+to change the ordering within a sprite
+
+00:08:13,700 --> 00:08:18,370
+like we're doing here then you use the
+ordering in layers. Anyway, here we go, let's
+
+00:08:18,370 --> 00:08:24,620
+move this star trophy up a little bit
+and then re-scale and after a few
+
+00:08:24,620 --> 00:08:30,080
+iterations we'll get to a point where we've
+got what we want - which is a star that
+
+00:08:30,080 --> 00:08:31,270
+sits in the middle of the
+
+00:08:31,270 --> 00:08:37,040
+trophy and now we can go in and animate
+growth and eventual departure of this
+
+00:08:37,040 --> 00:08:41,250
+star, so let's take a look at doing that.
+We add a curve and and this time we look for
+
+00:08:41,250 --> 00:08:42,170
+the star's
+
+00:08:42,170 --> 00:08:45,800
+transform but this time instead of
+animating either its position or rotation
+
+00:08:45,800 --> 00:08:53,380
+we're going to animate its scale; and what is the
+scale of the star gonna be when the
+
+00:08:53,380 --> 00:08:58,360
+trophy is idle and just rocking left and
+right? Well you can set the scale to zero,
+
+00:08:58,360 --> 00:09:01,240
+that is one option, let's just do that and
+then I'm going to show you another option to
+
+00:09:01,240 --> 00:09:05,240
+achieve exactly the same result. So if we
+set the scale of the star to 0 at the
+
+00:09:05,240 --> 00:09:08,940
+beginning, and let's just set it say to
+what it is at the end, watch what happens -
+
+00:09:08,940 --> 00:09:14,790
+the star will grow during the idle state. You
+see it growing there? It's not moving with it,
+
+00:09:14,790 --> 00:09:16,600
+you can tell me why in a minute,
+
+00:09:16,600 --> 00:09:21,170
+do you know why? Why is the star just sitting
+there well it's because the star is childed
+
+00:09:21,170 --> 00:09:23,130
+to the trophy if you
+
+00:09:23,130 --> 00:09:26,870
+childed the star to the top itself
+look what happens just by dragging in
+
+00:09:26,870 --> 00:09:30,830
+the hierarchy, it now takes its
+transform relative to the top... and
+
+00:09:30,830 --> 00:09:35,920
+there it goes it rocks away with the top.
+So let's watch the animation again, yeah it's
+
+00:09:35,920 --> 00:09:42,260
+rocking away with to the top but over in
+the animator now the star's scale is no
+
+00:09:42,260 --> 00:09:46,580
+longer working properly and has actually
+gone yellow, and that yellow means that
+
+00:09:46,580 --> 00:09:50,950
+it has nothing to animate and that's
+because the star
+
+00:09:50,950 --> 00:09:55,750
+object itself has been moved in the
+hierarchy so the animator has lost track
+
+00:09:55,750 --> 00:09:59,240
+of where it is in the hierarchy. So let me
+show you the other way to get the star
+
+00:09:59,240 --> 00:10:04,890
+to not be there during the idle phase,
+remember at this point we're in the idle state.
+
+00:10:04,890 --> 00:10:09,310
+So another way to do this would simply be
+to go like this; drill through the top on
+
+00:10:09,310 --> 00:10:13,890
+here to the star, and that's why I lost
+it as it was moved in the hierarchy, and use
+
+00:10:13,890 --> 00:10:17,780
+the IsActive method, and you can just
+say here in the animator no it's not
+
+00:10:17,780 --> 00:10:23,410
+active at the start and in the idle
+state it's also not active at the end. So
+
+00:10:23,410 --> 00:10:27,440
+what happens then we look at it is it's
+just it's there the star, ready to go
+
+00:10:27,440 --> 00:10:32,150
+ready to animate but it's not active, right?
+Great so how about if we were to have
+
+00:10:32,150 --> 00:10:35,640
+another clip and let's say it's
+
+00:10:35,640 --> 00:10:43,070
+what do we call it? Star birth or producing
+the star or something like that. I'm
+
+00:10:43,070 --> 00:10:48,560
+gonna call it star birth, here we go so we have
+a star birth state, and then what's
+
+00:10:48,560 --> 00:10:51,690
+going to happen in that star birth state?
+Well the very first thing is that we go
+
+00:10:51,690 --> 00:10:57,800
+drill through the top to the star and
+make it active. Tick, fine and then once
+
+00:10:57,800 --> 00:11:02,220
+it's active we want it to grow over a
+period of maybe four seconds, so add
+
+00:11:02,220 --> 00:11:07,430
+another curve to the star itself
+transform all the way through to its
+
+00:11:07,430 --> 00:11:12,850
+scale, now we can control its scale so
+at the start we're going to have it's scale 0
+
+00:11:12,850 --> 00:11:19,500
+and at the end it's going to be this
+point two that we've found ourselves - if
+
+00:11:19,500 --> 00:11:24,100
+you're not sure go over, use the record mode,
+go into the scene and scale the star whilst
+
+00:11:24,100 --> 00:11:27,840
+selected on the key frame you want so
+select on this key frame, go to the
+
+00:11:27,840 --> 00:11:32,560
+scene and then move it how you want it
+and then when you come back you'll find
+
+00:11:32,560 --> 00:11:35,570
+it will have set these properties, that's what
+this red means, that's what the red here
+
+00:11:35,570 --> 00:11:40,340
+means - it means it's in record mode, and that's what
+the red play, pause, and step means. OK
+
+00:11:40,340 --> 00:11:41,290
+so star birth,
+
+00:11:41,290 --> 00:11:46,750
+that's fine, let's think to ourselves
+very briefly under what
+
+00:11:46,750 --> 00:11:50,180
+circumstances would the star be born? Well
+actually it would be born after a
+
+00:11:50,180 --> 00:11:56,960
+certain number of loops of the idle
+animation, let's say maybe after 5, so after 5 loops a
+
+00:11:56,960 --> 00:12:01,490
+star is born, and then if you right click
+again on star birth and say make transition,
+
+00:12:01,490 --> 00:12:07,800
+after one cycle of star birth it goes back to
+idle. Let's watch this work. Look in the scene
+
+00:12:07,800 --> 00:12:12,640
+view, it's going to cycle around idle 5 times
+actually it didn't in this case, we'll check
+
+00:12:12,640 --> 00:12:18,880
+why in a minute but the star birth bit is
+working . So idle... ok and the reason is
+
+00:12:18,880 --> 00:12:23,940
+it's a very easy on these transition
+arrows to not save the value so really
+
+00:12:23,940 --> 00:12:28,960
+aggressively hit the enter key and make
+sure that value gets saved, and then a
+
+00:12:28,960 --> 00:12:34,780
+single iteration of star birth. OK. so they're
+your transitions, you're saying do me
+
+00:12:34,780 --> 00:12:40,490
+the idle animation i.e. the rocking for five
+cycles and this is where you adjust how
+
+00:12:40,490 --> 00:12:44,680
+often a star trophy actually gives out
+star by the way, it's actually a
+
+00:12:44,680 --> 00:12:45,830
+play tuning in here
+
+00:12:45,830 --> 00:12:51,760
+So it rocks a certain number of times
+and then eventually the transition will
+
+00:12:51,760 --> 00:12:52,880
+happen into star birth, at
+
+00:12:52,880 --> 00:12:57,120
+which point it stops moving, the star comes
+up and we're nearly there we just want the
+
+00:12:57,120 --> 00:13:02,130
+start to float up, ok so how far do we
+want it to float up? Well go to the
+
+00:13:02,130 --> 00:13:07,360
+star birth thing and let's say at four
+seconds, so go and select at four seconds let's
+
+00:13:07,360 --> 00:13:12,600
+use - which you can do by just clicking on
+a key frame - let's use the this record system so
+
+00:13:12,600 --> 00:13:16,570
+make sure you're in record, go to the scene,
+and then just do what you want to do to
+
+00:13:16,570 --> 00:13:21,950
+the star over in the scene it's a core
+facility. Just get your star selected, get
+
+00:13:21,950 --> 00:13:25,070
+your transform tool selected, and say
+well after four seconds I want it about
+
+00:13:25,070 --> 00:13:30,970
+this high, so imagine one of these was in
+the top row, it would be one whole square
+
+00:13:30,970 --> 00:13:34,280
+up which is perfectly reasonable but
+also looking at it like this at this
+
+00:13:34,280 --> 00:13:37,670
+zoom level I think to myself actually
+I want it bigger, so why not just do it right there.
+
+00:13:37,670 --> 00:13:41,290
+You can just scale the star however you like here.
+
+00:13:41,290 --> 00:13:45,290
+Cool, so what that's done back at the
+animator is it's recorded those things
+
+00:13:45,290 --> 00:13:49,900
+that you've just done into the animator,
+just click Play you'll see. So we just wait
+
+00:13:49,900 --> 00:13:54,130
+for the transition to happen, there we go,
+watch the star - up it comes it comes up
+
+00:13:54,130 --> 00:14:00,010
+and expands and then pops - perfect, how
+cool is that? We have a star trophy
+
+00:14:00,010 --> 00:14:05,600
+animation that's working really nicely for
+us ok now if you are somebody who likes
+
+00:14:05,600 --> 00:14:08,980
+to keep everything in one place and you
+don't like the fact that the number of
+
+00:14:08,980 --> 00:14:13,900
+cycles of idle before the star gets
+released is encoded inside the animator
+
+00:14:13,900 --> 00:14:17,660
+here then that's fine, if you want to
+have it somewhere else like in a script
+
+00:14:17,660 --> 00:14:22,010
+you could just have a script set this
+value but we're not doing that for now.
+
+00:14:22,010 --> 00:14:25,420
+We've got a great result which is that the
+star trophy is using bone based animation
+
+00:14:25,420 --> 00:14:30,660
+to rock back and forth, to create a star
+and the star comes out and floats up to
+
+00:14:30,660 --> 00:14:31,570
+the top.
+
+00:14:31,570 --> 00:14:34,580
+Fantastic, so you have all the building
+blocks you need because not only do you
+
+00:14:34,580 --> 00:14:37,920
+have that type of animation but of
+course if we click over we have a lizard
+
+00:14:37,920 --> 00:14:42,920
+here which is completely different; this
+guy is a sprite sheet based animation
+
+00:14:42,920 --> 00:14:49,750
+with multiple states, so pretty cool. I'd
+like you to firstly create at least one
+
+00:14:49,750 --> 00:14:53,330
+bone based animation for yourself.
+
+00:14:53,330 --> 00:14:56,880
+OK that's all I want you to do, so at
+this stage have already created one
+
+00:14:56,880 --> 00:14:57,769
+sprite animation
+
+00:14:57,769 --> 00:15:01,689
+in my case the lizard now I want you to
+create one bone animation so add life to
+
+00:15:01,689 --> 00:15:05,809
+a still sprite, for example a gravestone
+or star trophy; move or rotate its
+
+00:15:05,809 --> 00:15:07,439
+transform slightly over time;
+
+00:15:07,439 --> 00:15:11,800
+make the animation loop continuously;
+give it at least two animation states as
+
+00:15:11,800 --> 00:15:17,059
+we've done there, and then for example that
+could be an idle and attacking or
+
+00:15:17,059 --> 00:15:21,249
+attacked state. So go ahead and make your
+bone animation now, I'm not going to show you
+
+00:15:21,249 --> 00:15:25,939
+how because I've just shown you how
+with mine. If you want to use exactly the
+
+00:15:25,939 --> 00:15:28,910
+same asset as I have and follow me through well
+you're welcome to rewind, but I really
+
+00:15:28,910 --> 00:15:33,040
+would prefer you stop the video and do your
+own animation now with reference to what
+
+00:15:33,040 --> 00:15:36,769
+I've just done. Cool, congratulations, good luck
+with that and I shall see you in the
+
+00:15:36,769 --> 00:15:40,790
+next video where we'll talk about
+movement and childing in a little bit
+
+00:15:40,790 --> 00:15:43,730
+more detail before you then go off and
+do all of the animation. See you soon.
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section7/GG18B 2D Bone Based Animation.srt

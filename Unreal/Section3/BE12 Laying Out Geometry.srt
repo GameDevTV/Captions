@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section3/BE12 Laying Out Geometry.srt
 ﻿WEBVTT
 
 1
@@ -876,3 +877,882 @@ Cool! So well done. you've started to build a level. and I will see you in the n
 00:14:25.800 --> 00:14:27.533
 
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+
+
+2
+00:00:04,000 --> 00:00:08,000
+
+
+3
+00:00:08,000 --> 00:00:12,000
+
+
+4
+00:00:12,000 --> 00:00:16,000
+
+
+5
+00:00:16,000 --> 00:00:20,000
+
+
+6
+00:00:20,000 --> 00:00:24,000
+
+
+7
+00:00:24,000 --> 00:00:28,000
+
+
+8
+00:00:28,000 --> 00:00:32,000
+
+
+9
+00:00:32,000 --> 00:00:36,000
+
+
+10
+00:00:36,000 --> 00:00:40,000
+
+
+11
+00:00:40,000 --> 00:00:44,000
+
+
+12
+00:00:44,000 --> 00:00:48,000
+
+
+13
+00:00:48,000 --> 00:00:52,000
+
+
+14
+00:00:52,000 --> 00:00:56,000
+
+
+15
+00:00:56,000 --> 00:01:00,000
+
+
+16
+00:01:00,000 --> 00:01:01,800
+
+
+17
+00:01:01,800 --> 00:01:05,800
+So, let's start actually building a level now we know we can
+
+18
+00:01:05,800 --> 00:01:09,800
+do basic control over this. But this looks a bit rubbish, just having a door standing
+
+19
+00:01:09,800 --> 00:01:13,800
+here, so let's start fleshing out a level. So, we're going to start by just getting
+
+20
+00:01:13,800 --> 00:01:17,800
+the structure of the level, and then, in a future video, we're going to talk about materials, beautiful
+
+21
+00:01:17,800 --> 00:01:21,800
+materials down on these floor panels. Now, there are two basic ways of laying out a level.
+
+22
+00:01:21,800 --> 00:01:25,800
+One is with something called Static Meshes, which are pretty much what they sound like. These
+
+23
+00:01:25,800 --> 00:01:29,800
+doors and chairs are all Static Meshes. They are meshes in that they are just a series
+
+24
+00:01:29,800 --> 00:01:33,800
+of what we call vertices. You can see that, by the way, by click on say the
+
+25
+00:01:33,800 --> 00:01:38,600
+door, right-clicking, and you can say Edit SM_Door. And if you bring it up,
+
+26
+00:01:38,600 --> 00:01:41,800
+this new Editor window that will come up, you will have a whole new window come up over the top.
+
+27
+00:01:41,800 --> 00:01:45,800
+If you click Wireframe, you can see all of the triangles that comprise
+
+28
+00:01:45,800 --> 00:01:49,800
+this actual model, and you can even look at all the vertices, which are the points where
+
+29
+00:01:49,800 --> 00:01:53,800
+all the triangles meet. Alright, so that's what we mean by a
+
+30
+00:01:53,800 --> 00:01:57,800
+mesh, and static just means it's non-skeletal. There is another way of
+
+31
+00:01:57,800 --> 00:02:01,800
+building levels, by the way. In the Modes Panel, so you go Window and Modes, there's something called
+
+32
+00:02:01,800 --> 00:02:05,800
+BSP, Binary Space Partitioning, which is a technical name for how
+
+33
+00:02:05,800 --> 00:02:09,800
+the geometry is actually stored, so the computer can
+
+34
+00:02:09,800 --> 00:02:13,800
+work out what is in the way of what, etc. Now, the thing about BSP is,
+
+35
+00:02:13,800 --> 00:02:17,800
+you can actually flesh out levels with BSP. We're not going to yet, in this
+
+36
+00:02:17,800 --> 00:02:21,800
+instance. It has some advantages, which is for example in
+
+37
+00:02:21,800 --> 00:02:25,800
+Unreal here we can actually do vertex or face editing. I can grab
+
+38
+00:02:25,800 --> 00:02:29,800
+a face of something in BSP and move it, and I can even slew it along like this.
+
+39
+00:02:29,800 --> 00:02:33,800
+So, it can be more flexible for very simple geometry. The disadvantage is
+
+40
+00:02:33,800 --> 00:02:37,800
+that it's not as performant, it does not run as fast as using
+
+41
+00:02:37,800 --> 00:02:41,800
+custom Static Meshes made by an artist. BSP is an a bit of an acronym,
+
+42
+00:02:41,800 --> 00:02:45,800
+it's an old way of doing things. Alright, so we will look at BSP
+
+43
+00:02:45,800 --> 00:02:49,800
+probably later in the course, but for now, I'm going to get rid of this Box Brush thing
+
+44
+00:02:49,800 --> 00:02:53,800
+here. And if you see it's of type Brush, that's the indication that this is a piece of BSP.
+
+45
+00:02:53,800 --> 00:02:57,800
+We're not going to do it that way! What we're going to do is go to the Content Browser,
+
+46
+00:02:57,800 --> 00:03:01,800
+and there's two tabs of the Starter Content or folders
+
+47
+00:03:01,800 --> 00:03:05,800
+in the Starter Content I want you to look at. One is the Architecture one, which will have floor panels,
+
+48
+00:03:05,800 --> 00:03:09,800
+like this 400 by 400 floor panel here. If we poured another one of those into the
+
+49
+00:03:09,800 --> 00:03:13,800
+game, you would see it's a little bit smaller than the standard floor panel.
+
+50
+00:03:13,800 --> 00:03:17,800
+In fact, it's about half the size. And you've got other sized floor panels, but
+
+51
+00:03:17,800 --> 00:03:21,800
+you've also got wall panels. Alright, So to get rid of that, I've just hit the Delete
+
+52
+00:03:21,800 --> 00:03:25,800
+Key on the keyboard. So, what I'm going to do is just show you briefly how to start
+
+53
+00:03:25,800 --> 00:03:29,800
+laying out wall panels, putting a door in, etc. and then, I'm going to challenge
+
+54
+00:03:29,800 --> 00:03:33,800
+you to build yourself at least one room of geometry. You're welcome to go ahead and build two
+
+55
+00:03:33,800 --> 00:03:37,800
+or three if you wish. So, here's the idea, we grab ourselves a wall panel.
+
+56
+00:03:37,800 --> 00:03:41,800
+So, for instance, 400 is the height, 300 is the width. That would be
+
+57
+00:03:41,800 --> 00:03:45,800
+perhaps a good start! If you want to rotate it, of course, it's the E Key.
+
+58
+00:03:45,800 --> 00:03:49,800
+E to Rotate Mode and then rotate like that, by grabbing the blue bit.
+
+59
+00:03:49,800 --> 00:03:53,800
+Then, W... So, I've got my fingers on Q, W, E, as in
+
+60
+00:03:53,800 --> 00:03:57,800
+QWERTY, and I can then choose the different tools, so E let's me
+
+61
+00:03:57,800 --> 00:04:01,800
+translate. Now, how do we get this exactly at the edge of the map? Well, if it's not already on the
+
+62
+00:04:01,800 --> 00:04:05,800
+floor, the End Key will bring it down to the floor,
+
+63
+00:04:05,800 --> 00:04:09,800
+and then, you can move left and right. Now, here's a good tip for you! As you move
+
+64
+00:04:09,800 --> 00:04:13,800
+this thing, if you hold down the Shift Key, watch what happens. The camera
+
+65
+00:04:13,800 --> 00:04:17,800
+goes with it so if we're trying to align this edge, we can come around here where we could
+
+66
+00:04:17,800 --> 00:04:21,800
+make the judgement, hold down the Shift Key, select the red arrow through the geometry,
+
+67
+00:04:21,800 --> 00:04:25,800
+and then align like this. Now, we want to get this precise,
+
+68
+00:04:25,800 --> 00:04:29,800
+so pick a grid snapping of 5 or 10 centimeters. You may find
+
+69
+00:04:29,800 --> 00:04:33,800
+that 10 doesn't align, see I'm off grid here at 10.
+
+70
+00:04:33,800 --> 00:04:37,800
+So, if I go back down to 5 and move it one place, that's exactly right!
+
+71
+00:04:37,800 --> 00:04:41,800
+If I went back to 10, you'd notice that I'm back on
+
+72
+00:04:41,800 --> 00:04:45,800
+the 10 grid, if that makes sense. So, have a play with your grid spacing
+
+73
+00:04:45,800 --> 00:04:49,800
+here, and either holding down Shift or not holding down Shift, depending
+
+74
+00:04:49,800 --> 00:04:53,800
+on whether you want the camera to move with you. Alright, so that would be putting a wall panel
+
+75
+00:04:53,800 --> 00:04:57,800
+in. Then, how do we get the door in? Well, we've actually got a door and a door frame here.
+
+76
+00:04:57,800 --> 00:05:01,800
+We could select the two of them by selecting one, holding Shift, and selecting the other,
+
+77
+00:05:01,800 --> 00:05:05,800
+and now we can just move the door into the frame. I'm going to use the
+
+78
+00:05:05,800 --> 00:05:09,800
+End Key above the floor, to put it on the floor,
+
+79
+00:05:09,800 --> 00:05:13,800
+and then I'm just going to put this frame snuggly in here. Now, there's another view I want to
+
+80
+00:05:13,800 --> 00:05:17,800
+show you, before I slide this frame in, which is if we click at the very top-right
+
+81
+00:05:17,800 --> 00:05:21,800
+of your 3D Viewport. It says "Maximizes or restores this viewport". Look what happens!
+
+82
+00:05:21,800 --> 00:05:25,800
+I'm going to get rid of the Output Log. We go to a four-way view and each of these can
+
+83
+00:05:25,800 --> 00:05:29,800
+dragged around with the Right Mouse Button and zoom in and out, and what I'm
+
+84
+00:05:29,800 --> 00:05:33,800
+doing here is, I'm looking at the door from above. So look how easy it is to see that, that door is definitely in the
+
+85
+00:05:33,800 --> 00:05:37,800
+right place, in both the side view and the top view.
+
+86
+00:05:37,800 --> 00:05:41,800
+See that, the front view and the top view specifically. Cool! So, our
+
+87
+00:05:41,800 --> 00:05:45,800
+door is now in there! I'm going to re-maximize at the top-right of the Perspective View,
+
+88
+00:05:45,800 --> 00:05:49,800
+and just click Play and prove that obviously that code continues running.
+
+89
+00:05:49,800 --> 00:05:53,800
+Fine, so now it's a relatively simple question of
+
+90
+00:05:53,800 --> 00:05:57,800
+selecting these objects and putting them where we want. So, if I want my door on the end here,
+
+91
+00:05:57,800 --> 00:06:01,800
+I do that. And then if I want another wall panel, I'm going
+
+92
+00:06:01,800 --> 00:06:05,800
+to go for a what? Well, it was a 400 by 300 before, let's try the same thing
+
+93
+00:06:05,800 --> 00:06:09,800
+again. OK, and then it's a question of moving it
+
+94
+00:06:09,800 --> 00:06:13,800
+into place. Now, you can get yourself above.
+
+95
+00:06:13,800 --> 00:06:17,800
+There's lots of little ways we can make this easier for ourselves, lots of tools and extra
+
+96
+00:06:17,800 --> 00:06:21,800
+keyboard shortcuts and all sorts of things, but for now, I just want to get you in
+
+97
+00:06:21,800 --> 00:06:25,800
+with a basic idea. There we go! Now, we've got a really ugly
+
+98
+00:06:25,800 --> 00:06:29,800
+seam here, between the two of these guys and around the
+
+99
+00:06:29,800 --> 00:06:33,800
+door. But you'll probably find that when you go to Build and Build Lighting Only,
+
+100
+00:06:33,800 --> 00:06:37,800
+that when it does a quick lighting build that those problems will disappear.
+
+101
+00:06:37,800 --> 00:06:41,800
+And there you go! So, that's just a
+
+102
+00:06:41,800 --> 00:06:45,800
+lighting preview issue. Alright, so I've got a couple of wall panels
+
+103
+00:06:45,800 --> 00:06:49,800
+in there. What would I do if I wanted thinner wall panels? Well, you can actually
+
+104
+00:06:49,800 --> 00:06:53,800
+duplicate, say, this wall panel.  And I'm going to move this chair out of the way, so we can see what we're doing.
+
+105
+00:06:53,800 --> 00:06:57,800
+I can duplicate this wall panel simply by clicking on it,
+
+106
+00:06:57,800 --> 00:07:01,800
+holding down the Alt Key A l t, which is to the left of your Spacebar
+
+107
+00:07:01,800 --> 00:07:05,800
+or to the left of Cmd on a Mac and then of course immediately to the left of the Spacebar on a PC. If you hold
+
+108
+00:07:05,800 --> 00:07:09,800
+down Alt while you drag, look what happens! It creates a duplicate! Ah hah,
+
+109
+00:07:09,800 --> 00:07:13,800
+that's pretty cool! OK. I can position that and, of course, I can use the
+
+110
+00:07:13,800 --> 00:07:17,800
+R Key to go into the Scale Tool and
+
+111
+00:07:17,800 --> 00:07:21,800
+I can then scale this down. And if it's not scaling how I want it,
+
+112
+00:07:21,800 --> 00:07:25,800
+then I can change the Scale snap factor, but I've found that by putting
+
+113
+00:07:25,800 --> 00:07:29,800
+two 400 by 300 wall panels and then putting a third
+
+114
+00:07:29,800 --> 00:07:33,800
+400 by 300 wall panel in that,
+
+115
+00:07:33,800 --> 00:07:37,800
+I can actually scale it to 0.25 and it precisely fits. Again, I'll have this lighting
+
+116
+00:07:37,800 --> 00:07:41,800
+preview issue, but that's go when I rebuilt the lighting. Can you see now how it's relatively
+
+117
+00:07:41,800 --> 00:07:45,800
+easy to build up an entire level here. I could take this guy, I
+
+118
+00:07:45,800 --> 00:07:49,800
+could get it into Translate Mode, just find the key W.
+
+119
+00:07:49,800 --> 00:07:53,800
+I could hold down Alt
+
+120
+00:07:53,800 --> 00:07:57,800
+to create an alternative version of that or something. I don't know how you want
+
+121
+00:07:57,800 --> 00:08:01,800
+to remember it, and then, I can spin it around 90 degrees, looking for that 90. I
+
+122
+00:08:01,800 --> 00:08:05,800
+can come and just double check that this is correct in here. I think it
+
+123
+00:08:05,800 --> 00:08:09,800
+is, in this case. Good! And now, I can start taking a bigger
+
+124
+00:08:09,800 --> 00:08:13,800
+wall panel and duplicating that, or to be honest, sometimes it's easier just to
+
+125
+00:08:13,800 --> 00:08:17,800
+drop a new panel in, just do whatever is easiest. And again, you might want to go back to this
+
+126
+00:08:17,800 --> 00:08:21,800
+top view here, scroll it with the Right Mouse Button, and I think you're starting to
+
+127
+00:08:21,800 --> 00:08:25,800
+get the idea right, about how we place these things. By the way, remember that we can move something
+
+128
+00:08:25,800 --> 00:08:29,800
+just in the ground plane, by selecting this square here. You see where I'm
+
+129
+00:08:29,800 --> 00:08:33,800
+selected, the little right angle. Any
+
+130
+00:08:33,800 --> 00:08:37,800
+point just moves in the two axes that comprise the right angle, so that's a useful
+
+131
+00:08:37,800 --> 00:08:41,800
+axis locking tip. OK, so we've got one little gap to close up there,
+
+132
+00:08:41,800 --> 00:08:45,800
+and it should all be fine! So, that is the outline of my room! I'm
+
+133
+00:08:45,800 --> 00:08:49,800
+just going to go ahead and put a couple more things in. Just remember it's Alt
+
+134
+00:08:49,800 --> 00:08:53,800
+if you want to duplicate, just to finish off here. And then,
+
+135
+00:08:53,800 --> 00:08:57,800
+I'll close my room up. I may leave the roof open just to keep it bright for now,
+
+136
+00:08:57,800 --> 00:09:01,800
+and then, what we'll do is we'll come back and look at materials. Now look, we have a slight issue
+
+137
+00:09:01,800 --> 00:09:05,800
+here that the wall is over-hanging, and that is because of the way that this
+
+138
+00:09:05,800 --> 00:09:09,800
+is butting together here. So, are we going to worry about that? I think that it is
+
+139
+00:09:09,800 --> 00:09:13,800
+important that we get this right, once we have more than one room.
+
+140
+00:09:13,800 --> 00:09:17,800
+OK, but that's a finer tool, I just want you getting used to the gross
+
+141
+00:09:17,800 --> 00:09:21,800
+manipulations here, for now. So, what I want you to do is just finish off your
+
+142
+00:09:21,800 --> 00:09:25,800
+room or your series of rooms. You can always put another floor panel or series of floor panels
+
+143
+00:09:25,800 --> 00:09:29,800
+down, and then, once you've done that, maximize it up, grab yourself a screen
+
+144
+00:09:29,800 --> 00:09:33,800
+capture tool, and share your creation in the discussions, probably after you've
+
+145
+00:09:33,800 --> 00:09:37,800
+rebuilt the lighting.
+
+146
+00:09:37,800 --> 00:09:41,800
+OK welcome back! So, I am just going to quickly
+
+147
+00:09:41,800 --> 00:09:45,800
+make myself the rest of this room. I'm going to pull this guy over here
+
+148
+00:09:45,800 --> 00:09:49,800
+into rotate, with the E Key. I wish they would have made it R. I guess we can remap
+
+149
+00:09:49,800 --> 00:09:53,800
+them if we really wanted. And let's just go, probably from the
+
+150
+00:09:53,800 --> 00:09:57,800
+top view, because I think it's much easier to lay walls in a top view. That looks like
+
+151
+00:09:57,800 --> 00:10:01,800
+it's right, looks like it's woo right-click. It looks like it's 1 unit off. There
+
+152
+00:10:01,800 --> 00:10:05,800
+you go boom! And even from the top view I can do this business of holding down
+
+153
+00:10:05,800 --> 00:10:09,800
+Alt dragging, and you see how I get myself another panel. Now, eventually what's
+
+154
+00:10:09,800 --> 00:10:13,800
+going to happen is, we're going to make a real mess of our hierarchy,
+
+155
+00:10:13,800 --> 00:10:17,800
+what we call the World Outliner here. And, at some point, we're going to make a
+
+156
+00:10:17,800 --> 00:10:21,800
+folder, and we can do that right now, by right-clicking in the World Outliner
+
+157
+00:10:21,800 --> 00:10:25,800
+Tab and saying Create Folder and we can call it Walls. I'm going to
+
+158
+00:10:25,800 --> 00:10:29,800
+delete the other extraneous folder, and then you can take everything that's called a wall, if you wish
+
+159
+00:10:29,800 --> 00:10:33,800
+including the wall with the door frame, and just pop it into the Walls folder, like that.
+
+160
+00:10:33,800 --> 00:10:37,800
+Put the Walls folder wherever you like. It's going to float to the top, because it's a folder,
+
+161
+00:10:37,800 --> 00:10:41,800
+and then, that's just a lot tidier isn't it! All the walls can be collapsed down, and the
+
+162
+00:10:41,800 --> 00:10:45,800
+thing doesn't look so ugly. Cool, so just finish off!
+
+163
+00:10:45,800 --> 00:10:49,800
+We already have that half panel over here, so I can Alt
+
+164
+00:10:49,800 --> 00:10:53,800
+drag... Oops, that was Shift dragging, you've got to look at where your fingers are! Alt drag
+
+165
+00:10:53,800 --> 00:10:57,800
+that panel into the right place, it's roughly in the right
+
+166
+00:10:57,800 --> 00:11:01,800
+place there. And you get pretty quick at this, when you start using it a lot,
+
+167
+00:11:01,800 --> 00:11:05,800
+and you start getting used to where you need to be snapping, etc. So, that
+
+168
+00:11:05,800 --> 00:11:09,800
+ugliness is normal, what you just want to make sure is the gap is closed. Now, we've got a double
+
+169
+00:11:09,800 --> 00:11:13,800
+problem on the edge here, compounded by it's very similar to the problem on this
+
+170
+00:11:13,800 --> 00:11:17,800
+side. Is it twice as big or about the same? It's twice as big. But we're going to live with those
+
+171
+00:11:17,800 --> 00:11:21,800
+for now. We just want the interior of the room to look good, and as I say, later we will
+
+172
+00:11:21,800 --> 00:11:25,800
+do the good thing of making sure that the exterior dimensions are right
+
+173
+00:11:25,800 --> 00:11:29,800
+as well. And BSP, you could just adjust the face, but for now, we're going to just
+
+174
+00:11:29,800 --> 00:11:33,800
+block it out using these Static Meshes, to see what the pros and cons of them
+
+175
+00:11:33,800 --> 00:11:37,800
+are. I'll say the main prolonged term is the that they're more performant,
+
+176
+00:11:37,800 --> 00:11:41,800
+they are faster to render than the other guys. OK, so nearly
+
+177
+00:11:41,800 --> 00:11:45,800
+there. What I'm doing, because I can't see my keyboard with my
+
+178
+00:11:45,800 --> 00:11:49,800
+mic in the way, is I just keep hitting Shift instead of Alt.
+
+179
+00:11:49,800 --> 00:11:53,800
+So, it's Alt that you want to do your duplication, and then, we want a
+
+180
+00:11:53,800 --> 00:11:57,800
+final thing, which I think I'm going to grab from here,
+
+181
+00:11:57,800 --> 00:12:01,800
+duplicate it across. And hopefully you've got the idea, it's relatively simple
+
+182
+00:12:01,800 --> 00:12:05,800
+to lay these levels out. They've done this on purpose, of course, they've given us really useful tools.
+
+183
+00:12:05,800 --> 00:12:09,800
+What, I got lost. Where am I? There I am, perfect!
+
+184
+00:12:09,800 --> 00:12:13,800
+Bring it in and then I'm going to make them
+
+185
+00:12:13,800 --> 00:12:17,800
+butt up against each other perfectly, that way, but let them overlap on the outside. Now, if I just go
+
+186
+00:12:17,800 --> 00:12:21,800
+ahead and rebuild my lighting, then these ugly lighting preview issues
+
+187
+00:12:21,800 --> 00:12:25,800
+will go away. I'm also going to show you another thing, which is we could do with some lighting in this
+
+188
+00:12:25,800 --> 00:12:29,800
+scene. If you want a work light, in the scene to be getting on with, then I'll show you how
+
+189
+00:12:29,800 --> 00:12:33,800
+to do that, but before I do that, I'm going to show you how to find yourself, you'll get lost again.
+
+190
+00:12:33,800 --> 00:12:37,800
+I've clicked away, done things too fast, and ended up miles away! How do I end up
+
+191
+00:12:37,800 --> 00:12:41,800
+back in the middle? Well, one way is you double-click on Player Start and that will get you very
+
+192
+00:12:41,800 --> 00:12:45,800
+close to the start, and then, you can use your normal W, S, A, D keys to get yourself
+
+193
+00:12:45,800 --> 00:12:49,800
+back. Alright, if you want a work light, then there's a way of doing that! What you
+
+194
+00:12:49,800 --> 00:12:53,800
+can do to get a work light is, you hold down the L Key and double-click. It's a little bit fiddly, as
+
+195
+00:12:53,800 --> 00:12:57,800
+you saw there. It's not 100% perfect but let me just show you that
+
+196
+00:12:57,800 --> 00:13:01,800
+again. It brings in what we call a point light into the scene. You hold down the L Key
+
+197
+00:13:01,800 --> 00:13:05,800
+and you double-click. If it doesn't work, you try again. Maybe you need to let
+
+198
+00:13:05,800 --> 00:13:10,633
+go of L and try again, and eventually you will get that work light in place.
+
+199
+00:13:10,633 --> 00:13:14,633
+Hi there, this is Sam again! This is just a quick post edit to point out
+
+200
+00:13:14,633 --> 00:13:18,633
+that, if you're struggling with this particular keyboard combination, the L and double-click,
+
+201
+00:13:18,633 --> 00:13:22,633
+another way is to do a Shift L and just a single click and
+
+202
+00:13:22,633 --> 00:13:25,733
+that seems to be more reliable in this instance.
+
+203
+00:13:25,733 --> 00:13:25,800
+
+
+204
+00:13:25,800 --> 00:13:29,800
+And then, the work light, as I said as a point light, and then you can just move it to where you
+
+205
+00:13:29,800 --> 00:13:33,800
+want, just so you can see what you're doing when you're level building, literally like you're under
+
+206
+00:13:33,800 --> 00:13:37,800
+scaffolding. And that's filled in those shadows there. I think the chair would look better if
+
+207
+00:13:37,800 --> 00:13:41,800
+it was up against a wall perhaps, and then, that's it we're done!
+
+208
+00:13:41,800 --> 00:13:45,800
+I would do a final lighting rebuild, and then, I would take a screenshot and share it in
+
+209
+00:13:45,800 --> 00:13:49,800
+the discussions. Now, I want to make sure that you are making your commits, your
+
+210
+00:13:49,800 --> 00:13:53,800
+commits to your version control. So, I am going to
+
+211
+00:13:53,800 --> 00:13:57,800
+leave Visual Studio, because I want all of the lock files to be closed. I want to
+
+212
+00:13:57,800 --> 00:14:01,800
+go to File and Save All inside Unreal,
+
+213
+00:14:01,800 --> 00:14:05,800
+close that, and then, over here in my version control, the changes are
+
+214
+00:14:05,800 --> 00:14:09,800
+basically, there's a Visual Studio file just because I opened and closed it. We can actually ignore
+
+215
+00:14:09,800 --> 00:14:13,800
+.suo's, we'll do that very shortly I think, and then, you'll
+
+216
+00:14:13,800 --> 00:14:17,800
+also have here a .umap, which is the actual map that we changed.
+
+217
+00:14:17,800 --> 00:14:21,800
+So, this is where I'll be making my commit, stage all of those, Commit, and off we go!
+
+218
+00:14:21,800 --> 00:14:25,800
+Cool! So well done, you've started to build a level, and I will see you in the next video!
+
+219
+00:14:25,800 --> 00:14:27,533
+
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section3/BE12 Laying Out Geometry.srt

@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section3/06-Re-Organising-Your-Code.srt
 WEBVTT
 
 1
@@ -908,3 +909,914 @@ get my full game working. then you're very welcome
 00:11:24.000 --> 00:11:27.000
 and there's a video waiting for you.
 
+=======
+
+1
+00:00:03,000 --> 00:00:06,000
+Hey, welcome back! So,
+
+2
+00:00:06,000 --> 00:00:09,000
+our little text adventure game is a fantastic
+
+3
+00:00:09,000 --> 00:00:12,000
+start and it basically works. The
+
+4
+00:00:12,000 --> 00:00:15,000
+challenge is, it's possibly a little too basic.
+
+5
+00:00:15,000 --> 00:00:18,000
+Once you realize that you just press M,
+
+6
+00:00:18,000 --> 00:00:21,000
+T, L, and O
+
+7
+00:00:21,000 --> 00:00:24,000
+and that you're out and free, it's a little
+
+8
+00:00:24,000 --> 00:00:27,000
+unsatisfying. So, what I'd like to do now is lay
+
+9
+00:00:27,000 --> 00:00:30,000
+the foundations to make the game a fair amount more complex.
+
+10
+00:00:30,000 --> 00:00:33,000
+It's the same logic, the same code,
+
+11
+00:00:33,000 --> 00:00:36,000
+we're just going to get used to
+
+12
+00:00:36,000 --> 00:00:39,000
+some slightly tedious work of
+
+13
+00:00:39,000 --> 00:00:42,000
+adding more assets to our game, because this is
+
+14
+00:00:42,000 --> 00:00:45,000
+too thin. This is too simple. So, let's
+
+15
+00:00:45,000 --> 00:00:48,000
+take a look at the Game Design Document. So far,
+
+16
+00:00:48,000 --> 00:00:51,000
+this has been our State Diagram, and as you
+
+17
+00:00:51,000 --> 00:00:54,000
+just saw, if you go M, T,
+
+18
+00:00:54,000 --> 00:00:57,000
+L, O, then you end up
+
+19
+00:00:57,000 --> 00:01:00,000
+out of the prison, really quickly.
+
+20
+00:01:00,000 --> 00:01:03,000
+So, what I want to do is introduce a new level, if you like. We're not actually going to
+
+21
+00:01:03,000 --> 00:01:06,000
+use Unity's levels here or scenes, we're just going to add
+
+22
+00:01:06,000 --> 00:01:09,000
+more code, but I want to introduce a new dimension,
+
+23
+00:01:09,000 --> 00:01:12,000
+which is a new section called the
+
+24
+00:01:12,000 --> 00:01:15,000
+corridor. So, instead of freedom, what we're going to do
+
+25
+00:01:15,000 --> 00:01:18,000
+is we're going to go to a corridor
+
+26
+00:01:18,000 --> 00:01:21,000
+state, which used to be called freedom,
+
+27
+00:01:21,000 --> 00:01:24,000
+and that's why we start on the left hand side with corridor_0.
+
+28
+00:01:24,000 --> 00:01:27,000
+And from
+
+29
+00:01:27,000 --> 00:01:30,000
+there what can we do? Well,
+
+30
+00:01:30,000 --> 00:01:33,000
+we can look at the stairs, but we decide we don't want to go up them,
+
+31
+00:01:33,000 --> 00:01:36,000
+because we're going to get rumbled or put straight back in
+
+32
+00:01:36,000 --> 00:01:39,000
+prison. We could look at the closet
+
+33
+00:01:39,000 --> 00:01:42,000
+but realize the door is locked. We can
+
+34
+00:01:42,000 --> 00:01:45,000
+look at the floor and on the floor we see a hair clip,
+
+35
+00:01:45,000 --> 00:01:48,000
+which we can choose to ignore, returning to the corridor, or we can
+
+36
+00:01:48,000 --> 00:01:51,000
+pick up the hair clip. That takes us to a new
+
+37
+00:01:51,000 --> 00:01:54,000
+corridor state. I'm calling it corridor_1,
+
+38
+00:01:54,000 --> 00:01:57,000
+to represent progress.
+
+39
+00:01:57,000 --> 00:02:00,000
+So, from there we can look at the stairs again, for a
+
+40
+00:02:00,000 --> 00:02:03,000
+slightly different reason. We can reject the idea of going up
+
+41
+00:02:03,000 --> 00:02:06,000
+them, or we could choose to pick the lock
+
+42
+00:02:06,000 --> 00:02:09,000
+of the closet, with the new found hair clip.
+
+43
+00:02:09,000 --> 00:02:12,000
+When we do that, we can either
+
+44
+00:02:12,000 --> 00:02:15,000
+dress up in cleaner's clothing
+
+45
+00:02:15,000 --> 00:02:18,000
+with what we find inside, going straight to corridor_3,
+
+46
+00:02:18,000 --> 00:02:21,000
+or we can return to
+
+47
+00:02:21,000 --> 00:02:24,000
+the corridor but it's again another new corridor
+
+48
+00:02:24,000 --> 00:02:27,000
+state, because this time the closet's open.
+
+49
+00:02:27,000 --> 00:02:30,000
+So, we can use that opportunity to give people
+
+50
+00:02:30,000 --> 00:02:33,000
+yet another reason why they shouldn't climb the
+
+51
+00:02:33,000 --> 00:02:36,000
+stairs. But if they do decide to dress up,
+
+52
+00:02:36,000 --> 00:02:39,000
+then they're back in the corridor with a dilemma.
+
+53
+00:02:39,000 --> 00:02:42,000
+Do they make their run for freedom, going up the stairs
+
+54
+00:02:42,000 --> 00:02:45,000
+to the courtyard, or do they undress and
+
+55
+00:02:45,000 --> 00:02:48,000
+end up back in the closet, tempted by the cleaner's
+
+56
+00:02:48,000 --> 00:02:51,000
+clothes again? So, this is just my simple
+
+57
+00:02:51,000 --> 00:02:54,000
+convoluted story, and you can see how already this
+
+58
+00:02:54,000 --> 00:02:57,000
+State Machine is getting quite complicated.
+
+59
+00:02:57,000 --> 00:03:00,000
+So obviously, this is the last game we're going to do like
+
+60
+00:03:00,000 --> 00:03:03,000
+this. In other sections we are going to use Unity to
+
+61
+00:03:03,000 --> 00:03:06,000
+keep track of the states, but it's very useful early
+
+62
+00:03:06,000 --> 00:03:09,000
+on, as a coding exercise to use a
+
+63
+00:03:09,000 --> 00:03:12,000
+complete Finite State Machine.
+
+64
+00:03:12,000 --> 00:03:15,000
+So, what are we going to do in this video? Well,
+
+65
+00:03:15,000 --> 00:03:18,000
+we are going to prepare ourselves for
+
+66
+00:03:18,000 --> 00:03:21,000
+adding this complexity.
+
+67
+00:03:21,000 --> 00:03:24,000
+So, we need to change
+
+68
+00:03:24,000 --> 00:03:27,000
+all references of freedom to corridor_0 firstly.
+
+69
+00:03:27,000 --> 00:03:30,000
+And this is a challenge, so what you're seeing on the screen,
+
+70
+00:03:30,000 --> 00:03:33,000
+with this green outline and the Pause Button at the bottom right
+
+71
+00:03:33,000 --> 00:03:36,000
+is a challenge slide. So, I want you to go
+
+72
+00:03:36,000 --> 00:03:39,000
+and rename all references to freedom to corridor_0
+
+73
+00:03:39,000 --> 00:03:42,000
+and get it running. Some hints for you, you need to change
+
+74
+00:03:42,000 --> 00:03:45,000
+the line in Update (). You'll need to rename your statement
+
+75
+00:03:45,000 --> 00:03:48,000
+method. You'll need to update your text,
+
+76
+00:03:48,000 --> 00:03:51,000
+and you'll need to update the key press options.
+
+77
+00:03:51,000 --> 00:03:54,000
+And have a think if there's anything else that
+
+78
+00:03:54,000 --> 00:03:57,000
+you need to do. For example, what
+
+79
+00:03:57,000 --> 00:04:00,000
+does lock_1 go to? What state does
+
+80
+00:04:00,000 --> 00:04:03,000
+lock_1 go to? And also, don't forget your enumerated list.
+
+81
+00:04:03,000 --> 00:04:06,000
+OK, so pause the video and go ahead
+
+82
+00:04:06,000 --> 00:04:09,000
+and make those changes now.
+
+83
+00:04:12,000 --> 00:04:15,000
+Fantastic! Welcome back! So, let's do that
+
+84
+00:04:15,000 --> 00:04:18,000
+to start with. Let's dive in and
+
+85
+00:04:18,000 --> 00:04:21,000
+obliterate this freedom
+
+86
+00:04:21,000 --> 00:04:24,000
+and call it... What are we going to call it?
+
+87
+00:04:24,000 --> 00:04:27,000
+corridor_0!
+
+88
+00:04:27,000 --> 00:04:30,000
+So, when I first change that in the if
+
+89
+00:04:30,000 --> 00:04:33,000
+statement there, I'm going to get a red indication
+
+90
+00:04:33,000 --> 00:04:36,000
+in that, that is not in the enumerated list. Well, you're quite right,
+
+91
+00:04:36,000 --> 00:04:39,000
+it's not! Now, we're running out of space in this enumerated
+
+92
+00:04:39,000 --> 00:04:42,000
+list, so I'm going to go into a new line and start
+
+93
+00:04:42,000 --> 00:04:45,000
+putting my next state in here.
+
+94
+00:04:45,000 --> 00:04:48,000
+corridor_0, something
+
+95
+00:04:48,000 --> 00:04:51,000
+like that! And actually, I'm just
+
+96
+00:04:51,000 --> 00:04:54,000
+for layout I'm just going to bring... There you
+
+97
+00:04:54,000 --> 00:04:57,000
+go! I'm going to do it like that OK, and I'm
+
+98
+00:04:57,000 --> 00:05:00,000
+actually going to put my curly brace on the line below.
+
+99
+00:05:00,000 --> 00:05:03,000
+The final thing that's missing is a comma,
+
+100
+00:05:03,000 --> 00:05:06,000
+on the end of line 10. OK!
+
+101
+00:05:06,000 --> 00:05:09,000
+Fantastic! So, we have our corridor_0
+
+102
+00:05:09,000 --> 00:05:12,000
+in our enumeration now. Another thing I'd like
+
+103
+00:05:12,000 --> 00:05:15,000
+to do is indent this first if statement, so
+
+104
+00:05:15,000 --> 00:05:18,000
+that they all line up. It's a very simple
+
+105
+00:05:18,000 --> 00:05:21,000
+change, but now all of our states line up. I prefer that!
+
+106
+00:05:21,000 --> 00:05:24,000
+Alright, so where else have we got freedom?
+
+107
+00:05:24,000 --> 00:05:27,000
+Well, we have state_freedom()
+
+108
+00:05:27,000 --> 00:05:30,000
+here, and what I'm actually going to do
+
+109
+00:05:30,000 --> 00:05:33,000
+is I'm going to change all of these state prefixes. I'm going to
+
+110
+00:05:33,000 --> 00:05:36,000
+remove all the state prefixes. Let's do that first.
+
+111
+00:05:36,000 --> 00:05:39,000
+How are we going to remove the state prefixes?
+
+112
+00:05:39,000 --> 00:05:42,000
+So, we go to the Search Menu,
+
+113
+00:05:42,000 --> 00:05:45,000
+and then Replace and anywhere that
+
+114
+00:05:45,000 --> 00:05:48,000
+we see state_, I'm
+
+115
+00:05:48,000 --> 00:05:51,000
+just going to take it away. Now, let's just check this. Hit this button
+
+116
+00:05:51,000 --> 00:05:54,000
+here, that says Replace,
+
+117
+00:05:54,000 --> 00:05:57,000
+and you should find it's just removing the state_
+
+118
+00:05:57,000 --> 00:06:00,000
+prefix. It seemed like a good idea before, but the whole
+
+119
+00:06:00,000 --> 00:06:03,000
+point of this video is getting used to refactoring
+
+120
+00:06:03,000 --> 00:06:06,000
+and reorganizing your code.
+
+121
+00:06:06,000 --> 00:06:09,000
+Fantastic! OK, so now that looks like it's
+
+122
+00:06:09,000 --> 00:06:12,000
+all good! We could run right
+
+123
+00:06:12,000 --> 00:06:15,000
+now, before we carry one, to make sure that that Find and Replace worked,
+
+124
+00:06:15,000 --> 00:06:18,000
+so let's just do that.
+
+125
+00:06:18,000 --> 00:06:21,000
+View the scene, Return, Mirror, Take,
+
+126
+00:06:21,000 --> 00:06:24,000
+Lock, Open.
+
+127
+00:06:24,000 --> 00:06:27,000
+OK, the only one that doesn't work is Open,
+
+128
+00:06:27,000 --> 00:06:30,000
+which is fine because we've already changed that method.
+
+129
+00:06:30,000 --> 00:06:33,000
+Fantastic! So,
+
+130
+00:06:33,000 --> 00:06:36,000
+now that we've got rid of the state prefix, we can now get rid of
+
+131
+00:06:36,000 --> 00:06:39,000
+this final freedom bit and call it corridor
+
+132
+00:06:39,000 --> 00:06:42,000
+_1()
+
+133
+00:06:42,000 --> 00:06:45,000
+which, of course, is red. So, let's go to
+
+134
+00:06:45,000 --> 00:06:48,000
+down to what was our freedom method
+
+135
+00:06:48,000 --> 00:06:51,000
+and rename it corridor_1 ().
+
+136
+00:06:51,000 --> 00:06:54,000
+And now, we need to change the
+
+137
+00:06:54,000 --> 00:06:57,000
+text and the key options, so refer to your GDD.
+
+138
+00:06:57,000 --> 00:07:00,000
+I spent a lot of time in creating this
+
+139
+00:07:00,000 --> 00:07:03,000
+second part of the game, thinking
+
+140
+00:07:03,000 --> 00:07:06,000
+about how it's all going to work and trying it.
+
+141
+00:07:06,000 --> 00:07:09,000
+And a lot of that time was spent staring at and
+
+142
+00:07:09,000 --> 00:07:12,000
+reorganizing this diagram. And I
+
+143
+00:07:12,000 --> 00:07:15,000
+would much prefer, when you're designing your game,
+
+144
+00:07:15,000 --> 00:07:18,000
+that you spend time looking at a diagram and editing
+
+145
+00:07:18,000 --> 00:07:21,000
+and changing a diagram. I don't mind if it's on paper
+
+146
+00:07:21,000 --> 00:07:24,000
+or the computer, then spending
+
+147
+00:07:24,000 --> 00:07:27,000
+a lot of time messing around with and changing your code, because
+
+148
+00:07:27,000 --> 00:07:30,000
+if it's not right in principle, at the
+
+149
+00:07:30,000 --> 00:07:33,000
+diagram level, then the code will not be right either. So, you're much
+
+150
+00:07:33,000 --> 00:07:36,000
+better off getting the plan right first, it's worth taking a little bit of
+
+151
+00:07:36,000 --> 00:07:39,000
+time. So, diving back to our code,
+
+152
+00:07:39,000 --> 00:07:42,000
+let's complete this obliteration of
+
+153
+00:07:42,000 --> 00:07:45,000
+the freedom state. So, this method needs to be corridor_0().
+
+154
+00:07:45,000 --> 00:07:48,000
+I'm just going to say you are
+
+155
+00:07:48,000 --> 00:07:51,000
+in a corridor, for now.
+
+156
+00:07:51,000 --> 00:07:54,000
+We will leave "Press P to
+
+157
+00:07:54,000 --> 00:07:57,000
+Play again" for now. Let's just leave that where it is.
+
+158
+00:07:57,000 --> 00:08:00,000
+Of course, more needs doing but I'm going to do that in
+
+159
+00:08:00,000 --> 00:08:03,000
+a different video, because it's quite a lot of work, and you may well
+
+160
+00:08:03,000 --> 00:08:06,000
+have a different story. In fact, I hope you're creating
+
+161
+00:08:06,000 --> 00:08:09,000
+your own story here. And if you are,
+
+162
+00:08:09,000 --> 00:08:12,000
+I don't want you to have to watch me fill out my tedious story,
+
+163
+00:08:12,000 --> 00:08:15,000
+so that's why I'm going to leave that till later. But what we need
+
+164
+00:08:15,000 --> 00:08:18,000
+to do, for now, is complete the job of getting rid of freedom.
+
+165
+00:08:18,000 --> 00:08:21,000
+So, do a search, Control F or Search and
+
+166
+00:08:21,000 --> 00:08:24,000
+Find for the word freedom, and you'll see straight away here is the
+
+167
+00:08:24,000 --> 00:08:27,000
+reference. So, from lock_1, where should we be
+
+168
+00:08:27,000 --> 00:08:30,000
+going? Let's have a look! Well, it's actually in the previous part
+
+169
+00:08:30,000 --> 00:08:33,000
+of the State Diagram. Lock_1 should
+
+170
+00:08:33,000 --> 00:08:36,000
+take us to what was called freedom. I won't change that other
+
+171
+00:08:36,000 --> 00:08:39,000
+diagram, that is now called corridor_0 on the
+
+172
+00:08:39,000 --> 00:08:42,000
+left hand side here. So, this is one more
+
+173
+00:08:42,000 --> 00:08:45,000
+reference that needs to be changed.
+
+174
+00:08:45,000 --> 00:08:48,000
+So, let's just do that now.
+
+175
+00:08:48,000 --> 00:08:51,000
+This is on my line 87, against the lock_1() method.
+
+176
+00:08:51,000 --> 00:08:54,000
+OK, now let's keep searching for freedom.
+
+177
+00:08:54,000 --> 00:08:57,000
+The only final thing to tidy up is, there's still a freedom
+
+178
+00:08:57,000 --> 00:09:00,000
+left in the enumerated list. I'll take it out.
+
+179
+00:09:00,000 --> 00:09:03,000
+No more references to freedom,
+
+180
+00:09:03,000 --> 00:09:06,000
+so all that remains is to run the game, after building
+
+181
+00:09:06,000 --> 00:09:09,000
+while saving.
+
+182
+00:09:09,000 --> 00:09:12,000
+OK, so building does not work because corridor_1()
+
+183
+00:09:12,000 --> 00:09:15,000
+does not exist, this is a simple typo.
+
+184
+00:09:15,000 --> 00:09:18,000
+I'm saying if we instate 0, go to corridor_1().
+
+185
+00:09:18,000 --> 00:09:21,000
+No, corridor_0(). Well done if you picked
+
+186
+00:09:21,000 --> 00:09:24,000
+that up before. So, the code builds
+
+187
+00:09:24,000 --> 00:09:27,000
+and it has no references to freedom. If I
+
+188
+00:09:27,000 --> 00:09:30,000
+now go back to Unity
+
+189
+00:09:30,000 --> 00:09:33,000
+and run, let's just make
+
+190
+00:09:33,000 --> 00:09:36,000
+sure it works. Now, when you're checking your code, here's a
+
+191
+00:09:36,000 --> 00:09:39,000
+tip for you, in this type of State Machine. Explore
+
+192
+00:09:39,000 --> 00:09:42,000
+like this. Start at corridor_0, go to
+
+193
+00:09:42,000 --> 00:09:45,000
+all of the side things before you progress. So, I'm going to go to
+
+194
+00:09:45,000 --> 00:09:48,000
+stairs and back and closet door, and...
+
+195
+00:09:48,000 --> 00:09:51,000
+Sorry wrong State Diagram. I'm going to go to
+
+196
+00:09:51,000 --> 00:09:54,000
+sheets and back, lock and back, and then mirror and back.
+
+197
+00:09:54,000 --> 00:09:57,000
+Then, mirror again and take, sheets
+
+198
+00:09:57,000 --> 00:10:00,000
+and back, lock and back, and then
+
+199
+00:10:00,000 --> 00:10:03,000
+I'm going to go to lock and then open.
+
+200
+00:10:03,000 --> 00:10:06,000
+Then, I've transitioned through every state, so let's just do
+
+201
+00:10:06,000 --> 00:10:09,000
+that to be fully sure it's working. S for Sheets,
+
+202
+00:10:09,000 --> 00:10:12,000
+R to Return, L for Lock, R to Return,
+
+203
+00:10:12,000 --> 00:10:15,000
+M for Mirror, R to Return, M for Mirror,
+
+204
+00:10:15,000 --> 00:10:18,000
+T to Take, S for Sheets, R
+
+205
+00:10:18,000 --> 00:10:21,000
+to Return, L for Lock, O for Open, etc.
+
+206
+00:10:21,000 --> 00:10:24,000
+You get the idea! Go through the whole lot! OK fine,
+
+207
+00:10:24,000 --> 00:10:27,000
+it works! We have made our foundational
+
+208
+00:10:27,000 --> 00:10:30,000
+change. Our simple, very very simple change of code,
+
+209
+00:10:30,000 --> 00:10:33,000
+our I wanted to show you the techniques like Find and Replace.
+
+210
+00:10:33,000 --> 00:10:36,000
+I wanted to show you the idea that you can indent your
+
+211
+00:10:36,000 --> 00:10:39,000
+if statements. Let's go ahead and do that consistently.
+
+212
+00:10:39,000 --> 00:10:42,000
+You can indent them slightly differently, even the first line can be
+
+213
+00:10:42,000 --> 00:10:45,000
+indented, so all the states line up well.
+
+214
+00:10:45,000 --> 00:10:48,000
+I wanted to show you how you can put your enum states onto multiple lines,
+
+215
+00:10:48,000 --> 00:10:51,000
+at the top here, if you want to, so that
+
+216
+00:10:51,000 --> 00:10:54,000
+everything reads nicely. And
+
+217
+00:10:54,000 --> 00:10:57,000
+now you are in a position where you really can create your
+
+218
+00:10:57,000 --> 00:11:00,000
+own game and just come back to me, when you want
+
+219
+00:11:00,000 --> 00:11:03,000
+to learn how to build and share it on the web. I really encourage you
+
+220
+00:11:03,000 --> 00:11:06,000
+to skip the next video actually altogether,
+
+221
+00:11:06,000 --> 00:11:09,000
+and to just get on
+
+222
+00:11:09,000 --> 00:11:12,000
+with writing your own logic and your own games.
+
+223
+00:11:12,000 --> 00:11:15,000
+Spend some time scratching your head over a state diagram
+
+224
+00:11:15,000 --> 00:11:18,000
+please, but if you really do want to watch me
+
+225
+00:11:18,000 --> 00:11:21,000
+fill out another 100 lines of code to
+
+226
+00:11:21,000 --> 00:11:24,000
+get my full game working, then you're very welcome
+
+227
+00:11:24,000 --> 00:11:27,000
+and there's a video waiting for you.
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section3/06-Re-Organising-Your-Code.srt

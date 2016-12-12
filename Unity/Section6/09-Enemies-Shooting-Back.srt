@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section6/09-Enemies-Shooting-Back.srt
 WEBVTT
 Kind: captions
 Language: en
@@ -978,3 +979,984 @@ and that you can do this for your own
 game. And I will see you in another video!
 Bye for now.
 
+=======
+Kind: captions
+Language: en
+
+00:00:00,000 --> 00:00:08,740
+Hello and welcome back. In this video we're going to be looking at how to get our
+
+00:00:08,740 --> 00:00:13,370
+enemies to shoot back at us. So we've got
+this little game, where we can shoot
+
+00:00:13,370 --> 00:00:17,550
+down the enemies, and let's remind
+ourselves what that looks like. That's the
+
+00:00:17,550 --> 00:00:22,039
+game right here. If I press play, I can
+then shoot the enemies down with
+
+00:00:22,039 --> 00:00:27,720
+repeated application of a laser beam, but
+what I want is not for this direction to
+
+00:00:27,720 --> 00:00:30,949
+work but I want the other direction to
+work. I want the Inverse to work. I want to be
+
+00:00:30,949 --> 00:00:35,770
+in danger. I want the enemies to shoot at
+me at a particular frequency. So let's
+
+00:00:35,770 --> 00:00:39,090
+say I want the enemies to shoot at me at three shots per second, or something like that.
+
+00:00:39,090 --> 00:00:44,010
+And I want that, and that's the aim of this video; getting the enemies to shoot back. In
+
+00:00:44,010 --> 00:00:47,489
+addition, I want to make sure that the
+enemy beams... the enemy
+
+00:00:47,489 --> 00:00:51,730
+projectiles don't collide with each
+other and other don't collide with other
+
+00:00:51,730 --> 00:00:54,750
+enemies. So I don't want an enemy in the
+back shooting an enemy in the front and
+
+00:00:54,750 --> 00:00:59,660
+doing our job for us. That's too easy, so
+we'll sort out that later in the video,
+
+00:00:59,660 --> 00:01:04,559
+when we look at stopping collisions in a
+controlled fashion. So where do we start
+
+00:01:04,559 --> 00:01:08,930
+for all this? Well, in fact, you're going
+to start. You're going to get the enemies
+
+00:01:08,930 --> 00:01:12,720
+to shoot at the player to begin with. So
+the first thing I want you to do is, in the
+
+00:01:12,720 --> 00:01:18,119
+same way we got the player shooting
+whenever he presses the
+
+00:01:18,119 --> 00:01:23,650
+spacebar, whenever the space bar is
+pressed, we get a projectile firing. In
+
+00:01:23,650 --> 00:01:28,409
+the same manner, I want you to get the
+enemy's firing a projectile, and I want
+
+00:01:28,409 --> 00:01:33,850
+you to fire a projectile on every update. And
+once you've got that going make sure
+
+00:01:33,850 --> 00:01:38,439
+that whatever the projectile hits the
+player, we log out a message to the
+
+00:01:38,439 --> 00:01:42,070
+console, to make sure we've got the
+collision detected properly. In addition
+
+00:01:42,070 --> 00:01:45,729
+if you have a little bit more time and
+you fancy a little bit of a
+
+00:01:45,729 --> 00:01:51,720
+challenge, try and tune the
+script so that the frequency of firing
+
+00:01:51,720 --> 00:01:56,299
+is determined by a particular variable.
+So you can change and tune the fire
+
+00:01:56,299 --> 00:02:01,290
+frequency, using Time.deltaTime and Random.value in your script.
+
+00:02:01,290 --> 00:02:05,010
+So pause the video now, and get those
+enemies firing. I will see you very
+
+00:02:05,010 --> 00:02:08,910
+shortly. So how did it go?
+
+00:02:08,910 --> 00:02:14,570
+Here's how I would do it. So let's jump into our game. The first thing I'm going to need is a
+
+00:02:14,570 --> 00:02:18,740
+projectile, for my enemies to fire, and to
+do that i'm going to copy the player
+
+00:02:18,740 --> 00:02:23,510
+projectile. So I've got a projectile here called player laser in my player
+
+00:02:23,510 --> 00:02:28,370
+entities. I'm going to duplicate it. I'm going to use Command + D to duplicate it. I think you can use Control
+
+00:02:28,370 --> 00:02:33,920
++ D on Windows? Or you can use the menu, it has a duplicate in there. Now, I'm going to rename
+
+00:02:33,920 --> 00:02:41,640
+this guy to be EnemyLaser, and once I've got this enemy laser here, I'm going to
+
+00:02:41,640 --> 00:02:47,550
+bring it over to my Enemy folder. And in my enemy behavior script, I'm going to edit my enemy behavior
+
+00:02:47,550 --> 00:02:56,300
+script. I'm going to create a new slot
+for my prefab, which is going to be
+
+00:02:56,300 --> 00:03:08,090
+public. And it's going to be GameObject
+projectile. And that we can jump back
+
+00:03:08,090 --> 00:03:14,760
+into our Unity and drag and drop the prefab
+across, in our enemy prefabs. We've got the enemy
+
+00:03:14,760 --> 00:03:19,269
+prefab here. In there, we're going to find the
+enemy behavior component, and we can see
+
+00:03:19,269 --> 00:03:22,250
+there's a missing slot. Now, there's an
+empty slot, which is for the projectile,
+
+00:03:22,250 --> 00:03:25,709
+and the projectile I'm going to drag over the
+enemy laser component,
+
+00:03:25,709 --> 00:03:31,430
+prefab, into the slot on the enemy
+behavior script. And now, we've got access
+
+00:03:31,430 --> 00:03:34,530
+to this enemy laser. So what do I want to
+do next?
+
+00:03:34,530 --> 00:03:40,120
+Well next up, I want to spawn it on every
+update. So let's jump into our code again,
+
+00:03:40,120 --> 00:03:46,720
+and we've got no update function, so let's create it straight away. We create a new
+
+00:03:46,720 --> 00:03:54,140
+update function, so that would be void
+Update(){}, and in there I'm going to firstly
+
+00:03:54,140 --> 00:04:00,870
+Instantiate my prefab. So I just use Instantiate, and give it the
+
+00:04:00,870 --> 00:04:07,220
+projectile, and we are done. So that's going to Instantiate a projectile
+
+00:04:07,220 --> 00:04:11,209
+on every update. So what happens if I
+press play now? Well, let's jump back and try
+
+00:04:11,209 --> 00:04:18,200
+it. We can see that they spawn and all of the projectiles get created in 000,
+
+00:04:18,200 --> 00:04:21,280
+the middle of the game space. So we don't
+want that. They're being spawned in the
+
+00:04:21,280 --> 00:04:25,480
+wrong place. So our next job is to spawn
+them in the right place. So we jump  back.
+
+00:04:25,480 --> 00:04:28,130
+We've got this projectile here. Where do
+we spawn them?
+
+00:04:28,130 --> 00:04:33,070
+Well, we give them our position, which is
+going to be transform.position
+
+00:04:33,070 --> 00:04:37,780
+So that's the position of the actual enemy. So that's the enemy behavior script, which
+
+00:04:37,780 --> 00:04:41,590
+is attached to an enemy prefab which is going to turn into enemies in the scene. So
+
+00:04:41,590 --> 00:04:45,130
+that's the position of the enemies. And then, in addition, I don't want any
+
+00:04:45,130 --> 00:04:51,090
+rotation, so I'm going to give it a Quaternion
+identity for the rotation. I
+
+00:04:51,090 --> 00:04:55,500
+can mess around with sprites and their orientation separately. You
+
+00:04:55,500 --> 00:04:58,440
+already know how to do that. You've got
+all the tools in hand, this is just to show
+
+00:04:58,440 --> 00:05:02,340
+you how to get the laser going. So now,
+I've got this thing that should now be
+
+00:05:02,340 --> 00:05:07,440
+spawned in the right place. So let's try again. If we press the play button, what happens now?
+
+00:05:07,440 --> 00:05:10,500
+Well, they kind of pop on the screen and
+disappear. And why is that?
+
+00:05:10,500 --> 00:05:16,310
+Well, that's because they are spawning
+under or on top of the enemies themselves. And
+
+00:05:16,310 --> 00:05:20,630
+what happens when a projectile is on
+top of an enemy? Well, they hit each other,
+
+00:05:20,630 --> 00:05:26,110
+they collide, and they explode and the enemies go bye-bye. So that's not what we want.
+
+00:05:26,110 --> 00:05:31,740
+So what do we do for that? We've got some
+cool techniques coming up next, coming up
+
+00:05:31,740 --> 00:05:35,550
+later in the video to kind of improve on what we're going to do here. But we're going to kind
+
+00:05:35,550 --> 00:05:45,430
+of fudge it a little bit, by simply giving
+it a little offset to its position. So
+
+00:05:45,430 --> 00:05:51,890
+instead of the transform.position we're
+going to create a Vector3, which is
+
+00:05:51,890 --> 00:05:57,850
+going to be a start position. So startPosition, that's going to be the
+
+00:05:57,850 --> 00:06:03,680
+transform.position plus a little
+offset. So I add the transform.position
+
+00:06:03,680 --> 00:06:11,480
+here. That's going to be my start position. Here we go. And I want to add an offset, and
+
+00:06:11,480 --> 00:06:17,710
+my offset is going to be a new Vector3
+And I don't want any offset in the
+
+00:06:17,710 --> 00:06:25,080
+X direction; I want 0.0 here. In the Y
+direction, I want them to be below the
+
+00:06:25,080 --> 00:06:31,629
+actual ship, so that's going to be lets say -0.1. I believe that
+
+00:06:31,629 --> 00:06:36,629
+should be enough. We can check that
+later. In fact, let's go 1 to make sure we've
+
+00:06:36,629 --> 00:06:41,110
+got enough, and 0 in the Z. I don't want them to be
+
+00:06:41,110 --> 00:06:44,370
+any further away from the camera, any
+further away from the screen than they already are.
+
+00:06:44,370 --> 00:06:50,050
+Now. that's the right position. So I saved that. Now, we should find that they are spawned
+
+00:06:50,050 --> 00:06:56,229
+below the ships. So let's jump back into
+our game and press play. Yep! And they are indeed
+
+00:06:56,229 --> 00:06:59,919
+spawned below the ships. So what are we
+not doing here? What are we forgetting?
+
+00:06:59,919 --> 00:07:06,669
+Well, we're not adding any velocity to
+our projectiles. They're just being spawned
+
+00:07:06,669 --> 00:07:12,539
+in thin air, but they're not moving. So let's stop the game, jump back, and add some
+
+00:07:12,539 --> 00:07:16,319
+velocity. So how are we going to add our
+velocity? Well, we need to get hold of the
+
+00:07:16,319 --> 00:07:20,830
+projectile itself, the missile, and we can
+do that by grabbing what is
+
+00:07:20,830 --> 00:07:22,979
+returned from Instantiate. So we do
+
+00:07:22,979 --> 00:07:28,219
+GameObject, and that's what we want to
+manipulate. So we do GameObject, and this will
+
+00:07:28,219 --> 00:07:30,419
+come out of the Instantiate. We're going to
+call it
+
+00:07:30,419 --> 00:07:36,969
+missile. And remember that Instantiate returns an object and not a GameObject. So
+
+00:07:36,969 --> 00:07:41,310
+we need to tell Instantiate we're
+expecting a GameObject. We say here well...
+
+00:07:41,310 --> 00:07:45,129
+What we're saying is, essentially, I know what I'm doing. I know what I'm expecting. I know
+
+00:07:45,129 --> 00:07:49,169
+how to handle this object you're returning, and I know it's a GameObject. And
+
+00:07:49,169 --> 00:07:53,930
+now once we've to get the missile, we can add a little bit of velocity to it. So we can do
+
+00:07:53,930 --> 00:08:02,360
+missile.rigidbody2D.velocity and we can set that to equal a new... and we can use
+
+00:08:02,360 --> 00:08:07,319
+Vector2(), because it's a 2D rigidbody2D. We could
+
+00:08:07,319 --> 00:08:14,300
+use Vector3 and set Z at 0, but we can also use Vector2 here. We can say new Vector2. We don't
+
+00:08:14,300 --> 00:08:17,949
+any velocity in the Z direction that's
+side to side. We do want some velocity
+
+00:08:17,949 --> 00:08:21,349
+in the Y direction. Now, how are we going
+to handle that? We want that to be
+
+00:08:21,349 --> 00:08:26,589
+tunable and changeable, so we're going to create a public float variable,
+
+00:08:26,589 --> 00:08:31,480
+which we can tune in the Inspector,
+called projectileSpeed.
+
+00:08:31,480 --> 00:08:35,470
+And that's going to be... Just make sure my capitalization is right. That's going to
+
+00:08:35,470 --> 00:08:40,780
+be set to 10 as default,  and in
+the Vector2, we're going to add that as
+
+00:08:40,780 --> 00:08:45,920
+projectile speed. Now, if you're clever
+you will notice there's a little problem
+
+00:08:45,920 --> 00:08:50,380
+here. What's going on? Can you see the
+problem or not? If you can't see the
+
+00:08:50,380 --> 00:08:53,860
+problem, it'll be very obvious when we jump
+back into our game. If we just jump back
+
+00:08:53,860 --> 00:09:00,190
+into our game, you will see that when I
+press play, they just disappear straight
+
+00:09:00,190 --> 00:09:05,750
+away. So what's going on here? Let's watch that again. I press play, they do pop up on screen, with
+
+00:09:05,750 --> 00:09:07,960
+a couple of projectiles, and then they disappear.
+
+00:09:07,960 --> 00:09:12,460
+Well, have you found what the problem is
+yet? The problem is that the velocity is
+
+00:09:12,460 --> 00:09:15,990
+currently pointing upwards, so the missiles,
+you're spawning them in front of you,
+
+00:09:15,990 --> 00:09:19,840
+and they're coming straight back and
+blowing you up. Not what we want, so we add
+
+00:09:19,840 --> 00:09:23,110
+a minus sign to our projectile speed, to
+tell the vector that we are actually
+
+00:09:23,110 --> 00:09:27,170
+pointing downwards. The velocity of the
+projectile is going down towards the
+
+00:09:27,170 --> 00:09:31,170
+player. So let's save that. Let's see what
+happens.
+
+00:09:31,170 --> 00:09:38,100
+Control Save... Control S... Command S, go back into Unity and press play. Awesome!
+
+00:09:38,100 --> 00:09:42,700
+And we now have projectiles being fired from our enemies. A lot of projectiles
+
+00:09:42,700 --> 00:09:46,660
+right now, in fact. So what do we want to do next? Well, next I'm going to be
+
+00:09:46,660 --> 00:09:51,760
+looking at making sure that the enemy itself, the player rather...
+
+00:09:51,760 --> 00:09:56,750
+the player in the scene can actually
+receive those projectiles, because right
+
+00:09:56,750 --> 00:10:00,800
+now, there's no message being logged to the console when we collide with an enemy
+
+00:10:00,800 --> 00:10:05,340
+projectile. So how are we going to do that. Well, I need to add a bunch of components. The first
+
+00:10:05,340 --> 00:10:10,250
+one is going to be Physics2D. I'm going to
+want a PolygonCollider, and you can see
+
+00:10:10,250 --> 00:10:15,270
+it appears straight away on the screen.
+And it's created a PolygonCollider for
+
+00:10:15,270 --> 00:10:21,570
+us. And you can see that the PolygonCollider follows the outline of the shape
+
+00:10:21,570 --> 00:10:25,170
+of the sprite. It's not a box collider. It's a little bit more expensive,
+
+00:10:25,170 --> 00:10:29,050
+computationally expensive, but for the
+player I think that makes more sense,
+
+00:10:29,050 --> 00:10:34,160
+because we don't want to accidentally hit a
+missile, and you can optimize that and make it
+
+00:10:34,160 --> 00:10:39,060
+really neat, if you want. I think that's
+good enough, just to show you the general
+
+00:10:39,060 --> 00:10:41,840
+one. If you want to modify the collider
+
+00:10:41,840 --> 00:10:45,590
+what you can do, is once you've got the object selected you can create
+
+00:10:45,590 --> 00:10:51,220
+the Edit Collider, and this will let you
+edit the various pieces of the collider.
+
+00:10:51,220 --> 00:10:54,490
+Now, you'll notice that I'm doing this on the
+player itself. I'm not doing this on the
+
+00:10:54,490 --> 00:10:58,880
+prefab. So once I've got the collider here, I
+will need to apply that to my prefab.
+
+00:10:58,880 --> 00:11:05,400
+However, my prefab, if I look at my player
+prefab, I do not want to be applying my
+
+00:11:05,400 --> 00:11:12,940
+transform. So lets reset that to 0. Here we go. So you'll see the polygon collider coming up here in my
+
+00:11:12,940 --> 00:11:18,710
+prefab as well. So back into the player. I
+don't just want a polygon collider, I also
+
+00:11:18,710 --> 00:11:25,700
+want a Rigidbody2D. And I can add this
+as a component as well in Physics2D
+
+00:11:25,700 --> 00:11:32,130
+Rigidbody2D. So brilliant, I'd leave the
+masses, it's fine. I'm going to put 0 angular drag,
+
+00:11:32,130 --> 00:11:36,470
+0 gravity scale fixed angle. Definitely I want to control the angle, and
+
+00:11:36,470 --> 00:11:39,410
+it is kinematic. That means I'm
+controlling it, I'm sorting out its
+
+00:11:39,410 --> 00:11:43,840
+movement. So brilliant! We've now got the
+collider on there, which will allow us to
+
+00:11:43,840 --> 00:11:50,750
+detect the incoming enemy missiles. The
+Rigidbody is not strictly necessary to
+
+00:11:50,750 --> 00:11:54,740
+do this, but it is always a really good
+habit that when you're adding a polygon
+
+00:11:54,740 --> 00:11:59,830
+collider or any kind of collider, on a
+moving object, it ought to have a rigid body. And the
+
+00:11:59,830 --> 00:12:05,030
+reason for that is how the Unity engine works. You need that Rigidbody to do
+
+00:12:05,030 --> 00:12:10,400
+efficient calculations of the physics in the background. It doesn't matter too
+
+00:12:10,400 --> 00:12:14,150
+much, it's just a really good habit to get
+into. It would work if you
+
+00:12:14,150 --> 00:12:17,900
+forgot it. Though we're just going put it in
+there anyway, just to get into the good
+
+00:12:17,900 --> 00:12:21,880
+habits. So now we've got this polygon
+collider. We need to kind of do something when we're
+
+00:12:21,880 --> 00:12:26,650
+hit by a missile. So let's take a look at
+what happens when the enemy is hit by
+
+00:12:26,650 --> 00:12:31,160
+missile. So we take a look at the enemy
+behavior, and we can see that OnTriggerEnter2D
+
+00:12:31,160 --> 00:12:36,320
+when we grab a collider, if it's
+a projectile, then we deal some damage to
+
+00:12:36,330 --> 00:12:40,490
+ourselves. And that's exactly what we're
+going to do for our players. So let me
+
+00:12:40,490 --> 00:12:46,529
+copy that code across, open, in fact,
+the player script for the player controller,
+
+00:12:46,529 --> 00:12:51,110
+and I'm going to add a new function, which
+is going to be below my update. I'm going to
+
+00:12:51,110 --> 00:12:57,300
+add... not here just below my update... add a new OnTriggerEnter2D. And we're missing the health.
+
+00:12:57,300 --> 00:13:02,079
+Obviously health no longer exists here, so we're going to create a new public health
+
+00:13:02,079 --> 00:13:09,779
+variable, right here. So we're going to
+public float health, and we're going to
+
+00:13:09,779 --> 00:13:15,699
+give it a health of say 250 hit points to
+begin. So now it has a health, everything
+
+00:13:15,699 --> 00:13:19,970
+looks good here, and the player should be destroyed, as soon as it gets
+
+00:13:19,970 --> 00:13:24,819
+hit by a missile. Now, we still haven't really
+solved the problem. We've already stepped
+
+00:13:24,819 --> 00:13:28,509
+a little bit further ahead than we were
+planning. We're not logging out anything
+
+00:13:28,509 --> 00:13:32,490
+here. So just to show you that it works
+and we can log stuff out, I'm going to add a
+
+00:13:32,490 --> 00:13:37,629
+log statement here that's going to log out to the console, whenever we get a collision
+
+00:13:37,629 --> 00:13:46,379
+with a missile. So ("Player collided with missile"); and in fact a disposition
+
+00:13:46,379 --> 00:13:52,360
+doesn't, this would be any collision, so
+let me put it in the missile. Here we go
+
+00:13:52,360 --> 00:14:01,300
+if we jump back into our game now, and I
+press play, I should... What did we
+
+00:14:01,300 --> 00:14:04,319
+forget to do? There's something
+fundamental we forgot to do. That's a
+
+00:14:04,319 --> 00:14:08,620
+very strange, wonderful, and beautiful effect, but not quite what we're looking for. It's
+
+00:14:08,620 --> 00:14:12,790
+in my player, if you look at the player
+prefab, this we forgot to take the Is
+
+00:14:12,790 --> 00:14:17,670
+Trigger. We want the projectiles to be
+able to enter the player... the enemy
+
+00:14:17,670 --> 00:14:22,029
+projectiles to be able to enter the player,
+but we can't right now, there's no OnColission.
+
+00:14:23,139 --> 00:14:27,329
+We've used a trigger instead, so we click Is
+Trigger, and then, we should get the
+
+00:14:27,329 --> 00:14:31,550
+behavior you want. So now the enemy projectiles do you kill us.
+
+00:14:31,550 --> 00:14:35,589
+Wonderful! So what's next?
+
+00:14:35,589 --> 00:14:42,429
+Well, next up is getting us to tune the
+frequency of how fast the enemy shoots. So
+
+00:14:42,429 --> 00:14:47,290
+how are we going to do that? Well, to do that let's take a look at our approach. The
+
+00:14:47,290 --> 00:14:51,910
+approach to tuning the frequency is to
+say, what's the probability of firing in
+
+00:14:51,910 --> 00:14:57,649
+a given frame? ... in this frame. And if we given the
+
+00:14:57,649 --> 00:15:01,399
+probability of firing fire if appropriate. So the firing probability
+
+00:15:01,399 --> 00:15:06,309
+depends on two things; it depends on the
+time elapsed and the intended frequency.
+
+00:15:06,309 --> 00:15:11,759
+And they relate to each other, because
+the probability of firing is the time
+
+00:15:11,759 --> 00:15:15,699
+elapsed times the frequency. So let's
+imagine some examples. Let's say we have a
+
+00:15:15,699 --> 00:15:18,829
+frequency of 0, which means we never fire.
+
+00:15:18,829 --> 00:15:22,230
+Well, the probability because the frequency is 0 is always going to be 0,
+
+00:15:22,230 --> 00:15:27,429
+so we always have a 0 probability of fire. What about if the time elapsed to 0? If we've not
+
+00:15:27,429 --> 00:15:35,860
+had any time span, what's the probability of
+firing, given a 0 no time has been
+
+00:15:35,860 --> 00:15:42,179
+passed? While the probability of firing, if there's no time, is 0. So those two work if we put the
+
+00:15:42,179 --> 00:15:45,929
+frequency of the time elapsed to 0 to give
+us the right result. What about if the
+
+00:15:45,929 --> 00:15:53,779
+time elapsed is 1 and the frequency, let's say is 0.5? So a frequency of 0.5 means that every second I
+
+00:15:53,779 --> 00:16:00,309
+fire half a shot; I fire one shot
+every two seconds. So if the time is 1 and
+
+00:16:00,309 --> 00:16:03,309
+the frequency is 0.5 what's the
+probability that I'm going to fire a
+
+00:16:03,309 --> 00:16:08,089
+shot this frame or this time interval? Well, that's half 0.5. What
+
+00:16:08,089 --> 00:16:13,800
+about if my time is 2? What's
+probably of firing given my frequency is
+
+00:16:13,800 --> 00:16:19,360
+0.5? Well, 2 times 0.5, that's 2 divided by 2, and that's just 1. So the
+
+00:16:19,360 --> 00:16:24,089
+probability of firing, given a 2 second
+interval, is going to be 1, we're going
+
+00:16:24,089 --> 00:16:28,600
+to be firing. What about if we have a
+longer interval? Lets say we have 4. Let's say we have
+
+00:16:28,600 --> 00:16:33,889
+a time of 4 and a frequency of 0.5
+Well, we do 4 times 0.5 and
+
+00:16:33,889 --> 00:16:38,709
+that's 2. The probability of firing this frame is 2. That's great, that means we should
+
+00:16:38,709 --> 00:16:42,879
+fire; we should have fired twice in the time elapsed. So that's how we
+
+00:16:42,879 --> 00:16:46,920
+calculate that probability. And then I'll
+show you how to use Random.value to
+
+00:16:46,920 --> 00:16:54,160
+fire, given a probability. So let's
+get to it! Let's jump in! I want to look
+
+00:16:54,160 --> 00:16:59,809
+at my enemy controller, and in my enemy
+controller I want to... in enemy
+
+00:16:59,809 --> 00:17:04,819
+behavior rather, I want to enable that
+probabilistic firing that I talked about.
+
+00:17:04,819 --> 00:17:09,569
+So the first thing I do is I remove the
+stuff from inside update, and I'm going to
+
+00:17:10,559 --> 00:17:15,230
+pull it out into it's own fire function. Now, the fire function is there just the same way we
+
+00:17:15,230 --> 00:17:22,189
+had it in the player controller and in
+the update. And then, I'm going to call my
+
+00:17:22,189 --> 00:17:28,179
+fire function from update. So how about all
+this probability stuff? Well, we start
+
+00:17:28,179 --> 00:17:33,840
+with the basis, the first foundation, which is our firing frequency;
+
+00:17:33,840 --> 00:17:39,259
+that's shots per second. So I want to
+create a public float variable called
+
+00:17:39,259 --> 00:17:45,529
+shotsPerSeconds and that's going to be
+the frequency at which I fire, or roughly
+
+00:17:45,529 --> 00:17:52,619
+the frequency I intend to fire at. Now, I've
+got this frequency here. I can do let's
+
+00:17:52,619 --> 00:17:58,070
+say 0.5, and don't forget the f to say it's a float variable, and now I can
+
+00:17:58,070 --> 00:18:00,679
+calculate the probability of fire. So I
+can do
+
+00:18:00,679 --> 00:18:10,220
+float probability is. And remember the
+equation we talked about? The probability
+
+00:18:10,220 --> 00:18:13,899
+of firing is the shots per second
+
+00:18:13,899 --> 00:18:21,259
+times the time interval, so the time
+interval is Time.deltaTime, and the
+
+00:18:21,259 --> 00:18:26,149
+frequency is shots per second. So now, we've got a probability that we should be
+
+00:18:26,149 --> 00:18:32,019
+firing. So how do we get from a
+probability to actually making a decision?
+
+00:18:32,019 --> 00:18:38,179
+Well, we're going to use the if statement
+and Random.value. So if you remember Random.value
+
+00:18:38,180 --> 00:18:46,200
+is between 0 and 1. And so what we're going to do is do Random.value
+
+00:18:46,200 --> 00:18:53,340
+is less than the probability. Because Random.value
+
+00:18:53,340 --> 00:18:58,940
+is homogeneous it's as likely to get 0.1 as you are to
+
+00:18:58,950 --> 00:19:06,269
+get 0.5 as you are to get 0.9, from Random.value, because that's flat. The distribution is flat. When we've
+
+00:19:06,269 --> 00:19:12,909
+got a probability of say 0.8, we are going to get this, if condition is
+
+00:19:12,909 --> 00:19:14,600
+going to be true,
+
+00:19:14,600 --> 00:19:17,200
+basically 80% of the time,
+
+00:19:17,200 --> 00:19:21,639
+and that's exactly the behavior we want. So note that this is a general case to
+
+00:19:21,639 --> 00:19:26,070
+turn a probability into a decision. You can
+simply say Random.value less than the
+
+00:19:26,070 --> 00:19:31,130
+probability. Now, the criteria for this is that the probability has to be between 0 and 100,
+
+00:19:31,130 --> 00:19:37,100
+as probabilities have to be. In this particular case, we could technically have a very
+
+00:19:37,100 --> 00:19:41,559
+long frame, so the update could take a
+really long time. And we could have
+
+00:19:41,559 --> 00:19:45,730
+a frame thats like 3 seconds long, and that would mean our probability is very high.
+
+00:19:45,730 --> 00:19:54,090
+Now, you'd have to deal with this
+particular case, sensibly, if you were
+
+00:19:54,090 --> 00:19:59,590
+to use this technique elsewhere, but in
+our case we can essentially consider a
+
+00:19:59,590 --> 00:20:04,880
+probability of 5.6 to mean we want to be
+firing this frame. We don't want repeated
+
+00:20:04,880 --> 00:20:10,149
+shots per frame, so in a given frame, we are now going to be firing twice; we only ever
+
+00:20:10,149 --> 00:20:15,120
+want to be firing once. So that sufficiently
+good for us, right now. So now we have
+
+00:20:15,120 --> 00:20:21,980
+something that will let our enemies fire
+end times per second. So let's save it and
+
+00:20:21,980 --> 00:20:28,070
+try it. So we jump back into our game, press pause, press play again, and see what
+
+00:20:28,070 --> 00:20:36,240
+happens. And we are indeed firing roughly
+once every two seconds, and you see it's
+
+00:20:36,240 --> 00:20:41,059
+kind of random It's not perfectly once
+every two seconds. It's not regular, its
+
+00:20:41,059 --> 00:20:45,320
+randomly, roughly at once every two
+seconds,
+
+00:20:45,320 --> 00:20:50,159
+not precisely. So cool! Now, we've got this
+going. Let's try and fire back, and we'll
+
+00:20:50,159 --> 00:20:54,360
+see if we get some problems. If we jump back, the problem is that... now we've
+
+00:20:54,360 --> 00:21:01,149
+added a collider to our player. We are
+spawning the player's projectiles on top
+
+00:21:01,149 --> 00:21:04,360
+of the player, their colliding with the
+player, and the player is dying. So we can
+
+00:21:04,360 --> 00:21:09,360
+change that by changing the player controller script to when we
+
+00:21:09,360 --> 00:21:14,440
+create our projectiles, in the fire
+function. We're also going to add a
+
+00:21:14,440 --> 00:21:23,650
+little offset to the the actual laser. So
+we can do that by going Vector3
+
+00:21:23,650 --> 00:21:32,560
+offset and creating a new Vector3 that's going to be 0 in the
+
+00:21:32,560 --> 00:21:39,740
+X direction, 1 in the Y direction, and 0 in the Z direction, and we can just add the
+
+00:21:39,740 --> 00:21:42,620
+offset to the position. Here we go!
+
+00:21:42,620 --> 00:21:47,420
+And after we jump back, you'll notice that
+when I press play and when I press the
+
+00:21:47,420 --> 00:21:52,440
+spacebar, the projectiles from the player
+are actually spawned above the player
+
+00:21:52,440 --> 00:21:57,540
+not on top. Now, we've still got one thing
+left to do and that is to make sure we
+
+00:21:57,540 --> 00:22:02,260
+have a second shredder in our scene, so that we don't end up with lots and lots of
+
+00:22:02,260 --> 00:22:07,330
+fires from the enemies staying in
+the scene. So how are we going to do that?
+
+00:22:07,330 --> 00:22:10,560
+Well, that's really quite simple. We're just going to grab the first shredder, and we're going
+
+00:22:10,560 --> 00:22:13,570
+to duplicate it. And I've got the first shredder now... the second shredder
+
+00:22:13,570 --> 00:22:21,520
+now here, and if I select it I can drag it
+below my player and that will catch my enemy
+
+00:22:21,520 --> 00:22:25,980
+fire, so that they don't keep living forever.
+And then, if I press play and let the enemies
+
+00:22:25,980 --> 00:22:30,000
+shoot, when you move out of the way,
+you'll see that only a few enemy lasers
+
+00:22:30,000 --> 00:22:35,920
+stick around during the scene. They don't
+accumulate here smashing. For this video I
+
+00:22:35,920 --> 00:22:38,800
+think we've done enough, so far, it's been
+long enough.
+
+00:22:38,800 --> 00:22:43,490
+Congratulations for getting here! You now
+have a tunable frequency for the enemy
+
+00:22:43,490 --> 00:22:47,940
+fire. I hope you've enjoyed this video,
+and that you can do this for your own
+
+00:22:47,940 --> 00:22:50,740
+game. And I will see you in another video!
+Bye for now.
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section6/09-Enemies-Shooting-Back.srt

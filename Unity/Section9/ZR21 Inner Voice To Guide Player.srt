@@ -1,484 +1,483 @@
-WEBVTT
 Kind: captions
 Language: en
 
-00:00:00.000 --> 00:00:07.140
-Hey welcome back! So. we're going to use a technique called an innerVoice. to guide the
+00:00:00,000 --> 00:00:07,140
+Hey welcome back! So, we're going to use a technique called an innerVoice, to guide the
 
-00:00:07.140 --> 00:00:11.130
-player. So. we'll be using an innerVoice to guide the player around the scene. recording some
+00:00:07,140 --> 00:00:11,130
+player. So, we'll be using an innerVoice to guide the player around the scene, recording some
 
-00:00:11.130 --> 00:00:15.740
-sound prompts. and triggering sound prompts at the right time. So. let's
+00:00:11,130 --> 00:00:15,740
+sound prompts, and triggering sound prompts at the right time. So, let's
 
-00:00:15.740 --> 00:00:19.660
-start at the very beginning. Why are we here? What's going on? Well. we don't know.
+00:00:15,740 --> 00:00:19,660
+start at the very beginning. Why are we here? What's going on? Well, we don't know.
 
-00:00:19.660 --> 00:00:24.210
-We could use a lot of UI and we've learned about UI. but how about using sound. So. if we
+00:00:19,660 --> 00:00:24,210
+We could use a lot of UI and we've learned about UI, but how about using sound. So, if we
 
-00:00:24.210 --> 00:00:29.410
-click Play. what happens? Well firstly. we've
-got a problem. which is that for some
+00:00:24,210 --> 00:00:29,410
+click Play, what happens? Well firstly, we've
+got a problem, which is that for some
 
-00:00:29.410 --> 00:00:33.350
-reason. it's ignoring the trees that are within this collider. and it's calling the
+00:00:29,410 --> 00:00:33,350
+reason, it's ignoring the trees that are within this collider, and it's calling the
 
-00:00:33.350 --> 00:00:37.850
-helicopter. all automatically for us. far
-too quickly. So. we have quite a nice
+00:00:33,350 --> 00:00:37,850
+helicopter, all automatically for us, far
+too quickly. So, we have quite a nice
 
-00:00:37.850 --> 00:00:41.110
-division of responsibility. the calling
+00:00:37,850 --> 00:00:41,110
+division of responsibility, the calling
 of the helicopter is handled by
 
-00:00:41.110 --> 00:00:45.170
-the Clear Area Script. we know that. So. in the Clear Area Script. I'm going to just add
+00:00:41,110 --> 00:00:45,170
+the Clear Area Script, we know that. So, in the Clear Area Script, I'm going to just add
 
-00:00:45.170 --> 00:00:49.460
+00:00:45,170 --> 00:00:49,460
 another condition. I'm going to say that we
 are going to send the found clear area
 
-00:00:49.460 --> 00:00:55.070
-message upwards. if it's been more than a second of not colliding with any
+00:00:49,460 --> 00:00:55,070
+message upwards, if it's been more than a second of not colliding with any
 
-00:00:55.070 --> 00:00:59.850
-trees or anything. but we also want the Time.realtimeSinceStartup
+00:00:55,070 --> 00:00:59,850
+trees or anything, but we also want the Time.realtimeSinceStartup
 
-00:00:59.850 --> 00:01:05.519
-which is how long the game has been running. to be greater than. say 10 seconds. And what
+00:00:59,850 --> 00:01:05,519
+which is how long the game has been running, to be greater than, say 10 seconds. And what
 
-00:01:05.519 --> 00:01:09.460
-that will do when we play. it will just
-suppress that initial helicopter call.
+00:01:05,519 --> 00:01:09,460
+that will do when we play, it will just
+suppress that initial helicopter call,
 
-00:01:09.460 --> 00:01:13.170
-for at least 10 seconds. by then. the
-player is likely to have moved around. and
+00:01:09,460 --> 00:01:13,170
+for at least 10 seconds, by then, the
+player is likely to have moved around, and
 
-00:01:13.170 --> 00:01:16.990
+00:01:13,170 --> 00:01:16,990
 we'll have time to play our voice
-prompts. OK. so back to the scripts. so
+prompts. OK, so back to the scripts, so
 
-00:01:16.990 --> 00:01:20.960
+00:01:16,990 --> 00:01:20,960
 you know what to add. It's simply adding
-this bit. which is making sure with 10
+this bit, which is making sure with 10
 
-00:01:20.960 --> 00:01:25.150
-seconds have passed. you can choose a
+00:01:20,960 --> 00:01:25,150
+seconds have passed, you can choose a
 different value of course. OK fine!
 
-00:01:25.150 --> 00:01:27.670
-So. what I want to do. is at the very beginning of the game. I want to set
+00:01:25,150 --> 00:01:27,670
+So, what I want to do, is at the very beginning of the game, I want to set
 
-00:01:27.670 --> 00:01:31.430
-the scene a little bit. Now. you might want to make a fade up. you know a visual fade up.
+00:01:27,670 --> 00:01:31,430
+the scene a little bit. Now, you might want to make a fade up, you know a visual fade up.
 
-00:01:31.430 --> 00:01:34.770
-There's lots of ways of doing that. there's lots of fancy things you can do. but I just
+00:01:31,430 --> 00:01:34,770
+There's lots of ways of doing that, there's lots of fancy things you can do, but I just
 
-00:01:34.770 --> 00:01:39.090
+00:01:34,770 --> 00:01:39,090
 want to crack on and get the important
-bits done for you. So. the player
+bits done for you. So, the player
 
-00:01:39.090 --> 00:01:44.280
+00:01:39,090 --> 00:01:44,280
 itself is going to need access to various
-different sound files. So. I'm going to make a little
+different sound files. So, I'm going to make a little
 
-00:01:44.280 --> 00:01:49.780
-section here for sound files. and let's have explicitly just write each one out. We could use
+00:01:44,280 --> 00:01:49,780
+section here for sound files, and let's have explicitly just write each one out. We could use
 
-00:01:49.780 --> 00:01:54.030
-arrays. we could not even connect them to
-the player. we could just find them based
+00:01:49,780 --> 00:01:54,030
+arrays, we could not even connect them to
+the player, we could just find them based
 
-00:01:54.030 --> 00:01:58.250
-on their name inside the assets. but I'm
-just going to. for each one. just say I have an
+00:01:54,030 --> 00:01:58,250
+on their name inside the assets, but I'm
+just going to, for each one, just say I have an
 
-00:01:58.250 --> 00:02:05.740
-AudioClip. and I'm going to have the first one as just. whatHappened; audio public AudioClip
+00:01:58,250 --> 00:02:05,740
+AudioClip, and I'm going to have the first one as just, whatHappened; audio public AudioClip
 
-00:02:05.740 --> 00:02:09.300
-whatHappened. which of course means that the player. when we look at his script
+00:02:05,740 --> 00:02:09,300
+whatHappened, which of course means that the player, when we look at his script
 
-00:02:09.300 --> 00:02:12.819
-or her script. is going to be asking for a whatHappened.
+00:02:09,300 --> 00:02:12,819
+or her script, is going to be asking for a whatHappened.
 
-00:02:12.819 --> 00:02:16.989
-OK. so let's go record what happened. just
-for fun. Now. have some fun yourself. record
+00:02:12,819 --> 00:02:16,989
+OK, so let's go record what happened, just
+for fun. Now, have some fun yourself, record
 
-00:02:16.989 --> 00:02:21.290
-yourself an audio script for setting the scene. but I'm just going to make a fool of
+00:02:16,989 --> 00:02:21,290
+yourself an audio script for setting the scene, but I'm just going to make a fool of
 
-00:02:21.290 --> 00:02:25.680
-myself now. by recording something in
+00:02:21,290 --> 00:02:25,680
+myself now, by recording something in
 a voice far deeper than I'm qualified to use.
 
-00:02:25.680 --> 00:02:29.840
-And I'm just going to record something daft. So. have a few goes and see how it goes.
+00:02:25,680 --> 00:02:29,840
+And I'm just going to record something daft. So, have a few goes and see how it goes.
 
-00:02:29.849 --> 00:02:34.530
-[He Says in a Character's Deep Voice] Ah. what the hell happened! I better call for some help!
+00:02:29,849 --> 00:02:34,530
+[He Says in a Character's Deep Voice] Ah, what the hell happened! I better call for some help!
 
-00:02:34.530 --> 00:02:41.459
+00:02:34,530 --> 00:02:41,459
 Got to find an area about the size of a
 tennis court and call a HELO! I think that sounds really stupid. Let's try it!
 
-00:02:41.459 --> 00:02:45.440
-[The Recording Plays] Ah. what the hell happened! I better call for some help!
+00:02:41,459 --> 00:02:45,440
+[The Recording Plays] Ah, what the hell happened! I better call for some help!
 
-00:02:45.440 --> 00:02:50.830
+00:02:45,440 --> 00:02:50,830
 Got to find an area about the size of a
-tennis court and call a HELO! [Ben Starts Talking] OK. well that'll do. So. I'm
+tennis court and call a HELO! [Ben Starts Talking] OK, well that'll do. So, I'm
 
-00:02:50.830 --> 00:02:55.049
-just going to trim the sound there. and then. export the selection here in Audacity.
+00:02:50,830 --> 00:02:55,049
+just going to trim the sound there, and then, export the selection here in Audacity.
 
-00:02:55.049 --> 00:02:59.010
-You can use your favorite sound program. or you can use Audacity as well. and I'm
+00:02:55,049 --> 00:02:59,010
+You can use your favorite sound program, or you can use Audacity as well, and I'm
 
-00:02:59.010 --> 00:03:01.430
+00:02:59,010 --> 00:03:01,430
 just going to call this what happened.
 
-00:03:01.430 --> 00:03:03.930
-And I'm going to save it as an .ogg file. because it's compatible with a lot of different
+00:03:01,430 --> 00:03:03,930
+And I'm going to save it as an .ogg file, because it's compatible with a lot of different
 
-00:03:03.930 --> 00:03:10.100
-formats. a lot of different platforms.
-should I say target platforms. Cool! So. there
+00:03:03,930 --> 00:03:10,100
+formats, a lot of different platforms,
+should I say target platforms. Cool! So, there
 
-00:03:10.100 --> 00:03:13.160
-it goes what happened? And of course. I'm going to put that in your start pack for
+00:03:10,100 --> 00:03:13,160
+it goes what happened? And of course, I'm going to put that in your start pack for
 
-00:03:13.160 --> 00:03:20.480
-you. so by the time you watch this video.
+00:03:13,160 --> 00:03:20,480
+you, so by the time you watch this video,
 we will have an Audio Folder inside your start pack.
 
-00:03:20.480 --> 00:03:28.780
-So. here we go. audio and very simply just add it. Simple stuff right. but needs doing and no point in me
+00:03:20,480 --> 00:03:28,780
+So, here we go, audio and very simply just add it. Simple stuff right, but needs doing and no point in me
 
-00:03:28.780 --> 00:03:33.160
-skipping over it. What happened? Here We go. boom! So. when is that going to play? Well that may as
+00:03:28,780 --> 00:03:33,160
+skipping over it. What happened? Here We go, boom! So, when is that going to play? Well that may as
 
-00:03:33.160 --> 00:03:36.480
-well play. at the beginning. Now. be careful with these sound units on the player.
+00:03:33,160 --> 00:03:36,480
+well play, at the beginning. Now, be careful with these sound units on the player.
 
-00:03:36.480 --> 00:03:39.680
-The player already has an AudioSource. but if we play the game and look at
+00:03:36,480 --> 00:03:39,680
+The player already has an AudioSource, but if we play the game and look at
 
-00:03:39.680 --> 00:03:44.320
-that AudioSource. you'll notice it does
+00:03:39,680 --> 00:03:44,320
+that AudioSource, you'll notice it does
 things like jump and footsteps.
 
-00:03:44.320 --> 00:03:49.760
-That AudioSource is being handled or being used by the character controller.
+00:03:44,320 --> 00:03:49,760
+That AudioSource is being handled or being used by the character controller,
 
-00:03:49.760 --> 00:03:53.760
-first-person character controller. and
+00:03:49,760 --> 00:03:53,760
+first-person character controller, and
 it's using these jump and land and other
 
-00:03:53.760 --> 00:03:57.389
-sounds. So. we're going to need a new AudioSource. There's other ways of doing this. but
+00:03:53,760 --> 00:03:57,389
+sounds. So, we're going to need a new AudioSource. There's other ways of doing this, but
 
-00:03:57.389 --> 00:04:02.359
+00:03:57,389 --> 00:04:02,359
 one of the easiest ways is just to add a
-new AudioSource. to the player. and think
+new AudioSource, to the player, and think
 
-00:04:02.359 --> 00:04:07.280
-about whether it's 2D or 3D. Well. I think
-it's 2D. because it's his innerVoice. OK. and
+00:04:02,359 --> 00:04:07,280
+about whether it's 2D or 3D. Well, I think
+it's 2D, because it's his innerVoice. OK, and
 
-00:04:07.280 --> 00:04:14.040
-it doesn't currently have an AudioClip.
+00:04:07,280 --> 00:04:14,040
+it doesn't currently have an AudioClip,
 of any sort. We're going to pass audio clips into it.
 
-00:04:14.040 --> 00:04:18.989
-So. the question of which AudioSource we
-would grab. should we try and use this
+00:04:14,040 --> 00:04:18,989
+So, the question of which AudioSource we
+would grab, should we try and use this
 
-00:04:18.989 --> 00:04:23.190
-second AudioSource. is quite an
-interesting one. because
+00:04:18,989 --> 00:04:23,190
+second AudioSource, is quite an
+interesting one, because
 
-00:04:23.190 --> 00:04:28.430
-the first person controller. rather script here. already does the following
+00:04:23,190 --> 00:04:28,430
+the first person controller, rather script here, already does the following
 
-00:04:28.430 --> 00:04:32.949
-in the Start. it goes and finds a component of type AudioSource. but this
+00:04:28,430 --> 00:04:32,949
+in the Start, it goes and finds a component of type AudioSource, but this
 
-00:04:32.949 --> 00:04:38.389
+00:04:32,949 --> 00:04:38,389
 is kind of assuming there's just one. And
-if we had a second AudioSource. which we
+if we had a second AudioSource, which we
 
-00:04:38.389 --> 00:04:42.880
-want to do. because we want footsteps to
-play. as well as the innerVoice. then
+00:04:38,389 --> 00:04:42,880
+want to do, because we want footsteps to
+play, as well as the innerVoice, then
 
-00:04:42.880 --> 00:04:45.759
+00:04:42,880 --> 00:04:45,759
 how's this going to know which one to grab? How do we know that this is going to
 
-00:04:45.759 --> 00:04:51.240
-address the correct AudioSource? Well. we don't. at the moment. so if you're going to use
+00:04:45,759 --> 00:04:51,240
+address the correct AudioSource? Well, we don't, at the moment, so if you're going to use
 
-00:04:51.240 --> 00:04:55.310
-off the shelf scripts. like this. it's fine.
-and it brings you a lot of power. but the
+00:04:51,240 --> 00:04:55,310
+off the shelf scripts, like this, it's fine,
+and it brings you a lot of power, but the
 
-00:04:55.310 --> 00:04:59.639
-dark side is. you sometimes need to
-modify them. So. let's go ahead and do
+00:04:55,310 --> 00:04:59,639
+dark side is, you sometimes need to
+modify them. So, let's go ahead and do
 
-00:04:59.639 --> 00:05:04.740
-that. let's change the First Person
-Controller Script. for a start. so that we
+00:04:59,639 --> 00:05:04,740
+that, let's change the First Person
+Controller Script, for a start, so that we
 
-00:05:04.740 --> 00:05:07.259
+00:05:04,740 --> 00:05:07,259
 can make sure that it grabs the right
-AudioSource. Now. how do we
+AudioSource. Now, how do we
 
-00:05:07.259 --> 00:05:10.860
-differentiate them? Well. let's take a
+00:05:07,259 --> 00:05:10,860
+differentiate them? Well, let's take a
 look at them. I would like them to be next
 
-00:05:10.860 --> 00:05:15.710
-to each other. so I can move this
+00:05:10,860 --> 00:05:15,710
+to each other, so I can move this
 component up or not. It's going to lose the
 
-00:05:15.710 --> 00:05:19.710
+00:05:15,710 --> 00:05:19,710
 prefab connection. Let me just look at
-something. Look at your player. right click on
+something. Look at your player, right click on
 
-00:05:19.710 --> 00:05:25.320
-your player and look at the prefab. Where is it? It's still in the Standard  Asset.
+00:05:19,710 --> 00:05:25,320
+your player and look at the prefab. Where is it? It's still in the Standard  Asset,
 
-00:05:25.320 --> 00:05:29.520
-you can see we've never prefabbed the player. all we've done is updated an existing FPS
+00:05:25,320 --> 00:05:29,520
+you can see we've never prefabbed the player, all we've done is updated an existing FPS
 
-00:05:29.520 --> 00:05:33.199
+00:05:29,520 --> 00:05:33,199
 Controller prefab. Not a particularly good
-idea. Now. I think it's a good time to
+idea. Now, I think it's a good time to
 
-00:05:33.199 --> 00:05:36.639
-make our own prefab of the player. so
+00:05:33,199 --> 00:05:36,639
+make our own prefab of the player, so
 drag your player down into your Prefabs Folder.
 
-00:05:36.639 --> 00:05:42.389
-Now. you have this player. if you select Prefab. connected over here. That's fine. then you
+00:05:36,639 --> 00:05:42,389
+Now, you have this player, if you select Prefab, connected over here. That's fine, then you
 
-00:05:42.389 --> 00:05:47.090
+00:05:42,389 --> 00:05:47,090
 will find that you should be able to move
-your audio sources together. so a side
+your audio sources together, so a side
 
-00:05:47.090 --> 00:05:50.729
-effect of just trying to move that up. was
+00:05:47,090 --> 00:05:50,729
+effect of just trying to move that up, was
 realizing that the prefab is not
 
-00:05:50.729 --> 00:05:57.560
-properly stored. OK. so now we have two
-audio sources. on this player. How are we going to
+00:05:50,729 --> 00:05:57,560
+properly stored. OK, so now we have two
+audio sources, on this player. How are we going to
 
-00:05:57.560 --> 00:06:01.930
-distinguish between them? Well. let's use
-the priority. the default priority here
+00:05:57,560 --> 00:06:01,930
+distinguish between them? Well, let's use
+the priority, the default priority here
 
-00:06:01.930 --> 00:06:06.430
-is 128. for the one that came on
-the prefab. for the footsteps. We'll leave
+00:06:01,930 --> 00:06:06,430
+is 128, for the one that came on
+the prefab, for the footsteps. We'll leave
 
-00:06:06.430 --> 00:06:11.949
-it at that. and then. we will put a much
-higher priority. let's call it one. on the
+00:06:06,430 --> 00:06:11,949
+it at that, and then, we will put a much
+higher priority, let's call it one, on the
 
-00:06:11.949 --> 00:06:15.289
-innerVoice. The innerVoice AudioSource is really important. Now. we can't
+00:06:11,949 --> 00:06:15,289
+innerVoice. The innerVoice AudioSource is really important. Now, we can't
 
-00:06:15.289 --> 00:06:19.449
-label it any other way. but we could set
-a priority of 1. So. now we have two audio
+00:06:15,289 --> 00:06:19,449
+label it any other way, but we could set
+a priority of 1. So, now we have two audio
 
-00:06:19.449 --> 00:06:25.580
-sources. one is a 3D AudioSource. making
-the footsteps. and other players will be able to hear that.
+00:06:19,449 --> 00:06:25,580
+sources, one is a 3D AudioSource, making
+the footsteps, and other players will be able to hear that,
 
-00:06:25.580 --> 00:06:32.159
-and the second one is a 2D AudioSource. that only we hear. that is for the innerVoice.
+00:06:25,580 --> 00:06:32,159
+and the second one is a 2D AudioSource, that only we hear, that is for the innerVoice.
 
-00:06:32.159 --> 00:06:36.090
-We haven't arranged that only we hear it.
-but there's only one player. so who cares
+00:06:32,159 --> 00:06:36,090
+We haven't arranged that only we hear it,
+but there's only one player, so who cares
 
-00:06:36.090 --> 00:06:39.430
-right. So. what the scripts are going to do is find all the AudioSource
+00:06:36,090 --> 00:06:39,430
+right. So, what the scripts are going to do is find all the AudioSource
 
-00:06:39.430 --> 00:06:43.879
-components and then. use the priority to
+00:06:39,430 --> 00:06:43,879
+components and then, use the priority to
 distinguish between them. This is just one of many
 
-00:06:43.879 --> 00:06:48.669
-different ways of doing it. Let's start by doing this. with the First Person
+00:06:43,879 --> 00:06:48,669
+different ways of doing it. Let's start by doing this, with the First Person
 
-00:06:48.669 --> 00:06:53.150
-Controller Script. and then. I'll ask you to do it for the player. So. instead of going
+00:06:48,669 --> 00:06:53,150
+Controller Script, and then, I'll ask you to do it for the player. So, instead of going
 
-00:06:53.150 --> 00:07:01.360
-GetComponent source. what we want to do is. we want to say temporarily. let's
+00:06:53,150 --> 00:07:01,360
+GetComponent source, what we want to do is, we want to say temporarily, let's
 
-00:07:01.360 --> 00:07:11.940
-have our self an AudioSource array. audio
-sources. here in the First Person Controller.cs.
+00:07:01,360 --> 00:07:11,940
+have our self an AudioSource array, audio
+sources, here in the First Person Controller.cs,
 
-00:07:11.940 --> 00:07:22.580
-and that = GetComponents. that's with an S. of type AudioSource. OK. and
+00:07:11,940 --> 00:07:22,580
+and that = GetComponents, that's with an S, of type AudioSource. OK, and
 
-00:07:22.580 --> 00:07:27.250
-then... Oops. I'll get my brackets around the right way. So. there has returned to me an array of audio
+00:07:22,580 --> 00:07:27,250
+then... Oops, I'll get my brackets around the right way. So, there has returned to me an array of audio
 
-00:07:27.250 --> 00:07:36.690
-sources. and then. we want to say foreach (AudioSource
+00:07:27,250 --> 00:07:36,690
+sources, and then, we want to say foreach (AudioSource
 
-00:07:36.690 --> 00:07:49.770
-I'm thinking of type AudioSource. so it is a capital. in audioSources). which is an array.
+00:07:36,690 --> 00:07:49,770
+I'm thinking of type AudioSource, so it is a capital, in audioSources), which is an array.
 
-00:07:49.770 --> 00:08:02.340
-If audioSource... here you go. get the syntax right. So. for each audioSource variable. of type
+00:07:49,770 --> 00:08:02,340
+If audioSource... here you go, get the syntax right. So, for each audioSource variable, of type
 
-00:08:02.340 --> 00:08:14.360
-AudioSource. in the audioSources array. if (audioSource.priority == 128)
+00:08:02,340 --> 00:08:14,360
+AudioSource, in the audioSources array, if (audioSource.priority == 128)
 
-00:08:14.360 --> 00:08:23.600
-then. we do this m_AudioSource = audioSource;
+00:08:14,360 --> 00:08:23,600
+then, we do this m_AudioSource = audioSource;
 
-00:08:23.600 --> 00:08:27.140
-otherwise. we just simply do nothing. So. let's firstly check
+00:08:23,600 --> 00:08:27,140
+otherwise, we just simply do nothing. So, let's firstly check
 
-00:08:27.150 --> 00:08:31.180
-that. that works. What this should be doing... You're allowed to convert the type in here. when
+00:08:27,150 --> 00:08:31,180
+that, that works. What this should be doing... You're allowed to convert the type in here, when
 
-00:08:31.180 --> 00:08:34.860
+00:08:31,180 --> 00:08:34,860
 you build this. What this should be doing
-is. still working just fine. We should be able to
+is, still working just fine. We should be able to
 
-00:08:34.860 --> 00:08:42.110
-hear our foot steps. and we can and that's fine. Let's inspect the player. have a little
+00:08:34,860 --> 00:08:42,110
+hear our foot steps, and we can and that's fine. Let's inspect the player, have a little
 
-00:08:42.110 --> 00:08:46.870
-look at his setup. and we have an AudioSource there. the top one there.
+00:08:42,110 --> 00:08:46,870
+look at his setup, and we have an AudioSource there, the top one there,
 
-00:08:46.870 --> 00:08:52.300
-the Footstep 01 Footstep 02. toggling away. and our other audio sources doing absolutely
+00:08:46,870 --> 00:08:52,300
+the Footstep 01 Footstep 02, toggling away, and our other audio sources doing absolutely
 
-00:08:52.310 --> 00:08:56.209
-nothing at the moment. That's great! So. now what I want you to do is. I want you to
+00:08:52,310 --> 00:08:56,209
+nothing at the moment. That's great! So, now what I want you to do is, I want you to
 
-00:08:56.209 --> 00:09:04.290
+00:08:56,209 --> 00:09:04,290
 apply a similar idea across to the
-players. So. in the Player Script. we
+players. So, in the Player Script, we
 
-00:09:04.290 --> 00:09:10.260
+00:09:04,290 --> 00:09:10,260
 started thinking about the idea of
-having an AudioSource. We have an AudioClip.
+having an AudioSource. We have an AudioClip,
 
-00:09:10.260 --> 00:09:14.020
+00:09:10,260 --> 00:09:14,020
 but what we haven't done yet is
-determine the right AudioSource. So. what I want you to
+determine the right AudioSource. So, what I want you to
 
-00:09:14.020 --> 00:09:22.720
-do is go private AudioSource InnnerVoice; And then. in the Start. I want you to write a bit of code
+00:09:14,020 --> 00:09:22,720
+do is go private AudioSource InnnerVoice; And then, in the Start, I want you to write a bit of code
 
-00:09:22.730 --> 00:09:25.690
+00:09:22,730 --> 00:09:25,690
 that finds the correct AudioSource for
 the innerVoice.
 
-00:09:25.690 --> 00:09:29.840
-So. go ahead pause the video. and go and find the correct or innerVoice AudioSource.
+00:09:25,690 --> 00:09:29,840
+So, go ahead pause the video, and go and find the correct or innerVoice AudioSource,
 
-00:09:29.850 --> 00:09:40.640
-right now. OK welcome back! So. I'm going to use the code that we had over here. You're allowed to copy and
+00:09:29,850 --> 00:09:40,640
+right now. OK welcome back! So, I'm going to use the code that we had over here. You're allowed to copy and
 
-00:09:40.640 --> 00:09:46.930
-paste code once. do it too many times. you'll want to start making separate methods. So. I think it's
+00:09:40,640 --> 00:09:46,930
+paste code once, do it too many times, you'll want to start making separate methods. So, I think it's
 
-00:09:46.930 --> 00:09:50.050
-that. We have an array of audio sources.
-we go and get all of them. we see if the
+00:09:46,930 --> 00:09:50,050
+that. We have an array of audio sources,
+we go and get all of them, we see if the
 
-00:09:50.050 --> 00:09:55.770
-priority is 1 and if that is. then the innerVoice becomes the AudioSource. Fantastic!
+00:09:50,050 --> 00:09:55,770
+priority is 1 and if that is, then the innerVoice becomes the AudioSource. Fantastic!
 
-00:09:55.770 --> 00:09:58.880
-So. when we start the game. when the player
+00:09:55,770 --> 00:09:58,880
+So, when we start the game, when the player
 
-00:09:58.890 --> 00:10:15.930
-first starts. we want to be saying that
+00:09:58,890 --> 00:10:15,930
+first starts, we want to be saying that
 the innerVoice.clip = whatHappened;
 
-00:10:15.930 --> 00:10:21.600
-And then. we want to do innerVoice.Play ();
+00:10:15,930 --> 00:10:21,600
+And then, we want to do innerVoice.Play ();
 
-00:10:21.600 --> 00:10:25.700
-as a method. OK. let's go make sure
+00:10:21,600 --> 00:10:25,700
+as a method. OK, let's go make sure
 whatHappened is connected up to the
 
-00:10:25.710 --> 00:10:29.630
-player. I think it is. but let's see. It doesn't
-go in here. it does not go in the clip.
+00:10:25,710 --> 00:10:29,630
+player. I think it is, but let's see. It doesn't
+go in here, it does not go in the clip,
 
-00:10:29.630 --> 00:10:34.850
-that gets set up. run time. It goes down in What Happened here. so What Happened.
+00:10:29,630 --> 00:10:34,850
+that gets set up, run time. It goes down in What Happened here, so What Happened.
 
-00:10:34.850 --> 00:10:40.600
-Let's select What Happened in the resulting dialogue. and let's see what happens. at
+00:10:34,850 --> 00:10:40,600
+Let's select What Happened in the resulting dialogue, and let's see what happens, at
 
-00:10:40.600 --> 00:10:46.260
-the very beginning. [Game Character Talks] Ah. what the hell happened! I better call for some help! I've got to
+00:10:40,600 --> 00:10:46,260
+the very beginning. [Game Character Talks] Ah, what the hell happened! I better call for some help! I've got to
 
-00:10:46.260 --> 00:10:53.200
-find an area about the size of a tennis court and call a HELO! [Ben Starts Talking] That's cool! Now. if we look at... I don't know whether it's cool.
+00:10:46,260 --> 00:10:53,200
+find an area about the size of a tennis court and call a HELO! [Ben Starts Talking] That's cool! Now, if we look at... I don't know whether it's cool,
 
-00:10:53.200 --> 00:11:00.080
-but it's something. And now. he's found a clear area. and the helicopter comes in.
+00:10:53,200 --> 00:11:00,080
+but it's something. And now, he's found a clear area, and the helicopter comes in.
 
-00:11:00.090 --> 00:11:06.260
-Fantastic! So. you can see that. that is a
+00:11:00,090 --> 00:11:06,260
+Fantastic! So, you can see that, that is a
 way of having two different AudioSources
 
-00:11:06.260 --> 00:11:10.660
+00:11:06,260 --> 00:11:10,660
 on the player and then distinguishing them by their priority.
 
-00:11:10.660 --> 00:11:15.820
-We do want a higher priority on the innerVoice anyway. So. now we know what we need
+00:11:10,660 --> 00:11:15,820
+We do want a higher priority on the innerVoice anyway. So, now we know what we need
 
-00:11:15.820 --> 00:11:24.800
-to be doing. when the game starts this...[Game Character Talks in Background]
+00:11:15,820 --> 00:11:24,800
+to be doing, when the game starts this...[Game Character Talks in Background]
 
-00:11:24.800 --> 00:11:31.960
-[Ben Start Talking] Now. I'm not finding these tree colliders particularly reliable. but when we get there.
+00:11:24,800 --> 00:11:31,960
+[Ben Start Talking] Now, I'm not finding these tree colliders particularly reliable, but when we get there,
 
-00:11:31.970 --> 00:11:34.790
-the rescue helicopter gets called. Now. you may want to polish this a bit. you
+00:11:31,970 --> 00:11:34,790
+the rescue helicopter gets called. Now, you may want to polish this a bit, you
 
-00:11:34.790 --> 00:11:39.400
-you may want to give some affordance to the player. say something like. I better hang
+00:11:34,790 --> 00:11:39,400
+you may want to give some affordance to the player, say something like, I better hang
 
-00:11:39.400 --> 00:11:43.440
-around here and deploy a flare. or you might want to have a countdown or even
+00:11:39,400 --> 00:11:43,440
+around here and deploy a flare, or you might want to have a countdown or even
 
-00:11:43.440 --> 00:11:46.530
+00:11:43,440 --> 00:11:46,530
 make them push a button to call the
 helicopter. Mine is just calling the
 
-00:11:46.530 --> 00:11:48.270
-helicopter immediately. when we get to
+00:11:46,530 --> 00:11:48,270
+helicopter immediately, when we get to
 
-00:11:48.270 --> 00:11:52.020
-a clear area. but that's fine. So. that is how you deal with multiple AudioSources. or
+00:11:48,270 --> 00:11:52,020
+a clear area, but that's fine. So, that is how you deal with multiple AudioSources, or
 
-00:11:52.020 --> 00:11:55.920
-one way of doing it. and then. shortley we'll be looking at the question of how
+00:11:52,020 --> 00:11:55,920
+one way of doing it, and then, shortley we'll be looking at the question of how
 
-00:11:55.920 --> 00:12:02.020
+00:11:55,920 --> 00:12:02,020
 we arranged for the helicopter to
-actually land. at the place that we have found.
+actually land, at the place that we have found.
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT20 Trial Packaging Your Game.srt
 ﻿WEBVTT
 
 1
@@ -428,3 +429,434 @@ click it to launch it in the first place. and I'll see you in the next video.
 00:07:07.266 --> 00:07:07.999
 
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+Hi and welcome to Trial
+
+2
+00:00:04,000 --> 00:00:08,000
+Packaging Your Game! What we're going to be doing this video is actually making a Windows executable
+
+3
+00:00:08,000 --> 00:00:12,000
+here, which is going to run independent of the Editor altogether, and you'll have an
+
+4
+00:00:12,000 --> 00:00:16,000
+actual app here that you can rescale and move around. And crucially you'll
+
+5
+00:00:16,000 --> 00:00:20,000
+be able to start it, this was me hitting on the control pad, move the camera around,
+
+6
+00:00:20,000 --> 00:00:24,000
+and then, quit, all just from the control pad, which is
+
+7
+00:00:24,000 --> 00:00:29,700
+great! Or keyboard and mouse if you want, but the point is, there's a complete game loop available. Let's dive in and see how that works!
+
+8
+00:00:29,700 --> 00:00:33,700
+OK, so the first place to start is to make sure that in our Settings and
+
+9
+00:00:33,700 --> 00:00:37,700
+Project Settings, that we actually under Maps and Modes. have the
+
+10
+00:00:37,700 --> 00:00:41,700
+Game Default Map set correctly to the main menu, because that's where we want to start.
+
+11
+00:00:41,700 --> 00:00:45,700
+I think I'm going to set my Editor Startup Map to the
+
+12
+00:00:45,700 --> 00:00:49,700
+BattleGround, actually, just to show the difference. So, the
+
+13
+00:00:49,700 --> 00:00:53,700
+Editor Default Map is the following. If I close Unreal altogether and then
+
+14
+00:00:53,700 --> 00:00:57,700
+reopen it, then what's going to happen is, because I set the Editor Default Map
+
+15
+00:00:57,700 --> 00:01:01,700
+to the BattleGround that's where we're going to end up, which is fine for building this game. Most of the action happens
+
+16
+00:01:01,700 --> 00:01:05,700
+here. When we play, we'll also be playing straight from the battleground, but
+
+17
+00:01:05,700 --> 00:01:09,700
+when we build the game, and that's what I'm going to want you to do in this video, you can either do
+
+18
+00:01:09,700 --> 00:01:13,700
+it with me or you can wait until the challenge in a minute and do it for yourself. What we're doing to do is,
+
+19
+00:01:13,700 --> 00:01:17,700
+we're going to package the project rather for, in this case, a Windows
+
+20
+00:01:17,700 --> 00:01:21,700
+for me, a 64-bit Windows, and I'm going to pop it in my Downloads
+
+21
+00:01:21,700 --> 00:01:25,700
+folder and just let Unreal go ahead and package this. So, we're actually going to be making
+
+22
+00:01:25,700 --> 00:01:29,700
+a stand alone game here that we can run, so almost a shippable
+
+23
+00:01:29,700 --> 00:01:33,700
+game, not quite. Quit a lot more to do. So, if we just watch in Downloads
+
+24
+00:01:33,700 --> 00:01:37,700
+what comes in, let's see what actually happens because it's quite interesting
+
+25
+00:01:37,700 --> 00:01:41,700
+to see what it actually produces. It's not currently
+
+26
+00:01:41,700 --> 00:01:45,700
+appearing in Downloads, for some reason. Maybe it hasn't refreshed? Here you go! So, you'll find
+
+27
+00:01:45,700 --> 00:01:49,700
+yourself a folder called a WindowsNoEditor. It's still building but there's a folder called WindowsNoEditor.
+
+28
+00:01:49,700 --> 00:01:53,700
+And what have you go in there? Well, let's look at the size of these things. Actually, let's use
+
+29
+00:01:53,700 --> 00:01:57,700
+TreeSize, a useful little utility I have installed. TreeSize Free,
+
+30
+00:01:57,700 --> 00:02:01,700
+there we go! So, most of it goes in this BattleTank folder 655
+
+31
+00:02:01,700 --> 00:02:05,700
+megabytes. In the Content and then in a Pak, it makes this Content Pak,
+
+32
+00:02:05,700 --> 00:02:09,700
+which contains all the assets basically. There are the Binaries
+
+33
+00:02:09,700 --> 00:02:13,700
+as well, which there has an .exe in it, and then, you've also got
+
+34
+00:02:13,700 --> 00:02:17,700
+an Engine folder which includes the parts of the engine that you need for this game
+
+35
+00:02:17,700 --> 00:02:21,700
+to run. So, all in all you end up with this lot, and what
+
+36
+00:02:21,700 --> 00:02:25,700
+you want to run is this top-level BattleTank.exe. And
+
+37
+00:02:25,700 --> 00:02:29,700
+with any luck it'll go to the start menu, or the main menu as we call it,
+
+38
+00:02:29,700 --> 00:02:33,700
+because that is where we decided to go. If you check the scaling, then this is all
+
+39
+00:02:33,700 --> 00:02:37,700
+working. Then, we start the game. Now, the scaling, by the way, in the game we haven't
+
+40
+00:02:37,700 --> 00:02:41,700
+really thought about, but so far it's working fine because it's just rendering a 3D scene,
+
+41
+00:02:41,700 --> 00:02:45,700
+so the scaling will work. And that's it, so you can close the app
+
+42
+00:02:45,700 --> 00:02:49,700
+by either hitting the Escape key...
+
+43
+00:02:49,700 --> 00:02:53,700
+Is that working? Let me try again, let me run it,
+
+44
+00:02:53,700 --> 00:02:57,700
+start, and then, I'm going to try the Escape key. No, the back key on the
+
+45
+00:02:57,700 --> 00:03:01,700
+gamepad is also not working. OK, so we need to sort that out, because I did
+
+46
+00:03:01,700 --> 00:03:05,700
+want a way of getting out of the game. Let me make sure, before I go and sort that out, that we can get into
+
+47
+00:03:05,700 --> 00:03:09,700
+the game, so I'm going to push A on the gamepad now. Yeah, so A is working
+
+48
+00:03:09,700 --> 00:03:13,700
+but the back button isn't. So, let's go see what's wrong. There's something simple
+
+49
+00:03:13,700 --> 00:03:17,700
+in the Project Settings. Let's start at the beginning, Input, Quit.
+
+50
+00:03:17,700 --> 00:03:21,700
+It's either the Escape key or the Gamepad Special Left. Great! So,
+
+51
+00:03:21,700 --> 00:03:25,700
+now what we need to do is make sure that in the level blueprint for this,
+
+52
+00:03:25,700 --> 00:03:29,700
+we actually have an InputAction on
+
+53
+00:03:29,700 --> 00:03:33,700
+Quit. Yeah, InputAction Quit, we Quit the Game.
+
+54
+00:03:33,700 --> 00:03:37,700
+Yeah, the Quit Preference is Quit, so that should be working. Let's
+
+55
+00:03:37,700 --> 00:03:41,700
+try it from here, from the preview. I'm going to hit Escape and it does stop.
+
+56
+00:03:41,700 --> 00:03:45,700
+I'm also going to hit the back button on the controller and it does stop, so I'm not sure
+
+57
+00:03:45,700 --> 00:03:49,700
+now why it's not stopping when we packaged for the
+
+58
+00:03:49,700 --> 00:03:53,700
+windows. Let's just try repackaging. Sometimes it can be
+
+59
+00:03:53,700 --> 00:03:57,700
+a little bit quirky like this. We just want to make sure that we have a fully
+
+60
+00:03:57,700 --> 00:04:01,700
+playable standalone game for this video, that's the purpose. I just want you
+
+61
+00:04:01,700 --> 00:04:05,700
+to get used to packaging really early for testing, because even though the Editor is supposed
+
+62
+00:04:05,700 --> 00:04:09,700
+to preview precisely what the game would be like, when it's running on the target machine, you
+
+63
+00:04:09,700 --> 00:04:13,700
+can't be sure that it's doing that perfectly all the time. It's a very good practice to
+
+64
+00:04:13,700 --> 00:04:17,700
+regularly package and check, and this just seems like a good time to do it, especially
+
+65
+00:04:17,700 --> 00:04:21,700
+because we're dealing with esoteric things like, you know, bindings
+
+66
+00:04:21,700 --> 00:04:25,700
+of these controls and exit conditions. So, let's try running again!
+
+67
+00:04:25,700 --> 00:04:29,700
+I'm picking up my gamepad, I'm pushing the A button, we're going into the game,
+
+68
+00:04:29,700 --> 00:04:33,700
+I'm going to push the back button now, and it's still not quitting.
+
+69
+00:04:33,700 --> 00:04:39,266
+Nope OK, so we still need to do some work!
+
+70
+00:04:39,266 --> 00:04:43,266
+Now, this is a slightly strange error, and I believe the reason for it is as
+
+71
+00:04:43,266 --> 00:04:47,266
+follows. Let's try! If we start in the MainMenu here
+
+72
+00:04:47,266 --> 00:04:51,266
+and we run the game and I hit A and then
+
+73
+00:04:51,266 --> 00:04:55,266
+I check that I can move. Ah you see I can't control the tank, whereas
+
+74
+00:04:55,266 --> 00:04:59,266
+if I start playing directly from the battleground, then I can control
+
+75
+00:04:59,266 --> 00:05:03,266
+the tank, and that's because the input mode has defaulted to game only.
+
+76
+00:05:03,266 --> 00:05:07,266
+The problem is this, in the MainMenu blueprint when
+
+77
+00:05:07,266 --> 00:05:11,266
+we setup, in the beginning once the widget is ready, we set the Input Mode to UI only,
+
+78
+00:05:11,266 --> 00:05:15,266
+but when we hit the start menu and go ahead and open BattleGround, we
+
+79
+00:05:15,266 --> 00:05:19,266
+still have the Input Mode in UI only, so it's persisting through.
+
+80
+00:05:19,266 --> 00:05:23,266
+So there's lots of places we could change this, but I think here is a good place to do it, because it's right
+
+81
+00:05:23,266 --> 00:05:27,266
+next to where we set it. So, if you go to your Main Menu blueprint,
+
+82
+00:05:27,266 --> 00:05:31,266
+in the Event Graph, and there's a Set Input Mode
+
+83
+00:05:31,266 --> 00:05:35,266
+to Game Only node. Let's set that. So, what we're
+
+84
+00:05:35,266 --> 00:05:39,266
+saying is, if we hit the start button,
+
+85
+00:05:39,266 --> 00:05:43,266
+then what we want to do is we want to open the BattleGround level, and then set the
+
+86
+00:05:43,266 --> 00:05:47,266
+Input Mode to Game Only, for the Player Controller. It's a bit ugly
+
+87
+00:05:47,266 --> 00:05:51,266
+this but it's fine. In fact, if we move things around a little bit, we can prevent
+
+88
+00:05:51,266 --> 00:05:55,266
+crossing, which always makes things a little bit clearer. OK, so we're saying that
+
+89
+00:05:55,266 --> 00:05:59,266
+once we've opened the BattleGround level, set the Input Mode to Game Only. Let's see what
+
+90
+00:05:59,266 --> 00:06:03,266
+that does. It'll only take effect if you start the game from the main menu.
+
+91
+00:06:03,266 --> 00:06:07,266
+Play the game, we hit A on the controller, we test that we have
+
+92
+00:06:07,266 --> 00:06:11,266
+control, which we do. We may want to give the player an inverted Y axis later option later, but
+
+93
+00:06:11,266 --> 00:06:15,266
+for now, that's fine, and then, I hit the back button on the controller and the game quits. That's
+
+94
+00:06:15,266 --> 00:06:19,266
+great! So the final check is to make sure this actually works in a Windows 64
+
+95
+00:06:19,266 --> 00:06:23,266
+build, so I'll just go ahead and just do the build. And that's
+
+96
+00:06:23,266 --> 00:06:27,266
+that! So the problem was that the Input Mode propagated from the menu outwards,
+
+97
+00:06:27,266 --> 00:06:31,266
+so we fixed that right at the source by saying, well as soon as you leave go ahead and change
+
+98
+00:06:31,266 --> 00:06:35,266
+the Input Mode back. Alright, so let's just wait for the package to finish,
+
+99
+00:06:35,266 --> 00:06:39,266
+test it out, and then we'll be taking it from there. So, let's go ahead
+
+100
+00:06:39,266 --> 00:06:43,233
+and run and have a final test. Start,
+
+101
+00:06:43,233 --> 00:06:47,266
+control works, back button works, and that's all without
+
+102
+00:06:47,266 --> 00:06:51,266
+touching the keyboard or mouse! Fantastic! So, if you haven't done it already, I want you to
+
+103
+00:06:51,266 --> 00:06:55,266
+package for your operating system, set the Editor and Game startup maps, build for your
+
+104
+00:06:55,266 --> 00:06:59,266
+platform, and test that it runs well. Try rescaling the menu, try the gamepad
+
+105
+00:06:59,266 --> 00:07:03,266
+only, see if you can get in and out of the game with just the gamepad. Of course, you'll have to double-
+
+106
+00:07:03,266 --> 00:07:07,266
+click it to launch it in the first place, and I'll see you in the next video.
+
+107
+00:07:07,266 --> 00:07:07,999
+
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT20 Trial Packaging Your Game.srt

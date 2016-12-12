@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section5/TG8 The Third Person Character.srt
 ﻿WEBVTT
 
 1
@@ -576,3 +577,582 @@ material you can. I'm not going to bother right now. And I will see you in the n
 00:09:34.266 --> 00:09:35.632
 
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+So welcome to The
+
+2
+00:00:04,000 --> 00:00:08,000
+Third Person Character! In this video we will be adding a Third Person Character
+
+3
+00:00:08,000 --> 00:00:12,000
+to our scene! There he is, standing on the ground, breathing away, and the other thing
+
+4
+00:00:12,000 --> 00:00:18,266
+we'll be doing is adding this green Navmesh and making sure that it's nice and smooth up the stairs. So I will see you in there!
+
+5
+00:00:18,266 --> 00:00:22,266
+So in the last video I said I would Tag my Commit. Let me show you what that is! Here's the
+
+6
+00:00:22,266 --> 00:00:26,266
+commit for the last video. If you click on Tag here, you can either
+
+7
+00:00:26,266 --> 00:00:30,266
+Tag the branch, basically, or a specific commit. I'm going to go
+
+8
+00:00:30,266 --> 00:00:34,266
+ahead and Tag this specific commit, and I'm just going to Tag
+
+9
+00:00:34,266 --> 00:00:38,266
+it with version 4.13.0
+
+10
+00:00:38,266 --> 00:00:42,266
+like that. And then, or just 4.13.0.
+
+11
+00:00:42,266 --> 00:00:46,266
+There you go! And what that does is it just puts that tag one, and as
+
+12
+00:00:46,266 --> 00:00:50,266
+the master label heads up the tree, this 4.13.0
+
+13
+00:00:50,266 --> 00:00:54,266
+will stay there, and it's just a really quick and easy way for me to see in which video I upgraded
+
+14
+00:00:54,266 --> 00:00:58,266
+my version. Not a bad thing to do to keep track of where you upgraded your versions. OK
+
+15
+00:00:58,266 --> 00:01:02,266
+so let's go back over to Unreal and let's just take a look at what we need to do
+
+16
+00:01:02,266 --> 00:01:06,266
+next! Of course, what we're going to need to make this even remotely interesting, just move that
+
+17
+00:01:06,266 --> 00:01:10,266
+out, is a Third Person Character in here that's going to be running around and
+
+18
+00:01:10,266 --> 00:01:14,266
+is going to act as a guard, and we're going to be focusing on creating patrol routes for those
+
+19
+00:01:14,266 --> 00:01:18,266
+guards. So where do we get a third person character from? Well there's no point in us building these up
+
+20
+00:01:18,266 --> 00:01:22,266
+from the ground. What I'd rather do with the First Person and the Third Person
+
+21
+00:01:22,266 --> 00:01:26,266
+is to use what Unreal already gave us, like this FirstPerson character
+
+22
+00:01:26,266 --> 00:01:30,266
+here, and then, start breaking it down as we need to, because frankly it already
+
+23
+00:01:30,266 --> 00:01:34,266
+works. It would be weeks of work to produce this thing from scratch, and we will learn
+
+24
+00:01:34,266 --> 00:01:38,266
+what all these parameters mean. Now, in the previous video I talked
+
+25
+00:01:38,266 --> 00:01:42,266
+about parameters, but a quiz question is coming up. There's going to be a question about
+
+26
+00:01:42,266 --> 00:01:46,266
+how to change the CharacterMovement speed. So just be aware it's under CharacterMovement,
+
+27
+00:01:46,266 --> 00:01:50,266
+and then, you've got in here, you've got the idea of Maximum Walking Speed,
+
+28
+00:01:50,266 --> 00:01:54,266
+when you're crouched and standing and things like that. OK, so let's go ahead and get
+
+29
+00:01:54,266 --> 00:01:58,266
+the Third Person in! How do you do that? Well, what we come
+
+30
+00:01:58,266 --> 00:02:02,266
+to is the Content Browser, Add New, and then, Add Feature or Content
+
+31
+00:02:02,266 --> 00:02:06,266
+Pack. Then, let's click over to C++ feature, and we can actually
+
+32
+00:02:06,266 --> 00:02:10,266
+bring in the necessary stuff from the Third Person
+
+33
+00:02:10,266 --> 00:02:14,266
+Demo project. So you'll see it's a slightly different world! We started off with a
+
+34
+00:02:14,266 --> 00:02:18,266
+First Person as our template, because we are fundamentally making a Third Person game. But we
+
+35
+00:02:18,266 --> 00:02:22,266
+can bring in the assets from the Third Person project, too, so that's
+
+36
+00:02:22,266 --> 00:02:26,266
+Add New, C++ Feature, and then Third Person. Let's go ahead and do that!
+
+37
+00:02:26,266 --> 00:02:30,266
+And it's going to add a whole lot of stuff to our project! You can watch what's happening
+
+38
+00:02:30,266 --> 00:02:34,266
+in version control, by hitting F5, letting it refresh,
+
+39
+00:02:34,266 --> 00:02:38,266
+and you'll see that it's adding quite a lot of stuff in here. It's making changes to the
+
+40
+00:02:38,266 --> 00:02:42,266
+engine, n.e. telling it that it's got these things included, and then, it's adding a lot
+
+41
+00:02:42,266 --> 00:02:46,266
+of stuff meshes, textures, materials, and animations, which we'll be talking
+
+42
+00:02:46,266 --> 00:02:50,266
+about plenty, later in the section. So
+
+43
+00:02:50,266 --> 00:02:54,266
+"Added source file". "Would you like to edit the code now?" No I don't need to edit the code right now,
+
+44
+00:02:54,266 --> 00:02:58,266
+and here we go! If we look more carefully at the Content Browser now,
+
+45
+00:02:58,266 --> 00:03:02,266
+you'll see that we've got quite a few directories. We've got FirstPerson, FirstPerson
+
+46
+00:03:02,266 --> 00:03:06,266
+CPP, Mannequin, ThirdPerson, ThirdPersonCPP. Now,
+
+47
+00:03:06,266 --> 00:03:10,266
+don't just  go moving stuff around yet and reorganizing this, because it can actually
+
+48
+00:03:10,266 --> 00:03:14,266
+break it due to references. We will move things around
+
+49
+00:03:14,266 --> 00:03:18,266
+and tidy up this Hierarchy as we need to, but for now, let's just allow
+
+50
+00:03:18,266 --> 00:03:22,266
+ourselves to have this slightly messy content hierarchy.
+
+51
+00:03:22,266 --> 00:03:26,266
+And later on, I will talk about things called redirectors, which you can actually
+
+52
+00:03:26,266 --> 00:03:30,266
+show here in the Filters menu. We
+
+53
+00:03:30,266 --> 00:03:34,266
+need to be showing the redirectors, before we start moving things around, and we'll
+
+54
+00:03:34,266 --> 00:03:38,266
+get to that when we need to. But if you do feel the absolute urge to move things
+
+55
+00:03:38,266 --> 00:03:42,266
+around, then turn Show Redirectors on now, and you'll see that
+
+56
+00:03:42,266 --> 00:03:46,266
+there are some complications with moving files around, it doesn't just move them. As I said,
+
+57
+00:03:46,266 --> 00:03:50,266
+we'll get to that when we need to get to that. For now, let's go into ThirdPersonCPP,
+
+58
+00:03:50,266 --> 00:03:54,266
+Blueprints, and ThirdPersonCharacter. Let's just drop one in the scene, and I'll snap
+
+59
+00:03:54,266 --> 00:03:58,266
+to the floor. There he is! So I'm going to play the game, go find him, and have a look at him.
+
+60
+00:03:58,266 --> 00:04:02,266
+Where is he? What's he doing? Well he is just kind of standing there doing
+
+61
+00:04:02,266 --> 00:04:06,266
+something a bit strange! [Laughs] What is this ThirdPerson character and
+
+62
+00:04:06,266 --> 00:04:10,266
+what on Earth is he doing in our game? Well let's firstly go and have a look at him!
+
+63
+00:04:10,266 --> 00:04:14,266
+And there he is, there's the instance of the ThirdPersonCharacter, sitting here in our map.
+
+64
+00:04:14,266 --> 00:04:18,266
+If we edit the ThirdPersonCharacter and go to the Full Blueprint Editor,
+
+65
+00:04:18,266 --> 00:04:22,266
+we'll get a very similar thing to the FirstPersonCharacter. In fact, if I flick between them for a moment,
+
+66
+00:04:22,266 --> 00:04:26,266
+you can see that they're very very similar but there are some differences. So
+
+67
+00:04:26,266 --> 00:04:30,266
+here is the ThirdPersonCharacter, and he has a Skeletal
+
+68
+00:04:30,266 --> 00:04:34,266
+Mesh, one of these meshes that can actually move and deform. And he has a default
+
+69
+00:04:34,266 --> 00:04:38,266
+kind of breathing idle animation that he has here. The camera with a Third
+
+70
+00:04:38,266 --> 00:04:42,266
+Person is behind him. We don't actually need that camera, there's no harm in leaving the camera there, for the moment.
+
+71
+00:04:42,266 --> 00:04:46,266
+The game, if you play it, will be automatically using that First Person
+
+72
+00:04:46,266 --> 00:04:50,266
+camera. There is actually a camera sitting behind the ThirdPerson
+
+73
+00:04:50,266 --> 00:04:54,266
+Character but it's just not being used right now. OK, so back to
+
+74
+00:04:54,266 --> 00:04:58,266
+the ThirdPersonCharacter. Let's have a look at what's going on with this guy!
+
+75
+00:04:58,266 --> 00:05:02,266
+Firstly, how do we choose what default animation he
+
+76
+00:05:02,266 --> 00:05:06,266
+has? So he's standing on the ground quite comfortably here in the
+
+77
+00:05:06,266 --> 00:05:10,266
+Blueprint Editor and just breathing away. But if we look inside the actual game,
+
+78
+00:05:10,266 --> 00:05:14,266
+he's doing some weird stuff. So the most likely is, it's just that he is
+
+79
+00:05:14,266 --> 00:05:18,266
+impacting with the ground, i.e. his Capsule Collider here
+
+80
+00:05:18,266 --> 00:05:22,266
+or his feet are going though the ground. So the simple solution to that is to lift him up a little bit,
+
+81
+00:05:22,266 --> 00:05:26,266
+and then, have a look at him and see if he's any better.
+
+82
+00:05:26,266 --> 00:05:30,266
+It hasn't helped! Let's lift him up further, and if it still doesn't help, then, we will go further
+
+83
+00:05:30,266 --> 00:05:34,266
+and look at his default animation state. So let's lift him plenty off the ground.
+
+84
+00:05:34,266 --> 00:05:38,266
+No he's doing something very
+
+85
+00:05:38,266 --> 00:05:42,266
+strange! So let's click on the ThirdPersonCharacter and start exploring
+
+86
+00:05:42,266 --> 00:05:46,266
+a little bit about what he can do. So if you click into him
+
+87
+00:05:46,266 --> 00:05:50,266
+and then search, because there's a lot of properties on this guy, if we search
+
+88
+00:05:50,266 --> 00:05:54,266
+for animation
+
+89
+00:05:54,266 --> 00:05:58,266
+then you'll see it brings up some of the, just some
+
+90
+00:05:58,266 --> 00:06:02,266
+of the components and their details. So it's saying Use an Animation
+
+91
+00:06:02,266 --> 00:06:06,266
+Blueprint. Well for the moment let's just, rather than using a Blueprint to control his animation,
+
+92
+00:06:06,266 --> 00:06:10,266
+let's just Use an Animation Asset right now, and then, specifically
+
+93
+00:06:10,266 --> 00:06:14,266
+pick an idle animation, ThirdPersonIdle there.
+
+94
+00:06:14,266 --> 00:06:18,266
+So what I've done is, I've said the Animation Mode is a specific asset, and then, I've picked the Third
+
+95
+00:06:18,266 --> 00:06:22,266
+PersonIdle animation. Let's take a look!
+
+96
+00:06:22,266 --> 00:06:26,266
+There he is, standing there much more sensible and breathing. I'll just pop him
+
+97
+00:06:26,266 --> 00:06:30,266
+on the ground, with the End key now. And that little sequence just gives you an idea of how you might
+
+98
+00:06:30,266 --> 00:06:34,266
+want to debug these things. I mean I knew that it was the animation there, but I just wanted to point
+
+99
+00:06:34,266 --> 00:06:38,266
+out that those sorts of strange behaviors could also be, especially with rag doll
+
+100
+00:06:38,266 --> 00:06:42,266
+based characters, to do with collisions. So it's always worth checking things aren't
+
+101
+00:06:42,266 --> 00:06:46,266
+passing through the ground first, especially when you just dump them in the scene and not check their position.
+
+102
+00:06:46,266 --> 00:06:50,266
+Anyway, there he is, he's in the scene, and he's got a ThirdPersonIdle animation on him,
+
+103
+00:06:50,266 --> 00:06:54,266
+and he's standing there quite happily! So that's the ThirdPersonCharacter,
+
+104
+00:06:54,266 --> 00:06:58,266
+he will be ready now to start moving around the scene. What I want you
+
+105
+00:06:58,266 --> 00:07:02,266
+to do now is, to simply add a Navmesh. Of course, before
+
+106
+00:07:02,266 --> 00:07:06,266
+we can get this thing moving around, we're going to need a Navmesh in our level. We've done it before
+
+107
+00:07:06,266 --> 00:07:10,266
+in Battle Tank! Ensure it covers "up the stairs", so you need the three dimensionality, the height, to
+
+108
+00:07:10,266 --> 00:07:14,266
+cover the area up the stairs as well. Preview it with the P key
+
+109
+00:07:14,266 --> 00:07:18,266
+and then share a still of what you've got, over on the community
+
+110
+00:07:18,266 --> 00:07:22,266
+site at community.gamedev.tv. So go ahead pause the video, and just add yourself a Navmesh
+
+111
+00:07:22,266 --> 00:07:26,266
+now! Welcome
+
+112
+00:07:26,266 --> 00:07:30,266
+back! So this is a pretty simple challenge, what I'm going to do is I'm going to show Navmesh,
+
+113
+00:07:30,266 --> 00:07:34,266
+which is the Show, Navigation which I can use the Show menu or I can just hit the
+
+114
+00:07:34,266 --> 00:07:38,266
+P key. You'll see there is no navigation, right now. So I make myself a
+
+115
+00:07:38,266 --> 00:07:42,266
+little more room, grab the Modes brush, I'm going to say
+
+116
+00:07:42,266 --> 00:07:46,266
+Volumes here, and then, under Volumes somewhere we should have Nav Mesh
+
+117
+00:07:46,266 --> 00:07:50,266
+Bounds Volume. There it is! I'm going to pop it in! Now I find when positioning
+
+118
+00:07:50,266 --> 00:07:54,266
+these Nav Meshes, it's quite useful to use this four way view here,
+
+119
+00:07:54,266 --> 00:07:58,266
+because that gives me an overview of the whole level in one go. So I
+
+120
+00:07:58,266 --> 00:08:02,266
+can see the side, I can see the front, etc. all in one go!
+
+121
+00:08:02,266 --> 00:08:06,266
+So now, we need to select the Nav Mesh, one way to do that is
+
+122
+00:08:06,266 --> 00:08:10,266
+here, go to Details, clearing my search,
+
+123
+00:08:10,266 --> 00:08:14,266
+and now it's just a question of changing the size of this Nav Mesh, so that it's
+
+124
+00:08:14,266 --> 00:08:18,266
+appropriate. So let's recentralize it in the level by resetting its
+
+125
+00:08:18,266 --> 00:08:22,266
+transform. We can then pull up the X size, until it covers the level.
+
+126
+00:08:22,266 --> 00:08:26,266
+
+
+127
+00:08:26,266 --> 00:08:30,266
+Now it doesn't matter if it's a little bit larger than the level, that's fine, and we can just
+
+128
+00:08:30,266 --> 00:08:34,266
+reposition like that. I would overspill just a little bit. Then, I can work on
+
+129
+00:08:34,266 --> 00:08:38,266
+the Y size. Again, the same thing applies.
+
+130
+00:08:38,266 --> 00:08:42,266
+Cover the level, that's fine! And now, the Z size, I said I wanted it to cover these
+
+131
+00:08:42,266 --> 00:08:46,266
+boxes, etc. So let's just increase the Z size, repositioning it as we
+
+132
+00:08:46,266 --> 00:08:50,266
+do, to something like that. OK great! So using this multi-
+
+133
+00:08:50,266 --> 00:08:54,266
+view is handy for that! Now, let's have a look down here! You see, we have green on the top
+
+134
+00:08:54,266 --> 00:08:58,266
+of all of these surfaces, and we have a continuous or at least fairly
+
+135
+00:08:58,266 --> 00:09:02,266
+continuous Nav Mesh moving up here. I think that'll be OK! It looks a little
+
+136
+00:09:02,266 --> 00:09:06,266
+broken on the stairs there. If you want to improve that, what we could do is just turn the
+
+137
+00:09:06,266 --> 00:09:10,266
+Step Height down a little bit and then increase the Number of Steps,
+
+138
+00:09:10,266 --> 00:09:14,266
+maybe just by 1. And that should be enough to get a continous
+
+139
+00:09:14,266 --> 00:09:18,266
+volume. So I'm going to go with 26 or 28 Step Height, maybe,
+
+140
+00:09:18,266 --> 00:09:22,266
+and you can see here that the Nav Mesh is more continuous, going up the
+
+141
+00:09:22,266 --> 00:09:26,266
+side there. So great, take a screenshot of your area, perhaps
+
+142
+00:09:26,266 --> 00:09:30,266
+focusing on the stairs here. If you want to select all the faces of these and apply a default
+
+143
+00:09:30,266 --> 00:09:34,266
+material you can, I'm not going to bother right now. And I will see you in the next video!
+
+144
+00:09:34,266 --> 00:09:35,632
+
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section5/TG8 The Third Person Character.srt

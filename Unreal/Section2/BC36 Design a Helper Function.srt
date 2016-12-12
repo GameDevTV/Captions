@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section2/BC36 Design a Helper Function.srt
 ﻿WEBVTT
 
 1
@@ -512,3 +513,518 @@ with this game. So. congratulations if you got this one done. and I'll see you s
 00:08:22.233 --> 00:08:23.266
 
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+So, welcome
+
+2
+00:00:04,000 --> 00:00:08,000
+to Design a Helper Function. The purpose of this video is to help you integrate the knowledge
+
+3
+00:00:08,000 --> 00:00:12,200
+that you've gained through the section and to do a slightly larger chunk of work
+
+4
+00:00:12,200 --> 00:00:16,000
+on your own, but the actual code you're going to have to write is quite simple.
+
+5
+00:00:16,000 --> 00:00:20,000
+We're also, in my solution, going to talk about something called implicit dependancies,
+
+6
+00:00:20,000 --> 00:00:24,000
+and at the end of it, your code will deal properly with things that are not all lower
+
+7
+00:00:24,000 --> 00:00:28,000
+case. So, here's that example of planet, and it's going to say no no enter all
+
+8
+00:00:28,000 --> 00:00:32,000
+lower case, steering the user toward entering input that's valid for the game.
+
+9
+00:00:32,000 --> 00:00:33,333
+
+
+10
+00:00:33,333 --> 00:00:37,333
+So, in this video, we're going to integrate your previous knowledge,
+
+11
+00:00:37,333 --> 00:00:41,333
+by getting lowercase checking working, all on your own! Not doing anything new,
+
+12
+00:00:41,333 --> 00:00:45,333
+just reapplying knowledge that we've used before. So, declare and define
+
+13
+00:00:45,333 --> 00:00:49,333
+IsLowercase(), a helper method. We've made helper methods before.
+
+14
+00:00:49,333 --> 00:00:53,333
+Use a range-based for loop,
+
+15
+00:00:53,333 --> 00:00:59,000
+that we just learned about. use the auto keyword, that we also just started experimenting with.
+
+16
+00:00:59,000 --> 00:01:03,000
+Handle strings of zero length, backslash 0 and
+
+17
+00:01:03,000 --> 00:01:07,000
+spaces. Backslash 0 is the null character and it ends a string, and
+
+18
+00:01:07,000 --> 00:01:11,000
+a user entering that may mess things up, so let's test for that. Excuse me, by the way, if I've
+
+19
+00:01:11,000 --> 00:01:15,000
+confused backslash and forward slash 0 anywhere else. It is backslash 0
+
+20
+00:01:15,000 --> 00:01:19,000
+like that for the termination character, the null character of a string. Hint:
+
+21
+00:01:19,000 --> 00:01:23,000
+a method called islower(), spelled like that, may help. Share your
+
+22
+00:01:23,000 --> 00:01:27,000
+solution for discussion, in the discussions, would be great, and succeed or fail. Now, I
+
+23
+00:01:27,000 --> 00:01:31,000
+truly believe FAIL stands for: From Adversity I Learn. I want you to pat
+
+24
+00:01:31,000 --> 00:01:35,000
+yourself on the back! So, go ahead, pause the video, and have a go at that now!
+
+25
+00:01:35,000 --> 00:01:38,366
+
+
+26
+00:01:38,366 --> 00:01:42,366
+Welcome back! So, how are we going to go about this? Helper method,
+
+27
+00:01:42,366 --> 00:01:46,366
+what does that mean? It means that if we look at the public
+
+28
+00:01:46,366 --> 00:01:50,366
+declaration of BullCowGame it's not there, it's down in the private. It's very much like
+
+29
+00:01:50,366 --> 00:01:54,366
+IsIsogram. It's going to be a bool IsLowercase
+
+30
+00:01:54,366 --> 00:01:58,366
+(Fstring)
+
+31
+00:01:58,366 --> 00:02:02,366
+because we're going to take in a string and it's going to be constant, because we don't want it to change anything.
+
+32
+00:02:02,366 --> 00:02:06,366
+Cool! Let's go, I need a capital S on the String. Lets go ahead and
+
+33
+00:02:06,366 --> 00:02:10,366
+implement that! Boom, here we go!
+
+34
+00:02:10,366 --> 00:02:14,366
+There it is! So, how are we going to do it? Well, let's use what we've learned, for.
+
+35
+00:02:14,366 --> 00:02:18,366
+Let's use a range based for loop. So, close the brackets,
+
+36
+00:02:18,366 --> 00:02:22,366
+(auto letter  :  in which has a colon,
+
+37
+00:02:22,366 --> 00:02:26,366
+Word) capital word, and of course, I need to
+
+38
+00:02:26,366 --> 00:02:30,366
+give my variable a handle. Now, by the way, on
+
+39
+00:02:30,366 --> 00:02:34,366
+whether or not you give your variables a name in the head file, it's kind of up to you.
+
+40
+00:02:34,366 --> 00:02:38,366
+It's kind of cleaner without. It doesn't really matter what you call this thing,
+
+41
+00:02:38,366 --> 00:02:42,366
+right, but if it's going to be descriptive to give it a name here, then go
+
+42
+00:02:42,366 --> 00:02:46,366
+ahead and give it a name here, it's kind of style at this stage.
+
+43
+00:02:46,366 --> 00:02:50,366
+It doesn't actually change anything, because you don't need, in the prototypes here, to be giving
+
+44
+00:02:50,366 --> 00:02:54,366
+your parameters actual names. So,
+
+45
+00:02:54,366 --> 00:02:58,366
+I tend to not give them a name in the header, just to keep this as clean and simple as possible,
+
+46
+00:02:58,366 --> 00:03:02,366
+and then, when I come over here, I tend to decide what the parameter name
+
+47
+00:03:02,366 --> 00:03:06,366
+is going to be, which is... It is a parameter here, by the way. There is
+
+48
+00:03:06,366 --> 00:03:10,366
+at the end of the slide deck for this section, I quite clearly show you
+
+49
+00:03:10,366 --> 00:03:14,366
+what the difference between a parameter and an argument is but I'll just tell you. You define a parameter,
+
+50
+00:03:14,366 --> 00:03:18,366
+so when you're defining or declaring a function, that is the parameter there.
+
+51
+00:03:18,366 --> 00:03:22,366
+OK, and then you call an argument. Just remember
+
+52
+00:03:22,366 --> 00:03:26,366
+you call people up for an argument. So, where you actually call the methods like
+
+53
+00:03:26,366 --> 00:03:30,366
+here, the guess here is an argument
+
+54
+00:03:30,366 --> 00:03:34,366
+when you're calling it, and it's a parameter when you're defining or declaring the method.
+
+55
+00:03:34,366 --> 00:03:38,366
+Alright, anyway, so for (auto letter  :  Word). Now, let's use the
+
+56
+00:03:38,366 --> 00:03:42,366
+spaced out notation, this time, because it's a relatively short function. OK, so
+
+57
+00:03:42,366 --> 00:03:46,366
+for each letter in the word. By the way, where's my pseudocode?
+
+58
+00:03:46,366 --> 00:03:50,366
+So, that's not very good.
+
+59
+00:03:50,366 --> 00:03:54,366
+We don't actually need to pseudocode, however, this bit, that's kind of obvious what it does
+
+60
+00:03:54,366 --> 00:03:58,366
+for the letters in the word, but I'm going to pseudocode here, before I write the details.
+
+61
+00:03:58,366 --> 00:04:02,366
+"// if not a lowercase
+
+62
+00:04:02,366 --> 00:04:06,366
+letter then
+
+63
+00:04:06,366 --> 00:04:10,366
+// return false"
+
+64
+00:04:10,366 --> 00:04:14,366
+otherwise return true.
+
+65
+00:04:14,366 --> 00:04:18,366
+Change this around, right, and I can return return false into an
+
+66
+00:04:18,366 --> 00:04:22,366
+actual piece of code there now. And now, I just have
+
+67
+00:04:22,366 --> 00:04:26,366
+to write the if statement, if not a lowercase letter. How do we say that? Well, if.
+
+68
+00:04:26,366 --> 00:04:30,366
+Now, we've got a not and then we've got (!Islower). We have a
+
+69
+00:04:30,366 --> 00:04:34,366
+method there, and it takes in the (Letter)).
+
+70
+00:04:34,366 --> 00:04:38,366
+So, if it's not a lowercase letter, then what do we want to do?
+
+71
+00:04:38,366 --> 00:04:42,366
+We want to return false. I'm going to use this spaced
+
+72
+00:04:42,366 --> 00:04:46,366
+out bracket syntax there, otherwise we return true.
+
+73
+00:04:46,366 --> 00:04:50,366
+So, that is a pretty simple method! Let's go ahead and
+
+74
+00:04:50,366 --> 00:04:54,366
+test to see if it works properly.
+
+75
+00:04:54,366 --> 00:04:58,366
+So, if I go planet now, with a capital P,
+
+76
+00:04:58,366 --> 00:05:02,366
+what happens? Nothing, it's not working! What have I done
+
+77
+00:05:02,366 --> 00:05:06,366
+wrong? Well, what I've possibly done wrong is never called IsLowercase().
+
+78
+00:05:06,366 --> 00:05:10,366
+Let's go and have a look! This would be a common mistake. Ah hah! We just
+
+79
+00:05:10,366 --> 00:05:14,366
+say if false. What we actually want to be doing if not (!Is
+
+80
+00:05:14,366 --> 00:05:18,366
+Lowercase(Guess)) OK.
+
+81
+00:05:18,366 --> 00:05:22,366
+Now, let's try it, and then, I'm going to talk about something called implicit dependancies,
+
+82
+00:05:22,366 --> 00:05:26,366
+before we leave this video. "Planet", "Please enter all lowercase".
+
+83
+00:05:26,366 --> 00:05:30,366
+"A", "Please enter all lowercase". "Aa". "Please enter a word without repeating letters."
+
+84
+00:05:30,366 --> 00:05:34,366
+OK now, I think this is actually guiding me quite nicely. If I enter nothing, it
+
+85
+00:05:34,366 --> 00:05:38,366
+says a six letter word. If I enter a, it says a six letter word. If I enter aa, it says
+
+86
+00:05:38,366 --> 00:05:42,366
+don't enter repeating letters. But the order in which it gives me these
+
+87
+00:05:42,366 --> 00:05:46,366
+errors is determined by the order of the if statements in the check guess
+
+88
+00:05:46,366 --> 00:05:50,366
+validity. OK. So, we actually
+
+89
+00:05:50,366 --> 00:05:54,366
+want to be able to change this order around. There's absolutely no reason that we have to
+
+90
+00:05:54,366 --> 00:05:58,366
+stick to this order. If this order is vital, for example, we can only pass isograms
+
+91
+00:05:58,366 --> 00:06:02,366
+into IsLower or something like that, so these have to be done in order.
+
+92
+00:06:02,366 --> 00:06:06,366
+Then, we have something called in implicit dependancy. What's an implicit dependency? Implicit
+
+93
+00:06:06,366 --> 00:06:10,366
+means suggested, though not directly expressed. A dependency means reliant on
+
+94
+00:06:10,366 --> 00:06:14,366
+something else. So, "an implicit dependency is when it's not completely clear that one thing
+
+95
+00:06:14,366 --> 00:06:18,366
+depends on another." "For example the order of the checks in CheckGuess
+
+96
+00:06:18,366 --> 00:06:22,366
+Validity()" and we don't want that. We've just arbitrarily, pretty much, come up
+
+97
+00:06:22,366 --> 00:06:26,366
+with this order, and it should only have one side effect.
+
+98
+00:06:26,366 --> 00:06:30,366
+It could have the side effect that your code works, and that would be a really bad
+
+99
+00:06:30,366 --> 00:06:34,366
+side effect. If your code doesn't work, with these things in any order, then these
+
+100
+00:06:34,366 --> 00:06:38,366
+methods are not sufficiently self contained. You know how we went to an effort to make sure that
+
+101
+00:06:38,366 --> 00:06:42,366
+IsIsrogram works for all types of strings? Well, it's the same thing for
+
+102
+00:06:42,366 --> 00:06:46,366
+IsLowercase. One way of testing IsLowercase would actually be to do
+
+103
+00:06:46,366 --> 00:06:50,366
+a block exclude here, with a forward-slash star,
+
+104
+00:06:50,366 --> 00:06:54,366
+and then here, we could go a star forward-slash and that would comment all
+
+105
+00:06:54,366 --> 00:06:55,533
+this stuff above.
+
+106
+00:06:55,533 --> 00:06:59,533
+Does it work with a blank string? Yes! Does it work with a backslash
+
+107
+00:06:59,533 --> 00:07:03,533
+0, the null character? Yes! Does it work with a mix of characters?
+
+108
+00:07:03,533 --> 00:07:07,533
+Yes! "Please enter a word without repeating letters". Does it work with just six
+
+109
+00:07:07,533 --> 00:07:10,233
+random letters? Yes!
+
+110
+00:07:10,233 --> 00:07:14,233
+Good! So, you see what I've done there! I've commented out the check of the isogram, to
+
+111
+00:07:14,233 --> 00:07:18,233
+make sure that IsLowercase works on it's own. And it's important that
+
+112
+00:07:18,233 --> 00:07:22,233
+all of these methods actually work on there. And I'm not going to go through in detail but I want to get
+
+113
+00:07:22,233 --> 00:07:26,233
+the point across, that none of these should depend on the other one having been executed
+
+114
+00:07:26,233 --> 00:07:30,233
+above, and we should always be able to change the order of if checks
+
+115
+00:07:30,233 --> 00:07:34,233
+like this. For example, when doing performance profiling, we might find the thing that happens
+
+116
+00:07:34,233 --> 00:07:38,233
+most often should be put at the top, to save the rest of the checks being done.
+
+117
+00:07:38,233 --> 00:07:42,233
+OK, so that's implicit dependencies, we want to avoid them. The second thing about
+
+118
+00:07:42,233 --> 00:07:46,233
+this, which is implicitly happening which is not
+
+119
+00:07:46,233 --> 00:07:50,233
+totally clear unless you think about it, but I'm comfortable with it, is that it's changing the feedback you
+
+120
+00:07:50,233 --> 00:07:54,233
+give to the user. It's changing the way in which we guide the user
+
+121
+00:07:54,233 --> 00:07:58,233
+towards putting the right thing in. What's wrong with that? Well, it has repeating letters but it's
+
+122
+00:07:58,233 --> 00:08:02,233
+also too short. If I wrote "aad", then it's
+
+123
+00:08:02,233 --> 00:08:06,233
+also repeating letter, but how about "And"? Too, short! Yeah,
+
+124
+00:08:06,233 --> 00:08:10,233
+a n d all lowercase. It's kind of a design decision, but I only want
+
+125
+00:08:10,233 --> 00:08:14,233
+to give them one piece of guiding information at a time. In this case, this is absolutely fine, it
+
+126
+00:08:14,233 --> 00:08:18,233
+very quickly guides them toward entering something that we want, so we're pretty much there
+
+127
+00:08:18,233 --> 00:08:22,233
+with this game. So, congratulations if you got this one done, and I'll see you soon!
+
+128
+00:08:22,233 --> 00:08:23,266
+
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section2/BC36 Design a Helper Function.srt

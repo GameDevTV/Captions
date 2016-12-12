@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT65 How to Use Blueprint Variables.srt
 ﻿WEBVTT
 
 1
@@ -612,3 +613,618 @@ color. and that is going to be the subject of the next video. So
 00:10:04.466 --> 00:10:08.099
 well done. save everything up. commit your work. and I'll see you in the next one!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+So welcome to How to
+
+2
+00:00:04,000 --> 00:00:08,000
+Use Blueprint Variables. The first thing I want to point out is that I have now
+
+3
+00:00:08,000 --> 00:00:12,000
+upgraded to 4.12.5, so it won't effect this
+
+4
+00:00:12,000 --> 00:00:16,000
+video I don't think, but you might want to upgrade to that fairly shortly or higher.
+
+5
+00:00:16,000 --> 00:00:20,000
+So what are we going to do in this video? We are going to aim to change the color of this
+
+6
+00:00:20,000 --> 00:00:24,000
+aim point, or at least we're going to get setup so that the aim point can be either red,
+
+7
+00:00:24,000 --> 00:00:28,000
+amber, or green. I know it's blue there but that's what we're going to do. And to
+
+8
+00:00:28,000 --> 00:00:32,000
+do that we're going to use a blueprint variable that we're going to define here, a reference,
+
+9
+00:00:32,000 --> 00:00:36,000
+and we're going to look at the whole architecture and how we find what state we should
+
+10
+00:00:36,000 --> 00:00:40,000
+be in, based on the TankAimingComponent. So let's see how that all hangs together now!
+
+11
+00:00:40,000 --> 00:00:40,466
+
+
+12
+00:00:40,466 --> 00:00:44,466
+So we're back to that age old question, what's least fun about this game
+
+13
+00:00:44,466 --> 00:00:48,466
+right now? So I'm just going to turn my controller on and have a look!  Well I think that the thing that
+
+14
+00:00:48,466 --> 00:00:52,466
+I don't like the most is, I don't know when I can fire. I'm mashing the fire button,
+
+15
+00:00:52,466 --> 00:00:56,466
+hoping that I'm going to be able to fire. I want some sort of affordance or indication
+
+16
+00:00:56,466 --> 00:01:00,466
+that it is possible to fire right now, and that actually brings us
+
+17
+00:01:00,466 --> 00:01:04,466
+nicely, in our iterative loop, back to User Interface. We've been working on player
+
+18
+00:01:04,466 --> 00:01:08,466
+2. That's kind of working, there's more to do. But let's go and get some
+
+19
+00:01:08,466 --> 00:01:12,466
+stuff done on the User Interface. What I want to do is to change the crosshair
+
+20
+00:01:12,466 --> 00:01:16,466
+in the middle of the screen here, I want to change its color. If we are
+
+21
+00:01:16,466 --> 00:01:20,466
+locked, i.e. the barrel is not moving, I want it to be green. If we're locked and
+
+22
+00:01:20,466 --> 00:01:24,466
+we're reloaded I want it to be green. If the barrel
+
+23
+00:01:24,466 --> 00:01:28,466
+is currently moving like so, then we're aiming, I want it to be
+
+24
+00:01:28,466 --> 00:01:32,466
+amber. We can fire but it's not necessarily going to go where we want, and if we
+
+25
+00:01:32,466 --> 00:01:36,466
+haven't reloaded yet I want it to be red. So it would start off red, as soon as the
+
+26
+00:01:36,466 --> 00:01:40,466
+tank's ready to go it would go green, and as soon as we move the barrel it will go amber, until
+
+27
+00:01:40,466 --> 00:01:44,466
+we line up again and then it would go green. Alright, so that I think would give a very simple
+
+28
+00:01:44,466 --> 00:01:48,466
+traffic light system. How are we going to do it though? How is our crosshair going to get its
+
+29
+00:01:48,466 --> 00:01:52,466
+color? Well let's recap the architecture. We have a Player UI Widget.
+
+30
+00:01:52,466 --> 00:01:56,466
+Remember that puppy? There he is, the Player UI Widget, and it's got this little
+
+31
+00:01:56,466 --> 00:02:00,466
+dot in the middle of it here, and that's the thing we want to change the color of. That was
+
+32
+00:02:00,466 --> 00:02:04,466
+created by the Player Controller, do you remember that? If we look back at the
+
+33
+00:02:04,466 --> 00:02:08,466
+Player Controller blueprint, which is under the Tank, it
+
+34
+00:02:08,466 --> 00:02:12,466
+created this UI Widget in its Event Graph in the Begin
+
+35
+00:02:12,466 --> 00:02:16,466
+Play. The Player Controller controls a tank, we know that
+
+36
+00:02:16,466 --> 00:02:20,466
+right. The Player Controller controls a given tank. In fact, we've even on the Player Controller got
+
+37
+00:02:20,466 --> 00:02:24,466
+ourselves a GetControlledTank() method, it's just not currently
+
+38
+00:02:24,466 --> 00:02:28,466
+available to Blueprint. So while we're here, let's sort that out. This
+
+39
+00:02:28,466 --> 00:02:32,466
+is a UFUNCTION, and we want to make this available
+
+40
+00:02:32,466 --> 00:02:36,466
+to Blueprint. So it's going to be (Blueprint
+
+41
+00:02:36,466 --> 00:02:40,466
+Callable, and it's going to have a Category
+
+42
+00:02:40,466 --> 00:02:44,466
+of setup
+
+43
+00:02:44,466 --> 00:02:48,466
+I would say. Always a good choice if we're not sure now! If it's going to be
+
+44
+00:02:48,466 --> 00:02:52,466
+BlueprintCallable, then a blueprint is a subclass of this C++
+
+45
+00:02:52,466 --> 00:02:56,466
+class, so it can't be in the private section anymore, it's going to need to be in a protected
+
+46
+00:02:56,466 --> 00:03:00,466
+section so that subclasses can access this.
+
+47
+00:03:00,466 --> 00:03:04,466
+OK, so that's a simple code change I've made there to the TankPlayerController.h.
+
+48
+00:03:04,466 --> 00:03:08,466
+Just made it BlueprintCallable and made it protected. There are the things
+
+49
+00:03:08,466 --> 00:03:12,466
+I've changed. So I'll Compile the code, while continuing the discussion on the slide.
+
+50
+00:03:12,466 --> 00:03:16,466
+So the Player Controller controls a tank, and now once that
+
+51
+00:03:16,466 --> 00:03:20,466
+is finished, in Blueprint we will be able to get the ControlledTank. That will be a method
+
+52
+00:03:20,466 --> 00:03:24,466
+we'll actually be able to access from Blueprint. I just heard the compile succeed, there you go!
+
+53
+00:03:24,466 --> 00:03:28,466
+The Tank has an Aiming component on it, we know that by now.
+
+54
+00:03:28,466 --> 00:03:32,466
+Now, the Player UI Widget is going to want to talk
+
+55
+00:03:32,466 --> 00:03:36,466
+to that AimingComponent. It's going to want to know what state the AimingComponent is. We're going to do some work on the
+
+56
+00:03:36,466 --> 00:03:40,466
+AimingComponent, actually after this video, and one of the three things we're going to do is
+
+57
+00:03:40,466 --> 00:03:44,466
+give it an Enum state, an enumerator, which we used in the first section of this course,
+
+58
+00:03:44,466 --> 00:03:48,466
+in the Bull Cow section. And that is going to be one of three states. It's either going to be
+
+59
+00:03:48,466 --> 00:03:52,466
+Locked, i.e. lined up and green. Aiming i.e. the barrel's moving
+
+60
+00:03:52,466 --> 00:03:56,466
+or reloading, in which case it's red then you can't fire.
+
+61
+00:03:56,466 --> 00:04:00,466
+So that state is going to be in the AimingComponent, but the Player UI Widget
+
+62
+00:04:00,466 --> 00:04:04,466
+wants to know that state, and the AimingComponent is a little bit distant from the UI Widget.
+
+63
+00:04:04,466 --> 00:04:08,466
+So what we're going to do is setup a blueprint variable in the UI Widget. Let's see how that would work!
+
+64
+00:04:08,466 --> 00:04:12,466
+We're going to come over... Let's do it now! We'll come over here to the
+
+65
+00:04:12,466 --> 00:04:16,466
+UI Widget, go to the graph of the Player UI blueprint, add
+
+66
+00:04:16,466 --> 00:04:20,466
+yourself a variable, call it, I don't know, let's say BP
+
+67
+00:04:20,466 --> 00:04:24,466
+Aiming Comp Reference
+
+68
+00:04:24,466 --> 00:04:28,466
+quite explicit, and then, the type of this variable on
+
+69
+00:04:28,466 --> 00:04:32,466
+the blueprint is going to be a very specific type. It is actually going to be a Tank Aiming Component
+
+70
+00:04:32,466 --> 00:04:36,466
+type. OK and that's a BP Aiming Comp. Reference
+
+71
+00:04:36,466 --> 00:04:40,466
+type there. So we'll use that later. So that's what I mean by a
+
+72
+00:04:40,466 --> 00:04:44,466
+blueprint variable. Let's just Compile that, make sure everything's happy. And that's what this
+
+73
+00:04:44,466 --> 00:04:48,466
+blue box here is. Now the blueprint variable, when we set it up, it's
+
+74
+00:04:48,466 --> 00:04:52,466
+going to point to the AimingComponent of the tank in
+
+75
+00:04:52,466 --> 00:04:56,466
+question, i.e. the Player's Controlled Tank. And then,
+
+76
+00:04:56,466 --> 00:05:00,466
+once that blueprint variable points to this AimingComponent, the Player UI Widget will have
+
+77
+00:05:00,466 --> 00:05:04,466
+the bridge by which it can check the state of the AimingComponent. So looking at this diagram,
+
+78
+00:05:04,466 --> 00:05:08,466
+especially if I go back a stage, it's pretty obvious where we need to do this hookup
+
+79
+00:05:08,466 --> 00:05:12,466
+in the Player Controller right, because it is the connection between the UI Widget and the
+
+80
+00:05:12,466 --> 00:05:16,466
+Tank. So we're going to be focusing inside the Player Controller when we do this. So let's dive into
+
+81
+00:05:16,466 --> 00:05:20,466
+the PlayerController and think about how we're going to do it.
+
+82
+00:05:20,466 --> 00:05:24,466
+First, let's get the reference. We're talking about references, so
+
+83
+00:05:24,466 --> 00:05:28,466
+inside the TankPlayerController we already have this reference here to create Player
+
+84
+00:05:28,466 --> 00:05:32,466
+UI Blueprint Widget. Now provided that, in your Player UI Blueprint, you
+
+85
+00:05:32,466 --> 00:05:36,466
+have already made this variable and it is of type TankAimingComponent
+
+86
+00:05:36,466 --> 00:05:40,466
+and this blueprint is saved and compiled, then in the TankPlayerController,
+
+87
+00:05:40,466 --> 00:05:44,466
+when you come off the Create Player UI Blueprint reference
+
+88
+00:05:44,466 --> 00:05:48,466
+you should be able to search for aiming, and you'll see this Set Blueprint
+
+89
+00:05:48,466 --> 00:05:52,466
+Aiming Component Reference. OK so in
+
+90
+00:05:52,466 --> 00:05:56,466
+terms of our diagram, what we're doing here is we are telling it what
+
+91
+00:05:56,466 --> 00:06:00,466
+this blueprint, this link here, this curved arrow. Alright, so
+
+92
+00:06:00,466 --> 00:06:04,466
+where are we going to get the Blueprint Aiming Component Reference from? Well hopefully now
+
+93
+00:06:04,466 --> 00:06:08,466
+we have this Get Controlled Tank method. There you go!
+
+94
+00:06:08,466 --> 00:06:12,466
+Get Controlled Tank is available here. Now why is it available here? Because we're in
+
+95
+00:06:12,466 --> 00:06:16,466
+a Tank Player Controller blueprint, who's parent class is the TankPlayerController,
+
+96
+00:06:16,466 --> 00:06:20,466
+and provided that you added the code I've got highlighted in the TankPlayeController header file,
+
+97
+00:06:20,466 --> 00:06:24,466
+then this BlueprintCallable method will now be available. As long as it's protected
+
+98
+00:06:24,466 --> 00:06:28,466
+and BlueprintCallable, you can call GetControlledTank.
+
+99
+00:06:28,466 --> 00:06:32,466
+So there it is, there is GetControlledTank working on itself, working on this Tank Player Controller, saying
+
+100
+00:06:32,466 --> 00:06:36,466
+what tank am I controlling? Now from
+
+101
+00:06:36,466 --> 00:06:40,466
+the tank, we need to get the AimingComponent. So are we able to do
+
+102
+00:06:40,466 --> 00:06:44,466
+that at the moment? Well no we're not able to get the AimingComponent off this tank. Why not?
+
+103
+00:06:44,466 --> 00:06:48,466
+Well let's go and have a look at the tank and see how exposed the
+
+104
+00:06:48,466 --> 00:06:52,466
+aiming component is. So the Tank.h. You see for the
+
+105
+00:06:52,466 --> 00:06:56,466
+MovementComponent we've made it (BlueprintReadOnly) but for the AimingComponent we haven't done
+
+106
+00:06:56,466 --> 00:07:00,466
+that yet. OK so in your Tank.h,
+
+107
+00:07:00,466 --> 00:07:04,466
+in your protected section, if you make your AimingComponent BlueprintReadOnly and recompile...
+
+108
+00:07:04,466 --> 00:07:08,466
+That's the code we're adding, what I've got
+
+109
+00:07:08,466 --> 00:07:12,466
+highlighted there in blue. Then, of course, from
+
+110
+00:07:12,466 --> 00:07:16,466
+anywhere in a subclass we should be able to get hold of
+
+111
+00:07:16,466 --> 00:07:20,466
+the... Well in the class itself or a subclass we should be able to get hold of the
+
+112
+00:07:20,466 --> 00:07:24,466
+TankAimingComponent. Now, the context we're in, when we drag off here, is actually the tank,
+
+113
+00:07:24,466 --> 00:07:28,466
+so it's the tank itself. So we should have no trouble now
+
+114
+00:07:28,466 --> 00:07:32,466
+getting TankAimingComponent. So we've gone from the tank to it's AimingComponent,
+
+115
+00:07:32,466 --> 00:07:36,466
+and then, we pass that reference into the blueprint, Aiming Component
+
+116
+00:07:36,466 --> 00:07:40,466
+Reference. Does that make sense? Hopefully it does. Let's recap where we are in the
+
+117
+00:07:40,466 --> 00:07:44,466
+diagram. We've got to the Tank, we've got the Aiming Component,
+
+118
+00:07:44,466 --> 00:07:48,466
+so that is what's coming out here, and we're setting this Blueprint
+
+119
+00:07:48,466 --> 00:07:52,466
+Variable here, up here. I'm just going to move things around a little bit, so that the execution
+
+120
+00:07:52,466 --> 00:07:56,466
+flow works a bit better, like so.
+
+121
+00:07:56,466 --> 00:08:00,466
+And I'm taking the execution flow out of the viewport. So we create this blueprint widget, we
+
+122
+00:08:00,466 --> 00:08:04,466
+add it to the viewport, and then, we set the Blueprint Variable over on it. Pretty cool!
+
+123
+00:08:04,466 --> 00:08:08,466
+Let's Compile and Save that! Now, over in the Player
+
+124
+00:08:08,466 --> 00:08:12,466
+UI Blueprint, how do we do this? Well click on the
+
+125
+00:08:12,466 --> 00:08:16,466
+Designer tab. Let's go and look at this little dot. I'm going to make it a bit bigger, my
+
+126
+00:08:16,466 --> 00:08:20,466
+little crosshair. I'm going to make it, say 7, or even more. I'm going to make it 10 by 10
+
+127
+00:08:20,466 --> 00:08:24,466
+for now, so you can really see it. It's larger now, 10 by 10.
+
+128
+00:08:24,466 --> 00:08:28,466
+So there it is! Now, here's the color. You could just change the color here, but of course we
+
+129
+00:08:28,466 --> 00:08:32,466
+want to do it programmatically. So it's all very well at being pink. What we do not
+
+130
+00:08:32,466 --> 00:08:36,466
+want to do is change this color in the Event Graph, in some strange
+
+131
+00:08:36,466 --> 00:08:40,466
+way, by like grabbing this AimPoint here and then
+
+132
+00:08:40,466 --> 00:08:44,466
+getting it and trying to set a color. Don't do that, because the only way it will
+
+133
+00:08:44,466 --> 00:08:48,466
+work, from an execution flow point of view, is every tick and that's pretty
+
+134
+00:08:48,466 --> 00:08:52,466
+horrible. We want this to happen only when it needs to happen, so forget doing that. The other
+
+135
+00:08:52,466 --> 00:08:56,466
+problem with doing it this way is that you wouldn't be able to see here
+
+136
+00:08:56,466 --> 00:09:00,466
+that that color is being changed in the Event Graph, and you'd have to notice that. If we use this
+
+137
+00:09:00,466 --> 00:09:04,466
+bind functionality, so we're now inside the Player UI Blueprint in the Designer, under the
+
+138
+00:09:04,466 --> 00:09:08,466
+Appearance section, next to Color Opacity you can see Create Binding.
+
+139
+00:09:08,466 --> 00:09:12,466
+Now what that's going to do is it's going to create this binding. It's called Get
+
+140
+00:09:12,466 --> 00:09:16,466
+Aim Point Color and Opacity. Now I don't like it being called underscore 0, so I'm going to take that off
+
+141
+00:09:16,466 --> 00:09:20,466
+over here in the Functions list. But now this Player UI
+
+142
+00:09:20,466 --> 00:09:24,466
+has a function Event Graph, and what this is going to do is allow us to set
+
+143
+00:09:24,466 --> 00:09:28,466
+programmatically the color. Let's try setting it to blue! So I've click this little
+
+144
+00:09:28,466 --> 00:09:32,466
+blue here, and I'm just saying, OK if we were to look here
+
+145
+00:09:32,466 --> 00:09:36,466
+now at the color and opacity, forget the fact that it's pink. It doesn't
+
+146
+00:09:36,466 --> 00:09:40,466
+actually matter what color that is now. It's bound to this method here. If I click on
+
+147
+00:09:40,466 --> 00:09:44,466
+the magnifying glass it takes me there. If I compile and play, you can
+
+148
+00:09:44,466 --> 00:09:48,466
+see that the color has changed to blue, and that indicates to
+
+149
+00:09:48,466 --> 00:09:52,466
+everybody concerned that the color is actually not set here in the Designer
+
+150
+00:09:52,466 --> 00:09:56,466
+anymore but it is set according to this bound function.
+
+151
+00:09:56,466 --> 00:10:00,466
+So now we have to talk about how we're actually going to set that
+
+152
+00:10:00,466 --> 00:10:04,466
+color, and that is going to be the subject of the next video. So
+
+153
+00:10:04,466 --> 00:10:08,099
+well done, save everything up, commit your work, and I'll see you in the next one!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT65 How to Use Blueprint Variables.srt

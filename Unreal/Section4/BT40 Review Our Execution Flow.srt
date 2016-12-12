@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT40 Review Our Execution Flow.srt
 ﻿WEBVTT
 
 1
@@ -816,3 +817,822 @@ want you to discover what's going on with this inability to solve the aim in
 00:13:31.966 --> 00:13:35.566
 certain situations. So I'll see you soon!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+So welcome to
+
+2
+00:00:04,000 --> 00:00:08,000
+Review Our Execution Flow! What we're going to do in this video is take a look at the diagram of the whole
+
+3
+00:00:08,000 --> 00:00:12,000
+elevation execution flow, so that we can just get the big picture. I feel like
+
+4
+00:00:12,000 --> 00:00:16,000
+we're really stuck in the details. We need to zoom out a little bit and make sure we understand what's
+
+5
+00:00:16,000 --> 00:00:20,000
+calling what and what eventually is leading to the request for the barrel to
+
+6
+00:00:20,000 --> 00:00:23,100
+elevate or go downwards. So, let's take a look at that!
+
+7
+00:00:23,100 --> 00:00:27,100
+OK guys, before we go any further than this, let's just take a
+
+8
+00:00:27,100 --> 00:00:31,100
+recap of how this barrel is elevating, because there's quite a long call stack. So,
+
+9
+00:00:31,100 --> 00:00:35,100
+the Player or AI Controller makes a call to a method called AimAt,
+
+10
+00:00:35,100 --> 00:00:39,100
+passing in a HitLocation which is a World Space Location right, and it sends that to the
+
+11
+00:00:39,100 --> 00:00:43,100
+Tank. So it says, Tank aim over here in the world. The Tank goes
+
+12
+00:00:43,100 --> 00:00:47,100
+fine, I'll use my knowledge of the LaunchSpeed, of the projectile, to then
+
+13
+00:00:47,100 --> 00:00:51,100
+pass that method on to my TankAimingComponent. I'm not going to deal with it myself, I'm going to delegate it down
+
+14
+00:00:51,100 --> 00:00:55,100
+to the TankAimingComponent, but given my LaunchSpeed. The Tank
+
+15
+00:00:55,100 --> 00:00:59,100
+AimingComponent then calls Elevate, with some RelativeSpeed. Now,
+
+16
+00:00:59,100 --> 00:01:03,100
+I know that right now the TankAimingComponent's method is... Sorry!
+
+17
+00:01:03,100 --> 00:01:07,100
+The Barrel's method is Elevate, and let's
+
+18
+00:01:07,100 --> 00:01:11,100
+just take a look at the signature. We have DegreesPerSecond. That's actually wrong,
+
+19
+00:01:11,100 --> 00:01:15,100
+so I will change that. I'll just change it right
+
+20
+00:01:15,100 --> 00:01:19,100
+now, actually. What it should be is relative speed and let's see why. So,
+
+21
+00:01:19,100 --> 00:01:23,100
+if we look in the TankBarrel implementation
+
+22
+00:01:23,100 --> 00:01:27,100
+now...If we look at, Well, you can't really tell from the implementation
+
+23
+00:01:27,100 --> 00:01:31,100
+yet, but the point is, you can tell from the header
+
+24
+00:01:31,100 --> 00:01:35,100
+file, because the TankBarrel has a concept of a
+
+25
+00:01:35,100 --> 00:01:39,100
+maximum number of degrees per second. So, you could pass in a
+
+26
+00:01:39,100 --> 00:01:43,100
+number of degrees per second, that would be OK, and you could clamp it to this
+
+27
+00:01:43,100 --> 00:01:47,100
+maximum. Or, in my mind, it's more meaningful to just pass in a relative
+
+28
+00:01:47,100 --> 00:01:51,100
+speed, where -1... In fact, let's comment this as we go!
+
+29
+00:01:51,100 --> 00:01:55,100
+So, "// -1 is max
+
+30
+00:01:55,100 --> 00:01:59,100
+downward" movement, and
+
+31
+00:01:59,100 --> 00:02:03,100
+"and +1 is max up movement".
+
+32
+00:02:03,100 --> 00:02:07,100
+OK, that's the idea! So that's what I mean by relative speed, it's between -1 and +1.
+
+33
+00:02:07,100 --> 00:02:11,100
+If we give it a value outside that range, it'll just treat 2, 3, 4, as 1,
+
+34
+00:02:11,100 --> 00:02:15,100
+it'll clamp it down. Alright, so that's what I want to do is call it
+
+35
+00:02:15,100 --> 00:02:19,100
+RelativeSpeed. OK, let's go back to the overview! So, the AimingComponent
+
+36
+00:02:19,100 --> 00:02:23,100
+calls the Barrel with a RelativeSpeed. The Barrel uses its knowledge of the maximum
+
+37
+00:02:23,100 --> 00:02:27,100
+number of degrees per second it can move at, it's maximum elevation in degrees,
+
+38
+00:02:27,100 --> 00:02:31,100
+I think we set it to 40, and the minimum elevation in degrees. Now remember
+
+39
+00:02:31,100 --> 00:02:35,100
+we set sensible defaults on those here in the C++,
+
+40
+00:02:35,100 --> 00:02:39,100
+and then, we also, if you recall, in the Tank blueprint made it
+
+41
+00:02:39,100 --> 00:02:43,100
+possible for the designer, at the Barrel here, to come in and tweak those values.
+
+42
+00:02:43,100 --> 00:02:47,100
+Fantastic! So, if I just go back to the slide, that's an overview.
+
+43
+00:02:47,100 --> 00:02:51,100
+The other thing to note is that the Tank AI, sorry
+
+44
+00:02:51,100 --> 00:02:55,100
+Player or AIController, they both tick. They both have a Tick
+
+45
+00:02:55,100 --> 00:02:59,100
+method, and what they do is, they just update the aim every frame.
+
+46
+00:02:59,100 --> 00:03:03,100
+The Tank actually doesn't need a Tick, and we'll go through and take a look at that in a moment.
+
+47
+00:03:03,100 --> 00:03:07,100
+And the TankAimingComponent does need a Tick. Now, you might say why
+
+48
+00:03:07,100 --> 00:03:11,100
+does the TankAimingComponent need a Tick, why couldn't it just tell the Barrel where to aim? Well,
+
+49
+00:03:11,100 --> 00:03:15,100
+think about the situation where an AI tank is aiming at me.
+
+50
+00:03:15,100 --> 00:03:19,100
+I'm the player, I'm sitting at the origin, for example I'm not moving, but the AI tank
+
+51
+00:03:19,100 --> 00:03:23,100
+is moving. And as that AI tank moves, it's HitLocation
+
+52
+00:03:23,100 --> 00:03:27,100
+value, up here, will not change, because my world space location is not
+
+53
+00:03:27,100 --> 00:03:31,100
+changing. But the Barrel and the Turret will need to move, as the
+
+54
+00:03:31,100 --> 00:03:35,100
+AI tank moves, in order to constantly adjust its aim to be able to hit me. The Tank,
+
+55
+00:03:35,100 --> 00:03:39,100
+it could be in a different position, it could be on a hill, etc. So, the TankAimingComponent
+
+56
+00:03:39,100 --> 00:03:43,100
+does need to tick, it does need to calculate things every frame,
+
+57
+00:03:43,100 --> 00:03:47,100
+alright, to re re-um instruct the Barrel and the Turret where to
+
+58
+00:03:47,100 --> 00:03:51,100
+move. So, let's go through and just make sure this is the case, before we do anything else, that the PlayerController ticks.
+
+59
+00:03:51,100 --> 00:03:55,100
+So let's go take a look at that code. And the TankPlayer
+
+60
+00:03:55,100 --> 00:03:59,100
+Controller.h, does it tick? There is a tick?
+
+61
+00:03:59,100 --> 00:04:03,100
+declaration there, but that doesn't mean that it's actually ticking. And if we look in the
+
+62
+00:04:03,100 --> 00:04:07,100
+method, here you go, Tick, and every Tick it AimsTowards the Crosshair.
+
+63
+00:04:07,100 --> 00:04:11,100
+Fine, so that's what it does! Let's move down the stack to the Tank! Well,
+
+64
+00:04:11,100 --> 00:04:15,100
+what does AimTowardsCrosshair do? It does some things and then
+
+65
+00:04:15,100 --> 00:04:19,100
+Gets the ControlledTank and says, hey tank, aim at this! So, we go to the Tank!
+
+66
+00:04:19,100 --> 00:04:23,100
+Now, does the Tank have a Tick? Well,
+
+67
+00:04:23,100 --> 00:04:27,100
+the Tank Tick is declared here in the private section of its header file, but
+
+68
+00:04:27,100 --> 00:04:31,100
+if we actually go to the Tank implementation
+
+69
+00:04:31,100 --> 00:04:35,100
+and we look at the Tick, you'll find that it's empty. Here we go! So, let's remove Tick
+
+70
+00:04:35,100 --> 00:04:39,100
+from the Tank. Let's do that by removing the Tick() method from this Tank.cpp.
+
+71
+00:04:39,100 --> 00:04:43,100
+In the constructor of the tank, we can explicitly say
+
+72
+00:04:43,100 --> 00:04:47,100
+don't tick. We can say, CanEverTick = false.
+
+73
+00:04:47,100 --> 00:04:51,100
+It says you can improve efficiency if you don't need it, so let's
+
+74
+00:04:51,100 --> 00:04:55,100
+stop the tank ticking, and then, in the Tank.h file, we don't even need to declare
+
+75
+00:04:55,100 --> 00:04:59,100
+this Tick method. Now, because I've made these changes, let's go ahead
+
+76
+00:04:59,100 --> 00:05:03,100
+and compile the code and make sure that we haven't busted it.
+
+77
+00:05:03,100 --> 00:05:07,100
+Just give it a second to compile. And then, we will continue down this stack,
+
+78
+00:05:07,100 --> 00:05:11,100
+looking at the TankAimingComponent, making sure that does have a Tick structure and then just double checking
+
+79
+00:05:11,100 --> 00:05:15,100
+the Barrel doesn't. And that way we're Ooh, I've got a compile
+
+80
+00:05:15,100 --> 00:05:19,100
+failure! " 'DegreesPerSecond': undeclared identifier". So, I love
+
+81
+00:05:19,100 --> 00:05:23,100
+C++, it's my favorite language! And one of the reasons it's my favorite
+
+82
+00:05:23,100 --> 00:05:27,100
+language is, because you have to do things like this. You have to go and change things in two places.
+
+83
+00:05:27,100 --> 00:05:31,100
+And where is this other place? So, somewhere I'm calling
+
+84
+00:05:31,100 --> 00:05:35,100
+Elevate. Well, I don't need to guess where that somewhere is, I'll be calling it from the TankAimingComponent,
+
+85
+00:05:35,100 --> 00:05:39,100
+won't I, because we know our architecture. So, in the TankAimingComponent,
+
+86
+00:05:39,100 --> 00:05:43,100
+where are I calling that? OK I've given up, I'm going to read the error message.
+
+87
+00:05:43,100 --> 00:05:47,100
+It's in TankBarrel, line 11. There we go!
+
+88
+00:05:47,100 --> 00:05:51,100
+And it's here!
+
+89
+00:05:51,100 --> 00:05:55,100
+This DegreesPerSecond, it's just our log entry. Simples! OK,
+
+90
+00:05:55,100 --> 00:05:59,100
+let's go ahead and compile and see how we're getting on!
+
+91
+00:05:59,100 --> 00:06:03,100
+So, as I was saying, we are now just making sure that the changes we made to the AI
+
+92
+00:06:03,100 --> 00:06:07,100
+Controller and the Tank are actually working and that the game still works
+
+93
+00:06:07,100 --> 00:06:11,100
+as well as it did before, without that tank ticking. Seems to, it still keeps
+
+94
+00:06:11,100 --> 00:06:15,100
+calling out the BarrelElevate. Now, how do we know, by the way,  that it's
+
+95
+00:06:15,100 --> 00:06:19,100
+continually calling that? Is it continually calling that? Well, we'll
+
+96
+00:06:19,100 --> 00:06:23,100
+look at that in a moment, possibly in the next video. There is actually a bug with one of the methods in here.
+
+97
+00:06:23,100 --> 00:06:27,100
+But the way to find if something is actually being called
+
+98
+00:06:27,100 --> 00:06:31,100
+is, it's very useful to know about this. You go auto and then you say...
+
+99
+00:06:31,100 --> 00:06:35,100
+You go Get the World(), and then you go get from the world.
+
+100
+00:06:35,100 --> 00:06:39,100
+There's a time. Now, autocomplete on here, of course, is not
+
+101
+00:06:39,100 --> 00:06:43,100
+behaving for me. I think it's GetTime
+
+102
+00:06:43,100 --> 00:06:47,100
+but I'm not sure, so I'm just going to check my stash here. I've got a note in
+
+103
+00:06:47,100 --> 00:06:51,100
+here, and if I can find it...
+
+104
+00:06:51,100 --> 00:06:55,100
+GetTimeSeconds, it is! OK, I'm not sure
+
+105
+00:06:55,100 --> 00:06:59,100
+why autocomplete's not behaving. So, if we GetTimeSeconds from the world, now we
+
+106
+00:06:59,100 --> 00:07:03,100
+have a floating point. Ah, I need to give it a name, that's my problem!
+
+107
+00:07:03,100 --> 00:07:07,100
+Time = GetWorld()->GetTimeSeconds(); perfect! Now, Time is a float,
+
+108
+00:07:07,100 --> 00:07:11,100
+so it's very easy for me to just come in here and go %f colon,
+
+109
+00:07:11,100 --> 00:07:15,100
+and then put in Time as the first
+
+110
+00:07:15,100 --> 00:07:19,100
+formatting parameter. So, this %f matches with the Time, and this one
+
+111
+00:07:19,100 --> 00:07:23,100
+matches with the RelativeSpeed. Now when I play the game, my logs will be
+
+112
+00:07:23,100 --> 00:07:27,100
+beautifully endorsed or annotated or decorated, I think is the word I'm
+
+113
+00:07:27,100 --> 00:07:31,100
+looking for, certainly not endorsed, with a prefix which tells me the time
+
+114
+00:07:31,100 --> 00:07:35,100
+which that log entry was made. And that's much more encouraging cause we can see now that the
+
+115
+00:07:35,100 --> 00:07:39,100
+logs are actually happening. Alright, so the code's still ticking! Let's go back to our
+
+116
+00:07:39,100 --> 00:07:43,100
+overview. Does the TankAimingComponent have a Tick?
+
+117
+00:07:43,100 --> 00:07:47,100
+Well, let's take a look!
+
+118
+00:07:47,100 --> 00:07:51,100
+It's saying here that CanEverTick is true in the Tank
+
+119
+00:07:51,100 --> 00:07:55,100
+AimingComponent, but we don't have a Tick
+
+120
+00:07:55,100 --> 00:07:59,100
+method defined. And actually, we need to challenge the question, do we really
+
+121
+00:07:59,100 --> 00:08:03,100
+need this TankAimingComponent to Tick? Well, we haven't written any code
+
+122
+00:08:03,100 --> 00:08:07,100
+in the Tick yet. We've still got it as true here. We're kind of undecided, I'm telling you in
+
+123
+00:08:07,100 --> 00:08:11,100
+in architecture it does need to tick but maybe it doesn't. What we need to do
+
+124
+00:08:11,100 --> 00:08:15,100
+is to really find out whether it needs to tick. And looking at the length of this video, we're
+
+125
+00:08:15,100 --> 00:08:19,100
+going to do that in the next video, as we go through and discover how to squash
+
+126
+00:08:19,100 --> 00:08:23,100
+a bug in the Unreal Engine and probably report it to EPIC Games as well,
+
+127
+00:08:23,100 --> 00:08:27,100
+because it's a nasty one. But for the moment, if you have something like a question
+
+128
+00:08:27,100 --> 00:08:31,100
+to yourself that you know, should this tick, then just go "// TODO should
+
+129
+00:08:31,100 --> 00:08:35,100
+this really tick?" Alright,
+
+130
+00:08:35,100 --> 00:08:39,100
+and then what I will do is I will pop on the slides even for you that
+
+131
+00:08:39,100 --> 00:08:43,100
+tick question mark, so we can just raise that question and move on.
+
+132
+00:08:43,100 --> 00:08:47,100
+Alright, the final thing is at the bottom of the stack, which is the TankBarrel. In the TankBarrel.h
+
+133
+00:08:47,100 --> 00:08:51,100
+there is not declaration of Tick. In the TankBarrel.cpp
+
+134
+00:08:51,100 --> 00:08:55,100
+there's no mention of Tick. And you need to ask yourself the question,
+
+135
+00:08:55,100 --> 00:08:59,966
+is the TankBarrel now ticking or not, if we don't explicitly disable that Tick?
+
+136
+00:08:59,966 --> 00:09:03,966
+So, in the case of this TankBarrel then, if we look, it inherits from Static
+
+137
+00:09:03,966 --> 00:09:07,966
+MeshComponent. You'd find that if you did put a Tick function in and put a log that
+
+138
+00:09:07,966 --> 00:09:11,966
+it would actually print, which means that the StaticMeshComponent may well be ticking
+
+139
+00:09:11,966 --> 00:09:15,966
+above. But look, just leave these things, when you create a new class at default. If there's no reason
+
+140
+00:09:15,966 --> 00:09:19,966
+to turn off the ticking or to turn on the ticking, just leave it. There's no point in putting extra
+
+141
+00:09:19,966 --> 00:09:23,966
+code in. If the profiler, performance profiler later told us that we are
+
+142
+00:09:23,966 --> 00:09:27,966
+wasting a lot of time ticking here, very unlikely by the way, then we could do something
+
+143
+00:09:27,966 --> 00:09:31,966
+about it. So, I'm just going to leave the TankBarrel as is, keep it nice and simple.
+
+144
+00:09:31,966 --> 00:09:35,966
+OK, so that's an overview as to the call stack that's
+
+145
+00:09:35,966 --> 00:09:39,966
+occurring. So, what we need to do now is to actually get this
+
+146
+00:09:39,966 --> 00:09:43,966
+barrel moving. So let's just take a look, now that we've got these new
+
+147
+00:09:43,966 --> 00:09:47,966
+log entries and just see some slightly odd behavior. Look at this!
+
+148
+00:09:47,966 --> 00:09:51,966
+As I move the mouse around, if I leave it there,
+
+149
+00:09:51,966 --> 00:09:55,966
+watch! The logs are happening, the Elevate method's being called! But if I just move, ooh,
+
+150
+00:09:55,966 --> 00:09:59,966
+and there it's not! Now, you may think that's cause it can't
+
+151
+00:09:59,966 --> 00:10:03,966
+find a solution. So one reason it would not tick like this
+
+152
+00:10:03,966 --> 00:10:07,966
+is because there's no solution to the aiming solve.
+
+153
+00:10:07,966 --> 00:10:11,966
+So let's go to where we do the aiming here, and where it says AimAt,
+
+154
+00:10:11,966 --> 00:10:15,966
+we could say, OK there's an AimSolution. If we have a solution,
+
+155
+00:10:15,966 --> 00:10:19,966
+then move the BarrelTowards an (AimDirection),
+
+156
+00:10:19,966 --> 00:10:23,966
+which in turn calls this Elevate method. But if we
+
+157
+00:10:23,966 --> 00:10:27,966
+don't have a solution, let's just log something out here.
+
+158
+00:10:27,966 --> 00:10:31,966
+Let's use this new logging method.
+
+159
+00:10:31,966 --> 00:10:35,966
+
+
+160
+00:10:35,966 --> 00:10:39,966
+Let's log here. No solution found at this particular
+
+161
+00:10:39,966 --> 00:10:43,966
+time, No aim solve found").
+
+162
+00:10:43,966 --> 00:10:47,966
+OK, now I don't really like logging at two different levels of detail like this. If we're going to
+
+163
+00:10:47,966 --> 00:10:51,966
+log No aim solve found here, rather than logging in the TankBarrel
+
+164
+00:10:51,966 --> 00:10:55,966
+that the Elevate has been called... We know that Elevate's getting called. I'm going to move that
+
+165
+00:10:55,966 --> 00:10:59,966
+and do the logging at a consistent level, keep all our logs in one place. So,
+
+166
+00:10:59,966 --> 00:11:03,966
+if we have an AimSolution, then it would make
+
+167
+00:11:03,966 --> 00:11:07,966
+sense to log say here,
+
+168
+00:11:07,966 --> 00:11:11,966
+and then, I'm just going to say Aim solution
+
+169
+00:11:11,966 --> 00:11:15,966
+found") at a particular Time); OK, so I've moved all my logging just
+
+170
+00:11:15,966 --> 00:11:19,966
+inside by the AimComponent, to find out when we do and when we don't get an aim
+
+171
+00:11:19,966 --> 00:11:23,966
+solution. Let's take a look!
+
+172
+00:11:23,966 --> 00:11:27,966
+Oop, I didn't compile! That would help! So, let's just compile that up and then
+
+173
+00:11:27,966 --> 00:11:31,966
+we're going to just take a look and set ourselves up for, unfortunately, a bug in one
+
+174
+00:11:31,966 --> 00:11:35,966
+of these methods. Now partly it looks like my fault, but actually it isn't, we'll see when we get to it.
+
+175
+00:11:35,966 --> 00:11:39,966
+So, what's going on here? "No aim solve found". Why
+
+176
+00:11:39,966 --> 00:11:43,966
+can't it find an aim solve most of these frames? Why is it only finding a solve
+
+177
+00:11:43,966 --> 00:11:47,966
+one in a few frames? Very well, if I point at the sky, of course, it can't find a way of
+
+178
+00:11:47,966 --> 00:11:51,966
+hitting that, and if I point to that mountain in the distance, it's just too far away for
+
+179
+00:11:51,966 --> 00:11:55,966
+my current projectile velocity. But why, on the floor here, will it only
+
+180
+00:11:55,966 --> 00:11:59,966
+find a solve some of these frames? Well, that's
+
+181
+00:11:59,966 --> 00:12:03,966
+a very good question and one we'll address in the next video. So,
+
+182
+00:12:03,966 --> 00:12:07,966
+I'm not going to deal with that right now. What I'm going to do is something slightly different for this video. I'm going to close
+
+183
+00:12:07,966 --> 00:12:11,966
+down VisualStudio and Unreal for you. And then, I'm going to use my
+
+184
+00:12:11,966 --> 00:12:15,966
+code management tool here in SourceTree, just to show you what's changed in this video,
+
+185
+00:12:15,966 --> 00:12:19,966
+so that you can see the code changes I made, because I made a few code changes and
+
+186
+00:12:19,966 --> 00:12:23,966
+this will be really easy. So now you should be able to just step through the video, pausing if necessary,
+
+187
+00:12:23,966 --> 00:12:27,966
+and seeing exactly what I did. So in the Tank.cpp I
+
+188
+00:12:27,966 --> 00:12:31,966
+disabled the tick, the green is what I changed. I also just removed the
+
+189
+00:12:31,966 --> 00:12:35,966
+tick function from the Tank.cpp itself. In the Tank
+
+190
+00:12:35,966 --> 00:12:39,966
+AimingComponent we made ourself a note to question whether it should tick or not
+
+191
+00:12:39,966 --> 00:12:43,966
+and then we did that logging. And by the way, if you like
+
+192
+00:12:43,966 --> 00:12:47,966
+this, tell me either on Facebook or in our forum or in the Q & A, which doesn't really quite
+
+193
+00:12:47,966 --> 00:12:51,966
+fit for comments, but if you wish, put it there on Udemy. And just say whether you like me reviewing what we
+
+194
+00:12:51,966 --> 00:12:55,966
+did this way, because it's just a new though I had. In the .cpp
+
+195
+00:12:55,966 --> 00:12:59,966
+file, we just removed some logs and that
+
+196
+00:12:59,966 --> 00:13:03,966
+log there and made a variable name change. In the Tank header file, we
+
+197
+00:13:03,966 --> 00:13:07,966
+also removed the Tick, and in the TankBarrel, we
+
+198
+00:13:07,966 --> 00:13:11,966
+just changed the name of the parameter here
+
+199
+00:13:11,966 --> 00:13:15,966
+from DegreesPerSecond to RelativeSpeed. And
+
+200
+00:13:15,966 --> 00:13:19,966
+we also commented that -1 means max downward and +1
+
+201
+00:13:19,966 --> 00:13:23,966
+means max upward. We did all this in the context of this diagram,
+
+202
+00:13:23,966 --> 00:13:27,966
+which helped us understand what's going on. And in the next video we'll discover... OK I
+
+203
+00:13:27,966 --> 00:13:31,966
+want you to discover what's going on with this inability to solve the aim in
+
+204
+00:13:31,966 --> 00:13:35,566
+certain situations. So I'll see you soon!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT40 Review Our Execution Flow.srt

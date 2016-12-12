@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section8/BM13 Simple Touch Control System.srt
 ï»¿WEBVTT
 
 00:00:00.000 --> 00:00:08.349 align:middle line:90%
@@ -861,4 +862,868 @@ the challenges - if you didn't and you needed
 
 00:19:18.400 --> 00:19:23.400 align:middle line:90%
 some help no problem at all and I will see
+=======
+
+00:00:00,000 --> 00:00:08,349 align:middle line:90%
+Welcome back, in this video we are going to
+put together a simple touch control system,
+
+00:00:08,349 --> 00:00:12,799 align:middle line:90%
+really exciting stuff. It's going to be web
+and mobile compatible. We're going to start
+
+00:00:12,799 --> 00:00:17,460 align:middle line:90%
+by refactoring Ball.cs to include a public
+launch method that can be called from the
+
+00:00:17,460 --> 00:00:23,189 align:middle line:90%
+outside; we're going to write DragLaunch.cs
+component and add it to the ball, we're going
+
+00:00:23,189 --> 00:00:28,800 align:middle line:90%
+to wire up the user interface's panel that
+we just created and make events send messages
+
+00:00:28,800 --> 00:00:34,530 align:middle line:90%
+through to DragLaunch.cs which will in return
+launch the ball and then we'll test that the
+
+00:00:34,530 --> 00:00:36,360 align:middle line:84%
+whole thing works.
+
+00:00:36,360 --> 00:00:40,370 align:middle line:90%
+So the first thing that we want to do is to
+take a look at Ball.cs and I'm going to ask
+
+00:00:40,370 --> 00:00:46,039 align:middle line:90%
+you to do some refactoring. So Ball.cs, we
+were just getting going at this point right?
+
+00:00:46,039 --> 00:00:49,250 align:middle line:90%
+Clearly we're going to want to launch the
+ball more than once right? So having the actual
+
+00:00:49,250 --> 00:00:53,680 align:middle line:90%
+launch here happen inside the start section
+here is fine for testing but it's time to
+
+00:00:53,680 --> 00:01:00,340 align:middle line:90%
+refactor that out into a public launch method
+that takes in a launch velocity. We also at
+
+00:01:00,340 --> 00:01:06,340 align:middle line:90%
+launch want the ball to float in the air until
+we launch so we want to turn gravity off for
+
+00:01:06,340 --> 00:01:10,670 align:middle line:90%
+the ball until the launch and then turn it
+back on at launch;
+
+00:01:10,670 --> 00:01:14,000 align:middle line:90%
+and that's really about it. So here's your
+challenge for this video, I want you to do
+
+00:01:14,000 --> 00:01:21,280 align:middle line:90%
+the refactoring of Ball.cs. Separate the launch
+code into a public method, use the signature
+
+00:01:21,280 --> 00:01:29,520 align:middle line:90%
+launch (Vector3 velocity) for that; it should
+be public launch Vector3 velocity; as a hint,
+
+00:01:29,520 --> 00:01:33,540 align:middle line:90%
+rigidBody.useGravity = false, set that on
+start so the ball doesn't just fall out of
+
+00:01:33,540 --> 00:01:38,450 align:middle line:90%
+the sky; and then the moment that we do launch
+inside the launch method use rigidBody.useGravity
+
+00:01:38,450 --> 00:01:42,159 align:middle line:90%
+= true and then test that it all works by
+just calling it on the start method so this
+
+00:01:42,159 --> 00:01:47,350 align:middle line:90%
+is just a straight refactor. Ball.cs should
+still continue to work once you've done this
+
+00:01:47,350 --> 00:01:51,860 align:middle line:90%
+but crucially we will have a public method
+that will allow us to access this from the
+
+00:01:51,860 --> 00:01:52,460 align:middle line:84%
+outside.
+
+00:01:52,460 --> 00:02:03,640 align:middle line:90%
+So, go ahead and do that challenge now please.
+OK fantastic, welcome back. Let's get on with
+
+00:02:03,640 --> 00:02:08,569 align:middle line:90%
+the refactoring of our Ball.cs. So we want
+to take everything to do with launching the
+
+00:02:08,569 --> 00:02:11,690 align:middle line:90%
+ball i.e. the stuff that I've highlighted
+and put it in another method. So you right
+
+00:02:11,690 --> 00:02:16,319 align:middle line:90%
+click and say refactor extract method. You
+can use the cursor key to say where you want
+
+00:02:16,319 --> 00:02:21,620 align:middle line:90%
+to extract it, I'm going to put it here, and
+then I'm just going to call it launch. Fantastic,
+
+00:02:21,620 --> 00:02:25,470 align:middle line:90%
+we don't actually need an update message so
+let's just remove that.
+
+00:02:25,470 --> 00:02:31,640 align:middle line:90%
+Now I said that the signature of launch wanted
+to take in a Vector3 velocity so let's do
+
+00:02:31,640 --> 00:02:39,489 align:middle line:90%
+that and then let's put the same thing here
+so of course we don't use Vector3 on the call,
+
+00:02:39,489 --> 00:02:45,800 align:middle line:90%
+we just pass in something called velocity
+which doesn't exist yet and then the method
+
+00:02:45,800 --> 00:02:52,780 align:middle line:90%
+accepts a variable called velocity of type
+Vector3. There we go. So the rigidBody's velocity
+
+00:02:52,780 --> 00:03:02,569 align:middle line:90%
+becomes the launch velocity. Now I also said
+that I wanted to disable gravity so rigidBody.useGravity
+
+00:03:02,569 --> 00:03:07,150 align:middle line:90%
+equals false here so it doesn't fall out of
+the sky, and then on launch we are going to
+
+00:03:07,150 --> 00:03:16,010 align:middle line:84%
+use exactly the same thing and make it true;
+
+00:03:16,010 --> 00:03:19,430 align:middle line:90%
+and then we'll do stuff with audio. I'm just
+putting space in to separate it out. So we
+
+00:03:19,430 --> 00:03:24,260 align:middle line:90%
+are nearly there, we just need to actually
+provide a velocity, well let's just pass this
+
+00:03:24,260 --> 00:03:28,769 align:middle line:90%
+launch velocity through, I said that we wanted
+Ball.cs to work in exactly the same way, it's
+
+00:03:28,769 --> 00:03:34,500 align:middle line:90%
+just a pure refactor for now. So launch velocity
+it publicly exposed, it's available to the
+
+00:03:34,500 --> 00:03:40,510 align:middle line:90%
+start method so it gets passed in as a parameter
+to the launch method. Of course this variable
+
+00:03:40,510 --> 00:03:44,750 align:middle line:90%
+name does not need to match this variable
+name. So launch picks up velocity as a variable
+
+00:03:44,750 --> 00:03:47,650 align:middle line:90%
+name and then passes it into the rigid body's
+velocity.
+
+00:03:47,650 --> 00:03:53,430 align:middle line:90%
+So in theory this Ball.cs will behave exactly
+as it did before, and we'll be good to go.
+
+00:03:53,430 --> 00:04:01,299 align:middle line:90%
+Let's take a look. Good, OK? So it was just
+a pure refactor. What the hell was the point
+
+00:04:01,299 --> 00:04:06,489 align:middle line:90%
+of it? The point of it was that we now have
+a launch method that is public - did you spot
+
+00:04:06,489 --> 00:04:13,400 align:middle line:90%
+my error? Yes, good job. Public void launch,
+so now from the outside we can call Ball.Launch
+
+00:04:13,400 --> 00:04:20,229 align:middle line:90%
+and we can provide a Vector3 and we are going
+to be in good shape. Wonderful news. OK, so
+
+00:04:20,229 --> 00:04:22,759 align:middle line:90%
+what are we going to do next? We need a different
+component on the ball.
+
+00:04:22,759 --> 00:04:28,930 align:middle line:90%
+Let's not control the ball's DragLaunch with
+the same code right? Now this stuff is about
+
+00:04:28,930 --> 00:04:32,290 align:middle line:90%
+the ball, these are properties of the ball
+and the ball's physics. Let's not convolute
+
+00:04:32,290 --> 00:04:36,100 align:middle line:90%
+the dragging into that, that's horrible. Let's
+have a new component so create yourself a
+
+00:04:36,100 --> 00:04:43,410 align:middle line:90%
+new c# script and call it drag launch. Now
+is that what I asked you to call it? I don't
+
+00:04:43,410 --> 00:04:48,400 align:middle line:90%
+know, let's take a look. Yes, write DragLaunch.cs
+that's what we're going to be doing. Let's
+
+00:04:48,400 --> 00:04:52,990 align:middle line:90%
+go into DragLaunch and think about how that's
+going to work. Right I'll get you started
+
+00:04:52,990 --> 00:04:58,020 align:middle line:90%
+on DragLaunch just a little bit and I'll set
+up the outline parameters of it and then I'm
+
+00:04:58,020 --> 00:05:02,289 align:middle line:90%
+going to ask you to do the actual coding of
+DragLaunch because this course is all about
+
+00:05:02,289 --> 00:05:04,150 align:middle line:84%
+learning how to do things by doing them.
+
+00:05:04,150 --> 00:05:09,039 align:middle line:90%
+Not just watching me do them and then typing
+blindly because you don't learn anything like
+
+00:05:09,039 --> 00:05:13,889 align:middle line:90%
+that. Let me show you a few things that I
+want to do. DragLaunch is going to act on
+
+00:05:13,889 --> 00:05:20,970 align:middle line:90%
+the ball so it's good practice here to require
+component - open bracket close brackets close
+
+00:05:20,970 --> 00:05:28,650 align:middle line:90%
+square brackets, typeof Ball. So when I do
+that, the DragLaunch component over in Unity,
+
+00:05:28,650 --> 00:05:34,699 align:middle line:90%
+when we drag it to the ball now if there wasn't
+a Ball script now on this ball it would actually
+
+00:05:34,699 --> 00:05:41,009 align:middle line:90%
+add one. OK let's move this audioSource up
+let's look at these two components together.
+
+00:05:41,009 --> 00:05:45,850 align:middle line:90%
+Is it really going to lose me the prefab connection?
+Just because I'm moving an audioSource? OK
+
+00:05:45,850 --> 00:05:49,830 align:middle line:90%
+let's not move the audioSource, so we have
+a Ball script with a launch velocity here
+
+00:05:49,830 --> 00:05:54,270 align:middle line:90%
+- soon it'll go because it will be our drag
+that does it, and then we have a launch drag
+
+00:05:54,270 --> 00:06:00,460 align:middle line:90%
+script here, OK, and this drag script requires
+the ball to be there to work on it. So let
+
+00:06:00,460 --> 00:06:08,039 align:middle line:90%
+me continue to build out the launch drag a
+little bit for you. Private Ball ball. So
+
+00:06:08,039 --> 00:06:11,110 align:middle line:90%
+we're going to need access to a ball, so because
+we are going to need access let's go find
+
+00:06:11,110 --> 00:06:12,020 align:middle line:84%
+it in the Start.
+
+00:06:12,020 --> 00:06:17,380 align:middle line:90%
+ball = GetComponent, why get component? Because
+it's on the same game object right? This drag
+
+00:06:17,380 --> 00:06:22,550 align:middle line:90%
+script is here and it's looking for a component
+of the same game object so it's get component,
+
+00:06:22,550 --> 00:06:27,199 align:middle line:90%
+using a generic format, of type ball. It's
+a method so it needs curly brackets, and everything
+
+00:06:27,199 --> 00:06:32,580 align:middle line:90%
+needs a semi-colon, or it don't not work.
+OK, we don't need an Update method, we're
+
+00:06:32,580 --> 00:06:37,729 align:middle line:90%
+not doing anything every frame on the drag
+script, but what we are going to want are
+
+00:06:37,729 --> 00:06:42,509 align:middle line:90%
+a couple of things that our UI system can
+talk into. Let's just write these now and
+
+00:06:42,509 --> 00:06:43,720 align:middle line:84%
+you will fill out their details.
+
+00:06:43,720 --> 00:06:49,280 align:middle line:90%
+They need to be public so that the UI system
+can see them, and we want on the drag Start
+
+00:06:49,280 --> 00:06:55,310 align:middle line:90%
+to be able to call something called DragStart,
+fantastic, and on the end we want to have
+
+00:06:55,310 --> 00:07:01,599 align:middle line:90%
+a DragEnd. Of course the word "start" has
+to have a 't' on the end in case you didn't
+
+00:07:01,599 --> 00:07:05,930 align:middle line:90%
+know. OK fantastic so I'm going to put a couple
+of comments in. What's going to happen on
+
+00:07:05,930 --> 00:07:15,370 align:middle line:90%
+DragStart? Well we're going to capture time
+and position of drag start or mouse click.
+
+00:07:15,370 --> 00:07:24,810 align:middle line:90%
+OK, and what we're going to do at the end
+is launch the ball. OK the rest of the details
+
+00:07:24,810 --> 00:07:26,060 align:middle line:84%
+will be in your challenge.
+
+00:07:26,060 --> 00:07:33,120 align:middle line:90%
+Crucially this drag launch now has two public
+methods that it can call that's going to allow
+
+00:07:33,120 --> 00:07:37,889 align:middle line:90%
+it to respond to user interface now let's
+look over in Unity at how we're going to wire
+
+00:07:37,889 --> 00:07:42,940 align:middle line:90%
+up our user interface and you are going to
+write the rest of DragLaunch. So go to your
+
+00:07:42,940 --> 00:07:47,680 align:middle line:90%
+UI interface and your touch input panel which
+is currently a very thin object, it's sitting
+
+00:07:47,680 --> 00:07:52,490 align:middle line:90%
+here, by thin I mean that it has no components
+on it to speak of; it's got a rect transform
+
+00:07:52,490 --> 00:07:57,440 align:middle line:90%
+like all User Interface elements, it has a
+canvas renderer but so what that just allows
+
+00:07:57,440 --> 00:08:00,330 align:middle line:90%
+you to see it. Not that we need to see it,
+but it's there.
+
+00:08:00,330 --> 00:08:06,060 align:middle line:90%
+We need an image script otherwise this next
+thing I'm going to add won't work. Now, add
+
+00:08:06,060 --> 00:08:12,889 align:middle line:90%
+component, go to UI, so we're adding a component
+to our touch input panel in our UI canvas,
+
+00:08:12,889 --> 00:08:17,669 align:middle line:90%
+and have a look down, what have we got in
+here that's of any interest? Do we have what
+
+00:08:17,669 --> 00:08:22,300 align:middle line:90%
+we're looking for in here? Well we're looking
+for something that will allow us to actually
+
+00:08:22,300 --> 00:08:30,240 align:middle line:90%
+respond to a mouse input OK? So actually it's
+under event, not UI, slightly counter-intuitively.
+
+00:08:30,240 --> 00:08:34,550 align:middle line:90%
+So you've got two menus that this could be
+under, event or UI. It's actually in event
+
+00:08:34,550 --> 00:08:38,510 align:middle line:90%
+and then event trigger this is what we're
+going to use. Event then event trigger.
+
+00:08:38,510 --> 00:08:42,899 align:middle line:90%
+So click on that, and you'll have an event
+trigger script on your touch input. Now you
+
+00:08:42,899 --> 00:08:48,850 align:middle line:90%
+can say add new event type. You see pointer
+down there? That's pointer down or your finger
+
+00:08:48,850 --> 00:08:56,339 align:middle line:90%
+down. When that happens, what are we going
+to do? Well, add an object to call, drag the
+
+00:08:56,339 --> 00:09:02,330 align:middle line:90%
+ball in to here, you see what I'm doing I'm
+dragging the ball instance from the hierarchy
+
+00:09:02,330 --> 00:09:10,399 align:middle line:90%
+into the pointer down event, and then if we
+go to DragLaunch look we have that DragStart,
+
+00:09:10,399 --> 00:09:15,860 align:middle line:90%
+that's why we made a public method on DragStart
+there, DragLaunch is a component of Ball and
+
+00:09:15,860 --> 00:09:19,450 align:middle line:90%
+we can call drag start. Fantastic, you can
+guess what I'm going to do next. When the
+
+00:09:19,450 --> 00:09:22,750 align:middle line:90%
+pointer goes up, when your finger comes up
+off the screen, what do we do?
+
+00:09:22,750 --> 00:09:25,750 align:middle line:90%
+It already knows that we want to talk to the
+ball; it's assuming that we want to talk to
+
+00:09:25,750 --> 00:09:31,660 align:middle line:90%
+the ball. Awesome, so we just go to DragLaunch,
+DragEnd. Now can you see what's happening
+
+00:09:31,660 --> 00:09:35,660 align:middle line:90%
+there when I click down at say the bottom
+of the screen anywhere it's going to call
+
+00:09:35,660 --> 00:09:43,880 align:middle line:90%
+DragLaunch.DragStart and then when I let go
+of the mouse OnMouseUp DragEnd gets called
+
+00:09:43,880 --> 00:09:48,170 align:middle line:90%
+and we will call the DragEnd method which
+as I said is actually going to launch the
+
+00:09:48,170 --> 00:09:54,899 align:middle line:90%
+ball. So that's how we tie event triggers
+from our interface into our script.
+
+00:09:54,899 --> 00:10:00,240 align:middle line:90%
+So you have everything that you need to succeed
+now. So what are we going to do? I have a
+
+00:10:00,240 --> 00:10:06,930 align:middle line:90%
+challenge for you, here's your challenge.
+Write DragLaunch.cs. So public DragStart will
+
+00:10:06,930 --> 00:10:13,200 align:middle line:90%
+store the time and position of the start of
+the drag. The position as a vector3, the time
+
+00:10:13,200 --> 00:10:19,610 align:middle line:90%
+as a float. DragEnd will calculate the length
+of the vector between the start drag point
+
+00:10:19,610 --> 00:10:23,399 align:middle line:90%
+and the end drag point and how long it took
+to do it. Now remember that speed is distance
+
+00:10:23,399 --> 00:10:29,440 align:middle line:90%
+over time and try and launch the ball dependent
+on the length and speed of the drag.
+
+00:10:29,440 --> 00:10:34,459 align:middle line:90%
+So this is a typical touch swipe interface.
+The faster you swipe the faster the ball will
+
+00:10:34,459 --> 00:10:39,149 align:middle line:90%
+go and the direction of the swipe will determine
+the direction of the ball. It should be quite
+
+00:10:39,149 --> 00:10:41,730 align:middle line:90%
+hard to make the ball go all the way down
+to the end of the lane without going into
+
+00:10:41,730 --> 00:10:45,680 align:middle line:90%
+the gutter, that’s good, it's a bit like
+bowling, and there should be no need for scaling
+
+00:10:45,680 --> 00:10:51,310 align:middle line:90%
+factors in x or y at the moment because on
+most screen sizes you should find that this
+
+00:10:51,310 --> 00:10:55,320 align:middle line:90%
+will work out. Longer term we might want to
+do things like that but try not having to
+
+00:10:55,320 --> 00:10:58,750 align:middle line:90%
+multiply anything just use default values
+for everything, I think it'll work out for
+
+00:10:58,750 --> 00:10:59,829 align:middle line:84%
+you.
+
+00:10:59,829 --> 00:11:02,470 align:middle line:90%
+So hopefully you know what you need to do,
+I want you at the end of this to be able to
+
+00:11:02,470 --> 00:11:07,130 align:middle line:90%
+click and drag anywhere on the screen, swiping
+forward and the faster you swipe the faster
+
+00:11:07,130 --> 00:11:12,279 align:middle line:90%
+the ball launches and the ball will launch
+in a direction that is relevant to the direction
+
+00:11:12,279 --> 00:11:15,029 align:middle line:90%
+that you swiped in on the screen. So straight
+up the screen in the middle of the screen
+
+00:11:15,029 --> 00:11:19,800 align:middle line:90%
+from the bottom to the top would be a straight
+ball, and if you swipe fast, it's fast. Go
+
+00:11:19,800 --> 00:11:26,399 align:middle line:90%
+ahead pause the video and do that challenge
+now please.
+
+00:11:26,399 --> 00:11:33,029 align:middle line:90%
+OK so welcome back, let's make this drag system
+work right? It's going to be a lot of fun.
+
+00:11:33,029 --> 00:11:40,529 align:middle line:90%
+So what do we need here in the DragLaunch.cs
+script? Well for a start we're going to need
+
+00:11:40,529 --> 00:11:45,899 align:middle line:90%
+some private variables. We're going to need
+the concept of a drag start and a drag end.
+
+00:11:45,899 --> 00:11:53,529 align:middle line:90%
+Now it happens that Unity reports a vector
+3 for drag events even though mouse co-ordinates
+
+00:11:53,529 --> 00:11:58,260 align:middle line:90%
+only strictly need two co-ordinates so why
+not flow with that and just use vector3s to
+
+00:11:58,260 --> 00:11:58,750 align:middle line:84%
+store them?
+
+00:11:58,750 --> 00:12:03,149 align:middle line:90%
+So we have a drag start and a drag end, now
+we can declare multiple variables on one line
+
+00:12:03,149 --> 00:12:08,620 align:middle line:90%
+like that with a comma, I like to do that
+when they're semantically very related. We
+
+00:12:08,620 --> 00:12:12,980 align:middle line:90%
+are also going to have a float, because time
+is counted with a float. Basically if you
+
+00:12:12,980 --> 00:12:16,579 align:middle line:90%
+can count things on your fingers you use an
+integer, and if you can't you use a float,
+
+00:12:16,579 --> 00:12:21,360 align:middle line:90%
+and then we worry about other data types like
+doubles or whatever if and when we need them.
+
+00:12:21,360 --> 00:12:25,570 align:middle line:90%
+So we have a start time and an end time, right
+let's keep things really simple. Nice clean
+
+00:12:25,570 --> 00:12:29,459 align:middle line:90%
+code. So the drag starts at a position, ends
+at a position, starts at a time and ends at
+
+00:12:29,459 --> 00:12:37,990 align:middle line:90%
+a time right? Nice and simple. So what happens
+on start here? Well we just get the ball component
+
+00:12:37,990 --> 00:12:41,959 align:middle line:90%
+because remember start only runs once when
+the game starts running. So this is just a
+
+00:12:41,959 --> 00:12:48,130 align:middle line:90%
+way of finding the component that we need.
+So on drag start when that user interface
+
+00:12:48,130 --> 00:12:50,730 align:middle line:90%
+element calls the DragStart method what do
+we do?
+
+00:12:50,730 --> 00:12:56,370 align:middle line:90%
+Well the first thing that we need to do is
+capture the drag start position and it's just
+
+00:12:56,370 --> 00:13:02,490 align:middle line:90%
+input.mousePosition and that's going to be
+a pixel position; and we'd better capture
+
+00:13:02,490 --> 00:13:06,970 align:middle line:90%
+the start time. Now what does that equal?
+Time.time. Now remember that you can look
+
+00:13:06,970 --> 00:13:12,029 align:middle line:90%
+up the Unity docs by going to the end of the
+thing that you've typed and holding down control
+
+00:13:12,029 --> 00:13:20,190 align:middle line:90%
+or command and apostrophe; and that's a really
+handy shortcut, that will bring up your documentation
+
+00:13:20,190 --> 00:13:26,649 align:middle line:90%
+and Time.time is the time since the game started
+running taking into account any timescale
+
+00:13:26,649 --> 00:13:27,860 align:middle line:84%
+that we might be using.
+
+00:13:27,860 --> 00:13:34,089 align:middle line:90%
+So you can read all about that over here.
+So that just takes in time as a float in seconds,
+
+00:13:34,089 --> 00:13:38,540 align:middle line:90%
+and that's all that we need to capture on
+the start. We just need to capture where and
+
+00:13:38,540 --> 00:13:42,930 align:middle line:90%
+when we clicked. Launching the ball a little
+bit more to do. Same deal at the beginning
+
+00:13:42,930 --> 00:13:51,010 align:middle line:90%
+though, we capture the DragEnd as the Input.mouseposition.
+Perfect. Then we're going to need to capture
+
+00:13:51,010 --> 00:13:56,139 align:middle line:90%
+the end time right? So that's just Time.time
+again because time has moved on at this point.
+
+00:13:56,139 --> 00:14:02,250 align:middle line:90%
+Great, so why don't we work out what the drag
+duration is? Let's declare a new variable
+
+00:14:02,250 --> 00:14:06,160 align:middle line:90%
+only inside the scope of DragEnd because we
+don't need it any more. Remember your general
+
+00:14:06,160 --> 00:14:11,870 align:middle line:90%
+principle; only make the scope of anything
+as wide as it needs to be. It doesn't need
+
+00:14:11,870 --> 00:14:15,290 align:middle line:90%
+to be used outside this DragEnd method so
+don't declare it outside of that.
+
+00:14:15,290 --> 00:14:25,829 align:middle line:90%
+dragDuration, nice long variable names. endTime
+- startTime. Perfect, so now we have a duration
+
+00:14:25,829 --> 00:14:31,760 align:middle line:90%
+in seconds of how long the drag lasted. Using
+spacing just to logically group these things.
+
+00:14:31,760 --> 00:14:36,160 align:middle line:90%
+So now there's one we need to think about.
+We've got a float here, I'm going to call
+
+00:14:36,160 --> 00:14:45,839 align:middle line:90%
+it launchSpeedX in the x direction. Now, speed
+is distance over time so we're going to have
+
+00:14:45,839 --> 00:14:54,839 align:middle line:90%
+some distance that the mouse has moved over
+the drag duration which we just created.
+
+00:14:54,839 --> 00:15:02,860 align:middle line:90%
+Not sure why dragDuration is not auto-filling,
+it's probably because there's nothing inside
+
+00:15:02,860 --> 00:15:07,500 align:middle line:90%
+these brackets so let's work out what's going
+to go inside these brackets. So if speed is
+
+00:15:07,500 --> 00:15:10,870 align:middle line:90%
+distance, whatever's going to go inside these
+brackets, over time then what's the distance
+
+00:15:10,870 --> 00:15:19,579 align:middle line:90%
+- how far has the mouse moved? Well, it's
+dragEnd.x so the launch x velocity is going
+
+00:15:19,579 --> 00:15:27,440 align:middle line:90%
+to be related to the x axis - dragStart.x
+Now let's go over in Unity and just have a
+
+00:15:27,440 --> 00:15:28,209 align:middle line:84%
+look at something.
+
+00:15:28,209 --> 00:15:35,570 align:middle line:90%
+That's OK, these warnings are fine, we here,
+if you look at the co-ordinate system in the
+
+00:15:35,570 --> 00:15:43,399 align:middle line:90%
+top right here, when we drag we are going
+to be moving the mouse in the x/y plane only,
+
+00:15:43,399 --> 00:15:49,790 align:middle line:90%
+no z. The x position when we drag is going
+to relate to the x velocity. X will map to
+
+00:15:49,790 --> 00:15:55,360 align:middle line:90%
+x, so left and right on the screen will map
+to left and right in the game space, fine;
+
+00:15:55,360 --> 00:16:03,459 align:middle line:90%
+but our y position up the screen when we swipe
+will relate to the z velocity in the game,
+
+00:16:03,459 --> 00:16:09,220 align:middle line:90%
+right? So we're going to have a little bit
+of a translation going on there or a 90 degree
+
+00:16:09,220 --> 00:16:16,180 align:middle line:90%
+translation. So the x is quite simple and
+clear but the y is just as simple and clear
+
+00:16:16,180 --> 00:16:22,940 align:middle line:90%
+but it’s the z speed we're going to be launching
+in the z direction, not y, is dragEnd.y
+
+00:16:22,940 --> 00:16:31,959 align:middle line:90%
+That's how we're going to do that translation.
+Minus dragStart.y. Again speed is distance
+
+00:16:31,959 --> 00:16:39,649 align:middle line:90%
+over time. dragDuration; and the reason that
+it wouldn't autocomplete before was because
+
+00:16:39,649 --> 00:16:44,880 align:middle line:90%
+these brackets were empty. Finally we compute
+the Vector3 of the launch which is the launch
+
+00:16:44,880 --> 00:16:52,320 align:middle line:90%
+velocity. Let's go ahead and do that now.
+So we're declaring a new variable, Vector3,
+
+00:16:52,320 --> 00:16:58,500 align:middle line:90%
+launchVelocity now remember that speeds are
+scalars, they only have one number and that's
+
+00:16:58,500 --> 00:17:04,160 align:middle line:90%
+why they're a float. A velocity is a vector,
+it needs to have three numbers in a three
+
+00:17:04,160 --> 00:17:05,970 align:middle line:84%
+dimensional space.
+
+00:17:05,970 --> 00:17:10,809 align:middle line:90%
+Launch velocity equals a new Vector3 so we're
+going to construct a new Vector3 for the launch
+
+00:17:10,809 --> 00:17:17,270 align:middle line:90%
+velocity here and we're going to build it
+up from the launch speed x, 0 in the y direction,
+
+00:17:17,270 --> 00:17:21,640 align:middle line:90%
+we don't want to fire the ball upwards at
+all, we're assuming that we're firing it level
+
+00:17:21,640 --> 00:17:30,429 align:middle line:90%
+and then the launch speed z. That make sense?
+That's how the x and z get translated from
+
+00:17:30,429 --> 00:17:35,320 align:middle line:90%
+the x and the y. Final thing that we need
+to do is take that ball variable that we found
+
+00:17:35,320 --> 00:17:41,140 align:middle line:90%
+at the top here, now because we have a public
+method called Launch, we can call Launch with
+
+00:17:41,140 --> 00:17:43,390 align:middle line:84%
+launchVelocity.
+
+00:17:43,390 --> 00:17:47,309 align:middle line:90%
+Look at that isn't that beautiful apart from
+all of those funny characters I just typed.
+
+00:17:47,309 --> 00:17:50,520 align:middle line:90%
+Actually all of the code is on the screen
+there. At the top are some private variables
+
+00:17:50,520 --> 00:17:56,350 align:middle line:90%
+that we need, we get the component, we record
+on the start we record on the end and we do
+
+00:17:56,350 --> 00:18:02,919 align:middle line:90%
+a little bit of maths on the vectors. OK let's
+go try it over in Unity, let's see what happens.
+
+00:18:02,919 --> 00:18:07,850 align:middle line:90%
+Now what's wrong? Why is it launching at the
+start? Well if we look at the ball script
+
+00:18:07,850 --> 00:18:12,320 align:middle line:90%
+we just need to make a change on the ball
+script, we don't need to be launching on start
+
+00:18:12,320 --> 00:18:16,250 align:middle line:90%
+over in the ball script so remove that launch
+with launch velocity on start.
+
+00:18:16,250 --> 00:18:19,549 align:middle line:90%
+We also have an error here, there are two
+audio listeners in the scene, please remove
+
+00:18:19,549 --> 00:18:24,990 align:middle line:90%
+one. Well our top camera came with an audio
+listener so go to your top camera and remove
+
+00:18:24,990 --> 00:18:32,660 align:middle line:90%
+the audio listener component over in the inspector.
+We only need one. Awesome let's do it again.
+
+00:18:32,660 --> 00:18:38,429 align:middle line:90%
+Swipe. Look at that! Perfect! Well, perfect,
+gutter ball but the control system's perfect!
+
+00:18:38,429 --> 00:18:45,740 align:middle line:90%
+Let's try swiping slowly, it goes slowly.
+Let's try and actually get it to the end,
+
+00:18:45,740 --> 00:18:51,100 align:middle line:90%
+swipe fast. It's really hard but it's about
+right! It's supposed to be hard!
+
+00:18:51,100 --> 00:18:56,309 align:middle line:90%
+Look at this I'm going to hit it, I'm going
+to hit it I'm going to hit it! Boom awesome!
+
+00:18:56,309 --> 00:18:59,660 align:middle line:90%
+OK the pins fall too slowly but that's because
+of the physics, we're going to tweak that
+
+00:18:59,660 --> 00:19:05,780 align:middle line:90%
+later but look, the control system works.
+Huge congratulations, you have just created
+
+00:19:05,780 --> 00:19:11,370 align:middle line:90%
+a swipe control system in unity that's going
+to work both on the web and on mobile and
+
+00:19:11,370 --> 00:19:15,230 align:middle line:90%
+there's the code for you on the screen, the
+majority of it anyway, I hope that you've
+
+00:19:15,230 --> 00:19:18,400 align:middle line:90%
+enjoyed this lecture, I hope that you've passed
+the challenges - if you didn't and you needed
+
+00:19:18,400 --> 00:19:23,400 align:middle line:90%
+some help no problem at all and I will see
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section8/BM13 Simple Touch Control System.srt
 you soon.

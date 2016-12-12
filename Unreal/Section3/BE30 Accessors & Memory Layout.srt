@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section3/BE30 Accessors & Memory Layout.srt
 ﻿WEBVTT
 
 1
@@ -568,3 +569,574 @@ here. and I'll see you in the next video!
 00:09:23.866 --> 00:09:25.099
 
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+So, welcome to Accessors
+
+2
+00:00:04,000 --> 00:00:08,000
+& Memory Layout! In this video, we'll talk about how the arrow, dot, and
+
+3
+00:00:08,000 --> 00:00:12,000
+colon colon accessor operators work! We'll be introducing virtual memory,
+
+4
+00:00:12,000 --> 00:00:16,000
+introducing permanent storage, stack and heap... Heap is also known as the
+
+5
+00:00:16,000 --> 00:00:20,000
+free store, and how accessor operators relate to memory,
+
+6
+00:00:20,000 --> 00:00:24,000
+to bring it all together. And finally, we will bind another input action.
+
+7
+00:00:24,000 --> 00:00:28,000
+By the end of it, it's pretty simple, we will get Grabbed and Release coming up
+
+8
+00:00:28,000 --> 00:00:32,000
+on here, and we'll have a much better idea of why, in the code,
+
+9
+00:00:32,000 --> 00:00:37,466
+we access methods like this, exactly what the ampersand and the colon colon are doing. So, see you in there!
+
+10
+00:00:37,466 --> 00:00:41,466
+So welcome back! We've managed to get our Grab key working! What I want to do
+
+11
+00:00:41,466 --> 00:00:45,466
+here is talk a little bit more about the syntax right here,
+
+12
+00:00:45,466 --> 00:00:49,466
+where we specify the function that needs to be called. So there's a
+
+13
+00:00:49,466 --> 00:00:53,466
+couple of things here that we want to talk about in more detail. One is the ampersand. Although we
+
+14
+00:00:53,466 --> 00:00:57,466
+have already covered this, this is an address of operator. Alright,
+
+15
+00:00:57,466 --> 00:01:01,466
+and this BindAction() method just needs to know the address it needs to go to, to find
+
+16
+00:01:01,466 --> 00:01:05,466
+the function. But what do I mean by that? Well, you'll see in a minute on the next slide. I'm going to
+
+17
+00:01:05,466 --> 00:01:09,466
+start talking about how memory is allocated and how these accessors work. You've also got another
+
+18
+00:01:09,466 --> 00:01:13,466
+thing I want to clarify, which is once and for all, let's talk about when we use a colon colon,
+
+19
+00:01:13,466 --> 00:01:17,466
+when we use an arrow, and when we use a dot. So this should bring it all together, let's take a look!
+
+20
+00:01:17,466 --> 00:01:21,466
+Accessors & Memory Layout! So,
+
+21
+00:01:21,466 --> 00:01:25,466
+imagine the white block is a block of memory on your computer, strictly Virtual Memory.
+
+22
+00:01:25,466 --> 00:01:29,466
+The operating system worries about whether this stuff is in RAM or is on the harddrive
+
+23
+00:01:29,466 --> 00:01:33,466
+or could possibly even be in the cloud, in a future operating system, but
+
+24
+00:01:33,466 --> 00:01:37,466
+it's Virtual Memory. So, we are allocated a lump of memory
+
+25
+00:01:37,466 --> 00:01:41,466
+for our program, and that can change, you can request more but it's there, it's a wide block.
+
+26
+00:01:41,466 --> 00:01:45,466
+Alright, but it turns out that the memory is split basically into two. This is a massive
+
+27
+00:01:45,466 --> 00:01:49,466
+over-simplification. But you have permanent storage, the blue stuff
+
+28
+00:01:49,466 --> 00:01:53,466
+at the bottom, and this is where stuff we know, at compile time, gets stored.
+
+29
+00:01:53,466 --> 00:01:57,466
+Things like functions themselves or const expression, if we use that, any
+
+30
+00:01:57,466 --> 00:02:01,466
+data that's unchanging can get stored in the Permanent store in memory.
+
+31
+00:02:01,466 --> 00:02:05,466
+The top half of the memory is the Stack and the Free Store or otherwise
+
+32
+00:02:05,466 --> 00:02:09,466
+known as Heap, and those two things can vary. They may
+
+33
+00:02:09,466 --> 00:02:13,466
+start small and grow, and one may grow down in memory, one may grow up from the bottom.
+
+34
+00:02:13,466 --> 00:02:17,466
+We don't need to concern ourselves too much about the details of the difference between
+
+35
+00:02:17,466 --> 00:02:21,466
+Stack and Free Store, at the moment, or about exactly how they
+
+36
+00:02:21,466 --> 00:02:25,466
+grow and shrink. I just want to explain that there's a part of memory that is kind of permanent
+
+37
+00:02:25,466 --> 00:02:29,466
+and is laid out at compile time, and there is a part of
+
+38
+00:02:29,466 --> 00:02:33,466
+memory that varies at runtime, depending on what's going on OK.
+
+39
+00:02:33,466 --> 00:02:37,466
+Now, this ties into the Accessor operator, so I've got a table for you.
+
+40
+00:02:37,466 --> 00:02:41,466
+Three columns, the left-hand term is talking about say I take UGrabber
+
+41
+00:02:41,466 --> 00:02:45,466
+colon colon Grab or EWordStatus or std, that's what I mean by the left
+
+42
+00:02:45,466 --> 00:02:49,466
+hand term. So, if the left-hand term is a Class or Enum or Namespace
+
+43
+00:02:49,466 --> 00:02:53,466
+or other things, but we'll just leave it at that for now, then
+
+44
+00:02:53,466 --> 00:02:57,466
+the accessor operator you want is a colon
+
+45
+00:02:57,466 --> 00:03:01,466
+colon, in the example of UGrabber colon colon Grab.
+
+46
+00:03:01,466 --> 00:03:05,466
+So, here we go! UGrabber colon colon Grab. It is known
+
+47
+00:03:05,466 --> 00:03:09,466
+at compile time what the location of this is. This function
+
+48
+00:03:09,466 --> 00:03:13,466
+is going to be put into the Permanent Store, and it's going to stay there
+
+49
+00:03:13,466 --> 00:03:17,466
+throughout the running of the program. So, UGrabber colon colon Grab is a fully qualified
+
+50
+00:03:17,466 --> 00:03:21,466
+function name, and then, you have the ampersand which is the address of operator,
+
+51
+00:03:21,466 --> 00:03:25,466
+which tells this whole method, the BindAction() method where to go
+
+52
+00:03:25,466 --> 00:03:29,466
+in memory to find the function, where to jump to. OK, so that's what's
+
+53
+00:03:29,466 --> 00:03:33,466
+going on there, and that's why things that go in Permanent Storage
+
+54
+00:03:33,466 --> 00:03:37,466
+have a colon colon operator. The other two types of operator you use
+
+55
+00:03:37,466 --> 00:03:41,466
+are arrow operators for Pointers and dots for
+
+56
+00:03:41,466 --> 00:03:45,466
+Instances or References.  Let's look at some examples, starting from the top. So, MyGrab
+
+57
+00:03:45,466 --> 00:03:49,466
+.Grab(). MyGrab is as instance there of a Grab
+
+58
+00:03:49,466 --> 00:03:53,466
+class or Grabber class or something like that, and .Grab() is a method on it.
+
+59
+00:03:53,466 --> 00:03:57,100
+MyBullCowCount.Bulls we used earlier, in the previous section.
+
+60
+00:03:57,100 --> 00:04:01,100
+That's a struct and the .Bulls is an integer member of that struct.
+
+61
+00:04:01,100 --> 00:04:01,400
+
+
+62
+00:04:01,400 --> 00:04:05,400
+Or MyGrab MyGrabRef.Grab() is very similar to the top line, it's a
+
+63
+00:04:05,400 --> 00:04:09,400
+reference to that method. OK, and in all those cases use a
+
+64
+00:04:09,400 --> 00:04:13,400
+dot, because remember, you use references you treat very much like the object itself.
+
+65
+00:04:13,400 --> 00:04:17,400
+So, how about the arrow operator!? Well, we use the arrow operator
+
+66
+00:04:17,400 --> 00:04:21,400
+when we're dealing with a pointer. So, MyGrab pointer, you know we want to access
+
+67
+00:04:21,400 --> 00:04:25,400
+a method called Grab() or a property called Reach. So, the bigger
+
+68
+00:04:25,400 --> 00:04:29,400
+picture, if we zoom out for a moment, is those those things that can vary and do vary at runtime
+
+69
+00:04:29,400 --> 00:04:33,400
+we access using the dot or the arrow operator,
+
+70
+00:04:33,400 --> 00:04:37,400
+and they loosely map over to the Stack and the Heap over there on the left.
+
+71
+00:04:37,400 --> 00:04:41,400
+So, hopefully that gives you a little bit more context as to when to use these different
+
+72
+00:04:41,400 --> 00:04:45,400
+objects. So, basically you ask yourself, look here I am inside
+
+73
+00:04:45,400 --> 00:04:49,400
+my IDE, and it's asking me
+
+74
+00:04:49,400 --> 00:04:53,400
+here, let's say for a function reference or it's got this horrible signature. But you
+
+75
+00:04:53,400 --> 00:04:58,400
+find by going and looking at an example code on the web that they're passing in methods,
+
+76
+00:04:58,400 --> 00:05:01,400
+and you see that the pattern is that people are saying UGrabber.
+
+77
+00:05:01,400 --> 00:05:05,400
+But then, you ask yourself well UGrabber what? Is it arrow? Is it dot? Well, these don't work
+
+78
+00:05:05,400 --> 00:05:09,400
+because we know the location of UGrabber::
+
+79
+00:05:09,400 --> 00:05:13,400
+Grab now at compile time, so you're using this static
+
+80
+00:05:13,400 --> 00:05:17,400
+access of this colon colon. And then, of course, we need to find the address of that, so that's
+
+81
+00:05:17,400 --> 00:05:21,400
+how that whole line comes about. So, hopefully that's clearer for you. Do refer back to this slide
+
+82
+00:05:21,400 --> 00:05:25,400
+as and when you need to, and I hope that makes things clearer. So, over to you!
+
+83
+00:05:25,400 --> 00:05:29,400
+I want you to create a Release() method. Follow the example of the GrabBinding().
+
+84
+00:05:29,400 --> 00:05:33,400
+The enum for release is IE_Released.
+
+85
+00:05:33,400 --> 00:05:37,400
+Log that the key has been released. When you let go of the grab key
+
+86
+00:05:37,400 --> 00:05:41,400
+and test, and if it works jump with joy! Go ahead, pause the video and
+
+87
+00:05:41,400 --> 00:05:45,400
+do that now!
+
+88
+00:05:45,400 --> 00:05:49,400
+Welcome back! So, very much by analogy to what we've done before, let's start in the header file,
+
+89
+00:05:49,400 --> 00:05:53,400
+and let's make ourselves a Release() method.
+
+90
+00:05:53,400 --> 00:05:57,400
+So, I don't need to... [Laughs] No, just start from scratch.
+
+91
+00:05:57,400 --> 00:06:01,400
+"// Called when grab
+
+92
+00:06:01,400 --> 00:06:05,400
+key is released". I wouldn't say key when "grab is
+
+93
+00:06:05,400 --> 00:06:09,433
+released". OK, and then it's just void. We don't need anything coming back right
+
+94
+00:06:09,433 --> 00:06:13,466
+now. Release() great! So, now let's go implement
+
+95
+00:06:13,466 --> 00:06:17,500
+that. Let's make the method first, void UGrabber
+
+96
+00:06:17,500 --> 00:06:21,500
+the class name ::Release(). And again, you see how we're using this
+
+97
+00:06:21,500 --> 00:06:25,500
+static accessor thing here. This is saying, we already know about UGrabber
+
+98
+00:06:25,500 --> 00:06:29,533
+at compile time, so we can go colon colon Release(), and
+
+99
+00:06:29,533 --> 00:06:33,566
+then, I'm going to do a log that is almost identical.
+
+100
+00:06:33,566 --> 00:06:37,600
+Simple! Now, how do we do the binding!
+
+101
+00:06:37,600 --> 00:06:41,566
+Well, the binding is very very much, by now, due to what we had before. Nothing wrong with cutting
+
+102
+00:06:41,566 --> 00:06:45,600
+and pasting code, actually saves errors. Question,
+
+103
+00:06:45,600 --> 00:06:49,633
+is it "Grab"? Is the action still "Grab"? Yes it is actually,
+
+104
+00:06:49,633 --> 00:06:53,633
+because it is the fact that the "Grab" key is IE_Released.
+
+105
+00:06:53,633 --> 00:06:57,600
+So, we only have a single action here, which is "Grab".
+
+106
+00:06:57,600 --> 00:07:01,600
+We press the key, we release the key. We operator on the same object, i.e. the Grabber,
+
+107
+00:07:01,600 --> 00:07:05,633
+and this time, we call Release);
+
+108
+00:07:05,633 --> 00:07:09,666
+This is the fully qualified
+
+109
+00:07:09,666 --> 00:07:13,700
+method name, i.e. this guy here, and the ampersand tells us the address of.
+
+110
+00:07:13,700 --> 00:07:17,666
+Wicked! Let's go and try it and see how it works for a
+
+111
+00:07:17,666 --> 00:07:23,866
+us! So, build! While it's building, I actually haven't got my project open right now, so I'll open the project,
+
+112
+00:07:23,866 --> 00:07:27,866
+and I will hope that it builds properly! Unreal is pretty good at handling this.
+
+113
+00:07:27,866 --> 00:07:31,866
+This thing is compiling and yet Unreal is in the middle of opening. It seems to handle all this
+
+114
+00:07:31,866 --> 00:07:35,866
+OK, these kind of weird like build over here while this opens, and yet this still
+
+115
+00:07:35,866 --> 00:07:39,866
+might notice there's been a hot reload come up, i.e. that the build has finished. It
+
+116
+00:07:39,866 --> 00:07:43,866
+kind of depends when Unreal opens. It's started to pick up,
+
+117
+00:07:43,866 --> 00:07:47,866
+I think, the fact that the compile is going on in the background,
+
+118
+00:07:47,866 --> 00:07:51,866
+but in this instance, I'm going to have to see in the IDE whether it's
+
+119
+00:07:51,866 --> 00:07:55,866
+finished, because Unreal hasn't fully hooked in. OK, let's take a look! Push
+
+120
+00:07:55,866 --> 00:07:59,866
+the Left Key, Grab pressed, released, Grab released. I'm not getting the released, so what's wrong?
+
+121
+00:07:59,866 --> 00:08:03,866
+I'm going to try hitting Compile in Unreal. It may simply
+
+122
+00:08:03,866 --> 00:08:07,866
+be that I opened it while it was still compiling.
+
+123
+00:08:07,866 --> 00:08:11,866
+Let's see! So, it's not working! Let's go back to the code and see what's
+
+124
+00:08:11,866 --> 00:08:15,866
+wrong!
+
+125
+00:08:15,866 --> 00:08:19,866
+Enumerator looks OK, because it's subtle but you can see that it is actually returning
+
+126
+00:08:19,866 --> 00:08:23,866
+a number, 1 for that 0 for that.
+
+127
+00:08:23,866 --> 00:08:27,866
+Release() is the right name, the log is different.
+
+128
+00:08:27,866 --> 00:08:31,866
+OK, I'm going to recompile.
+
+129
+00:08:31,866 --> 00:08:35,866
+So this is an interesting test case of, what do you do if you think your code should be working,
+
+130
+00:08:35,866 --> 00:08:39,866
+and you suspect that it's not you, it's just that the system is not working. Well,
+
+131
+00:08:39,866 --> 00:08:43,866
+let's see what we can do? Grab press, still not working! So,
+
+132
+00:08:43,866 --> 00:08:47,866
+this stage I'll be closing and and reopening Unreal, and if that doesn't work, we can do the clean that I showed
+
+133
+00:08:47,866 --> 00:08:51,866
+you a couple of videos ago.
+
+134
+00:08:51,866 --> 00:08:55,866
+There you go, it's working now! So,
+
+135
+00:08:55,866 --> 00:08:59,866
+what I said about it not being a problem to open Unreal, during the compilation,
+
+136
+00:08:59,866 --> 00:09:03,866
+it kind of turns out, in this case, it was a problem. So, you are safer not opening
+
+137
+00:09:03,866 --> 00:09:07,866
+the engine, in the middle of a compilation, because it looks like in some cases it can go wrong.
+
+138
+00:09:07,866 --> 00:09:11,866
+So, pressed and released is working both on the Left Shift and the Right Mouse Button, and we
+
+139
+00:09:11,866 --> 00:09:15,866
+are good to go! So, congratulations on that! Remember
+
+140
+00:09:15,866 --> 00:09:19,866
+the diagram, remember it's in your slides. I hope that it's useful to you, this memory diagram
+
+141
+00:09:19,866 --> 00:09:23,866
+here, and I'll see you in the next video!
+
+142
+00:09:23,866 --> 00:09:25,099
+
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section3/BE30 Accessors & Memory Layout.srt

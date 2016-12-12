@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section3/BE38 Pointer Protection Process.srt
 ﻿WEBVTT
 
 1
@@ -696,3 +697,702 @@ and in the next video we will start doing even more exciting stuff!
 00:11:32.000 --> 00:11:34.366
 
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+Hi and welcome
+
+2
+00:00:04,000 --> 00:00:08,000
+to Pointer Protection Process! So, why are we even
+
+3
+00:00:08,000 --> 00:00:12,000
+looking at this, at this stage, suddenly? Because in the upcoming videos, we're going to be making
+
+4
+00:00:12,000 --> 00:00:16,000
+a blueprint of our openable doors, so that we can actually control
+
+5
+00:00:16,000 --> 00:00:20,000
+their movement with a nice piece of graphical interface, called
+
+6
+00:00:20,000 --> 00:00:24,000
+Bezier Curves. And when we blueprint the doors, we're going to end up with some horrible
+
+7
+00:00:24,000 --> 00:00:28,000
+null pointer issues, that are going to make the game crash, unless we get our pointers
+
+8
+00:00:28,000 --> 00:00:32,000
+protected properly. This is an important habit to get it to, so let's start talking
+
+9
+00:00:32,000 --> 00:00:36,000
+about it. Basically, horrible crashes will happen when we follow a
+
+10
+00:00:36,000 --> 00:00:40,000
+null pointer. We must always check pointers before use. When declaring  we want
+
+11
+00:00:40,000 --> 00:00:44,000
+to always initialize to null pointer. We've done that in some places,
+
+12
+00:00:44,000 --> 00:00:48,000
+in our header files, where we've made a pointer type, but we haven't always
+
+13
+00:00:48,000 --> 00:00:52,000
+said equals null pointer in the beginning. So, we'll fix that, by basically looking
+
+14
+00:00:52,000 --> 00:00:56,000
+for stars in our header files and then helping finding any pointers. We also want to
+
+15
+00:00:56,000 --> 00:01:00,000
+check before every use of a null pointer and a
+
+16
+00:01:00,000 --> 00:01:04,000
+pointer for null pointer and handle it appropriately. Sometimes we'll choose not to,
+
+17
+00:01:04,000 --> 00:01:08,000
+like if it's an owner and we're talking about a component like an OpenDoor. We're going to assume that,
+
+18
+00:01:08,000 --> 00:01:12,000
+that has an owner, but if you want to you can check that too. So, let's
+
+19
+00:01:12,000 --> 00:01:16,000
+dive in and take a look! So, let
+
+20
+00:01:16,000 --> 00:01:20,000
+me show you the problem first. For example, if we take this right-hand door, look at its details,
+
+21
+00:01:20,000 --> 00:01:24,000
+go to the OpenDoor component. If I was to remove
+
+22
+00:01:24,000 --> 00:01:28,000
+the pressure plate here, then what would happen over in the code
+
+23
+00:01:28,000 --> 00:01:32,000
+is that our pressure plate pointer... Do you remember how we did that? Let's take
+
+24
+00:01:32,000 --> 00:01:36,000
+a look! Grabber, no it's an OpenDoor.h!
+
+25
+00:01:36,000 --> 00:01:40,000
+In OpenDoor.h, we declare a PressurePlate, we
+
+26
+00:01:40,000 --> 00:01:44,000
+naughtily don't initialize it, so let me just do this now. Why would we initialize
+
+27
+00:01:44,000 --> 00:01:48,000
+it to null pointer, if following null pointers is such a problem? Well, following null
+
+28
+00:01:48,000 --> 00:01:52,000
+pointers is a problem, but one thing that's worse than that is following a pointer to something undefined;
+
+29
+00:01:52,000 --> 00:01:56,000
+because at least we can check for a null pointer and at least we know that
+
+30
+00:01:56,000 --> 00:02:00,000
+it's just going to make the program crash horribly. At least it's not going to do something really weird and
+
+31
+00:02:00,000 --> 00:02:04,000
+unexpected, so it is important whether we have a start to follow it. So by
+
+32
+00:02:04,000 --> 00:02:08,000
+not assigning this PressurePlate over here, in the Details Tab,
+
+33
+00:02:08,000 --> 00:02:12,000
+what's going to happen is this PressurePlate pointer is going to take the value of null pointer,
+
+34
+00:02:12,000 --> 00:02:16,000
+and then, when we try and use it, the first time we try and dereference
+
+35
+00:02:16,000 --> 00:02:20,000
+it, where does that happen? Well, let's take a look! If we look for
+
+36
+00:02:20,000 --> 00:02:24,000
+pressure plates in the current document, there when we do this arrow operator,
+
+37
+00:02:24,000 --> 00:02:28,000
+the thing is going to crash. Let's see it in action! So, are you ready? Let's hit
+
+38
+00:02:28,000 --> 00:02:32,000
+Play, and we get this type of very unpleasant crash.
+
+39
+00:02:32,000 --> 00:02:36,000
+It doesn't tell us what's going wrong, and if its
+
+40
+00:02:36,000 --> 00:02:40,000
+this kind of terminal and suddenly it could be a null pointer
+
+41
+00:02:40,000 --> 00:02:44,000
+error. OK, so I'm going to re-open Unreal, and we want to make sure systematically
+
+42
+00:02:44,000 --> 00:02:48,000
+this does not happen in our project, because we lose or work, we don't know what's going wrong,
+
+43
+00:02:48,000 --> 00:02:52,000
+it's just a horrible horrible type of crash. So, I'm going to go to the Grabber, and I'm going to
+
+44
+00:02:52,000 --> 00:02:56,000
+make sure things are OK on the Grabber, then you can do the PressurePlate.
+
+45
+00:02:56,000 --> 00:03:00,000
+So, the first thing to check is that all pointers, which we can find by saying start in the
+
+46
+00:03:00,000 --> 00:03:04,000
+current document and looking in the margin for the yellow bits here, all pointers,
+
+47
+00:03:04,000 --> 00:03:08,000
+these to here, have a null pointer initialization. They do! Great!
+
+48
+00:03:08,000 --> 00:03:12,000
+Now, let's take the PhysicsHandle firstly, and make sure that in Grabber.cpp,
+
+49
+00:03:12,000 --> 00:03:16,000
+in the implementation, that in all cases we check carefully.
+
+50
+00:03:16,000 --> 00:03:20,000
+So, here we try and set the PhysicsHandle pointer to this stuff, and
+
+51
+00:03:20,000 --> 00:03:24,000
+we check if it's null pointer, and if it's not, then we log an
+
+52
+00:03:24,000 --> 00:03:28,000
+error. So, this is the one place where we log an error, and we should
+
+53
+00:03:28,000 --> 00:03:32,000
+get a helpful error coming through, which is saying it's missing the PhysicsHandle
+
+54
+00:03:32,000 --> 00:03:36,000
+or component. Great! But where else do we use PhysicsHandle? We use it here!
+
+55
+00:03:36,000 --> 00:03:40,000
+And down here we are not checking before we do this
+
+56
+00:03:40,000 --> 00:03:44,000
+arrow operator, so if we manage to get to the Tick, which is what just
+
+57
+00:03:44,000 --> 00:03:48,000
+happened, we're going to get a problem. So, here's a general piece of code you can say
+
+58
+00:03:48,000 --> 00:03:52,000
+if not (!PressurePad)
+
+59
+00:03:52,000 --> 00:03:56,000
+then just simply, at this stage, a little tiny
+
+60
+00:03:56,000 --> 00:04:00,000
+block of code in the same line, if you like, . If not...
+
+61
+00:04:00,000 --> 00:04:04,000
+...pressure Sorry, pressure pad, I'm writing the wrong thing! (!PhysicsHandle).
+
+62
+00:04:04,000 --> 00:04:08,000
+If not (!PhysicsHandle)  OK,
+
+63
+00:04:08,000 --> 00:04:12,000
+and then, we continue to look for other instances. Well, if we've returned,
+
+64
+00:04:12,000 --> 00:04:16,000
+which means leave the TickComponent function, then none of
+
+65
+00:04:16,000 --> 00:04:20,000
+this will get called. So, that protects that one there and again down here,
+
+66
+00:04:20,000 --> 00:04:24,000
+just before we try and use it, if not (!PhysicsHandle) 
+
+67
+00:04:24,000 --> 00:04:28,000
+and before the ReleaseComponent(); So, in all cases, we want
+
+68
+00:04:28,000 --> 00:04:32,000
+to just bail out of the method if the PhysicsHandle pointer
+
+69
+00:04:32,000 --> 00:04:36,000
+is not set. And in one place, at the top, you want to
+
+70
+00:04:36,000 --> 00:04:40,000
+log a useful error message like this, that we've already done, to tell the designer or to
+
+71
+00:04:40,000 --> 00:04:44,000
+tell yourself how to fix the problem. Let's try again! So, let's
+
+72
+00:04:44,000 --> 00:04:48,000
+go back into the engine, I'm going to go to the DefaultPawn
+
+73
+00:04:48,000 --> 00:04:52,000
+blueprint, I'm going to remove the PhysicsHandle from it,
+
+74
+00:04:52,000 --> 00:04:56,000
+Save All first in case it crashes, and then try playing.
+
+75
+00:04:56,000 --> 00:05:00,000
+And it crashes horribly! So, somewhere in here, we have
+
+76
+00:05:00,000 --> 00:05:04,000
+not quite caught all of the uses or I didn't compile.
+
+77
+00:05:04,000 --> 00:05:08,000
+That's the other possibility now! It looks like I've compiled, because in Visual Studio there are no
+
+78
+00:05:08,000 --> 00:05:12,000
+stars against any of these files, but I want to make sure that, that compilation actually made it
+
+79
+00:05:12,000 --> 00:05:16,000
+all the way through to Unreal. If it crashes, then those changes
+
+80
+00:05:16,000 --> 00:05:20,000
+you make, like the DefaultPawn PhysicsHandle, may or may not get saved depending on
+
+81
+00:05:20,000 --> 00:05:24,000
+when you save. Before I play again and risk another crash,
+
+82
+00:05:24,000 --> 00:05:28,000
+I'm just going to check for PhysicsHandle,
+
+83
+00:05:28,000 --> 00:05:32,000
+and I'm going to make sure
+
+84
+00:05:32,000 --> 00:05:36,000
+that I have return statements above all of the uses in
+
+85
+00:05:36,000 --> 00:05:40,000
+each method. I seem to have there
+
+86
+00:05:40,000 --> 00:05:44,000
+and here! Yep, we just log an error! OK, so I believe this will work now!
+
+87
+00:05:44,000 --> 00:05:48,000
+And it crashes again! This is
+
+88
+00:05:48,000 --> 00:05:52,000
+why these are so insidious, these problems, and we must from now on
+
+89
+00:05:52,000 --> 00:05:56,000
+get really tight with how we use pointers. So, let's go find out what's
+
+90
+00:05:56,000 --> 00:06:00,000
+wrong! It's probably nothing to do with the PhysicsHandle! I've probably left one of these doors unassigned!
+
+91
+00:06:00,000 --> 00:06:04,000
+If I look at the door, the OpenDoor component, that one's got a Trigger
+
+92
+00:06:04,000 --> 00:06:08,000
+Volume, but this guy hasn't you see, and the way that it
+
+93
+00:06:08,000 --> 00:06:12,000
+crashes you just can't tell. Ah, now the doors are OK! We get a log
+
+94
+00:06:12,000 --> 00:06:16,000
+red error message, and it's very helpful. "DefaltPawn_BP_C_0" the exact
+
+95
+00:06:16,000 --> 00:06:20,000
+instance "missing physics handle component", and when I try and pick stuff up,
+
+96
+00:06:20,000 --> 00:06:24,000
+it just doesn't work! So, this is failing graciously, I would say!
+
+97
+00:06:24,000 --> 00:06:28,000
+We are getting an error that we can now fix!
+
+98
+00:06:28,000 --> 00:06:32,000
+Well, what do I need to do? It's very obvious right! I go to the DefaultPawn and
+
+99
+00:06:32,000 --> 00:06:36,000
+I add a PhysicsHandle component
+
+100
+00:06:36,000 --> 00:06:40,000
+to it, compile it, and run,
+
+101
+00:06:40,000 --> 00:06:44,000
+and now I can pick up and drop and we're all back to normal. Awesome!
+
+102
+00:06:44,000 --> 00:06:48,000
+So, your challenge is to protect all of your pointers! I want you to protect the pressure
+
+103
+00:06:48,000 --> 00:06:52,000
+plate pointer, before use. I want you to log a helpful error if it's null,
+
+104
+00:06:52,000 --> 00:06:56,000
+test that that works, and then, initialize any other
+
+105
+00:06:56,000 --> 00:07:00,000
+uninitialized pointers in the whole solution. So, check all your header files for anything with a star in it,
+
+106
+00:07:00,000 --> 00:07:04,000
+and make sure all pointer usages are properly protect with the
+
+107
+00:07:04,000 --> 00:07:08,000
+pattern I've just showed you. OK, cool! Pause the video, go ahead
+
+108
+00:07:08,000 --> 00:07:12,000
+and do that now! And by the way, if you don't remember the pattern, it is in the first instance,
+
+109
+00:07:12,000 --> 00:07:16,000
+you want to log out saying which item which pointer
+
+110
+00:07:16,000 --> 00:07:20,000
+is not being properly allocated, and then,
+
+111
+00:07:20,000 --> 00:07:24,000
+every other use you want to just use a if not pointer then return type pattern.
+
+112
+00:07:24,000 --> 00:07:28,000
+OK, go ahead do it!
+
+113
+00:07:28,000 --> 00:07:32,000
+OK, welcome back! So, I'm just now going to go through my solution
+
+114
+00:07:32,000 --> 00:07:36,000
+and see what needs fixing up! I'm going to go alphabetically, and we're going to
+
+115
+00:07:36,000 --> 00:07:40,000
+ignore all the things starting BuildingEscape, because we didn't write them. I'm going to start with Grabber.h.
+
+116
+00:07:40,000 --> 00:07:44,000
+Both of these pointer types are initialized. I'm going to go to Grabber.cpp.
+
+117
+00:07:44,000 --> 00:07:48,000
+There's a PhysicsHandle, which we've just dealt with,
+
+118
+00:07:48,000 --> 00:07:52,000
+but there's also an input component. Let's see where that is!
+
+119
+00:07:52,000 --> 00:07:56,000
+Now, SetupInputComponent! This is already
+
+120
+00:07:56,000 --> 00:08:00,000
+protected here and that is the only use.
+
+121
+00:08:00,000 --> 00:08:04,000
+Good! OK, now let's move onto OpenDoor.h! Let's look for stars!
+
+122
+00:08:04,000 --> 00:08:08,000
+We have another naughty down here! Look Owner should
+
+123
+00:08:08,000 --> 00:08:12,000
+still be pointed to null pointer, and we may as well put the comment
+
+124
+00:08:12,000 --> 00:08:16,000
+above it. Great, are there any other stars in this entire header file?
+
+125
+00:08:16,000 --> 00:08:20,000
+No, so let's take one at a time. PressurePlate, let's go to PressurePlate, find
+
+126
+00:08:20,000 --> 00:08:24,000
+it! Where's it used? Well, it's used just in this
+
+127
+00:08:24,000 --> 00:08:28,000
+one place! So, this is probably not the
+
+128
+00:08:28,000 --> 00:08:32,000
+place to log out, because this happens regularly, and it's quite deep in your code.
+
+129
+00:08:32,000 --> 00:08:36,000
+So, what I would suggest we do here is, we say if not (!PressurePlate)
+
+130
+00:08:36,000 --> 00:08:40,000
+then 
+
+131
+00:08:40,000 --> 00:08:44,000
+OK, and then, somewhere further up the code, we're going to log
+
+132
+00:08:44,000 --> 00:08:48,000
+this useful error. In fact, I'm going to get it from Grabber.cpp. It's going to
+
+133
+00:08:48,000 --> 00:08:52,000
+be something like this stuff here.
+
+134
+00:08:52,000 --> 00:08:56,000
+I just want the log message
+
+135
+00:08:56,000 --> 00:09:00,000
+really. So, in OpenDoor.cpp it's in the BeginPlay()
+
+136
+00:09:00,000 --> 00:09:04,000
+that I want to make sure that we actually have this PressurePlate
+
+137
+00:09:04,000 --> 00:09:08,000
+right? So, let's do it there! I'm just
+
+138
+00:09:08,000 --> 00:09:12,000
+going to simply say, actually, if not
+
+139
+00:09:12,000 --> 00:09:16,000
+(!PressurePlate) then
+
+140
+00:09:16,000 --> 00:09:20,000
+log something missing pressure plate.
+
+141
+00:09:20,000 --> 00:09:24,000
+
+
+142
+00:09:24,000 --> 00:09:28,000
+OK, so now if we were to search for "PressurePlate" we have
+
+143
+00:09:28,000 --> 00:09:32,000
+at the top of our code, we have a useful error, and then, in all usages
+
+144
+00:09:32,000 --> 00:09:36,000
+we have a protection line, this. Great! What was the other thing,
+
+145
+00:09:36,000 --> 00:09:40,000
+in here, that was a pointer, it was an owner? We're going to choose to not worry about
+
+146
+00:09:40,000 --> 00:09:44,000
+Owner, because this is an component, OpenDoor.h, and it's very
+
+147
+00:09:44,000 --> 00:09:48,000
+likely to find the Owner. But if you want, you can go and protect Owner in a similar way. I'm not going to bother.
+
+148
+00:09:48,000 --> 00:09:52,000
+Let's check the PressurePlate now. Compile!
+
+149
+00:09:52,000 --> 00:09:56,000
+Remember previously when we removed the PressurePlate
+
+150
+00:09:56,000 --> 00:10:00,000
+from a door, it caused a problem? So, let's
+
+151
+00:10:00,000 --> 00:10:04,000
+remove the PressurePlate now, from the right-hand door, and once my compilation finishes...
+
+152
+00:10:04,000 --> 00:10:08,000
+OK, we're getting an error that says, "GetTotalMassOfActorsOnPlate must
+
+153
+00:10:08,000 --> 00:10:12,000
+return a value". Let's look at that function.
+
+154
+00:10:12,000 --> 00:10:16,000
+And the problem here is that we're
+
+155
+00:10:16,000 --> 00:10:20,000
+just returning, when we need to return total mass even though it's 0.
+
+156
+00:10:20,000 --> 00:10:24,000
+We need to come out of the function, but we need to get something back, because the return type that's expected is
+
+157
+00:10:24,000 --> 00:10:28,000
+float. OK, let's try now again! So, the
+
+158
+00:10:28,000 --> 00:10:32,000
+compiler is checking that all code paths are returning something useful. I have, on the door,
+
+159
+00:10:32,000 --> 00:10:36,000
+removed the right pressure plate. What do we get? Ah, SM_Door2
+
+160
+00:10:36,000 --> 00:10:40,000
+missing pressure plate. We of course can Eject, without stopping playing,
+
+161
+00:10:40,000 --> 00:10:44,000
+go to the World Outliner, click on SM_Door2, and then, it's highlighted
+
+162
+00:10:44,000 --> 00:10:48,000
+in the word so we can see exactly which one is causing the problem.
+
+163
+00:10:48,000 --> 00:10:52,000
+We can reassign the pressure plate, and the, we're back in business! Awesome!
+
+164
+00:10:52,000 --> 00:10:56,000
+Let's finish the job off now! PositionReport.h, do we have any
+
+165
+00:10:56,000 --> 00:11:00,000
+pointers in here? No, we should really actually do a search,
+
+166
+00:11:00,000 --> 00:11:04,000
+but no, so therefore we don't even need to look in the .cpp, because we're not dealing with any
+
+167
+00:11:04,000 --> 00:11:08,000
+pointers. OK, wow hard
+
+168
+00:11:08,000 --> 00:11:12,000
+work! Yes, worth it absolutely! Now, our solution is
+
+169
+00:11:12,000 --> 00:11:16,000
+much much more robust! I'm going to close it, I'm going to save all over here,
+
+170
+00:11:16,000 --> 00:11:20,000
+and I'm going to have a nice relieved commit here
+
+171
+00:11:20,000 --> 00:11:24,000
+that's going to be talking about the fact that we are not protected. So,
+
+172
+00:11:24,000 --> 00:11:28,000
+I hope you're committing your work, I hope you're using version control, I hope you're having fun,
+
+173
+00:11:28,000 --> 00:11:32,000
+and in the next video we will start doing even more exciting stuff!
+
+174
+00:11:32,000 --> 00:11:34,366
+
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section3/BE38 Pointer Protection Process.srt

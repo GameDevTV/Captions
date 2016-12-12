@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section5/19-Destroying-gameObjects-when-hit.srt
 WEBVTT
 
 1
@@ -760,3 +761,766 @@ work to do. but hey. this is a good piece of progress.
 00:09:36.000 --> 00:09:39.000
 So congratulations and see you soon!
 
+=======
+
+1
+00:00:03,000 --> 00:00:06,000
+Hey welcome back! So, in this video we're going
+
+2
+00:00:06,000 --> 00:00:09,000
+to make our blocks actually be destroyed when
+
+3
+00:00:09,000 --> 00:00:12,000
+the ball hits them, rather than just
+
+4
+00:00:12,000 --> 00:00:15,000
+loading a level. So, let's take a look at how we're
+
+5
+00:00:15,000 --> 00:00:18,000
+going to do that. If you pop into your Brick Script,
+
+6
+00:00:18,000 --> 00:00:21,000
+you'll recall that we already publicly exposed
+
+7
+00:00:21,000 --> 00:00:24,000
+a maximum hits variable. We're not using it yet.
+
+8
+00:00:24,000 --> 00:00:27,000
+If you look in Unity, under Prefabs
+
+9
+00:00:27,000 --> 00:00:30,000
+in the Inspector against the
+
+10
+00:00:30,000 --> 00:00:33,000
+script, you'll see a maximum hits number
+
+11
+00:00:33,000 --> 00:00:36,000
+exposed there, which should already be set to 1 for the
+
+12
+00:00:36,000 --> 00:00:39,000
+yellow, meaning it's going to be destroyed immediately.
+
+13
+00:00:39,000 --> 00:00:42,000
+Two for green means it goes on the second hit and three for red.
+
+14
+00:00:42,000 --> 00:00:45,000
+So, in this video what we're going to be doing
+
+15
+00:00:45,000 --> 00:00:48,000
+is, discussing how the Destroy() method works,
+
+16
+00:00:48,000 --> 00:00:51,000
+explaining why we destroyed
+
+17
+00:00:51,000 --> 00:00:54,000
+gameObject and not this, and then, I'm going to challenge you
+
+18
+00:00:54,000 --> 00:00:57,000
+to only destroy it, when the maximum number of hits are met.
+
+19
+00:00:57,000 --> 00:01:00,000
+So, back into our script then.
+
+20
+00:01:00,000 --> 00:01:03,000
+Let's get rid of
+
+21
+00:01:03,000 --> 00:01:06,000
+this SimulateWin(); line, we don't need that anymore!
+
+22
+00:01:06,000 --> 00:01:09,000
+That's gone. What we're going to do is firstly
+
+23
+00:01:09,000 --> 00:01:12,000
+think, well what are we going to destroy? Well, I'll tell
+
+24
+00:01:12,000 --> 00:01:15,000
+you for a start that the keyword we need is Destroy. Now, let's
+
+25
+00:01:15,000 --> 00:01:18,000
+go to Unity's docs for Destroy. Here
+
+26
+00:01:18,000 --> 00:01:21,000
+they are! They're expecting to destroy an object.
+
+27
+00:01:21,000 --> 00:01:24,000
+It's Object.Destroy, and there's no
+
+28
+00:01:24,000 --> 00:01:27,000
+example available. So, what have we got? There's
+
+29
+00:01:27,000 --> 00:01:30,000
+two possibilities, maybe. One would be this
+
+30
+00:01:30,000 --> 00:01:33,000
+which is a brick, actually not an object, and another
+
+31
+00:01:33,000 --> 00:01:36,000
+would be (gameObject), which is actually what we're looking
+
+32
+00:01:36,000 --> 00:01:39,000
+for. So, you need to Destroy (gameObject);
+
+33
+00:01:39,000 --> 00:01:42,000
+If you try and destroy this, it won't work because this is a brick
+
+34
+00:01:42,000 --> 00:01:45,000
+and (gameObject) is actually the object you're looking for.
+
+35
+00:01:45,000 --> 00:01:48,000
+Alright, so just remember when you destroy you Destroy(gameObject);
+
+36
+00:01:48,000 --> 00:01:51,000
+and save your script and let's try it!
+
+37
+00:01:54,000 --> 00:01:57,000
+Ah, that's good!
+
+38
+00:01:57,000 --> 00:02:00,000
+So, it's a start! Right now, the bricks are being destroyed. Now of course, the
+
+39
+00:02:00,000 --> 00:02:03,000
+green bricks are being destroyed on one hit, and that's because
+
+40
+00:02:03,000 --> 00:02:06,000
+we haven't told the system to do anything different
+
+41
+00:02:06,000 --> 00:02:09,000
+to that, but at least we have our first inkling of a
+
+42
+00:02:09,000 --> 00:02:12,000
+working Arkanoid clone. So congratulations
+
+43
+00:02:12,000 --> 00:02:15,000
+on that bit! Now, what I want you to do as a challenge is
+
+44
+00:02:15,000 --> 00:02:18,000
+I want you to put an if statement around the
+
+45
+00:02:18,000 --> 00:02:21,000
+Destroy line, line 24 on my screen, and
+
+46
+00:02:21,000 --> 00:02:24,000
+I want you to make sure that the
+
+47
+00:02:24,000 --> 00:02:27,000
+brick is only destroyed when you get to maximum
+
+48
+00:02:27,000 --> 00:02:30,000
+hits. So to be clear, yellow bricks should destroy immediately as they are,
+
+49
+00:02:30,000 --> 00:02:33,000
+but green bricks should only destroy on the second hit.
+
+50
+00:02:33,000 --> 00:02:36,000
+And if that's working red bricks should work as well.
+
+51
+00:02:36,000 --> 00:02:39,000
+So, test that by playing. Pop a couple of red bricks
+
+52
+00:02:39,000 --> 00:02:42,000
+in the scene and make sure that all of that works. So, please
+
+53
+00:02:42,000 --> 00:02:45,000
+pause the video and put that simple if statement around
+
+54
+00:02:45,000 --> 00:02:48,000
+the outside of the destroy line, now.
+
+55
+00:02:51,000 --> 00:02:54,000
+Cool and welcome back! So, this is how I'm doing it!
+
+56
+00:02:54,000 --> 00:02:57,000
+I'm going to say, if. And I will
+
+57
+00:02:57,000 --> 00:03:00,000
+do my brackets and my curly brackets first. Of course, the
+
+58
+00:03:00,000 --> 00:03:03,000
+second curly brace needs to go under destroy.
+
+59
+00:03:03,000 --> 00:03:06,000
+Now, this is only a single line code block here.
+
+60
+00:03:06,000 --> 00:03:09,000
+You can write it, if you wish, like this,
+
+61
+00:03:09,000 --> 00:03:12,000
+if something Destroy, but I would
+
+62
+00:03:12,000 --> 00:03:15,000
+really prefer you be in the habit of always using
+
+63
+00:03:15,000 --> 00:03:18,000
+code blocks, because if you do this the temptation could be
+
+64
+00:03:18,000 --> 00:03:21,000
+to do that, which is also OK.
+
+65
+00:03:21,000 --> 00:03:24,000
+If some condition Destroy the (gameObject), but then if
+
+66
+00:03:24,000 --> 00:03:27,000
+you go and write "some line here" that will
+
+67
+00:03:27,000 --> 00:03:30,000
+not get executed inside the if.
+
+68
+00:03:30,000 --> 00:03:33,000
+It will get executed outside of the if, i.e., this
+
+69
+00:03:33,000 --> 00:03:36,000
+"will ALWAYS BE
+
+70
+00:03:36,000 --> 00:03:39,000
+EXECUTED", because you've basically
+
+71
+00:03:39,000 --> 00:03:42,000
+indented wrongly and you should have indented like so,
+
+72
+00:03:42,000 --> 00:03:45,000
+and the if statement is separate. So look, that's all bloody
+
+73
+00:03:45,000 --> 00:03:48,000
+confusing! So, what I like to do is immediately
+
+74
+00:03:48,000 --> 00:03:51,000
+that I write the world if, I use
+
+75
+00:03:51,000 --> 00:03:54,000
+curly braces immediately, so
+
+76
+00:03:54,000 --> 00:03:57,000
+that I know I'm dealing with a code block. If I want to add another
+
+77
+00:03:57,000 --> 00:04:00,000
+line here, it's going to work as we expect.
+
+78
+00:04:00,000 --> 00:04:03,000
+Alright, so if something destroyed the GameObject, well
+
+79
+00:04:03,000 --> 00:04:06,000
+if what? Well, it's go to do with timesHit and maxHit.
+
+80
+00:04:06,000 --> 00:04:09,000
+timesHit starts at 0, so if (times
+
+81
+00:04:09,000 --> 00:04:12,000
+Hit is = to maxHits)
+
+82
+00:04:12,000 --> 00:04:15,000
+we destroy the object, right. So, in the beginning it's 0,
+
+83
+00:04:15,000 --> 00:04:18,000
+and for the yellow block the maxHits is
+
+84
+00:04:18,000 --> 00:04:21,000
+is 1. So, this doesn't occur and it doesn't destroy,
+
+85
+00:04:21,000 --> 00:04:24,000
+and then, when it hits 1 it will
+
+86
+00:04:24,000 --> 00:04:27,000
+destroy. Let's test it!
+
+87
+00:04:27,000 --> 00:04:30,000
+OK, so we have:
+
+88
+00:04:30,000 --> 00:04:33,000
+"Cannot implicitly convert type 'int' to 'bool'"
+
+89
+00:04:33,000 --> 00:04:36,000
+on line 25. So, bool is to do a
+
+90
+00:04:36,000 --> 00:04:39,000
+Boolean, it's a yes, no, true, false, and int is an Integer.
+
+91
+00:04:39,000 --> 00:04:42,000
+So, you double. Sorry line twenty-five
+
+92
+00:04:42,000 --> 00:04:45,000
+click on that error and it'll take you to the line. Another way of finding
+
+93
+00:04:45,000 --> 00:04:48,000
+the error is to go to Build and Build All, and it will show
+
+94
+00:04:48,000 --> 00:04:51,000
+you the error straight away. The problem is, I'm using =.
+
+95
+00:04:51,000 --> 00:04:54,000
+It's actually ==! You do a comparison
+
+96
+00:04:54,000 --> 00:04:57,000
+with ==. Equals itself
+
+97
+00:04:57,000 --> 00:05:00,000
+alone is an assignment. It was trying to set maxHit
+
+98
+00:05:00,000 --> 00:05:03,000
+into timesHit OK,
+
+99
+00:05:03,000 --> 00:05:06,000
+and then, the result of that was
+
+100
+00:05:06,000 --> 00:05:09,000
+an Integer and it was expecting a Boolean.
+
+101
+00:05:09,000 --> 00:05:12,000
+Very confusing, so == for a comparison please.
+
+102
+00:05:12,000 --> 00:05:15,000
+Let's try again!
+
+103
+00:05:15,000 --> 00:05:18,000
+OK, hit two
+
+104
+00:05:18,000 --> 00:05:21,000
+blocks at once. There you go! OK, so the yellow blocks appear to be working, but
+
+105
+00:05:21,000 --> 00:05:24,000
+that's not surprising, because they were working before. Now, let's see the green blocks,
+
+106
+00:05:24,000 --> 00:05:27,000
+when I finally hit one. Now, these boring play
+
+107
+00:05:27,000 --> 00:05:30,000
+loops that we can get in like this, we're going to fix those later.
+
+108
+00:05:30,000 --> 00:05:33,000
+For now, I'm just going to start the game again, because it got
+
+109
+00:05:33,000 --> 00:05:36,000
+into what I call a boring play loop. Let's just try again!
+
+110
+00:05:36,000 --> 00:05:39,000
+What we're aiming to do is hit a green
+
+111
+00:05:39,000 --> 00:05:42,000
+block, and then, see... There you go! One hit on
+
+112
+00:05:42,000 --> 00:05:45,000
+that green block. Now, to test it, I would like to hit the
+
+113
+00:05:45,000 --> 00:05:48,000
+same green block again, so it can be a little bit tedious, but at least
+
+114
+00:05:48,000 --> 00:05:51,000
+you're getting to play your game. That's interesting! I'm not
+
+115
+00:05:51,000 --> 00:05:54,000
+entirely sure which block I hit, so
+
+116
+00:05:54,000 --> 00:05:57,000
+you're just going to have to potentially play this a few times.
+
+117
+00:05:57,000 --> 00:06:00,000
+There you go! If you get it up in that gap then that's
+
+118
+00:06:00,000 --> 00:06:03,000
+great, so now we're hitting all of these blocks once. [Laughs]
+
+119
+00:06:03,000 --> 00:06:06,000
+It's here to test us! It doesn't want us
+
+120
+00:06:06,000 --> 00:06:09,000
+to see what happens if we hit a green block twice. I think
+
+121
+00:06:09,000 --> 00:06:12,000
+every single green block on the top there, or practically all of them got hit.
+
+122
+00:06:12,000 --> 00:06:15,000
+So, in a minute we're going to get our way, and we're going to get a
+
+123
+00:06:15,000 --> 00:06:18,000
+second hit on a green block. Oh no! It's here to test
+
+124
+00:06:18,000 --> 00:06:21,000
+my patience! Are we ever going to hit a
+
+125
+00:06:21,000 --> 00:06:24,000
+green block again! Oh wow, at last and it
+
+126
+00:06:24,000 --> 00:06:27,000
+gets destroyed! So it works, fantastic! That's
+
+127
+00:06:27,000 --> 00:06:30,000
+great news! So, what I would like to do,
+
+128
+00:06:30,000 --> 00:06:33,000
+rather than say == is, I would like to say
+
+129
+00:06:33,000 --> 00:06:36,000
+let's go greater than our =. Why?
+
+130
+00:06:36,000 --> 00:06:39,000
+Well, imagine that in the future we extend the behavior
+
+131
+00:06:39,000 --> 00:06:42,000
+and we have some super ball or something, that has the
+
+132
+00:06:42,000 --> 00:06:45,000
+effect of hitting a brick twice. You could completely
+
+133
+00:06:45,000 --> 00:06:48,000
+skip the limit. You could have had one hit initially,
+
+134
+00:06:48,000 --> 00:06:51,000
+and then, suddenly three or four or five and then,
+
+135
+00:06:51,000 --> 00:06:54,000
+you would never equal it. So, if we go greater than our equals,
+
+136
+00:06:54,000 --> 00:06:57,000
+we're guarding against the situation in which we end up
+
+137
+00:06:57,000 --> 00:07:00,000
+with more hits than the maxHits. I hope that makes
+
+138
+00:07:00,000 --> 00:07:03,000
+sense, so greater than or equals, just in case we skip over
+
+139
+00:07:03,000 --> 00:07:06,000
+maxHits. And then, in that instance we are going to Destroy
+
+140
+00:07:06,000 --> 00:07:09,000
+the (gameObject). So, it works! That's
+
+141
+00:07:09,000 --> 00:07:12,000
+great! What I want to do now is, pop a
+
+142
+00:07:12,000 --> 00:07:15,000
+red brick into the scene. So, I'm going to go to my Prefabs. I like
+
+143
+00:07:15,000 --> 00:07:18,000
+to do that by dropping it onto the Hierarchy, not into the scene,
+
+144
+00:07:18,000 --> 00:07:21,000
+because then it will end up somewhere
+
+145
+00:07:21,000 --> 00:07:24,000
+actually in the
+
+146
+00:07:24,000 --> 00:07:27,000
+correct place. Now, what have I done here? Why does this look weird?
+
+147
+00:07:27,000 --> 00:07:30,000
+Because I'm on the Start Menu Scene
+
+148
+00:07:30,000 --> 00:07:33,000
+it's indicated at the top of the screen here. Alright, common mistake,
+
+149
+00:07:33,000 --> 00:07:36,000
+so take it out of the Start Menu Scene, go into
+
+150
+00:07:36,000 --> 00:07:39,000
+the level that you want to test with, yeah.
+
+151
+00:07:39,000 --> 00:07:42,000
+Now, drag your prefab
+
+152
+00:07:42,000 --> 00:07:45,000
+into the Hierarchy, and it arrives in a predefined
+
+153
+00:07:45,000 --> 00:07:48,000
+place. That's great! I'm going to move it, holding down Control
+
+154
+00:07:48,000 --> 00:07:51,000
+or Command, to somewhere that I can hit it lots.
+
+155
+00:07:51,000 --> 00:07:54,000
+There. And I'm going to test that this red brick behaves, as
+
+156
+00:07:54,000 --> 00:07:57,000
+we expect. Ready? There's not music in this
+
+157
+00:07:57,000 --> 00:08:00,000
+case, because I started directly on this scene. I'm going to
+
+158
+00:08:00,000 --> 00:08:03,000
+stop and try again, just because I can't...
+
+159
+00:08:03,000 --> 00:08:06,000
+Ah, this is tedious. OK, so
+
+160
+00:08:06,000 --> 00:08:09,000
+it's quite tedious to test these things sometimes,
+
+161
+00:08:09,000 --> 00:08:12,000
+but in the early days it's not a
+
+162
+00:08:12,000 --> 00:08:15,000
+bad thing to be having to test your game
+
+163
+00:08:15,000 --> 00:08:18,000
+code a lot, because you're play testing while
+
+164
+00:08:18,000 --> 00:08:21,000
+you do it. So, what I'm going to do to make this easier
+
+165
+00:08:21,000 --> 00:08:24,000
+is, I'm just going to... Let's think of the
+
+166
+00:08:24,000 --> 00:08:27,000
+quickest way. Maybe the quickest way, actually, is to take my
+
+167
+00:08:27,000 --> 00:08:30,000
+Top Row of bricks here and duplicate it, move it
+
+168
+00:08:30,000 --> 00:08:33,000
+up a little bit like so, and
+
+169
+00:08:33,000 --> 00:08:36,000
+then, I could replace them all.
+
+170
+00:08:36,000 --> 00:08:39,000
+Well, I'm just going to cheat. I'm not going to replace the prefabs.
+
+171
+00:08:39,000 --> 00:08:42,000
+I'm going to just set the Max Hits of the green bricks.
+
+172
+00:08:42,000 --> 00:08:45,000
+If I want to, I can set them to a red color as well,
+
+173
+00:08:45,000 --> 00:08:48,000
+it doesn't really make any difference. I am accepting
+
+174
+00:08:48,000 --> 00:08:51,000
+that my color picker refuses to stay open, so
+
+175
+00:08:51,000 --> 00:08:54,000
+let's not bother changing the color. It has changed, actually, to gray.
+
+176
+00:08:54,000 --> 00:08:57,000
+So, these are gray bricks that have a three hit maximum.
+
+177
+00:08:57,000 --> 00:09:00,000
+I'm actually going to put one more on the top here, just so the ball
+
+178
+00:09:00,000 --> 00:09:03,000
+can't escape, and what I'm going to aim to do is fire the ball up this
+
+179
+00:09:03,000 --> 00:09:06,000
+gap. Whoop failed! Let's try again!
+
+180
+00:09:06,000 --> 00:09:09,000
+I'm going to try and fire up the gap, which is probably easier
+
+181
+00:09:09,000 --> 00:09:12,000
+said than done. There we go! Boom! There you go! You can
+
+182
+00:09:12,000 --> 00:09:15,000
+see, I mean I really didn't count there, but I'm pretty confident that it's three
+
+183
+00:09:15,000 --> 00:09:18,000
+hits and that after three hits it's going. And again, we're in a
+
+184
+00:09:18,000 --> 00:09:21,000
+boring loop, which we'll sort out later. Cool!
+
+185
+00:09:21,000 --> 00:09:24,000
+So, I'm going to take out my extraneous top row there,
+
+186
+00:09:24,000 --> 00:09:27,000
+because it's kind of ugly, save the scene,
+
+187
+00:09:27,000 --> 00:09:30,000
+and that's it! That is how you destroy objects
+
+188
+00:09:30,000 --> 00:09:33,000
+when you exceed the maximum number of hits. We have more
+
+189
+00:09:33,000 --> 00:09:36,000
+work to do, but hey, this is a good piece of progress.
+
+190
+00:09:36,000 --> 00:09:39,000
+So congratulations and see you soon!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section5/19-Destroying-gameObjects-when-hit.srt

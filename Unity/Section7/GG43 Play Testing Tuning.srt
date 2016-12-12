@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section7/GG43 Play Testing Tuning.srt
 WEBVTT
 
 1
@@ -1352,3 +1353,1358 @@ talking to you about how to deploy to mobile.
 00:17:12.000 --> 00:17:14.500
 So. see you soon!
 
+=======
+
+1
+00:00:03,000 --> 00:00:06,000
+So everyone, we're on the finishing straight!
+
+2
+00:00:06,000 --> 00:00:09,000
+One of the things I think we need, before we can play
+
+3
+00:00:09,000 --> 00:00:12,000
+tune, is to give the player some indication of how much it's
+
+4
+00:00:12,000 --> 00:00:15,000
+going to cost them, in terms of stars, to place one of these
+
+5
+00:00:15,000 --> 00:00:18,000
+defenders. Right now, I have no affordance about that. I just don't know
+
+6
+00:00:18,000 --> 00:00:21,000
+what they're going to cost. So in this video, we
+
+7
+00:00:21,000 --> 00:00:24,000
+are going to firstly, display the defender cost
+
+8
+00:00:24,000 --> 00:00:27,000
+on the buttons. Then, I'm going to ask you to
+
+9
+00:00:27,000 --> 00:00:30,000
+tweak the spawn frequency of the attackers. Adjust
+
+10
+00:00:30,000 --> 00:00:33,000
+the health of the attackers and defenders. Choose the
+
+11
+00:00:33,000 --> 00:00:36,000
+amount of damage that the projectiles do, and just generally play
+
+12
+00:00:36,000 --> 00:00:39,000
+the game and make sure it's a fun challenging game to play.
+
+13
+00:00:39,000 --> 00:00:42,000
+So, let's start off by sorting out this lack of
+
+14
+00:00:42,000 --> 00:00:45,000
+affordance, about the cast of these items.
+
+15
+00:00:45,000 --> 00:00:48,000
+How are we going to do that? Well firstly, we need to think how we're going to structure it.
+
+16
+00:00:48,000 --> 00:00:51,000
+We have already got buttons here, and if we look
+
+17
+00:00:51,000 --> 00:00:54,000
+in 3D, we can see where they
+
+18
+00:00:54,000 --> 00:00:57,000
+are in the game space. Let's just get around to this side.
+
+19
+00:00:57,000 --> 00:01:00,000
+This is the ideal place to put the text, right
+
+20
+00:01:00,000 --> 00:01:03,000
+on top of these buttons here. Right next
+
+21
+00:01:03,000 --> 00:01:06,000
+to the silhouette. So, how are we going to do that? Which
+
+22
+00:01:06,000 --> 00:01:09,000
+canvas are we going to use? Is it this Top Level, Level Canvas?
+
+23
+00:01:09,000 --> 00:01:12,000
+Or shall we add a canvas to buttons?
+
+24
+00:01:12,000 --> 00:01:15,000
+If you look down at say the cactus and the gnome,
+
+25
+00:01:15,000 --> 00:01:18,000
+etc., you'll notice that they
+
+26
+00:01:18,000 --> 00:01:21,000
+already have nearly everything we need. They have a Button Script,
+
+27
+00:01:21,000 --> 00:01:24,000
+they're in the right places.
+
+28
+00:01:24,000 --> 00:01:27,000
+So, I think what makes some sense is just to add a component
+
+29
+00:01:27,000 --> 00:01:30,000
+to Buttons called Canvas.
+
+30
+00:01:30,000 --> 00:01:33,000
+Now the buttons themselves actually have canvases on them.
+
+31
+00:01:33,000 --> 00:01:36,000
+Let's try now, adding a
+
+32
+00:01:36,000 --> 00:01:39,000
+UI Text Element,
+
+33
+00:01:39,000 --> 00:01:42,000
+and childing it to say the Cactus. Let's
+
+34
+00:01:42,000 --> 00:01:45,000
+take the Cactus as a test case. I'm going to call that
+
+35
+00:01:45,000 --> 00:01:48,000
+element Cost. So, what I'v'e done is, I've put a Canvas
+
+36
+00:01:48,000 --> 00:01:51,000
+on the Buttons element itself, and then, against
+
+37
+00:01:51,000 --> 00:01:54,000
+the Cactus Button, as a child, I've put a Cost.
+
+38
+00:01:54,000 --> 00:01:57,000
+I'll put xx for the moment, to say that I don't actually have a
+
+39
+00:01:57,000 --> 00:02:00,000
+cost. Now look, it's huge! Look in the world
+
+40
+00:02:00,000 --> 00:02:03,000
+space here. It's absolutely massive! Firstly, check that your Canvas here is
+
+41
+00:02:03,000 --> 00:02:06,000
+World Space. it is World Space! That's good!
+
+42
+00:02:06,000 --> 00:02:09,000
+Then, we need to scale this text. We only need to
+
+43
+00:02:09,000 --> 00:02:12,000
+do it once, because once we've done it once we can
+
+44
+00:02:12,000 --> 00:02:15,000
+reuse it for the other buttons. So, let's put the other
+
+45
+00:02:15,000 --> 00:02:18,000
+text in the center or at the bottom,
+
+46
+00:02:18,000 --> 00:02:21,000
+vertically. Choose
+
+47
+00:02:21,000 --> 00:02:24,000
+a color. I'm going to go for yellow. I think that'll work!
+
+48
+00:02:24,000 --> 00:02:27,000
+You need a font size, such that the
+
+49
+00:02:27,000 --> 00:02:30,000
+text is not to aliased.
+
+50
+00:02:33,000 --> 00:02:36,000
+In your UI Tool here, we need to scale this guy,
+
+51
+00:02:36,000 --> 00:02:39,000
+so it's roughly the right shape.
+
+52
+00:02:39,000 --> 00:02:42,000
+So, that's the right sort of shape. Now, you need to
+
+53
+00:02:42,000 --> 00:02:45,000
+change the scale of this, altogether, so let's try 0.1
+
+54
+00:02:45,000 --> 00:02:48,000
+by 0.1 and see where that takes us.
+
+55
+00:02:48,000 --> 00:02:51,000
+It takes us there. I'm going to go back to 2D.
+
+56
+00:02:51,000 --> 00:02:54,000
+So, all you need to do is move this Cost Element,
+
+57
+00:02:54,000 --> 00:02:57,000
+over the top of your actual
+
+58
+00:02:57,000 --> 00:03:00,000
+buttons. OK, so that's your mission now. So we grab it and move it
+
+59
+00:03:03,000 --> 00:03:06,000
+And then, you could say well, why don't
+
+60
+00:03:06,000 --> 00:03:09,000
+we calculate the position? Well, it's a little bit harder to calculate, because we're
+
+61
+00:03:09,000 --> 00:03:12,000
+dealing some of the time with world space and some of the time with pixel
+
+62
+00:03:12,000 --> 00:03:15,000
+space. So, it's a
+
+63
+00:03:15,000 --> 00:03:18,000
+little bit easier to just move it around, the way that I'm doing
+
+64
+00:03:18,000 --> 00:03:21,000
+it. OK, remember you can't just size it down, because you'll
+
+65
+00:03:21,000 --> 00:03:24,000
+run out of font size. Alright, so you need
+
+66
+00:03:24,000 --> 00:03:27,000
+to get the element
+
+67
+00:03:27,000 --> 00:03:30,000
+stroke font size combination, so that you get a nice clearly
+
+68
+00:03:30,000 --> 00:03:33,000
+rendered font, and then, you just need to scale
+
+69
+00:03:33,000 --> 00:03:36,000
+using the Rect Transform
+
+70
+00:03:36,000 --> 00:03:39,000
+Scale, to make the final size changes. You can make minor
+
+71
+00:03:39,000 --> 00:03:42,000
+tweaks, by changing the size of the
+
+72
+00:03:42,000 --> 00:03:45,000
+actual canvas, once it's been scaled, the width and the height in pixels.
+
+73
+00:03:45,000 --> 00:03:48,000
+but your major change needs to be done by scaling, because of the
+
+74
+00:03:48,000 --> 00:03:51,000
+way we've got everything else set up. So, I'm going to put that at the
+
+75
+00:03:51,000 --> 00:03:54,000
+bottom left. Something like that!
+
+76
+00:03:54,000 --> 00:03:57,000
+Oops, careful not to move the wrong object!
+
+77
+00:03:57,000 --> 00:04:00,000
+And then, that's what we need! We have a little
+
+78
+00:04:00,000 --> 00:04:03,000
+label. You see if I go here, it's quite clear what's going on.
+
+79
+00:04:03,000 --> 00:04:06,000
+Also, we need to decide, do we want this label to be behind or in front?
+
+80
+00:04:06,000 --> 00:04:09,000
+Well, I think it would make sense for it to be in front. So, the Cactus
+
+81
+00:04:09,000 --> 00:04:12,000
+itself needs an order in
+
+82
+00:04:12,000 --> 00:04:15,000
+layer of 0, but if you do that
+
+83
+00:04:15,000 --> 00:04:18,000
+see what happens when you go to 0? You see it kind of goes
+
+84
+00:04:18,000 --> 00:04:21,000
+transparent, because it's kind of confluenced with this background.
+
+85
+00:04:21,000 --> 00:04:24,000
+That's the problem
+
+86
+00:04:24,000 --> 00:04:27,000
+you're going to have, if you go to 0. So, how are we going to
+
+87
+00:04:27,000 --> 00:04:30,000
+make the Cactus show up properly and have
+
+88
+00:04:30,000 --> 00:04:33,000
+this text in front?
+
+89
+00:04:33,000 --> 00:04:36,000
+That's a good question for you. You could try changing the Z position, but that's
+
+90
+00:04:36,000 --> 00:04:39,000
+only going to influence it's position relative to
+
+91
+00:04:39,000 --> 00:04:42,000
+the sprite. It's not actually going to help it coming in front of the
+
+92
+00:04:42,000 --> 00:04:45,000
+sprite, it's only going to help it change compared to the
+
+93
+00:04:45,000 --> 00:04:48,000
+background,
+
+94
+00:04:48,000 --> 00:04:51,000
+and that's because some of these things are transforms, if you
+
+95
+00:04:51,000 --> 00:04:54,000
+look at the top of the Inspector. And some of these things are rect transforms.
+
+96
+00:04:54,000 --> 00:04:57,000
+So, how do we get this text in front? Or do we
+
+97
+00:04:57,000 --> 00:05:00,000
+bother getting this text in front? Do we just leave it de-conflicted
+
+98
+00:05:00,000 --> 00:05:03,000
+out of the way there, and never go over the top? Well, that's a
+
+99
+00:05:03,000 --> 00:05:06,000
+design decision for you. It depends on what you think looks best.
+
+100
+00:05:06,000 --> 00:05:09,000
+If you want to have it sit in front or do some funny
+
+101
+00:05:09,000 --> 00:05:12,000
+fade or make it look really pretty, then you just need to
+
+102
+00:05:12,000 --> 00:05:15,000
+play with your Z positions, your ordering, and to look in
+
+103
+00:05:15,000 --> 00:05:18,000
+3D, to work out exactly what you want laying
+
+104
+00:05:18,000 --> 00:05:21,000
+in front of what. But for simplicity, I'm just going to duplicate this
+
+105
+00:05:21,000 --> 00:05:24,000
+Cost, into each of the other items for now
+
+106
+00:05:24,000 --> 00:05:27,000
+and not worry about that position in Z.
+
+107
+00:05:27,000 --> 00:05:30,000
+I'm going to use the Transform
+
+108
+00:05:30,000 --> 00:05:33,000
+Moving Tool,
+
+109
+00:05:33,000 --> 00:05:36,000
+to make sure that these are lined up against their relevant
+
+110
+00:05:36,000 --> 00:05:39,000
+buttons.
+
+111
+00:05:39,000 --> 00:05:42,000
+OK, so now for each of your buttons
+
+112
+00:05:42,000 --> 00:05:45,000
+you have a subelement, that has a text
+
+113
+00:05:45,000 --> 00:05:48,000
+script on it. XX, because by default we want
+
+114
+00:05:48,000 --> 00:05:51,000
+it to read nothing, because
+
+115
+00:05:51,000 --> 00:05:54,000
+we haven't read yet the cost of the Defender Prefab. We do
+
+116
+00:05:54,000 --> 00:05:57,000
+want the change in the Defender Prefab
+
+117
+00:05:57,000 --> 00:06:00,000
+Cost to be reflected
+
+118
+00:06:00,000 --> 00:06:03,000
+from this script, Cost here, into this button.
+
+119
+00:06:03,000 --> 00:06:06,000
+So, on load we're going to have to do something over
+
+120
+00:06:06,000 --> 00:06:09,000
+here, that's going to help take the defender cost from the defender item
+
+121
+00:06:09,000 --> 00:06:12,000
+and put it on that text. How are we going to do that? Well, we've got
+
+122
+00:06:12,000 --> 00:06:15,000
+got some code to do that. We've already got Button
+
+123
+00:06:15,000 --> 00:06:18,000
+Script, so we do not need to create anymore classes or
+
+124
+00:06:18,000 --> 00:06:21,000
+create anymore scripts. So, go into your Button Script,
+
+125
+00:06:21,000 --> 00:06:24,000
+and let's think about how we're going to do it.
+
+126
+00:06:24,000 --> 00:06:27,000
+So, it's all going to happen on Start. We may well refactor this out
+
+127
+00:06:27,000 --> 00:06:30,000
+in a moment, but for now, we need
+
+128
+00:06:30,000 --> 00:06:33,000
+access to something called a Cost Text.
+
+129
+00:06:33,000 --> 00:06:36,000
+So, what type of element is a Cost Text? It's going to be a
+
+130
+00:06:36,000 --> 00:06:39,000
+text, so private Text Cost,
+
+131
+00:06:39,000 --> 00:06:42,000
+not Texture. Text cost
+
+132
+00:06:42,000 --> 00:06:45,000
+Text; Now, why is Text in red?
+
+133
+00:06:45,000 --> 00:06:48,000
+Because I need the UnityEngineUI namespace, for the first time in
+
+134
+00:06:48,000 --> 00:06:51,000
+the button right. The button didn't do anything to do with UI, it does
+
+135
+00:06:51,000 --> 00:06:54,000
+now. There's a world space before.
+
+136
+00:06:54,000 --> 00:06:57,000
+Fantastic! So, on Start we're going to need to say that costText
+
+137
+00:06:57,000 --> 00:07:00,000
+= what?
+
+138
+00:07:00,000 --> 00:07:03,000
+Well, it's going to be... Actually, I'm going to get
+
+139
+00:07:03,000 --> 00:07:06,000
+you to do it. It's one of these things that's on the
+
+140
+00:07:06,000 --> 00:07:09,000
+screen, and I'm going to leave it as a challenge for you,
+
+141
+00:07:09,000 --> 00:07:12,000
+to get the rest of that working. So, here's your challenge!
+
+142
+00:07:12,000 --> 00:07:15,000
+Read the starCost, from the relevant defender. Display the
+
+143
+00:07:15,000 --> 00:07:18,000
+cost on the button, in the small text field that we just created,
+
+144
+00:07:18,000 --> 00:07:21,000
+and log a warning, if you can't find that text.
+
+145
+00:07:21,000 --> 00:07:24,000
+[Laughs] Ah, just when you thought you were going to sit back
+
+146
+00:07:24,000 --> 00:07:27,000
+and relax and copy and paste. You'll never learn anything that way.
+
+147
+00:07:27,000 --> 00:07:30,000
+Fantastic! So, that's your challenge. Good
+
+148
+00:07:30,000 --> 00:07:33,000
+luck, and I'll see you soon!
+
+149
+00:07:33,000 --> 00:07:36,000
+OK, welcome back! So,
+
+150
+00:07:36,000 --> 00:07:39,000
+the method I'm going to use it GetComponentInChildren.
+
+151
+00:07:39,000 --> 00:07:42,000
+Let's make sure we know why it's
+
+152
+00:07:42,000 --> 00:07:45,000
+GetComponentInChildren.
+
+153
+00:07:45,000 --> 00:07:48,000
+Because if we look over in Unity,
+
+154
+00:07:48,000 --> 00:07:51,000
+here the Cactus has the Button Script on it, and Cost
+
+155
+00:07:51,000 --> 00:07:54,000
+is a child of that, so that's why it's GetComponentInChildren.
+
+156
+00:07:54,000 --> 00:07:57,000
+And then, this child GameObject
+
+157
+00:07:57,000 --> 00:08:00,000
+has a type against it, of Text, because we have a Text component
+
+158
+00:08:00,000 --> 00:08:03,000
+on it. Alright, so if we GetComponent
+
+159
+00:08:03,000 --> 00:08:06,000
+InChildren. I'm going to use this format, the
+
+160
+00:08:06,000 --> 00:08:09,000
+generic format, &lt;Text&gt; like that in the
+
+161
+00:08:09,000 --> 00:08:12,000
+chevrons. Then, we have our costText
+
+162
+00:08:12,000 --> 00:08:15,000
+set. Fantastic! A couple more lines. We need to say if there's
+
+163
+00:08:15,000 --> 00:08:18,000
+no costText, then we need to give the designer some indication
+
+164
+00:08:18,000 --> 00:08:21,000
+of what they need to be doing about it. We Debug.Log what,
+
+165
+00:08:21,000 --> 00:08:24,000
+warning or error? Well, it's not going to stop the game running, so I'm just going to
+
+166
+00:08:24,000 --> 00:08:27,000
+log a warning, and we're going to say which object
+
+167
+00:08:27,000 --> 00:08:30,000
+has the problem, with a space " has no
+
+168
+00:08:30,000 --> 00:08:33,000
+cost text". So, it just warns
+
+169
+00:08:33,000 --> 00:08:36,000
+the designer that there's not cost text been assigned
+
+170
+00:08:36,000 --> 00:08:39,000
+against it. What do I mean by no costText? I mean
+
+171
+00:08:39,000 --> 00:08:42,000
+that this sub-object is missing this Text Script.
+
+172
+00:08:42,000 --> 00:08:45,000
+OK, that's what would happen if there was a Text Script missing. I'm going to do it all
+
+173
+00:08:45,000 --> 00:08:48,000
+on one line. You just have to be really careful,
+
+174
+00:08:48,000 --> 00:08:51,000
+particularly with your semicolon here, that you include a semicolon.
+
+175
+00:08:51,000 --> 00:08:54,000
+This one line, of course, is equivalent to the format we
+
+176
+00:08:54,000 --> 00:08:57,000
+usually show you, which is that. So, if you
+
+177
+00:08:57,000 --> 00:09:00,000
+want to get it on one line
+
+178
+00:09:00,000 --> 00:09:03,000
+without having to... Sorry I've got a, one second.
+
+179
+00:09:03,000 --> 00:09:06,000
+I have got myself an
+
+180
+00:09:06,000 --> 00:09:09,000
+error. That's because I have never closed the brackets on Start,
+
+181
+00:09:09,000 --> 00:09:12,000
+so let's just compile, prove it compiles. Great! If you
+
+182
+00:09:12,000 --> 00:09:15,000
+ever want to compact a line down, if it's a single line in an
+
+183
+00:09:15,000 --> 00:09:18,000
+if, then probably write it this way, the way we've always shown you
+
+184
+00:09:18,000 --> 00:09:21,000
+to and then delete back. If you really do want
+
+185
+00:09:21,000 --> 00:09:24,000
+to keep it compact. It's just another option for you, OK.
+
+186
+00:09:24,000 --> 00:09:27,000
+So, it's costText.text is the text
+
+187
+00:09:27,000 --> 00:09:30,000
+part of the costText element =, now one
+
+188
+00:09:30,000 --> 00:09:33,000
+long line for us, just for practice. You
+
+189
+00:09:33,000 --> 00:09:36,000
+see these sort of long lines on the Internet, so why not get used to it.
+
+190
+00:09:36,000 --> 00:09:39,000
+defenderPrefab.GetConponent. We need to get from the Defender
+
+191
+00:09:39,000 --> 00:09:42,000
+Prefab, it's &lt;Defender&gt;() component,
+
+192
+00:09:42,000 --> 00:09:45,000
+to method.starCost. And we're nearly
+
+193
+00:09:45,000 --> 00:09:48,000
+there but it's an int, so we need to go ToString();
+
+194
+00:09:48,000 --> 00:09:51,000
+costText.text = defenderPrefab.GetComponent
+
+195
+00:09:51,000 --> 00:09:54,000
+&lt;Defender&gt;().starCost.ToString();
+
+196
+00:09:54,000 --> 00:09:57,000
+Mumbling as I go! So,
+
+197
+00:09:57,000 --> 00:10:00,000
+let's try it! Let's just remind ourselves, before we go in, what we're expecting.
+
+198
+00:10:00,000 --> 00:10:03,000
+We're expecting to see 10 for the Cactus...
+
+199
+00:10:03,000 --> 00:10:06,000
+10 for the Cactus. I'm going to set the
+
+200
+00:10:06,000 --> 00:10:09,000
+Gnome to 20. I want them to be different right. Set the
+
+201
+00:10:09,000 --> 00:10:12,000
+prefabs' defender cost different to each other,
+
+202
+00:10:12,000 --> 00:10:15,000
+so that you can see that this is working. It also may help
+
+203
+00:10:15,000 --> 00:10:18,000
+or hinder your game tuning. So let's try it!
+
+204
+00:10:18,000 --> 00:10:21,000
+Perfect! 10, 20, 30,
+
+205
+00:10:21,000 --> 00:10:24,000
+40. So now, we have some affordance as to what it's going to cost. That guy
+
+206
+00:10:24,000 --> 00:10:27,000
+is going to cost me 40. Shooting this fox
+
+207
+00:10:27,000 --> 00:10:30,000
+is just going to cost me 20. I've got 20 left, so I can't
+
+208
+00:10:30,000 --> 00:10:33,000
+afford to put one of these down. You see, great! Much easier
+
+209
+00:10:33,000 --> 00:10:36,000
+to play now! Fantastic! So, how are we doing on the
+
+210
+00:10:36,000 --> 00:10:39,000
+lecture? We
+
+211
+00:10:39,000 --> 00:10:42,000
+have displayed the defender cost. Now, I want you to tweak
+
+212
+00:10:42,000 --> 00:10:45,000
+the spawn frequency of the attackers, adjust the health, etc. So, that's
+
+213
+00:10:45,000 --> 00:10:48,000
+your challenge, is basically play tune the game engine.
+
+214
+00:10:48,000 --> 00:10:51,000
+There's several things you can change, healths,
+
+215
+00:10:51,000 --> 00:10:54,000
+projectile damage, etc.
+
+216
+00:10:54,000 --> 00:10:57,000
+Have a go! Make sure the game is challenging,
+
+217
+00:10:57,000 --> 00:11:00,000
+is fun, and is how you want it! And I suggest that
+
+218
+00:11:00,000 --> 00:11:03,000
+once you've done it for the first level, you
+
+219
+00:11:03,000 --> 00:11:06,000
+make each level a little bit harder, than the
+
+220
+00:11:06,000 --> 00:11:09,000
+previous level, and preferably introduce a new game mechanic. Now, I'm
+
+221
+00:11:09,000 --> 00:11:12,000
+not going to go through all of this, because it's very time consuming, but I
+
+222
+00:11:12,000 --> 00:11:15,000
+would suggest that on Level 1 you don't even have the
+
+223
+00:11:15,000 --> 00:11:18,000
+stones, in my game for example, that you maybe just
+
+224
+00:11:18,000 --> 00:11:21,000
+have one type of defender and one type of attacker.
+
+225
+00:11:21,000 --> 00:11:24,000
+And then, maybe in Level 2 you introduce another attacker or another defender,
+
+226
+00:11:24,000 --> 00:11:27,000
+and then, in Level 3 you introduce yet another.
+
+227
+00:11:27,000 --> 00:11:30,000
+OK, so creating new levels will be relatively easy,
+
+228
+00:11:30,000 --> 00:11:33,000
+if everything is prefabbed up properly.
+
+229
+00:11:33,000 --> 00:11:36,000
+So, at this stage in the course, I think you're ready to do that. So, play tune your game,
+
+230
+00:11:36,000 --> 00:11:39,000
+make two or three levels, and when you've finished,
+
+231
+00:11:39,000 --> 00:11:42,000
+share it! Share it on Game Bucket! Share it with everybody else on the
+
+232
+00:11:42,000 --> 00:11:45,000
+course! I want to see what you've created! Brice really wants to
+
+233
+00:11:45,000 --> 00:11:48,000
+see what you've created, so we can't wait to see what comes out the other
+
+234
+00:11:48,000 --> 00:11:51,000
+end of Glitch Garden. Go ahead, finish off your game,
+
+235
+00:11:51,000 --> 00:11:54,000
+play tune it, and we'll talk about mobile deployment soon!
+
+236
+00:11:57,000 --> 00:12:00,000
+OK, so what I am going to show you quickly is a way of
+
+237
+00:12:00,000 --> 00:12:03,000
+creating a second and third level. So, I could delete the second
+
+238
+00:12:03,000 --> 00:12:06,000
+and third levels, just remove them altogether,
+
+239
+00:12:06,000 --> 00:12:09,000
+and then
+
+240
+00:12:09,000 --> 00:12:12,000
+Duplicate, firstly, just Level 1
+
+241
+00:12:12,000 --> 00:12:15,000
+into Level 2 and then I'm going to Duplicate
+
+242
+00:12:15,000 --> 00:12:18,000
+again. Let's assume that this state we've created is actually
+
+243
+00:12:18,000 --> 00:12:21,000
+Level 3 and that
+
+244
+00:12:21,000 --> 00:12:24,000
+we want Level 1 and 2 to be simpler.
+
+245
+00:12:24,000 --> 00:12:27,000
+So, what are we going to lose for Level 2? So, let's go to Level 2
+
+246
+00:12:27,000 --> 00:12:30,000
+and think, well how do we roll this out,
+
+247
+00:12:30,000 --> 00:12:33,000
+if it's going to be three levels? So, maybe in Level 1 you only have one
+
+248
+00:12:33,000 --> 00:12:36,000
+defender and one attacker. So, in Level 1
+
+249
+00:12:36,000 --> 00:12:39,000
+you'd probably have a sun and
+
+250
+00:12:39,000 --> 00:12:42,000
+maybe just a cactus dude. So, what
+
+251
+00:12:42,000 --> 00:12:45,000
+you can do in Level 1 is, you can go ahead to your buttons, and then, start
+
+252
+00:12:45,000 --> 00:12:48,000
+deleting the Stone
+
+253
+00:12:48,000 --> 00:12:51,000
+and the Gnome,
+
+254
+00:12:51,000 --> 00:12:54,000
+and then, just squeeze down the Background...
+
+255
+00:12:57,000 --> 00:13:00,000
+...like so. Move it.
+
+256
+00:13:00,000 --> 00:13:03,000
+You get the idea right? And then, move the Trophy
+
+257
+00:13:03,000 --> 00:13:06,000
+to X = 2. Let's see
+
+258
+00:13:06,000 --> 00:13:09,000
+how well that runs!
+
+259
+00:13:09,000 --> 00:13:12,000
+Now, it's going to be tricky, because we're going to have multiple
+
+260
+00:13:12,000 --> 00:13:15,000
+attacker types. So, I think it's probably worth
+
+261
+00:13:15,000 --> 00:13:18,000
+getting rid of the Fox, here as well. So, how do get rid of the Fox? You go to your
+
+262
+00:13:18,000 --> 00:13:21,000
+Spawners, all of your Spawners. You set their
+
+263
+00:13:21,000 --> 00:13:24,000
+Array Size to 1 and have just a Lizard now.
+
+264
+00:13:24,000 --> 00:13:27,000
+OK,
+
+265
+00:13:27,000 --> 00:13:30,000
+so now this Level 1 thing only has
+
+266
+00:13:30,000 --> 00:13:33,000
+cactuses and lizards.
+
+267
+00:13:33,000 --> 00:13:36,000
+Fine! So then, Level 2
+
+268
+00:13:36,000 --> 00:13:39,000
+you could say, well what are we going to leave out of Level 2?
+
+269
+00:13:39,000 --> 00:13:42,000
+Well, maybe we'll leave out the...
+
+270
+00:13:42,000 --> 00:13:45,000
+Maybe we'll leave out the Gnome or something like that.
+
+271
+00:13:45,000 --> 00:13:48,000
+So, you get the idea right. You delete the Gnome.
+
+272
+00:13:51,000 --> 00:13:54,000
+It'll lose the
+
+273
+00:13:54,000 --> 00:13:57,000
+prefab connection. That's fine, we don't care.
+
+274
+00:13:57,000 --> 00:14:00,000
+Make the background smaller, resize
+
+275
+00:14:00,000 --> 00:14:03,000
+the background, or reposition the background.
+
+276
+00:14:03,000 --> 00:14:06,000
+Move the Stone and the Trophy one
+
+277
+00:14:06,000 --> 00:14:09,000
+left. OK,
+
+278
+00:14:09,000 --> 00:14:12,000
+you get the idea! So now, we're rolling out functionality,
+
+279
+00:14:12,000 --> 00:14:15,000
+as we roll through the levels. So,
+
+280
+00:14:15,000 --> 00:14:18,000
+in Level 2 we now have
+
+281
+00:14:21,000 --> 00:14:24,000
+a gravestone, and we realize that the foxes can jump
+
+282
+00:14:24,000 --> 00:14:27,000
+over it. Maybe it's
+
+283
+00:14:27,000 --> 00:14:30,000
+a bit much having the foxes in here still, so we'll probably
+
+284
+00:14:30,000 --> 00:14:33,000
+just go into the Spawners and take the Foxes out.
+
+285
+00:14:33,000 --> 00:14:36,000
+I'm just absolutely guessing here. It's a lot of work and time to
+
+286
+00:14:36,000 --> 00:14:39,000
+go through and get this, so that it's
+
+287
+00:14:39,000 --> 00:14:42,000
+exactly how you want it. So, that's what you're going to need to take
+
+288
+00:14:42,000 --> 00:14:45,000
+time to do to take pride in your game. So, Level
+
+289
+00:14:45,000 --> 00:14:48,000
+1 has just star trophies and
+
+290
+00:14:48,000 --> 00:14:51,000
+cactuses. Level 2 introduces the
+
+291
+00:14:51,000 --> 00:14:54,000
+stone here, and then, Level 3 has everything,
+
+292
+00:14:54,000 --> 00:14:57,000
+including the foxes,
+
+293
+00:14:57,000 --> 00:15:00,000
+so it's all there. So you go oh, foxes jump over
+
+294
+00:15:00,000 --> 00:15:03,000
+but I've got another gnome, and you get the idea. So now, we're rolling
+
+295
+00:15:03,000 --> 00:15:06,000
+out the
+
+296
+00:15:06,000 --> 00:15:09,000
+scope of the game, in terms of the functionality, as we go through the
+
+297
+00:15:09,000 --> 00:15:12,000
+levels. You can also go and play tune each of these levels, so they get more
+
+298
+00:15:12,000 --> 00:15:15,000
+challenging, as the player gets batter. You just
+
+299
+00:15:15,000 --> 00:15:18,000
+need to get other people, not you, to play the game again and again,
+
+300
+00:15:18,000 --> 00:15:21,000
+and watch what they're doing and see that it
+
+301
+00:15:21,000 --> 00:15:24,000
+leads to a challenging fun game. And if it doesn't,
+
+302
+00:15:24,000 --> 00:15:27,000
+tweak it and repeat, until it works how you want it to work.
+
+303
+00:15:27,000 --> 00:15:30,000
+Alright, but that's basically it! If we go from the Start
+
+304
+00:15:30,000 --> 00:15:33,000
+of the game now and remind ourselves of what we've done.
+
+305
+00:15:33,000 --> 00:15:36,000
+We have a nice
+
+306
+00:15:36,000 --> 00:15:39,000
+sound on the start. We have options. We have a fade.
+
+307
+00:15:39,000 --> 00:15:42,000
+We can play the game. We start on a simple level,
+
+308
+00:15:42,000 --> 00:15:45,000
+100 seconds per level. Don't confuse
+
+309
+00:15:45,000 --> 00:15:48,000
+that with your 100 stars, initially in the
+
+310
+00:15:48,000 --> 00:15:51,000
+bank. We can place producers, we've got animations,
+
+311
+00:15:51,000 --> 00:15:54,000
+we've got different types of enemies, and you see how easy it
+
+312
+00:15:54,000 --> 00:15:57,000
+was to make multiple levels. All the reward comes in the
+
+313
+00:15:57,000 --> 00:16:00,000
+last few minutes, because we've set everything up, so it's that
+
+314
+00:16:00,000 --> 00:16:03,000
+easy to just duplicate our levels and create
+
+315
+00:16:03,000 --> 00:16:06,000
+new ones. So congratulations on getting
+
+316
+00:16:06,000 --> 00:16:09,000
+your game this far! Please do now, go over to
+
+317
+00:16:09,000 --> 00:16:12,000
+a gamebuck.io. I'm going to show you and remind you where that is.
+
+318
+00:16:12,000 --> 00:16:15,000
+And upload your game. So, remember what you need to do,
+
+319
+00:16:15,000 --> 00:16:18,000
+you need to build your game for the web in Unity.
+
+320
+00:16:18,000 --> 00:16:21,000
+So, that is literally File, Build Settings,
+
+321
+00:16:21,000 --> 00:16:24,000
+and then, in those settings check that your levels are in the right
+
+322
+00:16:24,000 --> 00:16:27,000
+order and they're all in and build it for the web. Pick a resolution
+
+323
+00:16:27,000 --> 00:16:30,000
+that works for you. I would suggest something...
+
+324
+00:16:30,000 --> 00:16:33,000
+Well, just pick a resolution and try it, basically.
+
+325
+00:16:33,000 --> 00:16:36,000
+I wouldn't go a lot more than 1,000 pixels wide,
+
+326
+00:16:36,000 --> 00:16:39,000
+maybe 1,200. Just be sympathetic of peoples' monitor sizes.
+
+327
+00:16:39,000 --> 00:16:42,000
+When you've done your web build, of course, you need to then
+
+328
+00:16:42,000 --> 00:16:45,000
+zip it up. The Build Folder is what we
+
+329
+00:16:45,000 --> 00:16:48,000
+want, the web Build Folder. We do not want your entire Project Folder.
+
+330
+00:16:48,000 --> 00:16:51,000
+If your music is too big, you want to try and keep this thing under 20 megabytes. You
+
+331
+00:16:51,000 --> 00:16:54,000
+may need to re-encode your music, using something like
+
+332
+00:16:54,000 --> 00:16:57,000
+Audacity or any other music
+
+333
+00:16:57,000 --> 00:17:00,000
+thing. Down sample your music a little bit, and then, just upload to
+
+334
+00:17:00,000 --> 00:17:03,000
+Game Bucket and use it the normal way. So, we can't wait to see your
+
+335
+00:17:03,000 --> 00:17:06,000
+game. Please do share it, at this stage, and then,
+
+336
+00:17:06,000 --> 00:17:09,000
+next up in this section and the final bit of the course is just
+
+337
+00:17:09,000 --> 00:17:12,000
+talking to you about how to deploy to mobile.
+
+338
+00:17:12,000 --> 00:17:14,500
+So, see you soon!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section7/GG43 Play Testing Tuning.srt

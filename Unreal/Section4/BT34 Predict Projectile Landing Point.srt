@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT34 Predict Projectile Landing Point.srt
 ﻿WEBVTT
 
 1
@@ -740,3 +741,746 @@ to this AimDirection here to actually point the barrel.
 00:12:15.000 --> 00:12:16.300
 
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+Welcome to Predict
+
+2
+00:00:04,000 --> 00:00:08,000
+Projectile Landing Point! What we're going to do in this video is actually implement
+
+3
+00:00:08,000 --> 00:00:12,000
+our method call. Don't look at that too long, because it's the solution to your challenge, and find
+
+4
+00:00:12,000 --> 00:00:16,000
+that the logs will actually tell us where we should be aiming our barrel
+
+5
+00:00:16,000 --> 00:00:19,000
+as unit vectors, which is pretty cool!
+
+6
+00:00:19,000 --> 00:00:23,000
+Can't we just work out where to point this barrel already,
+
+7
+00:00:23,000 --> 00:00:27,000
+I hear you cry! Well I'm glad you asked, because yes it is time to actually
+
+8
+00:00:27,000 --> 00:00:31,000
+implement this method. So, let's take a
+
+9
+00:00:31,000 --> 00:00:35,000
+quick look at this. You've look at this, as your homework. It's time to
+
+10
+00:00:35,000 --> 00:00:39,000
+actually implement this code now. I think I'm actually going to keep it on the screen on the
+
+11
+00:00:39,000 --> 00:00:43,000
+left here and see if I can find some room for Visual Studio,
+
+12
+00:00:43,000 --> 00:00:47,000
+on the right-hand side. I'll close my Solution Explorer, customize my workspace
+
+13
+00:00:47,000 --> 00:00:51,000
+so that it works for me. OK cool! I don't even need these
+
+14
+00:00:51,000 --> 00:00:55,000
+line numbers, but I think I'll try and do this squeezing them in. Can I just
+
+15
+00:00:55,000 --> 00:00:59,000
+change the dividing point here? I can, good old Windows is helping me
+
+16
+00:00:59,000 --> 00:01:03,000
+out a little bit there. So, I'll just get you setup with what we need at the beginning and the end,
+
+17
+00:01:03,000 --> 00:01:07,000
+and then, you can actually make the method call yourself as the challenge. Go ahead, do the whole lot if you
+
+18
+00:01:07,000 --> 00:01:11,000
+think you know what I'm going to do, but for everybody else, we're going to firstly protect our barrel pointer
+
+19
+00:01:11,000 --> 00:01:15,000
+member. So, if we don't have a barrel, then what do we want to do? We want to get out of here!
+
+20
+00:01:15,000 --> 00:01:19,000
+We return. Return what? Well void, so nothing.
+
+21
+00:01:19,000 --> 00:01:23,000
+Fantastic! So that's protecting that barrel reference. What else
+
+22
+00:01:23,000 --> 00:01:27,000
+do we need? Well, we're going to need a start location. In fact, let's just go through this in order.
+
+23
+00:01:27,000 --> 00:01:31,000
+We're going to need a world context object. Well this
+
+24
+00:01:31,000 --> 00:01:35,000
+will do. Literally the word "this" will do, because our TankAimingComponent
+
+25
+00:01:35,000 --> 00:01:39,000
+is sufficient as that WorldContext. So there's a hint there for you, for the challenge. Now the
+
+26
+00:01:39,000 --> 00:01:43,000
+TossVelocity! Do we have the TossVelocity yet?
+
+27
+00:01:43,000 --> 00:01:47,000
+Well, it's an out parameter, it's actually the TossVelocity we're going to get out of this thing,
+
+28
+00:01:47,000 --> 00:01:51,000
+so you're going to need to make room for an out parameter. I'm going to call that out
+
+29
+00:01:51,000 --> 00:01:55,000
+parameter LaunchVelocity. So let me do that bit for you.
+
+30
+00:01:55,000 --> 00:01:59,000
+FVector out, I'm going to call it OutLaunchVelocity,
+
+31
+00:01:59,000 --> 00:02:03,000
+just to mark it as an out parameter, a different way Unreal does this inside the engine.
+
+32
+00:02:03,000 --> 00:02:07,000
+OK, what else are we going to need? We're going to need the start location, so let me just
+
+33
+00:02:07,000 --> 00:02:11,000
+help you a little bit with the start location, which is this guy
+
+34
+00:02:11,000 --> 00:02:15,000
+here. That's going to be an FVector, of course,
+
+35
+00:02:15,000 --> 00:02:19,000
+and it's going to be called StartLocation, just to keep things simple.
+
+36
+00:02:19,000 --> 00:02:23,000
+Now, we're going to start where the
+
+37
+00:02:23,000 --> 00:02:27,000
+barrel is but what part of the barrel? If we go to the barrel and use an
+
+38
+00:02:27,000 --> 00:02:31,000
+arrow operator because it's a pointer, then we can ask ourselves, well what
+
+39
+00:02:31,000 --> 00:02:35,000
+can we do? We could try and get location, and my autofill gives
+
+40
+00:02:35,000 --> 00:02:39,000
+me the following, GetComponentLocation. Well it's not a component, it's a...
+
+41
+00:02:39,000 --> 00:02:43,000
+Well it is a component but we can do better than that.
+
+42
+00:02:43,000 --> 00:02:47,000
+We don't want to get a custom location, but we can do even better and get a socket location
+
+43
+00:02:47,000 --> 00:02:51,000
+if we want to. So, either GetComponentLocation or GetSocketLocation.
+
+44
+00:02:51,000 --> 00:02:55,000
+I'm going to roll with GetSocketLocation, and we're going to make a socket first,
+
+45
+00:02:55,000 --> 00:02:59,000
+over on the barrel. So, you go to the tank_fbx_
+
+46
+00:02:59,000 --> 00:03:03,000
+barrel, static mesh, open it up, add yourself a socket. Because of the bug,
+
+47
+00:03:03,000 --> 00:03:07,000
+we move the socket to where we want the projectile to launch from first, say here
+
+48
+00:03:07,000 --> 00:03:11,000
+Then, we give it a rename to Projectile.
+
+49
+00:03:11,000 --> 00:03:15,000
+Because it's referenced by string, let's copy that into the paste
+
+50
+00:03:15,000 --> 00:03:19,000
+buffer so that we've got it ready. So now we have a place that we can adjust on the barrel.
+
+51
+00:03:19,000 --> 00:03:23,000
+As long as we save that barrel, then we're going to be able to find that
+
+52
+00:03:23,000 --> 00:03:27,000
+socket from code, and the way we do that is we use the GetSocket
+
+53
+00:03:27,000 --> 00:03:31,000
+Location method. What does it take as a parameter?
+
+54
+00:03:31,000 --> 00:03:35,000
+It takes an FName for the socket in question, so we can construct
+
+55
+00:03:35,000 --> 00:03:39,000
+that (FName() open brackets and then as a
+
+56
+00:03:39,000 --> 00:03:43,000
+string the word ("Projectile"). And if you read the documentation
+
+57
+00:03:43,000 --> 00:03:47,000
+of that method, it'll tell you that it'll go and try and find a socket called Projectile,
+
+58
+00:03:47,000 --> 00:03:51,000
+and if it can't find one, it'll just return the location of the barrel. So it fails over
+
+59
+00:03:51,000 --> 00:03:55,000
+nicely I like that! That's always good! So then, we're going to
+
+60
+00:03:55,000 --> 00:03:59,000
+make our function call. So make...
+
+61
+00:03:59,000 --> 00:04:03,000
+"// Calculate the Out
+
+62
+00:04:03,000 --> 00:04:07,000
+LaunchVelocity" and
+
+63
+00:04:07,000 --> 00:04:11,000
+you're going to do that bit, given that I've set you up properly. And then, what we're
+
+64
+00:04:11,000 --> 00:04:15,000
+going to do at the end, after that, is we're going to
+
+65
+00:04:15,000 --> 00:04:19,000
+turn that into a unit vector using the dot
+
+66
+00:04:19,000 --> 00:04:23,000
+GetSafeNormal. So I want you to create
+
+67
+00:04:23,000 --> 00:04:27,000
+a auto
+
+68
+00:04:27,000 --> 00:04:31,000
+AimDirection, let's call it, and that's going to be = to
+
+69
+00:04:31,000 --> 00:04:35,000
+whatever this OurLaunchVelocity is,
+
+70
+00:04:35,000 --> 00:04:39,000
+which remember from the previous slides, if I go back, will be
+
+71
+00:04:39,000 --> 00:04:43,000
+this guy here, the big green arrow. I want you to convert it into that little white arrow, and
+
+72
+00:04:43,000 --> 00:04:47,000
+the way that we do that is using the .GetSafeNormal method,
+
+73
+00:04:47,000 --> 00:04:51,000
+which you can go read about if you like, but that's just going to turn it into a
+
+74
+00:04:51,000 --> 00:04:55,000
+unit vector. Alright, so now you have an AimDirection, and
+
+75
+00:04:55,000 --> 00:04:59,000
+we can say "Aiming at...
+
+76
+00:04:59,000 --> 00:05:03,000
+You can see what I'm doing here, I'm setting up the outside of this thing for you.
+
+77
+00:05:03,000 --> 00:05:07,000
+Let's just maximize this window for now. Aiming at...
+
+78
+00:05:07,000 --> 00:05:11,000
+AimDirection is coming out as a vector, so I'm going
+
+79
+00:05:11,000 --> 00:05:15,000
+to say
+
+80
+00:05:15,000 --> 00:05:19,000
+star AimDirection.ToString()); and then
+
+81
+00:05:19,000 --> 00:05:23,000
+if the AimDirection is actually a FVector, like we hope it would be
+
+82
+00:05:23,000 --> 00:05:27,000
+after this... It will right now, by the way, be an empty FVector. In fact, let's just test it compiles
+
+83
+00:05:27,000 --> 00:05:31,000
+before I even put you into the challenge. While it's compiling, I'll show you the code I've written, it's just
+
+84
+00:05:31,000 --> 00:05:35,000
+here. Nothing is going on because we set
+
+85
+00:05:35,000 --> 00:05:39,000
+a LaunchVelocity. We don't bother to initialize it, because we're about to use it as an out parameter.
+
+86
+00:05:39,000 --> 00:05:43,000
+Because it'll initialize by default to 0, we should
+
+87
+00:05:43,000 --> 00:05:47,000
+end up getting aiming at 0 0 0. "Aiming at" 0
+
+88
+00:05:47,000 --> 00:05:51,000
+0 0. Perfect! So you are now ready for your challenge! What I want you to do
+
+89
+00:05:51,000 --> 00:05:55,000
+is make the method call. Sounds easy enough but you need to make sure you read the docs properly.
+
+90
+00:05:55,000 --> 00:05:59,000
+So fast forward to it
+
+91
+00:05:59,000 --> 00:06:03,000
+and here we go! Use SuggestProjectileVelocity(), that's the method to use.
+
+92
+00:06:03,000 --> 00:06:07,000
+We've talked about that. Use OutLaunchVelocity.GetSafeNormal(). I've done that bit for you.
+
+93
+00:06:07,000 --> 00:06:11,000
+And then, log out the required AimDirection. I've even setup the logging, so all I need you to do
+
+94
+00:06:11,000 --> 00:06:15,000
+is write the method call for SuggestProjectile
+
+95
+00:06:15,000 --> 00:06:19,000
+Velocity() properly and see if you can get it working. Go ahead pause the video. Give it 5 to 10 minutes if you need to,
+
+96
+00:06:19,000 --> 00:06:23,000
+and I'll see you in a moment.
+
+97
+00:06:23,000 --> 00:06:27,000
+OK, welcome back! So this is where I'm going to split my screen again, because I do think it's
+
+98
+00:06:27,000 --> 00:06:31,000
+helpful to have the method details on the left-hand side here. And
+
+99
+00:06:31,000 --> 00:06:35,000
+let's see if we can make this method call! So
+
+100
+00:06:35,000 --> 00:06:39,000
+firstly, I want to pattern where I say if
+
+101
+00:06:39,000 --> 00:06:43,000
+we successfully calculate the LaunchVelocity, so
+
+102
+00:06:43,000 --> 00:06:47,000
+if we calculate the LaunchVelocity, then I want to go
+
+103
+00:06:47,000 --> 00:06:51,000
+ahead and print this stuff out here, so
+
+104
+00:06:51,000 --> 00:06:55,000
+just tab these in, otherwise we're going to do nothing.
+
+105
+00:06:55,000 --> 00:06:59,000
+So "// If no solution found
+
+106
+00:06:59,000 --> 00:07:03,000
+do nothing", and that's because this thing,
+
+107
+00:07:03,000 --> 00:07:07,000
+this SuggestProjectileVelocity returns a boolean, and if it can't
+
+108
+00:07:07,000 --> 00:07:11,000
+succeed it says false. OK, so this pattern here is going to allow us to only
+
+109
+00:07:11,000 --> 00:07:15,000
+log if we get a result. So then, if you're going to
+
+110
+00:07:15,000 --> 00:07:19,000
+do that all in one, how do we lay it out? Well we've done this very recently, so let's just
+
+111
+00:07:19,000 --> 00:07:23,000
+go ahead and get on with it, and it's just a bit of weird indentation, which I think probably
+
+112
+00:07:23,000 --> 00:07:27,000
+ends up with the cleanest code that we can get. So, I've taken too much
+
+113
+00:07:27,000 --> 00:07:31,000
+stuff. If UGameplayStatics suggests projectile
+
+114
+00:07:31,000 --> 00:07:35,000
+velocity, like so. Ah, I'm going to get rid of
+
+115
+00:07:35,000 --> 00:07:39,000
+the comments. So there is the beginning of our function call right,
+
+116
+00:07:39,000 --> 00:07:43,000
+at the end of that. So what we're going to do is open the brackets,
+
+117
+00:07:43,000 --> 00:07:47,000
+let's say here or on this line, and then, we're going to close
+
+118
+00:07:47,000 --> 00:07:51,000
+the brackets somewhere down at the bottom. So it's in here now that we're going to
+
+119
+00:07:51,000 --> 00:07:55,000
+make the method call and pass in all of the parameters. So, I said that this was going to be the
+
+120
+00:07:55,000 --> 00:07:59,000
+context from the left screen. The WorldContext is just going to be a
+
+121
+00:07:59,000 --> 00:08:03,000
+reference to the actual TankAimingComponent. The TossVelocity, what
+
+122
+00:08:03,000 --> 00:08:07,000
+was that going to be? Well that's going to be the out parameter, this OutLaunchVelocity.
+
+123
+00:08:07,000 --> 00:08:11,000
+That's what we're going to get out of this thing. So there's the Toss Velocity. Let me
+
+124
+00:08:11,000 --> 00:08:15,000
+just tighten this stuff up a little bit. Hopefully you can see what I'm doing with the
+
+125
+00:08:15,000 --> 00:08:19,000
+indentation here. Now have I mismatched my brackets? I have!
+
+126
+00:08:19,000 --> 00:08:23,000
+I need another closing bracket, and I'm going to push all these parameters in
+
+127
+00:08:23,000 --> 00:08:27,000
+by one indentation.There you go. It's a bit weird, may be a bit clearer like that.
+
+128
+00:08:27,000 --> 00:08:31,000
+So yeah, I think that's working. So, Out
+
+129
+00:08:31,000 --> 00:08:35,000
+LaunchVelocity StartLocation. So what is the Start
+
+130
+00:08:35,000 --> 00:08:39,000
+Location? Well, we've defined it above. Then, what comes next? The
+
+131
+00:08:39,000 --> 00:08:43,000
+EndLocation. Well, the EndLocation is the hit location. That's where we
+
+132
+00:08:43,000 --> 00:08:47,000
+want it to end up. Toss Speed, well that's the LaunchSpeed that
+
+133
+00:08:47,000 --> 00:08:51,000
+we've already given ourselves. Fantastic! The HighArc,
+
+134
+00:08:51,000 --> 00:08:55,000
+we don't want to go by the HighArc so we say false. Then the Collision
+
+135
+00:08:55,000 --> 00:08:59,000
+Radius. How much variability do we want on it? 0, I'm going to
+
+136
+00:08:59,000 --> 00:09:03,000
+choose because we want to aim precisely. The OverrideGravity, no we're not going to do
+
+137
+00:09:03,000 --> 00:09:07,000
+that, and the final thing, which is a little trickier, is that you need to decide whether we're going to trace
+
+138
+00:09:07,000 --> 00:09:11,000
+or not, whether we're going to debug trace. So, I'm not going to bother,
+
+139
+00:09:11,000 --> 00:09:15,000
+but I am just going to find the name of this enumerator,
+
+140
+00:09:15,000 --> 00:09:19,000
+by copying it without clicking on it which is harder than it sounds.
+
+141
+00:09:19,000 --> 00:09:23,000
+There and then I'm going to go colon colon to get the things and I'm going to say do not trace.
+
+142
+00:09:23,000 --> 00:09:27,000
+And that should be it! I think, yeah, the bracket matching is working now,
+
+143
+00:09:27,000 --> 00:09:31,000
+and that is my code! If this succeeds
+
+144
+00:09:31,000 --> 00:09:35,000
+print this, otherwise do nothing. I hope that makes sense. Now,
+
+145
+00:09:35,000 --> 00:09:39,000
+let's go ahead and see if it compiles. All very well at the code making sense. I'll leave it on the screen while it
+
+146
+00:09:39,000 --> 00:09:43,000
+compiles. I think that's a helpful general habit for you guys to follow, please tell me in
+
+147
+00:09:43,000 --> 00:09:47,000
+our forums or on the Facebook group if you find that helpful,
+
+148
+00:09:47,000 --> 00:09:51,000
+or even in the Q & A on Udemy, wherever you like.
+
+149
+00:09:51,000 --> 00:09:55,000
+OK, how are we doing? That worked! Ah hah, "Aiming at"!
+
+150
+00:09:55,000 --> 00:09:59,000
+And now, it's telling us if I wanted to hit this world space location,
+
+151
+00:09:59,000 --> 00:10:03,000
+where would I need to aim? Three of them are staying consistent but look at this guy, this looks feasible.
+
+152
+00:10:03,000 --> 00:10:07,000
+It's saying that in order to hit that mountain I would need to aim at Y = 1-ish,
+
+153
+00:10:07,000 --> 00:10:11,000
+which is to the right. X = not very
+
+154
+00:10:11,000 --> 00:10:15,000
+far forward. In fact, you'll see as I go forward and backwards
+
+155
+00:10:15,000 --> 00:10:19,000
+of the exactly right-hand direction,
+
+156
+00:10:19,000 --> 00:10:23,000
+the exactly positive Y direction, that that X goes either side
+
+157
+00:10:23,000 --> 00:10:27,000
+of 0. I'm looking at the line that's changing here, of course, in the logs.
+
+158
+00:10:27,000 --> 00:10:31,000
+And then, the Z is depending on how high I'm aiming, so let's just try aiming at the sky.
+
+159
+00:10:31,000 --> 00:10:35,000
+What happens? Well, we don't know for sure because we're not logging the tank
+
+160
+00:10:35,000 --> 00:10:39,000
+name, so we'd better just pop in here the tank name as well. So we're just
+
+161
+00:10:39,000 --> 00:10:43,000
+going to go auto TankName =
+
+162
+00:10:43,000 --> 00:10:47,000
+GetOwner()->GetName
+
+163
+00:10:47,000 --> 00:10:51,000
+(). We may as well do all of this. ToString();
+
+164
+00:10:51,000 --> 00:10:55,000
+OK and then I can just put the tank name in
+
+165
+00:10:55,000 --> 00:10:59,000
+and just
+
+166
+00:10:59,000 --> 00:11:03,000
+pop it right on here. *TankName comma.
+
+167
+00:11:03,000 --> 00:11:07,000
+That's great! Let's just recompile that
+
+168
+00:11:07,000 --> 00:11:11,000
+because the information I'm getting right now is, I don't know which tank
+
+169
+00:11:11,000 --> 00:11:15,000
+my tank, when I'm aiming at the sky, is failing to find a solution. I'd be guessing
+
+170
+00:11:15,000 --> 00:11:19,000
+if I tried to look at those numbers. So, I've done a boo boo! " 'To
+
+171
+00:11:19,000 --> 00:11:23,000
+String' is not a member of
+
+172
+00:11:23,000 --> 00:11:27,000
+'FString' ". Oh, of course, the name is already a
+
+173
+00:11:27,000 --> 00:11:31,000
+string. Silly me! OK, easy to do though!
+
+174
+00:11:31,000 --> 00:11:35,000
+So this is the code I'm ending up with. I'm just getting a tank name here and just passing it
+
+175
+00:11:35,000 --> 00:11:39,000
+in as a second parameter, so that when I do my check here I
+
+176
+00:11:39,000 --> 00:11:43,000
+can be sure that my tank... Now before we do that, let's see what my tank is. Let's
+
+177
+00:11:43,000 --> 00:11:47,000
+depossess, go to the World Outliner. Which one is my tank? It is
+
+178
+00:11:47,000 --> 00:11:51,000
+BP_C_38. OK, so let's repossess! So, we don't really know
+
+179
+00:11:51,000 --> 00:11:55,000
+for sure that that's working perfectly, but I think we can move on and start actually
+
+180
+00:11:55,000 --> 00:11:59,000
+firing a projectile. That's going to give us a much better bit of visual feedback than trying to stare at these numbers
+
+181
+00:11:59,000 --> 00:12:03,000
+and work out if they're giving us what we want. So, well done on getting this far!
+
+182
+00:12:03,000 --> 00:12:07,000
+I'll leave the code on the screen for you. Hopefully it makes sense how we made this method call and what it's
+
+183
+00:12:07,000 --> 00:12:11,000
+doing, and now, we actually have something that we can use
+
+184
+00:12:11,000 --> 00:12:15,000
+to this AimDirection here to actually point the barrel.
+
+185
+00:12:15,000 --> 00:12:16,300
+
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT34 Predict Projectile Landing Point.srt

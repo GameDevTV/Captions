@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT81 OnComponentHit Event in 4.12.srt
 ﻿WEBVTT
 
 1
@@ -512,3 +513,518 @@ video. we'll get on and actually make the tank not apply force. when it is on
 00:08:33.133 --> 00:08:36.733
 the ground. So see you in there!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+Welcome to OnComponent
+
+2
+00:00:04,000 --> 00:00:08,000
+Hit Event in 4.12! What we're going to do here is intercept a hit
+
+3
+00:00:08,000 --> 00:00:12,000
+event between the tracks and the ground, so that we can in future use
+
+4
+00:00:12,000 --> 00:00:17,166
+it to prevent the tank from trying to apply a force, when it's in the air. So let's have a look at it!
+
+5
+00:00:17,166 --> 00:00:21,166
+So we're doing much better! The tank isn't sliding sideways now, but notice this,
+
+6
+00:00:21,166 --> 00:00:25,166
+if I drive the tank off the ground, look when it's in the air it goes nuts!
+
+7
+00:00:25,166 --> 00:00:29,166
+Why is it going so nuts? That's because we're still applying a driving force,
+
+8
+00:00:29,166 --> 00:00:33,166
+even though we're not in contact with the ground. That's kind of crazy! So the mission
+
+9
+00:00:33,166 --> 00:00:37,166
+here is to stop applying a force, unless we're in contact with the ground. Now, lets
+
+10
+00:00:37,166 --> 00:00:41,166
+use Blueprint to mock this up, initially. The first thing we need to do for this to work
+
+11
+00:00:41,166 --> 00:00:45,166
+is, both of the Left and Right Tracks need to have, under the Collision section
+
+12
+00:00:45,166 --> 00:00:49,166
+of the tank blueprint, the Simulation Generates Hit Events
+
+13
+00:00:49,166 --> 00:00:53,166
+checkbox ticked. Without that, they will not generate any Hit Events to detect.
+
+14
+00:00:53,166 --> 00:00:57,166
+Now let's just go to one of the tracks. You don't need to do this bit, I'm going to undo this bit of
+
+15
+00:00:57,166 --> 00:01:01,166
+blueprint. Follow me if you like. I'm going to click the event. Now, by the way, if you
+
+16
+00:01:01,166 --> 00:01:05,166
+select both tracks you won't get the Events list, so you have to select one track or the other.
+
+17
+00:01:05,166 --> 00:01:09,166
+When you select one or the other you get the Events list. At the bottom of the Details tab click plus,
+
+18
+00:01:09,166 --> 00:01:13,166
+and then, we can just print straight off this and
+
+19
+00:01:13,166 --> 00:01:17,166
+just see what we're trying to do in C++, here in Blueprint first.
+
+20
+00:01:17,166 --> 00:01:21,166
+So we could just say OnGround, we could even say Left track on ground.
+
+21
+00:01:21,166 --> 00:01:25,166
+On ground, there you go! So let's compile and play!
+
+22
+00:01:25,166 --> 00:01:29,166
+Provided those Simulation Generates Hit Events checkboxes
+
+23
+00:01:29,166 --> 00:01:33,166
+are set... There you go, we can see that the Left Track is indeed on the ground and it's logging
+
+24
+00:01:33,166 --> 00:01:37,166
+away. Cool! So that's very easy in Blueprint, but we are
+
+25
+00:01:37,166 --> 00:01:41,166
+all grown up and we don't want to be using Blueprint, we want to be using C++. So I'm going to
+
+26
+00:01:41,166 --> 00:01:45,166
+get rid of that and play the game and there they go! So
+
+27
+00:01:45,166 --> 00:01:49,166
+how do you do it in C++, how do we get access to this On Hit event?
+
+28
+00:01:49,166 --> 00:01:53,166
+Well there's a bit of controversy over this, right now, with version
+
+29
+00:01:53,166 --> 00:01:57,166
+4.12. If you try searching searching the web for "oncomponenthit unreal 4.12",
+
+30
+00:01:57,166 --> 00:02:01,166
+you'll find that people are really not sure how to do it, and that's because
+
+31
+00:02:01,166 --> 00:02:05,166
+they've changed stuff and they haven't documented what they've changed. Bless them. I'm sure they will at
+
+32
+00:02:05,166 --> 00:02:09,166
+some point but right now it's not clear. So how do you find out
+
+33
+00:02:09,166 --> 00:02:13,166
+what you should be doing here to register this. well we've got the source code, that's
+
+34
+00:02:13,166 --> 00:02:17,166
+the saving grace. So if you go OnComponentHit, which is the event which
+
+35
+00:02:17,166 --> 00:02:21,166
+we found the name out of from the blueprint, what we can do there
+
+36
+00:02:21,166 --> 00:02:25,166
+is we can right-click it and go to the definition. Yet again, we're diving into the source code,
+
+37
+00:02:25,166 --> 00:02:29,166
+this time of the primitive component, and it has this event,
+
+38
+00:02:29,166 --> 00:02:33,166
+which is of type FComponentHitSignature. Let's go to the definition of that.
+
+39
+00:02:33,166 --> 00:02:37,166
+Now I'm not necessarily expecting you guys to be able to do this, but the point is,
+
+40
+00:02:37,166 --> 00:02:41,166
+I want to give you an awareness of how we, with a lot of help from Sam, so me and Sam
+
+41
+00:02:41,166 --> 00:02:45,166
+found out how to get this signature. So you get here and you see a
+
+42
+00:02:45,166 --> 00:02:49,166
+macro, and if you look at that macro it's a bit odd, because we have commas between the
+
+43
+00:02:49,166 --> 00:02:53,166
+types and the actual names of these variables. Ignore the first
+
+44
+00:02:53,166 --> 00:02:57,166
+bit. We have a UPrimitiveComponent pointer
+
+45
+00:02:57,166 --> 00:03:01,166
+called HitComponent. We have an AActor pointer called OtherActor, we have a UPrimitiveComponent
+
+46
+00:03:01,166 --> 00:03:05,166
+pointer called OtherComp. How that translates to how you should actually use it is
+
+47
+00:03:05,166 --> 00:03:09,166
+as follows. I've written a slide for you. This is how to register for OnHit() Events,
+
+48
+00:03:09,166 --> 00:03:13,166
+in C++, in Unreal 4.12. [Laughs] OK.
+
+49
+00:03:13,166 --> 00:03:17,166
+Firstly, we register the delegate at BeginPlay(); we're going to need to put our BeginPlay back in,
+
+50
+00:03:17,166 --> 00:03:21,166
+and we use that syntax. OnComponentHit.AddDynamic(this,
+
+51
+00:03:21,166 --> 00:03:25,166
+and then the
+
+52
+00:03:25,166 --> 00:03:29,166
+delegate name of the method. So it's ampersand, forward
+
+53
+00:03:29,166 --> 00:03:33,166
+address of UTankTrack::On
+
+54
+00:03:33,166 --> 00:03:37,166
+Hit);. That tells it where to go and find the method, when this event gets triggered.
+
+55
+00:03:37,166 --> 00:03:41,166
+Then, you use this signature for the delegate itself.
+
+56
+00:03:41,166 --> 00:03:45,166
+[Laughs] It looks nasty but it's the thing I found in the source code, right, without all the commas.
+
+57
+00:03:45,166 --> 00:03:49,166
+It's OnHit(UPrimitiveComponent pointer HitComponent, AActor pointer
+
+58
+00:03:49,166 --> 00:03:52,666
+OtherActor, and so on. So you write an OnHit() method called that,
+
+59
+00:03:52,666 --> 00:03:58,933
+but what is important is that you make it a private UFUNCTION, that way the OnHit event will actually work.
+
+60
+00:03:58,933 --> 00:04:02,933
+OK, so what I'm going to do is just challenge you to actually do this. I want you to
+
+61
+00:04:02,933 --> 00:04:06,933
+register for OnHit(), inside C++. Use the instructions on the previous slide,
+
+62
+00:04:06,933 --> 00:04:10,933
+I'll even leave them up for the challenge, if I remember. Ensure that
+
+63
+00:04:10,933 --> 00:04:14,933
+both tracks have the following set in Blueprint: The Collision Simulation
+
+64
+00:04:14,933 --> 00:04:18,933
+Generates Hit Events, otherwise it will all go terribly wrong, and then, test that it works with
+
+65
+00:04:18,933 --> 00:04:22,933
+a log entry. And then, when you've done it and it works, arms in the air and
+
+66
+00:04:22,933 --> 00:04:26,933
+celebrate being one of the first people in Unreal 4.12 to get that working. So I'm just going to
+
+67
+00:04:26,933 --> 00:04:30,933
+dive back now and leave that on the screen, which is your recipe. Try and dig in, try
+
+68
+00:04:30,933 --> 00:04:34,933
+and work out how it works. I know it'll be ambiguous to some of you and very clear to others, but
+
+69
+00:04:34,933 --> 00:04:38,933
+a whole range of abilities on this course. So go ahead, pause the video, and get that puppy
+
+70
+00:04:38,933 --> 00:04:42,933
+working now!
+
+71
+00:04:42,933 --> 00:04:46,933
+OK welcome back! I'm actually going to use some of this
+
+72
+00:04:46,933 --> 00:04:50,933
+stuff straight off my slide. Why would I retype it? That would be nuts! So I'll come out
+
+73
+00:04:50,933 --> 00:04:54,933
+into the slide deck, then I'm going to go to
+
+74
+00:04:54,933 --> 00:04:58,933
+the... Well I need BeginPlay() back firstly, don't I? So we know how to do that don't we?
+
+75
+00:04:58,933 --> 00:05:02,933
+We've done this a hundred times. It's a load of fun, isn't it? Begin
+
+76
+00:05:02,933 --> 00:05:06,933
+Play(). There we go! So that almost brings BeginPlay()
+
+77
+00:05:06,933 --> 00:05:10,933
+back, but because it's C++, and we love C++ don't we, we have to go
+
+78
+00:05:10,933 --> 00:05:14,933
+over into the header file and type virtual, because that's what it is in the
+
+79
+00:05:14,933 --> 00:05:18,933
+parent class. We have to type void, because that's what comes back, we have to type BeginPlay(), because that's
+
+80
+00:05:18,933 --> 00:05:22,933
+the name of the method, and we have to type override, because we want to make sure
+
+81
+00:05:22,933 --> 00:05:26,933
+that we are overriding a method in the parent class, with exactly that signature.
+
+82
+00:05:26,933 --> 00:05:30,933
+Perfect! Now we have BeginPlay(), and we can say OnComponentHit
+
+83
+00:05:30,933 --> 00:05:34,933
+.AddDynamic. By the way, it won't complete the AddDynamic properly,
+
+84
+00:05:34,933 --> 00:05:38,933
+because something about the way the state of the source code,
+
+85
+00:05:38,933 --> 00:05:42,933
+at the moment, is preventing that from working. But this will work, OnComponentHit.Add
+
+86
+00:05:42,933 --> 00:05:46,933
+Dynamic, that's what we want. So that's the first bit of the recipe, and BeginPlay(), we
+
+87
+00:05:46,933 --> 00:05:50,933
+subscribe to this event. OK what's the next bit of the recipe?
+
+88
+00:05:50,933 --> 00:05:54,933
+A bit old OnHit() event. Now I didn't tell you whether it should be void
+
+89
+00:05:54,933 --> 00:05:58,933
+or what it should be. I didn't even write void for BeginPlay(). There you go!
+
+90
+00:05:58,933 --> 00:06:02,933
+So it should be void and it needs a class name,
+
+91
+00:06:02,933 --> 00:06:06,933
+and then, we have all that stuff, which I've pasted in
+
+92
+00:06:06,933 --> 00:06:10,933
+which you can get from the slides or from my repo. So
+
+93
+00:06:10,933 --> 00:06:14,933
+no semicolon but a pair of squigglies, and inside the squigglies, I'm just going to
+
+94
+00:06:14,933 --> 00:06:18,933
+simply say UE_LOG(LogTemp, Warning,
+
+95
+00:06:18,933 --> 00:06:22,933
+TEXT. And then we're just going to say ("I'm hit,
+
+96
+00:06:22,933 --> 00:06:26,933
+I'm hit!")) exclamation mark, because I'm very immature! OK so
+
+97
+00:06:26,933 --> 00:06:30,933
+then, once we've got that, then we need to go ahead and
+
+98
+00:06:30,933 --> 00:06:34,933
+declare this as well, inside our header file, of course.
+
+99
+00:06:34,933 --> 00:06:38,933
+So how are we going to do that? Well we go to the header file. Go to the private section, I'm going to do it
+
+100
+00:06:38,933 --> 00:06:42,933
+after BeginPlay() and probably after Tick, I like to keep BeginPlay() and Tick together.
+
+101
+00:06:42,933 --> 00:06:46,933
+Paste in the method, take away the class name,
+
+102
+00:06:46,933 --> 00:06:50,933
+put a semicolon on the end, and finally...
+
+103
+00:06:50,933 --> 00:06:54,933
+Where's the semicolon? I can't see my keyboard, the microphone is in the way. And this needs to be a
+
+104
+00:06:54,933 --> 00:06:58,933
+UFUNCTION(), because of Unreal magic. OK
+
+105
+00:06:58,933 --> 00:07:02,933
+great! Let's go ahead and compile this and see where we are! While
+
+106
+00:07:02,933 --> 00:07:06,933
+it compiles, I will show you, confidently, what I've done here in the
+
+107
+00:07:06,933 --> 00:07:10,933
+source control. I've added the BeginPlay() back in, I've added in that
+
+108
+00:07:10,933 --> 00:07:14,933
+signature which I shared with you, which we found from the source code as a UFUNCTION, and
+
+109
+00:07:14,933 --> 00:07:18,933
+then, in the TankTrack.cpp, I have
+
+110
+00:07:18,933 --> 00:07:22,933
+registered... That's a bit weird, it's got confused.
+
+111
+00:07:22,933 --> 00:07:26,933
+What have I done? Have I done something silly? Yes I think I've left something silly in the
+
+112
+00:07:26,933 --> 00:07:30,933
+constructor. Looking at SourceControl, of course I have, I shouldn't be saying OnComponentHit in the
+
+113
+00:07:30,933 --> 00:07:34,933
+constructor. So let's refresh the source control, and what I
+
+114
+00:07:34,933 --> 00:07:38,933
+have done here, without the... I need to save that file.
+
+115
+00:07:38,933 --> 00:07:42,933
+There you go, let it refresh. Good! So in BeginPlay() we
+
+116
+00:07:42,933 --> 00:07:46,933
+register for the event, and then, we use that same method
+
+117
+00:07:46,933 --> 00:07:50,933
+and then we simply print something out. Anyway, did it compile? It won't have done, because
+
+118
+00:07:50,933 --> 00:07:54,933
+I left some code in the constructor that I shouldn't have left. So now, hopefully
+
+119
+00:07:54,933 --> 00:07:58,933
+it will compile. By the way, I'd like to know in the discussions, which means over on
+
+120
+00:07:58,933 --> 00:08:02,933
+www.community.gamedev.tv/unreal, what you think about
+
+121
+00:08:02,933 --> 00:08:06,933
+me showing you the code i've just written in source control, while we wait for compilation. Is that
+
+122
+00:08:06,933 --> 00:08:10,933
+helpful or does it stink. Just let me know, that would be really helpful. Or perhaps
+
+123
+00:08:10,933 --> 00:08:14,933
+it would stink! OK, so here we go! The tracks are on the ground and we have lots of "I'm
+
+124
+00:08:14,933 --> 00:08:21,133
+hit, I'm hit!", I'm hits, which is cool! We have now got collision events actually triggering off inside C++!
+
+125
+00:08:21,133 --> 00:08:25,133
+But I would say that's a pretty good outcome for this lecture, so
+
+126
+00:08:25,133 --> 00:08:29,133
+there is your recipe, left on the screen, for how we use this OnHit() events. And in the next
+
+127
+00:08:29,133 --> 00:08:33,133
+video, we'll get on and actually make the tank not apply force, when it is on
+
+128
+00:08:33,133 --> 00:08:36,733
+the ground. So see you in there!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT81 OnComponentHit Event in 4.12.srt

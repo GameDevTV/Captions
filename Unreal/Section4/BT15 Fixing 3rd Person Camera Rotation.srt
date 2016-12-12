@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT15 Fixing 3rd Person Camera Rotation.srt
 ﻿WEBVTT
 
 1
@@ -484,3 +485,490 @@ Alright. it's not going to affect the game play at all! So. just set the camera 
 00:08:02.933 --> 00:08:06.133
 and I'll see you in the next video!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+So, let's
+
+2
+00:00:04,000 --> 00:00:08,000
+get to fixing the 3rd person camera rotation! What we're
+
+3
+00:00:08,000 --> 00:00:12,000
+going to do in this video is organize our blueprint a little bit differently in the tank
+
+4
+00:00:12,000 --> 00:00:16,000
+with an Azimuth Gimbal, as we call it, and some slight changes in rotations
+
+5
+00:00:16,000 --> 00:00:20,000
+in the SpringArm, so that firstly the tank
+
+6
+00:00:20,000 --> 00:00:24,000
+camera works properly, and secondly, the horizon always stays
+
+7
+00:00:24,000 --> 00:00:30,933
+horizontal, or at least optionally always stays horizontal, even if the tank is tilted like this, because of say a hill.
+
+8
+00:00:30,933 --> 00:00:34,933
+So, let's take a closer look at what's going on with this rotation. We want to use
+
+9
+00:00:34,933 --> 00:00:38,933
+something called Gimbals. You probably want to search for that with text, not with
+
+10
+00:00:38,933 --> 00:00:42,933
+voice, just in case it goes wrong. But Gimbals will be somewhere on
+
+11
+00:00:42,933 --> 00:00:46,933
+trusty Wikipedia. Here you go! The features of a Gimbal is, it's a support that
+
+12
+00:00:46,933 --> 00:00:50,933
+"allows the rotation of an object about a single axis." So, we're going to be using a
+
+13
+00:00:50,933 --> 00:00:54,933
+couple of Gimbals. So, let's take a look at the
+
+14
+00:00:54,933 --> 00:00:58,933
+tank blueprint and see what we need to do to make the camera rotation
+
+15
+00:00:58,933 --> 00:01:02,933
+behave itself. Well, we have this SpringArm and we can visualize that
+
+16
+00:01:02,933 --> 00:01:06,933
+here in the viewport as basically an arm that sits
+
+17
+00:01:06,933 --> 00:01:10,933
+here, and it's actually got a red length to it and we've actually
+
+18
+00:01:10,933 --> 00:01:14,933
+currently got our camera in the wrong place. It's not at the
+
+19
+00:01:14,933 --> 00:01:18,933
+end of the SpringArm. So, let's fix that, choose your camera, and reset the location,
+
+20
+00:01:18,933 --> 00:01:22,966
+pushing it onto the end of the SpringArm. So, now you may say, well how do we
+
+21
+00:01:22,966 --> 00:01:26,933
+position our camera? Well, what you need to do is change the length of the Spring
+
+22
+00:01:26,933 --> 00:01:30,933
+Arm, so the SpringArm has a Target Arm Length here.
+
+23
+00:01:30,933 --> 00:01:34,933
+And we set that to say, I don't know, 1,000, you know 10 meters, something like
+
+24
+00:01:34,933 --> 00:01:38,933
+that and then we're in better shape. So, now the camera will stay on
+
+25
+00:01:38,933 --> 00:01:42,933
+the end of the SpringArm. I'm going to remove the camera's
+
+26
+00:01:42,933 --> 00:01:46,933
+Rotation for now, and of course, if we were to play now the camera would just be on the floor
+
+27
+00:01:46,933 --> 00:01:50,933
+behind the tank but we still have this strange rotational issue.
+
+28
+00:01:50,933 --> 00:01:54,933
+So, what we want to do is, we want a couple of Gimbals, one
+
+29
+00:01:54,933 --> 00:01:58,933
+which allows rotation of the camera in this
+
+30
+00:01:58,933 --> 00:02:02,933
+plane. Probably use this to just show you. Get the rotation tool up this way
+
+31
+00:02:02,933 --> 00:02:06,933
+in Azimuth. OK, so let's do that first! How do we do that? Well,
+
+32
+00:02:06,933 --> 00:02:10,933
+we can't do it all in one object without twisting the camera. Imagine
+
+33
+00:02:10,933 --> 00:02:14,933
+this was plugged into a ball joint. If it's plugged into a ball joint, we can end up with the
+
+34
+00:02:14,933 --> 00:02:18,933
+wrong type of rotation. You see how as I rotate the camera both in Azimuth and Elevation,
+
+35
+00:02:18,933 --> 00:02:22,933
+you see how it's ending up on the tilt like that? We don't want
+
+36
+00:02:22,933 --> 00:02:26,933
+it on the tile right? So, what we want to do is put yourself
+
+37
+00:02:26,933 --> 00:02:30,933
+a Scene root component, it's basically a simple
+
+38
+00:02:30,933 --> 00:02:34,933
+transform, into the scene. Put
+
+39
+00:02:34,933 --> 00:02:38,933
+that on the Tank. If you accidentally put it at the root like I did, then just
+
+40
+00:02:38,933 --> 00:02:42,933
+put the Tank back at the root, but the Scene root wants to be on the Tank.
+
+41
+00:02:42,933 --> 00:02:46,933
+Then, put the SpringArm into the Scene root. Now, I'm going to rename these things, because it's not
+
+42
+00:02:46,933 --> 00:02:50,933
+very helpful just calling it Scene. What this thing is, is it's an Azimuth
+
+43
+00:02:50,933 --> 00:02:54,933
+Gimbal
+
+44
+00:02:54,933 --> 00:02:58,933
+OK. So, this thing will allow this rotation Aximuth
+
+45
+00:02:58,933 --> 00:03:02,933
+Gimbal. Great! Then, the SpringArm itself
+
+46
+00:03:02,933 --> 00:03:06,933
+is a SpringArm and it also provides for elevation.
+
+47
+00:03:06,933 --> 00:03:10,933
+So, I think I'm going to just leave it called a SpringArm, but we are only going to
+
+48
+00:03:10,933 --> 00:03:14,933
+control it in Elevation, so I'm going to move it up a little bit. The Azimuth
+
+49
+00:03:14,933 --> 00:03:18,933
+Gimbal position, I'm going to actually put that, rather than at the middle of the tank, this is
+
+50
+00:03:18,933 --> 00:03:22,933
+where the camera's pointing at. We want it pointing about 1 1/2 meters off the ground.
+
+51
+00:03:22,933 --> 00:03:26,933
+So in summary, we have a Scene root component that says, this is
+
+52
+00:03:26,933 --> 00:03:30,933
+where the camera's pointing at, if it points straight down the SpringArm, which it currently is,
+
+53
+00:03:30,933 --> 00:03:34,933
+and the location of that is 1.5 meters
+
+54
+00:03:34,933 --> 00:03:38,933
+off the ground in the middle of the tank. You then have a SpringArm about 10 meters
+
+55
+00:03:38,933 --> 00:03:42,933
+long, rotated up like this, and on the end of that you have a camera, probably with no
+
+56
+00:03:42,933 --> 00:03:46,933
+rotation. OK, let's take a look at how it works! It's pretty good! We've still got the
+
+57
+00:03:46,933 --> 00:03:50,933
+weirdness. So, what do we do about the weirdness? The weirdness is because
+
+58
+00:03:50,933 --> 00:03:54,933
+I said that the Azimuth Gimbal is only driving the Azimuth, and the SpringArm
+
+59
+00:03:54,933 --> 00:03:58,933
+is going to be doing the Elevation only, like this. So, Elevation
+
+60
+00:03:58,933 --> 00:04:02,933
+happens here like that. Azimuth happens here
+
+61
+00:04:02,933 --> 00:04:06,933
+in the Azimuth Gimbal. OK, so what do we do? We go
+
+62
+00:04:06,933 --> 00:04:10,933
+over to the Input Setup. We already have a reference to the SpringArm
+
+63
+00:04:10,933 --> 00:04:14,933
+and let's have a look! Azimuth we said is being done by the
+
+64
+00:04:14,933 --> 00:04:18,933
+Azimuth Gimbal. So, what we need to do is get rid of the SpringArm there, pop in a reference to the
+
+65
+00:04:18,933 --> 00:04:22,933
+Azimuth Gimbal, by dragging from the components, and it's that
+
+66
+00:04:22,933 --> 00:04:26,933
+that becomes the target of an Azimuth rotation. So, the Azimuth Gimbal
+
+67
+00:04:26,933 --> 00:04:30,933
+handles the Azimuth rotation, and the AimElevation is
+
+68
+00:04:30,933 --> 00:04:34,933
+handled by the SpringArm itself. Let's try this! This is about 90
+
+69
+00:04:34,933 --> 00:04:38,933
+percent of the solution we're looking for! Left and right and up and down and it
+
+70
+00:04:38,933 --> 00:04:42,933
+works exactly as we want, but let's see what happens if we put the
+
+71
+00:04:42,933 --> 00:04:46,933
+camera or the tank on a piece of sloping ground. So I think, at this stage,
+
+72
+00:04:46,933 --> 00:04:50,933
+I'm going to sculpt the terrain a little, so we need some test grounds here. So, I'm just going to
+
+73
+00:04:50,933 --> 00:04:54,933
+pop into the Landscape, Molding Tool, and the Sculpt Tool.
+
+74
+00:04:54,933 --> 00:04:58,933
+I'm just going to bring up some landscape here, that we can start
+
+75
+00:04:58,933 --> 00:05:02,933
+to use. Remember that fragmentation of the components of the landscape is expected, before it rebuilds
+
+76
+00:05:02,933 --> 00:05:06,933
+the lighting. And I've got a little bit of land here, so let's
+
+77
+00:05:06,933 --> 00:05:10,933
+just try going to the tank, the Player Start rather.
+
+78
+00:05:10,933 --> 00:05:14,933
+
+
+79
+00:05:14,933 --> 00:05:18,933
+Then, you need to come out of Landscape Sculpting Mode, at which point
+
+80
+00:05:18,933 --> 00:05:22,933
+you'll be able to move the Player Start, and I'm just going to move this Player Start above the hill
+
+81
+00:05:22,933 --> 00:05:26,933
+and let the tank fall onto the slope. Let's try it!
+
+82
+00:05:26,933 --> 00:05:30,933
+You see, as the tank rotated on the slope,
+
+83
+00:05:30,933 --> 00:05:34,933
+you see that our whole camera has rotated. That's OK, that's a choice as to
+
+84
+00:05:34,933 --> 00:05:38,933
+whether we want the horizon to rotate. If we don't want the horizon to
+
+85
+00:05:38,933 --> 00:05:42,933
+rotate, then the way that we deal with that is, in the Spring Arm itself,
+
+86
+00:05:42,933 --> 00:05:46,900
+you can say don't Inherit the Roll of the thing you're connected to.
+
+87
+00:05:46,900 --> 00:05:50,933
+So, in the SpringArm's Camera Settings, you can disable Inherit Roll,
+
+88
+00:05:50,933 --> 00:05:54,933
+and then, what'll happen when we fall and twist is that the
+
+89
+00:05:54,933 --> 00:05:58,933
+horizon stays horizontal and then the tank itself appears to twist in our
+
+90
+00:05:58,933 --> 00:06:02,933
+view. So, this is the camera being like gyro stabilized in roll.
+
+91
+00:06:02,933 --> 00:06:06,933
+I hope that all makes sense to you. So, that's how I'm going to leave things. I may as well
+
+92
+00:06:06,933 --> 00:06:10,933
+spawn on this hillside. Why not for a bit of fun? I'm just going to recap
+
+93
+00:06:10,933 --> 00:06:14,933
+exactly what's happened here for you, so that it's clear how to do these more
+
+94
+00:06:14,933 --> 00:06:18,933
+complicated 3rd person cameras. So, because we need control
+
+95
+00:06:18,933 --> 00:06:22,933
+of the Azimuth and the Elevation, we've decided to put a object at the
+
+96
+00:06:22,933 --> 00:06:26,933
+target of the camera, and we're calling it an Azimuth Gimbal. So, that is like
+
+97
+00:06:26,933 --> 00:06:30,933
+a... It's a bit like the turret actually.
+
+98
+00:06:30,933 --> 00:06:34,933
+It's the same type of rotation that we get wth the turret itself. It's just a
+
+99
+00:06:34,933 --> 00:06:38,933
+horizontal rotation, so that would be like a kind of peg sticking up if
+
+100
+00:06:38,933 --> 00:06:42,933
+you like. Onto the peg is attached a SpringArm, which we can,
+
+101
+00:06:42,933 --> 00:06:46,933
+because of a hinge or another Gimbal, we can choose different heights, and we're only
+
+102
+00:06:46,933 --> 00:06:50,933
+controlling the Elevation with that. So, if you look at the Input Setup, you can
+
+103
+00:06:50,933 --> 00:06:54,933
+see that Azimuth, Elevation.
+
+104
+00:06:54,933 --> 00:06:58,933
+And then, what we're doing is, we're pointing the camera straight down the SpringArm, we don't have to but we're doing
+
+105
+00:06:58,933 --> 00:07:02,933
+that, and because, when the tank rotates
+
+106
+00:07:02,933 --> 00:07:06,933
+the whole system rotates, i.e. the tank
+
+107
+00:07:06,933 --> 00:07:10,933
+and the SpringArm and the camera rotate, when the tank's on the side. Of course, the view of
+
+108
+00:07:10,933 --> 00:07:14,933
+the horizon becomes tilted, because the camera and the tank
+
+109
+00:07:14,933 --> 00:07:18,933
+are tilted, relative to the horizon. So, the final thing we did is, we went to the SpringArm
+
+110
+00:07:18,933 --> 00:07:22,933
+and said, well don't let the camera on the end of the SpringArm Inherit the
+
+111
+00:07:22,933 --> 00:07:26,933
+Roll of the SpringArm, and hence the tank and hence the SpringArm.
+
+112
+00:07:26,933 --> 00:07:30,933
+Alright, so we finally end up in the situation where we have the camera
+
+113
+00:07:30,933 --> 00:07:34,933
+how we want it. Pretty cool! So, that's it
+
+114
+00:07:34,933 --> 00:07:38,933
+for this video! And I haven't got a challenge for you in this one, because it's really
+
+115
+00:07:38,933 --> 00:07:42,933
+just a question of following me through, but what I would say if you haven't been doing what I've been
+
+116
+00:07:42,933 --> 00:07:46,933
+doing as you go is, just get this setup to your satisfaction. You don't have us the exact
+
+117
+00:07:46,933 --> 00:07:50,933
+settings I'm using right? You could have the camera a little bit farther away,
+
+118
+00:07:50,933 --> 00:07:54,933
+you could decide that actually you want to Inherit the Roll and that you quite like
+
+119
+00:07:54,933 --> 00:07:58,933
+this camera going with the tank. It's up to you.
+
+120
+00:07:58,933 --> 00:08:02,933
+Alright, it's not going to affect the game play at all! So, just set the camera up how you want it now,
+
+121
+00:08:02,933 --> 00:08:06,133
+and I'll see you in the next video!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT15 Fixing 3rd Person Camera Rotation.srt

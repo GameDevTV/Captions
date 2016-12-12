@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT60 Introducing AI Pathfinding.srt
 ﻿WEBVTT
 
 1
@@ -728,3 +729,734 @@ AI tanks homing in on us. It's going to be scary! So I'll see you in there!
 00:12:00.700 --> 00:12:03.166
 
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+So welcome to Introducing AI
+
+2
+00:00:04,000 --> 00:00:08,000
+Pathfinding! In this video we're going to put a Nav Mesh Bounds Volume, this green thing,
+
+3
+00:00:08,000 --> 00:00:12,000
+into our world. It looks like this from the 3D View and then like this from the Top.
+
+4
+00:00:12,000 --> 00:00:16,000
+And it will work out where you can navigate, where you can't, and we'll be talking about how the
+
+5
+00:00:16,000 --> 00:00:20,000
+AI system is going to allow tanks to navigate around obstructions and
+
+6
+00:00:20,000 --> 00:00:24,000
+take the shortest feasible path to us, to come and attack us!
+
+7
+00:00:24,000 --> 00:00:24,700
+
+
+8
+00:00:24,700 --> 00:00:28,700
+OK, so it's with some excitement I'm going to introduce you to AI
+
+9
+00:00:28,700 --> 00:00:32,700
+Pathfinding! So the first thing, really, when you are trying to do pathfinding
+
+10
+00:00:32,700 --> 00:00:36,700
+is to firstly understand what pathfinding is. So the concept is
+
+11
+00:00:36,700 --> 00:00:40,700
+that, when you need to navigate around something like this big obstruction in
+
+12
+00:00:40,700 --> 00:00:44,700
+the middle of the scene here, then it's not a trivial task to
+
+13
+00:00:44,700 --> 00:00:48,700
+work out how to get from one side of this to the other, especially if it has things like
+
+14
+00:00:48,700 --> 00:00:52,700
+culdesacs in it; i.e. if we were to dig in an area a bit like this
+
+15
+00:00:52,700 --> 00:00:56,700
+area around here actually, what's to stop the tank from going in, come directly
+
+16
+00:00:56,700 --> 00:01:00,700
+towards us, and then having to come out? And we don't want it doing that, we want it to take what
+
+17
+00:01:00,700 --> 00:01:04,700
+appears to be an intelligent path around this obstruction,
+
+18
+00:01:04,700 --> 00:01:08,700
+and that's where the artificial intelligence comes in. And there's a
+
+19
+00:01:08,700 --> 00:01:12,700
+lot of standard ways of doing this. Unreal is probably using something like this called A Star Pathfinding,
+
+20
+00:01:12,700 --> 00:01:16,700
+under the hood, which you can find all about by just having a look on the web for "a star".
+
+21
+00:01:16,700 --> 00:01:20,700
+And you probably better put the word pathfinding on the end, otherwise you get
+
+22
+00:01:20,700 --> 00:01:24,700
+all sorts of rubbish. And you can read, starting on Wikipedia, about
+
+23
+00:01:24,700 --> 00:01:28,700
+how this grid based system works for finding,
+
+24
+00:01:28,700 --> 00:01:32,700
+from one place to another. There's a nice little animation right here, actually, which gives you some ideas to the
+
+25
+00:01:32,700 --> 00:01:36,700
+types of calculations that are going on. But let's see it actually working
+
+26
+00:01:36,700 --> 00:01:40,700
+inside Unreal. That would be fun wouldn't it?! So the first thing that you need to do
+
+27
+00:01:40,700 --> 00:01:44,700
+is... And you don't need to follow me through on this, because your challenge is going to be to add this thing in, is
+
+28
+00:01:44,700 --> 00:01:48,700
+to add in a Nav Mesh Bounds Volume. So just watch me do it to start with
+
+29
+00:01:48,700 --> 00:01:52,700
+and then, in just under a minute I would have thought, I will be challenging you to do your own. So
+
+30
+00:01:52,700 --> 00:01:56,700
+under the modes tab, if you search for Nav Mesh, or
+
+31
+00:01:56,700 --> 00:02:00,700
+if you want to know where it is another way you can go to Volumes and then look through until you find
+
+32
+00:02:00,700 --> 00:02:04,700
+Nav Mesh Bounds Volume here. You could click the question mark
+
+33
+00:02:04,700 --> 00:02:08,700
+and it will take you to some docs, which will tell you all about how that works and I suggest you probably
+
+34
+00:02:08,700 --> 00:02:12,700
+read those. I'll put these links in the resources for you. So
+
+35
+00:02:12,700 --> 00:02:16,700
+Nav Mesh Bounds Volume, we drop it in the world right. There it is, pretty small! I'm going to scale it and I'd like you
+
+36
+00:02:16,700 --> 00:02:20,700
+to scale yours, as well, to 1,000 meters
+
+37
+00:02:20,700 --> 00:02:24,700
+by 1,000 meters. Oh, now that's a bit big for now. Let's
+
+38
+00:02:24,700 --> 00:02:28,700
+go 100. Yeah, 100 by 100, for now, just to keep the speed up,
+
+39
+00:02:28,700 --> 00:02:32,700
+because I don't know how fast your computers are, by say 10 meters.
+
+40
+00:02:32,700 --> 00:02:36,700
+OK, now you're welcome to follow along, or as I said, in just a moment I'll challenge you to do it.
+
+41
+00:02:36,700 --> 00:02:40,700
+And then, what I'm going to want you to do is move it up and down and move it around and see the effect it has.
+
+42
+00:02:40,700 --> 00:02:44,700
+The green things are places where the agents will be able, i.e. the AI tanks
+
+43
+00:02:44,700 --> 00:02:48,700
+will be able to drive. And the red bits, I'm sorry, and the bits that are not shaded are
+
+44
+00:02:48,700 --> 00:02:52,700
+places that it will not be able to drive, and the red bits are the bits that it has not
+
+45
+00:02:52,700 --> 00:02:56,700
+yet calculated the navigation mesh for. Now, you won't see this,
+
+46
+00:02:56,700 --> 00:03:00,700
+what I'm seeing on my screen, unless you go to Show and Navigation. Now there's a P key
+
+47
+00:03:00,700 --> 00:03:04,700
+shortcut for that, so you can click into the Viewport and click P
+
+48
+00:03:04,700 --> 00:03:08,700
+and that will do it. So that's what I want you to do for now. I'll put the challenge slide up.
+
+49
+00:03:08,700 --> 00:03:12,700
+So place your Nav Mesh Bounds Volume! Place 100 by 100 meter
+
+50
+00:03:12,700 --> 00:03:16,700
+bound volume in the world. Make sure you have obstruction brackets
+
+51
+00:03:16,700 --> 00:03:20,700
+s... That's not quite a brackets s is it? Let's make it a brackets (s). Obstructions,
+
+52
+00:03:20,700 --> 00:03:24,700
+at least one obstruction in your world, like a hill for example.
+
+53
+00:03:24,700 --> 00:03:28,700
+See the effect of raising and lowering that Nav Mesh Volume,
+
+54
+00:03:28,700 --> 00:03:32,700
+like I just did, and have a play with it yourself, and then, when you're finished, leave it so that it
+
+55
+00:03:32,700 --> 00:03:36,700
+has a sensible amount of green on the bits where you want your tanks, your
+
+56
+00:03:36,700 --> 00:03:40,700
+AI tanks to be able to drive, and everything else should be uncolored. And leave the player's
+
+57
+00:03:40,700 --> 00:03:44,700
+start and at least one AI tank inside the Nav Mesh Volume. In order
+
+58
+00:03:44,700 --> 00:03:48,700
+for the AI tank to navigate to the player, both the AI tank and the player will need to
+
+59
+00:03:48,700 --> 00:03:52,700
+be in the Nav Mesh Volume, in order for it to calculate the path
+
+60
+00:03:52,700 --> 00:03:56,700
+around the obstacles between the AI tank and the player. So go ahead pause the video, and
+
+61
+00:03:56,700 --> 00:04:00,700
+setup your Nav Mesh Bounds now. You may be
+
+62
+00:04:00,700 --> 00:04:04,700
+wondering why I've chosen 100 by 100 meters, rather than the whole play space. We'll increase it later, it just takes
+
+63
+00:04:04,700 --> 00:04:08,700
+a long time to recalculate, so let's use a small one to start with.
+
+64
+00:04:08,700 --> 00:04:12,700
+OK welcome back! So I've pretty much done this challenge for you, I'm just going to
+
+65
+00:04:12,700 --> 00:04:16,700
+make my screen a little bit larger with F11. I'm going to hit P to bring on the Nav Mesh
+
+66
+00:04:16,700 --> 00:04:20,700
+display like this. I'm going to try and click somewhere on the edge of the volume, so that I can get this up and
+
+67
+00:04:20,700 --> 00:04:24,700
+down control. And notice, if you take it down through the floor that you have no
+
+68
+00:04:24,700 --> 00:04:28,700
+valid Nav Mesh surfaces, and if you bring it up in the air then,
+
+69
+00:04:28,700 --> 00:04:32,700
+because the bottom of the volume is only just clipping the top
+
+70
+00:04:32,700 --> 00:04:36,700
+of these mountains or hills in the middle here, then the only place they could
+
+71
+00:04:36,700 --> 00:04:40,700
+navigate would be on the hills. That's exactly what we don't want! So what you want to do is you want to bring it down,
+
+72
+00:04:40,700 --> 00:04:44,700
+so that it maybe can consider navigating the
+
+73
+00:04:44,700 --> 00:04:48,700
+very bottoms of the hills but not anymore. So that's it! You could make your hills a little bit
+
+74
+00:04:48,700 --> 00:04:52,700
+more interesting. In fact, next time we iterate around to the world, we might well do that now just to give some
+
+75
+00:04:52,700 --> 00:04:56,700
+more interesting navigation qualities. But that's all I wanted you to do there, was create that
+
+76
+00:04:56,700 --> 00:05:00,700
+Nav Mesh Bounds Volume. Great! So this is the arena in which
+
+77
+00:05:00,700 --> 00:05:04,700
+things can actually navigate! I'm going to get rid of the tank that slides down the hill, and I'm
+
+78
+00:05:04,700 --> 00:05:08,700
+going to leave us with one tank... Let's just go to the Top view actually. F11,
+
+79
+00:05:08,700 --> 00:05:12,700
+top view zoom out, and I'm just going
+
+80
+00:05:12,700 --> 00:05:16,700
+to move these tanks. I'm going to have one AI tank here, well
+
+81
+00:05:16,700 --> 00:05:20,700
+inside the Nav Mesh Volume, and I'm going to have another a little bit outside the volume, like it is.
+
+82
+00:05:20,700 --> 00:05:24,700
+And what that means is, that when we start to explore
+
+83
+00:05:24,700 --> 00:05:28,700
+what happens, in terms of the code and these methods, one of these tanks should be able to navigate,
+
+84
+00:05:28,700 --> 00:05:32,700
+the other guy should not. And the Player Start, of course, where is the Player Start? Let's take a look!
+
+85
+00:05:32,700 --> 00:05:36,700
+It's here, that's fine! It's also in the inside. Now when you're playing, of course,
+
+86
+00:05:36,700 --> 00:05:40,700
+you can't see that Nav Mesh, even if you hit the P key, but it is something
+
+87
+00:05:40,700 --> 00:05:44,700
+you can see in the Editor and, for now, we will leave it on. That's Show, Navigation.
+
+88
+00:05:44,700 --> 00:05:48,700
+OK fantastic! So now that you've seen what a Nav Mesh Volume is, this
+
+89
+00:05:48,700 --> 00:05:52,700
+light green thing, and it's fully calculated hopefully on your terrain, it's going to
+
+90
+00:05:52,700 --> 00:05:56,700
+be a good time for me to talk about how we're going to make this stuff work.
+
+91
+00:05:56,700 --> 00:06:00,700
+So we have a Tank AI Controller right, we have that class we've made,
+
+92
+00:06:00,700 --> 00:06:04,700
+that inherited from AI Controller. Now I'm putting AI Controller
+
+93
+00:06:04,700 --> 00:06:08,700
+inside, because inheriting from, and even though it's a childing relationship, it's a bit like putting
+
+94
+00:06:08,700 --> 00:06:12,700
+a wrapper on the outside of AI Controller and extending the function of AI
+
+95
+00:06:12,700 --> 00:06:16,700
+Controller. It's like Russian dolls, AI Controller in turn is based on something else and something
+
+96
+00:06:16,700 --> 00:06:20,700
+else. OK so the AI Controller
+
+97
+00:06:20,700 --> 00:06:24,700
+has a method on it, or one of its parents, but we don't care about what's inside AI
+
+98
+00:06:24,700 --> 00:06:28,700
+Controller, at the moment, but we know that at the AI Controller level, we have a method
+
+99
+00:06:28,700 --> 00:06:32,700
+called MoveToActor(). And what that does is it moves to a
+
+100
+00:06:32,700 --> 00:06:36,700
+particular actor, i.e. the player, and it also, you'll see later, it has another parameter
+
+101
+00:06:36,700 --> 00:06:40,700
+which is na acceptance radius. It says we'll move to the player until you get close enough, that's what it's saying.
+
+102
+00:06:40,700 --> 00:06:44,700
+Alright, so what this means is that our Tank AI Controller class that
+
+103
+00:06:44,700 --> 00:06:48,700
+we have actually has that method, MoveToActor(), ready to use,
+
+104
+00:06:48,700 --> 00:06:52,700
+because it's in AI Controller. Now how do you know that? Well if you want,
+
+105
+00:06:52,700 --> 00:06:56,700
+the easy way to know that is to buy this course, the intelligent thing, and let us do all the hard
+
+106
+00:06:56,700 --> 00:07:00,700
+work. If you want to work it out for yourself, well then you would go to the AI Controller,
+
+107
+00:07:00,700 --> 00:07:04,700
+you'd go to the header file, you would then start looking at the
+
+108
+00:07:04,700 --> 00:07:08,700
+definition of an AI Controller, now you're in the engine code. You see this tab on the right-hand side
+
+109
+00:07:08,700 --> 00:07:12,700
+with a lock, also the Solution explorer is highlighting the engine. And then, you would troll
+
+110
+00:07:12,700 --> 00:07:16,700
+through a few million lines of code to find out where these methods are and how they
+
+111
+00:07:16,700 --> 00:07:20,700
+work, but I'm going to skip you the pain of that and just tell you that the Move
+
+112
+00:07:20,700 --> 00:07:24,700
+ToActor() method is the one that we want. Now, on the other side of the equation, we have the
+
+113
+00:07:24,700 --> 00:07:28,700
+Tank Movement Component, which, of course, we have built upon a
+
+114
+00:07:28,700 --> 00:07:32,700
+Nav Movement Component. Now you'll remember that we use Nav Movement Component because,
+
+115
+00:07:32,700 --> 00:07:36,700
+let's look at the class hierarchy once again as a reminder. We used it because it was the
+
+116
+00:07:36,700 --> 00:07:40,700
+simplest class that we could use, that actually implemented some sort of
+
+117
+00:07:40,700 --> 00:07:44,700
+pathfinding. So if we just start on the Class Viewer here and
+
+118
+00:07:44,700 --> 00:07:48,700
+turn off Actors Only. ActorComponent, MovementComponent,
+
+119
+00:07:48,700 --> 00:07:52,700
+NavMovementComponent. Now as you hover over these things, you find out that NavMovementComponent is
+
+120
+00:07:52,700 --> 00:07:56,700
+the first one that talk about AI pathfinding but without the extra complexity and
+
+121
+00:07:56,700 --> 00:08:00,700
+weight of the PawnMovementComponent or anything deeper than that.
+
+122
+00:08:00,700 --> 00:08:04,700
+OK great, so that is the NavMovementComponent! Inside NavMovementComponent,
+
+123
+00:08:04,700 --> 00:08:08,700
+if you give yourself the self flagellation of going through the engine code,
+
+124
+00:08:08,700 --> 00:08:12,700
+eventually you'll find that you have RequestDirectMove() in there, which is
+
+125
+00:08:12,700 --> 00:08:16,700
+a method that does exactly that. It requests that an Actor
+
+126
+00:08:16,700 --> 00:08:20,700
+moves directly towards a particular position. We're going to
+
+127
+00:08:20,700 --> 00:08:24,700
+intercept that RequestDirectMove() call effectively and we
+
+128
+00:08:24,700 --> 00:08:28,700
+are going to use it to move our AI tanks,
+
+129
+00:08:28,700 --> 00:08:32,700
+but we're not going to allow the AI to move things in a kinematic way that it
+
+130
+00:08:32,700 --> 00:08:36,700
+would do if we went down the usual path. By kinematic I mean just moving the Actors
+
+131
+00:08:36,700 --> 00:08:40,700
+without regards for the physics on them. So we're just going to do the following,
+
+132
+00:08:40,700 --> 00:08:44,700
+we're going to place all tanks, with TankMovementComponents... I'm looking
+
+133
+00:08:44,700 --> 00:08:48,700
+on the right-hand side here. All tanks are going to be in the nav mesh,
+
+134
+00:08:48,700 --> 00:08:52,700
+actually, but also the tank that the Tank AI Controller is possessing, not the Tank AI
+
+135
+00:08:52,700 --> 00:08:56,700
+Controller itself, necessarily. Look when we play the game and I
+
+136
+00:08:56,700 --> 00:09:00,700
+depossess, you'll find that we have two AI tanks in the scene right, but the
+
+137
+00:09:00,700 --> 00:09:04,700
+AI Controllers just happen to be on the tanks right now. We could move those off the tanks, they'll actually
+
+138
+00:09:04,700 --> 00:09:08,700
+snap back onto them, but I'm just trying to be precise that the Tank AI Controller
+
+139
+00:09:08,700 --> 00:09:12,700
+is not the tank it's possessing, it just happens to be coincident with the tank it's possessing.
+
+140
+00:09:12,700 --> 00:09:16,700
+But the tank that the AI Controller is possessing must be in the Nav Mesh bounds, that's this
+
+141
+00:09:16,700 --> 00:09:20,700
+green area, and the tank that we want to move must also be in
+
+142
+00:09:20,700 --> 00:09:24,700
+there, which is also the AI tank. But also, the tank we want to move towards, the MoveToActor(),
+
+143
+00:09:24,700 --> 00:09:28,700
+must also be in the Nav Mesh. So look, what happens is
+
+144
+00:09:28,700 --> 00:09:32,700
+MoveToActor(), when we pass it the player, it does
+
+145
+00:09:32,700 --> 00:09:36,700
+some pathfinding logic inside the engine, we don't worry about the details.
+
+146
+00:09:36,700 --> 00:09:40,700
+So inside the Tank AI controller we will call a method that is MoveToActor()
+
+147
+00:09:40,700 --> 00:09:44,700
+and pass the player tank, some magic Pathfinding Logic will go on,
+
+148
+00:09:44,700 --> 00:09:48,700
+and then, each frame, it will spit out a RequestDirectMove(). It will spit out a vector,
+
+149
+00:09:48,700 --> 00:09:52,700
+a direction in which it wants to start moving, in order to get
+
+150
+00:09:52,700 --> 00:09:56,700
+it from where it is to where it wants to be. So for example, if we take a Top
+
+151
+00:09:56,700 --> 00:10:00,700
+view now of our world and go F11, and we put a tank,
+
+152
+00:10:00,700 --> 00:10:04,700
+an AI tank... Let's say... Let's just stop playing, because it's a bit confusing
+
+153
+00:10:04,700 --> 00:10:08,700
+with my tank flying all over the place. OK so imagine we have this AI
+
+154
+00:10:08,700 --> 00:10:12,700
+tank and it's sitting here and that my player tank, I'll use the other AI tank
+
+155
+00:10:12,700 --> 00:10:16,700
+like a war board, is sitting on the left here. If this tank wants to get to me it can't
+
+156
+00:10:16,700 --> 00:10:20,700
+go straight over this hill, it's going to go something like this, around the edge of the hill
+
+157
+00:10:20,700 --> 00:10:24,700
+in a fairly natural way. It's easy for us to work out that that's the path
+
+158
+00:10:24,700 --> 00:10:28,700
+but it's not so easy, we need a bit of intelligence to work that out,
+
+159
+00:10:28,700 --> 00:10:32,700
+from the computer. And it's not even easy for us, by the way, when the path gets complicated.
+
+160
+00:10:32,700 --> 00:10:36,700
+You could actually build a maze. And hey, why don't you! Why don't you build a maze and share it on the community site,
+
+161
+00:10:36,700 --> 00:10:40,700
+in the terrain, and that will show that if there's a solution to the maze, the AI tanks
+
+162
+00:10:40,700 --> 00:10:44,700
+will actually navigate that maze. That's pretty cool! But the point is that
+
+163
+00:10:44,700 --> 00:10:48,700
+here is the player position. This AI tank
+
+164
+00:10:48,700 --> 00:10:52,700
+we call MoveToActor() and the Actor is the player.
+
+165
+00:10:52,700 --> 00:10:56,700
+The Pathfinding Logic works out where to go next and spits out a Request
+
+166
+00:10:56,700 --> 00:11:00,700
+DirectMove() vector. That initial vector, the first frame, will be in this direction
+
+167
+00:11:00,700 --> 00:11:04,700
+towards that tip, and then the next frame there, then the next frame there. Then, we can steer the
+
+168
+00:11:04,700 --> 00:11:08,700
+corner, it'll start changing to this way and then this way. OK so the Request
+
+169
+00:11:08,700 --> 00:11:12,700
+DirectMove() vector is a vector in the direction that the
+
+170
+00:11:12,700 --> 00:11:16,700
+pathfinding wants to go. It's not aligned straight towards the player, if it was none of this
+
+171
+00:11:16,700 --> 00:11:20,700
+would be necessary. It would be very very trivial to make the AI tanks, or they wouldn't be
+
+172
+00:11:20,700 --> 00:11:24,700
+AI, at this point, they'd be stupid tanks. It would be very trivial to make stupid tanks go straight
+
+173
+00:11:24,700 --> 00:11:28,700
+towards us, but of course, they'd be going right over the top of a hill, that may not be possible physically.
+
+174
+00:11:28,700 --> 00:11:32,700
+OK cool! So hopefully that makes sense. I'm going to leave the AI tanks in a
+
+175
+00:11:32,700 --> 00:11:36,700
+slightly different place. One off the Nav Mesh, one just behind the hill, I think I might even move
+
+176
+00:11:36,700 --> 00:11:40,700
+the Player Start soon, but for now, I'd like to be able to see both tanks,
+
+177
+00:11:40,700 --> 00:11:44,700
+then we'll start moving tanks around the corner. OK enough talking about
+
+178
+00:11:44,700 --> 00:11:48,700
+that. That is basically the overview. This is the system we're going to
+
+179
+00:11:48,700 --> 00:11:52,700
+use. In the next video we're going to implement this Move To Controller method, on the
+
+180
+00:11:52,700 --> 00:11:56,700
+AI Controller, and the RequestDirectMove(), and we're going to start thinking about actually getting these
+
+181
+00:11:56,700 --> 00:12:00,700
+AI tanks homing in on us. It's going to be scary! So I'll see you in there!
+
+182
+00:12:00,700 --> 00:12:03,166
+
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT60 Introducing AI Pathfinding.srt

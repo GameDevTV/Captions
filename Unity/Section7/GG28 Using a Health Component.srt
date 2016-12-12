@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section7/GG28 Using a Health Component.srt
 WEBVTT
 Kind: captions
 Language: en
@@ -810,3 +811,816 @@ resuming; now that cactus is going to get
 00:15:34.680 --> 00:15:36.190
 it. See you soon.
 
+=======
+Kind: captions
+Language: en
+
+00:00:00,010 --> 00:00:07,610
+Hey and welcome back, so for me it's a
+new day which is a good thing cos that
+
+00:00:07,610 --> 00:00:12,060
+last video was really really long so
+we're in a good place though, we have
+
+00:00:12,060 --> 00:00:15,680
+animations working nicely, the next thing
+we need to do is get these guys to
+
+00:00:15,680 --> 00:00:20,900
+actually deal some damage, so by the end of
+the video when you click for instance on
+
+00:00:20,900 --> 00:00:24,390
+this stone here, that this lizard is
+chomping on, we want to see a health
+
+00:00:24,390 --> 00:00:29,660
+component that is decreasing as the
+lizard chomps. So just to recap what we're
+
+00:00:29,660 --> 00:00:31,080
+gonna cover in this video, we're
+
+00:00:31,080 --> 00:00:35,710
+gonna talk about why a separate health
+component make sense, we're going to create and
+
+00:00:35,710 --> 00:00:39,719
+attached a health dot cs component to all
+our attackers and defenders and then test
+
+00:00:39,719 --> 00:00:40,800
+that it works
+
+00:00:40,800 --> 00:00:45,889
+do some initial play tuning. This
+doesn't include projectors by the way.
+
+00:00:45,889 --> 00:00:50,030
+So why use a component for health? Well
+because basically... we can and we're
+
+00:00:50,030 --> 00:00:54,089
+practicing components in this section
+and because both attackers and defenders
+
+00:00:54,089 --> 00:00:58,909
+have health that operates in a very similar
+way, so we may as well keep our code
+
+00:00:58,909 --> 00:01:03,100
+in a single place. So what I want you to
+do is create a component called health
+
+00:01:03,100 --> 00:01:09,620
+dot cs, attach that to all attacker and
+defender prefabs, give your attackers and
+
+00:01:09,620 --> 00:01:14,520
+defenders a starting health of your
+choice, and then what I want you to do is
+
+00:01:14,520 --> 00:01:21,000
+to wire up the code into your attacker
+dot cs, yes the methods that we recently
+
+00:01:21,000 --> 00:01:25,700
+wrote, and then make sure that damage is
+actually being dealt and the way you'll
+
+00:01:25,700 --> 00:01:29,900
+be able to tell that is you'll click on the
+item like a grave stone or a gnome and
+
+00:01:29,900 --> 00:01:35,500
+you'll see that its health is going down
+over time; so publicly expose the health.
+
+00:01:35,500 --> 00:01:40,580
+You don't need to worry about the
+projectiles hitting the guys yet because...
+
+00:01:40,580 --> 00:01:43,940
+well the attackers yet because we haven't
+yet decided exactly how we're going to
+
+00:01:43,940 --> 00:01:46,820
+deal with a projectiles yet, that's coming
+shortly in terms of their movement.
+
+00:01:46,820 --> 00:01:51,940
+Alright, so enjoy that challenge as
+a bonus get the defender to actually be
+
+00:01:51,940 --> 00:01:55,880
+destroyed when the health equals 0.
+If you're finding that a bit tricky because of
+
+00:01:55,880 --> 00:02:02,580
+the way this section works don't worry
+just leave it out I'll show you how in a minute.
+
+00:02:02,580 --> 00:02:07,760
+Cool and welcome back so let's get on
+with health. So I'm going to create the
+
+00:02:07,760 --> 00:02:11,860
+script straight in the scripts folder
+this time, just to be a rebel; there it is
+
+00:02:11,860 --> 00:02:15,700
+health and I already gave you the first
+line which is public health health
+
+00:02:15,700 --> 00:02:23,490
+actually I don't know what I wrote on the slide but this
+is what you need public float health; and it's just a
+
+00:02:23,490 --> 00:02:27,770
+float that's going to be available. So let's
+start attaching health to our prefabs
+
+00:02:27,770 --> 00:02:33,000
+not just to any old thing, just do it
+straight to the prefabs. We need to be
+
+00:02:33,000 --> 00:02:37,840
+very careful by the way about what the
+state of our prefabs and our instances is,
+
+00:02:37,840 --> 00:02:42,260
+just before we get into attaching
+to the prefabs are you sure that all of
+
+00:02:42,260 --> 00:02:47,510
+your instances have had all of their
+changes applied back so look at a lizard
+
+00:02:47,510 --> 00:02:51,820
+for example, take a cursory look at the
+lizard prefab, does it have an attacker
+
+00:02:51,820 --> 00:02:56,510
+script a box collider, a lizard script and
+a rigid body? No, it doesn't.
+
+00:02:56,510 --> 00:02:59,950
+So we've been working on the instances
+because the animator kind of encourages
+
+00:02:59,950 --> 00:03:05,110
+us to do that, so this is a good time to
+apply your changes from you instances
+
+00:03:05,110 --> 00:03:09,670
+back to the prefabs. The only problem with the
+way I've done that is that they have
+
+00:03:09,670 --> 00:03:13,150
+then a default transform position but
+that's ok, who cares if you drop a lizard
+
+00:03:13,150 --> 00:03:18,040
+in the scene into the hierarchy and he
+then appears over there, that's fine, that's a
+
+00:03:18,040 --> 00:03:22,320
+reasonable position for him. In some ways it's
+preferable to him appearing at the origin. So
+
+00:03:22,320 --> 00:03:26,150
+again for the fox, take a look at the fox,
+he's got lots of stuff on him, take a look at
+
+00:03:26,150 --> 00:03:30,420
+the fox prefab, got less stuff so let's
+apply. Alright so I think we can
+
+00:03:30,420 --> 00:03:36,170
+confidently just apply our prefabs back
+so we've only got one cactus, let's
+
+00:03:36,170 --> 00:03:39,920
+just look at the defenders, and the
+cactus defender versus the cactus
+
+00:03:39,920 --> 00:03:42,250
+instance here, what's the difference?
+
+00:03:42,250 --> 00:03:47,410
+Not a lot so I'm just going to apply it
+back, the gnome same thing make sure
+
+00:03:47,410 --> 00:03:50,660
+there's no value that we've left in the
+pre-fab that we haven't put in here so
+
+00:03:50,660 --> 00:03:53,610
+it can be a bit of a hassle sinking these,
+the general rule is make the changes to the
+
+00:03:53,610 --> 00:03:57,640
+pre-fab you can't always do that because
+when you're trying to tweak animations
+
+00:03:57,640 --> 00:04:01,110
+then it wants you to have an instance to
+work on two grave stones, so there's a
+
+00:04:01,110 --> 00:04:03,730
+dangerous thing, maybe they're out of
+sync you know they shouldn't be if they're
+
+00:04:03,730 --> 00:04:08,130
+the same as the pre-fab, but are they the same as
+the pre-fab? Because I don't know I'm
+
+00:04:08,130 --> 00:04:12,260
+going to apply it back and the same with
+the star trophy. Alright just check
+
+00:04:12,260 --> 00:04:13,930
+everything still works
+
+00:04:13,930 --> 00:04:20,639
+should be fine, so I've just synced my instances
+back to my prefab switches, so we know
+
+00:04:20,639 --> 00:04:24,889
+that our prefabs are up to date with all
+the latest value if you started adding
+
+00:04:24,889 --> 00:04:29,940
+script your prefabs and then then you had
+value left over in the instances then it
+
+00:04:29,940 --> 00:04:32,130
+all becomes a nightmare because you don't
+know what's what, so you need to
+
+00:04:32,130 --> 00:04:35,820
+reconcile that regularly or just operate
+directly on your prefabs when you can.
+
+00:04:35,820 --> 00:04:39,310
+Alright so we can of course add the
+script to all of these guys at the same
+
+00:04:39,310 --> 00:04:40,620
+time, here we go.
+
+00:04:40,620 --> 00:04:45,400
+Bang, now all defenders have a health
+script and they have 0 health, well I'm
+
+00:04:45,400 --> 00:04:48,880
+gonna give them a hundred health; you can
+of course make a different health for each
+
+00:04:48,880 --> 00:04:54,720
+defender. Let's make a grave stone five times as strong; though it could get boring waiting for the
+
+00:04:54,720 --> 00:04:57,720
+lizard to chomp his way through it, so
+now the fox and the lizard, again you can
+
+00:04:57,720 --> 00:05:03,810
+just add health and they will start to
+get that behavior, presuming that the
+
+00:05:03,810 --> 00:05:07,099
+script actually does anything. So, that's
+the first stage, every single attacker and
+
+00:05:07,099 --> 00:05:10,710
+defender has a component attached, let's go
+back to our challenge slide and see what
+
+00:05:10,710 --> 00:05:14,889
+we said; so we've done the first two bits, now
+we need to get health to actually do
+
+00:05:14,889 --> 00:05:20,159
+something and wire it into attacker . cs so
+let's take a look, what does health do?
+
+00:05:20,159 --> 00:05:27,400
+Well from attacker dot cs we are going to
+call into the health component so we're
+
+00:05:27,400 --> 00:05:31,139
+gonna need to find the health component
+of the object and they we're gonna call
+
+00:05:31,139 --> 00:05:34,460
+into it here instead of just logging that
+we've created damage we're gonna say
+
+00:05:34,460 --> 00:05:39,139
+something like attacker where've we got it...
+
+00:05:39,139 --> 00:05:52,949
+current target... if I type straight... dot
+get component of type health . now this
+
+00:05:52,949 --> 00:05:57,620
+is where we gonna make a method inside
+our health component to deal damage so
+
+00:05:57,620 --> 00:06:02,139
+what're we going to do? Current target dot get
+component health . deal damage deal
+
+00:06:02,139 --> 00:06:12,259
+damage sounds fine. Void, deal damage float damage.
+OK, a very simple thin method here and we just
+
+00:06:12,259 --> 00:06:17,950
+say health minus equals damage, that's it.
+
+00:06:17,950 --> 00:06:27,920
+Well, actually if health minus equal
+damage is greater than 0 then we're
+
+00:06:27,920 --> 00:06:36,530
+going to deal damage. Otherwise what're you
+gonna do when we have a partial... when
+
+00:06:36,530 --> 00:06:41,050
+the amount of damage being dealt is
+going to take the guy below zero health?
+
+00:06:41,050 --> 00:06:44,500
+How do you want to handle this? So you
+have a decision, do you want to deal
+
+00:06:44,500 --> 00:06:48,220
+damage down to zero and then the guy
+dies, or do you just let it deal into
+
+00:06:48,220 --> 00:06:51,480
+the negatives and die? Well I think
+that's fine, negative health is the
+
+00:06:51,480 --> 00:06:55,390
+same as 0 health, so we actually don't
+need to worry if our health goes negative.
+
+00:06:55,390 --> 00:06:59,720
+You just have to decrement the health by
+the amount of damage and keep it really
+
+00:06:59,720 --> 00:07:04,280
+simple, okay? But it's definitely worth
+thinking what happens in these edge
+
+00:07:04,280 --> 00:07:09,670
+cases where we say have 15 health left
+and we deal twenty damage. Well, the
+
+00:07:09,670 --> 00:07:15,230
+consequence is the thing's going to die
+anyway so it's just let it die. So that's
+
+00:07:15,230 --> 00:07:18,520
+pretty much it for the health component,
+you may want to give health a default
+
+00:07:18,520 --> 00:07:19,900
+value that makes sense
+
+00:07:19,900 --> 00:07:24,150
+at the top here just in case it doesn't
+get set in the inspector; but basically
+
+00:07:24,150 --> 00:07:27,730
+for health that is it - we don't really
+need a start and... excuse me, you don't
+
+00:07:27,730 --> 00:07:32,940
+really need a start and an update and in
+future we will deal with the destroying
+
+00:07:32,940 --> 00:07:34,620
+of the objects, we need to think a little bit about
+
+00:07:34,620 --> 00:07:38,390
+animation, but first let's think about
+attacker dot cs and get that wired up
+
+00:07:38,390 --> 00:07:42,850
+sensibly, so what needs to change over
+at the attacker? Well we've already got the
+
+00:07:42,850 --> 00:07:48,500
+health here this component health off of
+the current target, so we need to ask a
+
+00:07:48,500 --> 00:07:55,870
+few more questions here really, so I'm
+gonna say health health equals current
+
+00:07:55,870 --> 00:07:59,950
+target dot get component health; so we've
+taken the health component off the
+
+00:07:59,950 --> 00:08:04,930
+current target, well, does it have one and
+we have a current target? Well they're both
+
+00:08:04,930 --> 00:08:09,220
+good questions, so let's deal with the
+first one first
+
+00:08:09,220 --> 00:08:14,090
+does the thing even have a health
+component and do we even have a current
+
+00:08:14,090 --> 00:08:18,960
+target we may not even have a current
+target that we are talking to at the
+
+00:08:18,960 --> 00:08:25,440
+moment; so let's wrap all this in an if current
+target, now where's current target set?
+
+00:08:25,440 --> 00:08:28,750
+Let's just talk about where this is
+set, we have current target at the top of
+
+00:08:28,750 --> 00:08:30,020
+it's a game object,
+
+00:08:30,020 --> 00:08:35,969
+when does the current target get set? It
+gets set down here in attack so there
+
+00:08:35,969 --> 00:08:41,430
+will only be a current target if the
+attacker is in attack mode, okay so there's no
+
+00:08:41,430 --> 00:08:44,120
+point in trying to pull a health
+component off our current target if there
+
+00:08:44,120 --> 00:08:47,750
+is no current target. So put the line of
+code that takes the health component off
+
+00:08:47,750 --> 00:08:51,480
+the current target in an if statement
+and you say if current target, what that
+
+00:08:51,480 --> 00:08:56,390
+evaluates to is if there is no current
+target that is going to return false and
+
+00:08:56,390 --> 00:09:00,690
+it's not even going to try and take the
+health component off in the first place.
+
+00:09:00,690 --> 00:09:05,589
+So if there's a target take off the health
+component, then what are we gonna do with it? Well,
+
+00:09:05,589 --> 00:09:08,430
+we don't want to even assume that there's
+a health component, so let's ask the
+
+00:09:08,430 --> 00:09:12,450
+question if health, now I won't indent
+these if statements more than two levels as
+
+00:09:12,450 --> 00:09:15,839
+a general suggestion and I won't be
+scaring you by doing any more than that
+
+00:09:15,839 --> 00:09:21,089
+but let's deal with nested IFs here
+so this stuff will only happen if
+
+00:09:21,089 --> 00:09:25,040
+there's a current target, and then the bit we're going
+to do next will only happen if there's
+
+00:09:25,040 --> 00:09:32,160
+health, then we call health which is this
+health component . deal damage, it needs to
+
+00:09:32,160 --> 00:09:35,550
+be public of course, so make your health
+
+00:09:35,550 --> 00:09:39,570
+deal damage method public, health dot
+deal damage, and then how much damage? The
+
+00:09:39,570 --> 00:09:43,190
+damage amount of damage, you gotta love object
+oriented programming, sometimes you to
+
+00:09:43,190 --> 00:09:48,279
+have t write the same things; ok let's test
+what we've got, we should be dealing
+
+00:09:48,279 --> 00:09:54,990
+damage already, let's take a look, save
+all of your scripts and play; take a look for
+
+00:09:54,990 --> 00:10:00,420
+example in the scene view is one of the
+easiest ways of doing this at the stone, the
+
+00:10:00,420 --> 00:10:03,760
+grave stone, I'm looking at the grave stone body
+here if you click so go
+
+00:10:03,760 --> 00:10:07,320
+up to the main gravestone and look it's
+health is decreasing, cool let's take a look
+
+00:10:07,320 --> 00:10:11,360
+at the garden gnome; again now that the
+fox is having a go at him his health is
+
+00:10:11,360 --> 00:10:14,709
+decreasing and just to prove not everybody's
+health is decreasing the cactus
+
+00:10:14,709 --> 00:10:18,740
+isn't. Now they won't disappear yet, you'll
+notice in a moment that the grave stone
+
+00:10:18,740 --> 00:10:22,920
+will, and the garden gnome will go to
+negative health, the gnome's already there,
+
+00:10:22,920 --> 00:10:25,820
+but we haven't, that's because
+we haven't written that bit of code yet.
+
+00:10:25,820 --> 00:10:30,089
+OK, so let's briefly talk about
+destroying the objects, how are we gonna do
+
+00:10:30,089 --> 00:10:33,190
+the destruction? It's going to happen in
+health, health needs to signal the
+
+00:10:33,190 --> 00:10:37,709
+destruction. The question is what would
+happen if we wanted to be able to have
+
+00:10:37,709 --> 00:10:38,810
+an animation
+
+00:10:38,810 --> 00:10:45,610
+on the death? So let's do things like
+this: if health is less than 0 then that's
+
+00:10:45,610 --> 00:10:49,320
+obviously the die condition, but what are we
+gonna do? Well you would optionally
+
+00:10:49,320 --> 00:10:56,990
+trigger an animation and then the
+animator would go into a die state
+
+00:10:56,990 --> 00:11:03,420
+that's not how you spell optionally at all is it? Optionally trigger animation; so the animator would go into a die
+
+00:11:03,420 --> 00:11:07,270
+state, alright but we're not gonna do that
+for now because we don't have a sensible
+
+00:11:07,270 --> 00:11:15,600
+die animation so we are simply going to
+die now or destroy object ok and I'm
+
+00:11:15,600 --> 00:11:19,320
+going to use a destroy object method
+separately which seems like a waste of
+
+00:11:19,320 --> 00:11:23,730
+time but it isn't because of course we
+can call this from the animator so
+
+00:11:23,730 --> 00:11:30,630
+public void destroy object very simple
+method is just going to say destroy game
+
+00:11:30,630 --> 00:11:36,430
+object and what is game object in this
+case? The entire... not the health because that
+
+00:11:36,430 --> 00:11:39,460
+would be destroy this, but destroy
+game object is the entire thing that
+
+00:11:39,460 --> 00:11:44,370
+health is attached to, so if we were to
+have a death animation you would trigger
+
+00:11:44,370 --> 00:11:47,910
+the death animation here and not call
+destroy object and then
+
+00:11:47,910 --> 00:11:52,930
+in the animator you would use an
+animator event remember over here we would
+
+00:11:52,930 --> 00:11:57,060
+use one of these little guys it's an animator
+event, to then call back into the health
+
+00:11:57,060 --> 00:12:02,070
+component and call destroy object; let me
+just show you what I mean, let's imagine the
+
+00:12:02,070 --> 00:12:05,640
+grave stone is gonna get destroyed and
+that this is it's death animation, you
+
+00:12:05,640 --> 00:12:08,960
+would come in here and you would find
+that because it's attached directly to
+
+00:12:08,960 --> 00:12:12,280
+the gravestone you can say destroy
+object and you do that at the end of the
+
+00:12:12,280 --> 00:12:16,540
+animation so that leaves the door open
+for you to put death animations in if you
+
+00:12:16,540 --> 00:12:21,230
+want to, which is great so now let's just
+check that they actually do disappear
+
+00:12:21,230 --> 00:12:25,640
+when their health runs out, let's take a
+look. Ok, what's happening is that they're
+
+00:12:25,640 --> 00:12:30,450
+destroying it absolutely immediately so
+why are they being destroyed immediately?
+
+00:12:30,450 --> 00:12:34,610
+Let's just check a couple of things, check
+your animator, make sure that your
+
+00:12:34,610 --> 00:12:38,480
+animator where I just fiddled around
+with one of those things, I think I
+
+00:12:38,480 --> 00:12:43,400
+fiddled with a gravestone, make sure that
+you don't have any little events in here
+
+00:12:43,400 --> 00:12:47,050
+that are calling destroy object, you see
+that? Gravestone has a default destroy
+
+00:12:47,050 --> 00:12:49,529
+object I put that in by mistake - it
+proves it would work
+
+00:12:49,529 --> 00:12:53,319
+but of course it doesn't have the
+desired effect; so in fact that was all that
+
+00:12:53,319 --> 00:12:58,089
+was wrong so the fox goes over, the lizard
+attacks, take a look at the gravestone
+
+00:12:58,089 --> 00:13:01,439
+inspect the grave stone, it's going to take a
+while let's just bump it's health down to
+
+00:13:01,439 --> 00:13:07,970
+thirty; if it's gonna let me, if the inspector will let
+me, it has gone, they're not resuming their
+
+00:13:07,970 --> 00:13:12,120
+walk yet, that's fine, we don't expect
+them to resume their walking yet because
+
+00:13:12,120 --> 00:13:18,360
+that is a different objective. So how do
+we resume walking when the GameObject
+
+00:13:18,360 --> 00:13:20,879
+standing in front of this lizard has been
+destroyed?
+
+00:13:20,879 --> 00:13:24,360
+Not entirely simple because it does not
+send an on trigger exit message or
+
+00:13:24,360 --> 00:13:27,480
+anything like that, it just disappears
+from the scene.
+
+00:13:27,480 --> 00:13:30,740
+Well one relatively simple way of doing
+this is in the attacker script you could
+
+00:13:30,740 --> 00:13:35,120
+just ask the question every frame is there
+a target, and if there isn't you set the
+
+00:13:35,120 --> 00:13:40,139
+animator state to is attacking is false.
+So I want you to do that, I want you to
+
+00:13:41,170 --> 00:13:44,529
+get access to the animator here in
+attacker and then write a line in
+
+00:13:44,529 --> 00:13:48,240
+update that says if there's no current
+target then set the is attacking state
+
+00:13:48,240 --> 00:13:53,800
+to false in the animator. Go ahead and do
+that now.
+
+00:13:53,800 --> 00:13:58,379
+Awesome so if we're going to do that
+it's a standard private animator
+
+00:13:58,379 --> 00:14:03,660
+animator find it on the start which we
+don't have so let's create ourselves a start
+
+00:14:03,660 --> 00:14:08,819
+method, you should get used to creating start
+methods again if you need them now;
+
+00:14:08,819 --> 00:14:14,480
+animator equals GameObject, sorry it just
+equals get component because it's on
+
+00:14:14,480 --> 00:14:19,990
+the same object, it's just one of the
+components of this object, get component
+
+00:14:19,990 --> 00:14:24,069
+animator; remember it's a method so it needs the 
+squiggly brackets, so here we're simply
+
+00:14:24,069 --> 00:14:30,579
+saying if there is no current target
+then what do we do? Well it's just animator . set
+
+00:14:30,579 --> 00:14:39,690
+bool, now you've got to spell it right, is attacking, and then
+
+00:14:39,690 --> 00:14:46,020
+to false. Now just make sure it is
+attacking back over in unity, find
+
+00:14:46,020 --> 00:14:49,810
+yourself an attacker like a lizard and
+then do we have an "is attacking" bool, yes
+
+00:14:49,810 --> 00:14:52,740
+we do that's good; you may as well while
+you're here check the fox has the same
+
+00:14:52,740 --> 00:14:59,530
+named parameter, we've got to keep those synched up.
+OK, let's try that and we should be there so in comes
+
+00:14:59,530 --> 00:15:05,350
+the lizard starts attacking the
+gravestone which grave stone is it?
+
+00:15:05,350 --> 00:15:09,990
+It's the second one down, got lots of
+health so it's a lot of waiting so let's
+
+00:15:09,990 --> 00:15:17,870
+just set the health to 50, 35, 30... here
+we go, it's a waiting game now the fox is
+
+00:15:17,870 --> 00:15:21,180
+also chewing on the gnome, so the gnome
+should disappear and the fox
+
+00:15:21,180 --> 00:15:25,470
+re-starts walking, perfect, because that
+update has said I don't have a current
+
+00:15:25,470 --> 00:15:30,450
+target I'm off, and exactly the same
+with the lizard. So, congratulations, we now
+
+00:15:30,450 --> 00:15:34,680
+have destruction working and walking
+resuming; now that cactus is going to get
+
+00:15:34,680 --> 00:15:36,190
+it. See you soon.
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section7/GG28 Using a Health Component.srt

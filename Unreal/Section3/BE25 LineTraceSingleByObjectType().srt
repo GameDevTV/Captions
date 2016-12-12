@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section3/BE25 LineTraceSingleByObjectType().srt
 ﻿WEBVTT
 
 1
@@ -728,3 +729,734 @@ see. that's just a debug line we could turn that off. but it's absolutely workin
 00:11:59.266 --> 00:12:03.032
 and that's great news!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+So welcome to
+
+2
+00:00:04,000 --> 00:00:08,000
+LineTraceSingleByObjectType()! In this video, we're going to meet references
+
+3
+00:00:08,000 --> 00:00:12,000
+for the first time, that's when you see an ampersand. We'll be using, well
+
+4
+00:00:12,000 --> 00:00:16,000
+we won't be using LineTraceSingle, because it might be deprecated. So, we're going to use
+
+5
+00:00:16,000 --> 00:00:20,000
+LineTraceSingleByObjectType(). We will build our parameters,
+
+6
+00:00:20,000 --> 00:00:24,000
+including something called an FcollisionQueryParams object, and there's a couple
+
+7
+00:00:24,000 --> 00:00:28,000
+of places you can go looking for documentation. One is there and the other
+
+8
+00:00:28,000 --> 00:00:32,000
+is there. Sorry, that's a little hard to read at the bottom, but I think you can see it clearly enough.
+
+9
+00:00:32,000 --> 00:00:36,000
+So, without further ado, let's dive in! By the end of the video
+
+10
+00:00:36,000 --> 00:00:40,000
+what we'll be doing is, as we walk up to objects like the table and the chair, if you look in the
+
+11
+00:00:40,000 --> 00:00:44,000
+output log there you can see that it's recognizing that we're hitting those
+
+12
+00:00:44,000 --> 00:00:48,000
+and logging it out, but it's not recognizing walls and doors. So, let's do it!
+
+13
+00:00:48,000 --> 00:00:48,933
+
+
+14
+00:00:48,933 --> 00:00:52,933
+So, here we are ready to do our ray-cast, or in other
+
+15
+00:00:52,933 --> 00:00:56,933
+words a line-trace. I'll put ray-cast in brackets,
+
+16
+00:00:56,933 --> 00:01:00,933
+in case you ever want to search for that. Remember your future self and what you might want to search
+
+17
+00:01:00,933 --> 00:01:04,933
+for. OK, so what's the method and how do we find it? Well,
+
+18
+00:01:04,933 --> 00:01:08,933
+the method actually applies to the world. We're going to be line-tracing
+
+19
+00:01:08,933 --> 00:01:12,933
+in the world, so firstly we get world, and then, we
+
+20
+00:01:12,933 --> 00:01:16,933
+see what we've got. So I'm just going to do a search for trace and see what we have, all sorts of
+
+21
+00:01:16,933 --> 00:01:20,933
+stuff. Here you go, these are the ones we want! We have LineTraceMultis
+
+22
+00:01:20,933 --> 00:01:24,933
+and LineTraceSingle. Now, a LineTraceMulti will pass through multiple objects and
+
+23
+00:01:24,933 --> 00:01:28,933
+report multiple answers, so if you look at the signature for this one
+
+24
+00:01:28,933 --> 00:01:32,933
+you can see here we have an array coming out. OK, so we
+
+25
+00:01:32,933 --> 00:01:36,933
+want LineTraceSingleByObject
+
+26
+00:01:36,933 --> 00:01:40,933
+Type(). Remember we were going to be sorting for the object type,
+
+27
+00:01:40,933 --> 00:01:44,933
+which is the physics body over here. You see on the table.
+
+28
+00:01:44,933 --> 00:01:48,933
+And then just to recap what we talked about before, Collision and then
+
+29
+00:01:48,933 --> 00:01:52,933
+Collision Presets, Object Type of the table is a Physics
+
+30
+00:01:52,933 --> 00:01:56,933
+Body. OK, so that's what we want to filter for. So,
+
+31
+00:01:56,933 --> 00:02:00,933
+we're going to look for the method that is LineTrace
+
+32
+00:02:00,933 --> 00:02:04,933
+SingleByObjectType(). Now be careful,
+
+33
+00:02:04,933 --> 00:02:08,933
+if you use LineTraceSingleByChannel, for example, it will appear to work,
+
+34
+00:02:08,933 --> 00:02:12,933
+but it will ignore your filter and it'll return all objects.
+
+35
+00:02:12,933 --> 00:02:16,933
+So, just a word of caution there, use the right method. There are
+
+36
+00:02:16,933 --> 00:02:20,933
+actually a couple of methods which have
+
+37
+00:02:20,933 --> 00:02:24,933
+different names but behave almost exactly the same. Alright, so what do we
+
+38
+00:02:24,933 --> 00:02:28,933
+do? How do we do this? So, let's open up the brackets just to get our exploration
+
+39
+00:02:28,933 --> 00:02:32,933
+going, give ourselves some space. The first thing is, we need an out
+
+40
+00:02:32,933 --> 00:02:36,933
+parameter called an FHitResult, so let's go create one.
+
+41
+00:02:36,933 --> 00:02:40,933
+Here we go! FHitResult
+
+42
+00:02:40,933 --> 00:02:44,933
+LineTraceHit.
+
+43
+00:02:44,933 --> 00:02:48,933
+Something like that! Alright, well you could just call it Hit.
+
+44
+00:02:48,933 --> 00:02:52,933
+That's what you're hitting, so we could just call it Hit, nice and concisely.
+
+45
+00:02:52,933 --> 00:02:56,933
+FHitResult Hit; So, that's our first parameter, but it's an
+
+46
+00:02:56,933 --> 00:03:00,933
+OUT parameter, so I'm going to mark it as an OUT parameter. OUT Hit.
+
+47
+00:03:00,933 --> 00:03:04,933
+OK, now once Visual Studio catches up, what do we have next? The start, so this
+
+48
+00:03:04,933 --> 00:03:08,933
+start is the PlayerViewPointLocation. What's the end?
+
+49
+00:03:08,933 --> 00:03:12,933
+Well, we've already made the end, it's the LineTraceEnd.
+
+50
+00:03:12,933 --> 00:03:16,933
+Cool! Then what? Now it wants an FColliision
+
+51
+00:03:16,933 --> 00:03:20,933
+ObjectQueryParameters, and there's an ampersand in here, like you may have seen an ampersand
+
+52
+00:03:20,933 --> 00:03:24,933
+in a couple of other places, ObjectQueryParams.
+
+53
+00:03:24,933 --> 00:03:28,933
+OK, so let me explain what this ampersand is firstly. This ampersand
+
+54
+00:03:28,933 --> 00:03:32,933
+is a reference. So, introducing references!
+
+55
+00:03:32,933 --> 00:03:36,933
+References are special pointer denoted by an ampersand. They can't
+
+56
+00:03:36,933 --> 00:03:40,933
+be null pointer or any other null value. You'll discover with pointers later that we can point
+
+57
+00:03:40,933 --> 00:03:44,933
+at nothing, not the case with a reference. They can only be assigned,
+
+58
+00:03:44,933 --> 00:03:48,933
+they cannot be reassigned, so once you've assigned a reference to a particular object that's it,
+
+59
+00:03:48,933 --> 00:03:52,933
+you're stuck with it. And think of them just like an alias, you basically
+
+60
+00:03:52,933 --> 00:03:56,933
+use them just like the object they reference, so they're not too scary. They behave very
+
+61
+00:03:56,933 --> 00:04:00,933
+much like an alias to the object they're referencing. OK, so back over here,
+
+62
+00:04:00,933 --> 00:04:04,933
+the next type of parameter that is says we want is an
+
+63
+00:04:04,933 --> 00:04:08,933
+FCollisionObjectQueryParams. What is that?
+
+64
+00:04:08,933 --> 00:04:12,933
+Well, let's go take a look at it! Now, we can do this right in line here, so let's go FCollision
+
+65
+00:04:12,933 --> 00:04:16,933
+ObjectQueryParams. What is this? "It's a
+
+66
+00:04:16,933 --> 00:04:20,933
+structure that contains a list of object types, the query is
+
+67
+00:04:20,933 --> 00:04:24,933
+interested in". OK, so let's just write that type, and then open
+
+68
+00:04:24,933 --> 00:04:28,933
+the braces to get the constructors. What have we got? We've got one here.
+
+69
+00:04:28,933 --> 00:04:32,933
+InObjectTypesToQuery is an int32.
+
+70
+00:04:32,933 --> 00:04:36,933
+That looks horrible because int32 does not look like a good
+
+71
+00:04:36,933 --> 00:04:40,933
+way to encode an object type, this one takes no parameters.
+
+72
+00:04:40,933 --> 00:04:44,933
+Don't worry about that signature type for now or that one.
+
+73
+00:04:44,933 --> 00:04:48,933
+Ah, but this one here will construct a set of query parameters, based
+
+74
+00:04:48,933 --> 00:04:52,933
+on a collision channel. That is the one we want alright! So again, just look at this
+
+75
+00:04:52,933 --> 00:04:56,933
+signature and go, well how on earth would I make any progress here? Well, just try typing
+
+76
+00:04:56,933 --> 00:05:00,933
+)ECollisionChannel). What is that?
+
+77
+00:05:00,933 --> 00:05:04,933
+It's an enum, so colon colon to access it's members,
+
+78
+00:05:04,933 --> 00:05:08,933
+and then, if you start typing phy for physics, we have ECC
+
+79
+00:05:08,933 --> 00:05:12,933
+i.e. E Collision Channel PhysicsBody. That's how we
+
+80
+00:05:12,933 --> 00:05:16,933
+tell it we only want to look at physics bodies. Finally,
+
+81
+00:05:16,933 --> 00:05:20,933
+it wants an FCollisionQueryParameters input as well, not
+
+82
+00:05:20,933 --> 00:05:24,933
+FCollisionObjectQueryParameters but FCollisionQueryParameters. Now, I'm just going to
+
+83
+00:05:24,933 --> 00:05:28,933
+show you how this works, because it's the first time you've seen this. It's no good me challenging
+
+84
+00:05:28,933 --> 00:05:32,933
+you to do this. I will challenge you to do the last bit of this. So, let's
+
+85
+00:05:32,933 --> 00:05:36,933
+do a couple of things. Let's firstly make
+
+86
+00:05:36,933 --> 00:05:40,933
+"// Setup query parameters".
+
+87
+00:05:40,933 --> 00:05:44,933
+Now, by the way, with these comments if you use double forward slash
+
+88
+00:05:44,933 --> 00:05:48,933
+like I have been, we create a small problem. Look at this, let me zoom up to here.
+
+89
+00:05:48,933 --> 00:05:52,933
+You see these two lines, "// Get player view point this tick" and then
+
+90
+00:05:52,933 --> 00:05:56,933
+FVector immediately below. Look what happens if I hover over PlayerViewPointLocation here.
+
+91
+00:05:56,933 --> 00:06:00,933
+It says "Get player view point this tick" because the comment that I've highlighted is binding
+
+92
+00:06:00,933 --> 00:06:04,933
+to the declaration below. So for comments that
+
+93
+00:06:04,933 --> 00:06:08,933
+apply to a whole block of code, you can use triple forward slash to stop that from happening. I'm going
+
+94
+00:06:08,933 --> 00:06:12,933
+to get rid of my log there, and I'm going to put some triple forward slashes
+
+95
+00:06:12,933 --> 00:06:16,933
+in here and here
+
+96
+00:06:16,933 --> 00:06:20,933
+and here and here. OK, and that's just
+
+97
+00:06:20,933 --> 00:06:24,933
+going to stop Hit from getting the comment and the documentation of what's
+
+98
+00:06:24,933 --> 00:06:28,933
+above. Alright, we'll talk more about comments and self documenting stuff later
+
+99
+00:06:28,933 --> 00:06:32,933
+on. Alright, so we have this f result here, and it's an OUT parameter
+
+100
+00:06:32,933 --> 00:06:36,933
+yada yada. So what we need next, as we say, just to recap is
+
+101
+00:06:36,933 --> 00:06:40,933
+something of type FCollisionQueryParams. So, let's explore this
+
+102
+00:06:40,933 --> 00:06:44,933
+FCollisionQueryParams thing.
+
+103
+00:06:44,933 --> 00:06:48,933
+What constructors do we have? Open the braces.
+
+104
+00:06:48,933 --> 00:06:52,933
+So, this one here is asking for binTraceComplex = false.
+
+105
+00:06:52,933 --> 00:06:56,933
+What does that talk about? Well, let's talk about that parameter briefly. What this is about
+
+106
+00:06:56,933 --> 00:07:00,933
+is, if you do a complextrace then the ray is going to go
+
+107
+00:07:00,933 --> 00:07:04,933
+out and find out whether it intersects with this stuff, this detail of the chair like
+
+108
+00:07:04,933 --> 00:07:08,933
+the arms. Whereas if you put false for that, so you do a simple trace, then it's just going to look
+
+109
+00:07:08,933 --> 00:07:12,933
+like this collider. We're going to do simple. So, when you see that parameter
+
+110
+00:07:12,933 --> 00:07:16,933
+we're going to false, but we're not going to use this constructor, because we want more control.
+
+111
+00:07:16,933 --> 00:07:20,933
+I'm going to use this one. It's got the TraceTag, which we're not using. Don't confuse that with any
+
+112
+00:07:20,933 --> 00:07:24,933
+of the other trace. Forget what TraceTag is for the moment. I'm actually just going to provide that
+
+113
+00:07:24,933 --> 00:07:28,933
+as nothing, so I'm going to say FName open braces (Text) open
+
+114
+00:07:28,933 --> 00:07:32,933
+braces, then just nothing OK.
+
+115
+00:07:32,933 --> 00:07:36,933
+And then going carefully outside of there, I'm going to go to the next parameter. I'm going to
+
+116
+00:07:36,933 --> 00:07:40,933
+put false for complex, because we want to do a simple trace into
+
+117
+00:07:40,933 --> 00:07:44,933
+these colliders, these simple colliders.
+
+118
+00:07:44,933 --> 00:07:48,933
+OK, and then the final parameter is it wants an Actor to ignore.
+
+119
+00:07:48,933 --> 00:07:52,933
+Well, let's just GetOwner(), we're just going to ignore ourselves
+
+120
+00:07:52,933 --> 00:07:56,933
+right. So, this is tricky
+
+121
+00:07:56,933 --> 00:08:00,933
+to use but once you've done it once, that's a template for getting started with a
+
+122
+00:08:00,933 --> 00:08:04,933
+simple trace. If you do want to be able to intersect with say the arms of the chair, per the Visibility
+
+123
+00:08:04,933 --> 00:08:08,933
+Collision, then you would change this false to true. We won't worry about the
+
+124
+00:08:08,933 --> 00:08:12,933
+tag for now, and obviously you ignore yourself, because if you look when the game
+
+125
+00:08:12,933 --> 00:08:16,933
+runs and we Eject we have a finite volume, not that you can see us in this view.
+
+126
+00:08:16,933 --> 00:08:20,933
+We have a finite volume and the trace starts right from right in the center of this sphere,
+
+127
+00:08:20,933 --> 00:08:24,933
+and if we don't ignore ourselves, the first hit will be ourselves.
+
+128
+00:08:24,933 --> 00:08:28,933
+So, we setup the parameters, now we can pass those in. Of course, we haven't given them
+
+129
+00:08:28,933 --> 00:08:32,933
+a name yet, so FCollisionQueryParams give them a name
+
+130
+00:08:32,933 --> 00:08:36,933
+TraceParameters
+
+131
+00:08:36,933 --> 00:08:40,933
+like that. OK, and then TraceParameters
+
+132
+00:08:40,933 --> 00:08:44,933
+and a semicolon on the end, keeping track of all
+
+133
+00:08:44,933 --> 00:08:48,933
+our white space. And hopefully we then have something
+
+134
+00:08:48,933 --> 00:08:52,933
+that's going to compile. Let me go to Unreal and compile it, and then, I'm going to give you a quick challenge to
+
+135
+00:08:52,933 --> 00:08:56,933
+do. And it will be a relatively quick and simple challenge, it's a
+
+136
+00:08:56,933 --> 00:09:00,933
+logging challenge. I want you to log out what the Actor is. But let's just check that our code compiles
+
+137
+00:09:00,933 --> 00:09:04,933
+to this point.
+
+138
+00:09:04,933 --> 00:09:08,933
+It's taking a little longer than usual. There it goes! Let's just run!
+
+139
+00:09:08,933 --> 00:09:12,933
+And it works but we're not getting anything on the console, because we haven't got a log statement. So, I want you to log
+
+140
+00:09:12,933 --> 00:09:16,933
+the Actor here. Get the Actor* pointer from the Hit. The Hit that
+
+141
+00:09:16,933 --> 00:09:20,933
+comes back is quite a nice complex object, it's got a lot of information in it. See if you can get the Actor*
+
+142
+00:09:20,933 --> 00:09:24,933
+pointer from that. Perform a ->GetName() on this Actor* and then log the
+
+143
+00:09:24,933 --> 00:09:28,933
+name to the Console, making sure it works, so when you walk up to the table or the
+
+144
+00:09:28,933 --> 00:09:32,933
+chair or any of your other Physics Body objects it should log to the Console that you're hitting them,
+
+145
+00:09:32,933 --> 00:09:36,933
+once you're within a meter, and any other object like the floor and ceiling shouldn't.
+
+146
+00:09:36,933 --> 00:09:39,266
+
+
+147
+00:09:39,266 --> 00:09:43,266
+So, let's explore this Hit thing here. What is it?
+
+148
+00:09:43,266 --> 00:09:47,266
+It's an f Hit result, it's not a pointer, so we can use dot. What
+
+149
+00:09:47,266 --> 00:09:51,266
+can we get from it? We can get the Actor. Fantastic! What does GetActor
+
+150
+00:09:51,266 --> 00:09:55,266
+return? A pointer to an Actor. So, let's do that! Let's
+
+151
+00:09:55,266 --> 00:09:59,266
+say Actor AActor* pointer to
+
+152
+00:09:59,266 --> 00:10:03,266
+an Actor. ActorHit = Hit.Get
+
+153
+00:10:03,266 --> 00:10:07,266
+Actor(); OK, if I could spell right
+
+154
+00:10:07,266 --> 00:10:11,266
+then we'd be there. Now, a useful protection mechanism,
+
+155
+00:10:11,266 --> 00:10:15,266
+you don't have to do this, is to say if (ActorHit). It reads nicely and it makes sure
+
+156
+00:10:15,266 --> 00:10:20,433
+that, that pointer isn't associated with nothing, so that if there wasn't an ActorHit we skip this
+
+157
+00:10:20,433 --> 00:10:23,266
+code. So, we're going to do a UE_LOG() again here. Open the
+
+158
+00:10:23,266 --> 00:10:27,266
+brace. Good old Visual Studio is completing the closing brace for us. We're going to make
+
+159
+00:10:27,266 --> 00:10:31,266
+it (LogTemp as usual Warning,) verbosity. Keep it in yello
+
+160
+00:10:31,266 --> 00:10:35,266
+format, so it needs TEXT() remember? Then, what do we put
+
+161
+00:10:35,266 --> 00:10:39,266
+in here? Well, I'm going to say something like (Line trace hit: ")
+
+162
+00:10:39,266 --> 00:10:43,266
+and then put a string in with a format operator %s.
+
+163
+00:10:43,266 --> 00:10:47,266
+After those braces I'm going to do what? Well, I need
+
+164
+00:10:47,266 --> 00:10:51,266
+to get the Actor name, so we have ActorHit,
+
+165
+00:10:51,266 --> 00:10:55,266
+and then, it's a pointer so it's an arrow operator. GetName()
+
+166
+00:10:55,266 --> 00:10:59,266
+which is a method. Now, we're nearly there but I'm going to put Actor
+
+167
+00:10:59,266 --> 00:11:03,266
+Hit ->GetName() in some brackets, then point out that ActorHit
+
+168
+00:11:03,266 --> 00:11:07,266
+->GetName() is going to return an f string and that the UE_LOG wants us to dereference
+
+169
+00:11:07,266 --> 00:11:11,266
+those f strings with a star, as we've seen before. So that line there, carefully
+
+170
+00:11:11,266 --> 00:11:15,266
+written, should give us the result we want. Let's go have a go in Unreal and see!
+
+171
+00:11:15,266 --> 00:11:19,266
+I'm being lazy, I'm not even saving the file in Visual Studio,
+
+172
+00:11:19,266 --> 00:11:23,266
+and something has gone wrong! Let's take a look! Line 73
+
+173
+00:11:23,266 --> 00:11:27,266
+"unexpected end of file and macro expansion". So, let's see what we're doing wrong there.
+
+174
+00:11:27,266 --> 00:11:31,266
+I'm missing a closing brace, I didn't match my braces.
+
+175
+00:11:31,266 --> 00:11:35,266
+Let's try again!
+
+176
+00:11:35,266 --> 00:11:39,266
+And that make sense right, the error was unexpected end of file. That's because it
+
+177
+00:11:39,266 --> 00:11:43,266
+was missing a brace. OK, let's look around! Look at the floor, look at the wall, hit the
+
+178
+00:11:43,266 --> 00:11:47,266
+doors! None of it's logging anything, but the chair
+
+179
+00:11:47,266 --> 00:11:51,266
+and the table are logging! Awesome, we now are line tracing out
+
+180
+00:11:51,266 --> 00:11:55,266
+and working out what we're intercepting. It's nothing to do with that red line you
+
+181
+00:11:55,266 --> 00:11:59,266
+see, that's just a debug line we could turn that off, but it's absolutely working
+
+182
+00:11:59,266 --> 00:12:03,032
+and that's great news!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section3/BE25 LineTraceSingleByObjectType().srt

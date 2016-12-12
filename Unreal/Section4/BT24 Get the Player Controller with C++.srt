@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT24 Get the Player Controller with C++.srt
 ﻿WEBVTT
 
 1
@@ -540,3 +541,546 @@ over in the source control. as I have been for every single video. And
 00:09:01.966 --> 00:09:03.999
 I will see you soon!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+In this video we're going to be
+
+2
+00:00:04,000 --> 00:00:08,000
+getting the Player Controller using C++. By the end of it
+
+3
+00:00:08,000 --> 00:00:12,000
+we'll have the simple but important result that, when we play the game we have say three AI
+
+4
+00:00:12,000 --> 00:00:16,000
+tanks in the world, and if we look at the logs, we'll see that all three of them are finding us
+
+5
+00:00:16,000 --> 00:00:20,000
+as a PlayerController. And we'll understand that from the context of this
+
+6
+00:00:20,000 --> 00:00:24,000
+diagram which I will build up for you, which explains how Levels, World Actors
+
+7
+00:00:24,000 --> 00:00:28,000
+PlayerController instances, Game Modes, and stuff all relate together. [Laughs]
+
+8
+00:00:28,000 --> 00:00:30,733
+So, I will see you in the video!
+
+9
+00:00:30,733 --> 00:00:34,733
+So guys, what we want to do now is to implement this bit, on
+
+10
+00:00:34,733 --> 00:00:38,733
+the left. We have both the Tank AI Controller
+
+11
+00:00:38,733 --> 00:00:42,733
+and the Tank Player Controller, finding the Tank and reporting that their
+
+12
+00:00:42,733 --> 00:00:46,733
+possessing the relevant tank. Now we want to get to the bit where we can actually send a message
+
+13
+00:00:46,733 --> 00:00:50,733
+through to the tank to aim at the player. So, let's take a look
+
+14
+00:00:50,733 --> 00:00:54,733
+at what that involves. Firstly, we need to understand how we're going to find the PlayerController,
+
+15
+00:00:54,733 --> 00:00:58,733
+that is the Tank on this diagram on the
+
+16
+00:00:58,733 --> 00:01:02,733
+left at the top, needs an AI tank, so it needs to find
+
+17
+00:01:02,733 --> 00:01:06,733
+the Player Tank. In this case, there's only one Player Tank, but there could be more than one, so
+
+18
+00:01:06,733 --> 00:01:10,733
+let's work it through. A World or Level, which aren't exactly the same thing, but for now,
+
+19
+00:01:10,733 --> 00:01:14,733
+let's consider them to be the same thing, has one or more Actors in it like that.
+
+20
+00:01:14,733 --> 00:01:18,733
+And those Actors may be tanks, they may be, I don't know,
+
+21
+00:01:18,733 --> 00:01:22,733
+lights anything. They could be anything inside the
+
+22
+00:01:22,733 --> 00:01:26,733
+world, a barrel, it could be a chest, it could be anything.
+
+23
+00:01:26,733 --> 00:01:30,733
+Alright, but some of those Actors are actually a PlayerControllers
+
+24
+00:01:30,733 --> 00:01:34,733
+as well, are also Actors, and of course, the tanks are Actors.
+
+25
+00:01:34,733 --> 00:01:38,733
+So what we've got is, this world that's got a lot of Actors in it, for now that's
+
+26
+00:01:38,733 --> 00:01:42,733
+just three tanks, all of which are Pawns, all of which are specialized
+
+27
+00:01:42,733 --> 00:01:46,733
+to be tanks, and we have one PlayerController instance. We
+
+28
+00:01:46,733 --> 00:01:50,733
+could have many, which is why I've drawn it like that with a stack, though it's at the moment , we only
+
+29
+00:01:50,733 --> 00:01:54,733
+have one PlayerController. It's not a multiplayer game, it's a single human player multi
+
+30
+00:01:54,733 --> 00:01:58,733
+AI player game. OK, so there are going to be
+
+31
+00:01:58,733 --> 00:02:02,733
+multiple AI Controllers but only one PlayerController. So that's
+
+32
+00:02:02,733 --> 00:02:06,733
+the instance we're in, we have one PlayerController, which is possessing one of the
+
+33
+00:02:06,733 --> 00:02:10,733
+Actors, tanks, and then, the other tanks are possessed by something else which we're not concerned
+
+34
+00:02:10,733 --> 00:02:14,733
+about here, which is the AI Controller. So, how do they end up? How do these PlayerControllers
+
+35
+00:02:14,733 --> 00:02:18,733
+end up in the World? What happens, on construction, is that the
+
+36
+00:02:18,733 --> 00:02:22,733
+World or Level specifies a Game Mode, which we've done, I think we've done it in
+
+37
+00:02:22,733 --> 00:02:26,733
+Blueprint, and then that Game Mode specifies either a PlayerController C++
+
+38
+00:02:26,733 --> 00:02:30,733
+class or a PlayerController blueprint class. And in our case, we
+
+39
+00:02:30,733 --> 00:02:34,733
+will end up with both, one parented on the other, which in turn
+
+40
+00:02:34,733 --> 00:02:38,733
+instantiates the PlayerController instances as necessary. So it's important to
+
+41
+00:02:38,733 --> 00:02:42,733
+remember that's the kind of sequence of events that goes on, so that we know how to find
+
+42
+00:02:42,733 --> 00:02:46,733
+our PlayerController. And if we couldn't find our PlayerController, for some reason, you'd know to come back to this
+
+43
+00:02:46,733 --> 00:02:50,733
+slide and look at and work it through methodically to work out why.
+
+44
+00:02:50,733 --> 00:02:54,733
+Alright cool! So, now we've got this far, let's go ahead and open our
+
+45
+00:02:54,733 --> 00:02:58,733
+TankAIController C++ class, and we're going to write another
+
+46
+00:02:58,733 --> 00:03:02,733
+method, which is GetPlayerTank(). So
+
+47
+00:03:02,733 --> 00:03:06,733
+we got GetControlledTank() and BeginPlay(). By the way, by default these things are private.
+
+48
+00:03:06,733 --> 00:03:10,733
+Despite what I said in a previous video, they're private: by default, and
+
+49
+00:03:10,733 --> 00:03:14,733
+so we may as well explicitly say that. And let's write a new method which is ATank* pointer
+
+50
+00:03:14,733 --> 00:03:18,733
+GetPlayerTank();
+
+51
+00:03:18,733 --> 00:03:22,733
+
+
+52
+00:03:22,733 --> 00:03:26,733
+And it's going to return its constant, because it's not going to change anything. It's going to return a
+
+53
+00:03:26,733 --> 00:03:30,733
+pointer to the player tank. So that's what we want to go and implement! Let's go ahead and
+
+54
+00:03:30,733 --> 00:03:34,733
+write the implementation of that now! So,
+
+55
+00:03:34,733 --> 00:03:38,733
+use basically the same signature with, of course, the class name.
+
+56
+00:03:38,733 --> 00:03:42,733
+
+
+57
+00:03:42,733 --> 00:03:46,733
+Perfect! OK, so how are we going to get the player
+
+58
+00:03:46,733 --> 00:03:50,733
+tank? Well, there's a couple of different methods you can actually use for this,
+
+59
+00:03:50,733 --> 00:03:54,733
+and I want you to have a look on the web and see if you can work out how to do it.
+
+60
+00:03:54,733 --> 00:03:58,733
+I'm going to suggest that there'll be two things you'll find. You'll see a game play statics,
+
+61
+00:03:58,733 --> 00:04:02,733
+when you do a Google Search; you'll also see this method here, so if you haven't got an Internet connection or you don't
+
+62
+00:04:02,733 --> 00:04:06,733
+want to look it up yourself that's the method we need. Once you've got the First Player Controller
+
+63
+00:04:06,733 --> 00:04:10,733
+like that, I want you to protect your pointer because maybe it'll fail, and then, maybe cast it
+
+64
+00:04:10,733 --> 00:04:14,733
+to a Tank and then log out on BeginPlay() to check it worked.
+
+65
+00:04:14,733 --> 00:04:18,733
+So, you actually can replace the code that currently says, I'm possessing
+
+66
+00:04:18,733 --> 00:04:22,733
+a tank, and you could say, instead of that, using the same if structure in the BeginPlay()
+
+67
+00:04:22,733 --> 00:04:26,733
+we could say either I have or I haven't found a Player Tank.
+
+68
+00:04:26,733 --> 00:04:30,733
+So, rather than this AI Controller reporting what tank it's possessing, it's going to report
+
+69
+00:04:30,733 --> 00:04:34,733
+something very different, which is which is the Player Tank, Player 0 as a hint for you,
+
+70
+00:04:34,733 --> 00:04:38,733
+which is Player 0 in the game, the first Player Controller. Alright, so
+
+71
+00:04:38,733 --> 00:04:42,733
+good luck and I'll see you in a minute! See if you can get that done.
+
+72
+00:04:42,733 --> 00:04:46,733
+If you're struggling, as a recap
+
+73
+00:04:46,733 --> 00:04:50,733
+we're just trying to get the AI Tanks to find and report
+
+74
+00:04:50,733 --> 00:04:54,733
+which tank is the Player Tank.
+
+75
+00:04:54,733 --> 00:04:58,733
+OK cool, so welcome back! How are we going to get this Player Tank then? So, well
+
+76
+00:04:58,733 --> 00:05:02,733
+let's start off with auto PlayerTank = and
+
+77
+00:05:02,733 --> 00:05:06,733
+we'll go for this GetWorld() method, and then it's a pointer
+
+78
+00:05:06,733 --> 00:05:10,733
+so we need to use the arrow operator -> GetFirstPlayer
+
+79
+00:05:10,733 --> 00:05:14,733
+Controller(); Now, inteli-sense has not caught up with me yet but that should
+
+80
+00:05:14,733 --> 00:05:18,733
+be fine. So that gets us the PlayerController, and from the Player
+
+81
+00:05:18,733 --> 00:05:22,733
+Controller we want to get the Pawn,
+
+82
+00:05:22,733 --> 00:05:26,733
+i.e. we know that we are Player 0, we are controlling that tank that's in the foreground,
+
+83
+00:05:26,733 --> 00:05:30,733
+we want to get the Pawn of that. Now, if not
+
+84
+00:05:30,733 --> 00:05:34,733
+(PlayerPawn). We should call it (PlayerPawn), not PlayerTank, because that's what it is.
+
+85
+00:05:34,733 --> 00:05:38,733
+Then, what do we want to do? We want
+
+86
+00:05:38,733 --> 00:05:42,733
+to get out of here, before we try and cast it.
+
+87
+00:05:42,733 --> 00:05:46,733
+We get out of here by returning null pointer, because this method that we're in returns a pointer,
+
+88
+00:05:46,733 --> 00:05:50,733
+it expects a pointer coming back to a tank, but if it succeeds we'll get
+
+89
+00:05:50,733 --> 00:05:54,733
+this far. Then we'll return a Cast, if you remember that, to a type of
+
+90
+00:05:54,733 --> 00:05:58,733
+<ATank> and it's the (PlayerPawn)
+
+91
+00:05:58,733 --> 00:06:02,733
+that we are casting. OK, so that should,
+
+92
+00:06:02,733 --> 00:06:06,733
+if we have properly declared this. Why TankAIController?
+
+93
+00:06:06,733 --> 00:06:10,733
+ATankAIController, that's the problem! It should all fall into place now! Great!
+
+94
+00:06:10,733 --> 00:06:14,733
+Then, what I'm saying up here, instead of getting controlled tank, we're going to get
+
+95
+00:06:14,733 --> 00:06:18,733
+PlayerTank. So, PlayerTank
+
+96
+00:06:18,733 --> 00:06:22,733
+and then we'll just replace this stuff GetPlayerTank(); if
+
+97
+00:06:22,733 --> 00:06:26,733
+not player tank, report ( "AIController
+
+98
+00:06:26,733 --> 00:06:30,733
+can't find player tank")); AI controller can't find player tank
+
+99
+00:06:30,733 --> 00:06:34,733
+But if we do manage to find the player tank, then we say the
+
+100
+00:06:34,733 --> 00:06:38,733
+player tank is ("AIController
+
+101
+00:06:38,733 --> 00:06:42,733
+found player: %s") that'll do, and instead of
+
+102
+00:06:42,733 --> 00:06:46,733
+ControlledTank it's PlayerTank name. You see what we're doing there? So, we're going and getting the PlayerTank
+
+103
+00:06:46,733 --> 00:06:50,733
+and then reporting out what's going on. Let's try this! Before we do, before we
+
+104
+00:06:50,733 --> 00:06:54,733
+even try and run it, let's check all this is setup right! So, is the World or Level
+
+105
+00:06:54,733 --> 00:06:58,733
+has it got the right Game Mode set? So, you go to Blueprints,
+
+106
+00:06:58,733 --> 00:07:02,733
+BattleTankGameMode blueprint for this world,
+
+107
+00:07:02,733 --> 00:07:06,733
+and what does it specify as a PlayerController? The PlayerController blueprint great.
+
+108
+00:07:06,733 --> 00:07:10,733
+So from our diagram, that's this specifying a blueprint class
+
+109
+00:07:10,733 --> 00:07:14,733
+which actually is in itself, if we look at the class...
+
+110
+00:07:14,733 --> 00:07:18,733
+Do we have a blueprint? Let me have a look. Yeah, the blueprint class
+
+111
+00:07:18,733 --> 00:07:22,733
+is based on our TankPlayerController C++ class, which is flashing away over here.
+
+112
+00:07:22,733 --> 00:07:26,733
+So, we've got exactly this situation, it's that that should be spawning the PlayerController instance.
+
+113
+00:07:26,733 --> 00:07:32,766
+So hopefully this'll work! Let's play the game and see if we get what we're looking for!
+
+114
+00:07:32,766 --> 00:07:36,766
+So, we seem to have the AIController, can't find the
+
+115
+00:07:36,766 --> 00:07:40,766
+PlayerTank. Well why not? I don't know if you're getting this problem,
+
+116
+00:07:40,766 --> 00:07:44,766
+you may not be. I'm not sure why I'm getting it, so let's follow the logic through. Let's
+
+117
+00:07:44,766 --> 00:07:48,766
+go look at our code and see what may or may not be happening over there.
+
+118
+00:07:48,766 --> 00:07:55,400
+So, ("AIController can't find player tank"). We're getting to here, which means that we're seeing a not PlayerTank. So, if
+
+119
+00:07:55,400 --> 00:08:01,933
+ah look! I've missed the exclamation mark in front of (PlayerPawn). I was not saying if not PlayerTank, I was just
+
+120
+00:08:01,933 --> 00:08:05,966
+I was just saying if PlayerTank returned null pointer, so this was succeeding, and then, we're
+
+121
+00:08:05,966 --> 00:08:09,966
+returning a null pointer which was coming up here and dropping through to here.
+
+122
+00:08:09,966 --> 00:08:14,000
+I think that's what's happened. Let's see if that's what's happened![Laughs] What a pain!
+
+123
+00:08:14,000 --> 00:08:18,033
+Let's just take a look. So, those semicolons are subtle and they're small, but
+
+124
+00:08:18,033 --> 00:08:22,033
+they can totally invert the behavior of your game. Ah, cool! Look!
+
+125
+00:08:22,033 --> 00:08:26,000
+The AIControllers, both of the AIControllers for the AITanks found player
+
+126
+00:08:26,000 --> 00:08:29,966
+BP_C_38. Let's just de-possess the tank, go to the
+
+127
+00:08:29,966 --> 00:08:34,000
+World Outliner, and check that that is indeed this tank. It is! Success! So
+
+128
+00:08:34,000 --> 00:08:38,033
+The tanks can actually find the player now, and that's great news!
+
+129
+00:08:38,033 --> 00:08:42,000
+And if we were to drop a third tank into the world, just for laughs,
+
+130
+00:08:42,000 --> 00:08:46,000
+and play, then we would have three of them all finding the same player! So that's pretty
+
+131
+00:08:46,000 --> 00:08:50,000
+cool! Congratulations on getting that far! I'm just going to leave you with this diagram
+
+132
+00:08:50,000 --> 00:08:53,966
+to remind you of the architecture. Take a little look at that, make sure it makes sense and that you know where the
+
+133
+00:08:53,966 --> 00:08:57,966
+checkboxes and buttons are inside the engine, and remember to commit your work,
+
+134
+00:08:57,966 --> 00:09:01,966
+over in the source control, as I have been for every single video. And
+
+135
+00:09:01,966 --> 00:09:03,999
+I will see you soon!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT24 Get the Player Controller with C++.srt

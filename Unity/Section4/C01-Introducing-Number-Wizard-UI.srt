@@ -1,162 +1,161 @@
-WEBVTT
 
 1
-00:00:03.000 --> 00:00:06.000
-So. Hi and welcome to
+00:00:03,000 --> 00:00:06,000
+So, Hi and welcome to
 
 2
-00:00:06.000 --> 00:00:09.000
-Number Wizard UI! So. in this game. we're going to take what
+00:00:06,000 --> 00:00:09,000
+Number Wizard UI! So, in this game, we're going to take what
 
 3
-00:00:09.000 --> 00:00:12.000
-we did last time. which is the Number Wizard game. a number guessing game.
+00:00:09,000 --> 00:00:12,000
+we did last time, which is the Number Wizard game, a number guessing game,
 
 4
-00:00:12.000 --> 00:00:15.000
-and turn it into UI. Get it to be visual. get it to be
+00:00:12,000 --> 00:00:15,000
+and turn it into UI. Get it to be visual, get it to be
 
 5
-00:00:15.000 --> 00:00:18.000
+00:00:15,000 --> 00:00:18,000
 interesting for the player. And it's the first time you're going to be meeting
 
 6
-00:00:18.000 --> 00:00:21.000
-the Unity Editor. So far. we've only stayed in the Console.
+00:00:18,000 --> 00:00:21,000
+the Unity Editor. So far, we've only stayed in the Console,
 
 7
-00:00:21.000 --> 00:00:24.000
-but now. we're going to dig into the actual visual
+00:00:21,000 --> 00:00:24,000
+but now, we're going to dig into the actual visual
 
 8
-00:00:24.000 --> 00:00:27.000
-editor. create scenes. and create menus for your game.
+00:00:24,000 --> 00:00:27,000
+editor, create scenes, and create menus for your game,
 
 9
-00:00:27.000 --> 00:00:30.000
-which is going to be quite fun! And for the first time. you're going to see all those other
+00:00:27,000 --> 00:00:30,000
+which is going to be quite fun! And for the first time, you're going to see all those other
 
 10
-00:00:30.000 --> 00:00:33.000
-bits of Unity: The Scene Tab. the Game Tab. the Hierarchy.
+00:00:30,000 --> 00:00:33,000
+bits of Unity: The Scene Tab, the Game Tab, the Hierarchy,
 
 11
-00:00:33.000 --> 00:00:36.000
-the Assets Tab. the Inspector.
+00:00:33,000 --> 00:00:36,000
+the Assets Tab, the Inspector.
 
 12
-00:00:36.000 --> 00:00:39.000
-So. we've hidden that before. We literally put
+00:00:36,000 --> 00:00:39,000
+So, we've hidden that before. We literally put
 
 13
-00:00:39.000 --> 00:00:42.000
-MonoDevelop over the top of it. so we didn't scare you off. Now.
+00:00:39,000 --> 00:00:42,000
+MonoDevelop over the top of it, so we didn't scare you off. Now,
 
 14
-00:00:42.000 --> 00:00:45.000
+00:00:42,000 --> 00:00:45,000
 we're going to start making use of that stuff! You're going to build your first UI
 
 15
-00:00:45.000 --> 00:00:48.000
-or User Interface. You're going to have menu buttons. etc. We're going to run
+00:00:45,000 --> 00:00:48,000
+or User Interface. You're going to have menu buttons, etc. We're going to run
 
 16
-00:00:48.000 --> 00:00:51.000
-all those forward. through the future sections. so we're going to start to build a reusable
+00:00:48,000 --> 00:00:51,000
+all those forward, through the future sections, so we're going to start to build a reusable
 
 17
-00:00:51.000 --> 00:00:54.000
-Menu System now. which we're going to want to use for every game. By the way.
+00:00:51,000 --> 00:00:54,000
+Menu System now, which we're going to want to use for every game. By the way,
 
 18
-00:00:54.000 --> 00:00:57.000
+00:00:54,000 --> 00:00:57,000
 we want you to... Pretty much the first thing you do when you
 
 19
-00:00:57.000 --> 00:01:00.000
-make a game is. let's get you making the menu system.
+00:00:57,000 --> 00:01:00,000
+make a game is, let's get you making the menu system,
 
 20
-00:01:00.000 --> 00:01:03.000
+00:01:00,000 --> 00:01:03,000
 and make the navigation around the game from the Start Screen
 
 21
-00:01:03.000 --> 00:01:06.000
-to a place holder game screen. to a Lose or a Win
+00:01:03,000 --> 00:01:06,000
+to a place holder game screen, to a Lose or a Win
 
 22
-00:01:06.000 --> 00:01:09.000
-Screen. Let's get that in place first. because that's a thing. at the
+00:01:06,000 --> 00:01:09,000
+Screen. Let's get that in place first, because that's a thing, at the
 
 23
-00:01:09.000 --> 00:01:12.000
-end of the project... It's such a common excuse.
+00:01:09,000 --> 00:01:12,000
+end of the project... It's such a common excuse,
 
 24
-00:01:12.000 --> 00:01:15.000
-for not shipping right. Yeah. you'll really want to get that
+00:01:12,000 --> 00:01:15,000
+for not shipping right. Yeah, you'll really want to get that
 
 25
-00:01:15.000 --> 00:01:18.000
-working straight away. so that you can't have an excuse of oh
+00:01:15,000 --> 00:01:18,000
+working straight away, so that you can't have an excuse of oh
 
 26
-00:01:18.000 --> 00:01:21.000
-I could finish this game. if only I had a menu. Well. add the menu
+00:01:18,000 --> 00:01:21,000
+I could finish this game, if only I had a menu. Well, add the menu
 
 27
-00:01:21.000 --> 00:01:24.000
-at the beginning. that way when you get to that point you've got a finished game. which is really
+00:01:21,000 --> 00:01:24,000
+at the beginning, that way when you get to that point you've got a finished game, which is really
 
 28
-00:01:24.000 --> 00:01:27.000
-very important actually. Absolutely. and it gives you a really nice kind of context
+00:01:24,000 --> 00:01:27,000
+very important actually. Absolutely, and it gives you a really nice kind of context
 
 29
-00:01:27.000 --> 00:01:30.000
-and structure. It makes you think about the flow of your game.
+00:01:27,000 --> 00:01:30,000
+and structure. It makes you think about the flow of your game,
 
 30
-00:01:30.000 --> 00:01:33.000
-from the beginning. So. it's like doing a jigsaw. by doing all the pieces around the outside
+00:01:30,000 --> 00:01:33,000
+from the beginning. So, it's like doing a jigsaw, by doing all the pieces around the outside
 
 31
-00:01:33.000 --> 00:01:36.000
-first. which makes sense. So. let's get the Menu Systems in place. start getting
+00:01:33,000 --> 00:01:36,000
+first, which makes sense. So, let's get the Menu Systems in place, start getting
 
 32
-00:01:36.000 --> 00:01:39.000
-confident with that. and it's going to get great! It's going to be a great section!
+00:01:36,000 --> 00:01:39,000
+confident with that, and it's going to get great! It's going to be a great section!
 
 33
-00:01:39.000 --> 00:01:42.000
-By the way. the learning curve in this course.
+00:01:39,000 --> 00:01:42,000
+By the way, the learning curve in this course,
 
 34
-00:01:42.000 --> 00:01:45.000
-it starts off very very shallow. so you might find it really easy in the beginning.
+00:01:42,000 --> 00:01:45,000
+it starts off very very shallow, so you might find it really easy in the beginning.
 
 35
-00:01:45.000 --> 00:01:48.000
-If you do. just watch out because it's going to get steeper
+00:01:45,000 --> 00:01:48,000
+If you do, just watch out because it's going to get steeper
 
 36
-00:01:48.000 --> 00:01:51.000
-and steeper. as we introduce more and more concepts. so stay with it.
+00:01:48,000 --> 00:01:51,000
+and steeper, as we introduce more and more concepts, so stay with it.
 
 37
-00:01:51.000 --> 00:01:54.000
-If it's a little bit slow for you. just go through it fast. If it's too hard. go back
+00:01:51,000 --> 00:01:54,000
+If it's a little bit slow for you, just go through it fast. If it's too hard, go back
 
 38
-00:01:54.000 --> 00:01:57.000
-a little bit or just take it slow. but you're going to be fine. It's going to be
+00:01:54,000 --> 00:01:57,000
+a little bit or just take it slow, but you're going to be fine. It's going to be
 
 39
-00:01:57.000 --> 00:02:00.000
+00:01:57,000 --> 00:02:00,000
 a good section and we'll see you soon. Good luck and have fun doing this section!
 
 40
-00:02:00.000 --> 00:02:01.400
+00:02:00,000 --> 00:02:01,400
 See you soon!
 

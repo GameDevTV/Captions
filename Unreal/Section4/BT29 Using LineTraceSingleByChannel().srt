@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT29 Using LineTraceSingleByChannel().srt
 ﻿WEBVTT
 
 1
@@ -932,3 +933,938 @@ So congratulations. and I shall see you in the next one!
 00:15:23.466 --> 00:15:24.866
 
 
+=======
+
+1
+00:00:00,000 --> 00:00:02,466
+
+
+2
+00:00:02,466 --> 00:00:06,466
+So, welcome to this here LineTraceSingleByChannel() video!
+
+3
+00:00:06,466 --> 00:00:10,466
+Not a particularly sexy name, but a pretty useful result. Let's have a look at what we'll be doing by the end
+
+4
+00:00:10,466 --> 00:00:14,466
+of it. By the end of it, we will actually be getting logged out the world space location
+
+5
+00:00:14,466 --> 00:00:18,466
+of what that there cursor's pointing at. 0 if it misses the terrain altogether,
+
+6
+00:00:18,466 --> 00:00:22,466
+for the sky and otherwise an actual point in the world to aim at. Cool!
+
+7
+00:00:22,466 --> 00:00:23,466
+
+
+8
+00:00:23,466 --> 00:00:27,466
+So, at the moment, we're getting a unit vector out
+
+9
+00:00:27,466 --> 00:00:31,466
+of this code, and that's cool, it tells us the world direction
+
+10
+00:00:31,466 --> 00:00:35,466
+that is the line from the camera through that dot.
+
+11
+00:00:35,466 --> 00:00:39,466
+but that's about as much use as a chocolate teapot, when it comes to actually having a point in the
+
+12
+00:00:39,466 --> 00:00:43,466
+world to aim at and try and hit. So, what we're going to do is, we're going
+
+13
+00:00:43,466 --> 00:00:47,466
+to now line trace through that dot, basically, into the world and see if we hit
+
+14
+00:00:47,466 --> 00:00:51,466
+anything visible. And the skybox, I'd think out there, does not count as visible,
+
+15
+00:00:51,466 --> 00:00:55,466
+but everything else, if you can see it you can hit it. So, in the
+
+16
+00:00:55,466 --> 00:00:59,466
+previous section in Building Escape, we did a line
+
+17
+00:00:59,466 --> 00:01:03,466
+trace single but I think we did it by object type. This time, we're going to look at a slightly different line trace.
+
+18
+00:01:03,466 --> 00:01:07,466
+It's going to be LineTraceSingleByChannel. Now, if you don't
+
+19
+00:01:07,466 --> 00:01:11,466
+remember what the line tracing was all about, take a look at Building Escape. There's some videos in there
+
+20
+00:01:11,466 --> 00:01:15,466
+that talk about it in some detail. It also references you to some Unreal docs
+
+21
+00:01:15,466 --> 00:01:19,466
+that talk about line tracing a collisions. They all work under the same kind of
+
+22
+00:01:19,466 --> 00:01:23,466
+system, which is why it's talking about collision channels. But anyway, this is the method that we're going to
+
+23
+00:01:23,466 --> 00:01:27,466
+use. So, where in our code is that going to appear? Well, we have
+
+24
+00:01:27,466 --> 00:01:31,466
+this GetSightRayHitLocation method, and we're saying if we can
+
+25
+00:01:31,466 --> 00:01:35,466
+find a LookDirection, which we have managed to do, then we should come in,
+
+26
+00:01:35,466 --> 00:01:39,466
+and I'll move this comment inside the if, and line trace along that LookDirection
+
+27
+00:01:39,466 --> 00:01:43,466
+and see what we hit, up to some maximum range. So, that's what
+
+28
+00:01:43,466 --> 00:01:47,466
+we're going to do there. I'm going to stop logging the LookDirection, because we don't
+
+29
+00:01:47,466 --> 00:01:51,466
+need it anymore, and then, I'm going to challenge you to write the code in here, that
+
+30
+00:01:51,466 --> 00:01:55,466
+actually goes and does that line trace and reports out where we're hitting in the world.
+
+31
+00:01:55,466 --> 00:01:59,466
+So that's going to be a nice little challenge for you! It's mainly revision but you're using a different method, that you've never
+
+32
+00:01:59,466 --> 00:02:03,466
+used before. So here's your challenge slide! Write GetLook
+
+33
+00:02:03,466 --> 00:02:07,466
+VectorHitLocation() as a method.
+
+34
+00:02:07,466 --> 00:02:11,466
+That method call
+
+35
+00:02:11,466 --> 00:02:15,466
+will go in here, so I'll put it in comments. "// GetLookVectorHit
+
+36
+00:02:15,466 --> 00:02:19,466
+Location() like so, and it's going to take some
+
+37
+00:02:19,466 --> 00:02:23,466
+parameters. I'm putting it straight in a method, again, to keep this whole method Get
+
+38
+00:02:23,466 --> 00:02:27,466
+SightRayHitLocation small and so that we don't need to do the painful refactor that you saw me
+
+39
+00:02:27,466 --> 00:02:31,466
+do before. So, we're going to write a whole new method, called GetLookVectorHitLocation to wrap up that
+
+40
+00:02:31,466 --> 00:02:35,466
+functionality. make a LineTraceRange()
+
+41
+00:02:35,466 --> 00:02:39,466
+parameter. So, make a private member called LineTraceRange, probably make it exposed
+
+42
+00:02:39,466 --> 00:02:43,466
+to the blueprints, and make it default to say 10 kilometers
+
+43
+00:02:43,466 --> 00:02:47,466
+so that that's the limit of how far out it goes looking for something visible to hit.
+
+44
+00:02:47,466 --> 00:02:51,466
+Line-trace out to this distance, in the LookDirection.
+
+45
+00:02:51,466 --> 00:02:55,466
+Trace by ECC_Visibility channel. Basically, if you can
+
+46
+00:02:55,466 --> 00:02:59,466
+see it you can hit it. And return true if you hit something and
+
+47
+00:02:59,466 --> 00:03:03,466
+set HitLocation as an OUT parameter, and if nothing's hit
+
+48
+00:03:03,466 --> 00:03:07,466
+return false and log out to see what you're hitting. So that's it,
+
+49
+00:03:07,466 --> 00:03:11,466
+go ahead and do that, and remember that the method you're going to be using is this one
+
+50
+00:03:11,466 --> 00:03:15,466
+here, LineTraceSingleByChannel. You can find it
+
+51
+00:03:15,466 --> 00:03:19,466
+in Unreal's docs, it's on the screen there, and I'll just pop back to the challenge slide and
+
+52
+00:03:19,466 --> 00:03:23,466
+leave you to it!
+
+53
+00:03:23,466 --> 00:03:27,466
+OK, welcome
+
+54
+00:03:27,466 --> 00:03:31,466
+back! So, let's make this happen!
+
+55
+00:03:31,466 --> 00:03:35,466
+Firstly, I'm going to write the method directly under here so I can see it, I think,
+
+56
+00:03:35,466 --> 00:03:39,466
+so I can see what I'm calling. I want to be able to see what I'm calling against parameters, all in one place. So, it's
+
+57
+00:03:39,466 --> 00:03:43,466
+a bool because I said we're to give a success result. ATankPlayer
+
+58
+00:03:43,466 --> 00:03:47,466
+Controller class name ::GetLook
+
+59
+00:03:47,466 --> 00:03:51,466
+VectorHitLocation().
+
+60
+00:03:51,466 --> 00:03:55,466
+We're actually getting a location in the world here. We need an FVector according
+
+61
+00:03:55,466 --> 00:03:59,466
+to its... Well, we obviously not according to anything, but we obviously need to know the
+
+62
+00:03:59,466 --> 00:04:03,466
+LookDirection, so we need to take in the LookDirection and we're going to
+
+63
+00:04:03,466 --> 00:04:07,466
+send out, through these horrible out parameter things which I still hate but am willing to use,
+
+64
+00:04:07,466 --> 00:04:11,466
+HitLocation. And this whole method should be const
+
+65
+00:04:11,466 --> 00:04:15,466
+because well, you shouldn't be changing any member variables. Wicked! So,
+
+66
+00:04:15,466 --> 00:04:19,466
+that is the signature! Given the signature, let's pop it into the header
+
+67
+00:04:19,466 --> 00:04:23,466
+file, strip out this syntactic noise as I call it.
+
+68
+00:04:23,466 --> 00:04:27,466
+By the way, the reason why in a C++ you need to qualify with
+
+69
+00:04:27,466 --> 00:04:31,466
+the class name like this is because you can actually define multiple classes in a
+
+70
+00:04:31,466 --> 00:04:35,466
+single .cpp file. We never do, we seem to be always using one .cpp per class
+
+71
+00:04:35,466 --> 00:04:39,466
+and that's the Unreal way, which is why this thing becomes noise, because
+
+72
+00:04:39,466 --> 00:04:43,466
+you only ever need it if want, you only would need it if you wanted  multiple
+
+73
+00:04:43,466 --> 00:04:47,466
+classes in the same .cpp file. But anyway, I digress. That's the
+
+74
+00:04:47,466 --> 00:04:51,466
+signature of what we're trying to do, and there
+
+75
+00:04:51,466 --> 00:04:55,466
+is the outline of it. So, we may as well call it straight away, so
+
+76
+00:04:55,466 --> 00:04:59,466
+a call is going to be here.
+
+77
+00:04:59,466 --> 00:05:03,466
+Now, we're going to pass in a LookDirection, which we have here and we are going to
+
+78
+00:05:03,466 --> 00:05:07,466
+pass in a HitLocation as an
+
+79
+00:05:07,466 --> 00:05:11,466
+out parameter, so we need to have that HitLocation ready to be
+
+80
+00:05:11,466 --> 00:05:15,466
+set. Well, actually it is ready to be set, because remember it came in here. So, the Hit
+
+81
+00:05:15,466 --> 00:05:19,466
+Location came into GetSightRayHitLocation, and it's finally going to get set there.
+
+82
+00:05:19,466 --> 00:05:23,466
+So the LookDirection comes from here.
+
+83
+00:05:23,466 --> 00:05:27,466
+It's declared here, it is value assigned to
+
+84
+00:05:27,466 --> 00:05:31,466
+it there. It gets that unit vector remember? We pass that unit vector in here,
+
+85
+00:05:31,466 --> 00:05:35,466
+and then, we expect it to set this HitLocation. Hard to read isn't it, with all these out parameters,
+
+86
+00:05:35,466 --> 00:05:39,466
+but that's the way the cookie crumbles here in Unreal.
+
+87
+00:05:39,466 --> 00:05:43,466
+So, how does the actual method work? Well, we've done this type of thing before. We're
+
+88
+00:05:43,466 --> 00:05:47,466
+going to need an FHitResult, right, to store our HitResult in. What should we call it?
+
+89
+00:05:47,466 --> 00:05:51,466
+Let's call it something cryptic like HitResult. Then, we're going to need
+
+90
+00:05:51,466 --> 00:05:55,466
+a StartLocation. We've got to start somewhere in the world right? it's going to be the camera position,
+
+91
+00:05:55,466 --> 00:05:59,466
+so let's cryptically call it StartLocation. And the where you get that this
+
+92
+00:05:59,466 --> 00:06:03,466
+bit may have been tricky for you, but there's lots of ways of finding this camera
+
+93
+00:06:03,466 --> 00:06:07,466
+but one way is to say PlayerCameraManager. And congratulations if you worked this out for
+
+94
+00:06:07,466 --> 00:06:11,466
+yourself! GetCameraLocation(). Now look, by the way, if you didn't
+
+95
+00:06:11,466 --> 00:06:15,466
+work it out for yourself, maybe you want to pause the video again here, because this is the hardest bit of
+
+96
+00:06:15,466 --> 00:06:19,466
+the challenge was probably finding that camera location. So, if that was the only thing that was stopping
+
+97
+00:06:19,466 --> 00:06:23,466
+you, then pause the video here and carry on, otherwise let's keep going!
+
+98
+00:06:23,466 --> 00:06:27,466
+We need an EndLocation so let's call it EndLocation. Now,
+
+99
+00:06:27,466 --> 00:06:31,466
+what is the EndLocation? Well, it's the StartLocation +
+
+100
+00:06:31,466 --> 00:06:35,466
+the LookDirection times this range that I was
+
+101
+00:06:35,466 --> 00:06:39,466
+talking about. Now, let me put some brackets in here now,
+
+102
+00:06:39,466 --> 00:06:43,466
+so that you are very clear on what bonds with what. We're saying start at the start and then
+
+103
+00:06:43,466 --> 00:06:47,466
+go out in the LookDirection to the range, and we're going to call it LineTrace
+
+104
+00:06:47,466 --> 00:06:51,466
+Range. OK, so we don't have LineTraceRange, we haven't
+
+105
+00:06:51,466 --> 00:06:55,466
+declared that yet. Let's go ahead and declare it!
+
+106
+00:06:55,466 --> 00:06:59,466
+It's going to be an edit anywhere floating
+
+107
+00:06:59,466 --> 00:07:03,466
+UPROPERTY I believe. So yeah, UPROPERTY
+
+108
+00:07:03,466 --> 00:07:07,466
+(EditAnywhere), so the designer can set that value. It's a float because it
+
+109
+00:07:07,466 --> 00:07:11,466
+doesn't have to be a round number of kilometers, and all these things are expecting floats
+
+110
+00:07:11,466 --> 00:07:15,466
+anyway. And we want to do a floating point multiplication in here, so that we
+
+111
+00:07:15,466 --> 00:07:19,466
+get a floating point number out for EndLocation. So, Line
+
+112
+00:07:19,466 --> 00:07:23,466
+TraceRange = 10 kilometers. So remember, it's in
+
+113
+00:07:23,466 --> 00:07:27,466
+centimeters this thing, this unit in Unreal,
+
+114
+00:07:27,466 --> 00:07:31,466
+that we need to go 10 and then we need one, two, three to turn that into
+
+115
+00:07:31,466 --> 00:07:35,466
+kilometers, and then, one, two more 0's to turn it
+
+116
+00:07:35,466 --> 00:07:39,466
+from centimeters into meters. So, that's how many 0's you need.
+
+117
+00:07:39,466 --> 00:07:43,466
+How many 0's exactly is that? It's three for the kilometers,
+
+118
+00:07:43,466 --> 00:07:47,466
+one for the 0, and another two so we have six 0's in
+
+119
+00:07:47,466 --> 00:07:51,466
+total. A million centimeters! Sounds like a lot!
+
+120
+00:07:51,466 --> 00:07:55,466
+OK, so that's that! Now, we have this LineTraceRange, so what do we do next? Well,
+
+121
+00:07:55,466 --> 00:07:59,466
+we're going to write a slightly awkward bit of code here, but
+
+122
+00:07:59,466 --> 00:08:03,466
+I think this is the best way I can think of writing it. We're going to say
+
+123
+00:08:03,466 --> 00:08:07,466
+if.. Let's pseudocode this up for a second. "if (// Line Trace
+
+124
+00:08:07,466 --> 00:08:11,466
+Succeeds)). And there's going to be a
+
+125
+00:08:11,466 --> 00:08:15,466
+load of lines of line trace code, so if the line trace succeeds
+
+126
+00:08:15,466 --> 00:08:19,466
+then what are we going to do? Well, then we're
+
+127
+00:08:19,466 --> 00:08:23,466
+going to set the HitLocation that comes in, this guy here.
+
+128
+00:08:23,466 --> 00:08:27,466
+
+
+129
+00:08:27,466 --> 00:08:31,466
+Let's just do it as a comment for now,
+
+130
+00:08:31,466 --> 00:08:35,466
+and return true. If the
+
+131
+00:08:35,466 --> 00:08:39,466
+line trace doesn't succeed, we must have got to here,
+
+132
+00:08:39,466 --> 00:08:43,466
+in which case we'll return false,
+
+133
+00:08:43,466 --> 00:08:47,466
+if it doesn't hit anything. OK,
+
+134
+00:08:47,466 --> 00:08:51,466
+so that's all fine. Now, the question comes, where are we
+
+135
+00:08:51,466 --> 00:08:55,466
+actually going to do this line trace? Well I'm going to do it right inside the if statement. Again, it's a
+
+136
+00:08:55,466 --> 00:08:59,466
+little bit side-effecty but I need to get you used to reading code like a compiler
+
+137
+00:08:59,466 --> 00:09:03,466
+reads code and reading code that Unreal writes in their engine, because
+
+138
+00:09:03,466 --> 00:09:07,466
+as we go through this course, particularly in the AI part, we're going to be diving right here into the source
+
+139
+00:09:07,466 --> 00:09:11,466
+of the engine and we need to be able to understand their code. And if I teach you
+
+140
+00:09:11,466 --> 00:09:15,466
+to make code that's all kind of wrapped up and beautified, so that we don't get
+
+141
+00:09:15,466 --> 00:09:19,466
+scared, then you won't understand engine code, and that will put you in a massive disadvantage.
+
+142
+00:09:19,466 --> 00:09:23,466
+I'm going to teach you to write code, as I say, in the way that you're going to see things.
+
+143
+00:09:23,466 --> 00:09:27,466
+What we're going to do, right inside the if statement, is we're going to go get the world, because that's with the context
+
+144
+00:09:27,466 --> 00:09:31,466
+in which we need to do the line tracing. Then, we're going to LineTrace
+
+145
+00:09:31,466 --> 00:09:35,466
+SinglebyChannel() OK.
+
+146
+00:09:35,466 --> 00:09:39,466
+Now, what I'm going to do is I'm going to split this over several lines.
+
+147
+00:09:39,466 --> 00:09:43,466
+So, so far so good, but the LineTraceSingleByChannel wants some
+
+148
+00:09:43,466 --> 00:09:47,466
+parameters, and i'm going to take the bold step of putting them here with two indents,
+
+149
+00:09:47,466 --> 00:09:51,466
+because I think that it's going to work out looking OK. So, Hit
+
+150
+00:09:51,466 --> 00:09:55,466
+Result. What does it want next?  A start location, which we've already setup
+
+151
+00:09:55,466 --> 00:09:59,466
+like good boys and girls, and EndLocation.
+
+152
+00:09:59,466 --> 00:10:03,466
+And finally, we need to know the ECollision query channel
+
+153
+00:10:03,466 --> 00:10:07,466
+thingy. Right, so what is that? Well it's a static available for us, if
+
+154
+00:10:07,466 --> 00:10:11,466
+we go for ECollisionChannel::
+
+155
+00:10:11,466 --> 00:10:15,466
+because we're accessing a static member. ECC_Visibility, that tells us
+
+156
+00:10:15,466 --> 00:10:19,466
+that I want you to do out and hit anything what is visible. And then, if I
+
+157
+00:10:19,466 --> 00:10:23,466
+leave the bracket in, something like that, then to me this makes sense.
+
+158
+00:10:23,466 --> 00:10:27,466
+The only thing we need to finally do is, we need to return the
+
+159
+00:10:27,466 --> 00:10:31,466
+HitLocation here. So the type
+
+160
+00:10:31,466 --> 00:10:35,466
+that comes out of this LineTrace is a HitResult, so the way that we get
+
+161
+00:10:35,466 --> 00:10:39,466
+the HitLocation is we go, the HitResult which is not in itself the vector
+
+162
+00:10:39,466 --> 00:10:43,466
+that we want, and then, we go dot and see what members its got.
+
+163
+00:10:43,466 --> 00:10:47,466
+And somewhere in here we should have something
+
+164
+00:10:47,466 --> 00:10:51,466
+about location. Probably under L? there you go, HitResult.Location;
+
+165
+00:10:51,466 --> 00:10:55,466
+Now, if we look at that, then that is actually the FVector
+
+166
+00:10:55,466 --> 00:10:59,466
+type we're looking for. So again, another tricky bit of a challenge may have tripped you up. It's like
+
+167
+00:10:59,466 --> 00:11:03,466
+well, what comes out of this thing? it's a HitResult that is not a
+
+168
+00:11:03,466 --> 00:11:07,466
+vector, how do I get it from it? So that's how you do it. Wow, that's been fun
+
+169
+00:11:07,466 --> 00:11:11,466
+hasn't it? So, let's firstly see if it works, before we then have a quick recap of the code and
+
+170
+00:11:11,466 --> 00:11:15,466
+a brief celebration, if it works. And if it doesn't work, well then there's
+
+171
+00:11:15,466 --> 00:11:19,466
+commiserations and lots of fixing to do. I've got to say something while it
+
+172
+00:11:19,466 --> 00:11:23,466
+compiles. I could just hum! [Hums]
+
+173
+00:11:23,466 --> 00:11:27,466
+[Hums] There we
+
+174
+00:11:27,466 --> 00:11:31,466
+go, it's compiled! Let's take a look! Now, all very well, it may be working, but of course,
+
+175
+00:11:31,466 --> 00:11:35,466
+we're not logging so the HitResult is coming out of Get
+
+176
+00:11:35,466 --> 00:11:39,466
+LookVectorHitLoaction. We're calling hit vector location. That's
+
+177
+00:11:39,466 --> 00:11:43,466
+meaning that GetSightRayHitLocation should work, so we should be all the way back
+
+178
+00:11:43,466 --> 00:11:47,466
+here now at the AimTowarsCrosshair(), and we're
+
+179
+00:11:47,466 --> 00:11:51,466
+back to HitLocation and it may even work. Let's
+
+180
+00:11:51,466 --> 00:11:55,466
+try this! HitLocation.ToString(). Yeah, let's see if that works! So, all
+
+181
+00:11:55,466 --> 00:11:59,466
+I've done is, I've said that actually we've now written all of the sub-methods, all the helper methods, and we should actually
+
+182
+00:11:59,466 --> 00:12:03,466
+be all the way up here. And the only log that we should be seeing in this entire
+
+183
+00:12:03,466 --> 00:12:07,466
+file, let's do a search for it while it compiles. Searching in the
+
+184
+00:12:07,466 --> 00:12:11,466
+Current Document with case sensitivity and without regular expressions
+
+185
+00:12:11,466 --> 00:12:15,466
+is... There's one there
+
+186
+00:12:15,466 --> 00:12:19,466
+in AimTowardsCrosshair(). There's another one in BeginPlay(), which is fine. It's fine
+
+187
+00:12:19,466 --> 00:12:23,466
+to say whether we are or aren't possessing a tank. So
+
+188
+00:12:23,466 --> 00:12:27,466
+boom! Now, is this feasible, this value this place that it's
+
+189
+00:12:27,466 --> 00:12:31,466
+sitting?
+
+190
+00:12:31,466 --> 00:12:35,466
+No, what we've got here is we've still got the camera
+
+191
+00:12:35,466 --> 00:12:39,466
+location being logged out. So, there's been a simple problem with the
+
+192
+00:12:39,466 --> 00:12:43,466
+wrong variable name being passed somewhere, so let's just go find that, let's work it all
+
+193
+00:12:43,466 --> 00:12:47,466
+the way through and see what the problem is. So, let's start from here! Aim
+
+194
+00:12:47,466 --> 00:12:51,466
+TowardsCrosshair() calls if (GetSightRayHitLocation
+
+195
+00:12:51,466 --> 00:12:55,466
+(HitLocation)), which we'll find out what the HitLocation
+
+196
+00:12:55,466 --> 00:12:59,466
+is. So there's a
+
+197
+00:12:59,466 --> 00:13:03,466
+parameter here which goes and gets the LookDirection
+
+198
+00:13:03,466 --> 00:13:07,466
+and then passes that into GetLookVectorHitLocation. So,
+
+199
+00:13:07,466 --> 00:13:11,466
+there's HitLocation again! It comes in here,
+
+200
+00:13:11,466 --> 00:13:15,466
+and look what
+
+201
+00:13:15,466 --> 00:13:19,466
+I've done. HitResult.Location, that's all very well that's very nice,
+
+202
+00:13:19,466 --> 00:13:23,466
+but I never assigned that to HitLocation. Alright, so that's the
+
+203
+00:13:23,466 --> 00:13:27,466
+sort of thing that can happen. Now, we should be in
+
+204
+00:13:27,466 --> 00:13:31,466
+business! Let's try a recompile. I'll leave the code of this method on the screen
+
+205
+00:13:31,466 --> 00:13:35,466
+highlighted for you while it compiles, because that's the destination
+
+206
+00:13:35,466 --> 00:13:39,466
+code you're looking for, and I want you to make sure you understand how it works. And I
+
+207
+00:13:39,466 --> 00:13:43,466
+hope you're not too put off by this weird indentation with this if statement; this could all be on one line,
+
+208
+00:13:43,466 --> 00:13:47,466
+all of this stuff. I could have just laid that out on a single line, and that if statement would look perfectly
+
+209
+00:13:47,466 --> 00:13:51,466
+normal but it wouldn't be so easy to read.
+
+210
+00:13:51,466 --> 00:13:55,466
+Ah now, is this feasible? So, where are we in the world? So,
+
+211
+00:13:55,466 --> 00:13:59,466
+if I click on my PlayerStart point, I think it would be prudent actually in the World
+
+212
+00:13:59,466 --> 00:14:03,466
+Outliner to set that PlayerStart point to 0, 0, 0, there.
+
+213
+00:14:03,466 --> 00:14:07,466
+Lift it up off the ground enough that the tank spawns in the world. So now knowing that we're at
+
+214
+00:14:07,466 --> 00:14:11,466
+0, 0, 0, is it possible that that X location is 2 meters in front of us? Definitely!
+
+215
+00:14:11,466 --> 00:14:15,466
+Is it possible now that that's 28... What is that
+
+216
+00:14:15,466 --> 00:14:19,466
+28 kilometers away, sorry 2.8 kilometers away? Definitely!
+
+217
+00:14:19,466 --> 00:14:23,466
+And is it possible that the Y location
+
+218
+00:14:23,466 --> 00:14:27,466
+there is just 15 meters to my right? Absolutely, in the Z! Let's
+
+219
+00:14:27,466 --> 00:14:31,466
+say look at a mountain in the distance and then go up it and see if the Z increases. It does!
+
+220
+00:14:31,466 --> 00:14:35,466
+And then, look what happens when we get into aiming into space! We get pretty random
+
+221
+00:14:35,466 --> 00:14:39,466
+values, because we're no longer getting a successful HitLocation.
+
+222
+00:14:39,466 --> 00:14:43,466
+Really, if we don't get a successful HitLocation, we probably better set
+
+223
+00:14:43,466 --> 00:14:47,466
+HitLocation to something, even though we're returning false,
+
+224
+00:14:47,466 --> 00:14:51,466
+I'd rather it was set to FVector 0,
+
+225
+00:14:51,466 --> 00:14:55,466
+because I don't really want some nasty values
+
+226
+00:14:55,466 --> 00:14:59,466
+coming out of it. So let's just do that, which means that in the instances where we don't
+
+227
+00:14:59,466 --> 00:15:03,466
+hit anything visible, the sky as I said isn't considered visible, we're going to get 0,
+
+228
+00:15:03,466 --> 00:15:07,466
+0, 0, out of it and a false from our method. Whoops!
+
+229
+00:15:07,466 --> 00:15:11,466
+I think my tank just fell through the floor there!
+
+230
+00:15:11,466 --> 00:15:15,466
+There you go! So we get 0, 0, 0, which looks much tidier, and then, otherwise we actually
+
+231
+00:15:15,466 --> 00:15:19,466
+get the world space location of the thing we're aiming at. This is real progress guys!
+
+232
+00:15:19,466 --> 00:15:23,466
+So congratulations, and I shall see you in the next one!
+
+233
+00:15:23,466 --> 00:15:24,866
+
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT29 Using LineTraceSingleByChannel().srt

@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT18 UI Scale Box, Buttons & Mouse.srt
 ﻿WEBVTT
 
 1
@@ -680,3 +681,686 @@ disk. there are no asterisks up at the top here. And I will see you in the next 
 00:11:12.800 --> 00:11:13.866
 
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+Welcome to UI
+
+2
+00:00:04,000 --> 00:00:08,000
+Scale Box, Buttons, & Mouse, where we'll be covering those three things. By the end of the video
+
+3
+00:00:08,000 --> 00:00:12,000
+you will have a much improved menu system, where we
+
+4
+00:00:12,000 --> 00:00:16,000
+have a mouse, for a start, which you may notice we didn't have before. We'll be able to scale the
+
+5
+00:00:16,000 --> 00:00:20,000
+window with our title text and our buttons sticking appropriately and
+
+6
+00:00:20,000 --> 00:00:24,000
+the background image scaling nicely. And that's it really, for now, the mouse
+
+7
+00:00:24,000 --> 00:00:28,000
+will have a default hover over effect, but it won't do anything yet. So, let's go and make that happen!
+
+8
+00:00:28,000 --> 00:00:28,800
+
+
+9
+00:00:28,800 --> 00:00:32,800
+So, the first thing you may notice is, I've slightly changed my window's screen scaling,
+
+10
+00:00:32,800 --> 00:00:36,800
+so that when I hit the play button here, inside the Main Menu blueprint,
+
+11
+00:00:36,800 --> 00:00:40,800
+I actually get a preview window that doesn't overspill my screen. So everything will
+
+12
+00:00:40,800 --> 00:00:44,800
+be a little bit smaller for you, for the next few videos. Alright, another thing
+
+13
+00:00:44,800 --> 00:00:48,800
+is that once we have actually brought up this preview screen...
+
+14
+00:00:48,800 --> 00:00:52,800
+By the way, it's previewing an empty scene
+
+15
+00:00:52,800 --> 00:00:56,800
+at the moment. So if you want it to preview the actual menu, you need to go to the MainMenu
+
+16
+00:00:56,800 --> 00:01:00,800
+level or scene, and then, back in the blueprint, when you click play you'll find it
+
+17
+00:01:00,800 --> 00:01:04,800
+previews your actual menu. Now, there's no mouse, so one of the first things we need
+
+18
+00:01:04,800 --> 00:01:08,800
+to sort out is, how do you show the mouse when the UI is displaying? Well,
+
+19
+00:01:08,800 --> 00:01:12,800
+let's take a look at that now. Back in the level blueprint,
+
+20
+00:01:12,800 --> 00:01:16,800
+for the MainMenu, we have currently just created the menu
+
+21
+00:01:16,800 --> 00:01:20,800
+widget instance, from the menu blueprint class, and added it to the
+
+22
+00:01:20,800 --> 00:01:24,800
+Viewport. What we need to do now is to show the player's
+
+23
+00:01:24,800 --> 00:01:28,800
+mouse. So, we start by finding the player. So, if you do
+
+24
+00:01:28,800 --> 00:01:32,800
+a search, you can look for Get Player Controller. That is me, that's the human
+
+25
+00:01:32,800 --> 00:01:36,800
+player controlling this instance of the game.
+
+26
+00:01:36,800 --> 00:01:40,800
+So there's Get Player Controller! There you go! Now, from the return value, so that we
+
+27
+00:01:40,800 --> 00:01:44,800
+use the context sensitivity, we can then look for mouse,
+
+28
+00:01:44,800 --> 00:01:48,800
+and then, one of the options towards the bottom will be Set Show Mouse Cursor.
+
+29
+00:01:48,800 --> 00:01:52,800
+So, we get a reference to the Player Controller, we tick Set Show
+
+30
+00:01:52,800 --> 00:01:56,800
+Mouse Cursor, and then bring that into the execution
+
+31
+00:01:56,800 --> 00:02:00,800
+flow, so that once we have added the widget to the Viewport,
+
+32
+00:02:00,800 --> 00:02:04,800
+we then show the mouse cursor. Let's try it! Either play from the
+
+33
+00:02:04,800 --> 00:02:08,800
+main menu, and you can see there is a mouse there, or you can go to the main menu
+
+34
+00:02:08,800 --> 00:02:12,800
+blueprint there and then, you could use the play button, and you'll see that
+
+35
+00:02:12,800 --> 00:02:16,800
+we now have a mouse. And that has a couple of benefits, firstly, we're going to be able to click the button when
+
+36
+00:02:16,800 --> 00:02:20,800
+it comes up, but secondly, I can go to the bottom-right of the window and I can resize it and that will
+
+37
+00:02:20,800 --> 00:02:24,800
+show us how this image responds to changes in screen size. Now, I don't
+
+38
+00:02:24,800 --> 00:02:28,800
+like that, at the moment. Firstly, it's not filling the background, and secondly, I don't like the
+
+39
+00:02:28,800 --> 00:02:32,800
+way that it's cropping and leaving black areas with different screen sizes.
+
+40
+00:02:32,800 --> 00:02:36,800
+So, let's sort that out. I'm going to rename Background Image to just MainBG, just to make
+
+41
+00:02:36,800 --> 00:02:40,800
+it shorter, but that's just really me being tidy, it's not super important.
+
+42
+00:02:40,800 --> 00:02:44,800
+It isn't actually variable, so it's not going to have an intractable element in it, so you can
+
+43
+00:02:44,800 --> 00:02:48,800
+un-tick Is Variable, if you wish, and also the MainBG will no longer be bold
+
+44
+00:02:48,800 --> 00:02:52,800
+in the hierarchy. Now, what we need is under Panel,
+
+45
+00:02:52,800 --> 00:02:56,800
+you'll see there is a Scale Box. Now, if you hover over that and read it for yourself...
+
+46
+00:02:56,800 --> 00:03:00,800
+That's, by the way, Window, Palette, if you haven't got it, Panel section,
+
+47
+00:03:00,800 --> 00:03:04,800
+and then, Scale Box. If you read the stuff that comes up, it'll tell you that it's ideal
+
+48
+00:03:04,800 --> 00:03:08,800
+for background images. So, let's use one of them. We pop it straight onto the [Canvas Panel], which
+
+49
+00:03:08,800 --> 00:03:12,800
+is our main panel for our entire User Interface, and
+
+50
+00:03:12,800 --> 00:03:16,800
+instead of the background image being straight on the panel, we put it on the Scale Box.
+
+51
+00:03:16,800 --> 00:03:20,800
+Now, let's see the effect that has. Firstly, we want this Scale Box's anchors to
+
+52
+00:03:20,800 --> 00:03:24,800
+be this selection at the bottom-right, so that it covers the
+
+53
+00:03:24,800 --> 00:03:28,800
+entire background, and then we want no offsets either.
+
+54
+00:03:28,800 --> 00:03:32,800
+So, let's remove those offsets, and that sets it to cover most of the screen like
+
+55
+00:03:32,800 --> 00:03:36,800
+that. But most of the screen is not good
+
+56
+00:03:36,800 --> 00:03:40,800
+enough, we want all of the screen, so select 0.0 so that all of the offsets
+
+57
+00:03:40,800 --> 00:03:44,800
+are 0.00 0.00 0.00. That way the Scale Box is covering
+
+58
+00:03:44,800 --> 00:03:48,800
+the entire UI canvas, and that is going to
+
+59
+00:03:48,800 --> 00:03:52,800
+be what we're looking for. So, let's see how this behaves now.
+
+60
+00:03:52,800 --> 00:03:56,800
+So far similarly, and that's because the scaling type isn't
+
+61
+00:03:56,800 --> 00:04:00,800
+what we're after. So, if you click on [Scale Box] and you look under the Stretching settings,
+
+62
+00:04:00,800 --> 00:04:04,800
+under details, and then, there is Scale to Fit but also
+
+63
+00:04:04,800 --> 00:04:08,800
+Scale to Fill. I took a while finding this recently, because they look almost identical. It's only a
+
+64
+00:04:08,800 --> 00:04:12,800
+couple of letters different right? So, try Scale to Fill. Let's have a look at
+
+65
+00:04:12,800 --> 00:04:16,800
+that now, as a preview.
+
+66
+00:04:16,800 --> 00:04:20,800
+Now that's nicer, look as we go up it takes a bit of the top and bottom of the image off, and left
+
+67
+00:04:20,800 --> 00:04:24,800
+and right, that works as well. Now, for a small array of different screen shapes,
+
+68
+00:04:24,800 --> 00:04:28,800
+like I'm going through now, this is working fine. And this also is important when you choose your image,
+
+69
+00:04:28,800 --> 00:04:32,800
+that you have what a designer would call quite zones around the left, right, top, and bottom
+
+70
+00:04:32,800 --> 00:04:36,800
+of the image, bits of the image that it doesn't matter too much if you lose. The screen could come in
+
+71
+00:04:36,800 --> 00:04:40,800
+a little bit like that, it can go out, and the image still looks OK.
+
+72
+00:04:40,800 --> 00:04:44,800
+Cool! So, now that we've got our scaling setup properly, let's go ahead
+
+73
+00:04:44,800 --> 00:04:48,800
+and show you how to add text and buttons. I'm not actually going to add them yet, I'm going to
+
+74
+00:04:48,800 --> 00:04:52,800
+challenge you to do that. But the things you're looking for to finish this initial version of the UI
+
+75
+00:04:52,800 --> 00:04:56,800
+off is number one Text. You can drag the Text into
+
+76
+00:04:56,800 --> 00:05:00,800
+or straight onto the [Canvas Panel]. It is not inside the [Scale Box] you need to do this, the
+
+77
+00:05:00,800 --> 00:05:04,800
+[Scale Box] is purely for the background image. We could call it BG
+
+78
+00:05:04,800 --> 00:05:08,800
+Scale, for instance, and then, you could even
+
+79
+00:05:08,800 --> 00:05:12,800
+collapse that down. So, we have this background scale box there,
+
+80
+00:05:12,800 --> 00:05:16,766
+and then, now we have a Text Block. So this could be the title, you could rename that, but the point with Text Box
+
+81
+00:05:16,766 --> 00:05:20,800
+is, you can move them around and under Appearance, under Font, you can change
+
+82
+00:05:20,800 --> 00:05:24,800
+the size of the text. Now, talking about font, please
+
+83
+00:05:24,800 --> 00:05:28,800
+take a little bit of time to customize the font. This default font is really boring and stinks of
+
+84
+00:05:28,800 --> 00:05:32,800
+somebody who's not bothered to customize it. So, somewhere like Dafont
+
+85
+00:05:32,800 --> 00:05:36,800
+is a good idea. Have a look through here. I'm going to use Ink Tank. So,
+
+86
+00:05:36,800 --> 00:05:40,800
+just searching for tank, you'll find Ink Tank here, but there's plenty of others! You could use
+
+87
+00:05:40,800 --> 00:05:44,800
+Boom Tank, you could use whatever.  Now, you want to have a look at
+
+88
+00:05:44,800 --> 00:05:48,800
+the license, it's up top here. Ink Tank is 100%
+
+89
+00:05:48,800 --> 00:05:52,800
+free, but Boom Tank, for example is free for personal use. If you're going to be
+
+90
+00:05:52,800 --> 00:05:56,800
+using this in an actual game, then you need to be thinking a little bit about what your
+
+91
+00:05:56,800 --> 00:06:00,800
+license is, and you need to be very careful that you either contact the author, if you're not sure,
+
+92
+00:06:00,800 --> 00:06:04,800
+or that you adhere to the license terms. And certainly, if you're going to be selling your game, you need to be
+
+93
+00:06:04,800 --> 00:06:08,800
+buying the font. But I'm going to use Ink Tank, which is free. Now, let's
+
+94
+00:06:08,800 --> 00:06:12,800
+get the font imported. Then, I'll show you how to make a button, then I'll leave you to
+
+95
+00:06:12,800 --> 00:06:16,800
+layout your UI. So, I'm going to download
+
+96
+00:06:16,800 --> 00:06:20,800
+the .zip file. In there I've got a .ttf, which is a True Type Font,
+
+97
+00:06:20,800 --> 00:06:24,800
+and the way you get that into Unreal is like the same way as you get any other asset in.
+
+98
+00:06:24,800 --> 00:06:28,800
+You go to your Content Browser. I'm going to go to
+
+99
+00:06:28,800 --> 00:06:32,800
+my UI folder. I'm going to import an asset, it's going to be Ink Tank, and
+
+100
+00:06:32,800 --> 00:06:36,800
+it's come in automatically as a font which is cool! So, back over here now,
+
+101
+00:06:36,800 --> 00:06:40,800
+in my list of fonts, I will simply be able to find Ink Tank.
+
+102
+00:06:40,800 --> 00:06:44,800
+There you go! So, that's how you put a text block in! The other thing I'm
+
+103
+00:06:44,800 --> 00:06:48,800
+going to show you is how you put a button in. You drop a button, not into the screen it won't work, but onto the
+
+104
+00:06:48,800 --> 00:06:52,800
+[Canvas Panel], and then, again with a button you can resize it.
+
+105
+00:06:52,800 --> 00:06:56,800
+Think about the anchor. One of the first things you want to do with any UI element is think about where do you want your button
+
+106
+00:06:56,800 --> 00:07:00,800
+to be on the screen and where do you want it to stick to? Do you want it to stick to the bottom-right, the top-right, whatever?
+
+107
+00:07:00,800 --> 00:07:04,800
+And then, also you can drag text onto the button to label
+
+108
+00:07:04,800 --> 00:07:08,800
+it, alright. Now I want you to have a play with that, and remember to customize your fonts. So,
+
+109
+00:07:08,800 --> 00:07:12,800
+I'm going to delete that button for now and put you into your challenge which is to
+
+110
+00:07:12,800 --> 00:07:16,800
+layout your main menu. Choose a font for your title text, consider adding a
+
+111
+00:07:16,800 --> 00:07:20,800
+sub-title, add and style a start button, and check that the scaling
+
+112
+00:07:20,800 --> 00:07:24,800
+works well and that the button is visible at variety of different screen shapes.
+
+113
+00:07:24,800 --> 00:07:28,800
+So, go ahead, pause the video, and setup your UI now.
+
+114
+00:07:28,800 --> 00:07:32,800
+OK, welcome back! So,
+
+115
+00:07:32,800 --> 00:07:36,800
+I'm going to start by just putting some text in, as I did before. I'm going to call it Battle
+
+116
+00:07:36,800 --> 00:07:40,800
+Tank. Now hopefully you've found the property where you've set the text, it's here.
+
+117
+00:07:40,800 --> 00:07:44,800
+Let's go ahead and scale that up,
+
+118
+00:07:44,800 --> 00:07:48,800
+choose a font. Now, this text I want
+
+119
+00:07:48,800 --> 00:07:52,800
+anchored to the bottom-left of the screen, which means I want it to be a fixed offset from
+
+120
+00:07:52,800 --> 00:07:56,800
+the bottom-left of the screen. I'm going to justify it to the left, I think,
+
+121
+00:07:56,800 --> 00:08:00,800
+because I'm anchoring to the left it makes sense to justify to the left, so that we have, as I said,
+
+122
+00:08:00,800 --> 00:08:04,800
+the word starts in a fixed position compared to the bottom-left. Remember to go ahead and
+
+123
+00:08:04,800 --> 00:08:08,800
+preview these things nice and lean, i.e. nice and instantaneously, after you've put them
+
+124
+00:08:08,800 --> 00:08:12,800
+down. As soon as you've got your font how you want it, have a preview,
+
+125
+00:08:12,800 --> 00:08:16,800
+and just make sure that, for a reasonable range of screen shapes that, the
+
+126
+00:08:16,800 --> 00:08:20,800
+text doesn't interfere with the background and is legible. Great! That's looking OK
+
+127
+00:08:20,800 --> 00:08:24,800
+to me. Fine, now let's put in another button! But one
+
+128
+00:08:24,800 --> 00:08:28,800
+second first, I'm going to give this a name. Let's call it Title
+
+129
+00:08:28,800 --> 00:08:32,800
+Text. Fine! Now, let's pop a button in
+
+130
+00:08:32,800 --> 00:08:36,800
+onto the [Canvas Panel], so we have the background scale box. By the way, that background
+
+131
+00:08:36,800 --> 00:08:40,800
+scale box aught to have a ZOrder, which is the Z depth.
+
+132
+00:08:40,800 --> 00:08:44,800
+It says higher numbers appear on top, so let's give it a value of -99 just to
+
+133
+00:08:44,800 --> 00:08:48,800
+indicate this is going to be way in the background. Anything less than 0 is fine,
+
+134
+00:08:48,800 --> 00:08:52,800
+and I'm just going to use -99. We just want to make sure that we explicitly tell the system that, that background
+
+135
+00:08:52,800 --> 00:08:56,800
+renders behind this text, which has a ZOrder of 0.
+
+136
+00:08:56,800 --> 00:09:00,800
+Alright, otherwise there's a chance that it won't render in the right place,
+
+137
+00:09:00,800 --> 00:09:04,800
+then the text will be obscured. The same with the button, I'm going to leave the button at 0. The reason I'm choosing
+
+138
+00:09:04,800 --> 00:09:08,800
+-99 for the background images is because, then anything else you put in comes
+
+139
+00:09:08,800 --> 00:09:12,800
+with this default ZOrder of 0, and then, we don't need to worry about it, it's something we don't need to change every time.
+
+140
+00:09:12,800 --> 00:09:16,800
+So, let's have a button down on the bottom-left here. Now, immediately when
+
+141
+00:09:16,800 --> 00:09:20,800
+you put that UI element in, think about where its anchors should be. The buttons are going to be anchored to
+
+142
+00:09:20,800 --> 00:09:24,800
+the bottom-right. There's that! OK, now
+
+143
+00:09:24,800 --> 00:09:28,800
+it's going to be called StartButton.
+
+144
+00:09:28,800 --> 00:09:32,800
+Let's just call it Start Button. It is variable,
+
+145
+00:09:32,800 --> 00:09:36,800
+this Variable button, if you un-tick that you won't get any events and you won't be able to deal with on
+
+146
+00:09:36,800 --> 00:09:40,800
+click, so leave that variable. And it's bold in the hierarchy,
+
+147
+00:09:40,800 --> 00:09:44,800
+it just means it's an intractable element. Now, let's add on Text and drop it on the
+
+148
+00:09:44,800 --> 00:09:48,800
+StartButton. I'm just going to call it StartText.
+
+149
+00:09:48,800 --> 00:09:52,800
+And let's change the
+
+150
+00:09:52,800 --> 00:09:56,800
+text to the word Start,
+
+151
+00:09:56,800 --> 00:10:00,800
+in capitals. I think it's nice and easy to read. Let's zoom in so we can see it.
+
+152
+00:10:00,800 --> 00:10:04,800
+Rescale a little bit, Start.
+
+153
+00:10:04,800 --> 00:10:08,800
+Just change the font to be consistent.
+
+154
+00:10:08,800 --> 00:10:12,800
+There you go, that's fine! Now if
+
+155
+00:10:12,800 --> 00:10:16,800
+you're finding that you don't like the alignment of this thing, it is possible to play around
+
+156
+00:10:16,800 --> 00:10:20,800
+with the padding. For instance, I could probably do with some more Top padding here.
+
+157
+00:10:20,800 --> 00:10:24,800
+Go to 4 or 5 pixels of Top padding or
+
+158
+00:10:24,800 --> 00:10:28,800
+6 even. I might just bring the word Start down a little bit and make it look a little bit more
+
+159
+00:10:28,800 --> 00:10:32,800
+sensible, something like that. And there you go, we now have a Start
+
+160
+00:10:32,800 --> 00:10:36,800
+button. Let's check the scaling, and then, we are done for this video!
+
+161
+00:10:36,800 --> 00:10:40,800
+So that's good! The Start button is
+
+162
+00:10:40,800 --> 00:10:44,800
+anchoring to the bottom-right, Battle Tank to the bottom-left. Unless we have a ridiculously narrow
+
+163
+00:10:44,800 --> 00:10:48,800
+screen, even at like 4:3, it's just about going to be feasible,
+
+164
+00:10:48,800 --> 00:10:52,800
+and on a wider screen, people have these wide monitors now, then it's all looking like
+
+165
+00:10:52,800 --> 00:10:56,800
+it's going to work which is great! Awesome! So, I'm going to
+
+166
+00:10:56,800 --> 00:11:00,800
+now commit my work. Remember to be using SourceControl yourself. I suggest every
+
+167
+00:11:00,800 --> 00:11:04,800
+single video, but you just want to get in the habit of committing your changes. Before you commit
+
+168
+00:11:04,800 --> 00:11:08,800
+anything, make sure you click Save All, of course, in Unreal so that all of your changes are saved to
+
+169
+00:11:08,800 --> 00:11:12,800
+disk, there are no asterisks up at the top here. And I will see you in the next video!
+
+170
+00:11:12,800 --> 00:11:13,866
+
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT18 UI Scale Box, Buttons & Mouse.srt

@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section5/TG2 Testing Grounds GDD.srt
 ﻿WEBVTT
 
 1
@@ -412,3 +413,418 @@ in the forum. and that's it for this video! I'm not going to do anymore. I've al
 00:06:50.400 --> 00:06:56.266
 written the GDD. you just saw mine. And I look forward to seeing you in the next lecture!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+Hey guys, Ben with you here, and welcome to
+
+2
+00:00:04,000 --> 00:00:10,400
+Testing Grounds GDD, the Game Design Document! So let's dive in and see what the vision for this game is!
+
+3
+00:00:10,400 --> 00:00:14,400
+So slightly inspired by the Hunger Games, you're a contestant in an entertainment
+
+4
+00:00:14,400 --> 00:00:18,400
+game, some sort of sick game where you are being watched and you have to try and
+
+5
+00:00:18,400 --> 00:00:22,400
+survive as many testing grounds as possible. So
+
+6
+00:00:22,400 --> 00:00:26,400
+the question is, can you reach the end? Is there even an end to the game? [Laughs]
+
+7
+00:00:26,400 --> 00:00:30,400
+Are there an infinite number of grounds or not? Well we will let the player 1 know
+
+8
+00:00:30,400 --> 00:00:34,400
+whether or not there are an infinite number of grounds, and, indeed, we're going to decide
+
+9
+00:00:34,400 --> 00:00:38,400
+on how many there are, based on how we create the assets. And that we're going to
+
+10
+00:00:38,400 --> 00:00:42,400
+decide as we go through the section, depending on whether we end up down the procedural
+
+11
+00:00:42,400 --> 00:00:46,400
+generation route or down the route of creating testing
+
+12
+00:00:46,400 --> 00:00:50,400
+grounds by hand. If it's by hand then, obviously it's going to be finite.
+
+13
+00:00:50,400 --> 00:00:54,400
+You can use force or stealth to pass through the grounds.
+
+14
+00:00:54,400 --> 00:00:58,400
+So you'll understand more about that, as we go through this GDD, but basically,
+
+15
+00:00:58,400 --> 00:01:02,400
+you can fight your way through or sneak your way through or a combination of both.
+
+16
+00:01:02,400 --> 00:01:06,400
+So the rules are, you can pass a testing ground undetected,
+
+17
+00:01:06,400 --> 00:01:10,400
+if detected you must clear the area, and check points
+
+18
+00:01:10,400 --> 00:01:14,400
+save when you pass into a new area, so pretty simple stuff. If you're killed you'll return
+
+19
+00:01:14,400 --> 00:01:18,400
+to the last checkpoint, and you and enemies will be fighting for the same
+
+20
+00:01:18,400 --> 00:01:22,400
+ammo resources and you're scored, ultimately, on how many areas you can
+
+21
+00:01:22,400 --> 00:01:26,400
+pass. This bit about fighting for the same ammo resources I thought it would
+
+22
+00:01:26,400 --> 00:01:30,400
+be a bit of fun! The AI will need to look for ammo on dead bodies
+
+23
+00:01:30,400 --> 00:01:34,400
+or on pickups, and you'll all be looking for the same ammo, rather than the
+
+24
+00:01:34,400 --> 00:01:38,400
+AI just having like infinite ammo. I thought that'd be a bit of fun! OK so,
+
+25
+00:01:38,400 --> 00:01:42,400
+what do we need? We're going to need some testing ground landscapes, either made by hand or procedurally
+
+26
+00:01:42,400 --> 00:01:46,400
+generated. We're going to need some Unreal starter content,
+
+27
+00:01:46,400 --> 00:01:50,400
+plus the landscape tools that they've got built in, some guns, some ammo boxes.
+
+28
+00:01:50,400 --> 00:01:54,400
+A rigged humanoid character, which we can modify, the one that Unreal
+
+29
+00:01:54,400 --> 00:01:58,400
+gives us should be fine. And various sound effects, I'm going to be
+
+30
+00:01:58,400 --> 00:02:02,400
+using samples from Gamemaster Audio, who's kindly, well not donated, but said that we
+
+31
+00:02:02,400 --> 00:02:06,400
+can use samples from their pack provided that we credit him. So I really
+
+32
+00:02:06,400 --> 00:02:10,400
+appreciate that! And of course, other stuff I haven't though of yet. [Laughs] So there'll be
+
+33
+00:02:10,400 --> 00:02:14,400
+other requirements, but the whole point here, with a Game Design Document, is not
+
+34
+00:02:14,400 --> 00:02:18,400
+to go nuts. You really want to just get on with making the game quite quickly and get to
+
+35
+00:02:18,400 --> 00:02:22,400
+the fun as quickly as you can, and then, as soon as it's fun get it out to your people to
+
+36
+00:02:22,400 --> 00:02:26,400
+try. So this other stuff I haven't thought of yet is kind of a light
+
+37
+00:02:26,400 --> 00:02:30,400
+hearted jib, but the idea is to say, look
+
+38
+00:02:30,400 --> 00:02:34,400
+there's going to be tons of stuff you haven't thought of but let's get an overall grand idea
+
+39
+00:02:34,400 --> 00:02:38,400
+of the type of requirements. Typically, programmers will underestimate the amount
+
+40
+00:02:38,400 --> 00:02:42,400
+of content required. Remember content is king, content meaning
+
+41
+00:02:42,400 --> 00:02:46,400
+audio, original audio, content meaning meshes, textures, etc.
+
+42
+00:02:46,400 --> 00:02:50,400
+So all of that stuff can take a huge amount of time, and it's usually important,
+
+43
+00:02:50,400 --> 00:02:54,400
+it's the thing that makes your game unique. So technical cha...
+
+44
+00:02:54,400 --> 00:02:58,400
+[Laughs] Potential Technical Challenges, rather than potechnical tencial
+
+45
+00:02:58,400 --> 00:03:02,400
+challenges. Serialization when saving. So we want to be able to
+
+46
+00:03:02,400 --> 00:03:06,400
+save at the checkpoint, but we want to be able to save most of the state of the game at the
+
+47
+00:03:06,400 --> 00:03:10,400
+checkpoint, at least your ammo and any weapons and all this type of
+
+48
+00:03:10,400 --> 00:03:14,400
+stuff. So we may have some challenges with serialization and we'll do our best to solve those.
+
+49
+00:03:14,400 --> 00:03:18,400
+The whole architecture of a checkpoint system, so
+
+50
+00:03:18,400 --> 00:03:22,400
+you alert a lot of guards, that means the area's locked down a bit like in
+
+51
+00:03:22,400 --> 00:03:26,400
+the modern Doom game. How do we know, how does the game know, how does the
+
+52
+00:03:26,400 --> 00:03:30,400
+checkpoint know when all those enemies are killed, and what is an area and all
+
+53
+00:03:30,400 --> 00:03:34,400
+these sorts of questions? It's all about responsibility, dependencies, architecture, lots
+
+54
+00:03:34,400 --> 00:03:38,400
+of ways of doing it, of course, but we'll be discussing some of the ways and the pros and
+
+55
+00:03:38,400 --> 00:03:42,400
+cons. If we get to co-op play, then we're going to
+
+56
+00:03:42,400 --> 00:03:46,400
+have to make sure that the networking is smooth in there, and procedural
+
+57
+00:03:46,400 --> 00:03:50,400
+generation of the testing grounds, if we go down that route, that could present some interesting challenges.
+
+58
+00:03:50,400 --> 00:03:54,400
+And the whole idea of creating a new skeletal animation,
+
+59
+00:03:54,400 --> 00:03:58,400
+for us dev types, could be challenging, because it may not be that
+
+60
+00:03:58,400 --> 00:04:02,400
+easy just to add a new animation into an already professionally animated
+
+61
+00:04:02,400 --> 00:04:06,400
+character. So there are some challenges we may meet! Now, let's talk about, for
+
+62
+00:04:06,400 --> 00:04:10,400
+a moment, how the grounds spawn and the whole layout.
+
+63
+00:04:10,400 --> 00:04:14,400
+So here's the first testing ground here! And you come in on the left-
+
+64
+00:04:14,400 --> 00:04:18,400
+hand side, and there's already a second testing ground spawned.
+
+65
+00:04:18,400 --> 00:04:22,400
+Behind you will be a red force field, effectively a closed door,
+
+66
+00:04:22,400 --> 00:04:26,400
+but I think I'll make it an opaque red force field. And in front of you, initially,
+
+67
+00:04:26,400 --> 00:04:30,400
+will be a semiopaque green force field, kind of luring
+
+68
+00:04:30,400 --> 00:04:34,400
+you to that end. So the idea is to head left to right. You'll see in the distance, you should be able to see
+
+69
+00:04:34,400 --> 00:04:38,400
+through it into at least the next testing ground, and there will be this open door
+
+70
+00:04:38,400 --> 00:04:42,400
+effectively, and in here we'll have enemies and cover and basically a terrain.
+
+71
+00:04:42,400 --> 00:04:46,400
+Now, if you alert an AI the far door will close, the area
+
+72
+00:04:46,400 --> 00:04:50,400
+will lock down. The moment the area's locked down, the
+
+73
+00:04:50,400 --> 00:04:54,400
+only way you can then get out is to clear all of the enemies. So once the last
+
+74
+00:04:54,400 --> 00:04:58,400
+AI none player character is dead, this door will reopen, or this force field
+
+75
+00:04:58,400 --> 00:05:02,400
+will grow green again. You can then pass through, and the moment you pass through it locks
+
+76
+00:05:02,400 --> 00:05:06,400
+behind you, that's the cruelty of this thing! But the one in front of you is giving you
+
+77
+00:05:06,400 --> 00:05:10,400
+hope again, you can make it to the other side! If you can sneak to the other side, you can
+
+78
+00:05:10,400 --> 00:05:14,400
+pass straight through. If you get detected then it's going to lock down
+
+79
+00:05:14,400 --> 00:05:18,400
+and the whole cycle is going to repeat. So hopefully it's pretty clear what's
+
+80
+00:05:18,400 --> 00:05:22,400
+going on there. OK, so that'll provide a pretty
+
+81
+00:05:22,400 --> 00:05:26,400
+cool basis for the game. Now you're welcome to add any other things you want, and
+
+82
+00:05:26,400 --> 00:05:30,400
+especially if those things can be done using what you've already learned in Battle Tank or Building
+
+83
+00:05:30,400 --> 00:05:34,400
+Escape. So I want you to think about what the scope of your game is going to be, your Game Design Document.
+
+84
+00:05:34,400 --> 00:05:38,400
+The more advanced you are, the more you want to deviate from my ideas.
+
+85
+00:05:38,400 --> 00:05:42,400
+The less advanced you are, the less comfortable you are, the more you want to just stick to what we're giving you.
+
+86
+00:05:42,400 --> 00:05:46,400
+Write a post on our forum community.gamedev.tv. Use the link
+
+87
+00:05:46,400 --> 00:05:50,400
+in the resources of this lecture, that'll take you exactly to the right place to
+
+88
+00:05:50,400 --> 00:05:54,400
+write that post. It'll take you to the right sub-section of Unreal, but also,
+
+89
+00:05:54,400 --> 00:05:58,400
+it'll tag the post with the correct lecture tag and that will help
+
+90
+00:05:58,400 --> 00:06:02,400
+everybody else find it. Start a new topic, write your GDD,
+
+91
+00:06:02,400 --> 00:06:06,400
+and use markdown to format it. Why not get a little bit used to using markdown. Now that's not
+
+92
+00:06:06,400 --> 00:06:10,400
+just so that you make pretty posts on our forum, but markdown is used in a lot of different
+
+93
+00:06:10,400 --> 00:06:14,400
+places, it's an approximation or simplification of HTML.
+
+94
+00:06:14,400 --> 00:06:18,400
+But also, we're going to be talking about, in the very next lecture, Git and
+
+95
+00:06:18,400 --> 00:06:22,400
+the readme.md file, which is a markdown file that is on the Git
+
+96
+00:06:22,400 --> 00:06:26,400
+repositories that are on Github.com,
+
+97
+00:06:26,400 --> 00:06:30,400
+and so I just want you to start getting used to Markdown. You can do a Google search
+
+98
+00:06:30,400 --> 00:06:34,400
+for Daring Fireball Markdown, and I'll put that in your resources.
+
+99
+00:06:34,400 --> 00:06:38,400
+That's the kind of definitive guide to the syntax of markdown, and just
+
+100
+00:06:38,400 --> 00:06:42,400
+use at least some markdown and also our forum will guide you on that as well. And
+
+101
+00:06:42,400 --> 00:06:46,400
+include sketches, you can upload images. So go ahead, share your GDD with us
+
+102
+00:06:46,400 --> 00:06:50,400
+in the forum, and that's it for this video! I'm not going to do anymore, I've already
+
+103
+00:06:50,400 --> 00:06:56,266
+written the GDD, you just saw mine. And I look forward to seeing you in the next lecture!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section5/TG2 Testing Grounds GDD.srt

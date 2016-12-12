@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section5/12-Launching-Ball-On-Mouse-Click.srt
 WEBVTT
 
 1
@@ -1132,3 +1133,1138 @@ goes ahead and resets it back onto the paddle. So. congratulations
 00:14:18.000 --> 00:14:21.000
 and I'll see you soon!
 
+=======
+
+1
+00:00:03,000 --> 00:00:06,000
+Hey welcome back! So,
+
+2
+00:00:06,000 --> 00:00:09,000
+in this video I want to be able to start with the ball
+
+3
+00:00:09,000 --> 00:00:12,000
+either on the paddle or very very close
+
+4
+00:00:12,000 --> 00:00:15,000
+to the paddle, and then, I want to be able to hit the mouse
+
+5
+00:00:15,000 --> 00:00:18,000
+button and have that ball go flying off.
+
+6
+00:00:18,000 --> 00:00:21,000
+So, we have a offset between the
+
+7
+00:00:21,000 --> 00:00:24,000
+ball and the paddle. Now, it's entirely up to us where
+
+8
+00:00:24,000 --> 00:00:27,000
+we put it. I think I'm going to start with the ball in
+
+9
+00:00:27,000 --> 00:00:30,000
+the middle of the paddle, and probably about
+
+10
+00:00:30,000 --> 00:00:33,000
+there. So, the X position should be 8
+
+11
+00:00:33,000 --> 00:00:36,000
+precisely, but the Y position is really down
+
+12
+00:00:36,000 --> 00:00:39,000
+to your eye, as to where you want it.
+
+13
+00:00:39,000 --> 00:00:42,000
+And I want my code to capture the difference in position
+
+14
+00:00:42,000 --> 00:00:45,000
+between the ball and the paddle at the start,
+
+15
+00:00:45,000 --> 00:00:48,000
+and then, maintain that difference in position,
+
+16
+00:00:48,000 --> 00:00:51,000
+all the time until I click the mouse button. When I
+
+17
+00:00:51,000 --> 00:00:54,000
+click the mouse button the ball wants to go flying off,
+
+18
+00:00:54,000 --> 00:00:57,000
+and then the game has started. So,
+
+19
+00:00:57,000 --> 00:01:00,000
+it's the ball's responsibility to keep itself on there, and
+
+20
+00:01:00,000 --> 00:01:03,000
+to keep track of whether the game has started or not,
+
+21
+00:01:03,000 --> 00:01:06,000
+in this case for now. So, let's add a
+
+22
+00:01:06,000 --> 00:01:09,000
+script to the ball.
+
+23
+00:01:09,000 --> 00:01:12,000
+Simply call it Ball
+
+24
+00:01:12,000 --> 00:01:15,000
+and pop it in the Scripts Folder.
+
+25
+00:01:18,000 --> 00:01:21,000
+Fantastic! OK, so the first thing we need to do
+
+26
+00:01:21,000 --> 00:01:24,000
+is work out what this difference in distance is.
+
+27
+00:01:24,000 --> 00:01:27,000
+Well, to do that we're going to need to publicly expose the
+
+28
+00:01:27,000 --> 00:01:30,000
+paddle. If you want a little challenge, then I want you to write
+
+29
+00:01:30,000 --> 00:01:33,000
+public, and then, the rest of this line up here
+
+30
+00:01:33,000 --> 00:01:36,000
+in order that we can get access to the
+
+31
+00:01:36,000 --> 00:01:39,000
+paddle from inside this script, so have a quick go at that:
+
+32
+00:01:39,000 --> 00:01:42,000
+public Paddle paddle
+
+33
+00:01:42,000 --> 00:01:45,000
+right OK. And then, immediately save
+
+34
+00:01:45,000 --> 00:01:48,000
+the script, go to Unity, and then, drag the
+
+35
+00:01:48,000 --> 00:01:51,000
+paddle into the ball script, where it's asking for
+
+36
+00:01:51,000 --> 00:01:54,000
+it down there.
+
+37
+00:01:54,000 --> 00:01:57,000
+Excuse me. Fantastic! Alright so that's
+
+38
+00:01:57,000 --> 00:02:00,000
+a start. Then, the next thing we need is some way of storing
+
+39
+00:02:00,000 --> 00:02:03,000
+across the entire class, across all these methods,
+
+40
+00:02:03,000 --> 00:02:06,000
+the distance between them. So, I'm going to make this a private
+
+41
+00:02:06,000 --> 00:02:09,000
+variable, nobody else needs to know it, and I'm going to say it's
+
+42
+00:02:09,000 --> 00:02:12,000
+the paddleToBall
+
+43
+00:02:12,000 --> 00:02:15,000
+Vector, to be very explicit. And the type of
+
+44
+00:02:15,000 --> 00:02:18,000
+this thing is a Vector3.
+
+45
+00:02:18,000 --> 00:02:21,000
+Fantastic! Alright, so at the start we're calculating
+
+46
+00:02:21,000 --> 00:02:24,000
+it. So, what is paddle to ball vector? Well, when you do a
+
+47
+00:02:24,000 --> 00:02:27,000
+vector from one thing to another, you take
+
+48
+00:02:27,000 --> 00:02:30,000
+the destination, i.e. the ball in this case,
+
+49
+00:02:30,000 --> 00:02:33,000
+and you subtract away the
+
+50
+00:02:33,000 --> 00:02:36,000
+paddle's transform. So, the center of the ball is there,
+
+51
+00:02:36,000 --> 00:02:39,000
+the center of the paddle is there, and
+
+52
+00:02:39,000 --> 00:02:42,000
+the vector between them is very much like this green arrow is. In fact, the
+
+53
+00:02:42,000 --> 00:02:45,000
+green arrow is representing it about now. That
+
+54
+00:02:45,000 --> 00:02:48,000
+green arrow is not anything to do with it, actually, it's just that I
+
+55
+00:02:48,000 --> 00:02:51,000
+scrolled to a level, where it happens to draw for me
+
+56
+00:02:51,000 --> 00:02:54,000
+very conveniently the paddle to ball vector.
+
+57
+00:02:54,000 --> 00:02:57,000
+And the way you calculate it is, you take the ball's position minus
+
+58
+00:02:57,000 --> 00:03:00,000
+the paddle's position to get the difference.
+
+59
+00:03:00,000 --> 00:03:03,000
+So, the paddle to ball vector is pretty simple actually.
+
+60
+00:03:03,000 --> 00:03:06,000
+It is ball
+
+61
+00:03:06,000 --> 00:03:09,000
+dot... Or the ball actually is this,
+
+62
+00:03:09,000 --> 00:03:12,000
+because we are in the context of ball, so this.transform
+
+63
+00:03:12,000 --> 00:03:15,000
+.position -, and we can do a vector
+
+64
+00:03:15,000 --> 00:03:18,000
+subtraction, - paddle
+
+65
+00:03:18,000 --> 00:03:21,000
+.transform.position; and what that'll do is it'll
+
+66
+00:03:21,000 --> 00:03:24,000
+take the difference between all three of their coordinates.
+
+67
+00:03:24,000 --> 00:03:27,000
+So, let's just print this and see what it looks like.
+
+68
+00:03:27,000 --> 00:03:30,000
+Print the (paddleToBallVector); and let's take
+
+69
+00:03:30,000 --> 00:03:33,000
+a look and see what we get. Play.
+
+70
+00:03:33,000 --> 00:03:36,000
+Level ends
+
+71
+00:03:36,000 --> 00:03:39,000
+but you get 0.40. Well,
+
+72
+00:03:39,000 --> 00:03:42,000
+is that the distance between the two? Well, look at the
+
+73
+00:03:42,000 --> 00:03:45,000
+X coordinate difference is nothing, and the Y difference is,
+
+74
+00:03:45,000 --> 00:03:48,000
+well it's about 0.4, but it's not exactly
+
+75
+00:03:48,000 --> 00:03:51,000
+0.4. So, let's look inside that, let's
+
+76
+00:03:51,000 --> 00:03:54,000
+look at the paddleToBallVector.y, because it might just be
+
+77
+00:03:54,000 --> 00:03:57,000
+the way that it's printing that. So, look at the paddle
+
+78
+00:03:57,000 --> 00:04:00,000
+ToBallVector.y and let's see what the difference is now.
+
+79
+00:04:00,000 --> 00:04:03,000
+0.351 and
+
+80
+00:04:03,000 --> 00:04:06,000
+that's the difference. The ball is a 0.851
+
+81
+00:04:06,000 --> 00:04:09,000
+and the paddle is a 0.5, the difference is 0.351.
+
+82
+00:04:09,000 --> 00:04:12,000
+Fantastic! So, we don't need to print anything anymore,
+
+83
+00:04:12,000 --> 00:04:15,000
+we have this paddle to ball vector.
+
+84
+00:04:15,000 --> 00:04:18,000
+Now, on every frame all we need to do is set the...
+
+85
+00:04:18,000 --> 00:04:21,000
+We need to just set the position of the balls
+
+86
+00:04:21,000 --> 00:04:24,000
+for this.transform
+
+87
+00:04:24,000 --> 00:04:27,000
+.position, simply = the
+
+88
+00:04:27,000 --> 00:04:30,000
+paddle's position
+
+89
+00:04:30,000 --> 00:04:33,000
++ the offset,
+
+90
+00:04:33,000 --> 00:04:36,000
+which is the paddle to ball vector, and then,
+
+91
+00:04:36,000 --> 00:04:39,000
+in every single frame the ball will sit in that same relative position. Let's
+
+92
+00:04:39,000 --> 00:04:42,000
+try it. Ah,
+
+93
+00:04:42,000 --> 00:04:45,000
+perfect! Wiggle it around really fast, and it should never fall off.
+
+94
+00:04:45,000 --> 00:04:48,000
+But if we freeze the frame there and look carefully you'll
+
+95
+00:04:48,000 --> 00:04:51,000
+see that at high speed, the ball becomes completely
+
+96
+00:04:51,000 --> 00:04:54,000
+detached from the paddle, or at least it may become
+
+97
+00:04:54,000 --> 00:04:57,000
+completely detached from the paddle. And the reason I say it may
+
+98
+00:04:57,000 --> 00:05:00,000
+is it depends on which order your computer
+
+99
+00:05:00,000 --> 00:05:03,000
+executes the Ball Script and the Paddle
+
+100
+00:05:03,000 --> 00:05:06,000
+Script. It it executes the Ball
+
+101
+00:05:06,000 --> 00:05:09,000
+Script first, then the Paddle Script, you're going to have
+
+102
+00:05:09,000 --> 00:05:12,000
+a problem. Whereas if we execute the Paddle Script
+
+103
+00:05:12,000 --> 00:05:15,000
+first, so we know the position of the paddle, then the ball's
+
+104
+00:05:15,000 --> 00:05:18,000
+script runs and reads the position of the paddle, we'll be OK
+
+105
+00:05:18,000 --> 00:05:21,000
+but we don't want to leave it to chance, so this is how to fix
+
+106
+00:05:21,000 --> 00:05:24,000
+it. Go to Edit, Project Settings,
+
+107
+00:05:24,000 --> 00:05:27,000
+Script Execution Order, like that.
+
+108
+00:05:27,000 --> 00:05:30,000
+It'll be empty in your case... Add
+
+109
+00:05:30,000 --> 00:05:33,000
+firstly the Ball or the Paddle
+
+110
+00:05:33,000 --> 00:05:36,000
+it doesn't matter, because once you've got
+
+111
+00:05:36,000 --> 00:05:39,000
+the Ball and the Paddle in the list, you can then drag them
+
+112
+00:05:39,000 --> 00:05:42,000
+around, to say which you want to go first. The top will
+
+113
+00:05:42,000 --> 00:05:45,000
+go first, so if you go Paddle first then Ball,
+
+114
+00:05:45,000 --> 00:05:48,000
+let's take a look. This is what we want to end up with. A script
+
+115
+00:05:48,000 --> 00:05:51,000
+execution order of Paddle first and then Ball. Click Apply
+
+116
+00:05:51,000 --> 00:05:54,000
+and then click Play. Now, when we
+
+117
+00:05:54,000 --> 00:05:57,000
+wobble around, however fast we go, the ball stays locked in
+
+118
+00:05:57,000 --> 00:06:00,000
+the paddle. Whereas if our execution order was in the other
+
+119
+00:06:00,000 --> 00:06:03,000
+way around,
+
+120
+00:06:03,000 --> 00:06:06,000
+then you can get this
+
+121
+00:06:06,000 --> 00:06:09,000
+disjointing going on. You see the ball kind of sliding
+
+122
+00:06:09,000 --> 00:06:12,000
+to the side of the paddle, that's not what we're after. Swap the
+
+123
+00:06:12,000 --> 00:06:15,000
+execution order around and we don't get it anymore.
+
+124
+00:06:15,000 --> 00:06:18,000
+It's locked solid! Fantastic!
+
+125
+00:06:18,000 --> 00:06:21,000
+Let's try another thing. Let's try moving zoom
+
+126
+00:06:21,000 --> 00:06:24,000
+out a little bit. Try moving both the paddle and the ball together, for a minute, by
+
+127
+00:06:24,000 --> 00:06:27,000
+selecting both in the Hierarchy and then moving them up. See if it still behaves.
+
+128
+00:06:27,000 --> 00:06:30,000
+It does because everything is relative. That's fantastic!
+
+129
+00:06:30,000 --> 00:06:33,000
+I'm going to undo that.
+
+130
+00:06:33,000 --> 00:06:36,000
+I'm going to put the paddle back down
+
+131
+00:06:36,000 --> 00:06:39,000
+at 8.5,
+
+132
+00:06:39,000 --> 00:06:42,000
+and now let's put the
+
+133
+00:06:42,000 --> 00:06:45,000
+ball in some slightly strange place, compared to the
+
+134
+00:06:45,000 --> 00:06:48,000
+paddle, maybe here, and see if it maintains that distance.
+
+135
+00:06:48,000 --> 00:06:51,000
+And it does! Good! OK fantastic! We're going to put the ball
+
+136
+00:06:51,000 --> 00:06:54,000
+back somewhere sensible, which is going to be right in the middle of the paddle,
+
+137
+00:06:54,000 --> 00:06:57,000
+and then, I'm going to do the Y coordinate by eye.
+
+138
+00:06:57,000 --> 00:07:00,000
+I suggest you do the same, and the code will maintain that difference. Now,
+
+139
+00:07:00,000 --> 00:07:03,000
+when I drag it down if I use the green arrow, then
+
+140
+00:07:03,000 --> 00:07:06,000
+it will drag perfectly in the Y direction,
+
+141
+00:07:06,000 --> 00:07:09,000
+without any X component. It looks OK. It looks like
+
+142
+00:07:09,000 --> 00:07:12,000
+it's resting on there to me. Great news! So, we have got
+
+143
+00:07:12,000 --> 00:07:15,000
+that far, the ball is like that. Now, what
+
+144
+00:07:15,000 --> 00:07:18,000
+we need to do is respond to a mouse click, when we click the mouse button.
+
+145
+00:07:18,000 --> 00:07:21,000
+So, this is where we use
+
+146
+00:07:21,000 --> 00:07:24,000
+the Input.GetMouseButton method,
+
+147
+00:07:24,000 --> 00:07:27,000
+so let's listen for that on every frame.
+
+148
+00:07:27,000 --> 00:07:30,000
+So, if (Input.Get
+
+149
+00:07:30,000 --> 00:07:33,000
+MouseButton
+
+150
+00:07:33,000 --> 00:07:36,000
+(0)). Now, let's look at the docs for that. Before we
+
+151
+00:07:36,000 --> 00:07:39,000
+carry on, finish off the structure of your if statement, and have a look at
+
+152
+00:07:39,000 --> 00:07:42,000
+the docs of the GetMouseButton.
+
+153
+00:07:42,000 --> 00:07:45,000
+Did that by holding down Control and
+
+154
+00:07:45,000 --> 00:07:48,000
+Apostrophe.
+
+155
+00:07:48,000 --> 00:07:51,000
+It runs, whenever the...
+
+156
+00:07:51,000 --> 00:07:54,000
+given mouse button is held down, it's what I think they're trying to say.
+
+157
+00:07:54,000 --> 00:07:57,000
+Well, that's OK. GetMouseButton or the
+
+158
+00:07:57,000 --> 00:08:00,000
+or there's a subtly different method called GetMouseButtonDown,
+
+159
+00:08:00,000 --> 00:08:03,000
+which really doesn't look much different to me. So, let's look at the Get
+
+160
+00:08:03,000 --> 00:08:06,000
+MouseButton, and you can see it with a if Input.Get
+
+161
+00:08:06,000 --> 00:08:09,000
+MouseButton, do something. So, let's do that! What I want you to
+
+162
+00:08:09,000 --> 00:08:12,000
+now is inside your if statement, I just want you to print
+
+163
+00:08:12,000 --> 00:08:15,000
+mouse clicked in here, if the mouse button is
+
+164
+00:08:15,000 --> 00:08:18,000
+clicked. Go ahead, pause the video, and do that
+
+165
+00:08:18,000 --> 00:08:21,000
+now and get to the point where you're in your game clicking the mouse
+
+166
+00:08:21,000 --> 00:08:24,000
+button, and you're getting login entry saying mouse clicked, mouse clicked, mouse clicked.
+
+167
+00:08:24,000 --> 00:08:27,000
+Go ahead.
+
+168
+00:08:27,000 --> 00:08:30,000
+OK, so here's how we do it,
+
+169
+00:08:30,000 --> 00:08:33,000
+as simple as that. You go back into the game, you play,
+
+170
+00:08:33,000 --> 00:08:36,000
+as the mouse moves around you click, click, click,
+
+171
+00:08:36,000 --> 00:08:39,000
+and you're getting lots of entries. It depends how bouncy your mouse button
+
+172
+00:08:39,000 --> 00:08:42,000
+is. In fact, if you hold the button down, then it
+
+173
+00:08:42,000 --> 00:08:45,000
+continues to fire. It's OK, it doesn't matter.
+
+174
+00:08:45,000 --> 00:08:48,000
+You could try the GetMouseButtonDown method, which is the other one
+
+175
+00:08:48,000 --> 00:08:51,000
+you saw in the list and it varies. Clear your log,
+
+176
+00:08:51,000 --> 00:08:54,000
+take a look. What's the difference? You click it, you just
+
+177
+00:08:54,000 --> 00:08:57,000
+get one now. I prefer that, we don't
+
+178
+00:08:57,000 --> 00:09:00,000
+need lots of calls. So, we're going to use Input.Get
+
+179
+00:09:00,000 --> 00:09:03,000
+MouseButtonDown, rather than Input
+
+180
+00:09:03,000 --> 00:09:06,000
+.GetMouseButton OK, just because it's more
+
+181
+00:09:06,000 --> 00:09:09,000
+concise. It just takes a single click. But what do we want
+
+182
+00:09:09,000 --> 00:09:12,000
+to do when the mouse button goes down? Well, printing clicked is
+
+183
+00:09:12,000 --> 00:09:15,000
+not much good, but we may
+
+184
+00:09:15,000 --> 00:09:18,000
+as well keep it there. We could embellish
+
+185
+00:09:18,000 --> 00:09:21,000
+it by saying well, launch ball...
+
+186
+00:09:21,000 --> 00:09:24,000
+launch ball". OK, so how do we
+
+187
+00:09:24,000 --> 00:09:27,000
+launch the ball? Well, we need to just give the ball some velocity.
+
+188
+00:09:27,000 --> 00:09:30,000
+How are we going to do that? Well, the ball is this
+
+189
+00:09:30,000 --> 00:09:33,000
+and it's its rigidbody component we need to access...
+
+190
+00:09:33,000 --> 00:09:36,000
+2D its rigidbody2D component. Let's look
+
+191
+00:09:36,000 --> 00:09:39,000
+at the ball, Unity, and find out how we know that. Ball,
+
+192
+00:09:39,000 --> 00:09:42,000
+in the Inspector, you've got a component, Rigidbody
+
+193
+00:09:42,000 --> 00:09:45,000
+2D. It doesn't talk about its velocity here, but it is
+
+194
+00:09:45,000 --> 00:09:48,000
+a Rigidbody that has the velocity.
+
+195
+00:09:48,000 --> 00:09:51,000
+So, if we go rigidbody2D.velocity,
+
+196
+00:09:51,000 --> 00:09:54,000
+then you can look at that in the docs again, if you wish,
+
+197
+00:09:54,000 --> 00:09:57,000
+and you can find out about rigidbody2D.velocity.
+
+198
+00:10:00,000 --> 00:10:03,000
+Rigidbody.velocity, we go back one actually, to the Rigidbody
+
+199
+00:10:03,000 --> 00:10:06,000
+2D function.
+
+200
+00:10:06,000 --> 00:10:09,000
+There you go, it's a Vector2. The velocity is just a 2
+
+201
+00:10:09,000 --> 00:10:12,000
+dimensional vector, in this case. So, let's
+
+202
+00:10:12,000 --> 00:10:15,000
+start by just giving it some sort of velocity and see how
+
+203
+00:10:15,000 --> 00:10:18,000
+it works out. So, lets try 2, because it's a float,
+
+204
+00:10:18,000 --> 00:10:21,000
+but hang on; rigidbody
+
+205
+00:10:21,000 --> 00:10:24,000
+2D.velocity = a new
+
+206
+00:10:24,000 --> 00:10:27,000
+Vector2, and then, give it its thing. So, 2 in
+
+207
+00:10:27,000 --> 00:10:30,000
+the X direction and maybe 10 in the Y direction.
+
+208
+00:10:30,000 --> 00:10:33,000
+And let's try that!
+
+209
+00:10:33,000 --> 00:10:36,000
+Play your game, click,
+
+210
+00:10:36,000 --> 00:10:39,000
+mouse clicked, launch ball, but nothing is happening.
+
+211
+00:10:39,000 --> 00:10:42,000
+So, why is the ball not moving?
+
+212
+00:10:42,000 --> 00:10:45,000
+OK, so let's go back to the code.
+
+213
+00:10:45,000 --> 00:10:48,000
+It all looks OK, but the problem
+
+214
+00:10:48,000 --> 00:10:51,000
+is that, even if it is giving it some velocity,
+
+215
+00:10:51,000 --> 00:10:54,000
+and it looks like t his line is running, because the print statement above is running,
+
+216
+00:10:54,000 --> 00:10:57,000
+then immediately afterwards, as soon as the next frame
+
+217
+00:10:57,000 --> 00:11:00,000
+comes along you are forcing the position of the ball
+
+218
+00:11:00,000 --> 00:11:03,000
+back to the paddle. OK, so that's
+
+219
+00:11:03,000 --> 00:11:06,000
+not particularly helpful. We only want
+
+220
+00:11:06,000 --> 00:11:09,000
+to hold the ball on the paddle, if the game hasn't
+
+221
+00:11:09,000 --> 00:11:12,000
+started. Does that make sense? Let me get rid of this extra line.
+
+222
+00:11:12,000 --> 00:11:15,000
+What I'm saying is that it is giving it velocity, when I click the
+
+223
+00:11:15,000 --> 00:11:18,000
+button, but it happens so instantaneously that you
+
+224
+00:11:18,000 --> 00:11:21,000
+can't see it. And then, it immediately, on the next
+
+225
+00:11:21,000 --> 00:11:24,000
+frame, resets the position
+
+226
+00:11:24,000 --> 00:11:27,000
+back to where it was, so you just don't see it move.
+
+227
+00:11:27,000 --> 00:11:30,000
+Alright, so what are we going to do about that? Well, we need
+
+228
+00:11:30,000 --> 00:11:33,000
+to say... We need to keep track of whether the game has started. So
+
+229
+00:11:33,000 --> 00:11:36,000
+at the top, I want you to make yourself a variable
+
+230
+00:11:36,000 --> 00:11:39,000
+of type Boolean called has started, and make
+
+231
+00:11:39,000 --> 00:11:42,000
+it false. OK, private variable.
+
+232
+00:11:42,000 --> 00:11:45,000
+Go ahead and do that now...
+
+233
+00:11:45,000 --> 00:11:48,000
+private bool,
+
+234
+00:11:48,000 --> 00:11:51,000
+for boolean, hasStarted
+
+235
+00:11:51,000 --> 00:11:54,000
+and at first the game has not started.
+
+236
+00:11:54,000 --> 00:11:57,000
+And what I want to say is,
+
+237
+00:11:57,000 --> 00:12:00,000
+only if, and the exclamation means not,
+
+238
+00:12:00,000 --> 00:12:03,000
+has started, so if the game
+
+239
+00:12:03,000 --> 00:12:06,000
+has not started then I want to
+
+240
+00:12:06,000 --> 00:12:09,000
+do all of this stuff here. OK.
+
+241
+00:12:12,000 --> 00:12:15,000
+So indent all of this in one go. You can go Command and right
+
+242
+00:12:15,000 --> 00:12:18,000
+bracket for that, and you may need to check your
+
+243
+00:12:18,000 --> 00:12:21,000
+Keybinding Preferences in Mono. So, all of this stuff
+
+244
+00:12:21,000 --> 00:12:24,000
+only happens if the game hasn't started.
+
+245
+00:12:24,000 --> 00:12:27,000
+What does that do?
+
+246
+00:12:27,000 --> 00:12:30,000
+Well, still nothing because
+
+247
+00:12:30,000 --> 00:12:33,000
+when we actually click the ball, we need to
+
+248
+00:12:33,000 --> 00:12:36,000
+say, immediately when we click it we need to say,
+
+249
+00:12:36,000 --> 00:12:39,000
+hasStarted = true;
+
+250
+00:12:39,000 --> 00:12:42,000
+and now, next time around, this line
+
+251
+00:12:42,000 --> 00:12:45,000
+won't run. In fact, none of this stuff will run. Let's see what happens now.
+
+252
+00:12:45,000 --> 00:12:48,000
+Ah, now it goes flying off
+
+253
+00:12:48,000 --> 00:12:51,000
+and actually just bounces straight back down to us. OK
+
+254
+00:12:51,000 --> 00:12:54,000
+that's cool! So, let's make sure we understand the logic.
+
+255
+00:12:54,000 --> 00:12:57,000
+We start off, the game has not started, we grab the difference just
+
+256
+00:12:57,000 --> 00:13:00,000
+once at the start between the ball and the paddle,
+
+257
+00:13:00,000 --> 00:13:03,000
+and then, every single frame we say if the game hasn't started,
+
+258
+00:13:03,000 --> 00:13:06,000
+then what I want you to do is lock.
+
+259
+00:13:06,000 --> 00:13:09,000
+So, this line here: Lock the
+
+260
+00:13:09,000 --> 00:13:12,000
+ball relative
+
+261
+00:13:12,000 --> 00:13:15,000
+to the paddle. OK, that's what that line
+
+262
+00:13:15,000 --> 00:13:18,000
+here does with a comment. Comments are double forward slashes
+
+263
+00:13:18,000 --> 00:13:21,000
+and
+
+264
+00:13:21,000 --> 00:13:24,000
+sit and wait... Wait
+
+265
+00:13:24,000 --> 00:13:27,000
+for a mouse
+
+266
+00:13:27,000 --> 00:13:30,000
+press to launch.
+
+267
+00:13:30,000 --> 00:13:33,000
+OK, that's what we're doing. We're locking the ball, relative to the paddle, and waiting
+
+268
+00:13:33,000 --> 00:13:36,000
+for a mouse press relative for launch. So,
+
+269
+00:13:36,000 --> 00:13:39,000
+that is working! Off it goes! And it
+
+270
+00:13:39,000 --> 00:13:42,000
+goes flying outside the Play Space. We're going to need
+
+271
+00:13:42,000 --> 00:13:45,000
+to do something about it, flying outside the Play Space,
+
+272
+00:13:45,000 --> 00:13:48,000
+as a separate exercise. So, as a recap
+
+273
+00:13:48,000 --> 00:13:51,000
+here's what we've done. We started with the ball sitting
+
+274
+00:13:51,000 --> 00:13:54,000
+on the paddle. We've captured the relative position
+
+275
+00:13:54,000 --> 00:13:57,000
+from the Editor with our variable.
+
+276
+00:13:57,000 --> 00:14:00,000
+We've responded to Input.GetMouseButtonDown(0).
+
+277
+00:14:00,000 --> 00:14:03,000
+Zero is the left button. We've then
+
+278
+00:14:03,000 --> 00:14:06,000
+used rigidbody2D.velocity to launch the ball,
+
+279
+00:14:06,000 --> 00:14:09,000
+and we're using a hasStarted boolean to keep track
+
+280
+00:14:09,000 --> 00:14:12,000
+of whether the ball has launched or not. Otherwise
+
+281
+00:14:12,000 --> 00:14:15,000
+when we try and launch the ball, the Update function immediately
+
+282
+00:14:15,000 --> 00:14:18,000
+goes ahead and resets it back onto the paddle. So, congratulations
+
+283
+00:14:18,000 --> 00:14:21,000
+and I'll see you soon!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section5/12-Launching-Ball-On-Mouse-Click.srt

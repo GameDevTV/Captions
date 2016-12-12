@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section8/BM10 3D collisions and convex meshes.srt
 ï»¿WEBVTT
 
 00:00:04.900 --> 00:00:09.349 align:middle line:90%
@@ -581,3 +582,586 @@ leave this slide on the screen for you about
 00:13:31.079 --> 00:13:36.079 align:middle line:90%
 convex meshes and I will look forward to seeing
 you on the next video.
+=======
+
+00:00:04,900 --> 00:00:09,349 align:middle line:90%
+Hey welcome back. So in this video we're going
+to be talking about 3D collisions and convex
+
+00:00:09,349 --> 00:00:14,849 align:middle line:90%
+meshes. All will become clear shortly. So
+we're going to be adding a rigidbody to the
+
+00:00:14,849 --> 00:00:20,029 align:middle line:90%
+pins, adjusting the physics so that the collisions
+work properly and then creating a new altogether
+
+00:00:20,029 --> 00:00:26,859 align:middle line:90%
+richer pin prefab. Fantastic so what's happening
+right now, let's look at the problem before
+
+00:00:26,859 --> 00:00:31,080 align:middle line:90%
+we start solving it. Here goes the ball, beautiful
+camera tracking script, the physics system
+
+00:00:31,080 --> 00:00:35,649 align:middle line:90%
+is making the ball spin but, look at them
+stubborn pins they just won't move anywhere.
+
+00:00:35,649 --> 00:00:36,710 align:middle line:84%
+Now why is that?
+
+00:00:36,710 --> 00:00:41,719 align:middle line:90%
+Well if you look at a pin it is just a transform,
+and anything in the world that is just a transform
+
+00:00:41,719 --> 00:00:46,340 align:middle line:90%
+with a couple of renderers as sub-components
+well it's not going to do anything. The most
+
+00:00:46,340 --> 00:00:51,460 align:middle line:90%
+that we have on here is a collider which is
+just a mesh and a mesh collider and then we
+
+00:00:51,460 --> 00:00:56,730 align:middle line:90%
+have a mesh renderer on the pin. So it looks
+right and the collision physics looks right
+
+00:00:56,730 --> 00:01:01,579 align:middle line:90%
+but the thing itself actually has no physical
+properties because we don't have a rigidbody.
+
+00:01:01,579 --> 00:01:08,900 align:middle line:90%
+So let's add a rigidbody to one of our pins
+for now. Fantastic so that front pin now has
+
+00:01:08,900 --> 00:01:16,060 align:middle line:90%
+a rigidbody attached to it. Now you'll notice
+that this pin is a prefab, but it's not - if
+
+00:01:16,060 --> 00:01:20,820 align:middle line:90%
+we now select this and say select prefab we've
+got a pin over here. So we have a slightly
+
+00:01:20,820 --> 00:01:25,409 align:middle line:90%
+odd prefab what it is is just the blender
+model. So what we're going to need to do basically
+
+00:01:25,409 --> 00:01:30,659 align:middle line:90%
+immediately is to re-prefab the pins, in fact
+all of the pins now that we've got a rigidbody
+
+00:01:30,659 --> 00:01:34,450 align:middle line:90%
+on it. So let's do that and then we can make
+our changes to all of our pins at once.
+
+00:01:34,450 --> 00:01:39,530 align:middle line:90%
+So add a rigidbody to one of the pins, number
+one would make most sense. Number two drag
+
+00:01:39,530 --> 00:01:44,899 align:middle line:90%
+that pin into the assets area to make a bowling
+pin prefab. It doesn't need to be one, it
+
+00:01:44,899 --> 00:01:51,450 align:middle line:90%
+just needs to be plain bowling pin. Fantastic,
+OK, and then now we have a bowling pin one
+
+00:01:51,450 --> 00:01:56,680 align:middle line:90%
+instance of that prefab there so I can name
+it one. Now bowling pin 2 is not an instance
+
+00:01:56,680 --> 00:02:02,590 align:middle line:90%
+of that prefab any more but it needs to be.
+So how are we going to link it to be a full
+
+00:02:02,590 --> 00:02:07,579 align:middle line:90%
+prefab, because you see if you look here carefully
+it says model on bowling pin 2 up in the inspector,
+
+00:02:07,579 --> 00:02:10,670 align:middle line:84%
+whereas bowling pin one says prefab.
+
+00:02:10,670 --> 00:02:15,970 align:middle line:90%
+So bowling pin one is linked to a prefab whereas
+bowling pin 2 is just linked to a 3D model
+
+00:02:15,970 --> 00:02:20,750 align:middle line:90%
+that has no more information than that. So
+you could say why don't we add the rigidbody
+
+00:02:20,750 --> 00:02:24,959 align:middle line:90%
+to the model so that we don't have to do any
+more work. Well, let's try that. Add it to
+
+00:02:24,959 --> 00:02:29,220 align:middle line:90%
+the model, fine, but you can't apply it to
+the model; and that's kind of good because
+
+00:02:29,220 --> 00:02:35,810 align:middle line:90%
+the model is just a mesh model. So we're going
+to have to play around with changing all of
+
+00:02:35,810 --> 00:02:42,290 align:middle line:90%
+these pins into prefabs. So how do we do that?
+Well, if you drop a bowling pin into the scene
+
+00:02:42,290 --> 00:02:45,590 align:middle line:90%
+now it will have some physics on it and we're
+just going to have to replace all of the pins.
+
+00:02:45,590 --> 00:02:49,060 align:middle line:90%
+But before we do that let's just test the
+physics of the front pin, which is different
+
+00:02:49,060 --> 00:02:53,540 align:middle line:90%
+from the rest because it has a rigid body.
+Let's click play. Firstly the good thing is
+
+00:02:53,540 --> 00:02:56,459 align:middle line:90%
+that it doesn't fall through the floor, that's
+encouraging, now I think that we're going
+
+00:02:56,459 --> 00:03:00,750 align:middle line:90%
+to miss the front pin, we are, so change your
+launch velocity so that you actually hit the
+
+00:03:00,750 --> 00:03:05,569 align:middle line:90%
+front pin, right? Now you've got control over
+it down here, keeping all of the launches
+
+00:03:05,569 --> 00:03:11,180 align:middle line:90%
+perfect right now so that we can re-create
+conditions. It lands, drag makes it spin,
+
+00:03:11,180 --> 00:03:15,129 align:middle line:90%
+it spins it hits the front pin, the front
+pin goes mental and the rest of the pins don't.
+
+00:03:15,129 --> 00:03:20,540 align:middle line:90%
+Great so we have the right type of behaviour
+on that front pin so that’s great news.
+
+00:03:20,540 --> 00:03:29,150 align:middle line:90%
+Now what we have to do is make all the rest
+of these pins be the right type of object.
+
+00:03:29,150 --> 00:03:33,129 align:middle line:90%
+so one way to do this is going to be to replace
+each of these pins one at a time and then
+
+00:03:33,129 --> 00:03:37,310 align:middle line:90%
+you copy their transform components so you
+go copy component, this is a really useful
+
+00:03:37,310 --> 00:03:43,799 align:middle line:90%
+facility, of pin 2 and then you delete pin
+2 altogether, we don't need it any more, leaving
+
+00:03:43,799 --> 00:03:45,220 align:middle line:84%
+a glaring gap.
+
+00:03:45,220 --> 00:03:53,230 align:middle line:90%
+Put the new pin roughly in the right place
+and child it to the pins so and this you can
+
+00:03:53,230 --> 00:03:57,159 align:middle line:90%
+play with here making sure that you drag things
+around in the hierarchy so that they end up
+
+00:03:57,159 --> 00:04:02,099 align:middle line:90%
+in the right place. This becomes pin two which
+is now connected to a prefab you see here
+
+00:04:02,099 --> 00:04:07,930 align:middle line:90%
+in the inspector and now you can paste - if
+you hit the right button - you can paste on
+
+00:04:07,930 --> 00:04:14,730 align:middle line:90%
+here component as values and it will snap
+to precisely the right place. So that's what
+
+00:04:14,730 --> 00:04:19,829 align:middle line:90%
+I want you to do now, I want you to go through
+all of your pins and reinforce the idea that
+
+00:04:19,829 --> 00:04:26,490 align:middle line:90%
+the difference between them being connected
+to a model and being connected to a prefab
+
+00:04:26,490 --> 00:04:30,710 align:middle line:90%
+so bowling pin 3 in my case is connected to
+a model, bowling pins one and two are connected
+
+00:04:30,710 --> 00:04:33,410 align:middle line:84%
+to a prefab, and the prefab is here.
+
+00:04:33,410 --> 00:04:38,030 align:middle line:90%
+So if I say change the mass of the prefab
+to, well let's set it correctly now, go to
+
+00:04:38,030 --> 00:04:45,840 align:middle line:90%
+your game design document, find out the mass
+of a pin which will be under bowling pin specifications,
+
+00:04:45,840 --> 00:04:51,050 align:middle line:90%
+1.53kg. So if we set that to 1.53 the beauty
+is with prefabs is that if you look at bowling
+
+00:04:51,050 --> 00:04:55,930 align:middle line:90%
+pins 1 and 2, if you look in the inspector,
+have that mass. So you just pop through and
+
+00:04:55,930 --> 00:05:00,440 align:middle line:90%
+make that change to all of your pins and I
+will do the same and I'll just do it in the
+
+00:05:00,440 --> 00:06:09,960 align:middle line:84%
+background quietly while you do
+
+00:06:09,960 --> 00:06:10,130 align:middle line:84%
+it.
+
+00:06:10,130 --> 00:06:56,690 align:middle line:90%
+Look at that. Perfect. So the final thing
+to do is to have a test of that and make sure
+
+00:06:56,690 --> 00:07:01,470 align:middle line:90%
+that it works how we want it to so the ball
+lands, it starts rolling, it hits the front
+
+00:07:01,470 --> 00:07:07,039 align:middle line:90%
+pin, oh look at that. Look at them fly. Now
+there's something weird of course, there's
+
+00:07:07,039 --> 00:07:11,710 align:middle line:90%
+everything's moving a little bit slow like
+it's in treacle, so your job now becomes to
+
+00:07:11,710 --> 00:07:16,990 align:middle line:90%
+modify the parameters so that it moves in
+a way that looks right to you. They are just
+
+00:07:16,990 --> 00:07:20,319 align:middle line:90%
+going a little bit nuts. I think what I'm
+going to do is give you the option to go to
+
+00:07:20,319 --> 00:07:24,500 align:middle line:90%
+project settings and physics and possibly
+to turn up gravity.
+
+00:07:24,500 --> 00:07:30,860 align:middle line:90%
+Maybe try -20 under edit / project settings
+/ physics. Not physics 2D but physics and
+
+00:07:30,860 --> 00:07:34,830 align:middle line:90%
+you can turn gravity up. If you do that, see
+the effect that it has on the balls. So the
+
+00:07:34,830 --> 00:07:39,740 align:middle line:90%
+ball will move slightly differently it actually
+picks up more spin and then the pins move
+
+00:07:39,740 --> 00:07:44,080 align:middle line:90%
+differently as well. So that's one thing that
+you can adjust. The other thing that you can
+
+00:07:44,080 --> 00:07:48,289 align:middle line:90%
+adjust is on the pin prefab you can look at
+whether you want more angular drag on the
+
+00:07:48,289 --> 00:07:54,050 align:middle line:90%
+pin or not, you can try variations of drag
+and angular drag on the pin. You could also
+
+00:07:54,050 --> 00:07:59,060 align:middle line:90%
+possibly make the ball artificially heavy
+so click into your ball and take a look at
+
+00:07:59,060 --> 00:08:03,030 align:middle line:84%
+the mass of the ball and again its drag.
+
+00:08:03,030 --> 00:08:07,789 align:middle line:90%
+Have a play with those parameters and try
+and get it how you want it. So over to you,
+
+00:08:07,789 --> 00:08:13,280 align:middle line:90%
+time to adjust those physics parameters to
+taste. You can change physics settings / gravity.
+
+00:08:13,280 --> 00:08:16,919 align:middle line:90%
+This is a game after all, it doesn't have
+to be right, quite often in a game gravity
+
+00:08:16,919 --> 00:08:22,000 align:middle line:90%
+is not set to 9.81 like earth but it's higher,
+or lower, often higher because speeds are
+
+00:08:22,000 --> 00:08:26,110 align:middle line:90%
+higher than usual and sometimes you need to
+get things back to the ground quicker than
+
+00:08:26,110 --> 00:08:30,669 align:middle line:90%
+in real life. You can adjust your ball's mass
+and drag parameters and you pins' mass and
+
+00:08:30,669 --> 00:08:34,769 align:middle line:90%
+drag parameters. Have a good play test, fire
+your ball lots of times. Try changing your
+
+00:08:34,769 --> 00:08:38,769 align:middle line:90%
+ball's launch velocity a little bit and keep
+iterating until you're happy with the way
+
+00:08:38,769 --> 00:08:46,290 align:middle line:90%
+that the ball looks when it's hitting the
+pins.
+
+00:08:46,290 --> 00:08:50,600 align:middle line:90%
+So one thing that you may have noticed when
+you are trying to adjust these physics parameters
+
+00:08:50,600 --> 00:08:56,350 align:middle line:90%
+is that when the ball hits the pins everything's
+looking a bit slow motion; you see how slowly
+
+00:08:56,350 --> 00:09:01,330 align:middle line:90%
+these pins are falling? So why is that? Well
+it turns out that there's pretty much nothing
+
+00:09:01,330 --> 00:09:05,410 align:middle line:90%
+that you can change about the properties of
+the pins or the ball to affect that, it's
+
+00:09:05,410 --> 00:09:10,240 align:middle line:90%
+actually the strength of the local gravity.
+So let's look at that again in edit, project
+
+00:09:10,240 --> 00:09:16,540 align:middle line:90%
+settings and then physics, that's where you
+get your gravity settings, and if you take
+
+00:09:16,540 --> 00:09:20,810 align:middle line:90%
+a look over here we've already tweaked it
+to -20 remembering that normal gravity on
+
+00:09:20,810 --> 00:09:26,839 align:middle line:90%
+earth is -9.81, about -10, but we actually
+need for this to be realistic we need it to
+
+00:09:26,839 --> 00:09:28,970 align:middle line:84%
+be more like minus 981.
+
+00:09:28,970 --> 00:09:34,519 align:middle line:90%
+A hundred times larger than earth's normal
+gravity and that's because the scale that
+
+00:09:34,519 --> 00:09:41,580 align:middle line:90%
+we've chosen here is one centimetre for every
+one world unit. So for example our lane is
+
+00:09:41,580 --> 00:09:48,740 align:middle line:90%
+105 world units wide or 105 cm whereas Unity's
+default is that each world unit is one metre.
+
+00:09:48,740 --> 00:09:52,330 align:middle line:90%
+Because our world is quite small centimetres
+are more convenient so we have to make gravity
+
+00:09:52,330 --> 00:09:59,200 align:middle line:90%
+one hundred times smaller to end up with the
+right gravitational strength in cm per second
+
+00:09:59,200 --> 00:10:05,310 align:middle line:90%
+per second. So let's just take a look. If
+we do that, well the ball runs far too slowly
+
+00:10:05,310 --> 00:10:10,279 align:middle line:90%
+so you'll need to turn up the launch velocity
+of the ball significantly if we are going
+
+00:10:10,279 --> 00:10:16,649 align:middle line:90%
+to have such a high gravity otherwise it's
+just going to roll far too slowly because
+
+00:10:16,649 --> 00:10:17,570 align:middle line:84%
+of the extra drag.
+
+00:10:17,570 --> 00:10:22,560 align:middle line:90%
+So let's try much faster - boom, you see how
+that pin is more convincing, 4000 is of course
+
+00:10:22,560 --> 00:10:28,370 align:middle line:90%
+far too much so pick yourselves a launch velocity
+that works and you see it coming to a halt,
+
+00:10:28,370 --> 00:10:33,600 align:middle line:90%
+and that's because of the drag so you would
+also need to turn your drag down for example
+
+00:10:33,600 --> 00:10:38,579 align:middle line:90%
+your angular drag maybe down to zero let's
+try that. So that's a little bit better, it's
+
+00:10:38,579 --> 00:10:44,360 align:middle line:90%
+still stopping very quickly so let's keep
+trying to tweak our ball, let's see what happens
+
+00:10:44,360 --> 00:10:46,440 align:middle line:84%
+boom. Very fast.
+
+00:10:46,440 --> 00:10:49,500 align:middle line:90%
+OK but what we're going to do is we're not
+going to optimise this right now I just wanted
+
+00:10:49,500 --> 00:10:52,329 align:middle line:90%
+to explain that that's how we were going to
+end up doing it we're going to work on this
+
+00:10:52,329 --> 00:10:57,260 align:middle line:90%
+towards the end of the section so I'm going
+to leave these settings as they are, all the
+
+00:10:57,260 --> 00:11:01,180 align:middle line:90%
+launch velocities etc. and we're going to
+tweak that towards the end but that is the
+
+00:11:01,180 --> 00:11:07,760 align:middle line:90%
+missing setting for making this look really
+realistic, OK? There you go. Fantastic so
+
+00:11:07,760 --> 00:11:10,660 align:middle line:90%
+the final thing that I said that I was going
+to talk about in this video was the concept
+
+00:11:10,660 --> 00:11:14,490 align:middle line:90%
+of convex meshes again, we've already talked
+about it but I want to go through it a little
+
+00:11:14,490 --> 00:11:15,360 align:middle line:84%
+more.
+
+00:11:15,360 --> 00:11:21,490 align:middle line:90%
+So a convex mesh means that it's curved like
+the exterior of a sphere; it's bulging outwards
+
+00:11:21,490 --> 00:11:27,370 align:middle line:90%
+not inwards. Mesh colliders must be convex
+to self-collide so for a pin to collide with
+
+00:11:27,370 --> 00:11:35,680 align:middle line:90%
+a pin they must be convex. The maximum number
+of triangles in a convex collider is 255,
+
+00:11:35,680 --> 00:11:40,070 align:middle line:90%
+that's why we have two separate meshes to
+render the pin and for the collisions, and
+
+00:11:40,070 --> 00:11:45,060 align:middle line:90%
+these are all because of performance limitations
+of the physics engine. So take a look at Unity's
+
+00:11:45,060 --> 00:11:48,360 align:middle line:90%
+docs there if you're having trouble getting
+to sleep.
+
+00:11:48,360 --> 00:11:52,320 align:middle line:90%
+Fantastic so let's just take a look back in
+Unity and reiterate this a bit more. Now we
+
+00:11:52,320 --> 00:11:57,550 align:middle line:90%
+have ten bowling pins, they are all linked
+to pin prefabs now or to this one pin prefab.
+
+00:11:57,550 --> 00:12:00,980 align:middle line:90%
+You can tell that by clicking through that
+and seeing the word prefab up the top right
+
+00:12:00,980 --> 00:12:05,399 align:middle line:90%
+of the inspector. Let's take a look at a pin
+a little more closely, maybe the head pin.
+
+00:12:05,399 --> 00:12:10,670 align:middle line:90%
+There it is, what you're seeing on there at
+the moment in green is the pin collider and
+
+00:12:10,670 --> 00:12:12,209 align:middle line:84%
+that is a convex collider.
+
+00:12:12,209 --> 00:12:17,750 align:middle line:90%
+If you try and make it non-convex it actually
+disappears altogether and that's because you
+
+00:12:17,750 --> 00:12:22,670 align:middle line:90%
+can't have a non-convex collider on something
+that has a rigidbody on it; and you'll also
+
+00:12:22,670 --> 00:12:26,940 align:middle line:90%
+find when we do that that look the pin has
+disappeared altogether and we have a red warning
+
+00:12:26,940 --> 00:12:31,920 align:middle line:90%
+at the bottom: Non-convex mesh colliders with
+non-kinematic rigidbodies are no longer supported
+
+00:12:31,920 --> 00:12:37,370 align:middle line:90%
+in Unity 5. They added that error message
+I think since I reported the bug. But a non-kinematic
+
+00:12:37,370 --> 00:12:41,839 align:middle line:90%
+rigidbody is a long way of saying something
+that has a rigidbody on it and that it's not
+
+00:12:41,839 --> 00:12:43,800 align:middle line:84%
+kinematic which is our pin.
+
+00:12:43,800 --> 00:12:48,190 align:middle line:90%
+OK so the collider must be convex, it's an
+optimisation issue. Which means that pins
+
+00:12:48,190 --> 00:12:52,470 align:middle line:90%
+won't quite collide exactly as you might expect
+because you can see how they're going to collide.
+
+00:12:52,470 --> 00:12:56,980 align:middle line:90%
+They're going to collide as soon as they touch
+this green extent. Remember that we have a
+
+00:12:56,980 --> 00:13:00,600 align:middle line:90%
+render mesh, which is a much much finer mesh
+we need to zoom right in to see the triangles
+
+00:13:00,600 --> 00:13:04,620 align:middle line:90%
+on this one which is what gives it its much
+more nuanced shape but a separate collider
+
+00:13:04,620 --> 00:13:06,180 align:middle line:84%
+mesh that must be convex.
+
+00:13:06,180 --> 00:13:09,430 align:middle line:90%
+I hope that that makes sense, that's how you
+make pins collide with pins. Remember that
+
+00:13:09,430 --> 00:13:13,250 align:middle line:90%
+in future when you try and do some physics
+and something with a mesh collider doesn't
+
+00:13:13,250 --> 00:13:16,880 align:middle line:90%
+collide with something else, it's probably
+because you're not convex. You also may run
+
+00:13:16,880 --> 00:13:21,510 align:middle line:90%
+into the problem where you haven't got a sufficiently
+simple model for your collider which is why
+
+00:13:21,510 --> 00:13:26,519 align:middle line:90%
+the pin we've given you has two separate meshes
+with it; a collider and a render mesh. OK,
+
+00:13:26,519 --> 00:13:31,079 align:middle line:90%
+point sufficiently driven home I think I will
+leave this slide on the screen for you about
+
+00:13:31,079 --> 00:13:36,079 align:middle line:90%
+convex meshes and I will look forward to seeing you on the next video.
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section8/BM10 3D collisions and convex meshes.srt

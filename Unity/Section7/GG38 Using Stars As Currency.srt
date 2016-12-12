@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section7/GG38 Using Stars As Currency.srt
 WEBVTT
 
 1
@@ -1132,3 +1133,1138 @@ willy nilly. We need to have a cost to the defenders. so
 00:14:30.000 --> 00:14:33.000
 that's what's coming up next. See you soon!
 
+=======
+
+1
+00:00:03,000 --> 00:00:06,000
+So now, let's turn our attention to the Star
+
+2
+00:00:06,000 --> 00:00:09,000
+Trophy! We have a Star Trophy and they
+
+3
+00:00:09,000 --> 00:00:12,000
+have an Animator, but we have not at all finished
+
+4
+00:00:12,000 --> 00:00:15,000
+the way that this works. So currently, the way I've got it setup is it's
+
+5
+00:00:15,000 --> 00:00:18,000
+staying in the Idle State forever, and I have this grow
+
+6
+00:00:18,000 --> 00:00:21,000
+trigger. Considering maybe there was some script that was
+
+7
+00:00:21,000 --> 00:00:24,000
+going to call that. Let's do it a different way. Let's not have a grow trigger, we
+
+8
+00:00:24,000 --> 00:00:27,000
+don't really need a grow trigger. You can only remove
+
+9
+00:00:27,000 --> 00:00:30,000
+that, by the way, when you're not in Play Mode. And what I'm going to
+
+10
+00:00:30,000 --> 00:00:33,000
+do is, I'm going to say there's a transition from Idle to Star
+
+11
+00:00:33,000 --> 00:00:36,000
+Grow, after a certain number of
+
+12
+00:00:36,000 --> 00:00:39,000
+transitions. So, this will be where you encode how often
+
+13
+00:00:39,000 --> 00:00:42,000
+your sun producer or your star
+
+14
+00:00:42,000 --> 00:00:45,000
+producer actually produces stars. So, I'm going to say after 10 seconds
+
+15
+00:00:45,000 --> 00:00:48,000
+we go into Star Grow, and then,
+
+16
+00:00:48,000 --> 00:00:51,000
+Star Grow will finish and return to Idle,
+
+17
+00:00:51,000 --> 00:00:54,000
+after a single iteration,
+
+18
+00:00:54,000 --> 00:00:57,000
+after one cycle. Ok, and it's a
+
+19
+00:00:57,000 --> 00:01:00,000
+Atomic, it has to finish. So, let's just look at that
+
+20
+00:01:00,000 --> 00:01:03,000
+in operation. Let's put some
+
+21
+00:01:03,000 --> 00:01:06,000
+star trophies down in the scene, and watch their Animator.
+
+22
+00:01:06,000 --> 00:01:09,000
+It's going to cycle around
+
+23
+00:01:09,000 --> 00:01:12,000
+a few times, before then producing a star,
+
+24
+00:01:12,000 --> 00:01:15,000
+we can adjust this later, which then disappears, pops off, and
+
+25
+00:01:15,000 --> 00:01:18,000
+then it goes back to its Idle State. Alright, so
+
+26
+00:01:18,000 --> 00:01:21,000
+that's cool! Then, what I want to be able to do
+
+27
+00:01:21,000 --> 00:01:24,000
+is, at the end of the Star Grow, I want to call
+
+28
+00:01:24,000 --> 00:01:27,000
+a defender method, because this is a defender.
+
+29
+00:01:27,000 --> 00:01:30,000
+I want to call a defender method called
+
+30
+00:01:30,000 --> 00:01:33,000
+Add Stars and actually add stars to
+
+31
+00:01:33,000 --> 00:01:36,000
+some sort of global scoreboard. So, let's
+
+32
+00:01:36,000 --> 00:01:39,000
+make that possible. I'm going to lay your foundations for you.
+
+33
+00:01:39,000 --> 00:01:42,000
+And then, I'm going to ask you to write an entire class,
+
+34
+00:01:42,000 --> 00:01:45,000
+which is going to be called SunDisplay.cs, and that'll be the
+
+35
+00:01:45,000 --> 00:01:48,000
+first entire class you've made on your own. So Defender.cs,
+
+36
+00:01:48,000 --> 00:01:51,000
+it's no longer only being used as a tag, it's finally
+
+37
+00:01:51,000 --> 00:01:54,000
+going to actually do something, and the first thing I need it to
+
+38
+00:01:54,000 --> 00:01:57,000
+do is have a method called public void
+
+39
+00:01:57,000 --> 00:02:00,000
+AddStars. And
+
+40
+00:02:00,000 --> 00:02:03,000
+that's going to take an amount of stars that are being added.
+
+41
+00:02:03,000 --> 00:02:06,000
+Alright,
+
+42
+00:02:06,000 --> 00:02:09,000
+like so. Fantastic! And then, having that
+
+43
+00:02:09,000 --> 00:02:12,000
+method, even it it doesn't do anything yet, means that of course over in the Animator,
+
+44
+00:02:12,000 --> 00:02:15,000
+when we look at the prefab
+
+45
+00:02:18,000 --> 00:02:21,000
+for the Star Trophy
+
+46
+00:02:21,000 --> 00:02:24,000
+and its animation...
+
+47
+00:02:24,000 --> 00:02:27,000
+There's the Star Trophy there. In its
+
+48
+00:02:27,000 --> 00:02:30,000
+Trophy Grow state...
+
+49
+00:02:30,000 --> 00:02:33,000
+And actually I've spelled Trophy Grow wrong there.
+
+50
+00:02:33,000 --> 00:02:36,000
+That's OK. At the end of the Trophy Grow,
+
+51
+00:02:36,000 --> 00:02:39,000
+what we want to do is to have an event that actually
+
+52
+00:02:39,000 --> 00:02:42,000
+calls this Add Stars method.
+
+53
+00:02:42,000 --> 00:02:45,000
+So, why can I not add an event at the moment?
+
+54
+00:02:45,000 --> 00:02:48,000
+Because I don't have any instance in here to
+
+55
+00:02:48,000 --> 00:02:51,000
+practice on. So, what we need to do is pop an instance into
+
+56
+00:02:51,000 --> 00:02:54,000
+the scene temporarily. Now, we can add our event
+
+57
+00:02:54,000 --> 00:02:57,000
+flag, put it at the end just when the star finish
+
+58
+00:02:57,000 --> 00:03:00,000
+is growing, and we're going to add stars. How many?
+
+59
+00:03:00,000 --> 00:03:03,000
+Let's say 10. So, that's
+
+60
+00:03:03,000 --> 00:03:06,000
+going to call the Add Stars method, when the star gets to the
+
+61
+00:03:06,000 --> 00:03:09,000
+end of its animation. While I'm here I'm going to
+
+62
+00:03:09,000 --> 00:03:12,000
+fix up the spelling of this trophy. So, if I can just find
+
+63
+00:03:12,000 --> 00:03:15,000
+my Defender
+
+64
+00:03:15,000 --> 00:03:18,000
+Animations, in the Animations Folder.
+
+65
+00:03:18,000 --> 00:03:21,000
+And we have Trophy Grow missing an O!
+
+66
+00:03:21,000 --> 00:03:24,000
+We can fix that.
+
+67
+00:03:24,000 --> 00:03:27,000
+And you may want to go to the script and pop a log entry in, just
+
+68
+00:03:27,000 --> 00:03:30,000
+to say print. Just for now, we'll just print the number
+
+69
+00:03:30,000 --> 00:03:33,000
+of stars, (amount);
+
+70
+00:03:33,000 --> 00:03:36,000
+Alright, let's try all this! Let's make sure that when we run the game,
+
+71
+00:03:36,000 --> 00:03:39,000
+have the Console open and place a Star Trophy
+
+72
+00:03:39,000 --> 00:03:42,000
+down, like the one we've already got in the scene and maybe a second
+
+73
+00:03:42,000 --> 00:03:45,000
+one. Here we go!
+
+74
+00:03:45,000 --> 00:03:48,000
+Ten, you see it's being added when the star bursts.
+
+75
+00:03:48,000 --> 00:03:51,000
+Burst, 10, great! So,
+
+76
+00:03:51,000 --> 00:03:54,000
+that's happening! Let's get rid of the instantiated star trophies, so that they all
+
+77
+00:03:54,000 --> 00:03:57,000
+get instantiated run time.
+
+78
+00:03:57,000 --> 00:04:00,000
+And we have that bit done. So,
+
+79
+00:04:00,000 --> 00:04:03,000
+that's fantastic! Now, the Animator is calling into
+
+80
+00:04:03,000 --> 00:04:06,000
+AddStars on the Defender and getting it to actually add
+
+81
+00:04:06,000 --> 00:04:09,000
+stars, but we've got a lot more work to do to make this work,
+
+82
+00:04:09,000 --> 00:04:12,000
+in a nice way where the Model, the Viewer, and the
+
+83
+00:04:12,000 --> 00:04:15,000
+Controller are separated. It's called the MVC
+
+84
+00:04:15,000 --> 00:04:18,000
+Pattern. If you want to read more about the MVC Patter, well then
+
+85
+00:04:18,000 --> 00:04:21,000
+just type MVC. I always like the world wiki, because it
+
+86
+00:04:21,000 --> 00:04:24,000
+gets me to Wikipedia, and you can read about Model-View-Controller.
+
+87
+00:04:24,000 --> 00:04:27,000
+It's the idea of separating responsibility for
+
+88
+00:04:27,000 --> 00:04:30,000
+updating displays, keeping data, etc. We're basically
+
+89
+00:04:30,000 --> 00:04:33,000
+starting to follow an MVC pattern here.
+
+90
+00:04:33,000 --> 00:04:36,000
+So, I want a score display. That's a relatively
+
+91
+00:04:36,000 --> 00:04:39,000
+simple thing to put into place. We've got a Canvas already,
+
+92
+00:04:39,000 --> 00:04:42,000
+and inside that Canvas let's create ourselves a UI
+
+93
+00:04:42,000 --> 00:04:45,000
+Text Element.
+
+94
+00:04:45,000 --> 00:04:48,000
+There it is! And it's going to be Stars.
+
+95
+00:04:48,000 --> 00:04:51,000
+And here it is, I'm just going to move it,
+
+96
+00:04:51,000 --> 00:04:54,000
+up at the top,
+
+97
+00:04:54,000 --> 00:04:57,000
+focus in on it, get into the UI Editor Tool,
+
+98
+00:04:57,000 --> 00:05:00,000
+and just pop it right here, right next to everything
+
+99
+00:05:00,000 --> 00:05:03,000
+else. I'm going to vertically and
+
+100
+00:05:03,000 --> 00:05:06,000
+centrally. Ooh, vertically and centrally! Vertically and horizontally
+
+101
+00:05:06,000 --> 00:05:09,000
+center my text! I'm going to make the text
+
+102
+00:05:09,000 --> 00:05:12,000
+yellow, to represent the fact that this is
+
+103
+00:05:12,000 --> 00:05:15,000
+counting the number of stars.
+
+104
+00:05:15,000 --> 00:05:18,000
+I need it to be fully saturated for that to work.
+
+105
+00:05:18,000 --> 00:05:21,000
+There you go! That's just
+
+106
+00:05:21,000 --> 00:05:24,000
+fine! Wack up the Font Size a little bit.
+
+107
+00:05:24,000 --> 00:05:27,000
+Try putting in a four digit
+
+108
+00:05:27,000 --> 00:05:30,000
+number, I think is about as many as we're ever going to get.
+
+109
+00:05:30,000 --> 00:05:33,000
+There you go! That's fine! Adjust the Font Size for a four digit number...
+
+110
+00:05:36,000 --> 00:05:39,000
+... and that is just fine! So, we have a Stars component there.
+
+111
+00:05:39,000 --> 00:05:42,000
+I'm going to re-prefab the Level Canvas, so this stays with it,
+
+112
+00:05:42,000 --> 00:05:45,000
+in the future. There we go! The stars
+
+113
+00:05:45,000 --> 00:05:48,000
+have gone blue, and there is a Text component
+
+114
+00:05:48,000 --> 00:05:51,000
+sitting on there. So, what we now
+
+115
+00:05:51,000 --> 00:05:54,000
+are going to need is some sort of controller for this, to control
+
+116
+00:05:54,000 --> 00:05:57,000
+what's actually displayed. So, I'm going to add a script to the text element,
+
+117
+00:05:57,000 --> 00:06:00,000
+and I'm going to call it Star
+
+118
+00:06:00,000 --> 00:06:03,000
+Display.
+
+119
+00:06:03,000 --> 00:06:06,000
+And let's take a look at this StarDisplay Script.
+
+120
+00:06:06,000 --> 00:06:09,000
+OK, it's blank at the moment.
+
+121
+00:06:09,000 --> 00:06:12,000
+I'm only going to write one method, and then, you are gong to have to sort the
+
+122
+00:06:12,000 --> 00:06:15,000
+rest out. OK, so I'm just going to write the one
+
+123
+00:06:15,000 --> 00:06:18,000
+that receives the stars being added.
+
+124
+00:06:18,000 --> 00:06:21,000
+So, this is void AddStars, and yes, another
+
+125
+00:06:21,000 --> 00:06:24,000
+AddStars method. We need it in here as well, because remember
+
+126
+00:06:24,000 --> 00:06:27,000
+you can only call Defender scripts from the Animator.
+
+127
+00:06:27,000 --> 00:06:30,000
+And for now, we're just going to say print
+
+128
+00:06:30,000 --> 00:06:33,000
+Stars
+
+129
+00:06:33,000 --> 00:06:36,000
+(" stars
+
+130
+00:06:36,000 --> 00:06:39,000
+added to display")
+
+131
+00:06:39,000 --> 00:06:42,000
+They've not been added to the display yet,
+
+132
+00:06:42,000 --> 00:06:45,000
+but at least we know we're getting here. So,
+
+133
+00:06:45,000 --> 00:06:48,000
+let's look at the whole architecture, right. We have a Star
+
+134
+00:06:48,000 --> 00:06:51,000
+Display here. You're going to be writing the rest of this class. It
+
+135
+00:06:51,000 --> 00:06:54,000
+is going to go off and find this Text Element
+
+136
+00:06:54,000 --> 00:06:57,000
+here and be responsible for updating
+
+137
+00:06:57,000 --> 00:07:00,000
+this actual Text Element.
+
+138
+00:07:00,000 --> 00:07:03,000
+The Defender Script is going to find this StarDisplay
+
+139
+00:07:03,000 --> 00:07:06,000
+and call it, so let's wire that up. Wire that up
+
+140
+00:07:06,000 --> 00:07:09,000
+for you, and then, you're going to be on your own. So,
+
+141
+00:07:09,000 --> 00:07:12,000
+here in the Defender we need to do something else. We're going to have a private
+
+142
+00:07:12,000 --> 00:07:15,000
+SunDisplay or StarDisplay,
+
+143
+00:07:15,000 --> 00:07:18,000
+called starDisplay;
+
+144
+00:07:18,000 --> 00:07:21,000
+like that, OK.
+
+145
+00:07:21,000 --> 00:07:24,000
+Then, on the Start of our Defender Script,
+
+146
+00:07:24,000 --> 00:07:27,000
+we're going to go find it. How do
+
+147
+00:07:27,000 --> 00:07:30,000
+we find it? We've done this a thousand times now.
+
+148
+00:07:30,000 --> 00:07:33,000
+starDisplay = GameObject.findobjectOfType
+
+149
+00:07:33,000 --> 00:07:36,000
+&lt;SunDisplay&gt;(); and there should only be
+
+150
+00:07:36,000 --> 00:07:39,000
+one of them.
+
+151
+00:07:39,000 --> 00:07:42,000
+So there you go, it's found the &lt;SunDisplay&gt;,
+
+152
+00:07:42,000 --> 00:07:45,000
+and then, instead of just printing Add stars, let's say
+
+153
+00:07:45,000 --> 00:07:48,000
+SunDisplay... Sorry,
+
+154
+00:07:48,000 --> 00:07:51,000
+I keep mixing Star and Sun. It's &lt;StarDisplay&gt;.
+
+155
+00:07:57,000 --> 00:08:00,000
+dot now,
+
+156
+00:08:00,000 --> 00:08:03,000
+where is it? Public void AddStars,
+
+157
+00:08:03,000 --> 00:08:06,000
+and in a moment I'm going to talk
+
+158
+00:08:06,000 --> 00:08:09,000
+you through this whole architecture
+
+159
+00:08:09,000 --> 00:08:12,000
+and just pass the (amount) through.
+
+160
+00:08:12,000 --> 00:08:15,000
+OK phew! So, you have the framework you need.
+
+161
+00:08:15,000 --> 00:08:18,000
+Let's recap this from the beginning, for you. OK,
+
+162
+00:08:18,000 --> 00:08:21,000
+I'm going to make sure my code runs.
+
+163
+00:08:21,000 --> 00:08:24,000
+Alright, I place down a star
+
+164
+00:08:24,000 --> 00:08:27,000
+producer, like this. It has an Animator on
+
+165
+00:08:27,000 --> 00:08:30,000
+it. When the Animator,
+
+166
+00:08:30,000 --> 00:08:33,000
+after however many cycles you set, transitions into Star Grow,
+
+167
+00:08:33,000 --> 00:08:36,000
+at the end of Star Grow
+
+168
+00:08:36,000 --> 00:08:39,000
+on the Star Trophy, we have a method
+
+169
+00:08:39,000 --> 00:08:42,000
+call here, which calls the
+
+170
+00:08:42,000 --> 00:08:45,000
+Defender Script and in the Defender Script you have a method
+
+171
+00:08:45,000 --> 00:08:48,000
+called AddStars. So, we pass an (amount) straight through
+
+172
+00:08:48,000 --> 00:08:51,000
+the Defender Script, to the StarDisplay
+
+173
+00:08:51,000 --> 00:08:54,000
+class, and it then receives
+
+174
+00:08:54,000 --> 00:08:57,000
+the message. and it's going to handle actually updating that Display Element.
+
+175
+00:08:57,000 --> 00:09:00,000
+So, let's just check that it works, in that, that log
+
+176
+00:09:00,000 --> 00:09:03,000
+actually makes it through. Let's put a few stars in.
+
+177
+00:09:03,000 --> 00:09:06,000
+Check the Console. The Animator
+
+178
+00:09:06,000 --> 00:09:09,000
+should be messaging Defender, which should pass that message straight on,
+
+179
+00:09:09,000 --> 00:09:12,000
+to the Display. Here you go! And you see them being logged.
+
+180
+00:09:12,000 --> 00:09:15,000
+Fantastic! So, that is the architecture
+
+181
+00:09:15,000 --> 00:09:18,000
+I've gone for here, and what I want you to do, as a
+
+182
+00:09:18,000 --> 00:09:21,000
+challenge, is to flesh out the entire class
+
+183
+00:09:21,000 --> 00:09:24,000
+of StarDisplay.cs.
+
+184
+00:09:24,000 --> 00:09:27,000
+Remember, you're going to require UnityEngine
+
+185
+00:09:27,000 --> 00:09:30,000
+.UI at the top, so we can access this
+
+186
+00:09:30,000 --> 00:09:33,000
+Text component that we created. Find the Text component
+
+187
+00:09:33,000 --> 00:09:36,000
+on Start(). Write an AddStars (int
+
+188
+00:09:36,000 --> 00:09:39,000
+amount) method. I've already started it,
+
+189
+00:09:39,000 --> 00:09:42,000
+but it wants to actually update the display. Write a
+
+190
+00:09:42,000 --> 00:09:45,000
+UseStars (int amount) method, which is going to subtract,
+
+191
+00:09:45,000 --> 00:09:48,000
+which we'll use later. And then, Update
+
+192
+00:09:48,000 --> 00:09:51,000
+the Text component, only when the above
+
+193
+00:09:51,000 --> 00:09:54,000
+are called. Not every frame, let's only Update the Text
+
+194
+00:09:54,000 --> 00:09:57,000
+when these methods are called. And if you get
+
+195
+00:09:57,000 --> 00:10:00,000
+all this done, you've written your first entire class from scratch,
+
+196
+00:10:00,000 --> 00:10:03,000
+apart from I've written a single line of Debug in it for you.
+
+197
+00:10:06,000 --> 00:10:09,000
+OK guys,
+
+198
+00:10:09,000 --> 00:10:12,000
+so let's get this Sun Display class written then.
+
+199
+00:10:12,000 --> 00:10:15,000
+It's relatively simple, I believe it's just
+
+200
+00:10:15,000 --> 00:10:18,000
+wiring things together. So, let's just take
+
+201
+00:10:18,000 --> 00:10:21,000
+it one step at a time. Firstly, for it to
+
+202
+00:10:21,000 --> 00:10:24,000
+even work, the Star Display, it's going to require a Text
+
+203
+00:10:24,000 --> 00:10:27,000
+Element, so it's a good habit to start getting yourself into now, of using this
+
+204
+00:10:27,000 --> 00:10:30,000
+RequireComponent annotation here.
+
+205
+00:10:33,000 --> 00:10:36,000
+And that makes sure, that at editor time, if there is no
+
+206
+00:10:36,000 --> 00:10:39,000
+component that is of type (Text), then it
+
+207
+00:10:39,000 --> 00:10:42,000
+will give an error. Why am I giving red here? Because of what I said,
+
+208
+00:10:42,000 --> 00:10:45,000
+we need the namespace UnityEngine.UI;
+
+209
+00:10:45,000 --> 00:10:48,000
+Now, it may be in a future version of Unity, like 5 or beyond
+
+210
+00:10:48,000 --> 00:10:51,000
+that that's not the case, but for the moment we still need to be
+
+211
+00:10:51,000 --> 00:10:54,000
+doing that. OK, on the Start. Well firstly,
+
+212
+00:10:54,000 --> 00:10:57,000
+what member variables do we need for the StarDisplay? I think it needs
+
+213
+00:10:57,000 --> 00:11:00,000
+two things. I think it needs private
+
+214
+00:11:00,000 --> 00:11:03,000
+Text
+
+215
+00:11:03,000 --> 00:11:06,000
+starDisplay or starText;
+
+216
+00:11:06,000 --> 00:11:09,000
+OK, so that is the actual text.
+
+217
+00:11:09,000 --> 00:11:12,000
+And then, it's also going to need a private int
+
+218
+00:11:12,000 --> 00:11:15,000
+stars, which is the
+
+219
+00:11:15,000 --> 00:11:18,000
+number of stars, and let's initialize it to 0. You might say
+
+220
+00:11:18,000 --> 00:11:21,000
+why don't we just use the Text Element itself, to store the number of stars?
+
+221
+00:11:21,000 --> 00:11:24,000
+Don't do that. Only use Text to
+
+222
+00:11:24,000 --> 00:11:27,000
+display stuff you're going to display on the screen. Don't
+
+223
+00:11:27,000 --> 00:11:30,000
+go and reach into the Text Element and convert its text into an integer
+
+224
+00:11:30,000 --> 00:11:33,000
+or something. No, let the class member variable
+
+225
+00:11:33,000 --> 00:11:36,000
+here keep track of how many stars there are,
+
+226
+00:11:36,000 --> 00:11:39,000
+in the StarDisplay, and then, we just do the translation
+
+227
+00:11:39,000 --> 00:11:42,000
+to text, never back from text, it's just bad practice.
+
+228
+00:11:42,000 --> 00:11:45,000
+So on Start, we're going to go and find this starText
+
+229
+00:11:45,000 --> 00:11:48,000
+OK. So, the starText =
+
+230
+00:11:48,000 --> 00:11:51,000
+GetComponent. Now, why not GameObject.? Why just Get
+
+231
+00:11:51,000 --> 00:11:54,000
+Component here?
+
+232
+00:11:54,000 --> 00:11:57,000
+Because, if you look over in Unity,
+
+233
+00:11:57,000 --> 00:12:00,000
+you'll see why. Let's just take a look.
+
+234
+00:12:00,000 --> 00:12:03,000
+Because remember, we're on the Stars object here. It
+
+235
+00:12:03,000 --> 00:12:06,000
+has a component called Text, of type Text,
+
+236
+00:12:06,000 --> 00:12:09,000
+so it's this component talking to this component.
+
+237
+00:12:09,000 --> 00:12:12,000
+Yeah, we're not looking for another GameObject
+
+238
+00:12:12,000 --> 00:12:15,000
+in the scene, like the Trophy or whatever. We're just looking for a component
+
+239
+00:12:15,000 --> 00:12:18,000
+on ourselves, so that's why we just say GetComponentText.
+
+240
+00:12:18,000 --> 00:12:21,000
+Great we've got the text! So, do we
+
+241
+00:12:21,000 --> 00:12:24,000
+do anything on Update? No, we don't do anything on Update. This
+
+242
+00:12:24,000 --> 00:12:27,000
+method is only being called when the text is
+
+243
+00:12:27,000 --> 00:12:30,000
+updated, so only when you add stars. So,
+
+244
+00:12:30,000 --> 00:12:33,000
+how do we actually add stars? Well, we don't need a Debug statement.
+
+245
+00:12:33,000 --> 00:12:36,000
+We'll find out if it works by whether the display changes.
+
+246
+00:12:36,000 --> 00:12:39,000
+stars +=
+
+247
+00:12:39,000 --> 00:12:42,000
+amount;
+
+248
+00:12:42,000 --> 00:12:45,000
+simple enough. Then, some wishful method called UpdateDisplay.
+
+249
+00:12:48,000 --> 00:12:51,000
+There it is! OK, we'll make Update
+
+250
+00:12:51,000 --> 00:12:54,000
+Display in a moment, but just for now make the other
+
+251
+00:12:54,000 --> 00:12:57,000
+side of this method, which is the UseStars,
+
+252
+00:12:57,000 --> 00:13:00,000
+and it's just a -=.
+
+253
+00:13:00,000 --> 00:13:03,000
+Fantastic! So, how does Update
+
+254
+00:13:03,000 --> 00:13:06,000
+Display work? Well, it can be private, only this method needs to call it.
+
+255
+00:13:06,000 --> 00:13:09,000
+We want it to be private, we don't want any other methods updating the Display.
+
+256
+00:13:09,000 --> 00:13:12,000
+We just want methods saying, to the StarDisplay, add them or remove
+
+257
+00:13:12,000 --> 00:13:15,000
+them. If there's another API, another way that you can talk to
+
+258
+00:13:15,000 --> 00:13:18,000
+the Star Display, well then write some public methods.
+
+259
+00:13:18,000 --> 00:13:21,000
+void UpdateDisplay
+
+260
+00:13:21,000 --> 00:13:24,000
+So, what's in the Update Display method? Well,
+
+261
+00:13:24,000 --> 00:13:27,000
+we simply go starDisplay
+
+262
+00:13:27,000 --> 00:13:30,000
+or starText. in our case
+
+263
+00:13:30,000 --> 00:13:33,000
+.text, which is the actual text in it,
+
+264
+00:13:33,000 --> 00:13:36,000
+=stars.ToString();
+
+265
+00:13:36,000 --> 00:13:39,000
+Remember, stars in an integer. The .ToString(); will change the integer
+
+266
+00:13:39,000 --> 00:13:42,000
+that's stored in stars, the member variable, change it to a string
+
+267
+00:13:42,000 --> 00:13:45,000
+and set the actual yellow starText to it.
+
+268
+00:13:45,000 --> 00:13:48,000
+Wicked! OK, let's see if it works!
+
+269
+00:13:48,000 --> 00:13:51,000
+Remember, we're only creating stars,
+
+270
+00:13:51,000 --> 00:13:54,000
+we're not using them at the moment. Now, this says 9999,
+
+271
+00:13:54,000 --> 00:13:57,000
+because that's how I left it in the Inspector. I'm hoping
+
+272
+00:13:57,000 --> 00:14:00,000
+that on the first production of a star, it'll go to 0
+
+273
+00:14:00,000 --> 00:14:03,000
+or 10 rather, because it goes straight to 10. Perfect!
+
+274
+00:14:03,000 --> 00:14:06,000
+It's working and as they burst they're adding. So, the
+
+275
+00:14:06,000 --> 00:14:09,000
+last thing I need to do is, go to this actual Stars Element, set its default text
+
+276
+00:14:09,000 --> 00:14:12,000
+to 0,
+
+277
+00:14:12,000 --> 00:14:15,000
+and we are working! Fantastic!
+
+278
+00:14:15,000 --> 00:14:18,000
+Congratulations if you created that entire class on your own! It is
+
+279
+00:14:18,000 --> 00:14:21,000
+now... We now have Sun Currency to spend!
+
+280
+00:14:21,000 --> 00:14:24,000
+So, next it's going to be, let's make these things cost something,
+
+281
+00:14:24,000 --> 00:14:27,000
+because right now it's far too easy. Right, we can just keep putting defenders down
+
+282
+00:14:27,000 --> 00:14:30,000
+willy nilly. We need to have a cost to the defenders, so
+
+283
+00:14:30,000 --> 00:14:33,000
+that's what's coming up next. See you soon!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section7/GG38 Using Stars As Currency.srt

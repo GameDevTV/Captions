@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section9/ZR20 Using Send Message Upwards.srt
 WEBVTT
 Kind: captions
 Language: en
@@ -419,3 +420,425 @@ you. and it's relatively simple. This
 broadcast area upwards is a handy little
 tool! And I shall see you in the next video!
 
+=======
+Kind: captions
+Language: en
+
+00:00:00,000 --> 00:00:07,460
+Hey welcome back! So, in this video I'm going to introduce SendMessageUpwards.
+
+00:00:07,460 --> 00:00:10,559
+We're going to be introducing SendMessageUpwards,
+creating a message for the helicopter
+
+00:00:10,559 --> 00:00:15,420
+call, and making the HELO respond to that
+message. You can read all about
+
+00:00:15,420 --> 00:00:18,590
+SendMessageUpwards on Unity's docs, right there if you wish.
+
+00:00:18,590 --> 00:00:22,460
+Meanwhile, I'm just going to talk about the general architecture. So, try to keep this as kind of
+
+00:00:22,460 --> 00:00:26,580
+real as possible. I see the clear area as
+a concept in the player's head, if you
+
+00:00:26,580 --> 00:00:30,070
+like. It's attached to the player, and
+it's centered about the player but it's
+
+00:00:30,070 --> 00:00:34,399
+a concept about how much space the
+helicopter needs to land. And what I want
+
+00:00:34,399 --> 00:00:40,039
+to happen is when the Clear Area Script detects this clear area, I want it to send a message
+
+00:00:40,050 --> 00:00:44,910
+up the Hierarchy to anything above, i.e. the player in this case, and then, the
+
+00:00:44,910 --> 00:00:48,340
+player will decide to call the
+helicopter. So, we're going to connect the
+
+00:00:48,340 --> 00:00:53,070
+Player Script to the helicopter, over in
+the Inspector, saying that represents the
+
+00:00:53,070 --> 00:00:56,490
+radio, his radio link to the helicopter.
+And we're going to move the helicopter,
+
+00:00:56,490 --> 00:01:00,720
+which is currently sitting in the scene,
+a long way out. We'll move it 9,000
+
+00:01:00,720 --> 00:01:06,600
+units out in Z.  For example, maybe minus 9,000 in Z.
+
+00:01:06,600 --> 00:01:14,280
+And why 9,000? Well, the helicopter travels at a speed of about 100 knots, so
+
+00:01:14,280 --> 00:01:19,920
+if we look at 100 knots in meters per second, it's about 50 meters a second. So, if we have
+
+00:01:19,920 --> 00:01:25,420
+50 meters a second times the 60
+seconds per minute times the 3
+
+00:01:25,420 --> 00:01:29,100
+minutes, that we said the helicopter
+should take, then we get a result I think
+
+00:01:29,100 --> 00:01:33,320
+of 9,000. There you go! So, I'm going to put the helicopter out at minus 9,000
+
+00:01:33,320 --> 00:01:37,229
+Z, and then, I'm going to arrange it to
+fly at 50 meters a second. Let's just
+
+00:01:37,229 --> 00:01:41,450
+do that straight away; let's put the
+helicopter on a helipad. So, I'm going to make a 3D
+
+00:01:41,450 --> 00:01:47,360
+Object Cube. I'm going to put it at an X position of 0, a Y position of 1,000,
+
+00:01:47,360 --> 00:01:49,780
+quite high in the air 3,000 feet in the air, but it won't
+
+00:01:49,790 --> 00:01:56,649
+matter... Oh, well that's a bit too high isn't it. No, Ok then maybe 100 Y position. Let's just check.
+
+00:01:56,649 --> 00:02:00,909
+As long as your mountains, none of them are more than 100 high, they probably aren't,
+
+00:02:00,909 --> 00:02:04,860
+to be honest. So, just have a check around, make sure that 100 is high
+
+00:02:04,860 --> 00:02:07,900
+enough to get over your mountains. That's just not enough to get over all of mine.
+
+00:02:07,900 --> 00:02:11,220
+Maybe go 500. What I'm trying to do here is strike a balance between the helicopter
+
+00:02:11,230 --> 00:02:16,959
+coming in too high and too low, that it
+actually has a risk of going through the
+
+00:02:16,959 --> 00:02:20,319
+mountains. I'm going to do a very simple
+animation. It's going to come low over
+
+00:02:20,319 --> 00:02:24,890
+the landing area and do a vertical landing,
+which is not very normal, but it's the safest,
+
+00:02:24,890 --> 00:02:27,900
+messing around with the animator and
+learning things that we've already seen.
+
+00:02:27,900 --> 00:02:32,500
+So, let's put the helicopter out at minus
+9,000. So, this cube is the
+
+00:02:32,500 --> 00:02:42,860
+helipad, so let's call it a HeliPad. Ah, make it a one-word. Fantastic! And we better change
+
+00:02:42,860 --> 00:02:48,360
+the scale of this helipad to 10 by 1 by
+10 meters, something like that. And let's
+
+00:02:48,360 --> 00:02:53,640
+go grab the Helicopter Prefab. Now, is the
+helicopter a prefab yet? No, I think it
+
+00:02:53,640 --> 00:02:57,420
+probably ought to be. Let's prefab the
+helicopter, delete it from the scene, and
+
+00:02:57,420 --> 00:03:02,720
+then, pop the prefab on the pad. Oh, look at that! It's facing the land area. It's got
+
+00:03:02,720 --> 00:03:07,750
+a nice little shadow, it's even sitting on the helipad, if you just drag the prefab straight on. Cool! So, there it is,
+
+00:03:07,750 --> 00:03:14,760
+9 kilometers away, sitting on a
+helipad, just waiting to be called. So, we
+
+00:03:14,760 --> 00:03:19,349
+don't have a method for calling the
+helicopter yet. We may as well make that
+
+00:03:19,349 --> 00:03:27,910
+ready, so the helicopter can have a public
+method, returning nothing called Call.
+
+00:03:27,910 --> 00:03:30,660
+And what I'm going to do in this public
+method is, just take the very
+
+00:03:30,660 --> 00:03:34,480
+script, the stuff we had before in the
+Update, and put it in the Call.
+
+00:03:34,480 --> 00:03:40,720
+Delete everything in Update. And there's one more thing we need; we only want to
+
+00:03:40,730 --> 00:03:50,190
+respond to Call if not called. Then, we
+respond to Call, otherwise we just don't do anything.
+
+00:03:50,190 --> 00:03:55,540
+Fine! So, the helicopter has a cool sound, it has a concept of whether it's called or not, it
+
+00:03:55,540 --> 00:03:59,980
+has an audioSource on it, it has a 2D
+audioSource, I think, and a 3D audioSource, doesn't it.
+
+00:03:59,980 --> 00:04:03,740
+One of the audioSources is, so that
+we can hear it played back to us
+
+00:04:03,740 --> 00:04:07,280
+it's radio messages. You could argue that
+ought to be on us or on our radio or
+
+00:04:07,290 --> 00:04:11,000
+something, but look, there's a million ways of doing things. And the other audioSource is,
+
+00:04:11,000 --> 00:04:15,180
+for the noise of the helicopter. Fantastic! So, the other thing we want to do when
+
+00:04:15,190 --> 00:04:18,690
+this helicopter gets called, is we want it to start hurtling at 50 meters a
+
+00:04:18,690 --> 00:04:24,270
+second. So, I'm going to getrigidbody. Now, this is not a Unity command, this is
+
+00:04:24,270 --> 00:04:28,510
+a keyboard shortcut that I have, that types
+private Rigidbody rigidBody, and then,
+
+00:04:28,510 --> 00:04:33,370
+it also writes the Start method. Anyway,
+what you need to be doing is making sure
+
+00:04:33,370 --> 00:04:36,490
+you have access to a Rigidbody. Good old
+Unity 5 makes us do this all the
+
+00:04:36,490 --> 00:04:40,830
+time, which is why I've made a keyboard shortcut, and then, you have Rigidbody found in the
+
+00:04:40,830 --> 00:04:50,220
+start there. And now, we can say rigidBody.velocity = new Vector3 (0,0,50f);
+
+00:04:50,220 --> 00:04:54,160
+float, and that will then, bring the thing from minus 9,000
+
+00:04:54,160 --> 00:05:00,940
+meters across to us or roughly our landing position, in a reasonable amount
+
+00:05:00,940 --> 00:05:05,010
+of time. We'll fine tune what happens when it gets into the play space later, but
+
+00:05:05,010 --> 00:05:10,050
+this should take 5 minutes to get to
+us and it will only be called once.
+
+00:05:10,050 --> 00:05:13,820
+So that's cool, better check this helicopter
+has a Rigidbody on it, so let's go to
+
+00:05:13,830 --> 00:05:19,780
+the Helicopter Prefab. It doesn't have a
+Rigidbody, so let's add a Rigidbody and
+
+00:05:19,780 --> 00:05:25,810
+take off gravity and take the helicopter
+and leave it down there. We don't need to
+
+00:05:25,810 --> 00:05:29,110
+child it to the helipad, it's a separate
+object to the helipad, and there he is,
+
+00:05:29,110 --> 00:05:32,560
+the helicopter is ready to be called, but how are we going to call it? So, let's use
+
+00:05:32,560 --> 00:05:38,770
+this BroadcastMessage business, right
+now. So, here's the Clear Area Script, I'll
+
+00:05:38,770 --> 00:05:42,860
+leave the timeSinceLastTrigger as public for the moment, because it's quite helpful to be able to see it
+
+00:05:42,860 --> 00:05:49,560
+for debugging. But first thing I want to do is move this found clear area, from here to the player.
+
+00:05:49,570 --> 00:05:56,600
+I want a method on the player, and it's going to be a message, so by a message it's just a
+
+00:05:56,600 --> 00:06:03,830
+method on the player. So, OnFindClearArea () {}
+Now, what's going to call that? Well, it's the
+
+00:06:03,830 --> 00:06:07,620
+broadcast that's going to call that, that's how it works. So, OnFindClearArea
+
+00:06:07,620 --> 00:06:15,500
+why don't we, just for now, take this Debug.Log statement... ("Found clear area in player');
+
+00:06:15,500 --> 00:06:19,260
+just to make sure that it works. So, you've just got a method that can get calls from
+
+00:06:19,260 --> 00:06:24,320
+somewhere else. It doesn't need to be
+public, and we can say ("Found clear area in player");
+
+00:06:24,320 --> 00:06:30,540
+Right! Now, clear area just needs to do a broadcast, or send rather message
+
+00:06:30,550 --> 00:06:37,660
+upwards, and just provide the method name ("OnFindClearArea"); Now, to be clear on
+
+00:06:37,660 --> 00:06:43,430
+what that's going to do... excuse the double clear. It's going to look in every ancestor
+
+00:06:43,430 --> 00:06:49,360
+object of this Clear Area Script and
+look for a method called OnFindClearArea,
+
+00:06:49,360 --> 00:06:53,180
+as specified by this string. And it's just going to call it, so let's see what
+
+00:06:53,180 --> 00:07:01,890
+happens if we do this. I'm going to go to the Player, Play Mode, select the clear area, and it's already
+
+00:07:01,890 --> 00:07:05,410
+worked,  "Found clear area in player". Now, let's look at the helicopter, where is the
+
+00:07:05,410 --> 00:07:12,810
+helicopter right now? Ok, it hasn't got its speed. Why not?  Well, let's go look.
+
+00:07:12,810 --> 00:07:18,140
+The player logs out to say he's found a clear area, but he is not connected to the helicopter
+
+00:07:18,150 --> 00:07:30,870
+and never calls the helicopter's Call Script. So, we better make ourselves a public Helicopter helicopter;
+
+00:07:30,870 --> 00:07:33,880
+I think it's reasonable to connect the
+helicopter to the player, because he is
+
+00:07:33,880 --> 00:07:39,810
+connected to the player by his radio. Ok, let's go drag that in now. So, we'll go
+
+00:07:39,810 --> 00:07:47,500
+find the player. Let's do the standard stuff,
+connect up the helicopter, so there is
+
+00:07:47,500 --> 00:07:51,840
+the helicopter connected in there, and we
+don't need this Respawn thing
+
+00:07:51,840 --> 00:07:55,480
+visible anymore, so we're going to make that private. I like to
+
+00:07:55,480 --> 00:08:04,500
+group private and public variables, like
+that. So, now we can simply go helicopter.Call ();
+
+00:08:04,500 --> 00:08:12,580
+Ok, let's see if it works. So, the clear area system, broadcasts a
+
+00:08:12,590 --> 00:08:18,620
+message up to the player; the helicopter gets called. Now, let's just check the helicopter. There he is, on
+
+00:08:18,620 --> 00:08:22,880
+his way. And is that going to take about
+5 minutes to get there? Yeah, I think it
+
+00:08:22,880 --> 00:08:28,370
+probably is. There it goes, there was the helipad, that little white dot over on the right just
+
+00:08:28,370 --> 00:08:32,130
+down here. There it goes with its two
+sound zones, one of them is irrelevant
+
+00:08:32,130 --> 00:08:35,770
+because it's a 2D sound. And it's going
+to spend about 5 minutes getting over
+
+00:08:35,770 --> 00:08:40,390
+to the play space there, and it's Z position
+is decreasing. Cool! So, we have successfully
+
+00:08:40,390 --> 00:08:45,180
+called the helicopter, which is pretty
+useful. So, that was almost forced. I just
+
+00:08:45,180 --> 00:08:49,690
+wanted to show you a SendMessageUpwards and how that SendMessageUpwards
+
+00:08:49,690 --> 00:08:53,770
+actually works. It's pretty handy, when
+you're Hierarchy gets complicated.
+
+00:08:53,770 --> 00:08:57,200
+You don't want to be broadcasting to every object in the game, in fact, there
+
+00:08:57,210 --> 00:09:01,430
+isn't a method to broadcast to everything. You could make all your message-able
+
+00:09:01,430 --> 00:09:05,420
+objects under one parent object, so you
+could perhaps put all of this stuff
+
+00:09:05,420 --> 00:09:08,860
+under one parent object so you can
+broadcast up to more things. But it's a
+
+00:09:08,860 --> 00:09:12,260
+good idea not to be broadcasting
+messages every frame, but in this
+
+00:09:12,260 --> 00:09:16,070
+instance, it's absolutely fine and it's just
+another way of getting this clear area
+
+00:09:16,070 --> 00:09:19,860
+to naturally send a message up to the
+player. We could have a lot of
+
+00:09:19,860 --> 00:09:23,240
+other things hanging off the player, and they could all broadcast messages too. And then,
+
+00:09:23,240 --> 00:09:26,810
+it reads nicely inside the player,
+because it just says: Well, when the
+
+00:09:26,810 --> 00:09:31,760
+player has found a clear area, what is he going to do? We're going to do this stuff. We're also, in the future
+
+00:09:31,760 --> 00:09:38,080
+going to do things like deploy a flare and maybe some other things.
+
+00:09:38,080 --> 00:09:39,900
+Start spawning zombies but that doesn't
+
+00:09:39,900 --> 00:09:48,860
+happen here, but let's make a note. No harm ever in putting comments in to remind yourself what your doing next.
+
+00:09:48,870 --> 00:09:52,300
+So that's it! Hope that makes sense to
+you, and it's relatively simple. This
+
+00:09:52,300 --> 00:09:56,380
+broadcast area upwards is a handy little
+tool! And I shall see you in the next video!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section9/ZR20 Using Send Message Upwards.srt

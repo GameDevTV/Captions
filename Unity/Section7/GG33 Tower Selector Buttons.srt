@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section7/GG33 Tower Selector Buttons.srt
 WEBVTT
 Kind: captions
 Language: en
@@ -742,3 +743,748 @@ static. Easy as pie. congratulations if
 you managed to do that on your own and I
 will see you soon.
 
+=======
+Kind: captions
+Language: en
+
+00:00:00,010 --> 00:00:08,450
+Hey hey, so the goal of this video is to
+get ourselves some buttons that we can
+
+00:00:08,450 --> 00:00:13,370
+use to select the defender that we want
+to place. So by the end of the video we'll
+
+00:00:13,370 --> 00:00:18,369
+have a little panel up here in the top
+of our play space with our four defender
+
+00:00:18,369 --> 00:00:22,250
+types in it and I'm gonna have them all
+silhouetted against... just black
+
+00:00:22,250 --> 00:00:27,810
+silhouettes against a background panel,
+and when you click them they will highlight and
+
+00:00:27,810 --> 00:00:35,600
+then also we will have a static ready to
+be called from anywhere and that can be
+
+00:00:35,600 --> 00:00:40,760
+used to actually place the defender
+prefab. So said differently we gonna set
+
+00:00:40,760 --> 00:00:44,870
+up buttons for the defender, or in a more
+general tower defense game a tower
+
+00:00:44,870 --> 00:00:50,269
+selection; initially they just toggle the
+sprite color, then we'll set up defender
+
+00:00:50,269 --> 00:00:56,949
+selector, or just button dot selected
+defender static and then we'll test that
+
+00:00:56,949 --> 00:01:01,269
+static at the start and on button
+presses to make sure that it works
+
+00:01:01,269 --> 00:01:05,630
+properly. So first let's just make our
+buttons area, so I'm going to create an
+
+00:01:05,630 --> 00:01:13,800
+empty object and call it buttons and put
+it above the defenders, seems to make sense to me.
+
+00:01:13,800 --> 00:01:19,400
+Reset the transform, and inside
+it I think I'm going to use a quad
+
+00:01:19,400 --> 00:01:24,180
+and just child that quad into the buttons and then
+you can move it, the reason I want to use a quad is
+
+00:01:24,180 --> 00:01:29,060
+because it's world space basically how
+wide do I want it? Well four, so four
+
+00:01:29,060 --> 00:01:35,210
+units wide, not 44 - four, perfect. Move it
+roughly in the right place and then you
+
+00:01:35,210 --> 00:01:40,990
+can very quickly reason that it should
+be at exactly 2.5 by six. Great, that's fine,
+
+00:01:40,990 --> 00:01:45,730
+so gonna need a quick material here
+because this guy has no sensible looking
+
+00:01:45,730 --> 00:01:50,460
+material so where should we store it? I'm gonna
+store it in this case in images, it's a
+
+00:01:50,460 --> 00:01:53,890
+bit weird but why not, we're only gonna have
+one of them; going to call it
+
+00:01:53,890 --> 00:02:00,700
+button panel and diffuse material is
+just fine just give it a color like a bluey
+
+00:02:00,700 --> 00:02:05,370
+color or something like that, whatever
+you like apply that material to the
+
+00:02:05,370 --> 00:02:11,889
+quod and I might just make it a little
+bit transparent, in which case we would
+
+00:02:11,889 --> 00:02:12,830
+need to just make it
+
+00:02:12,830 --> 00:02:17,190
+transparent diffuse and then when you
+make it transparent it'll actually have
+
+00:02:17,190 --> 00:02:21,590
+some effect. So there you go slightly transparent
+background cast there, doesn't really
+
+00:02:21,590 --> 00:02:26,920
+matter if that overspills the play space, that just
+says that's where my buttons are. I'm just
+
+00:02:26,920 --> 00:02:32,070
+gonna call it a background so it makes
+some sense in the hierarchy cool, now
+
+00:02:32,070 --> 00:02:35,090
+let's actually make the buttons, let's
+make the package from scratch it's gonna
+
+00:02:35,090 --> 00:02:40,170
+be easier. So they need to be childed to
+buttons here and then let's just give them
+
+00:02:40,170 --> 00:02:47,190
+names, go through them, so where are my
+prefabs? My defender prefabs, just gonna
+
+00:02:47,190 --> 00:02:51,420
+set up four buttons, and in a moment I'm
+gonna be asking you to get some behavior
+
+00:02:51,420 --> 00:02:59,770
+in code but for now cactus, can sit
+here roughly and then it's gonna need a
+
+00:02:59,770 --> 00:03:03,590
+sprite so what sprite renderer are we gonna
+use? We just have a basic sprite renderer on
+
+00:03:03,590 --> 00:03:07,630
+it and then we can take any of the
+cactus sprites, whatever we like the
+
+00:03:07,630 --> 00:03:13,640
+look of and just apply it over here, so
+we could just search for cactus, pick
+
+00:03:13,640 --> 00:03:18,560
+one you like the look of, a kind of hey
+pick me, doesn't really matter. There's
+
+00:03:18,560 --> 00:03:24,560
+lots and lots of variations here, I'll go for
+that one and then we need to make sure
+
+00:03:24,560 --> 00:03:28,519
+that it's scaled appropriately in fact I
+need to scale the whole do down a little
+
+00:03:28,519 --> 00:03:33,940
+bit so that he kind of fits in the space
+that's fine and then add myself a
+
+00:03:33,940 --> 00:03:41,120
+collider so that we can click on him. Now,
+when adding these colliders, if you've
+
+00:03:41,120 --> 00:03:46,480
+scaled down the sprite we will have
+here just a simple object right, we're
+
+00:03:46,480 --> 00:03:50,320
+not putting the sprites in separate
+sub-objects, we just have a button organiser
+
+00:03:50,320 --> 00:03:55,580
+and then cactus. We will also have
+another object here next to cactus
+
+00:03:55,580 --> 00:04:00,860
+called gnome. I'll do the gnome now just so
+you can see the two working together, the
+
+00:04:00,860 --> 00:04:06,380
+gnome will sit here, he will also have a
+sprite renderer on him and you get the
+
+00:04:06,380 --> 00:04:13,049
+pattern hopefully, so we choose a sprite,
+pick one that we like and preferably pick
+
+00:04:13,049 --> 00:04:16,410
+one that will work well in silhouette
+and scale him down a little bit so he
+
+00:04:16,410 --> 00:04:17,470
+works as a button.
+
+00:04:17,470 --> 00:04:21,810
+OK, so that's all very well, how are we gonna
+know when we've clicked on these buttons
+
+00:04:21,810 --> 00:04:27,020
+and also we can't really see the
+buttons that well, so not being in to see
+
+00:04:27,020 --> 00:04:31,770
+them is to do with the order in layer, if you just set that
+to one then they'll pop out, that's great.
+
+00:04:31,770 --> 00:04:35,570
+Clicking on them is this... that's the
+purpose of this collider that's why
+
+00:04:35,570 --> 00:04:39,710
+we've got a box collider 2D but we
+need to get the size right, because I
+
+00:04:39,710 --> 00:04:44,250
+want it to be exactly right at least in
+the x direction so the way you calculate
+
+00:04:44,250 --> 00:04:49,660
+the size is you say well if we've scaled
+the transformed down by point 64 then you
+
+00:04:49,660 --> 00:04:56,810
+can do a calculation 1 divided by .64 is
+1.56, so if you put that in the X scale
+
+00:04:56,810 --> 00:04:59,860
+and the Y scale of the collider,
+
+00:04:59,860 --> 00:05:03,580
+now it's in exactly the right place. If
+we set the X transform right, look
+
+00:05:03,580 --> 00:05:07,690
+that's perfect. What I want you to do
+briefly is just set up the other buttons,
+
+00:05:07,690 --> 00:05:11,889
+just go ahead and set up all of your
+buttons so they have colliders that are
+
+00:05:11,889 --> 00:05:17,380
+the right X width precisely, sprites that
+look a sensible size and fit in the
+
+00:05:17,380 --> 00:05:20,680
+screen space you've got left, I don't
+mind if your colliders overspill the top of
+
+00:05:20,680 --> 00:05:25,340
+the game space but I don't want them
+going into the lanes below, so they should
+
+00:05:25,340 --> 00:05:28,740
+look like that. I'll just do it on the gnome
+just to help you out
+
+00:05:28,740 --> 00:05:35,729
+So a box collider on the gnome looks lie that again
+I do a calculation I take the X value, I
+
+00:05:35,729 --> 00:05:43,410
+do 1 divided by the value, copy that in my calculator and
+paste it in and scale up that size. Now
+
+00:05:43,410 --> 00:05:47,390
+this guy needs a little bit of Y
+offset so that I don't risk going into the
+
+00:05:47,390 --> 00:05:52,010
+lane if in doubt leave a bit of a gap.
+Better that they click. Imagine
+
+00:05:52,010 --> 00:05:55,280
+how the failure cases on the borderline here
+imagine you stick your finger on the
+
+00:05:55,280 --> 00:05:59,690
+border what's bad? What's bad is that you
+accidentally place a defender
+
+00:05:59,690 --> 00:06:04,650
+because you can't undo it, what's ok is if you accidentally
+select a defender, so in that spirit I'm
+
+00:06:04,650 --> 00:06:06,919
+gonna move that one up a little bit as
+well. You see how
+
+00:06:06,919 --> 00:06:10,830
+the collider's are working there, imagine where
+the finger presses will be, but if you
+
+00:06:10,830 --> 00:06:13,389
+select two of them you see they're
+perfectly matched up in the x-direction
+
+00:06:13,389 --> 00:06:18,669
+provided at my transforms here, the
+X part of the transform is whole
+
+00:06:18,669 --> 00:06:20,400
+numbers one and two.
+
+00:06:20,400 --> 00:06:23,460
+So just go ahead and do the other two
+buttons, I'm gonna do that while you're
+
+00:06:23,460 --> 00:07:07,849
+doing yours; I''ll just shut up and get on with it.
+
+00:07:07,849 --> 00:07:12,459
+ok finally ending up with four, the trophy
+looks a little bit off that's because
+
+00:07:12,459 --> 00:07:18,589
+its X position is not precisely four, and
+the also the gravestone's X position is
+
+00:07:18,589 --> 00:07:22,959
+not precisely 3. OK selecting them all
+together
+
+00:07:22,959 --> 00:07:26,149
+looks pretty good, I don't mind if they're
+slightly out of line that's good enough
+
+00:07:26,149 --> 00:07:30,529
+for government work, so now we have four
+very simple game objects each of which
+
+00:07:30,529 --> 00:07:37,789
+have colliders on them and appropriately
+sized sprites, and now we need a button
+
+00:07:37,789 --> 00:07:46,119
+script so I'm gonna add a button script to
+all of these and let's edit the script. So
+
+00:07:46,119 --> 00:07:51,550
+here we have a button script. So what's the
+message that we intersect when we wanna
+
+00:07:51,550 --> 00:07:56,830
+know that somebody's clicked the button?
+We have box colliders, they actually ought
+
+00:07:56,830 --> 00:08:01,490
+to be trigger colliders, it doesn't really
+matter for this case actually but I want
+
+00:08:01,490 --> 00:08:05,029
+everything to be trigger colliders, so we
+have box colliders but they're not colliding with
+
+00:08:05,029 --> 00:08:10,979
+colliders, they're colliding with our finger
+finger that's the word, or the mouse so it's
+
+00:08:10,979 --> 00:08:12,699
+actually the On
+
+00:08:12,699 --> 00:08:18,180
+mouse down event that we need, so let's
+just start real basic, let's prove that
+
+00:08:18,180 --> 00:08:24,360
+we can intercept our clicks just by
+simply logging out - I'll print this time
+
+00:08:24,360 --> 00:08:31,789
+I'm just gonna say nam, which is the name of the object
+plus pressed and also I think I've got
+
+00:08:31,789 --> 00:08:36,509
+a debug dot log left over in my attacker
+script under the on trigger enter 2D, if
+
+00:08:36,509 --> 00:08:39,519
+you've still got that remove it, we only
+want one thing logging to the console
+
+00:08:39,519 --> 00:08:44,519
+right now. Let's just check that we can
+actually click and log;
+
+00:08:44,519 --> 00:08:50,200
+Cactus, gnome, stone, trophy and if you hit somewhere
+on the borderline it does nothing that's good.
+
+00:08:50,259 --> 00:08:54,060
+Perfect so now it's over to you for another challenge
+
+00:08:54,060 --> 00:08:58,569
+Get the sprite color toggling working.
+Start with no defenders selected, they're
+
+00:08:58,569 --> 00:09:02,470
+all black, click toggles to the clicked defender,
+
+00:09:02,470 --> 00:09:08,470
+all unselected offenders are blacked out and
+then the selected defender has a
+
+00:09:08,470 --> 00:09:11,399
+different sprite color to the rest when
+you click on it
+
+00:09:11,399 --> 00:09:15,990
+alright so you get the idea click goes
+to the color
+
+00:09:15,990 --> 00:09:20,100
+white or whatever colour you've chosen, and
+all the others have got to be black so
+
+00:09:20,100 --> 00:09:24,630
+good luck trying to work out how to do that and pause
+the video and have a good crack at it even
+
+00:09:24,630 --> 00:09:27,550
+if you don't succeed in these challenges
+it's the trying to succeed in the
+
+00:09:27,550 --> 00:09:32,050
+challenges that really matters because
+that's where you're really learning and
+
+00:09:32,050 --> 00:09:35,000
+I shall see you soon.
+
+00:09:35,000 --> 00:09:38,200
+Cool welcome back; what do we want to do next?
+
+00:09:38,250 --> 00:09:41,770
+let's next check the we know how to
+actually set the sprite color so how do
+
+00:09:41,770 --> 00:09:45,700
+we set the sprite color? Well for the
+thing in question, for the button in
+
+00:09:45,700 --> 00:09:54,940
+question we simply get component sprite
+renderer dot colour - whoops it's a method dot
+
+00:09:54,940 --> 00:10:03,880
+color equals color dot white, for example
+let's try that so we click on one of the
+
+00:10:03,880 --> 00:10:08,000
+things that isn't white and look, up it comes.
+Great, so we can change the color to white
+
+00:10:08,000 --> 00:10:12,310
+then how do we turn all the others back to
+black?
+
+00:10:12,310 --> 00:10:15,010
+well there's a few ways you could do it
+I'm gonna do it this way I'm going to
+
+00:10:15,010 --> 00:10:23,870
+have a private button array called button array.
+Call a dog a dog, call a horse a horse! Ok
+
+00:10:23,870 --> 00:10:29,740
+and then on start I will find that
+button array so button array simply equals
+
+00:10:29,740 --> 00:10:34,040
+what is it equal? Game object dot find
+objects of type, we've done this a billion
+
+00:10:34,040 --> 00:10:39,000
+times now, button so find all your buttons, great so we have all our buttons in this array
+
+00:10:39,060 --> 00:10:44,209
+Then what? Well why don't we try looping for
+them. For them? Through them for each
+
+00:10:44,209 --> 00:10:52,910
+button the type this button - just to be
+sure we don't confuse it with any sort
+
+00:10:52,910 --> 00:10:58,660
+of instance of button or anything like
+that just for each button, this button, in
+
+00:10:58,660 --> 00:11:03,420
+button array, so we go through all the
+buttons in the array and what we do? We
+
+00:11:03,420 --> 00:11:09,730
+go this button . get component
+same thing as before right
+
+00:11:09,730 --> 00:11:17,950
+sprite renderer - in fact I'm going to copy it
+apart from the white and it's colour dot black
+
+00:11:17,950 --> 00:11:24,370
+OK let's try it. So the first thing we do is set the other buttons to black and then we set the one we've clicked to
+
+00:11:24,370 --> 00:11:31,560
+white, see if it works. Bonza! OK and is it also
+selecting one randomly at the start? Well
+
+00:11:31,560 --> 00:11:37,070
+we don't know right now because this
+gnome has a white setting by default
+
+00:11:37,070 --> 00:11:40,000
+let's just put him black like everybody
+else see what happens with the start
+
+00:11:40,000 --> 00:11:42,100
+condition here, nothing is selected.
+
+00:11:42,100 --> 00:11:46,640
+Well that's okay that's okay or it could
+randomly select one at the start, we'll
+
+00:11:46,640 --> 00:11:50,420
+worry about that when we get to the
+prefabs bit. Right now having nothing
+
+00:11:50,420 --> 00:11:52,300
+selected is just fine
+
+00:11:52,300 --> 00:11:59,140
+OK cool, so on to the second half which
+is that we need to now actually link
+
+00:11:59,140 --> 00:12:03,980
+some prefabs to these things and set a
+static so why a static? Because from
+
+00:12:03,980 --> 00:12:09,320
+outside of this class I would like to be
+able to say button . selected button or
+
+00:12:09,320 --> 00:12:13,640
+selected defender so it's over to you to
+get that bit working, I want you to set up
+
+00:12:13,640 --> 00:12:19,330
+the static when a defender is selected
+set that static and test by logging from
+
+00:12:19,330 --> 00:12:23,600
+another method's update for instance
+attacker dot cs and there's no need to
+
+00:12:23,600 --> 00:12:27,930
+actually place the defenders yet you
+might wonder what the type of this
+
+00:12:27,930 --> 00:12:32,900
+static is, I want you to make it a GameObject
+and I want you to publicly expose for
+
+00:12:32,900 --> 00:12:38,040
+each button the defender that they should
+be spawning and drag it in so the
+
+00:12:38,040 --> 00:12:44,150
+cactus button has a cactus prefab
+dragged into it, and then you set that as
+
+00:12:44,150 --> 00:12:49,250
+the static. So from your other method
+say in the update method of attack when
+
+00:12:49,250 --> 00:12:54,910
+you say print selected defender - button
+rather dot selected defender what you'll
+
+00:12:54,910 --> 00:13:00,570
+get back is an actual game object that
+is the GameObject prefab relating to
+
+00:13:00,570 --> 00:13:05,490
+that button, all ready to be instantiated
+later. Hopefully that makes sense and
+
+00:13:05,490 --> 00:13:17,800
+have a go at setting up that defender
+selected defender static yourself now.
+
+00:13:17,800 --> 00:13:29,420
+Welcome back so we have a private static
+GameObject called selected defender. Now what
+
+00:13:29,420 --> 00:13:32,420
+does it mean that it's static, just to
+revise? It means that there's just one of them in
+
+00:13:32,420 --> 00:13:37,740
+the entire game, it's on the class it's
+on the template, it's on the mold that makes
+
+00:13:37,740 --> 00:13:42,470
+the buttons not any of the individual
+buttons, and this is a sensible place to
+
+00:13:42,470 --> 00:13:48,890
+store it because we only have one ever
+have one defender selected so where's it
+
+00:13:48,890 --> 00:13:54,710
+gonna get this from? Well I think we just
+pass in publicly for simplicity public
+
+00:13:54,710 --> 00:14:06,360
+GameObject prefab to - defender prefab, ok
+so each but now has a prefab, or will have when
+
+00:14:06,360 --> 00:14:12,779
+we associate a prefab, so we go to the
+cactus for example, tidy up my button script, and we
+
+00:14:12,779 --> 00:14:19,270
+just give it the cactus prefab. So
+the cactus button is associated with a
+
+00:14:19,270 --> 00:14:22,620
+cactus prefab. There're only four of these so it
+doesn't matter that it's a very manual
+
+00:14:22,620 --> 00:14:31,850
+process, gnome gnome, stone gravestone, trophy
+trophy, great. So they now all have access to
+
+00:14:31,850 --> 00:14:36,040
+an actual game object which is great, we
+have a static that we're gonna be able to
+
+00:14:36,040 --> 00:14:44,070
+store that in - where did my script go?
+Slippery little bugger, let's go and find it
+
+00:14:44,070 --> 00:14:47,880
+OK we have a static we'll be able to store that in,
+so what is the essence of clicking a button?
+
+00:14:47,880 --> 00:14:58,500
+Well it's just saying that selected
+defender equals defender prefab does that
+
+00:14:58,500 --> 00:15:04,100
+make sense and then we could just print
+selected defender and stop printing
+
+00:15:04,100 --> 00:15:10,340
+anything about pressed here. So, we're
+setting the static when we click them, let's
+
+00:15:10,340 --> 00:15:13,660
+see if it works, we click here what does
+the log say? It says that we've got a
+
+00:15:13,660 --> 00:15:18,280
+cactus in that static and then we click
+this guys who says we've got a gnome in that static and
+
+00:15:18,280 --> 00:15:22,960
+then we click this guy and it says we've got a gravestone in the static. Perfect, now any other method
+
+00:15:22,960 --> 00:15:27,630
+from the outside like even attacker here
+could every frame for instance just as
+
+00:15:27,630 --> 00:15:34,270
+a test say print button . now we've got
+available here
+
+00:15:34,270 --> 00:15:39,860
+provided we've made our static
+public not private that was a mistake
+
+00:15:39,860 --> 00:15:44,890
+of mine, so the static game object should be
+public so other things can see it provided we
+
+00:15:44,890 --> 00:15:50,930
+have a public static watch attacker button
+dot selected defender - very easy, any
+
+00:15:50,930 --> 00:15:54,920
+method without an instance even of a
+button in the scene, although we will have
+
+00:15:54,920 --> 00:15:59,210
+them can just say what's the selected
+defender. So let's stop logging it over
+
+00:15:59,210 --> 00:16:04,400
+here and log it every frame from a
+different method, let's watch. What's it
+
+00:16:04,400 --> 00:16:10,360
+logging? Null well that's fine, cos what do we
+have selected as a defender? Nothing,
+
+00:16:10,360 --> 00:16:11,280
+cactus, cactus, cactus; gnome, gnome, gnome
+
+00:16:11,280 --> 00:16:14,930
+grave stone, grave stone, grave stone you get
+the idea see how simple an interface that
+
+00:16:14,930 --> 00:16:20,460
+is from the outside, attacker just says button
+tell me - button class, tell me what your
+
+00:16:20,460 --> 00:16:25,410
+current defence;  selected defender is, so
+that's my solution there's the code on the
+
+00:16:25,410 --> 00:16:30,320
+screen a private static selected
+defender prefab comes in and then when you
+
+00:16:30,320 --> 00:16:33,330
+click you clear all the previous
+existing buttons
+
+00:16:33,330 --> 00:16:38,730
+set yourself to white and then set the
+static. Easy as pie, congratulations if
+
+00:16:38,730 --> 00:16:42,090
+you managed to do that on your own and I
+will see you soon.
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section7/GG33 Tower Selector Buttons.srt

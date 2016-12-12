@@ -1,558 +1,557 @@
-﻿WEBVTT
 
 1
-00:00:00.000 --> 00:00:04.000
-So. welcome to
+00:00:00,000 --> 00:00:04,000
+So, welcome to
 
 2
-00:00:04.000 --> 00:00:08.000
+00:00:04,000 --> 00:00:08,000
 Configuring a Tank! In this video we're going to specifically setup our
 
 3
-00:00:08.000 --> 00:00:12.000
-tank. we're going to make sure it sits on the ground properly. that we actually
+00:00:08,000 --> 00:00:12,000
+tank, we're going to make sure it sits on the ground properly, that we actually
 
 4
-00:00:12.000 --> 00:00:16.000
+00:00:12,000 --> 00:00:16,000
 spawn a player when we start the game. We'll
 
 5
-00:00:16.000 --> 00:00:20.000
-sort the camera out in a future lecture. that we can have player tanks and third
+00:00:16,000 --> 00:00:20,000
+sort the camera out in a future lecture, that we can have player tanks and third
 
 6
-00:00:20.000 --> 00:00:24.000
-party tanks. and as I say the physics is working. We'll be simplifying the tank
+00:00:20,000 --> 00:00:24,000
+party tanks, and as I say the physics is working. We'll be simplifying the tank
 
 7
-00:00:24.000 --> 00:00:28.000
-blueprint a little bit. tweaking the tank track positions.
+00:00:24,000 --> 00:00:28,000
+blueprint a little bit, tweaking the tank track positions,
 
 8
-00:00:28.000 --> 00:00:32.866
-and a few other little bits. setting the game mode etc. So. let's get on with that!
+00:00:28,000 --> 00:00:32,866
+and a few other little bits, setting the game mode etc. So, let's get on with that!
 
 9
-00:00:32.866 --> 00:00:36.866
-OK. so before we start making this tank move. let's
+00:00:32,866 --> 00:00:36,866
+OK, so before we start making this tank move, let's
 
 10
-00:00:36.866 --> 00:00:40.866
-fix it up a little bit. There are some issues right? It's sitting into the floor.
+00:00:36,866 --> 00:00:40,866
+fix it up a little bit. There are some issues right? It's sitting into the floor,
 
 11
-00:00:40.866 --> 00:00:44.866
-my tracks actually aren't positioned correctly. there's things wrong with the
+00:00:40,866 --> 00:00:44,866
+my tracks actually aren't positioned correctly, there's things wrong with the
 
 12
-00:00:44.866 --> 00:00:48.900
-blueprint in terms of the way that it's laid out. and the root
+00:00:44,866 --> 00:00:48,900
+blueprint in terms of the way that it's laid out, and the root
 
 13
-00:00:48.900 --> 00:00:52.866
-components. etc.. so we will be arranging that. The
+00:00:48,900 --> 00:00:52,866
+components, etc., so we will be arranging that. The
 
 14
-00:00:52.866 --> 00:00:56.866
-tank is not the Default Pawn. at the moment. When we play we do not possess
+00:00:52,866 --> 00:00:56,866
+tank is not the Default Pawn, at the moment. When we play we do not possess
 
 15
-00:00:56.866 --> 00:01:00.866
-the tank. we don't spawn a tank. so yeah a few things we need to
+00:00:56,866 --> 00:01:00,866
+the tank, we don't spawn a tank, so yeah a few things we need to
 
 16
-00:01:00.866 --> 00:01:04.866
+00:01:00,866 --> 00:01:04,866
 sort out. Let's take them one at a time. Let's start with adding a
 
 17
-00:01:04.866 --> 00:01:08.866
-mass to the tank and getting some physics going. So. if you lift the tank off the ground and
+00:01:04,866 --> 00:01:08,866
+mass to the tank and getting some physics going. So, if you lift the tank off the ground and
 
 18
-00:01:08.866 --> 00:01:12.866
-play it. you notice it just hangs in the air. because it's not simulating
+00:01:08,866 --> 00:01:12,866
+play it, you notice it just hangs in the air, because it's not simulating
 
 19
-00:01:12.866 --> 00:01:16.866
-physics. Well. that's a really easy fix. Over at the tank.
+00:01:12,866 --> 00:01:16,866
+physics. Well, that's a really easy fix. Over at the tank,
 
 20
-00:01:16.866 --> 00:01:20.866
-on the Tank component. not the Default Scene Root. because we're going to be
+00:01:16,866 --> 00:01:20,866
+on the Tank component, not the Default Scene Root, because we're going to be
 
 21
-00:01:20.866 --> 00:01:24.866
-replacing that in a moment. In fact. let's just replace that now. We don't need a default
+00:01:20,866 --> 00:01:24,866
+replacing that in a moment. In fact, let's just replace that now. We don't need a default
 
 22
-00:01:24.866 --> 00:01:28.866
-scene in root component. That gives us things like a transform and physics. etc.
+00:01:24,866 --> 00:01:28,866
+scene in root component. That gives us things like a transform and physics, etc.
 
 23
-00:01:28.866 --> 00:01:32.866
-but so does the static mesh of the tank itself. so
+00:01:28,866 --> 00:01:32,866
+but so does the static mesh of the tank itself, so
 
 24
-00:01:32.866 --> 00:01:36.866
-simpler is better. The tank static mesh does more than the DefaultSceneRoot.
+00:01:32,866 --> 00:01:36,866
+simpler is better. The tank static mesh does more than the DefaultSceneRoot,
 
 25
-00:01:36.866 --> 00:01:40.866
-so we're going to get rid of it. The way you do that is. you grab hold of the tank
+00:01:36,866 --> 00:01:40,866
+so we're going to get rid of it. The way you do that is, you grab hold of the tank
 
 26
-00:01:40.866 --> 00:01:44.866
-and just parent it. or what looks like parenting it to the DefaultScene Root. But
+00:01:40,866 --> 00:01:44,866
+and just parent it, or what looks like parenting it to the DefaultScene Root. But
 
 27
-00:01:44.866 --> 00:01:48.866
+00:01:44,866 --> 00:01:48,866
 you'll see that it says "Drop here to make Tank the new root. The default root will be deleted." That's
 
 28
-00:01:48.866 --> 00:01:52.866
-perfect. that's exactly what we want! So. let's go ahead and do that now! Now the
+00:01:48,866 --> 00:01:52,866
+perfect, that's exactly what we want! So, let's go ahead and do that now! Now the
 
 29
-00:01:52.866 --> 00:01:56.866
-tank is at the root. so it's a simpler hierarchy. So. that's a thumbs up
+00:01:52,866 --> 00:01:56,866
+tank is at the root, so it's a simpler hierarchy. So, that's a thumbs up
 
 30
-00:01:56.866 --> 00:02:00.866
-for me. So next. we go to the tank which is now at the root
+00:01:56,866 --> 00:02:00,866
+for me. So next, we go to the tank which is now at the root
 
 31
-00:02:00.866 --> 00:02:04.866
-and turn on simulate physics. and let's assign a sensible mass. Well.
+00:02:00,866 --> 00:02:04,866
+and turn on simulate physics, and let's assign a sensible mass. Well,
 
 32
-00:02:04.866 --> 00:02:08.866
-tanks are somewhere between 10 and 60. 70 tons. so I'm going to go for 40
+00:02:04,866 --> 00:02:08,866
+tanks are somewhere between 10 and 60, 70 tons, so I'm going to go for 40
 
 33
-00:02:08.866 --> 00:02:12.866
-metric tons. 40.000 kilos. 40 0 0 0.
+00:02:08,866 --> 00:02:12,866
+metric tons. 40,000 kilos, 40 0 0 0.
 
 34
-00:02:12.866 --> 00:02:16.866
-OK. so that's the mass! We have some Simulate Physics on. We'll worry about the
+00:02:12,866 --> 00:02:16,866
+OK, so that's the mass! We have some Simulate Physics on. We'll worry about the
 
 35
-00:02:16.866 --> 00:02:20.866
-other physics properties later. so of course. you need to compile the blueprint
+00:02:16,866 --> 00:02:20,866
+other physics properties later, so of course, you need to compile the blueprint
 
 36
-00:02:20.866 --> 00:02:24.866
-and play. Let's just see! So. with your tank off the ground. let's see what happens. Ha ha!
+00:02:20,866 --> 00:02:24,866
+and play. Let's just see! So, with your tank off the ground, let's see what happens. Ha ha!
 
 37
-00:02:24.866 --> 00:02:28.866
-It falls to the ground. hits the ground very nicely this time. and that's because
+00:02:24,866 --> 00:02:28,866
+It falls to the ground, hits the ground very nicely this time, and that's because
 
 38
-00:02:28.866 --> 00:02:32.866
+00:02:28,866 --> 00:02:32,866
 if we look at the tracks as
 
 39
-00:02:32.866 --> 00:02:36.866
-models. as static meshes. you can see that the collision mesh that
+00:02:32,866 --> 00:02:36,866
+models, as static meshes, you can see that the collision mesh that
 
 40
-00:02:36.866 --> 00:02:40.866
-Unreal has created for us. here this purple outline. is actually pretty good and
+00:02:36,866 --> 00:02:40,866
+Unreal has created for us, here this purple outline, is actually pretty good and
 
 41
-00:02:40.866 --> 00:02:44.866
-pretty appropriate. So. that's why the tank is falling until it hits the
+00:02:40,866 --> 00:02:44,866
+pretty appropriate. So, that's why the tank is falling until it hits the
 
 42
-00:02:44.866 --> 00:02:48.866
-collision mesh of the tracks. Great! Alright. so
+00:02:44,866 --> 00:02:48,866
+collision mesh of the tracks. Great! Alright, so
 
 43
-00:02:48.866 --> 00:02:52.866
-that's that bit done! Now. I need to fine tune the position of
+00:02:48,866 --> 00:02:52,866
+that's that bit done! Now, I need to fine tune the position of
 
 44
-00:02:52.866 --> 00:02:56.866
-these tracks. My left track is a little bit too far out. it's just sticking out here. and
+00:02:52,866 --> 00:02:56,866
+these tracks. My left track is a little bit too far out, it's just sticking out here, and
 
 45
-00:02:56.866 --> 00:03:00.866
-my right track. if we were to rotate the tank or just line ourselves up here. you
+00:02:56,866 --> 00:03:00,866
+my right track, if we were to rotate the tank or just line ourselves up here, you
 
 46
-00:03:00.866 --> 00:03:04.866
-can see is miles off. So. I'm just going to put the tank near the floor.
+00:03:00,866 --> 00:03:04,866
+can see is miles off. So, I'm just going to put the tank near the floor.
 
 47
-00:03:04.866 --> 00:03:08.866
-And not to confuse things. by the way. I'm actually going to move this tank and spin
+00:03:04,866 --> 00:03:08,866
+And not to confuse things, by the way, I'm actually going to move this tank and spin
 
 48
-00:03:08.866 --> 00:03:12.866
-it around. because remember there's a player start point here
+00:03:08,866 --> 00:03:12,866
+it around, because remember there's a player start point here
 
 49
-00:03:12.866 --> 00:03:16.866
+00:03:12,866 --> 00:03:16,866
 and that's where we're going to spawn our tank. This tank that we've placed in the world is not going to be
 
 50
-00:03:16.866 --> 00:03:20.866
-our tank. this is an AI tank or will become an AI tank. Remember that we
+00:03:16,866 --> 00:03:20,866
+our tank, this is an AI tank or will become an AI tank. Remember that we
 
 51
-00:03:20.866 --> 00:03:24.866
-spawn the player into the world. as per the previous section. So.
+00:03:20,866 --> 00:03:24,866
+spawn the player into the world, as per the previous section. So,
 
 52
-00:03:24.866 --> 00:03:28.866
-wrong axis! I'm just going to spin this tank around like that.
+00:03:24,866 --> 00:03:28,866
+wrong axis! I'm just going to spin this tank around like that,
 
 53
-00:03:28.866 --> 00:03:32.866
-and then. if we play what we've got is effectively is an enemy tank and we are the
+00:03:28,866 --> 00:03:32,866
+and then, if we play what we've got is effectively is an enemy tank and we are the
 
 54
-00:03:32.866 --> 00:03:36.866
-current player. Alright. so there's the tank. it's just off the ground. it falls to the
+00:03:32,866 --> 00:03:36,866
+current player. Alright, so there's the tank, it's just off the ground, it falls to the
 
 55
-00:03:36.866 --> 00:03:40.866
-ground when we start. it's all looking good. The challenge we have right now is these track positions.
+00:03:36,866 --> 00:03:40,866
+ground when we start, it's all looking good. The challenge we have right now is these track positions.
 
 56
-00:03:40.866 --> 00:03:44.866
-So. being very careful with Unreal's
+00:03:40,866 --> 00:03:44,866
+So, being very careful with Unreal's
 
 57
-00:03:44.866 --> 00:03:48.866
-buggy socket system. I'm going to go into the
+00:03:44,866 --> 00:03:48,866
+buggy socket system, I'm going to go into the
 
 58
-00:03:48.866 --> 00:03:52.866
+00:03:48,866 --> 00:03:52,866
 the tank body and...
 
 59
-00:03:52.866 --> 00:03:56.866
-Actually. once you've renamed these sockets I think it's pretty stable now. Let's see
+00:03:52,866 --> 00:03:56,866
+Actually, once you've renamed these sockets I think it's pretty stable now. Let's see
 
 60
-00:03:56.866 --> 00:04:00.866
-how it is. So. I'm going to go to the Left Track. I'm going to pick myself a preview mesh again.
+00:03:56,866 --> 00:04:00,866
+how it is. So, I'm going to go to the Left Track, I'm going to pick myself a preview mesh again,
 
 61
-00:04:00.866 --> 00:04:04.866
-and then. I'm going to
+00:04:00,866 --> 00:04:04,866
+and then, I'm going to
 
 62
-00:04:04.866 --> 00:04:08.866
-line up and just pull it in a little bit. That's good! In fact.
+00:04:04,866 --> 00:04:08,866
+line up and just pull it in a little bit. That's good! In fact,
 
 63
-00:04:08.866 --> 00:04:12.866
+00:04:08,866 --> 00:04:12,866
 you probably want to use let's say a Left view is
 
 64
-00:04:12.866 --> 00:04:16.866
-it? Something like that in Lit? Yeah. something like that
+00:04:12,866 --> 00:04:16,866
+it? Something like that in Lit? Yeah, something like that
 
 65
-00:04:16.866 --> 00:04:20.866
+00:04:16,866 --> 00:04:20,866
 or maybe it's a Right view. There you go! Right view and
 
 66
-00:04:20.866 --> 00:04:24.866
-then the Left Track. you can see there's like a notch here in the body.
+00:04:20,866 --> 00:04:24,866
+then the Left Track, you can see there's like a notch here in the body.
 
 67
-00:04:24.866 --> 00:04:28.866
-We can probably want to align that notch up. something like that. Now of course. if it's snapping
+00:04:24,866 --> 00:04:28,866
+We can probably want to align that notch up, something like that. Now of course, if it's snapping
 
 68
-00:04:28.866 --> 00:04:32.866
-wrongly. then you take your position snap. which is this
+00:04:28,866 --> 00:04:32,866
+wrongly, then you take your position snap, which is this
 
 69
-00:04:32.866 --> 00:04:36.866
-one here. and you turn the value right down.
+00:04:32,866 --> 00:04:36,866
+one here, and you turn the value right down,
 
 70
-00:04:36.866 --> 00:04:40.866
-till you can get the track in just the right position. There great! Alright. let's do the same
+00:04:36,866 --> 00:04:40,866
+till you can get the track in just the right position. There great! Alright, let's do the same
 
 71
-00:04:40.866 --> 00:04:44.866
-on the Right Track. I'm always nervous when touching the sockets. because they're buggy
+00:04:40,866 --> 00:04:44,866
+on the Right Track. I'm always nervous when touching the sockets, because they're buggy
 
 72
-00:04:44.866 --> 00:04:48.866
+00:04:44,866 --> 00:04:48,866
 or at least they are at the time of recording.
 
 73
-00:04:48.866 --> 00:04:52.866
+00:04:48,866 --> 00:04:52,866
 There you go! That looks fine to me! Let's try putting a new
 
 74
-00:04:52.866 --> 00:04:56.866
-tank in the world. because this tank that's already in the world... Oh. it has actually updated!
+00:04:52,866 --> 00:04:56,866
+tank in the world, because this tank that's already in the world... Oh, it has actually updated!
 
 75
-00:04:56.866 --> 00:05:00.866
-Sometimes it does. sometimes it doesn't. but this has! That's fantastic! So. the tank is looking
+00:04:56,866 --> 00:05:00,866
+Sometimes it does, sometimes it doesn't, but this has! That's fantastic! So, the tank is looking
 
 76
-00:05:00.866 --> 00:05:04.866
-much better. and of course. any new tanks we drop in the world will have these new properties
+00:05:00,866 --> 00:05:04,866
+much better, and of course, any new tanks we drop in the world will have these new properties
 
 77
-00:05:04.866 --> 00:05:08.866
-as well. so that's cool! Great. so we've added
+00:05:04,866 --> 00:05:08,866
+as well, so that's cool! Great, so we've added
 
 78
-00:05:08.866 --> 00:05:12.866
+00:05:08,866 --> 00:05:12,866
 mass to the tank. We fine tuned the track position. We sorted out the root
 
 79
-00:05:12.866 --> 00:05:16.866
-component in the blueprint. so the tank is there simplifying things. We've enabled physics
+00:05:12,866 --> 00:05:16,866
+component in the blueprint, so the tank is there simplifying things. We've enabled physics
 
 80
-00:05:16.866 --> 00:05:20.866
+00:05:16,866 --> 00:05:20,866
 and assigned a mass as I said. We now need to
 
 81
-00:05:20.866 --> 00:05:24.866
-set the tank to the Default Pawn. Now of course. you've done that
+00:05:20,866 --> 00:05:24,866
+set the tank to the Default Pawn. Now of course, you've done that
 
 82
-00:05:24.866 --> 00:05:28.866
-before. so I want you to set the tank blueprint as a Default Pawn. Create a
+00:05:24,866 --> 00:05:28,866
+before, so I want you to set the tank blueprint as a Default Pawn. Create a
 
 83
-00:05:28.866 --> 00:05:32.866
-BattleTankGameMode blueprint. based on the BattleTankGameMode's
+00:05:28,866 --> 00:05:32,866
+BattleTankGameMode blueprint, based on the BattleTankGameMode's
 
 84
-00:05:32.866 --> 00:05:36.866
-C++ class. There are several ways of doing that. we've done it in the previous section.
+00:05:32,866 --> 00:05:36,866
+C++ class. There are several ways of doing that, we've done it in the previous section.
 
 85
-00:05:36.866 --> 00:05:40.866
-Assign the tank as the Default Pawn. and check that the correct tank spawns
+00:05:36,866 --> 00:05:40,866
+Assign the tank as the Default Pawn, and check that the correct tank spawns
 
 86
-00:05:40.866 --> 00:05:44.866
-on play. So. if your player start. like mine. is in the ground
+00:05:40,866 --> 00:05:44,866
+on play. So, if your player start, like mine, is in the ground
 
 87
-00:05:44.866 --> 00:05:48.866
-you may have a little bit of trouble. You may need to move the player start. There's a hint for you. Alright.
+00:05:44,866 --> 00:05:48,866
+you may have a little bit of trouble. You may need to move the player start. There's a hint for you. Alright,
 
 88
-00:05:48.866 --> 00:05:52.866
-we want to make sure that a new tank spawns. not just the one we've dropped in the world. but once we're
+00:05:48,866 --> 00:05:52,866
+we want to make sure that a new tank spawns, not just the one we've dropped in the world, but once we're
 
 89
-00:05:52.866 --> 00:05:56.866
-playing there should be two. the one we left in the world and the one that spawns on play. i.e.
+00:05:52,866 --> 00:05:56,866
+playing there should be two, the one we left in the world and the one that spawns on play, i.e.
 
 90
-00:05:56.866 --> 00:06:00.866
-us. Go ahead. pause the video. see if you can make that stuff work now.
+00:05:56,866 --> 00:06:00,866
+us. Go ahead, pause the video, see if you can make that stuff work now.
 
 91
-00:06:00.866 --> 00:06:04.866
+00:06:00,866 --> 00:06:04,866
 
 
 92
-00:06:04.866 --> 00:06:08.866
-Welcome back! So. I'm going to create the BattleTankGameMode blueprint. a slightly different way. The
+00:06:04,866 --> 00:06:08,866
+Welcome back! So, I'm going to create the BattleTankGameMode blueprint, a slightly different way. The
 
 93
-00:06:08.866 --> 00:06:12.866
-previous way I think that we did it is. we went to the Game Mode here. the C++ Game Mode.
+00:06:08,866 --> 00:06:12,866
+previous way I think that we did it is, we went to the Game Mode here, the C++ Game Mode,
 
 94
-00:06:12.866 --> 00:06:16.866
-right-click. and "Create Blueprint class based on" it. You can do that. or
+00:06:12,866 --> 00:06:16,866
+right-click, and "Create Blueprint class based on" it. You can do that, or
 
 95
-00:06:16.866 --> 00:06:20.866
+00:06:16,866 --> 00:06:20,866
 you can notice that you can just go to Blueprint. And you can look at
 
 96
-00:06:20.866 --> 00:06:24.866
-the Project Settings for the GameMode. which we're not going to change for now. but
+00:06:20,866 --> 00:06:24,866
+the Project Settings for the GameMode, which we're not going to change for now, but
 
 97
-00:06:24.866 --> 00:06:28.866
-the world override. for this particular world. we're going to use
+00:06:24,866 --> 00:06:28,866
+the world override, for this particular world, we're going to use
 
 98
-00:06:28.866 --> 00:06:32.866
-a new GameMode here. so you want that setting. World override
+00:06:28,866 --> 00:06:32,866
+a new GameMode here, so you want that setting. World override
 
 99
-00:06:32.866 --> 00:06:36.866
+00:06:32,866 --> 00:06:36,866
 let's you get to a place where you can create a new blueprint class based
 
 100
-00:06:36.866 --> 00:06:40.866
+00:06:36,866 --> 00:06:40,866
 on the BattleTankGameMode. It's exactly the same as right-clicking on the BattleTank
 
 101
-00:06:40.866 --> 00:06:44.866
-GameMode C++ on the left and creating a blueprint. I just wanted to show you this other menu.
+00:06:40,866 --> 00:06:44,866
+GameMode C++ on the left and creating a blueprint. I just wanted to show you this other menu,
 
 102
-00:06:44.866 --> 00:06:48.866
+00:06:44,866 --> 00:06:48,866
 so there it is! Let's call it BattleTankGameMode_BP.
 
 103
-00:06:48.866 --> 00:06:52.866
+00:06:48,866 --> 00:06:52,866
 And this tells the
 
 104
-00:06:52.866 --> 00:06:56.866
-GameMode. of which we'll only have one. what the Default Pawn is.
+00:06:52,866 --> 00:06:56,866
+GameMode, of which we'll only have one, what the Default Pawn is.
 
 105
-00:06:56.866 --> 00:07:00.866
-The tank blueprint. cool! So. that's down there under classes. tank blueprint.
+00:06:56,866 --> 00:07:00,866
+The tank blueprint, cool! So, that's down there under classes, tank blueprint,
 
 106
-00:07:00.866 --> 00:07:04.866
-alright. And remember. we're in the full blueprint editor here. so that's
+00:07:00,866 --> 00:07:04,866
+alright. And remember, we're in the full blueprint editor here, so that's
 
 107
-00:07:04.866 --> 00:07:08.866
-why it's quite complex looking. Great. so
+00:07:04,866 --> 00:07:08,866
+why it's quite complex looking. Great, so
 
 108
-00:07:08.866 --> 00:07:12.866
-if we now play what happens? Well. we end up half way in the
+00:07:08,866 --> 00:07:12,866
+if we now play what happens? Well, we end up half way in the
 
 109
-00:07:12.866 --> 00:07:16.866
-floor. Let's de-possess. F8. That lets you eject from
+00:07:12,866 --> 00:07:16,866
+floor. Let's de-possess, F8. That lets you eject from
 
 110
-00:07:16.866 --> 00:07:20.866
-the possessed player. So. what's going on? Where are we? If we look at the
+00:07:16,866 --> 00:07:20,866
+the possessed player. So, what's going on? Where are we? If we look at the
 
 111
-00:07:20.866 --> 00:07:24.866
-World Outliner. we have a tank there but that's not us actually.
+00:07:20,866 --> 00:07:24,866
+World Outliner, we have a tank there but that's not us actually.
 
 112
-00:07:24.866 --> 00:07:28.866
+00:07:24,866 --> 00:07:28,866
 We have a PlayerController and a PlayerState. Something is a bit
 
 113
-00:07:28.866 --> 00:07:32.866
-funny. so when something is a bit funny it's a good habit to go to your Developer Tools
+00:07:28,866 --> 00:07:32,866
+funny, so when something is a bit funny it's a good habit to go to your Developer Tools
 
 114
-00:07:32.866 --> 00:07:36.866
+00:07:32,866 --> 00:07:36,866
 and make sure that you have your Output Log. Look "SpawnActor failed because
 
 115
-00:07:36.866 --> 00:07:40.866
-of collision at spawn location". which is that location
+00:07:36,866 --> 00:07:40,866
+of collision at spawn location", which is that location
 
 116
-00:07:40.866 --> 00:07:44.866
-there. So. what is that location there? Well. it's probably the location of
+00:07:40,866 --> 00:07:44,866
+there. So, what is that location there? Well, it's probably the location of
 
 117
-00:07:44.866 --> 00:07:48.866
-Player Start. Let's have a look. Yes it is. 0. 0. 112.
+00:07:44,866 --> 00:07:48,866
+Player Start. Let's have a look. Yes it is, 0, 0, 112.
 
 118
-00:07:48.866 --> 00:07:52.866
-So. what's happening is that our Player Start... Let me just give myself
+00:07:48,866 --> 00:07:52,866
+So, what's happening is that our Player Start... Let me just give myself
 
 119
-00:07:52.866 --> 00:07:56.866
-some room here. we just go to it. ...is in the
+00:07:52,866 --> 00:07:56,866
+some room here, we just go to it. ...is in the
 
 120
-00:07:56.866 --> 00:08:00.866
-ground. and then. the tank can't spawn there because the player starts in the ground. So. if I
+00:07:56,866 --> 00:08:00,866
+ground, and then, the tank can't spawn there because the player starts in the ground. So, if I
 
 121
-00:08:00.866 --> 00:08:04.866
-move the Player Start off the ground a bit and try playing again. ah hah!
+00:08:00,866 --> 00:08:04,866
+move the Player Start off the ground a bit and try playing again, ah hah!
 
 122
-00:08:04.866 --> 00:08:08.866
-The camera's all wrong. but look what happens! The tank spawns and now we have
+00:08:04,866 --> 00:08:08,866
+The camera's all wrong, but look what happens! The tank spawns and now we have
 
 123
-00:08:08.866 --> 00:08:12.866
-two tanks. if I eject with the F8 key then move around. This
+00:08:08,866 --> 00:08:12,866
+two tanks, if I eject with the F8 key then move around. This
 
 124
-00:08:12.866 --> 00:08:16.866
-is our player tank. And are we possessed in that tank? Well. click Possess.
+00:08:12,866 --> 00:08:16,866
+is our player tank. And are we possessed in that tank? Well, click Possess,
 
 125
-00:08:16.866 --> 00:08:20.866
-you end up right in the middle of it. It looks like it to me! So. that's pretty
+00:08:16,866 --> 00:08:20,866
+you end up right in the middle of it. It looks like it to me! So, that's pretty
 
 126
-00:08:20.866 --> 00:08:24.866
-cool. right! Now. you might ask why this camera's here. sitting in the middle of the tank
+00:08:20,866 --> 00:08:24,866
+cool, right! Now, you might ask why this camera's here, sitting in the middle of the tank
 
 127
-00:08:24.866 --> 00:08:28.866
-like this. Well. we'll be dealing with the camera in the next
+00:08:24,866 --> 00:08:28,866
+like this. Well, we'll be dealing with the camera in the next
 
 128
-00:08:28.866 --> 00:08:32.866
-video. So. that's it! We have managed to tweak our tank. We
+00:08:28,866 --> 00:08:32,866
+video. So, that's it! We have managed to tweak our tank. We
 
 129
-00:08:32.866 --> 00:08:36.866
-have AI tanks that look just like the player tanks. so we're on a level ground.
+00:08:32,866 --> 00:08:36,866
+have AI tanks that look just like the player tanks, so we're on a level ground,
 
 130
-00:08:36.866 --> 00:08:40.866
+00:08:36,866 --> 00:08:40,866
 literally at the moment. [Laughs] And also
 
 131
-00:08:40.866 --> 00:08:44.866
-metaphorically. we want to be on an even keel. [Laughs] I like to throw out as many English
+00:08:40,866 --> 00:08:44,866
+metaphorically, we want to be on an even keel. [Laughs] I like to throw out as many English
 
 132
-00:08:44.866 --> 00:08:48.866
+00:08:44,866 --> 00:08:48,866
 metaphors as I can. We want us and the AI tank to...
 
 133
-00:08:48.866 --> 00:08:52.866
-It wants to be fair right. so it's fair in terms of
+00:08:48,866 --> 00:08:52,866
+It wants to be fair right, so it's fair in terms of
 
 134
-00:08:52.866 --> 00:08:56.866
-our tank is the same as the AI tank. and it's going to be fair later. because we're going to force the AI
+00:08:52,866 --> 00:08:56,866
+our tank is the same as the AI tank, and it's going to be fair later, because we're going to force the AI
 
 135
-00:08:56.866 --> 00:09:00.866
-to drive like we do. using the same controls and the same physics. And
+00:08:56,866 --> 00:09:00,866
+to drive like we do, using the same controls and the same physics. And
 
 136
-00:09:00.866 --> 00:09:04.866
-that's going to be really cool. because that make the game much more equitable. So.
+00:09:00,866 --> 00:09:04,866
+that's going to be really cool, because that make the game much more equitable. So,
 
 137
-00:09:04.866 --> 00:09:08.866
+00:09:04,866 --> 00:09:08,866
 let's move on and look at how we're going to deal with the camera
 
 138
-00:09:08.866 --> 00:09:12.866
-and various other aspect. So. see you soon!
+00:09:08,866 --> 00:09:12,866
+and various other aspect. So, see you soon!
 
 139
-00:09:12.866 --> 00:09:13.199
+00:09:12,866 --> 00:09:13,199
 
 

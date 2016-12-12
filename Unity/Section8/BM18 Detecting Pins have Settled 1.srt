@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section8/BM18 Detecting Pins have Settled 1.srt
 ï»¿WEBVTT
 
 00:00:03.580 --> 00:00:09.710 align:middle line:90%
@@ -880,4 +881,887 @@ is working. Fantastic. So here's the code
 
 00:19:43.870 --> 00:19:48.870 align:middle line:90%
 that achieved the desired effect and we'll
+=======
+
+00:00:03,580 --> 00:00:09,710 align:middle line:90%
+Welcome back fine people. So this video is
+all about detecting that the pins have settled.
+
+00:00:09,710 --> 00:00:15,410 align:middle line:90%
+In this video we're going to use the PinSetter's
+trigger collider to detect the ball, we're
+
+00:00:15,410 --> 00:00:20,910 align:middle line:90%
+only going to start counting upright pins
+when the ball enters that box, we're going
+
+00:00:20,910 --> 00:00:27,619 align:middle line:90%
+to detect when pins have stopped wobbling
+and then update the pin count display to green
+
+00:00:27,619 --> 00:00:34,380 align:middle line:90%
+and we're going to have an instance variable
+on the PinSetter.cs script called lastStandingCount
+
+00:00:34,380 --> 00:00:38,300 align:middle line:90%
+and we're going to set lastStandingCount to
+-1 when they've settled.
+
+00:00:38,300 --> 00:00:42,719 align:middle line:90%
+Now some of you programmers are going to wince
+when I do this and I somewhat agree with you,
+
+00:00:42,719 --> 00:00:48,629 align:middle line:90%
+minus one is not an ideal way of doing things
+because we are encoding semantic information
+
+00:00:48,629 --> 00:00:52,239 align:middle line:90%
+in arbitrary numbers that we've picked but
+it does make for the rest of the code being
+
+00:00:52,239 --> 00:00:58,680 align:middle line:90%
+relatively simple and I want to show you this
+as both a solution and a warning. So let's
+
+00:00:58,680 --> 00:01:03,809 align:middle line:90%
+start by just taking a look at where we are.
+We currently have the display count - firstly
+
+00:01:03,809 --> 00:01:08,860 align:middle line:90%
+it's always updating so if the wind were to
+blow right now and the pins wobbled this thing
+
+00:01:08,860 --> 00:01:09,850 align:middle line:84%
+would change.
+
+00:01:09,850 --> 00:01:14,180 align:middle line:90%
+What I want to happen is for the display to
+only start updating when the ball's in the
+
+00:01:14,180 --> 00:01:20,740 align:middle line:90%
+box and then I also want it to detect when
+the balls have stopped wobbling - these three
+
+00:01:20,740 --> 00:01:25,560 align:middle line:90%
+guys that are still standing here - and to
+actually settle on a value of say three. So
+
+00:01:25,560 --> 00:01:30,439 align:middle line:90%
+that's the objective of this video, let's
+get ahead and do it. But, of course in our
+
+00:01:30,439 --> 00:01:35,320 align:middle line:90%
+standard style it's going to be your job to
+get this going. So I want you to add to the
+
+00:01:35,320 --> 00:01:45,560 align:middle line:90%
+PinSetter.cs script, set the pin count to
+red when the ball enters the box; the PinSetter.cs
+
+00:01:45,560 --> 00:01:51,380 align:middle line:90%
+script is attached to an object called PinSetter
+and it has a collider on it with a trigger.
+
+00:01:51,380 --> 00:01:58,680 align:middle line:90%
+So use that to set that text to red; the Pin
+Count. Secondly, set the ballEnteredBox instance
+
+00:01:58,680 --> 00:02:03,390 align:middle line:90%
+- well we don't have one yet so I want you
+to create a ballEnteredBox instance variable
+
+00:02:03,390 --> 00:02:08,170 align:middle line:90%
+which is a variable at the top of PinSetter.cs
+and set that to true when the ball enters
+
+00:02:08,170 --> 00:02:14,739 align:middle line:90%
+the box, and then destroy pins when they leave
+the box as well. This is a new way of creating
+
+00:02:14,739 --> 00:02:18,480 align:middle line:90%
+a shredder, this is a shredder where things
+get destroyed on exit.
+
+00:02:18,480 --> 00:02:21,879 align:middle line:90%
+So have a go at all that, see if you can get
+that working. You'll know it’s working simply
+
+00:02:21,879 --> 00:02:28,260 align:middle line:90%
+because the pin count will go red the moment
+the ball enters the end of the play space
+
+00:02:28,260 --> 00:02:33,550 align:middle line:90%
+and you will also see the pins when they fly
+out of the box disappearing. So have a go,
+
+00:02:33,550 --> 00:02:39,790 align:middle line:90%
+see how you get on. Are you waiting for me
+to carry on or are you pausing the video?
+
+00:02:39,790 --> 00:02:44,319 align:middle line:90%
+I'm sure that you're pausing the video by
+now. Fantastic, so let's get on with this
+
+00:02:44,319 --> 00:02:45,780 align:middle line:84%
+and write some code shall we?
+
+00:02:45,780 --> 00:02:51,900 align:middle line:90%
+Let's go into PinSetter firstly and intercept
+our message. So the message is going to be
+
+00:02:51,900 --> 00:02:58,980 align:middle line:90%
+passed when a trigger happens - of course
+you know this by now is the void OnTriggerEnter
+
+00:02:58,980 --> 00:03:07,220 align:middle line:90%
+we'll go with first. Now you get no help with
+this so you must spell it properly and then
+
+00:03:07,220 --> 00:03:13,129 align:middle line:90%
+on a trigger enter we get a collider not a
+collision right? Because triggers are specifically
+
+00:03:13,129 --> 00:03:18,340 align:middle line:90%
+disabling collisions and there you go. So
+OnTriggerEnter collider collider now it's
+
+00:03:18,340 --> 00:03:22,840 align:middle line:90%
+always with these triggers and things a good
+idea to start by just printing to the console.
+
+00:03:22,840 --> 00:03:27,739 align:middle line:90%
+So just trigger will do for now. This is the
+sort of log entry you want to remove quite
+
+00:03:27,739 --> 00:03:33,049 align:middle line:90%
+quickly but let's just do that. Now while
+I'm here by the way this top camera, I said
+
+00:03:33,049 --> 00:03:36,730 align:middle line:90%
+earlier that we could arrange it into the
+PinSetter which is in turn in the lane, is
+
+00:03:36,730 --> 00:03:41,360 align:middle line:90%
+it worth it? Is that complexity, three levels
+of hierarchy worth it? No. So if you make
+
+00:03:41,360 --> 00:03:45,650 align:middle line:90%
+a mistake like that just reverse it, I'm going
+to put Top camera right back at the top, and
+
+00:03:45,650 --> 00:03:50,890 align:middle line:90%
+now when I click on PinSetter I don't get
+the ugly camera gizmos. OK? Fine, so there's
+
+00:03:50,890 --> 00:03:54,420 align:middle line:90%
+the PinSetter. It has a collider on it, it
+is a box collider and it is a trigger collider
+
+00:03:54,420 --> 00:03:59,519 align:middle line:90%
+crucially. So what should happen in theory
+when the ball gets into that box is, well,
+
+00:03:59,519 --> 00:04:02,890 align:middle line:90%
+we're getting trigger, trigger, trigger trigger
+triggered all the time. Why are we getting
+
+00:04:02,890 --> 00:04:10,099 align:middle line:90%
+eleven triggers? Ten may make sense, why eleven?
+Not sure why it's eleven, oh yes I am, I know
+
+00:04:10,099 --> 00:04:10,670 align:middle line:84%
+why it's eleven.
+
+00:04:10,670 --> 00:04:17,979 align:middle line:90%
+Why is it eleven? OK we've got eleven collisions
+because if you look at the end of the play
+
+00:04:17,979 --> 00:04:22,800 align:middle line:90%
+space we've got eleven things in it, ten pins
+and a swiper, and it's collided with all of
+
+00:04:22,800 --> 00:04:27,030 align:middle line:90%
+them. So first thing that we want to do is
+to create some differentiation. We want to
+
+00:04:27,030 --> 00:04:33,850 align:middle line:90%
+say well actually we only care about this
+trigger when we actually hit a ball. So how
+
+00:04:33,850 --> 00:04:39,229 align:middle line:90%
+are we going to do that? Well I am going to
+break it down for you. We're going to say
+
+00:04:39,229 --> 00:04:45,949 align:middle line:90%
+that the gameObject, which is the thing that
+we hit and it could be anything = collider
+
+00:04:45,949 --> 00:04:50,870 align:middle line:90%
+that's passed into this message dot gameObject,
+so we take the gameObject off this collider
+
+00:04:50,870 --> 00:04:56,490 align:middle line:90%
+here, that's passed in by the engine, we take
+it, we look at its gameObject component assign
+
+00:04:56,490 --> 00:04:58,910 align:middle line:84%
+it to a variable here and store it.
+
+00:04:58,910 --> 00:05:05,199 align:middle line:90%
+It's a gameObject. Fantastic, so now we can
+say, actually let's put a comment, ball enters
+
+00:05:05,199 --> 00:05:22,240 align:middle line:90%
+play box. OK fantastic. Now we can say if
+thingHit.GetComponent() now, if that
+
+00:05:22,240 --> 00:05:29,340 align:middle line:90%
+succeeds then this whole method here will
+return true because yes, I've found a ball.
+
+00:05:29,340 --> 00:05:34,449 align:middle line:90%
+OK so only in this case do we print triggered
+and actually triggered is too generic now
+
+00:05:34,449 --> 00:05:40,130 align:middle line:90%
+so we want to say Ball entered box or something
+like that. Fantastic. Let's test that logic,
+
+00:05:40,130 --> 00:05:44,530 align:middle line:90%
+let's make sure that we now differentiate
+and we only get a trigger when the ball has
+
+00:05:44,530 --> 00:05:45,120 align:middle line:84%
+entered the box.
+
+00:05:45,120 --> 00:05:50,130 align:middle line:90%
+So firstly at the start, if we were clearing
+on play - so let's just clear the console
+
+00:05:50,130 --> 00:05:54,050 align:middle line:90%
+- start again, make sure your clear on play
+is on otherwise you'll be seeing previous
+
+00:05:54,050 --> 00:05:58,910 align:middle line:90%
+error messages and believing that you haven't
+fixed them. Perfect, so there's no triggers
+
+00:05:58,910 --> 00:06:03,729 align:middle line:90%
+going on right now, we there are but none
+of them are of type ball, where the ball is
+
+00:06:03,729 --> 00:06:07,979 align:middle line:90%
+intersecting, so we're not getting any logs
+and this is kind of building the code from
+
+00:06:07,979 --> 00:06:13,520 align:middle line:90%
+the inside out. OK Iaunched the ball a little
+slow but in a moment, watch the console, Is
+
+00:06:13,520 --> 00:06:14,400 align:middle line:84%
+it going to make it?
+
+00:06:14,400 --> 00:06:18,740 align:middle line:90%
+Yeah, ball entered box, perfect. Alright?
+So we are now detecting that the ball enters
+
+00:06:18,740 --> 00:06:24,910 align:middle line:90%
+the box. Always a good plan to do that before
+you start writing the actual code. So I said
+
+00:06:24,910 --> 00:06:30,759 align:middle line:90%
+that we wanted a ballEnteredBox = true instance
+variable, of course ballEnteredBox doesn't
+
+00:06:30,759 --> 00:06:36,240 align:middle line:90%
+exist yet, so let's go to the top and make
+it a... shall we make it public or private?
+
+00:06:36,240 --> 00:06:40,250 align:middle line:90%
+Hmm I'm going to make it private, I don't
+really want things from the outside to be
+
+00:06:40,250 --> 00:06:44,300 align:middle line:90%
+able to change it. If in doubt, make things
+private. You can always make things public
+
+00:06:44,300 --> 00:06:45,100 align:middle line:84%
+later.
+
+00:06:45,100 --> 00:06:52,060 align:middle line:90%
+It's a bool, b double o l and it's called
+ball, b a l l entered box so we have a Boolean
+
+00:06:52,060 --> 00:06:56,490 align:middle line:90%
+which is the ball entered the box and by default
+when we declare it is should be false because
+
+00:06:56,490 --> 00:07:02,690 align:middle line:90%
+it hasn't entered the box yet. Fantastic so
+when we hit the ball, we said that the ball
+
+00:07:02,690 --> 00:07:07,400 align:middle line:90%
+entered the box is true, that's the first
+thing that we wanted to do, and the other
+
+00:07:07,400 --> 00:07:13,360 align:middle line:90%
+thing is we want to make this standingDisplay.color,
+we can go straight to the colour because this
+
+00:07:13,360 --> 00:07:21,259 align:middle line:90%
+standingDisplay is a piece of text so we can
+go straight to colour = color, by the way
+
+00:07:21,259 --> 00:07:25,000 align:middle line:90%
+how would you know that? Well you'd hit the
+dot and you'd start typing color and you'd
+
+00:07:25,000 --> 00:07:26,949 align:middle line:84%
+realise it was there and you'd have a go.
+
+00:07:26,949 --> 00:07:31,599 align:middle line:90%
+Or if you were somewhat more systematic you
+would look at the documents for the text type.
+
+00:07:31,599 --> 00:07:40,479 align:middle line:90%
+Either way equals color.red, comme ça. Perfect.
+Shall we have a go? See what it does? Then
+
+00:07:40,479 --> 00:07:46,500 align:middle line:90%
+we'll go back and show you the code in a minute
+in case I went too fast for you. No! Don't
+
+00:07:46,500 --> 00:07:51,860 align:middle line:90%
+go off the edge, gutter ball! I think it's
+going to work, red, and nine, perfect. So
+
+00:07:51,860 --> 00:07:57,060 align:middle line:90%
+this is a tentative value of nine and that's
+exactly what we wanted there. So that's the
+
+00:07:57,060 --> 00:08:02,530 align:middle line:90%
+code that I used to achieve that result, relatively
+simple. Cool, let's go back to the challenge
+
+00:08:02,530 --> 00:08:03,919 align:middle line:84%
+slide and just have a look.
+
+00:08:03,919 --> 00:08:09,300 align:middle line:90%
+I also said we want to destroy the pins when
+they leave the box. That's the bottom element
+
+00:08:09,300 --> 00:08:17,440 align:middle line:90%
+of that challenge. So how are we going to
+do that? Well, let's use the void OnTriggerExit,
+
+00:08:17,440 --> 00:08:21,699 align:middle line:90%
+again do we need the collider? Because we
+can intercept on trigger exit like that. If
+
+00:08:21,699 --> 00:08:26,099 align:middle line:90%
+you don't need the collider don't use the
+collider but we do need the collider because
+
+00:08:26,099 --> 00:08:31,699 align:middle line:90%
+we need to know that it's a pin that has left
+so let's take the collider, it's going to
+
+00:08:31,699 --> 00:08:36,659 align:middle line:90%
+give it to us but you don't have to every
+time, and let's do exactly the same thing.
+
+00:08:36,659 --> 00:08:44,580 align:middle line:90%
+It's not really a thing hit in this case but
+we can still use this line and we can just
+
+00:08:44,580 --> 00:08:48,380 align:middle line:90%
+call it thing left instead of thing hit right?
+Because it's not hitting anything. So what
+
+00:08:48,380 --> 00:09:05,350 align:middle line:90%
+has left this box? Well, if thingLeft.GetComponent()
+so it
+
+00:09:05,350 --> 00:09:11,610 align:middle line:90%
+the thing that left. Cool, hey? I love it
+when code reads like English, like Hannibal
+
+00:09:11,610 --> 00:09:15,370 align:middle line:90%
+from the A-Team I love it when a plan comes
+together, well I love it when code reads like
+
+00:09:15,370 --> 00:09:17,290 align:middle line:84%
+English, I'm just sad like that,
+
+00:09:17,290 --> 00:09:21,330 align:middle line:90%
+OK let's see if it works, I'm going to have
+to bowl straight this time. Let's have a go,
+
+00:09:21,330 --> 00:09:25,839 align:middle line:90%
+I'm going to have to knock the pins with some
+velocity otherwise the pins will never leave
+
+00:09:25,839 --> 00:09:30,500 align:middle line:90%
+the play space. Was that any good? Maybe,
+I'll start again. I'm clearly not skilled
+
+00:09:30,500 --> 00:09:35,120 align:middle line:90%
+enough at my own game yet. No! See it's quite
+interesting because the faster you try and
+
+00:09:35,120 --> 00:09:38,480 align:middle line:90%
+drag it the harder it is to be accurate which
+is exactly what we want.
+
+00:09:38,480 --> 00:09:44,860 align:middle line:90%
+We hit the pins, boom, now watch them carefully,
+do they disappear? Not really, I'm not really
+
+00:09:44,860 --> 00:09:51,240 align:middle line:90%
+seeing them disappear, I'm not feeling it,
+so what's going wrong there? OK the pins are
+
+00:09:51,240 --> 00:09:55,290 align:middle line:90%
+not being destroyed, now, guess what I didn't
+do this time? I didn't break it down, did
+
+00:09:55,290 --> 00:10:00,959 align:middle line:90%
+I? I didn't for example do any logs here.
+So start at the higher level let's just go
+
+00:10:00,959 --> 00:10:13,470 align:middle line:90%
+print something left, and make sure the OnTriggerExit
+is even happening. So let's do that now. So
+
+00:10:13,470 --> 00:10:19,890 align:middle line:90%
+I gave you the advice of using logs, and then
+I didn't take my own advice and then I paid
+
+00:10:19,890 --> 00:10:23,740 align:middle line:90%
+the consequences, OK so something left, and
+it looks like the number of things that are
+
+00:10:23,740 --> 00:10:27,930 align:middle line:90%
+leaving are about the number of pins, right?
+So there're five things left standing and
+
+00:10:27,930 --> 00:10:33,410 align:middle line:90%
+six things have left, five plus six is eleven,
+a little bit confusing but that's about right.
+
+00:10:33,410 --> 00:10:40,410 align:middle line:90%
+So let's take a look and see whether or not
+it is detecting that Pins have left so it's
+
+00:10:40,410 --> 00:10:46,260 align:middle line:90%
+no longer a log saying something, it's a log
+saying that pin has left, and is there a problem
+
+00:10:46,260 --> 00:10:55,220 align:middle line:90%
+with this? If thingLeft.GetComponent
+- seems alright. So let's see what's wrong.
+
+00:10:55,220 --> 00:10:58,430 align:middle line:90%
+Typical kind of debugging that you need to
+do as you go along of course. So here comes
+
+00:10:58,430 --> 00:11:03,410 align:middle line:90%
+the ball with its dodgy football texture and...
+No pins are leaving. Great So good time to
+
+00:11:03,410 --> 00:11:08,100 align:middle line:90%
+pause the game and have a look what's going
+on here. This pin for example has definitely
+
+00:11:08,100 --> 00:11:15,660 align:middle line:90%
+left this bounding box right? So what is this
+thing out here? Is it of type pin?
+
+00:11:15,660 --> 00:11:23,029 align:middle line:90%
+Well, this thing here is, the whole bowling
+pin, yeah that's OK it just happens to intercept
+
+00:11:23,029 --> 00:11:27,890 align:middle line:90%
+my click on the render, so this is the bowling
+pin, and it is of type pin because it has
+
+00:11:27,890 --> 00:11:33,070 align:middle line:90%
+a pin component and it has definitely left
+the bowling pin box so let's look at this
+
+00:11:33,070 --> 00:11:39,700 align:middle line:90%
+pin's collider here you go does it have a
+collider? Now there so let's look at the sub-element
+
+00:11:39,700 --> 00:11:47,070 align:middle line:90%
+it does but it's not a trigger. OK, so is
+the message even going to get called in the
+
+00:11:47,070 --> 00:11:52,459 align:middle line:90%
+instance of the pin, well yes it is, so what's
+the problem? We have an issue here, what's
+
+00:11:52,459 --> 00:11:59,899 align:middle line:90%
+going on? Have a think about it yourself before
+I tell you the solution to that.
+
+00:11:59,899 --> 00:12:05,800 align:middle line:90%
+Well one simple solution could be if we look
+for the component on the thing that left then
+
+00:12:05,800 --> 00:12:11,209 align:middle line:90%
+the thing that left is this collider object
+here which actually doesn't have a pin component
+
+00:12:11,209 --> 00:12:17,010 align:middle line:90%
+on it. That would be a reasonable guess, so
+is there a GetComponent method that is a bit
+
+00:12:17,010 --> 00:12:24,350 align:middle line:90%
+like GetComponent that also looks in the parents
+or something? GetComponentsInParent how about
+
+00:12:24,350 --> 00:12:30,279 align:middle line:90%
+that? How about if we said that any pin components
+in the parent of this thing. Let's see if
+
+00:12:30,279 --> 00:12:37,100 align:middle line:90%
+that works. Build it, so I get an error that
+I cannot convert a pin array to a bool which
+
+00:12:37,100 --> 00:12:41,350 align:middle line:90%
+is fair enough - now there are two ways out
+of this problem and I know which one I prefer.
+
+00:12:41,350 --> 00:12:47,190 align:middle line:90%
+One way is the make it more complex way and
+to start looking through this array of components
+
+00:12:47,190 --> 00:12:54,160 align:middle line:90%
+that we have found in the parent of this thing
+here, where are we back in the scene, in the
+
+00:12:54,160 --> 00:13:00,079 align:middle line:90%
+game, OK in this pin six guy that we were
+looking at - he had a sub-element. Oh my god
+
+00:13:00,079 --> 00:13:05,250 align:middle line:90%
+this is confusing now right, or, there's another
+way of solving it which is to simplify our
+
+00:13:05,250 --> 00:13:09,139 align:middle line:90%
+way out of the problem? Wouldn't that be nicer?
+So the problem we've got with all of these
+
+00:13:09,139 --> 00:13:14,410 align:middle line:90%
+pins is that they're a bit too hierarchical,
+we have a bowling pin which is a transform,
+
+00:13:14,410 --> 00:13:22,019 align:middle line:90%
+a rigidbody and a pin script; but we also
+have a separate collider element on it which
+
+00:13:22,019 --> 00:13:30,220 align:middle line:90%
+has a collider mesh filter that we need and
+a mesh collider that's OK but we don't even
+
+00:13:30,220 --> 00:13:35,959 align:middle line:90%
+need that mesh filter, we just don't need
+it, you only need the collider with its mesh,
+
+00:13:35,959 --> 00:13:38,459 align:middle line:84%
+so you could simplify a pin like that.
+
+00:13:38,459 --> 00:13:43,010 align:middle line:90%
+You could look at the render component and
+say well do we need the pin render mesh, well
+
+00:13:43,010 --> 00:13:49,060 align:middle line:90%
+yes we are going to need that but why couldn't
+that pin render mesh be on the top level of
+
+00:13:49,060 --> 00:13:54,420 align:middle line:90%
+the pin, let's try it. I'm going to work on
+pin 6 I'm going to copy the pin render component
+
+00:13:54,420 --> 00:14:00,290 align:middle line:90%
+and put it at the top level. Paste component
+as new. OK, well that seemed to work, I'll
+
+00:14:00,290 --> 00:14:06,570 align:middle line:90%
+move it up I like my scripts at the bottom.
+So now let's take off the render component
+
+00:14:06,570 --> 00:14:10,529 align:middle line:90%
+from the sub object so the pin's still rendering
+that's fine so how about if we took it a step
+
+00:14:10,529 --> 00:14:13,490 align:middle line:90%
+further and say, well actually do we even
+need the mesh renderer?
+
+00:14:13,490 --> 00:14:20,019 align:middle line:90%
+Well copy the component, go to the top level
+object, paste the component in, maybe move
+
+00:14:20,019 --> 00:14:25,380 align:middle line:90%
+it up, it still seems to have all the materials,
+how about if we got rid of the whole pin render
+
+00:14:25,380 --> 00:14:33,060 align:middle line:90%
+sub component. That's pretty cool apart from
+it hasn't worked, and that's because the transform
+
+00:14:33,060 --> 00:14:38,320 align:middle line:90%
+of this pin has now rotated itself through
+90 degrees you see, so now we have a discrepancy.
+
+00:14:38,320 --> 00:14:43,019 align:middle line:90%
+Well let's continue this, let's simplify the
+hell out of these pins. So let's take the
+
+00:14:43,019 --> 00:14:46,709 align:middle line:90%
+collider component off as well and put it
+at the top level of the pin.
+
+00:14:46,709 --> 00:14:53,160 align:middle line:90%
+So you are going for a slightly different
+architecture, let's simplify things. OK so
+
+00:14:53,160 --> 00:14:57,459 align:middle line:90%
+now you have the collider so you don't need
+the collider subcomponent. Look at bowling
+
+00:14:57,459 --> 00:15:02,370 align:middle line:90%
+pin six, isn't that prettier? So what does
+bowling pin six need to do? Well it needs
+
+00:15:02,370 --> 00:15:09,230 align:middle line:90%
+to be rotated through the x axis by probably
+90 degrees. This may affect your isPinStanding
+
+00:15:09,230 --> 00:15:15,260 align:middle line:90%
+script but pin six otherwise looks like it's
+in pretty good shape and it's a much simpler
+
+00:15:15,260 --> 00:15:20,079 align:middle line:90%
+object, look at it. Even though it's got more
+components on it it has no hierarchy - so
+
+00:15:20,079 --> 00:15:26,410 align:middle line:90%
+now when our script says well, am I a pin,
+well it is a pin because the collider is the
+
+00:15:26,410 --> 00:15:30,089 align:middle line:90%
+thing that's passing the message and attached
+to the very same object is a pin.
+
+00:15:30,089 --> 00:15:34,060 align:middle line:90%
+So it's got more components on it but it's
+got exactly what it needs. It has a rigidbody,
+
+00:15:34,060 --> 00:15:40,269 align:middle line:90%
+a rendered, a mesh renderer, a mesh that gives
+it its shape a renderer that draws it and
+
+00:15:40,269 --> 00:15:44,699 align:middle line:90%
+the same for a mesh collider that can all
+be done in one; it has a mesh collider and
+
+00:15:44,699 --> 00:15:50,100 align:middle line:90%
+here is the mesh. You see how much simpler
+that is? So I really like that, I think that
+
+00:15:50,100 --> 00:15:53,850 align:middle line:90%
+the simplification of the pins. So go ahead
+and simplify one of your pins now I think
+
+00:15:53,850 --> 00:15:58,589 align:middle line:90%
+that that's a great plan, and then we need
+of course to duplicate that pin through to
+
+00:15:58,589 --> 00:15:59,550 align:middle line:84%
+the rest of the array.
+
+00:15:59,550 --> 00:16:03,920 align:middle line:90%
+So we're slightly redoing some work here but
+so what? We've got a better architecture here,
+
+00:16:03,920 --> 00:16:09,860 align:middle line:90%
+it's going to be a lot easier to use in fact
+what's going to be the easiest way of duplicating
+
+00:16:09,860 --> 00:16:19,149 align:middle line:90%
+this pin into all of the others? How would
+you do that? Well given that I've got all
+
+00:16:19,149 --> 00:16:24,389 align:middle line:90%
+of the transforms I think that what I would
+be doing here is copying the transform component
+
+00:16:24,389 --> 00:16:32,750 align:middle line:90%
+of pin one, deleting pin one altogether, duplicating
+pin six and then the only difference is that
+
+00:16:32,750 --> 00:16:37,740 align:middle line:90%
+we want to paste values in there - perfect
+and then rename to pin 1.
+
+00:16:37,740 --> 00:16:40,740 align:middle line:90%
+So I'm going to just whip through and do that
+for all the pins now. I know that this is
+
+00:16:40,740 --> 00:16:44,350 align:middle line:90%
+the second or third time that we've been through
+all the pins but this is what we need to do
+
+00:16:44,350 --> 00:16:48,420 align:middle line:90%
+sometimes, we need to keep iterating until
+the design is as simple as possible. It's
+
+00:16:48,420 --> 00:16:55,440 align:middle line:90%
+worth the effort in my opinion. So I'm going
+to speed up a little bit while I do that now.
+
+00:16:55,440 --> 00:16:59,290 align:middle line:90%
+So I'm literally just going through all of
+the pins here one at a time copying their
+
+00:16:59,290 --> 00:17:02,889 align:middle line:90%
+transforms. A few things to notice, when you
+copy the transform for some reason at the
+
+00:17:02,889 --> 00:17:08,919 align:middle line:90%
+moment it's not copying the x rotation so
+I'm having to reset to minus 90.
+
+00:17:08,919 --> 00:17:14,140 align:middle line:90%
+The second thing to notice is that if there
+isn't already a bowling pin with a higher
+
+00:17:14,140 --> 00:17:18,169 align:middle line:90%
+number then it will automatically renumber.
+So if I duplicate pin four it will make pin
+
+00:17:18,169 --> 00:17:23,510 align:middle line:90%
+five provided there isn't already a pin five
+there, so that's a useful thing to notice.
+
+00:17:23,510 --> 00:17:27,020 align:middle line:90%
+Now if there are many more pins that this
+then of course we'd do all of this in script
+
+00:17:27,020 --> 00:17:30,530 align:middle line:90%
+or find a different way but when it's just
+ten items it's perfectly reasonable to just
+
+00:17:30,530 --> 00:17:35,890 align:middle line:90%
+do it by hand so for the last couple of pins
+I'm just going to leave them flat on the side
+
+00:17:35,890 --> 00:17:41,789 align:middle line:90%
+and reset their transforms en masse for the
+last three.
+
+00:17:41,789 --> 00:17:46,700 align:middle line:90%
+OK so we've got all of our pins simplified
+like crazy. Cool, let's have a look and see
+
+00:17:46,700 --> 00:17:51,669 align:middle line:90%
+what happens now. So back in the code of course
+we no longer need this components in parents,
+
+00:17:51,669 --> 00:17:58,049 align:middle line:90%
+we just need to go back to a simple GetComponent
+because, let me recap why, because the collider
+
+00:17:58,049 --> 00:18:02,780 align:middle line:90%
+is on the object and the object itself is
+of type pin as it has a pin script attached.
+
+00:18:02,780 --> 00:18:06,630 align:middle line:90%
+So we've simplified our way out of the problem.
+Yes it's taken some time and effort but it's
+
+00:18:06,630 --> 00:18:10,510 align:middle line:90%
+always worth the time and effort to simplify
+your way out of a problem.
+
+00:18:10,510 --> 00:18:13,799 align:middle line:90%
+So let's take a look now and see what happens.
+Boom, they're getting destroyed. You see the
+
+00:18:13,799 --> 00:18:17,380 align:middle line:90%
+pins on the left there got destroyed? And
+you can see them disappearing here in the
+
+00:18:17,380 --> 00:18:23,730 align:middle line:90%
+hierarchy. Perfect, so that was well worth
+the effort in my opinion. So, that means that
+
+00:18:23,730 --> 00:18:29,470 align:middle line:90%
+our code now is pretty much identical for
+the two OnTriggerExit and OnTriggerEnter methods
+
+00:18:29,470 --> 00:18:33,820 align:middle line:90%
+and we're following exactly the same pattern
+in both cases, that's much better than doing
+
+00:18:33,820 --> 00:18:39,720 align:middle line:90%
+some weird thing with the rays here just because
+we previously decided to make these compound
+
+00:18:39,720 --> 00:18:43,090 align:middle line:84%
+objects - be willing to go back on your decisions.
+
+00:18:43,090 --> 00:18:48,140 align:middle line:90%
+Now, is the standing code still working? That
+is my question, because we have rotated those
+
+00:18:48,140 --> 00:18:54,169 align:middle line:90%
+pin prefabs through 90 degrees so let's just
+see if the standing count still works properly.
+
+00:18:54,169 --> 00:19:00,070 align:middle line:90%
+I suspect that it won't and that we'll need
+to just modify our standing code on the pin
+
+00:19:00,070 --> 00:19:05,630 align:middle line:90%
+a little bit to take account of the fact that
+in the x direction we are rotated 90 degrees.
+
+00:19:05,630 --> 00:19:09,169 align:middle line:90%
+0 you see, it thinks that none of them are
+standing and the reason for that is that if
+
+00:19:09,169 --> 00:19:16,169 align:middle line:90%
+you go over to your pin and you look here
+then we have a tiltInX and a tiltInZ well
+
+00:19:16,169 --> 00:19:21,570 align:middle line:90%
+the tilt in, if we go to the rotation part
+of it, the tiltInZ if we look here's the pin,
+
+00:19:21,570 --> 00:19:24,070 align:middle line:84%
+here's its new rotation parameters.
+
+00:19:24,070 --> 00:19:29,100 align:middle line:90%
+So what's happened is that the pins now all
+have a 270 degree offset in the x. So why
+
+00:19:29,100 --> 00:19:35,440 align:middle line:90%
+don't we just say 270 - x let's see if that
+works. So start playing, ten are standing
+
+00:19:35,440 --> 00:19:39,549 align:middle line:90%
+now, scroll to the end and if it does work
+I'll show you the code and leave that on the
+
+00:19:39,549 --> 00:19:43,870 align:middle line:90%
+screen at the end of the lecture. Boom, count
+is working. Fantastic. So here's the code
+
+00:19:43,870 --> 00:19:48,870 align:middle line:90%
+that achieved the desired effect and we'll
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section8/BM18 Detecting Pins have Settled 1.srt
 carry on with this in the next video.

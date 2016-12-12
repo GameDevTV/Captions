@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT39 Code Architecture Storing State.srt
 ﻿WEBVTT
 
 1
@@ -560,3 +561,566 @@ So. make sure you've done that and that makes sense. Gather yourself
 00:09:15.033 --> 00:09:18.299
 mentally and I'll see you in the next video!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+So, welcome to Code Architecture Storing State! In this video
+
+2
+00:00:04,000 --> 00:00:08,000
+we're going to reorganize a little bit, so that we have a slightly different
+
+3
+00:00:08,000 --> 00:00:12,000
+method over on our TankBarrle.h. We're going to call it MoveToPitch,
+
+4
+00:00:12,000 --> 00:00:16,000
+rather than elevate at a particular speed. And by the
+
+5
+00:00:16,000 --> 00:00:20,000
+end of it, we'll be in a similar position but with better architecture, and we will
+
+6
+00:00:20,000 --> 00:00:24,000
+have a log here saying exactly what target pitch the barrel needs
+
+7
+00:00:24,000 --> 00:00:27,033
+to be going to. So, see you in the next video!
+
+8
+00:00:27,033 --> 00:00:31,033
+So, before we go any further, let's make sure we understand how all this works. And we're going to make a
+
+9
+00:00:31,033 --> 00:00:35,033
+small change to a method inside the barrel. So, this is how things
+
+10
+00:00:35,033 --> 00:00:39,033
+happen. The TankPlayerController or Tank AI Controller here call an
+
+11
+00:00:39,033 --> 00:00:43,033
+AimAt method, with a world space Hit Location on the Tank. So, you're just saying
+
+12
+00:00:43,033 --> 00:00:47,033
+to the Tank, hey aim over here buddy. The Tank then looks at its own
+
+13
+00:00:47,033 --> 00:00:51,033
+LaunchSpeed, which is a property of the tank. It doesn't need to be known by the Player or the AI
+
+14
+00:00:51,033 --> 00:00:55,033
+really, because we aim at a particular world
+
+15
+00:00:55,033 --> 00:00:59,033
+point, and it's up to the Tank to know its current launch speed. That may even vary if we
+
+16
+00:00:59,033 --> 00:01:03,033
+upgraded the Tank. So it just takes that LaunchSpeed and passes
+
+17
+00:01:03,033 --> 00:01:07,033
+it along with the HitLocation to the TankAimingComponent. So, it's
+
+18
+00:01:07,033 --> 00:01:11,033
+nearly delegation but it's not quite, because we're actually adding some value here, we're adding the
+
+19
+00:01:11,033 --> 00:01:15,033
+LaunchSpeed. The TankAimingComponent, I'm going to suggest, then uses a
+
+20
+00:01:15,033 --> 00:01:19,033
+move to a particular pitch method, rather than the
+
+21
+00:01:19,033 --> 00:01:23,033
+current thing that we started to build, which is Elevate at a particular
+
+22
+00:01:23,033 --> 00:01:27,033
+speed. And the reason is that we don't need to be telling the Barrel how
+
+23
+00:01:27,033 --> 00:01:31,033
+fast to Elevate. The Player and the AI both
+
+24
+00:01:31,033 --> 00:01:35,033
+want the Barrel to move up and down as fast as possible and left and right, they just want it
+
+25
+00:01:35,033 --> 00:01:39,033
+to go to the aiming point. So rather than calculating a speed
+
+26
+00:01:39,033 --> 00:01:43,033
+to move at and then having to worry about clamping that speed and
+
+27
+00:01:43,033 --> 00:01:47,033
+making sure that its a reasonable speed, t's not really up to the AimingComponent how
+
+28
+00:01:47,033 --> 00:01:51,033
+fast the Barrel moves, it's up to the Barrel how fast the Barrel moves. So we're going to say to the Barrel in the future,
+
+29
+00:01:51,033 --> 00:01:55,033
+just move to a particular pitch, a particular number of degrees
+
+30
+00:01:55,033 --> 00:01:59,033
+above or below the horizon. Alright, so there's a bit of an architectural
+
+31
+00:01:59,033 --> 00:02:03,033
+change we're going to make there. And this architecture is nice and simple and it means
+
+32
+00:02:03,033 --> 00:02:07,033
+that we're only storing state, either at the PlayerController or down in the Barrel.
+
+33
+00:02:07,033 --> 00:02:11,033
+So the rotation, or the Pitch of the Barrel should I say, is
+
+34
+00:02:11,033 --> 00:02:15,033
+only stored in the Barrel mesh and then when you tell it to move to a pitch,
+
+35
+00:02:15,033 --> 00:02:19,033
+the job of the Barrel is to start moving towards that target pitch,
+
+36
+00:02:19,033 --> 00:02:23,033
+and the Barrel's pitch is not stored in the TankAimingComponent or in the Tank
+
+37
+00:02:23,033 --> 00:02:27,033
+or in the Player Controller. The desired aim direction is
+
+38
+00:02:27,033 --> 00:02:31,033
+up at the Player Controller, and the actual current aim direction is right down
+
+39
+00:02:31,033 --> 00:02:35,033
+in the Barrel. So we're keeping our state at the top and the bottom of the stack,
+
+40
+00:02:35,033 --> 00:02:39,033
+which is generally more healthy than trying to consider what's going on in between.
+
+41
+00:02:39,033 --> 00:02:43,033
+OK, so let's just challenge you now to make that minor
+
+42
+00:02:43,033 --> 00:02:47,033
+change. By the way, the Barrel also has a concept of the Max and
+
+43
+00:02:47,033 --> 00:02:51,033
+MinDegreesPerSecond. A Max and Min Elevation rather and the
+
+44
+00:02:51,033 --> 00:02:55,033
+MaxDegreesPerSecond. So you say to the Barrel, hey, Barrel, go move to a particular pitch.
+
+45
+00:02:55,033 --> 00:02:59,033
+You decide how fast to move there. You decide
+
+46
+00:02:59,033 --> 00:03:03,033
+how high you can go and how low you can go and hence whether you can even get there. The Tank
+
+47
+00:03:03,033 --> 00:03:07,033
+AimingComponent's just going to instruct it to try and get to that pitch as quickly as possible.
+
+48
+00:03:07,033 --> 00:03:11,033
+Alright, so given that, let's just make that minor
+
+49
+00:03:11,033 --> 00:03:15,033
+API change, and I'm going to let you do that, re-architect  your code. Apply that simple new architecture.
+
+50
+00:03:15,033 --> 00:03:19,033
+You're just renaming a method there on the Barrel. And
+
+51
+00:03:19,033 --> 00:03:23,033
+no need to actually implement anything new at this stage, just go ahead and make the
+
+52
+00:03:23,033 --> 00:03:27,033
+basic renaming, and make sure that you are completely comfortable with the architecture
+
+53
+00:03:27,033 --> 00:03:31,033
+and how the calling occurs. So go ahead, pause the video, take a good look at the code, make sure it
+
+54
+00:03:31,033 --> 00:03:35,033
+makes sense to you and do that now.
+
+55
+00:03:35,033 --> 00:03:39,033
+So welcome back! Alright, so it's literally
+
+56
+00:03:39,033 --> 00:03:43,033
+pretty simple, we just want to Elevate to... Well, I said I was going to rename the
+
+57
+00:03:43,033 --> 00:03:47,033
+method didn't I? So, let's rename it! Rather than Elevate, let's just say MoveTo,
+
+58
+00:03:47,033 --> 00:03:51,033
+and it's a good idea to change names if you change the function, so you don't confuse yourself.
+
+59
+00:03:51,033 --> 00:03:55,033
+It's a clean break, if you like, changing that name. So MoveTo
+
+60
+00:03:55,033 --> 00:03:59,033
+(float... And what did I say it was going to be called? ...Pitch).
+
+61
+00:03:59,033 --> 00:04:03,033
+OK, so we're going to move
+
+62
+00:04:03,033 --> 00:04:07,033
+to a particular Pitch. That's fine! So,
+
+63
+00:04:07,033 --> 00:04:11,033
+now we need to change this log,
+
+64
+00:04:11,033 --> 00:04:15,033
+("Moving towards pitch: and then we're going to
+
+65
+00:04:15,033 --> 00:04:19,033
+take in the Pitch, rather than degrees per second. Now let's go look and see
+
+66
+00:04:19,033 --> 00:04:23,033
+where this is called from. Well it's called from the TankAimingComponent.
+
+67
+00:04:23,033 --> 00:04:27,033
+And rather than Barrel->Elevate
+
+68
+00:04:27,033 --> 00:04:31,033
+(5), what we're going to do is we're going to Barrel...
+
+69
+00:04:31,033 --> 00:04:35,033
+I'll tell you what I better do, I'd better edit the header file.
+
+70
+00:04:35,033 --> 00:04:39,033
+Let's go get the signature from here,
+
+71
+00:04:39,033 --> 00:04:43,033
+pop it in the header file without the class
+
+72
+00:04:43,033 --> 00:04:47,033
+name. MoveTo Pitch. OK fantastic! Now, in the Aiming
+
+73
+00:04:47,033 --> 00:04:51,033
+Component, we're going to Barrle->Move
+
+74
+00:04:51,033 --> 00:04:55,033
+To(). Now we're going to pass at a pitch. Now, what is that pitch? Well,
+
+75
+00:04:55,033 --> 00:04:59,033
+we no longer need to the DeltaRotator do we? We just need to know
+
+76
+00:04:59,033 --> 00:05:03,033
+what we want to be aiming towards. In fact, we don't even care
+
+77
+00:05:03,033 --> 00:05:07,033
+what the Barrel's current rotation
+
+78
+00:05:07,033 --> 00:05:11,033
+is. In fact, we don't even need to the MoveBarrelTowards method, because we
+
+79
+00:05:11,033 --> 00:05:15,033
+can just, straight in here, just say Barrel->
+
+80
+00:05:15,033 --> 00:05:19,033
+MoveTo(). So it's (AimDirection dot. Now what
+
+81
+00:05:19,033 --> 00:05:23,033
+is the AimDirection? Well, it's an FVector, so we need to
+
+82
+00:05:23,033 --> 00:05:27,033
+turn that into a rotation. OK
+
+83
+00:05:27,033 --> 00:05:31,033
+fantastic! And then we ask for its Pitch.
+
+84
+00:05:31,033 --> 00:05:35,033
+Your remembering
+
+85
+00:05:35,033 --> 00:05:39,033
+that Rotation is a method like that. Fantastic! So what we're going
+
+86
+00:05:39,033 --> 00:05:43,033
+to do is, we're going to tell the Barrel to move to a particular pitch. We don't
+
+87
+00:05:43,033 --> 00:05:47,033
+need the MoveBarrelTowards method, that's a great simplification. So, let's take that out of the TankAiming
+
+88
+00:05:47,033 --> 00:05:51,033
+Component's header file. Well done if you've spotted this bit, by the way.
+
+89
+00:05:51,033 --> 00:05:55,033
+So that's very simple and hopefully
+
+90
+00:05:55,033 --> 00:05:59,033
+that's all we need to do. And then, by the way, I'm also going to
+
+91
+00:05:59,033 --> 00:06:03,033
+make sure that none of my header files have any
+
+92
+00:06:03,033 --> 00:06:07,033
+#includes of other unnecessary header files, per the forward declarations
+
+93
+00:06:07,033 --> 00:06:11,033
+and compiler video we talked about. So the tank includes
+
+94
+00:06:11,033 --> 00:06:15,033
+the TankAimingComponent. Well, why does it include the TankAimingComponent? It
+
+95
+00:06:15,033 --> 00:06:19,033
+doesn't need to. The Tank.cpp will need to, but the Tank.h
+
+96
+00:06:19,033 --> 00:06:23,033
+doesn't need to. So, let's take the TankAimingComponent out of the Tank.h, into the Tank.cpp,
+
+97
+00:06:23,033 --> 00:06:27,033
+and then, back at the Tank.h
+
+98
+00:06:27,033 --> 00:06:31,033
+so that TankAimingComponent here is available. We're
+
+99
+00:06:31,033 --> 00:06:35,033
+also going to write class TankAimingComponent; with
+
+100
+00:06:35,033 --> 00:06:39,033
+a U, so that's your forward declaration. So, I'm just going through and popping forward declarations
+
+101
+00:06:39,033 --> 00:06:43,033
+in everywhere that we need them. The AIController, that's including the Tank, it shouldn't be.
+
+102
+00:06:43,033 --> 00:06:47,033
+Let's cut that out, put it in the Tank.cpp,
+
+103
+00:06:47,033 --> 00:06:51,033
+which it already is, and then, back at the
+
+104
+00:06:51,033 --> 00:06:55,033
+TankAIController let's, if we need it, do a
+
+105
+00:06:55,033 --> 00:06:59,033
+forward declaration of the Tank, which we do
+
+106
+00:06:59,033 --> 00:07:03,033
+because we use ATank here. So, let's just go class ATank;
+
+107
+00:07:03,033 --> 00:07:07,033
+That's great! And just tighten this up a little bit. Let's
+
+108
+00:07:07,033 --> 00:07:11,033
+move to the next header file. The TankAimingComponent, that doesn't include anything unnecessary.
+
+109
+00:07:11,033 --> 00:07:15,033
+The TankBarrel doesn't include anything unnecessary, and the TankPlayerController
+
+110
+00:07:15,033 --> 00:07:19,033
+does, it includes the Tank. Naughty naughty! Let's take it out of the PlayerController.h,
+
+111
+00:07:19,033 --> 00:07:23,033
+into the PlayerController.cpp
+
+112
+00:07:23,033 --> 00:07:27,033
+and in the Player.Controller.h, because we need access to a tank.
+
+113
+00:07:27,033 --> 00:07:31,033
+Do we need access to a a tank anywhere? Maybe we don't? Yes we do, ATank*
+
+114
+00:07:31,033 --> 00:07:35,033
+star, so therefore we're going to need to go class ATank.
+
+115
+00:07:35,033 --> 00:07:39,033
+Cool! Alright, so we sorted a couple of things out there in one go! Let's make sure this compiles.
+
+116
+00:07:39,033 --> 00:07:43,033
+It was just a relatively simple API change there.
+
+117
+00:07:43,033 --> 00:07:47,033
+To make sure that aiming is simpler and that we've
+
+118
+00:07:47,033 --> 00:07:51,033
+removed code. Removing code is always a good thing. I'll be surprised if I don't get at least one
+
+119
+00:07:51,033 --> 00:07:55,033
+compilation error in all of those changes, because well I made a lot of changes.
+
+120
+00:07:55,033 --> 00:07:59,033
+There it is, "use of undefined type 'ATank' " in TankAIController,
+
+121
+00:07:59,033 --> 00:08:03,033
+line 18. So, and that's because I
+
+122
+00:08:03,033 --> 00:08:07,033
+do need to #include the tank in the TankAIController.
+
+123
+00:08:07,033 --> 00:08:11,033
+I just forgot to do that.
+
+124
+00:08:11,033 --> 00:08:15,033
+OK, let's just try compiling again.
+
+125
+00:08:15,033 --> 00:08:19,033
+Now, if you had a bigger project, it'd probably be quicker to read through
+
+126
+00:08:19,033 --> 00:08:23,033
+all the error messages and make sure you had got to all of them
+
+127
+00:08:23,033 --> 00:08:27,033
+that weren't cascades. But it's difficult to know when one error's
+
+128
+00:08:27,033 --> 00:08:31,033
+caused by a whole bunch of others, without reading really carefully, so in our case, it's quicker just to recompile.
+
+129
+00:08:31,033 --> 00:08:35,033
+So if we play now, look you can see that it's aiming towards pitch, and if I go down here, -30
+
+130
+00:08:35,033 --> 00:08:39,033
+degree, -3 degrees... Let me just switch
+
+131
+00:08:39,033 --> 00:08:43,033
+back to VisualStudio because it's popped over the top. If I aim at
+
+132
+00:08:43,033 --> 00:08:47,033
+that hill, it may be the most obstructive, it's probably going at the high arc there at 80 degrees, that
+
+133
+00:08:47,033 --> 00:08:51,033
+tank 8 degrees. It looks feasible! So, much better looking architecture
+
+134
+00:08:51,033 --> 00:08:55,033
+for us there, so I hope that all makes sense to you. I'm going to pop up on the screen
+
+135
+00:08:55,033 --> 00:08:59,033
+that, How The Barrel Elevates, the new API.
+
+136
+00:08:59,033 --> 00:09:03,033
+Remember that we also went through... I went through it pretty quickly, so I went through
+
+137
+00:09:03,033 --> 00:09:07,033
+and switched out all the forward declarations, well all of the #includes
+
+138
+00:09:07,033 --> 00:09:11,033
+of unnecessary header files in header files and moved to forward declarations.
+
+139
+00:09:11,033 --> 00:09:15,033
+So, make sure you've done that and that makes sense. Gather yourself
+
+140
+00:09:15,033 --> 00:09:18,299
+mentally and I'll see you in the next video!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT39 Code Architecture Storing State.srt

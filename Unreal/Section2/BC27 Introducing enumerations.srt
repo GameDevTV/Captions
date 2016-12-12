@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿WEBVTT
 
 1
@@ -599,3 +600,605 @@ pretty cool stuff. and I shall see you on the other side!
 150
 00:09:50.300 --> 00:09:55.733
 The other side of what? I guess it's the other side of the gap between the videos! Any way. see you!
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+So, welcome
+
+2
+00:00:04,000 --> 00:00:08,000
+to Introducing enum erations! Enumerations,
+
+3
+00:00:08,000 --> 00:00:12,000
+that's it! So, I'm going to be explaining what an enumerated type
+
+4
+00:00:12,000 --> 00:00:16,000
+is, how we can use it to encode meaning, how
+
+5
+00:00:16,000 --> 00:00:20,000
+it makes our code more meaningful and readable, and also introduce
+
+6
+00:00:20,000 --> 00:00:24,000
+C++'s enum class thingy, which is pretty cool!
+
+7
+00:00:24,000 --> 00:00:28,000
+And at the end of it, we will be able to do something like this, instead of
+
+8
+00:00:28,000 --> 00:00:32,000
+CheckGuessValidity returning a boolean, which doesn't mean a lot, and having some
+
+9
+00:00:32,000 --> 00:00:36,000
+horrible TODO that we should be returning a richer value, it'll return thsi thing called OK
+
+10
+00:00:36,000 --> 00:00:39,166
+or whatever. Cool, so let's dive in and make it happen!
+
+11
+00:00:39,166 --> 00:00:43,166
+So, welcome welcome and welcome! If we look in our View and
+
+12
+00:00:43,166 --> 00:00:47,166
+Task List. It's here somewhere. There you go!
+
+13
+00:00:47,166 --> 00:00:51,166
+Then, have a look at some of these TODO's! One of these here says, CheckGuess
+
+14
+00:00:51,166 --> 00:00:55,166
+Validity, "TODO make a more rich return value."
+
+15
+00:00:55,166 --> 00:00:59,166
+And if we look here, the reset, we also want to make a more
+
+16
+00:00:59,166 --> 00:01:03,166
+rich return value. We don't know how to do that. And then, in our main loop there is,
+
+17
+00:01:03,166 --> 00:01:07,166
+we want to be validating tries. And also here, we want to be
+
+18
+00:01:07,166 --> 00:01:11,166
+checking that we got a valid guess. All sorts of stuff, we can't even really
+
+19
+00:01:11,166 --> 00:01:15,166
+summarize the game until we've got the game working. So, a lot of what we need to do right now,
+
+20
+00:01:15,166 --> 00:01:19,166
+a lot of our TODO's, a lot of what's wrong with the game if we play it is
+
+21
+00:01:19,166 --> 00:01:23,166
+based on the fact that if we say, put three letters in... Ahhhh,
+
+22
+00:01:23,166 --> 00:01:27,166
+the whole thing falls over! So, we need to start checking our input!
+
+23
+00:01:27,166 --> 00:01:31,166
+And once we start checking our input, we need a good way of getting back from
+
+24
+00:01:31,166 --> 00:01:35,166
+that check, some information about the check. So, here we've got a method
+
+25
+00:01:35,166 --> 00:01:39,166
+called CheckGuessValidity, and at the moment it says bool, which
+
+26
+00:01:39,166 --> 00:01:43,166
+presumably means if we return true then it's valid, and if we return false
+
+27
+00:01:43,166 --> 00:01:47,166
+it's not. And we don't know why it's not valid, and it's just trying to wrap up
+
+28
+00:01:47,166 --> 00:01:51,166
+too much information into a single bool, yes or no. It's making people
+
+29
+00:01:51,166 --> 00:01:55,166
+presume that false means it's not valid yada yada, and also it gives them
+
+30
+00:01:55,166 --> 00:01:59,166
+no information about what was wrong. So, we are going to make a more rich return value. I'm going to delete the
+
+31
+00:01:59,166 --> 00:02:03,166
+TODO boldly. And in order to do that, I'm going to introduce you to this enum
+
+32
+00:02:03,166 --> 00:02:07,166
+thing. So, we're going to define that somewhere at the top of our header file, because we want it
+
+33
+00:02:07,166 --> 00:02:11,166
+to be available, not in the main... Well, it will be available in the main, by the fact
+
+34
+00:02:11,166 --> 00:02:14,666
+that we have #included our BullCowGame class.
+
+35
+00:02:14,666 --> 00:02:19,166
+But we want it to be available in the class mainly.
+
+36
+00:02:19,166 --> 00:02:23,166
+This is a feature of the class, it belongs with the class, you'll see why in a second.
+
+37
+00:02:23,166 --> 00:02:27,166
+Let's just define it. So, we write something called an enum. Now, I'm going to just enum for the moment,
+
+38
+00:02:27,166 --> 00:02:31,166
+not enum class, and we're going to call it E, because Unreal's coding standard
+
+39
+00:02:31,166 --> 00:02:35,166
+suggests that you should start enums with E. And we're going to call it Words
+
+40
+00:02:35,166 --> 00:02:39,166
+Status, for example. OK, so we're defining an enum
+
+41
+00:02:39,166 --> 00:02:43,166
+called WordStatus. Now, let's give ourselves some squigglies. And I'm going to bring them
+
+42
+00:02:43,166 --> 00:02:47,166
+down a bit, just spread it out. Great! So, what's a status that comes back
+
+43
+00:02:47,166 --> 00:02:51,166
+from checking the guess. Well, OK is a meaningful status that could come back! Here's
+
+44
+00:02:51,166 --> 00:02:55,166
+another one, Not_Isogram.
+
+45
+00:02:55,166 --> 00:02:59,166
+That would tell us that the reason this is not good is because it's not an isogram. Now, I'm going to let you
+
+46
+00:02:59,166 --> 00:03:03,166
+finish this list, in a moment. But for now, I want to talk to you about the difference between an enum and a class,
+
+47
+00:03:03,166 --> 00:03:07,166
+but before we do that, let's just go and access this enum so we can
+
+48
+00:03:07,166 --> 00:03:11,166
+see it in context. So, I've printed this thing! What on earth is it? It's just a value
+
+49
+00:03:11,166 --> 00:03:15,166
+list. It's a way of preventing me from saying OK equals
+
+50
+00:03:15,166 --> 00:03:19,166
+1 and Not_Isogram equals 2, and making some horrible
+
+51
+00:03:19,166 --> 00:03:23,166
+coded thing there, where we've got to go and look up a table. No no no, don't do that!
+
+52
+00:03:23,166 --> 00:03:27,166
+Just use the words, and an enum allows you to use and access the words.
+
+53
+00:03:27,166 --> 00:03:31,166
+So, let's see how it allows us to access the words. Over in our implementation
+
+54
+00:03:31,166 --> 00:03:35,166
+of CheckGuessValidity, instead of returning a bool now, we're
+
+55
+00:03:35,166 --> 00:03:39,166
+going to be returning an E. We're going to remember that it was an enum, and then, it was going to
+
+56
+00:03:39,166 --> 00:03:43,166
+be... Was it WordStatus, I think we called it? Yeah, E
+
+57
+00:03:43,166 --> 00:03:47,166
+WordStatus! So, we'll be returning an enum called Word
+
+58
+00:03:47,166 --> 00:03:51,166
+Status. Now, it's not going to like that if we just do it in the .cpp
+
+59
+00:03:51,166 --> 00:03:55,166
+file, without also updating the header
+
+60
+00:03:55,166 --> 00:03:59,166
+to say that, that's what we're do?ing. So here, CheckGuessValidity returns an
+
+61
+00:03:59,166 --> 00:04:03,166
+EWordStatus. Now, there is a way to change the two of these, at the same time, but we'll use
+
+62
+00:04:03,166 --> 00:04:07,166
+those tools later. Great! So now, of course, we can't return false
+
+63
+00:04:07,166 --> 00:04:11,166
+right, because it's going to complain that the return type does not
+
+64
+00:04:11,166 --> 00:04:15,166
+match the function type. Well, that's good! it's saying
+
+65
+00:04:15,166 --> 00:04:19,166
+want a status back out of this, we're trying to return false. So, how do we get to that status? Well,
+
+66
+00:04:19,166 --> 00:04:23,166
+you start with the word of the enum. E makes you remember, oh it's an enum so we're going to start with E.
+
+67
+00:04:23,166 --> 00:04:27,166
+EWordStatus, there it is! And there's a little symbol that explains that it's an enum.
+
+68
+00:04:27,166 --> 00:04:31,166
+EWordStatus, now once you've done EWordStatus, we need to access it's members,
+
+69
+00:04:31,166 --> 00:04:35,166
+and the general way of accessing members is like this. FBullCow
+
+70
+00:04:35,166 --> 00:04:39,166
+Game's class, if we want to access the definition for CheckGuessValidity
+
+71
+00:04:39,166 --> 00:04:43,166
+we use colon colon. We do the same with the enum, colon colon and look, it gives us a
+
+72
+00:04:43,166 --> 00:04:47,166
+list. We're not going 1, 2, 3, some random coding looking it up! It's right here!
+
+73
+00:04:47,166 --> 00:04:51,166
+Let's just assume it's OK. So, later "TODO
+
+74
+00:04:51,166 --> 00:04:55,166
+make actual error". OK, so that's how you
+
+75
+00:04:55,166 --> 00:04:59,166
+access it! EWordStatus::OK; Now, before I put you in the challenge, let me just
+
+76
+00:04:59,166 --> 00:05:03,166
+give you a word of warning, about these enums. They're scope, i.e. where
+
+77
+00:05:03,166 --> 00:05:07,166
+they are visible to. We have a bit of a problem, just doing it like this,
+
+78
+00:05:07,166 --> 00:05:11,166
+this is older C++ syntax, because look what happens. If I come along, at some other
+
+79
+00:05:11,166 --> 00:05:15,166
+point, and decide that I want another enum. In fact, we do have an instance where we're going to
+
+80
+00:05:15,166 --> 00:05:19,166
+want another enum, that's going to be here when we reset, alright.
+
+81
+00:05:19,166 --> 00:05:23,166
+So, let's call it, imagine now, EReset
+
+82
+00:05:23,166 --> 00:05:27,166
+Status, alright, and I'm actually going to remove this
+
+83
+00:05:27,166 --> 00:05:31,166
+code and put it back in later, but I just want to show you something. If I later come and try and define
+
+84
+00:05:31,166 --> 00:05:35,166
+EResetStatus, and we could say, I don't
+
+85
+00:05:35,166 --> 00:05:39,166
+know No_Hidden_Word_Of_That_Length or something.
+
+86
+00:05:39,166 --> 00:05:43,166
+That could be an error. But we may then come along and say, we want
+
+87
+00:05:43,166 --> 00:05:48,266
+OK! Perfectly valid to say I want OK, but look, we're going to get a compiler problem here. It's going to say,
+
+88
+00:05:48,266 --> 00:05:52,366
+when we try and compile, " 'OK' : redefinition;". What do you mean I'm redefining it?
+
+89
+00:05:52,366 --> 00:05:55,166
+Here I'm calling an enum called EWordStatus. This is
+
+90
+00:05:55,166 --> 00:05:59,166
+for getting values back from checking my word, and this one, I want to get values back from my reset
+
+91
+00:05:59,166 --> 00:06:03,166
+method. I can't use OK, so OK is kind of what we call global
+
+92
+00:06:03,166 --> 00:06:07,166
+scope, at this point. It is available to both of these enums, and it won't let us even compile.
+
+93
+00:06:07,166 --> 00:06:11,166
+Wow, that's horrible! I want to be able to use OK! I don't want to have to prefix these things! Now,
+
+94
+00:06:11,166 --> 00:06:15,166
+let me just explain that. I don't want to have to prefix it with
+
+95
+00:06:15,166 --> 00:06:19,166
+like some other thing in front of here. I don't care what it is. Reset_OK, it's nasty!
+
+96
+00:06:19,166 --> 00:06:23,166
+OK is simple! So, what Unreal suggests, in their coding standards, let
+
+97
+00:06:23,166 --> 00:06:27,166
+me bring up their coding standards. "unreal coding
+
+98
+00:06:27,166 --> 00:06:31,166
+standards", and if we go down to enumarations,
+
+99
+00:06:31,166 --> 00:06:35,166
+they are suggesting we do... Where is it?
+
+100
+00:06:35,166 --> 00:06:39,166
+You're seeing it before me. I'm going to search for it, Enum. There you go, Strongly-
+
+101
+00:06:39,166 --> 00:06:43,166
+Typed Enums, and they're going to say, well you know,
+
+102
+00:06:43,166 --> 00:06:47,166
+because of this problem we're going to put enums in their own namespace. Well, that's a bit beyond the scope of
+
+103
+00:06:47,166 --> 00:06:51,166
+what we're doing, right now. And we also don't need to put them in their own namespace. With
+
+104
+00:06:51,166 --> 00:06:55,166
+C++ 11 to the rescue, we can do something called an enum
+
+105
+00:06:55,166 --> 00:06:59,166
+class. Watch what happens when I do that! This is now what we call a strongly
+
+106
+00:06:59,166 --> 00:07:03,166
+typed Enum. OK, forget the error, the
+
+107
+00:07:03,166 --> 00:07:07,166
+previous version. It may moan at you that you've just changed the definition, but look, if I just
+
+108
+00:07:07,166 --> 00:07:11,166
+put enum class and recompile anyway, obstinately, it's going to
+
+109
+00:07:11,166 --> 00:07:15,166
+compile and it doesn't mind, because this guy now, this enum, has
+
+110
+00:07:15,166 --> 00:07:19,166
+scope basically. And it's saying well, these values only mean anything
+
+111
+00:07:19,166 --> 00:07:23,166
+inside this enum. So, if I was over here, in my
+
+112
+00:07:23,166 --> 00:07:27,166
+code, and I was trying to access something else here like
+
+113
+00:07:27,166 --> 00:07:31,166
+EResetStatus::, I can still have OK
+
+114
+00:07:31,166 --> 00:07:35,166
+and No_Hidden_Word. I can repeat myself, and we have no conflict! OK,
+
+115
+00:07:35,166 --> 00:07:39,166
+so they're better because they're a smaller scope, and we don't create these global scope issues! Great!
+
+116
+00:07:39,166 --> 00:07:43,166
+So, what I want you to do now is, I'm going to delete this reset status, because I
+
+117
+00:07:43,166 --> 00:07:47,166
+just was using it for an example. I just want you to fill in a couple more error values down here.
+
+118
+00:07:47,166 --> 00:07:51,166
+Well, you think about what other things could go wrong or actually run the game,
+
+119
+00:07:51,166 --> 00:07:55,166
+and try some strange things like, think about what might happen with upper case or think what may happen if your
+
+120
+00:07:55,166 --> 00:07:59,166
+input is too short, etc. And put some meaningful value
+
+121
+00:07:59,166 --> 00:08:04,066
+labels in here, they're just labels for you to use. So, here's your challenge! Finish the Error Value List,
+
+122
+00:08:04,066 --> 00:08:07,166
+write at least two more error values, think about what could break the game,
+
+123
+00:08:07,166 --> 00:08:11,166
+or try using weird input and see what does break the game.
+
+124
+00:08:11,166 --> 00:08:15,166
+Go ahead, pause the video, and let's do that challenge now!
+
+125
+00:08:15,166 --> 00:08:19,166
+Okie dokie dokie! So, welcome back! Let's
+
+126
+00:08:19,166 --> 00:08:23,166
+just think another, too. Well, one here is wrong length, because if I put say two
+
+127
+00:08:23,166 --> 00:08:25,266
+or three letter in, I get this horrible error.
+
+128
+00:08:25,266 --> 00:08:29,266
+And normally I wouldn't dismiss such a serious error, so quickly and out of hand,
+
+129
+00:08:29,266 --> 00:08:33,266
+however, we know this is being caused by the fact that we have a
+
+130
+00:08:33,266 --> 00:08:37,266
+mismatch between our hidden word and our guess. And what we're going to be
+
+131
+00:08:37,266 --> 00:08:41,266
+doing in the next video is, creating error checking code to prevent that from ever happening.
+
+132
+00:08:41,266 --> 00:08:42,300
+...
+
+133
+00:08:42,300 --> 00:08:46,300
+So, what should we call an error that is wrong word length?
+
+134
+00:08:46,300 --> 00:08:50,300
+How about Wrong_Length. Why not word?
+
+135
+00:08:50,300 --> 00:08:54,300
+Because word is already in the status. So, EWordStatus::Wrong_Length
+
+136
+00:08:54,300 --> 00:08:58,300
+simple, simple. How about, it's not lower case. What shall we call
+
+137
+00:08:58,300 --> 00:09:02,300
+that? Well, let's be cryptic, not lower case! The whole point is to not
+
+138
+00:09:02,300 --> 00:09:06,300
+be cryptic. This is not error code 403, this is not lower case!
+
+139
+00:09:06,300 --> 00:09:10,300
+Alright, English is what we want! It's simple and clear! So, that
+
+140
+00:09:10,300 --> 00:09:14,300
+is our enum class, really nice there! What we're going to do in the next video is
+
+141
+00:09:14,300 --> 00:09:18,300
+start, of course, to flesh out this CheckGuessValidity() method, with a load of conditionals,
+
+142
+00:09:18,300 --> 00:09:22,300
+and then, that's going to check a bunch of things and return an appropriate error or OK
+
+143
+00:09:22,300 --> 00:09:26,300
+as necessary. And that means that over in our main, we'll be able to read
+
+144
+00:09:26,300 --> 00:09:30,300
+the error codes, and then, separately decide how we report those
+
+145
+00:09:30,300 --> 00:09:34,300
+error codes. In this game, we're talking to the user in the Console about the errors, but in
+
+146
+00:09:34,300 --> 00:09:38,300
+a future version of the game, we may use color or sound or lights or something else And we can just swap
+
+147
+00:09:38,300 --> 00:09:42,300
+that out on the interface level, on the view level, without worrying about
+
+148
+00:09:42,300 --> 00:09:46,300
+the class where it says we're getting meaningful error messages back. I hope that makes sense.
+
+149
+00:09:46,300 --> 00:09:50,300
+pretty cool stuff, and I shall see you on the other side!
+
+150
+00:09:50,300 --> 00:09:55,733
+The other side of what? I guess it's the other side of the gap between the videos! Any way, see you!
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1

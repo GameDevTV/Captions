@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT96 The Observer Pattern.srt
 ﻿WEBVTT
 
 1
@@ -856,3 +857,862 @@ expect yourself to necessarily to understand all of it but it's a pretty good ov
 00:14:16.100 --> 00:14:19.700
 and I will see you in the next video!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+Hey and welcome to
+
+2
+00:00:04,000 --> 00:00:09,933
+The Observer Pattern! Instead of telling you what it's all about, I'm going to immediately tell you what it's all about!
+
+3
+00:00:09,933 --> 00:00:13,933
+So before I even tell you what these delegates or dynamic multicast
+
+4
+00:00:13,933 --> 00:00:17,933
+delegates are, let me just show you how we're going to use them, to give you some context. On our
+
+5
+00:00:17,933 --> 00:00:21,933
+tank we're going to have a property called OnDeath, that we can
+
+6
+00:00:21,933 --> 00:00:25,933
+say Broadcast. So we're going to Broadcast the fact that the tank
+
+7
+00:00:25,933 --> 00:00:29,933
+has died. That's going to go into the Unreal Engine, it's going to work some magic,
+
+8
+00:00:29,933 --> 00:00:33,933
+and then, the TankPlayerController and the TankAIController can
+
+9
+00:00:33,933 --> 00:00:37,933
+subscribe to receive this and they will then be able to process it.
+
+10
+00:00:37,933 --> 00:00:41,933
+For example, the PlayerController over here can then say,
+
+11
+00:00:41,933 --> 00:00:45,933
+OK I'm going to go into spectate mode and the AIController can stop
+
+12
+00:00:45,933 --> 00:00:49,933
+trying to control the tank, given that the tank is now defunct. OK, so that's generally
+
+13
+00:00:49,933 --> 00:00:53,933
+how it's going to work. The broadcaster here, the tank, does not care who
+
+14
+00:00:53,933 --> 00:00:57,933
+is listening, which observers are on the right-hand side, that's the general
+
+15
+00:00:57,933 --> 00:01:01,933
+principal, the general pattern. So in your resources I've given you
+
+16
+00:01:01,933 --> 00:01:05,933
+a few links. I would suggest that you take a moment to go and read them now,
+
+17
+00:01:05,933 --> 00:01:09,933
+as soon as I've introduced them, I'll tell you when. Read about Delegates and find out rougtly what
+
+18
+00:01:09,933 --> 00:01:13,933
+Delegates are. Don't get mad, just have an overview of this, spend a couple of minutes. Then, read about Dynamic
+
+19
+00:01:13,933 --> 00:01:17,933
+Delegates. There's not much difference, it tells you the difference here. And then,
+
+20
+00:01:17,933 --> 00:01:21,933
+look about Multi-cast Delegates, and there are again some
+
+21
+00:01:21,933 --> 00:01:25,933
+slight differences with Multi-cast Delegates. And we're going to be using Dynamic Multi-cast
+
+22
+00:01:25,933 --> 00:01:29,933
+Delegates, all of these layers on top of each other, this thing here. And
+
+23
+00:01:29,933 --> 00:01:33,933
+the reason is, that it's the most flexible and versatile and the most reusable, and
+
+24
+00:01:33,933 --> 00:01:37,933
+I would start with that, in general, and you can move backwards to simpler delegates when
+
+25
+00:01:37,933 --> 00:01:41,933
+performance dictates you need to or when some other constraint dictates you need to.
+
+26
+00:01:41,933 --> 00:01:45,933
+But there are a lot of boulders to navigate in Unreal, when it comes to these things,
+
+27
+00:01:45,933 --> 00:01:49,933
+because there's various combinations that are not possible on Actors or Components
+
+28
+00:01:49,933 --> 00:01:53,933
+or exposable in Blueprint or not, etc. So I'm giving you one
+
+29
+00:01:53,933 --> 00:01:57,933
+reliable recipe for getting these things working. So we just need
+
+30
+00:01:57,933 --> 00:02:01,933
+to write a little bit of code on the tank and a little bit of code on the AIController
+
+31
+00:02:01,933 --> 00:02:05,933
+and PlayerController to make this work. O.K., so this is
+
+32
+00:02:05,933 --> 00:02:09,933
+the steps of setting up Dynamic Multi-cast Delegates, DMCD's. If you haven't already
+
+33
+00:02:09,933 --> 00:02:13,933
+stopped and red the Unreal docs, those first three docs I showed you about Delegates,
+
+34
+00:02:13,933 --> 00:02:17,933
+Dynamic Delegates, and Multi-cast Delegates, please stop the video and do that now.
+
+35
+00:02:17,933 --> 00:02:21,933
+OK, so this is how we're going
+
+36
+00:02:21,933 --> 00:02:25,933
+to do it. On the tank, for example, or on the
+
+37
+00:02:25,933 --> 00:02:29,933
+broadcasting type, we DECLARE_DYNAMIC_MULTICAST_DELEGATE with some SubjectName.
+
+38
+00:02:29,933 --> 00:02:33,933
+We just say F and then we give it a name. You then
+
+39
+00:02:33,933 --> 00:02:37,933
+Declare a property of type FSubjectName, called On
+
+40
+00:02:37,933 --> 00:02:41,933
+SomethingHappened. I'll give you concrete examples in a minute. And then, you broadcast
+
+41
+00:02:41,933 --> 00:02:45,933
+OnSomethingHappened.BroadCast(). So in the case of the tank, this could just be FTank
+
+42
+00:02:45,933 --> 00:02:49,933
+Delegate. FtankdelegateOnDeath
+
+43
+00:02:49,933 --> 00:02:53,933
+OnDeath.BroadCast(). You get the idea?
+
+44
+00:02:53,933 --> 00:02:57,933
+On the receiver, we need to declare a UFunction,
+
+45
+00:02:57,933 --> 00:03:01,933
+it won't work properly otherwise. And then, you have to declare a DelegateMethod(). This is the method on
+
+46
+00:03:01,933 --> 00:03:05,933
+the receiver, on the AIController, etc. that will handle
+
+47
+00:03:05,933 --> 00:03:09,933
+the delegate when it gets called, and for example, you would say void OnTank
+
+48
+00:03:09,933 --> 00:03:13,933
+Death(). And then, to register to listen you do this, you find the
+
+49
+00:03:13,933 --> 00:03:17,933
+BroadcastingInstance, i.e. the possessed tank, in our case,
+
+50
+00:03:17,933 --> 00:03:21,933
+and then, you say OnSomethingHappen, i.e. OnTankDeath.Add
+
+51
+00:03:21,933 --> 00:03:25,933
+UniqueDynamic this, i.e. the TankPlayerController, the AI
+
+52
+00:03:25,933 --> 00:03:29,933
+Controller, whatever, and then the class for the class we're in the PlayerController, the AIController,
+
+53
+00:03:29,933 --> 00:03:33,933
+the ListenerClass. And then you tell it the address of, this is an ampersand operator,
+
+54
+00:03:33,933 --> 00:03:37,933
+address of operator. You're saying, go find in memory the delegate
+
+55
+00:03:37,933 --> 00:03:41,933
+method, i.e. the OnTankDeath(), which we declared here. So what this guy
+
+56
+00:03:41,933 --> 00:03:45,933
+does is it binds, it's the binding; It's saying this is where you need to go to find
+
+57
+00:03:45,933 --> 00:03:49,933
+how to do that. But the question is, when do we register? Well I'm gong to help you with that bit, I'm not going to
+
+58
+00:03:49,933 --> 00:03:53,933
+leave you to work that on your own, that would be a tad mean. I'm at least going to do it
+
+59
+00:03:53,933 --> 00:03:57,933
+on the AIController for you, otherwise I'm being nasty.
+
+60
+00:03:57,933 --> 00:04:01,933
+So if we look at the AIController header file, it's a type of AController which
+
+61
+00:04:01,933 --> 00:04:05,933
+in turn inherits and inherits again, and what we can do here is
+
+62
+00:04:05,933 --> 00:04:09,933
+we can override something called SetPawn. So virtual
+
+63
+00:04:09,933 --> 00:04:13,933
+void SetPawn(), and then, it takes it
+
+64
+00:04:13,933 --> 00:04:17,933
+in (APawn pointer InPawn).
+
+65
+00:04:17,933 --> 00:04:21,933
+And then, I'm going to override it, override the superclass. Now this gets
+
+66
+00:04:21,933 --> 00:04:25,933
+called when the Pawn is possessed. OK, so when the TankAIController gets
+
+67
+00:04:25,933 --> 00:04:29,933
+possessed, this method gets called. Let's now go and implement that
+
+68
+00:04:29,933 --> 00:04:33,933
+SetPawn and I'll show you why, because that's where
+
+69
+00:04:33,933 --> 00:04:37,933
+we are going to do the binding. This binding that I've showed you down here, this is where we're going to
+
+70
+00:04:37,933 --> 00:04:41,933
+put that code OK, and it's not fair for me to make you work out that that's where we should
+
+71
+00:04:41,933 --> 00:04:45,933
+be doing it, because you'll find it just won't work if we try and do it at a different time. Or at least it won't
+
+72
+00:04:45,933 --> 00:04:49,933
+work reliably, we can't be sure that at BeginPlay() we have possessed yet.
+
+73
+00:04:49,933 --> 00:04:53,933
+So we SetPawn
+
+74
+00:04:53,933 --> 00:04:57,933
+(APawn pointer
+
+75
+00:04:57,933 --> 00:05:01,933
+InPawn), and then, we're ready to go and
+
+76
+00:05:01,933 --> 00:05:05,933
+implement the method. The first thing we need to do is call the super class, right. We're
+
+77
+00:05:05,933 --> 00:05:09,933
+overriding here, so we want to call Super::SetPawn
+
+78
+00:05:09,933 --> 00:05:13,933
+(InPawn). We don't know what the game engine's doing in the super class. We've
+
+79
+00:05:13,933 --> 00:05:17,933
+overridden, if we don't call Super then this whole thing won't get called on this object
+
+80
+00:05:17,933 --> 00:05:21,933
+and that's no good! OK, so we've called Super! Now, the next thing we need to do
+
+81
+00:05:21,933 --> 00:05:25,933
+is we need to only do what we're going to do next, if we have an
+
+82
+00:05:25,933 --> 00:05:29,933
+(InPawn). So one way to do that, we'll just say, if (InPawn), and then, we'll go
+
+83
+00:05:29,933 --> 00:05:33,933
+into a block of code. OK, if we don't have one, we don't even want to proceed.
+
+84
+00:05:33,933 --> 00:05:37,933
+Then, what we're going to do is we're going to work out what the Possessed
+
+85
+00:05:37,933 --> 00:05:41,933
+Tank is, and that is the In
+
+86
+00:05:41,933 --> 00:05:45,933
+Pawn, that's coming in. So the Pawn that this AIController is
+
+87
+00:05:45,933 --> 00:05:49,933
+possessing but we need to cast it to ATank. Now we can't
+
+88
+00:05:49,933 --> 00:05:53,933
+cast it to ATank, of course, without this class knowing something about
+
+89
+00:05:53,933 --> 00:05:57,933
+ATank and that's fair enough. We are implementing a
+
+90
+00:05:57,933 --> 00:06:01,933
+delegate that relates to ATank's OnDeath event, so we need to
+
+91
+00:06:01,933 --> 00:06:05,933
+include "Tank.h". That is quite normal. If you want to know why,
+
+92
+00:06:05,933 --> 00:06:09,933
+then we can go up here and say
+
+93
+00:06:09,933 --> 00:06:13,933
+why we've imported it. "// So we can implement
+
+94
+00:06:13,933 --> 00:06:17,933
+OnDeath". OK. So now that we've #included
+
+95
+00:06:17,933 --> 00:06:21,933
+"Tank.h", then this Cast down here should work. Then, we probably want an
+
+96
+00:06:21,933 --> 00:06:25,933
+ensure statement, so we say if not
+
+97
+00:06:25,933 --> 00:06:29,933
+(!ensure(possessedTank)).
+
+98
+00:06:29,933 --> 00:06:33,933
+Don't worry, you'll get a chance to do all of this for yourself on the other side, on the TankPlayerController.
+
+99
+00:06:33,933 --> 00:06:37,933
+If not PossessedTank return, because by this stage we really
+
+100
+00:06:37,933 --> 00:06:41,933
+ought to have a (PossessedTank) successfully cast from the Pawn.
+
+101
+00:06:41,933 --> 00:06:45,933
+And then, it's where we're going to "// Subscribe
+
+102
+00:06:45,933 --> 00:06:49,933
+our local method", which we haven't
+
+103
+00:06:49,933 --> 00:06:53,933
+written yet, "to the tank's death event". And
+
+104
+00:06:53,933 --> 00:06:57,933
+you're going to do that OK, so I'll put a TODO in. Alright,
+
+105
+00:06:57,933 --> 00:07:01,933
+so this is where you do it. As I said, it wouldn't be very fair for me to expect you to work that out. Let me recap why we're
+
+106
+00:07:01,933 --> 00:07:05,933
+doing it on SetPawn. Because constructor is too early, BeginPlay() may
+
+107
+00:07:05,933 --> 00:07:09,933
+race. By racing what I mean is that, we
+
+108
+00:07:09,933 --> 00:07:13,933
+may or may not have possessed at BeginPlay(), and we don't want to take that
+
+109
+00:07:13,933 --> 00:07:17,933
+risk. We want to explicitly only do this once the SetPawn gets called.
+
+110
+00:07:17,933 --> 00:07:21,933
+OK, so that's the structure for you! Right now, given that layout,
+
+111
+00:07:21,933 --> 00:07:25,933
+what I'd like you to do is to go ahead and setup the whole delegate system, as much as you
+
+112
+00:07:25,933 --> 00:07:29,933
+can. For beginners this may be a bit much. For advanced people, you may get it done.
+
+113
+00:07:29,933 --> 00:07:33,933
+Use the crib-sheet on the previous slide, I'll leave that up in a minute.
+
+114
+00:07:33,933 --> 00:07:37,933
+Register the TankPlayerController and the TankAIController, to receive OnDeath.
+
+115
+00:07:37,933 --> 00:07:41,933
+By the way, if you want to reduce the scope of this challenge, just forget the TankPlayerController,
+
+116
+00:07:41,933 --> 00:07:45,933
+just do the TankAIController, that I've already started. At least get the TankAIController
+
+117
+00:07:45,933 --> 00:07:49,933
+done. Now you want to receive that event, from their possessed tank, like I've already setup for you,
+
+118
+00:07:49,933 --> 00:07:53,933
+and then, log to prove that we're getting the message. OK, so we just want
+
+119
+00:07:53,933 --> 00:07:57,933
+a log entry when our tank dies. When the AI tank dies, you may have a bit of fun trying to kill the AI
+
+120
+00:07:57,933 --> 00:08:01,933
+tank, as a minimum, and you want to log to say, OK cool, it's dead!
+
+121
+00:08:01,933 --> 00:08:05,933
+And if you want the extra challenge, then go ahead and do the same for the PlayerController. So pause
+
+122
+00:08:05,933 --> 00:08:09,933
+the video and see if you can get that working now! I'm going to leave up on the screen this
+
+123
+00:08:09,933 --> 00:08:13,933
+recipe for you.
+
+124
+00:08:13,933 --> 00:08:17,933
+OK welcome back! So given our recipe there, let's go ahead
+
+125
+00:08:17,933 --> 00:08:21,933
+and see what we need to do. So on the tank, we
+
+126
+00:08:21,933 --> 00:08:25,933
+need to firstly underneath here... Hopefully
+
+127
+00:08:25,933 --> 00:08:29,933
+you found this in the documentation above the class. We need to DECLARE_
+
+128
+00:08:29,933 --> 00:08:33,933
+DYNAMIC_MULTICAST, and unfortunately you get no help
+
+129
+00:08:33,933 --> 00:08:37,933
+here, from the auto-complete, DELEGATE. And I'm just going to call it
+
+130
+00:08:37,933 --> 00:08:41,933
+(FTankDelegate), that's the type, and you
+
+131
+00:08:41,933 --> 00:08:45,933
+do, unfortunately, need a semicolon; we never know with these things but in this case we do need
+
+132
+00:08:45,933 --> 00:08:49,933
+one. OK, now it's going to be a public thing here, and
+
+133
+00:08:49,933 --> 00:08:53,933
+it's going to be of type FTankDelegate, and then, it's going to be On
+
+134
+00:08:53,933 --> 00:08:57,933
+Death. OK, so this OnDeath here is something that
+
+135
+00:08:57,933 --> 00:09:01,933
+we can actually, in the C++ class, call, we can broadcast on.
+
+136
+00:09:01,933 --> 00:09:05,933
+OnDeath.Broadcast(), instead of logging out to say the tank's dead,
+
+137
+00:09:05,933 --> 00:09:09,933
+we just say Broadcast OnDeath and then let all the listeners
+
+138
+00:09:09,933 --> 00:09:13,933
+or observers decide what they're going to do with that.
+
+139
+00:09:13,933 --> 00:09:17,933
+OK, so we say OnDeath.Broadcast(). Let's make sure the code compiles to this stage,
+
+140
+00:09:17,933 --> 00:09:21,933
+and while it's compiling, I'll show you what has changed
+
+141
+00:09:21,933 --> 00:09:25,933
+on the Tank. Just that, OnDeath.Broadcast(), in place of the log message,
+
+142
+00:09:25,933 --> 00:09:29,933
+and on the tank header file, above the class, we have declared DYNAMIC_
+
+143
+00:09:29,933 --> 00:09:33,933
+MULTICAST_DELEGATE and the type and then FTankDelegate OnDeath. OK, so that has
+
+144
+00:09:33,933 --> 00:09:37,933
+compiled, but of course, at this moment, we are not going to know whether it's working.
+
+145
+00:09:37,933 --> 00:09:41,933
+So to know whether it's working, we're going to need to go into the TankAIController,
+
+146
+00:09:41,933 --> 00:09:45,933
+and then, we're going to need to subscribe our local method. So how do we do that? Well let's
+
+147
+00:09:45,933 --> 00:09:49,933
+go back to your recipe! We've done this, we've done this, and we've even done that, so we're now below the
+
+148
+00:09:49,933 --> 00:09:53,933
+line. We need a DelegateMethod(), a UFUNCtION() DelegateMethod(), so let's do
+
+149
+00:09:53,933 --> 00:09:57,933
+that to start with! So it's going to be a private method. Remember I said it has to be a UFUNCTION(),
+
+150
+00:09:57,933 --> 00:10:01,933
+if I can spell it right,
+
+151
+00:10:01,933 --> 00:10:05,933
+in order for it to work. And then, what name do we give it? Well what does it say in the
+
+152
+00:10:05,933 --> 00:10:09,933
+recipe? We call it the DelegateMethod(),
+
+153
+00:10:09,933 --> 00:10:13,933
+I mean that's what I've called it, but OnTankDeath is one thing you could do. I'm going to say
+
+154
+00:10:13,933 --> 00:10:17,933
+OnPossess, to be really clear, TankDeath. So our
+
+155
+00:10:17,933 --> 00:10:21,933
+local method is going to be OnPossessedTankDeath(), OK,
+
+156
+00:10:21,933 --> 00:10:25,933
+and that is what's going to get called. We have to have a method here, so
+
+157
+00:10:25,933 --> 00:10:29,933
+let's make this OnPossessedTankDeath() directly below the SetPawn, I think, so we can see it.
+
+158
+00:10:29,933 --> 00:10:33,933
+And then, to turn that into a definition we just need to,
+
+159
+00:10:33,933 --> 00:10:37,933
+of course, put the class name in front and some squigglies.
+
+160
+00:10:37,933 --> 00:10:41,933
+OK, so now we have somewhere in memory that we can
+
+161
+00:10:41,933 --> 00:10:45,933
+go, i.e. here, in order to use
+
+162
+00:10:45,933 --> 00:10:49,933
+or in order to handle the Delegate, when it gets called. So how do we do this? We say
+
+163
+00:10:49,933 --> 00:10:53,933
+BroadcastingInstance OnSomethingHappened. So the BroadcastingInstance I set you
+
+164
+00:10:53,933 --> 00:10:57,933
+up with, that's the PossessedTank.
+
+165
+00:10:57,933 --> 00:11:01,933
+OK, so we have the Broadcasting
+
+166
+00:11:01,933 --> 00:11:05,933
+Instance. Now, once the auto-complete's there, if we look through the BroadcastingInstance pointer
+
+167
+00:11:05,933 --> 00:11:09,933
+and type on, we should have an OnDeath.  You see with all these other
+
+168
+00:11:09,933 --> 00:11:13,933
+engine things, OnActorOverlap, we've got OnDeath! Ah, that's pretty
+
+169
+00:11:13,933 --> 00:11:17,933
+cool! So PossessedTank OnDeath, then what do you do? BroadcastingInstance OnSomethingHappened
+
+170
+00:11:17,933 --> 00:11:21,933
+.AddUniqueDynamic. Now warning, the system is
+
+171
+00:11:21,933 --> 00:11:25,933
+not going to give you AddUniqueDynamic, unfortunately, as an auto-complete, you're going to have to type it yourself.
+
+172
+00:11:25,933 --> 00:11:29,933
+AddUniqueDynamic() on this, and then, we need the function name. So we just put a
+
+173
+00:11:29,933 --> 00:11:33,933
+ampersand in front of this stuff here.
+
+174
+00:11:33,933 --> 00:11:37,933
+OK, and that has now subscribed
+
+175
+00:11:37,933 --> 00:11:41,933
+us! It said OK, here's the instance, it's got this OnDeath delegate that gets
+
+176
+00:11:41,933 --> 00:11:45,933
+called. We're going to add a UniqueDynamicRegistration for it,
+
+177
+00:11:45,933 --> 00:11:49,933
+and we're going to handle it, using this method here. So to finish off, all
+
+178
+00:11:49,933 --> 00:11:53,933
+we need to do is log, to say that we're receiving this.
+
+179
+00:11:53,933 --> 00:11:57,933
+
+
+180
+00:11:57,933 --> 00:12:01,933
+
+
+181
+00:12:01,933 --> 00:12:05,933
+Just say ("Received") like that! OK, let's see
+
+182
+00:12:05,933 --> 00:12:09,933
+if that works! I'll get it compiling! I'll remind you, while we're compiling,
+
+183
+00:12:09,933 --> 00:12:13,933
+of what we've done! We've made on OnPossessedTankDeath(), UFUNCTION() method
+
+184
+00:12:13,933 --> 00:12:17,933
+here! We've done our subscription
+
+185
+00:12:17,933 --> 00:12:21,933
+so I can get rid of the TODO here, where we tell the possessed tank
+
+186
+00:12:21,933 --> 00:12:25,933
+where to go to handle the death event, and then, we're just logging to say received. OK,
+
+187
+00:12:25,933 --> 00:12:29,933
+so now what's got to happen, firstly, is I need to open the tank blueprint.
+
+188
+00:12:29,933 --> 00:12:33,933
+Save let's compile. It might crash.
+
+189
+00:12:33,933 --> 00:12:37,933
+It's crashed because we've made a fairly fundamental change to the tank blueprint, and sometimes
+
+190
+00:12:37,933 --> 00:12:41,933
+that causes crashes in the engine, so that's not uncommon.
+
+191
+00:12:41,933 --> 00:12:45,933
+So let's reopen the tank blueprint. I'm just going to make sure it does compile.
+
+192
+00:12:45,933 --> 00:12:49,933
+I'm not going to play the game! So the
+
+193
+00:12:49,933 --> 00:12:53,933
+tank didn't appear to be aiming there. Let's go look at the tank blueprint and just make sure
+
+194
+00:12:53,933 --> 00:12:57,933
+that it still has an AI class, and indeed, it does not have an AI
+
+195
+00:12:57,933 --> 00:13:01,933
+class. So let's reset the the TankAIController there, Compile, and Save the
+
+196
+00:13:01,933 --> 00:13:05,933
+blueprint, and let's just play again! And I'm hoping that he'll now aim at me,
+
+197
+00:13:05,933 --> 00:13:09,933
+which he does appear to be doing. One strategy for just destroying the enemy tank is to get
+
+198
+00:13:09,933 --> 00:13:13,933
+so close he can't find an aim solution and then he won't fire, because he's too
+
+199
+00:13:13,933 --> 00:13:17,933
+keen to be precise. You need to be close enough that you can hit him, of
+
+200
+00:13:17,933 --> 00:13:21,933
+course, but not so close that he can fire at you. And then, what you can do, at this stage, is
+
+201
+00:13:21,933 --> 00:13:25,933
+keep firing at the enemy tank until it's dead, watching its health bar
+
+202
+00:13:25,933 --> 00:13:29,933
+go down and its jitter, making any notes about any changes to your effects
+
+203
+00:13:29,933 --> 00:13:33,933
+you want to make, at this point, and now we want to keep an eye on the Output Log. There we go!
+
+204
+00:13:33,933 --> 00:13:37,933
+"Received!" Fantastic! So we actually have that
+
+205
+00:13:37,933 --> 00:13:41,933
+event system working, and there's no reason we can't just go straight ahead and do exactly the same thing
+
+206
+00:13:41,933 --> 00:13:48,100
+on the PlayerControlledTank now. But let's do that in another video, because this one's plenty long enough!
+
+207
+00:13:48,100 --> 00:13:52,100
+So hopefully this diagram makes a little more sense now. You've had an
+
+208
+00:13:52,100 --> 00:13:56,100
+overview of how this works, a fantastically useful general system. You can use it,
+
+209
+00:13:56,100 --> 00:14:00,100
+for example, for achievements in your game, you know, when you get those unlocks pop up on your
+
+210
+00:14:00,100 --> 00:14:04,100
+console or even your Steam achievements. That can be done like this, there's a lot of things that can be done like
+
+211
+00:14:04,100 --> 00:14:08,100
+this. Please go and read Game Programming Patterns, as linked in the resources,
+
+212
+00:14:08,100 --> 00:14:12,100
+this Observer Pattern. Have a browse through this, don't
+
+213
+00:14:12,100 --> 00:14:16,100
+expect yourself to necessarily to understand all of it but it's a pretty good overview,
+
+214
+00:14:16,100 --> 00:14:19,700
+and I will see you in the next video!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT96 The Observer Pattern.srt

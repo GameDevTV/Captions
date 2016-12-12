@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section7/GG23 Review Improvements.srt
 WEBVTT
 Kind: captions
 Language: en
@@ -607,3 +608,613 @@ and that's going to be the subject of
 00:12:52.320 --> 00:12:53.840
 the next part of this section. See you soon.
 
+=======
+Kind: captions
+Language: en
+
+00:00:00,010 --> 00:00:08,320
+Hey guys, so as a final video in this
+part of the section we're gonna just
+
+00:00:08,320 --> 00:00:13,920
+tidy up a few things. So firstly I'm
+going to read the music on load and
+
+00:00:13,920 --> 00:00:19,410
+improve the win and lose screens; so why
+do we need to read music on load? Well
+
+00:00:19,410 --> 00:00:26,570
+let's see what happens right now - plays our
+startup sound , goes over to the options
+
+00:00:26,570 --> 00:00:31,380
+screen but this volume is not what we've
+set it. So say I've set the volume very
+
+00:00:31,380 --> 00:00:38,649
+quiet, if I stop playing the game and
+play again I want that initial volume to
+
+00:00:38,649 --> 00:00:39,949
+be fixed
+
+00:00:39,949 --> 00:00:44,559
+not change with the options but listen
+it's loud now. You may not be able to hear clearly
+
+00:00:44,559 --> 00:00:50,229
+but as soon as I click options it
+goes down to whatever this value is. So
+
+00:00:50,229 --> 00:00:53,799
+what I want to happen is I want to read
+the value that's set in the player prefs
+
+00:00:53,799 --> 00:00:58,100
+at the moment we get to the start scene
+so let's just get on with it now. So a
+
+00:00:58,100 --> 00:01:01,670
+valid way of doing this is to create an
+empty game object on the Start scene
+
+00:01:01,670 --> 00:01:06,240
+called scripts and this is purely to
+hang scripts that are going to run on this
+
+00:01:06,240 --> 00:01:12,230
+scene off, I like to put it at the top and
+have a neutral transform on it. So then we
+
+00:01:12,230 --> 00:01:16,640
+could make ourself a new script for this,
+which would be fine, and which should be
+
+00:01:16,640 --> 00:01:24,180
+just set start volume for instance. OK so
+we have a set start volume script, let's
+
+00:01:24,180 --> 00:01:27,730
+just tidy it away into the scripts
+folder and take a look at it. You're not
+
+00:01:27,730 --> 00:01:31,350
+gonna get away quite that easily at this
+stage in the course, why don't you do it?
+
+00:01:31,350 --> 00:01:36,590
+Come on, you can do it we have a
+persistent music manager so it doesn't
+
+00:01:36,590 --> 00:01:40,880
+actually exist in this scene right now
+only when we start from the splash
+
+00:01:40,880 --> 00:01:44,970
+screen so you're gonna need to find the music
+manager, and then you gonna need to call
+
+00:01:44,970 --> 00:01:48,510
+it with the options from the player
+prefs. Remember the player prefs' a static
+
+00:01:48,510 --> 00:01:51,870
+so you don't need to find them or do
+anything clever, you can just call
+
+00:01:51,870 --> 00:01:55,450
+directly on the player prefs manager.
+Have a go at it, see if you can make the
+
+00:01:55,450 --> 00:02:01,780
+start scene obey the volume level in
+options.
+
+00:02:01,780 --> 00:02:07,590
+Cool, welcome back. So we're going to need a
+private music manager, why private? Well
+
+00:02:07,590 --> 00:02:10,840
+because we're gonna find it inside here
+we're not gonna be dragging it across in
+
+00:02:10,840 --> 00:02:17,069
+the inspector there he is, so on the start
+we to find it, how we gonna do that?
+
+00:02:17,069 --> 00:02:27,310
+So we're going to game object dot
+find object of type music manager and
+
+00:02:27,310 --> 00:02:33,750
+it's a method; now what's going to be
+that? It's gonna be the music manager now
+
+00:02:33,750 --> 00:02:36,300
+I always like here just to check we've got it.
+
+00:02:36,300 --> 00:02:45,730
+debug dot log found plus... found music
+manager and then just a add on the end
+
+00:02:45,730 --> 00:02:50,269
+log out the actual manager; let's just
+make sure that works, firstly it
+
+00:02:50,269 --> 00:02:53,819
+shouldn't work from the start scene
+because there is no music manager in the
+
+00:02:53,819 --> 00:03:08,160
+start scene, let's try. Well it's saying found music manager but there's no object on the end of that sentence and
+
+00:03:08,160 --> 00:03:13,019
+that's as we expected so it's saying
+debug dot log found Music Manager,
+
+00:03:13,019 --> 00:03:19,489
+if you want it to not even logged out you
+just say if music manager and then if
+
+00:03:19,489 --> 00:03:25,209
+there is no music manager then that log will not
+be called; we could actually deal
+
+00:03:25,209 --> 00:03:32,790
+with its exception right now, so else
+debug dot log warning I think it's a
+
+00:03:32,790 --> 00:03:40,790
+warning if we're not setting the
+volume, no music manager found on start
+
+00:03:40,790 --> 00:03:50,319
+scene - or in start scene so can't set volume. OK?
+
+00:03:50,319 --> 00:03:56,349
+and then we close our brackets, let's try
+that. First without the music manager. What
+
+00:03:56,349 --> 00:03:59,680
+does the console say? No music manager found
+in scene so can't set volume. Fine, good
+
+00:03:59,680 --> 00:04:07,010
+now let's run it from the splash screen,
+keep an eye on the console it's making
+
+00:04:07,010 --> 00:04:10,310
+the persistent music player which
+arrives in the start scene and that's
+
+00:04:10,310 --> 00:04:10,739
+fine. It's
+
+00:04:10,739 --> 00:04:15,180
+found persistent music manager music
+manager so it's actually found it in this
+
+00:04:15,180 --> 00:04:19,880
+case and where is it? There it is, persistent
+music. Great, so that's one part of it
+
+00:04:19,880 --> 00:04:23,210
+done and we've caught the case where it
+doesn't happen then what do we need to
+
+00:04:23,210 --> 00:04:28,090
+do well on start if we have found a
+music manager I don't think we need to
+
+00:04:28,090 --> 00:04:32,199
+log it any more, now that we know that
+it works, we'll just log the exception, all we
+
+00:04:32,199 --> 00:04:38,070
+need to do is go ahead and set that
+music so it's music manager
+
+00:04:38,070 --> 00:04:44,349
+Well we first need to get the volume, so
+float volume equals player prefs manager
+
+00:04:44,349 --> 00:04:50,930
+dot get master volume and it's a method.
+Fine, and then we just need to say music
+
+00:04:50,930 --> 00:04:59,919
+manager . now where is it... set volume volume. You see that?
+
+00:04:59,919 --> 00:05:04,650
+Relatively simple? OK let's play and
+make sure it works properly so starting
+
+00:05:04,650 --> 00:05:08,380
+from the splash screen
+
+00:05:08,380 --> 00:05:17,700
+Go into my options, set the volume very very
+very quiet, come out to make sure it's
+
+00:05:17,700 --> 00:05:21,360
+saved and stop playing the game. Now let's
+try again, we have a loud splash screen we should have
+
+00:05:21,360 --> 00:05:31,360
+a very quiet start scene. We do, just try it at the
+other end, it's very loud, back to save, stop
+
+00:05:31,360 --> 00:05:39,070
+playing, play from the splash screen. Splash
+screen comes in and now it's playing at
+
+00:05:39,070 --> 00:05:42,620
+full volume. Perfect, so let's just recap
+the code, make sure you're clear on
+
+00:05:42,620 --> 00:05:46,800
+how we've done that, so we use a private
+music manager because we're gonna find
+
+00:05:46,800 --> 00:05:51,660
+the music manager and we do not want it
+exposed in the editor. We go ahead and
+
+00:05:51,660 --> 00:05:56,210
+find it right here, if it exists we read
+the player prefs using this static
+
+00:05:56,210 --> 00:06:00,220
+method which we can call anywhere public
+static remember we can do that from
+
+00:06:00,220 --> 00:06:04,370
+anywhere which is very useful, we have our
+own player prefs interface which was
+
+00:06:04,370 --> 00:06:08,520
+created which is pretty handy and then
+we go ahead and just set the volume on
+
+00:06:08,520 --> 00:06:11,800
+that music manager instance that we
+found and if we couldn't find one we
+
+00:06:11,800 --> 00:06:19,200
+log a warning. Cool, on to the next tidy up task
+then quickly. So the next thing is catch the
+
+00:06:19,200 --> 00:06:22,720
+first-order error with auto load level
+after. What the hell does that mean? Well let's
+
+00:06:22,720 --> 00:06:25,630
+just take a quick look at it, thank you
+to the people in the discussions for
+
+00:06:25,630 --> 00:06:31,180
+bringing this up so on our splash screen, on
+the level manager, we have this autoload
+
+00:06:31,180 --> 00:06:36,610
+next level and then it says three so the
+question is what happens if somebody puts a
+
+00:06:36,610 --> 00:06:40,060
+negative value in? Well let's just catch
+that, there are lots of ways we could
+
+00:06:40,060 --> 00:06:44,030
+deal with it but let's... I'm going to make
+this as simple as possible and I'm just
+
+00:06:44,030 --> 00:06:51,760
+gonna say... hang on a second, I had a little crash of mono there so just let it reload, come back to life...
+
+00:06:51,760 --> 00:06:58,970
+here it is, and it's the level manager I
+want. OK so if the autoload level
+
+00:06:58,970 --> 00:07:02,520
+next level after is less than or equal
+to 0, I'm going to say... I'm just gonna
+
+00:07:02,520 --> 00:07:07,780
+change it to less than or equal... level
+load autoload disabled, use a positive
+
+00:07:07,780 --> 00:07:14,770
+number in seconds. Now you could rename
+this whole thing auto load next level
+
+00:07:14,770 --> 00:07:18,400
+after seconds, thanks Marco for the
+suggestion, that would be even longer... my
+
+00:07:18,400 --> 00:07:20,880
+challenge with that is it's so long it
+doesn't really fit
+
+00:07:20,880 --> 00:07:25,660
+over here in the inspector so you're
+probably gonna miss it anyway unless you've
+
+00:07:25,660 --> 00:07:31,510
+expanded it out. Already with the word after
+it's kind of too long so we just leave
+
+00:07:31,510 --> 00:07:35,500
+it like this now if somebody tries to put
+a negative value in they'll get a
+
+00:07:35,500 --> 00:07:42,040
+log rather than an error or a warning just
+a log entry, because they may want auto
+
+00:07:42,040 --> 00:07:45,610
+load disabled, so that's a very minor tweak
+but valid points there from everybody.
+
+00:07:45,610 --> 00:07:52,820
+Thank you for that... OK, alternative fade without coding,
+thanks to Ryan for this one so when we
+
+00:07:52,820 --> 00:08:00,090
+get to the start scene we fade in with
+this fade panel entity here and we have
+
+00:08:00,090 --> 00:08:04,270
+a script on it, a fade in script which is
+fine and let's just have a quick look at that
+
+00:08:04,270 --> 00:08:08,440
+fade in script. It's relatively simple but
+it does a few things, it has to find
+
+00:08:08,440 --> 00:08:12,350
+components and mess around, how about doing
+it with the animator? That's a good idea from
+
+00:08:12,350 --> 00:08:16,180
+Ryan that's perfectly valid, so let's
+disable the script so now when you run
+
+00:08:16,180 --> 00:08:20,860
+the Start menu it will not fade in, it'll
+just sit there, it's actually got a murky panel
+
+00:08:20,860 --> 00:08:24,340
+hanging on it right now. So let's look
+how we'd do it now that you're clear with
+
+00:08:24,340 --> 00:08:32,479
+the animator. You add an animator, let's
+create a animation controller and let's
+
+00:08:32,479 --> 00:08:39,440
+call it fade. Just simply fade. Let's
+attach the fade animation controller to
+
+00:08:39,440 --> 00:08:43,390
+it - by the way I think you can do this
+yourself so I would encourage you to try
+
+00:08:43,390 --> 00:08:47,910
+stopping and doing a fade in on your own,
+if not just continue to watch me and I shall
+
+00:08:47,910 --> 00:08:51,910
+show you had to do it, so there's the
+fade, there's the fade animation, let's just
+
+00:08:51,910 --> 00:08:55,440
+take a look at it then. If we go over to the
+animation what have we got? We don't have
+
+00:08:55,440 --> 00:09:01,840
+a curve yet, we need one so fade in.
+There's the fade in animation there, great
+
+00:09:01,840 --> 00:09:06,150
+so we're gonna fade in over how long?
+Well two seconds is what we had before in
+
+00:09:06,150 --> 00:09:09,930
+the script, so let's go for two seconds.
+So what we do is we had a keyframe, well
+
+00:09:09,930 --> 00:09:13,410
+first we need to decide on the curve. The
+curve is going to operate on the image
+
+00:09:13,410 --> 00:09:19,250
+color, that's what you need: the image
+color. OK? Great so we drag the keyframe
+
+00:09:19,250 --> 00:09:21,810
+out to 2 seconds,
+
+00:09:21,810 --> 00:09:26,710
+so in the beginning we set the color at
+zero time we want 255 we want a
+
+00:09:26,710 --> 00:09:31,180
+fully opaque black box and then at two
+seconds over here, we want to set the
+
+00:09:31,180 --> 00:09:36,270
+color keyframe down to 0s, so a fully
+transparent black box. Nearly there,
+
+00:09:36,270 --> 00:09:39,760
+the only problem with this at the moment
+is it will fade just fine even though the
+
+00:09:39,760 --> 00:09:44,060
+script's disabled but it's going to keep
+fading in loops, so the way we change
+
+00:09:44,060 --> 00:09:50,110
+that if we go here to the fade in
+animation and turn off looping. Great, the
+
+00:09:50,110 --> 00:09:52,589
+second thing that's going to go wrong is
+we're not going to be able to click because we've
+
+00:09:52,589 --> 00:09:55,710
+got a panel sitting over the top so we
+need to disable the panel in the
+
+00:09:55,710 --> 00:10:00,220
+animation you can also do that you go to
+this image and you choose the Enabled
+
+00:10:00,220 --> 00:10:04,870
+property it's enabled on the first
+keyframe but it is disabled
+
+00:10:04,870 --> 00:10:08,940
+towards the end, actually at the end. Now you
+might say how about if we want to be able to
+
+00:10:08,940 --> 00:10:12,350
+click before the fade is finished, well
+you could try that but when the panel
+
+00:10:12,350 --> 00:10:18,410
+disappears you get a sharp bang, you see that
+bang in color? So you are going to
+
+00:10:18,410 --> 00:10:22,290
+need to do it at the end there unless we get
+more elaborate which we don't need to. So
+
+00:10:22,290 --> 00:10:27,150
+that's it, you have an animation sitting
+on the fade panel that has a color and a
+
+00:10:27,150 --> 00:10:32,470
+fade like that, perfectly valid. In fact
+it's so valid that I am going to leave it
+
+00:10:32,470 --> 00:10:37,030
+like that, I will leave the fade script
+disabled and just use the fade animation
+
+00:10:37,030 --> 00:10:41,810
+so we have two options, alright and there
+it goes; and of course you could get a
+
+00:10:41,810 --> 00:10:45,630
+lot more customisation over it this way
+if you wanted to. So thank you for that Ryan
+
+00:10:45,630 --> 00:10:47,560
+let's look at the next tweak.
+
+00:10:47,560 --> 00:10:53,350
+Pretty much there we just need to save
+our scene that we worked on so hard
+
+00:10:53,350 --> 00:10:59,700
+and make sure we prefab everything so if
+we go to level one here then we've got a
+
+00:10:59,700 --> 00:11:05,600
+lot of stuff in this scene right let's
+just zoom to the level canvas, all
+
+00:11:05,600 --> 00:11:08,620
+these guys here are fine, we want
+everything prefabbed. So the camera is
+
+00:11:08,620 --> 00:11:11,750
+already prefabbed, you can see it from the
+inspector, the level canvas is preffabbed,
+
+00:11:11,750 --> 00:11:16,120
+what we want to do is start prefabbing
+the attackers and defenders, we've done
+
+00:11:16,120 --> 00:11:20,660
+a lot of work on them so I'm actually gonna
+create a subfolder of prefabs called
+
+00:11:20,660 --> 00:11:25,480
+attackers and it's literally just a
+question of dragging each one into there
+
+00:11:25,480 --> 00:11:29,420
+so they go blue and any changes we make
+to the attackers on this level
+
+00:11:29,420 --> 00:11:35,160
+reflect over on any future level that we
+create using prefabs so create another folder
+
+00:11:35,160 --> 00:11:41,100
+for defenders inside your prefabs and
+then take each of your defenders and
+
+00:11:41,100 --> 00:11:48,230
+prefab them by dragging one at a time...
+gnome, cactus, gravestone, star trophy perfect
+
+00:11:48,230 --> 00:11:54,770
+now the final thing I would like to do
+here is go to level two and just look at
+
+00:11:54,770 --> 00:11:59,090
+the differences between that and level
+one, well we have a game camera which is fine,
+
+00:11:59,090 --> 00:12:04,770
+we have a level 1, level canvas 1 in level 2,
+what's that all about?
+
+00:12:04,770 --> 00:12:09,410
+So I'm gonna confidently delete my level
+canvas 1 and bring in my prefabbed level
+
+00:12:09,410 --> 00:12:16,570
+canvas cos it should just work; what else
+do we need from level 1, I want to make sure the
+
+00:12:16,570 --> 00:12:21,220
+attackers and defenders... Ok so let's try
+it without necessarily putting them in any
+
+00:12:21,220 --> 00:12:26,380
+folders, let's drop a fox in and let's drop
+a lizard in, great and let's just check they
+
+00:12:26,380 --> 00:12:30,930
+animate and of course they do because
+they're all prefabbed. Great, so we don't need
+
+00:12:30,930 --> 00:12:34,050
+to go any further with level 1 and level 2
+at the moment, we've proved that prefabbing
+
+00:12:34,050 --> 00:12:39,540
+works, so pretty happy, that's all good
+and that's the end of this section;  if
+
+00:12:39,540 --> 00:12:43,340
+you look back to see... this part of the
+section sorry... if you look back to level one
+
+00:12:43,340 --> 00:12:47,040
+you'll see that basically we have all
+the animation we want, the main job now
+
+00:12:47,040 --> 00:12:52,320
+is to script all the types of behaviours we want,
+and that's going to be the subject of
+
+00:12:52,320 --> 00:12:53,840
+the next part of this section. See you soon.
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section7/GG23 Review Improvements.srt

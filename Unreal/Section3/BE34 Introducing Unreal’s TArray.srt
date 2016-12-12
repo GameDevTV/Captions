@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section3/BE34 Introducing Unreal’s TArray.srt
 ﻿WEBVTT
 
 1
@@ -732,3 +733,738 @@ then not this time. It's going to be in the next video that we'll go and use thi
 00:12:05.466 --> 00:12:07.899
 See you in the next video!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+Welcome to introducing Unreal's
+
+2
+00:00:04,000 --> 00:00:08,000
+TArray! So, in this video, I want to tell you that a TArray
+
+3
+00:00:08,000 --> 00:00:12,000
+is Unreal's go-to container class. It's a great class for
+
+4
+00:00:12,000 --> 00:00:16,000
+grouping together things, many elements of the same type. So, in
+
+5
+00:00:16,000 --> 00:00:20,000
+our case that's going to be Actors that are on the pressure plate,
+
+6
+00:00:20,000 --> 00:00:24,000
+in the game. So, over here in this trigger volume, we're going to be able to put tables, chairs,
+
+7
+00:00:24,000 --> 00:00:28,000
+and even ourselves, and we're going to use a TArray to store them.
+
+8
+00:00:28,000 --> 00:00:32,000
+So, we're also going to give our Default Pawn and eye-height
+
+9
+00:00:32,000 --> 00:00:36,000
+and a mass. And we'll be making our pressure plate
+
+10
+00:00:36,000 --> 00:00:40,000
+based on total mass. So, what that means is our Pawn is actually going to
+
+11
+00:00:40,000 --> 00:00:44,000
+be on the ground. If we move off the ground, we land back at the ground and we can't duck down
+
+12
+00:00:44,000 --> 00:00:48,000
+anymore, so we're a bit more human-like as we move around the room, and we'll have a mass
+
+13
+00:00:48,000 --> 00:00:52,000
+as will the table and chair, which will all be ready to trigger that plate. We
+
+14
+00:00:52,000 --> 00:00:55,033
+won't quite get to that point in this video, but see you in a moment!
+
+15
+00:00:55,033 --> 00:00:59,033
+So, let's have a little recap as to how this was working! Remember that our doors
+
+16
+00:00:59,033 --> 00:01:03,033
+both have an OpenDoor component on them, and that, that Open Door
+
+17
+00:01:03,033 --> 00:01:07,033
+component used to have a publicly exposed Actor that opens but in
+
+18
+00:01:07,033 --> 00:01:11,033
+the code we changed that a little bit. So, we still have this Actor pointer
+
+19
+00:01:11,033 --> 00:01:15,033
+ActorThatOpens, but then, what we did in the constructor is we just
+
+20
+00:01:15,033 --> 00:01:19,033
+went and found the Pawn. So, right now, the only thing that will open these
+
+21
+00:01:19,033 --> 00:01:23,033
+doors is the Pawn itself. Well, we're going to change this around to be based on
+
+22
+00:01:23,033 --> 00:01:27,033
+mass. So firstly, let's give our character controller
+
+23
+00:01:27,033 --> 00:01:31,033
+a little bit of mass. How do we do that? Well, it's not a character controller, it's a Pawn!
+
+24
+00:01:31,033 --> 00:01:35,033
+Go to the Default Pawn Blueprint, and it's relatively simple actually.
+
+25
+00:01:35,033 --> 00:01:39,033
+It already had a few things that we can change. The Base
+
+26
+00:01:39,033 --> 00:01:43,033
+Eye Height, I'm going to have to say 60. Let's see the effect that has!
+
+27
+00:01:43,033 --> 00:01:47,033
+So the Base Eye Height, by the way, is in the Details Tab of the
+
+28
+00:01:47,033 --> 00:01:51,033
+DefaultPawn Blueprint, under the Camera section. So, if I
+
+29
+00:01:51,033 --> 00:01:55,033
+play now, then I get an eye height, but I can still kind of float. The reason I can float is
+
+30
+00:01:55,033 --> 00:01:59,033
+physics. So, let's go back to the DefaultPawn, and let's
+
+31
+00:01:59,033 --> 00:02:03,033
+have a little look at what else we can change. Well, we have a CollisionComponent, so go
+
+32
+00:02:03,033 --> 00:02:07,033
+to the CollisionComponent, let's simulate physics. I'm going to make the guy
+
+33
+00:02:07,033 --> 00:02:11,033
+roughly my weight, 70 kilos. We're also going to make sure that the simulation generates
+
+34
+00:02:11,033 --> 00:02:15,033
+hits and that the collision generates overlap events.
+
+35
+00:02:15,033 --> 00:02:19,033
+So to recap, I've gone to the DefaultPawn Blueprint, selected the CollisionComponent,
+
+36
+00:02:19,033 --> 00:02:23,033
+I'm Simulating Physics, giving it a mass of a reasonable mass,
+
+37
+00:02:23,033 --> 00:02:27,033
+and then ticking these two boxes. Simulation Generates,
+
+38
+00:02:27,033 --> 00:02:31,033
+what does it say? Hit Events I think? Yep, Hit Events and
+
+39
+00:02:31,033 --> 00:02:35,033
+Generate Overlap Events as well. Alright, now the Simulation Generates Hit
+
+40
+00:02:35,033 --> 00:02:39,033
+Events will allow it to do physics collisions with things, so we collide with the walls. We were
+
+41
+00:02:39,033 --> 00:02:43,033
+already doing that, but Generating Overlap events is going to become important
+
+42
+00:02:43,033 --> 00:02:47,033
+in a bit, because we want the trigger volume to notice we're in it. The only other thing I've changed
+
+43
+00:02:47,033 --> 00:02:51,033
+about this is the Eye Height over on the Default Pawn itself. So, if we do that,
+
+44
+00:02:51,033 --> 00:02:55,033
+then what happens with we use the Default Pawn? We can now kind of run around. We can jump
+
+45
+00:02:55,033 --> 00:02:59,033
+by just going up, but we can run around and we're stuck to the floor,
+
+46
+00:02:59,033 --> 00:03:03,033
+which is much better. OK, so now what we want this trigger volume to do is notice
+
+47
+00:03:03,033 --> 00:03:07,033
+when we're in it or when the table is in it, which it doesn't or
+
+48
+00:03:07,033 --> 00:03:11,033
+when the chair is in it. And we're going to organize it so we need to put both the table and the
+
+49
+00:03:11,033 --> 00:03:15,033
+chair in, in order to actually
+
+50
+00:03:15,033 --> 00:03:19,033
+open the doors. So that's the background, as to what we're doing. I've made those changes to the Default
+
+51
+00:03:19,033 --> 00:03:23,033
+Pawn. I'm going to now go into my code, and on OpenDoor.h I don't need
+
+52
+00:03:23,033 --> 00:03:27,033
+an Actor that opens. So, let's get rid of it and save which will, of course,
+
+53
+00:03:27,033 --> 00:03:31,033
+immediately break OpenDoor.cpp, because ActorThatOpens here
+
+54
+00:03:31,033 --> 00:03:35,033
+in the constructor, we can't set it so let's get rid of it in the constructor.
+
+55
+00:03:35,033 --> 00:03:39,033
+So, no more ActorThatOpens anywhere in our code. Do we have
+
+56
+00:03:39,033 --> 00:03:43,033
+it anywhere else? Well, we could always do a search, of course.
+
+57
+00:03:43,033 --> 00:03:47,033
+ActorThatOpens in the current file,
+
+58
+00:03:47,033 --> 00:03:51,033
+have a look, there it is, and that's exactly where our red error is,
+
+59
+00:03:51,033 --> 00:03:55,033
+because it's trying to do something with ActorThatOpens. Well, all this code actually, basically
+
+60
+00:03:55,033 --> 00:03:59,033
+all of this code, not the OpenDoor() code, but this bit about when we're openning
+
+61
+00:03:59,033 --> 00:04:03,033
+the door here needs to change. So, what
+
+62
+00:04:03,033 --> 00:04:07,033
+we're going to do is yes we're going to "// Poll the trigger volume", but it's not if the Actor
+
+63
+00:04:07,033 --> 00:04:11,033
+opens in the volume, it is this. It's if something like
+
+64
+00:04:11,033 --> 00:04:15,033
+(GetTotalMassOfActors
+
+65
+00:04:15,033 --> 00:04:19,033
+OnPlate(). Let's just imagine
+
+66
+00:04:19,033 --> 00:04:23,033
+we've got a method called GetTotalMassOfActorsOnPlate(). Is greater
+
+67
+00:04:23,033 --> 00:04:27,033
+than some threshold, which we really ought to
+
+68
+00:04:27,033 --> 00:04:31,033
+make editable in the Inspector.
+
+69
+00:04:31,033 --> 00:04:35,033
+So, TriggerMass or
+
+70
+00:04:35,033 --> 00:04:39,033
+for now let's hard code it! Let's say 50 kilograms, 50
+
+71
+00:04:39,033 --> 00:04:43,033
+point f like that. Now, if you hardcode something, you could
+
+72
+00:04:43,033 --> 00:04:47,033
+make it into a parameter.
+
+73
+00:04:47,033 --> 00:04:51,033
+If you just want to focus on what you're doing, you can always put yourself a TODO to change
+
+74
+00:04:51,033 --> 00:04:55,033
+that later, into something that's parameterized, because we just want to focus. If the
+
+75
+00:04:55,033 --> 00:04:59,033
+total mass on the plate is greater than 50,
+
+76
+00:04:59,033 --> 00:05:03,033
+then we open the door and everything else is the same right. The question is, how do we
+
+77
+00:05:03,033 --> 00:05:07,033
+deal with (GetTotalMassOnPlate)? Well, let's go write that method now, that's the whole point
+
+78
+00:05:07,033 --> 00:05:11,033
+of this video. But the reason I'm doing it outside of this method, outside of
+
+79
+00:05:11,033 --> 00:05:15,033
+Tick, is because it keeps Tick nice and small, and I can get rid of
+
+80
+00:05:15,033 --> 00:05:19,033
+that comment because it's gone out of sync. Polling the trigger volume. Yeah,
+
+81
+00:05:19,033 --> 00:05:23,033
+we can leave that. "// Check if it's time to close the door". Yeah, that's all good! OK, so here we go!
+
+82
+00:05:23,033 --> 00:05:27,033
+What is (GetTotalMassOfActorsOnPlate() going to be? it's going to be a float coming back,
+
+83
+00:05:27,033 --> 00:05:31,033
+because we don't know they add up to a whole number, and then, it's going to be a UGrab
+
+84
+00:05:31,033 --> 00:05:35,033
+which is the class. Syntactic noise of C++ and then
+
+85
+00:05:35,033 --> 00:05:39,033
+there it is! Now, let's go ahead and define it, and also we
+
+86
+00:05:39,033 --> 00:05:43,033
+need to create a declaration. So, I can Quick Actions, Create Declaration,
+
+87
+00:05:43,033 --> 00:05:47,033
+and it's
+
+88
+00:05:47,033 --> 00:05:51,033
+failed. Has it? Well, it's going to parse a load of files. You know, I can't be bothered to way for that, so I'm going
+
+89
+00:05:51,033 --> 00:05:55,033
+to do it manually, and that's helpful for you Xcode guys anyway. I tend to put
+
+90
+00:05:55,033 --> 00:05:59,033
+all my values up at the top, and the actual methods
+
+91
+00:05:59,033 --> 00:06:03,033
+lower down. We don't need the name of the class, so this is all very
+
+92
+00:06:03,033 --> 00:06:07,033
+standard stuff by now. GetTotalMassOfActorsOnPlate(); you know,
+
+93
+00:06:07,033 --> 00:06:11,033
+that is so... I think I will put a comment, but it's just for clarifying.
+
+94
+00:06:11,033 --> 00:06:15,033
+"// Returns total mass
+
+95
+00:06:15,033 --> 00:06:19,033
+in" kilograms. You see that and the name of the method tell you precisely what it does.
+
+96
+00:06:19,033 --> 00:06:23,033
+Float of course doesn't have a capital F, so neither does it over here.
+
+97
+00:06:23,033 --> 00:06:27,033
+So, OK we're good to go! We have the
+
+98
+00:06:27,033 --> 00:06:31,033
+method here that is kind of nearly what we want, right?
+
+99
+00:06:31,033 --> 00:06:35,033
+I'm going to save my
+
+100
+00:06:35,033 --> 00:06:39,033
+header file, save this. Right, why don't we, for now, just do
+
+101
+00:06:39,033 --> 00:06:43,033
+a test? Why don't we just return 60f? So, we're just going to
+
+102
+00:06:43,033 --> 00:06:47,033
+return 60 kilos and just run the game and see what happens. Just
+
+103
+00:06:47,033 --> 00:06:51,033
+make sure that the code we just wrote actually works. So, it's 60 kilos,
+
+104
+00:06:51,033 --> 00:06:55,033
+with a threshold, what's our threshold, of 50. The door should just open and stay open. Let's
+
+105
+00:06:55,033 --> 00:06:59,033
+see if that's what happens! Compile Failed, so I've made a
+
+106
+00:06:59,033 --> 00:07:03,033
+boo boo somewhere. Line 55 and 57 if the .cpp.
+
+107
+00:07:03,033 --> 00:07:07,033
+
+
+108
+00:07:07,033 --> 00:07:11,033
+Ah, look at me! I've been so used to writing code in the UGrabber class
+
+109
+00:07:11,033 --> 00:07:15,033
+that, of course, I forgot that I'm in UOpenDoor. OK, so that's
+
+110
+00:07:15,033 --> 00:07:19,033
+what it is! And I need a decimal place in there. Great, let's go back and
+
+111
+00:07:19,033 --> 00:07:23,033
+try again! Compile.
+
+112
+00:07:23,033 --> 00:07:27,033
+So, the mass is 60 that, that method is reporting, so the moment we play, the
+
+113
+00:07:27,033 --> 00:07:31,033
+doors should open. They do! And then, if we returned a mass of say 40,
+
+114
+00:07:31,033 --> 00:07:35,033
+then the doors should not open when we play. You see what I'm doing? I'm breaking the
+
+115
+00:07:35,033 --> 00:07:39,033
+problem down and making sure I'm as close as possible to running code all the time, and the
+
+116
+00:07:39,033 --> 00:07:43,033
+doors don't open. Awesome! So, it looks like the general structure works.
+
+117
+00:07:43,033 --> 00:07:47,033
+That's good news! Now, we need to actually get the total mass of Actors on play. So, we're going to
+
+118
+00:07:47,033 --> 00:07:51,033
+need a temporary variable. It's going to be something like float TotalMass
+
+119
+00:07:51,033 --> 00:07:55,033
+= let's initialize it nothing. Great! And at the end, we're
+
+120
+00:07:55,033 --> 00:07:59,033
+going to return TotalMass. No point in doing that in
+
+121
+00:07:59,033 --> 00:08:03,033
+pseudocode. So then, what are we going to do? So firstly, we're going to"// Find all
+
+122
+00:08:03,033 --> 00:08:07,033
+the overlapping actors", and then, we're going to "// Iterate
+
+123
+00:08:07,033 --> 00:08:11,033
+through them
+
+124
+00:08:11,033 --> 00:08:15,033
+adding their masses". You can stay on this
+
+125
+00:08:15,033 --> 00:08:19,033
+level of abstraction. That's absolutely fine! Great! So
+
+126
+00:08:19,033 --> 00:08:23,033
+then, how do we find all the overlapping Actors? Well, what do we have?
+
+127
+00:08:23,033 --> 00:08:27,033
+What do we have available? Where do we even start? Let's take a zoom out! We're
+
+128
+00:08:27,033 --> 00:08:31,033
+on what? We're on OpenDoor. We need the pressure plate
+
+129
+00:08:31,033 --> 00:08:35,033
+right, so what have we got? Ah, we've got a pointer to a TriggerVolume.
+
+130
+00:08:35,033 --> 00:08:39,033
+We've got a pointer to a pressure plate, so let's start with the pressure plate.
+
+131
+00:08:39,033 --> 00:08:43,033
+Now, what is this? We just said it's a pointer, so it's an
+
+132
+00:08:43,033 --> 00:08:47,033
+error operator. Now, if we go GetOverlapping
+
+133
+00:08:47,033 --> 00:08:51,033
+Actors, let's look at the signature of this method.
+
+134
+00:08:51,033 --> 00:08:55,033
+TArray of type AActor
+
+135
+00:08:55,033 --> 00:08:59,033
+pointer reference to &OverlappingActors.
+
+136
+00:08:59,033 --> 00:09:03,033
+Now, the fact this is a reference to OverlappingActors coming in
+
+137
+00:09:03,033 --> 00:09:07,033
+here, tells me that it's an out parameter. And this
+
+138
+00:09:07,033 --> 00:09:11,033
+other parameter is actually optional. Now, how would you find out that the second
+
+139
+00:09:11,033 --> 00:09:15,033
+parameter is optional? You would go to Google and Google for Get
+
+140
+00:09:15,033 --> 00:09:19,033
+OverlappingActors. Let's do that!
+
+141
+00:09:19,033 --> 00:09:23,033
+And let's just see what they've got to say in their documentation about this.
+
+142
+00:09:23,033 --> 00:09:27,033
+And here,
+
+143
+00:09:27,033 --> 00:09:31,033
+optional ClassFilter is optional. OK, and then there's
+
+144
+00:09:31,033 --> 00:09:35,033
+the signature of the other bit. So, let's just talk about what this TArray thing
+
+145
+00:09:35,033 --> 00:09:39,033
+is here. This is an out parameter, so we're going to need to have ourselves
+
+146
+00:09:39,033 --> 00:09:43,033
+a TArray of (Actor* pointers.
+
+147
+00:09:43,033 --> 00:09:47,033
+OK, but you use these type of brackets,
+
+148
+00:09:47,033 --> 00:09:51,033
+pointers. So, what you're doing there is saying give me an array, a TArray,
+
+149
+00:09:51,033 --> 00:09:55,033
+as I mentioned in the intro, is a very useful data structure. Give me a TArray of
+
+150
+00:09:55,033 --> 00:09:59,033
+AActor* pointers. Alright, that's what that's saying.
+
+151
+00:09:59,033 --> 00:10:03,033
+And let's call it Overlapping...
+
+152
+00:10:03,033 --> 00:10:07,033
+What am I doing? Overlapping, there you go, Actors.
+
+153
+00:10:07,033 --> 00:10:11,033
+And let's not bother to initialize it, because we're immediately
+
+154
+00:10:11,033 --> 00:10:15,033
+going to initialize it on the next line. So, TArray of AActor* pointers. Give me a
+
+155
+00:10:15,033 --> 00:10:19,033
+collection of Actors, of pointers to Actors, called OverlappingActors, and
+
+156
+00:10:19,033 --> 00:10:23,033
+then, this is actually an (OUT parameter isn't it? Now, we haven't done #define OUT. Later,
+
+157
+00:10:23,033 --> 00:10:27,033
+we'll talk about how to make a #define that goes across all of our projects, but
+
+158
+00:10:27,033 --> 00:10:31,033
+for now, let's just re-#define out. Remember this does nothing,
+
+159
+00:10:31,033 --> 00:10:35,033
+it is a macro that says replace OUT with nothing. OK, it
+
+160
+00:10:35,033 --> 00:10:39,033
+literally does nothing, but it allows us to mark these OverlappingActors
+
+161
+00:10:39,033 --> 00:10:41,466
+as an OUT parameter.
+
+162
+00:10:41,466 --> 00:10:45,466
+So, it just remains to say, remember that this is an
+
+163
+00:10:45,466 --> 00:10:49,466
+OUT parameter pattern here. So, we declare something,
+
+164
+00:10:49,466 --> 00:10:53,466
+each thing gets passed into this method, and then by here, after
+
+165
+00:10:53,466 --> 00:10:57,466
+this method called OverlappingActors, it should contain an array of
+
+166
+00:10:57,466 --> 00:11:01,466
+AActor* pointers. And we'll find out whether it does in the next video, when we actually iterate
+
+167
+00:11:01,466 --> 00:11:05,466
+through them, adding their masses per the comment. Alright, so your challenge,
+
+168
+00:11:05,466 --> 00:11:09,466
+for this video, is right at the end this time and it's to read about TArray. I want you
+
+169
+00:11:09,466 --> 00:11:13,466
+to skim read the TArray documentation. The link is coming up. Look out for the range-
+
+170
+00:11:13,466 --> 00:11:17,466
+based for loop in there. There's a lot of stuff, so please don't go through it with a fine tooth comb, it'll
+
+171
+00:11:17,466 --> 00:11:21,466
+drive you nuts. I just want you to have a quick look through, specifically looking for where
+
+172
+00:11:21,466 --> 00:11:25,466
+they show you examples of a for loop that is able to iterate through this array.
+
+173
+00:11:25,466 --> 00:11:29,466
+And even more in particular, the pattern that uses a
+
+174
+00:11:29,466 --> 00:11:33,466
+colon for so for something colon something, like that. So, have a look
+
+175
+00:11:33,466 --> 00:11:37,466
+and see if you can find that syntax, it's going to help you in the next video. And there are your docs to
+
+176
+00:11:37,466 --> 00:11:41,466
+the TArray. Remember you can click that. One of the easiest ways
+
+177
+00:11:41,466 --> 00:11:45,466
+is to just either go to the Google doc, which is linked from the first lecture of
+
+178
+00:11:45,466 --> 00:11:49,466
+this section, or just to go and get the .pdf from the first lecture of this
+
+179
+00:11:49,466 --> 00:11:53,466
+section. And that's not quite as up to date as the Google docs, they're always bang up to date. Or just do a quick
+
+180
+00:11:53,466 --> 00:11:57,466
+Google search for TArray Unreal, that might be your quickest. OK, see you soon!
+
+181
+00:11:57,466 --> 00:12:01,466
+[Laughs] If you expected me to come back
+
+182
+00:12:01,466 --> 00:12:05,466
+then not this time. It's going to be in the next video that we'll go and use this.
+
+183
+00:12:05,466 --> 00:12:07,899
+See you in the next video!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section3/BE34 Introducing Unreal’s TArray.srt

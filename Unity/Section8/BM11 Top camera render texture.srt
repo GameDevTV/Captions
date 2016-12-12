@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section8/BM11 Top camera render texture.srt
 ï»¿WEBVTT
 
 00:00:04.230 --> 00:00:09.200 align:middle line:90%
@@ -539,4 +540,546 @@ with the video. I hope that you're pleased
 with the progress I certainly am. and we'll
 
 00:11:02.920 --> 00:11:07.920 align:middle line:84%
+=======
+
+00:00:04,230 --> 00:00:09,200 align:middle line:90%
+Hi and welcome back. Now we are going to use
+a render texture so we can have a top-down
+
+00:00:09,200 --> 00:00:14,509 align:middle line:90%
+camera looking at the pins. So in this video
+we're going to create a render texture ready
+
+00:00:14,509 --> 00:00:20,150 align:middle line:90%
+for the camera output, read more about them
+at Unity's docs there. Position a top-down
+
+00:00:20,150 --> 00:00:25,490 align:middle line:90%
+camera looking at the pins, then we'll create
+a user interface panel and embed a "raw image”
+
+00:00:25,490 --> 00:00:32,040 align:middle line:90%
+with this render texture. Lots of new terms!
+Render textures are a brand new feature to
+
+00:00:32,040 --> 00:00:36,010 align:middle line:90%
+the free version of Unity - they were always
+available in Unity Pro but you can access
+
+00:00:36,010 --> 00:00:37,590 align:middle line:84%
+them for free now.
+
+00:00:37,590 --> 00:00:41,350 align:middle line:90%
+That's pretty cool right? So the first thing
+that I'm going to do is just start tidying
+
+00:00:41,350 --> 00:00:45,840 align:middle line:90%
+up. I now have too many things in my root
+here, so it's a good time to start putting
+
+00:00:45,840 --> 00:00:51,440 align:middle line:90%
+scripts into my scripts folder and other things
+away as we need them. I'll just do that for
+
+00:00:51,440 --> 00:00:56,360 align:middle line:90%
+now, scripts and scenes is all we need for
+now. Now scenes are so important to access
+
+00:00:56,360 --> 00:01:01,050 align:middle line:90%
+that I often prefix my scenes folder with
+an underscore so I can quickly get to it because
+
+00:01:01,050 --> 00:01:11,729 align:middle line:90%
+it floats to the beginning. Right? So we also
+have prefabs. Now remember that we ultimately
+
+00:01:11,729 --> 00:01:16,229 align:middle line:90%
+want everything prefabbed but the pins themselves
+- each one of them is prefabbed.
+
+00:01:16,229 --> 00:01:19,939 align:middle line:90%
+Bowling pin ten probably wants to be named
+bowling pin ten; but also we're going to want
+
+00:01:19,939 --> 00:01:22,930 align:middle line:90%
+to prefab the whole pin array - so why don't
+we do that now quickly? We're just having
+
+00:01:22,930 --> 00:01:27,520 align:middle line:90%
+a tidy up before we move on. So now in our
+prefab folder we not only have the pins themselves
+
+00:01:27,520 --> 00:01:32,130 align:middle line:90%
+we have our entire pin arrangement ready to
+instantiate when we need to reset the pins.
+
+00:01:32,130 --> 00:01:36,640 align:middle line:90%
+Great, so that's blue, I like that. The floor
+we don't need to prefab yet because in another
+
+00:01:36,640 --> 00:01:39,920 align:middle line:90%
+scene, if we had another scene of the game
+we might have a completely different floor
+
+00:01:39,920 --> 00:01:43,950 align:middle line:90%
+but the ball, I think that the ball's worth
+prefabbing for sure and the light and the
+
+00:01:43,950 --> 00:01:45,149 align:middle line:84%
+camera we'll leave for now.
+
+00:01:45,149 --> 00:01:50,689 align:middle line:90%
+So that's a little bit tidier isn't it? That's
+fantastic so the floor is a material; so I'm
+
+00:01:50,689 --> 00:01:58,990 align:middle line:90%
+going to make a new folder called materials
+and textures; or just textures for now. Now
+
+00:01:58,990 --> 00:02:02,729 align:middle line:90%
+I should let you know, there's another way
+of finding things here in Unity - you can
+
+00:02:02,729 --> 00:02:06,939 align:middle line:90%
+organise by prefabs script etc. but we've
+slightly broken the convention with this start
+
+00:02:06,939 --> 00:02:11,480 align:middle line:90%
+pack so that I can easily export all of these
+different things though some of these things
+
+00:02:11,480 --> 00:02:15,260 align:middle line:90%
+are in different folders, right? You've got
+start packs scripts and then you've got script
+
+00:02:15,260 --> 00:02:17,940 align:middle line:90%
+up in the assets and that might drive you
+a bit nuts;
+
+00:02:17,940 --> 00:02:23,120 align:middle line:90%
+But, it's actually pretty cool because we
+have multiple ways of categorising the same
+
+00:02:23,120 --> 00:02:26,530 align:middle line:90%
+thing and if you want to see all of your scripts
+in one place which might be what you're hankering
+
+00:02:26,530 --> 00:02:31,830 align:middle line:90%
+after click over here in the top right of
+assets on the search by type box button and
+
+00:02:31,830 --> 00:02:35,800 align:middle line:90%
+then click under script; and then look that's
+going to aggregate all of your scripts in
+
+00:02:35,800 --> 00:02:42,010 align:middle line:90%
+one place. So actually organising by something
+but the type in these folders is a good idea
+
+00:02:42,010 --> 00:02:45,930 align:middle line:90%
+because you can already show everything of
+a type over here, we could see all materials
+
+00:02:45,930 --> 00:02:50,090 align:middle line:90%
+for instance and that will pull materials
+from both this textures folder and from the
+
+00:02:50,090 --> 00:02:51,590 align:middle line:84%
+start pack, you get the idea?
+
+00:02:51,590 --> 00:02:56,080 align:middle line:90%
+So you think you've seen that before but there's
+another tip for you. OK so to create this
+
+00:02:56,080 --> 00:03:03,099 align:middle line:90%
+render texture for you go to assets, go to
+create, and then go down to render texture
+
+00:03:03,099 --> 00:03:08,300 align:middle line:90%
+- there you go. Assets / create / render texture.
+Boom, there it is, and I'm going to call it
+
+00:03:08,300 --> 00:03:12,989 align:middle line:90%
+top camera, not going to bother with the space
+in this case, there it is, looks a bit funny
+
+00:03:12,989 --> 00:03:16,700 align:middle line:90%
+but that's because nothing is streaming into
+it. Don't worry about the settings for now,
+
+00:03:16,700 --> 00:03:20,290 align:middle line:90%
+let's just leave them default unless we want
+to change anything which we don't right now.
+
+00:03:20,290 --> 00:03:26,690 align:middle line:90%
+Fantastic, so we have a texture ready for
+the camera to render into. What I want you
+
+00:03:26,690 --> 00:03:31,470 align:middle line:90%
+to do now is to actually create this "top
+down” camera, so I want you to create and
+
+00:03:31,470 --> 00:03:37,239 align:middle line:90%
+position a top view camera, put the camera
+above the pins looking down, make the pins
+
+00:03:37,239 --> 00:03:43,319 align:middle line:90%
+fill about 80% of its view, set the target
+texture to the TopCamera.renderTexture that
+
+00:03:43,319 --> 00:03:47,940 align:middle line:90%
+we just created and test that the game still
+runs. You won't see any difference but just
+
+00:03:47,940 --> 00:03:52,290 align:middle line:90%
+make sure that your camera - your main camera
+- still works. Go ahead, pause the video,
+
+00:03:52,290 --> 00:03:58,860 align:middle line:84%
+and do that now.
+
+00:03:58,860 --> 00:04:03,700 align:middle line:90%
+So welcome back, let's pop back into Unity
+and figure out how to do this. So you need
+
+00:04:03,700 --> 00:04:08,540 align:middle line:90%
+to create yourself a new camera, now where
+is that? It's in Gameobject / camera there
+
+00:04:08,540 --> 00:04:14,150 align:middle line:90%
+so do that, now I'm going to pop mine at the
+top, and I'm going to call it top camera.
+
+00:04:14,150 --> 00:04:24,430 align:middle line:90%
+OK? There it is. OK now we need to position
+this camera in the right place so, it's a
+
+00:04:24,430 --> 00:04:29,250 align:middle line:90%
+question of getting it over the pins. Well
+one easy way to do that is to set its z distance
+
+00:04:29,250 --> 00:04:36,080 align:middle line:90%
+to 1829 wasn't it? Should be right over the
+top of the pins and then we're going to need
+
+00:04:36,080 --> 00:04:40,530 align:middle line:90%
+to go into the rotate tool in the top left
+here and point it downwards.
+
+00:04:40,530 --> 00:04:44,419 align:middle line:90%
+Now what's happening? How come this camera
+isn't showing anything? Well, because it's
+
+00:04:44,419 --> 00:04:50,060 align:middle line:90%
+at a y position of -80, let's try putting
+it at 100, one metre above. Ahh, more like
+
+00:04:50,060 --> 00:04:54,389 align:middle line:90%
+it. There it is, above, and you look in the
+camera preview we're starting to get there
+
+00:04:54,389 --> 00:04:59,410 align:middle line:90%
+now. Obviously it needs to move back a little
+bit further than that and so on. Now, do we
+
+00:04:59,410 --> 00:05:03,070 align:middle line:90%
+want it to be a perspective camera? Well that's
+a good question. I'm not sure that I do want
+
+00:05:03,070 --> 00:05:07,930 align:middle line:90%
+it to be a perspective camera because it's
+a bit weird. Let's try an orthographic camera.
+
+00:05:07,930 --> 00:05:15,470 align:middle line:90%
+Oh, kind of does the thing apart from of course
+it is in completely the wrong scale now.
+
+00:05:15,470 --> 00:05:21,729 align:middle line:90%
+So let's move it up and that's not going to
+help; why doesn't it help when you move an
+
+00:05:21,729 --> 00:05:28,949 align:middle line:90%
+orthographic camera upwards, anybody know?
+Well that's because it has no perspective,
+
+00:05:28,949 --> 00:05:33,020 align:middle line:90%
+you can only adjust it by adjusting its size,
+here you go. So make the camera orthographic
+
+00:05:33,020 --> 00:05:40,080 align:middle line:90%
+I suggest, move it back in z and rotate it
+until it has a 90 degree rotation, so it's
+
+00:05:40,080 --> 00:05:45,699 align:middle line:90%
+an orthographic camera that's looking directly
+down, then use the z co-ordinate, there you
+
+00:05:45,699 --> 00:05:47,970 align:middle line:84%
+go. You see, and then adjust the size.
+
+00:05:47,970 --> 00:05:52,520 align:middle line:90%
+So what I want you to adjust in this camera
+is projection to orthographic, adjust the
+
+00:05:52,520 --> 00:05:59,979 align:middle line:90%
+size until about 80% of the screen is filled
+with pins. Adjust the rotation so that it's
+
+00:05:59,979 --> 00:06:04,870 align:middle line:90%
+x rotation of 90 i.e. pointing straight down
+on top of the pins. Z position wants to be
+
+00:06:04,870 --> 00:06:09,009 align:middle line:90%
+roughly in the middle of the pins, that's
+going to be around about the 1870 mark, calculate
+
+00:06:09,009 --> 00:06:13,850 align:middle line:90%
+it precisely if you want; x = 0 would make
+sense and then y well that doesn't actually
+
+00:06:13,850 --> 00:06:18,479 align:middle line:90%
+matter very much so let's put it a couple
+of metres above; as long as it's above it
+
+00:06:18,479 --> 00:06:22,069 align:middle line:90%
+doesn't matter because it's an orthographic
+camera you see how it's got a square projection
+
+00:06:22,069 --> 00:06:22,380 align:middle line:84%
+box?
+
+00:06:22,380 --> 00:06:25,620 align:middle line:90%
+It kind of looks like it's not above the pins
+there but if you come to the right angle in
+
+00:06:25,620 --> 00:06:31,069 align:middle line:90%
+3D, practicing your movement, it actually
+is right above the pins. Fantastic so we've
+
+00:06:31,069 --> 00:06:34,750 align:middle line:90%
+achieved the first bit of what we wanted to
+do, what I also said I wanted you to do was
+
+00:06:34,750 --> 00:06:38,910 align:middle line:90%
+render out to a target texture because look,
+notice right now if you try and play the game
+
+00:06:38,910 --> 00:06:43,419 align:middle line:90%
+it's all very well but where the hell's my
+main camera gone? Why can't I see the main
+
+00:06:43,419 --> 00:06:48,990 align:middle line:90%
+camera? Well, you may try going to the main
+camera and setting a tag of main camera - you'll
+
+00:06:48,990 --> 00:06:50,360 align:middle line:84%
+find it won't work.
+
+00:06:50,360 --> 00:06:54,330 align:middle line:90%
+You could disable the top camera sure, now
+your game's back to normal but now your camera
+
+00:06:54,330 --> 00:06:58,039 align:middle line:90%
+doesn't work. I think you'll find what you
+need to do to get this working is to get the
+
+00:06:58,039 --> 00:07:03,740 align:middle line:90%
+target texture rendering out to the top camera.
+So this top camera here now no longer renders
+
+00:07:03,740 --> 00:07:08,440 align:middle line:90%
+to the game view but renders into your target
+texture. Now your game gets its main camera
+
+00:07:08,440 --> 00:07:14,389 align:middle line:90%
+view back but this top - this target texture
+is being rendered into. We just have to trust
+
+00:07:14,389 --> 00:07:18,699 align:middle line:90%
+that for now because we can't see the texture
+just yet, that's going to come up in just
+
+00:07:18,699 --> 00:07:20,560 align:middle line:84%
+a second.
+
+00:07:20,560 --> 00:07:27,400 align:middle line:90%
+OK so let's make this camera - this top camera
+render texture have somewhere to render to.
+
+00:07:27,400 --> 00:07:30,509 align:middle line:90%
+So I'm going to start by helping you to create
+the user interface, and then I'm going to
+
+00:07:30,509 --> 00:07:36,229 align:middle line:90%
+challenge you to finish that but off. So what
+do we start with? Well we need a UI canvas
+
+00:07:36,229 --> 00:07:41,860 align:middle line:90%
+to start with and that's your overall UI canvas,
+so you may as well just leave it default.
+
+00:07:41,860 --> 00:07:45,960 align:middle line:90%
+Canvas and remember that it comes with an
+event system so that's there ready to go,
+
+00:07:45,960 --> 00:07:51,680 align:middle line:90%
+now we're going to use a screen space camera
+canvas this time, which means that it's relative
+
+00:07:51,680 --> 00:07:57,090 align:middle line:90%
+to the camera, it stays with the camera. You'll
+see how that manifests in a moment.
+
+00:07:57,090 --> 00:08:03,160 align:middle line:90%
+So we have a screen space camera canvas like
+that and it's sitting over here, which is
+
+00:08:03,160 --> 00:08:07,430 align:middle line:90%
+a bit of an odd position but we'll worry about
+that in a moment. Before we can really see
+
+00:08:07,430 --> 00:08:11,270 align:middle line:90%
+what the camera is doing we need to create
+ourselves within that a panel; we're going
+
+00:08:11,270 --> 00:08:16,210 align:middle line:90%
+to have a left panel which is going to be
+the pins and the number of pins standing and
+
+00:08:16,210 --> 00:08:20,360 align:middle line:90%
+then the right panel on the right hand side
+in perspective that shows us how our scores
+
+00:08:20,360 --> 00:08:25,940 align:middle line:90%
+are doing and all that. So create yourself
+a panel and call it left panel. So at this
+
+00:08:25,940 --> 00:08:29,919 align:middle line:90%
+stage you should have a UI canvas with a left
+panel subbed to it.
+
+00:08:29,919 --> 00:08:34,750 align:middle line:90%
+Then you can shrink down that left panel a
+little bit by using the UI gripper tool like
+
+00:08:34,750 --> 00:08:38,229 align:middle line:90%
+this, and see the effect we're having in the
+game window. You see how I have a panel on
+
+00:08:38,229 --> 00:08:43,140 align:middle line:90%
+the left hand side there? Now we can perfect
+that later but that's a good start. If I am
+
+00:08:43,140 --> 00:08:49,260 align:middle line:90%
+to play the game, you see how that panel stays
+with the ball? Cool we'll leave the grey cast
+
+00:08:49,260 --> 00:08:53,510 align:middle line:90%
+to this panel just for now, because that is
+going to let us know where it is and then
+
+00:08:53,510 --> 00:09:01,760 align:middle line:90%
+we'll have another panel, we may as well do
+it right now, called imaginatively right panel;
+
+00:09:01,760 --> 00:09:08,760 align:middle line:90%
+and I might just call the canvas UI canvas
+so UI canvas with a right panel and a left
+
+00:09:08,760 --> 00:09:12,070 align:middle line:90%
+panel. Let's remove this right panel using
+the UI gripper tool to the right there and
+
+00:09:12,070 --> 00:09:13,850 align:middle line:84%
+have a look at the game again.
+
+00:09:13,850 --> 00:09:17,200 align:middle line:90%
+So on the left I'm going to have a top-down
+view of the pin and various other things and
+
+00:09:17,200 --> 00:09:21,149 align:middle line:90%
+on the right I'm going to have my scoring
+system so you might want the left panel to
+
+00:09:21,149 --> 00:09:29,500 align:middle line:90%
+be wider than that - taller rather and the
+right panel to also be taller. We'll make
+
+00:09:29,500 --> 00:09:34,490 align:middle line:90%
+the sizes equal later when we tweak the user
+interface but you get the idea. Perfect so
+
+00:09:34,490 --> 00:09:38,180 align:middle line:90%
+it's not interfering with your view but it
+is there waiting. Right so I've got a challenge
+
+00:09:38,180 --> 00:09:43,640 align:middle line:90%
+for you then now that we've set up the UI
+I want you to do something, and here it is.
+
+00:09:43,640 --> 00:09:48,010 align:middle line:90%
+OK so here's the challenge for you, I want
+you to set up the camera view user interface.
+
+00:09:48,010 --> 00:09:56,350 align:middle line:90%
+Create a game object UI raw image, position
+it on the UI left panel, set the texture to
+
+00:09:56,350 --> 00:10:01,220 align:middle line:90%
+TopCamera.renderTexture and test that you
+can see that top-down view inside. Have a
+
+00:10:01,220 --> 00:10:05,420 align:middle line:90%
+go, persist until you get this working if
+you can. We want on the left hand panel to
+
+00:10:05,420 --> 00:10:08,800 align:middle line:90%
+see a permanent view of the top-down camera
+when you hit the pins you should be able to
+
+00:10:08,800 --> 00:10:14,420 align:middle line:90%
+see it from above. Have a go, good luck, and
+I'll see you in a moment.
+
+00:10:14,420 --> 00:10:18,120 align:middle line:90%
+Welcome back, so let's make this thing work.
+Fantastic, so I said in the left panel we
+
+00:10:18,120 --> 00:10:23,670 align:middle line:90%
+needed to create ourselves a UI raw image
+so let's do that and child it to the left
+
+00:10:23,670 --> 00:10:29,220 align:middle line:90%
+panel. There it is, now I'm going to pop mine
+something like this, top of the left panel,
+
+00:10:29,220 --> 00:10:33,120 align:middle line:90%
+again we'll tweak all this later, I love these
+UI tools, you see how they're helping us snap
+
+00:10:33,120 --> 00:10:40,010 align:middle line:90%
+etc.? I'm going to call it top view, there,
+so I've called it top view and I've got a
+
+00:10:40,010 --> 00:10:43,990 align:middle line:90%
+raw image already and the texture I want is
+the top camera texture so let's just drop
+
+00:10:43,990 --> 00:10:46,660 align:middle line:84%
+that in. Now push play.
+
+00:10:46,660 --> 00:10:53,970 align:middle line:90%
+So cool, look at this unity five feature watch
+this, wow look, top down view of the pins
+
+00:10:53,970 --> 00:10:59,490 align:middle line:90%
+falling. What do you want? How cool is that?
+OK so congratulations on getting this far
+
+00:10:59,490 --> 00:11:02,920 align:middle line:90%
+with the video, I hope that you're pleased
+with the progress I certainly am, and we'll
+
+00:11:02,920 --> 00:11:07,920 align:middle line:84%
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section8/BM11 Top camera render texture.srt
 look forward to seeing you shortly.

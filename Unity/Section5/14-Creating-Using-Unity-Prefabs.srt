@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section5/14-Creating-Using-Unity-Prefabs.srt
 WEBVTT
 
 1
@@ -1032,3 +1033,1038 @@ to make this a lot easier for yourself. Congratulations
 00:13:03.000 --> 00:13:05.833
 and I shall see you soon!
 
+=======
+
+1
+00:00:03,000 --> 00:00:06,000
+Hey welcome back! So, in this video we're going to start actually
+
+2
+00:00:06,000 --> 00:00:09,000
+filling our game space with bricks!
+
+3
+00:00:09,000 --> 00:00:12,000
+So firstly, let's lose this extra Ball
+
+4
+00:00:12,000 --> 00:00:15,000
+that we have up here. And we're going to create something called a
+
+5
+00:00:15,000 --> 00:00:18,000
+prefab, which is a prefabricated
+
+6
+00:00:18,000 --> 00:00:21,000
+object. Unity's documentation says that it is "a
+
+7
+00:00:21,000 --> 00:00:24,000
+collection of predefined GameObjects &amp; Components that are
+
+8
+00:00:24,000 --> 00:00:27,000
+re-usable throughout your game", and you can read more about it
+
+9
+00:00:27,000 --> 00:00:30,000
+here. Great! So,
+
+10
+00:00:30,000 --> 00:00:33,000
+what it basically means is, we can take a rich object like this Paddle,
+
+11
+00:00:33,000 --> 00:00:36,000
+that has multiple components, a Transform, a
+
+12
+00:00:36,000 --> 00:00:39,000
+Sprite Renderer, a Box Collider, a Rigidbody, and even a script on
+
+13
+00:00:39,000 --> 00:00:42,000
+it, and we can reuse that multiple places,
+
+14
+00:00:42,000 --> 00:00:45,000
+at times and different places. So, let's start
+
+15
+00:00:45,000 --> 00:00:48,000
+by making a folder called Prefabs.
+
+16
+00:00:48,000 --> 00:00:51,000
+It's not a special folder name. You could call it something else, but that is my
+
+17
+00:00:51,000 --> 00:00:54,000
+suggestion. And we need
+
+18
+00:00:54,000 --> 00:00:57,000
+to create our first prefab! The way you do that is, you take a GameObject
+
+19
+00:00:57,000 --> 00:01:00,000
+and you drag it down, but don't drag Paddle yet.
+
+20
+00:01:00,000 --> 00:01:03,000
+And what I want to do is duplicate the Paddle, because if I
+
+21
+00:01:03,000 --> 00:01:06,000
+was to drag Paddle now, well see what happens when you drag the
+
+22
+00:01:06,000 --> 00:01:09,000
+duplicate. The duplicate, in the Hierarchy,
+
+23
+00:01:09,000 --> 00:01:12,000
+goes blue. It's difficult to see but if you compare that
+
+24
+00:01:12,000 --> 00:01:15,000
+Paddle, where you have the word Prefab under the Inspector,
+
+25
+00:01:15,000 --> 00:01:18,000
+Select, Revert, and Apply to this Paddle,
+
+26
+00:01:18,000 --> 00:01:21,000
+which has not got those things, you can see the difference.
+
+27
+00:01:21,000 --> 00:01:24,000
+The other way to see the difference is that it's slightly blue in the Hierarchy.
+
+28
+00:01:24,000 --> 00:01:27,000
+How do I drag the first Paddle? I would have prefabbed
+
+29
+00:01:27,000 --> 00:01:30,000
+the actual Paddle. I don't want that, because we're not actually making a
+
+30
+00:01:30,000 --> 00:01:33,000
+Paddle here, so let's rename it straight away. I'm making
+
+31
+00:01:33,000 --> 00:01:36,000
+a 1 hit block, and where is that 1
+
+32
+00:01:36,000 --> 00:01:39,000
+hit block? Well, it's sitting over the Paddle, so let's move it!
+
+33
+00:01:39,000 --> 00:01:42,000
+Great! In fact, let's move it perfectly! Let's move it
+
+34
+00:01:42,000 --> 00:01:45,000
+a bit up or like this too. Maybe
+
+35
+00:01:45,000 --> 00:01:48,000
+X = 8, Y = 10, let's
+
+36
+00:01:48,000 --> 00:01:51,000
+say, so it's right up here in the middle. Great!
+
+37
+00:01:51,000 --> 00:01:54,000
+So, what else is not quite right about this
+
+38
+00:01:54,000 --> 00:01:57,000
+1 hit block? Well, we don't need a Paddle Script on it,
+
+39
+00:01:57,000 --> 00:02:00,000
+for sure. So, let's remove that component.
+
+40
+00:02:00,000 --> 00:02:03,000
+Now, I'm removing it here from the instance, but the
+
+41
+00:02:03,000 --> 00:02:06,000
+prefab is not changing. You see, I've taken the script
+
+42
+00:02:06,000 --> 00:02:09,000
+off the instance, but it's like a template,
+
+43
+00:02:09,000 --> 00:02:12,000
+the prefab. That can't changed, so I could change
+
+44
+00:02:12,000 --> 00:02:15,000
+the template by clicking this, Prefab Apply.
+
+45
+00:02:15,000 --> 00:02:18,000
+It's going to apply that change to the Prefab. Click on the Prefab,
+
+46
+00:02:18,000 --> 00:02:21,000
+and you see there's no script component. Great,
+
+47
+00:02:21,000 --> 00:02:24,000
+so we're on our way! Let's now make this a
+
+48
+00:02:24,000 --> 00:02:27,000
+different color, because I think it just makes a lot of sense to
+
+49
+00:02:27,000 --> 00:02:30,000
+immediately change the color. I'm actually going to use the color picker to
+
+50
+00:02:30,000 --> 00:02:33,000
+pick something from the background. That should
+
+51
+00:02:33,000 --> 00:02:36,000
+do! Let's see what it looks like in the Game View!
+
+52
+00:02:36,000 --> 00:02:39,000
+It's a bit too dark, it's not very visible!
+
+53
+00:02:39,000 --> 00:02:42,000
+In fact, my background is too too too light,
+
+54
+00:02:42,000 --> 00:02:45,000
+actually! I'm going to turn the alpha down on my background, even more.
+
+55
+00:02:45,000 --> 00:02:48,000
+Just make it disappear a bit more.
+
+56
+00:02:48,000 --> 00:02:51,000
+Actually, I don't really like my background! 50!
+
+57
+00:02:51,000 --> 00:02:54,000
+I mean I don't mind it but it's kind of, I don't know! I need
+
+58
+00:02:54,000 --> 00:02:57,000
+to change something about the color. Let's just see if we can make the background a little
+
+59
+00:02:57,000 --> 00:03:00,000
+bit more, kind of I don't know, dark I think is the
+
+60
+00:03:00,000 --> 00:03:03,000
+answer.
+
+61
+00:03:03,000 --> 00:03:06,000
+That's OK! I'll leave it
+
+62
+00:03:06,000 --> 00:03:09,000
+like that! It's just a little bit devoid. See, let's focus on choosing
+
+63
+00:03:09,000 --> 00:03:12,000
+this bricks tint, to be nice and visible. Ah, there you
+
+64
+00:03:12,000 --> 00:03:15,000
+go! That bright yellow, that's a very clear
+
+65
+00:03:15,000 --> 00:03:18,000
+clear color! So again, I've changed it on the
+
+66
+00:03:18,000 --> 00:03:21,000
+instance. Have I changed it on the prefab? No! So, if you do that by
+
+67
+00:03:21,000 --> 00:03:24,000
+mistake, click Apply, and that applies the change of the
+
+68
+00:03:24,000 --> 00:03:27,000
+instance to the prefab. The other way around, if I change
+
+69
+00:03:27,000 --> 00:03:30,000
+something on the prefab, like for instance let's just massively change it's
+
+70
+00:03:30,000 --> 00:03:33,000
+scale and go back to the instance, it's immediately
+
+71
+00:03:33,000 --> 00:03:36,000
+changed. In fact, if we had several of these bricks, it would all be different.
+
+72
+00:03:36,000 --> 00:03:39,000
+And this is the whole benefit of the prefab is
+
+73
+00:03:39,000 --> 00:03:42,000
+that, if you then change the prefab, all the instances
+
+74
+00:03:42,000 --> 00:03:45,000
+immediately change. You see that!
+
+75
+00:03:45,000 --> 00:03:48,000
+If we then go into one of the instances and make a change to it,
+
+76
+00:03:48,000 --> 00:03:51,000
+that figure goes bold. You see how this 0.74 is
+
+77
+00:03:51,000 --> 00:03:54,000
+bold and the 1 and the 1 aren't? That's because it's different to the
+
+78
+00:03:54,000 --> 00:03:57,000
+prefab. I could Apply, which would make all of the prefabs the same
+
+79
+00:03:57,000 --> 00:04:00,000
+as this one, or I could
+
+80
+00:04:00,000 --> 00:04:03,000
+revert, which would take it back to the prefab's settings.
+
+81
+00:04:03,000 --> 00:04:06,000
+Does that make sense? Revert takes it back to the prefab settings,
+
+82
+00:04:06,000 --> 00:04:09,000
+Apply changes the prefab, and
+
+83
+00:04:09,000 --> 00:04:12,000
+finds the prefab for me. Great! So, I'm
+
+84
+00:04:12,000 --> 00:04:15,000
+going to set my prefab's X width back to 1.
+
+85
+00:04:15,000 --> 00:04:18,000
+Well, I'll leave all of the bricks in.
+
+86
+00:04:18,000 --> 00:04:21,000
+I'm going to make an organizing GameObject, actually, and I'm
+
+87
+00:04:21,000 --> 00:04:24,000
+going to call it Bricks.
+
+88
+00:04:24,000 --> 00:04:27,000
+Fine! I'm going to make this empty GameObject
+
+89
+00:04:27,000 --> 00:04:30,000
+just under the Play Space.
+
+90
+00:04:30,000 --> 00:04:33,000
+I need to get it at the right level. Let's put it
+
+91
+00:04:33,000 --> 00:04:36,000
+say here! I'm going to pop the LevelManager at the top.
+
+92
+00:04:36,000 --> 00:04:39,000
+I'm going to grab all my bricks and put them in the Bricks
+
+93
+00:04:39,000 --> 00:04:42,000
+game organizer, but I've made a mistake, because
+
+94
+00:04:42,000 --> 00:04:45,000
+I didn't reset the Transform of my Bricks
+
+95
+00:04:45,000 --> 00:04:48,000
+organizer. That's OK, I can reset it now! That's not a problem!
+
+96
+00:04:48,000 --> 00:04:51,000
+And then, I can move each of the bricks independently,
+
+97
+00:04:51,000 --> 00:04:54,000
+but remember, organizing objects like that should always have a transform of
+
+98
+00:04:54,000 --> 00:04:57,000
+0. Great! So, now I've got three bricks
+
+99
+00:04:57,000 --> 00:05:00,000
+in the play space. Now, let's lay these out somewhere.
+
+100
+00:05:00,000 --> 00:05:03,000
+I'm going to go for 8,
+
+101
+00:05:03,000 --> 00:05:06,000
+10, and then,
+
+102
+00:05:06,000 --> 00:05:09,000
+I'm going to put this one next to it, at maybe 7,
+
+103
+00:05:09,000 --> 00:05:12,000
+10. Now, I will be showing you, in another video, how to
+
+104
+00:05:12,000 --> 00:05:15,000
+do this using a snap setting. We're not going to be covering that here, because it's a
+
+105
+00:05:15,000 --> 00:05:18,000
+video in it's own right, but let's just
+
+106
+00:05:18,000 --> 00:05:21,000
+try an X setting of
+
+107
+00:05:21,000 --> 00:05:24,000
+9. And you can see this would very quickly become tedious! There
+
+108
+00:05:24,000 --> 00:05:27,000
+you go! So, I have 8, 9, and 10! I have three blocks
+
+109
+00:05:27,000 --> 00:05:30,000
+up there. That's quite cool! And
+
+110
+00:05:30,000 --> 00:05:33,000
+let's go back to this prefab. So, it wants a collider on it.
+
+111
+00:05:33,000 --> 00:05:36,000
+Now, should they be rigid bodies
+
+112
+00:05:36,000 --> 00:05:39,000
+or not? Well,
+
+113
+00:05:39,000 --> 00:05:42,000
+it's a good question! We want the ball to bounce off of it, but we're going to be
+
+114
+00:05:42,000 --> 00:05:45,000
+using a script to destroy the
+
+115
+00:05:45,000 --> 00:05:48,000
+bricks, so we
+
+116
+00:05:48,000 --> 00:05:51,000
+don't actually need a Rigidbody. In fact, if we go back
+
+117
+00:05:51,000 --> 00:05:54,000
+in our slide, to the bit where we were understanding
+
+118
+00:05:54,000 --> 00:05:57,000
+colliders and collisions, then we can use the table
+
+119
+00:05:57,000 --> 00:06:00,000
+in there to decide what
+
+120
+00:06:00,000 --> 00:06:03,000
+we want to be doing here. So, let's just go back and look at that table,
+
+121
+00:06:03,000 --> 00:06:06,000
+for a minute! The ball is definately
+
+122
+00:06:06,000 --> 00:06:09,000
+a Rigidbody Collider, Non-Kinematic,
+
+123
+00:06:09,000 --> 00:06:12,000
+and we want collisions to occur, because we want the Physics
+
+124
+00:06:12,000 --> 00:06:15,000
+Engine to work for us. The bricks could have Static
+
+125
+00:06:15,000 --> 00:06:18,000
+Colliders on them. That's the simplest case, actually, because they
+
+126
+00:06:18,000 --> 00:06:21,000
+don't move during the game. So, provided they're not
+
+127
+00:06:21,000 --> 00:06:24,000
+moving the simplest thing to do is make them Static Colliders,
+
+128
+00:06:24,000 --> 00:06:27,000
+which means, they do not have on them a
+
+129
+00:06:27,000 --> 00:06:30,000
+...
+
+130
+00:06:30,000 --> 00:06:33,000
+... Rigidbody at all, so we can remove that component
+
+131
+00:06:33,000 --> 00:06:36,000
+like that. So, this is becoming a much simpler
+
+132
+00:06:36,000 --> 00:06:39,000
+brick. There's three instances of the 1 hit brick
+
+133
+00:06:39,000 --> 00:06:42,000
+and they're all sitting there. Let's see what happens if we
+
+134
+00:06:42,000 --> 00:06:45,000
+fire the ball at them now! Ah, that's good!
+
+135
+00:06:45,000 --> 00:06:48,000
+No sound yet, of course, and
+
+136
+00:06:48,000 --> 00:06:51,000
+various other potential game play issues, but look, at least it's bouncing off of
+
+137
+00:06:51,000 --> 00:06:54,000
+them. Fantastic! So,
+
+138
+00:06:54,000 --> 00:06:57,000
+the final thing we want to do, in this video, is to
+
+139
+00:06:57,000 --> 00:07:00,000
+organize for those bricks to have a script on them,
+
+140
+00:07:00,000 --> 00:07:03,000
+that can keep track of how many times they've been hit.
+
+141
+00:07:03,000 --> 00:07:06,000
+So, add a component to the prefab,
+
+142
+00:07:06,000 --> 00:07:09,000
+actually, and let's call it
+
+143
+00:07:09,000 --> 00:07:12,000
+Brick, simple as that. Now,
+
+144
+00:07:12,000 --> 00:07:15,000
+let's make sure that script is in the scrips folder.
+
+145
+00:07:15,000 --> 00:07:18,000
+And now, let's go into the Brick
+
+146
+00:07:18,000 --> 00:07:21,000
+Script!
+
+147
+00:07:21,000 --> 00:07:24,000
+And let's just give it a publicly, for the moment at least,
+
+148
+00:07:24,000 --> 00:07:27,000
+exposed variable called...
+
+149
+00:07:27,000 --> 00:07:30,000
+And it's an integer, you use an integer when you can
+
+150
+00:07:30,000 --> 00:07:33,000
+count things. When it's a natural 1, 2, 3, use an integer. So
+
+151
+00:07:33,000 --> 00:07:36,000
+public int maxHits
+
+152
+00:07:36,000 --> 00:07:39,000
+OK. And that's going to
+
+153
+00:07:39,000 --> 00:07:42,000
+tell us how many times this thing can be hit,
+
+154
+00:07:42,000 --> 00:07:45,000
+as a maximum. And we'll put also another public int
+
+155
+00:07:45,000 --> 00:07:48,000
+called timesHit;
+
+156
+00:07:48,000 --> 00:07:51,000
+And that's going to keep track of how many times it's been
+
+157
+00:07:51,000 --> 00:07:54,000
+hit. On the Start, we're going to make the timeHit
+
+158
+00:07:54,000 --> 00:07:57,000
+= to 0;
+
+159
+00:07:57,000 --> 00:08:00,000
+which make sense. At the beginning of the game, it hasn't been hit.
+
+160
+00:08:00,000 --> 00:08:03,000
+Now, what I want you to do is I want
+
+161
+00:08:03,000 --> 00:08:06,000
+you to use the OnCollisionEnter2D
+
+162
+00:08:06,000 --> 00:08:09,000
+function, and I want you to intercept the
+
+163
+00:08:09,000 --> 00:08:12,000
+message, the OnCollisionEnter2D message, like we have done
+
+164
+00:08:12,000 --> 00:08:15,000
+before and increment the number of times hit,
+
+165
+00:08:15,000 --> 00:08:18,000
+every time there's a collision. And you'll know that that's working,
+
+166
+00:08:18,000 --> 00:08:21,000
+because over in the Editor, what you'll be able to do
+
+167
+00:08:21,000 --> 00:08:24,000
+is you'll be able to click on one of these bricks. And you
+
+168
+00:08:24,000 --> 00:08:27,000
+may want to just go down to one brick. In fact, I will go down to one brick,
+
+169
+00:08:27,000 --> 00:08:30,000
+for simplicity. You click on your brick and you're going to see this
+
+170
+00:08:30,000 --> 00:08:33,000
+Times Hit increase, every time the ball hits it OK.
+
+171
+00:08:33,000 --> 00:08:36,000
+So, that's not happening yet, but I want to write you the code so that when
+
+172
+00:08:36,000 --> 00:08:39,000
+the ball hits the brick, the Times Hit increases.
+
+173
+00:08:39,000 --> 00:08:42,000
+So, please pause the video and do that now.
+
+174
+00:08:45,000 --> 00:08:48,000
+OK welcome back! So, how are we going to do that? Well,
+
+175
+00:08:48,000 --> 00:08:51,000
+what we need to do is use the void
+
+176
+00:08:51,000 --> 00:08:54,000
+OnCollisionEnter2D
+
+177
+00:08:54,000 --> 00:08:57,000
+method or message
+
+178
+00:08:57,000 --> 00:09:00,000
+that's passed. And it's a collision that comes in here, but it's a
+
+179
+00:09:00,000 --> 00:09:03,000
+2D collision, remember not a collider, Collision2D.
+
+180
+00:09:03,000 --> 00:09:06,000
+OK, and that's the
+
+181
+00:09:06,000 --> 00:09:09,000
+method that gets called! And all we want to do is timesHit
+
+182
+00:09:09,000 --> 00:09:12,000
+= timesHit + 1
+
+183
+00:09:12,000 --> 00:09:15,000
+Or alternatively, a more compact way of writing
+
+184
+00:09:15,000 --> 00:09:18,000
+that is just timesHit ++;
+
+185
+00:09:18,000 --> 00:09:21,000
+It just increments by 1, is such a common thing to want to do in a program.
+
+186
+00:09:21,000 --> 00:09:24,000
+Let's try it!
+
+187
+00:09:24,000 --> 00:09:27,000
+Perfect!
+
+188
+00:09:27,000 --> 00:09:30,000
+The Times Hits just increased, and I'm confident that it will continue
+
+189
+00:09:30,000 --> 00:09:33,000
+to increase as we move on.
+
+190
+00:09:33,000 --> 00:09:36,000
+OK, now Maximum Hits 0 is a bit rubbish!
+
+191
+00:09:36,000 --> 00:09:39,000
+A brick with a Maximum Hits of 0 is a bit odd, so let's
+
+192
+00:09:39,000 --> 00:09:42,000
+make this one's Maximum Hits...
+
+193
+00:09:42,000 --> 00:09:45,000
+Well, 0 is OK! It's OK
+
+194
+00:09:45,000 --> 00:09:48,000
+as a general rule, because it's going to remind us
+
+195
+00:09:48,000 --> 00:09:51,000
+to change it for each prefab. So, what we want to do next
+
+196
+00:09:51,000 --> 00:09:54,000
+is go to the Prefabs and say, well OK we have this
+
+197
+00:09:54,000 --> 00:09:57,000
+brick here and it has these properties on it. I
+
+198
+00:09:57,000 --> 00:10:00,000
+don't think we need timesHit exposed publicly anymore,
+
+199
+00:10:00,000 --> 00:10:03,000
+so I would actually like to make timesHit private right now
+
+200
+00:10:03,000 --> 00:10:06,000
+so we don't change the wrong thing. So, we have
+
+201
+00:10:06,000 --> 00:10:09,000
+a public maxHits, which is the property of the Brick, and internally
+
+202
+00:10:09,000 --> 00:10:12,000
+kept quietly kept private timesHit,
+
+203
+00:10:12,000 --> 00:10:15,000
+which is set to 0 at the Start and Updated every time
+
+204
+00:10:15,000 --> 00:10:18,000
+the thing is hit. Great! Let's look back in Unity!
+
+205
+00:10:18,000 --> 00:10:21,000
+When you play, we've now got a nice simple
+
+206
+00:10:21,000 --> 00:10:24,000
+outline for this brick, OK. So, what I
+
+207
+00:10:24,000 --> 00:10:27,000
+want to do... I'm collapsing down the Sprite Renderer and Box Collider.
+
+208
+00:10:27,000 --> 00:10:30,000
+...is I want you to make another two, a minimum of two
+
+209
+00:10:30,000 --> 00:10:33,000
+more bricks, each of which is going to have a
+
+210
+00:10:33,000 --> 00:10:36,000
+different Max Hits, maybe 1 and 2,
+
+211
+00:10:36,000 --> 00:10:39,000
+and each of which is going to have a different tint color, which will be under
+
+212
+00:10:39,000 --> 00:10:42,000
+the Sprite Renderer. OK, so I'm going to set this one's Max
+
+213
+00:10:42,000 --> 00:10:45,000
+Hits to 1. Now, what that does is it
+
+214
+00:10:45,000 --> 00:10:48,000
+overrides whatever is in the script, actually, but we
+
+215
+00:10:48,000 --> 00:10:51,000
+don't actually give a value in the script. Remember over in the script
+
+216
+00:10:51,000 --> 00:10:54,000
+we've declared this variable but not initialized it. So,
+
+217
+00:10:54,000 --> 00:10:57,000
+we're giving it its value here in the Inspector,
+
+218
+00:10:57,000 --> 00:11:00,000
+which is a nice natural place. So, that's what I want you to
+
+219
+00:11:00,000 --> 00:11:03,000
+do now. I want you to pause the video, create at least two more
+
+220
+00:11:03,000 --> 00:11:06,000
+brick prefabs for me, give
+
+221
+00:11:06,000 --> 00:11:09,000
+them different colors and max number of hits,
+
+222
+00:11:09,000 --> 00:11:12,000
+and then, delete all non-prefab instances of
+
+223
+00:11:12,000 --> 00:11:15,000
+bricks, except the paddle if you've got any in the scene.
+
+224
+00:11:15,000 --> 00:11:18,000
+And test it all by playing and checking the
+
+225
+00:11:18,000 --> 00:11:21,000
+Inspector. OK,
+
+226
+00:11:21,000 --> 00:11:24,000
+see you soon!
+
+227
+00:11:24,000 --> 00:11:27,000
+Cool! Welcome back! So, let's just get this done quickly!
+
+228
+00:11:27,000 --> 00:11:30,000
+I'm going to duplicate the prefab, with the Control D key.
+
+229
+00:11:30,000 --> 00:11:33,000
+I'm just going to call it 2 hit,
+
+230
+00:11:33,000 --> 00:11:36,000
+and I don't know, let's have a 3 hit.
+
+231
+00:11:36,000 --> 00:11:39,000
+I'm going to change the color of the 2 hit to
+
+232
+00:11:39,000 --> 00:11:42,000
+something else. I can't really see how
+
+233
+00:11:42,000 --> 00:11:45,000
+that works, until I drop it in the scene. That green is OK
+
+234
+00:11:45,000 --> 00:11:48,000
+for me. And then, the 3 hit will maybe make a red
+
+235
+00:11:48,000 --> 00:11:51,000
+color. Again, drop one in the scene,
+
+236
+00:11:51,000 --> 00:11:54,000
+and see, that red is a bit glary.
+
+237
+00:11:54,000 --> 00:11:57,000
+I might try and pick a dark red from here or something.
+
+238
+00:12:00,000 --> 00:12:03,000
+No, I'm just going to go
+
+239
+00:12:03,000 --> 00:12:06,000
+with a red, even if it is a bit rude.
+
+240
+00:12:06,000 --> 00:12:09,000
+There you go! So, we have these three different
+
+241
+00:12:09,000 --> 00:12:12,000
+types of brick. Now, let's make sure we orgainze them into
+
+242
+00:12:12,000 --> 00:12:15,000
+our bricks object, and
+
+243
+00:12:15,000 --> 00:12:18,000
+give them sensible names. 1 hit, 2...
+
+244
+00:12:18,000 --> 00:12:21,000
+It should just be 1 hit.
+
+245
+00:12:24,000 --> 00:12:27,000
+Sorry 2 hit! That's my problem, I'm trying to rename something twice!
+
+246
+00:12:27,000 --> 00:12:30,000
+OK, so we have three bricks in the play space, a 1 hit, a 2
+
+247
+00:12:30,000 --> 00:12:33,000
+hit, and a 3 hit brick. I'm just going to move them around,
+
+248
+00:12:33,000 --> 00:12:36,000
+so they can all be hit quite easily.
+
+249
+00:12:36,000 --> 00:12:39,000
+I need to just change one more thing about these prefabs. The prefabs Max Hits
+
+250
+00:12:39,000 --> 00:12:42,000
+is 1., the 2 hit prefab has 2,
+
+251
+00:12:42,000 --> 00:12:45,000
+and the 3 hit has 3. Let's run!
+
+252
+00:12:45,000 --> 00:12:48,000
+And that's fine! There's bouncing
+
+253
+00:12:48,000 --> 00:12:51,000
+off them all, and they all have different
+
+254
+00:12:51,000 --> 00:12:54,000
+maximum numbers of hits. So, now you can start really constructing your
+
+255
+00:12:54,000 --> 00:12:57,000
+play space. I wouldn't go crazy yet, because I'm going to shortly
+
+256
+00:12:57,000 --> 00:13:00,000
+show you how to use Snap to Grid
+
+257
+00:13:00,000 --> 00:13:03,000
+to make this a lot easier for yourself. Congratulations
+
+258
+00:13:03,000 --> 00:13:05,833
+and I shall see you soon!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section5/14-Creating-Using-Unity-Prefabs.srt

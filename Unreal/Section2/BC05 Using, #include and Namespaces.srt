@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 WEBVTT
 
 1
@@ -656,3 +657,662 @@ as well actually. which I haven't put in this list. And then. we've imported the
 00:10:49.500 --> 00:10:53.500
 &lt;iostream&gt; library and we've used the std namespace.
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+Welcome to #include and
+
+2
+00:00:04,000 --> 00:00:08,000
+Namespaces! That all sounds very technical doesn't it? So, what are we going to be doing in
+
+3
+00:00:08,000 --> 00:00:12,000
+this video? We're going to look at various aspects of code, that by the end of it will allow us to do
+
+4
+00:00:12,000 --> 00:00:16,000
+things like #include &lt;iostream&gt; and using namespace
+
+5
+00:00:16,000 --> 00:00:20,000
+standard. And we'll understand what that means and how that lets us
+
+6
+00:00:20,000 --> 00:00:24,000
+use character output like this, to write out to the Console,
+
+7
+00:00:24,000 --> 00:00:28,000
+and when we run our program we all get simply "Welcome to Bulls and Cows"
+
+8
+00:00:28,000 --> 00:00:32,000
+but we'll have learned a lot about what all of this stuff means. So, let's dive right in and
+
+9
+00:00:32,000 --> 00:00:33,500
+get that working!
+
+10
+00:00:33,500 --> 00:00:37,500
+OK, so we've got this far! The operating system is calling our code.
+
+11
+00:00:37,500 --> 00:00:41,500
+Now we want our code to do something, so unfortunately without
+
+12
+00:00:41,500 --> 00:00:45,500
+including some more code, we can't really
+
+13
+00:00:45,500 --> 00:00:49,500
+do anything, we can't print. If we type the word print the word Autocomplete
+
+14
+00:00:49,500 --> 00:00:53,500
+isn't suggesting anything. You may have seen cout before, that's not here.
+
+15
+00:00:53,500 --> 00:00:57,500
+You'll notice, from the first section, we did something like this std:
+
+16
+00:00:57,500 --> 00:01:01,500
+nothing still nothing nothing nothing. OK, so what you need to do is understand
+
+17
+00:01:01,500 --> 00:01:05,500
+how we're going to get the code that our code needs in,
+
+18
+00:01:05,500 --> 00:01:09,500
+and we're going to use something called a pre-processor directive and that is #.
+
+19
+00:01:09,500 --> 00:01:13,500
+Anything that starts # is, as I say, is a pre-proccesor
+
+20
+00:01:13,500 --> 00:01:17,500
+directive. There are a few, #include is down in this list somewhere
+
+21
+00:01:17,500 --> 00:01:21,500
+here. #define various others OK.
+
+22
+00:01:21,500 --> 00:01:25,500
+The one we're going to use for now is #include.
+
+23
+00:01:25,500 --> 00:01:29,500
+Now, that literally cuts and pastes from another file,
+
+24
+00:01:29,500 --> 00:01:33,500
+at the time that you say build. So,
+
+25
+00:01:33,500 --> 00:01:37,500
+when yo go Build or Debug, Start Without Debugging, it does a build,
+
+26
+00:01:37,500 --> 00:01:41,500
+and it'll actually literally go into the file that we specify here, which in our case is going to be &lt;iostream&gt;.
+
+27
+00:01:41,500 --> 00:01:45,500
+And it will cut and paste the contents above at the top. We don't see
+
+28
+00:01:45,500 --> 00:01:49,500
+it happen, but it's why it's called a pre-processor directive. It happens just before
+
+29
+00:01:49,500 --> 00:01:53,500
+the compilation happens. Just before, it then goes through all the text, the resulting
+
+30
+00:01:53,500 --> 00:01:57,500
+text, and turns it into a format that the computer can read.
+
+31
+00:01:57,500 --> 00:02:01,500
+So, #include is what we need. Now, when do you use these
+
+32
+00:02:01,500 --> 00:02:05,500
+curly brackets vs. when do we go #include?
+
+33
+00:02:05,500 --> 00:02:09,500
+They're not curly are they!? They're what do you call them? Chevrons! Let's call them chevrons or angular brackets!
+
+34
+00:02:09,500 --> 00:02:13,500
+You'll also see, if you do searches on the web, this stuff in quotes
+
+35
+00:02:13,500 --> 00:02:17,500
+#include. Now, this would be "MyCode dot
+
+36
+00:02:17,500 --> 00:02:21,500
+h or something like that, and we'll talk about that later. But the bottom line is that
+
+37
+00:02:21,500 --> 00:02:25,500
+you use these angular brackets or chevrons, when you're
+
+38
+00:02:25,500 --> 00:02:29,500
+importing standard stuff, that's going to be there because it came
+
+39
+00:02:29,500 --> 00:02:33,500
+with Visual Studio, basically. And when you write your own code, and you include your own
+
+40
+00:02:33,500 --> 00:02:37,500
+code, you're going to use the quotes. Alright, so #include &lt;iostream&gt;. Now, having done
+
+41
+00:02:37,500 --> 00:02:41,500
+that, Visual Studio now knows about a whole load more stuff. Let's try
+
+42
+00:02:41,500 --> 00:02:45,500
+print now. We actually get a load of methods that include the word
+
+43
+00:02:45,500 --> 00:02:49,500
+print. All of this stuff! We suddenly get a bewildering amount of stuff, actually,
+
+44
+00:02:49,500 --> 00:02:53,500
+which is pretty cool! So, the idea of using
+
+45
+00:02:53,500 --> 00:02:57,500
+library code is that other people have written this code, it's been
+
+46
+00:02:57,500 --> 00:03:01,500
+tried and tested over the years, and we know that it's going to work for us. So, if we
+
+47
+00:03:01,500 --> 00:03:05,500
+start trying to do things with strings in a little bit, which are a sequence of characters,
+
+48
+00:03:05,500 --> 00:03:09,500
+for instance. We're not reinventing the wheel we are using somebody else's library code.
+
+49
+00:03:09,500 --> 00:03:13,500
+I talked about, in the previous lecture about, a library vs. an engine. So,
+
+50
+00:03:13,500 --> 00:03:17,500
+we're kind of acting like an engine, in that the system is calling
+
+51
+00:03:17,500 --> 00:03:21,500
+this main method and then all of our lines get executed, but then,
+
+52
+00:03:21,500 --> 00:03:25,500
+very quickly we're turing the tide and we're saying, actually we're going to start using libraries. We're going to call
+
+53
+00:03:25,500 --> 00:03:29,500
+out to libraries. Alright, so you get the idea. Angular brace
+
+54
+00:03:29,500 --> 00:03:33,500
+is for the standard stuff. Now, what we're going to need to do is to think
+
+55
+00:03:33,500 --> 00:03:37,500
+about how we're going to access our method that we're going to use to print out to
+
+56
+00:03:37,500 --> 00:03:41,500
+the Console, which is cout. If I type cout it doesn't come up. It's not even
+
+57
+00:03:41,500 --> 00:03:45,500
+in the list, cout is for character output but it's not there. Now, the reason
+
+58
+00:03:45,500 --> 00:03:49,500
+it's not there is it's wrapped up in something called a namespace. Now, a namespace
+
+59
+00:03:49,500 --> 00:03:53,500
+does pretty much what it says on the tin, it gives names of things a bit of space.
+
+60
+00:03:53,500 --> 00:03:57,500
+So, because when you start importing lots
+
+61
+00:03:57,500 --> 00:04:01,500
+of large libraries, it's quite possible that there's more than one thing called print or more
+
+62
+00:04:01,500 --> 00:04:05,500
+than one thing called cout or more than one thing called whatever. So,
+
+63
+00:04:05,500 --> 00:04:09,500
+it's protected behind something called a namespace, so to get to it we need to know that it's in the
+
+64
+00:04:09,500 --> 00:04:13,500
+standard namespace, std is short for standard. When we
+
+65
+00:04:13,500 --> 00:04:17,500
+type std, this little icon pops up. Now, notice that
+
+66
+00:04:17,500 --> 00:04:21,500
+it's a pair of curly braces, and that is an icon to indicate what type
+
+67
+00:04:21,500 --> 00:04:25,500
+of thing we're looking at in the list. There's various other icons, and they're actually listed in your slides.
+
+68
+00:04:25,500 --> 00:04:29,500
+Towards the end of this section, there's a summary of what all these icons mean.
+
+69
+00:04:29,500 --> 00:04:33,500
+But std is a namespace and in Xcode that's going to be n
+
+70
+00:04:33,500 --> 00:04:37,500
+for name space. And the way that you access members of the namespace, it's a general
+
+71
+00:04:37,500 --> 00:04:41,500
+way of accessing members here, is colon colon. Now, we get a list of everything
+
+72
+00:04:41,500 --> 00:04:45,500
+that is in the &lt;iostream&gt; library,
+
+73
+00:04:45,500 --> 00:04:49,500
+tagged if you like, with a standard std namespace. So, I go std::
+
+74
+00:04:49,500 --> 00:04:53,500
+colon colon cout. Ah hah! Thats what I need
+
+75
+00:04:53,500 --> 00:04:57,500
+to print stuff out! So, let's do the standard thing at this point.
+
+76
+00:04:57,500 --> 00:05:01,500
+Rather than doing hello world though, I'm going to go "Welcome to Bulls
+
+77
+00:05:01,500 --> 00:05:05,500
+and Cows" OK. And I'm just going to do that
+
+78
+00:05:05,500 --> 00:05:09,500
+and remember that all of our statements end with a semicolon, and remember
+
+79
+00:05:09,500 --> 00:05:13,500
+that you always need to match your brackets. Now, the system doing it for you. it's making sure
+
+80
+00:05:13,500 --> 00:05:17,500
+that you've got as many open brackets and close brackets, and the same thing happens
+
+81
+00:05:17,500 --> 00:05:21,500
+with quotes. We need as many close quotes as we have open quotes.
+
+82
+00:05:21,500 --> 00:05:25,500
+Alright, so that red is a good sign, it means that it's interpreting this thing here as
+
+83
+00:05:25,500 --> 00:05:29,500
+what we call a string, a string of characters all tied together.
+
+84
+00:05:29,500 --> 00:05:33,500
+And let's just try it! So, Debug, Start Without Debugging,
+
+85
+00:05:33,500 --> 00:05:37,500
+and we have an error!
+
+86
+00:05:37,500 --> 00:05:41,500
+So, what's the error? Now, it's an easy thing
+
+87
+00:05:41,500 --> 00:05:45,500
+to do this, is to try and use cout like this, but actually cout
+
+88
+00:05:45,500 --> 00:05:50,000
+is a slightly strange beast and it uses something called an overloaded operator. Now, we'll actually use
+
+89
+00:05:50,000 --> 00:05:53,500
+those and get into those much later in the course, but
+
+90
+00:05:53,500 --> 00:05:57,500
+what we need to do is to use a double back chevron like that. And that double
+
+91
+00:05:57,500 --> 00:06:01,500
+back chevron says, take the value that is here
+
+92
+00:06:01,500 --> 00:06:05,500
+and put it to the character output to the Console, OK.
+
+93
+00:06:05,500 --> 00:06:09,500
+So, it's cout, double back chevron, and then your string. Let's try again! I'm just going to go
+
+94
+00:06:09,500 --> 00:06:13,500
+Control, F 5, this time. Fantastic!
+
+95
+00:06:13,500 --> 00:06:17,500
+"Welcome to Bulls and CowsPress any key to continue..." That's ugly! It's ugly that it
+
+96
+00:06:17,500 --> 00:06:21,500
+says "Press any key to continue..." straight after "Bulls and Cows". So, the way that we deal with that is
+
+97
+00:06:21,500 --> 00:06:25,500
+at least two ways. One is that we go backslash n. Now, the backslash means
+
+98
+00:06:25,500 --> 00:06:29,500
+watch out, there's a special character coming, and the special character is a new line!
+
+99
+00:06:29,500 --> 00:06:33,500
+So, backslash n right in there like that will have the effect of putting
+
+100
+00:06:33,500 --> 00:06:37,500
+any other output onto a new line, and this "Press any key
+
+101
+00:06:37,500 --> 00:06:41,500
+to continue..." is coming from the system. OK that's cool! Another
+
+102
+00:06:41,500 --> 00:06:45,500
+way of doing this would be to come onto a separate line and type std
+
+103
+00:06:45,500 --> 00:06:49,500
+colon colon cout again, and then, put in our
+
+104
+00:06:49,500 --> 00:06:53,500
+backslash n for new line. That would be another way of doing it.
+
+105
+00:06:53,500 --> 00:06:57,500
+And if we run it, Control, F 5, we'll see that has the same effect!
+
+106
+00:06:57,500 --> 00:07:01,500
+So, another way to do this is to use end line. Now, if we type endl,
+
+107
+00:07:01,500 --> 00:07:05,500
+which you may find with a Google search for end line, it doesn't come up! Why doesn't it come up?!
+
+108
+00:07:05,500 --> 00:07:09,500
+Well, it's the same reason cout didn't come up. How do you think we're going to access it? it's hidden in
+
+109
+00:07:09,500 --> 00:07:13,500
+namespace. Let's try standard and l. OK
+
+110
+00:07:13,500 --> 00:07:17,500
+fantastic! So, that is again hidden in the standard namespace.
+
+111
+00:07:17,500 --> 00:07:21,500
+Let's run! Command, F 5, and it works! Alright, that's
+
+112
+00:07:21,500 --> 00:07:25,500
+cool! One more thing to tell you about cout is that you can string
+
+113
+00:07:25,500 --> 00:07:29,500
+these things together. So, instead of keep writing std::cout here, I can just
+
+114
+00:07:29,500 --> 00:07:33,500
+delete all this stuff and do that! So, I'm just
+
+115
+00:07:33,500 --> 00:07:37,500
+saying, take the result of this and
+
+116
+00:07:37,500 --> 00:07:41,500
+put it onto the end of this, and then, put all of that into
+
+117
+00:07:41,500 --> 00:07:45,500
+cout. OK, let's run it! And it works!
+
+118
+00:07:45,500 --> 00:07:49,500
+Great! OK, so now I've got a challenge for you! I want you to use
+
+119
+00:07:49,500 --> 00:07:53,500
+something to prevent us from having to keep writing
+
+120
+00:07:53,500 --> 00:07:57,500
+std:: every time. We're going to actually use a method called using,
+
+121
+00:07:57,500 --> 00:08:01,500
+and the terminology is using space namespace
+
+122
+00:08:01,500 --> 00:08:05,500
+space and then the name of the namespece, which is standard.
+
+123
+00:08:05,500 --> 00:08:09,500
+So, we're going to have using namespace standard OK, and that is going to go
+
+124
+00:08:09,500 --> 00:08:13,500
+up at the top here, where I've left space. Alright, now
+
+125
+00:08:13,500 --> 00:08:17,500
+doing that is great, and it means that we can avoid having
+
+126
+00:08:17,500 --> 00:08:21,500
+to write this all the time. There is a disadvantage and the disadvantage is that if
+
+127
+00:08:21,500 --> 00:08:25,500
+two different libraries contain
+
+128
+00:08:25,500 --> 00:08:29,500
+or even two namespaces within this library... Remember, a library like this can
+
+129
+00:08:29,500 --> 00:08:33,500
+have more than one namespace. If two namespaces both contain cout,
+
+130
+00:08:33,500 --> 00:08:37,500
+and we say using namespace standard,
+
+131
+00:08:37,500 --> 00:08:41,500
+if we start doing that a lot we run the risk of what we call a namspace clash, which is that this
+
+132
+00:08:41,500 --> 00:08:45,500
+method is defined in multiple places, and it's not completely obvious which
+
+133
+00:08:45,500 --> 00:08:49,500
+one we're using. So, that's the danger of doing it, and I want you to explain that danger to other people,
+
+134
+00:08:49,500 --> 00:08:53,500
+in a minute in the discussions the best you can. But
+
+135
+00:08:53,500 --> 00:08:57,500
+here's your challenge, it's pretty simple one! I want you to make appropriate use of the using
+
+136
+00:08:57,500 --> 00:09:01,500
+statement. I've told you the syntax. I've showed you the line you need to put it on.
+
+137
+00:09:01,500 --> 00:09:05,500
+I want you to test, by removing the std:: prefixes
+
+138
+00:09:05,500 --> 00:09:09,500
+from your cout and see if it still works. And you can remove the prefix from the end
+
+139
+00:09:09,500 --> 00:09:13,500
+line, and then, explain the risk of using a namespace like this,
+
+140
+00:09:13,500 --> 00:09:17,500
+in the discussions as best as you can. I know that you're brand new to this, and who are you to tell other programmers
+
+141
+00:09:17,500 --> 00:09:21,500
+how to use a namespace and what the risks are, but just have a pop at explaining. If you don't want to
+
+142
+00:09:21,500 --> 00:09:25,500
+do that don't worry, that's a bonus, explaining the risk. The main thing is that you type using namespace standard
+
+143
+00:09:25,500 --> 00:09:29,500
+and you get rid of those prefixes. Let's go!
+
+144
+00:09:29,500 --> 00:09:33,500
+Cool welcome back! So, let's do that then! Let's
+
+145
+00:09:33,500 --> 00:09:37,500
+watch what happens when we type using, using
+
+146
+00:09:37,500 --> 00:09:41,500
+namespace, and it's helping us there, std OK.
+
+147
+00:09:41,500 --> 00:09:45,500
+And then a semicolon on the end! This is a statement!
+
+148
+00:09:45,500 --> 00:09:49,500
+OK, now if we just run right now, you'll notice that it still runs! No problems
+
+149
+00:09:49,500 --> 00:09:53,500
+not even any warnings. But what we can do is remove the std
+
+150
+00:09:53,500 --> 00:09:57,500
+both here and from here. That's making our code a lot more
+
+151
+00:09:57,500 --> 00:10:01,500
+readable. In fact, if you're on a new line and you started typing cout, it's now available
+
+152
+00:10:01,500 --> 00:10:05,500
+here. OK, so
+
+153
+00:10:05,500 --> 00:10:09,500
+let's go ahead and run! That's it, "Welcome to Bulls and Cows" Press any key to
+
+154
+00:10:09,500 --> 00:10:13,500
+continue..." That's just great! So as a recap, we've talked about the fact that
+
+155
+00:10:13,500 --> 00:10:17,500
+hash itself represents a pre-processor directive. It tells the Compiler to
+
+156
+00:10:17,500 --> 00:10:21,500
+do something before it even starts compiling the code. We've used #include,
+
+157
+00:10:21,500 --> 00:10:25,500
+which copies and pastes other code into the top of our file, but we don't see it happen.
+
+158
+00:10:25,500 --> 00:10:29,500
+We talked about the idea of using library code. We've used &lt;iostream&gt; because it's full of useful
+
+159
+00:10:29,500 --> 00:10:33,500
+stuff for input and output streaming, funnily enough. We've
+
+160
+00:10:33,500 --> 00:10:37,500
+used chevrons or angular braces for standard libraries,
+
+161
+00:10:37,500 --> 00:10:41,500
+and you would use quotes for files you've created yourself. We've noticed the namespace
+
+162
+00:10:41,500 --> 00:10:45,500
+icon in the autocomplete with standard there, and we've done a few things with cout
+
+163
+00:10:45,500 --> 00:10:49,500
+as well actually, which I haven't put in this list. And then, we've imported the
+
+164
+00:10:49,500 --> 00:10:53,500
+&lt;iostream&gt; library and we've used the std namespace.
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1

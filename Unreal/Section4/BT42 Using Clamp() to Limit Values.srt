@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT42 Using Clamp() to Limit Values.srt
 ﻿WEBVTT
 
 1
@@ -856,3 +857,862 @@ And yeah. I'll see you in the next video!
 00:14:16.933 --> 00:14:18.266
 
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+
+
+2
+00:00:04,000 --> 00:00:08,000
+So welcome to Using Clamp() to Limit Values! In this we're going to learn how to make
+
+3
+00:00:08,000 --> 00:00:12,000
+our barrel actually move up and down, and furthermore, make it only move up and down
+
+4
+00:00:12,000 --> 00:00:18,800
+as much as we want it to, as a pass through the tank or point bolt upright. So see you in there!
+
+5
+00:00:18,800 --> 00:00:22,800
+OK guys, we can finally get this barrel on the move. So
+
+6
+00:00:22,800 --> 00:00:26,800
+firstly, this magic number here about the Elevation. I'm going to keep a magic number, but
+
+7
+00:00:26,800 --> 00:00:30,800
+I'm going to start off with it being 1, i.e. 100% of its speed. Then,
+
+8
+00:00:30,800 --> 00:00:34,800
+we're going to make sure that it actually does move at about
+
+9
+00:00:34,800 --> 00:00:38,800
+20 degrees per second. That's too fast isn't it? Let's go for
+
+10
+00:00:38,800 --> 00:00:42,800
+a little bit of a lower speed. I'll do that in the tank blueprint,
+
+11
+00:00:42,800 --> 00:00:46,800
+because 20 degrees per second is only going to take 2 seconds, we're not going to be able to see what's
+
+12
+00:00:46,800 --> 00:00:50,800
+going on. So, let's go down to say 5 degrees per second for testing. Now, I'm
+
+13
+00:00:50,800 --> 00:00:54,800
+doing this in the blueprint because I want to override the C++ value. I think that
+
+14
+00:00:54,800 --> 00:00:58,800
+20 degrees per second is perfectly reasonable as a default, but I think that 5 for testing
+
+15
+00:00:58,800 --> 00:01:02,800
+here makes more sense. OK, so we're going to call this method
+
+16
+00:01:02,800 --> 00:01:06,800
+with a value of 1 in the TankAiming
+
+17
+00:01:06,800 --> 00:01:10,800
+component there, which means 100% of your maximum speed. It's
+
+18
+00:01:10,800 --> 00:01:14,800
+still a magic number, it still needs to be tied through to what's coming out of here, but for now, let's just
+
+19
+00:01:14,800 --> 00:01:18,800
+use it for testing. So, let's go ahead and actually get this tank barrel elevating
+
+20
+00:01:18,800 --> 00:01:22,800
+and making sure that if we pass in a relative speed more or than one or less than -1
+
+21
+00:01:22,800 --> 00:01:26,800
+that it still only goes at the maximum speed. So, how are we
+
+22
+00:01:26,800 --> 00:01:30,800
+going to do that? Well, let's just get on with it! I'm going to talk about there being an Elevation
+
+23
+00:01:30,800 --> 00:01:34,800
+Change, in this particular
+
+24
+00:01:34,800 --> 00:01:38,800
+frame. And that's going to be how much? Well it's going to be the RelativeSpeed
+
+25
+00:01:38,800 --> 00:01:42,800
+times the MaxDegreesPerSecond. So at
+
+26
+00:01:42,800 --> 00:01:46,800
+this point, we've got a number in degrees per second, but of course, if we have something
+
+27
+00:01:46,800 --> 00:01:50,800
+per second and this is an ElevationChange at this frame, that's too long a
+
+28
+00:01:50,800 --> 00:01:54,800
+variable name for me to use, but you get the idea. Everything's this frame in the game, basically.
+
+29
+00:01:54,800 --> 00:01:58,800
+Then, we need to go get the world. And then, do you remember the method?
+
+30
+00:01:58,800 --> 00:02:02,800
+What am I looking for for the world? What am I doing here, rather than just watching
+
+31
+00:02:02,800 --> 00:02:06,800
+me? Have a think about it? How am I going to correct this to make sure that it's framerate
+
+32
+00:02:06,800 --> 00:02:10,800
+independent? Well, it's DeltaTime
+
+33
+00:02:10,800 --> 00:02:14,800
+Seconds, and that is a property, so no prackity things.
+
+34
+00:02:14,800 --> 00:02:18,800
+OK, so that's the elevation change that we need in this frame, hopefully that makes sense
+
+35
+00:02:18,800 --> 00:02:22,800
+to you. It's RelativeSpeed was 0, we'd get 0 out here. If it's 1 we'll get Max
+
+36
+00:02:22,800 --> 00:02:26,800
+DegreesPerSecond and everything in between. Alright,
+
+37
+00:02:26,800 --> 00:02:30,800
+so the next thing is, we need to think about what the unclamped
+
+38
+00:02:30,800 --> 00:02:34,800
+new elevation would be, so we can call it, Or Raw if you like,
+
+39
+00:02:34,800 --> 00:02:38,800
+RawNewElevation. And this is saying, well if we weren't
+
+40
+00:02:38,800 --> 00:02:42,800
+concerned about the fact that there's a maximum and a minimum possible elevation,
+
+41
+00:02:42,800 --> 00:02:46,800
+then the calculation would be really simple. It would be simply the Relative
+
+42
+00:02:46,800 --> 00:02:50,800
+Rotation of the barrel, dot Pitch...
+
+43
+00:02:50,800 --> 00:02:54,800
+Ooh, if I can spell properly! Now, RelativeRotation
+
+44
+00:02:54,800 --> 00:02:58,800
+is a property here of this scene component,
+
+45
+00:02:58,800 --> 00:03:02,800
+dot Pitch, and if we were just to take that
+
+46
+00:03:02,800 --> 00:03:06,800
+and add the Elevation change that we just calculated, whether it be
+
+47
+00:03:06,800 --> 00:03:10,800
+positive or negative, then we would have some new elevation. But imagine
+
+48
+00:03:10,800 --> 00:03:14,800
+that the current pitch of the barrel is 20 degrees and that this Elevation
+
+49
+00:03:14,800 --> 00:03:18,800
+Change works out more than that, and...
+
+50
+00:03:18,800 --> 00:03:22,800
+Well actually, let's use some real figures, say the. What have we got? MaxElevation of 40.
+
+51
+00:03:22,800 --> 00:03:26,800
+Alright, so imagine that the current barrel is just under 40, but this Elevation
+
+52
+00:03:26,800 --> 00:03:30,800
+Change would take it above 40. What's going to happen? Well, the barrel's going to exceed its Maximum
+
+53
+00:03:30,800 --> 00:03:34,600
+Elevation right, so we need to clamp to make sure that can't happen.
+
+54
+00:03:34,600 --> 00:03:38,600
+Now, before we go on to talk about how to clamp this Elevation, let's show the problem.
+
+55
+00:03:38,600 --> 00:03:42,600
+So, let's go ahead and Set the Relative
+
+56
+00:03:42,600 --> 00:03:46,600
+Rotation() of the barrel, and we're going to give
+
+57
+00:03:46,600 --> 00:03:50,600
+it a new (FRotator) and we're going to construct that with the
+
+58
+00:03:50,600 --> 00:03:54,600
+Elevation or the (RawNewElevation)) for now.
+
+59
+00:03:54,600 --> 00:03:58,600
+And 0 and 0 for yaw and roll.
+
+60
+00:03:58,600 --> 00:04:02,600
+OK, and close as many brackets as we opened. Cool!
+
+61
+00:04:02,600 --> 00:04:06,600
+So, hopefully this makes sense. We work out what the ElevationChange is. We work out what the New
+
+62
+00:04:06,600 --> 00:04:10,600
+Elevation would be, given the current Elevation plus the ElevationChange. You could
+
+63
+00:04:10,600 --> 00:04:14,600
+put this in an intermediate variable but I'd think that's a bit much, and then, you pass it
+
+64
+00:04:14,600 --> 00:04:18,600
+straight to the barrel. Let's see if this works! Let's go ahead and compile
+
+65
+00:04:18,600 --> 00:04:22,600
+our code, and then, let's see
+
+66
+00:04:22,600 --> 00:04:26,600
+what happens. Hopefully if the tank... Make sure your tank is saved, by the way,
+
+67
+00:04:26,600 --> 00:04:30,600
+and that you've got a MaxDegreesPerSecond in the Barrel of say 5, so that it moves at a
+
+68
+00:04:30,600 --> 00:04:34,600
+testable speed. Let's have a look! Oh cool, look at this! Now, watch the barrel, let's
+
+69
+00:04:34,600 --> 00:04:38,600
+notice when it stops! 6, 7,
+
+70
+00:04:38,600 --> 00:04:42,600
+8, 9, [Laughs]... OK, so
+
+71
+00:04:42,600 --> 00:04:46,600
+this is why we need to clamp the barrel elevation right. So, it should have stopped after 8
+
+72
+00:04:46,600 --> 00:04:50,600
+seconds, I think, because we had 40 degrees MaxElevation, and
+
+73
+00:04:50,600 --> 00:04:54,600
+it's gone all the way to vertical. It doesn't go past vertical, and that's
+
+74
+00:04:54,600 --> 00:04:58,600
+because we've hit the maximum possible rotator pitch
+
+75
+00:04:58,600 --> 00:05:02,600
+value. You can, in principle, pitch further, but this rotator won't pitch any
+
+76
+00:05:02,600 --> 00:05:06,600
+further. That's fine for the barrel, it's got plenty of range for the barrel, we don't want to even go that
+
+77
+00:05:06,600 --> 00:05:10,600
+high. If you look at the Barrel and you look at the parameters,
+
+78
+00:05:10,600 --> 00:05:14,600
+we set a Max Elevation of 40 and a Min of 0, so therefore, it
+
+79
+00:05:14,600 --> 00:05:18,600
+had 40 degrees to travel through, 5 degrees per second. It should have taken 8 seconds, it should have stopped
+
+80
+00:05:18,600 --> 00:05:22,600
+at 40 degrees and it didn't, so that is what we need to sort out next.
+
+81
+00:05:22,600 --> 00:05:26,600
+But you've done plenty of watching me write code and not very much writing
+
+82
+00:05:26,600 --> 00:05:30,600
+code without my help, so guess what's coming. It's challenge
+
+83
+00:05:30,600 --> 00:05:34,600
+time! I want you to clamp the elevation! You're going to use a method called
+
+84
+00:05:34,600 --> 00:05:38,600
+FMath::Clamp(). Now why is it colon colon? A couple of videos ago I
+
+85
+00:05:38,600 --> 00:05:42,600
+did something with a colon colon, that's a static method. Static methods
+
+86
+00:05:42,600 --> 00:05:46,600
+basically are things that are completely functional, it means that this method is going to
+
+87
+00:05:46,600 --> 00:05:50,600
+spit out a return value and not mutate or change anything, so it's pretty
+
+88
+00:05:50,600 --> 00:05:54,600
+easy to use. The IDE will tell you what it takes in and what it returns,
+
+89
+00:05:54,600 --> 00:05:58,600
+and you can also have a look online to see different
+
+90
+00:05:58,600 --> 00:06:02,600
+signatures and different ways of using this. There is a generics format
+
+91
+00:06:02,600 --> 00:06:06,600
+with chevrons, you know the angle brackets. But, take a look
+
+92
+00:06:06,600 --> 00:06:10,600
+online or use the IDE to work out how FMath::Clamp() works, and then, test that
+
+93
+00:06:10,600 --> 00:06:14,600
+you have indeed restricted your elevation in between the two parameters we set in the
+
+94
+00:06:14,600 --> 00:06:18,600
+header file, the Max and Min Elevation. OK, see you in a moment!
+
+95
+00:06:18,600 --> 00:06:22,600
+
+
+96
+00:06:22,600 --> 00:06:26,600
+OK, so let's clamp this puppy! So auto...
+
+97
+00:06:26,600 --> 00:06:30,600
+I'm just going to call it Elevation, rather than anything more
+
+98
+00:06:30,600 --> 00:06:34,600
+complicated. I'm going to take Elevation off here, because we're going to be passing it through.
+
+99
+00:06:34,600 --> 00:06:38,600
+We're going to go FMath::Clamp() and it's going to
+
+100
+00:06:38,600 --> 00:06:42,600
+take a few things. Now look at this signature carefully! It's got a
+
+101
+00:06:42,600 --> 00:06:46,600
+generic template here, which means that you can tell it to work on a particular type.
+
+102
+00:06:46,600 --> 00:06:50,600
+So that's what's happening in the angle brackets there. We could tell it
+
+103
+00:06:50,600 --> 00:06:54,600
+the type of thing we want to clamp. Why don't we do that just for fun!
+
+104
+00:06:54,600 --> 00:06:58,600
+I'm going to say let's operate on <float> very explicitly. Then, the first
+
+105
+00:06:58,600 --> 00:07:02,600
+parameter is going to be the thing that you want to clamp, which is the (Raw
+
+106
+00:07:02,600 --> 00:07:06,600
+NewElevation). The next parameter is the Minimum, which is the
+
+107
+00:07:06,600 --> 00:07:10,600
+MinElevationDegrees and the other one is the Max
+
+108
+00:07:10,600 --> 00:07:14,600
+ElevationDegrees.
+
+109
+00:07:14,600 --> 00:07:18,600
+Where's that going? Let's take a look! MaxElevation
+
+110
+00:07:18,600 --> 00:07:22,600
+Degrees, well it's there so I'm going to ignore IntelliSense, because it
+
+111
+00:07:22,600 --> 00:07:26,600
+hasn't caught up, bless it. And I am just going to assume that this is going
+
+112
+00:07:26,600 --> 00:07:30,600
+to work, because I think I've used that method properly. Ah you don't have to put the float there, but in doing
+
+113
+00:07:30,600 --> 00:07:34,600
+so, I'm telling it to explicitly work on floats.
+
+114
+00:07:34,600 --> 00:07:38,600
+Alright, let's have a go!
+
+115
+00:07:38,600 --> 00:07:42,600
+If you don't do that, you may get some implicit type conversions, where something is converted from an int to
+
+116
+00:07:42,600 --> 00:07:46,600
+a float or whatever, and I prefer to be specific about what we're trying to do. Let's have a go!
+
+117
+00:07:46,600 --> 00:07:50,600
+So now, when we look at it from the side, I'm hoping that in the console, if you keep your eye on that, when that hits
+
+118
+00:07:50,600 --> 00:07:54,600
+8 seconds the barrel will stop moving. I'm also hoping that if we,
+
+119
+00:07:54,600 --> 00:07:58,600
+ah nice, that if we depossess the tank with F8 now and then have a look
+
+120
+00:07:58,600 --> 00:08:02,600
+at this tank, and then, if we were to inspect it,
+
+121
+00:08:02,600 --> 00:08:06,600
+which we could do through the World Outliner, we may be able to get
+
+122
+00:08:06,600 --> 00:08:10,600
+to the actual barrel inside that tank. We're going to need a bit of messing around,
+
+123
+00:08:10,600 --> 00:08:14,600
+over here in the Details tab and let's click on Barrel. And here you go, Rotation
+
+124
+00:08:14,600 --> 00:08:18,600
+39.999 near as...
+
+125
+00:08:18,600 --> 00:08:22,600
+40 degrees. So it's worked! On the up side, it's very likely to
+
+126
+00:08:22,600 --> 00:08:26,600
+work on the down side, but why don't we just try it anyway?
+
+127
+00:08:26,600 --> 00:08:30,600
+One way you could do that would be to go to your Tank Viewport, to go ahead
+
+128
+00:08:30,600 --> 00:08:34,600
+and rotate your tank Barrel's default position up to, it doesn't matter, say
+
+129
+00:08:34,600 --> 00:08:38,600
+30, and then, in your calling method, instead of Tank
+
+130
+00:08:38,600 --> 00:08:42,600
+AimingComponent saying Elevate, it could say depress, i.e. -1.
+
+131
+00:08:42,600 --> 00:08:46,600
+OK, so we're going to go from 30 degrees downwards to 0. Let's see if that works!
+
+132
+00:08:46,600 --> 00:08:50,600
+Then, all we've got to do is remove our magic number, and we are
+
+133
+00:08:50,600 --> 00:08:54,600
+golden, we'll have an Elevation working! So
+
+134
+00:08:54,600 --> 00:08:58,600
+there it goes! Down down down! I think I said 30 degrees, didn't I?
+
+135
+00:08:58,600 --> 00:09:02,600
+So it should take 6 seconds there and it stops at 0. Perfect!
+
+136
+00:09:02,600 --> 00:09:06,600
+Clamped barrel movement, that's what we like! So, I'm just going to put my barrel back.
+
+137
+00:09:06,600 --> 00:09:10,600
+I think a default of 0 looks good. I think that 5 degrees per second
+
+138
+00:09:10,600 --> 00:09:14,600
+actually is probably not far off now. So, I'm
+
+139
+00:09:14,600 --> 00:09:18,600
+going to push that default back to the code in the TankBarrle.h,
+
+140
+00:09:18,600 --> 00:09:22,600
+because actually 20 was a bad guess. And it's fine to make a bad
+
+141
+00:09:22,600 --> 00:09:26,600
+guess, but once you get better evidence, then come back and fix that default. A Max of 40
+
+142
+00:09:26,600 --> 00:09:30,600
+and a Min of 0, I think that's perfectly reasonable. I think it would be nice to get our turret to
+
+143
+00:09:30,600 --> 00:09:34,600
+say 45 degrees. Let's check that visually, make sure that doesn't look crazy.
+
+144
+00:09:34,600 --> 00:09:38,600
+Yeah, I think it will look crazy actually, so I'm going to stick with the 40.
+
+145
+00:09:38,600 --> 00:09:42,600
+And now, I'm going to make sure this barrel actually has
+
+146
+00:09:42,600 --> 00:09:46,600
+0 pitch, in the beginning. That's cool! And I actually think that a bit of negative pitch should
+
+147
+00:09:46,600 --> 00:09:50,600
+be possible, but the question is, is that possible on the back of the tank? And I
+
+148
+00:09:50,600 --> 00:09:54,600
+think it isn't. I think that if this turret was facing the other way,
+
+149
+00:09:54,600 --> 00:09:58,600
+we wouldn't be able to go any lower. I've already moved these barrels down a little bit on the model.
+
+150
+00:09:58,600 --> 00:10:02,600
+No, so it's going to have to be a range of something like 0 to 40 or it just
+
+151
+00:10:02,600 --> 00:10:06,600
+ain't going to make any sense, it ain't going to work. OK fantastic! So there's
+
+152
+00:10:06,600 --> 00:10:10,600
+the settings, after all that discussion. 5 degrees per second, 40, and 0. It's going to compile up
+
+153
+00:10:10,600 --> 00:10:14,600
+that blueprint. The final thing we need to do here is say, well this is all very
+
+154
+00:10:14,600 --> 00:10:18,600
+well, how about two more things? How about if I was to call Elevate with a value,
+
+155
+00:10:18,600 --> 00:10:22,600
+instead of 1 I say that 5 that we had before. Let's just
+
+156
+00:10:22,600 --> 00:10:26,600
+try that! What should happen is that the 5 will come in as a
+
+157
+00:10:26,600 --> 00:10:30,600
+RelativeSpeed. The Tank barrel will go RelativeSpeed 5. That's fine!
+
+158
+00:10:30,600 --> 00:10:34,600
+It'll come in here and actually it'll go wrong, at the moment,
+
+159
+00:10:34,600 --> 00:10:38,600
+because what's going to happen is the RelativeSpeed is going to multiply
+
+160
+00:10:38,600 --> 00:10:42,600
+up these DegreesPerSecond and it's going to move 5 times too fast. Let's see it doing that!
+
+161
+00:10:42,600 --> 00:10:46,600
+There you go, far too fast. OK, and if I called that with a... Do you want to
+
+162
+00:10:46,600 --> 00:10:50,600
+just see it again to prove it? It should take 8 seconds, it's taking just 2, under
+
+163
+00:10:50,600 --> 00:10:54,600
+2 seconds. So what we need to do is we need to clamp that Relative
+
+164
+00:10:54,600 --> 00:10:58,600
+Speed here. Now, we can just mutate RelativeSpeed, in this case,
+
+165
+00:10:58,600 --> 00:11:02,600
+if we want, which means you just change it.
+
+166
+00:11:02,600 --> 00:11:06,600
+So, why don't you go ahead and do that. As a little micro challenge, why don't you clamp a Relative
+
+167
+00:11:06,600 --> 00:11:10,600
+Speed to between -1 and +1.
+
+168
+00:11:10,600 --> 00:11:14,600
+Well, go on then, I'm not going to do it till you've tried. OK, so
+
+169
+00:11:14,600 --> 00:11:18,600
+RelativeSpeed = FMath::Clamp
+
+170
+00:11:18,600 --> 00:11:22,600
+I'm going to tell it that I want to work on a >float>
+
+171
+00:11:22,600 --> 00:11:26,600
+and that it's the (RelativeSpeed)
+
+172
+00:11:26,600 --> 00:11:30,600
+...-1
+
+173
+00:11:30,600 --> 00:11:34,600
++1. OK, very explicit. Now, I said that FMath::
+
+174
+00:11:34,600 --> 00:11:38,600
+Clamp doesn't mutate anything. That's true, it spits out an answer without changing the state of
+
+175
+00:11:38,600 --> 00:11:42,600
+anything but then, if we assign RelativeSpeed back over the top of itself,
+
+176
+00:11:42,600 --> 00:11:46,600
+like this, so the result of this function called, assigned over the top of RelativeSpeed, then
+
+177
+00:11:46,600 --> 00:11:50,600
+RelativeSpeed here on line 12 is different to what it was when it came into the method.
+
+178
+00:11:50,600 --> 00:11:54,600
+That's cool! I think that we can leave the comments, I think they're not
+
+179
+00:11:54,600 --> 00:11:58,600
+doing any harm. We need to just check now that this works, with a
+
+180
+00:11:58,600 --> 00:12:02,600
+relative speed call of 5 in the
+
+181
+00:12:02,600 --> 00:12:06,600
+parameters. It should not move any faster than it originally did. Now
+
+182
+00:12:06,600 --> 00:12:10,600
+it should take 8 seconds to fully erect to 40 degrees. Here it goes, looks
+
+183
+00:12:10,600 --> 00:12:14,600
+good! And we've clamped that RelativeSpeed! That is fantastic!
+
+184
+00:12:14,600 --> 00:12:18,600
+Alright, so the final thing we need to do to get this Elevation working is, of course, tie it
+
+185
+00:12:18,600 --> 00:12:24,200
+up in the TankAimingComponent. We don't want this magic number in here. We just want to know
+
+186
+00:12:24,200 --> 00:12:28,200
+how much to move this Barrel by, and that amount is this DeltaRotator that we worked
+
+187
+00:12:28,200 --> 00:12:32,200
+out a few videos ago, which is the change in
+
+188
+00:12:32,200 --> 00:12:36,200
+Elevation that we need this frame, according to the TankAimingComponent, dot
+
+189
+00:12:36,200 --> 00:12:40,200
+Pitch. And we don't really care if that value is above or below 1, because it's
+
+190
+00:12:40,200 --> 00:12:44,200
+going to be clamped inside the TankBarrel
+
+191
+00:12:44,200 --> 00:12:48,966
+method, so, or class rather. So, let's go ahead and run this now.
+
+192
+00:12:48,966 --> 00:12:52,966
+What I'm hoping is that just pitch will just work.
+
+193
+00:12:52,966 --> 00:12:57,000
+Lots of justs in there. Now, we're going to have to look at it carefully to see if it is working,
+
+194
+00:12:57,000 --> 00:13:01,000
+if it compiles. It does! Let me go F11 so we can get full screen.
+
+195
+00:13:01,000 --> 00:13:05,000
+Alright, so what's happening here? If I point, say there, is that a reasonable
+
+196
+00:13:05,000 --> 00:13:09,000
+pitch? Forget the yaw, it's not going to work, so I'll aim just in front to save confusion.
+
+197
+00:13:09,000 --> 00:13:12,966
+So, it's feasible that it's pointing in the right direction, and then, you get to a
+
+198
+00:13:12,966 --> 00:13:16,933
+certain distance and the projectile is not going fast enough to get there, so it doesn't even
+
+199
+00:13:16,933 --> 00:13:20,966
+bother calculating. So, you could try this with a different
+
+200
+00:13:20,966 --> 00:13:24,933
+projectile launch velocity, just to convince yourself that it's probably
+
+201
+00:13:24,933 --> 00:13:28,900
+working OK. So, you can come into the Tank...
+
+202
+00:13:28,900 --> 00:13:32,900
+Where do we set this launch speed? If I get a launch speed of 8,000,
+
+203
+00:13:32,900 --> 00:13:36,933
+should be able to hit those far mountains now. So, if I now aim up...
+
+204
+00:13:36,933 --> 00:13:40,933
+You see it aiming up? I'll F11 it so you can see a bit better.
+
+205
+00:13:40,933 --> 00:13:44,933
+There you go, it's now aiming up into the distance. It's going to hit that hill, and then, you aim
+
+206
+00:13:44,933 --> 00:13:48,933
+above the hill, it no longer gets a solution, it resets to neutral. How about this right-
+
+207
+00:13:48,933 --> 00:13:52,933
+hand hill here? You can see it being very sensitive now to the height
+
+208
+00:13:52,933 --> 00:13:56,900
+up the hill. So I think it's working! Off the top of the hill, it doesn't solve and returns to
+
+209
+00:13:56,900 --> 00:14:00,900
+neutral. So, I think that Elevation is probably working. We'll know for sure when we start doing
+
+210
+00:14:00,900 --> 00:14:04,933
+rotation, and then, we start actually spitting out some projectiles and seeing their
+
+211
+00:14:04,933 --> 00:14:08,933
+path and everything will be much clearer. So, hopefully that made sense as to what we've
+
+212
+00:14:08,933 --> 00:14:12,900
+done there. We've sent the Pitch in, and then, we've processed it in here.
+
+213
+00:14:12,900 --> 00:14:16,933
+And yeah, I'll see you in the next video!
+
+214
+00:14:16,933 --> 00:14:18,266
+
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT42 Using Clamp() to Limit Values.srt

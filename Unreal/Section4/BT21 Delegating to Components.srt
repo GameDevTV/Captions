@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT21 Delegating to Components.srt
 ﻿WEBVTT
 
 1
@@ -680,3 +681,686 @@ is just that. OK fantastic!
 00:11:17.733 --> 00:11:20.766
 I'll see you soon!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+Welcome to
+
+2
+00:00:04,000 --> 00:00:08,000
+Delegating to Components. In this video, we're going to start fleshing out the architecture
+
+3
+00:00:08,000 --> 00:00:13,733
+of our tank game and really setting ourselves up to win. So, I'll see you in there!
+
+4
+00:00:13,733 --> 00:00:17,733
+OK, so let's talk about our Iterative
+
+5
+00:00:17,733 --> 00:00:21,733
+Cycle, just to get a handle on where we are. We've kind of been around this once, and we're going to have another
+
+6
+00:00:21,733 --> 00:00:25,733
+look at the tank now, in a bit more detail. So,
+
+7
+00:00:25,733 --> 00:00:29,733
+this is our Aiming Architecture. I'm sorry I can't build this up bit by bit, but it's a limitation
+
+8
+00:00:29,733 --> 00:00:33,733
+of Google Slides. So, how are we going to do this? Well, let's start at the
+
+9
+00:00:33,733 --> 00:00:37,733
+top. The Tank is going to be possessed by one of two things,
+
+10
+00:00:37,733 --> 00:00:41,733
+either a Tank AI Controller or a Tank Player Controller, i.e. us
+
+11
+00:00:41,733 --> 00:00:45,733
+at the keyboard or trackpad. And either of those controllers, depending
+
+12
+00:00:45,733 --> 00:00:49,733
+on which one is possessing the tank, is going to send messages to the tank. So,
+
+13
+00:00:49,733 --> 00:00:53,733
+in the case of the AI Controller it's going to send a message that's going to say something like AimAt
+
+14
+00:00:53,733 --> 00:00:57,733
+the Player. And in the case of the Tank Player, it's going to Aim At the
+
+15
+00:00:57,733 --> 00:01:01,733
+(Crosshair), although there's a bit of a subtlety there, because the crosshair's in 2D
+
+16
+00:01:01,733 --> 00:01:05,733
+space, and if you project from the camera through the crosshair to
+
+17
+00:01:05,733 --> 00:01:09,733
+the world, then you're talking about a 3D space. So, we'll deal with that when we get to it, but
+
+18
+00:01:09,733 --> 00:01:13,733
+we're basically saying aim it where this crosshair's pointing at in the world.
+
+19
+00:01:13,733 --> 00:01:17,733
+And then, the Tank is going to receive that and say, well OK that's fine, but I'm going to deligate
+
+20
+00:01:17,733 --> 00:01:21,733
+that functionality down to my Tank Aiming Component. Why bother with that?
+
+21
+00:01:21,733 --> 00:01:25,733
+Well, it's simple information hiding. The Tank Player Controller, the Tank AI Controller,
+
+22
+00:01:25,733 --> 00:01:29,733
+anything outside of the Tank don't care how the Tank aims, they're just
+
+23
+00:01:29,733 --> 00:01:33,733
+saying to it, please aim at something. And the Tank, we're saying is
+
+24
+00:01:33,733 --> 00:01:37,733
+complicated enough to need to break it's functionality into components. It's going to have a
+
+25
+00:01:37,733 --> 00:01:41,733
+Tank Aiming Component. It's also going to have a Tank Movement Component. So, it's
+
+26
+00:01:41,733 --> 00:01:45,733
+going to simply pass that method straight through to the Tank Aiming Component, which is going to do some processing
+
+27
+00:01:45,733 --> 00:01:49,733
+on it, including ballistic calculations, etc.
+
+28
+00:01:49,733 --> 00:01:53,733
+By the way, by ballistic calculations I mean a reverse calculation of
+
+29
+00:01:53,733 --> 00:01:57,733
+where it needs to aim right now, in order to hit the desired target,
+
+30
+00:01:57,733 --> 00:02:01,733
+or more specifically how fast it needs to fire in order to hit that
+
+31
+00:02:01,733 --> 00:02:05,733
+target, the projectile velocity. Once it's worked all that out, it's going to then
+
+32
+00:02:05,733 --> 00:02:09,733
+raise an event in Blueprint. Why in Blueprint? Well, because
+
+33
+00:02:09,733 --> 00:02:13,733
+what's actually finally going to happen is, we're going to rotate the turret and we're going to elevate the barrel,
+
+34
+00:02:13,733 --> 00:02:17,733
+and those two things, the turret and the barrel are
+
+35
+00:02:17,733 --> 00:02:21,733
+assets and they want to be soft-referenced in Blueprint, so that should we want
+
+36
+00:02:21,733 --> 00:02:25,733
+to make a change to those assets, well they're not hard coded by path, by
+
+37
+00:02:25,733 --> 00:02:29,733
+file name, in the C++. So, we make all our asset references in Blueprint. So, finally
+
+38
+00:02:29,733 --> 00:02:33,733
+this long line of code will emerge in the blueprint, and that will
+
+39
+00:02:33,733 --> 00:02:37,733
+do the final bit of work. Alright, so for any of this to work, we're going to
+
+40
+00:02:37,733 --> 00:02:41,733
+go through it bit by bit nice and slowly. The first thing we're going to need is a Tank Player Controller
+
+41
+00:02:41,733 --> 00:02:45,733
+in C++. So if you remember, in our project, we already have,
+
+42
+00:02:45,733 --> 00:02:49,733
+of course, in the Tank folder a TankPlayerController blueprint,
+
+43
+00:02:49,733 --> 00:02:53,733
+and it does very little at the moment. It just sets up the User
+
+44
+00:02:53,733 --> 00:02:57,733
+Interface, the Player User Interface, but it's currently based on
+
+45
+00:02:57,733 --> 00:03:01,733
+the Player Controller class. What we want to do is, we want to
+
+46
+00:03:01,733 --> 00:03:05,733
+specialize this ourselves and make ourselves our own Tank Player Controller.
+
+47
+00:03:05,733 --> 00:03:09,733
+So, that's going to be your challenge, is just to make sure that you know how
+
+48
+00:03:09,733 --> 00:03:13,733
+to make your own classes. So, before I put you into a challenge,
+
+49
+00:03:13,733 --> 00:03:17,733
+I want to remind you how to reparent a class. You click on Class Settings and then
+
+50
+00:03:17,733 --> 00:03:21,733
+you can choose your parent class here. So, here's the challenge for you, relatively
+
+51
+00:03:21,733 --> 00:03:25,733
+simple. I want you to create a Tank Player Controller C++ class.
+
+52
+00:03:25,733 --> 00:03:29,733
+You'll need to compile that class first, then you can reparent the TankPlayer
+
+53
+00:03:29,733 --> 00:03:33,733
+Controller blueprint onto your new class. By the way, the TankPlayer
+
+54
+00:03:33,733 --> 00:03:37,766
+Controller is going to inherit from Player Controller. So, that's what you're going
+
+55
+00:03:37,766 --> 00:03:41,800
+to be inheriting from, when you create it. You're going to have to find your way around the menus to do this. We've done this before,
+
+56
+00:03:41,800 --> 00:03:45,800
+so it should be a good bit of revision for you. And basically good luck!
+
+57
+00:03:45,800 --> 00:03:49,800
+So, see if you can do that. The class doesn't need to do anything yet, we just want you to create it
+
+58
+00:03:49,800 --> 00:03:53,800
+and reparent the blueprint.
+
+59
+00:03:53,800 --> 00:03:57,766
+OK, welcome back! So, here we are in
+
+60
+00:03:57,766 --> 00:04:01,733
+Unreal. I am going to go to my C++ classes. We're going to add a new C++ class,
+
+61
+00:04:01,733 --> 00:04:05,733
+and we're going to have to ask ourselves what type of
+
+62
+00:04:05,733 --> 00:04:09,733
+class this is. Well, here you have a PlayerController option,
+
+63
+00:04:09,733 --> 00:04:13,733
+so the reason for choosing these things is, it prevents you from having to write all of the
+
+64
+00:04:13,733 --> 00:04:17,733
+header code in the header file yourself. By doing this, it's basically writing a bunch of
+
+65
+00:04:17,733 --> 00:04:21,733
+that for you. So, we choose the Player Controller style.
+
+66
+00:04:21,733 --> 00:04:25,733
+We're going to call it TankPlayerController, as we're specializing a
+
+67
+00:04:25,733 --> 00:04:29,733
+PlayerController for a tank.There's also the concept here, by the way,
+
+68
+00:04:29,733 --> 00:04:33,733
+of public and private, in terms of
+
+69
+00:04:33,733 --> 00:04:37,733
+where it stores these things, in terms of directories. Click the buttons and
+
+70
+00:04:37,733 --> 00:04:41,733
+see what it does. If you click Private, then both of these methods go into
+
+71
+00:04:41,733 --> 00:04:45,733
+a private folder. Both the header file rather and the C++ file go into
+
+72
+00:04:45,733 --> 00:04:49,733
+a Private subfolder of BattleTank. If you click Public, then the header file is
+
+73
+00:04:49,733 --> 00:04:53,733
+left out in a Public folder, so you're really asking yourself the question,
+
+74
+00:04:53,733 --> 00:04:57,733
+is this thing going to be called from the outside? But there is no outside
+
+75
+00:04:57,733 --> 00:05:01,733
+here. You know, we're just a tank game, we're not multi-module
+
+76
+00:05:01,733 --> 00:05:05,733
+here, this is just a single game. So, some projects
+
+77
+00:05:05,733 --> 00:05:09,733
+decide to separate their files into public and private, for simplicity.
+
+78
+00:05:09,733 --> 00:05:13,733
+I'm just going to do this, just so we can get used to it. What we're going to do for the whole project is just always
+
+79
+00:05:13,733 --> 00:05:17,733
+click Public, and then, all that's going to do is mean that all our header files will be in a folder
+
+80
+00:05:17,733 --> 00:05:21,733
+called Public and all our C++ folders will be in a subfolder called Private.
+
+81
+00:05:21,733 --> 00:05:25,733
+So, let's go ahead and create that TankPlayerController class
+
+82
+00:05:25,733 --> 00:05:29,733
+now. It doesn't matter, by the way, if you didn't choose public or private. I've never brought it up before,
+
+83
+00:05:29,733 --> 00:05:33,733
+I didn't expect you to. We can move our classes into these required sub-directories
+
+84
+00:05:33,733 --> 00:05:37,733
+in a little bit. But for now, let's just let this
+
+85
+00:05:37,733 --> 00:05:41,733
+happen and we'll check our header file, and then, we
+
+86
+00:05:41,733 --> 00:05:45,733
+will carry on, because one of the first things we're going to need to do, once this
+
+87
+00:05:45,733 --> 00:05:49,733
+class exists is make ourselves a getter, which can get the controlled tank. So, that'll be the
+
+88
+00:05:49,733 --> 00:05:53,733
+first method I'll be writing. Let's go and
+
+89
+00:05:53,733 --> 00:05:57,733
+have a look at the disk, while we wait for this, for a second by the way. Let's have a look
+
+90
+00:05:57,733 --> 00:06:01,733
+at Source, BattleTank, and now you can see we have these
+
+91
+00:06:01,733 --> 00:06:05,733
+the Build, the GameMode, etc. These have all come as default. And then, you've got this concept
+
+92
+00:06:05,733 --> 00:06:09,733
+of private, which now has our TankPlayerController.cpp in it
+
+93
+00:06:09,733 --> 00:06:13,733
+and Public which has the header file. So, all that Public button has done has said that
+
+94
+00:06:13,733 --> 00:06:17,733
+I want it separated into this type of subfolder. Great! OK, so
+
+95
+00:06:17,733 --> 00:06:21,733
+now we have what? TankPlayerController.h I'm looking for. What
+
+96
+00:06:21,733 --> 00:06:25,733
+has it written for us? It's included "GameFramework/PlayerController.
+
+97
+00:06:25,733 --> 00:06:29,733
+h" and "TankPlayerController.generated.h". That's always there.
+
+98
+00:06:29,733 --> 00:06:33,733
+That's all fine! And it's created us a new class called ATankPlayerController
+
+99
+00:06:33,733 --> 00:06:37,733
+based on APlayerController. That's all fine! So
+
+100
+00:06:37,733 --> 00:06:41,733
+let's make ourselves a public getter, as a start. So, public and it's
+
+101
+00:06:41,733 --> 00:06:45,733
+going to be GetControlledTank. So, we're going to return a
+
+102
+00:06:45,733 --> 00:06:49,733
+pointer to a tank. Now of course, it doesn't know what a tank it, so we're going to need to
+
+103
+00:06:49,733 --> 00:06:53,733
+#include the tank. It needs to go above the generated .h. The
+
+104
+00:06:53,733 --> 00:06:57,733
+generated .h must be the last
+
+105
+00:06:57,733 --> 00:07:01,733
+include. Alright, so just remember that, it's just a quirk of the Unreal Header
+
+106
+00:07:01,733 --> 00:07:05,733
+Tool. So, we're going to #include
+
+107
+00:07:05,733 --> 00:07:09,733
+"Tank.h", otherwise this ATank* pointer will not
+
+108
+00:07:09,733 --> 00:07:13,733
+be a recognized type. The method's going to be
+
+109
+00:07:13,733 --> 00:07:17,733
+GetControlledTank(), and it's going to be const; It's not going to change any
+
+110
+00:07:17,733 --> 00:07:21,733
+future member variables of this class right. Being a getter that
+
+111
+00:07:21,733 --> 00:07:25,733
+makes sense. So, let's try and see... Oh, hang on, am I missing
+
+112
+00:07:25,733 --> 00:07:29,733
+something here? ATank*, no I think that's good! Let's see if we can implement this
+
+113
+00:07:29,733 --> 00:07:33,733
+using the VisualStudio Create Definition
+
+114
+00:07:33,733 --> 00:07:37,733
+method. Ah, you see it's failed, so don't worry. I'm going
+
+115
+00:07:37,733 --> 00:07:41,733
+to just go and do it manually, as you would have to do it if you're in Xcode. So, in Xcode
+
+116
+00:07:41,733 --> 00:07:45,733
+or VisualStudio, you're over in the .cpp. You have to, of course, paste that in, but there's
+
+117
+00:07:45,733 --> 00:07:49,733
+some syntactic noise we need to add, of course, over in the C++ file.
+
+118
+00:07:49,733 --> 00:07:53,733
+We need to get the name of the class and put a colon colon in,
+
+119
+00:07:53,733 --> 00:07:57,733
+to fully qualify the class name. So, what we
+
+120
+00:07:57,733 --> 00:08:01,733
+have is ATank* pointer, ATankPlayerController::GetControlled
+
+121
+00:08:01,733 --> 00:08:05,733
+Tank() const; We keep the same
+
+122
+00:08:05,733 --> 00:08:09,733
+signature, and then, we need our curly braces to give us the
+
+123
+00:08:09,733 --> 00:08:13,733
+implementation. So, what do we do? How do we get the
+
+124
+00:08:13,733 --> 00:08:17,733
+ControlledTank? Why are we getting the ControlledTank, in the first place? Let's go back to our architecture.
+
+125
+00:08:17,733 --> 00:08:21,733
+The TankPlayerController is going to need to know what tank it is controlling.
+
+126
+00:08:21,733 --> 00:08:25,733
+So, we're going to ask the TankPlayerController, what tank are you controlling?
+
+127
+00:08:25,733 --> 00:08:29,733
+Alright, so GetControlTank is going to work like this. We get Pawn,
+
+128
+00:08:29,733 --> 00:08:33,733
+from the TankPlayerController's
+
+129
+00:08:33,733 --> 00:08:37,733
+perspective, and what that should do is return the Pawn that
+
+130
+00:08:37,733 --> 00:08:41,733
+the PlayerController is currently possessing. That's all happening because our
+
+131
+00:08:41,733 --> 00:08:45,733
+PlayerController class is based on this APlayerController here. So, GetPawn() should return
+
+132
+00:08:45,733 --> 00:08:49,733
+the Pawn. The tank is a specialization of the Pawn, so what we're going to do is we're
+
+133
+00:08:49,733 --> 00:08:53,733
+going to cast to type ATank
+
+134
+00:08:53,733 --> 00:08:57,733
+that Pawn. OK, like so
+
+135
+00:08:57,733 --> 00:09:01,733
+and then, that's the value we're going to be
+
+136
+00:09:01,733 --> 00:09:05,733
+returning. So, that's what GetControlledTank() should be doing for us.
+
+137
+00:09:05,733 --> 00:09:09,733
+Alright, we'd better check it works, so we'd better have a BeginPlay, I think.
+
+138
+00:09:09,733 --> 00:09:13,733
+Well, let's just check it compiles to start with, before we check it works. In fact, we
+
+139
+00:09:13,733 --> 00:09:17,733
+could make it a blueprint event and check it works, by printing to the screen from
+
+140
+00:09:17,733 --> 00:09:21,733
+blueprint. That's something we haven't done before. I think we'll do that to finish off the video. So,
+
+141
+00:09:21,733 --> 00:09:25,733
+bear with me a second, the compiler has failed.
+
+142
+00:09:25,733 --> 00:09:29,733
+Now, the reason it's failed is because we don't have a Tank.h,
+
+143
+00:09:29,733 --> 00:09:33,733
+and that's because we don't yet have a Tank dot C++. That's fine,
+
+144
+00:09:33,733 --> 00:09:37,733
+remember that our Tank blueprint is currently based on Pawn. So,
+
+145
+00:09:37,733 --> 00:09:41,733
+let's go ahead and quickly make ourselves a Tank C++ file. It's going to
+
+146
+00:09:41,733 --> 00:09:45,733
+be almost the same process we just did a moment ago, so I won't challenge
+
+147
+00:09:45,733 --> 00:09:49,733
+you to do it, but you're welcome to pause and do it yourself, if you want. We're going to make a class based
+
+148
+00:09:49,733 --> 00:09:53,733
+on a Pawn, we're going to call it Tank, we're going to leave it selected as Public,
+
+149
+00:09:53,733 --> 00:09:57,733
+which will stay the default now, by the way. And again, let me show you
+
+150
+00:09:57,733 --> 00:10:01,733
+what that does. It means that we now have a Tank.h in the Public folder and
+
+151
+00:10:01,733 --> 00:10:05,733
+a Tank.cpp in the Private folder.
+
+152
+00:10:05,733 --> 00:10:09,733
+OK, so we now have a Tank C++ class. I'm going to reparent
+
+153
+00:10:09,733 --> 00:10:13,733
+the Pawn, by going to Class Settings and set
+
+154
+00:10:13,733 --> 00:10:17,733
+this to Tank. And while we're here, we're also going to reparent the
+
+155
+00:10:17,733 --> 00:10:21,733
+TankPlayerController onto TankPlayerController,
+
+156
+00:10:21,733 --> 00:10:25,733
+which we missed previously. Let's compile both of these
+
+157
+00:10:25,733 --> 00:10:29,733
+blueprints, and now, let's go ahead and compile the C++.
+
+158
+00:10:29,733 --> 00:10:33,733
+So, I think now that it's compiled, rather than proving this works right now and making
+
+159
+00:10:33,733 --> 00:10:37,733
+this video too long, I'm just going to leave things as they are, recap what we've done for you briefly,
+
+160
+00:10:37,733 --> 00:10:41,733
+and then, in the next video, we'll start logging out and looking and making sure we understand what's
+
+161
+00:10:41,733 --> 00:10:45,733
+going on. So, what we've done is, we've made a TankPlayerController C++ class,
+
+162
+00:10:45,733 --> 00:10:49,733
+we have given ourselves a GetControlledTank
+
+163
+00:10:49,733 --> 00:10:53,733
+method, which should return the tank that is
+
+164
+00:10:53,733 --> 00:10:57,733
+being possessed, when we call it. So, we're going to need a way of
+
+165
+00:10:57,733 --> 00:11:01,733
+calling it, which we will do in the next video. So, congratulations getting this far!
+
+166
+00:11:01,733 --> 00:11:05,733
+I'm just going to leave my code on the screen for you, the relevant code, which
+
+167
+00:11:05,733 --> 00:11:09,733
+is mainly the TankPlayerController.h, which you need to know is
+
+168
+00:11:09,733 --> 00:11:13,733
+just that. And then, the TankPlayerController.cpp
+
+169
+00:11:13,733 --> 00:11:17,733
+is just that. OK fantastic!
+
+170
+00:11:17,733 --> 00:11:20,766
+I'll see you soon!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT21 Delegating to Components.srt

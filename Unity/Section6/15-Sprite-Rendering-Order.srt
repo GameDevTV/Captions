@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section6/15-Sprite-Rendering-Order.srt
 WEBVTT
 Kind: captions
 Language: en
@@ -291,3 +292,297 @@ layers.
 that's what we talk about. when we talk
 about them. See you in another video! Bye.
 
+=======
+Kind: captions
+Language: en
+
+00:00:00,000 --> 00:00:08,920
+Are you ready for this! In this video we're
+going to be talking about sprite
+
+00:00:08,920 --> 00:00:13,670
+rendering order! Oh, my goodness, that sounds exciting! I am so excited, how about you?
+
+00:00:13,670 --> 00:00:17,170
+Are you psyched about sprite rendering
+order? Let's get started! What does that
+
+00:00:17,170 --> 00:00:20,130
+mean? Well, let me show you the problem
+first, and then, we'll talk about the
+
+00:00:20,130 --> 00:00:25,279
+solution. So first, let's play our game.
+And if you're very careful you'll
+
+00:00:25,279 --> 00:00:29,250
+see that the lasers I'm shooting and the lasers the enemy is shooting are
+
+00:00:29,250 --> 00:00:33,710
+first rendered above the enemy and
+player sprites. That means the laser seems
+
+00:00:33,710 --> 00:00:38,550
+to appear directly on top of the enemy
+ship, which seems a bit weird really, and
+
+00:00:38,550 --> 00:00:42,940
+we want to change that and we want to
+change that in a nice effective way. So
+
+00:00:42,940 --> 00:00:48,370
+how are we going to do that? Let's stop the game. How are we going to change the
+
+00:00:48,370 --> 00:00:53,579
+renderings, so that the lasers get rendered below the enemy ships?
+
+00:00:53,579 --> 00:00:59,289
+Well, what we're going to do is we're going to change the sprite rendering order, and
+
+00:00:59,289 --> 00:01:03,410
+to do that, we're going to be using
+sorting layers. And sorting layers are a
+
+00:01:03,410 --> 00:01:08,060
+tool that we can use to tell the camera
+which layer to render first, and the
+
+00:01:08,060 --> 00:01:13,189
+camera will ignore the Z depth and will go
+by sorting layer first. So, even if
+
+00:01:13,189 --> 00:01:19,759
+an item that is in a given layer is closer to the camera in the Z dimension,
+
+00:01:19,759 --> 00:01:26,150
+it'll still be rendered below, if the
+layer is second after the one
+
+00:01:26,150 --> 00:01:30,600
+we're rendering. So it's takes priority...
+the sorting layers take priority
+
+00:01:30,600 --> 00:01:33,820
+over the Z depth, and that's what we're
+going to be using to make sure
+
+00:01:33,820 --> 00:01:37,270
+everything is rendered at the right
+layer. So note that the sorting layers
+
+00:01:37,270 --> 00:01:41,340
+are different from the layers we use for
+collisions. We already talked about
+
+00:01:41,340 --> 00:01:48,079
+collision layers to stop, say the enemy
+laser colliding with enemies.
+
+00:01:48,079 --> 00:01:51,909
+These layers are a different type of layer. So now, we've explored two types
+
+00:01:51,909 --> 00:01:55,579
+of layers, the sorting layers and the
+physics layers, and they both have a very
+
+00:01:55,579 --> 00:02:01,799
+different purpose. So, let's get started.
+Let's get started. The first thing I'm going to
+
+00:02:01,799 --> 00:02:07,990
+do is I'm going to jump into my game, I'm
+going to go to my Edit Menu, go to my Project
+
+00:02:07,990 --> 00:02:10,220
+Settings, and go to Tags and Layers,
+
+00:02:10,220 --> 00:02:14,430
+and I'm going to close the Layers drop
+down and I'm going to open the Sorting layers drop down.
+
+00:02:14,430 --> 00:02:20,190
+And right now, we have no layers here. We
+have no sorting layers, so I'm
+
+00:02:20,190 --> 00:02:24,910
+going to add several sorting layers, and I'll
+talk you through what each does and why
+
+00:02:24,910 --> 00:02:30,300
+we're using it. So the first sorting layer I want, and I click on the + button to
+
+00:02:30,300 --> 00:02:35,090
+create a new one, so that the first
+sorting later I want is the lowest one.
+
+00:02:35,090 --> 00:02:48,080
+That would be the enemy lasers, so Enemy Projectiles. That's my lower layer; the layer above
+
+00:02:48,080 --> 00:02:53,600
+that will be my enemies themselves, and I might have those the wrong way around but that's ok,
+
+00:02:53,600 --> 00:02:57,900
+because we can always, once you've created the layers, you can always drag and drop them
+
+00:02:57,900 --> 00:03:00,920
+around with the mouse. So if we've got this the wrong way around, we can just swap them
+
+00:03:00,920 --> 00:03:05,810
+around like that. And thirdly, I'm going to
+have another layer, which is going to be my
+
+00:03:05,810 --> 00:03:17,470
+Player Projectiles layer, and finally, lastly,
+the top layer the top dog, the one that's
+
+00:03:17,470 --> 00:03:21,680
+going to be rendered last, so it's going to be on top of everything is my player ship.
+
+00:03:21,680 --> 00:03:26,430
+So I'm going to call that player. So now, we've got four for sorting layers, as well as a
+
+00:03:26,430 --> 00:03:32,430
+default. So right now, it won't do much,
+but if we check our enemy and we have
+
+00:03:32,430 --> 00:03:36,850
+the enemy prefab here, we selected the enemy prefab, and you'll notice that the layer
+
+00:03:36,850 --> 00:03:41,650
+is Enemies. That's our physics layer in the
+inspector, the first one you see, however
+
+00:03:41,650 --> 00:03:46,380
+you'll go to the Sprite Renderer, and the
+Sprite Renderer will have a Sorting Layer
+
+00:03:46,380 --> 00:03:51,130
+drop down. And now here, we can choose
+to make our enemies appear in the
+
+00:03:51,130 --> 00:03:55,769
+Enemies Layer, and then, if we do the same for the Enemy Laser, instead of having the
+
+00:03:55,769 --> 00:04:00,930
+default layer, we'll make them be in Enemy Projectiles. So let's see whether that's
+
+00:04:00,930 --> 00:04:04,260
+made any difference, whatsoever, to our
+game whether we've got the projectiles the
+
+00:04:04,260 --> 00:04:10,540
+right way around. Let's press play and see
+whether they fire. And I don't know
+
+00:04:10,540 --> 00:04:14,709
+whether you can notice it, but now the
+projectiles are no longer being spawned
+
+00:04:14,709 --> 00:04:18,620
+on top of... at least they don't appear to be
+spawned on top of the enemy ships, but
+
+00:04:18,620 --> 00:04:19,980
+they appear to be coming from underneath,
+
+00:04:19,980 --> 00:04:26,170
+which is exactly the behavior we
+wanted. So awesome! Basically, that is the
+
+00:04:26,170 --> 00:04:35,790
+sorting layers.  Not much to it,  but a really useful trick to let you make sure that the
+
+00:04:35,790 --> 00:04:40,800
+sprites are ordered, in the right way, and
+that you have the right things on
+
+00:04:40,800 --> 00:04:48,450
+top of each other. So your job is next
+and that is to make sure that
+
+00:04:48,450 --> 00:04:54,030
+the Player Laser is always drawn below
+the ship, and in addition, make sure the
+
+00:04:54,030 --> 00:04:58,490
+Player Laser is always drawn above the
+
+00:04:58,490 --> 00:05:04,680
+enemies' prefabs. So that's your
+job.
+
+00:05:04,680 --> 00:05:10,470
+Make sure that the three layers work well for the different things. So good luck, and I
+
+00:05:10,470 --> 00:05:20,210
+will see you very shortly. So how did it
+go? Did you manage to get the sorting
+
+00:05:20,210 --> 00:05:25,370
+layers doing the things that you wanted
+them to. The last thing we really needed to
+
+00:05:25,370 --> 00:05:32,910
+do was to go into our game and go grab our Player and make sure that the Player Sprite
+
+00:05:32,910 --> 00:05:38,970
+Renderer is in the Player Layer and make
+sure that the Player Laser Sprite Renderer
+
+00:05:38,970 --> 00:05:44,480
+is in the Player Projectiles Layer. And then... we're going to add actually... we're going to
+
+00:05:44,480 --> 00:05:50,630
+go back to our layers, and I'm going to add a final layer to all of them. So if I go back
+
+00:05:50,630 --> 00:05:56,280
+to my Project Settings, go to my Tags and Layers, and then, go to my Sorting
+
+00:05:56,280 --> 00:06:00,230
+Layers, in my Sorting Layers, I'm going to add a final layer, and that's going to be the
+
+00:06:00,230 --> 00:06:05,100
+Explosions Layer. And the reason I'm doing the explosion is, anytime there's an
+
+00:06:05,100 --> 00:06:08,050
+explosion, that should come on top of
+everything. That's kind of like an
+
+00:06:08,050 --> 00:06:14,290
+aftereffect, special effect, and that's
+going to be my Explosion Layer. So awesome! We
+
+00:06:14,290 --> 00:06:20,800
+now, have a bunch of layers, that we can
+make sure that all the explosion... all
+
+00:06:20,800 --> 00:06:24,590
+the effect... all the sprites are rendered
+exactly the way we want them to, and we
+
+00:06:24,590 --> 00:06:26,480
+can test that out in the game.
+
+00:06:26,480 --> 00:06:33,890
+So if I... and look at where the shots are fired. They're firing it from underneath the enemy
+
+00:06:33,890 --> 00:06:43,100
+ship, and they're fired from underneath the player's ship. Exactly what we wanted! Cool stuff! Now, that's just
+
+00:06:43,100 --> 00:06:48,900
+another tool for your toolbox. Sorting
+layers, letting you decide which order
+
+00:06:48,900 --> 00:06:55,260
+sprites are rendered in, without resorting
+to Z depth. So I hope you enjoyed it. Hope
+
+00:06:55,260 --> 00:06:58,160
+you like this short video about sorting
+layers,
+
+00:06:58,160 --> 00:07:02,530
+that's what we talk about, when we talk
+about them. See you in another video! Bye.
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section6/15-Sprite-Rendering-Order.srt

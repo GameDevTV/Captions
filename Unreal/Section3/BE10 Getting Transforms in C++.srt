@@ -1,426 +1,425 @@
-﻿WEBVTT
 
 1
-00:00:37.466 --> 00:00:41.466
-So. welcome back! Let's look at how we're going to do this! We're going to want another
+00:00:37,466 --> 00:00:41,466
+So, welcome back! Let's look at how we're going to do this! We're going to want another
 
 2
-00:00:41.466 --> 00:00:45.466
-string. so I'm going to make the outline of this code for you. and then. I'm going to ask you
+00:00:41,466 --> 00:00:45,466
+string, so I'm going to make the outline of this code for you, and then, I'm going to ask you
 
 3
-00:00:45.466 --> 00:00:49.466
-to actually fill it in. So. we're going to have an FString and I'm going to call it
+00:00:45,466 --> 00:00:49,466
+to actually fill it in. So, we're going to have an FString and I'm going to call it
 
 4
-00:00:49.466 --> 00:00:53.466
-somehting like ObjectPos. and
+00:00:49,466 --> 00:00:53,466
+somehting like ObjectPos, and
 
 5
-00:00:53.466 --> 00:00:57.466
-then. I'm just going to call it "X = something...
+00:00:53,466 --> 00:00:57,466
+then, I'm just going to call it "X = something...
 
 6
-00:00:57.466 --> 00:01:01.466
-...for now. Y = something else.
+00:00:57,466 --> 00:01:01,466
+...for now. Y = something else,
 
 7
-00:01:01.466 --> 00:01:05.466
-etc" OK. It doesn't matter. this is going to
+00:01:01,466 --> 00:01:05,466
+etc" OK. It doesn't matter, this is going to
 
 8
-00:01:05.466 --> 00:01:09.466
+00:01:05,466 --> 00:01:09,466
 be replaced by some code that you're going to write in a little bit. Great!
 
 9
-00:01:09.466 --> 00:01:13.466
-So. I've made an FString. I have assigned it like that. Now.
+00:01:09,466 --> 00:01:13,466
+So, I've made an FString, I have assigned it like that. Now,
 
 10
-00:01:13.466 --> 00:01:17.466
-I want to show you something else. I'm just going to switch this around a little bit. ("%s")
+00:01:13,466 --> 00:01:17,466
+I want to show you something else. I'm just going to switch this around a little bit, ("%s")
 
 11
-00:01:17.466 --> 00:01:21.466
-is going to be the ObjectName. is at ") and then. we're going to have another
+00:01:17,466 --> 00:01:21,466
+is going to be the ObjectName, is at ") and then, we're going to have another
 
 12
-00:01:21.466 --> 00:01:25.466
-format operator %s. And the way this works is. it
+00:01:21,466 --> 00:01:25,466
+format operator %s. And the way this works is, it
 
 13
-00:01:25.466 --> 00:01:29.466
+00:01:25,466 --> 00:01:29,466
 then goes and has a look for the second thing that matches the correct type.
 
 14
-00:01:29.466 --> 00:01:33.466
-Now. of course. this is this dereferenced ObjectPos. just because of the
+00:01:29,466 --> 00:01:33,466
+Now, of course, this is this dereferenced ObjectPos, just because of the
 
 15
-00:01:33.466 --> 00:01:37.466
+00:01:33,466 --> 00:01:37,466
 way that this text macro works. It wants this * TChar
 
 16
-00:01:37.466 --> 00:01:41.466
-thing. which we have to get to by de-referencing the
+00:01:37,466 --> 00:01:41,466
+thing, which we have to get to by de-referencing the
 
 17
-00:01:41.466 --> 00:01:45.466
-string. so we just have to deal with these complexities for now. I think that the details of
+00:01:41,466 --> 00:01:45,466
+string, so we just have to deal with these complexities for now. I think that the details of
 
 18
-00:01:45.466 --> 00:01:49.466
-exactly what all this means and pointers and references will become clear. in context.
+00:01:45,466 --> 00:01:49,466
+exactly what all this means and pointers and references will become clear, in context,
 
 19
-00:01:49.466 --> 00:01:53.466
-as we go through the course. I don't think I want to give you a massive primer on pointers.
+00:01:49,466 --> 00:01:53,466
+as we go through the course. I don't think I want to give you a massive primer on pointers,
 
 20
-00:01:53.466 --> 00:01:57.466
-etc. right now. because it's just not necessary in order to use
+00:01:53,466 --> 00:01:57,466
+etc. right now, because it's just not necessary in order to use
 
 21
-00:01:57.466 --> 00:02:01.466
-this stuff and make some progress. So. what I'm doing here is relatively
+00:01:57,466 --> 00:02:01,466
+this stuff and make some progress. So, what I'm doing here is relatively
 
 22
-00:02:01.466 --> 00:02:05.466
-simple. I've added another line. with exactly the same pattern as the line above. but I put a string literally
+00:02:01,466 --> 00:02:05,466
+simple. I've added another line, with exactly the same pattern as the line above, but I put a string literally
 
 23
-00:02:05.466 --> 00:02:09.466
-in there. and then. I'm just adding a second format operator and a second
+00:02:05,466 --> 00:02:09,466
+in there, and then, I'm just adding a second format operator and a second
 
 24
-00:02:09.466 --> 00:02:13.466
-thing on the end. Let's just build. make sure this works.
+00:02:09,466 --> 00:02:13,466
+thing on the end. Let's just build, make sure this works,
 
 25
-00:02:13.466 --> 00:02:17.466
-and then. I've got a little challenge of you. of course. So. we run the game
+00:02:13,466 --> 00:02:17,466
+and then, I've got a little challenge of you, of course. So, we run the game
 
 26
-00:02:17.466 --> 00:02:21.466
-and it says SM_Chair is X something Y something. etc. This is the type of
+00:02:17,466 --> 00:02:21,466
+and it says SM_Chair is X something Y something, etc. This is the type of
 
 27
-00:02:21.466 --> 00:02:25.466
-output I'm going to want you to achieve from the end of the challenge. but. of course. instead of X
+00:02:21,466 --> 00:02:25,466
+output I'm going to want you to achieve from the end of the challenge, but, of course, instead of X
 
 28
-00:02:25.466 --> 00:02:29.466
-something Y something. etc. I'm going to want it to actually point out the position that you
+00:02:25,466 --> 00:02:29,466
+something Y something, etc. I'm going to want it to actually point out the position that you
 
 29
-00:02:29.466 --> 00:02:33.466
-would see. if you were to click on either of your objects. and then. go into
+00:02:29,466 --> 00:02:33,466
+would see, if you were to click on either of your objects, and then, go into
 
 30
-00:02:33.466 --> 00:02:37.466
+00:02:33,466 --> 00:02:37,466
 the Details tab and have a look at Transform Location. And
 
 31
-00:02:37.466 --> 00:02:41.466
-it's all in centimeters. you can see this position of the chair and the
+00:02:37,466 --> 00:02:41,466
+it's all in centimeters, you can see this position of the chair and the
 
 32
-00:02:41.466 --> 00:02:45.466
-rock vary. in my case. So. I want that coming out on the Console.
+00:02:41,466 --> 00:02:45,466
+rock vary, in my case. So, I want that coming out on the Console,
 
 33
-00:02:45.466 --> 00:02:49.466
-OK. and that's going to be the end of the challenge. Let me show you the challenge. specifically!
+00:02:45,466 --> 00:02:49,466
+OK, and that's going to be the end of the challenge. Let me show you the challenge, specifically!
 
 34
-00:02:49.466 --> 00:02:53.466
-So. I want  you to explore the API using dot and forward slash.
+00:02:49,466 --> 00:02:53,466
+So, I want  you to explore the API using dot and forward slash.
 
 35
-00:02:53.466 --> 00:02:57.466
-Just before I carry on. let me explain what I mean by this just for the real beginners. So. what
+00:02:53,466 --> 00:02:57,466
+Just before I carry on, let me explain what I mean by this just for the real beginners. So, what
 
 36
-00:02:57.466 --> 00:03:01.466
-I'm saying to you is. instead of my string literal. I'll get you started.
+00:02:57,466 --> 00:03:01,466
+I'm saying to you is, instead of my string literal, I'll get you started.
 
 37
-00:03:01.466 --> 00:03:05.466
-I want you to say. GetOwner() dot something or
+00:03:01,466 --> 00:03:05,466
+I want you to say, GetOwner() dot something or
 
 38
-00:03:05.466 --> 00:03:09.466
-that something. and I want you to go through. using where appropriate.
+00:03:05,466 --> 00:03:09,466
+that something, and I want you to go through, using where appropriate,
 
 39
-00:03:09.466 --> 00:03:13.466
-this operator when it's a pointer. like Actor*.
+00:03:09,466 --> 00:03:13,466
+this operator when it's a pointer, like Actor*.
 
 40
-00:03:13.466 --> 00:03:17.466
-And when it isn't a pointer. I want you to just use the dot. and I want you to
+00:03:13,466 --> 00:03:17,466
+And when it isn't a pointer, I want you to just use the dot, and I want you to
 
 41
-00:03:17.466 --> 00:03:21.466
+00:03:17,466 --> 00:03:21,466
 go through exploring the API using those two operators. See if you can get the
 
 42
-00:03:21.466 --> 00:03:23.933
-obect's location X. Y. Z.
+00:03:21,466 --> 00:03:23,933
+obect's location X, Y, Z.
 
 43
-00:03:23.933 --> 00:03:27.933
+00:03:23,933 --> 00:03:27,933
 Run and see if it prints on the output log.
 
 44
-00:03:27.933 --> 00:03:31.933
-Now. I've got a hint for you. Three hints actually. so if you don't want the hints then just
+00:03:27,933 --> 00:03:31,933
+Now, I've got a hint for you. Three hints actually, so if you don't want the hints then just
 
 45
-00:03:31.933 --> 00:03:35.933
-pause the video now. otherwise I'm going to give you three hints. especially if you're on Xcode. It's harder if you're on Xcode.
+00:03:31,933 --> 00:03:35,933
+pause the video now, otherwise I'm going to give you three hints, especially if you're on Xcode. It's harder if you're on Xcode,
 
 46
-00:03:35.933 --> 00:03:39.933
-because the completion isn't fuzzy. What that means is. if you type the word transform.
+00:03:35,933 --> 00:03:39,933
+because the completion isn't fuzzy. What that means is, if you type the word transform,
 
 47
-00:03:39.933 --> 00:03:43.933
-for instance. then it's not going to come up. You're going to have to start
+00:03:39,933 --> 00:03:43,933
+for instance, then it's not going to come up. You're going to have to start
 
 48
-00:03:43.933 --> 00:03:47.933
-right. and the way to start right is with the word Get. the word Get. These things are
+00:03:43,933 --> 00:03:47,933
+right, and the way to start right is with the word Get, the word Get. These things are
 
 49
-00:03:47.933 --> 00:03:51.933
-the getters. So. both the transform and the location. when you're looking for the right
+00:03:47,933 --> 00:03:51,933
+the getters. So, both the transform and the location, when you're looking for the right
 
 50
-00:03:51.933 --> 00:03:56.400
-method. start with the word Get. And the second hint is. you'll need to use
+00:03:51,933 --> 00:03:56,400
+method, start with the word Get. And the second hint is, you'll need to use
 
 51
-00:03:56.400 --> 00:04:00.166
-.ToString(). otherwise what you end up won't be a string at the end.
+00:03:56,400 --> 00:04:00,166
+.ToString(), otherwise what you end up won't be a string at the end.
 
 52
-00:04:00.166 --> 00:04:03.933
-So. see if you can get all that put together. in the right order. and actually get this location
+00:04:00,166 --> 00:04:03,933
+So, see if you can get all that put together, in the right order, and actually get this location
 
 53
-00:04:03.933 --> 00:04:07.933
-logging to the Console. and if you manage it. share your victory in the discussions!
+00:04:03,933 --> 00:04:07,933
+logging to the Console, and if you manage it, share your victory in the discussions!
 
 54
-00:04:07.933 --> 00:04:09.666
+00:04:07,933 --> 00:04:09,666
 
 
 55
-00:04:09.666 --> 00:04:13.666
-Cool welcome back! So. let's take a look at the
+00:04:09,666 --> 00:04:13,666
+Cool welcome back! So, let's take a look at the
 
 56
-00:04:13.666 --> 00:04:17.666
-logic of this! So. putting myself in your shoes. what are
+00:04:13,666 --> 00:04:17,666
+logic of this! So, putting myself in your shoes, what are
 
 57
-00:04:17.666 --> 00:04:21.666
-we looking for? So firstly. we have GetOwner().
+00:04:17,666 --> 00:04:21,666
+we looking for? So firstly, we have GetOwner().
 
 58
-00:04:21.666 --> 00:04:25.666
-Hover over hit. we can see that it's a pointer to an actor. Actor star. therefor we need this operator.
+00:04:21,666 --> 00:04:25,666
+Hover over hit, we can see that it's a pointer to an actor, Actor star, therefor we need this operator.
 
 59
-00:04:25.666 --> 00:04:29.666
-OK cool! Now. let's see if we can find something like
+00:04:25,666 --> 00:04:29,666
+OK cool! Now, let's see if we can find something like
 
 60
-00:04:29.666 --> 00:04:33.666
-the transform. What have we got? GetTransform. that sounds good!
+00:04:29,666 --> 00:04:33,666
+the transform. What have we got? GetTransform, that sounds good!
 
 61
-00:04:33.666 --> 00:04:37.666
-So. it's a method because it says Get. Hover over it and see what it says!
+00:04:33,666 --> 00:04:37,666
+So, it's a method because it says Get. Hover over it and see what it says!
 
 62
-00:04:37.666 --> 00:04:41.666
+00:04:37,666 --> 00:04:41,666
 What does this return? This returns something called an fTransform
 
 63
-00:04:41.666 --> 00:04:45.666
-OK. but it's not a pointer to an fTransform. so we go dot now to
+00:04:41,666 --> 00:04:45,666
+OK, but it's not a pointer to an fTransform, so we go dot now to
 
 64
-00:04:45.666 --> 00:04:49.666
-see what's there. Now. let's go find out. at this stage. what an fTransform is.
+00:04:45,666 --> 00:04:49,666
+see what's there. Now, let's go find out, at this stage, what an fTransform is.
 
 65
-00:04:49.666 --> 00:04:53.666
+00:04:49,666 --> 00:04:53,666
 Google for "ftransform unreal"!
 
 66
-00:04:53.666 --> 00:04:57.666
-FTransform there. and it'll tell you what it is. OK.
+00:04:53,666 --> 00:04:57,666
+FTransform there, and it'll tell you what it is, OK.
 
 67
-00:04:57.666 --> 00:05:01.666
+00:04:57,666 --> 00:05:01,666
 What is this thing? It looks like it's a
 
 68
-00:05:01.666 --> 00:05:05.666
-struct that contains three different things here. a rotation. a
+00:05:01,666 --> 00:05:05,666
+struct that contains three different things here, a rotation, a
 
 69
-00:05:05.666 --> 00:05:09.666
-translation. and a scale OK. So. it is the translation that
+00:05:05,666 --> 00:05:09,666
+translation, and a scale OK. So, it is the translation that
 
 70
-00:05:09.666 --> 00:05:13.666
-we're going to want to get off this. Let's continue exploring in Visual Studio. so dot.
+00:05:09,666 --> 00:05:13,666
+we're going to want to get off this. Let's continue exploring in Visual Studio, so dot.
 
 71
-00:05:13.666 --> 00:05:17.666
-Now. t r a n s... What have we got? TransformPosition.
+00:05:13,666 --> 00:05:17,666
+Now, t r a n s... What have we got? TransformPosition.
 
 72
-00:05:17.666 --> 00:05:21.666
-That sounds pretty good! If you're not sure what you're looking for. go back to Unreal
+00:05:17,666 --> 00:05:21,666
+That sounds pretty good! If you're not sure what you're looking for, go back to Unreal
 
 73
-00:05:21.666 --> 00:05:25.666
-and have a look in here! What have we got? Transform location OK! Well. they're
+00:05:21,666 --> 00:05:25,666
+and have a look in here! What have we got? Transform location OK! Well, they're
 
 74
-00:05:25.666 --> 00:05:29.666
-interchangeable using the word location and position. but
+00:05:25,666 --> 00:05:29,666
+interchangeable using the word location and position, but
 
 75
-00:05:29.666 --> 00:05:33.666
-that's pretty close to me. I think we want to try that! So. dot...
+00:05:29,666 --> 00:05:33,666
+that's pretty close to me. I think we want to try that! So, dot...
 
 76
-00:05:33.666 --> 00:05:37.666
+00:05:33,666 --> 00:05:37,666
 You could try location... GetLocation GetTransform GetLocation
 
 77
-00:05:37.666 --> 00:05:41.666
+00:05:37,666 --> 00:05:41,666
 or do we want to go position? TransformPosition
 
 78
-00:05:41.666 --> 00:05:45.666
+00:05:41,666 --> 00:05:45,666
 hmm tricky! Which one are you going to use
 
 79
-00:05:45.666 --> 00:05:49.666
-and why? Well. let's try GetLocation and see what comes
+00:05:45,666 --> 00:05:49,666
+and why? Well, let's try GetLocation and see what comes
 
 80
-00:05:49.666 --> 00:05:53.666
-back. Hover over it. it's a method.
+00:05:49,666 --> 00:05:53,666
+back. Hover over it, it's a method.
 
 81
-00:05:53.666 --> 00:05:57.666
-What does it return? An FVector. well that should work!
+00:05:53,666 --> 00:05:57,666
+What does it return? An FVector, well that should work!
 
 82
-00:05:57.666 --> 00:06:01.666
-An FVector. we're going to need to go ToString. because we can't
+00:05:57,666 --> 00:06:01,666
+An FVector, we're going to need to go ToString, because we can't
 
 83
-00:06:01.666 --> 00:06:05.666
-just put a vector straight into this guy. So. let's
+00:06:01,666 --> 00:06:05,666
+just put a vector straight into this guy. So, let's
 
 84
-00:06:05.666 --> 00:06:09.666
-try that! See if GetLocation works! At this point. yes you could go look at the
+00:06:05,666 --> 00:06:09,666
+try that! See if GetLocation works! At this point, yes you could go look at the
 
 85
-00:06:09.666 --> 00:06:13.666
-manual and see for GetLocation(). or if you're not sure of which of these alternatives is going to work.
+00:06:09,666 --> 00:06:13,666
+manual and see for GetLocation(), or if you're not sure of which of these alternatives is going to work,
 
 86
-00:06:13.666 --> 00:06:17.666
-it will be easy enough in a small project like this to build. test. and see if it
+00:06:13,666 --> 00:06:17,666
+it will be easy enough in a small project like this to build, test, and see if it
 
 87
-00:06:17.666 --> 00:06:21.666
-gives you what you want. Let's build. run. cool!
+00:06:17,666 --> 00:06:21,666
+gives you what you want. Let's build, run, cool!
 
 88
-00:06:21.666 --> 00:06:25.666
-That's looking pretty peachy! The chair. and I want to check the
+00:06:21,666 --> 00:06:25,666
+That's looking pretty peachy! The chair, and I want to check the
 
 89
-00:06:25.666 --> 00:06:29.666
-as well. so I'm going to pause. Look at the chair. I'm just going to stop and look at the chair.
+00:06:25,666 --> 00:06:29,666
+as well, so I'm going to pause. Look at the chair, I'm just going to stop and look at the chair.
 
 90
-00:06:29.666 --> 00:06:33.666
-It says that the chair is at -90. -210. 20. very nice!
+00:06:29,666 --> 00:06:33,666
+It says that the chair is at -90, -210, 20, very nice!
 
 91
-00:06:33.666 --> 00:06:37.666
-And it says that the rock was a -230. 270.
+00:06:33,666 --> 00:06:37,666
+And it says that the rock was a -230, 270,
 
 92
-00:06:37.666 --> 00:06:41.666
-40. OK. well it should be right. it's simple code! But this is a breakthrough
+00:06:37,666 --> 00:06:41,666
+40. OK, well it should be right, it's simple code! But this is a breakthrough
 
 93
-00:06:41.666 --> 00:06:45.666
-because we now have inside the C++ code.
+00:06:41,666 --> 00:06:45,666
+because we now have inside the C++ code,
 
 94
-00:06:45.666 --> 00:06:49.666
+00:06:45,666 --> 00:06:49,666
 we've mixed these different accessor operators depending on whether we're dealing like the owner
 
 95
-00:06:49.666 --> 00:06:53.666
-is an Actor star. so we use this operator. but the transform returns an
+00:06:49,666 --> 00:06:53,666
+is an Actor star, so we use this operator, but the transform returns an
 
 96
-00:06:53.666 --> 00:06:57.666
-actual transform value. FTransform. so we use the dot the same as location
+00:06:53,666 --> 00:06:57,666
+actual transform value, FTransform, so we use the dot the same as location
 
 97
-00:06:57.666 --> 00:07:01.666
+00:06:57,666 --> 00:07:01,666
 FVector. So we use a dot and then ToString() because we need the
 
 98
-00:07:01.666 --> 00:07:05.666
+00:07:01,666 --> 00:07:05,666
 result of all of the rest of this to be turned into
 
 99
-00:07:05.666 --> 00:07:09.666
-a string. so that we can put it into ObjectPos and then
+00:07:05,666 --> 00:07:09,666
+a string, so that we can put it into ObjectPos and then
 
 100
-00:07:09.666 --> 00:07:13.666
-ObjectPos gets looked for here. So. this %s looks for *ObjectName.
+00:07:09,666 --> 00:07:13,666
+ObjectPos gets looked for here. So, this %s looks for *ObjectName,
 
 101
-00:07:13.666 --> 00:07:17.666
+00:07:13,666 --> 00:07:17,666
 this %s looks for *ObjectPos.
 
 102
-00:07:17.666 --> 00:07:21.666
-Ahh. big deep breath. guys! Good job. we have
+00:07:17,666 --> 00:07:21,666
+Ahh, big deep breath, guys! Good job, we have
 
 103
-00:07:21.666 --> 00:07:25.666
+00:07:21,666 --> 00:07:25,666
 really made a good bit of headway into Unreal flavored C++!
 
 104
-00:07:25.666 --> 00:07:29.666
-We can really start to grab hold of details of the world. using
+00:07:25,666 --> 00:07:29,666
+We can really start to grab hold of details of the world, using
 
 105
-00:07:29.666 --> 00:07:33.666
-our code. and now. we'll move on and see some other juicy aspects
+00:07:29,666 --> 00:07:33,666
+our code, and now, we'll move on and see some other juicy aspects
 
 106
-00:07:33.666 --> 00:07:37.332
+00:07:33,666 --> 00:07:37,332
 of Unreal C++!
 

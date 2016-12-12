@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section6/10b-Spawning-Enemies-One-By-One.srt
 WEBVTT
 Kind: captions
 Language: en
@@ -445,3 +446,451 @@ I hope you've enjoyed the video. I hope you found it
 useful. and I will see you in the next
 one. Bye for now.
 
+=======
+Kind: captions
+Language: en
+
+00:00:00,000 --> 00:00:09,530
+Hello, and welcome back! In this video, we're going to change our spawning, so that
+
+00:00:09,530 --> 00:00:13,870
+we spawn enemies one by one. Right now, we're spawning enemies all at once. So let's
+
+00:00:13,870 --> 00:00:19,730
+take a look at what that actually means.
+We jump back into our game, and let's stop the game
+
+00:00:19,730 --> 00:00:25,490
+here and play again. And you can see that they all simply appear into existence, and
+
+00:00:25,490 --> 00:00:31,300
+if I kill all of them, you'll see that they also just simply reappear. There's no spawn delay,
+
+00:00:31,300 --> 00:00:35,390
+they all just turn up at once. We want
+to change that behavior. Instead of all
+
+00:00:35,390 --> 00:00:39,219
+the enemies turning up at once, what we
+want to do is make sure that they are spawned
+
+00:00:39,219 --> 00:00:42,790
+one by one, until the entire formation is
+formed. And we're going to add a
+
+00:00:42,790 --> 00:00:46,809
+little delay between each enemy, to make sure that it looks and feels right, that the enemies
+
+00:00:46,809 --> 00:00:50,829
+are kind of flying in and coming towards the player, rather than just all popping into
+
+00:00:50,829 --> 00:00:55,600
+existence, suddenly. So what we're going to do is create the NextFreePositionFunction(). In fact,
+
+00:00:55,600 --> 00:00:58,309
+you're going to do that; you're going to
+create the NextFreePositionFunction(). To
+
+00:00:58,309 --> 00:01:01,030
+create the NextFreePositionFunction(), we're going to take a look at the code, and we're
+
+00:01:01,030 --> 00:01:05,870
+going to use the AllMembersDead()
+function, as a template. Now, the
+
+00:01:05,870 --> 00:01:12,080
+NextFreePositionFunction... Now, let me write out the expected signature, so that is going to
+
+00:01:12,080 --> 00:01:15,930
+return a transform... It's going to return a transform, and it's going to be
+
+00:01:15,930 --> 00:01:24,080
+called NextFreePosition(){}. So you want
+to use the logic, similar to AllMembersAreDead(){}.
+
+00:01:24,080 --> 00:01:30,760
+We're going to loop over every
+position, in our transform formation, and
+
+00:01:30,760 --> 00:01:35,420
+we're going to check whether the child
+position is empty or not, and if it's
+
+00:01:35,430 --> 00:01:40,490
+empty, we're going to return it. And
+if it's not empty, if all of them are full, we're
+
+00:01:40,490 --> 00:01:44,299
+going to reach the end of the full reach loop, and we're going to return 0, as in
+
+00:01:44,299 --> 00:01:49,240
+nothing. So that's what we're going to do
+in the next free position method, and
+
+00:01:49,240 --> 00:01:53,700
+that's what I want you to do, now. So, jump into your code. Jump into your editor, and create the
+
+00:01:53,700 --> 00:01:59,219
+next free position, using the AllMembersDead() method as inspiration. And I will
+
+00:01:59,219 --> 00:02:05,600
+see you when you're done.
+
+00:02:05,600 --> 00:02:13,610
+So, how did it go? Did you manage to get the NextFreePosition method created? To get the
+
+00:02:13,610 --> 00:02:16,360
+NextFreePosition, using the AllMembersDead(),
+
+00:02:16,360 --> 00:02:20,780
+let's take a look at how we would do
+that. So, we jump into our code, and we have the
+
+00:02:20,780 --> 00:02:24,580
+NextFreePosition template, and it's going
+to return a transform. Now, I want to
+
+00:02:24,580 --> 00:02:26,450
+inspire myself from before,
+
+00:02:26,450 --> 00:02:31,620
+from the AllMembersDead, so I'm
+going to do this and I'm going to change a few
+
+00:02:31,620 --> 00:02:37,200
+key features. Firstly, I don't want to
+return false or true, I want to return
+
+00:02:37,200 --> 00:02:44,380
+the position. So childPosition or null.
+So those are my two changes to start with.
+
+00:02:44,380 --> 00:02:48,500
+Next, I don't want to return the childPosition, when it's got something in it,
+
+00:02:48,500 --> 00:02:53,120
+I want to return it when it doesn't. So
+when the childCount of the position
+
+00:02:53,120 --> 00:02:58,470
+in the enemy formation is 0, as in
+it doesn't have an enemy attached. And
+
+00:02:58,470 --> 00:03:04,209
+that's now my NextFreePosition method.
+It'll return the NextFreePosition in
+
+00:03:04,209 --> 00:03:09,940
+the formation. So how are we going to do that to use it? How are we going to use this to spawn
+
+00:03:09,940 --> 00:03:13,750
+the enemy's one by one? Well, let's start
+thinking about the spawn enemies...
+
+00:03:13,750 --> 00:03:18,269
+SpawnUntilFull function. So the SpawnUntilFull function is going to go and
+
+00:03:18,269 --> 00:03:24,589
+replace the SpawnEnemies function. So we have the SpawnEnemies and the SpawnEnemies here, in the
+
+00:03:24,589 --> 00:03:29,400
+update, in case all of the members are dead. And we also have it at the start when, the enemies
+
+00:03:29,410 --> 00:03:33,560
+just suddenly appear at the beginning. So we want to change SpawnEnemies, so we're going to change it by
+
+00:03:33,560 --> 00:03:44,910
+creating a SpawnUntilFull function. So, we're going to go void SpawnUntilFull(){} method, and
+
+00:03:44,910 --> 00:03:48,510
+that's going to replace our SpawnEnemies method. So, we're going to replace it
+
+00:03:48,510 --> 00:03:53,690
+in the start, and we're also going to
+replace it in the update, when all the
+
+00:03:53,690 --> 00:03:58,810
+members are dead. So, we save that now, and we go back to our SpawnUntilFull method.
+
+00:03:58,810 --> 00:04:03,290
+So what do we want to do here? Well, we
+want to use the method we just created, the
+
+00:04:03,290 --> 00:04:08,489
+NextFreePosition, and we want to spawn
+at that NextFreePosition. So let's grab
+
+00:04:08,489 --> 00:04:10,390
+the NextFreePosition to start off with.
+
+00:04:10,390 --> 00:04:20,540
+So we go Transform, next position, or freePosition, and that's the position in the
+
+00:04:20,540 --> 00:04:28,900
+formation is going to be = NextFreePosition. I've got that the wrong way around, here we go.
+
+00:04:28,900 --> 00:04:34,320
+So, that's my NextFreePosition. How do I spawn an enemy onto my NextFrreePosition?
+
+00:04:34,320 --> 00:04:38,260
+Well, really we use the same
+code as here, in the SpawnEnemies
+
+00:04:38,260 --> 00:04:43,750
+method, instead of using child.transform.position we're going to
+
+00:04:43,750 --> 00:04:52,030
+use the free position, itself. So no
+longer child.transform, but FreePosition,
+
+00:04:52,030 --> 00:04:56,990
+instead. And that will literally just spawn a single enemy right? We're no longer
+
+00:04:56,990 --> 00:05:00,570
+using a loop here. We've got a loop in
+the SpawnEnemies, because it's spawning
+
+00:05:00,570 --> 00:05:04,590
+every single one of them, but here we're just spawning one enemy. So how do we make it
+
+00:05:04,590 --> 00:05:09,790
+so that it has a delay until the next
+enemy? In fact, there's another issue here.
+
+00:05:09,790 --> 00:05:14,720
+What if there is no free position, when we call the SpawnUntilFull function? We could return null
+
+00:05:14,720 --> 00:05:19,980
+here, free position would be null, and we'd get an error on line 33, right here, we'd get an
+
+00:05:19,990 --> 00:05:23,940
+error on this, line because there would
+be no enemies... and there would be
+
+00:05:23,940 --> 00:05:27,210
+or rather no position, the position would be null and we'd be...
+
+00:05:27,210 --> 00:05:32,240
+trying to get the position in X and Y and Z coordinate of a null. That doesn't make
+
+00:05:32,240 --> 00:05:36,340
+much sense, so we need to check whether or
+not the free position exists, before we
+
+00:05:36,340 --> 00:05:41,050
+start and put an enemy in there. Right, we can't put and enemy in something that doesn't
+
+00:05:41,050 --> 00:05:49,740
+exist. So we do if (freePosition), so if there is
+
+00:05:49,740 --> 00:05:53,520
+a position then, we can do that stuff,
+right. We don't want to do this stuff, if
+
+00:05:53,520 --> 00:05:57,680
+there's no free position, we'll get an
+error on the console. So, now the question
+
+00:05:57,680 --> 00:06:02,320
+becomes, how do we spawn the next enemy? Right, we're spawning a single enemy here. How do we
+
+00:06:02,320 --> 00:06:03,289
+spawn the next one?
+
+00:06:03,289 --> 00:06:08,789
+Well, we could put all this in a loop, a loop of every enemy, but then that
+
+00:06:08,789 --> 00:06:12,250
+would have the same behavior as SpawnEnemies. What we want to do is call it
+
+00:06:12,250 --> 00:06:17,810
+with a little delay, so we're going to use
+the Invoke method to call the same function,
+
+00:06:17,810 --> 00:06:22,080
+SpawnUntilFull, with a little delay. So
+let's take a look. I'm using Invoke,
+
+00:06:22,080 --> 00:06:30,020
+and I'm going to invoke SpawnUntilFull,
+in a little while. So I'm basically saying
+
+00:06:30,020 --> 00:06:35,219
+the SpawnUntilFull method is saying, I'm
+going to do this stuff, and then, I'm going
+
+00:06:35,219 --> 00:06:39,520
+to wait a little bit, and then, in the
+future, I'm going to get called again. And the
+
+00:06:39,520 --> 00:06:43,509
+future is going to be in spawn delay. This
+is the different... the
+
+00:06:43,509 --> 00:06:48,840
+time difference between every spawn. So call a spawn delay. I haven't created the
+
+00:06:48,840 --> 00:06:52,810
+variable yet, but we can create that. I'm
+saving that, going back up to the top of
+
+00:06:52,810 --> 00:07:01,849
+my file, adding a public float spawnDelay. And my spawnDelay is going to be,
+
+00:07:01,849 --> 00:07:05,509
+let's say about half a second, so they
+come in one after the other,
+
+00:07:05,509 --> 00:07:13,020
+every half second 0.5 float semi-colon. So
+now, I've got a spawn&nbsp;delay, and I'm
+
+00:07:13,020 --> 00:07:19,050
+going to be calling my SpawnUntilFull, every 0.5 seconds.
+
+00:07:19,050 --> 00:07:23,830
+Let's see whether that builds or is causing me an error. Yes, I've forgotten to the equal sign, not
+
+00:07:23,830 --> 00:07:29,120
+very clever really. So, let's try and build that again, and now, we can see everything is black.
+
+00:07:29,120 --> 00:07:31,000
+Everything is working as we want it to.
+
+00:07:31,000 --> 00:07:35,379
+However, can you spot the error here? Can you spot the little problem in the logic?
+
+00:07:35,379 --> 00:07:40,669
+When I'm going to call my SpawnUntilFull method, I'm never going to stop
+
+00:07:40,669 --> 00:07:45,210
+calling it. If we take a look here, let's
+say all of the positions have now been
+
+00:07:45,210 --> 00:07:49,879
+filled. We're still going to call
+ourselves again here, and then, when we
+
+00:07:49,879 --> 00:07:53,210
+come back in half a second we're, going to go
+
+00:07:53,210 --> 00:07:56,169
+Transform freePosition is NextFreePosition
+Well, there's no free position,
+
+00:07:56,169 --> 00:08:01,620
+so that's going to become null. FreePosition is now null. If FreePosition is full, so
+
+00:08:01,620 --> 00:08:05,909
+we skip this bit, and then, we
+jump back to invoking ourselves in half a
+
+00:08:05,909 --> 00:08:10,599
+second. So basically, that means the
+enemies are going to come in, every half second, and
+
+00:08:10,599 --> 00:08:13,469
+the player is never going to have the
+satisfaction of destroying the entire
+
+00:08:13,469 --> 00:08:17,360
+formation. What's going to happen is, he's
+going to shoot one down, and half a second
+
+00:08:17,360 --> 00:08:21,060
+later, the enemy's going to spawn again.
+That's not what we want. We don't want
+
+00:08:21,060 --> 00:08:24,080
+that. We want the enemies to have the
+satisfaction of killing the entire
+
+00:08:24,080 --> 00:08:27,529
+formation, to feel like he's making progress, he's destroying waves of
+
+00:08:27,529 --> 00:08:31,719
+enemies one after the other. That's a really important bit of the game play. So,
+
+00:08:31,719 --> 00:08:35,370
+we're going to need to make sure that we only invoke ourselves if there is another
+
+00:08:35,370 --> 00:08:38,610
+FreePosition, right. We don't want to invoke ourselves again, if there are no other
+
+00:08:38,610 --> 00:08:44,550
+FreePositions, otherwise why would we
+do that. So, in here I'm going to check. So
+
+00:08:44,550 --> 00:08:50,290
+I'm going to have an if statement; if
+something then, I will Invoke myself. So,
+
+00:08:50,290 --> 00:08:55,070
+what do I want in here? Right, what's the
+condition? Well, if next position, right. If
+
+00:08:55,070 --> 00:08:58,830
+there's a NextPosition, how did we do that, in the past? Well, we just
+
+00:08:58,830 --> 00:09:03,680
+used the NextFreePosition method didn't we, so let's use it again. We can use NextFreePosition
+
+00:09:03,680 --> 00:09:09,529
+here, and now, that will make
+sure that we only spawn an enemy, again
+
+00:09:09,529 --> 00:09:13,050
+in the future and a half a second or
+whatever the spawn number is, if there is a
+
+00:09:13,050 --> 00:09:16,110
+free position. So we'll never keep calling
+ourselves, we'll stop calling ourselves,
+
+00:09:16,110 --> 00:09:22,480
+when we've filled the entire formation, and
+that is it. That is how we spawn
+
+00:09:22,480 --> 00:09:26,810
+enemies one by one in our game. Let's
+take a look at the effect. We spent far
+
+00:09:26,810 --> 00:09:30,980
+too long in the code. Let's have a look at
+how it looks. So you can see they're coming
+
+00:09:30,980 --> 00:09:35,480
+in one by one, exactly like we want them
+to. And when we kill them all, instead of them
+
+00:09:35,480 --> 00:09:40,260
+spawning back or rather when they kill
+us, they're pretty tough. So when they kill us,
+
+00:09:40,260 --> 00:09:48,680
+let's kill them all. Here we go, we've got the wave, and they come back one after the
+
+00:09:48,680 --> 00:09:54,080
+other. Fantastic! That's exactly the
+behavior we want, and that is the end of
+
+00:09:54,080 --> 00:09:57,200
+this video. We've really used recursion
+here.
+
+00:09:57,200 --> 00:10:01,660
+That is one of the little tricks, when
+you're using a method to call itself, and
+
+00:10:01,660 --> 00:10:04,839
+that's what we've used to make sure that
+we can spawn all the enemies, until they're...
+
+00:10:04,839 --> 00:10:08,370
+I hope you've enjoyed the video. I hope you found it
+
+00:10:08,370 --> 00:10:11,520
+useful, and I will see you in the next
+one. Bye for now.
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section6/10b-Spawning-Enemies-One-By-One.srt

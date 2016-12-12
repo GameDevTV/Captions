@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section7/GG41 UI Slider Level Timer.srt
 WEBVTT
 
 1
@@ -1724,3 +1725,1730 @@ on getting this far and getting your win condition going.
 00:22:03.000 --> 00:22:04.566
 and I will see you soon!
 
+=======
+
+1
+00:00:06,000 --> 00:00:09,000
+So welcome back! In this video we're going to use a UI
+
+2
+00:00:09,000 --> 00:00:12,000
+slider, to visually show our progress in the
+
+3
+00:00:12,000 --> 00:00:15,000
+level. We're going to make the slider countdown,
+
+4
+00:00:15,000 --> 00:00:18,000
+towards the end of the level. And when time
+
+5
+00:00:18,000 --> 00:00:21,000
+runs out, we're going to show a "You Survived" text on the screen
+
+6
+00:00:21,000 --> 00:00:24,000
+and play a cheerful sound, before then
+
+7
+00:00:24,000 --> 00:00:27,000
+autoloading the next level.
+
+8
+00:00:27,000 --> 00:00:30,000
+So, first thing I need to do is get myself a
+
+9
+00:00:30,000 --> 00:00:33,000
+slider on the screen. So, if you go to your
+
+10
+00:00:33,000 --> 00:00:36,000
+Level 1 or Level 2, I think we're calling it. What's it called?
+
+11
+00:00:36,000 --> 00:00:39,000
+Scene Level 01. Yeah!
+
+12
+00:00:39,000 --> 00:00:42,000
+Go to your Level 01, the one we've been working on, and
+
+13
+00:00:42,000 --> 00:00:45,000
+go to your Level Canvas and create yourself
+
+14
+00:00:45,000 --> 00:00:48,000
+a Game Object UI Slider.
+
+15
+00:00:48,000 --> 00:00:51,000
+Game Object, UI, Slider. It's in
+
+16
+00:00:51,000 --> 00:00:54,000
+New Item, so click that,
+
+17
+00:00:54,000 --> 00:00:57,000
+and then, against that Slider
+
+18
+00:00:57,000 --> 00:01:00,000
+we're going to need to make ourselves a script, but first,
+
+19
+00:01:00,000 --> 00:01:03,000
+let's just introduce you to the Slider and all the things that have come along
+
+20
+00:01:03,000 --> 00:01:06,000
+with it. So, if you zoom
+
+21
+00:01:06,000 --> 00:01:09,000
+in, you'll see that you've actually got a Slider. If you can't find it, double click
+
+22
+00:01:09,000 --> 00:01:12,000
+on the word Slider. You'll find it in your game space.
+
+23
+00:01:12,000 --> 00:01:15,000
+You can swtich to the UI Edit Mode, with the T key
+
+24
+00:01:15,000 --> 00:01:18,000
+or up to the top left of your Editor, and move this
+
+25
+00:01:18,000 --> 00:01:21,000
+guy up towards the top of the screen.
+
+26
+00:01:21,000 --> 00:01:24,000
+I'm going to
+
+27
+00:01:24,000 --> 00:01:27,000
+put mine just next to the
+
+28
+00:01:27,000 --> 00:01:30,000
+Star Display, and then, make it big enough to pretty much fill that
+
+29
+00:01:30,000 --> 00:01:33,000
+space and look half sensible. Something
+
+30
+00:01:33,000 --> 00:01:36,000
+like that! I'm not trying to be a super
+
+31
+00:01:36,000 --> 00:01:39,000
+artist here. OK, let's look at the Slider. At the top level,
+
+32
+00:01:39,000 --> 00:01:42,000
+what does it have? It has a Rect Transform. That indicates it's
+
+33
+00:01:42,000 --> 00:01:45,000
+a UI Element, rather than a World Space Element, which is
+
+34
+00:01:45,000 --> 00:01:48,000
+fine for this. And then, it has this Slider Script
+
+35
+00:01:48,000 --> 00:01:51,000
+thing here, which controls everything. One thing we
+
+36
+00:01:51,000 --> 00:01:54,000
+can control is the current value, and you see as I change it in the Inspector,
+
+37
+00:01:54,000 --> 00:01:57,000
+the actual Slider moves. So, I'm going to set it
+
+38
+00:01:57,000 --> 00:02:00,000
+to 0 and then as the level progresses, the slider is going to move across to
+
+39
+00:02:00,000 --> 00:02:03,000
+the right, evenly like this. And when we get to the end, that's going to be
+
+40
+00:02:03,000 --> 00:02:06,000
+the end of the level. We will have survived, which is great!
+
+41
+00:02:06,000 --> 00:02:09,000
+Now, there's other parts of the Slider you can dig around in and
+
+42
+00:02:09,000 --> 00:02:12,000
+play with. If you want to customize the background color, you can do that
+
+43
+00:02:12,000 --> 00:02:15,000
+under Slider, Background, Color. You can even
+
+44
+00:02:15,000 --> 00:02:18,000
+put materials and tiled materials, all sorts
+
+45
+00:02:18,000 --> 00:02:21,000
+in there. You've got the Fill Area and the Fill itself,
+
+46
+00:02:21,000 --> 00:02:24,000
+and then the Handle and the Handle Slide Area.
+
+47
+00:02:24,000 --> 00:02:27,000
+So, lots of elements you can change. We're just going to keep it simple for now and
+
+48
+00:02:27,000 --> 00:02:30,000
+just have a simple Slider. If you want to customize this and make
+
+49
+00:02:30,000 --> 00:02:33,000
+it look prettier, please please please do! So now,
+
+50
+00:02:33,000 --> 00:02:36,000
+we need something to actually control the Slider, so I'm going to attach
+
+51
+00:02:36,000 --> 00:02:39,000
+the script directly to the Slider. What are we going to
+
+52
+00:02:39,000 --> 00:02:42,000
+call it? I'm going to call it GameTimer.
+
+53
+00:02:45,000 --> 00:02:48,000
+OK, a GameTimer Script tidied up into the GameTimer
+
+54
+00:02:48,000 --> 00:02:51,000
+Folder. And guess what?
+
+55
+00:02:51,000 --> 00:02:54,000
+I'm going to be a Git and I'm going to ask you to do all the rest of it.
+
+56
+00:02:54,000 --> 00:02:57,000
+[Laughs] OK, you're going to need the UnityEngine UI namespace,
+
+57
+00:02:57,000 --> 00:03:00,000
+at the top here. So, I'll give you that hint
+
+58
+00:03:00,000 --> 00:03:03,000
+because it is a UI Element.
+
+59
+00:03:03,000 --> 00:03:06,000
+The type is just Slider. Slider will just work.
+
+60
+00:03:06,000 --> 00:03:09,000
+And what I want you to do, as a challenge, is the following.
+
+61
+00:03:09,000 --> 00:03:12,000
+Write the whole GameTimer.cs class and make it
+
+62
+00:03:12,000 --> 00:03:15,000
+work. Go and find yourself the
+
+63
+00:03:15,000 --> 00:03:18,000
+Slider component, which is just
+
+64
+00:03:18,000 --> 00:03:21,000
+of type Slider. Manage the level
+
+65
+00:03:21,000 --> 00:03:24,000
+time, start and remaining. You're going to want to expose
+
+66
+00:03:24,000 --> 00:03:27,000
+at least one of those as a public
+
+67
+00:03:27,000 --> 00:03:30,000
+int, I suggest a seconds, and make
+
+68
+00:03:30,000 --> 00:03:33,000
+that changeable in the Inspector, it's
+
+69
+00:03:33,000 --> 00:03:36,000
+the amount of time you have at the start. Move the
+
+70
+00:03:36,000 --> 00:03:39,000
+Slider backwards or to the right, every frame,
+
+71
+00:03:39,000 --> 00:03:42,000
+and then, on completion play some
+
+72
+00:03:42,000 --> 00:03:45,000
+music and display a message and load level.
+
+73
+00:03:45,000 --> 00:03:48,000
+now, when it comes to music, I'm going to be using the
+
+74
+00:03:48,000 --> 00:03:51,000
+glitch game Quest Complete sound. On glitch
+
+75
+00:03:51,000 --> 00:03:54,000
+thegame.com/downloads, we have this Quest Complete,
+
+76
+00:03:54,000 --> 00:03:57,000
+which you're hearing [Music Plays in Background]
+
+77
+00:03:57,000 --> 00:04:00,000
+in the background there. That's the sound I'm going to use on mine. See if you can do
+
+78
+00:04:00,000 --> 00:04:03,000
+the whole lot. See if you can just get the win condition
+
+79
+00:04:03,000 --> 00:04:06,000
+programmed. Go ahead, pause the video, and give it a go!
+
+80
+00:04:06,000 --> 00:04:09,000
+Cool! Welcome back!
+
+81
+00:04:09,000 --> 00:04:12,000
+So, let's take a look at how we make this work!
+
+82
+00:04:12,000 --> 00:04:15,000
+So, here's our GameTime.cs Script, attached to
+
+83
+00:04:15,000 --> 00:04:18,000
+this UI component here,
+
+84
+00:04:18,000 --> 00:04:21,000
+which also has
+
+85
+00:04:21,000 --> 00:04:24,000
+the Slider component next to it. So, we have a Slider GameObject,
+
+86
+00:04:24,000 --> 00:04:27,000
+with a Slider component and a GameTimer component. So, we need to
+
+87
+00:04:27,000 --> 00:04:30,000
+find the other component. So, private Slider
+
+88
+00:04:30,000 --> 00:04:33,000
+slider.
+
+89
+00:04:33,000 --> 00:04:36,000
+Ooh, tricky. And then on Start, we do
+
+90
+00:04:36,000 --> 00:04:39,000
+the standard thing, slider = Get
+
+91
+00:04:39,000 --> 00:04:42,000
+Component this time, because it's not on a different GameObject
+
+92
+00:04:42,000 --> 00:04:45,000
+of type &lt;Slider&gt;();
+
+93
+00:04:45,000 --> 00:04:48,000
+And then, let's print (slider); So, what we're doing
+
+94
+00:04:48,000 --> 00:04:51,000
+here is making sure that we're actually finding the Slider, before we go any
+
+95
+00:04:51,000 --> 00:04:54,000
+further.
+
+96
+00:04:54,000 --> 00:04:57,000
+Console, Slider UI
+
+97
+00:04:57,000 --> 00:05:00,000
+"(UnityEngine.UI.Slider)". Great! It looks like we've found the
+
+98
+00:05:00,000 --> 00:05:03,000
+Slider! That's fantastic! So another thing this game timer is going to need
+
+99
+00:05:03,000 --> 00:05:06,000
+is a couple more numbers. We're going to have to have a public
+
+100
+00:05:06,000 --> 00:05:09,000
+int level
+
+101
+00:05:09,000 --> 00:05:12,000
+Seconds, or somthing like that with a small l.
+
+102
+00:05:15,000 --> 00:05:18,000
+And for now, I'm going to have seconds left.
+
+103
+00:05:18,000 --> 00:05:21,000
+So, we have a couple of integers
+
+104
+00:05:21,000 --> 00:05:24,000
+there. Now, we're not, longer term, going to want to expose the
+
+105
+00:05:24,000 --> 00:05:27,000
+seconds left publicly, so because of that,
+
+106
+00:05:27,000 --> 00:05:30,000
+I'm going to put it on a separate line. I'm going to
+
+107
+00:05:30,000 --> 00:05:33,000
+space it down with all of my private variables,
+
+108
+00:05:33,000 --> 00:05:36,000
+and I'm going to put myself a to-do, to make it private once this is working.
+
+109
+00:05:36,000 --> 00:05:39,000
+So, you can go forward slash forward slash TODO.
+
+110
+00:05:39,000 --> 00:05:42,000
+So, it's a special word. "make
+
+111
+00:05:42,000 --> 00:05:45,000
+private later".
+
+112
+00:05:45,000 --> 00:05:48,000
+Or you could serialize the field, thats the other option, or
+
+113
+00:05:48,000 --> 00:05:51,000
+you could use serialize but let's not do that. Let's just
+
+114
+00:05:51,000 --> 00:05:54,000
+make it private later. We don't want people ever changing it in the Inspector.
+
+115
+00:05:54,000 --> 00:05:57,000
+OK fantastic! So now, if we look at
+
+116
+00:05:57,000 --> 00:06:00,000
+our Slider and go down to our script.
+
+117
+00:06:00,000 --> 00:06:03,000
+If we can build, let's see what's wrong.
+
+118
+00:06:03,000 --> 00:06:06,000
+Ah, it's just a missing semicolon.
+
+119
+00:06:06,000 --> 00:06:09,000
+Now,
+
+120
+00:06:09,000 --> 00:06:12,000
+once the UI updates, then we can have a
+
+121
+00:06:12,000 --> 00:06:15,000
+levelSeconds of something. Now, I don't want it defaulting to 0 in the
+
+122
+00:06:15,000 --> 00:06:18,000
+script, so let me default this to, I don't know, 100
+
+123
+00:06:18,000 --> 00:06:21,000
+seconds. That sounds about right, a minute and 40 seconds.
+
+124
+00:06:21,000 --> 00:06:24,000
+And now if I play,
+
+125
+00:06:24,000 --> 00:06:27,000
+the Inspector values are
+
+126
+00:06:27,000 --> 00:06:30,000
+overwriting, so it's a little bit annoying that you
+
+127
+00:06:30,000 --> 00:06:33,000
+can specify something in script, but when you first
+
+128
+00:06:33,000 --> 00:06:36,000
+create the object, the Inspector picks up the value and then
+
+129
+00:06:36,000 --> 00:06:39,000
+overwrites. So, I don't really like this, because
+
+130
+00:06:39,000 --> 00:06:42,000
+how about if I change the script now to 80 seconds.
+
+131
+00:06:42,000 --> 00:06:45,000
+What value am I going to get here, when I play? Well, I get 100
+
+132
+00:06:45,000 --> 00:06:48,000
+because the Inspector value, in the instance, overrides what's in
+
+133
+00:06:48,000 --> 00:06:51,000
+the code. So, just be aware of that. It's
+
+134
+00:06:51,000 --> 00:06:54,000
+still good practice to put a sensible value here in the script,
+
+135
+00:06:54,000 --> 00:06:57,000
+in the code, because if I was to remove this component
+
+136
+00:06:57,000 --> 00:07:00,000
+altogether, and then add a new Game Timer,
+
+137
+00:07:00,000 --> 00:07:03,000
+it will inherit whatever is in the code. But once that component
+
+138
+00:07:03,000 --> 00:07:06,000
+is added to the GameObject, any changes in the Inspector
+
+139
+00:07:06,000 --> 00:07:09,000
+will override what's in the script. So, I just wanted you to know
+
+140
+00:07:09,000 --> 00:07:12,000
+how that works. Alright, so then what
+
+141
+00:07:12,000 --> 00:07:15,000
+are we going to do on the Start? Well, on the Start, it's simply going to be seconds
+
+142
+00:07:15,000 --> 00:07:18,000
+Left =
+
+143
+00:07:18,000 --> 00:07:21,000
+levelSeconds; right. So, in the
+
+144
+00:07:21,000 --> 00:07:24,000
+beginning, when we run
+
+145
+00:07:24,000 --> 00:07:27,000
+we just have 100 seconds
+
+146
+00:07:27,000 --> 00:07:30,000
+left. OK then, every second we need to reduce
+
+147
+00:07:30,000 --> 00:07:33,000
+those number of seconds, and then, every frame we also
+
+148
+00:07:33,000 --> 00:07:36,000
+need to be reducing the Slider value,
+
+149
+00:07:36,000 --> 00:07:39,000
+so that it represents the seconds
+
+150
+00:07:39,000 --> 00:07:42,000
+left over the number of seconds. Well, let's do the Slider bit first. Let's
+
+151
+00:07:42,000 --> 00:07:45,000
+try slider dot and see what we've got.
+
+152
+00:07:45,000 --> 00:07:48,000
+slider.value = secondsLeft
+
+153
+00:07:48,000 --> 00:07:51,000
+/ divided by
+
+154
+00:07:51,000 --> 00:07:54,000
+levelseconds; Now, is that right?
+
+155
+00:07:54,000 --> 00:07:57,000
+It's not really is it, because it's going to have a value of 1,
+
+156
+00:07:57,000 --> 00:08:00,000
+when the secondsLeft is at the top
+
+157
+00:08:00,000 --> 00:08:03,000
+and it's going to have a value of 0 at the wrong time. So, we
+
+158
+00:08:03,000 --> 00:08:06,000
+actually want 1 minus all of that.
+
+159
+00:08:06,000 --> 00:08:09,000
+That's the simple math that's on there. So, let's take
+
+160
+00:08:09,000 --> 00:08:12,000
+a look and see if that works. Every Update we're going to be updating the
+
+161
+00:08:12,000 --> 00:08:15,000
+Slider. If we had 100 seconds left and
+
+162
+00:08:15,000 --> 00:08:18,000
+started reducing, what happens? We get a
+
+163
+00:08:18,000 --> 00:08:21,000
+snap in the value, so it's not right. OK.
+
+164
+00:08:21,000 --> 00:08:24,000
+So, what's wrong here?
+
+165
+00:08:24,000 --> 00:08:27,000
+Well, this is a useful lesson in
+
+166
+00:08:27,000 --> 00:08:30,000
+types. Let's print this thing that we're
+
+167
+00:08:30,000 --> 00:08:33,000
+trying to output, OK, to the Console and
+
+168
+00:08:33,000 --> 00:08:36,000
+see what it is.
+
+169
+00:08:36,000 --> 00:08:39,000
+You're going to find something quite interesting here, hopefully if I get my
+
+170
+00:08:39,000 --> 00:08:42,000
+brackets right. One more bracket.
+
+171
+00:08:42,000 --> 00:08:45,000
+Look at the Console, OK.
+
+172
+00:08:45,000 --> 00:08:48,000
+0, 0, 0, 0, but if I reduce the seconds left, look what happens
+
+173
+00:08:48,000 --> 00:08:51,000
+down at the bottom here. It snaps straight to 1!
+
+174
+00:08:51,000 --> 00:08:54,000
+How come are we getting (secondsLeft /
+
+175
+00:08:54,000 --> 00:08:57,000
+levelSeconds) as coming out as an integer?
+
+176
+00:08:57,000 --> 00:09:00,000
+It's because it's matching the type. Both levelSeconds and
+
+177
+00:09:00,000 --> 00:09:03,000
+secondsLeft are integers, therefore when we do this
+
+178
+00:09:03,000 --> 00:09:06,000
+division we get an integer out. So, we're actually going to want a float
+
+179
+00:09:06,000 --> 00:09:09,000
+here, so that this is a floating point calculation,
+
+180
+00:09:09,000 --> 00:09:12,000
+down here. OK. And the same
+
+181
+00:09:12,000 --> 00:09:15,000
+with secondsLeft. So, it's good to start trying to use integers
+
+182
+00:09:15,000 --> 00:09:18,000
+if you can, but if you're then going to do a floating point calculation
+
+183
+00:09:18,000 --> 00:09:21,000
+with them, you're going to need to use floats. Now, as I reduce
+
+184
+00:09:21,000 --> 00:09:24,000
+my time, you see, it works! If I set my time to
+
+185
+00:09:24,000 --> 00:09:27,000
+50, the Slider is in the middle. If I set my time to
+
+186
+00:09:27,000 --> 00:09:30,000
+1, it's right on the right. And of course, this would work fine if
+
+187
+00:09:30,000 --> 00:09:33,000
+it was only a 10 second level. Now, if we have 5 seconds
+
+188
+00:09:33,000 --> 00:09:36,000
+left, we're in the middle. You get the idea? So, we are showing
+
+189
+00:09:36,000 --> 00:09:39,000
+the proportion of the way through the level we are, with this simple
+
+190
+00:09:39,000 --> 00:09:42,000
+code, but we do need to use floats here.
+
+191
+00:09:42,000 --> 00:09:45,000
+Fantastic! So, that's the slider value! The final thing
+
+192
+00:09:45,000 --> 00:09:48,000
+we need to do is, just actually take 1 second per second
+
+193
+00:09:48,000 --> 00:09:51,000
+off the game time. So,
+
+194
+00:09:51,000 --> 00:09:54,000
+how do we do that? So, we have a method called
+
+195
+00:09:54,000 --> 00:09:57,000
+Time.timeSince
+
+196
+00:09:57,000 --> 00:10:00,000
+LeveLoad, like that. It's just a float and it's the number of
+
+197
+00:10:00,000 --> 00:10:03,000
+seconds since the level loaded. So,
+
+198
+00:10:03,000 --> 00:10:06,000
+given that we can actually simplify our entire
+
+199
+00:10:06,000 --> 00:10:09,000
+class. We actually don't need secondsLeft at all anymore,
+
+200
+00:10:09,000 --> 00:10:12,000
+therefore we don't need to
+
+201
+00:10:12,000 --> 00:10:15,000
+set it here, because our slider value can
+
+202
+00:10:15,000 --> 00:10:18,000
+just be the timeSinceLevelLoad divided
+
+203
+00:10:18,000 --> 00:10:21,000
+by the levelSeconds. So, it's fine to go
+
+204
+00:10:21,000 --> 00:10:24,000
+through the logic before, but now we have a float divided by a
+
+205
+00:10:24,000 --> 00:10:27,000
+float, which should work. Let's take a look over in Unity,
+
+206
+00:10:27,000 --> 00:10:30,000
+click play, and our Slider
+
+207
+00:10:30,000 --> 00:10:33,000
+is going along at a rate of...
+
+208
+00:10:33,000 --> 00:10:36,000
+Well, it's fast enough that it'll get to the end, after 100 seconds. I'm not
+
+209
+00:10:36,000 --> 00:10:39,000
+going to wait 100 seconds, so let's set
+
+210
+00:10:39,000 --> 00:10:42,000
+the Level Seconds to say 5 and see how it
+
+211
+00:10:42,000 --> 00:10:45,000
+behaves then. Off it goes! Look
+
+212
+00:10:45,000 --> 00:10:48,000
+fantastic, zipping along for 5 seconds! So, that
+
+213
+00:10:48,000 --> 00:10:51,000
+very simple line there makes sure that the slider value is always a value
+
+214
+00:10:51,000 --> 00:10:54,000
+between 0 and 1, which is the proportion
+
+215
+00:10:54,000 --> 00:10:57,000
+of the way from the beginning of the level
+
+216
+00:10:57,000 --> 00:11:00,000
+to the total level time. So,
+
+217
+00:11:00,000 --> 00:11:03,000
+now we need to actually play the audio. So,
+
+218
+00:11:03,000 --> 00:11:06,000
+we're going to need a private AudioSource.
+
+219
+00:11:09,000 --> 00:11:12,000
+So, how are we going to find that AudioSource? We're going to go audio
+
+220
+00:11:12,000 --> 00:11:15,000
+Source
+
+221
+00:11:15,000 --> 00:11:18,000
+dot = rather, GetComponent.
+
+222
+00:11:18,000 --> 00:11:21,000
+Why GetComponent? Because it's a component
+
+223
+00:11:21,000 --> 00:11:24,000
+on the same object right? We have the Game Timer here, which is a component,
+
+224
+00:11:24,000 --> 00:11:27,000
+and the AudioSource is a component on the same GameObject
+
+225
+00:11:27,000 --> 00:11:30,000
+of type &lt;AudioSource&gt;();
+
+226
+00:11:33,000 --> 00:11:36,000
+Fantastic! So, now we need our if condition! We need to start detecting whether the
+
+227
+00:11:36,000 --> 00:11:39,000
+level has finished. So, that's simply going to be
+
+228
+00:11:39,000 --> 00:11:42,000
+if the time since the level has loaded
+
+229
+00:11:42,000 --> 00:11:45,000
+is greater than or equal to, just in case we skip over
+
+230
+00:11:45,000 --> 00:11:48,000
+it, levelSeconds.
+
+231
+00:11:48,000 --> 00:11:51,000
+OK. If that happens,
+
+232
+00:11:51,000 --> 00:11:54,000
+then for now, we'll just say ("Level over").
+
+233
+00:11:54,000 --> 00:11:57,000
+But there's a problem
+
+234
+00:11:57,000 --> 00:12:00,000
+with the logic here. This is going to happen every Update, so if we
+
+235
+00:12:00,000 --> 00:12:03,000
+let this occur, watch what happens. We're going to get ("Level
+
+236
+00:12:03,000 --> 00:12:06,000
+over") called, again and again and again and again. Watch it when we go to
+
+237
+00:12:06,000 --> 00:12:09,000
+the end of the timer. LevelLoad just keeps
+
+238
+00:12:09,000 --> 00:12:12,000
+getting called, very frame. We only want it called once.
+
+239
+00:12:12,000 --> 00:12:15,000
+Before we start putting our logic in here, that plays sound
+
+240
+00:12:15,000 --> 00:12:18,000
+and loads levels, we only want this called once. So, I'm going to
+
+241
+00:12:18,000 --> 00:12:21,000
+introduce a private Bool called,
+
+242
+00:12:21,000 --> 00:12:24,000
+isEndOfLevel;
+
+243
+00:12:24,000 --> 00:12:27,000
+which detects the end of level state, quite obviously.
+
+244
+00:12:27,000 --> 00:12:30,000
+And it's going to start being false, because in the beginning
+
+245
+00:12:30,000 --> 00:12:33,000
+it's not the end of the level. And what I'm going to say
+
+246
+00:12:33,000 --> 00:12:36,000
+is if the timeSinceLevelLoad is greater than the level
+
+247
+00:12:36,000 --> 00:12:39,000
+Seconds, i.e. the level timer is up, and
+
+248
+00:12:39,000 --> 00:12:42,000
+so &amp;&amp; isEndOfLevel.
+
+249
+00:12:42,000 --> 00:12:45,000
+Then, we print level is over and set
+
+250
+00:12:45,000 --> 00:12:48,000
+isEndOfLevel to true.
+
+251
+00:12:48,000 --> 00:12:51,000
+OK, let's try that! Now, what should happen,
+
+252
+00:12:51,000 --> 00:12:54,000
+when the timer expires, is we
+
+253
+00:12:54,000 --> 00:12:57,000
+just get a single log of
+
+254
+00:12:57,000 --> 00:13:00,000
+level end. OK.
+
+255
+00:13:00,000 --> 00:13:03,000
+We get none so that's because I'm missing
+
+256
+00:13:03,000 --> 00:13:06,000
+a not. If the level time
+
+257
+00:13:06,000 --> 00:13:09,000
+has expired and it's the end of the level. Now look, if
+
+258
+00:13:09,000 --> 00:13:12,000
+you're finding this difficult to read, it's perfectly reasonable to put it into a separate
+
+259
+00:13:12,000 --> 00:13:15,000
+Bool like this. You can say bool,
+
+260
+00:13:15,000 --> 00:13:18,000
+and then, we can say timeIs
+
+261
+00:13:18,000 --> 00:13:21,000
+Up =.
+
+262
+00:13:21,000 --> 00:13:24,000
+Now, I like to use brackets here, and then, I'll put
+
+263
+00:13:24,000 --> 00:13:27,000
+my conditional statement, my comparison, inside of the brackets.
+
+264
+00:13:27,000 --> 00:13:30,000
+bool timeIsUp
+
+265
+00:13:30,000 --> 00:13:33,000
+and then, that's the comparison. Then, the if statement reads
+
+266
+00:13:33,000 --> 00:13:36,000
+if (timeIsup &amp;&amp;
+
+267
+00:13:36,000 --> 00:13:39,000
+the level is not over. Not is
+
+268
+00:13:39,000 --> 00:13:42,000
+EndOfLevel. Then, print ("Level
+
+269
+00:13:42,000 --> 00:13:45,000
+over") and set the Boolean. Let's try it!
+
+270
+00:13:45,000 --> 00:13:48,000
+That's the logic, so that we only get a single call.
+
+271
+00:13:48,000 --> 00:13:51,000
+And at the end here, we just get a single
+
+272
+00:13:51,000 --> 00:13:54,000
+level over. Better! OK fantastic!
+
+273
+00:13:54,000 --> 00:13:57,000
+So now, we're ready to start in here. Instead of printing ("Level over")
+
+274
+00:13:57,000 --> 00:14:00,000
+we want to actually play the sound. So, audioSource.play
+
+275
+00:14:00,000 --> 00:14:03,000
+...
+
+276
+00:14:03,000 --> 00:14:06,000
+and it's a method.
+
+277
+00:14:06,000 --> 00:14:09,000
+That will just play the AudioSource. That's fine! That's
+
+278
+00:14:09,000 --> 00:14:12,000
+pretty clearly going to work, and then, it needs to wait a while
+
+279
+00:14:12,000 --> 00:14:15,000
+before it loads the level. How are we going to do that? Do you remember the
+
+280
+00:14:15,000 --> 00:14:18,000
+method for waiting a bit. Well, it's
+
+281
+00:14:18,000 --> 00:14:21,000
+Invoke, but you'll probably recall, if you look at the docs for Invoke,
+
+282
+00:14:21,000 --> 00:14:24,000
+that it wants a method name and then an amount of time.
+
+283
+00:14:24,000 --> 00:14:27,000
+Well, let's assume we have
+
+284
+00:14:27,000 --> 00:14:30,000
+a method called ("Load next level"
+
+285
+00:14:30,000 --> 00:14:33,000
+OK, which we don't yet.
+
+286
+00:14:33,000 --> 00:14:36,000
+And then, let's make the amount of time, audioSource
+
+287
+00:14:36,000 --> 00:14:39,000
+.clip.length);
+
+288
+00:14:39,000 --> 00:14:42,000
+And then, it'll automatically adjust to our clip.
+
+289
+00:14:42,000 --> 00:14:45,000
+Fantastic! Now, I need a separate method
+
+290
+00:14:45,000 --> 00:14:48,000
+for LoadLevel, just because of the way Invoke works. So, I'm going to create
+
+291
+00:14:48,000 --> 00:14:51,000
+a simple LoadNextLevel () method.
+
+292
+00:14:51,000 --> 00:14:54,000
+The most basic outline we can.
+
+293
+00:14:54,000 --> 00:14:57,000
+And then, we're going to need to use a LevelManager, which we don't have yet, but I'll
+
+294
+00:14:57,000 --> 00:15:00,000
+assume we do for a minute. Dot LoadNext
+
+295
+00:15:00,000 --> 00:15:03,000
+Level. But it's not autocompleting, so let's get this
+
+296
+00:15:03,000 --> 00:15:06,000
+LevelManager first, because otherwise the autocomplete is a mess.
+
+297
+00:15:06,000 --> 00:15:09,000
+So again, up here we just go ahead and find ourselves a LevelManager right.
+
+298
+00:15:21,000 --> 00:15:24,000
+I'm having some slight finger
+
+299
+00:15:24,000 --> 00:15:27,000
+issues. OK fantastic! And then, on Start we find it!
+
+300
+00:15:27,000 --> 00:15:30,000
+Now, which find do we use? Is it Get
+
+301
+00:15:30,000 --> 00:15:33,000
+Component? Well, no because
+
+302
+00:15:33,000 --> 00:15:36,000
+the script here is looking for a LevelManager on a different Game
+
+303
+00:15:36,000 --> 00:15:39,000
+Object. The script is on the Slider, the LevelManager
+
+304
+00:15:39,000 --> 00:15:42,000
+is a different GameObject. So, we need GameObject dot. Not
+
+305
+00:15:42,000 --> 00:15:45,000
+GameTimer. GameObject.FindObjectOfType
+
+306
+00:15:45,000 --> 00:15:48,000
+...
+
+307
+00:15:48,000 --> 00:15:51,000
+...and then,
+
+308
+00:15:51,000 --> 00:15:54,000
+we can put the type in
+
+309
+00:15:54,000 --> 00:15:57,000
+and then the method. Fine! Now,
+
+310
+00:15:57,000 --> 00:16:00,000
+we can say levelManager, with a small l...
+
+311
+00:16:03,000 --> 00:16:06,000
+.LoadNextLevel();
+
+312
+00:16:06,000 --> 00:16:09,000
+There we go!
+
+313
+00:16:09,000 --> 00:16:12,000
+Let's try all that! So, if the time is up
+
+314
+00:16:12,000 --> 00:16:15,000
+and it's not the end of the level, we play the source, we
+
+315
+00:16:15,000 --> 00:16:18,000
+ask to load the next level, after the source
+
+316
+00:16:18,000 --> 00:16:21,000
+clip has finished, and then, we
+
+317
+00:16:21,000 --> 00:16:24,000
+set this boolean, so that next time around this gets
+
+318
+00:16:24,000 --> 00:16:27,000
+skipped over, because there are going to be lots of updates in between. Alright,
+
+319
+00:16:27,000 --> 00:16:30,000
+if I printed Update here, it would just say Update Update Update, and only
+
+320
+00:16:30,000 --> 00:16:33,000
+once will it do this loading. That's the idea of that
+
+321
+00:16:33,000 --> 00:16:36,000
+logic there. Let's try this! My audio
+
+322
+00:16:36,000 --> 00:16:39,000
+clip might be heinously loud, but we can handle that!
+
+323
+00:16:39,000 --> 00:16:42,000
+Oh!
+
+324
+00:16:42,000 --> 00:16:45,000
+Uh my head! OK, that was
+
+325
+00:16:45,000 --> 00:16:48,000
+really really really loud! Don't worry about al of these errors. These errors are
+
+326
+00:16:48,000 --> 00:16:51,000
+because the next level has... Ah, it's just rubbish at the moment. We
+
+327
+00:16:51,000 --> 00:16:54,000
+haven't even tried to get our next level working. But that
+
+328
+00:16:54,000 --> 00:16:57,000
+worked, which is fantastic news! So, a couple of things to do!
+
+329
+00:16:57,000 --> 00:17:00,000
+I'm going to re-prefab my Level Canvas here, because it
+
+330
+00:17:00,000 --> 00:17:03,000
+now has the useful Slider Element in it, and
+
+331
+00:17:03,000 --> 00:17:06,000
+delete the old one. So, there it is. And I'm
+
+332
+00:17:06,000 --> 00:17:09,000
+also against my audio clip, I'm going to
+
+333
+00:17:09,000 --> 00:17:12,000
+reduce the volume of it, because it is crazy
+
+334
+00:17:12,000 --> 00:17:15,000
+noisy. So where do you find that?
+
+335
+00:17:15,000 --> 00:17:18,000
+You actually find it on the Slider itself,
+
+336
+00:17:18,000 --> 00:17:21,000
+against the AudioSource component. I'm going to set it to 50%,
+
+337
+00:17:21,000 --> 00:17:24,000
+and then, just check it all works again.
+
+338
+00:17:24,000 --> 00:17:27,000
+And then, we have handle the Win Condition. It just remains to move these pieces
+
+339
+00:17:27,000 --> 00:17:30,000
+of text at the bottom.
+
+340
+00:17:30,000 --> 00:17:33,000
+[Music Plays in Background] Awesome!
+
+341
+00:17:33,000 --> 00:17:36,000
+So, let's remove the bits of text at the bottom. We don't need a Win
+
+342
+00:17:36,000 --> 00:17:39,000
+Condition or a Lose Condition text anymore, but I'm going to keep
+
+343
+00:17:39,000 --> 00:17:42,000
+one of them and repurpose it
+
+344
+00:17:42,000 --> 00:17:45,000
+into this new piece of text, that says
+
+345
+00:17:45,000 --> 00:17:48,000
+"You Won!" or something like that. And it can pop up right over the middle of
+
+346
+00:17:48,000 --> 00:17:51,000
+the screen. It can be big,
+
+347
+00:17:51,000 --> 00:17:54,000
+It can have a much larger font,
+
+348
+00:17:54,000 --> 00:17:57,000
+and "Win Condition". It can just say
+
+349
+00:17:57,000 --> 00:18:00,000
+"You Won!" Get
+
+350
+00:18:00,000 --> 00:18:03,000
+ready for the next level.
+
+351
+00:18:03,000 --> 00:18:06,000
+Ah, let's not say that, because then we have to manage what the last
+
+352
+00:18:06,000 --> 00:18:09,000
+level is, but we want a "You Won!" thing like that.
+
+353
+00:18:09,000 --> 00:18:12,000
+It's not the "Win Condition" by name anymore, it's
+
+354
+00:18:12,000 --> 00:18:15,000
+now You Win.
+
+355
+00:18:15,000 --> 00:18:18,000
+It's just a label called You Win. And we're going to need
+
+356
+00:18:18,000 --> 00:18:21,000
+access to this You Win label,
+
+357
+00:18:21,000 --> 00:18:24,000
+so that we can turn it off. So, we want it by default to be
+
+358
+00:18:24,000 --> 00:18:27,000
+off like that, and then, we want it to come on
+
+359
+00:18:27,000 --> 00:18:30,000
+when the music plays.
+
+360
+00:18:30,000 --> 00:18:33,000
+So, how are we going to find it? That's what we need to think about briefly. How do you
+
+361
+00:18:33,000 --> 00:18:36,000
+find it? There are lots of ways you could find it, but in this case, let's
+
+362
+00:18:36,000 --> 00:18:39,000
+just do it by name. So, we're going to use the You Win
+
+363
+00:18:39,000 --> 00:18:42,000
+name. So, back in the script then, we need to find
+
+364
+00:18:42,000 --> 00:18:45,000
+this GameObject. GameObject
+
+365
+00:18:45,000 --> 00:18:48,000
+winLabel; OK, so we have an instance variable
+
+366
+00:18:48,000 --> 00:18:51,000
+there to store it in. On the Start let's find the Win
+
+367
+00:18:51,000 --> 00:18:54,000
+Label. So, I might put it in Start and then
+
+368
+00:18:54,000 --> 00:18:57,000
+refactor it. So, we're going to say winLabel
+
+369
+00:18:57,000 --> 00:19:00,000
+= GameObject.Find,
+
+370
+00:19:00,000 --> 00:19:03,000
+and it's by name this time.
+
+371
+00:19:03,000 --> 00:19:06,000
+I think it was ("You Win") wasn't it?
+
+372
+00:19:06,000 --> 00:19:09,000
+OK alright, fine!
+
+373
+00:19:09,000 --> 00:19:12,000
+So, we're going to try and find something of type
+
+374
+00:19:12,000 --> 00:19:15,000
+("You Win"). If we
+
+375
+00:19:15,000 --> 00:19:18,000
+get something back then that's fine, but if we
+
+376
+00:19:18,000 --> 00:19:21,000
+don't get something back, if not (winLabel), then
+
+377
+00:19:21,000 --> 00:19:24,000
+we want to just Debug.LogError
+
+378
+00:19:24,000 --> 00:19:27,000
+or probably LogWarning.
+
+379
+00:19:27,000 --> 00:19:30,000
+And it's up to you whether it's serious enough to be an error or a warning.
+
+380
+00:19:30,000 --> 00:19:33,000
+Is it a show stopper? It's kind of just a weird one, is it
+
+381
+00:19:33,000 --> 00:19:36,000
+going to come up? The game is still going to play but the "You Win!" won't show. So, I'm going to log
+
+382
+00:19:36,000 --> 00:19:39,000
+a warning. ("Please create You Win
+
+383
+00:19:39,000 --> 00:19:42,000
+object"); It's enough to just give
+
+384
+00:19:42,000 --> 00:19:45,000
+the designer a heads up. Fantastic! All of this
+
+385
+00:19:45,000 --> 00:19:48,000
+course can be refactored out, below to say
+
+386
+00:19:48,000 --> 00:19:51,000
+Find...
+
+387
+00:19:51,000 --> 00:19:54,000
+Find
+
+388
+00:19:54,000 --> 00:19:57,000
+YouWin (); OK, just to make
+
+389
+00:19:57,000 --> 00:20:00,000
+it read better. Fantastic! So, we go and find this You
+
+390
+00:20:00,000 --> 00:20:03,000
+Win object, and then, what we can also do at the
+
+391
+00:20:03,000 --> 00:20:06,000
+Start is if we do find it, we
+
+392
+00:20:06,000 --> 00:20:09,000
+just want to set it to
+
+393
+00:20:09,000 --> 00:20:12,000
+inactive. So, we want to set the win
+
+394
+00:20:12,000 --> 00:20:15,000
+Label to inactive. So, winLabel
+
+395
+00:20:15,000 --> 00:20:18,000
+.SetActive(false);
+
+396
+00:20:18,000 --> 00:20:21,000
+OK, so we find it
+
+397
+00:20:21,000 --> 00:20:24,000
+and then set it to inactive. That's one way of doing it.
+
+398
+00:20:24,000 --> 00:20:27,000
+You can change your method names and things here, but this is fine. We
+
+399
+00:20:27,000 --> 00:20:30,000
+find it, set it inactive. Then, down here
+
+400
+00:20:30,000 --> 00:20:33,000
+when we play the audioSource, then we say winLabel.Set
+
+401
+00:20:33,000 --> 00:20:36,000
+Active(true);
+
+402
+00:20:36,000 --> 00:20:39,000
+OK now, to stop anybody pushing any buttons, when this winLabel
+
+403
+00:20:39,000 --> 00:20:42,000
+is up, you may want to make it even bigger.
+
+404
+00:20:42,000 --> 00:20:45,000
+You could take the ("You Win") object and actually make it so large
+
+405
+00:20:45,000 --> 00:20:48,000
+that it goes over all of the buttons, in the game space.
+
+406
+00:20:48,000 --> 00:20:51,000
+Perhaps something like that. Alright, or maybe even
+
+407
+00:20:51,000 --> 00:20:54,000
+down to the bottom. And I'm going to change my text for
+
+408
+00:20:54,000 --> 00:20:57,000
+something that's a little bit more exciting, a little bit
+
+409
+00:20:57,000 --> 00:21:00,000
+more winnie. So, what's going to go well against green?
+
+410
+00:21:00,000 --> 00:21:03,000
+Maybe a yellow?
+
+411
+00:21:03,000 --> 00:21:06,000
+Something like that! That'll do! I better be
+
+412
+00:21:06,000 --> 00:21:09,000
+consistent. I think "You Won!" or green,
+
+413
+00:21:09,000 --> 00:21:12,000
+blue, purple? Who cares! Purple It's pretty
+
+414
+00:21:12,000 --> 00:21:15,000
+ugly, but is shows you, you won! Let's make sure it works!
+
+415
+00:21:15,000 --> 00:21:18,000
+Time is counting down, I can still click
+
+416
+00:21:18,000 --> 00:21:21,000
+around here,
+
+417
+00:21:21,000 --> 00:21:24,000
+and I get a "You Won!". Now, you might
+
+418
+00:21:24,000 --> 00:21:27,000
+want to set Time.timeScale to be
+
+419
+00:21:27,000 --> 00:21:30,000
+different in here, as an extra exercise, but you need
+
+420
+00:21:30,000 --> 00:21:33,000
+to be careful about doing that and then how that's going to intereact with
+
+421
+00:21:33,000 --> 00:21:36,000
+your Invoke. The purpose would be to stop all the enemies,
+
+422
+00:21:36,000 --> 00:21:39,000
+or for the short amount of time you could just do what I've done
+
+423
+00:21:39,000 --> 00:21:42,000
+and let them carry on. So, that's pretty cool!
+
+424
+00:21:42,000 --> 00:21:45,000
+The only problem I've quickly noticed, is to do
+
+425
+00:21:45,000 --> 00:21:48,000
+with the fact that these button prefabs have become disconnected for me.
+
+426
+00:21:48,000 --> 00:21:51,000
+If I try and place objects it's not working,
+
+427
+00:21:51,000 --> 00:21:54,000
+and that's because we've lost the prefab connections for
+
+428
+00:21:54,000 --> 00:21:57,000
+some of my objects. It's not a problem, I'll sort that out
+
+429
+00:21:57,000 --> 00:22:00,000
+a bit in the tidy up video. So congratulations
+
+430
+00:22:00,000 --> 00:22:03,000
+on getting this far and getting your win condition going,
+
+431
+00:22:03,000 --> 00:22:04,566
+and I will see you soon!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section7/GG41 UI Slider Level Timer.srt

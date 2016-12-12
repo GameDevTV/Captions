@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section9/ZR06 Creating A Terrain.srt
 WEBVTT
 Kind: captions
 Language: en
@@ -726,3 +727,732 @@ textured. We'll worry about trees and
 other features a little bit later. and I
 shall do my terrain in the next video.
 
+=======
+Kind: captions
+Language: en
+
+00:00:00,000 --> 00:00:07,460
+Welcome back! In this video, we're going to be creating a terrain. So, we'll first
+
+00:00:07,460 --> 00:00:10,530
+have you go and read the game design document. Then, I'll show you how to set up a
+
+00:00:10,530 --> 00:00:15,219
+terrain, talk you through some settings,
+and then, make your own. So, go read
+
+00:00:15,219 --> 00:00:19,650
+the GDD first, you'll get a feel for where
+we're headed. Write down your own ideas
+
+00:00:19,650 --> 00:00:23,460
+about what you want to do in this game,
+and then, share your ideas in the
+
+00:00:23,460 --> 00:00:28,280
+discussion. So, pause the video, go find the
+game design document, which is at the beginning of the
+
+00:00:28,280 --> 00:00:32,300
+section, take a look come up with some ideas of your own that you want to include,
+
+00:00:32,300 --> 00:00:39,070
+challenge yourself, and see you in a
+second. So, over in Unity I have a blank
+
+00:00:39,070 --> 00:00:42,600
+Zombie Runner project here, with
+absolutely nothing going on. So, the first
+
+00:00:42,600 --> 00:00:47,350
+thing to do is create a 3D object,
+terrain. Fantastic! There it is, a big white
+
+00:00:47,350 --> 00:00:51,870
+blob in your scene. There it is in the
+hierarchy, and there it is in your assets.
+
+00:00:51,870 --> 00:00:59,109
+So, that's absolutely wicked! So, when we
+first set this terrain up, firstly,
+
+00:00:59,109 --> 00:01:02,800
+there's not really enough space to work
+with it in my windows here, so I'm going to
+
+00:01:02,800 --> 00:01:06,580
+remove a few panes. You're welcome to do
+the same if you like. I'm going to get rid of
+
+00:01:06,580 --> 00:01:08,870
+the project, the console, and
+
+00:01:08,870 --> 00:01:12,740
+the hierarchy, and then, save this
+layout, which is in a slightly different
+
+00:01:12,740 --> 00:01:21,000
+place in Unity 5.1. I'm going to save it as Terrain. Terrain Editing, there you go, or just terrain,
+
+00:01:21,000 --> 00:01:23,840
+whatever. So, there you've got a much bigger layout, so I can see what I'm doing.
+
+00:01:23,840 --> 00:01:27,880
+Now, the way I'm moving around this terrain, in case you haven't noticed Fly
+
+00:01:27,880 --> 00:01:32,200
+Through Mode is as follows, you go into
+the Scene View, right click the mouse
+
+00:01:32,200 --> 00:01:36,350
+button or hold down both fingers on a Mac
+Trackpad, and then, you can use A to go
+
+00:01:36,350 --> 00:01:40,480
+left D to go right. Standard first person
+controls. In fact, you can see it in the
+
+00:01:40,480 --> 00:01:44,090
+middle of screen there, it's indicating with the little icon next to the
+
+00:01:44,090 --> 00:01:49,690
+eye. And then, W goes forward S goes
+backwards, and then, E and Q go up and
+
+00:01:49,690 --> 00:01:55,740
+down, if you're lucky. And then, Shift makes everything go faster. Sometimes you
+
+00:01:55,740 --> 00:01:59,650
+might find the E and Q, I'm finding that
+it sometimes is acting on my terrain
+
+00:01:59,650 --> 00:02:04,190
+settings over here. But generally, your Fly
+Through Mode is a fairly reliable way of
+
+00:02:04,190 --> 00:02:08,910
+moving around, in the game mode, while you're holding down the right mouse button. Cool! So, I've
+
+00:02:08,910 --> 00:02:11,870
+accidentally tweaked the terrain there. It
+doesn't matter if you do that, we can
+
+00:02:11,870 --> 00:02:17,830
+always replace and fix the terrain later.
+So, first thing is to decide on how big a
+
+00:02:17,830 --> 00:02:22,610
+terrain you're going to want. This one is
+500 by 500 World Units, and you can
+
+00:02:22,610 --> 00:02:25,750
+see that by going into the Inspector, clicking on the little cog on the right hand
+
+00:02:25,750 --> 00:02:30,120
+side, under Terrain where I'm pointing
+now, and then, scrolling down to where it says
+
+00:02:30,120 --> 00:02:34,989
+Resolution, Terrain Width, Terrain Length; it's 500 by 500 meters. When I've called for at least
+
+00:02:34,989 --> 00:02:39,970
+600 by 600 and I've chosen that size,
+because it's not much bigger than the
+
+00:02:39,970 --> 00:02:44,540
+default. And yet, at normal running speed
+of one of our characters it gives us a
+
+00:02:44,540 --> 00:02:48,160
+whole minute of movement across this
+terrain, if we were to get down there and
+
+00:02:48,160 --> 00:02:52,580
+have a character controller, which you'll
+meet later, run across this terrain, it would take
+
+00:02:52,580 --> 00:02:54,050
+about a minute to get across.
+
+00:02:54,050 --> 00:02:58,870
+Now, if you have a very fast machine or lots of memory, so more than say
+
+00:02:58,870 --> 00:03:03,400
+8 gig of RAM and a pretty fast
+machine, a quad-core or beyond then, you
+
+00:03:03,400 --> 00:03:06,350
+might want to go up on this terrain size.
+If you have a particularly slow machine,
+
+00:03:06,350 --> 00:03:10,209
+you may want to go down, because you'll notice with terrain already, you see it's doing stuff in the
+
+00:03:10,209 --> 00:03:14,349
+background, now. It's doing various
+things that we don't need to worry about at the moment.
+
+00:03:14,350 --> 00:03:16,640
+It's doing some clustering, invisibility
+
+00:03:16,640 --> 00:03:21,590
+calculations. This is basically to do with
+how Unity is going to reveal the terrain
+
+00:03:21,590 --> 00:03:25,400
+to us, as we move across. It doesn't look
+much like a terrain at the moment, it's rather boring
+
+00:03:25,400 --> 00:03:30,209
+right. It's just a flat space, but pick
+yourself a size, and that is something
+
+00:03:30,209 --> 00:03:33,060
+that you do need to get right now,
+because if you draw features on this
+
+00:03:33,060 --> 00:03:37,350
+terrain, and then, you resize the terrain later, then everything will get stretched.
+
+00:03:37,350 --> 00:03:41,440
+And it doesn't have to be square by the
+way; it doesn't have to be 600 by 600. I'm just going
+
+00:03:41,440 --> 00:03:45,440
+to go with a simple 600 by 600 to save
+myself work, but if you want a more
+
+00:03:45,440 --> 00:03:48,890
+adventurous world and you like to think
+you're going to like creating worlds, feel free
+
+00:03:48,890 --> 00:03:54,709
+to make this big... bigger. So, the first thing we're going to want to do is put some sort of
+
+00:03:54,709 --> 00:03:59,340
+texture to this terrain. This plain white
+is just, too, boring. So, click the middle
+
+00:03:59,340 --> 00:04:03,300
+setting, for the moment, which is the
+Paint Texture setting, and we're going to
+
+00:04:03,300 --> 00:04:06,930
+need to go and get ourselves a texture.
+Now, the place to get that is from the Asset
+
+00:04:06,930 --> 00:04:11,850
+Packs. You want the Environment Asset Pack, so go to Assets, Import Package Environment.
+
+00:04:11,850 --> 00:04:16,390
+Now, if for any reason you don't have that
+Environment Asset Pack, you're going to need
+
+00:04:16,390 --> 00:04:20,400
+to go and get it from the Unity store,
+but you probably checked it when you
+
+00:04:20,400 --> 00:04:24,500
+installed Unity, so you probably have
+this pack. Import Package Environment.
+
+00:04:24,500 --> 00:04:29,960
+So, it's going to decompress the package, pop up with a dialogue something like this.
+
+00:04:29,960 --> 00:04:34,840
+I think we may as well take the whole lot.
+If you do want to save some space,
+
+00:04:34,840 --> 00:04:38,660
+on your project then, you could look a bit
+more critically at this, and say well what do I
+
+00:04:38,660 --> 00:04:44,090
+want? Do I need Cross-Platform Input? Not really. Do I need Environment? Yes, it's
+
+00:04:44,090 --> 00:04:49,780
+all about environment. Do I need utility
+stuff? No, not really at the moment. So, you
+
+00:04:49,780 --> 00:04:57,790
+could if you wish, just take actually the
+Environment Section by expanding out
+
+00:04:57,790 --> 00:05:00,600
+your windows like this and just taking
+environment. I'm going to do that, because
+
+00:05:00,600 --> 00:05:03,990
+it's going to be smaller and quicker. But
+again, if you're not worried about size
+
+00:05:03,990 --> 00:05:09,330
+just import the whole lot. So, here we go!
+It's bringing in some Standard Assets,
+
+00:05:09,330 --> 00:05:15,669
+which are going to be really handy for getting a basic bit of terrain off the ground. So, let that happen.
+
+00:05:15,669 --> 00:05:17,970
+You might be wondering what these other
+things on here are, while we wait. These are
+
+00:05:17,970 --> 00:05:23,130
+brushes, they're just different shapes with,
+which you can paint on the canvas of your
+
+00:05:23,130 --> 00:05:26,680
+terrains. And then, you've got a brush size,
+which is that blue blur you see there.
+
+00:05:26,680 --> 00:05:29,200
+That tells you how big a brush you're using,
+
+00:05:29,200 --> 00:05:34,510
+and so that varies how large your
+brushes are. And then, the opacity here tells
+
+00:05:34,510 --> 00:05:40,520
+you how quickly you paint, so that tells
+you if it's very high then, you
+
+00:05:40,520 --> 00:05:45,690
+immediately go to fully opaque terrain textures.
+
+00:05:45,690 --> 00:05:49,310
+And if it's very low then, you have to put a very transparent texture on, until you
+
+00:05:49,310 --> 00:05:52,440
+go over the space lots of times, we'll see
+that in a bit. And I'll talk about the difference
+
+00:05:52,440 --> 00:05:58,200
+between opacity and target strength, but now that my import has imported, lets add a texture.
+
+00:05:58,200 --> 00:06:02,560
+Now, you get two options, several options actually. You have the Tile Size of the
+
+00:06:02,570 --> 00:06:06,010
+textures and the Default, if you're using your own terrains. Let's leave
+
+00:06:06,010 --> 00:06:11,460
+that as default. Then, you have the option
+for an Albedo and a Normal Map, so we're
+
+00:06:11,460 --> 00:06:17,610
+going to go for the Albedo. And let's
+look for something like grass, Grass Hill
+
+00:06:17,610 --> 00:06:24,880
+Albedo, for example there. Ok! So, there we are, we have an Albedo Darkness
+
+00:06:24,880 --> 00:06:29,750
+tile. And if we add that to our list then,
+it's the first texture in our list of
+
+00:06:29,750 --> 00:06:33,930
+brushes, and it automatically applies that to the entire terrain. So, if you
+
+00:06:33,930 --> 00:06:38,770
+come down and then, have a little look
+around... I'm just going to zoom in. It looks incredibly
+
+00:06:38,770 --> 00:06:42,630
+tiled, but when you get up close it kind of
+looks ok. It looks a bit repetitive.
+
+00:06:42,630 --> 00:06:45,480
+But we're going to break this up a lot. But at
+least we have a terrain we can see
+
+00:06:45,480 --> 00:06:50,860
+better than the plain boring terrain,
+that we had before. So, that is how you
+
+00:06:50,860 --> 00:06:56,650
+get the base texture on there. You can add as many layers of textures as you want, so
+
+00:06:56,650 --> 00:07:01,110
+if you then go back in here, and then
+look down, you've got... a lot of these to
+
+00:07:01,110 --> 00:07:04,910
+do with trees and stuff, but the other
+thing you've got is Grass Rocky Albedo.
+
+00:07:04,910 --> 00:07:15,040
+So, let's have some of that and add that to
+the list, and let's also add the mud one. Ok.
+
+00:07:15,040 --> 00:07:18,879
+Now, with the mud, you also notice if you put mud in the search, that you get a
+
+00:07:18,879 --> 00:07:23,499
+Normal Map available, as well, So, let's do
+that, let's select the Muddy Albedo,
+
+00:07:23,499 --> 00:07:29,019
+but let's also select a Muddy Normal Map.
+Now, let's see what that does briefly.
+
+00:07:29,020 --> 00:07:32,439
+So, say you were to click over on this mud texture, because it's loaded with not
+
+00:07:32,439 --> 00:07:36,869
+only a texture but a Normal Map, look
+what happens when I make something muddy.
+
+00:07:36,869 --> 00:07:44,379
+I choose Mud, by clicking on it there. I then, pick myself a brush, and I'll make
+
+00:07:44,379 --> 00:07:50,159
+the size of it smaller, like this, so it's
+reasonable. Now, the Opacity tells you how opaque
+
+00:07:50,160 --> 00:07:54,979
+the texture that you paint actually
+is, but it tells you how quickly it puts
+
+00:07:54,979 --> 00:08:00,169
+the paint down. So, if I have a very low
+Opacity then, it puts the paint down very
+
+00:08:00,169 --> 00:08:04,839
+slowly, and I have to keep going over the
+same area again and again. If I have a very
+
+00:08:04,839 --> 00:08:08,849
+high Opacity, it immediately goes to
+the Target Strength, and the Target
+
+00:08:08,849 --> 00:08:12,599
+Strength tells you how transparent the texture is when you've
+
+00:08:12,599 --> 00:08:15,759
+finished. So look, if I put a target strength
+of 1 and an Opacity of 100, it
+
+00:08:15,759 --> 00:08:20,360
+immediately goes to 100% mud. Wheres if I had a low Opacity and a high
+
+00:08:20,360 --> 00:08:24,200
+Target Strength... And what it would do is
+it would eventually go to
+
+00:08:24,200 --> 00:08:28,760
+100% mud, if I rub in enough. So, I
+actually like having a bit of a low
+
+00:08:28,769 --> 00:08:32,229
+Opacity, it gives a more natural feel, and then, you can kind of brush on your muddy
+
+00:08:32,229 --> 00:08:35,930
+areas, like this. Now, the mud will look
+different to other stuff, a little bit.
+
+00:08:35,930 --> 00:08:40,430
+Because it has a Normal Map, it may, to
+your eye, look a little bit 3D, and
+
+00:08:40,430 --> 00:08:44,029
+that's the purpose of a Normal Map. We
+won't go into the details, right now, but
+
+00:08:44,029 --> 00:08:47,940
+it should give it a kind of 3D look. Let's see  by turning off the
+
+00:08:47,940 --> 00:08:54,060
+Normal Map, for a moment. There you go, look at the mud, now, it looks very flat. Now, go back
+
+00:08:54,060 --> 00:09:05,460
+to the texture, and add the Normal Map. Can you see the difference? Let me move this out of the way.
+
+00:09:05,460 --> 00:09:09,660
+I can, it makes it look really much more 3D.
+While you're here, you could search the
+
+00:09:09,670 --> 00:09:13,450
+Standard Asset Pack for normal, see whatever Normal Maps you have, but you'll find that for
+
+00:09:13,450 --> 00:09:19,560
+ground stuff, rather than trees use only
+the mud. Ok. So, just give it a more 3D effect.
+
+00:09:19,560 --> 00:09:24,050
+So, that is how you paint your textures
+on the land.
+
+00:09:24,050 --> 00:09:26,460
+The other thing I want to show you,
+before I let you loose creating your own
+
+00:09:26,460 --> 00:09:31,970
+land is how to raise and lower the
+terrain. So, bear in mind that, right now,
+
+00:09:31,970 --> 00:09:35,710
+the terrain is the lowest height it can
+get. So, if you try and hold down Shift
+
+00:09:35,710 --> 00:09:40,730
+and click, you cannot lower the terrain,
+but you can raise it. Ok and you have a
+
+00:09:40,730 --> 00:09:45,070
+similar kind of setting here, with Opacity and brush size. So, you can raise
+
+00:09:45,070 --> 00:09:48,160
+up the terrain where you want your hills. Now, if you want the whole terrain up, so
+
+00:09:48,160 --> 00:09:51,700
+that you can dig valleys, and I do
+suggest that you do this so that you
+
+00:09:51,700 --> 00:09:55,550
+can actually dig down a little bit,
+this is how you do it. You use the next
+
+00:09:55,550 --> 00:10:01,210
+setting along, which is Paint Height. Now, what Paint Height lets you do, is say you
+
+00:10:01,210 --> 00:10:05,890
+put in a target height of 50 and a very
+high Opacity in a big brush. Then, you
+
+00:10:05,890 --> 00:10:09,660
+paint and then, it stops; It caps it at
+50. So, you could paint the whole texture like
+
+00:10:09,660 --> 00:10:15,420
+this, or you could just say flatten to 50, and I actually think that 50 is probably a good place to be.
+
+00:10:15,420 --> 00:10:19,310
+That means we can make holes that are up to 50 meters deep. That's pretty caverness, but
+
+00:10:19,310 --> 00:10:24,240
+that's fine. So, I'm going to suggest that
+you go to Paint Height, choose a height of 50 and
+
+00:10:24,240 --> 00:10:27,920
+flatten your terrain. And that's just
+going to determine how deep you can dig
+
+00:10:27,920 --> 00:10:31,920
+into the terrain, when you go to the
+Raise Lower Button and hold down Shift.
+
+00:10:31,920 --> 00:10:36,260
+You're going to able to create cavities that are up to 50 meters deep.
+
+00:10:36,270 --> 00:10:40,340
+Ok so, creating the shape and then
+texturing kind of go hand-in-hand.
+
+00:10:40,340 --> 00:10:42,400
+So, imagine I've textured this bit here.
+
+00:10:42,400 --> 00:10:45,630
+What would I want? Well, the standard
+thing would be, you'd kind of grab
+
+00:10:45,630 --> 00:10:51,460
+yourself a rocky texture for the edges
+here. Now, that brush is too big, and the
+
+00:10:51,460 --> 00:10:56,500
+Opacity is so the Target Strength is too
+high and the Opacity is too high. So, I
+
+00:10:56,500 --> 00:11:00,270
+could start brushing a rocky texture
+onto the sides of a hill like this, to
+
+00:11:00,270 --> 00:11:04,740
+give it more of a kind of, more of a
+rocky feel. You see, I'm doing is really
+
+00:11:04,740 --> 00:11:08,840
+rough for now, because I'm going to challenge you to make your own terrain, in a minute.
+
+00:11:08,840 --> 00:11:12,540
+And then, what you might want to do in your depressions, not your depression,
+
+00:11:12,540 --> 00:11:19,450
+is to paint some mud, maybe in the bottom
+of your dips. Yes, and maybe a rocky surface
+
+00:11:19,450 --> 00:11:23,320
+on the vertical surfaces and some mud in
+the bottom. If you've still got remnants of
+
+00:11:23,320 --> 00:11:26,680
+something like that, and you can't get rid of
+it, that's because you need a Target Strength
+
+00:11:26,680 --> 00:11:31,440
+of 1, so that you completely overwrite any
+underlying textures.
+
+00:11:31,440 --> 00:11:35,940
+They're all slightly opaque unless you have a Target Strength of 1. The other thing of course you can do is,
+
+00:11:35,940 --> 00:11:41,440
+make yourself some mountains. So, I
+suggest you do that and that's that.
+
+00:11:41,440 --> 00:11:44,720
+Now, what I would like you to do is make
+hills all the way around the outside. Now, the
+
+00:11:44,730 --> 00:11:48,740
+reason being is that when you're down on the ground, one of the tricks that
+
+00:11:48,740 --> 00:11:52,600
+games use, so that you can't tell that
+there's an edge to the world is that
+
+00:11:52,600 --> 00:11:55,560
+they raise up the ages of all the world. Let me just do this over here, for
+
+00:11:55,560 --> 00:11:59,930
+a second. And you just need to do it enough that when you're down at eye height,
+
+00:11:59,930 --> 00:12:06,360
+which is about two meters off the ground, that you can't any longer see the end
+
+00:12:06,360 --> 00:12:11,130
+of the game world. So, this is really
+rough, just to show you the idea. If I had
+
+00:12:11,130 --> 00:12:14,250
+hills all the way along there... you want them all the way around the outside of your terrain.
+
+00:12:14,250 --> 00:12:19,350
+And look what happens when I get down to eye height. Watch the edge of the world and the
+
+00:12:19,350 --> 00:12:22,820
+horizon there. See if you've got
+sufficient height. You can't see the edge
+
+00:12:22,820 --> 00:12:27,310
+of the world, it looks like it's going on
+forever, now. Yeah, especially if you've got
+
+00:12:27,310 --> 00:12:30,140
+terrain up here and over here.
+
+00:12:30,140 --> 00:12:34,500
+Cool hey! So, what I want you to do is to
+create your own to terrain. Now, remember in
+
+00:12:34,500 --> 00:12:38,300
+the GDD you know what's going on, you want to be able to run away from
+
+00:12:38,300 --> 00:12:41,160
+these zombies. You can't have overhangs,
+remember, that's one of the limitations of
+
+00:12:41,160 --> 00:12:44,540
+Unity's Terrain system, is that it's
+impossible to make something above
+
+00:12:44,540 --> 00:12:48,240
+something else. It's a pure height map,
+every part of this is just at a particular
+
+00:12:48,240 --> 00:12:52,910
+height, but go ahead and make yourself
+your own terrain focusing on raising and
+
+00:12:52,910 --> 00:12:55,720
+lowering, flattening if necessary.
+
+00:12:55,720 --> 00:12:59,380
+Smooth Height, if you're wondering, just
+smooths things out if they're looking too jagged.
+
+00:12:59,380 --> 00:13:06,580
+And then, use this paint texture to paint on
+some broccoli texture, which remember you load
+
+00:13:06,580 --> 00:13:11,320
+through edit textures. And some mud, maybe in the bottom of your pits and just randomly
+
+00:13:11,330 --> 00:13:16,740
+where you want it and just standard
+grass in other places. So, if I want to
+
+00:13:16,740 --> 00:13:22,630
+get rid of this nasty patch here, I go 100%
+grassy texture, and you see I can tidy up.
+
+00:13:22,630 --> 00:13:25,950
+Ok, so that's your challenge! Make this
+terrain your own, make it interesting!
+
+00:13:25,950 --> 00:13:29,000
+It doesn't really matter how it is, just
+make sure it's got some dips and some
+
+00:13:29,000 --> 00:13:33,200
+various hills and things like that. Remember, you're going to have zombies
+
+00:13:33,200 --> 00:13:37,270
+running at you from all different places. We
+want places for them to spawn. We want places
+
+00:13:37,270 --> 00:13:41,860
+for you to spawn. We want places for the
+helicopter to be able to land. So, go ahead
+
+00:13:41,860 --> 00:13:45,400
+and set up your own terrain, and have a
+lot of fun with it now, using these
+
+00:13:45,410 --> 00:13:49,850
+first four terrain tools, that you've
+just learnt about. There's your challenge slide.
+
+00:13:56,120 --> 00:14:00,740
+Fantastic! How did you get on with your
+terrain? What were your challenges? I would
+
+00:14:00,750 --> 00:14:04,030
+really like you now to zoom out of your terrain. Once you've made it to this stage,
+
+00:14:04,030 --> 00:14:09,560
+even if it's the most basic terrain, then
+take a screenshot, and save that
+
+00:14:09,560 --> 00:14:12,560
+screenshot and put it over in the
+discussions for us. That would be
+
+00:14:12,560 --> 00:14:16,410
+fantastic if you could do that. If you
+don't know how to save your screen shot,
+
+00:14:16,410 --> 00:14:20,090
+well, there's lots of programs to do that. Most systems, Mac and PC, allow you to do it
+
+00:14:20,090 --> 00:14:25,240
+built into the system, or you can use a
+fantastic system like Snag It here or
+
+00:14:25,240 --> 00:14:29,520
+one of many other free tools. But let's
+get you saving your screenshot and
+
+00:14:29,520 --> 00:14:32,500
+sticking it in the discussion, so that we
+can see the shape of your terrain.
+
+00:14:32,500 --> 00:14:36,160
+So, it should just be shaped and basically
+textured. We'll worry about trees and
+
+00:14:36,160 --> 00:14:39,770
+other features a little bit later, and I
+shall do my terrain in the next video.
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section9/ZR06 Creating A Terrain.srt

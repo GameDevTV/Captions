@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT72 Using the ensure Assertion.srt
 ﻿WEBVTT
 
 1
@@ -572,3 +573,578 @@ Congratulations on getting to grips with the ensure keyword. and I'll see you in
 00:09:30.633 --> 00:09:32.766
 
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+Hello
+
+2
+00:00:04,000 --> 00:00:08,000
+and welcome to Using the ensure Assertion, which is going to be pretty cool!
+
+3
+00:00:08,000 --> 00:00:12,000
+I think I may be saying assertation through the video, so if you hear me saying that, just laugh
+
+4
+00:00:12,000 --> 00:00:16,000
+for me, I mean Assertion. So what's going to happen is we
+
+5
+00:00:16,000 --> 00:00:20,000
+cannot aim, at the moment, and what we're going to have by the end of the video is a very very useful
+
+6
+00:00:20,000 --> 00:00:24,000
+log message that comes out, that tells us precisely why we can't aim,
+
+7
+00:00:24,000 --> 00:00:28,000
+because we have a problem with a pointer and it tells us exactly
+
+8
+00:00:28,000 --> 00:00:34,633
+where in the code to go look. So this is going to be a super useful new pointer protection paradigm. I'll see you in there!
+
+9
+00:00:34,633 --> 00:00:38,633
+So I want to get this pointer working, but also I want to get aiming
+
+10
+00:00:38,633 --> 00:00:42,633
+working. Now it's interesting that my game driving still works. I can still
+
+11
+00:00:42,633 --> 00:00:46,633
+move my tank forward and backwards, that's not a problem. I'm not quite
+
+12
+00:00:46,633 --> 00:00:50,633
+sure why the AI tank's not moving. He's probably just stuck, it's not something we need to deal
+
+13
+00:00:50,633 --> 00:00:54,633
+with right now. I'll pop another one down just to check. So,
+
+14
+00:00:54,633 --> 00:00:58,633
+yeah the AI tanks can move but none of us are aiming, neither us nor the AI
+
+15
+00:00:58,633 --> 00:01:02,633
+tanks. What is going on there? Well what is good is that we failed graciously,
+
+16
+00:01:02,633 --> 00:01:06,633
+the program is still running. What is bad is we're masking
+
+17
+00:01:06,633 --> 00:01:10,633
+some pretty nasty problems, which is that we've got null pointers. Now the
+
+18
+00:01:10,633 --> 00:01:14,633
+way that we currently do our pointer protection, if you have a look,
+
+19
+00:01:14,633 --> 00:01:18,633
+if not (!GetControlledTank()), that's a typical one, then return.
+
+20
+00:01:18,633 --> 00:01:22,633
+So if we can't find the pointer, we don't execute the functionality and
+
+21
+00:01:22,633 --> 00:01:26,633
+I like that I think that's good, but what's bad is we have no idea that we've
+
+22
+00:01:26,633 --> 00:01:30,633
+got null pointers, and we're not entirely sure right now why we can't aim. Now can troll
+
+23
+00:01:30,633 --> 00:01:34,633
+through and work out what's wrong and why we can't aim, but we don't have to do
+
+24
+00:01:34,633 --> 00:01:38,633
+that and we want to know very early that our pointers are null and that other major
+
+25
+00:01:38,633 --> 00:01:42,633
+errors are happening. So let's talk about my brew
+
+26
+00:01:42,633 --> 00:01:46,633
+or my criteria for Ben's Game Error Handling Criteria.
+
+27
+00:01:46,633 --> 00:01:50,633
+OK so I think that execution should continue if
+
+28
+00:01:50,633 --> 00:01:54,633
+possible, that our design should be sufficiently modular and separated, so that if
+
+29
+00:01:54,633 --> 00:01:58,633
+something goes wrong it doesn't take everything else with it, i.e. the aiming is not taking the movement with it.
+
+30
+00:01:58,633 --> 00:02:02,633
+We must get a helpful warning, ideally with a line number. It
+
+31
+00:02:02,633 --> 00:02:06,633
+sounds like it's asking a lot but there is a solution, we want to know exactly where in our code this is going
+
+32
+00:02:06,633 --> 00:02:10,633
+wrong. We can compile out the checks for production,
+
+33
+00:02:10,633 --> 00:02:14,633
+if we like, or we could organize that the logs,
+
+34
+00:02:14,633 --> 00:02:18,633
+when it crashes, get written to a
+
+35
+00:02:18,633 --> 00:02:22,633
+log file that could be sent back to use, the developer, with a line
+
+36
+00:02:22,633 --> 00:02:26,633
+number, that would be ideal! So the solution is this, instead of doing things like if not (!(Left
+
+37
+00:02:26,633 --> 00:02:30,633
+Track && RightTrack)) return, I know we do something slightly different but you get the idea,
+
+38
+00:02:30,633 --> 00:02:34,633
+that becomes if not ensure (!ensure(LeftTrack && RightTrack))
+
+39
+00:02:34,633 --> 00:02:38,633
+return. Now this ensure is a very special macro keyword, it's
+
+40
+00:02:38,633 --> 00:02:42,633
+something called an assertion, and what it does is it goes and checks that the condition
+
+41
+00:02:42,633 --> 00:02:46,633
+in the brackets, the LeftTrack and the RightTrack is true, and if it is it's fine it
+
+42
+00:02:46,633 --> 00:02:50,633
+just carries on. But if it's false, i.e. not ensure all of that stuff in the brackets,
+
+43
+00:02:50,633 --> 00:02:54,633
+then we return and we continue to execute
+
+44
+00:02:54,633 --> 00:02:58,633
+which is great, but the fact that ensure has run
+
+45
+00:02:58,633 --> 00:03:02,633
+means that it will write a load of very very useful stuff to our console. Let's
+
+46
+00:03:02,633 --> 00:03:06,633
+go and find Unreal's docs about assertions. Here they are!
+
+47
+00:03:06,633 --> 00:03:10,633
+You can just look for "unreal assertions"
+
+48
+00:03:10,633 --> 00:03:14,633
+and this is also in your resources on Udemy.
+
+49
+00:03:14,633 --> 00:03:18,633
+You can have a quick, in fact, as a little micro exercise just pause the video. Have a quick
+
+50
+00:03:18,633 --> 00:03:22,633
+scan through this, take just 30 seconds to have a quick scan. Look particularly at the
+
+51
+00:03:22,633 --> 00:03:26,633
+last bit of it.
+
+52
+00:03:26,633 --> 00:03:30,633
+Cool! So look, if we scroll down we've got this thing here
+
+53
+00:03:30,633 --> 00:03:34,633
+called ensure. It tells you a little bit more about what it does, and this is the type of pattern
+
+54
+00:03:34,633 --> 00:03:38,633
+if (ensure blah, then do that. OK
+
+55
+00:03:38,633 --> 00:03:42,633
+so it's very cool! We want our assertions, these
+
+56
+00:03:42,633 --> 00:03:46,633
+conditions to always be true, we never want these to happen at runtime. But it's incredibly
+
+57
+00:03:46,633 --> 00:03:50,633
+helpful, during development, to put these in place. Now, I want to  just give a tiny bit of credit
+
+58
+00:03:50,633 --> 00:03:54,633
+here, just at the right time in production...
+
+59
+00:03:54,633 --> 00:03:58,633
+I'm not sure how to say his name, Ghyslain probably, here from Canada
+
+60
+00:03:58,633 --> 00:04:02,633
+brought this issue up, we discussed it, and as quick as that we've put it into the
+
+61
+00:04:02,633 --> 00:04:06,633
+course. There's a more detailed discussion over on the community site, which is here,
+
+62
+00:04:06,633 --> 00:04:10,633
+and I will put both of these references for you into the resources.
+
+63
+00:04:10,633 --> 00:04:14,633
+So it shows that if you bring things up, at the right time in the
+
+64
+00:04:14,633 --> 00:04:18,633
+course, I'm happy to adjust the course and add some value. So thank you very much for that suggestion!
+
+65
+00:04:18,633 --> 00:04:22,633
+OK let's get on with it, let's do it! Let me show you how to do it it first. Let's
+
+66
+00:04:22,633 --> 00:04:26,633
+do it with this not GetControlledTank. What we do, if we say if not
+
+67
+00:04:26,633 --> 00:04:30,633
+(!ensure(GetControlledtank())), being careful with our brackets, then return.
+
+68
+00:04:30,633 --> 00:04:34,633
+Alright, let's just move on through these now!
+
+69
+00:04:34,633 --> 00:04:38,633
+I'll do one more with you. I'm going to look for "return" to start
+
+70
+00:04:38,633 --> 00:04:42,633
+with as a quick way of going through, in the entire project,
+
+71
+00:04:42,633 --> 00:04:46,633
+and if not ensure... No I won't do that one, I'll leave that one to you just
+
+72
+00:04:46,633 --> 00:04:50,633
+because I want to find a different pattern. Here you go, here's the one that I used in the example. I'm going to change
+
+73
+00:04:50,633 --> 00:04:54,633
+the logic around. If not (!ensure
+
+74
+00:04:54,633 --> 00:04:58,633
+then (LeftTrack && RightTrack)), I just think it reads better
+
+75
+00:04:58,633 --> 00:05:02,633
+like that. Or you could say if
+
+76
+00:05:02,633 --> 00:05:06,633
+ensure LeftTrack && ensure RightTrack if you wanted, but this will do.
+
+77
+00:05:06,633 --> 00:05:10,633
+The same thing, we'd use exactly the same pattern down here in the other one.
+
+78
+00:05:10,633 --> 00:05:14,633
+OK I've done enough of it for you, you're going to have to work out the logic for yourself
+
+79
+00:05:14,633 --> 00:05:18,633
+for the other bits. Indeed that's going to be your challenge is, I want you to use ensure everywhere.
+
+80
+00:05:18,633 --> 00:05:22,633
+Add ensure to all your pointer protection. You can't rely on searching for return with semicolon, by
+
+81
+00:05:22,633 --> 00:05:26,633
+the way, it's not the only way that we are doing pointer protection, so look through your .cpp
+
+82
+00:05:26,633 --> 00:05:30,633
+files. Find the null pointer that's stopping aiming and celebrate! Don't fix
+
+83
+00:05:30,633 --> 00:05:34,633
+this null pointer yet, it's an architectural issue we'll sort out in an upcoming video, but just celebrate
+
+84
+00:05:34,633 --> 00:05:38,633
+the amount of detail you get here, when you actually see this log for the first time!
+
+85
+00:05:38,633 --> 00:05:42,633
+Oh by the way, sometimes you'll need to close and reopen Unreal. If ensure's already run
+
+86
+00:05:42,633 --> 00:05:46,633
+once it may not run every single time you run, so that's just a heads up. But see if you can see
+
+87
+00:05:46,633 --> 00:05:50,633
+this thing working, it's really satisfying when it helps you find the problem.
+
+88
+00:05:50,633 --> 00:05:54,633
+
+
+89
+00:05:54,633 --> 00:05:58,633
+OK welcome back! Let's do this! I'm just going to carry on through the
+
+90
+00:05:58,633 --> 00:06:02,633
+code now, starting by looking for returns because they're the quick wins. So
+
+91
+00:06:02,633 --> 00:06:06,633
+if not (!ensure(Barrel). In fact, I'm even going to
+
+92
+00:06:06,633 --> 00:06:10,633
+copy the ensure open bracket, because I think I'm going to be using it a lot.
+
+93
+00:06:10,633 --> 00:06:14,633
+If not Barrel or Turret. I think I'm going to show you the other way here,
+
+94
+00:06:14,633 --> 00:06:18,633
+just to show that you could say if not
+
+95
+00:06:18,633 --> 00:06:22,633
+ensure (Barrel) or not ensure (Turret). You could do that and give two
+
+96
+00:06:22,633 --> 00:06:26,633
+different ensures, it'll be a little slower but you'd know whether it was the barrel or the turret
+
+97
+00:06:26,633 --> 00:06:30,633
+that was missing. OK that's all the returns
+
+98
+00:06:30,633 --> 00:06:34,633
+I can find! Let's now go through the .cpp files and see where else we do this!
+
+99
+00:06:34,633 --> 00:06:38,633
+We don't do anything there in terms of pointer protection. Let's look at the Tank.
+
+100
+00:06:38,633 --> 00:06:42,633
+If not (!TankAimingComponent) return, OK so
+
+101
+00:06:42,633 --> 00:06:46,633
+we need to put one in there. If not (!ensure(TankAimingComponent)
+
+102
+00:06:46,633 --> 00:06:50,633
+return. Where else have we got it? Make sure why that didn't come up in that search.
+
+103
+00:06:50,633 --> 00:06:54,633
+Maybe I didn't go around enough times? If (Barrel && isReloaded). Now think about
+
+104
+00:06:54,633 --> 00:06:58,633
+this, is Reloaded is not something we want to do an ensure on, because
+
+105
+00:06:58,633 --> 00:07:02,633
+it's part of the logic of the game, it's not a problem
+
+106
+00:07:02,633 --> 00:07:06,633
+if Reloaded is not the case. So I'm actually going to change this around, I'm not going to
+
+107
+00:07:06,633 --> 00:07:10,633
+protect the Barrel here, I'm going to take that out. I'm just going to say if (isReloaded),
+
+108
+00:07:10,633 --> 00:07:14,633
+and then, I'm going to put a much more standard protection of the barrel here. If
+
+109
+00:07:14,633 --> 00:07:18,633
+not (!ensure... Oops, I haven't got it in the copy buffer anymore!
+
+110
+00:07:18,633 --> 00:07:22,633
+(!ensure(Barrel))
+
+111
+00:07:22,633 --> 00:07:26,633
+return. We'll go for that standard pattern there. If not (!ensure(Barrel))
+
+112
+00:07:26,633 --> 00:07:30,633
+return. OK let's keep looking!
+
+113
+00:07:30,633 --> 00:07:34,633
+TankAIController. If (ensure(PlayerTank).
+
+114
+00:07:34,633 --> 00:07:38,633
+
+
+115
+00:07:38,633 --> 00:07:42,633
+Or you could say if not (!ensure
+
+116
+00:07:42,633 --> 00:07:46,633
+(PlayerTank)) return at the top, but let's do it this way here. I want to show you a variety of different ways of
+
+117
+00:07:46,633 --> 00:07:50,633
+doing it. It's important that you understand how it works, rather than just using a recipe. I don't
+
+118
+00:07:50,633 --> 00:07:54,633
+see anything else in that file. I'm just working through my files. Nothing in there.
+
+119
+00:07:54,633 --> 00:07:58,633
+Nothing in there.
+
+120
+00:07:58,633 --> 00:08:02,633
+If (ensure
+
+121
+00:08:02,633 --> 00:08:06,633
+(AimingComponent)), it's a pointer that we need to protect.
+
+122
+00:08:06,633 --> 00:08:10,633
+Possibly this (GetLookDirection
+
+123
+00:08:10,633 --> 00:08:14,633
+should pass, but I'm going to leave that one, because it's not a pointer
+
+124
+00:08:14,633 --> 00:08:18,633
+it's a function call.
+
+125
+00:08:18,633 --> 00:08:22,633
+OK nothing in the track or the
+
+126
+00:08:22,633 --> 00:08:26,633
+turret. OK let's go ahead and compile now. I'm just going
+
+127
+00:08:26,633 --> 00:08:30,633
+to sort out my output log. I think I want it? I do want it at the bottom of the screen, but I think I want these details
+
+128
+00:08:30,633 --> 00:08:34,633
+to be on the right, so yeah something like that.
+
+129
+00:08:34,633 --> 00:08:38,633
+Hmm, so I've got a syntax error, " 'Barrel': undeclared".
+
+130
+00:08:38,633 --> 00:08:42,633
+And I did see that, Tank.cpp(37). I put
+
+131
+00:08:42,633 --> 00:08:46,633
+a double L where I should have put a single L.
+
+132
+00:08:46,633 --> 00:08:50,633
+Apart from that we're going well. Hey that rhymed! I put a double L where I should have put a single L,
+
+133
+00:08:50,633 --> 00:08:54,633
+well apart from the... Anyway forget it. Forget the jokes, let's just get the
+
+134
+00:08:54,633 --> 00:08:58,633
+compilation going. Alright fantastic! We're going to clear the logs and play the game. Now watch what happens when I play the
+
+135
+00:08:58,633 --> 00:09:02,633
+game! There's quite a long pause and then if we search the logs for
+
+136
+00:09:02,633 --> 00:09:06,633
+"ensure", you'll see here the TankAimingComponent
+
+137
+00:09:06,633 --> 00:09:10,633
+has failed here, BattleTank, Tank.cpp
+
+138
+00:09:10,633 --> 00:09:14,633
+[Line: 31]. How useful is that? Tank.cpp [Line 31].
+
+139
+00:09:14,633 --> 00:09:18,633
+It's this that's failing and we know it is because, remember
+
+140
+00:09:18,633 --> 00:09:22,633
+we used to add it as a default sub-object, and then, we never actually got around to fixing it. And we've got
+
+141
+00:09:22,633 --> 00:09:26,633
+an architectural decision about how we're going to fix that; in fact, we're going to fix it in the very next video.
+
+142
+00:09:26,633 --> 00:09:30,633
+Congratulations on getting to grips with the ensure keyword, and I'll see you in the next video!
+
+143
+00:09:30,633 --> 00:09:32,766
+
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT72 Using the ensure Assertion.srt

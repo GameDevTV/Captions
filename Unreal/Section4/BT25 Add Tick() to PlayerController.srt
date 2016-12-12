@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT25 Add Tick() to PlayerController.srt
 ﻿WEBVTT
 
 1
@@ -716,3 +717,722 @@ commit my work. as I'm hoping you're doing. I hope you're getting on well with t
 00:11:48.033 --> 00:11:50.966
 see you in the next video!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+So, in this video we're going to
+
+2
+00:00:04,000 --> 00:00:08,000
+Add Tick() to a PlayerController. A simple code change and, by the end of it, we'll
+
+3
+00:00:08,000 --> 00:00:12,000
+have something like this, where we've added a Tick() method in and we'll be requesting
+
+4
+00:00:12,000 --> 00:00:16,000
+an aim towards the crosshair every frame, and then, we've got a little bit of pseudocode
+
+5
+00:00:16,000 --> 00:00:20,000
+for what that'll do. We won't quite get to it in this video, and the idea is we're
+
+6
+00:00:20,000 --> 00:00:24,000
+setting up for, in our game, the ability for that little white dot to
+
+7
+00:00:24,000 --> 00:00:28,000
+send a bit of information about where that hits in the world,
+
+8
+00:00:28,000 --> 00:00:32,000
+to the aiming system so that we can start moving the barrel and the turret
+
+9
+00:00:32,000 --> 00:00:36,000
+to point in that direction and fire the projectile. OK, so see you in there!
+
+10
+00:00:36,000 --> 00:00:36,033
+
+
+11
+00:00:36,033 --> 00:00:40,033
+OK guys, so we have basically found a
+
+12
+00:00:40,033 --> 00:00:44,033
+couple of things! We've got the AIController finding the player, and the PlayerController's
+
+13
+00:00:44,033 --> 00:00:48,033
+possessing the tank, the AIController's possessing their tanks. So, we kind of have
+
+14
+00:00:48,033 --> 00:00:52,033
+the top layer of this nearly ready to go, we have these things. What we
+
+15
+00:00:52,033 --> 00:00:56,033
+want to do now is focus, for a moment, on aiming at the crosshair,
+
+16
+00:00:56,033 --> 00:01:00,033
+because that's the hardest thing to do next. Aiming at the player is going to be really
+
+17
+00:01:00,033 --> 00:01:04,033
+simple, because we've got the tank finding the player, and actually finding the
+
+18
+00:01:04,033 --> 00:01:08,033
+player's location from that is pretty simple. I think it's dot get actor location
+
+19
+00:01:08,033 --> 00:01:12,033
+or something. So, we'll come back to that, but the bit that worries me more is
+
+20
+00:01:12,033 --> 00:01:16,033
+how do we aim at the crosshair? We're going to have to do something like line trace
+
+21
+00:01:16,033 --> 00:01:20,033
+through the crosshair on the screen and hit the world and check we're hitting the world and yada yada.
+
+22
+00:01:20,033 --> 00:01:24,033
+So, because it's a more challenging problem, to me I like to
+
+23
+00:01:24,033 --> 00:01:28,033
+tackle those first, because it's the most risky part of the project, so that's what we're
+
+24
+00:01:28,033 --> 00:01:32,033
+going to look at next. So, we're going to go back to the TankPlayer
+
+25
+00:01:32,033 --> 00:01:36,033
+Controller class. Let's get that up on the screen; Visual
+
+26
+00:01:36,033 --> 00:01:40,033
+Studio needs to load. And we're going to start thinking about how to aim
+
+27
+00:01:40,033 --> 00:01:44,033
+towards the crosshair that's on the screen, you know the little white dot that we put in
+
+28
+00:01:44,033 --> 00:01:48,033
+UI a few videos ago. So, we got the Tank
+
+29
+00:01:48,033 --> 00:01:52,033
+PlayerController C++. I'll get the header file next to it as well, and let's start thinking
+
+30
+00:01:52,033 --> 00:01:56,033
+about what we're doing. Well, one of the things we're going to need is a tick, isn't it? We're going to need to have the
+
+31
+00:01:56,033 --> 00:02:00,033
+TankPlayerController actually ticking, which it isn't doing at the moment,
+
+32
+00:02:00,033 --> 00:02:04,033
+because there's not tick method in here. And
+
+33
+00:02:04,033 --> 00:02:08,033
+we're going to use the tick to update the aim every frame.
+
+34
+00:02:08,033 --> 00:02:12,033
+So, let me just pseudocode it, then I'll get you to implement this tick to
+
+35
+00:02:12,033 --> 00:02:16,033
+revise the idea of fine adding a method that's not there, like we did a few
+
+36
+00:02:16,033 --> 00:02:20,033
+videos ago. So, we're going to basically go "// Tick", and then on Tick we're
+
+37
+00:02:20,033 --> 00:02:24,033
+going to do something like "// Super" i.e. do what the super class does in its tick,
+
+38
+00:02:24,033 --> 00:02:28,033
+and then, we're going to have a method that's something like... In fact,
+
+39
+00:02:28,033 --> 00:02:32,033
+let's call it this "// AimTowardsCrosshair()".
+
+40
+00:02:32,033 --> 00:02:36,033
+A very thin simple Tick function. I always like the Ticks to be very clear
+
+41
+00:02:36,033 --> 00:02:40,033
+about exactly what they're doing. It doesn't mean that "// AimTowardsCrosshair()" could be quite
+
+42
+00:02:40,033 --> 00:02:44,033
+expensive and we need to be very careful about how long that takes to run, but I do
+
+43
+00:02:44,033 --> 00:02:48,033
+like the Tick to be very simple and clear. So, that's what I want you to do now,
+
+44
+00:02:48,033 --> 00:02:52,033
+not right aim towards crosshair, leave that in as a comment, but I do want you to write what's necessary
+
+45
+00:02:52,033 --> 00:02:56,033
+for this PlayerController to actually Tick.
+
+46
+00:02:56,033 --> 00:03:00,033
+So, you might need to revise what we did a couple of videos ago with BeginPlay(), but it's not rocket
+
+47
+00:03:00,033 --> 00:03:04,033
+science. In fact, if you were to look in the Tank.cpp, that would give you a pretty good
+
+48
+00:03:04,033 --> 00:03:08,033
+idea to be honest, or any other actor class.
+
+49
+00:03:08,033 --> 00:03:12,033
+But let's do that! So, make the PlayerController Tick. I want you
+
+50
+00:03:12,033 --> 00:03:16,033
+to declare and define the Tick() method inside the PlayerController, and then, check that it
+
+51
+00:03:16,033 --> 00:03:20,033
+works with a simple log message. So, go ahead, pause the video, and do that now.
+
+52
+00:03:20,033 --> 00:03:24,033
+
+
+53
+00:03:24,033 --> 00:03:28,033
+Welcome back! So, let's take a look at how we're going to do that! I'm
+
+54
+00:03:28,033 --> 00:03:32,033
+going to look at Tank.cpp for inspiration and remind myself
+
+55
+00:03:32,033 --> 00:03:36,033
+that Tick tends to take ( float DeltaTime ). Now this is risky
+
+56
+00:03:36,033 --> 00:03:40,033
+by the way, because the TankPlayerController is based on the APlayer
+
+57
+00:03:40,033 --> 00:03:44,033
+Controller class and the Tank is based on the APawn class, and it
+
+58
+00:03:44,033 --> 00:03:48,033
+may be that the way that PlayerController and in turn controller
+
+59
+00:03:48,033 --> 00:03:52,033
+implements Tick might be different but I don't think it is. So as a first
+
+60
+00:03:52,033 --> 00:03:56,033
+port of call, let's go ahead and just assume that we have
+
+61
+00:03:56,033 --> 00:04:00,033
+exactly the same thing, Tick ( float DeltaTime ) like that. So that's the
+
+62
+00:04:00,033 --> 00:04:04,033
+end of it, and then, what we're going to want to do is have a
+
+63
+00:04:04,033 --> 00:04:08,033
+void on the front. void Tick(float DeltaTime), so it
+
+64
+00:04:08,033 --> 00:04:12,033
+passes in every time it ticks this DeltaTime. Then, we'd say Super, to call this
+
+65
+00:04:12,033 --> 00:04:16,033
+Super class's Tick method, colon colon because it's a static accessor,
+
+66
+00:04:16,033 --> 00:04:20,033
+and then, we go Tick() with the same signature but we need the
+
+67
+00:04:20,033 --> 00:04:24,033
+(DeltaTime) in there. Now again, if this all looks bamboozling, what
+
+68
+00:04:24,033 --> 00:04:28,033
+on earth am I doing? I'm just recreating exactly what you see in say the Tank.cpp
+
+69
+00:04:28,033 --> 00:04:32,033
+file. This code here, all I've done is switched out ATank
+
+70
+00:04:32,033 --> 00:04:36,033
+for APlayerController, or I haven't yet but I'm about
+
+71
+00:04:36,033 --> 00:04:40,033
+to. Comsa OK!
+
+72
+00:04:40,033 --> 00:04:44,033
+So, that should be the definition of the Tick() that we need, and
+
+73
+00:04:44,033 --> 00:04:48,033
+what we want to do in that Tick is AimTowardsCrosshair() but we don't have that method yet.
+
+74
+00:04:48,033 --> 00:04:52,033
+I think that I won't bother with the method just yet, I'm just going to put in a
+
+75
+00:04:52,033 --> 00:04:56,033
+temporary log. UE_LOG(LogTemp,
+
+76
+00:04:56,033 --> 00:05:00,033
+Warning, TEXT()) and we're going to say
+
+77
+00:05:00,033 --> 00:05:04,033
+("Player controller ticking')); Put a semicolon just
+
+78
+00:05:04,033 --> 00:05:08,033
+for consistency, although we know that it doesn't need it. Going to check the matching of my
+
+79
+00:05:08,033 --> 00:05:12,033
+brackets, because we've got a lot of brackets here. That looks good! That bracket matches that bracket!
+
+80
+00:05:12,033 --> 00:05:16,033
+I'm also going to declare this method. Now, the declaration
+
+81
+00:05:16,033 --> 00:05:20,033
+remember, as before, it's a virtual void tick
+
+82
+00:05:20,033 --> 00:05:24,033
+with at least the float override, so let's go do that in the Player
+
+83
+00:05:24,033 --> 00:05:28,033
+Controller. So, let's think about what we're doing. We don't need
+
+84
+00:05:28,033 --> 00:05:32,033
+the class name. Virtual, virtual's just a
+
+85
+00:05:32,033 --> 00:05:36,033
+good habit, it's completely optional here. We're just saying that if we were to make
+
+86
+00:05:36,033 --> 00:05:40,033
+a child of this PlayerController class, then it's children
+
+87
+00:05:40,033 --> 00:05:44,033
+would be allowed to override and extend the behavior of the Tick() method. Fine,
+
+88
+00:05:44,033 --> 00:05:48,033
+so then what? virtual void Tick. Now, (float DeltaTime); we don't have to
+
+89
+00:05:48,033 --> 00:05:52,033
+put a parameter name there, but we may as well do exactly what it does in Tank.h.
+
+90
+00:05:52,033 --> 00:05:56,033
+You see that? And then, the other
+
+91
+00:05:56,033 --> 00:06:00,033
+final thing we need on the end is the override. Just as a recap, what that means
+
+92
+00:06:00,033 --> 00:06:04,033
+is it makes the compiler check that there is indeed a method with
+
+93
+00:06:04,033 --> 00:06:08,033
+exactly the signature I've highlighted on the screen, in the parent class or one of the parent's
+
+94
+00:06:08,033 --> 00:06:12,033
+parent classes. OK, so that's why we do it that way! Let's just
+
+95
+00:06:12,033 --> 00:06:16,033
+make sure this puppy is ticking. I'm going to compile it up and see
+
+96
+00:06:16,033 --> 00:06:20,033
+if we get the relevant log messages, and if we do, we can progress a little bit.
+
+97
+00:06:20,033 --> 00:06:24,033
+It's going to take a few videos to get this aiming working fully, if I'm going to do it at a
+
+98
+00:06:24,033 --> 00:06:28,033
+reasonable pace and not bamboozle everybody. It's going to take a few, but it's going to be worth it! It's a really
+
+99
+00:06:28,033 --> 00:06:32,033
+powerful reusable thing to know, how do you look through
+
+100
+00:06:32,033 --> 00:06:36,000
+the screen position. So, I've done a booboo, Delta time
+
+101
+00:06:36,000 --> 00:06:40,033
+is an undeclared identifier. What have I done there? DeltaTime, it's a
+
+102
+00:06:40,033 --> 00:06:44,033
+simple capitalization issue there. And also, what do they do about
+
+103
+00:06:44,033 --> 00:06:48,033
+spacing? Did they put, yeah, they put some spaces. So, let's write code like
+
+104
+00:06:48,033 --> 00:06:52,033
+the engine code. OK, now that DeltaTime and that DeltaTime match!
+
+105
+00:06:52,033 --> 00:06:56,033
+And let's recompile! So,
+
+106
+00:06:56,033 --> 00:07:00,033
+then what we're going to do, just as a recap, is we're going to, that white dot, we're going to be
+
+107
+00:07:00,033 --> 00:07:04,033
+ray casting through that white dot and seeing where it hits the
+
+108
+00:07:04,033 --> 00:07:08,033
+the world. Now look, you'll notice the compile finished while I was yabbering on,
+
+109
+00:07:08,033 --> 00:07:12,033
+and if you look in the output log, the PlayerController ticking has come in and
+
+110
+00:07:12,033 --> 00:07:16,033
+that's called hot reloading. It's a fantastic feature of using either Xcode or Visual Studio
+
+111
+00:07:16,033 --> 00:07:20,033
+with Unreal, and it actually recompiles the code and pushes
+
+112
+00:07:20,033 --> 00:07:24,033
+it into the running game, so you can live see your changes, which is pretty cool!
+
+113
+00:07:24,033 --> 00:07:28,033
+By the way, Unreal 4.12... uh sorry, that's right
+
+114
+00:07:28,033 --> 00:07:32,033
+Unreal 4.12 has just shipped, and we're
+
+115
+00:07:32,033 --> 00:07:36,033
+not quite yet going to include it in the course, just going to
+
+116
+00:07:36,033 --> 00:07:40,033
+probably wait until 4.12.1, when it's going to hopefully be
+
+117
+00:07:40,033 --> 00:07:44,033
+a little more stable. There's a load of stuff on the web abut it, VR editing and the like.
+
+118
+00:07:44,033 --> 00:07:48,033
+One of the things about it is that it actually requires, on a PC, you to use Visual Studio
+
+119
+00:07:48,033 --> 00:07:52,033
+as your IDE, so be aware of that if you're going to go to 4.12. But I do
+
+120
+00:07:52,033 --> 00:07:56,033
+recommend you use Visual Studio if you're on the PC. Pretty much any version of it will do, any of the
+
+121
+00:07:56,033 --> 00:08:00,033
+modern versions, and it's a good and free IDE. So, another thing I want to thank
+
+122
+00:08:00,033 --> 00:08:04,033
+Andrew Hunt from the Facebook group for is, there is actually a very cool
+
+123
+00:08:04,033 --> 00:08:08,033
+plugin called "visual assist" for Visual Studio.
+
+124
+00:08:08,033 --> 00:08:12,033
+Now, it's not free but you know how Visual Studio takes absolutely
+
+125
+00:08:12,033 --> 00:08:16,033
+ages to autofill or to do anything with such a large code base, because
+
+126
+00:08:16,033 --> 00:08:20,033
+all of the engine code is sitting here in our solution as a separate project.
+
+127
+00:08:20,033 --> 00:08:24,033
+It takes ages, you keep seeing it take ages to do anything. This Visual Assist turns
+
+128
+00:08:24,033 --> 00:08:28,033
+that into an instant process. Now, it's $100 for personal
+
+129
+00:08:28,033 --> 00:08:32,033
+use or $200, $250 I think, for
+
+130
+00:08:32,033 --> 00:08:36,033
+business use, but I just recommend you take a look at it. It's at WholeTomato.com, not
+
+131
+00:08:36,033 --> 00:08:40,033
+rotten tomato(laughs), and it's worth your time.  Anyway, I will be
+
+132
+00:08:40,033 --> 00:08:44,033
+assessing that, maybe including it in the course if I can get a deal for you guys. So that's it, we
+
+133
+00:08:44,033 --> 00:08:48,033
+have now just simply revised that ability to tick. I'm just going to write
+
+134
+00:08:48,033 --> 00:08:52,033
+the AimTowardsCrosshair() method, so that it's there for completeness,
+
+135
+00:08:52,033 --> 00:08:56,033
+and then, we will start fleshing out AimTowardsCrosshair() in the next video.
+
+136
+00:08:56,033 --> 00:09:00,033
+So, I like to have my BeginPlay() above my Tick(), because to me the order
+
+137
+00:09:00,033 --> 00:09:04,033
+of things is BeginPlay(), Tick(), and then my methods. I've got a getter,
+
+138
+00:09:04,033 --> 00:09:08,033
+so the getter will go next, and then, I'm going to implement this
+
+139
+00:09:08,033 --> 00:09:12,033
+thing, which is simply what do we call it? Aim
+
+140
+00:09:12,033 --> 00:09:16,033
+TowardsCrosshair(); So, it's going to be void, it's going to return nothing.
+
+141
+00:09:16,033 --> 00:09:20,033
+It's going to be called AimTowardsCrosshair(); The question is, is it const? No, it's not const
+
+142
+00:09:20,033 --> 00:09:24,033
+because aiming towards the crosshair is going to change something about the TankPlayerController
+
+143
+00:09:24,033 --> 00:09:28,033
+state, so we don't need a const on it. So, there's your
+
+144
+00:09:28,033 --> 00:09:32,033
+AimTowardsCrosshair() definition! Now, it's worth declaring this straightaway, because all the time there's
+
+145
+00:09:32,033 --> 00:09:36,033
+a Visual Studio error like this, we're not going to get much help inside the method with
+
+146
+00:09:36,033 --> 00:09:40,033
+our composition of our code. So, I'm just going to go and declare it now, it's
+
+147
+00:09:40,033 --> 00:09:44,033
+private. It's a private method and it's just going to return nothing,
+
+148
+00:09:44,033 --> 00:09:48,033
+and it's simply going to... Well, let's write what it's going to do, in a comment in the
+
+149
+00:09:48,033 --> 00:09:52,033
+header file. This is going to "// Start the tank
+
+150
+00:09:52,033 --> 00:09:56,033
+moving the barrel towards
+
+151
+00:09:56,033 --> 00:10:00,033
+so that
+
+152
+00:10:00,033 --> 00:10:04,033
+a shot would hit where
+
+153
+00:10:04,033 --> 00:10:08,033
+//  the crosshair intersects
+
+154
+00:10:08,033 --> 00:10:12,033
+the world". OK, worth putting in a bit of a
+
+155
+00:10:12,033 --> 00:10:16,033
+comment there! "// Start the tank moving the barrel so that a shot would
+
+156
+00:10:16,033 --> 00:10:20,033
+hit", not it, "where // the crosshair intersects the world".
+
+157
+00:10:20,033 --> 00:10:24,033
+OK, that's what it's going to do, and we come in here,
+
+158
+00:10:24,033 --> 00:10:28,033
+one of the first thing's we're going to want to do is, we're going to say if we don't have a Controlled
+
+159
+00:10:28,033 --> 00:10:32,033
+Tank, then we need to get out of here. So, if not (!GetControlled
+
+160
+00:10:32,033 --> 00:10:36,033
+Tank()), remember your not, if you don't do that then this method will always exit of
+
+161
+00:10:36,033 --> 00:10:40,033
+course. Then, we just exit, and then I'm just going to pseudocode
+
+162
+00:10:40,033 --> 00:10:44,033
+the rest of it. So, what we need to do is, we need to
+
+163
+00:10:44,033 --> 00:10:48,033
+"// Get world location
+
+164
+00:10:48,033 --> 00:10:52,033
+through crosshair", or if you line trace.
+
+165
+00:10:52,033 --> 00:10:56,033
+If you "linetrace through the crosshair",
+
+166
+00:10:56,033 --> 00:11:00,033
+and then, if it hits something,
+
+167
+00:11:00,033 --> 00:11:04,033
+i.e. "// If it hits the landscape", then
+
+168
+00:11:04,033 --> 00:11:08,033
+we're going to want the "controlled tank
+
+169
+00:11:08,033 --> 00:11:12,033
+to aim at
+
+170
+00:11:12,033 --> 00:11:16,033
+this point". That's the pseudocode. Alright, so that's what we're aiming for
+
+171
+00:11:16,033 --> 00:11:20,033
+with this AimTowardsCrosshair(). [Laughs] See what I did there?! OK, so let's just
+
+172
+00:11:20,033 --> 00:11:24,033
+compile this, and then, we'll split this here and start again in the next video!
+
+173
+00:11:24,033 --> 00:11:28,033
+Of course, there's no brand new functionality here, apart from this
+
+174
+00:11:28,033 --> 00:11:32,033
+ticking log. By the way, the ticking log, we should probably get rid of, in the Tick()
+
+175
+00:11:32,033 --> 00:11:36,033
+method of the TankController.cpp. We don't need it now, it was just to prove that we got
+
+176
+00:11:36,033 --> 00:11:40,033
+Ticking() working. So if we play, there you go! The ticking's still there because I haven't
+
+177
+00:11:40,033 --> 00:11:44,033
+recompiled but I'll leave it recompiling, and then, I'll go off when that's finished and
+
+178
+00:11:44,033 --> 00:11:48,033
+commit my work, as I'm hoping you're doing. I hope you're getting on well with the source control, and I'll
+
+179
+00:11:48,033 --> 00:11:50,966
+see you in the next video!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT25 Add Tick() to PlayerController.srt

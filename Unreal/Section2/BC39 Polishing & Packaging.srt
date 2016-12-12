@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section2/BC39 Polishing & Packaging.srt
 WEBVTT
 
 1
@@ -516,3 +517,522 @@ and then. giving each other feedback on your games. So. well done on
 00:08:30.466 --> 00:08:34.466
 getting to the end of this project! It's been a lot of fun working with you on it. and I look forward to seeing you in the next section!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+So, this video
+
+2
+00:00:04,000 --> 00:00:08,000
+is all about Polishing &amp; Packaging our game! In this video,
+
+3
+00:00:08,000 --> 00:00:12,000
+we're going to point out that first impressions count. Think about those early
+
+4
+00:00:12,000 --> 00:00:16,000
+reviews. The reviewers want to get their hands on your game, and if it's full of bugs, that's going to live
+
+5
+00:00:16,000 --> 00:00:20,000
+with your game, and they very rarely revise their review. So, don't ship a half-
+
+6
+00:00:20,000 --> 00:00:24,000
+baked product, even if it's digital. There's no excuse to make it half-baked. OK,
+
+7
+00:00:24,000 --> 00:00:28,000
+if it's pre-released to have certain glitches and idiosyncrasies
+
+8
+00:00:28,000 --> 00:00:32,000
+in there, but really you're better off restricting the scope of the game and doing what you do
+
+9
+00:00:32,000 --> 00:00:36,000
+well, because it sets the precedent for moving forward. Think about this course, I hope I'm
+
+10
+00:00:36,000 --> 00:00:40,000
+doing it well, but it's certainly not complete. Check through your
+
+11
+00:00:40,000 --> 00:00:44,000
+code (polish), that's the polish code. Check through it, we've got a checklist on the next slide, and then,
+
+12
+00:00:44,000 --> 00:00:48,000
+finally ship to your customers. That's packaging it and sending it away.
+
+13
+00:00:48,000 --> 00:00:52,000
+So really, I just want you to do that, I want you to polish your game! Go through your code, comment with why
+
+14
+00:00:52,000 --> 00:00:56,000
+you're doing things. Remove any obvious comments, if it's clear what the code does,
+
+15
+00:00:56,000 --> 00:01:00,000
+remove the comment. Introduce your classes with block comments, remember that's
+
+16
+00:01:00,000 --> 00:01:04,000
+forward-slash, star to start the comment, and then, star, forward-slash to finish
+
+17
+00:01:04,000 --> 00:01:08,000
+commenting. Give a descent introduction to each of your files and your
+
+18
+00:01:08,000 --> 00:01:12,000
+classes and your header files, all of your files. Use #pragma once
+
+19
+00:01:12,000 --> 00:01:16,000
+at the top of each file. Make sure that's in there, that #pragma once. Unreal uses that
+
+20
+00:01:16,000 --> 00:01:20,000
+a lot, and we make sure we don't double import files. Delete
+
+21
+00:01:20,000 --> 00:01:24,000
+or deal with any TODO items, and capture
+
+22
+00:01:24,000 --> 00:01:28,000
+any future ideas and improvements. You can even do that right in the code.
+
+23
+00:01:28,000 --> 00:01:32,000
+OK, so go ahead, pause the video, and just make sure that you are comfortable with your game and your code
+
+24
+00:01:32,000 --> 00:01:36,000
+and go and give it a polish right now.
+
+25
+00:01:36,000 --> 00:01:40,000
+Welcome back! So, I'm going to talk you through the changes I make to my code. So, starting in main.cpp,
+
+26
+00:01:40,000 --> 00:01:44,000
+this is what I mean, by the way, by a block quote, and I think that
+
+27
+00:01:44,000 --> 00:01:48,000
+this is still perfectly appropriate. What I haven't got is a #pragma once,
+
+28
+00:01:48,000 --> 00:01:52,000
+so I'm going to do that at the top. Make sure my #includes
+
+29
+00:01:52,000 --> 00:01:56,166
+are necessary. I need an &lt;iostream&gt;, I need to talk out to the user and get input, I need &lt;string&gt; I'm
+
+30
+00:01:56,166 --> 00:02:00,066
+dealing with strings, and I need to import my game class. That's all fine! Now, this substitution,
+
+31
+00:02:00,066 --> 00:02:04,000
+I think that's worth commenting. "// to make syntax
+
+32
+00:02:04,000 --> 00:02:08,000
+Unreal friendly".
+
+33
+00:02:08,000 --> 00:02:12,000
+OK, that's why we're doing it! It's a why, it's a good comment! OK, so we're prototyping.
+
+34
+00:02:12,000 --> 00:02:16,000
+And why are we prototyping? Do we need to say why?
+
+35
+00:02:16,000 --> 00:02:20,000
+It's on the borderline, if you know C++ you don't really need it, but while you're thinking about it,
+
+36
+00:02:20,000 --> 00:02:24,000
+"// function prototypes as outside
+
+37
+00:02:24,000 --> 00:02:28,000
+a class". So, because we're not in a class here, we don't have a header file
+
+38
+00:02:28,000 --> 00:02:32,000
+for the methods below. I think that's worth putting. Instantiate a
+
+39
+00:02:32,000 --> 00:02:36,000
+new game. I think "which we re-use
+
+40
+00:02:36,000 --> 00:02:40,000
+across plays". That's quite an important point, why
+
+41
+00:02:40,000 --> 00:02:44,000
+we're creating a new game each time. The entry point for the application, this all looks
+
+42
+00:02:44,000 --> 00:02:48,000
+OK. "// exit the application". I'm quite happy with that!
+
+43
+00:02:48,000 --> 00:02:52,000
+Introduce the game, that's pretty clear. Print
+
+44
+00:02:52,000 --> 00:02:56,000
+Intro(). I don't even think we need that comment. I think that's one of those redundant
+
+45
+00:02:56,000 --> 00:03:00,000
+comments, so we could tighten that up a little bit.
+
+46
+00:03:00,000 --> 00:03:04,000
+voide PlayGame(), yes, I think
+
+47
+00:03:04,000 --> 00:03:08,000
+that is fine! I think we need to say a little bit more about what
+
+48
+00:03:08,000 --> 00:03:12,000
+PlayGame() does. "// plays a single
+
+49
+00:03:12,000 --> 00:03:15,566
+game to completion" or something like that,
+
+50
+00:03:15,566 --> 00:03:20,000
+that would help us, when we come back later. OK, so we're looking
+
+51
+00:03:20,000 --> 00:03:24,000
+for any other things, in here, that need removing. "// get a guess from
+
+52
+00:03:24,000 --> 00:03:28,000
+the player" I think this stuff is all fine.
+
+53
+00:03:28,000 --> 00:03:32,000
+[Says to Himself] AskToPlayAgain(), print a summary. No, I think that's fine! It's also a good
+
+54
+00:03:32,000 --> 00:03:36,000
+tip, by the way, to leave a blank line at the bottom, because things like the GCC
+
+55
+00:03:36,000 --> 00:03:40,000
+Compiler prefer that. So, that's a handy thing! Now, while I'm here, let's go straight in before
+
+56
+00:03:40,000 --> 00:03:44,000
+we go anywhere else and look at the tasks to do. Right function for lowercase. We
+
+57
+00:03:44,000 --> 00:03:48,000
+don't need that, so that's all my TODO's cleared! Let's go back to the challenge slide
+
+58
+00:03:48,000 --> 00:03:52,000
+and see what else! Comment with why, we're doing that! Introduce our classes with block comments.
+
+59
+00:03:52,000 --> 00:03:56,000
+#pragma once .OK good! So, onto the next file!
+
+60
+00:03:56,000 --> 00:04:00,000
+#pragma once we already have, but what we don't have is a block introduction. What is this
+
+61
+00:04:00,000 --> 00:04:04,000
+all about? So, we can either put it here or we can put it
+
+62
+00:04:04,000 --> 00:04:08,000
+in the implementation file. I think it would make sense, while we're at the top level, to put it here in the
+
+63
+00:04:08,000 --> 00:04:12,000
+header file. So, /star*The header file
+
+64
+00:04:12,000 --> 00:04:16,000
+game logic (no
+
+65
+00:04:16,000 --> 00:04:20,000
+view code or
+
+66
+00:04:20,000 --> 00:04:24,000
+direct user interaction)
+
+67
+00:04:24,000 --> 00:04:28,000
+The game
+
+68
+00:04:28,000 --> 00:04:32,000
+is a simple guess the word
+
+69
+00:04:32,000 --> 00:04:36,000
+game based on Mastermind/* or something like
+
+70
+00:04:36,000 --> 00:04:40,000
+that, alright. So, that gives you a block comment, at the top, to say what it does.
+
+71
+00:04:40,000 --> 00:04:44,000
+Again, we have a look down. Why are we doing this? I think it's
+
+72
+00:04:44,000 --> 00:04:48,000
+probably worth using the same comment again, right there, that this is
+
+73
+00:04:48,000 --> 00:04:52,000
+to make the syntax Unreal friendly. That could be very confusing when you look at
+
+74
+00:04:52,000 --> 00:04:56,000
+it again, in the future. "// values initialized to zero is a redundant comment",
+
+75
+00:04:56,000 --> 00:05:00,000
+we can see that they're initialized to zero. But why are we
+
+76
+00:05:00,000 --> 00:05:04,000
+making a BullCowCount? "// used to.... Well, I think
+
+77
+00:05:04,000 --> 00:05:08,000
+it's actually pretty obvious, so I won't comment that. EGuessStatus,
+
+78
+00:05:08,000 --> 00:05:12,000
+don't think I need to comment that either. class FBullCowGame, that's all fine. I'm
+
+79
+00:05:12,000 --> 00:05:16,000
+leaving constructor in there, because I think that's a useful comment. "// TODO make a more rich
+
+80
+00:05:16,000 --> 00:05:20,000
+return value." We're actually not going to bother to make
+
+81
+00:05:20,000 --> 00:05:24,000
+Reset() do any checks, before it does its reset, but what I am going to do is, in the
+
+82
+00:05:24,000 --> 00:05:28,000
+implementation of Reset(), I am going to just
+
+83
+00:05:28,000 --> 00:05:32,000
+say that, right here against the hidden word, "// this
+
+84
+00:05:32,000 --> 00:05:36,000
+must be an isogram". It's really important
+
+85
+00:05:36,000 --> 00:05:40,000
+that the hidden word is an isogram, otherwise the game is very hard to play. But once I've
+
+86
+00:05:40,000 --> 00:05:44,000
+made that comment in line there, I think I can remove this and reduce the scope of
+
+87
+00:05:44,000 --> 00:05:48,000
+the project a little tiny bit for simplicity. So, I'm posting
+
+88
+00:05:48,000 --> 00:05:52,000
+to the constructor down here. I think it's useful because they go, well, what are the initial values of these things?
+
+89
+00:05:52,000 --> 00:05:56,000
+Well, you go over to the constructor and you find
+
+90
+00:05:56,000 --> 00:06:00,000
+the constructor here, "default constructor", and then, you look
+
+91
+00:06:00,000 --> 00:06:04,000
+down at Reset() and then you see your initial values. OK, so this class,
+
+92
+00:06:04,000 --> 00:06:08,000
+this file rather, we don't necessarily need the block comment at the top. I think it
+
+93
+00:06:08,000 --> 00:06:12,000
+is worth saying again, to make it more Unreal friendly. I think that's still in my paste buffer.
+
+94
+00:06:12,000 --> 00:06:16,000
+That's great! Actually, to be honest,
+
+95
+00:06:16,000 --> 00:06:20,000
+both of these things are for that, so I think I'll put them like
+
+96
+00:06:20,000 --> 00:06:24,000
+this. So, I'm just trying to keep it close enough to &lt;map&gt; that we can see what's going on,
+
+97
+00:06:24,000 --> 00:06:28,000
+&lt;map&gt; map, but also group these two together. These type of style things matter, when
+
+98
+00:06:28,000 --> 00:06:32,000
+you're reading the code. Be a little bit more consistent, I'm going to be a little bit more
+
+99
+00:06:32,000 --> 00:06:36,000
+consistent here with my bracketing format.
+
+100
+00:06:36,000 --> 00:06:40,000
+This must be an isogram. A little bit too much spacing, I would say there. CheckGuess
+
+101
+00:06:40,000 --> 00:06:44,000
+Validity(). I think this is all just fine! By the way, here this is very close
+
+102
+00:06:44,000 --> 00:06:48,000
+to being able to being expressed as... Not this one! I'm sorry, the swtich
+
+103
+00:06:48,000 --> 00:06:52,000
+statement, back in the main, is very close to being able to be expressed as
+
+104
+00:06:52,000 --> 00:06:56,000
+a map itself, if you think about it, but I haven't bothered because of the difficulties
+
+105
+00:06:56,000 --> 00:07:00,000
+with literal strings, for the moment. OK, so back to the .cpp file!
+
+106
+00:07:00,000 --> 00:07:05,000
+And I think the rest of it is looking pretty good!
+
+107
+00:07:05,366 --> 00:07:09,366
+Just diving back up to the top of the FBullCowGame.cpp.
+
+108
+00:07:09,366 --> 00:07:13,366
+Let's just do a #pragma. Whoops, if I can type
+
+109
+00:07:13,366 --> 00:07:17,366
+straight. #pragma once.
+
+110
+00:07:17,366 --> 00:07:18,466
+OK great!
+
+111
+00:07:18,466 --> 00:07:22,466
+So, that's the idea! You're going through, you're removing redundant comments,
+
+112
+00:07:22,466 --> 00:07:26,466
+you are getting rid of all your TODO's, and you're just making very
+
+113
+00:07:26,466 --> 00:07:30,466
+sure that, at this stage you are happy with your code. So, what I want you to do,
+
+114
+00:07:30,466 --> 00:07:34,466
+at this stage, is to close your project and then package it up and
+
+115
+00:07:34,466 --> 00:07:38,466
+share it in the discussions, the best way you can. So literally,
+
+116
+00:07:38,466 --> 00:07:42,466
+just close it all, go and find where it is stored. In my case, it's
+
+117
+00:07:42,466 --> 00:07:46,466
+UnrealCourse, Section_02, and then, I have BullCowGame, and I have all this stuff
+
+118
+00:07:46,466 --> 00:07:50,466
+here. You don't need the Debug folder, but if you share with people, either just
+
+119
+00:07:50,466 --> 00:07:54,466
+your three raw files or your whole Visual Studio project,
+
+120
+00:07:54,466 --> 00:07:58,466
+probably just your three raw files, and let the other students import these
+
+121
+00:07:58,466 --> 00:08:02,466
+and make them run. Zip them up, somehow. You can
+
+122
+00:08:02,466 --> 00:08:06,466
+do that with a compressed folder like this in Windows, and use DropBox,
+
+123
+00:08:06,466 --> 00:08:10,466
+YouSendIt, or GoogleDrive or something to make those available to other
+
+124
+00:08:10,466 --> 00:08:14,466
+students. Please don't share a .exe or a Mac .app file, because they're just
+
+125
+00:08:14,466 --> 00:08:18,466
+too dangerous, your virus scanners will go crazy, and it's just not very clever. But
+
+126
+00:08:18,466 --> 00:08:22,466
+share the source code with other users, and if you see another user's source code, go to the effort of actually
+
+127
+00:08:22,466 --> 00:08:26,466
+running it, helping each other to share it in such a way that it can run,
+
+128
+00:08:26,466 --> 00:08:30,466
+and then, giving each other feedback on your games. So, well done on
+
+129
+00:08:30,466 --> 00:08:34,466
+getting to the end of this project! It's been a lot of fun working with you on it, and I look forward to seeing you in the next section!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section2/BC39 Polishing & Packaging.srt

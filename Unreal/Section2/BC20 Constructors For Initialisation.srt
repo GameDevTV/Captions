@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿WEBVTT
 
 1
@@ -468,3 +469,474 @@ object is constructed. the values are known. and when you run
 00:07:45.200 --> 00:07:50.433
 Reset(). you get the same values in this case. Cool. see you soon!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,733
+Welcome back! So, in this video we're going to start getting
+
+2
+00:00:04,733 --> 00:00:08,000
+ourselves into the great habit of writing constructors for all of our classes,
+
+3
+00:00:08,000 --> 00:00:12,000
+so that every time a instance pops out of the mold we
+
+4
+00:00:12,000 --> 00:00:16,000
+also make sure that we set it off in the right direction. So, this is a bit
+
+5
+00:00:16,000 --> 00:00:20,000
+like powering up computers, when they come off the factory line and
+
+6
+00:00:20,000 --> 00:00:24,000
+setting their state, loading software onto them, right. So, the mold makes computers,
+
+7
+00:00:24,000 --> 00:00:28,000
+the class pops out computer instances, but what the constructor does is it basically
+
+8
+00:00:28,000 --> 00:00:32,000
+loads the software into the computer, as it leaves the factory, so that you get all that annoying
+
+9
+00:00:32,000 --> 00:00:36,000
+default software and stuff. So, that's what we're doing here but in a good way! By the
+
+10
+00:00:36,000 --> 00:00:40,000
+end of it what we'll have is, when we instantiate the new game we'll actually know
+
+11
+00:00:40,000 --> 00:00:44,000
+what its state it, because we'll know that this is being reset automatically,
+
+12
+00:00:44,000 --> 00:00:48,000
+and we'll actually be calling the BCGame.Reset() function. And knowing
+
+13
+00:00:48,000 --> 00:00:52,000
+that we have complete control over when the game state is set
+
+14
+00:00:52,000 --> 00:00:57,200
+back to try one and maximum tries. So all good stuff! Let's dive in and see how it works!
+
+15
+00:00:57,200 --> 00:01:01,200
+So, let's dive right in and see what a constructor
+
+16
+00:01:01,200 --> 00:01:05,200
+is! The way that you create a constructor is to
+
+17
+00:01:05,200 --> 00:01:09,200
+just take the name of the class and make a method
+
+18
+00:01:09,200 --> 00:01:13,200
+with that name. So, what I've put at the top of the header file
+
+19
+00:01:13,200 --> 00:01:17,200
+is the constructor.
+
+20
+00:01:17,200 --> 00:01:21,200
+Now, there is actually something called a destructor, which we won't bother with
+
+21
+00:01:21,200 --> 00:01:25,200
+now, but it's the same thing with a twiddle in front.
+
+22
+00:01:25,200 --> 00:01:29,200
+OK, so that is a constructor! When you first create the object,
+
+23
+00:01:29,200 --> 00:01:34,100
+instantiate the object here, and we make this thing called BCGame. It comes out of the mold.
+
+24
+00:01:34,100 --> 00:01:37,200
+Right, this is the mold and this instance pop out the mold, then it's going to
+
+25
+00:01:37,200 --> 00:01:41,200
+look for a constructor, and if there's any code in the constructor it's going to
+
+26
+00:01:41,200 --> 00:01:45,200
+run it. So, we've declared a constructor. Let's go ahead now and define
+
+27
+00:01:45,200 --> 00:01:49,200
+that constructor. There it is! Here's the constructor! So,
+
+28
+00:01:49,200 --> 00:01:53,200
+let's imagine, for example, that, that reset
+
+29
+00:01:53,200 --> 00:01:57,200
+one of these guys. Let's see which one of these takes precedent and see what happens. So, we've got
+
+30
+00:01:57,200 --> 00:02:01,200
+MyCurrentTry and MyMaxTries is 5 and 1, respectively.
+
+31
+00:02:01,200 --> 00:02:05,200
+Let's, in the constructor, try setting these values to
+
+32
+00:02:05,200 --> 00:02:09,200
+silly values, OK. Both 666 or something.
+
+33
+00:02:09,200 --> 00:02:13,200
+So let's see if this works! Now, we can't do a
+
+34
+00:02:13,200 --> 00:02:17,200
+cout right here, at the class level we'd get this error "illegal for class", but we
+
+35
+00:02:17,200 --> 00:02:21,200
+are allowed, immediately inside our main() method, to go something like std::
+
+36
+00:02:21,200 --> 00:02:25,200
+cout << BCGame
+
+37
+00:02:25,200 --> 00:02:29,200
+.GetCurrentTry() for example. Let's see what comes out!
+
+38
+00:02:29,200 --> 00:02:33,200
+666. So, the constructor
+
+39
+00:02:33,200 --> 00:02:37,200
+value has been used! Why? Well, because we
+
+40
+00:02:37,200 --> 00:02:41,200
+have instantiated a new game object here, and
+
+41
+00:02:41,200 --> 00:02:45,200
+initially these values would have been used but they got overridden
+
+42
+00:02:45,200 --> 00:02:49,200
+by the constructor at runtime. So, these values are the compile
+
+43
+00:02:49,200 --> 00:02:53,200
+time values and these are the runtime values. OK, so
+
+44
+00:02:53,200 --> 00:02:57,200
+we don't want both! It's kind of confusing, it's not clear what's where!
+
+45
+00:02:57,200 --> 00:03:01,200
+So, if we're going to use a constructor to set these values, we don't want to be setting
+
+46
+00:03:01,200 --> 00:03:05,200
+them here. So, let's take away the initializations here.
+
+47
+00:03:05,200 --> 00:03:09,200
+And if you want to, you can sign post yourself. "// see constructor
+
+48
+00:03:09,200 --> 00:03:13,200
+for initialization". OK, so you construct
+
+49
+00:03:13,200 --> 00:03:17,200
+here, if on each subsequent play of the game
+
+50
+00:03:17,200 --> 00:03:21,200
+you didn't need to change these things, but we do, every time you go around the main game loop
+
+51
+00:03:21,200 --> 00:03:25,200
+and PlayGame(), we're going to need to reset the game somehow. So,
+
+52
+00:03:25,200 --> 00:03:29,200
+let's change these to MyCurrentTry is 1
+
+53
+00:03:29,200 --> 00:03:33,200
+and MyMaxTries is say 5, for now.
+
+54
+00:03:33,200 --> 00:03:37,200
+OK, let's just run and see how this works!
+
+55
+00:03:37,200 --> 00:03:41,200
+"Try 1. Enter your guess:". OK, so this is running and when we
+
+56
+00:03:41,200 --> 00:03:45,200
+first construct a new game it has got values that are set
+
+57
+00:03:45,200 --> 00:03:49,200
+here, at runtime, in the constructor. That's cool! You clear on
+
+58
+00:03:49,200 --> 00:03:53,200
+what's going on there? When the thing pops out the mold, the constructor is called automatically.
+
+59
+00:03:53,200 --> 00:03:57,200
+It's like a factory leaving check
+
+60
+00:03:57,200 --> 00:04:01,200
+and these things are set. That's fine! But we're also going to want a Reset()
+
+61
+00:04:01,200 --> 00:04:05,200
+method aren't we? If we look here in PlayGame(), then
+
+62
+00:04:05,200 --> 00:04:09,200
+we're going to want... The first thing we do in PlayGame() actually is
+
+63
+00:04:09,200 --> 00:04:13,200
+to reset the game state, because remember, we play the game multiple times. We print an intro,
+
+64
+00:04:13,200 --> 00:04:17,200
+PlayGame(), bPlayAgain. OK, so we're going to want to go
+
+65
+00:04:17,200 --> 00:04:21,200
+BCGame.Reset();
+
+66
+00:04:21,200 --> 00:04:25,200
+at this point. So, if we're going to have a Reset method, that's going to do exactly the
+
+67
+00:04:25,200 --> 00:04:29,200
+same as the constructor isn't it? The Reset() method is just going to  set
+
+68
+00:04:29,200 --> 00:04:33,200
+these things and possibly some new things for now. So, I've got a simple
+
+69
+00:04:33,200 --> 00:04:37,200
+challenge for you. I want you to write the Reset() method and call it from the constructor.
+
+70
+00:04:37,200 --> 00:04:41,200
+it's just going to do this, so literally we've got a cut and paste operation
+
+71
+00:04:41,200 --> 00:04:45,200
+for you, pretty much.  So, I want you to write and test Reset(). Initialize all the
+
+72
+00:04:45,200 --> 00:04:49,200
+member variables. Set the MaxTries to 8 instead of 5. Use the appropriate
+
+73
+00:04:49,200 --> 00:04:53,200
+constant for the magic number, i.e. the number 8. Remember how we did that earlier?
+
+74
+00:04:53,200 --> 00:04:57,200
+We said we don't ever assign numbers above 2, unless they're going to
+
+75
+00:04:57,200 --> 00:05:01,200
+a constant. And check that it works, by using cout as you need to, to
+
+76
+00:05:01,200 --> 00:05:05,200
+convince yourself that the Reset() method is working, and as a bonus,
+
+77
+00:05:05,200 --> 00:05:09,200
+call Reset() from the constructor. But if you don't know what that means, then just don't do it, and then you'll see my
+
+78
+00:05:09,200 --> 00:05:13,200
+solution in a second. OK, see you in a second!
+
+79
+00:05:13,200 --> 00:05:17,200
+Welcome back! So literally, I'm going to take these guys here,
+
+80
+00:05:17,200 --> 00:05:21,200
+pop them into Reset(), MyCurrentTry, and MyMaxTries.
+
+81
+00:05:21,200 --> 00:05:25,200
+I am going to set max tries
+
+82
+00:05:25,200 --> 00:05:29,200
+to 8, and then, I'm going to call Reset()
+
+83
+00:05:29,200 --> 00:05:33,200
+from the constructor. That's fine! You're delegating the job
+
+84
+00:05:33,200 --> 00:05:37,200
+effectively, down to this Reset(), which is really neat now, because we don't have any initialization
+
+85
+00:05:37,200 --> 00:05:41,200
+here. We don't even have any initialization in the constructor.
+
+86
+00:05:41,200 --> 00:05:45,200
+The constructor is so simple that if we want to, we can write things all on one line,
+
+87
+00:05:45,200 --> 00:05:49,200
+like this. So, what does Reset() do? Well, you can right-click on
+
+88
+00:05:49,200 --> 00:05:53,200
+it, Go To Definition, and we can go and see what Reset() does. Cool!
+
+89
+00:05:53,200 --> 00:05:57,200
+That answers that question! What are the initial values? So,
+
+90
+00:05:57,200 --> 00:06:01,200
+this says see the constructor for initialization. We have a look at the constructor, and it just
+
+91
+00:06:01,200 --> 00:06:05,200
+reuses Reset(). So actually, all eyes point to Reset() as being the only thing,
+
+92
+00:06:05,200 --> 00:06:09,200
+you know, entire code that resets the game, and it's a very natural and clear
+
+93
+00:06:09,200 --> 00:06:13,200
+place to look. So, we're being good, we're doing a constructor,
+
+94
+00:06:13,200 --> 00:06:17,200
+but we're reusing this code. A place for everything and everything in it's place. There's only one
+
+95
+00:06:17,200 --> 00:06:21,200
+place in your entire code that these things exist. Now, there is one thing I want
+
+96
+00:06:21,200 --> 00:06:25,200
+to do, which is just move some lines around a little bit, space a couple of things
+
+97
+00:06:25,200 --> 00:06:29,200
+out, and get rid of my nasty magic number. Const expression remember, because this
+
+98
+00:06:29,200 --> 00:06:33,200
+is known at compile time. MAX_TRIES = 8;
+
+99
+00:06:33,200 --> 00:06:37,200
+and this is just getting in a very good habit to say
+
+100
+00:06:37,200 --> 00:06:41,200
+to our selves, if we're going to use magic numbers then right now this is
+
+101
+00:06:41,200 --> 00:06:45,200
+basically a waste of time. But what's likely
+
+102
+00:06:45,200 --> 00:06:49,200
+to happen with your code is you end up with a bigger and bigger gap, when you define that constant
+
+103
+00:06:49,200 --> 00:06:53,200
+and where you lost it later, and if that happens
+
+104
+00:06:53,200 --> 00:06:57,200
+then it means, in future if you want to access max tries, it's available
+
+105
+00:06:57,200 --> 00:07:02,500
+across your entire program there, you can see its value, and you know that if you ever need to change
+
+106
+00:07:02,500 --> 00:07:05,200
+max tries, you only need to search for it and
+
+107
+00:07:05,200 --> 00:07:09,200
+find it once in your entire program. That's the whole point about these magic
+
+108
+00:07:09,200 --> 00:07:13,200
+numbers, right. So, I group those two together, because they kind of logically go together. I could
+
+109
+00:07:13,200 --> 00:07:17,200
+go to Find and Replace, Quick Find, MAX_TRIES, and
+
+110
+00:07:17,200 --> 00:07:21,200
+however big my code is, I would be able to quite quickly find the definition
+
+111
+00:07:21,200 --> 00:07:25,200
+of MAX_TRIES and change it just there.
+
+112
+00:07:25,200 --> 00:07:29,200
+Cool! Congratulations! Hopefully you get the most important part of this video,
+
+113
+00:07:29,200 --> 00:07:33,200
+which is that you declare a constructor like this and then you
+
+114
+00:07:33,200 --> 00:07:37,200
+define a constructor to do what you like and that it's OK to call one of your own
+
+115
+00:07:37,200 --> 00:07:41,200
+methods, especially something like a Reset() method. And then, that means that when the
+
+116
+00:07:41,200 --> 00:07:45,200
+object is constructed, the values are known, and when you run
+
+117
+00:07:45,200 --> 00:07:50,433
+Reset(), you get the same values in this case. Cool, see you soon!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1

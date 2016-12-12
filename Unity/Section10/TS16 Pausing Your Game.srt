@@ -1,440 +1,439 @@
-WEBVTT
 Kind: captions
 Language: en
 
-00:00:00.510 --> 00:00:04.340
-Hey welcome back! So. finally for this section
-I want to show you how to pause your game.
+00:00:00,510 --> 00:00:04,340
+Hey welcome back! So, finally for this section
+I want to show you how to pause your game,
 
-00:00:04.340 --> 00:00:08.830
-t's been a common request. So. I'm going to
+00:00:04,340 --> 00:00:08,830
+t's been a common request. So, I'm going to
 show you one way of pausing your game in Unity.
 
-00:00:08.830 --> 00:00:17.200
+00:00:08,830 --> 00:00:17,200
 We'll look at OnApplicationPause message and
-understand Time.timeScale better. Cool! So.
+understand Time.timeScale better. Cool! So,
 
-00:00:17.200 --> 00:00:21.880
+00:00:17,200 --> 00:00:21,880
 here we are in the game. We want to pause
-the game. so let's look at a few of Unity's
+the game, so let's look at a few of Unity's
 
-00:00:21.880 --> 00:00:26.470
+00:00:21,880 --> 00:00:26,470
 methods that may help with this. When it's
-Time.timeScale. which you've used before.
+Time.timeScale, which you've used before,
 
-00:00:26.470 --> 00:00:30.300
-and you can use it to slow down the game.
+00:00:26,470 --> 00:00:30,300
+and you can use it to slow down the game,
 but you can also use it to stop the running
 
-00:00:30.300 --> 00:00:36.559
-of the game altogether. by saying Time.timeScale
-= 0. It also says here. that you better lower
+00:00:30,300 --> 00:00:36,559
+of the game altogether, by saying Time.timeScale
+= 0. It also says here, that you better lower
 
-00:00:36.559 --> 00:00:42.449
+00:00:36,559 --> 00:00:42,449
 your Time.fixed.DeltaTime by the same amount
-so. if you're pausing. you want to set Time.timeScale
+so, if you're pausing, you want to set Time.timeScale
 
-00:00:42.449 --> 00:00:51.620
+00:00:42,449 --> 00:00:51,620
 to 0 and Time.fixed.DeltaTime to the same
-amount. like 0. in this case. So. I will show
+amount, like 0, in this case. So, I will show
 
-00:00:51.620 --> 00:00:55.809
+00:00:51,620 --> 00:00:55,809
 you that practically in just a moment. We
 also need to understand does the Unity execution
 
-00:00:55.809 --> 00:01:01.979
+00:00:55,809 --> 00:01:01,979
 still work? I did the fixed update loops still
-and the update loops still run. when Time.deltaTime
+and the update loops still run, when Time.deltaTime
 
-00:01:01.979 --> 00:01:06.350
-is set to 0. Well. let's find out shall we.
+00:01:01,979 --> 00:01:06,350
+is set to 0. Well, let's find out shall we.
 Let's go into the Game Manager and just do
 
-00:01:06.350 --> 00:01:10.540
+00:01:06,350 --> 00:01:10,540
 a little experiment. This is the sort of thing
-I would encourage you to do. So. we can some
+I would encourage you to do. So, we can some
 
-00:01:10.540 --> 00:01:20.480
-along here and we can say on Update. we can
+00:01:10,540 --> 00:01:20,480
+along here and we can say on Update, we can
 do another look for if (Input.GetButtonDown
 
-00:01:20.480 --> 00:01:27.830
-and then (KeyCode.p for pause. let's say.
-OK. or we could actually use whatever has
+00:01:20,480 --> 00:01:27,830
+and then (KeyCode.p for pause, let's say.
+OK, or we could actually use whatever has
 
-00:01:27.830 --> 00:01:33.390
-been assigned to pause. but be careful with
-this one. this guy here is the Pause Button
+00:01:27,830 --> 00:01:33,390
+been assigned to pause, but be careful with
+this one, this guy here is the Pause Button
 
-00:01:33.390 --> 00:01:37.200
-on PC machines. So. I'm just going to use
-the P key. directly. but of course what you
+00:01:33,390 --> 00:01:37,200
+on PC machines. So, I'm just going to use
+the P key, directly, but of course what you
 
-00:01:37.200 --> 00:01:41.190
+00:01:37,200 --> 00:01:41,190
 would normally do is actually assign this
 to a re-mappable button if it's that type
 
-00:01:41.190 --> 00:01:45.830
-of game but for now. let's just use the P
-key. Here we go. So. if we go for P. then
+00:01:41,190 --> 00:01:45,830
+of game but for now, let's just use the P
+key. Here we go. So, if we go for P, then
 
-00:01:45.830 --> 00:01:49.560
-we want to pause the game. so I'm actually
-going to write a method to make it clear.
+00:01:45,830 --> 00:01:49,560
+we want to pause the game, so I'm actually
+going to write a method to make it clear,
 
-00:01:49.560 --> 00:01:55.820
+00:01:49,560 --> 00:01:55,820
 all the things we're going to do when we pause.
-So. void PauseGame () OK. and we'll just call
+So, void PauseGame () OK, and we'll just call
 
-00:01:55.820 --> 00:02:02.479
-PauseGame. So. what are we going to do in
-PauseGame? Well. let's try this. Time.timeScale
+00:01:55,820 --> 00:02:02,479
+PauseGame. So, what are we going to do in
+PauseGame? Well, let's try this, Time.timeScale
 
-00:02:02.479 --> 00:02:11.689
-= 0; OK. so let's try setting Time.timeScale
-= 0. and while we're at it. every single update.
+00:02:02,479 --> 00:02:11,689
+= 0; OK, so let's try setting Time.timeScale
+= 0, and while we're at it, every single update,
 
-00:02:11.689 --> 00:02:20.790
-let's just print ("update"): And of course.
-my challenge is. I'm saying GetButtonDown.
+00:02:11,689 --> 00:02:20,790
+let's just print ("update"): And of course,
+my challenge is, I'm saying GetButtonDown,
 
-00:02:20.790 --> 00:02:29.159
-when I meant GetKeyDown. OK. let's have a
-look. So. we play the game. we observe the
+00:02:20,790 --> 00:02:29,159
+when I meant GetKeyDown. OK, let's have a
+look. So, we play the game, we observe the
 
-00:02:29.159 --> 00:02:34.180
-Console. we get lots and lots of updates coming
-out here. we hit P... What happens? You have
+00:02:29,159 --> 00:02:34,180
+Console, we get lots and lots of updates coming
+out here, we hit P... What happens? You have
 
-00:02:34.180 --> 00:02:38.599
-to be in the Game Window. of course. Do the
+00:02:34,180 --> 00:02:38,599
+to be in the Game Window, of course. Do the
 updates keep coming out and does the thing
 
-00:02:38.599 --> 00:02:44.889
-move? So. let's take a look. more carefully.
-I'm going to collapse the Console. clear it.
+00:02:38,599 --> 00:02:44,889
+move? So, let's take a look, more carefully.
+I'm going to collapse the Console, clear it,
 
-00:02:44.889 --> 00:02:51.230
-play. move left and right. hit P... That's
-frozen there. but it's still running the Update
+00:02:44,889 --> 00:02:51,230
+play, move left and right, hit P... That's
+frozen there, but it's still running the Update
 
-00:02:51.230 --> 00:02:56.109
-Loop. So. to be clear. the Update Loop still
-runs. when you go into Pause Mode. but the
+00:02:51,230 --> 00:02:56,109
+Loop. So, to be clear, the Update Loop still
+runs, when you go into Pause Mode, but the
 
-00:02:56.109 --> 00:03:01.430
-timescale is set to 0. so all of these frame
+00:02:56,109 --> 00:03:01,430
+timescale is set to 0, so all of these frame
 updates and physics updates will be set to
 
-00:03:01.430 --> 00:03:07.159
-0. OK. so you'll not have any movement going
-on. but the Update Loop is still being called.
+00:03:01,430 --> 00:03:07,159
+0. OK, so you'll not have any movement going
+on, but the Update Loop is still being called.
 
-00:03:07.159 --> 00:03:13.319
-So. that's one clarification for you. So.
+00:03:07,159 --> 00:03:13,319
+So, that's one clarification for you. So,
 we have set Time.timeScale = 0. We better
 
-00:03:13.319 --> 00:03:18.180
-show a way of resuming the game. so let's
-just do a very similar thing. and let's just
+00:03:13,319 --> 00:03:18,180
+show a way of resuming the game, so let's
+just do a very similar thing, and let's just
 
-00:03:18.180 --> 00:03:22.879
-say if (Input.GetKey... Actually. you do this.
-Pause the video and sort it out. so that if
+00:03:18,180 --> 00:03:22,879
+say if (Input.GetKey... Actually, you do this.
+Pause the video and sort it out, so that if
 
-00:03:22.879 --> 00:03:28.659
-you push P again. or if you push R. either
+00:03:22,879 --> 00:03:28,659
+you push P again, or if you push R, either
 way.. either separately you push R for resume
 
-00:03:28.659 --> 00:03:32.889
-or if you Push P again. the game resumes.
-OK. go ahead and pause the video. as a mini
+00:03:28,659 --> 00:03:32,889
+or if you Push P again, the game resumes.
+OK, go ahead and pause the video, as a mini
 
-00:03:32.889 --> 00:03:39.769
-challenge. and arrange to come out of Pause
-Mode now. Common. do it! [Laughs] I mean.
+00:03:32,889 --> 00:03:39,769
+challenge, and arrange to come out of Pause
+Mode now. Common, do it! [Laughs] I mean,
 
-00:03:39.769 --> 00:03:43.079
-I'm going to show you how. but I'm just going
+00:03:39,769 --> 00:03:43,079
+I'm going to show you how, but I'm just going
 to give you an opportunity to do it for yourself.
 
-00:03:43.079 --> 00:03:47.329
-OK. I'm going to do it the easy way. which
-is GetKeyDown. and then. I'm just going to
+00:03:43,079 --> 00:03:47,329
+OK, I'm going to do it the easy way, which
+is GetKeyDown, and then, I'm just going to
 
-00:03:47.329 --> 00:03:52.919
-use a different key. otherwise we could just
+00:03:47,329 --> 00:03:52,919
+use a different key, otherwise we could just
 use a Boolean to store the state. (KeyCode.R))
 
-00:03:52.919 --> 00:03:56.919
-And then. just pop in a new method. which
+00:03:52,919 --> 00:03:56,919
+And then, just pop in a new method, which
 I'm going to say ResumeGame. The purpose of
 
-00:03:56.919 --> 00:04:00.249
-this. really is to show you what needs to
+00:03:56,919 --> 00:04:00,249
+this, really is to show you what needs to
 be done to pause and resume the game right.
 
-00:04:00.249 --> 00:04:06.730
-So. resume the game doesn't exist. because
-we haven't written it yet. So. here it comes.
+00:04:00,249 --> 00:04:06,730
+So, resume the game doesn't exist, because
+we haven't written it yet. So, here it comes,
 
-00:04:06.730 --> 00:04:12.510
-and then. we're just going to kind of undo
+00:04:06,730 --> 00:04:12,510
+and then, we're just going to kind of undo
 what we've done. And Time.timeScale = 1 float.
 
-00:04:12.510 --> 00:04:18.130
-OK. so let's just check pausing and resuming
-now. So. I'm playing away. left and right.
+00:04:12,510 --> 00:04:18,130
+OK, so let's just check pausing and resuming
+now. So, I'm playing away, left and right,
 
-00:04:18.130 --> 00:04:22.040
-I hit P. the game stops moving. the Update
-Loop is still running. although we've moved
+00:04:18,130 --> 00:04:22,040
+I hit P, the game stops moving, the Update
+Loop is still running, although we've moved
 
-00:04:22.040 --> 00:04:27.370
+00:04:22,040 --> 00:04:27,370
 the log entry. We hit R and the game continues.
-Perfect! OK. now is that enough? Remember
+Perfect! OK, now is that enough? Remember
 
-00:04:27.370 --> 00:04:32.890
-back in that entry. here. it said... I'll
+00:04:27,370 --> 00:04:32,890
+back in that entry, here, it said... I'll
 come to that in a minute. It said we should
 
-00:04:32.890 --> 00:04:40.760
+00:04:32,890 --> 00:04:40,760
 also lower Time.fixedDeltaTime by the same
-amount. So. how do you do that? What is Time.fixedDeltaTime.
+amount. So, how do you do that? What is Time.fixedDeltaTime,
 
-00:04:40.760 --> 00:04:47.200
-and how are we going to change it? OK. it's
+00:04:40,760 --> 00:04:47,200
+and how are we going to change it? OK, it's
 "the interval in seconds at which the physics
 
-00:04:47.200 --> 00:04:54.530
-and other fixed frame rate. i.e.. things in
-the Fixed Update Loop are performed. So. what
+00:04:47,200 --> 00:04:54,530
+and other fixed frame rate, i.e., things in
+the Fixed Update Loop are performed. So, what
 
-00:04:54.530 --> 00:05:06.330
+00:04:54,530 --> 00:05:06,330
 happens if we set fixedDeltaTime to 0? Let's
-try that. and see whether it likes that. because
+try that, and see whether it likes that, because
 
-00:05:06.330 --> 00:05:10.650
+00:05:06,330 --> 00:05:10,650
 strictly speaking we're not setting the fixedDeltaTime
-to 0. we're setting it to infinitely long.
+to 0, we're setting it to infinitely long,
 
-00:05:10.650 --> 00:05:14.900
+00:05:10,650 --> 00:05:14,900
 but I think it will interpret this 0 appropriately.
-There it goes. still running fine. and then.
+There it goes, still running fine, and then,
 
-00:05:14.900 --> 00:05:18.700
-the fixedDeltaTime is now 0. as well. which
+00:05:14,900 --> 00:05:18,700
+the fixedDeltaTime is now 0, as well, which
 makes sure that all the physics loops are
 
-00:05:18.700 --> 00:05:23.610
-not being called as well. So. we have what
-we need. Of course. in the resume of the game.
+00:05:18,700 --> 00:05:23,610
+not being called as well. So, we have what
+we need. Of course, in the resume of the game,
 
-00:05:23.610 --> 00:05:28.700
+00:05:23,610 --> 00:05:28,700
 we need to undo the Time.fixedDealTime = 0.
-We'd better set it back to what? Now. that's
+We'd better set it back to what? Now, that's
 
-00:05:28.700 --> 00:05:33.930
+00:05:28,700 --> 00:05:33,930
 a good question. That depends on what it was
-set to in the Project Settings. in the first
+set to in the Project Settings, in the first
 
-00:05:33.930 --> 00:05:42.410
-case. Under Project Settings and Time. you
-have Fixed Timestep equals 0.02. So. what
+00:05:33,930 --> 00:05:42,410
+case. Under Project Settings and Time, you
+have Fixed Timestep equals 0.02. So, what
 
-00:05:42.410 --> 00:05:48.930
+00:05:42,410 --> 00:05:48,930
 you'd better do is save that at the very beginning
-of the game. so we'll have a private bool
+of the game, so we'll have a private bool
 
-00:05:48.930 --> 00:05:58.820
-fixedDeltaTime; OK. not a bool. well done
+00:05:48,930 --> 00:05:58,820
+fixedDeltaTime; OK, not a bool, well done
 if you've noticed that. It's a float. And
 
-00:05:58.820 --> 00:06:06.190
-then. on Start we'd better go and save it
+00:05:58,820 --> 00:06:06,190
+then, on Start we'd better go and save it
 the fixedDeltaTime = Time.fixedDeltaTime;
 
-00:06:06.190 --> 00:06:14.250
-I'm also briefly going to print that. and
-just confirm that it's 0.02. as we expect.
+00:06:06,190 --> 00:06:14,250
+I'm also briefly going to print that, and
+just confirm that it's 0.02, as we expect.
 
-00:06:14.250 --> 00:06:17.590
-I'll comment out this line. and then. we'll
-make on the resume. we'll make it go to whatever
+00:06:14,250 --> 00:06:17,590
+I'll comment out this line, and then, we'll
+make on the resume, we'll make it go to whatever
 
-00:06:17.590 --> 00:06:23.080
-it found it to be at the Start. OK. 0.02.
+00:06:17,590 --> 00:06:23,080
+it found it to be at the Start. OK, 0.02,
 that verifies it's the same as the project
 
-00:06:23.080 --> 00:06:30.110
-setting there. So. what we need to do. at
-the end. is not set Time.fixedDeltaTime. i.e.
+00:06:23,080 --> 00:06:30,110
+setting there. So, what we need to do, at
+the end, is not set Time.fixedDeltaTime, i.e.
 
-00:06:30.110 --> 00:06:34.140
+00:06:30,110 --> 00:06:34,140
 the rate at which fixed update loops are called
-to some arbitrary value. but we're going to
+to some arbitrary value, but we're going to
 
-00:06:34.140 --> 00:06:40.390
+00:06:34,140 --> 00:06:40,390
 set it to the fixedDeltaTime that we found
-initially. OK. which is this guy here. And
+initially. OK, which is this guy here. And
 
-00:06:40.390 --> 00:06:50.640
-if you don't like that name fixedDeltaTime.
-I'll refactor it. initialFixedDelta; OK fantastic!
+00:06:40,390 --> 00:06:50,640
+if you don't like that name fixedDeltaTime,
+I'll refactor it, initialFixedDelta; OK fantastic!
 
-00:06:50.640 --> 00:06:53.920
-So. let's just make sure all that works. and
-then. I'm going to tell you one more thing
+00:06:50,640 --> 00:06:53,920
+So, let's just make sure all that works, and
+then, I'm going to tell you one more thing
 
-00:06:53.920 --> 00:06:57.820
-about pausing and we are done. for this section.
-in fact. for my involvement in this course.
+00:06:53,920 --> 00:06:57,820
+about pausing and we are done, for this section,
+in fact, for my involvement in this course,
 
-00:06:57.820 --> 00:07:02.190
-because Brice is doing the next section. So.
+00:06:57,820 --> 00:07:02,190
+because Brice is doing the next section. So,
 we Pause and it pauses and we Resume and it
 
-00:07:02.190 --> 00:07:05.300
+00:07:02,190 --> 00:07:05,300
 resumes. Fantastic! That will all work nicely.
 There is one other thing to tell you. There
 
-00:07:05.300 --> 00:07:12.150
+00:07:05,300 --> 00:07:12,150
 is a documentation here about OnApplicationPause.
-Now. this is a message that will get called
+Now, this is a message that will get called
 
-00:07:12.150 --> 00:07:17.270
-on all of your scripts. when the operating
-system pauses your game. So. for example.
+00:07:12,150 --> 00:07:17,270
+on all of your scripts, when the operating
+system pauses your game. So, for example,
 
-00:07:17.270 --> 00:07:21.900
-if somebody leaves your game in iOS. this
-will get called. OK. these are not something
+00:07:17,270 --> 00:07:21,900
+if somebody leaves your game in iOS, this
+will get called. OK, these are not something
 
-00:07:21.900 --> 00:07:26.710
-you can call and pause your game. and you
-will have to decide how to handle this. So.
+00:07:21,900 --> 00:07:26,710
+you can call and pause your game, and you
+will have to decide how to handle this. So,
 
-00:07:26.710 --> 00:07:30.440
+00:07:26,710 --> 00:07:30,440
 you might want to call another message inside
-your game. you might want to set a Boolean
+your game, you might want to set a Boolean
 
-00:07:30.440 --> 00:07:35.600
-flag in your Game Manager. that sets pausing.
-for example. That would be a good one. so
+00:07:30,440 --> 00:07:35,600
+flag in your Game Manager, that sets pausing,
+for example. That would be a good one, so
 
-00:07:35.600 --> 00:07:42.930
-let me just show you that. as a final thing
-here. So. imagine I didn't use KeyCode.P and
+00:07:35,600 --> 00:07:42,930
+let me just show you that, as a final thing
+here. So, imagine I didn't use KeyCode.P and
 
-00:07:42.930 --> 00:07:49.850
-R. imagine I actually had a Boolean flag.
-right. So. just go private isPaused = false;
+00:07:42,930 --> 00:07:49,850
+R, imagine I actually had a Boolean flag,
+right. So, just go private isPaused = false;
 
-00:07:49.850 --> 00:07:57.900
-So. the game starts not paused. and then.
-if I say if KeyCodeDown and P. so if KeyCodeDown
+00:07:49,850 --> 00:07:57,900
+So, the game starts not paused, and then,
+if I say if KeyCodeDown and P, so if KeyCodeDown
 
-00:07:57.900 --> 00:08:10.870
+00:07:57,900 --> 00:08:10,870
 pause is paused... I need to give this guy
-a type. OK. So. if you put the KeyCode down
+a type. OK. So, if you put the KeyCode down
 
-00:08:10.870 --> 00:08:22.360
-and it's paused. then. you ResumeGame (); and
-then. there's an else if in here. If you push
+00:08:10,870 --> 00:08:22,360
+and it's paused, then, you ResumeGame (); and
+then, there's an else if in here. If you push
 
-00:08:22.360 --> 00:08:28.920
+00:08:22,360 --> 00:08:28,920
 the (KeyCode.P)... and I could possibly avoid
-repeating this code here. but who cares...
+repeating this code here, but who cares...
 
-00:08:28.920 --> 00:08:36.890
-and if it's not paused. then you pause the
-game. So. all I've done there is done it the
+00:08:28,920 --> 00:08:36,890
+and if it's not paused, then you pause the
+game. So, all I've done there is done it the
 
-00:08:36.890 --> 00:08:41.360
-other way. the challenge the other way. which
+00:08:36,890 --> 00:08:41,360
+other way, the challenge the other way, which
 is we're just using a P key and a Boolean
 
-00:08:41.360 --> 00:08:49.080
-flag now. so we can go left and right. we
-can hit P. we can undo P; I hope. unless I've
+00:08:41,360 --> 00:08:49,080
+flag now, so we can go left and right, we
+can hit P, we can undo P; I hope, unless I've
 
-00:08:49.080 --> 00:08:57.590
-done something silly. which I have. What's
-the problem? So. if we get key code P and
+00:08:49,080 --> 00:08:57,590
+done something silly, which I have. What's
+the problem? So, if we get key code P and
 
-00:08:57.590 --> 00:09:01.980
-it's paused. we resume. If it's not paused.
-Ah OK. so of course. what I'm not doing is
+00:08:57,590 --> 00:09:01,980
+it's paused, we resume. If it's not paused.
+Ah OK, so of course, what I'm not doing is
 
-00:09:01.980 --> 00:09:10.210
-setting this. so isPaused = so if it was paused
-then. we're going to set it as false. and
+00:09:01,980 --> 00:09:10,210
+setting this, so isPaused = so if it was paused
+then, we're going to set it as false, and
 
-00:09:10.210 --> 00:09:14.960
+00:09:10,210 --> 00:09:14,960
 if it wasn't paused we're going to set it
-to true. So. we're just keeping track of this
+to true. So, we're just keeping track of this
 
-00:09:14.960 --> 00:09:18.330
-Boolean. and this will allow us... In a minute
-I'll show you what this is coming to. it's
+00:09:14,960 --> 00:09:18,330
+Boolean, and this will allow us... In a minute
+I'll show you what this is coming to, it's
 
-00:09:18.330 --> 00:09:23.050
-coming to this OnApplication thingy here.
-so hit P. Hit P again. that all works beautifully.
+00:09:18,330 --> 00:09:23,050
+coming to this OnApplication thingy here,
+so hit P. Hit P again, that all works beautifully.
 
-00:09:23.050 --> 00:09:27.180
-Now. what we can do. when we've got a structure
+00:09:23,050 --> 00:09:27,180
+Now, what we can do, when we've got a structure
 like this is we can intercept this message
 
-00:09:27.180 --> 00:09:35.230
-that we've just found. this OnApplicationPause.
-OK. and if I just do that. I can just say
+00:09:27,180 --> 00:09:35,230
+that we've just found, this OnApplicationPause.
+OK, and if I just do that, I can just say
 
-00:09:35.230 --> 00:09:43.920
+00:09:35,230 --> 00:09:43,920
 isPaused = pauseStatus; that gets passed into
-this message. So. now if the system pauses
+this message. So, now if the system pauses
 
-00:09:43.920 --> 00:09:49.870
-this game. i.e. if the iOS. Android App close.
-etc.. it will just put this game into pause
+00:09:43,920 --> 00:09:49,870
+this game, i.e. if the iOS, Android App close,
+etc., it will just put this game into pause
 
-00:09:49.870 --> 00:09:55.250
-status. over here. But this is not quite finished.
-of course. because if you look at the logic.
+00:09:49,870 --> 00:09:55,250
+status, over here. But this is not quite finished,
+of course, because if you look at the logic,
 
-00:09:55.250 --> 00:10:02.440
+00:09:55,250 --> 00:10:02,440
 this is responding to a key press and calling
 ResumeGame (); and PauseGame (); whereas this
 
-00:10:02.440 --> 00:10:07.180
-guy here. if we just set the Boolean. it's
+00:10:02,440 --> 00:10:07,180
+guy here, if we just set the Boolean, it's
 not actually going to call pause or resume
 
-00:10:07.180 --> 00:10:11.640
-game. if that makes sense. So. what you would
+00:10:07,180 --> 00:10:11,640
+game, if that makes sense. So, what you would
 need to do is just take this out. You would
 
-00:10:11.640 --> 00:10:22.370
-just need to say if (ResumeGame) then. we
-need to... Well. you need to look at whether
+00:10:11,640 --> 00:10:22,370
+just need to say if (ResumeGame) then, we
+need to... Well, you need to look at whether
 
-00:10:22.370 --> 00:10:26.839
+00:10:22,370 --> 00:10:26,839
 or not the PauseGame and the ResumeGame have
-changed state in the last frame. but look
+changed state in the last frame, but look
 
-00:10:26.839 --> 00:10:31.440
-that's simple. it's simple coding. well below
-this point in the course. and I'm going to
+00:10:26,839 --> 00:10:31,440
+that's simple, it's simple coding, well below
+this point in the course, and I'm going to
 
-00:10:31.440 --> 00:10:34.900
+00:10:31,440 --> 00:10:34,900
 leave that as an exercise to the reader. I
 think I've covered everything I need to about
 
-00:10:34.900 --> 00:10:38.890
-pausing for now. You are good to go. with
-a little tiny bit of extra work. which I really
+00:10:34,900 --> 00:10:38,890
+pausing for now. You are good to go, with
+a little tiny bit of extra work, which I really
 
-00:10:38.890 --> 00:10:42.560
-want you to do. because again. I'm weaning
-you off me. OK guys. I'll see you later! [Laughs]
+00:10:38,890 --> 00:10:42,560
+want you to do, because again, I'm weaning
+you off me. OK guys, I'll see you later! [Laughs]
 

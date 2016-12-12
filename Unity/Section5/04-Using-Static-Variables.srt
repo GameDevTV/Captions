@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section5/04-Using-Static-Variables.srt
 WEBVTT
 
 1
@@ -632,3 +633,638 @@ how we're using statics here. but either way. just carry on and enjoy
 00:07:54.000 --> 00:07:57.000
 the project. We're about to start doing fun stuff!
 
+=======
+
+1
+00:00:03,000 --> 00:00:06,000
+Hey, welcome back! So, the great news is
+
+2
+00:00:06,000 --> 00:00:09,000
+we've got music persisting through out scenes. The bad
+
+3
+00:00:09,000 --> 00:00:12,000
+news is, we accumulate music players every time we
+
+4
+00:00:12,000 --> 00:00:15,000
+arrive back at the Start scene. Take a look.
+
+5
+00:00:15,000 --> 00:00:18,000
+[Background Music Playing]
+
+6
+00:00:18,000 --> 00:00:21,000
+[Background Music Playing]
+
+7
+00:00:21,000 --> 00:00:24,000
+[Background Music Playing] Yeah, so you think the music sounds a bit funny.
+
+8
+00:00:24,000 --> 00:00:27,000
+It does, and that's because we've got two music players, and actually,
+
+9
+00:00:27,000 --> 00:00:30,000
+if we carried on going around the loop, we would continue
+
+10
+00:00:30,000 --> 00:00:33,000
+accumulating music players and making a real audio
+
+11
+00:00:33,000 --> 00:00:36,000
+mess. So, what are we going to do about that?
+
+12
+00:00:36,000 --> 00:00:39,000
+Well, this is where we need to introduce you to something called statics.
+
+13
+00:00:39,000 --> 00:00:42,000
+That's going to be the best way to solve it, so let's take a look. I'm
+
+14
+00:00:42,000 --> 00:00:45,000
+going to tell you how a static can help us here. Let me tell you, it's going to
+
+15
+00:00:45,000 --> 00:00:48,000
+prevent us from having duplicate music players. What I
+
+16
+00:00:48,000 --> 00:00:51,000
+think one of the best things you could do to start, is to click on this
+
+17
+00:00:51,000 --> 00:00:54,000
+link or just search for statics in Unity,
+
+18
+00:00:54,000 --> 00:00:57,000
+and look at their documentation. They have got some
+
+19
+00:00:57,000 --> 00:01:00,000
+pretty good docs, in general. They are not in context,
+
+20
+00:01:00,000 --> 00:01:03,000
+not project based most of them, but they do talk sense and they say
+
+21
+00:01:03,000 --> 00:01:06,000
+the right things. So, here you go, you've got a document and a video
+
+22
+00:01:06,000 --> 00:01:09,000
+here on statics. Why don't you stop the video now and
+
+23
+00:01:09,000 --> 00:01:12,000
+watch that Unity 3 to 4 minute video on statics.
+
+24
+00:01:12,000 --> 00:01:15,000
+[Temporary Silence]
+
+25
+00:01:15,000 --> 00:01:18,000
+Cool! So, hopefully you watched that. Hopefully you're still awake. If
+
+26
+00:01:18,000 --> 00:01:21,000
+you are and you're still alive and have the will to live, let's carry on!
+
+27
+00:01:21,000 --> 00:01:24,000
+Ahh! We're going to now prevent duplicate music players, using
+
+28
+00:01:24,000 --> 00:01:27,000
+basically what you've just learned from
+
+29
+00:01:27,000 --> 00:01:30,000
+Unity's videos. If you really want a challenge, go ahead
+
+30
+00:01:30,000 --> 00:01:33,000
+and do it yourself. If you're a confident coder, then why don't you
+
+31
+00:01:33,000 --> 00:01:36,000
+try and us the concept of statics. Modify
+
+32
+00:01:36,000 --> 00:01:39,000
+your MusicPlayer Script, and actually prevent
+
+33
+00:01:39,000 --> 00:01:42,000
+these duplicate music players from happening.
+
+34
+00:01:42,000 --> 00:01:45,000
+Why not just have a go! Let me give you a hint! Hint number 1 is you
+
+35
+00:01:45,000 --> 00:01:48,000
+only need to make changes to your MusicPlayer.cs
+
+36
+00:01:48,000 --> 00:01:51,000
+script. Hint number 2, you're going to be adding
+
+37
+00:01:51,000 --> 00:01:54,000
+no more than 10 lines of code. Hint number 3,
+
+38
+00:01:54,000 --> 00:01:57,000
+you're going to be using a static. So, why don't
+
+39
+00:01:57,000 --> 00:02:00,000
+you have a go at doing that yourself. If you're not confident
+
+40
+00:02:00,000 --> 00:02:03,000
+doing it, let's take a look at how we're going to do it. So, start on
+
+41
+00:02:03,000 --> 00:02:06,000
+your MusicPlayer.cs script.
+
+42
+00:02:06,000 --> 00:02:09,000
+Where is it? Here it is1
+
+43
+00:02:09,000 --> 00:02:12,000
+Let's go into it. So, the problem we have is that when
+
+44
+00:02:12,000 --> 00:02:15,000
+we get back to the Start Scene, we have the previous
+
+45
+00:02:15,000 --> 00:02:18,000
+MusicPlayer, that's persisting, and then
+
+46
+00:02:18,000 --> 00:02:21,000
+the Start Scene itself instantiates a second MusicPlayer.
+
+47
+00:02:21,000 --> 00:02:24,000
+Not very good, so what are we going to do? Well, we're going
+
+48
+00:02:24,000 --> 00:02:27,000
+to make a static. What is a static? It's a class variable,
+
+49
+00:02:27,000 --> 00:02:30,000
+it is something where you want to consider using a static
+
+50
+00:02:30,000 --> 00:02:33,000
+when you say to yourself, there's only going to ever be one of these things.
+
+51
+00:02:33,000 --> 00:02:36,000
+There's only ever going to be one MusicPlayer in the game. We only
+
+52
+00:02:36,000 --> 00:02:39,000
+want one MusicPlayer in the game. So, we're going to make something called a static.
+
+53
+00:02:39,000 --> 00:02:42,000
+Here we go, MusicPlayer is the type, so
+
+54
+00:02:42,000 --> 00:02:45,000
+it's defined in the same way. I'm going to call it instance.
+
+55
+00:02:45,000 --> 00:02:48,000
+Why am I going to call it instance? Well, you'll kind of see
+
+56
+00:02:48,000 --> 00:02:51,000
+in context why we're call it instance. I'm actually going to initialize
+
+57
+00:02:51,000 --> 00:02:54,000
+it to null, because at the start, on your Start
+
+58
+00:02:54,000 --> 00:02:57,000
+Scene, there will be no defined things
+
+59
+00:02:57,000 --> 00:03:00,000
+called instance. Let's see how this pans out
+
+60
+00:03:00,000 --> 00:03:03,000
+alright. So, here's some logic for you. We go,
+
+61
+00:03:03,000 --> 00:03:06,000
+if instance not =
+
+62
+00:03:06,000 --> 00:03:09,000
+to null. And that's saying if
+
+63
+00:03:09,000 --> 00:03:12,000
+a MusicPlayer instance exists,
+
+64
+00:03:12,000 --> 00:03:15,000
+any MusicPlayer instance exists, what do we do?
+
+65
+00:03:15,000 --> 00:03:18,000
+Well, we're going to destroy ourselves,
+
+66
+00:03:18,000 --> 00:03:21,000
+Destroy (gameObject); and let's log to
+
+67
+00:03:21,000 --> 00:03:24,000
+the Console that we've done that. ("Duplicate
+
+68
+00:03:24,000 --> 00:03:27,000
+music player self-destructing!");
+
+69
+00:03:27,000 --> 00:03:30,000
+which is kind of fun!
+
+70
+00:03:30,000 --> 00:03:33,000
+Alright, now let's stay with me
+
+71
+00:03:33,000 --> 00:03:36,000
+for a minute. Let's continue, so it should come clear in concept,
+
+72
+00:03:36,000 --> 00:03:39,000
+context even. Else, what do we do?
+
+73
+00:03:39,000 --> 00:03:42,000
+Well, if... Well, let's just show you what we do. We
+
+74
+00:03:42,000 --> 00:03:45,000
+are still going to do GameObject.DontDestroyOnLoad,
+
+75
+00:03:45,000 --> 00:03:48,000
+but there's one more thing we need to do. Sorry, I've pasted Unity's
+
+76
+00:03:48,000 --> 00:03:51,000
+docs in there for you, instead of the command. Here it comes.
+
+77
+00:03:51,000 --> 00:03:54,000
+Boing! There we go! Fantastic!
+
+78
+00:03:54,000 --> 00:03:57,000
+What we need to do is, else we claim the instance, so
+
+79
+00:03:57,000 --> 00:04:00,000
+instance = this; So, let's have a
+
+80
+00:04:00,000 --> 00:04:03,000
+think about this. Let's start, imagine we're playing from our Start
+
+81
+00:04:03,000 --> 00:04:06,000
+Scene. In fact, not imagine, let's to it, because at the same time we can
+
+82
+00:04:06,000 --> 00:04:09,000
+test it. We go to Scene Start Menu
+
+83
+00:04:09,000 --> 00:04:12,000
+and we play. Watch what happens.
+
+84
+00:04:12,000 --> 00:04:15,000
+Start, game over,
+
+85
+00:04:15,000 --> 00:04:18,000
+Play Again, log.
+
+86
+00:04:18,000 --> 00:04:21,000
+duplicate MusicPlayer self-destructing. How many music players in the
+
+87
+00:04:21,000 --> 00:04:24,000
+Start Scene? 1! Perfect! Let's go through the loop again.
+
+88
+00:04:24,000 --> 00:04:27,000
+Bopping our head to the music as we go!
+
+89
+00:04:27,000 --> 00:04:30,000
+Great! So, music player are not accumulating,
+
+90
+00:04:30,000 --> 00:04:33,000
+and if you check the Console, it has now
+
+91
+00:04:33,000 --> 00:04:36,000
+logged out twice, that it has self
+
+92
+00:04:36,000 --> 00:04:39,000
+destructed the MusicPlayer. So, now that we know that it
+
+93
+00:04:39,000 --> 00:04:42,000
+does work, let's talk about why it works.
+
+94
+00:04:42,000 --> 00:04:45,000
+Let's just go through in chronological order. We start,
+
+95
+00:04:45,000 --> 00:04:48,000
+the game starts up, this static thing
+
+96
+00:04:48,000 --> 00:04:51,000
+called instance of type MusicPlayer is set to null.
+
+97
+00:04:51,000 --> 00:04:54,000
+The Start method runs, and we're on the Start
+
+98
+00:04:54,000 --> 00:04:57,000
+Menu, at the beginning of the game. What happened?
+
+99
+00:04:57,000 --> 00:05:00,000
+Well, it says if instance not = to null. Well, hang on,
+
+100
+00:05:00,000 --> 00:05:03,000
+instance does equal null, at the moment, we've declared it that way and
+
+101
+00:05:03,000 --> 00:05:06,000
+defined it that way. So, we're in the else part of the statement.
+
+102
+00:05:06,000 --> 00:05:09,000
+It immediately claims the instance, it says
+
+103
+00:05:09,000 --> 00:05:12,000
+instance equals this. This
+
+104
+00:05:12,000 --> 00:05:15,000
+being this instance of the MusicPlayer is the
+
+105
+00:05:15,000 --> 00:05:18,000
+global instance, if you like. It is the class level
+
+106
+00:05:18,000 --> 00:05:21,000
+instance. So, that is now claimed, alright. And
+
+107
+00:05:21,000 --> 00:05:24,000
+then, it goes ahead and says OK, well don't destroy this instance,
+
+108
+00:05:24,000 --> 00:05:27,000
+persisted. Fine!
+
+109
+00:05:27,000 --> 00:05:30,000
+Now, we click Start and we
+
+110
+00:05:30,000 --> 00:05:33,000
+go into our Game Scene. The Game Scene loads and it goes if
+
+111
+00:05:33,000 --> 00:05:36,000
+instance not equal to null. Well,
+
+112
+00:05:36,000 --> 00:05:39,000
+instance now doesn't equal null. Actually, instance is
+
+113
+00:05:39,000 --> 00:05:42,000
+the MusicPlayer. So, it destroys
+
+114
+00:05:42,000 --> 00:05:45,000
+MusicPlayer, but actually,
+
+115
+00:05:45,000 --> 00:05:48,000
+this whole thing doesn't get called on the Game
+
+116
+00:05:48,000 --> 00:05:51,000
+Scene, because on the Game Scene we have not
+
+117
+00:05:51,000 --> 00:05:54,000
+got a MusicPlayer to defined in the Unity Editor. But if
+
+118
+00:05:54,000 --> 00:05:57,000
+we did drop a MusicPlayer into the Game Scene of the
+
+119
+00:05:57,000 --> 00:06:00,000
+Unity Editor, this code here, this top if
+
+120
+00:06:00,000 --> 00:06:03,000
+statement would protect us. Shall we do it to try? Let's have a go!
+
+121
+00:06:03,000 --> 00:06:06,000
+Go to Unity, pop into your
+
+122
+00:06:06,000 --> 00:06:09,000
+Level1, actually Start on your
+
+123
+00:06:09,000 --> 00:06:12,000
+Start Menu, grab your Music Player, pop
+
+124
+00:06:12,000 --> 00:06:15,000
+it into your Level 1.
+
+125
+00:06:15,000 --> 00:06:18,000
+Now, you've got a Music Player on Level 1. Let's see if our code is resilient.
+
+126
+00:06:18,000 --> 00:06:21,000
+Start on Start and let's play.
+
+127
+00:06:21,000 --> 00:06:24,000
+So, we click Start,
+
+128
+00:06:24,000 --> 00:06:27,000
+and look this is cool, Music Player has
+
+129
+00:06:27,000 --> 00:06:30,000
+self destructed and we only have one in the game
+
+130
+00:06:30,000 --> 00:06:33,000
+Scene. So, you see what's happening there. That's great! So,
+
+131
+00:06:33,000 --> 00:06:36,000
+that's what happened when we got to our Game Scene. Even if
+
+132
+00:06:36,000 --> 00:06:39,000
+we were to put a MusicPlayer in there obstinately, it would still sell destruct.
+
+133
+00:06:39,000 --> 00:06:42,000
+Alright, then we get to the Win Screen,
+
+134
+00:06:42,000 --> 00:06:45,000
+the same thing happens. If we'd dropped it in the Editor it self destructs.
+
+135
+00:06:45,000 --> 00:06:48,000
+If we haven't dropped it in the Editor, which we haven't
+
+136
+00:06:48,000 --> 00:06:51,000
+in this case. Let's take a look. There is no Music
+
+137
+00:06:51,000 --> 00:06:54,000
+Player dropped in the Editor. Then, this code never even
+
+138
+00:06:54,000 --> 00:06:57,000
+runs, because there is no MusicPlayer.cs Script
+
+139
+00:06:57,000 --> 00:07:00,000
+in the whole scene, so this code doesn't run. But when we get back
+
+140
+00:07:00,000 --> 00:07:03,000
+to the Start Menu again, this code does run, and
+
+141
+00:07:03,000 --> 00:07:06,000
+we get the self destruction happening. In fact, from now on, we're always
+
+142
+00:07:06,000 --> 00:07:09,000
+going to get the self destruction running. The
+
+143
+00:07:09,000 --> 00:07:12,000
+only time instance = this runs is the
+
+144
+00:07:12,000 --> 00:07:15,000
+first time that the script runs,
+
+145
+00:07:15,000 --> 00:07:18,000
+and it finds that initial Music Player that we
+
+146
+00:07:18,000 --> 00:07:21,000
+have on the Start Scene and it makes sure that it doesn't destroy
+
+147
+00:07:21,000 --> 00:07:24,000
+unload and that no others get created.
+
+148
+00:07:24,000 --> 00:07:27,000
+So, if you didn't fully understand how instances work,
+
+149
+00:07:27,000 --> 00:07:30,000
+from this video and how statics work, don't worry
+
+150
+00:07:30,000 --> 00:07:33,000
+too much about it. We're going to be revisiting the concept in the
+
+151
+00:07:33,000 --> 00:07:36,000
+future. We're going to be talking about Singletons, in the future, which are a
+
+152
+00:07:36,000 --> 00:07:39,000
+very similar concept, and it will all come clear. So, you're
+
+153
+00:07:39,000 --> 00:07:42,000
+quite at liberty to just copy my code and enjoy the fact it works.
+
+154
+00:07:42,000 --> 00:07:45,000
+Hopefully I've explained it clearly enough, and I'll be interested
+
+155
+00:07:45,000 --> 00:07:48,000
+in your feedback. Write us a note on the discussion. Let us
+
+156
+00:07:48,000 --> 00:07:51,000
+know, do you at this stage, feel you understand
+
+157
+00:07:51,000 --> 00:07:54,000
+how we're using statics here, but either way, just carry on and enjoy
+
+158
+00:07:54,000 --> 00:07:57,000
+the project. We're about to start doing fun stuff!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section5/04-Using-Static-Variables.srt

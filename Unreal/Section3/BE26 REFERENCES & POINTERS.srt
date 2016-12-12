@@ -1,350 +1,349 @@
-﻿WEBVTT
 
 1
-00:00:01.466 --> 00:00:05.466
-So. welcome to References & Pointers! The purpose
+00:00:01,466 --> 00:00:05,466
+So, welcome to References & Pointers! The purpose
 
 2
-00:00:05.466 --> 00:00:09.466
+00:00:05,466 --> 00:00:09,466
 of this video is to make this difficult topic a little more clear. One of the hardest things about C++
 
 3
-00:00:09.466 --> 00:00:13.466
+00:00:09,466 --> 00:00:13,466
 is that fact that we get bogged down in these details of references and pointers. We
 
 4
-00:00:13.466 --> 00:00:17.466
-have to because a lot of the Unreal API's make us think about these things.
+00:00:13,466 --> 00:00:17,466
+have to because a lot of the Unreal API's make us think about these things,
 
 5
-00:00:17.466 --> 00:00:21.466
+00:00:17,466 --> 00:00:21,466
 but let's get it out of the way and let's understand it better than we have before!
 
 6
-00:00:21.466 --> 00:00:25.466
-So. let's start by comparing pointers to references. Firstly. what is stored in
+00:00:21,466 --> 00:00:25,466
+So, let's start by comparing pointers to references. Firstly, what is stored in
 
 7
-00:00:25.466 --> 00:00:29.466
-both a pointer and a reference? Well. it's a memory address in both cases.
+00:00:25,466 --> 00:00:29,466
+both a pointer and a reference? Well, it's a memory address in both cases,
 
 8
-00:00:29.466 --> 00:00:33.466
-but can it be reassigned? Well. a pointer can be reassigned. If you're
+00:00:29,466 --> 00:00:33,466
+but can it be reassigned? Well, a pointer can be reassigned. If you're
 
 9
-00:00:33.466 --> 00:00:37.466
-pointing to something. you're at liberty to change that pointer to point to something else.
+00:00:33,466 --> 00:00:37,466
+pointing to something, you're at liberty to change that pointer to point to something else,
 
 10
-00:00:37.466 --> 00:00:41.466
-however. the reference. once it has been assigned to something. it cannot be
+00:00:37,466 --> 00:00:41,466
+however, the reference, once it has been assigned to something, it cannot be
 
 11
-00:00:41.466 --> 00:00:45.466
-changed. Can it be null? Well. a pointer
+00:00:41,466 --> 00:00:45,466
+changed. Can it be null? Well, a pointer
 
 12
-00:00:45.466 --> 00:00:49.466
-can. A pointer can actually point to nothing. In fact. you're going to see shortly that we're
+00:00:45,466 --> 00:00:49,466
+can. A pointer can actually point to nothing. In fact, you're going to see shortly that we're
 
 13
-00:00:49.466 --> 00:00:53.466
-going to initialize our pointers with null pointer. and
+00:00:49,466 --> 00:00:53,466
+going to initialize our pointers with null pointer, and
 
 14
-00:00:53.466 --> 00:00:57.466
-later. go and find something to make them point at. So yes.
+00:00:53,466 --> 00:00:57,466
+later, go and find something to make them point at. So yes,
 
 15
-00:00:57.466 --> 00:01:01.466
-pointers can be null but no references can't be null. and that ties into the
+00:00:57,466 --> 00:01:01,466
+pointers can be null but no references can't be null, and that ties into the
 
 16
-00:01:01.466 --> 00:01:05.466
-previous point. is that they cannot be reassigned and they must be initialized.
+00:01:01,466 --> 00:01:05,466
+previous point, is that they cannot be reassigned and they must be initialized.
 
 17
-00:01:05.466 --> 00:01:09.466
-They've got to be given a value at creation. So. how do
+00:01:05,466 --> 00:01:09,466
+They've got to be given a value at creation. So, how do
 
 18
-00:01:09.466 --> 00:01:13.466
-you access the contents that these things point to? So. they point to a memory location. both of them.
+00:01:09,466 --> 00:01:13,466
+you access the contents that these things point to? So, they point to a memory location, both of them,
 
 19
-00:01:13.466 --> 00:01:17.466
-and they're both a memory address. In the case of a pointer. you need to say star.
+00:01:13,466 --> 00:01:17,466
+and they're both a memory address. In the case of a pointer, you need to say star.
 
 20
-00:01:17.466 --> 00:01:21.466
-A way of saying star. by the way is. contents
+00:01:17,466 --> 00:01:21,466
+A way of saying star, by the way is, contents
 
 21
-00:01:21.466 --> 00:01:25.466
-at. so contents at ActorPtr. Go get me the
+00:01:21,466 --> 00:01:25,466
+at, so contents at ActorPtr. Go get me the
 
 22
-00:01:25.466 --> 00:01:29.466
-contents. at the memory location. which actor pointer points to.
+00:01:25,466 --> 00:01:29,466
+contents, at the memory location, which actor pointer points to,
 
 23
-00:01:29.466 --> 00:01:33.466
-but with a reference. you just treat it like an object itself. you just say ActorRef.
+00:01:29,466 --> 00:01:33,466
+but with a reference, you just treat it like an object itself, you just say ActorRef.
 
 24
-00:01:33.466 --> 00:01:37.466
-How do you access the address? Well.
+00:01:33,466 --> 00:01:37,466
+How do you access the address? Well,
 
 25
-00:01:37.466 --> 00:01:41.466
-with a pointer. the pointer is the address. If you just print out a pointer. you're
+00:01:37,466 --> 00:01:41,466
+with a pointer, the pointer is the address. If you just print out a pointer, you're
 
 26
-00:01:41.466 --> 00:01:45.466
-going to get a number and that number is going to be. if you're in a 32 bit system. a 32 bit number telling
+00:01:41,466 --> 00:01:45,466
+going to get a number and that number is going to be, if you're in a 32 bit system, a 32 bit number telling
 
 27
-00:01:45.466 --> 00:01:49.466
-you the memory address. But in the case of a reference. if you want the address.
+00:01:45,466 --> 00:01:49,466
+you the memory address. But in the case of a reference, if you want the address,
 
 28
-00:01:49.466 --> 00:01:53.466
-you have to use the ampersand operator. or you can call
+00:01:49,466 --> 00:01:53,466
+you have to use the ampersand operator, or you can call
 
 29
-00:01:53.466 --> 00:01:57.466
-ampersand address of. We'll see that shortly. So. star
+00:01:53,466 --> 00:01:57,466
+ampersand address of. We'll see that shortly. So, star
 
 30
-00:01:57.466 --> 00:02:01.466
-is contents at. ampersand is address of.
+00:01:57,466 --> 00:02:01,466
+is contents at, ampersand is address of.
 
 31
-00:02:01.466 --> 00:02:05.466
-How do you assign a value? Well.
+00:02:01,466 --> 00:02:05,466
+How do you assign a value? Well,
 
 32
-00:02:05.466 --> 00:02:09.466
-if you've got an actor and you want to assign.
+00:02:05,466 --> 00:02:09,466
+if you've got an actor and you want to assign,
 
 33
-00:02:09.466 --> 00:02:13.466
-make ActorPtr point to the same thing. basically. So. on the right you've got
+00:02:09,466 --> 00:02:13,466
+make ActorPtr point to the same thing, basically. So, on the right you've got
 
 34
-00:02:13.466 --> 00:02:17.466
-an actor. and on the left you want the ActorPtr to point to that actor. You need
+00:02:13,466 --> 00:02:17,466
+an actor, and on the left you want the ActorPtr to point to that actor. You need
 
 35
-00:02:17.466 --> 00:02:21.466
-to find the address of first. so you use &Actor to get the
+00:02:17,466 --> 00:02:21,466
+to find the address of first, so you use &Actor to get the
 
 36
-00:02:21.466 --> 00:02:25.466
+00:02:21,466 --> 00:02:25,466
 address of the actor and you just set the pointer to that address.
 
 37
-00:02:25.466 --> 00:02:29.466
-Now. ActorPtr will go to the same place that that actor does.
+00:02:25,466 --> 00:02:29,466
+Now, ActorPtr will go to the same place that that actor does.
 
 38
-00:02:29.466 --> 00:02:33.466
+00:02:29,466 --> 00:02:33,466
 How do you do it with a reference on the right hand
 
 39
-00:02:33.466 --> 00:02:37.466
-side like that ? Well. you just use a simple assignment. It's another fact that you just
+00:02:33,466 --> 00:02:37,466
+side like that ? Well, you just use a simple assignment. It's another fact that you just
 
 40
-00:02:37.466 --> 00:02:41.466
-treat references like aliases. to the object that they underline
+00:02:37,466 --> 00:02:41,466
+treat references like aliases, to the object that they underline
 
 41
-00:02:41.466 --> 00:02:45.466
-or that they represent. So.
+00:02:41,466 --> 00:02:45,466
+or that they represent. So,
 
 42
-00:02:45.466 --> 00:02:49.466
-I would suggest. even if that previous slide
+00:02:45,466 --> 00:02:49,466
+I would suggest, even if that previous slide
 
 43
-00:02:49.466 --> 00:02:53.466
-was like an eyeful. then what I suggest if you move on. There's two more slides coming.
+00:02:49,466 --> 00:02:53,466
+was like an eyeful, then what I suggest if you move on. There's two more slides coming,
 
 44
-00:02:53.466 --> 00:02:57.466
-that I'm going to build up and that you watch this whole thing again. once you've seen it from beginning to end. That's
+00:02:53,466 --> 00:02:57,466
+that I'm going to build up and that you watch this whole thing again, once you've seen it from beginning to end. That's
 
 45
-00:02:57.466 --> 00:03:01.466
-going to be better than trying to fully understand this page. right now. if you didn't get it the first time.
+00:02:57,466 --> 00:03:01,466
+going to be better than trying to fully understand this page, right now, if you didn't get it the first time.
 
 46
-00:03:01.466 --> 00:03:05.466
-So. let's look at another thing that's intrinsic to understanding pointers and references
+00:03:01,466 --> 00:03:05,466
+So, let's look at another thing that's intrinsic to understanding pointers and references
 
 47
-00:03:05.466 --> 00:03:09.466
+00:03:05,466 --> 00:03:09,466
 and that's the ampersand sign and the star symbol. What
 
 48
-00:03:09.466 --> 00:03:13.466
-do those two things do? Well. does it depends entirely on the context. If they're a prefix.
+00:03:09,466 --> 00:03:13,466
+do those two things do? Well, does it depends entirely on the context. If they're a prefix,
 
 49
-00:03:13.466 --> 00:03:17.466
-if they go ahead of the thing. they mean one and. and if they're a postfix.
+00:03:13,466 --> 00:03:17,466
+if they go ahead of the thing, they mean one and, and if they're a postfix,
 
 50
-00:03:17.466 --> 00:03:21.466
-they mean something else. So. let's look at those combinations! Those four combinations of prefix and postfix
+00:03:17,466 --> 00:03:21,466
+they mean something else. So, let's look at those combinations! Those four combinations of prefix and postfix
 
 51
-00:03:21.466 --> 00:03:25.466
+00:03:21,466 --> 00:03:25,466
 for star and ampersand but let's do it by example.
 
 52
-00:03:25.466 --> 00:03:29.466
-So. star actor pointer. this first column
+00:03:25,466 --> 00:03:29,466
+So, star actor pointer, this first column
 
 53
-00:03:29.466 --> 00:03:33.466
-here. What does that mean? Well. that's saying
+00:03:29,466 --> 00:03:33,466
+here. What does that mean? Well, that's saying
 
 54
-00:03:33.466 --> 00:03:37.466
-go and find the contents at. whatever *ActorPtr points to.
+00:03:33,466 --> 00:03:37,466
+go and find the contents at, whatever *ActorPtr points to.
 
 55
-00:03:37.466 --> 00:03:41.466
-So. *ActorPtr is a memory address. Go get me the contents at that memory address. that's what this
+00:03:37,466 --> 00:03:41,466
+So, *ActorPtr is a memory address. Go get me the contents at that memory address, that's what this
 
 56
-00:03:41.466 --> 00:03:45.466
-is saying. The next one. now note you can do it on an
+00:03:41,466 --> 00:03:45,466
+is saying. The next one, now note you can do it on an
 
 57
-00:03:45.466 --> 00:03:49.466
-object. like an actor itself or on an actor reference. it doesn't matter.
+00:03:45,466 --> 00:03:49,466
+object, like an actor itself or on an actor reference, it doesn't matter.
 
 58
-00:03:49.466 --> 00:03:53.466
-You can use the address of operator. so you can say
+00:03:49,466 --> 00:03:53,466
+You can use the address of operator, so you can say
 
 59
-00:03:53.466 --> 00:03:57.466
-what is the address of this actor? We've got an actor here. where is it stored? Or
+00:03:53,466 --> 00:03:57,466
+what is the address of this actor? We've got an actor here, where is it stored? Or
 
 60
-00:03:57.466 --> 00:04:01.466
-if you've got an actor reference. you can do exactly the same thing. If you've got an actor reference.
+00:03:57,466 --> 00:04:01,466
+if you've got an actor reference, you can do exactly the same thing. If you've got an actor reference,
 
 61
-00:04:01.466 --> 00:04:05.466
-what is the memory address? You don't do it very often. but you might want to assign it to a pointer.
+00:04:01,466 --> 00:04:05,466
+what is the memory address? You don't do it very often, but you might want to assign it to a pointer,
 
 62
-00:04:05.466 --> 00:04:09.466
-for example. So. how about if it's a postfix?
+00:04:05,466 --> 00:04:09,466
+for example. So, how about if it's a postfix?
 
 63
-00:04:09.466 --> 00:04:13.466
-Well. they do completely different things in the case of a postfix. they actually change the
+00:04:09,466 --> 00:04:13,466
+Well, they do completely different things in the case of a postfix, they actually change the
 
 64
-00:04:13.466 --> 00:04:17.466
-type here. So. UActor alone is a UActor type. UActor* start
+00:04:13,466 --> 00:04:17,466
+type here. So, UActor alone is a UActor type. UActor* start
 
 65
-00:04:17.466 --> 00:04:21.466
+00:04:17,466 --> 00:04:21,466
 is a pointer to a UActor. It's a different type. UActor
 
 66
-00:04:21.466 --> 00:04:25.466
-could be a big value object. it might take megabytes of storage. A UActor*
+00:04:21,466 --> 00:04:25,466
+could be a big value object, it might take megabytes of storage. A UActor*
 
 67
-00:04:25.466 --> 00:04:29.466
-is only going to take 32 bits or 64 bits. depending on your system.
+00:04:25,466 --> 00:04:29,466
+is only going to take 32 bits or 64 bits, depending on your system,
 
 68
-00:04:29.466 --> 00:04:33.466
+00:04:29,466 --> 00:04:33,466
 and you have to follow that to go and find the actual actor.
 
 69
-00:04:33.466 --> 00:04:37.466
-What is UActor&? Well. that is a UActor reference.
+00:04:33,466 --> 00:04:37,466
+What is UActor&? Well, that is a UActor reference,
 
 70
-00:04:37.466 --> 00:04:41.466
-so it's similar to a UActor pointer. with the constraints we talked about in the previous
+00:04:37,466 --> 00:04:41,466
+so it's similar to a UActor pointer, with the constraints we talked about in the previous
 
 71
-00:04:41.466 --> 00:04:45.466
-slide. So. what's the meaning of
+00:04:41,466 --> 00:04:45,466
+slide. So, what's the meaning of
 
 72
-00:04:45.466 --> 00:04:49.466
-these things? Well. we've been saying this. *ActorPtr is the contents
+00:04:45,466 --> 00:04:49,466
+these things? Well, we've been saying this. *ActorPtr is the contents
 
 73
-00:04:49.466 --> 00:04:53.466
+00:04:49,466 --> 00:04:53,466
 at ActorPtr. The ampersand in front is the
 
 74
-00:04:53.466 --> 00:04:57.466
+00:04:53,466 --> 00:04:57,466
 address of the actor or the actor reference.
 
 75
-00:04:57.466 --> 00:05:01.466
+00:04:57,466 --> 00:05:01,466
 Whereas Actor* is pointed to Actor and Actor& is reference to
 
 76
-00:05:01.466 --> 00:05:05.466
-Actor. OK. and this is a class.
+00:05:01,466 --> 00:05:05,466
+Actor. OK, and this is a class.
 
 77
-00:05:05.466 --> 00:05:09.466
-Notice that's why it's UActor. it make it very clear it's a class. Unreal's naming conventions are
+00:05:05,466 --> 00:05:09,466
+Notice that's why it's UActor, it make it very clear it's a class. Unreal's naming conventions are
 
 78
-00:05:09.466 --> 00:05:13.466
-useful in this respect. One little health warning is. that to add insult
+00:05:09,466 --> 00:05:13,466
+useful in this respect. One little health warning is, that to add insult
 
 79
-00:05:13.466 --> 00:05:17.466
-to injury. any of these symbols. i.e. ampersand and star can have a different meaning in other contexts.
+00:05:13,466 --> 00:05:17,466
+to injury, any of these symbols, i.e. ampersand and star can have a different meaning in other contexts.
 
 80
-00:05:17.466 --> 00:05:21.466
-For example. ampersand can mean bitwise AND. but I think you know the
+00:05:17,466 --> 00:05:21,466
+For example, ampersand can mean bitwise AND, but I think you know the
 
 81
-00:05:21.466 --> 00:05:25.466
-context we're talking about. We're talking about. typically. where we have a type on the left and then
+00:05:21,466 --> 00:05:25,466
+context we're talking about. We're talking about, typically, where we have a type on the left and then
 
 82
-00:05:25.466 --> 00:05:29.466
-maybe a symbol and then like a variable on the right. OK. so just
+00:05:25,466 --> 00:05:29,466
+maybe a symbol and then like a variable on the right. OK, so just
 
 83
-00:05:29.466 --> 00:05:35.066
-be slightly aware of that. they don't always mean this. Of course. star means something else. as well. doesn't it? It means multiply.
+00:05:29,466 --> 00:05:35,066
+be slightly aware of that, they don't always mean this. Of course, star means something else, as well, doesn't it? It means multiply.
 
 84
-00:05:35.066 --> 00:05:39.066
-So hopefully. between these two slides. that's given you a better idea of how pointers
+00:05:35,066 --> 00:05:39,066
+So hopefully, between these two slides, that's given you a better idea of how pointers
 
 85
-00:05:39.066 --> 00:05:43.066
-and references work. So. in the upcoming videos. we'll be making use of all this knowledge
+00:05:39,066 --> 00:05:43,066
+and references work. So, in the upcoming videos, we'll be making use of all this knowledge
 
 86
-00:05:43.066 --> 00:05:47.066
-and really putting it into practice. so that you can cement it and get an even
+00:05:43,066 --> 00:05:47,066
+and really putting it into practice, so that you can cement it and get an even
 
 87
-00:05:47.066 --> 00:05:51.032
-deeper understanding. So. I'll see you soon!
+00:05:47,066 --> 00:05:51,032
+deeper understanding. So, I'll see you soon!
 

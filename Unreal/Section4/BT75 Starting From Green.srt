@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT75 Starting From Green.srt
 ﻿WEBVTT
 
 1
@@ -672,3 +673,678 @@ Commit. then start your refactor. See you in the next video!
 00:11:09.233 --> 00:11:10.499
 
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+So welcome to
+
+2
+00:00:04,000 --> 00:00:09,233
+to Starting from Green! What on Earth do I mean by that? Well let's dive into the video and find out!
+
+3
+00:00:09,233 --> 00:00:13,233
+OK so let's make this stuff, about the order in which we refactor, more
+
+4
+00:00:13,233 --> 00:00:17,233
+concrete! Here are the changes we're going to be making, in terms of our class dependencies.
+
+5
+00:00:17,233 --> 00:00:21,233
+The red arrows are the things that are going. Basically the Tank is out of here. The green
+
+6
+00:00:21,233 --> 00:00:25,233
+arrows are new dependencies, like the AI Controller is going to talk straight to the Aiming
+
+7
+00:00:25,233 --> 00:00:29,233
+Component, and the Aiming Component's going to talk to the Projectile, and the gray ones are the boring old ones
+
+8
+00:00:29,233 --> 00:00:33,233
+that are staying the same. So that's fine but it doesn't really give us a handle
+
+9
+00:00:33,233 --> 00:00:37,233
+on a sensible order to refactoring, so let's take a
+
+10
+00:00:37,233 --> 00:00:41,233
+different view on things. Let's map out the methods in Tank. Why
+
+11
+00:00:41,233 --> 00:00:45,233
+in Tank? Well because Tank's the thing that we're going to be removing. It's the Tank code
+
+12
+00:00:45,233 --> 00:00:49,233
+here that we're going to be chopping into and removing nearly all of
+
+13
+00:00:49,233 --> 00:00:53,233
+basically and moving into the AimingComponent. So let's look at the AimAt() method!
+
+14
+00:00:53,233 --> 00:00:57,233
+It requires or depends upon the AimingComponent
+
+15
+00:00:57,233 --> 00:01:01,233
+pointer and the launch speed, they are the member variables that this AimAt
+
+16
+00:01:01,233 --> 00:01:05,233
+uses. There you go the AimingComponent and the LaunchSpeed. Fine! How about Fire()?
+
+17
+00:01:05,233 --> 00:01:09,233
+Well the Fire() method uses all of these things, the ReloadTime, Barrel,
+
+18
+00:01:09,233 --> 00:01:13,233
+LastFireTime, etc. Let's take a look! They're all in here!
+
+19
+00:01:13,233 --> 00:01:17,233
+OK so what's quite interesting though is that they both use the Launch
+
+20
+00:01:17,233 --> 00:01:21,233
+Speed. So what this means is, if we want to try and move one method at a time,
+
+21
+00:01:21,233 --> 00:01:25,233
+which is what I recommend, this is what I mean by keeping it close to compiling. Well I'm going to
+
+22
+00:01:25,233 --> 00:01:29,233
+firstly favor AimAt. Why? Well it really should be relatively
+
+23
+00:01:29,233 --> 00:01:33,233
+simple. The AimingComponent pointer is not even going to be needed, once this
+
+24
+00:01:33,233 --> 00:01:37,233
+is in the AimingComponent. The LaunchSpeed, if we were to take the Launch
+
+25
+00:01:37,233 --> 00:01:41,233
+Speed out, if we were to actually chop this LaunchSpeed code out of the Tank.h
+
+26
+00:01:41,233 --> 00:01:45,233
+here, cut it out, then what would happen is we know that the firing
+
+27
+00:01:45,233 --> 00:01:49,233
+would fail because of this diagram, but that's OK, we can live with that. In fact, what we could
+
+28
+00:01:49,233 --> 00:01:53,233
+do is, we could leave the LaunchSpeed here and leave ourselves a copy and say "// TODO
+
+29
+00:01:53,233 --> 00:01:57,233
+remove once firing is
+
+30
+00:01:57,233 --> 00:02:01,233
+moved to aiming component". So we can leave ourselves a copy,
+
+31
+00:02:01,233 --> 00:02:05,233
+so that our code still runs. So let's do that, let's do
+
+32
+00:02:05,233 --> 00:02:09,233
+aiming first. Now this is where we talk about the discipline of Red, Green, Refactor!
+
+33
+00:02:09,233 --> 00:02:13,233
+This comes from Test Driven Development. You start off in a situation where stuff
+
+34
+00:02:13,233 --> 00:02:17,233
+doesn't work. That's the situation we're actually in and this is the important point,
+
+35
+00:02:17,233 --> 00:02:21,233
+is that right now your aiming doesn't work. This is why this video
+
+36
+00:02:21,233 --> 00:02:25,233
+is called Getting to Green! We need to get to green, we don't aim at
+
+37
+00:02:25,233 --> 00:02:29,233
+the moment. OK so we can't refactor something that doesn't work, so let's fix
+
+38
+00:02:29,233 --> 00:02:33,233
+aiming before we're refactoring. In fact, we're not even going to refactor aiming
+
+39
+00:02:33,233 --> 00:02:37,233
+in this video, we're going to do it in the next one. This video is about fixing aiming, because there are some
+
+40
+00:02:37,233 --> 00:02:41,233
+problems with it. So your first thought, before you refactor, should be let's get
+
+41
+00:02:41,233 --> 00:02:45,233
+the functionality just working. So you have a commit before
+
+42
+00:02:45,233 --> 00:02:49,233
+you start any of this, you do some code that works, you commit to say it works,
+
+43
+00:02:49,233 --> 00:02:53,233
+and then you do your refactor. So we're trying to get to green. Then, you refactor, which is the blue
+
+44
+00:02:53,233 --> 00:02:57,233
+and then you repeat. So we're going to go around this loop, once for
+
+45
+00:02:57,233 --> 00:03:01,233
+AimAt and then once more for the Fire method.
+
+46
+00:03:01,233 --> 00:03:05,233
+OK so Red, Green, Refactor, remember that! OK we need to get
+
+47
+00:03:05,233 --> 00:03:09,233
+to green! What's not working? Wow, there's a lot of errors
+
+48
+00:03:09,233 --> 00:03:13,233
+here! Some of these would be ensure statements, let's see what we've got. The first one
+
+49
+00:03:13,233 --> 00:03:17,233
+TankAimingComponent, on line 30 of Tank.cpp
+
+50
+00:03:17,233 --> 00:03:21,233
+we have an ensure fail. So let's go to Tank.cpp line 30! What's going
+
+51
+00:03:21,233 --> 00:03:25,233
+on here then? Well we know this is going to fail then, because we never set that TankAiming
+
+52
+00:03:25,233 --> 00:03:29,233
+Component, but due to the things we've learned in the last couple of videos, we know there's an easy way of
+
+53
+00:03:29,233 --> 00:03:33,233
+doing that. What I want you to put in your TankAimingComponent BeginPlay(),
+
+54
+00:03:33,233 --> 00:03:37,233
+which is after the tank has put itself together, is you can go find the AimingComponent
+
+55
+00:03:37,233 --> 00:03:41,233
+by just saying FindComponentByClass UTank
+
+56
+00:03:41,233 --> 00:03:45,233
+AimingComponent and that's it! Oops,
+
+57
+00:03:45,233 --> 00:03:49,233
+provided you put your semicolon in the right place and you get the indentation right.
+
+58
+00:03:49,233 --> 00:03:53,233
+That's it, we're just adding that line. At BeginPlay() the tank goes and
+
+59
+00:03:53,233 --> 00:03:57,233
+finds its own AimingComponent. Now I know this is writing code into the old architecture,
+
+60
+00:03:57,233 --> 00:04:01,233
+but we need to get to working code before we refactor, that is the point I'm trying to
+
+61
+00:04:01,233 --> 00:04:05,233
+stress here. So I'm going to recompile the code. By the way, these ensure
+
+62
+00:04:05,233 --> 00:04:09,233
+statements will only come up once per cycle of
+
+63
+00:04:09,233 --> 00:04:13,233
+compilation, so if you're wondering why they're not coming up you need to recompile with new code or
+
+64
+00:04:13,233 --> 00:04:17,233
+they won't come up again. OK now we've got a different error here,
+
+65
+00:04:17,233 --> 00:04:21,233
+which is saying that the Barrel on Tank line 38
+
+66
+00:04:21,233 --> 00:04:25,233
+is failing. Let's go look at that, this one
+
+67
+00:04:25,233 --> 00:04:29,233
+here. Now, this is where we operate discipline, this is about firing not aiming.
+
+68
+00:04:29,233 --> 00:04:33,233
+Attempting to fix this now, not the time to do it, because we are
+
+69
+00:04:33,233 --> 00:04:37,233
+focusing on moving AimAt code. We don't care that firing doesn't work, we are trying to get
+
+70
+00:04:37,233 --> 00:04:41,233
+AimAt into the green section now. So to break
+
+71
+00:04:41,233 --> 00:04:45,233
+this big problem down, this big mess down, that's what we're doing we're saying let's forget it
+
+72
+00:04:45,233 --> 00:04:49,233
+and just focusing on aiming. It does still, of course, raise the question as to
+
+73
+00:04:49,233 --> 00:04:53,233
+why is aiming still not working? [Laughs] Interesting
+
+74
+00:04:53,233 --> 00:04:57,233
+hey! It actually does have something to do with Barrel tangentially,
+
+75
+00:04:57,233 --> 00:05:01,233
+but it's nothing to do with that ensure you're getting on line 38, trust me but it's going to be your
+
+76
+00:05:01,233 --> 00:05:05,233
+job to work out why. So get aiming working. If your aiming code doesn't work, you're
+
+77
+00:05:05,233 --> 00:05:09,233
+aiming code may work. You may have noticed the stupid bug that I introduced
+
+78
+00:05:09,233 --> 00:05:13,233
+a few videos ago, you may not. If you didn't and your aiming's not working go
+
+79
+00:05:13,233 --> 00:05:17,233
+and find it. It can be hard to track this bug. Use some log statements, follow the
+
+80
+00:05:17,233 --> 00:05:21,233
+execution through, think about where aiming starts. Let me give you a hint, in this case,
+
+81
+00:05:21,233 --> 00:05:25,233
+my aiming starts my tank with the PlayerController, the AI tanks
+
+82
+00:05:25,233 --> 00:05:29,233
+with the AIController. Follow the execution through, find out what's running and what's
+
+83
+00:05:29,233 --> 00:05:33,233
+not. I suggest you use a single log statement, put it somewhere, compile,
+
+84
+00:05:33,233 --> 00:05:37,233
+see if it's being run, move it move it move it, and find out where the problem is. Have a go,
+
+85
+00:05:37,233 --> 00:05:41,233
+pause the video, and see if you can get aiming working, if yours isn't. If yours
+
+86
+00:05:41,233 --> 00:05:45,233
+is working, then what I'd like you to do is to have a look at
+
+87
+00:05:45,233 --> 00:05:49,233
+my code. In fact, I'll give you a hint, it's in this file
+
+88
+00:05:49,233 --> 00:05:53,233
+here. The problem is actually on this screen. So if your aiming works, it's because you haven't
+
+89
+00:05:53,233 --> 00:05:57,233
+made the mistake that's on this screen. Where on this screen is the code that is
+
+90
+00:05:57,233 --> 00:06:01,233
+stopping my aiming working. OK pause the video, have a go at that, and I'll see you
+
+91
+00:06:01,233 --> 00:06:05,233
+in a moment.
+
+92
+00:06:05,233 --> 00:06:09,233
+OK welcome back! So let's start with the TankPlayerController. Let's say
+
+93
+00:06:09,233 --> 00:06:13,233
+why is the, in fact, I'm going to take a shortcut. I'm not going to start with
+
+94
+00:06:13,233 --> 00:06:17,233
+TankPlayerController, because look my aiming's not working and the AI tank's
+
+95
+00:06:17,233 --> 00:06:21,233
+aiming is not working. So if you remember the cool stack, it's
+
+96
+00:06:21,233 --> 00:06:25,233
+probably not the AIController or the PlayerController, because neither of
+
+97
+00:06:25,233 --> 00:06:29,233
+us are aiming. OK, so let's take that as an assumption. It's unlikely that
+
+98
+00:06:29,233 --> 00:06:33,233
+bug is in two places. Let's just save a little bit of time and go to the tank.
+
+99
+00:06:33,233 --> 00:06:37,233
+Let's see if we get this far. So I'm going to make a single UE_LOG. In
+
+100
+00:06:37,233 --> 00:06:41,233
+fact, the first thing I'm going to do is rip out any existing UE_LOGs, because we got too
+
+101
+00:06:41,233 --> 00:06:45,233
+many in the project potentially. Let's go and have a look! Do we need to be doing this DONKEY
+
+102
+00:06:45,233 --> 00:06:49,233
+Construct? No we've learned our lesson there, let's get rid of that. Do we need to be
+
+103
+00:06:49,233 --> 00:06:53,233
+printing out the TankBeginPlay? No we've learned our lesson there, let's get rid of
+
+104
+00:06:53,233 --> 00:06:57,233
+that! Do we need to be saying this? Actually
+
+105
+00:06:57,233 --> 00:07:01,233
+we don't! It's not happening but we've got an ensure here, we don't need to be logging this error. It's
+
+106
+00:07:01,233 --> 00:07:05,233
+pretty obvious what's happening with the ensure, so ensure you don't even need any of this stuff in
+
+107
+00:07:05,233 --> 00:07:09,233
+TankPlayerController. So I'm going to change
+
+108
+00:07:09,233 --> 00:07:13,233
+this to be consistent, actually. I'm going to say if not (!ensure(AimingComponent)) 
+
+109
+00:07:13,233 --> 00:07:17,233
+and then that. OK so that gets rid of that log and does a
+
+110
+00:07:17,233 --> 00:07:21,233
+tiny change to the BeginPlay() of the AIController and we're good
+
+111
+00:07:21,233 --> 00:07:25,233
+to go! So we have no logs left! OK so now I'm not going to get noise on the log!
+
+112
+00:07:25,233 --> 00:07:29,233
+Let's go back to the Tank, where we were, and ask the question, does AimAt get called?
+
+113
+00:07:29,233 --> 00:07:33,233
+UE_LOG(LogTemp, Warning,
+
+114
+00:07:33,233 --> 00:07:37,233
+something very simple, I'm just going to say TEXT
+
+115
+00:07:37,233 --> 00:07:41,233
+("I'm here")). That's all I'm going to say, and I'm going to move
+
+116
+00:07:41,233 --> 00:07:45,233
+that log around. So let's go and compile, have a quick look, clear the logs.
+
+117
+00:07:45,233 --> 00:07:49,233
+Clear your filter! Important if you've got a filter on, you ain't seeing nothing in the logs that doesn't
+
+118
+00:07:49,233 --> 00:07:53,233
+contain that word. I'm going to play the game
+
+119
+00:07:53,233 --> 00:07:57,233
+and see if we get lots of I'm here logs. What do we get? We get a long pause
+
+120
+00:07:57,233 --> 00:08:01,233
+and we do get "I'm here" "I'm here" "I'm here", so the code is getting that far!
+
+121
+00:08:01,233 --> 00:08:05,233
+Let's move on! What happens next? We go into the TankAimingComponent and we call AimAt, so
+
+122
+00:08:05,233 --> 00:08:09,233
+let's go there! Now we're pretty confident this call is going to happen,
+
+123
+00:08:09,233 --> 00:08:13,233
+we're pretty confident it's got a Barrel, otherwise this ensure would fail,
+
+124
+00:08:13,233 --> 00:08:17,233
+so maybe this MoveTowardsBarrel is not happening.
+
+125
+00:08:17,233 --> 00:08:21,233
+Let's try that! It's OK to binary search, do not go through every single stage,
+
+126
+00:08:21,233 --> 00:08:25,233
+but to try it as long as you home in on the problem. Let's see if
+
+127
+00:08:25,233 --> 00:08:29,233
+we get this far, moving the barrel. Compile! While you're compiling,
+
+128
+00:08:29,233 --> 00:08:33,233
+Clear your Logs because otherwise you can't be 100% sure that this new stuff
+
+129
+00:08:33,233 --> 00:08:37,233
+is, you know that this "I'm here" code isn't a log that was already there.
+
+130
+00:08:37,233 --> 00:08:41,233
+And then, let's play, and we get none of the I'm here's, I don't
+
+131
+00:08:41,233 --> 00:08:45,233
+think. Let me see, we get a lot of errors, but as we play here, we're not
+
+132
+00:08:45,233 --> 00:08:49,233
+seeing "I'm here's" at the bottom. OK, so you can even just
+
+133
+00:08:49,233 --> 00:08:53,233
+search for "here", not a single instance. So it's not getting there. Now,
+
+134
+00:08:53,233 --> 00:08:57,233
+this brings us to the bug that I introduced. The bug was quite interesting. I said,
+
+135
+00:08:57,233 --> 00:09:01,233
+as I rushed through, let's just do two different ensure statements,
+
+136
+00:09:01,233 --> 00:09:05,233
+so that we get two different tests, and we can tell if it was the Barrel or the Turret. But look at my logic, it
+
+137
+00:09:05,233 --> 00:09:09,233
+stinks. This says, if (ensure(Barrel). Well if there's a Barrel or if there's a Turret,
+
+138
+00:09:09,233 --> 00:09:13,233
+basically if the situation is somewhat normal in either respect, leave
+
+139
+00:09:13,233 --> 00:09:17,233
+this perfectly good code. How daft, what I meant to say was if not
+
+140
+00:09:17,233 --> 00:09:21,233
+(!ensure(Barrel) II or if not ensure(Turret))
+
+141
+00:09:21,233 --> 00:09:25,233
+then . And it's this lack of not that
+
+142
+00:09:25,233 --> 00:09:29,233
+means that you don't even get an error to tell you what's going on, and that's the sort of things that can be
+
+143
+00:09:29,233 --> 00:09:33,233
+hard to pin down, which is where that technique of putting the log in and moving the log
+
+144
+00:09:33,233 --> 00:09:37,233
+through the execution can be a sensible way of doing it and you don't have to
+
+145
+00:09:37,233 --> 00:09:41,233
+go straight to the problem. What I mean by binary searching is that, you know, this
+
+146
+00:09:41,233 --> 00:09:45,233
+can be the START of the execution flow, this can be the END of the execution flow.
+
+147
+00:09:45,233 --> 00:09:49,233
+You can try logging here if you want, but then, you're welcomed to dive in the middle and go,
+
+148
+00:09:49,233 --> 00:09:53,233
+well you know it's OK here but it's not OK here, so the problem must be in the middle here.
+
+149
+00:09:53,233 --> 00:09:57,233
+It's a bit like the binary search we did in the first section, I believe.
+
+150
+00:09:57,233 --> 00:10:01,233
+But anyway you get the idea, you can hone in on the problem, you don't have to go line by line by line,
+
+151
+00:10:01,233 --> 00:10:05,233
+and you can kind of chop the space. That's what I meant by that! OK,
+
+152
+00:10:05,233 --> 00:10:09,233
+so hopefully that will solve it. Let's compile! And if it does solve it,
+
+153
+00:10:09,233 --> 00:10:13,233
+where are we in terms of our general overview? Well then,
+
+154
+00:10:13,233 --> 00:10:17,233
+we're at green, we actually have aiming working. If we have aiming working, then
+
+155
+00:10:17,233 --> 00:10:21,233
+we're in a position to refactor it. There you go, aiming works on me and it works on these other tanks!
+
+156
+00:10:21,233 --> 00:10:25,233
+This other tank's not moving, so I'm just going to re-instantiate him, in case he's
+
+157
+00:10:25,233 --> 00:10:29,233
+busted. Hit F11 for full screen, and you can see that
+
+158
+00:10:29,233 --> 00:10:33,233
+both tanks are doing their comic moving and we're all aiming. Good not the
+
+159
+00:10:33,233 --> 00:10:37,233
+new architecture but we are in a green functionality as
+
+160
+00:10:37,233 --> 00:10:41,233
+working, even if code is in a messy stage. Fantastic! You know what we do now
+
+161
+00:10:41,233 --> 00:10:45,233
+don't you? What we do now is we commit, so I'm going to
+
+162
+00:10:45,233 --> 00:10:49,233
+Save all my work, and then, I'm going to commit this
+
+163
+00:10:49,233 --> 00:10:53,233
+lecture, because we have made significant
+
+164
+00:10:53,233 --> 00:10:57,233
+progress here. We have got to the point where
+
+165
+00:10:57,233 --> 00:11:01,233
+our code is ready to be refactored. And this is the starting point we'll
+
+166
+00:11:01,233 --> 00:11:05,233
+fall back to, if we can't make the refactor work, so always get to green,
+
+167
+00:11:05,233 --> 00:11:09,233
+Commit, then start your refactor. See you in the next video!
+
+168
+00:11:09,233 --> 00:11:10,499
+
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT75 Starting From Green.srt

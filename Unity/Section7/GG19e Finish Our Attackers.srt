@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section7/GG19e Finish Our Attackers.srt
 ﻿WEBVTT
 
 1
@@ -664,3 +665,670 @@ place to go and see all the projects as they evolve. So thanks for watching that
 00:11:00.433 --> 00:11:04.233
 you in the next video. where we'll pick up the project where we left off!
 
+=======
+
+1
+00:00:00,000 --> 00:00:03,700
+
+
+2
+00:00:03,700 --> 00:00:07,700
+OK, so I'm going to go to the Animation's part of my
+
+3
+00:00:07,700 --> 00:00:11,700
+Assets and just take stock. So I have a Cactus. I'm just going to rename these
+
+4
+00:00:11,700 --> 00:00:15,700
+clips cactus attack, just so that we have
+
+5
+00:00:15,700 --> 00:00:19,700
+unique clip names. OK, so that's the Cactus
+
+6
+00:00:19,700 --> 00:00:23,700
+done! OK, we're not bothering to animate the projectiles yet.
+
+7
+00:00:23,700 --> 00:00:27,700
+The Fox, so Fox next! Let's just do it! When you get to it, don't double handle
+
+8
+00:00:27,700 --> 00:00:31,700
+things, right. You've just arrived at the Fox, do the Fox right now. So
+
+9
+00:00:31,700 --> 00:00:35,700
+it is an Attacker. Create Empty Child, call it Fox.
+
+10
+00:00:35,700 --> 00:00:39,700
+Now, I'm going to do things a slightly different way. Let's create another
+
+11
+00:00:39,700 --> 00:00:43,700
+empty child of the Fox. Let's call it Body, and then,
+
+12
+00:00:43,700 --> 00:00:47,700
+on the Body let's put the Sprite Renderer. I'm going to go and
+
+13
+00:00:47,700 --> 00:00:51,700
+get a, what shall we have, a walking sprite as the default.
+
+14
+00:00:51,700 --> 00:00:55,700
+That's good! Now where is my Fox in the world?
+
+15
+00:00:55,700 --> 00:00:59,700
+Well let's zoom out, there he is! Let's just move him to
+
+16
+00:00:59,700 --> 00:01:03,700
+somewhere on grid, say here. We have
+
+17
+00:01:03,700 --> 00:01:07,700
+him precisely on grid 5, 4. You might be wondering what's going to be different,
+
+18
+00:01:07,700 --> 00:01:11,700
+not a lot, just the order that I add the controllers and things in. Moving the
+
+19
+00:01:11,700 --> 00:01:15,700
+Body sub-component. Remember scaling the Body subcomponent. Just
+
+20
+00:01:15,700 --> 00:01:19,700
+doing this by eye, so that your Fox is at grid, your Body isn't.
+
+21
+00:01:19,700 --> 00:01:23,700
+OK, that's pretty cool! So what am I going to want to do
+
+22
+00:01:23,700 --> 00:01:27,700
+now? I'm going to want to add an animation to the Fox. What happens if I select the Fox
+
+23
+00:01:27,700 --> 00:01:31,700
+Body and then just add an animation clip straight off? Let's
+
+24
+00:01:31,700 --> 00:01:35,700
+see what happens OK. Fox walk, let's call
+
+25
+00:01:35,700 --> 00:01:39,700
+it. Now, it's added to clip, but unfortunately it's added an
+
+26
+00:01:39,700 --> 00:01:43,700
+Animator to the Fox Body, so it's not a good place to have it. So
+
+27
+00:01:43,700 --> 00:01:47,700
+this is why I tend to specifically make the Animator
+
+28
+00:01:47,700 --> 00:01:51,700
+on the parent first, then
+
+29
+00:01:51,700 --> 00:01:55,700
+go to the trouble of making myself an Animator. You see it's even
+
+30
+00:01:55,700 --> 00:01:59,700
+called the Animator, Body, it's all wrong, so this is why I've been doing it the slow way.
+
+31
+00:01:59,700 --> 00:02:03,700
+Now, I know that if you add a curve to the Body, it will create an Animator
+
+32
+00:02:03,700 --> 00:02:07,700
+Controller for you and stuff, but it does all the naming wrong, so let's just do it manually,
+
+33
+00:02:07,700 --> 00:02:11,700
+it doesn't take long. Create an Animator Controller, call it _Fox.
+
+34
+00:02:11,700 --> 00:02:15,700
+
+
+35
+00:02:15,700 --> 00:02:19,700
+May need a capital, just to go with the name of the Fox. It doesn't
+
+36
+00:02:19,700 --> 00:02:23,700
+really matter. OK, let's pop it into the Controller
+
+37
+00:02:23,700 --> 00:02:27,700
+slot, and that's good! Down to the Body, now
+
+38
+00:02:27,700 --> 00:02:31,700
+we have a default sprite. So he's looking good! Now, we can add
+
+39
+00:02:31,700 --> 00:02:35,700
+a clip at last. By the way, the difference between a curve
+
+40
+00:02:35,700 --> 00:02:39,700
+and a clip is, the first time it does the same thing. The second time, it'll add a second curve to the
+
+41
+00:02:39,700 --> 00:02:43,700
+same clip, which means that you can control multiple things at once, maybe the X and the Y movement
+
+42
+00:02:43,700 --> 00:02:47,700
+independently. But in this case, it doesn't really matter, so this is fox walk.
+
+43
+00:02:47,700 --> 00:02:51,700
+Because we're going to start off by walking in, we're replacing
+
+44
+00:02:51,700 --> 00:02:55,700
+that clip. That's fine! We're going to work on the Sprite Renderer
+
+45
+00:02:55,700 --> 00:02:59,700
+of the Fox. There it is! We're going to leave the zoom out to
+
+46
+00:02:59,700 --> 00:03:03,700
+see the default frames, leave them there for the moment. Go grab all the walking frames,
+
+47
+00:03:03,700 --> 00:03:07,700
+which really is getting the same, but I want to show you step by step.
+
+48
+00:03:07,700 --> 00:03:11,700
+Previously in the course I did this as a sped up video, but I got a lot of kickback that it was very
+
+49
+00:03:11,700 --> 00:03:15,700
+hard to follow, so I'm doing it frame by frame and step by step now. So
+
+50
+00:03:15,700 --> 00:03:19,700
+fox walk. Let's have a look! There he is walking away,
+
+51
+00:03:19,700 --> 00:03:23,700
+bless him. Cool! Quite fun! Walking a bit quick, I would
+
+52
+00:03:23,700 --> 00:03:27,700
+say. Let's slow down the samples to 30, let's see what that looks like.
+
+53
+00:03:27,700 --> 00:03:31,700
+Yeah, that's a bit more like it!
+
+54
+00:03:31,700 --> 00:03:35,700
+Yeah, he's walking kind of smoothly. O.K., that's fine! So the Fox is
+
+55
+00:03:35,700 --> 00:03:39,700
+walking. Let's think about the next clip, not curve. Adding a curve here would allow
+
+56
+00:03:39,700 --> 00:03:43,700
+you to change something else, as well as the sprite, but we're adding a new clip.
+
+57
+00:03:43,700 --> 00:03:47,700
+Fox jump,
+
+58
+00:03:47,700 --> 00:03:51,700
+there's the state. How long is it going to be before it transitions? Well
+
+59
+00:03:51,700 --> 00:03:55,700
+let's have a look. The walk went 30 frames a second, and we've got
+
+60
+00:03:55,700 --> 00:03:59,700
+just over 20 frames here, so it would need to
+
+61
+00:03:59,700 --> 00:04:03,700
+be about 3 and 1/2, something like that
+
+62
+00:04:03,700 --> 00:04:07,700
+cycles, so let's try 3 and 1/2, it's close enough.
+
+63
+00:04:07,700 --> 00:04:11,700
+After 3.... Oops, not 35 [Laughs] we'll be there forever. After 3 1/2
+
+64
+00:04:11,700 --> 00:04:15,700
+cycles, let's test what we've just done. 1,000, 2,000,
+
+65
+00:04:15,700 --> 00:04:19,700
+3,000 then it moves! That's good! So the Fox was walking for about
+
+66
+00:04:19,700 --> 00:04:23,700
+the right amount of time. Let's go over to his jumping animation.
+
+67
+00:04:23,700 --> 00:04:27,700
+Add a Curve to the Body, Sprite Renderer.
+
+68
+00:04:27,700 --> 00:04:31,700
+Perfect! Let's go find the jumping frames.
+
+69
+00:04:31,700 --> 00:04:35,700
+Here they are. Cool, look how high he jumps. Drop them in, delete
+
+70
+00:04:35,700 --> 00:04:39,700
+the defaults. I drop them in before deleting the defaults, so we don't lose the whole
+
+71
+00:04:39,700 --> 00:04:43,700
+curve line. OK, we better use 30 frames a second to be consistent
+
+72
+00:04:43,700 --> 00:04:47,700
+with the walking, before we even look at how long this should last.
+
+73
+00:04:47,700 --> 00:04:51,700
+And it's got about 30 frames, so it's going to be about 3
+
+74
+00:04:51,700 --> 00:04:55,700
+loops, before we transition to the next state but let's just check. 1,000,
+
+75
+00:04:55,700 --> 00:04:59,700
+2,000, 3,000, then he starts jumping.
+
+76
+00:04:59,700 --> 00:05:03,700
+Cool! And he's going to stay in there forever,
+
+77
+00:05:03,700 --> 00:05:07,700
+because we haven't got a state for him to go to. What's the state that he's going to go to?
+
+78
+00:05:07,700 --> 00:05:11,700
+Well it's going to be attacking, isn't it. So let's add a new state. Clip adds a state,
+
+79
+00:05:11,700 --> 00:05:15,700
+if you remember, as well.
+
+80
+00:05:15,700 --> 00:05:19,700
+Fox attack, make a transition from the jump
+
+81
+00:05:19,700 --> 00:05:23,700
+to the attack. We need about 3 cycles, we decided,
+
+82
+00:05:23,700 --> 00:05:27,700
+and let's go sort out the attack state, so click on attack.
+
+83
+00:05:27,700 --> 00:05:31,700
+Add yourself
+
+84
+00:05:31,700 --> 00:05:35,700
+a curve, which is the Body, Sprite Renderer.
+
+85
+00:05:35,700 --> 00:05:39,700
+Go find your frames. Here they are, boom in
+
+86
+00:05:39,700 --> 00:05:43,700
+they go! Delete the defaults. Oops!
+
+87
+00:05:43,700 --> 00:05:47,700
+If you make a mistake, Control Z, and
+
+88
+00:05:47,700 --> 00:05:51,700
+move it across. Now, 30 frames a second, let's be consistent. How long does this last?
+
+89
+00:05:51,700 --> 00:05:55,700
+Well it's about 20, so we need to go about 3 1/2 cycles again.
+
+90
+00:05:55,700 --> 00:05:59,700
+So fox attack back to walk is about 3 and
+
+91
+00:05:59,700 --> 00:06:03,700
+1/2 cycles. I'm just doing rough mental calculations here.
+
+92
+00:06:03,700 --> 00:06:07,700
+Let's just check it all works. Go back to the scene. 2,000,
+
+93
+00:06:07,700 --> 00:06:11,700
+3,000 starts jumping. 2,000,
+
+94
+00:06:11,700 --> 00:06:15,700
+3,000 attacking! Nearly there but attacking unfortunately is
+
+95
+00:06:15,700 --> 00:06:19,700
+something wrong with that. What's wrong with attacking? Did I put the wrong frames in? I think I
+
+96
+00:06:19,700 --> 00:06:23,700
+may have done that, let's have a look. Let's watch him
+
+97
+00:06:23,700 --> 00:06:27,700
+attacking. Maybe it's just subtle, maybe he just like chews and you can hardly see it?
+
+98
+00:06:27,700 --> 00:06:31,700
+Nah, that's too subtle for me. [laughs], So let's
+
+99
+00:06:31,700 --> 00:06:35,700
+delete all the fox attack frames.
+
+100
+00:06:35,700 --> 00:06:39,700
+Jump, walk... Yes I did, look I needed this attack
+
+101
+00:06:39,700 --> 00:06:43,700
+one here. You may have wondered what I was doing at the time. Now, how would I do
+
+102
+00:06:43,700 --> 00:06:47,700
+that? I need to go and add the curve again. So that's fine, that sort of thing
+
+103
+00:06:47,700 --> 00:06:51,700
+happens. Just suck it up and say, no problem I'll just do it again.
+
+104
+00:06:51,700 --> 00:06:55,700
+It's really not worth getting yourself stressed over those things. It's just not worth
+
+105
+00:06:55,700 --> 00:06:59,700
+the shortening of your life. So I'm holding down Shift
+
+106
+00:06:59,700 --> 00:07:03,700
+to select those two, move it all across, 30 frames a second. Observe
+
+107
+00:07:03,700 --> 00:07:07,700
+that this guy is about 20 frames long now, so we need...
+
+108
+00:07:07,700 --> 00:07:11,700
+Well let's do a calculation this time. It's 20 frames
+
+109
+00:07:11,700 --> 00:07:15,700
+long, so it's 20 divided by 30, which is 0.6667.
+
+110
+00:07:15,700 --> 00:07:19,700
+What would we need... So I'm going to add that to my memory. If
+
+111
+00:07:19,700 --> 00:07:23,700
+I want 3 seconds divided by memory recall, we have 4.5.
+
+112
+00:07:23,700 --> 00:07:27,700
+So 4.5 transitions we need to
+
+113
+00:07:27,700 --> 00:07:31,700
+do in the animation. I have to go back here. Not 3.5 but 4.5.
+
+114
+00:07:31,700 --> 00:07:35,700
+Let's just check! Scene view, 2,000,
+
+115
+00:07:35,700 --> 00:07:39,700
+3,000. 1,000, 2,000, 3,000,
+
+116
+00:07:39,700 --> 00:07:43,700
+and attacking! Cool, our Fox is groovy!
+
+117
+00:07:43,700 --> 00:07:47,700
+So let's go back to where we were! If you remember the tree that we were going through, when
+
+118
+00:07:47,700 --> 00:07:51,700
+we were looking down here. The Fox is looking good! The Gnome, how's the Gnome?
+
+119
+00:07:51,700 --> 00:07:55,700
+He's named well, gnome hop, gnome idle. That's all good! The Gravestone, gravestone
+
+120
+00:07:55,700 --> 00:07:59,700
+attack, gravestone idle. Cool! Lizard, lizard appearing. Oh, well it ought to be lizard appearing
+
+121
+00:07:59,700 --> 00:08:03,700
+hey! So let's just make that unique, lizard appearing clip name,
+
+122
+00:08:03,700 --> 00:08:07,700
+lizard attacking,
+
+123
+00:08:07,700 --> 00:08:11,700
+and lizard walking.
+
+124
+00:08:11,700 --> 00:08:15,700
+Wicked! OK, that's good! So projectiles we're going to worry about later,
+
+125
+00:08:15,700 --> 00:08:19,700
+and the Star Trophy, we're going to worry about later. We have finished our Attackers.
+
+126
+00:08:19,700 --> 00:08:23,700
+Awesome job guys!
+
+127
+00:08:23,700 --> 00:08:27,700
+So we're pretty much there. Now I, this is
+
+128
+00:08:27,700 --> 00:08:31,700
+the patch to the video, this has been applied 9 months after the course was originally
+
+129
+00:08:31,700 --> 00:08:35,700
+made, and some of the things I've just done will be slightly different to what
+
+130
+00:08:35,700 --> 00:08:39,700
+you see in the next video. For a start, in the next video, these things will be laid out on the screen
+
+131
+00:08:39,700 --> 00:08:43,700
+differently. Now I could painstakingly go through and get it all to exactly the same
+
+132
+00:08:43,700 --> 00:08:47,700
+state, but to be honest, I think the changes are going to be very minor. So in the next
+
+133
+00:08:47,700 --> 00:08:52,433
+video, don't be shocked if these things moved a little bit. Also, don't be shocked if my animation timings are a little bit different.
+
+134
+00:08:52,433 --> 00:08:56,433
+But if you do want to access the exact code, at the end of this video, or
+
+135
+00:08:56,433 --> 00:09:00,433
+indeed at the end of any video in any of our courses, then this is exactly how you do it.
+
+136
+00:09:00,433 --> 00:09:04,433
+By the way, I'm going to give you all of this in a challenge slide in a minute and I'm going to ask you to
+
+137
+00:09:04,433 --> 00:09:08,433
+go and try it, but for now, let me just show you it through. Just watch through. Go to github.com/bentristem
+
+138
+00:09:08,433 --> 00:09:12,433
+If you're already a member of GitHub, follow me.
+
+139
+00:09:12,433 --> 00:09:16,433
+It'll be really fun! If you're not, you don't need to be signed in. In fact, I'm not signed in right here.
+
+140
+00:09:16,433 --> 00:09:20,433
+So then you need to go find the Complete Unity Developer Organization,
+
+141
+00:09:20,433 --> 00:09:24,433
+or you can go direct there using this URL, which will be on your challenge slide. You find the
+
+142
+00:09:24,433 --> 00:09:28,433
+section in question, which in this case is Glitch Garden. Now, a slight
+
+143
+00:09:28,433 --> 00:09:32,433
+complexity with Glitch Garden. In general you would click commits,
+
+144
+00:09:32,433 --> 00:09:36,433
+and again, this will all be in your challenge slide, step by step. And you'll be on the
+
+145
+00:09:36,433 --> 00:09:40,433
+Master Branch, and you'll find that these names here correspond to the
+
+146
+00:09:40,433 --> 00:09:44,433
+names, videos in general. But because I've just done a major patch to this section, the last
+
+147
+00:09:44,433 --> 00:09:48,433
+four videos have been updated many months after the event. You're going to need
+
+148
+00:09:48,433 --> 00:09:52,433
+to click on Branch: master and fix-animation-2. You don't have to do
+
+149
+00:09:52,433 --> 00:09:56,433
+any of this, by the way, but this is just how you get to our code if you want it. Now,
+
+150
+00:09:56,433 --> 00:10:00,433
+once you're here you can see that March 2016, considerably
+
+151
+00:10:00,433 --> 00:10:04,433
+after February 2015, are the four videos I've just fixed. This replaces
+
+152
+00:10:04,433 --> 00:10:08,433
+one video. It used to be called Combining Animation Types, it was horrible! It was
+
+153
+00:10:08,433 --> 00:10:12,433
+sped up nearly 3 times and it was very hard to follow. Now we have 4 that are nice
+
+154
+00:10:12,433 --> 00:10:16,433
+and easy to follow. If you want to get to the state, at the end of this video, which is called
+
+155
+00:10:16,433 --> 00:10:20,433
+Finishing Our Attackers, you click on the right-hand side here, "Browse the repository at this point
+
+156
+00:10:20,433 --> 00:10:24,433
+in history". You don't need to be logged in. You get to here and then you
+
+157
+00:10:24,433 --> 00:10:28,433
+can click Download ZIP. And what you'll get is a ZIP of the entire
+
+158
+00:10:28,433 --> 00:10:32,433
+Glitch Garden folder. Now, that's in Unity 4.6, if you open it
+
+159
+00:10:32,433 --> 00:10:36,433
+in Unity 4.6 it'll be fine. Remember to save your project first. If you open it in a later
+
+160
+00:10:36,433 --> 00:10:40,433
+version, Unity 5 point something, it will ask to upgrade the project, which is fine,
+
+161
+00:10:40,433 --> 00:10:44,433
+and you can still look and see exactly how we have everything setup, if you want
+
+162
+00:10:44,433 --> 00:10:48,433
+to. But this in general goes, if we zoom right back out to me,
+
+163
+00:10:48,433 --> 00:10:52,433
+this goes for all my courses. You can see what I'm doing across all courses, over
+
+164
+00:10:52,433 --> 00:10:56,433
+all time. I have organizations here for all the different courses, and this is quite a cool
+
+165
+00:10:56,433 --> 00:11:00,433
+place to go and see all the projects as they evolve. So thanks for watching that, and I shall see
+
+166
+00:11:00,433 --> 00:11:04,233
+you in the next video, where we'll pick up the project where we left off!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section7/GG19e Finish Our Attackers.srt

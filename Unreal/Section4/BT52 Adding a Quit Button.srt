@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT52 Adding a Quit Button.srt
 ﻿WEBVTT
 
 1
@@ -664,3 +665,670 @@ and happy days are ahead! So see you in
 00:11:04.166 --> 00:11:05.932
 the next video!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+Hello hello hello
+
+2
+00:00:04,000 --> 00:00:08,000
+and welcome to Adding a Quit Button! In this video
+
+3
+00:00:08,000 --> 00:00:12,000
+we are going to, guess what we're going to do it's pretty obvious, we're going to add a Quit
+
+4
+00:00:12,000 --> 00:00:16,000
+Button! Here it is Quit, and it will just stop the game! We're also going to fix a
+
+5
+00:00:16,000 --> 00:00:20,000
+bug, which we've previously had, that if you click Start the tanks are all flying off
+
+6
+00:00:20,000 --> 00:00:26,933
+and that's no longer happening. We're also going to simplify our collision system a lot. So see you in there!
+
+7
+00:00:26,933 --> 00:00:30,933
+So guys, we have tanks firing, we have problems with our
+
+8
+00:00:30,933 --> 00:00:34,933
+game, but we are making progress! We can shoot at them, they can shoot at us. We can't move
+
+9
+00:00:34,933 --> 00:00:38,933
+yet but let's stick to our plan, which we decided in the beginning
+
+10
+00:00:38,933 --> 00:00:42,933
+or I decided in the beginning, that we were going to work on the World, then the Tank, then the Controls,
+
+11
+00:00:42,933 --> 00:00:46,933
+then Player 2, then UI, before looping
+
+12
+00:00:46,933 --> 00:00:50,933
+back to the World and the Tank and the Controls. So let's do that! Let's go to UI
+
+13
+00:00:50,933 --> 00:00:54,933
+next, just for the sake of sticking to our original plan. The
+
+14
+00:00:54,933 --> 00:00:58,933
+idea is, we don't dwell for too long on any one area of the game,
+
+15
+00:00:58,933 --> 00:01:02,933
+before moving on and making sure that we have dealt with any major omissions.
+
+16
+00:01:02,933 --> 00:01:06,933
+So there are a couple of major omissions, that's omissions
+
+17
+00:01:06,933 --> 00:01:10,933
+o double m [Laughs] for the none English speakers. One is if we go to the main
+
+18
+00:01:10,933 --> 00:01:14,933
+menu, firstly, we can't quit the game. There's no quit button, which is going to be a pain.
+
+19
+00:01:14,933 --> 00:01:18,933
+And secondly, look what happens when we start the game! Oh dear, where have my tanks
+
+20
+00:01:18,933 --> 00:01:22,933
+gone?! Let's do that again just because it's fun! If we play the game,
+
+21
+00:01:22,933 --> 00:01:26,933
+Alt P, Start, boom and we have
+
+22
+00:01:26,933 --> 00:01:30,933
+a Serious Flying Tank Syndrome. But interestingly, we don't have
+
+23
+00:01:30,933 --> 00:01:34,933
+Serious Flying Tank Syndrome, SFTS
+
+24
+00:01:34,933 --> 00:01:38,933
+I think... Yes, SFTS! We don't have that syndrome here, when we play
+
+25
+00:01:38,933 --> 00:01:42,933
+in here. Now why not? Well you're welcome to pause and try and fix it yourself,
+
+26
+00:01:42,933 --> 00:01:46,933
+or I can tell you what's going on, what I believe's going on. I believe what's going on
+
+27
+00:01:46,933 --> 00:01:50,933
+is another one of these self collision issues. Basically, we're worrying...
+
+28
+00:01:50,933 --> 00:01:54,933
+We're running up against issues with Unreal because it's designed for making humanoid
+
+29
+00:01:54,933 --> 00:01:58,933
+characters and skeletal meshes, and we have got ourselves a clunky
+
+30
+00:01:58,933 --> 00:02:04,166
+tank here, with lots of different collision meshes on it all interfering with one another.
+
+31
+00:02:04,166 --> 00:02:08,166
+So what can we do to prevent this mess-up? Well, if we look at
+
+32
+00:02:08,166 --> 00:02:12,166
+our tank, at the moment, it's got a lot of different parts to it, as I say, and they've
+
+33
+00:02:12,166 --> 00:02:16,166
+all got their own separate colliders. There's no easy way, that I can see here
+
+34
+00:02:16,166 --> 00:02:20,166
+in this view, to see them. But as I say, you can go to the Game View and you
+
+35
+00:02:20,166 --> 00:02:24,166
+can go to the Battle Ground, play the game, F8 to de-possess,
+
+36
+00:02:24,166 --> 00:02:28,166
+Show, Collision, and you'll see there's a lot of collision meshes,
+
+37
+00:02:28,166 --> 00:02:32,166
+all on this thing, and some of them are inside each other and interacting with each other.
+
+38
+00:02:32,166 --> 00:02:36,166
+And now, I believe we've already turned off the collision on the
+
+39
+00:02:36,166 --> 00:02:40,166
+turret here, but we still have collision on the barrel. No we don't,
+
+40
+00:02:40,166 --> 00:02:44,166
+we've got rid of it there as well. What else have we got? Tracks!
+
+41
+00:02:44,166 --> 00:02:48,166
+Ah, now the tracks have still got colliders on them! Let me, for a minute, try removing
+
+42
+00:02:48,166 --> 00:02:52,166
+collision from the tracks. Save the game. So go to your track mesh,
+
+43
+00:02:52,166 --> 00:02:56,166
+remove collision from it, make sure there are not collision meshes on it, and now try playing
+
+44
+00:02:56,166 --> 00:03:00,166
+the game from the start menu. Let's see if that works!
+
+45
+00:03:00,166 --> 00:03:04,166
+Because I believe what's happening is, the tracks are effectively exploding off the tanks.
+
+46
+00:03:04,166 --> 00:03:08,166
+Ah, now they're OK, but we sit funny on the ground because our tracks
+
+47
+00:03:08,166 --> 00:03:12,166
+don't have a collider on them, so then if you look carefully at my tank, it's wheels
+
+48
+00:03:12,166 --> 00:03:16,166
+are going through the ground. So look, one simple
+
+49
+00:03:16,166 --> 00:03:20,166
+solution to this, right now, is to just
+
+50
+00:03:20,166 --> 00:03:24,166
+simplify completely this tank's collision properties.
+
+51
+00:03:24,166 --> 00:03:28,166
+So what we can do is, we can actually take the colliders off the tracks, as well.
+
+52
+00:03:28,166 --> 00:03:32,166
+Collision, remove...
+
+53
+00:03:32,166 --> 00:03:36,166
+Well I have, sorry excuse me! brain fart there. I removed them a moment ago!
+
+54
+00:03:36,166 --> 00:03:40,166
+But the other thing that has collision on it is the tank body,
+
+55
+00:03:40,166 --> 00:03:44,166
+and we could actually remove all the collision from that, both from the LOD0 but also
+
+56
+00:03:44,166 --> 00:03:48,166
+from Collision and then Remove Collision.
+
+57
+00:03:48,166 --> 00:03:52,166
+Now, of course, if we play the game from the main level or even from the
+
+58
+00:03:52,166 --> 00:03:56,166
+start menu, it should fall through the floor or not move at
+
+59
+00:03:56,166 --> 00:04:00,166
+all. Now listen, the reason it's hovering in the air is, because the tank
+
+60
+00:04:00,166 --> 00:04:04,166
+body is the thing with the physics on it. Remember if we look at the tank blueprint, the tank here
+
+61
+00:04:04,166 --> 00:04:08,166
+is the thing with the physics. It still has Simulate Physics, it's actually grayed
+
+62
+00:04:08,166 --> 00:04:12,166
+out, and that's because there is no collider, so it doesn't have a
+
+63
+00:04:12,166 --> 00:04:16,166
+body to simulate physics on. So what we can do is, we could go to the tank
+
+64
+00:04:16,166 --> 00:04:20,166
+body for now, and let me show you a new thing about colliders here.
+
+65
+00:04:20,166 --> 00:04:24,166
+We go to Collision and we Add a Box Simplified Collision.
+
+66
+00:04:24,166 --> 00:04:28,166
+So you're starting with nothing, if you've got anything just remove. Start with nothing and then Add
+
+67
+00:04:28,166 --> 00:04:32,166
+a Box Simplified Collision to the tank. Now let's have a look at that! In fact, this
+
+68
+00:04:32,166 --> 00:04:36,166
+default one here is nearly good enough, to be honest. It's nearly
+
+69
+00:04:36,166 --> 00:04:40,166
+there. I'm going to change to a, say a Left view or a
+
+70
+00:04:40,166 --> 00:04:44,166
+Front view. There you go! It's actually, as I explained before, the tank is aligned slightly
+
+71
+00:04:44,166 --> 00:04:48,166
+off, so the views are slightly messed up, but you know, we can get to what we need.
+
+72
+00:04:48,166 --> 00:04:52,166
+We can see this box is a little bit high. Where do you adjust this? Well you
+
+73
+00:04:52,166 --> 00:04:56,166
+can have a look in the Details tab, and then, you can come in here and
+
+74
+00:04:56,166 --> 00:05:00,166
+look for... Where is it? Primitives, there you go, under Static
+
+75
+00:05:00,166 --> 00:05:04,166
+Mesh Settings! You have Primitive, Boxes, and there's one box, element number
+
+76
+00:05:04,166 --> 00:05:08,166
+0, array starting at 0. And then, you can change the offset, there you go!
+
+77
+00:05:08,166 --> 00:05:12,166
+So now, I'm just moving that box, so that it just
+
+78
+00:05:12,166 --> 00:05:16,166
+leaves maybe a little bit of the track sticking out at the bottom, as if the track is dug into the ground.
+
+79
+00:05:16,166 --> 00:05:20,166
+Let's try that, that's now, because I've turned collision off on all the other
+
+80
+00:05:20,166 --> 00:05:24,166
+elements of the tank. The only collision we have on the tank is on the main body
+
+81
+00:05:24,166 --> 00:05:28,166
+and that's actually sitting pretty nicely. Let's have a look closer!
+
+82
+00:05:28,166 --> 00:05:32,166
+Yeah that's pretty cool! And then, I can get hit in the tank body.
+
+83
+00:05:32,166 --> 00:05:36,166
+Now let me just check that the other tanks also sit on the ground nicely.
+
+84
+00:05:36,166 --> 00:05:40,166
+You see they're not flying off, their tracks aren't exploding out of them anymore, and we
+
+85
+00:05:40,166 --> 00:05:44,166
+have an incredibly simple setup now. So let's just go and take a little closer look!
+
+86
+00:05:44,166 --> 00:05:48,166
+I hit F8 there to come out. I don't mind those tracks slightly embedded,
+
+87
+00:05:48,166 --> 00:05:52,166
+and now we have a much more reasonable, i.e. a much more easy to
+
+88
+00:05:52,166 --> 00:05:56,166
+reason about collision system on the tanks, In fact, if I
+
+89
+00:05:56,166 --> 00:06:00,166
+play the game, hit F8, Show, Collision
+
+90
+00:06:00,166 --> 00:06:04,166
+again, and then, just zoom in, it's a very very subtle purple box but it's just a
+
+91
+00:06:04,166 --> 00:06:08,166
+box around the tank. Much quicker to compute, much simpler to reason about,
+
+92
+00:06:08,166 --> 00:06:12,166
+no internal collisions. So let's do that for now, that seems like a good idea!
+
+93
+00:06:12,166 --> 00:06:16,166
+OK, the other glaring omission is that from that start
+
+94
+00:06:16,166 --> 00:06:20,166
+menu, that main menu, there is no quit button. I would just want a quit button
+
+95
+00:06:20,166 --> 00:06:24,166
+somewhere near the start button, and of course, that's going to be your challenge, because it's
+
+96
+00:06:24,166 --> 00:06:28,166
+about time that you got back and revised UI. Now, this is another benefit of this
+
+97
+00:06:28,166 --> 00:06:32,166
+spiral syllabus, is that we keep coming back to things before they
+
+98
+00:06:32,166 --> 00:06:36,166
+go completely stale in your mind. So it doesn't only help us
+
+99
+00:06:36,166 --> 00:06:40,166
+to keep the game fun, which is super important because the moment your game
+
+100
+00:06:40,166 --> 00:06:44,166
+stops being fun, if you can't get it back to fun you want to abandon it, [laughs] basically.
+
+101
+00:06:44,166 --> 00:06:48,166
+You also don't want to forget things. So here's your challenge! I want you to...
+
+102
+00:06:48,166 --> 00:06:52,166
+I want you to have a challenge! Here you
+
+103
+00:06:52,166 --> 00:06:56,166
+go, let's try again! OK add a quite button! Add a quit button to the
+
+104
+00:06:56,166 --> 00:07:00,166
+main menu. Call application quite from the blueprint. I'll let you decide exactly
+
+105
+00:07:00,166 --> 00:07:04,166
+what to call from the blueprint, all of this will be coded in the blueprint, and then, just test
+
+106
+00:07:04,166 --> 00:07:08,166
+that hitting quit stops the game playing. I'm not going to give you anymore hints than that, you need to
+
+107
+00:07:08,166 --> 00:07:12,166
+crank up your mind again, in terms of UI, revise some previous lectures
+
+108
+00:07:12,166 --> 00:07:16,166
+if you need to, but let's get a quit button on there!
+
+109
+00:07:16,166 --> 00:07:20,166
+Well go on there! You're adding it right? [Laughs] But you're not listening right now because it's paused,
+
+110
+00:07:20,166 --> 00:07:24,166
+so I'm talking to nobody, but then when you un-pause it, you'll be hearing me. Anyway I digress,
+
+111
+00:07:24,166 --> 00:07:28,166
+let's get on with it! So let's go and find... Where is
+
+112
+00:07:28,166 --> 00:07:32,166
+this start menu in the first place? Well good question, where did we put it?
+
+113
+00:07:32,166 --> 00:07:36,166
+I think we put it under UI, MainMenu. So there we go, here is the
+
+114
+00:07:36,166 --> 00:07:40,166
+main menu designer! So I think what I'm going to do, that would be prudent, is to take the
+
+115
+00:07:40,166 --> 00:07:44,166
+Start Button there and see if I can do a Copy and then a Paste.
+
+116
+00:07:44,166 --> 00:07:48,166
+Will it let me paste in here?
+
+117
+00:07:48,166 --> 00:07:52,166
+...
+
+118
+00:07:52,166 --> 00:07:56,166
+No, it won't let me paste. Why not? OK instead of doing it on this
+
+119
+00:07:56,166 --> 00:08:00,166
+3D View you can go the the Hierarchy here, Copy there, and then,
+
+120
+00:08:00,166 --> 00:08:04,166
+Paste in the Hierarchy, under the [Canvas Panel]. There you go! So
+
+121
+00:08:04,166 --> 00:08:08,166
+now we have two start buttons sitting on top of each other. One and
+
+122
+00:08:08,166 --> 00:08:12,166
+two, now where is the second one? The second one is at the top-left.
+
+123
+00:08:12,166 --> 00:08:16,166
+So that's it, basically you copy it in the Hierarchy rather than copying it
+
+124
+00:08:16,166 --> 00:08:20,166
+there. Now I'm going to get rid of this animations timeline at the bottom, because we're not animating anything.
+
+125
+00:08:20,166 --> 00:08:24,166
+I'm going to immediately rename this asset to
+
+126
+00:08:24,166 --> 00:08:28,166
+QuitButton, like so, and then, I'm
+
+127
+00:08:28,166 --> 00:08:32,166
+going to go about making sure that it's aligned with the other button.
+
+128
+00:08:32,166 --> 00:08:36,166
+And then changing the text, which should be Quit
+
+129
+00:08:36,166 --> 00:08:40,166
+Text, and then, the text should be QUIT,
+
+130
+00:08:40,166 --> 00:08:44,166
+I'll use capitals.
+
+131
+00:08:44,166 --> 00:08:48,166
+Cool! So we're nearly there! And then on the button itself, rather than the text
+
+132
+00:08:48,166 --> 00:08:52,166
+element what you want to do is, you want to come down to one of the events, and I'm going to
+
+133
+00:08:52,166 --> 00:08:56,166
+choose OnReleased, so you can push Quit but
+
+134
+00:08:56,166 --> 00:09:00,166
+it's not until you let go. So if you go oh I didn't really want to push Quit, you can kind of push it, move your
+
+135
+00:09:00,166 --> 00:09:04,166
+mouse off. Ah that may not work, but let's go with OnRelease anyway just to be
+
+136
+00:09:04,166 --> 00:09:08,166
+different. So we're going to choose OnReleased here.
+
+137
+00:09:08,166 --> 00:09:12,166
+So let's look where we are. Is this where we want to be coding it? Yeah, I think
+
+138
+00:09:12,166 --> 00:09:16,166
+this is perfectly reasonable! What have we got here? We've got the Event Graph for the UI.
+
+139
+00:09:16,166 --> 00:09:20,166
+It gets the WidgetReady, sets the Input Mode to UIOnly, gets the
+
+140
+00:09:20,166 --> 00:09:24,166
+Player Controller, it sets this Input Mode Game
+
+141
+00:09:24,166 --> 00:09:28,166
+Only, if you remember all that stuff. And the reason I can't edit is because I'm simulating, that was that big
+
+142
+00:09:28,166 --> 00:09:32,166
+simulating thing over the top there. I'm just going to de-spaghetti-fy this a little
+
+143
+00:09:32,166 --> 00:09:36,166
+bit. And now, I've got room for my quit button and I can search for "quit"
+
+144
+00:09:36,166 --> 00:09:40,166
+and then we've got Game, QuitGame. And it is as simple as that!
+
+145
+00:09:40,166 --> 00:09:44,166
+Actually, you just need to wire Quit to QuitGame. At Quit Preference,
+
+146
+00:09:44,166 --> 00:09:48,166
+Quit, or Background we're going to quit fully. So let's test it works!
+
+147
+00:09:48,166 --> 00:09:52,166
+Next, Compile up the blueprint, play the game from the main menu, hit Quit,
+
+148
+00:09:52,166 --> 00:09:56,166
+and the game stops running! Perfect! I think the final thing I'm going
+
+149
+00:09:56,166 --> 00:10:00,166
+to do on here is, just make this button in the Designer tab. Remember that
+
+150
+00:10:00,166 --> 00:10:04,166
+when you're in the MainMenu blueprint, you have a Graph tab which tells you how it works and a Designer
+
+151
+00:10:04,166 --> 00:10:08,166
+tab which tells you how it looks. I'm going to go into the Designer tab for myself,
+
+152
+00:10:08,166 --> 00:10:12,166
+I'm going to select the QuitButton, and I'm just going to make a slightly different background
+
+153
+00:10:12,166 --> 00:10:16,166
+color, just to give it the sense of quit-ability, if that's a
+
+154
+00:10:16,166 --> 00:10:20,166
+word.
+
+155
+00:10:20,166 --> 00:10:24,166
+OK that'll do!
+
+156
+00:10:24,166 --> 00:10:28,166
+That's red, it's pretty ugly, but at least we know that that's the quit button. Now notice,
+
+157
+00:10:28,166 --> 00:10:32,166
+I push the button down nothing happens. I can't actually
+
+158
+00:10:32,166 --> 00:10:36,166
+move away and not quit, that would take a little bit more work on the
+
+159
+00:10:36,166 --> 00:10:40,166
+UI, but at least it doesn't immediately quit the second you touch it. At least you can
+
+160
+00:10:40,166 --> 00:10:44,166
+think, oh I didn't really mean to quit! OK you can't stop it, but as an exercise
+
+161
+00:10:44,166 --> 00:10:48,166
+to the reader by the way, if you want a bit of an extra challenge, the key runs out there.
+
+162
+00:10:48,166 --> 00:10:52,166
+Make is so that you push down on Quit, if you move the mouse off and let go that
+
+163
+00:10:52,166 --> 00:10:56,166
+actually it doesn't quit. But for everybody else this is fine, we can start the game, the tanks
+
+164
+00:10:56,166 --> 00:11:00,166
+don't disappear, we have super simplified collision, we have a quit button,
+
+165
+00:11:00,166 --> 00:11:04,166
+and happy days are ahead! So see you in
+
+166
+00:11:04,166 --> 00:11:05,932
+the next video!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT52 Adding a Quit Button.srt

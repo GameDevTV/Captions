@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT97 Finishing Off - Part 1.srt
 ﻿WEBVTT
 
 1
@@ -896,3 +897,902 @@ Mortars damageable. and also do a little bit of code checking. So
 00:14:51.500 --> 00:14:54.900
 I will see you there!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+So welcome to Finishing
+
+2
+00:00:04,000 --> 00:00:08,000
+Off Part 1! We are pretty much at the end of the section. That doesn't mean that it's the end of the develompment
+
+3
+00:00:08,000 --> 00:00:12,000
+of this game, by the way. What I'm going to be encouraging you to do is to revisit this game,
+
+4
+00:00:12,000 --> 00:00:16,000
+once you have done the next section, and then, you're going to back
+
+5
+00:00:16,000 --> 00:00:20,000
+apply all the knowledge. In fact, in a moment, I'm going to be challenging you to do that with Building Escape, too!
+
+6
+00:00:20,000 --> 00:00:24,000
+But this video is about fixing a few things up. A StartingHealth bug will
+
+7
+00:00:24,000 --> 00:00:28,000
+be gone, by the end of it, and also, we will be able to
+
+8
+00:00:28,000 --> 00:00:32,000
+arrange that the AI tank stops firing back at us, once
+
+9
+00:00:32,000 --> 00:00:36,000
+we've killed him, which seems only fair, and that once we're dead we will
+
+10
+00:00:36,000 --> 00:00:40,000
+also not be able to control our tank, we'll go into a spectator mode. In fact, if I wait
+
+11
+00:00:40,000 --> 00:00:44,000
+one more second, you'll be able to see that. There you go! So I kind of
+
+12
+00:00:44,000 --> 00:00:48,000
+depossessed and I'm floating around the world as a ghost! I'm watching my poor
+
+13
+00:00:48,000 --> 00:00:51,500
+old tank being dead. So I will see you in there!
+
+14
+00:00:51,500 --> 00:00:55,500
+So I'm going to throw you straight into a series of challenges,
+
+15
+00:00:55,500 --> 00:00:59,500
+with this video, and then, I'm going to clarify some of them as we go. So
+
+16
+00:00:59,500 --> 00:01:03,500
+I don't know how you got on in the last video, whether you got as far as getting the Delegation
+
+17
+00:01:03,500 --> 00:01:07,500
+through to the PlayerController, when the tank dies. But if you didn't, then
+
+18
+00:01:07,500 --> 00:01:11,500
+I'd like you to finish that off, do exactly the same as we did in the AIController,
+
+19
+00:01:11,500 --> 00:01:15,500
+and call a method called StartSpectatingOnly(),
+
+20
+00:01:15,500 --> 00:01:19,500
+inside the PlayerController's Delegate, whatever you choose, so when the tank dies
+
+21
+00:01:19,500 --> 00:01:23,500
+the PlayerController starts SpectatingOnly.
+
+22
+00:01:23,500 --> 00:01:27,500
+Also, inside the AIController that we did get as far, if you remember, as
+
+23
+00:01:27,500 --> 00:01:31,500
+writing a log entry for it. Let's just take a look for context! It was
+
+24
+00:01:31,500 --> 00:01:35,500
+here, we just said ("Received"), so instead of that, let's use the Detach
+
+25
+00:01:35,500 --> 00:01:39,500
+FromControllerPendingDestroy() method. Look that up, see
+
+26
+00:01:39,500 --> 00:01:43,500
+what you need to call it on, etc. and use that method. And that's going to prevent the
+
+27
+00:01:43,500 --> 00:01:47,500
+tank from driving, once it's been destroyed. Another thing, fix
+
+28
+00:01:47,500 --> 00:01:51,500
+starting health bug! This is a very varied challenge for you, as we're nearing
+
+29
+00:01:51,500 --> 00:01:55,500
+the end of the section here. So let me show you the starting health bug first and then you can
+
+30
+00:01:55,500 --> 00:01:59,500
+fix it. So if you look at your Tank and you go in and you choose a different
+
+31
+00:01:59,500 --> 00:02:03,500
+Starting Health of say 300 and you compile your blueprint, what you would hope
+
+32
+00:02:03,500 --> 00:02:07,500
+is that it would work. So next up, fix the starting health bug.
+
+33
+00:02:07,500 --> 00:02:11,500
+If we go over to our Tank
+
+34
+00:02:11,500 --> 00:02:15,500
+and open up the blueprint, you'll find that if
+
+35
+00:02:15,500 --> 00:02:19,500
+you adjust the starting health value, on the tank blueprint,
+
+36
+00:02:19,500 --> 00:02:23,500
+that we get a problem. Let me show you! So we go here!
+
+37
+00:02:23,500 --> 00:02:27,500
+Say 250 or 350, it doesn't matter, anything but 100, and we
+
+38
+00:02:27,500 --> 00:02:31,500
+play the game, look those tanks are starting without full health! So that needs sorting
+
+39
+00:02:31,500 --> 00:02:35,500
+out, otherwise we're not going to be able to override the Starting Health. See if you can work up what's going on
+
+40
+00:02:35,500 --> 00:02:39,500
+there. Use the noise landscape function
+
+41
+00:02:39,500 --> 00:02:43,500
+to undulate it. Let me just show you that! So if we go back to Modes and then
+
+42
+00:02:43,500 --> 00:02:47,500
+Landscape and then Sculpt, you'll find here you've got a Noise method. Set yourself
+
+43
+00:02:47,500 --> 00:02:51,500
+some appropriate parameters and just make the ground a little bit more
+
+44
+00:02:51,500 --> 00:02:55,500
+undulating than it is right now. It's very flat and boring, make sure there's no really flat areas.
+
+45
+00:02:55,500 --> 00:02:59,500
+Let's have it much more organic. And while you're there, you're probably going to want
+
+46
+00:02:59,500 --> 00:03:03,500
+to be increasing the size of your Navmesh here, if it's not
+
+47
+00:03:03,500 --> 00:03:07,500
+already covering the whole terrain. And if you want another
+
+48
+00:03:07,500 --> 00:03:11,500
+challenge, then make the AutoMortars damageable! Put some AutoMortars back in the scene
+
+49
+00:03:11,500 --> 00:03:15,500
+and make them damageable in exactly the same way as we did the tank! And
+
+50
+00:03:15,500 --> 00:03:19,500
+finally, check your code against Unreal's coding standards. Now if you're going to do that, only
+
+51
+00:03:19,500 --> 00:03:23,500
+read down in their standards as far, I would suggest, as the end of
+
+52
+00:03:23,500 --> 00:03:27,500
+Comments, because otherwise it's too much to take on at this stage of the course, to take
+
+53
+00:03:27,500 --> 00:03:31,500
+all this on in one go. It's too much to remember. But let's try and make sure that your code and the
+
+54
+00:03:31,500 --> 00:03:35,500
+code we've written together is complying with these standards, all the way down to the end of Comments
+
+55
+00:03:35,500 --> 00:03:39,500
+and that you understand the standards down to there. That's it
+
+56
+00:03:39,500 --> 00:03:43,500
+really, you don't need to do all of those. This is, I'm going to go through and solve all of
+
+57
+00:03:43,500 --> 00:03:47,500
+these things, as the solution. But that is the challenge! There you go!
+
+58
+00:03:47,500 --> 00:03:51,500
+So pause the video, have a go at one or many of those, right now, and I'll
+
+59
+00:03:51,500 --> 00:03:55,500
+see you for the solutions!
+
+60
+00:03:55,500 --> 00:03:59,500
+OK welcome back! So I'm going to do solution number 2 first! I'm going
+
+61
+00:03:59,500 --> 00:04:03,500
+to use this DetachFromControllerPendingDestroy() inside the AI tank,
+
+62
+00:04:03,500 --> 00:04:07,500
+and the reason I'm going to do that, first, is because we're already there, we're just sitting there ready to go!
+
+63
+00:04:07,500 --> 00:04:11,500
+So what do we need to do? How does this DetachFromController
+
+64
+00:04:11,500 --> 00:04:15,500
+PendingDestroy? So what I hope you did is, "controller
+
+65
+00:04:15,500 --> 00:04:19,500
+pendingdestroy".
+
+66
+00:04:19,500 --> 00:04:23,500
+Take a look on the web, find out what it's all about, get as much documentation as you
+
+67
+00:04:23,500 --> 00:04:27,500
+can about it, and you can see that it's a method on Pawn. So
+
+68
+00:04:27,500 --> 00:04:31,500
+we're going to need to get hold of the Pawn, as the first port of call in this.
+
+69
+00:04:31,500 --> 00:04:35,500
+So here we are, inside the OnPossessedTankDeath() method of the TankAI
+
+70
+00:04:35,500 --> 00:04:39,500
+Controller. And what we're going to want to do is say, if not (!ensure
+
+71
+00:04:39,500 --> 00:04:43,500
+(GetPawn())).
+
+72
+00:04:43,500 --> 00:04:47,500
+so the first thing we want to do is ensure that we have a pawn. In fact,
+
+73
+00:04:47,500 --> 00:04:51,500
+because this could only go wrong at runtime, we probably don't even
+
+74
+00:04:51,500 --> 00:04:55,500
+want an ensure in there. So just if not (!GetPawn()), because we
+
+75
+00:04:55,500 --> 00:04:59,500
+don't want an assertion firing off at runtime, when the player is running
+
+76
+00:04:59,500 --> 00:05:03,500
+the game. What you can do is put ensure in
+
+77
+00:05:03,500 --> 00:05:07,500
+for now, make sure that it works, and then, put yourself
+
+78
+00:05:07,500 --> 00:05:11,500
+a note to remove it. That's one good way of doing things, but think carefully before leaving
+
+79
+00:05:11,500 --> 00:05:15,500
+ensure in your final production code. "//TODO remove
+
+80
+00:05:15,500 --> 00:05:19,500
+if ok". OK, so if not GetPawn
+
+81
+00:05:19,500 --> 00:05:23,500
+then we need to return. I'm going to check my bracket matching. Remember you can click
+
+82
+00:05:23,500 --> 00:05:27,500
+on a bracket to see what its partner is. And actually, that is the appropriate number of brackets, it
+
+83
+00:05:27,500 --> 00:05:31,500
+looks like a lot. So we need to make sure we've got a Pawn, and once we've got a Pawn, it's pretty easy! We can
+
+84
+00:05:31,500 --> 00:05:35,500
+go ahead and just Get the Pawn again. No harm in doing it twice,
+
+85
+00:05:35,500 --> 00:05:39,500
+it's a very quick operation. And DetachFromControllerPendingDestroy.
+
+86
+00:05:39,500 --> 00:05:43,500
+Great! OK, so that is the implementation
+
+87
+00:05:43,500 --> 00:05:47,500
+of that method! Let's go ahead and compile that, and just make sure that that works
+
+88
+00:05:47,500 --> 00:05:51,500
+properly, on the AI tank! Let's make sure that once the AI tank is dead
+
+89
+00:05:51,500 --> 00:05:55,500
+that it does not get
+
+90
+00:05:55,500 --> 00:05:59,500
+controlled or moved or fired by the AI tank anymore.
+
+91
+00:05:59,500 --> 00:06:03,500
+So I'm not sure how well the TankDeath is going to work, right now, with this
+
+92
+00:06:03,500 --> 00:06:07,500
+starting health bug. I think what I'll do, is actually
+
+93
+00:06:07,500 --> 00:06:11,500
+sort that starting health bug out right at the same time, so that we've got some control over that and we
+
+94
+00:06:11,500 --> 00:06:15,500
+can wind it down. So what is the starting health bug? It's quite simple, in the Tank.h
+
+95
+00:06:15,500 --> 00:06:19,500
+we have StartingHealth = 100 and then CurrentHealth
+
+96
+00:06:19,500 --> 00:06:23,500
+= StartingHealth. Well in this regimen, the currentHealth is always going to equal
+
+97
+00:06:23,500 --> 00:06:27,500
+100. If we change the StartingHealth in the blueprint it's too late, the CurrentHealth in the
+
+98
+00:06:27,500 --> 00:06:31,500
+C++ has already been set to 100. So we need to take this Current
+
+99
+00:06:31,500 --> 00:06:35,500
+Health initialization out of here. So I'm just not going to initialize at all.
+
+100
+00:06:35,500 --> 00:06:39,500
+I'm going to say "// not initialized" or "Initialized in Begin Play"
+
+101
+00:06:39,500 --> 00:06:43,500
+OK, because that's
+
+102
+00:06:43,500 --> 00:06:47,500
+the sensible time to do it. The tank constructor is too soon, trying to do it in here's not going to
+
+103
+00:06:47,500 --> 00:06:51,500
+work, because the C++ constructor will have run before
+
+104
+00:06:51,500 --> 00:06:55,500
+the blueprint comes along and overrides the value.
+
+105
+00:06:55,500 --> 00:06:59,500
+So we need to put the BeginPlay() back in. That's not too difficult, it's void
+
+106
+00:06:59,500 --> 00:07:03,500
+ATank::BeginPlay(),
+
+107
+00:07:03,500 --> 00:07:07,500
+and then, you just literally in there say what we were
+
+108
+00:07:07,500 --> 00:07:11,500
+saying over here, which is CurrentHealth = StartingHealth.
+
+109
+00:07:11,500 --> 00:07:15,500
+So we give the tank its health at the start. We just need to override
+
+110
+00:07:15,500 --> 00:07:19,500
+BeginPlay(), because it's not currently there. So that's here.
+
+111
+00:07:19,500 --> 00:07:23,500
+
+
+112
+00:07:23,500 --> 00:07:27,500
+There we go! Now the health
+
+113
+00:07:27,500 --> 00:07:31,500
+but should have gone. Let's recompile and we'll just check
+
+114
+00:07:31,500 --> 00:07:35,500
+the health bug's there. We can give it very low starting health, like well even 20, so that
+
+115
+00:07:35,500 --> 00:07:39,500
+we can kill it in a single hit, and then, we can test to see that the
+
+116
+00:07:39,500 --> 00:07:43,500
+AI tank stops firing, once it's dead, so two bugs in one. Looking
+
+117
+00:07:43,500 --> 00:07:47,500
+at our list, we've got a couple of things checked off, if this works, one is number 2!
+
+118
+00:07:47,500 --> 00:07:51,500
+That's confusing! Firstly, number 2 and the other one is the StartingHealth,
+
+119
+00:07:51,500 --> 00:07:55,500
+so we're dealing with 2 and 3 here. Alright, let's go to the Tank, give him a health of just 40,
+
+120
+00:07:55,500 --> 00:07:59,500
+StartingHealth. Now, the first symptom will be that the health bars are actually full.
+
+121
+00:07:59,500 --> 00:08:03,500
+We have an ensure assertion failure. What's the
+
+122
+00:08:03,500 --> 00:08:07,500
+problem here? Let's take a look at that, always take them seriously. We have a barrel
+
+123
+00:08:07,500 --> 00:08:11,500
+missing somewhere. So "Ensure condition failed" on the "Barrel".
+
+124
+00:08:11,500 --> 00:08:15,500
+What's the problem? Is the tank blueprint compiling?
+
+125
+00:08:15,500 --> 00:08:19,500
+Is the barrel being set
+
+126
+00:08:19,500 --> 00:08:23,500
+in the tank? It does seem to be. I'm
+
+127
+00:08:23,500 --> 00:08:27,500
+just going to Save and recompile that, clear the logs, and just try again.
+
+128
+00:08:27,500 --> 00:08:31,500
+OK, so we have the tank
+
+129
+00:08:31,500 --> 00:08:35,500
+not compiling properly. Let's look at the message logs and have a look down in
+
+130
+00:08:35,500 --> 00:08:39,500
+the Compiler Log, see if there's anything here. And there isn't, so what could be going
+
+131
+00:08:39,500 --> 00:08:43,500
+on? In this instance, this is a strange bug isn't it? We've just done something seemingly
+
+132
+00:08:43,500 --> 00:08:47,500
+simple and innocent, and we've broken our game, nothing's working properly, the
+
+133
+00:08:47,500 --> 00:08:51,500
+tank's aren't aiming. Well, when you override, and well done if you've spotted
+
+134
+00:08:51,500 --> 00:08:55,500
+this. You're BeginPlay(), remember to call Super::BeginPlay(),
+
+135
+00:08:55,500 --> 00:08:59,500
+otherwise we're overriding the method and then interfering with the engine's operation,
+
+136
+00:08:59,500 --> 00:09:03,500
+and it means the BeginPlay() won't be being called on any of the tanks. So
+
+137
+00:09:03,500 --> 00:09:07,500
+Super::BeginPlay() needs to go in there! Let's just recap the code, while we compile,
+
+138
+00:09:07,500 --> 00:09:11,500
+to make good use of that time. In the Tank.h we are just removing
+
+139
+00:09:11,500 --> 00:09:15,500
+the StartingHealth initialization, we're overriding BeginPlay(),
+
+140
+00:09:15,500 --> 00:09:19,500
+then we are just simply saying in BeginPlay() CurrentHealth = StartingHealth.
+
+141
+00:09:19,500 --> 00:09:23,500
+OK, let's take a look, we have a value of 40 there. First
+
+142
+00:09:23,500 --> 00:09:27,500
+good sign is that our bars are at full height. Now let's fire and hit the enemy tank.
+
+143
+00:09:27,500 --> 00:09:31,500
+He's got half the health now, that means he is taking 20
+
+144
+00:09:31,500 --> 00:09:35,500
+damage per hit. Now he's dead! Now, the key will be,
+
+145
+00:09:35,500 --> 00:09:39,500
+does that AI tank stop firing at me? We could depossess and go and have a butcher's
+
+146
+00:09:39,500 --> 00:09:43,500
+hook or a look at him and see, but it does look like he is
+
+147
+00:09:43,500 --> 00:09:47,500
+defunct now. And that's because the AIController is detached from that tank
+
+148
+00:09:47,500 --> 00:09:51,500
+and it's no longer trying to fire or aim at us. Great! So that solution
+
+149
+00:09:51,500 --> 00:09:55,500
+is done! What was the other challenge? It was create
+
+150
+00:09:55,500 --> 00:09:59,500
+StartSpectatingOnly() call method in the PlayerControllerO.K. So
+
+151
+00:09:59,500 --> 00:10:03,500
+in order to do that, we need to do the same magic on the PlayerController as we
+
+152
+00:10:03,500 --> 00:10:07,500
+did on the AIController. So you remember what we did? We said, let's subscribe our
+
+153
+00:10:07,500 --> 00:10:11,500
+local method to the tank's death event. Well we're going to do exactly the same thing
+
+154
+00:10:11,500 --> 00:10:15,500
+on the TankPlayerController. So let's just do it by analogy. Where did we
+
+155
+00:10:15,500 --> 00:10:19,500
+do it? We did it in SetPawn, so it's going to be almost
+
+156
+00:10:19,500 --> 00:10:23,500
+exactly the same work as we did here.
+
+157
+00:10:23,500 --> 00:10:27,500
+So let's go and copy everything from the TankAIController, for the
+
+158
+00:10:27,500 --> 00:10:31,500
+moment, being careful because we're going to be bringing across this class name amongst other
+
+159
+00:10:31,500 --> 00:10:35,500
+things. But let's copy that, because it's a good starting point. Pop over to the Tank
+
+160
+00:10:35,500 --> 00:10:39,500
+PlayerController, and I think just above BeginPlay() I'm going to pop that in. Immediately
+
+161
+00:10:39,500 --> 00:10:43,500
+change your class name, because otherwise it ain't going to work.
+
+162
+00:10:43,500 --> 00:10:47,500
+So there you go, from TankPlayerController! Now, let's look at this code and see if it's
+
+163
+00:10:47,500 --> 00:10:51,500
+reasonable. We are calling Super, we are asking if a Pawn came
+
+164
+00:10:51,500 --> 00:10:55,500
+in. We're doing the same thing about (PossessedTank),
+
+165
+00:10:55,500 --> 00:10:59,500
+or you could call it ControlledTank but it's actually the same thing,
+
+166
+00:10:59,500 --> 00:11:03,500
+and then, we are delegating out to a method not in the TankAI
+
+167
+00:11:03,500 --> 00:11:07,500
+Controller but in the TankPlayerController, called OnPossessed, or
+
+168
+00:11:07,500 --> 00:11:11,500
+shall we say OnControlledTankDeath. It doesn't really
+
+169
+00:11:11,500 --> 00:11:15,500
+matter, Possessed is OK and that's absolutely fine! So that's good! Now what we need
+
+170
+00:11:15,500 --> 00:11:19,500
+to do is declare this SetPawn method, so let's just do that! It's all very
+
+171
+00:11:19,500 --> 00:11:23,500
+well putting it into the C++, but it also needs to be here in the header
+
+172
+00:11:23,500 --> 00:11:27,500
+file. So that's done using VisualStudio's tool, that was pretty handy!
+
+173
+00:11:27,500 --> 00:11:31,500
+Then, the other thing we need to do is create this ATankPlayerControler::OnPossessed
+
+174
+00:11:31,500 --> 00:11:35,500
+TankDeath method. I'm gong to put it straight under here, so I can see what I'm doing.
+
+175
+00:11:35,500 --> 00:11:39,500
+It's a pretty simple method, it's void like this,
+
+176
+00:11:39,500 --> 00:11:43,500
+and what we're going to call inside that method is just what I gave you in the hints,
+
+177
+00:11:43,500 --> 00:11:47,500
+it is this simple call to StartSpectatingOnly.
+
+178
+00:11:47,500 --> 00:11:51,500
+Now if
+
+179
+00:11:51,500 --> 00:11:55,500
+we could we'd do this without a method, methods with just one line of code in them aren't great, but in order
+
+180
+00:11:55,500 --> 00:11:59,500
+to provide a delegate like this, you do actually need to do this. Now it's going to
+
+181
+00:11:59,500 --> 00:12:03,500
+complain about ATank, because currently we don't have ATank included.
+
+182
+00:12:03,500 --> 00:12:07,500
+Now that we are having the TankPlayerController process
+
+183
+00:12:07,500 --> 00:12:11,500
+some of these multicast
+
+184
+00:12:11,500 --> 00:12:15,500
+delegates, from the tank, we are going to hash include the "Tank.h".
+
+185
+00:12:15,500 --> 00:12:19,500
+
+
+186
+00:12:19,500 --> 00:12:23,500
+OK, so let's have a look! Let's see if that will compile! I've just done
+
+187
+00:12:23,500 --> 00:12:27,500
+exactly the same thing on... Oh, there's one thing that won't compile,
+
+188
+00:12:27,500 --> 00:12:31,500
+which is OnPossessedTankDeath. I have not declared, so let me declare that now!
+
+189
+00:12:31,500 --> 00:12:35,500
+It's going to be slow,
+
+190
+00:12:35,500 --> 00:12:39,500
+then I'm just going to do it manually. I'm going to put it in the public of the Tank
+
+191
+00:12:39,500 --> 00:12:43,500
+PlayerController header file.
+
+192
+00:12:43,500 --> 00:12:47,500
+Remember it needs to be a UFUNCTION.
+
+193
+00:12:47,500 --> 00:12:51,500
+OK, so that was never going to work.
+
+194
+00:12:51,500 --> 00:12:55,500
+Let's just see if we can compile now.
+
+195
+00:12:55,500 --> 00:12:59,500
+Now while we try and compile, let me keep you up to date with what we're doing with the PlayerController header file. We've
+
+196
+00:12:59,500 --> 00:13:03,500
+done just this, and the in PlayerController C++
+
+197
+00:13:03,500 --> 00:13:07,500
+file we've done a bunch of stuff. Remember you can always go to the course's
+
+198
+00:13:07,500 --> 00:13:11,500
+GitHub to see all of the changes. OK, how are we doing
+
+199
+00:13:11,500 --> 00:13:15,500
+with this compilation? It must be nearly there! Compile failed! That's not abnormal when you make a load of
+
+200
+00:13:15,500 --> 00:13:19,500
+changes. Let's see what's wrong! So on line 25 we have an error
+
+201
+00:13:19,500 --> 00:13:23,500
+in the TankPlayerController header file. So that sounds like a simple thing missing a semicolon.
+
+202
+00:13:23,500 --> 00:13:27,500
+Rookie error there, happens to all of us.
+
+203
+00:13:27,500 --> 00:13:31,500
+So recompiling again now, with roughly the same code,
+
+204
+00:13:31,500 --> 00:13:35,500
+and then, hopefully, by the end of that, we'll have completed challenges 1,
+
+205
+00:13:35,500 --> 00:13:39,500
+2, and 3.
+
+206
+00:13:39,500 --> 00:13:43,500
+So how would we know? Well I need to get blasted, don't I, so
+
+207
+00:13:43,500 --> 00:13:47,500
+that we know that once I'm blasted that I'm in spectator mode. I'm still able to
+
+208
+00:13:47,500 --> 00:13:51,500
+control this tank, but now look, when I got this hit the second time, I've
+
+209
+00:13:51,500 --> 00:13:55,500
+slightly jarringly dived out into a spectator only mode but I cannot control my
+
+210
+00:13:55,500 --> 00:13:59,500
+tank, which is exactly what we wanted. Let's just see that happen again!
+
+211
+00:13:59,500 --> 00:14:03,500
+Now I think, in this section, we haven't got room. I'm trying to keep this section to 100 lectures
+
+212
+00:14:03,500 --> 00:14:07,500
+for various reasons, including the fact that you guys will probably start losing motivation. There is
+
+213
+00:14:07,500 --> 00:14:11,500
+no point really now in me putting up a popup menu here,
+
+214
+00:14:11,500 --> 00:14:15,500
+because we're going to do that type of thing in the next section, and you can
+
+215
+00:14:15,500 --> 00:14:19,500
+come back and make the changes to Battle Tank, once you've learned how to do it in the next section
+
+216
+00:14:19,500 --> 00:14:23,500
+and that allows me to teach you these things only once. You'll see more about that in the end of section
+
+217
+00:14:23,500 --> 00:14:27,500
+video. So that's done, this DetacthFromPlayerController and
+
+218
+00:14:27,500 --> 00:14:31,500
+startSpectatingOnly() all done! Now let's use some noise on the landscape
+
+219
+00:14:31,500 --> 00:14:35,500
+briefly. So this is going to turn out to be a slightly longer video for you,
+
+220
+00:14:35,500 --> 00:14:39,500
+and I think what I'll do, to prevent it becoming tiring, is just split it over two parts.
+
+221
+00:14:39,500 --> 00:14:43,500
+So I have done numbers 1, 2, and 3 in this challenge so far.
+
+222
+00:14:43,500 --> 00:14:47,500
+In the next video, we're going to put some noise in the landscape, make the Auto
+
+223
+00:14:47,500 --> 00:14:51,500
+Mortars damageable, and also do a little bit of code checking. So
+
+224
+00:14:51,500 --> 00:14:54,900
+I will see you there!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT97 Finishing Off - Part 1.srt

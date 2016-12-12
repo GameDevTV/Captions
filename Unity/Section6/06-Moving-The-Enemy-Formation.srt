@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section6/06-Moving-The-Enemy-Formation.srt
 WEBVTT
 Kind: captions
 Language: en
@@ -731,3 +732,737 @@ that moves while bouncing off the edges
 of the play space. I'll see you in the next
 video! Bye for now
 
+=======
+Kind: captions
+Language: en
+
+00:00:00,000 --> 00:00:08,679
+So hi, and welcome back. In this video we're going to be getting the enemy
+
+00:00:08,679 --> 00:00:12,780
+formation to start moving. Right now we
+have a static enemy formation and it
+
+00:00:12,780 --> 00:00:17,230
+doesn't look very threatening at all. So
+let's change that. Lets make them attack
+
+00:00:17,230 --> 00:00:21,210
+the player; hound them down. So the first
+thing we need to do is we want to be
+
+00:00:21,210 --> 00:00:25,779
+able to see the enemy formation, while we're editing, because right now we can't really see
+
+00:00:25,779 --> 00:00:29,179
+what the formation is and where the edges
+of the formation are. So what we can
+
+00:00:29,179 --> 00:00:34,620
+do is we're going to add a gizmo to show
+the formation, while we're editing. And
+
+00:00:34,620 --> 00:00:38,350
+after that, we'll use the enemy's
+formation update method, and then we'll
+
+00:00:38,350 --> 00:00:39,879
+move it left or right
+
+00:00:39,879 --> 00:00:44,969
+while we're in the update, leaving the player
+no space to hide, so we can kind of
+
+00:00:44,969 --> 00:00:49,149
+search in at the edges if the player
+tries to hide. And finally we're going to
+
+00:00:49,149 --> 00:00:52,559
+make sure that the formation does not leave the bounds of the play space. We don't want
+
+00:00:52,559 --> 00:00:56,820
+the enemies to keep going past the play
+space and miss the plane. So that's what
+
+00:00:56,820 --> 00:01:00,149
+we're going to do. And, we're going to start with showing the formation in the editor,
+
+00:01:00,149 --> 00:01:05,590
+using gizmos again and the width and
+height of the formation. So let's get
+
+00:01:05,590 --> 00:01:11,110
+started. Let's jump into Unity this is
+what we have already. We have a formation,
+
+00:01:11,110 --> 00:01:14,290
+which you can find here, but right now
+it's just a transform with a script
+
+00:01:14,290 --> 00:01:18,710
+and a bunch of positions underneath. So
+let's change that. Lets go into the enemy
+
+00:01:18,710 --> 00:01:23,689
+spawner script, and in the enemy spawner
+script, we are going to first add
+
+00:01:23,689 --> 00:01:28,470
+a width and a height to represent the formation itself, and those are going to be floats.
+
+00:01:28,470 --> 00:01:34,759
+I'm going to set it... For now, I'm
+going to make sure this is public, so we can
+
+00:01:34,759 --> 00:01:40,180
+change it in the Inspector, and I'm going to
+set it to something like 10 for now. I'm
+
+00:01:40,180 --> 00:01:43,350
+not really worrying too much. I can
+change those in the Inspector to make it
+
+00:01:43,350 --> 00:01:50,140
+the right size, and I also need a height.
+So public float height and that's going
+
+00:01:50,140 --> 00:01:57,750
+to be 5. Here we go! Now, we have a
+height and a width for our enemy...
+
+00:01:57,750 --> 00:02:02,920
+spawner formation, and we're going
+to jump into our OnDrawGizmo
+
+00:02:02,920 --> 00:02:09,569
+function and add the formation gizmo there. So remember the public
+
+00:02:09,569 --> 00:02:21,760
+void OnDrawGizmo? And here we want to create a new gizmo. So what gizmo are we going to
+
+00:02:21,760 --> 00:02:26,569
+use?  Well we could use lines. Let's take a look at the gizmo namespace. All the
+
+00:02:26,569 --> 00:02:32,799
+gizmos. We could draw a line, but
+really we can also draw a cube, but a solid
+
+00:02:32,799 --> 00:02:37,340
+cube will hide our formation. That's not what we want.  What we actually want is to draw a wire
+
+00:02:37,340 --> 00:02:45,540
+cube. Drawing a wire cube will let us add an outline around our formation and show the
+
+00:02:45,540 --> 00:02:49,510
+boundaries. So what's the center of our
+formation gizmo? Well it's going to be
+
+00:02:49,510 --> 00:02:52,849
+position of the formation itself,
+right. So that's just going to be
+
+00:02:52,849 --> 00:02:58,419
+transform.position. So that's the
+center. And how about the width and
+
+00:02:58,419 --> 00:03:02,750
+the height. So this vector 3 is going to
+represent the width and the height. So it's
+
+00:03:02,750 --> 00:03:05,239
+a new vector 3. We're just calling it in line.
+
+00:03:05,239 --> 00:03:08,909
+Well what's the width? Well it's just width
+isn't it?  We've already just defined it, up
+
+00:03:08,909 --> 00:03:17,530
+here, in the class itself as a float. So
+we can just do width and height. And we could also add
+
+00:03:17,530 --> 00:03:20,229
+0 if you wanted to, but really we don't
+care.
+
+00:03:20,229 --> 00:03:27,290
+The constructor for vector 3 will add a 0 for us if we want it. And that is it. That is how
+
+00:03:27,290 --> 00:03:31,189
+you add your draw gizmos. So, let's take a look at that in the game. Which I'm back into
+
+00:03:31,189 --> 00:03:35,669
+Unity. It'll take a while to update, and
+here we go. And now we have a box that
+
+00:03:35,669 --> 00:03:40,200
+shows where the formation is, and if you select the enemy formation, we can see that the width and the
+
+00:03:40,200 --> 00:03:46,640
+hight are here. And we can adjust those to be the right width and height. So something like that will now
+
+00:03:46,640 --> 00:03:52,400
+cover all the positions
+and that's how we're going to keep it
+
+00:03:52,400 --> 00:03:57,269
+for now. So what's next? What's next? What's coming up next? What do we have to
+
+00:03:57,269 --> 00:04:03,879
+do? Let's take a look at what's next, and
+the next is your turn. It's in fact your
+
+00:04:03,879 --> 00:04:07,909
+turn to move the formation side to side.
+So we've got a formation script. Let's
+
+00:04:07,909 --> 00:04:11,090
+remind ourselves what the formation
+script is. We've just worked on it. We've
+
+00:04:11,090 --> 00:04:16,109
+called it enemy spawner. We want to change the enemy spawner script, so that on
+
+00:04:16,109 --> 00:04:18,029
+the update function, which is currently
+empty,
+
+00:04:18,029 --> 00:04:20,970
+you're going to move the formation side
+to side.
+
+00:04:20,970 --> 00:04:26,310
+And now this formation movement, you
+want it to stop at the edges, so try and
+
+00:04:26,310 --> 00:04:30,840
+figure out how using the same script, we
+use the same kind of idea that we use for
+
+00:04:30,840 --> 00:04:34,690
+the player, how to stop the formation from
+moving past the edges and how to move it
+
+00:04:34,690 --> 00:04:38,110
+from side to side. And whenever it hits one
+of the edges, you want it to reverse
+
+00:04:38,110 --> 00:04:42,600
+direction. So hopefully you can use the
+player script for inspiration.
+
+00:04:42,600 --> 00:04:46,170
+We've got a player controller here. So
+the player controller has a bunch of
+
+00:04:46,170 --> 00:04:52,430
+boundary detection already, so you can
+inspire yourself from this and create
+
+00:04:52,430 --> 00:04:56,620
+the enemy spawner. Make sure the enemy
+formation moves from side to side. I will
+
+00:04:56,620 --> 00:05:05,620
+see you very shortly, when you've done
+that. See you soon.
+
+00:05:05,620 --> 00:05:08,160
+So cool! Let's take a look at how to move
+
+00:05:08,160 --> 00:05:13,100
+the enemy formation and make it
+bounce off the edges. Let's jump back into
+
+00:05:13,100 --> 00:05:18,570
+our Unity editor, grab the enemy
+formation, and change the enemy spawner
+
+00:05:18,570 --> 00:05:22,410
+script. So here we go, we've got the enemy
+spawner script. That's probably not an
+
+00:05:22,410 --> 00:05:28,010
+ideal name, but we might change that later.
+For now, let's just change the update so that it
+
+00:05:28,010 --> 00:05:31,419
+moves left and right. And the first thing
+I need to do is select a way of
+
+00:05:31,419 --> 00:05:35,680
+telling it, am I moving left or am I moving
+right? So let's create a private boolean.
+
+00:05:35,680 --> 00:05:42,150
+Boolean is true or false and we're going
+to call it moving right. So this is the
+
+00:05:42,150 --> 00:05:45,360
+boolean that's going to say moving
+right, and I'm going to say our default
+
+00:05:45,360 --> 00:05:48,560
+value is false. It doesn't matter what it
+is;
+
+00:05:48,560 --> 00:05:52,070
+could be true as well. It really doesn't
+matter. What I want to do is, here in the
+
+00:05:52,070 --> 00:05:58,770
+update function is to create an if
+statement, so if moving right we want to
+
+00:05:58,770 --> 00:06:03,010
+move the formation right. So how are we going to move the formation right. Well what we
+
+00:06:03,010 --> 00:06:11,620
+could do to move the formation right is
+do transform.position +=
+
+00:06:11,620 --> 00:06:17,650
+So we're adding a little increment to the
+position, in new
+
+00:06:17,650 --> 00:06:25,130
+Vector3, which is going to be the speed times the time delta. So let's create a speed
+
+00:06:25,130 --> 00:06:29,449
+variable. Let's create a float speed. That's the speed of of moving left to right, so that's a
+
+00:06:29,449 --> 00:06:38,919
+public float speed. I'm going to call it
+5 for now and make sure I've got a float symbol. I go
+
+00:06:38,919 --> 00:06:49,000
+back down here, and lets do speed*Time.deltaTime. And that's in the
+
+00:06:49,000 --> 00:06:54,060
+X direction, and that's going move right. So that's exactly what we're expecting. And what else
+
+00:06:54,060 --> 00:06:58,870
+do we need to give once we've got that? The 0 in the Y direction, we don't want
+
+00:06:58,870 --> 00:07:02,710
+the formation to move up or down. That's
+not what we want, and that will now move
+
+00:07:02,710 --> 00:07:05,870
+our formation right. Let's check it. Let's
+make sure that's correct
+
+00:07:05,870 --> 00:07:10,330
+by jumping into our Unity editor and
+pressing the play button. That's right
+
+00:07:10,330 --> 00:07:14,600
+that's exactly what we want, so cool! So let's jump back into our code. Now, if it's not
+
+00:07:14,600 --> 00:07:19,900
+moving right, we want it to move left. So
+else, we want to move left, and moving left
+
+00:07:19,900 --> 00:07:26,260
+is going to be the exact same thing,
+except we are going to be going the
+
+00:07:26,260 --> 00:07:31,660
+opposite direction. So that is it. What
+you could also do here is use
+
+00:07:31,660 --> 00:07:36,840
+a trick of Vector3.left and Vector3.right
+and that's the unit
+
+00:07:36,840 --> 00:07:40,320
+vector going in one direction, and let me
+show you that trick, right now, So this
+
+00:07:40,320 --> 00:07:47,770
+will move left and right. We can also write
+it like this. So that's Vector3.right
+
+00:07:47,770 --> 00:07:56,660
+times speed times delta time. And that
+reads much nicer actually, and this
+
+00:07:56,660 --> 00:08:00,310
+Vector3.right object is really
+a vector that
+
+00:08:00,310 --> 00:08:06,320
+always points to the right. And similarly,
+we have a Vector3.left object, which we
+
+00:08:06,320 --> 00:08:09,400
+can use to move left.
+
+00:08:09,400 --> 00:08:17,380
+So that's just an alternative, easier to read, way of changing your position. Let's check
+
+00:08:17,389 --> 00:08:21,879
+the game to make sure it works, and yes
+it does. So what's next? Well, what's next
+
+00:08:21,879 --> 00:08:27,319
+is we want to stop the formation from
+going past the edge. So what do we
+
+00:08:27,319 --> 00:08:31,050
+need to do that? Well we've got the edge
+of the screen, which is well defined, and
+
+00:08:31,050 --> 00:08:34,450
+then, we have the edge of the formation
+as well. So we'll need to be able to get
+
+00:08:34,450 --> 00:08:39,729
+those two edges, compare their position, and then change the direction if they are
+
+00:08:39,729 --> 00:08:45,570
+not... if the one goes past the other. So
+let's jump into our code, and make sure we
+
+00:08:45,570 --> 00:08:51,800
+have, in the start function, calculate the
+edge of our screen. And we can do that
+
+00:08:51,800 --> 00:08:55,899
+using a similar method that we used in the
+player controller. That's by using
+
+00:08:55,899 --> 00:09:10,919
+the Camera.main.ViewportToWorldPoint, and we use a new Vector3.
+
+00:09:10,920 --> 00:09:16,280
+And we're on the left edge, so that's going to be 00. That's the bottom left-hand corner
+
+00:09:16,280 --> 00:09:26,340
+remember, and we also want the last variable to be the distance... the distance to
+
+00:09:26,350 --> 00:09:33,140
+the camera. And that should give us a 3 vector, which is the right edge...
+
+00:09:33,140 --> 00:09:44,600
+Is that right? No, the left edge! That's the left edge! So let's call it Vector3, and then left edge.
+
+00:09:44,600 --> 00:09:47,800
+Now, distance to camera hasn't been defined yet, so let's do that.
+
+00:09:47,800 --> 00:10:16,180
+So that's float distanceToCamera = transform.position - Camera.main.transform.position.z
+
+00:10:16,180 --> 00:10:18,940
+And we want the .z position in here as well.
+
+00:10:18,940 --> 00:10:26,260
+So that's going to be the distance between the camera and the enemy spawner, the formation itself, which is going to
+
+00:10:26,270 --> 00:10:30,340
+be what we use for our ViewportToWorldPoint
+Now, some of you have rightly noted, in the
+
+00:10:30,340 --> 00:10:36,300
+past, that you don't need to calculate
+this because this is a 2D game using an
+
+00:10:36,300 --> 00:10:40,530
+orthographic projection camera, not a
+perspective camera. However, I want to
+
+00:10:40,530 --> 00:10:45,980
+show you this way of creating this weird
+strange vector, simply
+
+00:10:45,980 --> 00:10:49,670
+so you don't get confused, when you come to doing this ViewportToWorldPoint
+
+00:10:49,670 --> 00:10:53,360
+in a 3D space. So that's the method you
+would use it in 3D space. In a 2D space,
+
+00:10:53,360 --> 00:10:57,460
+like this with an orthographic camera, you
+could have pretty much anything in there;
+
+00:10:57,460 --> 00:11:01,190
+it wouldn't matter at all. However, I just
+want to make sure that
+
+00:11:01,190 --> 00:11:05,370
+the technique is correct. That way you
+don't hit trouble when you try and
+
+00:11:05,370 --> 00:11:12,780
+reproduce it for 3D space. So the left
+edge and then, we want the right edge. And
+
+00:11:12,780 --> 00:11:17,560
+naturally the right they just going to be
+1 instead of 0. So now you've got this
+
+00:11:17,560 --> 00:11:25,850
+left edge right edge. Let's create private
+floats, which are the actual X values, and
+
+00:11:25,850 --> 00:11:31,870
+I'm just rearranging my public and
+private variables here, and then, you create a
+
+00:11:31,870 --> 00:11:39,059
+private float xmax
+
+00:11:39,059 --> 00:11:47,919
+and a private float xmin. So that's the
+maximum and minimum value we are allowed
+
+00:11:47,919 --> 00:11:58,579
+to go to, and we can calculate this by
+going xmax = rightEdge.x and
+
+00:11:58,579 --> 00:12:07,229
+xmim = leftEdge.x I think edge
+might be a little confusing so let's
+
+00:12:07,229 --> 00:12:19,800
+rename those guys to be left
+boundary instead, and let's rename that
+
+00:12:19,800 --> 00:12:30,940
+left boundary and right boundary. Here we
+go.
+
+00:12:30,940 --> 00:12:38,950
+Save it, and we can move on to the next
+step, which is using those values of xmax
+
+00:12:38,950 --> 00:12:44,720
+and xmin to decide whether or not
+to reverse the direction So we've got this update
+
+00:12:44,720 --> 00:12:49,209
+function. What we can do now is use xmax and xmin and compare those to our
+
+00:12:49,209 --> 00:12:56,700
+current transform.position.x
+and we can do it this way. So if the
+
+00:12:56,700 --> 00:13:03,390
+our current position transform.position.x and then that's going to be
+
+00:13:03,390 --> 00:13:08,660
+plus half the width. Let's remember that
+the transform of the position is the
+
+00:13:08,660 --> 00:13:12,700
+center of our formation, but actually you
+want to get the right edge of our formation.
+
+00:13:12,700 --> 00:13:22,200
+So let's actually break it down into some
+variables. Float right so right edge
+
+00:13:22,200 --> 00:13:36,960
+of formation is going to be transform of the
+position.x plus, half the width.
+
+00:13:36,970 --> 00:13:48,959
+Similarly, the left edge is going to be... so
+rephrase this... the left edge of formation is going to
+
+00:13:48,959 --> 00:13:53,660
+be transform.position.x minus half
+the width,  and now what we're going to do is
+
+00:13:53,660 --> 00:14:04,529
+if the left edge of the formation is
+less than the minimum or if the right
+
+00:14:04,529 --> 00:14:13,510
+edge of the formation is greater than the maximum
+
+00:14:13,510 --> 00:14:19,150
+then, we want to flip the direction of
+travel. Now, note here I've used the bar bar
+
+00:14:19,150 --> 00:14:24,100
+symbol. That's the or. That means the logical or. That means either if this is
+
+00:14:24,100 --> 00:14:29,180
+true... If the first condition is
+true, or if the second condition is true
+
+00:14:29,180 --> 00:14:35,720
+and those will be... If one is false and one is true, it will go into the if statement.
+
+00:14:35,720 --> 00:14:39,660
+If they're both true it'll
+go into the if statement. And then what do
+
+00:14:39,670 --> 00:14:43,240
+you want to do? We want to reverse the
+direction of travel, so now we're
+
+00:14:43,240 --> 00:14:47,220
+controlling the direction of travel with this
+moving right variable, which is boolean. So
+
+00:14:47,220 --> 00:14:50,580
+what we want to do is turn a true into a false and a false into a true, and there's
+
+00:14:50,580 --> 00:14:59,490
+a really shorthand way of doing that,
+which is movingRight = not, and the
+
+00:14:59,490 --> 00:15:04,200
+exclamation mark is a not symbol, it inverses the truth, truthfulness, of
+
+00:15:04,200 --> 00:15:10,380
+whatever is afterwards. So I'm saying moving right is not moving right, and, basically
+
+00:15:10,380 --> 00:15:14,440
+I'm assigning the inverse of moving
+right to moving right again, so that will
+
+00:15:14,440 --> 00:15:20,810
+flip the direction. So let's save that, jump
+into our game, and press play and see
+
+00:15:20,810 --> 00:15:24,440
+what happens. Compiler errors! Ooh, those are not good! Let's take a look!
+
+00:15:24,440 --> 00:15:34,850
+Yep! That's right! 0.5f and
+0.5f. Let's jump back and try and have a look. Here we go.
+
+00:15:34,850 --> 00:15:39,610
+Brilliant! So now, we've got the formation
+bouncing off the edges of the play space. Now,
+
+00:15:39,610 --> 00:15:45,980
+notice my play space is actually quite narrow. I could have it being a bit wider. Let's
+
+00:15:45,980 --> 00:15:51,260
+take a look. Let's go into my game. Change
+the aspect ratio to something like
+
+00:15:51,260 --> 00:15:56,360
+69 or even a free aspect and press
+play, and then, we should see that they go all
+
+00:15:56,360 --> 00:16:01,020
+the way to the edge. Now, you'll have to
+fine tune, obviously, the edges and the
+
+00:16:01,020 --> 00:16:02,790
+boundary condition and the speed and
+things like that,
+
+00:16:02,790 --> 00:16:07,360
+according to which aspect you're using
+and what the size of your final game is.
+
+00:16:07,360 --> 00:16:10,460
+This is going to be dependent on whether
+you wanna ship to the web,
+
+00:16:10,460 --> 00:16:16,750
+ship to the desktop, or maybe ship to
+an iOS device. So you're really going to have
+
+00:16:16,750 --> 00:16:19,680
+to worry about those things, when you
+make the decision about which device to
+
+00:16:19,680 --> 00:16:20,620
+go for.
+
+00:16:20,620 --> 00:16:23,279
+What a nice trick. What you could do is actually
+
+00:16:23,279 --> 00:16:27,279
+define the speed in terms of the width. So
+you can get the width, because you can get
+
+00:16:27,279 --> 00:16:30,910
+the edges of the play space, the
+boundary conditions, and the width is
+
+00:16:30,910 --> 00:16:34,639
+just 1 minus the other. That'll give you the width of the play space, and you can define your
+
+00:16:34,639 --> 00:16:40,059
+speed based on those. So let's pause the game and take a recap of what
+
+00:16:40,059 --> 00:16:44,689
+we've done so far. So we've done the move formation from side to side. That's great!
+
+00:16:44,689 --> 00:16:48,389
+We've used transform.position and we've used Time.deltaTime to ensure the
+
+00:16:48,389 --> 00:16:52,579
+movement is smooth. So using Time.deltaTime, if we jump back into our code to
+
+00:16:52,579 --> 00:17:00,290
+have a look, is here in our code. When we
+moved on the update.
+
+00:17:00,290 --> 00:17:04,980
+We go speed times Time.deltaTime
+The reason we use that is we want to make
+
+00:17:04,980 --> 00:17:10,539
+the speed of our movement framerate
+independent. We don't want to have the
+
+00:17:10,539 --> 00:17:14,270
+speed depend on how often the update
+function is called. We want the speed of
+
+00:17:14,270 --> 00:17:18,959
+the movement to depend on a value we
+give it, which is 5, and then
+
+00:17:18,959 --> 00:17:24,630
+multiplying that by Time.deltaTime
+will ensure that it'll always be the
+
+00:17:24,630 --> 00:17:30,340
+right speed, no matter how quick or slow
+the device we were running on is. So for example a player
+
+00:17:30,340 --> 00:17:34,000
+running on a very fast computer isn't
+playing against faster enemies than a
+
+00:17:34,000 --> 00:17:38,770
+player running the game on a
+slower computer. That wouldn't be very fair.
+
+00:17:38,770 --> 00:17:43,409
+So that's why we use Time.deltaTime.  Now, we've moved the enemy formation
+
+00:17:43,409 --> 00:17:46,750
+using the update. We've all done that.
+We've created a gizmo to make sure the
+
+00:17:46,750 --> 00:17:51,280
+formation is shown when we're editing. That's really helpful to see what exactly is
+
+00:17:51,280 --> 00:17:54,850
+going on, and we've made sure the
+formation doesn't leave the bounds of
+
+00:17:54,850 --> 00:17:58,659
+the play space. So well done for getting
+this far! I hope you've enjoyed it and I hope
+
+00:17:58,659 --> 00:18:04,280
+you now know how to create a formation
+that moves while bouncing off the edges
+
+00:18:04,280 --> 00:18:07,179
+of the play space. I'll see you in the next
+video! Bye for now
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section6/06-Moving-The-Enemy-Formation.srt

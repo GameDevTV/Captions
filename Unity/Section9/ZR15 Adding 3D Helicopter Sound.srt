@@ -1,603 +1,602 @@
-WEBVTT
 Kind: captions
 Language: en
 
-00:00:00.000 --> 00:00:06.770
-Hey hey hey! Should be a fun video. we're
+00:00:00,000 --> 00:00:06,770
+Hey hey hey! Should be a fun video, we're
 going to be dealing with helicopters and
 
-00:00:06.770 --> 00:00:12.000
-3D sounds. So. we'll talk a bit about 3D sounds. attach and tweak our first 3D sounds.
+00:00:06,770 --> 00:00:12,000
+3D sounds. So, we'll talk a bit about 3D sounds, attach and tweak our first 3D sounds,
 
-00:00:12.000 --> 00:00:14.540
+00:00:12,000 --> 00:00:14,540
 and arrange a simple helicopter landing.
 
-00:00:14.540 --> 00:00:19.949
-All nice and easy. so go over into Unity. If you go and download your Start Pack.
+00:00:14,540 --> 00:00:19,949
+All nice and easy, so go over into Unity. If you go and download your Start Pack,
 
-00:00:19.949 --> 00:00:24.359
-from the beginning of the section. you
+00:00:19,949 --> 00:00:24,359
+from the beginning of the section, you
 will find in there this Helicopter Asset.
 
-00:00:24.359 --> 00:00:29.230
-Now. I've got permission from. Dwayne. the guy who made it. to include this in the course.
+00:00:24,359 --> 00:00:29,230
+Now, I've got permission from, Dwayne, the guy who made it, to include this in the course.
 
-00:00:29.230 --> 00:00:32.910
-You can't use it for commercial purposes.
-but you can use it for fun. as part of
+00:00:29,230 --> 00:00:32,910
+You can't use it for commercial purposes,
+but you can use it for fun, as part of
 
-00:00:32.910 --> 00:00:38.230
-the course. So. he has provided it to us with
+00:00:32,910 --> 00:00:38,230
+the course. So, he has provided it to us with
 a simple animation. I have provided you
 
-00:00:38.230 --> 00:00:43.360
-with a helicopter sound. as well.
+00:00:38,230 --> 00:00:43,360
+with a helicopter sound, as well,
 repeating sound there. We also have
 
-00:00:43.360 --> 00:00:49.100
-a helicopter model and you can see that it's all nicely tagged up. and inside that
+00:00:43,360 --> 00:00:49,100
+a helicopter model and you can see that it's all nicely tagged up, and inside that
 
-00:00:49.100 --> 00:00:52.719
-model you've. got it split up into back
-rotor. top rotor. etc.
+00:00:49,100 --> 00:00:52,719
+model you've, got it split up into back
+rotor, top rotor, etc.
 
-00:00:52.719 --> 00:00:57.079
-He's got a little fly animation.
-which you can preview there. So. pretty
+00:00:52,719 --> 00:00:57,079
+He's got a little fly animation,
+which you can preview there. So, pretty
 
-00:00:57.079 --> 00:01:00.590
-cool hey! So. this is using somebody else's assets. You can see the materials.
+00:00:57,079 --> 00:01:00,590
+cool hey! So, this is using somebody else's assets. You can see the materials,
 
-00:01:00.590 --> 00:01:05.420
-all the things on the helicopter. wrapped
-around a sphere like that. So. it's a Call
+00:01:00,590 --> 00:01:05,420
+all the things on the helicopter, wrapped
+around a sphere like that. So, it's a Call
 
-00:01:05.420 --> 00:01:08.600
-Asset. OK. so how are we going to get this into the scene. Well. we have a helicopter
+00:01:05,420 --> 00:01:08,600
+Asset. OK, so how are we going to get this into the scene. Well, we have a helicopter
 
-00:01:08.600 --> 00:01:12.140
-placeholder right there. What I'm going to do is. I'm just going to copy the component.
+00:01:08,600 --> 00:01:12,140
+placeholder right there. What I'm going to do is, I'm just going to copy the component.
 
-00:01:12.140 --> 00:01:19.540
-I'm going to put my helicopter prefab into the scene. like that. which
+00:01:12,140 --> 00:01:19,540
+I'm going to put my helicopter prefab into the scene, like that, which
 
-00:01:19.540 --> 00:01:22.890
-is called Helicopter 1. because it comes with a load of stuff. I don't want to have to rebuild
+00:01:19,540 --> 00:01:22,890
+is called Helicopter 1, because it comes with a load of stuff. I don't want to have to rebuild
 
-00:01:22.890 --> 00:01:29.079
-that. I'm going to paste the component values on there. Now. what happened to the
+00:01:22,890 --> 00:01:29,079
+that. I'm going to paste the component values on there. Now, what happened to the
 
-00:01:29.079 --> 00:01:35.579
-scale? So. undo and have a look at his
-default scale. It's 0.01. 0.01. 0.01.
+00:01:29,079 --> 00:01:35,579
+scale? So, undo and have a look at his
+default scale. It's 0.01, 0.01, 0.01.
 
-00:01:35.580 --> 00:01:40.300
-OK. so I'm going to paste my values over
-the top which. will put the helicopter
+00:01:35,580 --> 00:01:40,300
+OK, so I'm going to paste my values over
+the top which, will put the helicopter
 
-00:01:40.310 --> 00:01:48.430
-where I wanted it. but you need to be
-careful about the scale. There it is. And then. what
+00:01:40,310 --> 00:01:48,430
+where I wanted it, but you need to be
+careful about the scale. There it is. And then, what
 
-00:01:48.430 --> 00:01:51.470
+00:01:48,430 --> 00:01:51,470
 else do we need from our placeholder
-helicopter? Well. the script. so let's add the
+helicopter? Well, the script, so let's add the
 
-00:01:51.470 --> 00:01:55.220
-component to our helicopter script. who is going to listen for... Well. the helicopter script is
+00:01:51,470 --> 00:01:55,220
+component to our helicopter script, who is going to listen for... Well, the helicopter script is
 
-00:01:55.220 --> 00:01:58.030
-actually going to do all the behavior.
+00:01:55,220 --> 00:01:58,030
+actually going to do all the behavior,
 but for the moment it's going to
 
-00:01:58.030 --> 00:02:03.670
-just listen. for the key press. And it's going to need a cool sound which. we'll make
+00:01:58,030 --> 00:02:03,670
+just listen, for the key press. And it's going to need a cool sound which, we'll make
 
-00:02:03.670 --> 00:02:07.790
-in a moment. Then. we can do away with our old helicopter. and basically. after all that
+00:02:03,670 --> 00:02:07,790
+in a moment. Then, we can do away with our old helicopter, and basically, after all that
 
-00:02:07.790 --> 00:02:12.770
-messing around. we have a helicopter. but
-that actually. when you look at it. is in the same place.
+00:02:07,790 --> 00:02:12,770
+messing around, we have a helicopter, but
+that actually, when you look at it, is in the same place,
 
-00:02:12.770 --> 00:02:16.710
+00:02:12,770 --> 00:02:16,710
 under the water. Let's bring it up above
-the water. so there it is. It's in the
+the water, so there it is. It's in the
 
-00:02:16.710 --> 00:02:20.160
-same place. just sitting there. chilling
-out. It can be floating in mid-air.
+00:02:16,710 --> 00:02:20,160
+same place, just sitting there, chilling
+out. It can be floating in mid-air,
 
-00:02:20.160 --> 00:02:23.270
+00:02:20,160 --> 00:02:23,270
 because the player can't see it. It's
-fine to be there. as long as it's out of
+fine to be there, as long as it's out of
 
-00:02:23.270 --> 00:02:29.780
-sight. and it has a mesh renderer on it. an
-animator on it. and it's looking fine.
+00:02:23,270 --> 00:02:29,780
+sight, and it has a mesh renderer on it, an
+animator on it, and it's looking fine.
 
-00:02:29.780 --> 00:02:33.720
-So. if we play the game and go into the
-Scene View. and look at the helicopter
+00:02:29,780 --> 00:02:33,720
+So, if we play the game and go into the
+Scene View, and look at the helicopter
 
-00:02:33.720 --> 00:02:37.680
-there. it's just sitting there. right now.
+00:02:33,720 --> 00:02:37,680
+there, it's just sitting there, right now.
 It doesn't have any animation on it.
 
-00:02:37.680 --> 00:02:41.920
-That's fine. We'll be listening for that key press. so
+00:02:37,680 --> 00:02:41,920
+That's fine. We'll be listening for that key press, so
 
-00:02:41.920 --> 00:02:45.440
-we need a helicopter call sound. let's do
-that first. So. I'm going to go to Audacity.
+00:02:41,920 --> 00:02:45,440
+we need a helicopter call sound, let's do
+that first. So, I'm going to go to Audacity,
 
-00:02:45.440 --> 00:02:50.530
+00:02:45,440 --> 00:02:50,530
 which you can get for Mac or PC for free.
-Now. if you're going to download Audacity. be
+Now, if you're going to download Audacity, be
 
-00:02:50.530 --> 00:02:55.940
-careful where you get it from. for me. If I put Audacity into Google. let's not
+00:02:50,530 --> 00:02:55,940
+careful where you get it from, for me. If I put Audacity into Google, let's not
 
-00:02:55.940 --> 00:02:57.450
-get it from Source Forge.
+00:02:55,940 --> 00:02:57,450
+get it from Source Forge,
 
-00:02:57.450 --> 00:03:04.690
+00:02:57,450 --> 00:03:04,690
 because I saw Source Forge kind of suck. I think you're probably best off getting it from www.audacityteam.org.
 
-00:03:04.690 --> 00:03:07.020
-Yep. this is the right place!
+00:03:04,690 --> 00:03:07,020
+Yep, this is the right place!
 
-00:03:07.030 --> 00:03:09.640
-OK. so go grab it from there. if you need
+00:03:07,030 --> 00:03:09,640
+OK, so go grab it from there, if you need
 something like Audacity. It doesn't
 
-00:03:09.640 --> 00:03:14.430
-matter how you record the sound. make your own sound. go ahead and do that. and I think that's
+00:03:09,640 --> 00:03:14,430
+matter how you record the sound, make your own sound, go ahead and do that, and I think that's
 
-00:03:14.430 --> 00:03:21.770
-going to be fun! So. I'm going to record mine now. Rescue Helicopter 01 Inbound ETA five minutes.
+00:03:14,430 --> 00:03:21,770
+going to be fun! So, I'm going to record mine now. Rescue Helicopter 01 Inbound ETA five minutes.
 
-00:03:21.770 --> 00:03:30.640
-How does that sound. apart from very silly? So. I'm just going to cut it. [Makes Funny Noises] Cut!
+00:03:21,770 --> 00:03:30,640
+How does that sound, apart from very silly? So, I'm just going to cut it. [Makes Funny Noises] Cut!
 
-00:03:30.640 --> 00:03:34.860
-You know. I really don't know how to use
+00:03:30,640 --> 00:03:34,860
+You know, I really don't know how to use
 Audacity.
 
-00:03:34.860 --> 00:03:44.160
-[Makes More Funny Noises] Somewhere here. Remove Audio. Cut. How's that? That should do it. [Recording Plays in Background]
+00:03:34,860 --> 00:03:44,160
+[Makes More Funny Noises] Somewhere here, Remove Audio, Cut. How's that? That should do it. [Recording Plays in Background]
 
-00:03:44.160 --> 00:03:48.400
-That sounds completely ridiculous. which is just what we want.
+00:03:44,160 --> 00:03:48,400
+That sounds completely ridiculous, which is just what we want.
 
-00:03:48.400 --> 00:03:55.720
-So. let's just cut that. Fantastic! Now. I'm going to Save As or Export to an .ogg file. because. by the way. if
+00:03:48,400 --> 00:03:55,720
+So, let's just cut that. Fantastic! Now, I'm going to Save As or Export to an .ogg file, because, by the way, if
 
-00:03:55.720 --> 00:03:59.960
-you use an mp3 file. and you put
-that in a commercial game. you
+00:03:55,720 --> 00:03:59,960
+you use an mp3 file, and you put
+that in a commercial game, you
 
-00:03:59.960 --> 00:04:06.230
+00:03:59,960 --> 00:04:06,230
 are supposed to pay for an mp3 license.
-Woohoo scary! So. let's not do that. let's
+Woohoo scary! So, let's not do that, let's
 
-00:04:06.230 --> 00:04:10.620
-use an .ogg file. So. I'm going to go directly into my repos. Actually. you may
+00:04:06,230 --> 00:04:10,620
+use an .ogg file. So, I'm going to go directly into my repos. Actually, you may
 
-00:04:10.620 --> 00:04:14.870
+00:04:10,620 --> 00:04:14,870
 not realize that you can put things
-directly into the relevant folder. so if I
+directly into the relevant folder, so if I
 
-00:04:14.870 --> 00:04:19.000
-go to Zombie Runner. and then. I go to Assets. and then. I go to Start Pack. and then. I go to
+00:04:14,870 --> 00:04:19,000
+go to Zombie Runner, and then, I go to Assets, and then, I go to Start Pack, and then, I go to
 
-00:04:19.000 --> 00:04:25.250
-Helicopter. And I can just say cool sound. like that. and then. save it as an .ogg
+00:04:19,000 --> 00:04:25,250
+Helicopter. And I can just say cool sound, like that, and then, save it as an .ogg
 
-00:04:25.250 --> 00:04:31.080
-file. And when I get over into Unity. then
-the call sound will be right there. Cool! So. now
+00:04:25,250 --> 00:04:31,080
+file. And when I get over into Unity, then
+the call sound will be right there. Cool! So, now
 
-00:04:31.080 --> 00:04:34.690
+00:04:31,080 --> 00:04:34,690
 we can go give this script to the call
-sound. and let's see if this works. at least.
+sound, and let's see if this works, at least.
 
-00:04:34.690 --> 00:04:43.360
-Hit play. helicopter called. Now. it didn't work. because our script is incomplete. so your
+00:04:34,690 --> 00:04:43,360
+Hit play, helicopter called. Now, it didn't work, because our script is incomplete, so your
 
-00:04:43.360 --> 00:04:50.900
-job now. is a challenge for you. What I
-want you to do is. add and tune your helicopter's sound.
+00:04:43,360 --> 00:04:50,900
+job now, is a challenge for you. What I
+want you to do is, add and tune your helicopter's sound.
 
-00:04:50.900 --> 00:04:54.630
-Make your own helicopter sound. make
-it play. Remember. you're going to have to put
+00:04:50,900 --> 00:04:54,630
+Make your own helicopter sound, make
+it play. Remember, you're going to have to put
 
-00:04:54.630 --> 00:04:58.750
-an AudioSource on the helicopter. and then.
+00:04:54,630 --> 00:04:58,750
+an AudioSource on the helicopter, and then,
 try playing around with the 3D sound
 
-00:04:58.750 --> 00:05:01.750
+00:04:58,750 --> 00:05:01,750
 settings and see if you can get it
-sensible. Now. you might want to move the
+sensible. Now, you might want to move the
 
-00:05:01.750 --> 00:05:05.830
-helicopter into the scene. for this
-exercise. and see if you can get it
+00:05:01,750 --> 00:05:05,830
+helicopter into the scene, for this
+exercise, and see if you can get it
 
-00:05:05.830 --> 00:05:08.740
-sensible. If you can't. I'm going to show
-you. in the solution to the challenge. how to
+00:05:05,830 --> 00:05:08,740
+sensible. If you can't, I'm going to show
+you, in the solution to the challenge, how to
 
-00:05:08.740 --> 00:05:12.510
+00:05:08,740 --> 00:05:12,510
 make this sensible as you approach the
-helicopter. so move it into the scene.
+helicopter, so move it into the scene,
 
-00:05:12.510 --> 00:05:17.990
-put the sound on it. get it triggering. when
-you put H. and see if you can make it all work nicely.
+00:05:12,510 --> 00:05:17,990
+put the sound on it, get it triggering, when
+you put H, and see if you can make it all work nicely.
 
-00:05:17.990 --> 00:05:26.710
-See you in a second. Cool! Cool! Cool! Cool! So. welcome back! I'm going to firstly. put my helicopter in the scene. as I said.
+00:05:17,990 --> 00:05:26,710
+See you in a second. Cool! Cool! Cool! Cool! So, welcome back! I'm going to firstly, put my helicopter in the scene, as I said.
 
-00:05:26.710 --> 00:05:31.900
-As I said. I'm just going to put it on the other side of the wall. just for testing purposes. That will do. it's a semi-
+00:05:26,710 --> 00:05:31,900
+As I said, I'm just going to put it on the other side of the wall, just for testing purposes. That will do, it's a semi-
 
-00:05:31.900 --> 00:05:35.940
+00:05:31,900 --> 00:05:35,940
 sensible position. It's even nearly on the
-ground. There you go. it pretty much is on the ground now.
+ground. There you go, it pretty much is on the ground now.
 
-00:05:35.940 --> 00:05:40.160
-Fine. I think I'm going to put the
-animation on it. because
+00:05:35,940 --> 00:05:40,160
+Fine, I think I'm going to put the
+animation on it, because
 
-00:05:40.160 --> 00:05:45.820
-it's asking for an animation controller there and we've got one. There you go. it's called fly. so why not
+00:05:40,160 --> 00:05:45,820
+it's asking for an animation controller there and we've got one. There you go, it's called fly, so why not
 
-00:05:45.820 --> 00:05:49.220
-just do that. If I then go look at the helicopter in the Scene View. you see it looks much
+00:05:45,820 --> 00:05:49,220
+just do that. If I then go look at the helicopter in the Scene View, you see it looks much
 
-00:05:49.220 --> 00:05:53.870
-better. Fine! And then. we need to put a
-sound source on it. Don't worry. because
+00:05:49,220 --> 00:05:53,870
+better. Fine! And then, we need to put a
+sound source on it. Don't worry, because
 
-00:05:53.870 --> 00:05:58.110
-at the moment. It's got nothing no reason to make a sound. so it's called an audio
+00:05:53,870 --> 00:05:58,110
+at the moment, It's got nothing no reason to make a sound, so it's called an audio
 
-00:05:58.110 --> 00:06:06.780
-source. There it is Audio Source. OK. so now that it has an Audio Source. what we need to do is push
+00:05:58,110 --> 00:06:06,780
+source. There it is Audio Source. OK, so now that it has an Audio Source, what we need to do is push
 
-00:06:06.780 --> 00:06:13.150
+00:06:06,780 --> 00:06:13,150
 the script into this Audio Source... Not the
-script. the clip into this Audio
+script, the clip into this Audio
 
-00:06:13.150 --> 00:06:18.190
-Clip here by script. OK. we don't need to worry about sending it out to mixes or anything else.
+00:06:13,150 --> 00:06:18,190
+Clip here by script. OK, we don't need to worry about sending it out to mixes or anything else.
 
-00:06:18.190 --> 00:06:25.580
-We don't want to Play On Awake. we do want it 3D sound. we want the Spatial Blend to
+00:06:18,190 --> 00:06:25,580
+We don't want to Play On Awake, we do want it 3D sound, we want the Spatial Blend to
 
-00:06:25.580 --> 00:06:28.550
-be 100% 3D. You'll see that. in a minute. one problem you may have had
+00:06:25,580 --> 00:06:28,550
+be 100% 3D. You'll see that, in a minute, one problem you may have had
 
-00:06:28.550 --> 00:06:31.980
-when you tried this is. if it was 100% 2D. then the sound will just be
+00:06:28,550 --> 00:06:31,980
+when you tried this is, if it was 100% 2D, then the sound will just be
 
-00:06:31.980 --> 00:06:36.480
-the same volume. regardless of distance.
-So. you want a Spatial Blend of 100% 3D.
+00:06:31,980 --> 00:06:36,480
+the same volume, regardless of distance.
+So, you want a Spatial Blend of 100% 3D.
 
-00:06:36.480 --> 00:06:39.740
-So. the sound volume is going to depend entirely on the distance from it.
+00:06:36,480 --> 00:06:39,740
+So, the sound volume is going to depend entirely on the distance from it.
 
-00:06:39.750 --> 00:06:42.870
-OK. So. that's the only thing you need to
-change. Now. we need to go back to the
+00:06:39,750 --> 00:06:42,870
+OK. So, that's the only thing you need to
+change. Now, we need to go back to the
 
-00:06:42.870 --> 00:06:47.270
-Helicopter Script don't we. and we need to play with that. so that it actually sets
+00:06:42,870 --> 00:06:47,270
+Helicopter Script don't we, and we need to play with that, so that it actually sets
 
-00:06:47.270 --> 00:06:55.669
-and plays this audio clip. So. we're going
+00:06:47,270 --> 00:06:55,669
+and plays this audio clip. So, we're going
 need a private AudioSource audioSource;
 
-00:06:55.669 --> 00:07:06.749
-OK. [Laughs] Now. let's go find that AudioSource. Now. it's just GetComponent. because it's already on this thing.
+00:06:55,669 --> 00:07:06,749
+OK. [Laughs] Now, let's go find that AudioSource. Now, it's just GetComponent, because it's already on this thing.
 
-00:07:06.750 --> 00:07:13.460
-So. we found the AudioSource. and then. where it says helicopter called. yeah we can
+00:07:06,750 --> 00:07:13,460
+So, we found the AudioSource, and then, where it says helicopter called, yeah we can
 
-00:07:13.460 --> 00:07:17.330
-still send that to the log. Now. if we're going to leave it in. I'm going to Debug.Log.
+00:07:13,460 --> 00:07:17,330
+still send that to the log. Now, if we're going to leave it in, I'm going to Debug.Log,
 
-00:07:17.330 --> 00:07:25.940
-it's just a little bit more robust. And then. I'm going to say audioSource.clip = callSound;
+00:07:17,330 --> 00:07:25,940
+it's just a little bit more robust. And then, I'm going to say audioSource.clip = callSound;
 
-00:07:25.940 --> 00:07:35.960
-OK. and then. we need to go audioSource.Play ();
+00:07:25,940 --> 00:07:35,960
+OK, and then, we need to go audioSource.Play ();
 
-00:07:35.960 --> 00:07:46.040
+00:07:35,960 --> 00:07:46,040
 That's a method. Cool! Let's see what happens.
 
-00:07:46.040 --> 00:07:50.040
-OK. helicopter call. Now. did it make a sound? We don't know. So. how are you going to test it? Well. you can go and
+00:07:46,040 --> 00:07:50,040
+OK, helicopter call. Now, did it make a sound? We don't know. So, how are you going to test it? Well, you can go and
 
-00:07:50.040 --> 00:07:54.460
-get closer to the helicopter. or you could set its Spatial Blend to 100% 2D. for a minute.
+00:07:50,040 --> 00:07:54,460
+get closer to the helicopter, or you could set its Spatial Blend to 100% 2D, for a minute,
 
-00:07:54.460 --> 00:08:03.930
-and then try. Ah. you see that's OK
+00:07:54,460 --> 00:08:03,930
+and then try. Ah, you see that's OK
 isn't it. Because what's happening there
 
-00:08:03.930 --> 00:08:09.730
+00:08:03,930 --> 00:08:09,730
 is the sound is happening everywhere
-in the scene. because it's 100% 2D.
+in the scene, because it's 100% 2D.
 
-00:08:09.730 --> 00:08:15.010
-Alright. so that's fine. So. how are we going to tune the sound. so that we can hear
+00:08:09,730 --> 00:08:15,010
+Alright, so that's fine. So, how are we going to tune the sound, so that we can hear
 
-00:08:15.010 --> 00:08:19.470
+00:08:15,010 --> 00:08:19,470
 it? And how about the actual wacky wacky sound of the helicopter blades?
 
-00:08:19.470 --> 00:08:24.860
-Well. we've actually got two different AudioSources we want to hear. The AudioSource
+00:08:19,470 --> 00:08:24,860
+Well, we've actually got two different AudioSources we want to hear. The AudioSource
 
-00:08:24.860 --> 00:08:31.830
-for the helicopter's radio sound could be on the helicopter. but it is
+00:08:24,860 --> 00:08:31,830
+for the helicopter's radio sound could be on the helicopter, but it is
 
-00:08:31.830 --> 00:08:36.190
-kind of 2D. because it comes to us through
-radio waves and plays in our ears. So. we've
+00:08:31,830 --> 00:08:36,190
+kind of 2D, because it comes to us through
+radio waves and plays in our ears. So, we've
 
-00:08:36.190 --> 00:08:40.480
-got a couple of different options here.
+00:08:36,190 --> 00:08:40,480
+got a couple of different options here,
 one of which is to add another AudioSource
 
-00:08:40.480 --> 00:08:45.360
+00:08:40,480 --> 00:08:45,360
 to this helicopter and use that second AudioSource for its wacky wacky
 
-00:08:45.370 --> 00:08:50.250
-sound. I'm going to do that. So. this is
+00:08:45,370 --> 00:08:50,250
+sound. I'm going to do that. So, this is
 outside of the scope of what we did in
 
-00:08:50.250 --> 00:08:54.520
-the challenge. So. in the challenge I just
+00:08:50,250 --> 00:08:54,520
+the challenge. So, in the challenge I just
 wanted you to make it play and it does
 
-00:08:54.520 --> 00:08:58.620
-play. and it plays if you leave the Spatial Blend on 2D. which is simulated
+00:08:54,520 --> 00:08:58,620
+play, and it plays if you leave the Spatial Blend on 2D, which is simulated
 
-00:08:58.620 --> 00:09:02.910
-coming through the radio. What I also want is a permanent clip on here. which is the
+00:08:58,620 --> 00:09:02,910
+coming through the radio. What I also want is a permanent clip on here, which is the
 
-00:09:02.910 --> 00:09:07.590
-helicopter wacky wacky sound. like that.
+00:09:02,910 --> 00:09:07,590
+helicopter wacky wacky sound, like that,
 and I want it to loop and Play On Awake.
 
-00:09:07.590 --> 00:09:10.180
-And then. if I play now. watch what happens.
+00:09:07,590 --> 00:09:10,180
+And then, if I play now, watch what happens.
 
-00:09:10.190 --> 00:09:13.960
-Wherever we are. we can hear that helicopter. even though we're nowhere near it. What we want
+00:09:10,190 --> 00:09:13,960
+Wherever we are, we can hear that helicopter, even though we're nowhere near it. What we want
 
-00:09:13.960 --> 00:09:18.630
-to do is set the Spatial Blend to 100% 3D. Now. as I stand here.
+00:09:13,960 --> 00:09:18,630
+to do is set the Spatial Blend to 100% 3D. Now, as I stand here,
 
-00:09:18.630 --> 00:09:24.820
-I can't hear the helicopter. Now. is that too
-quiet? Well maybe. maybe not. Let's look at
+00:09:18,630 --> 00:09:24,820
+I can't hear the helicopter. Now, is that too
+quiet? Well maybe, maybe not. Let's look at
 
-00:09:24.820 --> 00:09:30.690
-the details of this second AudioSource. So. what have we got? We've got
+00:09:24,820 --> 00:09:30,690
+the details of this second AudioSource. So, what have we got? We've got
 
-00:09:30.690 --> 00:09:33.850
-a Minimum Distance of 1. Well. actually
+00:09:30,690 --> 00:09:33,850
+a Minimum Distance of 1. Well, actually
 you probably can hear the helicopter
 
-00:09:33.850 --> 00:09:38.200
-pretty loud from 10 meters. so I'm going to make a Minimum Distance of 10 and a Maximum
+00:09:33,850 --> 00:09:38,200
+pretty loud from 10 meters, so I'm going to make a Minimum Distance of 10 and a Maximum
 
-00:09:38.200 --> 00:09:43.480
-Distance of. yeah let's say. 500 meters. So. why can't I hear this at the moment?
+00:09:38,200 --> 00:09:43,480
+Distance of, yeah let's say, 500 meters. So, why can't I hear this at the moment?
 
-00:09:43.490 --> 00:09:47.190
-Well. it depends how far away I am. Let's
+00:09:43,490 --> 00:09:47,190
+Well, it depends how far away I am. Let's
 have a look at where the helicopter is
 
-00:09:47.190 --> 00:09:52.010
-and where the player is. So. I've got to go
+00:09:47,190 --> 00:09:52,010
+and where the player is. So, I've got to go
 along the side of this lake. Let me try
 
-00:09:52.010 --> 00:09:56.690
+00:09:52,010 --> 00:09:56,690
 that and see if the helicopter gets
 louder. Where's my lake? I can't really see. I'll have
 
-00:09:56.690 --> 00:10:02.190
+00:09:56,690 --> 00:10:02,190
 to go into Scene View to see which
 direction to go in. I'm not sure.
 
-00:10:02.190 --> 00:10:12.230
-I should be able to hear it. in one direction. I think my lake is over here. isn't it? Am I getting closer?
+00:10:02,190 --> 00:10:12,230
+I should be able to hear it, in one direction. I think my lake is over here, isn't it? Am I getting closer?
 
-00:10:12.230 --> 00:10:13.850
+00:10:12,230 --> 00:10:13,850
 Further away? I think I'm getting closer.
 
-00:10:13.850 --> 00:10:23.290
-You can turn gizmos on in Game View. by the way. if you want to. which can help with
+00:10:13,850 --> 00:10:23,290
+You can turn gizmos on in Game View, by the way, if you want to, which can help with
 
-00:10:23.290 --> 00:10:34.910
-this sort of thing. I'm completely lost. I need to turn to my right. So. that can be a bit of fun.
+00:10:23,290 --> 00:10:34,910
+this sort of thing. I'm completely lost, I need to turn to my right. So, that can be a bit of fun.
 
-00:10:34.910 --> 00:10:40.170
-OK. so basically the bottom line here is
+00:10:34,910 --> 00:10:40,170
+OK, so basically the bottom line here is
 that the helicopter is too quiet. I need to be able to hear
 
-00:10:40.170 --> 00:10:44.420
-more of the helicopter than I am. from a
-distance. So. the things that you can play
+00:10:40,170 --> 00:10:44,420
+more of the helicopter than I am, from a
+distance. So, the things that you can play
 
-00:10:44.420 --> 00:10:50.150
-with. with regards to the helicopter's sound are the Minimum Distance. which I
+00:10:44,420 --> 00:10:50,150
+with, with regards to the helicopter's sound are the Minimum Distance, which I
 
-00:10:50.150 --> 00:10:54.550
+00:10:50,150 --> 00:10:54,550
 say I'm going to have that as 10 meters
-let's say. and then. you've got to decide on
+let's say, and then, you've got to decide on
 
-00:10:54.550 --> 00:11:00.150
-the Maximum Distance. maybe 1.000. like that. And then. you can pull
+00:10:54,550 --> 00:11:00,150
+the Maximum Distance, maybe 1,000, like that. And then, you can pull
 
-00:11:00.150 --> 00:11:06.890
-the curve around. if you want to. until it
+00:11:00,150 --> 00:11:06,890
+the curve around, if you want to, until it
 works. Let's have a listen. I can actually
 
-00:11:06.890 --> 00:11:12.120
-hear the helicopter now. It's really quiet. so
+00:11:06,890 --> 00:11:12,120
+hear the helicopter now. It's really quiet, so
 I've got to work out which direction.
 
-00:11:12.120 --> 00:11:17.800
-So. I'm just going to cheat here. I'm going to take the helicopter. move it closer to the player.
+00:11:12,120 --> 00:11:17,800
+So, I'm just going to cheat here. I'm going to take the helicopter, move it closer to the player.
 
-00:11:17.800 --> 00:11:24.800
-Ha. now I can see the helicopter. over there just. and as I run towards it. now my footsteps
+00:11:17,800 --> 00:11:24,800
+Ha, now I can see the helicopter, over there just, and as I run towards it, now my footsteps
 
-00:11:24.800 --> 00:11:29.170
-are far too loud. So. let's fix that. Go to the player. look at the Footstep Audio
+00:11:24,800 --> 00:11:29,170
+are far too loud. So, let's fix that. Go to the player, look at the Footstep Audio
 
-00:11:29.170 --> 00:11:32.519
-Source. on the player. and just turn the
-volume down to maybe 25%. OK. let's
+00:11:29,170 --> 00:11:32,519
+Source, on the player, and just turn the
+volume down to maybe 25%. OK, let's
 
-00:11:32.519 --> 00:11:41.899
-carry on. Now. if we inspect the helicopter. while we do this. remember it's got two audio sources on it.
+00:11:32,519 --> 00:11:41,899
+carry on. Now, if we inspect the helicopter, while we do this, remember it's got two audio sources on it.
 
-00:11:41.899 --> 00:11:51.680
-One is when we hit H. and that's a 2D sound. that plays straight into my ears. regardless
+00:11:41,899 --> 00:11:51,680
+One is when we hit H, and that's a 2D sound, that plays straight into my ears, regardless
 
-00:11:51.680 --> 00:11:55.279
-of my distance from the helicopter. and
-then. we've got this other one. which is much
+00:11:51,680 --> 00:11:55,279
+of my distance from the helicopter, and
+then, we've got this other one, which is much
 
-00:11:55.279 --> 00:11:58.060
-more complicated. Now. look at the red line here. Watch as I move towards the
+00:11:55,279 --> 00:11:58,060
+more complicated. Now, look at the red line here. Watch as I move towards the
 
-00:11:58.060 --> 00:12:03.200
-helicopter. that red line is decreasing. as
-my distance decreases. and listen.
+00:11:58,060 --> 00:12:03,200
+helicopter, that red line is decreasing, as
+my distance decreases, and listen.
 
-00:12:03.200 --> 00:12:13.860
-Got another wacky tree there. Now. as we start to get really close listen. Much louder and then. that Minimum
+00:12:03,200 --> 00:12:13,860
+Got another wacky tree there. Now, as we start to get really close listen. Much louder and then, that Minimum
 
-00:12:13.860 --> 00:12:20.960
-Distance. of 10 meters. has a massive effect on its volume. at a distance. Look at it. If I go here.
+00:12:13,860 --> 00:12:20,960
+Distance, of 10 meters, has a massive effect on its volume, at a distance. Look at it. If I go here,
 
-00:12:20.970 --> 00:12:25.770
-Ethan is after me. and I change this Minimum Distance. it gets far too quiet out here.
+00:12:20,970 --> 00:12:25,770
+Ethan is after me, and I change this Minimum Distance, it gets far too quiet out here.
 
-00:12:25.770 --> 00:12:30.450
-So. you want a Minimum Distance of 10.
-maybe 15 meters. Trust me. I fly
+00:12:25,770 --> 00:12:30,450
+So, you want a Minimum Distance of 10,
+maybe 15 meters. Trust me, I fly
 
-00:12:30.450 --> 00:12:33.930
+00:12:30,450 --> 00:12:33,930
 helicopters. When you get within 10 to 15
-meters. it's not much different. whether
+meters, it's not much different, whether
 
-00:12:33.930 --> 00:12:38.700
-you're there or there. it's very loud. and
-that helps. because of the way it's logarithmic
+00:12:33,930 --> 00:12:38,700
+you're there or there, it's very loud, and
+that helps, because of the way it's logarithmic
 
-00:12:38.700 --> 00:12:42.670
-roll off. it helps keep it at a sensible volume. at a distance. So. I'd suggest a Min
+00:12:38,700 --> 00:12:42,670
+roll off, it helps keep it at a sensible volume, at a distance. So, I'd suggest a Min
 
-00:12:42.670 --> 00:12:48.250
+00:12:42,670 --> 00:12:48,250
 Distance of say 10 Meters or 15 and a Max
 Distance of at least 500. I might try a Max
 
-00:12:48.250 --> 00:12:50.660
-Distance of 1.000. see how that works.
+00:12:48,250 --> 00:12:50,660
+Distance of 1,000, see how that works.
 
-00:12:50.660 --> 00:12:56.010
-This doesn't make a lot of difference. at this distance. OK fantastic! So. I'm just going to
+00:12:50,660 --> 00:12:56,010
+This doesn't make a lot of difference, at this distance. OK fantastic! So, I'm just going to
 
-00:12:56.010 --> 00:12:59.430
+00:12:56,010 --> 00:12:59,430
 check my settings have stuck on there. I need to look at the bottom
 
-00:12:59.430 --> 00:13:05.180
-Audio Source. 10. 500. Logarithmic Role Off. all very cool! So. that's our sound working
+00:12:59,430 --> 00:13:05,180
+Audio Source, 10, 500, Logarithmic Role Off, all very cool! So, that's our sound working
 
-00:13:05.180 --> 00:13:08.850
+00:13:05,180 --> 00:13:08,850
 for our helicopter. Congratulations if you've got that working!
 
-00:13:08.850 --> 00:13:13.050
-And if you enjoyed playing with helicopter sounds. then do comment in the
+00:13:08,850 --> 00:13:13,050
+And if you enjoyed playing with helicopter sounds, then do comment in the
 
-00:13:13.050 --> 00:13:15.260
+00:13:13,050 --> 00:13:15,260
 discussions. I'm just going to do a quick
 recap for you.
 
-00:13:15.260 --> 00:13:22.380
+00:13:15,260 --> 00:13:22,380
 The helicopter script that we have on
-here is taking in a cool sound. so that
+here is taking in a cool sound, so that
 
-00:13:22.380 --> 00:13:26.440
+00:13:22,380 --> 00:13:26,440
 it can pass it to this second AudioSource. Why do we need two audio sources?
 
-00:13:26.440 --> 00:13:29.440
-Because. while we hear the wacky wacky of
-the helicopter.
+00:13:26,440 --> 00:13:29,440
+Because, while we hear the wacky wacky of
+the helicopter,
 
-00:13:29.440 --> 00:13:33.560
+00:13:29,440 --> 00:13:33,560
 we also want to be able to hear the radio.
-Now. you could argue that you only need one
+Now, you could argue that you only need one
 
-00:13:33.560 --> 00:13:37.090
-AudioSource. because you
+00:13:33,560 --> 00:13:37,090
+AudioSource, because you
 won't be able to hear the helicopter until
 
-00:13:37.090 --> 00:13:41.080
-you've called it. So. you could just use a
+00:13:37,090 --> 00:13:41,080
+you've called it. So, you could just use a
 single AudioSource and swap the clips
 
-00:13:41.080 --> 00:13:44.950
+00:13:41,080 --> 00:13:44,950
 around. I'm just showing you a technique
-of using two AudioSources. so that we
+of using two AudioSources, so that we
 
-00:13:44.950 --> 00:13:48.510
-can get. for instance. close to the
-helicopter. if we wanted to. and then.
+00:13:44,950 --> 00:13:48,510
+can get, for instance, close to the
+helicopter, if we wanted to, and then,
 
-00:13:48.510 --> 00:13:53.830
-call it. which sounds crazy. But depending on how you've set your game up. you may want to
+00:13:48,510 --> 00:13:53,830
+call it, which sounds crazy. But depending on how you've set your game up, you may want to
 
-00:13:53.830 --> 00:13:58.290
-do that. and then. you would be able to
+00:13:53,830 --> 00:13:58,290
+do that, and then, you would be able to
 hear the helicopter wacky wacky
 
-00:13:58.290 --> 00:14:04.300
-sound. And then also. on top of that. be able to hear the sound of the
+00:13:58,290 --> 00:14:04,300
+sound. And then also, on top of that, be able to hear the sound of the
 
-00:14:04.300 --> 00:14:14.140
-radio. Let's try it. You can hear the helicopter there. OK. so you don't have to use two AudioSources.
+00:14:04,300 --> 00:14:14,140
+radio. Let's try it. You can hear the helicopter there. OK, so you don't have to use two AudioSources.
 
-00:14:14.140 --> 00:14:16.380
+00:14:14,140 --> 00:14:16,380
 I've chosen to and I just wanted to show you the difference.
 
-00:14:16.390 --> 00:14:19.680
-The other thing is that the radio one. the
-other reason to use two. is that the radio
+00:14:16,390 --> 00:14:19,680
+The other thing is that the radio one, the
+other reason to use two, is that the radio
 
-00:14:19.680 --> 00:14:23.590
-is a 2D sound. regardless of your
-distance. you hear it the same. and the
+00:14:19,680 --> 00:14:23,590
+is a 2D sound, regardless of your
+distance, you hear it the same, and the
 
-00:14:23.590 --> 00:14:27.430
-other one. is a purely 3D sound and you
+00:14:23,590 --> 00:14:27,430
+other one, is a purely 3D sound and you
 can make a blend in between them.
 
-00:14:27.430 --> 00:14:31.100
-OK. so hopefully that's enough about 3D
-sounds. for you to get a good idea as to
+00:14:27,430 --> 00:14:31,100
+OK, so hopefully that's enough about 3D
+sounds, for you to get a good idea as to
 
-00:14:31.100 --> 00:14:34.720
+00:14:31,100 --> 00:14:34,720
 what's going on. Hopefully that's been fun
-for you. and I'll see you in the next video.
+for you, and I'll see you in the next video.
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT54 ApplyForceAtLocation() in Action.srt
 ﻿WEBVTT
 
 1
@@ -724,3 +725,730 @@ see that it's got the force. now we'll find out how to overcome that friction!
 00:12:02.533 --> 00:12:02.999
 
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+So welcome to
+
+2
+00:00:04,000 --> 00:00:08,000
+ApplyForceAtLocation() in Action! What we're going to do in this video is
+
+3
+00:00:08,000 --> 00:00:12,000
+actually start applying some forces to the tank, and what will happen
+
+4
+00:00:12,000 --> 00:00:16,000
+is, if we were to turn off gravity on the tanks, at least, then you would
+
+5
+00:00:16,000 --> 00:00:20,000
+see that once we've finished our floating tank, when we accelerate,
+
+6
+00:00:20,000 --> 00:00:24,000
+does actually start to move. The reason we're not going to get it moving on the ground
+
+7
+00:00:24,000 --> 00:00:30,800
+is because in the next lecture after this one, we'll be dealing with friction and overcoming friction. So I'll see you in there!
+
+8
+00:00:30,800 --> 00:00:34,800
+I can feel the anticipation building for this lecture, because the tank is going to move
+
+9
+00:00:34,800 --> 00:00:38,800
+in this lecture, [Laughs] one way or another, under our control. So firstly,
+
+10
+00:00:38,800 --> 00:00:42,800
+so that I don't have to connect my gamepad every time, I'm just going to go to the Project
+
+11
+00:00:42,800 --> 00:00:46,800
+Settings, Input, and then, under these axis bindings for the gamepad
+
+12
+00:00:46,800 --> 00:00:50,800
+Left Trigger Axis, I'm going to add an alternative input which is just going
+
+13
+00:00:50,800 --> 00:00:54,800
+to be the Left arrow. So not the gamepad but the Left keyboard Arrow,
+
+14
+00:00:54,800 --> 00:00:58,800
+and I'll do the same on the Right Track. Just search for "right",
+
+15
+00:00:58,800 --> 00:01:02,800
+collapse Gamepad, Right, perfect! And these things,
+
+16
+00:01:02,800 --> 00:01:06,800
+of course, will send just a value of 1 or 0. You won't be able to go backwards on the track
+
+17
+00:01:06,800 --> 00:01:10,800
+and you won't be able to control it in an analog way, but it'll allow me to just use the cursor keys
+
+18
+00:01:10,800 --> 00:01:14,800
+if I want to. Fantastic! So let's go in and just check that those reports
+
+19
+00:01:14,800 --> 00:01:18,800
+work. Yep, looking in the console that's all fine! Great!
+
+20
+00:01:18,800 --> 00:01:22,800
+So it's time to start thinking about actually applying a force to this tank!
+
+21
+00:01:22,800 --> 00:01:26,800
+So one of the first things we're going to want, over in our code, is the notion of
+
+22
+00:01:26,800 --> 00:01:30,800
+a max force variable, something like a track
+
+23
+00:01:30,800 --> 00:01:34,800
+max driving force. So that would be a float, because a float is big enough
+
+24
+00:01:34,800 --> 00:01:38,800
+to store pretty large numbers, billiions, and
+
+25
+00:01:38,800 --> 00:01:42,800
+we don't want to constrain ourselves to integers. So float,
+
+26
+00:01:42,800 --> 00:01:46,800
+I don't know, TrackMaxDriving
+
+27
+00:01:46,800 --> 00:01:50,800
+Force =... Hmm, now we need some sensible
+
+28
+00:01:50,800 --> 00:01:54,800
+default value, and we're also going to make it a UPROPERTY. Let me do the UPROPERTY thing
+
+29
+00:01:54,800 --> 00:01:58,800
+now. So it's going to be a UPROPERTY() so the designer can
+
+30
+00:01:58,800 --> 00:02:02,800
+tweak this in the Inspector, but we still need a sensible default value.
+
+31
+00:02:02,800 --> 00:02:06,800
+So it's going to be a UPROPERTY, now what is it's class
+
+32
+00:02:06,800 --> 00:02:10,800
+of UPROPERTY going to be? It's going to be (EditDefault
+
+33
+00:02:10,800 --> 00:02:14,800
+Only) because we don't want to be able to change this
+
+34
+00:02:14,800 --> 00:02:18,800
+on individual instances, we want all the tanks to be the same
+
+35
+00:02:18,800 --> 00:02:22,800
+right, we want it to be fair. So we have an (EditDefaultsOnly) UPROPERTY,
+
+36
+00:02:22,800 --> 00:02:26,800
+the question is, what is a sensible starting MaxDrivingForce
+
+37
+00:02:26,800 --> 00:02:30,800
+for the tank? Bearing in my, by the way, that we're actually going to have two driving
+
+38
+00:02:30,800 --> 00:02:34,800
+centers, what we're going to do, if we look at the tank blueprint in the Viewport,
+
+39
+00:02:34,800 --> 00:02:38,800
+is we're going to realize that these two tracks have their pivot points
+
+40
+00:02:38,800 --> 00:02:42,800
+down here at the bottom in the middle of them, this one and this one. And what we're going to do is, we're going to apply
+
+41
+00:02:42,800 --> 00:02:46,800
+a forward force to the tank body, this element here,
+
+42
+00:02:46,800 --> 00:02:50,800
+but we're going to apply that force at the position of the track's origins,
+
+43
+00:02:50,800 --> 00:02:54,800
+which is just about right because that is in the middle of the tracks.
+
+44
+00:02:54,800 --> 00:02:58,800
+So that'll work pretty well! Alright, so we're going to have two separate tracks but let's not
+
+45
+00:02:58,800 --> 00:03:02,800
+worry about a pair of two, at the moment, i.e. whether we're going to have, you know,
+
+46
+00:03:02,800 --> 00:03:06,800
+however many Newtons of force or twice that many or half that many; I'm not worried about that,
+
+47
+00:03:06,800 --> 00:03:10,800
+I'm worried about the order of magnitude, at the moment, their like a factor of 10,
+
+48
+00:03:10,800 --> 00:03:14,800
+the amount of force we're going to need to accelerate a tank, at a reasonable
+
+49
+00:03:14,800 --> 00:03:18,800
+pace. And that's what we're going to put in here, in the TrackMaxDrivingForce
+
+50
+00:03:18,800 --> 00:03:22,800
+in Newtons! So let's put a comment on here. This
+
+51
+00:03:22,800 --> 00:03:26,800
+is "// Max force per track, in
+
+52
+00:03:26,800 --> 00:03:30,800
+Newtons". OK great! So what I want you to do is see
+
+53
+00:03:30,800 --> 00:03:34,800
+if you could work out what a sensible default would be for this.  Now, I'm going to give you a few hints.
+
+54
+00:03:34,800 --> 00:03:38,800
+Remember that Force = mass times acceleration, good old Newton! Be
+
+55
+00:03:38,800 --> 00:03:42,800
+clear on what units we're using here. So as a hint you need to use
+
+56
+00:03:42,800 --> 00:03:46,800
+SI units for everything, for this to work properly. So your force will be in Newtons, your mass
+
+57
+00:03:46,800 --> 00:03:50,800
+is in kilograms, your acceleration is in meters per second, per second
+
+58
+00:03:50,800 --> 00:03:54,800
+Guess an initial force, assuming there's no friction in the world. There actually is
+
+59
+00:03:54,800 --> 00:03:58,800
+some friction but let's assume there's none, for the moment. Don't be too alarmed if your
+
+60
+00:03:58,800 --> 00:04:02,800
+tank doesn't... Well we're not putting forces in, I just want you to get an initial value. So
+
+61
+00:04:02,800 --> 00:04:06,800
+assume there's no friction stopping the tank moving, imagine that it's frictionless, and
+
+62
+00:04:06,800 --> 00:04:10,800
+let's go and let's try and get within an factor of 10 of my guess.
+
+63
+00:04:10,800 --> 00:04:14,800
+So I want you to work out what the acceleration of the tank, a sensible acceleration of the tank would
+
+64
+00:04:14,800 --> 00:04:18,800
+be. So to help you with a sensible acceleration for a tank I've got
+
+65
+00:04:18,800 --> 00:04:22,800
+a link here in the lecture resources, which goes to Wolfram Alpha and says well,
+
+66
+00:04:22,800 --> 00:04:26,800
+what's 0 to 60 miles per hour in 10 seconds, which is roughly what a fast tank
+
+67
+00:04:26,800 --> 00:04:30,800
+might do it in. And it says it is in the appropriate units
+
+68
+00:04:30,800 --> 00:04:34,800
+2.7 meters per second, per second. Well you could call it 10 in
+
+69
+00:04:34,800 --> 00:04:38,800
+a game perhaps, because games. 10 things tend to happen faster in games.
+
+70
+00:04:38,800 --> 00:04:42,800
+So that's what I want you to do, I want you to have a go,
+
+71
+00:04:42,800 --> 00:04:46,800
+see if you can work out in Newtons what a sensible force would be. As I say, if you get
+
+72
+00:04:46,800 --> 00:04:50,533
+within a factor of 10 of my guess, that's cool with me!
+
+73
+00:04:50,533 --> 00:04:54,533
+OK welcome back! So my solution goes something like this! The tank
+
+74
+00:04:54,533 --> 00:04:58,533
+weighs about 40,000 kilos. Let's just go and see where you find that
+
+75
+00:04:58,533 --> 00:05:02,533
+information. You look on the Tank here, it's the only part of the Tank that's got physics
+
+76
+00:05:02,533 --> 00:05:06,533
+enabled on it, and it's got a mass in kilos of 40,000. Fine!
+
+77
+00:05:06,533 --> 00:05:10,533
+So Force is mass times acceleration! Imagine 10 meters per second, per second,
+
+78
+00:05:10,533 --> 00:05:14,533
+1g of acceleration. OK that's a lot for a tank, but they're pretty fast,
+
+79
+00:05:14,533 --> 00:05:18,533
+and in a game, you gen, 10, ga, generally tend to expect
+
+80
+00:05:18,533 --> 00:05:22,533
+things to move a little bit faster than in real life or they just look too slow. So that gives you a force
+
+81
+00:05:22,533 --> 00:05:26,533
+of 400,000 Newtons. So let's go ahead
+
+82
+00:05:26,533 --> 00:05:30,533
+and try that as a default value 400000,
+
+83
+00:05:30,533 --> 00:05:34,533
+and then I'm going to put a comment in as to why
+
+84
+00:05:34,533 --> 00:05:38,533
+we're going to "// Assume tank" or "40 ton
+
+85
+00:05:38,533 --> 00:05:42,533
+tank, and 1g acceleration".
+
+86
+00:05:42,533 --> 00:05:46,533
+If I can spell acceleration. I think I've got too
+
+87
+00:05:46,533 --> 00:05:50,533
+many c's or l's or something in there but that's fine. OK, so the tank
+
+88
+00:05:50,533 --> 00:05:54,533
+MaxDrivingForce is set there, so then we've got that available
+
+89
+00:05:54,533 --> 00:05:58,533
+over here to use, which is going to be really important. So how we actually going to
+
+90
+00:05:58,533 --> 00:06:02,533
+apply the appropriate force to this tank, and that's the next question. Well
+
+91
+00:06:02,533 --> 00:06:06,533
+let's start building it up! Let's use autos because I
+
+92
+00:06:06,533 --> 00:06:10,533
+like the flexibility and how little you have to worry about what the type is, and of course, you can still get the
+
+93
+00:06:10,533 --> 00:06:14,533
+type by hovering over the variable in question. So
+
+94
+00:06:14,533 --> 00:06:18,533
+we're going to have a ForceApplied and that's going to be a vector,
+
+95
+00:06:18,533 --> 00:06:22,533
+and if you think what the ForceApplied is, it's going to
+
+96
+00:06:22,533 --> 00:06:26,533
+be the Forward Vector, for a start. So if we just get the Forward Vector
+
+97
+00:06:26,533 --> 00:06:30,533
+of what, you might ask? Of the track right, so we look in
+
+98
+00:06:30,533 --> 00:06:34,533
+here, and you look at the track and it's ForwardVector is along the X, the same as the
+
+99
+00:06:34,533 --> 00:06:38,533
+tank. You multiply that ForwardVector by what? By the
+
+100
+00:06:38,533 --> 00:06:42,533
+Throttle. OK, well that's fine, but now we need to multiply it
+
+101
+00:06:42,533 --> 00:06:46,533
+by this Max, TankMaxDrivingForce or TrackMaxDrivingForce, whatever we
+
+102
+00:06:46,533 --> 00:06:50,533
+call it. Perfect! So now if the Throttle is 0, you get no force. If the
+
+103
+00:06:50,533 --> 00:06:54,533
+Throttle is 1, you get the MaxDrivingForce. If the Throttle is -1, you get backwards
+
+104
+00:06:54,533 --> 00:06:58,533
+force, so that sounds about right to me. So now we need to think about the location
+
+105
+00:06:58,533 --> 00:07:02,533
+we're going to apply the force. So auto ForceLocation
+
+106
+00:07:02,533 --> 00:07:06,533
+and it turns out you can just use GetComponent
+
+107
+00:07:06,533 --> 00:07:10,533
+Location(); Now what's that going to return? Well ooh,
+
+108
+00:07:10,533 --> 00:07:14,533
+if I can spell Force properly. I would hope it will return an fVector. What is
+
+109
+00:07:14,533 --> 00:07:18,533
+that fVector? It is going to be the location of the tracks. Now
+
+110
+00:07:18,533 --> 00:07:22,533
+my tank is upside down, for some slightly bizarre reason.
+
+111
+00:07:22,533 --> 00:07:26,533
+What's going on here?
+
+112
+00:07:26,533 --> 00:07:30,533
+OK just a few Undos! So what I was [Laughs] say is the track location
+
+113
+00:07:30,533 --> 00:07:34,533
+is there, that's what I was talking about. So that is the component
+
+114
+00:07:34,533 --> 00:07:38,533
+location of the track in question. Finally, what we've got
+
+115
+00:07:38,533 --> 00:07:42,533
+to be able to do is, add a force to something, and what we want to add a force to is this guy here. This
+
+116
+00:07:42,533 --> 00:07:46,533
+Tank root component is a Static Mesh. How do I know it's the root component?
+
+117
+00:07:46,533 --> 00:07:50,533
+Because if I try and replace it with something else, you can see drop here "Drop here to make Left Track the
+
+118
+00:07:50,533 --> 00:07:54,533
+new root." So the question is, how do I get root component? Well there are several
+
+119
+00:07:54,533 --> 00:07:58,533
+ways you could navigate to the root component, but let's think about it this
+
+120
+00:07:58,533 --> 00:08:02,533
+way. Let's start by saying, well let's use an auto so we know what we're getting back,
+
+121
+00:08:02,533 --> 00:08:06,533
+and let's call this thing TankRoot
+
+122
+00:08:06,533 --> 00:08:10,533
+OK, which is just this guy here. So let's try and find this TankRoot. Well let's
+
+123
+00:08:10,533 --> 00:08:14,533
+imagine firstly that we just GetOwner().
+
+124
+00:08:14,533 --> 00:08:18,533
+What do we have if we GetOwner()? What type do we get back? Do we get an Actor? It's this guy
+
+125
+00:08:18,533 --> 00:08:22,533
+up here, it is the Tank itself. OK, so that is the owner of the track,
+
+126
+00:08:22,533 --> 00:08:26,533
+but we need to go farther than getting the owner, we need to get the root's component
+
+127
+00:08:26,533 --> 00:08:30,533
+from the owner. So we go up to the owner then down to the root component, what do we have now?
+
+128
+00:08:30,533 --> 00:08:34,533
+USceneComponent pointer which is this Tank here. OK
+
+129
+00:08:34,533 --> 00:08:38,533
+remembering that a Static Mesh Component is also a USceneComponent, let's have a look at the class
+
+130
+00:08:38,533 --> 00:08:42,533
+hierarchy.
+
+131
+00:08:42,533 --> 00:08:46,533
+So back in here we see we have the StaticMeshComponent, which
+
+132
+00:08:46,533 --> 00:08:50,533
+is what, in the tank blueprint, we are showing the tank as. But a Static
+
+133
+00:08:50,533 --> 00:08:54,533
+MeshComponent, is a MeshComponent, is a PrimitiveComponent, is a SceneComponent.
+
+134
+00:08:54,533 --> 00:08:58,533
+So what does this PrimitiveComponent do? Well "PrimitiveComponents are SceneComponents that
+
+135
+00:08:58,533 --> 00:09:02,533
+contain or generate some sort of geometry", and will "be rendered or used as collision
+
+136
+00:09:02,533 --> 00:09:06,533
+data." So we want to use the simplest thing possible. It turns out that a
+
+137
+00:09:06,533 --> 00:09:10,533
+SceneComponent, this TankRoot, which is what we've got at the moment, does not
+
+138
+00:09:10,533 --> 00:09:14,533
+allow us to add any forces. How about if we cast that down to a PrimitiveComponent,
+
+139
+00:09:14,533 --> 00:09:18,533
+will that allow us to add forces? Well let's find out! We're going to do a Cast
+
+140
+00:09:18,533 --> 00:09:22,533
+to U
+
+141
+00:09:22,533 --> 00:09:26,533
+PrimitiveComponent
+
+142
+00:09:26,533 --> 00:09:30,533
+with some brackets, and then, now what we get out of
+
+143
+00:09:30,533 --> 00:09:34,533
+the TankRoot is a UPrimitiveComponent.
+
+144
+00:09:34,533 --> 00:09:38,533
+Now, when we interrogate that, we can AddForceAtLocation().
+
+145
+00:09:38,533 --> 00:09:42,533
+So that is the most basic type of object we can use, where we can Add
+
+146
+00:09:42,533 --> 00:09:46,533
+ForceAtLocation(). So let's recap what we've done, because a fair amount's gone on there. We've
+
+147
+00:09:46,533 --> 00:09:50,533
+gone up the class hierarchy to the Owner, down to the Root Component, and
+
+148
+00:09:50,533 --> 00:09:54,533
+then we've cast that from a Static Mesh to a Primitive
+
+149
+00:09:54,533 --> 00:09:58,533
+Component, the simplest thing we could go to. And that allows us to Add a
+
+150
+00:09:58,533 --> 00:10:02,533
+Force At a Location. Now what does that take? What inputs does that take? Well
+
+151
+00:10:02,533 --> 00:10:06,533
+luckily we've got them! So it takes a ForceApplied as a vector, and a
+
+152
+00:10:06,533 --> 00:10:10,533
+ForceLocation. And that's it for now,
+
+153
+00:10:10,533 --> 00:10:14,533
+they're all the parameters we need to provide it! Let's see if this works! Let's go
+
+154
+00:10:14,533 --> 00:10:18,533
+ahead and Compile up our code. I'll leave the code on the screen
+
+155
+00:10:18,533 --> 00:10:22,533
+while it compiles, hopefully this stuff makes sense to you. We still need to clamps,
+
+156
+00:10:22,533 --> 00:10:26,533
+so the TODO needs to stay here. We may as well keep logging the throttles, while we're debugging. I'm going to
+
+157
+00:10:26,533 --> 00:10:30,533
+turn my gamepad on, actually, and then, we will see if it moves.
+
+158
+00:10:30,533 --> 00:10:34,533
+Now I wouldn't hold your horses too much, because the chances are there's friction in the world that's going to stop this
+
+159
+00:10:34,533 --> 00:10:38,533
+moving, but let's just see how we get. I'm running both throttles flat out,
+
+160
+00:10:38,533 --> 00:10:42,533
+and unfortunately, it doesn't move. Now,
+
+161
+00:10:42,533 --> 00:10:46,533
+I wouldn't worry too much, there is a force on there. One way you can tell that,
+
+162
+00:10:46,533 --> 00:10:50,533
+is to take the player start point, for example,
+
+163
+00:10:50,533 --> 00:10:54,533
+lift it up. You could turn off gravity
+
+164
+00:10:54,533 --> 00:10:58,533
+on the Tank and Compile it.
+
+165
+00:10:58,533 --> 00:11:02,533
+Then, if we play the game with it up in the air and put full throttle on, you can see it is actually
+
+166
+00:11:02,533 --> 00:11:06,533
+accelerating, and it's rolling back as well, because the force is off center compared
+
+167
+00:11:06,533 --> 00:11:10,533
+to the center of mass but it was accelerating. So the issues that are
+
+168
+00:11:10,533 --> 00:11:14,533
+causing it to not accelerate quite how we want it, are due to the
+
+169
+00:11:14,533 --> 00:11:18,533
+fact there's friction in the world. So just before we leave this lecture, I'll show you that problem, and then we'll solve
+
+170
+00:11:18,533 --> 00:11:22,533
+it in the next lecture. If I was to take an AI tank, for example, and move it
+
+171
+00:11:22,533 --> 00:11:26,533
+up onto the side of this hill, like this,
+
+172
+00:11:26,533 --> 00:11:30,533
+OK and then play the game. Let's look at it! Well there's no gravity, so we need to put
+
+173
+00:11:30,533 --> 00:11:34,533
+gravity back on, Compile the blueprint, and play again.
+
+174
+00:11:34,533 --> 00:11:38,533
+Watch what happens! It lands on the slope, it slides down, but it's got a lot of friction
+
+175
+00:11:38,533 --> 00:11:42,533
+on that tank OK, and that is what's causing our
+
+176
+00:11:42,533 --> 00:11:46,533
+issues is the amount of friction. Now we do want some friction, in fact, the amount I slide sideways, you could
+
+177
+00:11:46,533 --> 00:11:50,533
+argue there's not even enough friction, but is a subject of another lecture to talk
+
+178
+00:11:50,533 --> 00:11:54,533
+about how we cope with, deal with, and generally
+
+179
+00:11:54,533 --> 00:11:58,533
+organize friction. So well done, your tank at least is ready to move. You can
+
+180
+00:11:58,533 --> 00:12:02,533
+see that it's got the force, now we'll find out how to overcome that friction!
+
+181
+00:12:02,533 --> 00:12:02,999
+
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT54 ApplyForceAtLocation() in Action.srt

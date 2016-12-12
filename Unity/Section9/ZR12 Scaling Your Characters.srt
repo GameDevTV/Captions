@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section9/ZR12 Scaling Your Characters.srt
 WEBVTT
 Kind: captions
 Language: en
@@ -517,3 +518,523 @@ sensible now. It's much more like a
 00:10:40.300 --> 00:10:44.250
 sensibly scaled world. So. there you go! I look forward to seeing you in the next video!
 
+=======
+Kind: captions
+Language: en
+
+00:00:00,000 --> 00:00:07,680
+Welcome back! In this video we're going to be scaling our characters, using a reference.
+
+00:00:07,680 --> 00:00:12,160
+cube in our scene,  setting up your first
+person character's eye height, and checking
+
+00:00:12,160 --> 00:00:17,609
+character scale against the environment.
+So, let's dive right on in.
+
+00:00:17,609 --> 00:00:22,820
+So, here we go. Now, the issue that we had was that the first person controller
+
+00:00:22,820 --> 00:00:27,400
+eye height is very very high. So, let's go
+take a look, let's stick them both
+
+00:00:27,400 --> 00:00:32,270
+somewhere sensible. I'm going to move both my first person controller and
+
+00:00:32,270 --> 00:00:37,059
+my zombie somewhere fairly central, in
+the middle of the terrain here. Let's just
+
+00:00:37,059 --> 00:00:42,059
+check the first person controller sits
+down Ok now, on the terrain. Yeah, there he is.
+
+00:00:42,059 --> 00:00:47,550
+Now, given that he's at 474 368, I'm just
+going to bring the zombie very close. So,
+
+00:00:47,550 --> 00:00:55,560
+say 470 360, we'll put the zombie really
+close to the first person. Let's have a look. Boom, there
+
+00:00:55,560 --> 00:00:59,140
+we go. Now, if I look around, somewhere I should have a zombie... up next to me.
+
+00:00:59,140 --> 00:01:12,720
+No, why not? Let's look at the scene. Um huh, there he is and there I am. He's so close, I can't even see him by the looks of it.
+
+00:01:12,720 --> 00:01:18,680
+Let's take a look. There he is right down there. Ok, it's just that he's so much smaller. So, one of the
+
+00:01:18,680 --> 00:01:21,340
+first things we need to do is sort this
+out. Now, who's got the scale problem?
+
+00:01:21,340 --> 00:01:24,240
+Is it the zombie? Is it us? Is it a
+combination?
+
+00:01:24,240 --> 00:01:26,920
+Well, one of the first things to do is
+get an absolute reference in here.
+
+00:01:26,920 --> 00:01:31,520
+So, wherever you've put your zombie and your first person in the scene, here they are.
+
+00:01:31,530 --> 00:01:37,090
+Let's put a cube, a couple of cubes down on the ground, a 3D object cube.
+
+00:01:37,090 --> 00:01:41,439
+By default that says cubic metre, which is
+ideal. So, just move it down until it's
+
+00:01:41,439 --> 00:01:46,430
+precisely on the ground, easiest just to
+do that by eye, as soon as you see the geometry disappear
+
+00:01:46,430 --> 00:01:50,060
+into the terrain around there, then it's
+on the ground. And I'm going to duplicate
+
+00:01:50,060 --> 00:01:55,680
+that and make myself another reference
+cube, that is just above the first one.
+
+00:01:55,680 --> 00:02:00,100
+I might just leave a tiny gap, so I can see
+where the 1 metre mark is. Cool!
+
+00:02:00,100 --> 00:02:04,000
+So, given those reference cubes, let's go back into the game, find the cubes.
+
+00:02:04,000 --> 00:02:08,319
+Well, I'm far too big look, I'm towering over
+that cube. Ethan is about the right
+
+00:02:08,319 --> 00:02:12,330
+height actually. Cool! So, let's
+get this fixed. Let's take a bit
+
+00:02:12,330 --> 00:02:15,740
+more of a look at this first person
+character, and try and understand why
+
+00:02:15,740 --> 00:02:20,870
+his scale is so off. So, I'm going to start with the FPS Controller, I'm going to move it down to
+
+00:02:20,870 --> 00:02:26,710
+ground level, and bring it over towards
+me a little bit. Any way that you can work
+
+00:02:26,710 --> 00:02:31,870
+with it, and maybe put its Capsule Collider close to the ground. So, what's
+
+00:02:31,870 --> 00:02:36,390
+the deal with this FPS Controller, how
+big is it, and where do you find that?
+
+00:02:36,390 --> 00:02:41,180
+Well, there's lots of things on the FPS
+Controller. It's quite a complex little
+
+00:02:41,180 --> 00:02:45,080
+thing, but you'll see here that it's the
+Character Controller itself here, this
+
+00:02:45,080 --> 00:02:48,110
+bit that has a height, and if we adjust
+the height the Capsule Collider goes
+
+00:02:48,110 --> 00:02:52,570
+with it. You see that in the scene. And
+it has a default height of 1.8 meters, which
+
+00:02:52,570 --> 00:02:56,140
+is about right which means that when that
+capsule is sitting on the ground, like
+
+00:02:56,140 --> 00:03:01,410
+this, that the top of this capsule here is
+at about 1.8 metres. Now, let's just
+
+00:03:01,410 --> 00:03:05,260
+check that assumption, always check it against your reference cubes. You see
+
+00:03:05,260 --> 00:03:08,670
+that is about right, he is about 1.8
+metres. We set it to 2 metres of height,
+
+00:03:08,670 --> 00:03:12,430
+and again sitting back on the ground and
+you can see it's the same height as the
+
+00:03:12,430 --> 00:03:18,270
+cubes. Alright so, that's good, that's
+proving that this setting works fine.
+
+00:03:18,270 --> 00:03:21,300
+So, what's going on with this camera? It's
+miles in the air. Well, the camera is
+
+00:03:21,310 --> 00:03:26,790
+childed, remember, to the FPS Controller,
+and it has a funny position. If I could set
+
+00:03:26,790 --> 00:03:31,610
+the position to 00 it would be right in
+the middle of the FPS Controller, but now,
+
+00:03:31,610 --> 00:03:36,540
+the camera is still the wrong, height isn't it, because it's at a height of what? What is
+
+00:03:36,540 --> 00:03:41,060
+the height of the camera now? Just work
+it out for me. If the FPS Controller is 1.8 metres high,
+
+00:03:41,070 --> 00:03:45,070
+the camera must be... at the moment it is half way up the
+
+00:03:45,070 --> 00:03:49,989
+controller, so it's at 0.9 of a
+meter right. So, that's too low. So, that's
+
+00:03:49,989 --> 00:03:54,420
+the problem we are having, is the camera
+is just too low. So, how high do we want
+
+00:03:54,420 --> 00:03:59,980
+the camera? Well, one way of sorting that
+out is to bring the zombie into play.
+
+00:03:59,980 --> 00:04:05,420
+So, you can use these particular widgets here, and maybe do a face-off
+
+00:04:05,420 --> 00:04:09,810
+between the zombie and your character here and get yourself a scene where they can see
+
+00:04:09,810 --> 00:04:14,500
+each other. And you can see that right now, in the Game View, if our camera was
+
+00:04:14,500 --> 00:04:22,950
+rotated properly, which it's not really... Let's just change the camera rotation.
+
+00:04:22,950 --> 00:04:31,490
+There's the camera, let's just change the rotation say to 0. Ok! Now, if we look in the Game View we're
+
+00:04:31,490 --> 00:04:34,760
+kind of looking halfway up this guy's back
+right now. Let's just pull myself
+
+00:04:34,760 --> 00:04:38,740
+across until we're lined up with him,
+looking at the camera preview, looking
+
+00:04:38,740 --> 00:04:42,280
+halfway up his back. So, what I want to do
+is just get the camera offset such that
+
+00:04:42,280 --> 00:04:45,800
+we're kind of eye-to-eye or possibly the
+zombie is a little bit bigger than us.
+
+00:04:45,800 --> 00:04:48,750
+An easy way to do that is just to change the Y component of the camera. Make sure you're
+
+00:04:48,750 --> 00:04:52,340
+not in play mode, of course. And I think
+something like that will work, let's take
+
+00:04:52,340 --> 00:04:58,960
+a look. Hmm, he's still a bit too tall. You could always spin your zombie around, by the way, so you're facing the
+
+00:04:58,960 --> 00:05:07,060
+front of him. Something like that, let's try it. So, Let's move around and see how this zombie fairs.
+
+00:05:07,060 --> 00:05:11,600
+You can run by holding down Shift,
+to get away from him. Pretty good!
+
+00:05:11,600 --> 00:05:15,360
+He's still not very scary at that height, so I
+think I'm going to put my camera to a height
+
+00:05:15,370 --> 00:05:22,500
+of say 0.4, and that makes the zombie
+placeholder guy a little bit more kind of scary.
+
+00:05:22,500 --> 00:05:26,570
+There you go, you've got that 1 metre
+object in the scene or two 1 metre objects.
+
+00:05:26,570 --> 00:05:29,590
+And you've got the zombie and this all feels a lot more sensible, down from this
+
+00:05:29,590 --> 00:05:34,700
+height. So, what I want you to do now is
+to do that for yourself, but also while
+
+00:05:34,700 --> 00:05:40,320
+you're at it, check your zombie and
+all your reference cubes against things
+
+00:05:40,320 --> 00:05:44,560
+like the trees. Do they stack up against
+the trees? So, if I move this guy over
+
+00:05:44,560 --> 00:05:48,270
+towards this tree over here, is that
+tree too big? I would say my trees probably are a
+
+00:05:48,270 --> 00:05:53,140
+little bit too big actually. And also, the
+other question is your terrain features.
+
+00:05:53,140 --> 00:05:57,820
+You know take your zombie or your cubes and move them over to
+
+00:05:57,820 --> 00:06:02,340
+a terrain feature, like a dip in the land,
+like over here, and say to yourself: Well,
+
+00:06:02,340 --> 00:06:06,330
+is this a sensible dip in the land?
+Normally, if you use roughly the terrain
+
+00:06:06,330 --> 00:06:10,990
+tools settings I did, you'll be about right, but if you are miles off and
+
+00:06:10,990 --> 00:06:15,720
+these dips are far too big or the trees are far too big, you could scale your entire
+
+00:06:15,720 --> 00:06:19,320
+terrain a little bit. If you have a
+systemic error, you could just change the
+
+00:06:19,320 --> 00:06:23,500
+entire terrain scale here. I would do it
+the same in X and Y, so you don't create
+
+00:06:23,500 --> 00:06:27,320
+distortions, otherwise you may need to
+just go back and make a few tweaks to
+
+00:06:27,320 --> 00:06:29,289
+your tree settings, for example.
+
+00:06:29,289 --> 00:06:33,889
+So, you'd go back to the terrain, you'd go
+back down to where we have trees, and you
+
+00:06:33,889 --> 00:06:38,899
+may want to just mass place a new set of
+trees. I do think these trees are a
+
+00:06:38,899 --> 00:06:44,830
+little bit too high, so where this tree
+height was here, I might want to just knock it down a
+
+00:06:44,830 --> 00:06:50,889
+little bit, and then, mass place a load of
+new trees, not keeping existing trees.
+
+00:06:50,889 --> 00:06:55,189
+So, I might want to put 500 trees in without existing trees, and are they the
+
+00:06:55,189 --> 00:06:58,819
+right height now? Well, they're better, they're much better, so I think I'm going to do that.
+
+00:06:58,819 --> 00:07:01,849
+That's how you would change your trees
+systematically. You change the height here,
+
+00:07:01,849 --> 00:07:06,599
+you click Mass Place, you don't keep
+existing trees, if you don't want to keep
+
+00:07:06,599 --> 00:07:11,199
+existing trees, but be careful, because if
+you lose them then of course...
+
+00:07:11,199 --> 00:07:15,309
+all the hard work you may have done
+of say taking trees out of the water and
+
+00:07:15,309 --> 00:07:18,069
+things could get lost.
+
+00:07:18,069 --> 00:07:21,699
+So, be careful if you're going to do it that
+way, but if you want to spend the
+
+00:07:21,699 --> 00:07:24,990
+time then go ahead and just remove
+trees that are sitting in the water. Remember,
+
+00:07:24,990 --> 00:07:29,490
+you do that with the Paint Trees Tool
+while holding down Shift. So, you're going to need to
+
+00:07:29,490 --> 00:07:34,019
+go back around the terrain and take any
+ridiculous trees out, that sit say in
+
+00:07:34,019 --> 00:07:38,009
+the water. And I think it's worth
+spending the time to do that, just to tie
+
+00:07:38,009 --> 00:07:42,129
+it all together and to get the scale
+feeling about right. Now, it's quite easy to
+
+00:07:42,129 --> 00:07:45,759
+end up selecting off the Tree Painting Tool, so just be a little
+
+00:07:45,759 --> 00:07:50,249
+bit careful with that. And if you want to
+maximize your Scene View, before you do
+
+00:07:50,249 --> 00:07:54,019
+this, it makes quite a bit of sense, because then you can see what you're doing. So, I'm just going
+
+00:07:54,019 --> 00:07:57,229
+to have a quick look around my terrain,
+and say: Well, where do I really not want
+
+00:07:57,229 --> 00:08:02,969
+trees? And then, make sure that I unpaint
+trees from where it's done them in the
+
+00:08:02,969 --> 00:08:06,539
+wrong place. Now, of course it's very lazy
+just randomly painting trees like this,
+
+00:08:06,539 --> 00:08:11,610
+but it does save us a lot of time. So,
+there's something to be said for it, but
+
+00:08:11,610 --> 00:08:14,779
+you know you get what you pay for, if you like. If you don't spend the time then,
+
+00:08:14,779 --> 00:08:19,110
+you're not going to get the best effect
+on your trees. Ok so, you get the idea.
+
+00:08:19,110 --> 00:08:22,449
+That's what I want you to do now, is
+go and get your terrain scale right,
+
+00:08:22,449 --> 00:08:26,069
+the height features of your terrain and your trees and all the dips in the land,
+
+00:08:26,069 --> 00:08:30,539
+compared to the characters. I'm going to delete my reference cubes, and then leave you with
+
+00:08:30,539 --> 00:08:37,159
+a challenge slide as follows.
+
+00:08:37,159 --> 00:08:41,969
+Get your character's eye height just right, check Zombie placeholder against the trees,
+
+00:08:41,969 --> 00:08:46,370
+etc., and share a photo of your
+zombie or zombies if you want to duplicate
+
+00:08:46,370 --> 00:08:49,670
+them, against some sort of backdrop maybe some pretty water and sun or something
+
+00:08:49,670 --> 00:08:52,959
+like that. Let's get a zombie placeholder
+group shot and stick it in the
+
+00:08:52,959 --> 00:08:57,499
+discussions. So, go ahead get all your
+scaling feeling right, and I will see you soon.
+
+00:08:57,500 --> 00:09:05,560
+Cool! Welcome back! So, I've kind of already done the scaling, before I showed you this challenge.
+
+00:09:05,560 --> 00:09:11,699
+So, remember to recap, you could rescale the entire terrain and see the affect that, that has. That's over in
+
+00:09:11,699 --> 00:09:16,259
+the Terrain Settings here, so terrain, the
+settings cog, and then, you change the
+
+00:09:16,259 --> 00:09:22,189
+Terrain Width and the Terrain Length. If you want to do that, another way to do it is
+
+00:09:22,189 --> 00:09:26,490
+to repaint all the trees that you've put
+in on mass. Now, there's a recap of the way
+
+00:09:26,490 --> 00:09:30,709
+that we do that, is that we go to the
+Paint Trees Setting here, the Place Trees.
+
+00:09:30,709 --> 00:09:36,810
+Then, you Mass Place Trees, after having changed the height. Now, you've got a range of
+
+00:09:36,810 --> 00:09:41,680
+heights, it's random in this range from
+Minimum to Maximum, and you can also just
+
+00:09:41,680 --> 00:09:45,240
+drag the middle of it. So, you choose your
+variability through the width and then the
+
+00:09:45,240 --> 00:09:49,420
+mean of the height through the position of the slider. And then,
+
+00:09:49,420 --> 00:09:52,670
+you Mass Place your trees, ditching the other ones. I wouldn't put more than 1,000
+
+00:09:52,670 --> 00:09:55,350
+trees in a terrain. I think you might end up with performance
+
+00:09:55,350 --> 00:09:58,939
+problems, but that just depends on your
+computer. So, you just need to be thinking
+
+00:09:58,939 --> 00:10:03,660
+about what it's going to be run on. So, that's it! We have a terrain and
+
+00:10:03,660 --> 00:10:06,699
+directional light and a first person
+controller and a water table. And we have
+
+00:10:06,699 --> 00:10:10,810
+reasonably sensible scaling, so that now
+when we play our game we're down here on
+
+00:10:10,810 --> 00:10:15,510
+the floor, and somewhere there should be
+a zombie trying to get me.
+
+00:10:15,510 --> 00:10:19,460
+And remember, if you can't find your zombie, your single lone zombie then, go into Scene
+
+00:10:19,470 --> 00:10:23,250
+View and double click, and you will then
+be able to zoom out and see where he is in
+
+00:10:23,250 --> 00:10:27,470
+the terrain. Turning on things like the
+Transform Tool will help you to visualize
+
+00:10:27,470 --> 00:10:32,069
+where he is, and there he is patiently
+waiting for me there. And if I run away and
+
+00:10:32,069 --> 00:10:36,050
+turn around and do some finger gymnastics, you can see him chasing me through the
+
+00:10:36,050 --> 00:10:40,300
+world, and it's much more kind of
+sensible now. It's much more like a
+
+00:10:40,300 --> 00:10:44,250
+sensibly scaled world. So, there you go! I look forward to seeing you in the next video!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section9/ZR12 Scaling Your Characters.srt

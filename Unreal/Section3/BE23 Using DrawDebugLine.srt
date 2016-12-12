@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section3/BE23 Using DrawDebugLine.srt
 ﻿WEBVTT
 
 1
@@ -732,3 +733,738 @@ it just looks like a square! OK. congratulations.
 00:12:06.800 --> 00:12:10.800
 that's massive progress. and I will see you soon!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+So, welcome to Using
+
+2
+00:00:04,000 --> 00:00:08,000
+DrawDebugLine, a very handy tool! In this video, we're going to show you
+
+3
+00:00:08,000 --> 00:00:12,000
+how to add vectors, we'll be calculating our line trace end point,
+
+4
+00:00:12,000 --> 00:00:16,000
+then end of our laser vision. We'll be using debug functions
+
+5
+00:00:16,000 --> 00:00:20,000
+for visualization in Unreal, that's the whole point here, and we'll use Draw
+
+6
+00:00:20,000 --> 00:00:24,000
+DebugLine() to visualize the vectors that we're playing with.
+
+7
+00:00:24,000 --> 00:00:28,000
+The purpose of this, by the end of it, you will have a situation where if we come out of the player's body
+
+8
+00:00:28,000 --> 00:00:32,000
+for a moment, you can see that there is a red line that points wherever the player is looking.
+
+9
+00:00:32,000 --> 00:00:36,000
+If I repossess the player and look down and maybe move near the chair,
+
+10
+00:00:36,000 --> 00:00:40,000
+like something like that, and then come back out of the body you'll see that we can visualize
+
+11
+00:00:40,000 --> 00:00:44,000
+where the reach of our grabber is and it's really handy for working out what's going on.
+
+12
+00:00:44,000 --> 00:00:45,033
+
+
+13
+00:00:45,033 --> 00:00:49,033
+So, in order to draw our line trace in the world
+
+14
+00:00:49,033 --> 00:00:53,033
+we're going to need to know the start point and the end of it. So to do that, we're
+
+15
+00:00:53,033 --> 00:00:57,033
+going to need to know a little something about vectors, so here's a quick primer on adding
+
+16
+00:00:57,033 --> 00:01:01,033
+vectors. So, if we have some vector A, like that, just represented
+
+17
+00:01:01,033 --> 00:01:05,033
+as an arrow like our player viewpoint location,
+
+18
+00:01:05,033 --> 00:01:09,033
+and then, we add to it some vector B like our laser beam coming out of our
+
+19
+00:01:09,033 --> 00:01:13,033
+eyes. Then, a + b is that vector there. You simply
+
+20
+00:01:13,033 --> 00:01:17,033
+add the tail of one to the head of the other, and the resulting vector is just the sum of
+
+21
+00:01:17,033 --> 00:01:21,033
+the two journeys. A took us to the point at the top there, B took us to the right,
+
+22
+00:01:21,033 --> 00:01:25,033
+so a + b, the result of those two journeys, is that overall green line,
+
+23
+00:01:25,033 --> 00:01:29,033
+the bottom line. OK, so how does this apply to our player
+
+24
+00:01:29,033 --> 00:01:33,033
+viewpoints and things? Well, we are wanting to calculate
+
+25
+00:01:33,033 --> 00:01:37,033
+LineTraceEnd, so we know where the system needs to draw the end of our tractor beam.
+
+26
+00:01:37,033 --> 00:01:41,033
+So, what have we got? We've got PlayerViewPointLocation. That's just three numbers
+
+27
+00:01:41,033 --> 00:01:45,033
+that tell you where the player is, relative to the origin which is at 000.
+
+28
+00:01:45,033 --> 00:01:49,033
+So we're already dealing with and logging out Player
+
+29
+00:01:49,033 --> 00:01:53,033
+ViewPointLocation and that's pretty simple. There it is, it's represented by that yellow arrow.
+
+30
+00:01:53,033 --> 00:01:57,033
+Another thing we've already got hold of is the
+
+31
+00:01:57,033 --> 00:02:01,033
+PlayerViewPointRotation, but that is stored as a rotator.
+
+32
+00:02:01,033 --> 00:02:05,033
+In order to use it like a vector we have to convert it to a vector. So,
+
+33
+00:02:05,033 --> 00:02:09,033
+PlayerViewPointRotation.Vector there just converts our
+
+34
+00:02:09,033 --> 00:02:13,033
+FRotator into an FVector, and we could store that in something like LineTrace
+
+35
+00:02:13,033 --> 00:02:17,033
+Direction, that tells us the direction in which we are going to trace our
+
+36
+00:02:17,033 --> 00:02:21,033
+line or the direction in which we are looking. They are the same thing.
+
+37
+00:02:21,033 --> 00:02:25,033
+OK, the only thing with that LineTraceDirection we've got there
+
+38
+00:02:25,033 --> 00:02:29,033
+is that it is something called a unit vector. When we've asked for the PlayerViewPoint
+
+39
+00:02:29,033 --> 00:02:33,033
+Location and gone .Vector, we've just got a vector of length
+
+40
+00:02:33,033 --> 00:02:37,033
+1, which is fine for telling us the direction, but what we need to do is multiply
+
+41
+00:02:37,033 --> 00:02:41,033
+that by the reach. How far out are we going to be able to reach? Is it 1 meter,
+
+42
+00:02:41,033 --> 00:02:45,033
+half a meter? It depends on how long our arms are right. So, LineTraceDirection
+
+43
+00:02:45,033 --> 00:02:49,033
+times reach is the resulting vector from our eye
+
+44
+00:02:49,033 --> 00:02:53,033
+viewpoint at the top there, out to the end of our hands.
+
+45
+00:02:53,033 --> 00:02:57,033
+So the question is, what is LineTraceEnd? Well, by
+
+46
+00:02:57,033 --> 00:03:01,033
+referring to the previous slide, that should be pretty simple to work out. But before we go
+
+47
+00:03:01,033 --> 00:03:05,033
+ahead and do it, let me set you up with something very useful that we can use to test
+
+48
+00:03:05,033 --> 00:03:09,033
+whether you've got this right, before I put you into the challenge. So here we are, what we want to be able
+
+49
+00:03:09,033 --> 00:03:13,033
+to do is visual in the world, at least when we eject, we want to be able to see something
+
+50
+00:03:13,033 --> 00:03:17,033
+sticking out the front of the player, a bit like that vector. Look imagine the
+
+51
+00:03:17,033 --> 00:03:21,033
+origin in the world is down here on the left for a minute, there was that vector player viewpoint location,
+
+52
+00:03:21,033 --> 00:03:25,033
+and then, we want to look down here. So, we want to be able to actually visualize this. How are we going to do that?
+
+53
+00:03:25,033 --> 00:03:29,033
+Well, let's go over to the code, there's something very useful. I'm going to put another line in
+
+54
+00:03:29,033 --> 00:03:33,033
+here. Yes, we're logging out to test and that's fine. We can continue doing that or
+
+55
+00:03:33,033 --> 00:03:37,033
+we can just comment all of this. Now, one way in Visual Studio is to hold down
+
+56
+00:03:37,033 --> 00:03:41,033
+Control and push K, and while still holding Control, look at the bottom left,
+
+57
+00:03:41,033 --> 00:03:45,033
+you can push Control C. So, you hold down Control and then push K
+
+58
+00:03:45,033 --> 00:03:49,033
+then C and that will comment that entire block out. So, I'm no
+
+59
+00:03:49,033 --> 00:03:53,033
+longer logging for the moment, but what we can do is "// Draw
+
+60
+00:03:53,033 --> 00:03:58,433
+a red trace in the world to visualize.
+
+61
+00:03:58,433 --> 00:04:02,433
+O.K. I'm going to temporarily put in the end points,
+
+62
+00:04:02,433 --> 00:04:06,433
+so let me make a temporary variable for the end point here. I'm going to call it FVector
+
+63
+00:04:06,433 --> 00:04:10,433
+and then you can finalize it in your challenge. FVector
+
+64
+00:04:10,433 --> 00:04:14,433
+LineTraceEnd = and let's just
+
+65
+00:04:14,433 --> 00:04:18,433
+make it, for the moment, the PlayerViewPoint
+
+66
+00:04:18,433 --> 00:04:22,433
+Location + I'm going to make a new FVector here,
+
+67
+00:04:22,433 --> 00:04:26,433
+and then, I'm going to make it (0.f,
+
+68
+00:04:26,433 --> 00:04:30,433
+0.f, and then say 20 centimeters
+
+69
+00:04:30,433 --> 00:04:34,433
+in the Z. So, it should draw a line going straight up, based on what we've talked about before.
+
+70
+00:04:34,433 --> 00:04:37,466
+The end of the line trace is our viewpoint, plus 20 centimeters up.
+
+71
+00:04:37,466 --> 00:04:41,433
+So, the method you want to use to draw a DebugLine just in the editor is this.
+
+72
+00:04:41,433 --> 00:04:45,433
+Draw, it's pretty cryptic, DebugLine() pretty cool!
+
+73
+00:04:45,433 --> 00:04:49,466
+Let's open the brackets, give ourselves some space, because there's lots of parameters. What does it want from
+
+74
+00:04:49,466 --> 00:04:53,466
+us? It wants a UWorld, it wants a pointer to a UWorld. Look UWorld *.
+
+75
+00:04:53,466 --> 00:04:57,466
+So, would you get that? Well, just GetWorld() and that's just going to return
+
+76
+00:04:57,466 --> 00:05:01,466
+the world. You see it returns a pointer to a UWorld! Wicked! Next perameter,
+
+77
+00:05:01,466 --> 00:05:05,466
+the line start! Well, let's draw the start of our DebugLine, for now,
+
+78
+00:05:05,466 --> 00:05:09,466
+from the PlayerViewPointLocation. It's a
+
+79
+00:05:09,466 --> 00:05:13,466
+effector right, we're all happy! We're all friends here, that's cool! Alright, what's
+
+80
+00:05:13,466 --> 00:05:17,466
+going to be the ending point? Well, I'm going to define here an
+
+81
+00:05:17,466 --> 00:05:21,466
+ending point temporarily for you, as LineTraceEnd
+
+82
+00:05:21,466 --> 00:05:25,466
+is PlayerViewPointLocation + a new vector,
+
+83
+00:05:25,466 --> 00:05:29,466
+which is (0.f, 0.f, 20.f); So, the end point is going to be 20 centimeters
+
+84
+00:05:29,466 --> 00:05:33,466
+above the player's head; because of the vector addition
+
+85
+00:05:33,466 --> 00:05:37,466
+we talked about a moment ago, it's the viewpoint + 20 centimeters up.
+
+86
+00:05:37,466 --> 00:05:41,466
+OK, so we're going to trace to LineTraceEnd. Just so we've got this working,
+
+87
+00:05:41,466 --> 00:05:45,466
+the idea is I want you to have the line tracing working, before I put
+
+88
+00:05:45,466 --> 00:05:49,466
+you into the challenge to actually get the reach working properly, and then you can tell it's working.
+
+89
+00:05:49,466 --> 00:05:53,466
+OK, now it wants a constant FColor &Color. What's that?
+
+90
+00:05:53,466 --> 00:05:57,466
+Constant FColor &Color. Lots of weird things going on there, we're seeing an ampersand. We've seen those
+
+91
+00:05:57,466 --> 00:06:01,466
+a couple of places. That's something called a reference, which we'll go into in a little more detail
+
+92
+00:06:01,466 --> 00:06:05,466
+shortly, but basically, you can treat things that are a reference very much like the original
+
+93
+00:06:05,466 --> 00:06:09,466
+object. So, don't be too off-put by that, but what we need is an FColor
+
+94
+00:06:09,466 --> 00:06:13,466
+so we could construct one. FColor with the American spelling, no U's here.
+
+95
+00:06:13,466 --> 00:06:17,466
+And you just open the braces and it's going to want something like
+
+96
+00:06:17,466 --> 00:06:21,466
+RGB. Now, you can click through the different signatures, and one of them here
+
+97
+00:06:21,466 --> 00:06:25,466
+will just simply be RGB. Here's a contructor
+
+98
+00:06:25,466 --> 00:06:29,466
+that just takes RGB. In fact, that's the one we want, constructor number
+
+99
+00:06:29,466 --> 00:06:33,466
+3 here in my Visual Studio. So, I'm going to go 255,
+
+100
+00:06:33,466 --> 00:06:37,466
+for the red, I'm going to go 0 for the green, and I'm going to go 0 for the blue, so that's going to give us
+
+101
+00:06:37,466 --> 00:06:41,466
+a pure red line OK. I'm not going to comment
+
+102
+00:06:41,466 --> 00:06:45,466
+that, because it's going to go out of date the moment I change those numbers, but that's the color.
+
+103
+00:06:45,466 --> 00:06:49,466
+What's the next parameter that it wants? Well, we're going to need to wait for the
+
+104
+00:06:49,466 --> 00:06:53,466
+autocomplete to catch up. Here we go! Do the lines persist? So, we're going to draw a line
+
+105
+00:06:53,466 --> 00:06:57,466
+in the world to see which direction we're looking, but we don't want them to persist in this case,
+
+106
+00:06:57,466 --> 00:07:01,466
+that is from one frame to another. They're just going to disappear immediately and be redrawn every
+
+107
+00:07:01,466 --> 00:07:05,466
+frame, so we're going to say false. What's the lifetime it's asking
+
+108
+00:07:05,466 --> 00:07:09,466
+next? Well, I don't care, so I'm going to say 0 because it's not persisting, LifeTime
+
+109
+00:07:09,466 --> 00:07:13,466
+is not relevant, and the Depth Priority has to do with the priority
+
+110
+00:07:13,466 --> 00:07:17,466
+with which this is drawn in terms of depth filtering. Does it draw in front of
+
+111
+00:07:17,466 --> 00:07:21,466
+or behind other things? We don't care for now, 0 is fine as well OK.
+
+112
+00:07:21,466 --> 00:07:25,466
+Cool, little semicolon on the end of that! And that is just
+
+113
+00:07:25,466 --> 00:07:29,466
+giving it all the parameters it wants. Let's try building, see what happens
+
+114
+00:07:29,466 --> 00:07:33,466
+What I'm hoping is we're going to get a red line. Oh, I've missed one parameter haven't I?
+
+115
+00:07:33,466 --> 00:07:37,466
+I didn't give it a thickness! You see it was asking for thickness! It's
+
+116
+00:07:37,466 --> 00:07:41,466
+happy without one, but I'm going to make the thickness say 10 centimeters
+
+117
+00:07:41,466 --> 00:07:45,466
+OK and just rebuild. By the way, with building, you see this file isn't
+
+118
+00:07:45,466 --> 00:07:49,466
+saved here in the IDE. If you go over to Unreal, even without the file saved, and click Compile,
+
+119
+00:07:49,466 --> 00:07:53,466
+go back to your IDE, you see it has actually saved the file for you
+
+120
+00:07:53,466 --> 00:07:57,466
+and it's compiling, but of course, we have a compile fail so let's see what the
+
+121
+00:07:57,466 --> 00:08:01,466
+problem is. Literal suffix F operator on line 59
+
+122
+00:08:01,466 --> 00:08:05,466
+and you can get your errors from Unreal too! Let's go see what's wrong with that,
+
+123
+00:08:05,466 --> 00:08:09,466
+and it's because if you're going to have a float you've got to put a decimal in it. Again, I could go back
+
+124
+00:08:09,466 --> 00:08:13,466
+to Unreal and compile from there. This time, we should get more joy! That's
+
+125
+00:08:13,466 --> 00:08:17,466
+it! Now we play! Now, I can eject either by hitting the Eject button or
+
+126
+00:08:17,466 --> 00:08:21,466
+you can see the short key there, it's F8. If I zoom out, then
+
+127
+00:08:21,466 --> 00:08:25,466
+do we have a debug trace?Either inside, Yeah we do, but it's inside our body,
+
+128
+00:08:25,466 --> 00:08:29,466
+and that means that 20 centimeters is simply not enough. So, let's do the
+
+129
+00:08:29,466 --> 00:08:33,466
+hot reload! I'm still playing here, you see! Now, I'm going to pop back to the IDE,
+
+130
+00:08:33,466 --> 00:08:37,466
+I'm going to make the length of this vector
+
+131
+00:08:37,466 --> 00:08:41,466
+here, above your head, more like 50 centimeters. I'm going to go
+
+132
+00:08:41,466 --> 00:08:45,466
+back to Unreal, without even saving, and just click compile while we're running!
+
+133
+00:08:45,466 --> 00:08:49,466
+It's going to do what we call a hot reload! Ah here we go! Now, because we're quite
+
+134
+00:08:49,466 --> 00:08:53,466
+big, 50 centimeters just sticks out the top but it is sticking out. Cool, so
+
+135
+00:08:53,466 --> 00:08:57,466
+now we have a vector from the center of the sphere sticking out the top. You're now
+
+136
+00:08:57,466 --> 00:09:01,466
+ready for your challenge, here's your challenge! So, calculate LineTraceEnd! I want
+
+137
+00:09:01,466 --> 00:09:05,466
+you to create a private variable, float reach = 100.f; 100 centimeters to start with.
+
+138
+00:09:05,466 --> 00:09:09,466
+I've kind of done that for you, just put it in the right place in the right file. Calculate Line
+
+139
+00:09:09,466 --> 00:09:13,466
+TraceEnd through the simple vector addition. I've set you up for it, you may need to recap the
+
+140
+00:09:13,466 --> 00:09:17,466
+last couple of slides or earlier in the video. Test the debug trace, eject
+
+141
+00:09:17,466 --> 00:09:21,466
+to visualize, like I just did, to make sure it's working right, and then, share in the discussions
+
+142
+00:09:21,466 --> 00:09:25,466
+why, from your point of view when you're inside the player, it looks like a square.
+
+143
+00:09:25,466 --> 00:09:29,466
+From the outside it'll look good, but why from the inside does it just look like a square?
+
+144
+00:09:29,466 --> 00:09:33,466
+Share that in the discussions and I'll see you in a moment!
+
+145
+00:09:33,466 --> 00:09:37,466
+OK welcome back! So the LineTraceEnd that we actually want
+
+146
+00:09:37,466 --> 00:09:41,466
+is the PlayerViewPointLocation, per the slide, plus the
+
+147
+00:09:41,466 --> 00:09:45,466
+PlayerViewPointRotation oops
+
+148
+00:09:45,466 --> 00:09:49,466
+.Vector()
+
+149
+00:09:49,466 --> 00:09:53,466
+times Reach; OK,
+
+150
+00:09:53,466 --> 00:09:57,466
+now I need to make something called Reach. So, we're going to go to the header file,
+
+151
+00:09:57,466 --> 00:10:01,466
+which is one way to get to it is to go drill in here to Source, BuildingEscape,
+
+152
+00:10:01,466 --> 00:10:05,466
+Grabber.h. Down in the private section, I'm going to make a comment
+
+153
+00:10:05,466 --> 00:10:09,466
+first, so that it's self documenting. "// How
+
+154
+00:10:09,466 --> 00:10:13,466
+far... Hmm, what do we say?
+
+155
+00:10:13,466 --> 00:10:17,466
+So, "// How far ahead of the player can
+
+156
+00:10:17,466 --> 00:10:23,733
+we reach in cm" (centimeters)? And then, I'm going to go... I don't need to say private, I just need to say float. private, I just need to say float.
+
+157
+00:10:23,733 --> 00:10:27,733
+Woops, this is an edit after the fact! It looks like I failed my own challenge here! Of
+
+158
+00:10:27,733 --> 00:10:31,733
+course, I do need the word private, so please go ahead and put private colon above.
+
+159
+00:10:31,733 --> 00:10:35,733
+I'll add that in, in a few lectures time, because to do it now would mess up my
+
+160
+00:10:35,733 --> 00:10:38,800
+code history, so well spotted if you saw that!
+
+161
+00:10:38,800 --> 00:10:42,800
+Reach, which I've kept copied, = 100f to give it an initialization.
+
+162
+00:10:42,800 --> 00:10:46,800
+Now, back in the actual implementation file,
+
+163
+00:10:46,800 --> 00:10:50,800
+Reach should work absolutely fine, and this is basically ready to go. All I've done
+
+164
+00:10:50,800 --> 00:10:54,800
+is taken the PlayerViewPointRotation times the Reach and added it on there. You can
+
+165
+00:10:54,800 --> 00:10:58,800
+put all this in brackets if you want. If you're in insert mode, you can put it in brackets,
+
+166
+00:10:58,800 --> 00:11:02,800
+but because of body math, you may have heard of the presence of arithmetical
+
+167
+00:11:02,800 --> 00:11:06,800
+operators. The star here will bind, the multiplication will
+
+168
+00:11:06,800 --> 00:11:10,800
+bing more strongly than the plus, so it's going to do it this way anyways. So, strictly speaking
+
+169
+00:11:10,800 --> 00:11:14,800
+you just don't need the brackets, but if in doubt stick them in.
+
+170
+00:11:14,800 --> 00:11:18,800
+OK, let's build! It's running the
+
+171
+00:11:18,800 --> 00:11:22,800
+header tool. Skippity beepy dee... OK, so we've got a
+
+172
+00:11:22,800 --> 00:11:26,800
+problem on Grabber.h 25, and I've done the same
+
+173
+00:11:26,800 --> 00:11:30,800
+thing that I did before. You need the decimal before your f. OK, rookie
+
+174
+00:11:30,800 --> 00:11:34,800
+error. Let's go back into Unreal and compile from there! It doesn't really matter whether you build from
+
+175
+00:11:34,800 --> 00:11:38,800
+Visual Studio or compile from Unreal, it's the same job. Unreal is reaching into Visual
+
+176
+00:11:38,800 --> 00:11:42,800
+Studio and doing that compilation for you. So,
+
+177
+00:11:42,800 --> 00:11:46,800
+I've actually already ejected and it's running, and look it's straight out in front. Now, if I repossess
+
+178
+00:11:46,800 --> 00:11:50,800
+and look around, it's just a square. You're going to explain in the discussion why that's
+
+179
+00:11:50,800 --> 00:11:54,800
+the case, and that's because we're looking straight down that vector. If I F8 to
+
+180
+00:11:54,800 --> 00:11:58,800
+un-possess and come out, it's because our camera is right in the center of this
+
+181
+00:11:58,800 --> 00:12:02,800
+looking straight down that debug trace, and that's why, from that point of view,
+
+182
+00:12:02,800 --> 00:12:06,800
+it just looks like a square! OK, congratulations,
+
+183
+00:12:06,800 --> 00:12:10,800
+that's massive progress, and I will see you soon!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section3/BE23 Using DrawDebugLine.srt

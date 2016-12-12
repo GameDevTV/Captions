@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section3/BE35 Iterating over TArray with for.srt
 ﻿WEBVTT
 
 1
@@ -456,3 +457,462 @@ movement going on with my default character now. Let me know in the discussions 
 00:07:34.066 --> 00:07:41.066
 you have that. and if you do. also see if you can work out what it is and I will see you in the next video!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+So, welcome to
+
+2
+00:00:04,000 --> 00:00:08,000
+Iterating over TArray with for. In this video, we'll be
+
+3
+00:00:08,000 --> 00:00:12,000
+using an auto reference as an auto reference type,
+
+4
+00:00:12,000 --> 00:00:16,000
+automatically iterating over
+
+5
+00:00:16,000 --> 00:00:20,000
+a TArray, without going through all the elements in it. The pattern we'll use
+
+6
+00:00:20,000 --> 00:00:24,000
+uses for, const, some auto iterator,
+
+7
+00:00:24,000 --> 00:00:28,000
+in or over Array, like that, and we'll look at how to find
+
+8
+00:00:28,000 --> 00:00:32,000
+an Actor's mass. And finally, we'll be tweaking and testing our mass values.
+
+9
+00:00:32,000 --> 00:00:36,000
+By the end of the video, you'll be in a situation where something like this will be
+
+10
+00:00:36,000 --> 00:00:40,000
+happening. We will be able to go  across, grab the table, put it down,
+
+11
+00:00:40,000 --> 00:00:44,000
+and when we're standing on the pressure plate, with the table, the doors will open, and
+
+12
+00:00:44,000 --> 00:00:48,000
+then, we grab a chair and stick it on top of the table. Look at this! I move
+
+13
+00:00:48,000 --> 00:00:52,933
+away, the doors are open, and we are free! So, that's cool! See you soon!
+
+14
+00:00:52,933 --> 00:00:56,933
+Hi, welcome back! So, I left you reading this rather unweildy
+
+15
+00:00:56,933 --> 00:01:00,933
+piece of documentation here, I hope you haven't spent all night reading it. I just wanted you to skim it as I
+
+16
+00:01:00,933 --> 00:01:04,933
+I did say, and the idea was to find the bit that talks about
+
+17
+00:01:04,933 --> 00:01:08,933
+how we can use a for, in order to iterate
+
+18
+00:01:08,933 --> 00:01:12,933
+automatically over the array. Alright, so this
+
+19
+00:01:12,933 --> 00:01:16,933
+is an example here. This says for
+
+20
+00:01:16,933 --> 00:01:20,933
+auto reference. So, don't worry about what the type is, you decide for me, but make an
+
+21
+00:01:20,933 --> 00:01:24,933
+automatic reference type, called the
+
+22
+00:01:24,933 --> 00:01:28,933
+iterator, the thing that changes each loop's Str and then,
+
+23
+00:01:28,933 --> 00:01:32,933
+iterate across StrArr, String Array. So, for auto-reference
+
+24
+00:01:32,933 --> 00:01:36,933
+String and String Array, basically is how I'd read that. Do some
+
+25
+00:01:36,933 --> 00:01:40,933
+stuff! And it goes through as many elements as there currently are in String Array
+
+26
+00:01:40,933 --> 00:01:44,933
+doing things, so it's very neat and tidy and it knows when the end of the array is,
+
+27
+00:01:44,933 --> 00:01:48,933
+and it's just kind of meaningful and simple. So, let's go ahead and use
+
+28
+00:01:48,933 --> 00:01:52,933
+a syntax very much like that now, and get our
+
+29
+00:01:52,933 --> 00:01:56,933
+thing-a-majig working OK. [Laughs] So, we have overlapping
+
+30
+00:01:56,933 --> 00:02:00,933
+Actors here, and we need to use this range based for loop to go
+
+31
+00:02:00,933 --> 00:02:04,933
+through them, firstly, printing out their names and then secondly adding up their mass.
+
+32
+00:02:04,933 --> 00:02:08,933
+But of course, it's not that easy, I want you to do it. So, iterate
+
+33
+00:02:08,933 --> 00:02:12,933
+over OverlappingActors, using that syntax I showed you in the beginning.
+
+34
+00:02:12,933 --> 00:02:16,933
+Then, for each Actor found, log their name out to
+
+35
+00:02:16,933 --> 00:02:20,933
+the Console, and as a bonus, add their masses together and test that this whole method
+
+36
+00:02:20,933 --> 00:02:24,933
+works. Now, I've got a hint coming up, and if you don't want the hint, and you want the bigger challenge
+
+37
+00:02:24,933 --> 00:02:28,933
+just pause right now. And then, the hint is coming now, which is if you are
+
+38
+00:02:28,933 --> 00:02:32,933
+going to go and add those masses, the class you need to find is UPrimitive
+
+39
+00:02:32,933 --> 00:02:36,933
+Component. That's the thing you're going to need to find on the
+
+40
+00:02:36,933 --> 00:02:40,933
+Actor, and furthermore, you're going to need to go ahead and find the mass for that. OK,
+
+41
+00:02:40,933 --> 00:02:44,933
+pause the video and at least log out the names of these guys, if you possibly can,
+
+42
+00:02:44,933 --> 00:02:48,933
+using that for syntax and the documentation. And I'll see you in a moment!
+
+43
+00:02:48,933 --> 00:02:52,933
+OK welcome back!
+
+44
+00:02:52,933 --> 00:02:56,933
+So, let's take a look at this! What we want is for. Then, we want
+
+45
+00:02:56,933 --> 00:03:00,933
+auto-reference, because we don't want to be typing the type of an iterator,
+
+46
+00:03:00,933 --> 00:03:04,933
+we don't really care. But it's going to be an Actor and it's in the
+
+47
+00:03:04,933 --> 00:03:08,933
+overlapping Actors.
+
+48
+00:03:08,933 --> 00:03:12,933
+OK, so for every
+
+49
+00:03:12,933 --> 00:03:16,933
+Actor in the overlapping actors, do something. By the way, I'm just going to reinforce
+
+50
+00:03:16,933 --> 00:03:20,933
+things, pop a const in here. Why? Because I want to just emphasize
+
+51
+00:03:20,933 --> 00:03:24,933
+that the Actor does not change in this process, we just receive the Actor
+
+52
+00:03:24,933 --> 00:03:28,933
+and do something with it, we don't change it. OK, so for each Actor what are we going to do? What is this
+
+53
+00:03:28,933 --> 00:03:32,933
+Actor, firstly? It's a pointer to
+
+54
+00:03:32,933 --> 00:03:36,933
+an Actor. So, we're going to use the
+
+55
+00:03:36,933 --> 00:03:40,933
+operator. Then, we're going to FindComponentBy
+
+56
+00:03:40,933 --> 00:03:44,933
+Class and the class is <UPrimitiveComponent>
+
+57
+00:03:44,933 --> 00:03:48,933
+How would we know that the class is UPrimitiveComponent? You would have to do a little bit of
+
+58
+00:03:48,933 --> 00:03:52,933
+Google searching and find an example where somebody is setting mass,
+
+59
+00:03:52,933 --> 00:03:56,933
+and then, you'd realize that the mass is set on the primitive component.
+
+60
+00:03:56,933 --> 00:04:00,933
+You may also make some headway, remember, by going to the Developer Tools, the
+
+61
+00:04:00,933 --> 00:04:04,933
+Class Viewer, and then, turning off Actors Only on a PC, and
+
+62
+00:04:04,933 --> 00:04:08,933
+looking for "mass" may give you some results. It doesn't tell me anything here.
+
+63
+00:04:08,933 --> 00:04:12,933
+So, in this case, just search if I wasn't here to help you, but
+
+64
+00:04:12,933 --> 00:04:16,933
+I am here to help you and I'm telling you that what we want to do is get a primitive component that's a
+
+65
+00:04:16,933 --> 00:04:20,933
+method. Once we've got the primitive component, we can drill into that and we can
+
+66
+00:04:20,933 --> 00:04:24,933
+say GetMass(). OK, so that
+
+67
+00:04:24,933 --> 00:04:28,933
+returns the mass. Pretty cool! In fact, what we're doing is saying Total
+
+68
+00:04:28,933 --> 00:04:32,933
+Mass +=. So total mass = total mass +
+
+69
+00:04:32,933 --> 00:04:36,933
+the mass of the Actor we found in this loop. Then, we keep
+
+70
+00:04:36,933 --> 00:04:40,933
+going around the loop. Cool hey! So, let's do a quick log! Just say that what we've
+
+71
+00:04:40,933 --> 00:04:44,933
+got UE_LOG(LogTemp,
+
+72
+00:04:44,933 --> 00:04:48,933
+Warning, TEXT) remember we have to pass it TEXT, and then, we're
+
+73
+00:04:48,933 --> 00:04:52,933
+going to pass it something like
+
+74
+00:04:52,933 --> 00:04:56,933
+("%s on pressure plate"))
+
+75
+00:04:56,933 --> 00:05:00,933
+And what is %s? Well, it's going to be the Actor
+
+76
+00:05:00,933 --> 00:05:04,933
+->GetName() and
+
+77
+00:05:04,933 --> 00:05:08,933
+remember that we have to use a star, which means
+
+78
+00:05:08,933 --> 00:05:12,933
+contents of. OK fantastic! Let's go ahead
+
+79
+00:05:12,933 --> 00:05:16,933
+and just check a couple of things. The chair mass needs to be sensible. So, what is the chair
+
+80
+00:05:16,933 --> 00:05:20,933
+mass? 10, that's very light for a chair. My chair is 15, the one I'm sitting on right now, so
+
+81
+00:05:20,933 --> 00:05:24,933
+let's use 15. I'm sitting on a diffurient world
+
+82
+00:05:24,933 --> 00:05:28,933
+chair, spelled very strangely. OK, so what's the mass of the table? Let's call it 25! So,
+
+83
+00:05:28,933 --> 00:05:32,933
+15 and 25 add up to 40! What was our nastily hard
+
+84
+00:05:32,933 --> 00:05:36,933
+coded boundary threshold?
+
+85
+00:05:36,933 --> 00:05:40,933
+50, so let's say make it 30!
+
+86
+00:05:40,933 --> 00:05:44,933
+So, 30 kilos is not enough for either the chair or the
+
+87
+00:05:44,933 --> 00:05:48,933
+table on their own to trigger. That's good, let's make double sure that
+
+88
+00:05:48,933 --> 00:05:52,933
+the Default Pawn has enough mass. Remember, that's under the CollisionComponent.
+
+89
+00:05:52,933 --> 00:05:58,066
+Mass 70, yeah plenty! OK, let's see what happens!
+
+90
+00:05:58,066 --> 00:06:02,066
+So, back in the game! Let's start by coming over.
+
+91
+00:06:02,066 --> 00:06:06,066
+Sorry compiling first of course. Coming over
+
+92
+00:06:06,066 --> 00:06:10,066
+and grabbing the table, and let's see if
+
+93
+00:06:10,066 --> 00:06:14,066
+that generates the relevant events. There you go, the Default Pawn...
+
+94
+00:06:14,066 --> 00:06:18,066
+No, that's the Default Pawn, that's me on the pressure plate, but the table isn't generating the event. So,
+
+95
+00:06:18,066 --> 00:06:22,066
+this is what you need to do to the table. You need to click on the table, and
+
+96
+00:06:22,066 --> 00:06:26,066
+where it says Collision in the details of the table, of course, we need to generate
+
+97
+00:06:26,066 --> 00:06:30,066
+at least overlap events with the table. Let's prove that fixes it with the
+
+98
+00:06:30,066 --> 00:06:34,066
+table, then we can do the same with the chair. Overlap events are the event
+
+99
+00:06:34,066 --> 00:06:38,066
+where you overlap with a trigger. There you go, the table is now on the pressure plate!
+
+100
+00:06:38,066 --> 00:06:42,066
+That's cool! Now, I've got a little bit of phantom movement going with my pawn here.
+
+101
+00:06:42,066 --> 00:06:46,066
+It would be interesting to know, in the discussions, if you get the same thing, a little bit of
+
+102
+00:06:46,066 --> 00:06:50,066
+drifting, since we made the modifications to it. Just let me know if you get that, and then, we'll solve
+
+103
+00:06:50,066 --> 00:06:54,066
+the bug if it's common.  Let's fix the chair as well. The chair needs to
+
+104
+00:06:54,066 --> 00:06:58,066
+have generate overlap events, and then let's make sure of three things. Firstly, I open
+
+105
+00:06:58,066 --> 00:07:02,066
+the doors, which I do. Secondly that the
+
+106
+00:07:02,066 --> 00:07:06,066
+oops... There you go! ...that the table alone does not
+
+107
+00:07:06,066 --> 00:07:10,066
+because it doesn't have enough total mass. Yep, it did while I was standing
+
+108
+00:07:10,066 --> 00:07:14,066
+on it but not when it's on its own. And then the chair.
+
+109
+00:07:14,066 --> 00:07:18,066
+Yeah that's good! Now the doors stay open, and let's just try the table
+
+110
+00:07:18,066 --> 00:07:22,066
+on its own. So, the chair, on its own, should not be heavy enough.
+
+111
+00:07:22,066 --> 00:07:26,066
+[Laughs] I nearly got the table out the door then
+
+112
+00:07:26,066 --> 00:07:30,066
+and that doesn't! OK great! So, I just have a little bit of phantom
+
+113
+00:07:30,066 --> 00:07:34,066
+movement going on with my default character now. Let me know in the discussions if
+
+114
+00:07:34,066 --> 00:07:41,066
+you have that, and if you do, also see if you can work out what it is and I will see you in the next video!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section3/BE35 Iterating over TArray with for.srt

@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section9/ZR11 Setting Up Your Navmesh.srt
 WEBVTT
 Kind: captions
 Language: en
@@ -456,3 +457,462 @@ relative scaling between you and the
 00:09:08.910 --> 00:09:13.490
 zombie. because at the moment he's not at all scary. at that height. So. see you soon! [Laughs]
 
+=======
+Kind: captions
+Language: en
+
+00:00:00,000 --> 00:00:07,879
+Hey, welcome back guys! So, we're going to get an Artificial Intelligence Agent in our
+
+00:00:07,879 --> 00:00:11,700
+game now. We'll be setting up our Navmesh to do that. So, I'm going to be telling
+
+00:00:11,700 --> 00:00:16,390
+you what a Navmesh is. We'll be
+setting up our terrain Navmesh. We'll be
+
+00:00:16,390 --> 00:00:20,240
+talking a little bit about baking
+settings. This is not to do with cooking! [Laughs]
+
+00:00:20,240 --> 00:00:24,250
+We will be baking our Navmesh, and you'll
+preview it, to make sure that it suits
+
+00:00:24,250 --> 00:00:31,260
+our terrain. So, let's go back over into
+Unity, and take a little look at what we
+
+00:00:31,260 --> 00:00:34,899
+need to do. We have a terrain, right, and
+I've seen some fantastic different
+
+00:00:34,899 --> 00:00:38,360
+terrains, in the discussions, please do
+post yours if you haven't already.
+
+00:00:38,360 --> 00:00:42,190
+Most of what I've seen is much better
+than ours, but the key here really is, we're
+
+00:00:42,190 --> 00:00:45,770
+going to need to adjust the terrain as we
+go along, because we don't really know
+
+00:00:45,770 --> 00:00:49,969
+how suitable it is, until we play the game.
+So, don't worry if you're terrain doesn't look
+
+00:00:49,969 --> 00:00:54,670
+amazing. You can improve it as you go along, but what we need to do is to have a zombie
+
+00:00:54,670 --> 00:00:58,660
+chase us. I already want a zombie chasing us. Now, Unity has provided us a
+
+00:00:58,660 --> 00:01:02,980
+very useful standard asset. In fact, go ahead and look under your Standard Assets Folder
+
+00:01:02,980 --> 00:01:08,900
+under Characters now, and then, you'll
+find Third Person Characters here. And if
+
+00:01:08,900 --> 00:01:14,010
+you don't have this pack, go to Assets,
+Import Package and Characters. Once you
+
+00:01:14,010 --> 00:01:18,200
+finish that import, you should find
+Third Person Character is an option,
+
+00:01:18,200 --> 00:01:20,689
+and in there, you'll have lots of things,
+which you are welcome to take a look at but one
+
+00:01:20,689 --> 00:01:25,020
+of them is a Prefab Folder. And in the Prefab Folder, you'll have a Third Person
+
+00:01:25,020 --> 00:01:29,250
+Controller, which we're not using here
+because we have a first person game, from
+
+00:01:29,250 --> 00:01:33,950
+the eyes of the player, but we do have an
+AI Third Person Controller Prefab. So, you're
+
+00:01:33,950 --> 00:01:38,189
+welcome to drop that now, into the scene.
+Let's go ahead and do that, and I'm going to
+
+00:01:38,189 --> 00:01:45,980
+set my position to say 255... 200, something like that, and let's see where that ends up putting it.
+
+00:01:45,980 --> 00:01:51,560
+It's Ok, he's sitting just above the
+ground, somewhere on the map. If that puts him
+
+00:01:51,560 --> 00:01:55,180
+in the middle of a hill for you, then
+move your AI
+
+00:01:55,180 --> 00:02:02,290
+Third Person Controller, which I'm going
+to rename to Zombie01, somewhere, where he's
+
+00:02:02,290 --> 00:02:04,869
+just off the ground, so that he falls to the
+ground, when you click play.
+
+00:02:04,869 --> 00:02:09,800
+So, if you then click play, go back to the Scene View, and have a look at your zombie. You can double click on
+
+00:02:09,800 --> 00:02:13,460
+him remember. You'll see that he's probably falling down a hill or something now or maybe just
+
+00:02:13,470 --> 00:02:18,810
+standing there. He's a guy called Ethan, we're going to be using him as a placeholder zombie. Whether or not I
+
+00:02:18,810 --> 00:02:22,000
+actually get around to making full zombies for this game, I think it's unlikely.
+
+00:02:22,000 --> 00:02:27,220
+I'm trying to show you the elements of the game here, but there he is. And there's a few things going on with
+
+00:02:27,220 --> 00:02:31,980
+him, and he needs in order to be able to
+to navigate to me, he needs something
+
+00:02:31,980 --> 00:02:38,270
+called a Navmesh. So, let me show you
+this stage by stage. Firstly, on your
+
+00:02:38,270 --> 00:02:41,680
+Third Person Controller, if you look down,
+it's got several elements, a Transform
+
+00:02:41,680 --> 00:02:44,670
+which tells it where it is, an Animator
+which was responsible for his kind of
+
+00:02:44,670 --> 00:02:49,900
+cool swaying action, a Rigidbody, which
+gives him some physics, a Capsule
+
+00:02:49,900 --> 00:02:54,030
+Collider, which allows him to go up and
+down the slopes, a Navmesh Agent...
+
+00:02:54,030 --> 00:02:58,960
+Hmm, interesting and we'll come back to that in a bit, and then, a couple of scripts. An AI
+
+00:02:58,960 --> 00:03:03,330
+Character Controller Script and a Third
+Person Character Script. Cool! So, there's an
+
+00:03:03,330 --> 00:03:07,930
+overview of this guy. Now, one of the
+things he has is a target, and if you drag
+
+00:03:07,930 --> 00:03:11,560
+the First Person Controller into the
+target, like that... So I've taken the First
+
+00:03:11,560 --> 00:03:15,970
+Person Controller, from my Hierarchy, and
+selected it as the target of this agent. If
+
+00:03:15,970 --> 00:03:20,400
+you play the game now, and go to the
+Scene View and look at the Agent, he's
+
+00:03:20,400 --> 00:03:24,180
+not actually moving. He's not trying to
+move towards us, despite the fact that
+
+00:03:24,180 --> 00:03:26,720
+that's what we've told the system to do. We've said
+
+00:03:26,720 --> 00:03:33,600
+chase me, and he is not chasing me right
+now. So, the reason is, because there is no
+
+00:03:33,600 --> 00:03:37,870
+Navmesh for him to follow. He does not
+have a Navmesh, and there's actually a warning
+
+00:03:37,870 --> 00:03:40,630
+along the bottom of the screen, saying
+"Set destination can only be called on an
+
+00:03:40,630 --> 00:03:45,680
+active agent that has been placed on a Navmesh". There is no Navmesh. So what
+
+00:03:45,680 --> 00:03:50,070
+a Navmesh is, is a way of this Artificial Intelligence Agent
+
+00:03:50,070 --> 00:03:55,320
+understanding enough about the world that it can actually navigate the
+
+00:03:55,320 --> 00:04:00,150
+world. Alright, so we're going to set up our first Navmesh, right now. So, what you want to
+
+00:04:00,150 --> 00:04:04,380
+do is click on the terrain, and we're going to open a new module, under Window, we have
+
+00:04:04,380 --> 00:04:08,490
+Navigation. Now, for me that's over on the right. You can put it where you like, the
+
+00:04:08,490 --> 00:04:11,790
+right hand side is reasonable. And if
+you're not selected on the terrain, say
+
+00:04:11,790 --> 00:04:15,209
+you're selected on a light, it's going to
+say select a mesh renderer or a terrain
+
+00:04:15,209 --> 00:04:19,720
+from the scene. Ok so, I've selected a terrain. Now, we can leave all these settings as
+
+00:04:19,720 --> 00:04:21,280
+they are for the moment,
+
+00:04:21,280 --> 00:04:25,190
+and just go to the Bake Tab. And what you
+need to do with a Navmesh is, you
+
+00:04:25,190 --> 00:04:30,280
+actually need to create it offline here, in this case, before you run the
+
+00:04:30,280 --> 00:04:35,570
+game, and then bake the Navigation Mesh onto the terrain. So, let's see
+
+00:04:35,570 --> 00:04:39,510
+what that actually means. Some basic
+settings the Agent Radius, half a meter is
+
+00:04:39,510 --> 00:04:43,560
+about right. Agent Height 2 meters
+is about right. Maximum Slope 45 is
+
+00:04:43,560 --> 00:04:48,190
+about right. Step Height 40 centimetres, that's the maximum step that the agent can go up,
+
+00:04:48,190 --> 00:04:51,030
+that's about right, and we don't worry
+about these advanced settings for now.
+
+00:04:51,030 --> 00:04:54,640
+So, we should just click Bake, with those settings. It's going to take a little while. You can
+
+00:04:54,640 --> 00:05:00,460
+see the progress, down on the bottom right. What it's doing now is it's exporting the terrain tiles, and
+
+00:05:00,460 --> 00:05:05,160
+when it's finished doing that it's then going to start calculating the Navmesh. And then, in a
+
+00:05:05,160 --> 00:05:08,990
+moment you'll see your whole terrain fill
+up with some blue indications as to
+
+00:05:08,990 --> 00:05:13,640
+where this guy can and can't go. Now, there are a lot more advanced things we can do with
+
+00:05:13,640 --> 00:05:17,660
+Navmeshes. He can jump, he can drop, and he can even kind of go through a portal
+
+00:05:17,660 --> 00:05:22,130
+to somewhere else, which is the Off Mesh Links. But for now, we're just focusing on
+
+00:05:22,130 --> 00:05:27,190
+the real basics, which is the idea of a
+simple Navmesh, and this could take
+
+00:05:27,190 --> 00:05:31,180
+a while on your machine, it might be much quicker. I'm on a Quad Core i7 here on
+
+00:05:31,180 --> 00:05:35,169
+a laptop, it could be much slower. So, that
+might take you a while and when it's finished,
+
+00:05:35,169 --> 00:05:40,070
+have a look around you're terrain, and
+you will find that the blue areas are
+
+00:05:40,070 --> 00:05:44,610
+where this guy is going to be able to
+navigate to. Now, there's a limited draw
+
+00:05:44,610 --> 00:05:47,680
+distance on these, so you may need to
+get relatively close to see it in action.
+
+00:05:47,680 --> 00:05:52,250
+And I'm using these First Person Control
+Keys again W, S, A, D, while holding down the
+
+00:05:52,250 --> 00:05:55,710
+right mouse button, and you can see the
+areas of the terrain that he is able to navigate.
+
+00:05:55,710 --> 00:06:02,850
+Cool hey! So, before we go any further, I want you to create your first Navmesh. Bake a
+
+00:06:02,850 --> 00:06:07,300
+Navmesh into the terrain, preview it in your scene, adjust either the terrain or the
+
+00:06:07,300 --> 00:06:12,780
+Navmesh settings, things like the
+slope, until it's how you want it. And then,
+
+00:06:12,780 --> 00:06:17,919
+share a screenshot of your baked Navmesh in the discussions. So, go ahead
+
+00:06:17,919 --> 00:06:24,529
+pause the video and set up your Navmesh... your first version of your Navmesh now.
+
+00:06:24,529 --> 00:06:29,009
+Cool welcome back! So, I'm going to stick
+with what we've got here for the moment,
+
+00:06:29,009 --> 00:06:33,029
+and just check it works before the end
+of this video. And then, we'll go
+
+00:06:33,029 --> 00:06:37,769
+from there. So, the way to check it works
+is simply to play the game, and then go
+
+00:06:37,769 --> 00:06:40,669
+to the Scene View and look at this zombie guy. Now, there he goes, he's running.
+
+00:06:40,669 --> 00:06:44,519
+Now, he's doing some weird stuff. If we look at him, he's kind of doing mad jumping around,
+
+00:06:44,519 --> 00:06:49,399
+but he is effectively running. Now, if he's
+not behaving right, if he's doing jumps all
+
+00:06:49,399 --> 00:06:53,069
+the time like this jump jump jump, holding his arms up in the air looking like a loony, then
+
+00:06:53,069 --> 00:06:56,629
+the reason is you need to go to the
+zombie, and you need to go to the
+
+00:06:56,629 --> 00:06:59,769
+Inspector for the zombie and one of his
+settings in the Third Person Character
+
+00:06:59,769 --> 00:07:04,929
+Script is a Ground Check Distance. So, you want to change this Ground Check
+
+00:07:04,929 --> 00:07:09,109
+Distance, it's a check on distance
+between the character and the ground,
+
+00:07:09,109 --> 00:07:13,519
+and you want to change it to something like 2 from 0.2, a nice big value. Now, let's look
+
+00:07:13,519 --> 00:07:18,229
+at the guy; double click on the zombie... in the Scene View remember, and you'll get a
+
+00:07:18,229 --> 00:07:21,109
+quick look at how he's running across
+the terrain. Now, you can follow him around,
+
+00:07:21,109 --> 00:07:24,979
+watching his Capsule Collider stay in
+contact with the ground. Now, it's that
+
+00:07:24,979 --> 00:07:29,219
+Capsule Collider, that capsule shaped inner collider that is going to stay in contact
+
+00:07:29,219 --> 00:07:33,179
+with the ground mesh, and there he goes, he's running along the terrain after us.
+
+00:07:33,180 --> 00:07:37,520
+Let's go into the game, and you can maximize, during play by the way, by just clicking
+
+00:07:37,529 --> 00:07:41,459
+here and then Maximize. And let's look
+around, I'm actually, for the first time,
+
+00:07:41,459 --> 00:07:45,679
+feeling a little bit anxious. I know that
+somewhere out there, there is a zombie running
+
+00:07:45,679 --> 00:07:50,809
+across the terrain chasing me. So, let's
+see if we can see him. And this is what I
+
+00:07:50,809 --> 00:07:54,109
+want you to do, I want you to get to the point where the zombie actually chases you. Now,
+
+00:07:54,109 --> 00:07:57,279
+in case you've missed a bit of this
+video, while we wait for him to be
+
+00:07:57,279 --> 00:08:01,679
+visible, where I showed you how to make
+yourself the target, it's under the
+
+00:08:01,679 --> 00:08:07,839
+zombie itself in the third person... Well
+sorry, in the AI Character Controller Script
+
+00:08:07,839 --> 00:08:12,169
+here, and the target, we make the target
+the FPS controller us, and it
+
+00:08:12,169 --> 00:08:16,739
+will continually chase us. Ok, so let's go back to the Scene View, find this zombie.
+
+00:08:16,739 --> 00:08:21,249
+How's he doing? He's running along the terrain after us. So, back in Game View let's
+
+00:08:21,249 --> 00:08:26,409
+maximize. Where is he coming from? Probably from the right, I'm not sure.
+
+00:08:26,409 --> 00:08:29,420
+I'm slightly nervous that this guy is going to jump out on me in a minute,
+
+00:08:29,420 --> 00:08:33,380
+and I don't know which direction from.
+Now, I don't know if the scaling is going to be
+
+00:08:33,380 --> 00:08:37,430
+right, when this zombie gets here. We may be far too big; he may be far too small.
+
+00:08:37,430 --> 00:08:40,320
+We're going to worry about that in a
+subsequent video. I just want to make sure
+
+00:08:40,320 --> 00:08:44,740
+that he actually gets to me, because
+that's a nice win. So, where is he
+
+00:08:44,740 --> 00:08:53,050
+coming from? This is scary. Fun hey! For the first time, we are feeling a little bit
+
+00:08:53,050 --> 00:08:55,210
+concerned. Oh, here he comes!
+
+00:08:55,210 --> 00:08:58,990
+Oh, I'm not worried, look at that poxy little
+zombie. He's tiny but he stops when he
+
+00:08:58,990 --> 00:09:02,090
+gets to us and patiently stands there with
+his arms by his side. Not quite the
+
+00:09:02,090 --> 00:09:05,720
+effect we're looking for, but we clearly
+have a scaling issue going on. So, what
+
+00:09:05,720 --> 00:09:08,910
+we'll do in the next video is deal with the
+relative scaling between you and the
+
+00:09:08,910 --> 00:09:13,490
+zombie, because at the moment he's not at all scary, at that height. So, see you soon! [Laughs]
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section9/ZR11 Setting Up Your Navmesh.srt

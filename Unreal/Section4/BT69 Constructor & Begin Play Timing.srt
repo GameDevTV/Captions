@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT69 Constructor & Begin Play Timing.srt
 ﻿WEBVTT
 
 1
@@ -720,3 +721,726 @@ very important as we move forward with Unreal in general but also with this proj
 00:11:55.066 --> 00:11:57.999
 the next video!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+Hey hey hey! So welcome to
+
+2
+00:00:04,000 --> 00:00:08,000
+Constructor and Begin Play Timing! A little bit more fun that it sounds. What
+
+3
+00:00:08,000 --> 00:00:12,000
+we're going to know, by the end of this, is I'll explain the donkey as we go through, but what
+
+4
+00:00:12,000 --> 00:00:16,000
+we're going to know at the end of it is exactly what order C++ and Blueprint Construction
+
+5
+00:00:16,000 --> 00:00:20,000
+and Begin Plays get called in. And this becomes super important, as we build on our
+
+6
+00:00:20,000 --> 00:00:23,066
+architecture. So let's dive in and see how this happens!
+
+7
+00:00:23,066 --> 00:00:27,066
+So with all this talk of what happens when, you might quite rightly be
+
+8
+00:00:27,066 --> 00:00:31,066
+feeling, I'm not quite sure what's happening when now, I've kind of lost the plot?
+
+9
+00:00:31,066 --> 00:00:35,066
+So let's look at that a bit more carefully. I'm going to go to the Tank
+
+10
+00:00:35,066 --> 00:00:39,066
+UI blueprint graph. I'm just going to remove this debug stuff that I put in
+
+11
+00:00:39,066 --> 00:00:43,066
+last time, which is where we took the Tank Aiming Component Reference and
+
+12
+00:00:43,066 --> 00:00:47,066
+printed it out as a string. We know that that's not getting set, we'll look at Y architecturally
+
+13
+00:00:47,066 --> 00:00:51,066
+later. So I'm just going to reconnect the A point, as it was before, and leave that
+
+14
+00:00:51,066 --> 00:00:55,066
+code as not working. I think what is worth doing though is putting a comment in here, just
+
+15
+00:00:55,066 --> 00:00:59,066
+like you would in code. "TODO Check this
+
+16
+00:00:59,066 --> 00:01:03,066
+is set".
+
+17
+00:01:03,066 --> 00:01:07,066
+OK because this is not getting set at the right time, but this is not the aim of this video. The aim of this video
+
+18
+00:01:07,066 --> 00:01:11,066
+is to start looking at what happens when, both in terms of the constructors
+
+19
+00:01:11,066 --> 00:01:15,066
+and the BeginPlays. You saw in the last video how to print rather from Blueprint,
+
+20
+00:01:15,066 --> 00:01:19,066
+and you know very well how to log from VisualStudio.
+
+21
+00:01:19,066 --> 00:01:23,066
+I just want to show you one other thing about printing from Blueprint, before I set you a very early
+
+22
+00:01:23,066 --> 00:01:27,066
+challenge in this lecture. When you print something you've got a couple of options here.
+
+23
+00:01:27,066 --> 00:01:31,066
+You can print to, you can choose the String, but I would just hard code
+
+24
+00:01:31,066 --> 00:01:35,066
+the String in there for now. You can print to the screen, which comes up on the viewport, but you can also print to the
+
+25
+00:01:35,066 --> 00:01:39,066
+log. Now this will come out as gray text on the log. This Text Color here
+
+26
+00:01:39,066 --> 00:01:43,066
+determines the Text Color that is
+
+27
+00:01:43,066 --> 00:01:47,066
+coming into the screen, not onto the log OK. So the log's just going to come out black and white.
+
+28
+00:01:47,066 --> 00:01:51,066
+And for that reason, when you print I'm going to want you to
+
+29
+00:01:51,066 --> 00:01:55,066
+consider using a prefix. Now I'm going to just use the word donkey, because that hardly appears anywhere,
+
+30
+00:01:55,066 --> 00:01:59,066
+[Laughs] but you could use a UUID if you wanted. What do I mean by a UUID?
+
+31
+00:01:59,066 --> 00:02:03,066
+If you ever want to get yourself a short sequence of something unique, like our coupon
+
+32
+00:02:03,066 --> 00:02:07,066
+code, you can just type "UUID Generator" into Google and get something like this. Any part of
+
+33
+00:02:07,066 --> 00:02:11,066
+this string, it depends how long you want it. You could use a UUID in
+
+34
+00:02:11,066 --> 00:02:15,066
+here and you could say something colon, and then, you can say Tank
+
+35
+00:02:15,066 --> 00:02:19,066
+Blueprint constructed
+
+36
+00:02:19,066 --> 00:02:23,066
+type of thing OK. But that's now what we're doing here, I'm just showing you that
+
+37
+00:02:23,066 --> 00:02:27,066
+technique so you are now ready to do your challenge. So you're challenge is this! I want you
+
+38
+00:02:27,066 --> 00:02:31,066
+to convince yourself, with logs, what happens when. Log out the Construct
+
+39
+00:02:31,066 --> 00:02:35,066
+and the BeginPlay for the tank, both in C++
+
+40
+00:02:35,066 --> 00:02:39,066
+and in Blueprint. So in the C++ I want you to put something in the Constructor and
+
+41
+00:02:39,066 --> 00:02:43,066
+in the BeginPlay. If the BeginPlay is not on the tank, you need to put it back, and
+
+42
+00:02:43,066 --> 00:02:47,066
+then, add a single unique prefix to all of your log entries. Not a
+
+43
+00:02:47,066 --> 00:02:51,066
+different one for every log, but they all want to be prefixed with say donkey, because what you're then going to
+
+44
+00:02:51,066 --> 00:02:55,066
+be able to do is filter the logs, so that you can see the wood for the trees and just see the things you're interested
+
+45
+00:02:55,066 --> 00:02:59,066
+in. OK, so the logs that you get from C++, if
+
+46
+00:02:59,066 --> 00:03:03,066
+you log a warning verbosity will come out yellow, the ones that come from Blueprint will come out as
+
+47
+00:03:03,066 --> 00:03:07,066
+the standard color. Put the same prefix in front of all of these logs and let's see what
+
+48
+00:03:07,066 --> 00:03:11,066
+happens in what order. Do the Blueprint Constructors run and then the C++, or the
+
+49
+00:03:11,066 --> 00:03:15,066
+other way around, and when does BeginPlay run? Convince yourself of this. Go ahead, pause the video,
+
+50
+00:03:15,066 --> 00:03:19,066
+and let's make this discovery now.
+
+51
+00:03:19,066 --> 00:03:23,066
+OK welcome back! So not really any particular place
+
+52
+00:03:23,066 --> 00:03:27,066
+to start. I'm going to start on the tank blueprint here. We already have BeginPlay.
+
+53
+00:03:27,066 --> 00:03:31,066
+What I'm going to do is wire in this Print statement, straight after BeginPlay. I can do that by
+
+54
+00:03:31,066 --> 00:03:35,066
+taking the execution off here. I can say Print, just for fun.
+
+55
+00:03:35,066 --> 00:03:39,066
+You see what it did, by the way, when I did Print like that? It automatically made it put it in the loop,
+
+56
+00:03:39,066 --> 00:03:43,066
+so we're good to go. It will automatically be printing to the screen and the log. I'm happy with that!
+
+57
+00:03:43,066 --> 00:03:47,066
+The thing I'm interested in is it prints to the log. I tend to leave these as default, we don't need to change
+
+58
+00:03:47,066 --> 00:03:51,066
+anything. That way we get any logs we see in the viewport tend to have come from Blueprint,
+
+59
+00:03:51,066 --> 00:03:55,066
+and any logs we see on the log may have come from Blueprint or C++. I'm going to
+
+60
+00:03:55,066 --> 00:03:59,066
+prefix this with the word DONKEY, just so that we can see it in the logs. You'll see it working in a minute.
+
+61
+00:03:59,066 --> 00:04:03,066
+And then, I'm going to say BP or Tank_BP,
+
+62
+00:04:03,066 --> 00:04:07,066
+and this is the BeginPlay.
+
+63
+00:04:07,066 --> 00:04:11,066
+OK so that's that one! Let's just see it work, before we carry on nice and lean!
+
+64
+00:04:11,066 --> 00:04:15,066
+Now where is it? You see we've got a lot of stuff in the logs here. I could search through them or I could just look for
+
+65
+00:04:15,066 --> 00:04:19,066
+"donkey". [Laughs] And there are no other donkeys. You get three Tank_BP BeginPlays.
+
+66
+00:04:19,066 --> 00:04:23,066
+I think to keep things simple I'm going to delete one of the AI tanks, clear
+
+67
+00:04:23,066 --> 00:04:27,066
+the logs. The filter will stay, play again, and you see we've
+
+68
+00:04:27,066 --> 00:04:31,066
+just got two and they are the two tanks. One of them is the AI tank, that's probably this
+
+69
+00:04:31,066 --> 00:04:35,066
+3489 one. It's probably the AI tank, you can confirm that in the World Outliner.
+
+70
+00:04:35,066 --> 00:04:39,066
+Yes it is! And the C_0 is us, the player tank.
+
+71
+00:04:39,066 --> 00:04:43,066
+Cool, so then we've done that for BeginPlay! Now, by the way, if you didn't know what I meant in the challenge, for any
+
+72
+00:04:43,066 --> 00:04:47,066
+reason, and you didn't finish the challenge, then I'll take responsibility for it not quite being clear
+
+73
+00:04:47,066 --> 00:04:51,066
+enough. But I do want you to stop the video now and continue this for
+
+74
+00:04:51,066 --> 00:04:55,066
+the Construct of the tank, and then, I want you to put the logs into this
+
+75
+00:04:55,066 --> 00:04:59,066
+C++ as well, because I think the challenge should now be totally clear. Alright, so
+
+76
+00:04:59,066 --> 00:05:03,066
+moving into here, I'm just going to copy this Print String node and go to the Construction,
+
+77
+00:05:03,066 --> 00:05:07,066
+click into the Construction graph, and click Paste, Control C, and
+
+78
+00:05:07,066 --> 00:05:11,066
+Control V. I'm just going to change this slightly to Tank_BP Construct,
+
+79
+00:05:11,066 --> 00:05:15,066
+compile it and run it, and you'll notice that,
+
+80
+00:05:15,066 --> 00:05:19,066
+best to clear the logs first, that you can see what's going on now. The tank blueprint
+
+81
+00:05:19,066 --> 00:05:23,066
+constructs the tank blueprint BeginPlay for the player, and then, the tank blueprint
+
+82
+00:05:23,066 --> 00:05:27,066
+BeginPlay for the AI tank. But where is the Construct for
+
+83
+00:05:27,066 --> 00:05:31,066
+the AI tank? Hmm, interesting hey. Well look at this!
+
+84
+00:05:31,066 --> 00:05:35,066
+What happens with this AI tank actually, if we take it out of the scene,
+
+85
+00:05:35,066 --> 00:05:39,066
+clear the logs, go to our Content Browser... Look see what's happening?
+
+86
+00:05:39,066 --> 00:05:43,066
+Even when I move the mouse over the word Tank_BP, you see this Construct's getting
+
+87
+00:05:43,066 --> 00:05:47,066
+called all the time. There's actually an option inside the tank blueprint. If we go into the tank blueprint,
+
+88
+00:05:47,066 --> 00:05:51,066
+you can actually see under Class Settings of the
+
+89
+00:05:51,066 --> 00:05:55,066
+tank blueprint, blueprint Run Construction. In fact, I think it says
+
+90
+00:05:55,066 --> 00:05:59,066
+more than that? Yeah, Run Construction Script on Drag. We can turn that off if we want,
+
+91
+00:05:59,066 --> 00:06:03,066
+under the details of the tank blueprint, under the Class Settings.
+
+92
+00:06:03,066 --> 00:06:07,066
+Then, if I clear the log, when I hover over the tank... Actually, it's not working. It's
+
+93
+00:06:07,066 --> 00:06:11,066
+still doing it, so there you go, but that is supposed to influence that. If you then drop
+
+94
+00:06:11,066 --> 00:06:15,066
+the tank into the world, clear the log, then you can see that
+
+95
+00:06:15,066 --> 00:06:19,066
+moving it around isn't affecting it until I let go. Up, down,
+
+96
+00:06:19,066 --> 00:06:23,066
+OK. Now if we go back to the Tank_BP and turn that back on and Compile,
+
+97
+00:06:23,066 --> 00:06:27,066
+I think you'll find what happens now is as I move the tank, every single frame
+
+98
+00:06:27,066 --> 00:06:31,066
+yeah it's calling Construct. So that's the effect it has, it always calls construct as I hover over
+
+99
+00:06:31,066 --> 00:06:35,066
+here, but this tick box here decides whether every frame or just
+
+100
+00:06:35,066 --> 00:06:39,066
+when you let go of the tank, does it call it's construction; I'm going to do it only when I let go of the tank.
+
+101
+00:06:39,066 --> 00:06:43,066
+With a more complex game object, with slow construction, this is just an optimization for the Editor,
+
+102
+00:06:43,066 --> 00:06:47,066
+so that dragging things around doesn't slow things down. So to recap, if I
+
+103
+00:06:47,066 --> 00:06:51,066
+move the tank now, when I let go it constructs that tank. So that is when that tank gets
+
+104
+00:06:51,066 --> 00:06:55,066
+constructed OK. That's why that was missing from the list. Pretty
+
+105
+00:06:55,066 --> 00:06:59,066
+cool! OK, now let's go find any logs that we've got in here. I don't like having too many logs
+
+106
+00:06:59,066 --> 00:07:03,066
+around, so I'm going to search the current project for UE_LOG in a case sensitive way.
+
+107
+00:07:03,066 --> 00:07:07,066
+And actually it's not anywhere! So we don't seem to have any logs. That's fine!
+
+108
+00:07:07,066 --> 00:07:11,066
+In the Tank.cpp Constructor, I'm going to go UE_LOG
+
+109
+00:07:11,066 --> 00:07:15,066
+(LogTemp, Warning, and then I'm
+
+110
+00:07:15,066 --> 00:07:19,066
+going to put the TEXT in that says something very simple.
+
+111
+00:07:19,066 --> 00:07:23,066
+Tank... Oh, do we want the name of the tank? We probably do, auto Tank
+
+112
+00:07:23,066 --> 00:07:27,066
+Name = GetName(), something like that,
+
+113
+00:07:27,066 --> 00:07:31,066
+which is going to be a string which we're going to put in here. And we need to do
+
+114
+00:07:31,066 --> 00:07:35,066
+this star operator on. A strange overloaded operator they use there.
+
+115
+00:07:35,066 --> 00:07:39,066
+And then, I'm just going to say %s. Let's see what the blueprint one
+
+116
+00:07:39,066 --> 00:07:43,066
+prints like. It says the tank name, DONKEY colon,
+
+117
+00:07:43,066 --> 00:07:47,066
+and then, Tank_BP BeginPlay. So that
+
+118
+00:07:47,066 --> 00:07:51,066
+should do us something like this. DONKEY: Tank
+
+119
+00:07:51,066 --> 00:07:55,066
+C++ Construct. OK, let's
+
+120
+00:07:55,066 --> 00:07:59,066
+test that nice and lean. So we Compile, check to make sure that this
+
+121
+00:07:59,066 --> 00:08:03,066
+whole paradigm is working, and then, we can do the same thing for Begin Play. Of course, we've got to put BeginPlay back,
+
+122
+00:08:03,066 --> 00:08:07,066
+and there's going to be something a little bit interesting in BeginPlay. We need to decide if we call Super
+
+123
+00:08:07,066 --> 00:08:11,066
+or not but we'll worry about that in a moment. OK let's play! There we go, we're getting
+
+124
+00:08:11,066 --> 00:08:15,066
+the identifiers on these tanks. Let's just clear the log and start afresh.
+
+125
+00:08:15,066 --> 00:08:19,066
+We're seeing that the Tank C++ Construct works for both of these guys, and
+
+126
+00:08:19,066 --> 00:08:23,066
+then, the Tank Blueprint Construct is working, then the BeginPlay. Cool! So
+
+127
+00:08:23,066 --> 00:08:27,066
+that's giving us an idea as to what's doing what when. Now let's go ahead
+
+128
+00:08:27,066 --> 00:08:31,066
+and put BeginPlay back in, we removed it before.
+
+129
+00:08:31,066 --> 00:08:35,066
+And I'm just going to have a look. Did we get a Tank Blueprint
+
+130
+00:08:35,066 --> 00:08:39,066
+BeginPlay. No! Look we're not getting the Blueprint BeginPlay of
+
+131
+00:08:39,066 --> 00:08:43,066
+the Tank. Oh yes we are! Sorry, it's here! It's here. OK that's fine! So
+
+132
+00:08:43,066 --> 00:08:47,066
+now notice something interesting. ATank: :BeginPlay(), just add it
+
+133
+00:08:47,066 --> 00:08:51,066
+back in and let's not call Super,
+
+134
+00:08:51,066 --> 00:08:55,066
+but I'm going to put Super question mark there for a moment.
+
+135
+00:08:55,066 --> 00:08:59,066
+Now let's put tank back into... We can put it in the private section because of Unreal
+
+136
+00:08:59,066 --> 00:09:03,066
+magic. Remember it's a virtual method, it's void because nothing comes back.
+
+137
+00:09:03,066 --> 00:09:07,066
+BeginPlay() no arguments
+
+138
+00:09:07,066 --> 00:09:11,066
+override because we want to check that we're matching a signature, so we're re-adding BeginPlay().
+
+139
+00:09:11,066 --> 00:09:15,066
+Let's recompile and see what happens. It'd be interesting to
+
+140
+00:09:15,066 --> 00:09:19,066
+see, that when we don't call Super, whether or not the blueprints Begin
+
+141
+00:09:19,066 --> 00:09:23,066
+Play gets called, because it'd be quite easy to remove BeginPlay and put it back
+
+142
+00:09:23,066 --> 00:09:27,066
+and not put Super. I want you in the habit, if you ever add BeginPlay() back, to really think, do I want Super or do I
+
+143
+00:09:27,066 --> 00:09:31,066
+not want to call the Super class behavior. So let's clear the logs,
+
+144
+00:09:31,066 --> 00:09:35,066
+play the game, and look at this, the tank blueprint BeginPlay
+
+145
+00:09:35,066 --> 00:09:39,066
+is no longer running. Please take note OK, that will cause you monsterous
+
+146
+00:09:39,066 --> 00:09:43,066
+problems later, if you're not careful. You're going to want your tank blueprint BeginPlays to work,
+
+147
+00:09:43,066 --> 00:09:47,066
+otherwise all that code that sits here in Event Graph is not going to run after
+
+148
+00:09:47,066 --> 00:09:51,066
+BeginPlay. So the reason it's not being called is because we need to be calling Super.
+
+149
+00:09:51,066 --> 00:09:55,066
+So this is a good option to put in Super: :BeginPlay()
+
+150
+00:09:55,066 --> 00:09:59,066
+and then to comment"// Needed for" Blueprint "Begin Play
+
+151
+00:09:59,066 --> 00:10:03,066
+to run!" I'm even going to put an exclamation. I think it's a bit weird, but it's
+
+152
+00:10:03,066 --> 00:10:07,066
+obviously doing some hookup in the Super class, you could look in the source code if you were super-keying, that makes
+
+153
+00:10:07,066 --> 00:10:11,066
+this work, so you do need that! A really important lesson here! So
+
+154
+00:10:11,066 --> 00:10:15,066
+we're nearly there! We are going to now just look at the results, and then, I think
+
+155
+00:10:15,066 --> 00:10:19,066
+because the video's ten minutes long, I think we will talk about the results in the next lecture.
+
+156
+00:10:19,066 --> 00:10:23,066
+So let's clear the logs, play the game. OK cool!
+
+157
+00:10:23,066 --> 00:10:27,066
+So we have the Tank 38 DONKEY. DONKEY here is just
+
+158
+00:10:27,066 --> 00:10:31,066
+here to filter the logs. Remember if I didn't put the word DONKEY in front, what's all this DONKEY about? Remember
+
+159
+00:10:31,066 --> 00:10:35,066
+that let's clear the logs and have a look now! Not so easy, we've got other errors which
+
+160
+00:10:35,066 --> 00:10:39,066
+we're going to talk about in a bit, once we get our architecture right, and then, somewhere in here these
+
+161
+00:10:39,066 --> 00:10:43,066
+logs and different colors really hard to see but DONKEY easy to see. [Laughs] OK
+
+162
+00:10:43,066 --> 00:10:47,066
+a simple trick for you there. So what we're getting is we're getting the C++
+
+163
+00:10:47,066 --> 00:10:51,066
+Constructor for both of the tanks and then we're getting the Blueprint Constructor
+
+164
+00:10:51,066 --> 00:10:55,066
+and then the Blueprint BeginPlays. That's the sequence that's happening when we play from here.
+
+165
+00:10:55,066 --> 00:10:59,066
+I did also say I wanted you to do it from the MainMenu, so let's go to the MainMenu,
+
+166
+00:10:59,066 --> 00:11:03,066
+Clear the Logs, play the game. When you click start, let's see what
+
+167
+00:11:03,066 --> 00:11:07,066
+happens. You get exactly the same thing, but you get one extra thing which is that the
+
+168
+00:11:07,066 --> 00:11:11,066
+AI tank does run it's Constructor, on entry, into
+
+169
+00:11:11,066 --> 00:11:15,066
+the BattleGround scene. OK, so that's the difference and it can catch you out. If
+
+170
+00:11:15,066 --> 00:11:19,066
+you keep playing from this BattleGround. It's not a true test of the game, because this tank that's
+
+171
+00:11:19,066 --> 00:11:23,066
+sitting there has already been constructed. OK, so that's the
+
+172
+00:11:23,066 --> 00:11:27,066
+thing we get. When we play from here we get, look at the count log entries, we get four
+
+173
+00:11:27,066 --> 00:11:31,066
+of them with no Tank 38 Blueprint
+
+174
+00:11:31,066 --> 00:11:35,066
+Construct, it just doesn't exist. Go from the MainMenu,
+
+175
+00:11:35,066 --> 00:11:39,066
+play here, you get six entries, and one of those
+
+176
+00:11:39,066 --> 00:11:43,066
+is Tank 38 Blueprint Construct, which is
+
+177
+00:11:43,066 --> 00:11:47,066
+this one here, happens quite early. OK cool! enough said on that!
+
+178
+00:11:47,066 --> 00:11:51,066
+Congratulations! I hope you now understand a lot more about what happens in what order. This is going to become
+
+179
+00:11:51,066 --> 00:11:55,066
+very important as we move forward with Unreal in general but also with this project. And I'll see you in
+
+180
+00:11:55,066 --> 00:11:57,999
+the next video!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT69 Constructor & Begin Play Timing.srt

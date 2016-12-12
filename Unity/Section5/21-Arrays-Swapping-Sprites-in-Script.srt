@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unity/Section5/21-Arrays-Swapping-Sprites-in-Script.srt
 WEBVTT
 
 1
@@ -952,3 +953,958 @@ do next. and I think you should pat yourself on the back. Go ahead.
 00:11:54.000 --> 00:11:57.000
 be a bit creative with your levels. and I'll see you soon!
 
+=======
+
+1
+00:00:03,000 --> 00:00:06,000
+So, our next goal is to make
+
+2
+00:00:06,000 --> 00:00:09,000
+my beautifully artistic sprites actually
+
+3
+00:00:09,000 --> 00:00:12,000
+change at runtime. So, in this
+
+4
+00:00:12,000 --> 00:00:15,000
+lecture we are going to talk about affordance, very briefly,
+
+5
+00:00:15,000 --> 00:00:18,000
+talk about what an array is and why we need it, and we're going to
+
+6
+00:00:18,000 --> 00:00:21,000
+use arrays to store these sprites, and then, we're going to load
+
+7
+00:00:21,000 --> 00:00:24,000
+the sprites when they get hit.
+
+8
+00:00:24,000 --> 00:00:27,000
+So, what is affordance? Well, basically the player should always
+
+9
+00:00:27,000 --> 00:00:30,000
+know what to do next. We want the multi-
+
+10
+00:00:30,000 --> 00:00:33,000
+hit blocks to show progress towards their demise,
+
+11
+00:00:33,000 --> 00:00:36,000
+and then, the player will know to keep hitting
+
+12
+00:00:36,000 --> 00:00:39,000
+them. So, you can read more about it on Wikipedia, if you wish.
+
+13
+00:00:39,000 --> 00:00:42,000
+And we're going to store our multiple
+
+14
+00:00:42,000 --> 00:00:45,000
+sprites, inside the program
+
+15
+00:00:45,000 --> 00:00:48,000
+in something called an array, which is a collection of data
+
+16
+00:00:48,000 --> 00:00:51,000
+items that can be selected by an index, computed at
+
+17
+00:00:51,000 --> 00:00:54,000
+runtime. Again, more on Wikipedia if you're
+
+18
+00:00:54,000 --> 00:00:57,000
+having trouble getting to sleep.
+
+19
+00:00:57,000 --> 00:01:00,000
+So, this is what we need to be doing. We need to get our
+
+20
+00:01:00,000 --> 00:01:03,000
+sprites, over here, into our code,
+
+21
+00:01:03,000 --> 00:01:06,000
+so that the code can load them for us.
+
+22
+00:01:06,000 --> 00:01:09,000
+So, go ahead and open up your Brick code.
+
+23
+00:01:09,000 --> 00:01:12,000
+And we're going to publicly expose something of
+
+24
+00:01:12,000 --> 00:01:15,000
+type Sprite, so we want to be able to
+
+25
+00:01:15,000 --> 00:01:18,000
+pass sprites in by the Inspector. But
+
+26
+00:01:18,000 --> 00:01:21,000
+we want an array, and that's what you do for an array,
+
+27
+00:01:21,000 --> 00:01:24,000
+square brackets, open, close. It looks like a box, right?
+
+28
+00:01:24,000 --> 00:01:27,000
+It's where we store things that are
+
+29
+00:01:27,000 --> 00:01:30,000
+similar, and I'm going to call it hitSprites:
+
+30
+00:01:30,000 --> 00:01:33,000
+OK,
+
+31
+00:01:33,000 --> 00:01:36,000
+so there we go! public Sprite array hitSprites;
+
+32
+00:01:36,000 --> 00:01:39,000
+Now, let's go to Unity, take a look at our prefab,
+
+33
+00:01:39,000 --> 00:01:42,000
+say for our two hit block.
+
+34
+00:01:42,000 --> 00:01:45,000
+And how many hit sprites will it have? Well, it will have one hit
+
+35
+00:01:45,000 --> 00:01:48,000
+sprite. It takes one level of damage
+
+36
+00:01:48,000 --> 00:01:51,000
+before dying. And what is that hit sprite?
+
+37
+00:01:51,000 --> 00:01:54,000
+Well, it's the 1 hit sprite,
+
+38
+00:01:54,000 --> 00:01:57,000
+alright. And then, go back to your Prefabs.
+
+39
+00:01:57,000 --> 00:02:00,000
+Have a look at the 1 hit sprite
+
+40
+00:02:00,000 --> 00:02:03,000
+prefab rather. That will have no hit
+
+41
+00:02:03,000 --> 00:02:06,000
+sprites, because it just dies immediately. The 2 hit
+
+42
+00:02:06,000 --> 00:02:09,000
+has 1 hit sprite, so what we're doing here is we have a little drop
+
+43
+00:02:09,000 --> 00:02:12,000
+down and we determine, in the Editor,
+
+44
+00:02:12,000 --> 00:02:15,000
+the size of our array. Then, we pass in the appropriate
+
+45
+00:02:15,000 --> 00:02:18,000
+number of sprites. What I want you to do, is as a
+
+46
+00:02:18,000 --> 00:02:21,000
+really simple challenge, is to go into the 3 hit
+
+47
+00:02:21,000 --> 00:02:24,000
+prefab and I want you to pass in both
+
+48
+00:02:24,000 --> 00:02:27,000
+of the 1 hit and 2 hit
+
+49
+00:02:27,000 --> 00:02:30,000
+breakage stages, this one and this one. So, go ahead and pause
+
+50
+00:02:30,000 --> 00:02:33,000
+the video and do that now for me.
+
+51
+00:02:33,000 --> 00:02:36,000
+OK,
+
+52
+00:02:36,000 --> 00:02:39,000
+so the way that I've done that is I go to
+
+53
+00:02:39,000 --> 00:02:42,000
+the 3 hit block and say, well how many hit sprites? Well,
+
+54
+00:02:42,000 --> 00:02:45,000
+it has 3 maximum hits, so we have two different
+
+55
+00:02:45,000 --> 00:02:48,000
+stages of damage, and here they are.
+
+56
+00:02:48,000 --> 00:02:51,000
+Stage 1 is 1 hit, stage 2 is 2 hits.
+
+57
+00:02:51,000 --> 00:02:54,000
+Back to our prefabs. Now, you'll notice the prefab
+
+58
+00:02:54,000 --> 00:02:57,000
+image here is also missing a main
+
+59
+00:02:57,000 --> 00:03:00,000
+sprite, which is like the default sprite. We could have,
+
+60
+00:03:00,000 --> 00:03:03,000
+of course, put that in this array. The problem is, we want to make sure that
+
+61
+00:03:03,000 --> 00:03:06,000
+we know what these things look like in the Editor, and if
+
+62
+00:03:06,000 --> 00:03:09,000
+all of your sprites are being handled by the code, then
+
+63
+00:03:09,000 --> 00:03:12,000
+it could look a bit funny in the Editor. It might change
+
+64
+00:03:12,000 --> 00:03:15,000
+immediately that you play. So, I'm choosing to have my
+
+65
+00:03:15,000 --> 00:03:18,000
+base sprite up here, under
+
+66
+00:03:18,000 --> 00:03:21,000
+the Sprite Renderer, and then, my hit stage is down here.
+
+67
+00:03:21,000 --> 00:03:24,000
+Now, if you've noticed that there's a redundancy
+
+68
+00:03:24,000 --> 00:03:27,000
+between this Max Hits variable and the number of hit
+
+69
+00:03:27,000 --> 00:03:30,000
+sprites, i.e., the Maximum Hits will always be the number of hit
+
+70
+00:03:30,000 --> 00:03:33,000
+sprites + 1. You're correct, and we'll deal with that
+
+71
+00:03:33,000 --> 00:03:36,000
+in a minute. So, let's play the
+
+72
+00:03:36,000 --> 00:03:39,000
+game now, and nothing will have changed but all
+
+73
+00:03:39,000 --> 00:03:42,000
+the sprites will look OK.
+
+74
+00:03:42,000 --> 00:03:45,000
+The other thing you might notice is your 3 hits sprite prefab here
+
+75
+00:03:45,000 --> 00:03:48,000
+may not look right. It may still be a blue box. When you click Save,
+
+76
+00:03:48,000 --> 00:03:51,000
+Save Scene, then that will
+
+77
+00:03:51,000 --> 00:03:54,000
+refresh OK. So, let's change the brick
+
+78
+00:03:54,000 --> 00:03:57,000
+base sprites as well now. They all have the same base
+
+79
+00:03:57,000 --> 00:04:00,000
+sprite. In fact, you can do that just by selecting all three prefabs.
+
+80
+00:04:00,000 --> 00:04:03,000
+Go to the sprites and drag the
+
+81
+00:04:03,000 --> 00:04:06,000
+0 hit on as their basic sprite. There we go!
+
+82
+00:04:06,000 --> 00:04:09,000
+Alright, so that's good! We
+
+83
+00:04:09,000 --> 00:04:12,000
+have a 1 hit that has a base sprite of
+
+84
+00:04:12,000 --> 00:04:15,000
+never having been hit and no hit sprites. A
+
+85
+00:04:15,000 --> 00:04:18,000
+2 hit that has a 0 hit and 1 hit sprite
+
+86
+00:04:18,000 --> 00:04:21,000
+and so on. Alright, hopefully that makes sense what's going on with
+
+87
+00:04:21,000 --> 00:04:24,000
+the number of hits. Now, what we need to do is actually
+
+88
+00:04:24,000 --> 00:04:27,000
+change the sprite at runtime, so dive back into
+
+89
+00:04:27,000 --> 00:04:30,000
+your code for me, and we'll take a look at how we
+
+90
+00:04:30,000 --> 00:04:33,000
+do that. So, it's
+
+91
+00:04:33,000 --> 00:04:36,000
+clearly going to be when the collision happens
+
+92
+00:04:36,000 --> 00:04:39,000
+that we want to do this.
+
+93
+00:04:39,000 --> 00:04:42,000
+And what we want to do is, only if we don't
+
+94
+00:04:42,000 --> 00:04:45,000
+destroy the object do we want to load sprites.
+
+95
+00:04:45,000 --> 00:04:48,000
+So, I'm going to put an else statement in here, and say
+
+96
+00:04:48,000 --> 00:04:51,000
+the thing gets hit, we increment the hit counter.
+
+97
+00:04:51,000 --> 00:04:54,000
+We find out whether or not it's greater than or equal to the
+
+98
+00:04:54,000 --> 00:04:57,000
+maximum hits. If it is, we destroy the brick immediately, like in the
+
+99
+00:04:57,000 --> 00:05:00,000
+case of the yellow block. If it's not
+
+100
+00:05:00,000 --> 00:05:03,000
+yet hit enough times to be destroyed, then we're going to load
+
+101
+00:05:03,000 --> 00:05:06,000
+sprites, like so.
+
+102
+00:05:06,000 --> 00:05:09,000
+Alright, so then we're going to need a method called
+
+103
+00:05:09,000 --> 00:05:12,000
+LoadSprites(). It doesn't need to return anything,
+
+104
+00:05:12,000 --> 00:05:15,000
+it doesn't need to take anything in,
+
+105
+00:05:15,000 --> 00:05:18,000
+but it does need to handle the sprite loading.
+
+106
+00:05:18,000 --> 00:05:21,000
+So, how are we going to do that? Well,
+
+107
+00:05:21,000 --> 00:05:24,000
+I'll just take you through the lines, like this. We need an integer to store
+
+108
+00:05:24,000 --> 00:05:27,000
+the spriteIndex, that we're going to access
+
+109
+00:05:27,000 --> 00:05:30,000
+in the array in the box, and it starts counting
+
+110
+00:05:30,000 --> 00:05:33,000
+at 0. We'll see that in a minute.
+
+111
+00:05:33,000 --> 00:05:36,000
+So, because it starts counting at 0, we need
+
+112
+00:05:36,000 --> 00:05:39,000
+this index to be timesHit - 1;
+
+113
+00:05:39,000 --> 00:05:42,000
+So, what's that all about? Let's go back to Unity and
+
+114
+00:05:42,000 --> 00:05:45,000
+have a look. Imagine these this 3 hit block here,
+
+115
+00:05:45,000 --> 00:05:48,000
+this element is Element 0 OK,
+
+116
+00:05:48,000 --> 00:05:51,000
+and the next element is Element 1. So,
+
+117
+00:05:51,000 --> 00:05:54,000
+imagine this block as been hit 1
+
+118
+00:05:54,000 --> 00:05:57,000
+time. So, it's been hit 1, it's less than
+
+119
+00:05:57,000 --> 00:06:00,000
+it's maxHits, which is 3. So, we
+
+120
+00:06:00,000 --> 00:06:03,000
+call LoadSprites(), we dive in here, and we say that the sprite
+
+121
+00:06:03,000 --> 00:06:06,000
+Index we want to load is the times
+
+122
+00:06:06,000 --> 00:06:09,000
+Hit - 1. Now, how many times has it
+
+123
+00:06:09,000 --> 00:06:12,000
+been hit? It's been hit once, so
+
+124
+00:06:12,000 --> 00:06:15,000
+that -1 is 0, so we load sprite
+
+125
+00:06:15,000 --> 00:06:18,000
+Index 0, which is the 1 hit Element
+
+126
+00:06:18,000 --> 00:06:21,000
+0. OK, hopefully that makes sense.
+
+127
+00:06:21,000 --> 00:06:24,000
+So, now comes the question,
+
+128
+00:06:24,000 --> 00:06:27,000
+how do we actually tell the machine to load
+
+129
+00:06:27,000 --> 00:06:30,000
+that sprite? Well,
+
+130
+00:06:30,000 --> 00:06:33,000
+It's part of this. It's part of this particular brick.
+
+131
+00:06:33,000 --> 00:06:36,000
+Then, we need to use a method called Get
+
+132
+00:06:36,000 --> 00:06:39,000
+Component
+
+133
+00:06:39,000 --> 00:06:42,000
+OK. And then, what we do with the
+
+134
+00:06:42,000 --> 00:06:45,000
+GetComponent, if we look over in Unity, is well what is the component
+
+135
+00:06:45,000 --> 00:06:48,000
+of the brick? Well, that's a good question.
+
+136
+00:06:48,000 --> 00:06:51,000
+It is the Sprite Renderer.
+
+137
+00:06:51,000 --> 00:06:54,000
+It's this Sprite Renderer. We're actually going to take one of the sprites
+
+138
+00:06:54,000 --> 00:06:57,000
+from down here, and put it onto the Sprite Renderer
+
+139
+00:06:57,000 --> 00:07:00,000
+up here, at runtime. Sprite you see.
+
+140
+00:07:00,000 --> 00:07:03,000
+So, it's this
+
+141
+00:07:03,000 --> 00:07:06,000
+.GetComponent. Now, it's a strange method, we've used it before.
+
+142
+00:07:06,000 --> 00:07:09,000
+Left chevron, &lt;SpriteRenderer&gt;
+
+143
+00:07:09,000 --> 00:07:12,000
+...
+
+144
+00:07:12,000 --> 00:07:15,000
+...like so.
+
+145
+00:07:15,000 --> 00:07:18,000
+It's a method, so we need to put the curly brackets,
+
+146
+00:07:18,000 --> 00:07:21,000
+and then, it's .sprite
+
+147
+00:07:21,000 --> 00:07:24,000
+And that may look a little bit overwhelming, but it's relatively
+
+148
+00:07:24,000 --> 00:07:27,000
+simple. Let's run it by again. This is the brick,
+
+149
+00:07:27,000 --> 00:07:30,000
+GetComponent&lt;SpriteRenderer&gt; takes us to here,
+
+150
+00:07:30,000 --> 00:07:33,000
+in the Inspector, and then, the actual
+
+151
+00:07:33,000 --> 00:07:36,000
+element we want is Sprite. So, we're going brick,
+
+152
+00:07:36,000 --> 00:07:39,000
+Sprite Renderer, Sprite. OK,
+
+153
+00:07:39,000 --> 00:07:42,000
+so that's the thing we want to change, and we're going to set it to
+
+154
+00:07:42,000 --> 00:07:45,000
+hitSprites, which is an array.
+
+155
+00:07:45,000 --> 00:07:48,000
+And we're going to tell it to pick the one at index
+
+156
+00:07:48,000 --> 00:07:51,000
+[spriteIndex], which is why we give it that nice name.
+
+157
+00:07:51,000 --> 00:07:54,000
+So, the index of 0 would be the first one,
+
+158
+00:07:54,000 --> 00:07:57,000
+at the first break stage, and then 1 would be the next break stage.
+
+159
+00:07:57,000 --> 00:08:00,000
+Let's try this code, as we are, and see how we get on.
+
+160
+00:08:00,000 --> 00:08:03,000
+So, here are our bricks. Let's try playing.
+
+161
+00:08:03,000 --> 00:08:06,000
+The yellow ones get destroyed immediately.
+
+162
+00:08:06,000 --> 00:08:09,000
+That's good news! Now, what happens to these green guys? Oh look!
+
+163
+00:08:09,000 --> 00:08:12,000
+Perfect! They're starting to take damage!
+
+164
+00:08:12,000 --> 00:08:15,000
+Now, let's see what happens when they get hit a second time. Well, this is
+
+165
+00:08:15,000 --> 00:08:18,000
+satisfying! We're actually making our
+
+166
+00:08:18,000 --> 00:08:21,000
+game look like a real game. We look like we need to know what we need to
+
+167
+00:08:21,000 --> 00:08:24,000
+do next. Eventually, I'll hit a green block
+
+168
+00:08:24,000 --> 00:08:27,000
+a second time, but
+
+169
+00:08:27,000 --> 00:08:30,000
+we're going to need some patience. Boom! Boom!
+
+170
+00:08:30,000 --> 00:08:33,000
+Boom! Boom! Boom! Boom!
+
+171
+00:08:33,000 --> 00:08:36,000
+Fine! When they get hit a second time, they disappear!
+
+172
+00:08:36,000 --> 00:08:39,000
+Wonderful!
+
+173
+00:08:39,000 --> 00:08:42,000
+So, let's make sure this works for the 3 hit
+
+174
+00:08:42,000 --> 00:08:45,000
+bricks, as well. So, you could
+
+175
+00:08:45,000 --> 00:08:48,000
+do this right in this scene, or we could take this opportunity to
+
+176
+00:08:48,000 --> 00:08:51,000
+improve our levels a little. So, Level_01 is two
+
+177
+00:08:51,000 --> 00:08:54,000
+brick types. Maybe Level_02
+
+178
+00:08:54,000 --> 00:08:57,000
+background is fine, but I'm going to ditch the bricks
+
+179
+00:08:57,000 --> 00:09:00,000
+in Level_02. I'm going to go back into Level_01,
+
+180
+00:09:00,000 --> 00:09:03,000
+copy all of the bricks in Level_01
+
+181
+00:09:03,000 --> 00:09:06,000
+into Level_02,
+
+182
+00:09:06,000 --> 00:09:09,000
+like so, and then, I think what I'm going to do is
+
+183
+00:09:09,000 --> 00:09:12,000
+add a splattering of 3 hit
+
+184
+00:09:12,000 --> 00:09:15,000
+bricks, just for fun. So, you do this however you like. This is
+
+185
+00:09:15,000 --> 00:09:18,000
+level design. The idea is that we're introducing the
+
+186
+00:09:18,000 --> 00:09:21,000
+player to new things, one stage
+
+187
+00:09:21,000 --> 00:09:24,000
+at a time. So, I'm going to put a few 3 hit
+
+188
+00:09:24,000 --> 00:09:27,000
+bricks. Maybe there and
+
+189
+00:09:27,000 --> 00:09:30,000
+there and
+
+190
+00:09:30,000 --> 00:09:33,000
+there
+
+191
+00:09:33,000 --> 00:09:36,000
+and there. I mean it doesn't really matter where I put them.
+
+192
+00:09:36,000 --> 00:09:39,000
+Probably better be in a bit more sympathy with the background. That's fine!
+
+193
+00:09:39,000 --> 00:09:42,000
+Now, what is a good idea, when you put your bricks in?
+
+194
+00:09:42,000 --> 00:09:45,000
+is to start organizing them, so
+
+195
+00:09:45,000 --> 00:09:48,000
+I could create an empty GameObject here,
+
+196
+00:09:48,000 --> 00:09:51,000
+Reset it's Transform, call
+
+197
+00:09:51,000 --> 00:09:54,000
+it Reds. That'll do. And then, I could just
+
+198
+00:09:54,000 --> 00:09:57,000
+group those in it, like so. So now, it's all nicely
+
+199
+00:09:57,000 --> 00:10:00,000
+organized, provided I put reds at the right level. Great!
+
+200
+00:10:00,000 --> 00:10:03,000
+So, all our bricks are organized and we have some red bricks. Let's play
+
+201
+00:10:03,000 --> 00:10:06,000
+Level_02 and make sure that they work. So, one hit, you get one
+
+202
+00:10:06,000 --> 00:10:09,000
+sprite. Now, that's why we may need to be patient again.
+
+203
+00:10:09,000 --> 00:10:12,000
+You can lay your bricks out, however you like.
+
+204
+00:10:12,000 --> 00:10:15,000
+Please do start designing your levels now,
+
+205
+00:10:15,000 --> 00:10:18,000
+start getting creative. Please make sure you introduce the player
+
+206
+00:10:18,000 --> 00:10:21,000
+to new brick types slowly. You may want your Level_01
+
+207
+00:10:21,000 --> 00:10:24,000
+to only have one brick, for example. There you go! That
+
+208
+00:10:24,000 --> 00:10:27,000
+red brick has worked! I'm going to pause the game. Look, the red brick there
+
+209
+00:10:27,000 --> 00:10:30,000
+has a second stage of damage, if we zoom in, in the Scene View.
+
+210
+00:10:30,000 --> 00:10:33,000
+You see it! That's working! Let's just carry on, for a second,
+
+211
+00:10:33,000 --> 00:10:36,000
+and just make sure that
+
+212
+00:10:36,000 --> 00:10:39,000
+the red bricks actually destroy. It's quite hard
+
+213
+00:10:39,000 --> 00:10:42,000
+talking incessantly, whilst actually
+
+214
+00:10:42,000 --> 00:10:45,000
+not losing the game.
+
+215
+00:10:45,000 --> 00:10:48,000
+Ah no! Almost
+
+216
+00:10:48,000 --> 00:10:51,000
+fun! Excuse my Menu Bar, it keeps popping up at the bottom there.
+
+217
+00:10:51,000 --> 00:10:54,000
+That's just because it's on Auto-Hide. So,
+
+218
+00:10:54,000 --> 00:10:57,000
+there's another red.
+
+219
+00:10:57,000 --> 00:11:00,000
+It can take a surprisingly long
+
+220
+00:11:00,000 --> 00:11:03,000
+time to play test that, so
+
+221
+00:11:03,000 --> 00:11:06,000
+no problem. I will just dive back in
+
+222
+00:11:06,000 --> 00:11:09,000
+really quickly, to Level_02. In fact, if you're having
+
+223
+00:11:09,000 --> 00:11:12,000
+that type of problem, why not make it easy for yourself? Why not,
+
+224
+00:11:12,000 --> 00:11:15,000
+for instance, take this red brick and
+
+225
+00:11:15,000 --> 00:11:18,000
+move it and then maybe put a few more of them along the top
+
+226
+00:11:18,000 --> 00:11:21,000
+here, so that it's easier to test. And you see how
+
+227
+00:11:21,000 --> 00:11:24,000
+they're childing nicely here, under the
+
+228
+00:11:24,000 --> 00:11:27,000
+three brick object this Reds object
+
+229
+00:11:27,000 --> 00:11:30,000
+I've already got. So, that's OK! Let's try it like
+
+230
+00:11:30,000 --> 00:11:33,000
+this! Some sort of fiddling you're going to
+
+231
+00:11:33,000 --> 00:11:36,000
+need to do to do the play testing.
+
+232
+00:11:36,000 --> 00:11:39,000
+So, the ball can't escaped so easily, so we get to test. Yeah! There they
+
+233
+00:11:39,000 --> 00:11:42,000
+go, and they've all disappeared and
+
+234
+00:11:42,000 --> 00:11:45,000
+working nicely. Beautiful! So, you have two stages of
+
+235
+00:11:45,000 --> 00:11:48,000
+damage, I think they're relatively clear. The background is showing
+
+236
+00:11:48,000 --> 00:11:51,000
+through. You have what we call affordance, i.e., the player knows what to
+
+237
+00:11:51,000 --> 00:11:54,000
+do next, and I think you should pat yourself on the back. Go ahead,
+
+238
+00:11:54,000 --> 00:11:57,000
+be a bit creative with your levels, and I'll see you soon!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unity/Section5/21-Arrays-Swapping-Sprites-in-Script.srt

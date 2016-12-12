@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Unreal/Section4/BT86 Making an AutoMortar.srt
 ﻿WEBVTT
 
 1
@@ -852,3 +853,858 @@ ahead and think about how to rename classes in Unreal. slightly more painful tha
 00:14:04.433 --> 00:14:10.033
 and carry on with our project. So congratulations and I'll see you in the next video!
 
+=======
+
+1
+00:00:00,000 --> 00:00:04,000
+Hey and welcome
+
+2
+00:00:04,000 --> 00:00:08,000
+to Making an AutoMortar! What do I mean by that? Well I'm terribly excited
+
+3
+00:00:08,000 --> 00:00:12,000
+by this one, because look we're going to make a Dalek like AutoMortar thingy. Pretty ugly,
+
+4
+00:00:12,000 --> 00:00:16,000
+I know. It's a placeholder asset that's actually going to shoot at us, and it's going to use
+
+5
+00:00:16,000 --> 00:00:20,000
+exactly the same aiming component and AI controller as the tank does.
+
+6
+00:00:20,000 --> 00:00:24,000
+We're not even going to open VisualStudio in this video. So, well we are,
+
+7
+00:00:24,000 --> 00:00:28,000
+because we're going to fix the tank aiming bug, but after that, we're not going to reopen it. So I'll see you in there!
+
+8
+00:00:28,000 --> 00:00:28,433
+
+
+9
+00:00:28,433 --> 00:00:32,433
+I can't wait to get into this challenge, it's going to be amazing to be
+
+10
+00:00:32,433 --> 00:00:36,433
+reusing our code from the previous section! So,
+
+11
+00:00:36,433 --> 00:00:40,433
+well from the tank, the TankAimingComponent and the TankAIController. I'm going to
+
+12
+00:00:40,433 --> 00:00:44,433
+get rid of the AITanks. We're not really talking about AI tanks here, we're
+
+13
+00:00:44,433 --> 00:00:48,433
+talking about mortars, and I'm also just going to move this player start point.
+
+14
+00:00:48,433 --> 00:00:52,433
+One way would be to go to the Top view, move it over here somewhere,
+
+15
+00:00:52,433 --> 00:00:56,433
+maybe then go to the Left view, bring it down to near the ground,
+
+16
+00:00:56,433 --> 00:01:00,433
+back to Perspective, check it all works, and there's
+
+17
+00:01:00,433 --> 00:01:04,433
+our tank! So this can be our playground for the auto-mortars. Now, before I
+
+18
+00:01:04,433 --> 00:01:08,433
+carry on, let's look at where -X is in the world. -X is behind
+
+19
+00:01:08,433 --> 00:01:12,433
+me, kind of along the line of this shadow, directly behind me if you look at this down at the bottom-left
+
+20
+00:01:12,433 --> 00:01:16,433
+here. Let me show you a bug with the aiming, I mentioned it a few videos ago with
+
+21
+00:01:16,433 --> 00:01:20,433
+the voice over and an annotation, about three videos back, now I want to show you it.
+
+22
+00:01:20,433 --> 00:01:24,433
+When I aim to -X in the world space,
+
+23
+00:01:24,433 --> 00:01:28,433
+we get a problem with our aiming. Now let's just find out which way is -X.
+
+24
+00:01:28,433 --> 00:01:32,433
+It's a bit further around. There you go! As soon as
+
+25
+00:01:32,433 --> 00:01:36,433
+I get to -X, look what happens, it starts going completely the wrong way.
+
+26
+00:01:36,433 --> 00:01:40,433
+And if I let the barrel move all the way to just before I'm pointing down
+
+27
+00:01:40,433 --> 00:01:44,433
+-X, let's go right a little look at that, it goes completely the long way
+
+28
+00:01:44,433 --> 00:01:48,433
+around. How silly! So let's go into VisualStudio! In fact, it's the last time we need to go
+
+29
+00:01:48,433 --> 00:01:52,433
+into VisualStudio, for this challenge. And what we need to be doing is, rather than just saying Delta
+
+30
+00:01:52,433 --> 00:01:56,433
+Rotator.Yaw is less than 180, what we need to be doing is
+
+31
+00:01:56,433 --> 00:02:00,433
+putting in the FMath::Abs, I forgot that previously. So this takes
+
+32
+00:02:00,433 --> 00:02:04,433
+the absolute value of the Yaw and asks the question, is the
+
+33
+00:02:04,433 --> 00:02:08,433
+absolute value of the Yaw less than 180?
+
+34
+00:02:08,433 --> 00:02:12,433
+If it is we Yaw, otherwise, basically,
+
+35
+00:02:12,433 --> 00:02:16,433
+we "// Avoid going the long way",
+
+36
+00:02:16,433 --> 00:02:20,433
+by going
+
+37
+00:02:20,433 --> 00:02:24,433
+backwards. So if we get a DeltaRotator.Yaw out that is
+
+38
+00:02:24,433 --> 00:02:28,433
+more or less than -180 or more than
+
+39
+00:02:28,433 --> 00:02:32,433
+180 then that's silly, we're trying to go the wrong way around. So
+
+40
+00:02:32,433 --> 00:02:36,433
+what we do is, we just go the other way. So this tests for values of more than
+
+41
+00:02:36,433 --> 00:02:40,433
+180. Reflex angles, I think you call them. OK, so what you want to put in is
+
+42
+00:02:40,433 --> 00:02:44,433
+FMath::Abs around the (DeltaRotator.Yaw). Let's compile that up!
+
+43
+00:02:44,433 --> 00:02:48,433
+Now we'll confidently close VisualStudio, because for your project
+
+44
+00:02:48,433 --> 00:02:52,433
+and for getting the auto-mortar working, we don't even need to open VisualStudio
+
+45
+00:02:52,433 --> 00:02:56,433
+because our code is going to be reusable. OK, let's see if we
+
+46
+00:02:56,433 --> 00:03:00,433
+exhibit the same behavior now, as when we point toward -X. I think you can already
+
+47
+00:03:00,433 --> 00:03:04,433
+see that we're not, the barrel hasn't started changing direction at all.
+
+48
+00:03:04,433 --> 00:03:08,433
+Perfect! So we fixed the aiming code, that's quite an important aspect! Before
+
+49
+00:03:08,433 --> 00:03:12,433
+you start this challenge, let me just show you the code change,
+
+50
+00:03:12,433 --> 00:03:16,433
+it's simply that and a comment. OK fantastic!
+
+51
+00:03:16,433 --> 00:03:20,433
+So I think that you can assemble the auto-mortar yourself. If you
+
+52
+00:03:20,433 --> 00:03:24,433
+look in the lecture resources, we have a mortar placeholder.zip
+
+53
+00:03:24,433 --> 00:03:28,433
+file. If you go open that mortar placeholder.zip
+
+54
+00:03:28,433 --> 00:03:32,433
+file, in your Downloads, you'll find it has a body which corresponds to
+
+55
+00:03:32,433 --> 00:03:36,433
+the tank's body, a dome which corresponds to the tank's
+
+56
+00:03:36,433 --> 00:03:40,433
+turret, and a barrel which corresponds to the tank's barrel. There's also
+
+57
+00:03:40,433 --> 00:03:44,433
+the .blend file, Blender file, I used to make this ugly placeholder asset,
+
+58
+00:03:44,433 --> 00:03:48,433
+in case you want it or in case you want to make it prettier. Maybe later in the section, if a student makes
+
+59
+00:03:48,433 --> 00:03:52,433
+a great mortar, we'll replace it. That will be good. So they are
+
+60
+00:03:52,433 --> 00:03:56,433
+the parts that you're going to need. Now if we look at the tank blueprint just
+
+61
+00:03:56,433 --> 00:04:00,433
+briefly, before I put you into your challenge, you'll realize that we can make up this
+
+62
+00:04:00,433 --> 00:04:04,433
+mortar in a very similar way. That will be the body, which is just a cylinder. This will be
+
+63
+00:04:04,433 --> 00:04:08,433
+the dome, and then the barrel will become the Barrel.
+
+64
+00:04:08,433 --> 00:04:12,433
+And when you do it, your base object is going to want to be
+
+65
+00:04:12,433 --> 00:04:16,433
+the body, and it's going to be a Static Mesh, just like the tank. Then, we're going to have the dome,
+
+66
+00:04:16,433 --> 00:04:20,433
+which will be of type (Tank Turret). Use the Tank Turret type, because,
+
+67
+00:04:20,433 --> 00:04:24,433
+of course, it's got code in it. We'll rename all these things later, once we've proven that
+
+68
+00:04:24,433 --> 00:04:28,433
+we're able to repurpose them. So you'll have a Static Mesh, called Body at the base
+
+69
+00:04:28,433 --> 00:04:32,433
+and a Turret and then a Barrel, also of type (Tank Barrel). No Left Track,
+
+70
+00:04:32,433 --> 00:04:36,433
+no Right Track, no Movement Component, but we will have a TankAimingComponent,
+
+71
+00:04:36,433 --> 00:04:40,433
+and then, we'll Initialize it just like we did before, not the Movement Component but this stuff here
+
+72
+00:04:40,433 --> 00:04:44,433
+we will Initialize by pointing it to the Barrel and the dome.
+
+73
+00:04:44,433 --> 00:04:48,433
+And then, on the TankAimingComponent... Sorry, on Tank itself, which will actually be
+
+74
+00:04:48,433 --> 00:04:52,433
+a mortar in this case, and it'll be at this level, you will be able to
+
+75
+00:04:52,433 --> 00:04:56,433
+choose the AI Controller class, and you'll see that previously in the Tank it's set to TankAI
+
+76
+00:04:56,433 --> 00:05:00,433
+Controller, the C++ class, just do the same thing. OK
+
+77
+00:05:00,433 --> 00:05:04,433
+fantastic! I think that's enough of an overview and enough clues for you.
+
+78
+00:05:04,433 --> 00:05:08,433
+Also, you're going to want to use sockets. So the body's going to want a socket in a very similar place, in the top in
+
+79
+00:05:08,433 --> 00:05:12,433
+the middle. Then, the dome's going to want a socket in the middle of the dome,
+
+80
+00:05:12,433 --> 00:05:16,433
+touching the body there. Well it's not going to have a socket, but it's going to attach to
+
+81
+00:05:16,433 --> 00:05:20,433
+that socket on the base, and then, 20 centimeters above the center of the
+
+82
+00:05:20,433 --> 00:05:24,433
+cylinder is where I put my socket for my barrel. So that's the only thing you need to know, you have
+
+83
+00:05:24,433 --> 00:05:28,433
+one socket on the bottom of the body, and then you attach the
+
+84
+00:05:28,433 --> 00:05:32,433
+dome to that, and then 20 centimeters up inside the dome, right in the center of it,
+
+85
+00:05:32,433 --> 00:05:36,433
+I have a barrel socket. So great
+
+86
+00:05:36,433 --> 00:05:40,433
+integration challenge for you coming up. You're going to use all of the knowledge that you've
+
+87
+00:05:40,433 --> 00:05:44,433
+used so far, almost, and assemble the auto-mortar. So look at how the
+
+88
+00:05:44,433 --> 00:05:48,433
+Tank Bluepri?nt's constructed, put the mortar together in a very similar way,
+
+89
+00:05:48,433 --> 00:05:52,433
+use the TankAimingComponent, associate it with the TankAIController.
+
+90
+00:05:52,433 --> 00:05:56,433
+Don't worry, we'll rename these classes that no longer make sense, a little bit later, make them more
+
+91
+00:05:56,433 --> 00:06:00,433
+generic but let's prove they're reusable first, and, as a bonus, get
+
+92
+00:06:00,433 --> 00:06:04,433
+the auto-mortar actually working. So all I want you to do is just assemble
+
+93
+00:06:04,433 --> 00:06:08,433
+the sockets and parts, but if you can go as far as getting it actually working and placing
+
+94
+00:06:08,433 --> 00:06:12,433
+a couple in the world then, good job to you! This gives you lots of scope! If all you
+
+95
+00:06:12,433 --> 00:06:16,433
+manage to do is import a single static mesh I'm happy; if you can get it
+
+96
+00:06:16,433 --> 00:06:20,433
+working, I'm even more happy! It doesn't matter, just work to your ability! So
+
+97
+00:06:20,433 --> 00:06:24,433
+go ahead, take your time, see if you can make it work, see if you can put all the
+
+98
+00:06:24,433 --> 00:06:28,433
+information together, and I'll see you in a moment.
+
+99
+00:06:28,433 --> 00:06:32,433
+OK welcome back, let's get this done! I'm not 100%
+
+100
+00:06:32,433 --> 00:06:36,433
+sure I'll be able to get this done in this video, so if we get to 10 o?r about 15
+
+101
+00:06:36,433 --> 00:06:40,433
+minutes I'll stop and split it into another video, nice and simple. So the first thing I'm going to do
+
+102
+00:06:40,433 --> 00:06:44,433
+is make a folder, and I'm just going to call it Mortar,
+
+103
+00:06:44,433 --> 00:06:48,433
+and then, I'm going to go to this Mortar folder and I'm going to import
+
+104
+00:06:48,433 --> 00:06:52,433
+some assets, and I'm going to go get those assets from my Downloads,
+
+105
+00:06:52,433 --> 00:06:56,433
+and they're not there, because I haven't unzipped the .zip file. So it's very simple,
+
+106
+00:06:56,433 --> 00:07:00,433
+not rocket science. How do you unzip a .zip file? Extract All!
+
+107
+00:07:00,433 --> 00:07:04,433
+I'm used to the Mac. There you go! So now we have it, let's
+
+108
+00:07:04,433 --> 00:07:08,433
+import all of them! Why not?! I'm going to Import All
+
+109
+00:07:08,433 --> 00:07:12,433
+confidently. It's telling me there's no smoothing information but I don't mind. Here we go, we've
+
+110
+00:07:12,433 --> 00:07:16,433
+got the parts. Now because I've set the origins of these parts properly, we should be
+
+111
+00:07:16,433 --> 00:07:20,433
+pretty simple to assemble. So let's make a new blueprint!
+
+112
+00:07:20,433 --> 00:07:24,433
+New Empty Blueprint Class. Now what did you do when you got here?
+
+113
+00:07:24,433 --> 00:07:28,433
+What type did you base this on? Did you do it on Actor? Well that would have been reasonable,
+
+114
+00:07:28,433 --> 00:07:32,433
+but the problem is that if you used Actor, then you wouldn't have been able to access
+
+115
+00:07:32,433 --> 00:07:36,433
+any of the AI code for the aiming, so we do actually need Pawns. So if you
+
+116
+00:07:36,433 --> 00:07:40,433
+chose Actor it's not a problem, let me show you have to change it once I've made this class.
+
+117
+00:07:40,433 --> 00:07:44,433
+Auto-morter or just mortar? I'm just going to call it Mortar_BP.
+
+118
+00:07:44,433 --> 00:07:48,433
+So there's my Mortar_BP!
+
+119
+00:07:48,433 --> 00:07:52,433
+If you've chose the wrong class, go to Class Settings, Parent Class, and just change it there,
+
+120
+00:07:52,433 --> 00:07:56,433
+nice and simple. OK great! So what are we going to do? We're going to add a Static
+
+121
+00:07:56,433 --> 00:08:00,433
+Mesh, to start with. That Static Mesh is going to be called the Body.
+
+122
+00:08:00,433 --> 00:08:04,433
+I can make it the root component, so dragging it over the default scene root.
+
+123
+00:08:04,433 --> 00:08:08,433
+There it is! Go and choose the Body, mortar_body.
+
+124
+00:08:08,433 --> 00:08:12,433
+There it is! And that's the beginnings of it, so there you go!
+
+125
+00:08:12,433 --> 00:08:16,433
+We'll put a material on this in a minute. Now, I'm going to add a turret,
+
+126
+00:08:16,433 --> 00:08:20,433
+TankTurret. Of course, we'll need to change the name of that later, but that's OK.
+
+127
+00:08:20,433 --> 00:08:24,433
+I'm going to call it Dome, but it is of type (Tank Turret), because that's got
+
+128
+00:08:24,433 --> 00:08:28,433
+code with it, it does something, it's a rich class. And then, where's this
+
+129
+00:08:28,433 --> 00:08:32,433
+Dome going to go? Currently, well it doesn't even have a mesh, so let's add the mesh on the right-hand
+
+130
+00:08:32,433 --> 00:08:36,433
+side, under Details. It may not be on the right for you. But I don't want to position it like this. What I want to
+
+131
+00:08:36,433 --> 00:08:40,433
+do is go to the Body and I'm going to add a socket under
+
+132
+00:08:40,433 --> 00:08:44,433
+the Socket Manager. You can get that from the Window menu. I'm going to call it
+
+133
+00:08:44,433 --> 00:08:48,433
+Dome, and I'm going to position it roughly by eye, and then, realize that I
+
+134
+00:08:48,433 --> 00:08:52,433
+scaled these things nicely for you. So it is actually 2 meters high
+
+135
+00:08:52,433 --> 00:08:56,433
+or 200 centimeters off the ground. So that socket's
+
+136
+00:08:56,433 --> 00:09:00,433
+0, 0, 200, and let's just eyeball that.
+
+137
+00:09:00,433 --> 00:09:04,433
+There it is, W, S, A, D, while holding the Right Mouse Button is how I'm moving
+
+138
+00:09:04,433 --> 00:09:08,433
+around! Great! So back to the Mortar Blueprint!
+
+139
+00:09:08,433 --> 00:09:12,433
+Where do we want this Dome? We just choose the parent socket Dome! That will
+
+140
+00:09:12,433 --> 00:09:16,433
+only be in your list if you've correctly childed
+
+141
+00:09:16,433 --> 00:09:20,433
+the Dome to the Body. Now, if you still have an offset, it's because of the location. The Dome wants to have
+
+142
+00:09:20,433 --> 00:09:24,433
+no location 0, 0, 0, and then, it wants to be
+
+143
+00:09:24,433 --> 00:09:28,433
+parent socketed to the Dome socket of the Body,
+
+144
+00:09:28,433 --> 00:09:32,433
+and the Dome needs to be a child of the Body. OK let's go again! We have a Barrel
+
+145
+00:09:32,433 --> 00:09:36,433
+class, don't we? Let's take the (Tank Barrel) class, child it to the Dome,
+
+146
+00:09:36,433 --> 00:09:40,433
+call it a Barrel. Now we better go,
+
+147
+00:09:40,433 --> 00:09:44,433
+before we try and position that Barrel, we'll give it a
+
+148
+00:09:44,433 --> 00:09:48,433
+Barrel Static Mesh, mortar_barrel. There it is! Don't try and position it in here.
+
+149
+00:09:48,433 --> 00:09:52,433
+In fact, you should probably reset its location in here. That looks roughly right but don't be fooled, it's not
+
+150
+00:09:52,433 --> 00:09:56,433
+right. We need to go to our mortar_dome,
+
+151
+00:09:56,433 --> 00:10:00,433
+create a socket, and I said I put that 20 centimeters up from the center,
+
+152
+00:10:00,433 --> 00:10:04,433
+in the middle. Now you can put it where you like, but I'm putting it 20 centimeters
+
+153
+00:10:04,433 --> 00:10:08,433
+up like that. Save it and back
+
+154
+00:10:08,433 --> 00:10:12,433
+to the Mortar Blueprint. We can socket it. Off we
+
+155
+00:10:12,433 --> 00:10:16,433
+go! Great! Now you can test this whole guy, by going into the rotate mode with the
+
+156
+00:10:16,433 --> 00:10:20,433
+E key, and you notice that if you childed right, that the top moves around
+
+157
+00:10:20,433 --> 00:10:24,433
+and takes the Barrel with it and that the Barrel rotates like that.
+
+158
+00:10:24,433 --> 00:10:28,433
+So we have the beginnings of it! I'm just going to apply a rust texture to
+
+159
+00:10:28,433 --> 00:10:32,433
+all of this, because I think that anything that sits out in the landscape for too long will become rusty.
+
+160
+00:10:32,433 --> 00:10:36,433
+And this is what I call a placeholder asset, it's an ugly programmer's asset.
+
+161
+00:10:36,433 --> 00:10:40,433
+We've put something together that's going to represent the function of the mortar, with
+
+162
+00:10:40,433 --> 00:10:44,433
+very basic Blender skills, and I've provided you with the assets.
+
+163
+00:10:44,433 --> 00:10:48,433
+And of course, in reality either you or somebody else needs to go off and
+
+164
+00:10:48,433 --> 00:10:52,433
+get much better skills, unless you're going for this art style [laughs]. If you
+
+165
+00:10:52,433 --> 00:10:56,433
+call it that! So we have those bits together, that's pretty
+
+166
+00:10:56,433 --> 00:11:00,433
+cool isn't it?! So what do we do? Well we go into the Event Graph, and we need to run the
+
+167
+00:11:00,433 --> 00:11:04,433
+Initialize don't we? So how do we do that? Well we need to get an
+
+168
+00:11:04,433 --> 00:11:08,433
+AimingComponent. So I'm adding an AimingComponent to the mortar,
+
+169
+00:11:08,433 --> 00:11:12,433
+bringing its reference in, and finding the Initialize method. There it is!
+
+170
+00:11:12,433 --> 00:11:16,433
+When do we do it? On BeginPlay! How do I know? Because it's what we do on the Tank,
+
+171
+00:11:16,433 --> 00:11:20,433
+right here! OK, so
+
+172
+00:11:20,433 --> 00:11:24,433
+that's that! Now what is the Barrel to Set? Well it's the Barrel.
+
+173
+00:11:24,433 --> 00:11:28,433
+Now it'll only accept this type, with the tick like this, if your Barrel
+
+174
+00:11:28,433 --> 00:11:32,433
+is of type (Tank Barrel). This of type Static Mesh ain't going to work
+
+175
+00:11:32,433 --> 00:11:36,433
+and the same with the Dome. Now it's not a turret, it's a Dome, but
+
+176
+00:11:36,433 --> 00:11:40,433
+close enough, we know what we're doing. It's an analogy. And there we are!
+
+177
+00:11:40,433 --> 00:11:44,433
+So we have that all wired up now. Now let's click on the Mortar itself!
+
+178
+00:11:44,433 --> 00:11:48,433
+The other thing we need to do is, not make it a StandardAIController but make it a
+
+179
+00:11:48,433 --> 00:11:52,433
+TankAIController, so that it's able to aim.
+
+180
+00:11:52,433 --> 00:11:56,433
+Alright, now I think it's time to go and try putting
+
+181
+00:11:56,433 --> 00:12:00,433
+one in the world. Do we have a Mortar Blueprint? Where is it? I don't see it!
+
+182
+00:12:00,433 --> 00:12:04,433
+So let's go search for it! Mortar_BP. I put it in the Mortar
+
+183
+00:12:04,433 --> 00:12:08,433
+folder. I'm just going to Save All, before we run anything, and let's
+
+184
+00:12:08,433 --> 00:12:12,433
+dump one in the world. There it is! Now, what happens? Ooh,
+
+185
+00:12:12,433 --> 00:12:16,433
+my goodness! It seems to be working straight away, look at that! It's not going to work, it's
+
+186
+00:12:16,433 --> 00:12:20,433
+not going to fire, it won't have a projectile, and we
+
+187
+00:12:20,433 --> 00:12:24,433
+haven't put a projectile socket on it. So let's sort those things
+
+188
+00:12:24,433 --> 00:12:28,433
+out! A couple of simple things. Back into the Mortar Blueprint! Tank
+
+189
+00:12:28,433 --> 00:12:32,433
+Aiming, Projectile Blueprint. Let's use the
+
+190
+00:12:32,433 --> 00:12:36,433
+same projectile. So that's that bit! The other thing that we're going to need to do,
+
+191
+00:12:36,433 --> 00:12:40,433
+that we haven't done yet, is on the Barrel. We're going to need to make a socket called
+
+192
+00:12:40,433 --> 00:12:44,433
+Projectile. Now this is the only time you may needed to have dived into
+
+193
+00:12:44,433 --> 00:12:48,433
+VisualStudio. Remember that we slightly uglyly, [Laughs] if that's a word,
+
+194
+00:12:48,433 --> 00:12:52,433
+string referenced the Projectile socket, by the word Projectile, so you best spell that right!
+
+195
+00:12:52,433 --> 00:12:56,433
+Where are we going to put it? Just a little bit out of the end of the Barrel like that. Is
+
+196
+00:12:56,433 --> 00:13:00,433
+that the wrong end? Maybe? I don't think so. If it is, we'll just switch it around.
+
+197
+00:13:00,433 --> 00:13:04,433
+Let's have a go! F11, whoa I'm getting scared already!
+
+198
+00:13:04,433 --> 00:13:08,433
+So this dude is aiming at me. Oh
+
+199
+00:13:08,433 --> 00:13:12,433
+boom and he hit me! Awesome! Now is he aiming up? Let's
+
+200
+00:13:12,433 --> 00:13:16,433
+just hit F8 and pause the game.
+
+201
+00:13:16,433 --> 00:13:20,433
+Well not even pause the game, I just depossess, and I'm just going to go and have a look at him.
+
+202
+00:13:20,433 --> 00:13:24,433
+I just want to make sure that his barrel is aiming upwards. Yeah look at it!
+
+203
+00:13:24,433 --> 00:13:28,433
+Off we go! Pretty straight forward! Hey, now that
+
+204
+00:13:28,433 --> 00:13:32,433
+is the power of using components! Now OK, we
+
+205
+00:13:32,433 --> 00:13:36,433
+called it a
+
+206
+00:13:36,433 --> 00:13:40,433
+TankAimingComponent and we called it a TankAIController,
+
+207
+00:13:40,433 --> 00:13:44,433
+over here in the C++, but that was good,
+
+208
+00:13:44,433 --> 00:13:48,433
+because at the time that's all they did right. So there's no reason to call it anything else. You don't want to get
+
+209
+00:13:48,433 --> 00:13:52,433
+into never going to need it syndrome, which is where you start thinking you're solving all the
+
+210
+00:13:52,433 --> 00:13:56,433
+world problems in one go. But now we have proven that this thing
+
+211
+00:13:56,433 --> 00:14:00,433
+can be totally reused, without even having VisualStudio open. Now we'll go
+
+212
+00:14:00,433 --> 00:14:04,433
+ahead and think about how to rename classes in Unreal, slightly more painful than it should be,
+
+213
+00:14:04,433 --> 00:14:10,033
+and carry on with our project. So congratulations and I'll see you in the next video!
+
+>>>>>>> 1d882d5df15102d9c45644c583da4ffc34bcfea1:Unreal/Section4/BT86 Making an AutoMortar.srt
