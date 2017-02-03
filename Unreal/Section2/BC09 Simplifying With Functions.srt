@@ -1,5 +1,4 @@
-
-1
+﻿1
 00:00:00,000 --> 00:00:04,000
 ...
 
@@ -129,512 +128,549 @@ and it'll introduce the game for us, then there's only one way to introduce the 
 
 33
 00:02:08,000 --> 00:02:12,000
-and we get very consistent behavior. So enough talking, let's do it! We've
+and we get very consistent behavior. So just to help you get your eye in I'm gonna be using
 
 34
 00:02:12,000 --> 00:02:16,000
-already got the right code highlighted. If I cut that code with Control X,
+curly braces in a couple of different ways in this video. You're gonna see different formats
 
 35
 00:02:16,000 --> 00:02:20,000
-and then, I'm going to go and paste it into this new method that we talked about. Now
+out there on the web. In sample code, in boilerplate code in Unreal,
 
 36
 00:02:20,000 --> 00:02:24,000
-don't keep things in your copy buffer for too long, so I'd probably paste it straight
+etc so I want you to be able to tell the difference. I want you to be read code like the
 
 37
 00:02:24,000 --> 00:02:28,000
-away. And then, wrap the code around it, because you could lose it couldn't you? You can always use
+compiler reads code, which is it doesn't care whether I put my curly brace
 
 38
 00:02:28,000 --> 00:02:32,000
-Control Z and stuff, you're not amateurs. Anyway, what are we going to call this method?
+at the end of the function definition, or on a new line after it so
 
 39
 00:02:32,000 --> 00:02:36,000
-We're introducing the game, so Print
+it'll be a little bit interchangeable in this video, and then I will be regularly going through and
 
 40
 00:02:36,000 --> 00:02:40,000
-Intro() will do fine.
+changing things to adhere to the standard that I'm aiming for
 
 41
-00:02:40,000 --> 00:02:44,000
-OK fantastic! PrintIntro(), so now curly braces!  Need
+00:02:40,000 --> 00:02:42,800
+which is where they're on a separate line.
 
 42
-00:02:44,000 --> 00:02:48,000
-to put one curly brace at the bottom, and then, when you do so, it's helpfully indented. But if it
+00:02:42,800 --> 00:02:44,633
+So enough talking, let's do it! We've
 
 43
-00:02:48,000 --> 00:02:52,000
-hasn't indented, for any reason, this is how you want to end up alright.
+00:02:44,633 --> 00:02:48,633
+already got the right code highlighted. If I cut that code with Control X,
 
 44
-00:02:52,000 --> 00:02:56,000
-So that's a function that takes in no parameters and passes nothing back, but
+00:02:48,633 --> 00:02:52,633
+and then, I'm going to go and paste it into this new method that we talked about. Now
 
 45
-00:02:56,000 --> 00:03:00,000
-even though we're passing nothing back, I still want you to be in the habit, at the bottom, of saying
+00:02:52,633 --> 00:02:56,633
+don't keep things in your copy buffer for too long, so I'd probably paste it straight
 
 46
-00:03:00,000 --> 00:03:04,000
-return. We're not returning anything because it's void, which means
+00:02:56,633 --> 00:03:00,633
+away. And then, wrap the code around it, because you could lose it couldn't you? You can always use
 
 47
-00:03:04,000 --> 00:03:08,000
-that we're returning nothing, but it's a very important habit, otherwise you can start to forget to return things.
+00:03:00,633 --> 00:03:04,633
+Control Z and stuff, you're not amateurs. Anyway, what are we going to call this method?
 
 48
-00:03:08,000 --> 00:03:12,000
-So what's the point of this PrintIntro()? It's to introduce the game.
+00:03:04,633 --> 00:03:08,633
+We're introducing the game, so Print
 
 49
-00:03:12,000 --> 00:03:16,000
-And it's got its WORD_LENGTH with it, if you click on that it shows you where the
+00:03:08,633 --> 00:03:12,633
+Intro() will do fine.
 
 50
-00:03:16,000 --> 00:03:20,000
-other instances are. By the way, let's just have a quick check and make sure we haven't used WORD_LENGTH anywhere
+00:03:12,633 --> 00:03:16,633
+OK fantastic! PrintIntro(), so now curly braces!  Need
 
 51
-00:03:20,000 --> 00:03:24,000
-else, because WORD_LENGTH is only going to be available now
+00:03:16,633 --> 00:03:20,633
+to put one curly brace at the bottom, and then, when you do so, it's helpfully indented. But if it
 
 52
-00:03:24,000 --> 00:03:28,000
-inside PrintIntro(). That's actually a good thing, it means the scope,
+00:03:20,633 --> 00:03:24,633
+hasn't indented, for any reason, this is how you want to end up alright.
 
 53
-00:03:28,000 --> 00:03:32,000
-the width of our code within which we can actually
+00:03:24,633 --> 00:03:28,633
+So that's a function that takes in no parameters and passes nothing back, but
 
 54
-00:03:32,000 --> 00:03:36,000
-use it, is limited to just what we're seeing there, in fact, right inside
+00:03:28,633 --> 00:03:32,633
+even though we're passing nothing back, I still want you to be in the habit, at the bottom, of saying
 
 55
-00:03:36,000 --> 00:03:40,000
-here. So we create WORD_LENGTH there, we use it very very soon after,
+00:03:32,633 --> 00:03:36,633
+return. We're not returning anything because it's void, which means
 
 56
-00:03:40,000 --> 00:03:44,000
-and then, as soon as we leave this function it goes, what we call out of scope and it's
+00:03:36,633 --> 00:03:40,633
+that we're returning nothing, but it's a very important habit, otherwise you can start to forget to return things.
 
 57
-00:03:44,000 --> 00:03:48,000
-not available to anything else. In fact, if you come into main() here and start trying to type WORD_LENGTH
+00:03:40,633 --> 00:03:44,633
+So what's the point of this PrintIntro()? It's to introduce the game.
 
 58
-00:03:48,000 --> 00:03:52,000
-it doesn't come in the autocomplete. Alright, that's called scope and it's a good
+00:03:44,633 --> 00:03:48,633
+And it's got its WORD_LENGTH with it, if you click on that it shows you where the
 
 59
-00:03:52,000 --> 00:03:56,000
-thing. It's to do with encapsulation, it's making sure we can't get
+00:03:48,633 --> 00:03:52,633
+other instances are. By the way, let's just have a quick check and make sure we haven't used WORD_LENGTH anywhere
 
 60
-00:03:56,000 --> 00:04:00,000
-hold of this where we don't need it. Now later, we will need to move it  to a different scope but for now
+00:03:52,633 --> 00:03:56,633
+else, because WORD_LENGTH is only going to be available now
 
 61
-00:04:00,000 --> 00:04:04,000
-this is fine. So PrintIntro() and in the main() what we do is we
+00:03:56,633 --> 00:04:00,633
+inside PrintIntro(). That's actually a good thing, it means the scope,
 
 62
-00:04:04,000 --> 00:04:08,000
-just go PrintIntro(). Great, let's make sure
+00:04:00,633 --> 00:04:04,633
+the width of our code within which we can actually
 
 63
-00:04:08,000 --> 00:04:12,000
-that works! So we've tidied up the beginning by saying PrintIntro(), look how much tidier
+00:04:04,633 --> 00:04:08,633
+use it, is limited to just what we're seeing there, in fact, right inside
 
 64
-00:04:12,000 --> 00:04:16,000
-main() is now. And it works, it prints the
+00:04:08,633 --> 00:04:12,633
+here. So we create WORD_LENGTH there, we use it very very soon after,
 
 65
-00:04:16,000 --> 00:04:20,000
-intro! Now, there's something else I want to tell you before we move on! The second part of this is, I want to see
+00:04:12,633 --> 00:04:16,633
+and then, as soon as we leave this function it goes, what we call out of scope and it's
 
 66
-00:04:20,000 --> 00:04:24,000
-main(). In fact, what is main()? Let's comment to say what main is. This is "// the entry
+00:04:16,633 --> 00:04:20,633
+not available to anything else. In fact, if you come into main() here and start trying to type WORD_LENGTH
 
 67
-00:04:24,000 --> 00:04:28,000
-point for our application"
+00:04:20,633 --> 00:04:24,633
+it doesn't come in the autocomplete. Alright, that's called scope and it's a good
 
 68
-00:04:28,000 --> 00:04:32,000
-or something. If you ever feel you need to describe something, do so.
+00:04:24,633 --> 00:04:28,633
+thing. It's to do with encapsulation, it's making sure we can't get
 
 69
-00:04:32,000 --> 00:04:36,000
-I want PrintIntro() to be up underneath this, so let's cut it and put it
+00:04:28,633 --> 00:04:32,633
+hold of this where we don't need it. Now later, we will need to move it  to a different scope but for now
 
 70
-00:04:36,000 --> 00:04:40,000
-underneath, but we get a problem! Let's try compiling! Control F5,
+00:04:32,633 --> 00:04:36,633
+this is fine. So PrintIntro() and in the main() what we do is we
 
 71
-00:04:40,000 --> 00:04:44,000
-it doesn't work, "identifier not found"
+00:04:36,633 --> 00:04:40,633
+just go PrintIntro(). Great, let's make sure
 
 72
-00:04:44,000 --> 00:04:48,000
-on line 11. So line 11 tries to use
+00:04:40,633 --> 00:04:44,633
+that works! So we've tidied up the beginning by saying PrintIntro(), look how much tidier
 
 73
-00:04:48,000 --> 00:04:52,000
-PrintIntro(), it doesn't understand it. What we need to do here is take this part of
+00:04:44,633 --> 00:04:48,633
+main() is now. And it works, it prints the
 
 74
-00:04:52,000 --> 00:04:56,000
-void PrintIntro() and put it at the top like that,
+00:04:48,633 --> 00:04:52,633
+intro! Now, there's something else I want to tell you before we move on! The second part of this is, I want to see
 
 75
-00:04:56,000 --> 00:05:00,000
-with a semicolon. Why a semicolon? Because if we try and put a pair of curly
+00:04:52,633 --> 00:04:56,633
+main(). In fact, what is main()? Let's comment to say what main is. This is "// the entry
 
 76
-00:05:00,000 --> 00:05:04,000
-braces, which by the way act as another way of completing
+00:04:56,633 --> 00:05:00,633
+point for our application"
 
 77
-00:05:04,000 --> 00:05:08,000
-the statement. Look at main(), for example, it doesn't have a semicolon on the end and neither does Print
+00:05:00,633 --> 00:05:04,633
+or something. If you ever feel you need to describe something, do so.
 
 78
-00:05:08,000 --> 00:05:12,000
-Intro(). Yeah, but if we try and just leave curly braces
+00:05:04,633 --> 00:05:08,633
+I want PrintIntro() to be up underneath this, so let's cut it and put it
 
 79
-00:05:12,000 --> 00:05:16,000
-or even curly braces and a semicolon or something, it's going to say no it
+00:05:08,633 --> 00:05:12,633
+underneath, but we get a problem! Let's try compiling! Control F5,
 
 80
-00:05:16,000 --> 00:05:20,000
-already has a body. So the curly braces are the implementation of
+00:05:12,633 --> 00:05:16,633
+it doesn't work, "identifier not found"
 
 81
-00:05:20,000 --> 00:05:24,000
-this, and we don't want to define the implementation in two places, really important.
+00:05:16,633 --> 00:05:20,633
+on line 11. So line 11 tries to use
 
 82
-00:05:24,000 --> 00:05:28,000
-So we say, void PrintIntro(), rather, with a semicolon on the end,
+00:05:20,633 --> 00:05:24,633
+PrintIntro(), it doesn't understand it. What we need to do here is take this part of
 
 83
-00:05:28,000 --> 00:05:32,000
-and if we click on it you can see that it also exists there and that the implementation is at the
+00:05:24,633 --> 00:05:28,633
+void PrintIntro() and put it at the top like that,
 
 84
-00:05:32,000 --> 00:05:36,000
-bottom. OK we want to keep our main() function at the top, because when you first come into this you want to say:
+00:05:28,633 --> 00:05:32,633
+with a semicolon. Why a semicolon? Because if we try and put a pair of curly
 
 85
-00:05:36,000 --> 00:05:40,000
-what's it doing? Well this is the entry point for our application OK, and
+00:05:32,633 --> 00:05:36,633
+braces, which by the way act as another way of completing
 
 86
-00:05:40,000 --> 00:05:44,000
-what else is happening? And then, we print an intro. Well how does PrintIntro() work? You look down
+00:05:36,633 --> 00:05:40,633
+the statement. Look at main(), for example, it doesn't have a semicolon on the end and neither does Print
 
 87
-00:05:44,000 --> 00:05:48,000
-here, it does this stuff. You see how it simplifies? OK let's check it runs!
+00:05:40,633 --> 00:05:44,633
+Intro(). Yeah, but if we try and just leave curly braces
 
 88
-00:05:48,000 --> 00:05:52,000
-It does, good good! OK,
+00:05:44,633 --> 00:05:48,633
+or even curly braces and a semicolon or something, it's going to say no it
 
 89
-00:05:52,000 --> 00:05:56,000
-now next thing! We want to put this stuff here into a method of its own, and
+00:05:48,633 --> 00:05:52,633
+already has a body. So the curly braces are the implementation of
 
 90
-00:05:56,000 --> 00:06:00,000
-guess what? That's going to be a challenge for you! I want you to
+00:05:52,633 --> 00:05:56,633
+this, and we don't want to define the implementation in two places, really important.
 
 91
-00:06:00,000 --> 00:06:04,000
-write string GetGuess() as a function. Save your code so you can go
+00:05:56,633 --> 00:06:00,633
+So we say, void PrintIntro(), rather, with a semicolon on the end,
 
 92
-00:06:04,000 --> 00:06:08,000
-back, in case you mess things up. Write a function to get the guess,
+00:06:00,633 --> 00:06:04,633
+and if we click on it you can see that it also exists there and that the implementation is at the
 
 93
-00:06:08,000 --> 00:06:12,000
-return it as a string, at the bottom of the function, and restore your code to
+00:06:04,633 --> 00:06:08,633
+bottom. OK we want to keep our main() function at the top, because when you first come into this you want to say:
 
 94
-00:06:12,000 --> 00:06:16,000
-its former working glory. Have a go, let yourself struggle with it a bit, but not too much.
+00:06:08,633 --> 00:06:12,633
+what's it doing? Well this is the entry point for our application OK, and
 
 95
-00:06:16,000 --> 00:06:20,000
-If it takes you more than 15 minutes, 20 minutes, something like that, then watch my solution and
+00:06:12,633 --> 00:06:16,633
+what else is happening? And then, we print an intro. Well how does PrintIntro() work? You look down
 
 96
-00:06:20,000 --> 00:06:24,000
-don't feel bad. Otherwise have a good go, have a look and see if you can do it by pattern matching
+00:06:16,633 --> 00:06:20,633
+here, it does this stuff. You see how it simplifies? OK let's check it runs!
 
 97
-00:06:24,000 --> 00:06:28,000
-and just by sheer determination and by checking on the web if you need to.
+00:06:20,633 --> 00:06:24,633
+It does, good good! OK,
 
 98
-00:06:28,000 --> 00:06:32,000
-Whatever you need, see if you can get it done. It's a useful problem to be able to solve, and it's using things you've
+00:06:24,633 --> 00:06:28,633
+now next thing! We want to put this stuff here into a method of its own, and
 
 99
-00:06:32,000 --> 00:06:36,000
-already learned. OK welcome back!
+00:06:28,633 --> 00:06:32,633
+guess what? That's going to be a challenge for you! I want you to
 
 100
-00:06:36,000 --> 00:06:40,000
-So I'm going to take all this code here, and I'm just going to
+00:06:32,633 --> 00:06:36,633
+write string GetGuess() as a function. Save your code so you can go
 
 101
-00:06:40,000 --> 00:06:44,000
-put it in a method called string GetGuess(),
+00:06:36,633 --> 00:06:40,633
+back, in case you mess things up. Write a function to get the guess,
 
 102
-00:06:44,000 --> 00:06:48,000
-and it takes in no parameters and that's the
+00:06:40,633 --> 00:06:44,633
+return it as a string, at the bottom of the function, and restore your code to
 
 103
-00:06:48,000 --> 00:06:52,000
-code. Alright, so it's going to get a guess from the player. In fact, I'm going to move that comment
+00:06:44,633 --> 00:06:48,633
+its former working glory. Have a go, let yourself struggle with it a bit, but not too much.
 
 104
-00:06:52,000 --> 00:06:56,000
-up above like that, because it describes what the whole function does. And I guess,
+00:06:48,633 --> 00:06:52,633
+If it takes you more than 15 minutes, 20 minutes, something like that, then watch my solution and
 
 105
-00:06:56,000 --> 00:07:00,000
-for consistency, I can do the same with PrintIntro().
+00:06:52,633 --> 00:06:56,633
+don't feel bad. Otherwise have a good go, have a look and see if you can do it by pattern matching
 
 106
-00:07:00,000 --> 00:07:04,000
-OK so PrintIntro() very simply does
+00:06:56,633 --> 00:07:00,633
+and just by sheer determination and by checking on the web if you need to.
 
 107
-00:07:04,000 --> 00:07:08,000
-that, GetGuess() from player does that. Great! See how "Enter your guess: ", it
+00:07:00,633 --> 00:07:04,633
+Whatever you need, see if you can get it done. It's a useful problem to be able to solve, and it's using things you've
 
 108
-00:07:08,000 --> 00:07:12,000
-defines it just as late as it needs to and repeats the guess back to them. Now warning
+00:07:04,633 --> 00:07:08,633
+already learned. OK welcome back!
 
 109
-00:07:12,000 --> 00:07:16,000
-sign, this doesn't just get the guess at the moment. This more than gets
+00:07:08,633 --> 00:07:12,633
+So I'm going to take all this code here, and I'm just going to
 
 110
-00:07:16,000 --> 00:07:20,000
-the guess, it gets the guess and it prints the guess
+00:07:12,633 --> 00:07:16,633
+put it in a method called string GetGuess(),
 
 111
-00:07:20,000 --> 00:07:24,000
-back to them. I'm going to rename that "// print the guess back".
+00:07:16,633 --> 00:07:20,633
+and it takes in no parameters and that's the
 
 112
-00:07:24,000 --> 00:07:28,000
-Hmm, not very good! This is what you call a side effect! If
+00:07:20,633 --> 00:07:24,633
+code. Alright, so it's going to get a guess from the player. In fact, I'm going to move that comment
 
 113
-00:07:28,000 --> 00:07:32,000
-you were up here now, let's see it in action, and I just put Get
+00:07:24,633 --> 00:07:28,633
+up above like that, because it describes what the whole function does. And I guess,
 
 114
-00:07:32,000 --> 00:07:36,000
-Guess(), that's my function call. So we'd GetGuess().
+00:07:28,633 --> 00:07:32,633
+for consistency, I can do the same with PrintIntro().
 
 115
-00:07:36,000 --> 00:07:40,000
-I don't need this second load of code here. Look how simple
+00:07:32,633 --> 00:07:36,633
+OK so PrintIntro() very simply does
 
 116
-00:07:40,000 --> 00:07:44,000
-our main() method is now! We print an intro and get a guess. Let's make sure it works, then I'll talk about this
+00:07:36,633 --> 00:07:40,633
+that, GetGuess() from player does that. Great! See how "Enter your guess: ", it
 
 117
-00:07:44,000 --> 00:07:48,000
-side effect. OK " 'GetGuess()':" " not found",
+00:07:40,633 --> 00:07:44,633
+defines it just as late as it needs to and repeats the guess back to them. Now warning
 
 118
-00:07:48,000 --> 00:07:52,000
-that's because I need to put a prototype of GetGuess() at the top.
+00:07:44,633 --> 00:07:48,633
+sign, this doesn't just get the guess at the moment. This more than gets
 
 119
-00:07:52,000 --> 00:07:56,000
-Now this stuff at the top is starting to become the kind of contract,
+00:07:48,633 --> 00:07:52,633
+the guess, it gets the guess and it prints the guess
 
 120
-00:07:56,000 --> 00:08:00,000
-an overview of what we're going to be doing, and later this will be in something called a header file.
+00:07:52,633 --> 00:07:56,633
+back to them. I'm going to rename that "// print the guess back".
 
 121
-00:08:00,000 --> 00:08:04,000
-But anyway, for now, we just need to make it available like that. Let's run it and see if it works!
+00:07:56,633 --> 00:08:00,633
+Hmm, not very good! This is what you call a side effect! If
 
 122
-00:08:04,000 --> 00:08:08,000
-OK " 'GetGuess': must return a value"!
+00:08:00,633 --> 00:08:04,633
+you were up here now, let's see it in action, and I just put Get
 
 123
-00:08:08,000 --> 00:08:12,000
-I've made the mistake I told you not to make, return
+00:08:04,633 --> 00:08:08,633
+Guess(), that's my function call. So we'd GetGuess().
 
 124
-00:08:12,000 --> 00:08:16,000
-Guess; so now we're returning a string. Enter you guess,
+00:08:08,633 --> 00:08:12,633
+I don't need this second load of code here. Look how simple
 
 125
-00:08:16,000 --> 00:08:20,000
-define yourself a variable called Guess,
+00:08:12,633 --> 00:08:16,633
+our main() method is now! We print an intro and get a guess. Let's make sure it works, then I'll talk about this
 
 126
-00:08:20,000 --> 00:08:24,000
-use this getline() method, and then, let's have a space and say that we print
+00:08:16,633 --> 00:08:20,633
+side effect. OK " 'GetGuess()':" " not found",
 
 127
-00:08:24,000 --> 00:08:28,000
-the guess back. OK let's check it works, and then, we will talk about side-effects.  Test,
+00:08:20,633 --> 00:08:24,633
+that's because I need to put a prototype of GetGuess() at the top.
 
 128
-00:08:28,000 --> 00:08:32,000
-your guess was test. Fantastic! Look at the win here is the
+00:08:24,633 --> 00:08:28,633
+Now this stuff at the top is starting to become the kind of contract,
 
 129
-00:08:32,000 --> 00:08:36,000
-simplicity of main(), but reading main(), it prints the intro
+00:08:28,633 --> 00:08:32,633
+an overview of what we're going to be doing, and later this will be in something called a header file.
 
 130
-00:08:36,000 --> 00:08:40,000
-and then it gets the guess. Hmm OK, and then you look at that and you
+00:08:32,633 --> 00:08:36,633
+But anyway, for now, we just need to make it available like that. Let's run it and see if it works!
 
 131
-00:08:40,000 --> 00:08:44,000
-look at this, and you say, well there's a guess coming back as a string but I don't see anything.
+00:08:36,633 --> 00:08:40,633
+OK " 'GetGuess': must return a value"!
 
 132
-00:08:44,000 --> 00:08:48,000
-The real problem, the side-effect, is that its printing. It shouldn't be printing
+00:08:40,633 --> 00:08:44,633
+I've made the mistake I told you not to make, return
 
 133
-00:08:48,000 --> 00:08:52,000
-when it's just called GetGuess(). That's a bit nasty, so
+00:08:44,633 --> 00:08:52,599
+Guess; so now we're returning a string. Enter you guess,
 
 134
-00:08:52,000 --> 00:08:56,000
-we're going to own up to our mistake by renaming the method to say exactly what it does do.
+00:08:52,600 --> 00:08:52,633
+define yourself a variable called Guess,
 
 135
-00:08:56,000 --> 00:09:00,000
-Now you can do that by renaming it in all three places it exists or
+00:08:52,633 --> 00:08:56,633
+use this getline() method, and then, let's have a space and say that we print
 
 136
-00:09:00,000 --> 00:09:04,000
-clicking on it and going Control R once, and it's going to show,
+00:08:56,633 --> 00:09:00,633
+the guess back. OK let's check it works, and then, we will talk about side-effects.  Test,
 
 137
-00:09:04,000 --> 00:09:08,000
-waiting for a second chord, Control R again. You could say
+00:09:00,633 --> 00:09:04,633
+your guess was test. Fantastic! Look at the win here is the
 
 138
-00:09:08,000 --> 00:09:12,000
-GetGuessAndPrint
+00:09:04,633 --> 00:09:08,633
+simplicity of main(), but reading main(), it prints the intro
 
 139
-00:09:12,000 --> 00:09:16,000
-Back. In fact, that's what we'll do for now. And when you hit Return it'll say,
+00:09:08,633 --> 00:09:12,633
+and then it gets the guess. Hmm OK, and then you look at that and you
 
 140
-00:09:16,000 --> 00:09:20,000
-where do you want to replace this? You can pretty much trust it, if you had it selected right in the first place and it will
+00:09:12,633 --> 00:09:16,633
+look at this, and you say, well there's a guess coming back as a string but I don't see anything.
 
 141
-00:09:20,000 --> 00:09:24,000
-rename it there and where you call it and in the prototype at the top there.
+00:09:16,633 --> 00:09:20,633
+The real problem, the side-effect, is that its printing. It shouldn't be printing
 
 142
-00:09:24,000 --> 00:09:28,000
-Now this is what it does, this is a horrible method name, or method is another
+00:09:20,633 --> 00:09:24,633
+when it's just called GetGuess(). That's a bit nasty, so
 
 143
-00:09:28,000 --> 00:09:32,000
-word for function, is another word for routine, and they all have slight
+00:09:24,633 --> 00:09:28,633
+we're going to own up to our mistake by renaming the method to say exactly what it does do.
 
 144
-00:09:32,000 --> 00:09:36,000
-subtleties as to what they actually are, but, for now, let's get used to all of the different ways of calling it.
+00:09:28,633 --> 00:09:32,633
+Now you can do that by renaming it in all three places it exists or
 
 145
-00:09:36,000 --> 00:09:40,000
-GetGuessAndPrintBack() does a lot and that's a bad thing that
+00:09:32,633 --> 00:09:36,633
+clicking on it and going Control R once, and it's going to show,
 
 146
-00:09:40,000 --> 00:09:44,000
-it does so much but at least we're honest about what it does, we have declared the side-
+00:09:36,633 --> 00:09:40,633
+waiting for a second chord, Control R again. You could say
 
 147
-00:09:44,000 --> 00:09:48,000
-effect and we're going to leave it like this for this video. So all I want to do now is
+00:09:40,633 --> 00:09:44,633
+GetGuessAndPrint
 
 148
-00:09:48,000 --> 00:09:52,000
-do it twice. Now the structure of main() is it
+00:09:44,633 --> 00:09:48,633
+Back. In fact, that's what we'll do for now. And when you hit Return it'll say,
 
 149
-00:09:52,000 --> 00:09:56,000
-Prints the Intro, GetGuessAndPrintBack(), GetGuessAndPrintBack(),
+00:09:48,633 --> 00:09:52,633
+where do you want to replace this? You can pretty much trust it, if you had it selected right in the first place and it will
 
 150
-00:09:56,000 --> 00:10:00,000
-and then it leaves a space and exits. Let's have a look at this work!
+00:09:52,633 --> 00:09:56,633
+rename it there and where you call it and in the prototype at the top there.
 
 151
-00:10:00,000 --> 00:10:04,000
-Donkey... No "doinke" spoot! That'll do! And that
+00:09:56,633 --> 00:10:00,633
+Now this is what it does, this is a horrible method name, or method is another
 
 152
-00:10:04,000 --> 00:10:08,000
-worked, and second guess "hello". Now we might want an extra space,
+00:10:00,633 --> 00:10:04,633
+word for function, is another word for routine, and they all have slight
 
 153
-00:10:08,000 --> 00:10:12,000
-but look, let's leave the formatting, it works! And the big big win
+00:10:04,633 --> 00:10:08,633
+subtleties as to what they actually are, but, for now, let's get used to all of the different ways of calling it.
 
 154
-00:10:12,000 --> 00:10:16,000
-is that main() is easy to understand and reads in
+00:10:08,633 --> 00:10:12,633
+GetGuessAndPrintBack() does a lot and that's a bad thing that
 
 155
-00:10:16,000 --> 00:10:20,000
-English now. So in the next video, we'll start looking at how we can do things
+00:10:12,633 --> 00:10:16,633
+it does so much but at least we're honest about what it does, we have declared the side-
 
 156
-00:10:20,000 --> 00:10:24,000
-multiple times automatically, using loops, and we'll also look, in future videos, at
+00:10:16,633 --> 00:10:20,633
+effect and we're going to leave it like this for this video. So all I want to do now is
 
 157
-00:10:24,000 --> 00:10:28,000
-how we can make this method more single purposed. GetGuessAndPrintBack()
+00:10:20,633 --> 00:10:24,633
+do it twice. Now the structure of main() is it
 
 158
-00:10:28,000 --> 00:10:32,000
-is not a nice method, because it's doing two things. OK fantastic! We'll see you soon!
+00:10:24,633 --> 00:10:28,633
+Prints the Intro, GetGuessAndPrintBack(), GetGuessAndPrintBack(),
 
 159
-00:10:32,000 --> 00:10:36,000
-...
+00:10:28,633 --> 00:10:32,633
+and then it leaves a space and exits. Let's have a look at this work!
 
 160
-00:10:36,000 --> 00:10:36,833
+00:10:32,633 --> 00:10:36,633
+Donkey... No "doinke" spoot! That'll do! And that
+
+161
+00:10:36,633 --> 00:10:40,633
+worked, and second guess "hello". Now we might want an extra space,
+
+162
+00:10:40,633 --> 00:10:44,633
+but look, let's leave the formatting, it works! And the big big win
+
+163
+00:10:44,633 --> 00:10:48,633
+is that main() is easy to understand and reads in
+
+164
+00:10:48,633 --> 00:10:52,633
+English now. So in the next video, we'll start looking at how we can do things
+
+165
+00:10:52,633 --> 00:10:56,633
+multiple times automatically, using loops, and we'll also look, in future videos, at
+
+166
+00:10:56,633 --> 00:11:00,633
+how we can make this method more single purposed. GetGuessAndPrintBack()
+
+167
+00:11:00,633 --> 00:11:04,633
+is not a nice method, because it's doing two things. OK fantastic! We'll see you soon!
+
+168
+00:11:04,633 --> 00:11:08,633
 ...
+
+169
+00:11:08,633 --> 00:11:09,466
+...
+
