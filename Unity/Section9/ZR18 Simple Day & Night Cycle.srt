@@ -1,359 +1,458 @@
-Kind: captions
-Language: en
-
+1
 00:00:00,000 --> 00:00:07,339
 Hey welcome back! We're going to talk about simple day-night cycles here, give this place a
 
+2
 00:00:07,339 --> 00:00:11,750
 little bit more atmosphere and a bit more
 variety. So, we're going to talk about
 
+3
 00:00:11,750 --> 00:00:16,299
 the Earth's orbit. We'll be coding a very simple day-night cycle and using a time scale
 
+4
 00:00:16,299 --> 00:00:22,220
 parameter. So, a physics lesson or astrophysics lesson for you. Remember that
 
+5
 00:00:22,220 --> 00:00:26,019
 the Earth goes around the Sun once a year. On the left hand side of the diagram you've got,
 
+6
 00:00:26,019 --> 00:00:30,240
 kind of June-ish, and on the right hand
 side of the diagram you've got December-ish,
 
+7
 00:00:30,240 --> 00:00:34,559
 so that's how it works. It's summer in
 the Northern Hemisphere in June-ish.
 
+8
 00:00:34,559 --> 00:00:38,809
 because the Sun is more overhead, and
 then, in December-ish it's more
 
+9
 00:00:38,809 --> 00:00:42,649
 overhead in the Southern Hemisphere. So,
 the Earth's axis is offset from
 
+10
 00:00:42,649 --> 00:00:46,030
 the vertical by about 22 1/2 degrees, if I remember right, and there's a
 
+11
 00:00:46,030 --> 00:00:49,629
 reference there in the notes. So, when is
 the Sun directly overhead? Well, it's
 
+12
 00:00:49,629 --> 00:00:56,080
 only directly overhead between the Tropic of Cancer and Capricorn and midday. So, on
 
+13
 00:00:56,080 --> 00:01:05,000
 June 21st at the Tropic of Cancer its overhead, and then, as you come down to say 10 degrees
 
+14
 00:01:05,010 --> 00:01:11,150
 north then it's overhead at midday on two
 days of the year, April the 16th and August the 27th.
 
+15
 00:01:11,150 --> 00:01:14,960
 So, in our game we're going to be somewhere between the Equator and the Tropic of
 
+16
 00:01:14,970 --> 00:01:19,030
 Cancer, and we're going to pick a day
 when the Sun does pass straight overhead.
 
+17
 00:01:19,030 --> 00:01:22,750
 So, it's going to be something like April the 16th or 27th Ok,
 
+18
 00:01:22,750 --> 00:01:27,530
 just so that we don't have to worry
 about the Sun passing lower in the sky than
 
+19
 00:01:27,530 --> 00:01:31,470
 overhead, but it's relatively easy to
 modify your scripts to do that if you ever wanted to and
 
+20
 00:01:31,470 --> 00:01:36,159
 that would be a challenge to you. So, before we go in and actually send you to do this
 
+21
 00:01:36,159 --> 00:01:39,130
 challenge, let's look at how we're going to do it. It's actually pretty simple, because
 
+22
 00:01:39,130 --> 00:01:43,810
 we just take the Sun, which is a
 directional light, and let's say I want it
 
+23
 00:01:43,810 --> 00:01:48,250
 to rise in the east and let's say I want the east to be positive X then, I would rotate it
 
+24
 00:01:48,250 --> 00:01:53,890
 270 in Y. And then, you'll notice
 that if I play with the X rotation of the Sun here...
 
+25
 00:01:53,890 --> 00:01:56,990
 give myself a bit more space...
 
+26
 00:01:56,990 --> 00:02:01,979
 then, the Sun will set and rise. So, all we're
 going to do to get it to go overhead is to
 
+27
 00:02:01,979 --> 00:02:06,000
 rotate it in X. So, however the designer leaves it we want it
 
+28
 00:02:06,000 --> 00:02:10,280
 to start. If they leave it there, we want it to start there in X and Y, and then, we
 
+29
 00:02:10,280 --> 00:02:16,050
 want to move its transform around using a script. And then... oh, I've left a
 
+30
 00:02:16,050 --> 00:02:19,599
 script there. And then, that script is
 going to automatically just rotate the
 
+31
 00:02:19,599 --> 00:02:23,310
 directional light like this and will
 provide a time scale. So, of course this is
 
+32
 00:02:23,310 --> 00:02:28,480
 all a challenge for you. Here we go! Write
 DayNightcycle.cs. Write a script on the
 
+33
 00:02:28,480 --> 00:02:34,160
 directional light. Publicly expose a float time scale, this is the number of minutes per second,
 
+34
 00:02:34,160 --> 00:02:39,610
 that are going to pass. Try setting that to 60 an issue, that's pretty common for games. One second in
 
+35
 00:02:39,610 --> 00:02:43,760
 the game is one minute, and see the
 effect. Have a go, pause the video! Write that
 
+36
 00:02:43,760 --> 00:02:50,480
 relatively simple script right now, and
 I will see you when you're done. Hey Ok, let's
 
+37
 00:02:50,480 --> 00:02:55,910
 make this day-night cycle happen then. So, call it Daycycle, I'm going to tidy it into my
 
+38
 00:02:55,910 --> 00:03:00,470
 Scripts Folder and have a little edit. So, what do we need to publicly expose? Well, I
 
+39
 00:03:00,470 --> 00:03:08,290
 said that we needed to publicly expose
 the timeScale; Ok, that's fine, or we could
 
+40
 00:03:08,290 --> 00:03:12,290
 even be more explicit. We could say
 minutesPerSecond;
 
+41
 00:03:12,290 --> 00:03:15,019
 there you go, that's fine! Now, if you do
 want to give the designer even more
 
+42
 00:03:15,019 --> 00:03:18,989
 information, do you remember the annotation we can put, so that we get a popup in the
 
+43
 00:03:18,989 --> 00:03:25,309
 inspector? ...or a Tooltip. Yep, it's Tooltip, and it takes in a string. "Set
 
+44
 00:03:25,310 --> 00:03:39,420
 a value... What do we say? It's the ("Number of minutes per second that pass,
 
+45
 00:03:39,420 --> 00:03:45,220
 try 60"); There's a hint there, Ok, and then, close the Tooltip. And then, do we
 
+46
 00:03:45,220 --> 00:03:49,710
 need anything else? Well, no because it's only the transform of the very directional light
 
+47
 00:03:49,710 --> 00:03:53,230
 itself. So, here's the script, sitting on the
 directional light. In a moment, when I
 
+48
 00:03:53,230 --> 00:03:59,480
 build this script my minutes per second should come through, unless I've made a syntax
 
+49
 00:03:59,480 --> 00:04:04,950
 error, which I have. I've put my semicolon in the wrong place. I must have also done
 
+50
 00:04:04,950 --> 00:04:10,710
 something else. I've put a semicolon in, and I don't need one. So, with these Tooltips, you don't need a
 
+51
 00:04:10,710 --> 00:04:14,340
 semicolon on the end of the line with
 these annotations. Ok! Now, the script
 
+52
 00:04:14,340 --> 00:04:20,459
 should build! There we go, minutes per
 second, and if I hover over it, it says:
 
+53
 00:04:20,459 --> 00:04:25,660
 Number of minutes per second that passed, try 60. And over here, you can see
 
+54
 00:04:25,660 --> 00:04:28,940
 that they have a transform on the unit, and it's only the transform that we need to
 
+55
 00:04:28,940 --> 00:04:32,370
 manipulate. So, I'm going to default that to 60 in the inspector, and then, just get the
 
+56
 00:04:32,370 --> 00:04:37,920
 script done. We do need one other member variable though, we need a private Vector3...
 
+57
 00:04:37,920 --> 00:04:44,200
 or is it a Quaternion? It's actually a
 Quaternion for the rotations.
 
+58
 00:04:44,200 --> 00:04:52,520
 startRotation and at the start we need to find startRotation simply equals... If I can find my equals key.
 
+59
 00:04:52,520 --> 00:04:59,419
 = transform.rotation; Now, if you look at
 that on the Intellisense there, you can
 
+60
 00:04:59,419 --> 00:05:02,540
 see that it's saying that it's a
 Quaternion. They're still mysterious to us,
 
+61
 00:05:02,540 --> 00:05:05,120
 Quaternions, but it doesn't matter. Like a
 light bulb we don't necessarily have to
 
+62
 00:05:05,120 --> 00:05:09,910
 know how they work to use them. They are actually four vectors, i.e. four element
 
+63
 00:05:09,910 --> 00:05:14,160
 vectors of complex numbers, which is why I'm staunchly avoiding them, for you guys. [Laughs]
 
+64
 00:05:14,160 --> 00:05:17,730
 Aright, so what are we going to do each frame? Well, one of the easiest things to do is to say
 
+65
 00:05:17,730 --> 00:05:19,690
 transform.RotateAround
 
+66
 00:05:19,690 --> 00:05:22,960
 Look at that method, it's static there. Ok, it needs a point,
 
+67
 00:05:22,960 --> 00:05:27,300
 an axis, and an angle. So, the point is just where we are. (transform.position
 
+68
 00:05:27,300 --> 00:05:30,200
 The axis is going to be Vector3.forward
 
+69
 00:05:30,200 --> 00:05:34,140
 if you think about it, because it's X, positive X is Vector3.forward
 
+70
 00:05:34,140 --> 00:05:39,300
 And let's hope or wish that we had angleThisFrame. We don't have angleThisFrame yet, but I want to keep the
 
+71
 00:05:39,300 --> 00:05:45,020
 line nice and short. So now, I go and right
 angleThisFrame
 
+72
 00:05:45,030 --> 00:05:49,840
 Now, what is the angleThisFrame? Well,
 without the time scaling, it is Time.deltaTime
 
+73
 00:05:49,840 --> 00:05:55,900
 divided by 360 degrees isn't it. Does that make sense
 
+74
 00:05:55,900 --> 00:06:01,680
 to you? So, if the frame time was one
 second then, we have to divide...
 
+75
 00:06:01,680 --> 00:06:05,820
 We'd say a 360th of a second is the angle that we want to pass through,
 
+76
 00:06:05,830 --> 00:06:12,470
 but we need to multiply all that up by
 the time scale, or minutesPerSecond, I think we've
 
+77
 00:06:12,470 --> 00:06:18,560
 called it. Ok so, hopefully that relatively simple math makes sense to you. Let's go and try it.
 
+78
 00:06:18,570 --> 00:06:24,260
 We have 60 set, let's hit play. The Sun starts where we left it, and then, let's just watch the
 
+79
 00:06:24,260 --> 00:06:28,360
 shadows, watch the hills. There are no shadows yet. You can see the rotation of the
 
+80
 00:06:28,360 --> 00:06:32,020
 directional light up there, is doing
 its thing, and in a minute we will have a
 
+81
 00:06:32,020 --> 00:06:38,600
 dawn! It'll be a glorious dawn in our zombie game! Hello, Ethan! He's come to meet us, staring
 
+82
 00:06:38,600 --> 00:06:42,630
 hopefully over at the east. Ok, look to speed this up I'm going to start the Sun just
 
+83
 00:06:42,630 --> 00:06:47,220
 a little bit higher. It's a little bit
 painfully low there, so if I look into the
 
+84
 00:06:47,220 --> 00:06:54,120
 positive X direction, you can move the
 Sun up. There you go, just sticking his little
 
+85
 00:06:54,120 --> 00:06:57,630
 head above the mountain there. So, let's
 go look at it!
 
+86
 00:06:57,630 --> 00:07:04,850
 Where is the Sun? There! Now, look at these shadows! Ah cool! You see it, up it comes, and that is about right!
 
+87
 00:07:04,850 --> 00:07:09,080
 It is doing about a minute a second. The way that I can tell, normally is just by looking at say tree
 
+88
 00:07:09,090 --> 00:07:13,990
 shadows. It's roughly what they do in a
 game, they seem pretty violent right now,
 
+89
 00:07:13,990 --> 00:07:17,000
 but that's just because it's so early in
 the morning. Realities like this as well
 
+90
 00:07:17,000 --> 00:07:21,640
 actually have very long shadows, because of the big angular difference. They move a lot very
 
+91
 00:07:21,640 --> 00:07:26,240
 very early in the morning. But if we were
 to move the Sun up quite a lot,
 
+92
 00:07:26,240 --> 00:07:30,669
 kind of more overhead and then play, and
 now go look at a tree shadow, it'll only
 
+93
 00:07:30,669 --> 00:07:37,630
 be moving very subtly if we stand still and look at it. You see, and that's reasonable. Cool hey! So, we
 
+94
 00:07:37,630 --> 00:07:41,789
 now have a day-night cycle! So,
 congratulations if you passed that
 
+95
 00:07:41,789 --> 00:07:47,069
 coding challenge yourself! A job well done for you, and hopefully you can now
 
+96
 00:07:47,069 --> 00:07:50,539
 go ahead and modify that if you want to.
 You could as an extra challenge, I'm not
 
+97
 00:07:50,539 --> 00:07:52,960
 going to show you the solution, but you
 could for example come in here and say
 
+98
 00:07:52,960 --> 00:07:56,560
 what's my latitude? You could do some
 searching around the web and try and work out
 
+99
 00:07:56,560 --> 00:08:00,319
 how to put the whole lot in, you know
 workout latitude. Also, you'd need the time
 
+100
 00:08:00,319 --> 00:08:03,400
 of year, and then, it could actually do
 the day-night cycle for this particular
 
+101
 00:08:03,400 --> 00:08:07,000
 time of year. Very useful if you were say
 designing yourself a house in Unity.
 
+102
 00:08:07,000 --> 00:08:12,520
 You could then put a script that simulates the Sun position, for your time of year.
 
+103
 00:08:12,530 --> 00:08:14,949
 So, pretty cool! I hope you've enjoyed that, and I'll see you soon!
-
