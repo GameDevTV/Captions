@@ -1,5 +1,4 @@
-
-1
+﻿1
 00:00:00,000 --> 00:00:04,000
 In this video we're going to be
 
@@ -360,182 +359,218 @@ this far. Then we'll return a Cast, if you remember that, to a type of
 <ATank> and it's the (PlayerPawn)
 
 91
-00:05:58,733 --> 00:06:02,733
-that we are casting. OK, so that should,
+00:05:58,733 --> 00:06:00,933
+that we are casting.
 
 92
-00:06:02,733 --> 00:06:06,733
-if we have properly declared this. Why TankAIController?
+00:06:00,933 --> 00:06:04,933
+I just want to make a couple of notes on the code before we move on. Firstly of course on
 
 93
-00:06:06,733 --> 00:06:10,733
-ATankAIController, that's the problem! It should all fall into place now! Great!
+00:06:04,933 --> 00:06:08,933
+line 30 I should be saying if(!PlayerPawn)... but this is a post-edit so I can't
 
 94
-00:06:10,733 --> 00:06:14,733
-Then, what I'm saying up here, instead of getting controlled tank, we're going to get
+00:06:08,933 --> 00:06:12,933
+fix that now, that gets done a tiny bit further on in the video. And the second
 
 95
-00:06:14,733 --> 00:06:18,733
-PlayerTank. So, PlayerTank
+00:06:12,933 --> 00:06:16,933
+thing is that the cast from PlayerPawn to ATank, that cast
 
 96
-00:06:18,733 --> 00:06:22,733
-and then we'll just replace this stuff GetPlayerTank(); if
+00:06:16,933 --> 00:06:20,933
+will fail in the case that PlayerPawn is a null pointer, or an invalid pointer
 
 97
-00:06:22,733 --> 00:06:26,733
-not player tank, report ( "AIController
+00:06:20,933 --> 00:06:24,933
+so actually strictly speaking you could just return PlayerPawn from here without all of
 
 98
-00:06:26,733 --> 00:06:30,733
-can't find player tank")); AI controller can't find player tank
+00:06:24,933 --> 00:06:28,933
+these extra lines, and I'll be doing that in a few videos time. But just in case you're
 
 99
-00:06:30,733 --> 00:06:34,733
-But if we do manage to find the player tank, then we say the
+00:06:28,933 --> 00:06:31,933
+wondering, yes it is possible to just return PlayerPawn.
 
 100
-00:06:34,733 --> 00:06:38,733
-player tank is ("AIController
+00:06:31,933 --> 00:06:33,733
+OK, so that should,
 
 101
-00:06:38,733 --> 00:06:42,733
-found player: %s") that'll do, and instead of
+00:06:33,733 --> 00:06:37,733
+if we have properly declared this. Why TankAIController?
 
 102
-00:06:42,733 --> 00:06:46,733
-ControlledTank it's PlayerTank name. You see what we're doing there? So, we're going and getting the PlayerTank
+00:06:37,733 --> 00:06:41,733
+ATankAIController, that's the problem! It should all fall into place now! Great!
 
 103
-00:06:46,733 --> 00:06:50,733
-and then reporting out what's going on. Let's try this! Before we do, before we
+00:06:41,733 --> 00:06:45,733
+Then, what I'm saying up here, instead of getting controlled tank, we're going to get
 
 104
-00:06:50,733 --> 00:06:54,733
-even try and run it, let's check all this is setup right! So, is the World or Level
+00:06:45,733 --> 00:06:49,733
+PlayerTank. So, PlayerTank
 
 105
-00:06:54,733 --> 00:06:58,733
-has it got the right Game Mode set? So, you go to Blueprints,
+00:06:49,733 --> 00:06:53,733
+and then we'll just replace this stuff GetPlayerTank(); if
 
 106
-00:06:58,733 --> 00:07:02,733
-BattleTankGameMode blueprint for this world,
+00:06:53,733 --> 00:06:57,733
+not player tank, report ( "AIController
 
 107
-00:07:02,733 --> 00:07:06,733
-and what does it specify as a PlayerController? The PlayerController blueprint great.
+00:06:57,733 --> 00:07:01,733
+can't find player tank")); AI controller can't find player tank
 
 108
-00:07:06,733 --> 00:07:10,733
-So from our diagram, that's this specifying a blueprint class
+00:07:01,733 --> 00:07:05,733
+But if we do manage to find the player tank, then we say the
 
 109
-00:07:10,733 --> 00:07:14,733
-which actually is in itself, if we look at the class...
+00:07:05,733 --> 00:07:09,733
+player tank is ("AIController
 
 110
-00:07:14,733 --> 00:07:18,733
-Do we have a blueprint? Let me have a look. Yeah, the blueprint class
+00:07:09,733 --> 00:07:13,733
+found player: %s") that'll do, and instead of
 
 111
-00:07:18,733 --> 00:07:22,733
-is based on our TankPlayerController C++ class, which is flashing away over here.
+00:07:13,733 --> 00:07:17,733
+ControlledTank it's PlayerTank name. You see what we're doing there? So, we're going and getting the PlayerTank
 
 112
-00:07:22,733 --> 00:07:26,733
-So, we've got exactly this situation, it's that that should be spawning the PlayerController instance.
+00:07:17,733 --> 00:07:21,733
+and then reporting out what's going on. Let's try this! Before we do, before we
 
 113
-00:07:26,733 --> 00:07:32,766
-So hopefully this'll work! Let's play the game and see if we get what we're looking for!
+00:07:21,733 --> 00:07:25,733
+even try and run it, let's check all this is setup right! So, is the World or Level
 
 114
-00:07:32,766 --> 00:07:36,766
-So, we seem to have the AIController, can't find the
+00:07:25,733 --> 00:07:29,733
+has it got the right Game Mode set? So, you go to Blueprints,
 
 115
-00:07:36,766 --> 00:07:40,766
-PlayerTank. Well why not? I don't know if you're getting this problem,
+00:07:29,733 --> 00:07:33,733
+BattleTankGameMode blueprint for this world,
 
 116
-00:07:40,766 --> 00:07:44,766
-you may not be. I'm not sure why I'm getting it, so let's follow the logic through. Let's
+00:07:33,733 --> 00:07:37,733
+and what does it specify as a PlayerController? The PlayerController blueprint great.
 
 117
-00:07:44,766 --> 00:07:48,766
-go look at our code and see what may or may not be happening over there.
+00:07:37,733 --> 00:07:41,733
+So from our diagram, that's this specifying a blueprint class
 
 118
-00:07:48,766 --> 00:07:55,400
-So, ("AIController can't find player tank"). We're getting to here, which means that we're seeing a not PlayerTank. So, if
+00:07:41,733 --> 00:07:45,733
+which actually is in itself, if we look at the class...
 
 119
-00:07:55,400 --> 00:08:01,933
-ah look! I've missed the exclamation mark in front of (PlayerPawn). I was not saying if not PlayerTank, I was just
+00:07:45,733 --> 00:07:49,733
+Do we have a blueprint? Let me have a look. Yeah, the blueprint class
 
 120
-00:08:01,933 --> 00:08:05,966
-I was just saying if PlayerTank returned null pointer, so this was succeeding, and then, we're
+00:07:49,733 --> 00:07:53,733
+is based on our TankPlayerController C++ class, which is flashing away over here.
 
 121
-00:08:05,966 --> 00:08:09,966
-returning a null pointer which was coming up here and dropping through to here.
+00:07:53,733 --> 00:07:57,733
+So, we've got exactly this situation, it's that that should be spawning the PlayerController instance.
 
 122
-00:08:09,966 --> 00:08:14,000
-I think that's what's happened. Let's see if that's what's happened![Laughs] What a pain!
+00:07:57,733 --> 00:08:03,766
+So hopefully this'll work! Let's play the game and see if we get what we're looking for!
 
 123
-00:08:14,000 --> 00:08:18,033
-Let's just take a look. So, those semicolons are subtle and they're small, but
+00:08:03,766 --> 00:08:07,766
+So, we seem to have the AIController, can't find the
 
 124
-00:08:18,033 --> 00:08:22,033
-they can totally invert the behavior of your game. Ah, cool! Look!
+00:08:07,766 --> 00:08:11,766
+PlayerTank. Well why not? I don't know if you're getting this problem,
 
 125
-00:08:22,033 --> 00:08:26,000
-The AIControllers, both of the AIControllers for the AITanks found player
+00:08:11,766 --> 00:08:15,766
+you may not be. I'm not sure why I'm getting it, so let's follow the logic through. Let's
 
 126
-00:08:26,000 --> 00:08:29,966
-BP_C_38. Let's just de-possess the tank, go to the
+00:08:15,766 --> 00:08:19,766
+go look at our code and see what may or may not be happening over there.
 
 127
-00:08:29,966 --> 00:08:34,000
-World Outliner, and check that that is indeed this tank. It is! Success! So
+00:08:19,766 --> 00:08:26,399
+So, ("AIController can't find player tank"). We're getting to here, which means that we're seeing a not PlayerTank. So, if
 
 128
-00:08:34,000 --> 00:08:38,033
-The tanks can actually find the player now, and that's great news!
+00:08:26,400 --> 00:08:32,933
+ah look! I've missed the exclamation mark in front of (PlayerPawn). I was not saying if not PlayerTank, I was just
 
 129
-00:08:38,033 --> 00:08:42,000
-And if we were to drop a third tank into the world, just for laughs,
+00:08:32,933 --> 00:08:36,966
+I was just saying if PlayerTank returned null pointer, so this was succeeding, and then, we're
 
 130
-00:08:42,000 --> 00:08:46,000
-and play, then we would have three of them all finding the same player! So that's pretty
+00:08:36,966 --> 00:08:40,966
+returning a null pointer which was coming up here and dropping through to here.
 
 131
-00:08:46,000 --> 00:08:50,000
-cool! Congratulations on getting that far! I'm just going to leave you with this diagram
+00:08:40,966 --> 00:08:44,999
+I think that's what's happened. Let's see if that's what's happened![Laughs] What a pain!
 
 132
-00:08:50,000 --> 00:08:53,966
-to remind you of the architecture. Take a little look at that, make sure it makes sense and that you know where the
+00:08:45,000 --> 00:08:49,033
+Let's just take a look. So, those semicolons are subtle and they're small, but
 
 133
-00:08:53,966 --> 00:08:57,966
-checkboxes and buttons are inside the engine, and remember to commit your work,
+00:08:49,033 --> 00:08:53,033
+they can totally invert the behavior of your game. Ah, cool! Look!
 
 134
-00:08:57,966 --> 00:09:01,966
-over in the source control, as I have been for every single video. And
+00:08:53,033 --> 00:08:56,999
+The AIControllers, both of the AIControllers for the AITanks found player
 
 135
-00:09:01,966 --> 00:09:03,999
+00:08:57,000 --> 00:09:00,966
+BP_C_38. Let's just de-possess the tank, go to the
+
+136
+00:09:00,966 --> 00:09:04,999
+World Outliner, and check that that is indeed this tank. It is! Success! So
+
+137
+00:09:05,000 --> 00:09:09,033
+The tanks can actually find the player now, and that's great news!
+
+138
+00:09:09,033 --> 00:09:12,999
+And if we were to drop a third tank into the world, just for laughs,
+
+139
+00:09:13,000 --> 00:09:17,000
+and play, then we would have three of them all finding the same player! So that's pretty
+
+140
+00:09:17,000 --> 00:09:21,000
+cool! Congratulations on getting that far! I'm just going to leave you with this diagram
+
+141
+00:09:21,000 --> 00:09:24,966
+to remind you of the architecture. Take a little look at that, make sure it makes sense and that you know where the
+
+142
+00:09:24,966 --> 00:09:28,966
+checkboxes and buttons are inside the engine, and remember to commit your work,
+
+143
+00:09:28,966 --> 00:09:32,966
+over in the source control, as I have been for every single video. And
+
+144
+00:09:32,966 --> 00:09:34,999
 I will see you soon!
 
