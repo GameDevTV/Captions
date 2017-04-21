@@ -1,5 +1,4 @@
-
-1
+﻿1
 00:00:00,000 --> 00:00:04,000
 Hey and welcome to Programmatic Sideways
 
@@ -224,642 +223,682 @@ here it is, we just need to modify it slightly for the new class.
 So I'm going to put that in, UTankTrack,
 
 57
-00:03:45,066 --> 00:03:49,066
+00:03:45,066 --> 00:03:48,632
 get rid of all the code.
 
 58
-00:03:49,066 --> 00:03:53,066
-Now what else do I need? Void. I need no t's
+00:03:48,633 --> 00:03:52,633
+Sam here with a quick edit. I wanted to point out that we're
 
 59
-00:03:53,066 --> 00:03:57,066
-in there, no override on the end. That's great, so that's nearly there!
+00:03:52,633 --> 00:03:56,633
+gonna forget to add the Super::TickComponent()
 
 60
-00:03:57,066 --> 00:04:01,066
-I better just check its log that it's working. (LogTemp,
+00:03:56,633 --> 00:04:00,633
+in to this method call, which means that the super class'
 
 61
-00:04:01,066 --> 00:04:05,066
-Warning, TEXT... Getting bored of typing this.
+00:04:00,633 --> 00:04:04,633
+TickComponent doesn't get called. Now it's okay in this case because the
 
 62
-00:04:05,066 --> 00:04:09,066
-("Track ticking"))
+00:04:04,633 --> 00:04:08,633
+TickComponent essential just calls the Blueprint tick event and if
 
 63
-00:04:09,066 --> 00:04:13,066
-OK. It doesn't matter that I spelled it wrong, in this case, because it's going to be
+00:04:08,633 --> 00:04:12,633
+you have no Blueprints deriving as we don't have here no 
 
 64
-00:04:13,066 --> 00:04:17,066
-a very temporary message. Let's put this ticking
+00:04:12,633 --> 00:04:16,633
+Tick event there then we won't see any problems. But in general it is good
 
 65
-00:04:17,066 --> 00:04:21,066
-here, inside the declaration with an override.
+00:04:16,633 --> 00:04:20,633
+practice to add your Super::TickComponent() here and if you do that it's
 
 66
-00:04:21,066 --> 00:04:25,066
-It's just moving code around and getting the ticking
+00:04:20,633 --> 00:04:24,633
+not going to change the behaviour and you should probably do it for good habit. Thanks to 
 
 67
-00:04:25,066 --> 00:04:29,066
-working again. And then, we take all this stuff off the front here. The
+00:04:24,633 --> 00:04:27,599
+Erick in the Q&A for pointing that out.
 
 68
-00:04:29,066 --> 00:04:33,066
-class name, virtual, needs to go in, and let's just test with ticking.
+00:04:27,600 --> 00:04:31,600
+Now what else do I need? Void. I need no t's
 
 69
-00:04:33,066 --> 00:04:37,066
-So sorry about a couple of minutes worth of housekeeping, in order to make that work,
+00:04:31,600 --> 00:04:35,600
+in there, no override on the end. That's great, so that's nearly there!
 
 70
-00:04:37,066 --> 00:04:41,066
-but it's good to revise how to put the ticking back and hopefully you
+00:04:35,600 --> 00:04:39,600
+I better just check its log that it's working. (LogTemp,
 
 71
-00:04:41,066 --> 00:04:45,066
-stopped and did that yourself. So sometimes, when you're watching these videos, if you think
+00:04:39,600 --> 00:04:43,600
+Warning, TEXT... Getting bored of typing this.
 
 72
-00:04:45,066 --> 00:04:49,066
-I could do that, I don't need to sit and watch. And don't wait for me to tell you to do a challenge
+00:04:43,600 --> 00:04:47,600
+("Track ticking"))
 
 73
-00:04:49,066 --> 00:04:53,066
-yourself, just do it yourself. There you go, tank tickling or whatever it says!
+00:04:47,600 --> 00:04:51,600
+OK. It doesn't matter that I spelled it wrong, in this case, because it's going to be
 
 74
-00:04:53,066 --> 00:04:57,066
-That's good! So we are ticking, that's fantastic! Alright, so
+00:04:51,600 --> 00:04:55,600
+a very temporary message. Let's put this ticking
 
 75
-00:04:57,066 --> 00:05:01,066
-what are we going to do, when we're ticking? How are we going to apply a sideways force? Well the general recipe, I'll help you with,
+00:04:55,600 --> 00:04:59,600
+here, inside the declaration with an override.
 
 76
-00:05:01,066 --> 00:05:05,066
-is as follows. We need to "// Calculate the
+00:04:59,600 --> 00:05:03,600
+It's just moving code around and getting the ticking
 
 77
-00:05:05,066 --> 00:05:09,066
-slippage speed", not velocity, speed
+00:05:03,600 --> 00:05:07,600
+working again. And then, we take all this stuff off the front here. The
 
 78
-00:05:09,066 --> 00:05:13,066
-it's just a number, which is the sideways component of the speed
+00:05:07,600 --> 00:05:11,600
+class name, virtual, needs to go in, and let's just test with ticking.
 
 79
-00:05:13,066 --> 00:05:17,066
-and we use a cross product for that. Then, we "// Work out
+00:05:11,600 --> 00:05:15,600
+So sorry about a couple of minutes worth of housekeeping, in order to make that work,
 
 80
-00:05:17,066 --> 00:05:21,066
-the required acceleration
+00:05:15,600 --> 00:05:19,600
+but it's good to revise how to put the ticking back and hopefully you
 
 81
-00:05:21,066 --> 00:05:25,066
-this frame to correct". So if we're
+00:05:19,600 --> 00:05:23,600
+stopped and did that yourself. So sometimes, when you're watching these videos, if you think
 
 82
-00:05:25,066 --> 00:05:29,066
-moving sideways at 10 centimeters a second, then this frame in this Delta
+00:05:23,600 --> 00:05:27,600
+I could do that, I don't need to sit and watch. And don't wait for me to tell you to do a challenge
 
 83
-00:05:29,066 --> 00:05:33,066
-Time, we're going to need a certain amount of acceleration to fix that velocity back down to 0 sideways.
+00:05:27,600 --> 00:05:31,600
+yourself, just do it yourself. There you go, tank tickling or whatever it says!
 
 84
-00:05:33,066 --> 00:05:37,066
-Then, we "// Calculate
+00:05:31,600 --> 00:05:35,600
+That's good! So we are ticking, that's fantastic! Alright, so
 
 85
-00:05:37,066 --> 00:05:41,066
-and apply sideways
+00:05:35,600 --> 00:05:39,600
+what are we going to do, when we're ticking? How are we going to apply a sideways force? Well the general recipe, I'll help you with,
 
 86
-00:05:41,066 --> 00:05:45,066
-force". Remember (F = m a), we have the mass of the tank,
+00:05:39,600 --> 00:05:43,600
+is as follows. We need to "// Calculate the
 
 87
-00:05:45,066 --> 00:05:49,066
-we have the acceleration just above, we've just calculated it, so we apply a sideways
+00:05:43,600 --> 00:05:47,600
+slippage speed", not velocity, speed
 
 88
-00:05:49,066 --> 00:05:53,066
-force. So let's start off with calculating the slippage
+00:05:47,600 --> 00:05:51,600
+it's just a number, which is the sideways component of the speed
 
 89
-00:05:53,066 --> 00:05:57,066
-speed. I'm going to use auto, because I like it. SlippageSpeed =...
+00:05:51,600 --> 00:05:55,600
+and we use a cross product for that. Then, we "// Work out
 
 90
-00:05:57,066 --> 00:06:01,066
-Well what is the Slippage
+00:05:55,600 --> 00:05:59,600
+the required acceleration
 
 91
-00:06:01,066 --> 00:06:05,066
-Speed? Let's have a look, I'm going to challenge you to make it! It's the component of the speed in the tank
+00:05:59,600 --> 00:06:03,600
+this frame to correct". So if we're
 
 92
-00:06:05,066 --> 00:06:09,066
-right direction, we're just choosing that as a sideways direction. If there's no
+00:06:03,600 --> 00:06:07,600
+moving sideways at 10 centimeters a second, then this frame in this Delta
 
 93
-00:06:09,066 --> 00:06:13,066
-Slippage, there should be 0, and if it's sliding entirely sideways, the SlippageSpeed will be the
+00:06:07,600 --> 00:06:11,600
+Time, we're going to need a certain amount of acceleration to fix that velocity back down to 0 sideways.
 
 94
-00:06:13,066 --> 00:06:17,066
-same as the speed of the tank. In general, use the cosign of the angle
+00:06:11,600 --> 00:06:15,600
+Then, we "// Calculate
 
 95
-00:06:17,066 --> 00:06:21,066
-between the velocity of the tank, whichever direction it's actually going in,
+00:06:15,600 --> 00:06:19,600
+and apply sideways
 
 96
-00:06:21,066 --> 00:06:25,066
-and the sideways right vector. So if it is
+00:06:19,600 --> 00:06:23,600
+force". Remember (F = m a), we have the mass of the tank,
 
 97
-00:06:25,066 --> 00:06:29,066
-going perfectly sideways, the cosign between those two angles is one, because the
+00:06:23,600 --> 00:06:27,600
+we have the acceleration just above, we've just calculated it, so we apply a sideways
 
 98
-00:06:29,066 --> 00:06:33,066
-cosign of 0 is 1, and you get the full
+00:06:27,600 --> 00:06:31,600
+force. So let's start off with calculating the slippage
 
 99
-00:06:33,066 --> 00:06:37,066
-speed. If it's going forward, then the angle is 90 degrees, cosign of
+00:06:31,600 --> 00:06:35,600
+speed. I'm going to use auto, because I like it. SlippageSpeed =...
 
 100
-00:06:37,066 --> 00:06:41,066
-90 is 0 so you get a 0 OK. And here's a hint for you!
+00:06:35,600 --> 00:06:39,600
+Well what is the Slippage
 
 101
-00:06:41,066 --> 00:06:45,066
-Well it's not really a hint, it's a strong suggestion. Us FVector::DotProduct() between the
+00:06:39,600 --> 00:06:43,600
+Speed? Let's have a look, I'm going to challenge you to make it! It's the component of the speed in the tank
 
 102
-00:06:45,066 --> 00:06:49,066
-velocity of the tank or the component, you may
+00:06:43,600 --> 00:06:47,600
+right direction, we're just choosing that as a sideways direction. If there's no
 
 103
-00:06:49,066 --> 00:06:53,066
-want to use GetComponentVelocity, and the tank right vector,
+00:06:47,600 --> 00:06:51,600
+Slippage, there should be 0, and if it's sliding entirely sideways, the SlippageSpeed will be the
 
 104
-00:06:53,066 --> 00:06:57,066
-and there's a GetRightVector() method. So have a go! Just work out this SlippageSpeed,
+00:06:51,600 --> 00:06:55,600
+same as the speed of the tank. In general, use the cosign of the angle
 
 105
-00:06:57,066 --> 00:07:01,066
-make sure you understand what you're doing, and I'll see you in a moment.
+00:06:55,600 --> 00:06:59,600
+between the velocity of the tank, whichever direction it's actually going in,
 
 106
-00:07:01,066 --> 00:07:05,066
-OK welcome back! So this
+00:06:59,600 --> 00:07:03,600
+and the sideways right vector. So if it is
 
 107
-00:07:05,066 --> 00:07:09,066
-SlippageSpeed is going to be the FVector static method
+00:07:03,600 --> 00:07:07,600
+going perfectly sideways, the cosign between those two angles is one, because the
 
 108
-00:07:09,066 --> 00:07:13,066
-called DotProduct(). Between the what? Well
+00:07:07,600 --> 00:07:11,600
+cosign of 0 is 1, and you get the full
 
 109
-00:07:13,066 --> 00:07:17,066
-we can (GetRightVector()). Before
+00:07:11,600 --> 00:07:15,600
+speed. If it's going forward, then the angle is 90 degrees, cosign of
 
 110
-00:07:17,066 --> 00:07:21,066
-we go any further with that, let's just check in our tank blueprint
+00:07:15,600 --> 00:07:19,600
+90 is 0 so you get a 0 OK. And here's a hint for you!
 
 111
-00:07:21,066 --> 00:07:25,066
-that the tank track has a forward
+00:07:19,600 --> 00:07:23,600
+Well it's not really a hint, it's a strong suggestion. Us FVector::DotProduct() between the
 
 112
-00:07:25,066 --> 00:07:29,066
-vector, the same as the Tank in X. The red
+00:07:23,600 --> 00:07:27,600
+velocity of the tank or the component, you may
 
 113
-00:07:29,066 --> 00:07:33,066
-arrow on the Tank itself, or on say the... No I need to look
+00:07:27,600 --> 00:07:31,600
+want to use GetComponentVelocity, and the tank right vector,
 
 114
-00:07:33,066 --> 00:07:37,066
-at the Tank itself. Well this is in the frame of the Tank, X is
+00:07:31,600 --> 00:07:35,600
+and there's a GetRightVector() method. So have a go! Just work out this SlippageSpeed,
 
 115
-00:07:37,066 --> 00:07:41,066
-forward. Let's just check that the track has that same forward. It does! OK
+00:07:35,600 --> 00:07:39,600
+make sure you understand what you're doing, and I'll see you in a moment.
 
 116
-00:07:41,066 --> 00:07:45,066
-that's good! So then, we are getting the RightVector of the component, which is the Tank
+00:07:39,600 --> 00:07:43,600
+OK welcome back! So this
 
 117
-00:07:45,066 --> 00:07:49,066
-Track, and we're going to cross product that with
+00:07:43,600 --> 00:07:47,600
+SlippageSpeed is going to be the FVector static method
 
 118
-00:07:49,066 --> 00:07:53,066
-the... Or DotProduct with it rather, and it doesn't matter which order we do a DotProduct
+00:07:47,600 --> 00:07:51,600
+called DotProduct(). Between the what? Well
 
 119
-00:07:53,066 --> 00:07:57,066
-in with the GetComponentVelocity,
+00:07:51,600 --> 00:07:55,600
+we can (GetRightVector()). Before
 
 120
-00:07:57,066 --> 00:08:01,066
-which is going to tell us the velocity of this component itself
+00:07:55,600 --> 00:07:59,600
+we go any further with that, let's just check in our tank blueprint
 
 121
-00:08:01,066 --> 00:08:05,066
-which is the track. And hopefully, unless the tank is falling apart, then
+00:07:59,600 --> 00:08:03,600
+that the tank track has a forward
 
 122
-00:08:05,066 --> 00:08:09,066
-the ComponentVelocity will be the same as the Tank
+00:08:03,600 --> 00:08:07,600
+vector, the same as the Tank in X. The red
 
 123
-00:08:09,066 --> 00:08:13,066
-Velocity, and we're not going to be dealing with the destruction of the tank in this section. OK, so that
+00:08:07,600 --> 00:08:11,600
+arrow on the Tank itself, or on say the... No I need to look
 
 124
-00:08:13,066 --> 00:08:17,066
-is the SlippageSpeed! Now we need to work out the required acceleration.
+00:08:11,600 --> 00:08:15,600
+at the Tank itself. Well this is in the frame of the Tank, X is
 
 125
-00:08:17,066 --> 00:08:21,066
-I don't need that comment, but we do need the acceleration. So auto,
+00:08:15,600 --> 00:08:19,600
+forward. Let's just check that the track has that same forward. It does! OK
 
 126
-00:08:21,066 --> 00:08:25,066
-I'm going to call it Correction or Correcting. CorrectionAcceleration
+00:08:19,600 --> 00:08:23,600
+that's good! So then, we are getting the RightVector of the component, which is the Tank
 
 127
-00:08:25,066 --> 00:08:29,066
-= what? Well
+00:08:23,600 --> 00:08:27,600
+Track, and we're going to cross product that with
 
 128
-00:08:29,066 --> 00:08:33,066
-acceleration is speed over time, isn't it?
+00:08:27,600 --> 00:08:31,600
+the... Or DotProduct with it rather, and it doesn't matter which order we do a DotProduct
 
 129
-00:08:33,066 --> 00:08:37,066
-So meters per second, per second. Acceleration is speed over time, 0 to 60.
+00:08:31,600 --> 00:08:35,600
+in with the GetComponentVelocity,
 
 130
-00:08:37,066 --> 00:08:41,066
-Speed is 60 over time, it tells you how quickly you're getting to 60.
+00:08:35,600 --> 00:08:39,600
+which is going to tell us the velocity of this component itself
 
 131
-00:08:41,066 --> 00:08:45,066
-So we're going to take this SlippageSpeed
+00:08:39,600 --> 00:08:43,600
+which is the track. And hopefully, unless the tank is falling apart, then
 
 132
-00:08:45,066 --> 00:08:49,066
-and we're going to divide it by the DeltaTime,
+00:08:43,600 --> 00:08:47,600
+the ComponentVelocity will be the same as the Tank
 
 133
-00:08:49,066 --> 00:08:53,066
-which is available here as a parameter, and that tells
+00:08:47,600 --> 00:08:51,600
+Velocity, and we're not going to be dealing with the destruction of the tank in this section. OK, so that
 
 134
-00:08:53,066 --> 00:08:57,066
-us how much acceleration we need in this frame. Now which direction is that acceleration in?
+00:08:51,600 --> 00:08:55,600
+is the SlippageSpeed! Now we need to work out the required acceleration.
 
 135
-00:08:57,066 --> 00:09:01,066
-Well we need an acceleration, which is actually
+00:08:55,600 --> 00:08:59,600
+I don't need that comment, but we do need the acceleration. So auto,
 
 136
-00:09:01,066 --> 00:09:05,066
-a vector, so we multiply it by this GetRightVector again.
+00:08:59,600 --> 00:09:03,600
+I'm going to call it Correction or Correcting. CorrectionAcceleration
 
 137
-00:09:05,066 --> 00:09:09,066
-You could store that as a variable, local
+00:09:03,600 --> 00:09:07,600
+= what? Well
 
 138
-00:09:09,066 --> 00:09:13,066
-variable, if you want to. We're nearly there, but we don't want to apply the acceleration
+00:09:07,600 --> 00:09:11,600
+acceleration is speed over time, isn't it?
 
 139
-00:09:13,066 --> 00:09:17,066
-in the direction that we're slipping, we want to apply it in the opposite
+00:09:11,600 --> 00:09:15,600
+So meters per second, per second. Acceleration is speed over time, 0 to 60.
 
 140
-00:09:17,066 --> 00:09:21,066
-direction to what we're slipping in. OK so we put a minus in here,
+00:09:15,600 --> 00:09:19,600
+Speed is 60 over time, it tells you how quickly you're getting to 60.
 
 141
-00:09:21,066 --> 00:09:25,066
-the opposite direction to that, that we're slipping in. OK
+00:09:19,600 --> 00:09:23,600
+So we're going to take this SlippageSpeed
 
 142
-00:09:25,066 --> 00:09:29,066
-so that's the "acceleration to this frame to correct"! And then,
+00:09:23,600 --> 00:09:27,600
+and we're going to divide it by the DeltaTime,
 
 143
-00:09:29,066 --> 00:09:33,066
-we're going to "// Calculate and apply a sideways" friction, and I don't need
+00:09:27,600 --> 00:09:31,600
+which is available here as a parameter, and that tells
 
 144
-00:09:33,066 --> 00:09:37,066
-the word for, which is (F = m a). So how do we work out the sideways friction?
+00:09:31,600 --> 00:09:35,600
+us how much acceleration we need in this frame. Now which direction is that acceleration in?
 
 145
-00:09:37,066 --> 00:09:41,066
-Well I think I'll do it in two stages. I'm going to make a Correction
+00:09:35,600 --> 00:09:39,600
+Well we need an acceleration, which is actually
 
 146
-00:09:41,066 --> 00:09:45,066
-Force. What is that equal to? Well force is
+00:09:39,600 --> 00:09:43,600
+a vector, so we multiply it by this GetRightVector again.
 
 147
-00:09:45,066 --> 00:09:49,066
-mass times acceleration, so we need to GetTankRoot.
+00:09:43,600 --> 00:09:47,600
+You could store that as a variable, local
 
 148
-00:09:49,066 --> 00:09:53,066
-So how do we get the TankRootComponent. We are a
+00:09:47,600 --> 00:09:51,600
+variable, if you want to. We're nearly there, but we don't want to apply the acceleration
 
 149
-00:09:53,066 --> 00:09:57,066
-tank track. I need to get the mass from this Tank at the top here.
+00:09:51,600 --> 00:09:55,600
+in the direction that we're slipping, we want to apply it in the opposite
 
 150
-00:09:57,066 --> 00:10:01,066
-If you remember, it's this Tank... Sorry, this Tank here that actually
+00:09:55,600 --> 00:09:59,600
+direction to what we're slipping in. OK so we put a minus in here,
 
 151
-00:10:01,066 --> 00:10:05,066
-has a mass on it in kilos. This guy here, it's a Static Mesh Component
+00:09:59,600 --> 00:10:03,600
+the opposite direction to that, that we're slipping in. OK
 
 152
-00:10:05,066 --> 00:10:09,066
-which is the root of this hierarchy. How do I get
+00:10:03,600 --> 00:10:07,600
+so that's the "acceleration to this frame to correct"! And then,
 
 153
-00:10:09,066 --> 00:10:13,066
-that from the Tank track? Well let's
+00:10:07,600 --> 00:10:11,600
+we're going to "// Calculate and apply a sideways" friction, and I don't need
 
 154
-00:10:13,066 --> 00:10:17,066
-try doing that before we even try and work out the CorrectionForce. We can say auto.
+00:10:11,600 --> 00:10:15,600
+the word for, which is (F = m a). So how do we work out the sideways friction?
 
 155
-00:10:17,066 --> 00:10:21,066
-Then we can say, well how are we going to get this tank root? Well we need to Get
+00:10:15,600 --> 00:10:19,600
+Well I think I'll do it in two stages. I'm going to make a Correction
 
 156
-00:10:21,066 --> 00:10:25,066
-the Owner for a start. What does that do? That goes up and gets this guy here,
+00:10:19,600 --> 00:10:23,600
+Force. What is that equal to? Well force is
 
 157
-00:10:25,066 --> 00:10:29,066
-from the Track. So once we've got the owner we look
+00:10:23,600 --> 00:10:27,600
+mass times acceleration, so we need to GetTankRoot.
 
 158
-00:10:29,066 --> 00:10:33,066
-through that pointer, provided that we can find an owner, of course.
+00:10:27,600 --> 00:10:31,600
+So how do we get the TankRootComponent. We are a
 
 159
-00:10:33,066 --> 00:10:37,066
-We may want to check that, but to be honest, the tank is precomposed, I'm pretty safe
+00:10:31,600 --> 00:10:35,600
+tank track. I need to get the mass from this Tank at the top here.
 
 160
-00:10:37,066 --> 00:10:41,066
-leaving that for the moment. Then, we Get the Root Component.
+00:10:35,600 --> 00:10:39,600
+If you remember, it's this Tank... Sorry, this Tank here that actually
 
 161
-00:10:41,066 --> 00:10:45,066
-I've done this type of thing before, which is where we go down and find the TankRootComponent
+00:10:39,600 --> 00:10:43,600
+has a mass on it in kilos. This guy here, it's a Static Mesh Component
 
 162
-00:10:45,066 --> 00:10:49,066
-there. And let's see what type that is, if I just GetOwner() GetRoot
+00:10:43,600 --> 00:10:47,600
+which is the root of this hierarchy. How do I get
 
 163
-00:10:49,066 --> 00:10:53,066
-Component(). Let's see what we end up with! Provided I have my semicolons in the right
+00:10:47,600 --> 00:10:51,600
+that from the Tank track? Well let's
 
 164
-00:10:53,066 --> 00:10:57,066
-place, let's just see what comes out of here!
+00:10:51,600 --> 00:10:55,600
+try doing that before we even try and work out the CorrectionForce. We can say auto.
 
 165
-00:10:57,066 --> 00:11:01,066
-Once it catches up, we'll see what this auto... Ah, I haven't given it a name, of
+00:10:55,600 --> 00:10:59,600
+Then we can say, well how are we going to get this tank root? Well we need to Get
 
 166
-00:11:01,066 --> 00:11:05,066
-course, so I'm going to call it TankRoot.
+00:10:59,600 --> 00:11:03,600
+the Owner for a start. What does that do? That goes up and gets this guy here,
 
 167
-00:11:05,066 --> 00:11:09,066
-auto TankRoot is GetOwner() GetRootComponent(). What comes out of that?
+00:11:03,600 --> 00:11:07,600
+from the Track. So once we've got the owner we look
 
 168
-00:11:09,066 --> 00:11:13,066
-It is a USceneComponent pointer,
+00:11:07,600 --> 00:11:11,600
+through that pointer, provided that we can find an owner, of course.
 
 169
-00:11:13,066 --> 00:11:17,066
-which is this guy here.
+00:11:11,600 --> 00:11:15,600
+We may want to check that, but to be honest, the tank is precomposed, I'm pretty safe
 
 170
-00:11:17,066 --> 00:11:21,066
-Now let's look at the class
+00:11:15,600 --> 00:11:19,600
+leaving that for the moment. Then, we Get the Root Component.
 
 171
-00:11:21,066 --> 00:11:25,066
-hierarchy again!
+00:11:19,600 --> 00:11:23,600
+I've done this type of thing before, which is where we go down and find the TankRootComponent
 
 172
-00:11:25,066 --> 00:11:29,066
-
+00:11:23,600 --> 00:11:27,600
+there. And let's see what type that is, if I just GetOwner() GetRoot
 
 173
-00:11:29,066 --> 00:11:33,066
-SceneComponent is a type of ActorComponent.
+00:11:27,600 --> 00:11:31,600
+Component(). Let's see what we end up with! Provided I have my semicolons in the right
 
 174
-00:11:33,066 --> 00:11:37,066
-And then, where does StaticMeshComponent comes into this? A StaticMesh
+00:11:31,600 --> 00:11:35,600
+place, let's just see what comes out of here!
 
 175
-00:11:37,066 --> 00:11:41,066
-Component is a specialization of a SceneComponent, but we need
+00:11:35,600 --> 00:11:39,600
+Once it catches up, we'll see what this auto... Ah, I haven't given it a name, of
 
 176
-00:11:41,066 --> 00:11:45,066
-the StaticMeshComponent in order to actually get
+00:11:39,600 --> 00:11:43,600
+course, so I'm going to call it TankRoot.
 
 177
-00:11:45,066 --> 00:11:49,066
-from the Tank, the mass. Because if we look on the tank blueprint,
+00:11:43,600 --> 00:11:47,600
+auto TankRoot is GetOwner() GetRootComponent(). What comes out of that?
 
 178
-00:11:49,066 --> 00:11:53,066
-it is the fact that it's a StaticMesh and this
+00:11:47,600 --> 00:11:51,600
+It is a USceneComponent pointer,
 
 179
-00:11:53,066 --> 00:11:57,066
-Physics property that is giving us a mass. So what we need to do with the
+00:11:51,600 --> 00:11:55,600
+which is this guy here.
 
 180
-00:11:57,066 --> 00:12:01,066
-TankRoot is, we need to Cast it to a UStaticMeshComponent,...
+00:11:55,600 --> 00:11:59,600
+Now let's look at the class
 
 181
-00:12:01,066 --> 00:12:05,066
-...
+00:11:59,600 --> 00:12:03,600
+hierarchy again!
 
 182
-00:12:05,066 --> 00:12:09,066
-...in order to be able to get the properties that we want from it. So we cast to
+00:12:03,600 --> 00:12:07,600
+
 
 183
-00:12:09,066 --> 00:12:13,066
-the UStaticMeshComponent, once we go
+00:12:07,600 --> 00:12:11,600
+SceneComponent is a type of ActorComponent.
 
 184
-00:12:13,066 --> 00:12:17,066
-and find this object here, we go get it as a StaticMeshComponent. Alright
+00:12:11,600 --> 00:12:15,600
+And then, where does StaticMeshComponent comes into this? A StaticMesh
 
 185
-00:12:17,066 --> 00:12:21,066
-that allows us to simply talk about the Tank
+00:12:15,600 --> 00:12:19,600
+Component is a specialization of a SceneComponent, but we need
 
 186
-00:12:21,066 --> 00:12:25,066
-Root. Then, we can just say GetMass(),
+00:12:19,600 --> 00:12:23,600
+the StaticMeshComponent in order to actually get
 
 187
-00:12:25,066 --> 00:12:29,066
-like that, it's a method that's provided for us. If we multiply
+00:12:23,600 --> 00:12:27,600
+from the Tank, the mass. Because if we look on the tank blueprint,
 
 188
-00:12:29,066 --> 00:12:33,066
-that Mass by the CorrectionAcceleration, that we've worked out, mass times
+00:12:27,600 --> 00:12:31,600
+it is the fact that it's a StaticMesh and this
 
 189
-00:12:33,066 --> 00:12:37,066
-acceleration is nearly force. The only thing is, we need to divide by two,
+00:12:31,600 --> 00:12:35,600
+Physics property that is giving us a mass. So what we need to do with the
 
 190
-00:12:37,066 --> 00:12:41,066
-because there are "// Two tracks".
+00:12:35,600 --> 00:12:39,600
+TankRoot is, we need to Cast it to a UStaticMeshComponent,...
 
 191
-00:12:41,066 --> 00:12:45,066
-
+00:12:39,600 --> 00:12:43,600
+...
 
 192
-00:12:45,066 --> 00:12:49,066
-OK so that is the
+00:12:43,600 --> 00:12:47,600
+...in order to be able to get the properties that we want from it. So we cast to
 
 193
-00:12:49,066 --> 00:12:53,066
-CorrectionForce, now we need to do is apply it! So we already have this TankRoot thing,
+00:12:47,600 --> 00:12:51,600
+the UStaticMeshComponent, once we go
 
 194
-00:12:53,066 --> 00:12:57,066
-and you'll find that when you look through the pointer of the TankRoot, we can
+00:12:51,600 --> 00:12:55,600
+and find this object here, we go get it as a StaticMeshComponent. Alright
 
 195
-00:12:57,066 --> 00:13:01,066
-just AddForce(). That's why we had to cast it, it gives us all these
+00:12:55,600 --> 00:12:59,600
+that allows us to simply talk about the Tank
 
 196
-00:13:01,066 --> 00:13:05,066
-methods and it's the (CorrectionForce) that we add.
+00:12:59,600 --> 00:13:03,600
+Root. Then, we can just say GetMass(),
 
 197
-00:13:05,066 --> 00:13:09,066
-So a bit physicsy for you there, but what we've done is
+00:13:03,600 --> 00:13:07,600
+like that, it's a method that's provided for us. If we multiply
 
 198
-00:13:09,066 --> 00:13:13,066
-worked out the SlippageSpeed, worked out the required acceleration, and calculated an implied and a sideways friction,
+00:13:07,600 --> 00:13:11,600
+that Mass by the CorrectionAcceleration, that we've worked out, mass times
 
 199
-00:13:13,066 --> 00:13:17,066
-precisely as we pseudocoded. Let's go ahead and compile
+00:13:11,600 --> 00:13:15,600
+acceleration is nearly force. The only thing is, we need to divide by two,
 
 200
-00:13:17,066 --> 00:13:21,066
-this and see if it works! By the way, I'll Compile, then I'll give you the
+00:13:15,600 --> 00:13:19,600
+because there are "// Two tracks".
 
 201
-00:13:21,066 --> 00:13:25,066
-by the way. By the way, this TankRoot, we could go and
+00:13:19,600 --> 00:13:23,600
+
 
 202
-00:13:25,066 --> 00:13:29,066
-cache that state. We could do that at BeginPlay(), then we
+00:13:23,600 --> 00:13:27,600
+OK so that is the
 
 203
-00:13:29,066 --> 00:13:33,066
-could protect against it and check it, but
+00:13:27,600 --> 00:13:31,600
+CorrectionForce, now we need to do is apply it! So we already have this TankRoot thing,
 
 204
-00:13:33,066 --> 00:13:37,066
-why cache it, at the moment? Until the Performance Profiler tells us there's a performance problem, let's not bother
+00:13:31,600 --> 00:13:35,600
+and you'll find that when you look through the pointer of the TankRoot, we can
 
 205
-00:13:37,066 --> 00:13:41,066
-cacheing it! Let's just focus on simple physics. OK using the left stick here. Ah,
+00:13:35,600 --> 00:13:39,600
+just AddForce(). That's why we had to cast it, it gives us all these
 
 206
-00:13:41,066 --> 00:13:45,066
-that is looking a lot better! Now the very cool thing about the architecture
+00:13:39,600 --> 00:13:43,600
+methods and it's the (CorrectionForce) that we add.
 
 207
-00:13:45,066 --> 00:13:49,066
-that we've setup is, watch the AI tanks now. Apart from these bugs, with them hitting the
+00:13:43,600 --> 00:13:47,600
+So a bit physicsy for you there, but what we've done is
 
 208
-00:13:49,066 --> 00:13:53,066
-ground, notice that they then have to move. One of them is not moving, actually, so let
+00:13:47,600 --> 00:13:51,600
+worked out the SlippageSpeed, worked out the required acceleration, and calculated an implied and a sideways friction,
 
 209
-00:13:53,066 --> 00:13:57,066
-me refresh the guy who's not moving. I think that's him. By refreshing him,
+00:13:51,600 --> 00:13:55,600
+precisely as we pseudocoded. Let's go ahead and compile
 
 210
-00:13:57,066 --> 00:14:01,066
-I needn't just drop a new blueprint in the game. But watch how they move,
+00:13:55,600 --> 00:13:59,600
+this and see if it works! By the way, I'll Compile, then I'll give you the
 
 211
-00:14:01,066 --> 00:14:05,066
-they have to move according to the same physics, because they're using the same API as
+00:13:59,600 --> 00:14:03,600
+by the way. By the way, this TankRoot, we could go and
 
 212
-00:14:05,066 --> 00:14:09,066
-I am. Oh dear, we have this significant ground problem, so that's going to have to be
+00:14:03,600 --> 00:14:07,600
+cache that state. We could do that at BeginPlay(), then we
 
 213
-00:14:09,066 --> 00:14:13,066
-a thing we look at very shortly now. But what I want you to notice is that
+00:14:07,600 --> 00:14:11,600
+could protect against it and check it, but
 
 214
-00:14:13,066 --> 00:14:17,066
-all the tanks now have sideways friction, totally different movement for all of us.
+00:14:11,600 --> 00:14:15,600
+why cache it, at the moment? Until the Performance Profiler tells us there's a performance problem, let's not bother
 
 215
-00:14:17,066 --> 00:14:21,066
-So that is pretty awesome! So congratulations on getting that far with the sideways
+00:14:15,600 --> 00:14:19,600
+cacheing it! Let's just focus on simple physics. OK using the left stick here. Ah,
 
 216
-00:14:21,066 --> 00:14:24,066
+00:14:19,600 --> 00:14:23,600
+that is looking a lot better! Now the very cool thing about the architecture
+
+217
+00:14:23,600 --> 00:14:27,600
+that we've setup is, watch the AI tanks now. Apart from these bugs, with them hitting the
+
+218
+00:14:27,600 --> 00:14:31,600
+ground, notice that they then have to move. One of them is not moving, actually, so let
+
+219
+00:14:31,600 --> 00:14:35,600
+me refresh the guy who's not moving. I think that's him. By refreshing him,
+
+220
+00:14:35,600 --> 00:14:39,600
+I needn't just drop a new blueprint in the game. But watch how they move,
+
+221
+00:14:39,600 --> 00:14:43,600
+they have to move according to the same physics, because they're using the same API as
+
+222
+00:14:43,600 --> 00:14:47,600
+I am. Oh dear, we have this significant ground problem, so that's going to have to be
+
+223
+00:14:47,600 --> 00:14:51,600
+a thing we look at very shortly now. But what I want you to notice is that
+
+224
+00:14:51,600 --> 00:14:55,600
+all the tanks now have sideways friction, totally different movement for all of us.
+
+225
+00:14:55,600 --> 00:14:59,600
+So that is pretty awesome! So congratulations on getting that far with the sideways
+
+226
+00:14:59,600 --> 00:15:02,600
 friction, and I will see you in the next video!
 
